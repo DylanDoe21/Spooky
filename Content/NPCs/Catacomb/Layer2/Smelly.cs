@@ -13,7 +13,6 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
-using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.Catacomb.Layer2.Projectiles;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2

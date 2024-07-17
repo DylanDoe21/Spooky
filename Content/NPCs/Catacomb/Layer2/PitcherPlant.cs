@@ -167,14 +167,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     if (NPC.ai[0] == 10)
                     {
                         velocity.Y -= 0.25f;
+
+                        NPC.velocity = velocity * speed;
                         
                         HasJumped = true;
                     }
-                }
-                
-                if (NPC.ai[0] < 15 && HasJumped)
-                {
-                    NPC.velocity = velocity * speed;
                 }
 
                 //loop ai with separate timer
@@ -192,7 +189,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             {
                 NPC.ai[0] = -60;
                 NPC.ai[1] = -60;
-                HasJumped = false;
 
                 NPC.ai[2]++;
 
@@ -200,6 +196,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 if (NPC.ai[2] == 45)
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath9, NPC.Center);
+
+                    HasJumped = false;
 
                     Vector2 ShootPosition1 = new Vector2(NPC.Center.X + (NPC.direction == -1 ? -10 : 10), NPC.Center.Y - 10);
                     Vector2 ShootPosition2 = new Vector2(NPC.Center.X + (NPC.direction == -1 ? 20 : -20), NPC.Center.Y - 5);

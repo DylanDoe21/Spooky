@@ -324,6 +324,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<BoneStackerBase>(), 4);
 						pool.Add(ModContent.NPCType<ZomboidNecromancer>(), 3);
 						pool.Add(ModContent.NPCType<ZomboidPyromancer>(), 3);
+						pool.Add(ModContent.NPCType<ZomboidGlyphomancer>(), 3);
 						pool.Add(ModContent.NPCType<ZomboidSuspiciomancer>(), 2);
 					}
 					else
@@ -374,6 +375,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<PlantTrap6>(), 2);
 						pool.Add(ModContent.NPCType<PollinatorBeeDamage>(), 2);
 						pool.Add(ModContent.NPCType<PollinatorBeeHealing>(), 2);
+						pool.Add(ModContent.NPCType<SkeletoidBandit>(), 2);
 						pool.Add(ModContent.NPCType<Sunflower1>(), 4);
 						pool.Add(ModContent.NPCType<Sunflower2>(), 4);
 						pool.Add(ModContent.NPCType<Sunflower3>(), 4);

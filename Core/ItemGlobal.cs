@@ -49,9 +49,7 @@ namespace Spooky.Core
 		public override bool CanUseItem(Item item, Player player)
         {
             //dont allow placing blocks and disable the rod of discord in the catacombs
-            int[] Torches = { 8, 430, 432, 427, 429, 428, 1245, 431, 974, 3114, 3004, 2274, 433, 523, 1333, 3045, 4383, 4384, 4385, 4386, 4387, 4388, 5293, 5353 };
-
-            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()) && ((item.createTile > 0 && !Torches.Contains(item.type)) || item.type == ItemID.RodofDiscord))
+            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()) && ((item.createTile > 0 && !TileID.Sets.Torch[item.createTile]) || item.type == ItemID.RodofDiscord))
             {
                 return false;
             }

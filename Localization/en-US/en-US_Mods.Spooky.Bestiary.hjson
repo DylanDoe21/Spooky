@@ -35,6 +35,11 @@ CatacombCrusher1: A large and cracked statue that constantly smashes the ground,
 CatacombCrusher2: They constantly smash the ground in an extremely hostile way. They may have been created as a sort of trap to kill off unwanted intruders.
 CatacombCrusher3: It is unknown if they are truly alive or not. Some say they are just traps, while others say they are ancient idols possessed by vengeful spirits who wish to inflict pain on anything they see.
 CatacombCrusher4: A rare crusher made out of gold, possibly meant as a symbol of wealth for the deceased within the lower catacombs.
+CelebrationSkeletoid1: Skeletoids risen from the dead, they have come back to celebrate in the lower catacombs.
+CelebrationSkeletoid2: More powerful than their skeletoid friends in the upper catacombs, these skeletoids have the magic of the dead with them.
+CelebrationSkeletoid3: They used to throw large celebrations in the lower catacombs before it became infested with plant life.
+CelebrationSkeletoid4: After death, they continue to live in the deep catacombs due to excess necromantic magic.
+CelebrationSkeletoid5: Due to the plant infestation in the lower catacombs, the celebrations they used to throw have been moved to the surface instead.
 Dahlia: A strange flower that became so jealous of the lower catacombs guardian, she tried to mimic her look. Looks like she went a little overboard though.
 JumpingSeed1: A small juvenile seedling that spends its time buried in the ground so it may eventually grow into a bigger plant.
 JumpingSeed2: Despite their small size, they can leap out of the ground when disturbed. While not too harmful, it can scare those who aren't expecting it.
@@ -45,7 +50,7 @@ LilySlime1Small: Small juvenile lillies that travel by using a small water dropl
 LilySlime2Small: They store water under themselves so that they can drink it when needed. It also helps them navigate the deep catacombs.
 OrchidPinkBig: These passive looking flowers are very territorial. They will not pay any mind to intruders so long as they stay away from their area.
 OrchidPinkSmall: Their stretchy stem allows them to navigate a little ways away from where they grew from. They don't like being approached by unfamiliar creatures.
-OrchidPurpleBig: Their petals are made from a strange, harmful microscopic spikes. This allows them to chase away any intruder or predator from their territory, and makes sure they don't come back.
+OrchidPurpleBig: Their petals are covered in tons of tiny spikes. This allows them to inflict damage on contact with any intruder to ensure they don't get eaten or killed.
 OrchidPurpleSmall: Their nice looking petals are extremely deceiving. They are covered in microscopic spines that will hurt when rubbed against.
 PitcherPlant1: They have grown inside of an unusually large boot. They earned the name "Spitcher" because they can spit poisonous acid stored in their pitcher at prey.
 PitcherPlant2: Despite its very thin appearance, their stem is actually incredibly strong, allowing them to push against the ground with their giant boot to jump around and move.
@@ -56,6 +61,7 @@ PlantTrap2: Completely still, these plants utilize the darkness of the lower cat
 PlantTrap3: These carnivorous plants will hunt anything they can get ahold of, even on occassion other plant creatures.
 PollinatorBeeDamage: These bees are actually completely harmless and don't even have a stinger. They can, however, pollinate their floral allies which can make them stronger for a short time.
 PollinatorBeeHealing: Sometimes found flying aimlessly through the catacombs, they can spread a special pollen with healing properties to other flower creatures to heal their wounds.
+SkeletoidBandit: They were previously thieves who infiltrated the catacombs to steal treasure, only to get lost and die. Their fancy cloaks allow them to stealth through the catacombs and silently shoot their targets.
 Smelly: While not agressive itself, the absolutely horrendous smell and nasty flies they attract definitely are. Make sure to bring a clothespin or nose plug to close your nose while exploring!
 Sunflower1: Staying perfectly still, they have learned how to perfect their stealth abilities to sneak up on intruders.
 Sunflower2: They have become great at remaining still and can easily look like a normal sunflower, then quickly ambush their prey when it gets too close.

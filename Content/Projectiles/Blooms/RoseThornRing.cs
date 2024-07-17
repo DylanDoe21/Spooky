@@ -27,14 +27,14 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.penetrate = -1;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.immune[Projectile.owner] = 35;
-        }
-
         public override bool? CanCutTiles()
         {
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.immune[Projectile.owner] = 35;
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -11,8 +11,6 @@ namespace Spooky.Content.Projectiles.Blooms
 {
     public class ZucchiniLightning : ModProjectile
     {
-        bool HasHitBoss = false;
-
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
@@ -65,11 +63,6 @@ namespace Spooky.Content.Projectiles.Blooms
             }
 
             return false;
-        }
-
-        public override bool? CanDamage()
-		{
-            return !HasHitBoss;
         }
 
         public override void AI()

@@ -438,3 +438,13 @@ BeePollinationProcessBuff: {
 	DisplayName: Bee Pollination Process Buff
 	Description: Mods.Spooky.Buffs.BeePollinationProcessBuff.Description
 }
+
+BlueberryFrost: {
+	DisplayName: Blueberry Frost
+	Description: Mods.Spooky.Buffs.BlueberryFrost.Description
+}
+
+StrawberryBoostBuff: {
+	DisplayName: Strawberry Boost
+	Description: 10% increase to damage, crit chance, knockback, and move speed
+}

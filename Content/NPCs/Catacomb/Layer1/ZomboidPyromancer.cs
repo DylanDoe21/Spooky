@@ -246,12 +246,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            //dont run on multiplayer
-			if (Main.netMode == NetmodeID.Server) 
-            {
-				return;
-			}
-
 			if (NPC.life <= 0) 
             {
                 for (int numGores = 1; numGores <= 3; numGores++)

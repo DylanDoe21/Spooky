@@ -1,3 +1,8 @@
+StrawberryBoost: {
+	DisplayName: Mountain Strawberry
+	Tooltip: ""
+}
+
 DandelionHerd: {
 	DisplayName: Dandelion Herd
 	Tooltip:
@@ -54,7 +59,7 @@ FallSoulPumpkin: {
 	Tooltip:
 		'''
 		You will sometimes spawn a ghastly pumpkin that slowly chases nearby enemies
-		The ghastly pumpkins will ignite enemies and possess them for a short time
+		The ghastly pumpkins will ignite enemies for a short time
 		4 minute duration
 		'''
 }
@@ -94,7 +99,7 @@ SpringIris: {
 		Every minute, you will spawn an iris petal and a large eye on your cursor
 		The iris petal slowly chases the eye and speeds up over time while damaging anything it touches
 		The petal and eye will both die when they collide with each other
-		4 minute duration
+		5 minute duration
 		'''
 }
 
@@ -168,12 +173,12 @@ WinterBlackberry: {
 }
 
 WinterBlueberry: {
-	DisplayName: Verry Blues
+	DisplayName: Very Blues
 	Tooltip:
 		'''
-		Weapons have a chance to inflict an enemy with frozen blueberry juice which will slown them down
-		Any enemy nearby the initially inflicted enemy will also be inflicted with it for a shorter time
-		5 minute duration
+		Hitting enemies may inflict them with frozen blueberry juice which will slown them down
+		Any enemy nearby the initially hit enemy will also be inflicted with it for a shorter time
+		4 minute duration
 		'''
 }
 
@@ -192,8 +197,8 @@ WinterStrawberry: {
 	DisplayName: Mountain Strawberry
 	Tooltip:
 		'''
-		Occasionally a mountain strawberry will spawn nearby you
-		Picking these strawberries up will grant a 10% boost to all stats for a few seconds
+		Every 40 seconds some mountain strawberries will spawn that can be picked up
+		They grant 10% increased damage, critical strike chance, knockback, and movement speed
 		5 minute duration
 		'''
 }
@@ -920,6 +925,11 @@ SpiritSword: {
 BananalizardHead: {
 	DisplayName: BananaLizard's Mask
 	Tooltip: "'Great for impersonating spooky mod devs!'"
+}
+
+BanditHat: {
+	DisplayName: Bandit Hat
+	Tooltip: ""
 }
 
 BigBoneMask: {

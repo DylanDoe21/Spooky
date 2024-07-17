@@ -7,9 +7,14 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
 using Spooky.Content.UserInterfaces;
+using Mono.Cecil;
+using Spooky.Content.Projectiles.Sentient;
+using Terraria.GameContent.ItemDropRules;
+using Spooky.Content.Items.Blooms.Boosts;
 
 namespace Spooky.Core
 {
@@ -56,6 +61,7 @@ namespace Spooky.Core
 		//misc stuff
 		public int FallSoulPumpkinTimer = 0;
 		public int FallZucchiniTimer = 0;
+		public int WinterStrawberryTimer = 0;
         public int SpringIrisTimer = 0;
         public int SummerLemonsShot = 0;
         public int SummerLemonDelay = 0;
@@ -337,34 +343,68 @@ namespace Spooky.Core
 				FallSoulPumpkinTimer = 0;
 			}
 
+            //create lightning projectiles with the zucchini
 			if (FallZucchini)
 			{
-				FallZucchiniTimer++;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC NPC = Main.npc[i];
 
-				if (FallZucchiniTimer == 600 || FallZucchiniTimer == 620 || FallZucchiniTimer == 640)
-				{
-					for (int i = 0; i < 200; i++)
-					{
-						NPC NPC = Main.npc[i];
-						if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 450f)
-						{
-							Vector2 ShootSpeed = NPC.Center - Player.Center;
-							ShootSpeed.Normalize();
-							ShootSpeed *= 8;
+                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 450f)
+                    {
+                        FallZucchiniTimer++;
 
-							Projectile.NewProjectile(null, Player.Center, ShootSpeed, ModContent.ProjectileType<ZucchiniLightning>(), 20, 3, Player.whoAmI, ShootSpeed.ToRotation());
-						}
-					}
-				}
+                        if (FallZucchiniTimer == 300 || FallZucchiniTimer == 320 || FallZucchiniTimer == 340)
+                        {
+                            Vector2 ShootSpeed = NPC.Center - Player.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 8;
 
-				if (FallZucchiniTimer > 660)
-				{
-					FallZucchiniTimer = 0;
-				}
+                            Projectile.NewProjectile(null, Player.Center, ShootSpeed, ModContent.ProjectileType<ZucchiniLightning>(), 20, 3, Player.whoAmI, ShootSpeed.ToRotation());
+                        }
+
+                        if (FallZucchiniTimer >= 360)
+                        {
+                            FallZucchiniTimer = 0;
+                        }
+
+                        break;
+                    }
+                }
 			}
 			else
 			{
 				FallZucchiniTimer = 0;
+			}
+
+            //spawn multiple strawberry items with the winter strawberry
+			if (WinterStrawberry)
+			{
+				WinterStrawberryTimer++;
+
+				if (WinterStrawberryTimer >= 2400)
+				{
+                    SoundEngine.PlaySound(SoundID.Item29 with { Volume = 0.5f }, Player.Center);
+
+					for (int numBerries = 0; numBerries < 3; numBerries++)
+					{
+						int newItem = Item.NewItem(Player.GetSource_ReleaseEntity(), Player.Hitbox, ModContent.ItemType<StrawberryBoost>());
+						Main.item[newItem].velocity.X = Main.rand.Next(-8, 9);
+						Main.item[newItem].velocity.Y = Main.rand.Next(1, 7);
+						Main.item[newItem].noGrabDelay = 120;
+
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+					}
+
+					WinterStrawberryTimer = 0;
+				}
+			}
+			else
+			{
+				WinterStrawberryTimer = 0;
 			}
 
             //spawn the iris eye lock on and petal projectile every minute 
@@ -472,7 +512,7 @@ namespace Spooky.Core
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			//if the player lands a crit wit hthe poker pineapple, then heal them and produce some pineapple dusts for a cool effect
+			//if the player lands a crit with the poker pineapple, then heal them and produce some pineapple dusts for a cool effect
 			if (SummerPineapple && hit.Crit)
 			{
 				int randomHealAmount = Main.rand.Next(5, 11);
@@ -486,6 +526,16 @@ namespace Spooky.Core
 					vel.Y = MathF.Abs(vel.Y) * -1;
 					Dust.NewDustPerfect(Player.Center + new Vector2(Main.rand.Next(-24, 24), 0), ModContent.DustType<PineappleDust>(), vel, 0, default, 1f);
 				}
+			}
+
+			//create frost explosion and inflict enemies with blueberry frost with the blueberry
+			if (WinterBlueberry && Main.rand.NextBool(18) && !target.HasBuff(ModContent.BuffType<BlueberryFrost>()))
+			{
+				SoundEngine.PlaySound(SoundID.Item101, target.Center);
+
+				target.AddBuff(ModContent.BuffType<BlueberryFrost>(), 480);
+
+				Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<BlueberryExplosion>(), 0, 0, Player.whoAmI);
 			}
 			
 			base.OnHitNPC(target, hit, damageDone);

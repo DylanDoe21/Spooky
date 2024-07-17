@@ -21,7 +21,6 @@ namespace Spooky.Content.Items.SpookyHell
             Item.width = 36;
             Item.height = 62;
             Item.maxStack = 9999;
-            Item.rare = ModContent.RarityType<SentientRarity>();
         }
     }
 }
