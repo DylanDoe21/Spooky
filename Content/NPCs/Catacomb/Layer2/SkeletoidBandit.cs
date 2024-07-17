@@ -123,12 +123,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     NPC.aiStyle = 3;
                     AIType = NPCID.Crab;
 
-                    if (player.Distance(NPC.Center) <= 250f || NPC.localAI[1] >= 60)
+                    if (player.Distance(NPC.Center) <= 250f || NPC.localAI[1] >= 80)
                     {
                         NPC.localAI[1]++;
                     }
 
-                    if (NPC.localAI[1] >= 100)
+                    if (NPC.localAI[1] >= 300)
                     {
                         NPC.localAI[1] = 0;
                         NPC.localAI[0]++;
@@ -175,12 +175,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
+                for (int numGores = 1; numGores <= 5; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBanditGore" + numGores).Type);
+                    }
+                }
+
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBanditGore" + numGores).Type);
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBanditCloth" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletoidBanditCloth" + Main.rand.Next(1, 3)).Type);
                     }
                 }
             }
