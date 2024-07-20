@@ -80,7 +80,41 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             NPC.ai[0]++;
 
-            NPC.EncourageDespawn(60);
+            if (NPC.ai[0] < 240 && NPC.ai[0] % 60 == 0)
+            {
+                MoveToPlayer(player, 0f, -250f);
+            }
+
+            if (NPC.ai[0] >= 240)
+            {
+                MoveToPlayer(player, player.Center.X < NPC.Center.X ? -5000f : 5000f, -250f);
+                NPC.EncourageDespawn(60);
+            }
+        }
+
+        //super fast movement to create a fly-like movement effect
+        public void MoveToPlayer(Player target, float TargetPositionX, float TargetPositionY)
+        {
+            Vector2 GoTo = target.Center + new Vector2(TargetPositionX, TargetPositionY);
+
+            if (NPC.Distance(GoTo) >= 200f)
+            { 
+                GoTo -= NPC.DirectionTo(GoTo) * 100f;
+            }
+
+            Vector2 GoToVelocity = GoTo - NPC.Center;
+
+            float lerpValue = Utils.GetLerpValue(100f, 600f, GoToVelocity.Length(), false);
+
+            float velocityLength = GoToVelocity.Length();
+
+            if (velocityLength > 18f)
+            { 
+                velocityLength = 18f;
+            }
+
+            NPC.velocity = Vector2.Lerp(GoToVelocity.SafeNormalize(Vector2.Zero) * velocityLength, GoToVelocity / 6f, lerpValue);
+            NPC.netUpdate = true;
         }
     }
 }

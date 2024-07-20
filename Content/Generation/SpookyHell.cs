@@ -368,7 +368,7 @@ namespace Spooky.Content.Generation
                 if (!WorldGen.SolidTile(origin.X, WaterHeightLimit))
                 {
                     //increase the water level limit to be lower so it doesnt reach over the top of the terrain
-                    WaterHeightLimit += 12;
+                    WaterHeightLimit += 15;
                     foundValidPosition = true;
                 }
             }
@@ -378,7 +378,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
 				{
-					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist, false))
 					{
 						if (Y <= Main.maxTilesY - 60)
 						{
@@ -410,22 +410,64 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+
+            //reset everything for the circle clearing
+            bool IsSmallWorld = Main.maxTilesX < 6400;
+
+            origin = new Point(LakeX, WaterHeightLimit - (IsSmallWorld ? 25 : 30));
+			center = origin.ToVector2() * 16f + new Vector2(8f);
+
+			angle = MathHelper.Pi * 0.15f;
+			otherAngle = MathHelper.PiOver2 - angle;
+
+			InitialSize = 32;
+			biomeSize = InitialSize + (Main.maxTilesX / 180);
+			actualSize = biomeSize * 16f;
+			constant = actualSize * 2f / (float)Math.Sin(angle);
+
+			biomeSpacing = actualSize * (float)Math.Sin(otherAngle) / (float)Math.Sin(angle);
+			verticalRadius = (int)(constant / 16f);
+
+			biomeOffset = Vector2.UnitY * biomeSpacing;
+			biomeTop = center - biomeOffset;
+			biomeBottom = center + biomeOffset;
+
+            //make another circle at the water level of the lake and clear an ellipse of tiles to make the surface around it dip down into it
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+			{
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+				{
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist, true))
+					{
+                        WorldGen.KillTile(X, Y);
+                    }
+                }
+            }
 		}
 
 		//method to make sure things only generate in the biome's circle
-		public static bool CheckInsideOval(Point tile, Vector2 focus1, Vector2 focus2, float distanceConstant, Vector2 center, out float distance)
+		public static bool CheckInsideOval(Point tile, Vector2 focus1, Vector2 focus2, float distanceConstant, Vector2 center, out float distance, bool stretch)
 		{
 			Vector2 point = tile.ToWorldCoordinates();
-			float distX = center.X - point.X;
-			float distY = center.Y - point.Y;
-            point.X -= distX * 3f;
-			point.Y -= distY * 3f;
 
-			float distance1 = Vector2.Distance(point, focus1);
-			float distance2 = Vector2.Distance(point, focus2);
-			distance = distance1 + distance2;
+            if (!stretch)
+            {
+                float distX = center.X - point.X;
+                point.X -= distX * 3f;
+                float distY = center.Y - point.Y;
+                point.Y -= distY * 3f;
+            }
+            else
+            {
+                float distY = center.Y - point.Y;
+                point.Y -= distY * 4f;
+            }
 
-			return distance <= distanceConstant;
+            float distance1 = Vector2.Distance(point, focus1);
+            float distance2 = Vector2.Distance(point, focus2);
+            distance = distance1 + distance2;
+
+            return distance <= distanceConstant;
 		}
 
 		private void SpreadSpookyHellGrass(GenerationProgress progress, GameConfiguration configuration)
@@ -691,7 +733,7 @@ namespace Spooky.Content.Generation
             int StartPosY = Main.maxTilesY - 150;
 
             ///place little eye's house
-            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 60): (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 60);
+            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
 
             //place orroboro nest
@@ -703,52 +745,83 @@ namespace Spooky.Content.Generation
                 for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
                 {
                     //ground structures
-                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && Main.tile[X + 1, Y].HasTile && Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
+                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && 
+                    Main.tile[X + 1, Y].HasTile && Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
                     {
                         if (WorldGen.genRand.NextBool(15) && CanPlaceStructure(X, Y))
                         {
-                            switch (WorldGen.genRand.Next(7))
+                            switch (WorldGen.genRand.Next(4))
                             {
                                 case 0:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 6, Y - 11);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorTendril1", structureOrigin.ToPoint16(), Mod);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorTendril" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 1:
                                 {
-                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 11);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorTendril2", structureOrigin.ToPoint16(), Mod);
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 10);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorSkull" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 2:
                                 {
-                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 10);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorSkull1", structureOrigin.ToPoint16(), Mod);
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorEye" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 3:
                                 {
-                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 10);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorSkull2", structureOrigin.ToPoint16(), Mod);
+                                    Vector2 structureOrigin = new Vector2(X - 11, Y - 6);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorRibs", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    //ceiling structures
+                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && 
+                    Main.tile[X + 1, Y].HasTile && Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X, Y + 2].HasTile)
+                    {
+                        if (WorldGen.genRand.NextBool(18) && CanPlaceStructure(X, Y))
+                        {
+                            switch (WorldGen.genRand.Next(6))
+                            {
+                                case 0:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 5);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEye" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 1:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyePair" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeForward", structureOrigin.ToPoint16(), Mod);
+                                    break;
+                                }
+                                case 3:
+                                {
+                                    Vector2 structureOrigin = new Vector2(X - 5, Y - 5);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeStalk" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 4:
                                 {
-                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorEye1", structureOrigin.ToPoint16(), Mod);
+                                    Vector2 structureOrigin = new Vector2(X - 5, Y - 5);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeStalkLong", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 5:
                                 {
-                                    Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorEye2", structureOrigin.ToPoint16(), Mod);
-                                    break;
-                                }
-                                case 6:
-                                {
-                                    Vector2 structureOrigin = new Vector2(X - 11, Y - 6);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorRibs", structureOrigin.ToPoint16(), Mod);
+                                    Vector2 structureOrigin = new Vector2(X - 8, Y - 6);
+                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingMouth" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                             }

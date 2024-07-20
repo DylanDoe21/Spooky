@@ -5,11 +5,9 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
-using Spooky.Core;
-
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.NoseTemple.Painting
 {
-    public class BaxterPainting : ModTile
+    public class RedMistPainting : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -20,7 +18,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileID.Sets.FramesOnKillWall[Type] = true;
             TileID.Sets.DisableSmartCursor[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
-			TileObjectData.newTile.Origin = new Point16(1, 1);
+            TileObjectData.newTile.Width = 4;
+            TileObjectData.newTile.Height = 4;
+            TileObjectData.newTile.Origin = new Point16(2, 2);
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(181, 176, 160));
             HitSound = SoundID.Dig;

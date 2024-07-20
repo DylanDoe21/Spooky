@@ -55,6 +55,8 @@ namespace Spooky.Content.Generation
             int XStart = PositionX - (Cemetery.BiomeWidth / 2);
             int XMiddle = PositionX;
 
+            bool IsSmallWorld = Main.maxTilesX < 6400 && Main.maxTilesY < 1800;
+
             //LAYER 1
 
             //set the width for the catacombs (how many rooms it has horizontally)
@@ -75,7 +77,7 @@ namespace Spooky.Content.Generation
             }
 
             //randomize room pattern
-            RoomPatternLayer1 = RoomPatternLayer1.OrderBy(x => Main.rand.Next()).ToArray();
+            RoomPatternLayer1 = RoomPatternLayer1.OrderBy(x => WorldGen.genRand.Next()).ToArray();
 
             //place the actual rooms
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
@@ -84,7 +86,7 @@ namespace Spooky.Content.Generation
                 {
                     chosenRoom = RoomPatternLayer1[switchRoom];
 
-                    switchRoom += 1; //Main.rand.Next(1, 3);
+                    switchRoom++;
 
                     if (switchRoom >= RoomPatternLayer1.Length)
                     {
@@ -308,7 +310,7 @@ namespace Spooky.Content.Generation
             int layer2Depth = Main.maxTilesY >= 2400 ? 350 : (Main.maxTilesY >= 1800 ? 300 : 250);
 
             //randomize room pattern
-            RoomPatternLayer2 = RoomPatternLayer2.OrderBy(x => Main.rand.Next()).ToArray();
+            RoomPatternLayer2 = RoomPatternLayer2.OrderBy(x => WorldGen.genRand.Next()).ToArray();
 
             int layer2Start = (int)Main.worldSurface + layer1Depth + 118;
 
@@ -342,7 +344,7 @@ namespace Spooky.Content.Generation
                 {
                     chosenRoom = RoomPatternLayer2[switchRoom];
 
-                    switchRoom += 1; //Main.rand.Next(1, 3);
+                    switchRoom++;
 
                     if (switchRoom >= RoomPatternLayer2.Length)
                     {

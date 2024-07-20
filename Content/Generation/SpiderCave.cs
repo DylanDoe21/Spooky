@@ -32,7 +32,7 @@ namespace Spooky.Content.Generation
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpiderCave").Value;
 
             //biome position stuff
-            initialStartPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
+            initialStartPosX = GenVars.dungeonX;
             startPosX = (GenVars.snowOriginLeft + GenVars.snowOriginRight) / 2;
             startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) : Main.maxTilesY / 2 + 100;
 
@@ -489,7 +489,7 @@ namespace Spooky.Content.Generation
                         //place ambient tiles that can spawn on stone and grass
                         if (tile.TileType == ModContent.TileType<DampGrass>() || tile.TileType == ModContent.TileType<SpookyStone>())
                         {
-                            if (Main.rand.NextBool(4))
+                            if (WorldGen.genRand.NextBool(4))
                             {
                                 WorldGen.PlacePot(X, Y - 1, 28, WorldGen.genRand.Next(19, 22));
                             }
@@ -747,7 +747,7 @@ namespace Spooky.Content.Generation
                 {
                     int[] InvalidTiles = { TileID.SnowBlock, TileID.IceBlock, TileID.Sandstone, TileID.JungleGrass, TileID.LihzahrdBrick };
 
-                    if (Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType))
+                    if (Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType) && !Main.tileDungeon[Main.tile[i, j].TileType])
                     {
                         return false;
                     }

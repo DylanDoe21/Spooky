@@ -225,3 +225,4 @@ Fixed all of the following multiplayer bugs and issues:
 -Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
+-Eye stalk trees and glowshroom trees now growing correctly

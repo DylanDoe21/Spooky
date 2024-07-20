@@ -1034,7 +1034,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         Sneezing = true;
 
                         CurrentFrameX = 3;
+                    }
 
+                    if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 140)
+                    {
                         SaveNPCPosition = NPC.Center;
                     }
 
@@ -1353,6 +1356,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 });
             }
 
+            /*
             //spawn little mocling outro
             int MoclingOutro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<MocoOutro>());
 
@@ -1360,6 +1364,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 NetMessage.SendData(MessageID.SyncNPC, number: MoclingOutro);
             }
+            */
         }
 
         public override void BossLoot(ref string name, ref int potionType)

@@ -72,7 +72,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             {
                 WorldGen.KillTile(i, j, false, false, true);
                 WorldGen.KillTile(i, j - 1, false, false, true);
-            }
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 2, 1, TileChangeType.None);
+				}
+			}
 
             int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; k++)
@@ -95,7 +100,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             {
                 WorldGen.PlaceTile(i, j, ModContent.TileType<GiantShroom>(), true);
                 Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
-            }
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 1, 1, TileChangeType.None);
+				}
+			}
             //otherwise dont allow the tree to grow
             else
             {
@@ -136,7 +146,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
                 {
                     Framing.GetTileSafely(i, j - numSegments).TileFrameX = 18;
                 }
-            }
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 1, 1, TileChangeType.None);
+				}
+			}
 
             return true;
         }

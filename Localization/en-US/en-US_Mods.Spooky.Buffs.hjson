@@ -5,7 +5,7 @@ BustlingGlowshroomHeal: {
 
 CandyBuff1: {
 	DisplayName: Summoner Candy
-	Description: 5% increased summon damage
+	Description: 10% increased summon damage
 }
 
 CandyBuff2: {
@@ -82,12 +82,12 @@ EmbryoCooldown: {
 
 EnsnaredCooldown: {
 	DisplayName: Ensnared Cooldown
-	Description: Mods.Spooky.BuffDescription.EnsnaredCooldown
+	Description: ""
 }
 
 EnsnaredDebuff: {
 	DisplayName: Ensnared
-	Description: Mods.Spooky.BuffDescription.EnsnaredDebuff
+	Description: ""
 }
 
 HallucinationDebuff1: {
@@ -112,17 +112,17 @@ HallucinationDebuff4: {
 
 FleshWhipCooldown: {
 	DisplayName: Eye Lasher Cooldown
-	Description: Mods.Spooky.BuffDescription.FleshWhipCooldown
+	Description: ""
 }
 
 FleshWhipDefense: {
 	DisplayName: Eye Lasher Defense
-	Description: Mods.Spooky.BuffDescription.FleshWhipDefense
+	Description: ""
 }
 
 FleshWhipDefense2: {
 	DisplayName: Eye Lasher Defense
-	Description: Mods.Spooky.BuffDescription.FleshWhipDefense2
+	Description: ""
 }
 
 FlowerArmorCooldown: {
@@ -137,7 +137,7 @@ FlyCooldown: {
 
 GourdDecay: {
 	DisplayName: Rotting
-	Description: Mods.Spooky.BuffDescription.GourdDecay
+	Description: ""
 }
 
 PandoraCrossCooldown: {
@@ -162,7 +162,7 @@ SadDebuff: {
 
 ThornMark: {
 	DisplayName: Thorn Mark
-	Description: Mods.Spooky.BuffDescription.ThornMark
+	Description: ""
 }
 
 BrainyBuff: {
@@ -426,22 +426,22 @@ ToothyDebuff: {
 
 BeeDamageBuff: {
 	DisplayName: Pollenation Damage
-	Description: Mods.Spooky.Buffs.BeeDamageBuff.Description
+	Description: ""
 }
 
 BeeHealingBuff: {
 	DisplayName: Pollenation Healing
-	Description: Mods.Spooky.Buffs.BeeHealingBuff.Description
+	Description: ""
 }
 
 BeePollinationProcessBuff: {
 	DisplayName: Bee Pollination Process Buff
-	Description: Mods.Spooky.Buffs.BeePollinationProcessBuff.Description
+	Description: ""
 }
 
 BlueberryFrost: {
 	DisplayName: Blueberry Frost
-	Description: Mods.Spooky.Buffs.BlueberryFrost.Description
+	Description: ""
 }
 
 StrawberryBoostBuff: {

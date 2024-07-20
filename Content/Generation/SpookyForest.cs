@@ -94,8 +94,8 @@ namespace Spooky.Content.Generation
             //dig crater to lead to the underground
             for (int CraterDepth = PositionY; CraterDepth <= (int)Main.worldSurface + 55; CraterDepth += 5)
             {
-                TileRunner runner = new TileRunner(new Vector2(PositionX - Main.rand.Next(45, 55), CraterDepth), new Vector2(0, 5), new Point16(-5, 5), 
-                new Point16(-5, 5), 15f, Main.rand.Next(5, 10), 0, false, true);
+                TileRunner runner = new TileRunner(new Vector2(PositionX - WorldGen.genRand.Next(45, 55), CraterDepth), new Vector2(0, 5), new Point16(-5, 5), 
+                new Point16(-5, 5), 15f, WorldGen.genRand.Next(5, 10), 0, false, true);
                 runner.Start();
             }
             
@@ -148,7 +148,7 @@ namespace Spooky.Content.Generation
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
                 {
                     TileRunner runner = new TileRunner(new Vector2(X, Y), new Vector2(0, 5), new Point16(-35, 35), 
-                    new Point16(-12, 12), 15f, Main.rand.Next(25, 50), 0, false, true);
+                    new Point16(-12, 12), 15f, WorldGen.genRand.Next(25, 50), 0, false, true);
                     runner.Start();
                 }
             }
@@ -385,7 +385,7 @@ namespace Spooky.Content.Generation
                         {
                             ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium>(), (ushort)ModContent.TileType<GourdGiant>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, Main.rand.Next(0, 2));
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, WorldGen.genRand.Next(0, 2));
                         }
 
                         //grow weeds
@@ -407,7 +407,7 @@ namespace Spooky.Content.Generation
                         {
                             ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall>(), (ushort)ModContent.TileType<GourdLarge>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, Main.rand.Next(0, 2));    
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, WorldGen.genRand.Next(0, 2));    
                         }
 
                         //grow weeds

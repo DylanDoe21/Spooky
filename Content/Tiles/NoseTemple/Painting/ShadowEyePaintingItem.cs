@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.NoseTemple.Painting
 {
 	public class ShadowEyePaintingItem : ModItem
     {

@@ -129,7 +129,7 @@ namespace Spooky.Content.UserInterfaces
             //spider grotto display stuff
             Vector2 Icon3TopLeft = ButtonTopLeft.ToVector2() + new Vector2(485f, -24f) * Main.UIScale;
 
-            Texture2D Icon3Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
+            Texture2D Icon3Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon3NotDone").Value;
             DrawIcon(spriteBatch, Icon3TopLeft, Icon3Texture);
 
             if (IsMouseOverUI(Icon3TopLeft, Icon3Texture, UIBoxScale))

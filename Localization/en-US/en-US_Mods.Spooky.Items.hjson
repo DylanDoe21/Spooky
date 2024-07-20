@@ -2758,6 +2758,31 @@ NoseTemplePlatformGrayItem: {
 	Tooltip: ""
 }
 
+BaxterPaintingItem: {
+	DisplayName: Portrait of Baxter
+	Tooltip: "'Waasephi'"
+}
+
+LuigiPaintingItem: {
+	DisplayName: Luigi
+	Tooltip: "'Waasephi'"
+}
+
+MonalumboItem: {
+	DisplayName: The Mona-Lumbo
+	Tooltip: "'Waasephi'"
+}
+
+RedMistPaintingItem: {
+	DisplayName: Red Mist
+	Tooltip: "'RocketLauncher'"
+}
+
+ShadowEyePaintingItem: {
+	DisplayName: The Eye
+	Tooltip: "'???'"
+}
+
 NoseTempleBrickGreenItem: {
 	DisplayName: Green Occultist Brick
 	Tooltip: ""
@@ -3137,11 +3162,6 @@ EyeBlockItem: {
 	Tooltip: ""
 }
 
-BaxterPaintingItem: {
-	DisplayName: Portrait of Baxter
-	Tooltip: "'Waasephi'"
-}
-
 EyeBathtubItem: {
 	DisplayName: Living Flesh Bathtub
 	Tooltip: ""
@@ -3235,16 +3255,6 @@ EyeWorkBenchItem: {
 LittleEyePaintingItem: {
 	DisplayName: Little Eye's Self Portrait
 	Tooltip: "'Waasephi'"
-}
-
-MonalumboItem: {
-	DisplayName: The Mona-Lumbo
-	Tooltip: "'Waasephi'"
-}
-
-ShadowEyePaintingItem: {
-	DisplayName: The Eye
-	Tooltip: "'???'"
 }
 
 LivingFleshItem: {
