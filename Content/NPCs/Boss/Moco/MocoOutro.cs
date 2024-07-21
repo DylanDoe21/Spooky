@@ -22,7 +22,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Pitch = 0.7f, Volume = 0.5f };
         public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound) { Pitch = 0.45f, Volume = 0.5f };
 
         public override void SetStaticDefaults()
@@ -80,14 +79,29 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             NPC.ai[0]++;
 
-            if (NPC.ai[0] < 240 && NPC.ai[0] % 60 == 0)
+            if (NPC.ai[0] < 240)
             {
-                MoveToPlayer(player, 0f, -250f);
+                if (NPC.ai[0] % 60 == 0)
+                {
+                    SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
+                    MoveToPlayer(player, 0f, -250f);
+                }
+                else
+                {
+                    NPC.velocity *= 0.9f;
+                }
             }
 
-            if (NPC.ai[0] >= 240)
+            if (NPC.ai[0] == 300)
             {
-                MoveToPlayer(player, player.Center.X < NPC.Center.X ? -5000f : 5000f, -250f);
+                SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
+                MoveToPlayer(player, player.Center.X < NPC.Center.X ? -1000f : 1000f, -250f);
+            }
+
+            if (NPC.ai[0] >= 300)
+            {
                 NPC.EncourageDespawn(60);
             }
         }

@@ -60,7 +60,25 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
             SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, Projectile.Center);
 
-            for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
+			float maxAmount = 30;
+			int currentAmount = 0;
+			while (currentAmount <= maxAmount)
+			{
+				Vector2 velocity = new Vector2(8f, 8f);
+				Vector2 Bounds = new Vector2(5f, 5f);
+				float intensity = 7f;
+
+				Vector2 vector12 = Vector2.UnitX * 0f;
+				vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+				vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.KryptonMoss, 0f, 0f, 100, default, 5f);
+				Main.dust[num104].noGravity = true;
+				Main.dust[num104].position = Projectile.Center + vector12;
+				Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+				currentAmount++;
+			}
+
+			for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -76,17 +94,22 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
             SoundEngine.PlaySound(SoundID.Item89 with { Volume = 0.5f }, Projectile.Center);
 
-            for (int numDust = 0; numDust < 20; numDust++)
-			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.KryptonMoss, 0f, -2f, 0, default, 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
-                
-				if (Main.dust[dust].position != Projectile.Center)
-                {
-				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
-                }
+            float maxAmount = 30;
+			int currentAmount = 0;
+			while (currentAmount < maxAmount)
+			{
+				Vector2 velocity = new Vector2(5f, 5f);
+				Vector2 Bounds = new Vector2(3f, 3f);
+				float intensity = 5f;
+
+				Vector2 vector12 = Vector2.UnitX * 0f;
+				vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+				vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.KryptonMoss, 0f, 0f, 100, default, 3f);
+				Main.dust[num104].noGravity = true;
+				Main.dust[num104].position = Projectile.Center + vector12;
+				Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+				currentAmount++;
 			}
 		}
     }

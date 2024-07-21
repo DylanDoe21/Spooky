@@ -1021,7 +1021,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             SoundEngine.PlaySound(FlyingSound, NPC.Center);
                         }
 
-                        MoveToPlayer(player, player.Center.X > NPC.Center.X ? -420f : 420f, 0f);
+                        MoveToPlayer(player, player.Center.X > NPC.Center.X ? -550f : 550f, 0f);
                     }
 
                     if (NPC.localAI[0] >= 130 && NPC.localAI[0] <= 160)
@@ -1356,7 +1356,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 });
             }
 
-            /*
             //spawn little mocling outro
             int MoclingOutro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<MocoOutro>());
 
@@ -1364,7 +1363,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 NetMessage.SendData(MessageID.SyncNPC, number: MoclingOutro);
             }
-            */
         }
 
         public override void BossLoot(ref string name, ref int potionType)

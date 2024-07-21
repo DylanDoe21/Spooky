@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Projectiles.SpookyHell;
+
 namespace Spooky.Content.Items.SpookyHell
 {
 	public class SnotBullet : ModItem
@@ -19,9 +21,9 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.knockBack = 3;
 			Item.value = Item.buyPrice(silver: 5);
 			Item.rare = ItemRarityID.Blue;
-			//Item.shoot = ModContent.ProjectileType<SnotBulletProj>();
-			//Item.shootSpeed = 3.5f;
 			Item.ammo = AmmoID.Bullet;
+			Item.shoot = ModContent.ProjectileType<SnotBulletProj>();
+			Item.shootSpeed = 20f;
 		}
 	}
 }

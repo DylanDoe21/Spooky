@@ -100,7 +100,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         {
             NPC.lifeMax = 22000;
             NPC.damage = 45;
-            NPC.defense = 35;
+            NPC.defense = 20;
             NPC.width = 58;
             NPC.height = 58;
             NPC.knockBackResist = 0f;
