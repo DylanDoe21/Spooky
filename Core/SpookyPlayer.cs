@@ -132,6 +132,9 @@ namespace Spooky.Core
         public int RedMistNoteSpawnDelay = 0;
         public int RedGodzillaCartridgeSpawnDelay = 0;
         public int GeminiMockerySpawnTimer = 0;
+        public int GooSlugEatCooldown = 0;
+        public int RootHealCooldown = 0;
+        public bool EatenByGooSlug = false;
         public bool RaveyardGuardsHostile = false;
         public bool WhipSpiderAggression = false;
 
@@ -238,6 +241,9 @@ namespace Spooky.Core
             StickyEyePet = false;
             MocoPet = false;
             BigBonePet = false;
+
+            //misc stuff
+            EatenByGooSlug = false;
         }
 
         public override void ModifyScreenPosition()
@@ -568,6 +574,16 @@ namespace Spooky.Core
             {
                 PlayerDrawLayers.Head.Hide();
             }
+
+			if (EatenByGooSlug)
+			{
+				drawInfo.drawPlayer.frozen = true;
+
+				foreach (var layer in PlayerDrawLayerLoader.Layers)
+				{
+					layer.Hide();
+				}
+			}
         }
 
         public override void PreUpdate()
@@ -903,6 +919,16 @@ namespace Spooky.Core
                 }
 
                 CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
+            }
+
+            if (RootHealCooldown > 0)
+            {
+                RootHealCooldown--;
+            }
+
+            if (GooSlugEatCooldown > 0)
+            {
+                GooSlugEatCooldown--;
             }
         }
 

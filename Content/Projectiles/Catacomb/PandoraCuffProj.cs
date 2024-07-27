@@ -78,6 +78,11 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player player = Main.player[Projectile.owner];
 
+            if (!player.active || player.dead)
+            {
+                Projectile.Kill();
+            }
+
             NPC target = Main.npc[(int)Projectile.ai[0]];
 
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y);

@@ -238,11 +238,15 @@ namespace Spooky.Core
 			//Egg Incursion
 			List<int> EggEventEnemies = new List<int>()
 			{
-				ModContent.NPCType<Crux>(), 
-				ModContent.NPCType<Glutinous>(), 
-				ModContent.NPCType<Ventricle>(),
-				ModContent.NPCType<Vesicator>(), 
-				ModContent.NPCType<Vigilante>(), 
+				ModContent.NPCType<Biojetter>(), 
+				ModContent.NPCType<CoughLungs>(), 
+				ModContent.NPCType<CruxBat>(), 
+				ModContent.NPCType<EarWormHead>(),
+				ModContent.NPCType<ExplodingAppendix>(), 
+				ModContent.NPCType<GooSlug>(), 
+				ModContent.NPCType<HoppingHeart>(), 
+				ModContent.NPCType<HoverBrain>(), 
+				ModContent.NPCType<TongueBiter>()
 			};
 
 			var EggEventPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>

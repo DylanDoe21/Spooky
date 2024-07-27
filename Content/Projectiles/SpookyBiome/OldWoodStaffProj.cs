@@ -43,59 +43,55 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             player.heldProj = Projectile.whoAmI;
             Projectile.Center = playerRelativePoint;
 
-            if (player.dead)
+            if (!player.active || player.dead || player.noItems || player.CCed) 
             {
                 Projectile.Kill();
-                return;
             }
 
-            if (!player.frozen)
+            if (Main.player[Projectile.owner].itemAnimation < Main.player[Projectile.owner].itemAnimationMax / 3)
             {
-                if (Main.player[Projectile.owner].itemAnimation < Main.player[Projectile.owner].itemAnimationMax / 3)
+                if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner)
                 {
-                    if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner)
-                    {
-                        Projectile.ai[1] = 1;
+                    Projectile.ai[1] = 1;
 
-                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 45f;
+                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 45f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), playerRelativePoint + Projectile.velocity * 0.8f + muzzleOffset,
-                        Projectile.velocity * 1.5f, ModContent.ProjectileType<OldWoodStaffBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), playerRelativePoint + Projectile.velocity * 0.8f + muzzleOffset,
+                    Projectile.velocity * 1.5f, ModContent.ProjectileType<OldWoodStaffBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
+            }
 
-                Projectile.spriteDirection = Projectile.direction = player.direction;
+            Projectile.spriteDirection = Projectile.direction = player.direction;
 
-                if (Projectile.alpha > 0)
+            if (Projectile.alpha > 0)
+            {
+                Projectile.alpha -= 127;
+                
+                if (Projectile.alpha < 0)
                 {
-                    Projectile.alpha -= 127;
-                    
-                    if (Projectile.alpha < 0)
-                    {
-                        Projectile.alpha = 0;
-                    }
+                    Projectile.alpha = 0;
                 }
+            }
 
-                if (Projectile.localAI[0] > 0f)
-                {
-                    Projectile.localAI[0] -= 1f;
-                }
+            if (Projectile.localAI[0] > 0f)
+            {
+                Projectile.localAI[0] -= 1f;
+            }
 
-                float inverseAnimationCompletion = 1f - (player.itemAnimation / (float)player.itemAnimationMax);
-                float originalVelocityDirection = Projectile.velocity.ToRotation();
-                float originalVelocitySpeed = Projectile.velocity.Length();
+            float inverseAnimationCompletion = 1f - (player.itemAnimation / (float)player.itemAnimationMax);
+            float originalVelocityDirection = Projectile.velocity.ToRotation();
+            float originalVelocitySpeed = Projectile.velocity.Length();
 
-                Vector2 flatVelocity = Vector2.UnitX.RotatedBy(MathHelper.Pi + inverseAnimationCompletion * MathHelper.TwoPi) * new Vector2(originalVelocitySpeed, Projectile.ai[0]);
+            Vector2 flatVelocity = Vector2.UnitX.RotatedBy(MathHelper.Pi + inverseAnimationCompletion * MathHelper.TwoPi) * new Vector2(originalVelocitySpeed, Projectile.ai[0]);
 
-                Projectile.position += flatVelocity.RotatedBy(originalVelocityDirection) + new Vector2(originalVelocitySpeed + 12f, 0f).RotatedBy(originalVelocityDirection);
+            Projectile.position += flatVelocity.RotatedBy(originalVelocityDirection) + new Vector2(originalVelocitySpeed + 12f, 0f).RotatedBy(originalVelocityDirection);
 
-                Vector2 destination = playerRelativePoint + flatVelocity.RotatedBy(originalVelocityDirection) + originalVelocityDirection.ToRotationVector2() * (originalVelocitySpeed + 12f + 75f);
-                Projectile.rotation = player.AngleTo(destination) + MathHelper.PiOver4 * player.direction;
+            Vector2 destination = playerRelativePoint + flatVelocity.RotatedBy(originalVelocityDirection) + originalVelocityDirection.ToRotationVector2() * (originalVelocitySpeed + 12f + 75f);
+            Projectile.rotation = player.AngleTo(destination) + MathHelper.PiOver4 * player.direction;
 
-                if (Projectile.spriteDirection == -1)
-                {
-                    Projectile.rotation += MathHelper.Pi;
-                }
+            if (Projectile.spriteDirection == -1)
+            {
+                Projectile.rotation += MathHelper.Pi;
             }
 
             if (player.itemAnimation == 1)

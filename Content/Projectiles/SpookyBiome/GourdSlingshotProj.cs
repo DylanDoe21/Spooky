@@ -46,6 +46,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		{
             Player player = Main.player[Projectile.owner];
 
+            if (!player.active || player.dead || player.noItems || player.CCed) 
+            {
+                Projectile.Kill();
+            }
+
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);

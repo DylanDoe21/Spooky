@@ -80,6 +80,11 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player player = Main.player[Projectile.owner];
 
+			if (!player.active || player.dead)
+            {
+                Projectile.Kill();
+            }
+
             if (runOnce)
 			{
 				for (int i = 0; i < trailLength.Length; i++)

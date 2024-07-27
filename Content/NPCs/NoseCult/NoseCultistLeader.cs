@@ -484,7 +484,7 @@ namespace Spooky.Content.NPCs.NoseCult
                         }
                     }
 
-                    if (NPC.localAI[0] >= 330)
+                    if (NPC.localAI[0] >= 240)
                     {
                         Charging = false;
                         hasCollidedWithWall = false;

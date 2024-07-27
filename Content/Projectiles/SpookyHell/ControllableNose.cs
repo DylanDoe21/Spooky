@@ -55,6 +55,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Player player = Main.player[Projectile.owner];
 
+            if (!player.active || player.dead || player.noItems || player.CCed) 
+            {
+                Projectile.Kill();
+            }
+
             if (player.channel && player.statMana > 5)
             {
                 Projectile.timeLeft = 2;

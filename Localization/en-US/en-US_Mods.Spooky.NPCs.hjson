@@ -176,11 +176,21 @@ TinyRat2.DisplayName: Tiny Rat
 SadGhostBig.DisplayName: Sad Ghost
 SadGhostSmall.DisplayName: Sad Ghost
 //egg event
-Crux.DisplayName: Crux
-Glutinous.DisplayName: Glutinous
-Ventricle.DisplayName: Ventricle
-Vesicator.DisplayName: Vesicator
-Vigilante.DisplayName: Vigilante
+Biojetter.DisplayName: Biojetter
+BiojetterEye.DisplayName: Bio Eye
+CoughLungs.DisplayName: Cough Lungs
+CruxBat.DisplayName: Crux Bat
+EarWormBody.DisplayName: Ear Worm
+EarWormBodyEye1.DisplayName: Ear Worm
+EarWormBodyEye2.DisplayName: Ear Worm
+EarWormHead.DisplayName: Ear Worm
+EarWormTail.DisplayName: Ear Worm
+ExplodingAppendix.DisplayName: Exploding Appendix
+FleshBolster.DisplayName: Flesh Bolster
+GooSlug.DisplayName: Goo Slug
+HoppingHeart.DisplayName: Hopping Heart
+HoverBrain.DisplayName: Hovering Brain
+TongueBiter.DisplayName: Tongue Biter
 OrroboroEgg.DisplayName: ""
 //friendly
 DumbZomboid.DisplayName: Dumb Zomboid

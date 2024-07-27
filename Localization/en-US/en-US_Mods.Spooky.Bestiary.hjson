@@ -85,11 +85,16 @@ SadGhostBig: Larger ghosts that are constantly sad for some reason. They spend t
 SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby.
 SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
 //egg event
-Crux: A strange creature that seems to be a deformed version of those eye covered bats. It can't hunt to the same capacity due to its lack of eyes, choosing to use magic abilities to harm foes.
-Glutinous: A poorly put together creature made from biomass. It is only capable of sliding across the ground slowly, and can sometimes vomit out its own blood.
-Vesicator: Absolutely vile chunks of biomatter that can somehow function on their own. They can vomit out and use biomatter to their advantage. Maybe the valley of eyes does know what it's doing?
-Vigilante: Ugly slabs of left over meat, turned into this creature by the valley of eyes. Despite its strange design, it can fly around and hunt its targets pretty efficiently.
-Ventricle: A chunk of beating flesh shaped into this hideous mass by the valley of eyes. It uses blood and gas stored in its body to shoot out explosive biomass.
+Biojetter: Lore
+CoughLungs: Lore
+CruxBat: Lore
+EarWormHead: Lore
+ExplodingAppendix: Lore
+FleshBolster: Lore
+GooSlug: Lore
+HoppingHeart: Lore
+HoverBrain: Lore
+TongueBiter: Lore
 //friendly town npcs
 DumbZomboid: A zomboid that got lost. It does not know how to read. Or think.
 LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.

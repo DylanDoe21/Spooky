@@ -13,7 +13,7 @@ namespace Spooky.Content.Biomes
     {
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.SpookyBackgroundAlt ? ModContent.GetInstance<SpookyForestBGAlt>() : ModContent.GetInstance<SpookyForestBG>();
 
-        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 250 ? ModContent.GetInstance<GlowshroomUndergroundBG>() : (Flags.SpookyBackgroundAlt ? ModContent.GetInstance<SpookyUndergroundBackgroundStyleAlt>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>());
+        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 250 ? ModContent.GetInstance<GlowshroomUndergroundBG>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
        

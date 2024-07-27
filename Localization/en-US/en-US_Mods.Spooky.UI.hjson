@@ -20,7 +20,7 @@ LittleEyeBounties: {
 }
 
 EggEvent: {
-	EggEventBarProgress: "Current Wave: "
+	EggEventBarProgress: Survive for:
 	EggEventBarDisplayName: Egg Incursion
 }
 

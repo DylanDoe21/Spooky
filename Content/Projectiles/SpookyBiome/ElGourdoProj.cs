@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     {
         int ScaleTimerLimit = 10;
         float ScaleAmount = 0.05f;
-        float SaveRotation = 0f;
+        float SaveRotation;
         bool Shake = false;
 
         public override void SetStaticDefaults()

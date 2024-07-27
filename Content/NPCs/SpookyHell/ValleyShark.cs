@@ -239,11 +239,11 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                             SoundEngine.PlaySound(SoundID.Item171, NPC.Center);
 
-                            NPC.ai[3] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ValleySharkMouth>(), ai3: NPC.whoAmI);
-                    
+                            int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<ValleySharkMouth>(), ai3: NPC.whoAmI);
+
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[3]);
+                                NetMessage.SendData(MessageID.SyncNPC, number: Tongue);
                             }
                         }
 

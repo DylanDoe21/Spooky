@@ -54,11 +54,6 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
             return true;
         }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(BuffID.Slow, 300, true);
-        }
 		
 		public override void AI()
         {
@@ -132,7 +127,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                         }
                     }
 
-                    Projectile.velocity *= 1.015f;
+                    Projectile.velocity *= 1.008f;
                 }
             }
 		}

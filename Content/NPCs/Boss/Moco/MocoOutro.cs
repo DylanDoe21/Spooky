@@ -16,10 +16,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
     {
         public override string Texture => "Spooky/Content/NPCs/SpookyHell/Mocling";
 
-        Vector2 GoToPosition;
-        Vector2 SavePosition;
-        Vector2 SavePlayerPosition;
-
+        private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
 
         public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound) { Pitch = 0.45f, Volume = 0.5f };
@@ -27,6 +24,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 9;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 7;
+            NPCID.Sets.TrailingMode[NPC.type] = 1;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
@@ -44,6 +43,23 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.noTileCollide = true;
             NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
+            {
+                Vector2 drawPos = NPC.oldPos[oldPos] - screenPos + NPC.frame.Size() / 2 + new Vector2(0, NPC.gfxOffY + 4);
+                Color color = NPC.GetAlpha(Color.Lime) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+
+                spriteBatch.Draw(NPCTexture.Value, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0f);
+            }
+
+            return true;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -97,7 +113,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 SoundEngine.PlaySound(FlyingSound, NPC.Center);
 
-                MoveToPlayer(player, player.Center.X < NPC.Center.X ? -1000f : 1000f, -250f);
+                MoveToPlayer(player, player.Center.X < NPC.Center.X ? -500f : 500f, -250f);
             }
 
             if (NPC.ai[0] >= 300)

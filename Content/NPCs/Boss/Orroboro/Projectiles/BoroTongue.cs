@@ -104,6 +104,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
             NPC.ai[0]++;
 
+            if (NPC.ai[0] == 1)
+            {
+                Vector2 ChargeSpeed = new Vector2(NPC.ai[1], NPC.ai[2]) - NPC.Center;
+                ChargeSpeed.Normalize();
+                ChargeSpeed *= 40;
+                NPC.velocity = ChargeSpeed;
+            }
+
             if (NPC.ai[0] == 25)
             {
                 NPC.localAI[0] = NPC.rotation;

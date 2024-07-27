@@ -10,7 +10,7 @@ CandyBuff1: {
 
 CandyBuff2: {
 	DisplayName: Summoner Candy
-	Description: Increases your maximum number of minions by 1
+	Description: Slightly increased whip use speed
 }
 
 CandyBuff3: {

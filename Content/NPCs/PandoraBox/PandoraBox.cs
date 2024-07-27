@@ -443,6 +443,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                 }
 
                 NPC.ai[2] = 0;
+
+                NPC.netUpdate = true;
             }
 
             if (PandoraBoxWorld.PandoraEventActive)
@@ -463,6 +465,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                             if (NPC.rotation > 0.2f)
                             {
                                 Shake = false;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -471,6 +474,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                             if (NPC.rotation < -0.2f)
                             {
                                 Shake = true;
+                                NPC.netUpdate = true;
                             }
                         }
                     }

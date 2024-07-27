@@ -37,6 +37,11 @@ namespace Spooky.Content.Tiles.Cemetery
 
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
 
+				if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+                }
+
 				return true;
 			}
 

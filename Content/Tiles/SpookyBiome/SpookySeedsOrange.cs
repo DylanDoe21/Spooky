@@ -37,6 +37,11 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<SpookyGrass>();
 
+				if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+                }
+
 				return true;
 			}
 

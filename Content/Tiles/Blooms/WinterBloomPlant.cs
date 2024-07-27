@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.Blooms
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
 
-			Vector2 Offset = new Vector2(34, 52);
+			Vector2 Offset = new Vector2(36, 52);
 
 			//draw the tile only on the bottom center of each tiles y-frame
 			if (tile.TileFrameY == 36 || tile.TileFrameY == 90 || tile.TileFrameY == 144 || tile.TileFrameY == 198)

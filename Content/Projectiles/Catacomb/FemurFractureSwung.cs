@@ -137,7 +137,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 				current = previousPosition;
 			}
 
-            if (!owner.active || owner.dead)
+            if (!owner.active || owner.dead || owner.noItems || owner.CCed) 
             {
                 Projectile.Kill();
             }

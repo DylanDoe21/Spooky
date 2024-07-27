@@ -34,7 +34,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             if (Projectile.ai[1] >= 60)
             {
-                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/PurpleAura");
+                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/Aura");
 
                 float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
@@ -63,7 +63,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             NPC Parent = Main.npc[(int)Projectile.ai[0]];
 
-            if (Parent.active && Parent.type == ModContent.NPCType<Crux>())
+            if (Parent.active && Parent.type == ModContent.NPCType<CruxBat>())
             {
                 Projectile.position = Parent.Center - Projectile.Size / 2;
             }

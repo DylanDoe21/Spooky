@@ -128,6 +128,7 @@ Weapons & Gear:
 -Reduced the amount of screenshake cause by the skull smasher hitting enemies
 -Massively buffed the soul skull scepter minions charging speed
 -Slightly increased the thorn daggers base use speed
+-Root armor set bonus healing now has a 5 second cooldown before you can heal again
 
 
 Enemy & Boss Changes:
@@ -215,6 +216,8 @@ Fixed all of the following bugs and issues:
 -I.C.U rocket projectile having collision issues and its afterimages drawing extremely weirdly
 -Moco's lingering booger projectiles getting stuck inside of blocks if moco is inside of blocks when shooting them
 -Goblin shark rod being able to fish in lava
+-Fixed multiple spooky mod worldgen variables using Main.rand instead of WorldGen.genRand (If you don't know why this is important, WorldGen.genRand is a number generator but it depends on the world seed, whereas Main.rand doesn't)
+-Yellow candy buff from the bag o' treats not displaying the correct bonus it gives (It is meant to give 10% increased whip use speed, not an extra minion slot)
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 
@@ -224,5 +227,7 @@ Fixed all of the following multiplayer bugs and issues:
 -Old hunter not waking up correctly when spoken to
 -Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
+-Attempted to fix some desyncing issues with the pandoras box event
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
 -Eye stalk trees and glowshroom trees now growing correctly
+-Spooky mod grasses not being saved on world exit when placed with seeds

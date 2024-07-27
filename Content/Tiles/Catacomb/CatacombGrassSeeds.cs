@@ -36,6 +36,11 @@ namespace Spooky.Content.Tiles.Catacomb
 
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CatacombBrick1GrassSafe>();
 
+				if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+                }
+
 				return true;
 			}
 
@@ -44,6 +49,11 @@ namespace Spooky.Content.Tiles.Catacomb
 				SoundEngine.PlaySound(SoundID.Dig, player.Center);
 
 				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CatacombBrick2GrassSafe>();
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
+                }
 
 				return true;
 			}

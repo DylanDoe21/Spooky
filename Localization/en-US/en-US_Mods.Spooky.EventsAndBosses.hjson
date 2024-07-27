@@ -7,6 +7,7 @@ BigBoneDefeat: The curse of the catacombs has been lifted!
 EggNoConcoction: You need a special concoction to open the egg
 EggEventBegin: The Egg Incursion has begun!
 EggEventOver: The egg's barrier has been broken!
+EggEventOverBeaten: The egg incursion has ended
 EggEventWaveComplete: Wave Complete!
 RaveyardStart: A rave has started in the cemetery!
 RaveyardEnd: The rave in the cemetery has ended

@@ -413,8 +413,9 @@ namespace Spooky.Content.Generation
 
             //reset everything for the circle clearing
             bool IsSmallWorld = Main.maxTilesX < 6400;
+            bool IsMediumWorld = Main.maxTilesX < 8400 && Main.maxTilesX > 6400;
 
-            origin = new Point(LakeX, WaterHeightLimit - (IsSmallWorld ? 25 : 30));
+            origin = new Point(LakeX, WaterHeightLimit - (IsSmallWorld ? 25 : (IsMediumWorld ? 30 : 35)));
 			center = origin.ToVector2() * 16f + new Vector2(8f);
 
 			angle = MathHelper.Pi * 0.15f;
@@ -606,7 +607,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //bones
-                        if (WorldGen.genRand.NextBool(40))
+                        if (WorldGen.genRand.NextBool(25))
                         {
                             ushort[] Bones = new ushort[] { (ushort)ModContent.TileType<Bone1>(), (ushort)ModContent.TileType<Bone2>(), (ushort)ModContent.TileType<Bone3>(), (ushort)ModContent.TileType<Bone4>() };
 
@@ -878,7 +879,7 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 25; j < Y + 25; j++)
                 {
-                    if (InvalidTiles.Contains(Main.tile[i, j].TileType))
+                    if (WorldGen.InWorld(i, j) && InvalidTiles.Contains(Main.tile[i, j].TileType))
                     {
                         return false;
                     }

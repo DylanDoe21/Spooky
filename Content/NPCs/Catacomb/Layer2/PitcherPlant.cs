@@ -133,17 +133,27 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             }
         }
 
-        public override void AI()
+		//hitting the pitcher plant with items and projectiles should reset its shooting timer so players dont get unfairly hit at close range
+		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+		{
+			NPC.ai[2] = 0;
+		}
+		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+		{
+			NPC.ai[2] = 0;
+		}
+
+		public override void AI()
         {
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpToTarget(player, 200, ModContent.ProjectileType<PitcherSpitPoison>(), false);
+            AttackingAI(player, 200, ModContent.ProjectileType<PitcherSpitPoison>(), false);
         }
 
-        public void JumpToTarget(Player target, int JumpHeight, int SpitType, bool HydraPlant)
+        public void AttackingAI(Player target, int JumpHeight, int SpitType, bool HydraPlant)
         {
             if (NPC.Distance(target.Center) > 200f)
             {
@@ -277,7 +287,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpToTarget(player, 200, ModContent.ProjectileType<PitcherSpitVenom>(), false);
+            AttackingAI(player, 200, ModContent.ProjectileType<PitcherSpitVenom>(), false);
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -337,7 +347,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpToTarget(player, 200, ModContent.ProjectileType<PitcherSpitVenom>(), true);
+            AttackingAI(player, 200, ModContent.ProjectileType<PitcherSpitVenom>(), true);
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -398,7 +408,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
             NPC.spriteDirection = NPC.direction;
 
-            JumpToTarget(player, 200, ModContent.ProjectileType<PitcherSpitPoison>(), true);
+            AttackingAI(player, 200, ModContent.ProjectileType<PitcherSpitPoison>(), true);
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

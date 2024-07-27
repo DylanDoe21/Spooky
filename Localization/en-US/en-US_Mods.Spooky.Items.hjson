@@ -2042,7 +2042,7 @@ SentientImpStaff: {
 	Tooltip:
 		'''
 		Summons Grug the gargoyle to fight with you
-		Only one can exist, and he requires two minion slots to summon
+		Only one can exist, and he requires 2 minion slots to summon
 		'He's actually a gargoyle, not a grugoyle'
 		'''
 }
@@ -2053,6 +2053,25 @@ SentientKatana: {
 		'''
 		Creates slashes at your cursor upon hitting enemies
 		'It's a mystery how it doesn't get whiplash'
+		'''
+}
+
+SentientKeybrand: {
+	DisplayName: Molar Mauler
+	Tooltip:
+		'''
+		Preform a combo of multiple slashes and then throw the mauler at enemies
+		May inflict tooth crunch on enemies which permanently lowers their defense by one point, up to 10 total
+		'Should be brought to a dentist regularly'
+		'''
+}
+
+SentientLeafBlower: {
+	DisplayName: Carrion Blower
+	Tooltip:
+		'''
+		Rapidly spits out a bunch of meat and other organic chunks with different abilities
+		'Heart healthy!'
 		'''
 }
 
@@ -2076,6 +2095,25 @@ SentientLifeDrain: {
 		'''
 }
 
+SentientMagnetSphere: {
+	DisplayName: Necronomicon Volume II
+	Tooltip:
+		'''
+		Channel a ball of flesh energy that zaps nearby enemies with organic lightning
+		The ball of flesh grows over time, making it more powerful
+		'Caution: May bite'
+		'''
+}
+
+SentientMineLauncher: {
+	DisplayName: Eye Belcher
+	Tooltip:
+		'''
+		Fires out a giant spread of eye mines that linger on the ground and explode on contact
+		'Takes great pride in its eyelashes'
+		'''
+}
+
 SentientPaladinsHammer: {
 	DisplayName: Dave & Mike
 	Tooltip:
@@ -2083,6 +2121,16 @@ SentientPaladinsHammer: {
 		Throw a two-faced hammer that will chase a nearby enemy
 		Upon reaching the targeted enemy, it will strike it 3 times before returning to you
 		'They won't stop yapping'
+		'''
+}
+
+SentientRavenStaff: {
+	DisplayName: Avian's Crux
+	Tooltip:
+		'''
+		Summons a giant skeleton raven to fight with you
+		Only one can exist, and it requires 3 minion slots to summon
+		'Its heart is beating slowly'
 		'''
 }
 
@@ -2104,6 +2152,16 @@ SentientSkullBook: {
 		'''
 }
 
+SentientSphereStaff: {
+	DisplayName: Living Caduceus
+	Tooltip:
+		'''
+		Summons winged eyes that attack with psychic power
+		Enemies killed by them will drop boosts you can pick up for a temporary bous
+		'Sees both the past and the future'
+		'''
+}
+
 SentientToxikarp: {
 	DisplayName: Bubble Belcher
 	Tooltip:
@@ -2111,6 +2169,16 @@ SentientToxikarp: {
 		Spits out toxic bubbles that bounce off of surfaces
 		Sometimes spits out special colored bubbles that all do different things
 		'Killer fish from valley of eyes!'
+		'''
+}
+
+SentientVenusMagnum: {
+	DisplayName: Ooze Magnum
+	Tooltip:
+		'''
+		Fires out cursed bile that becomes more rapid over time
+		Releasing at maximum speed will unleash a giant volatile glob of bile
+		'It oozes with power'
 		'''
 }
 

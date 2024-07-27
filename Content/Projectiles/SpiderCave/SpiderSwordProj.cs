@@ -39,6 +39,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
         {
 			Player player = Main.player[Projectile.owner];
 
+			if (!player.active || player.dead || player.noItems || player.CCed) 
+            {
+                Projectile.Kill();
+            }
+
 			Projectile.ai[0]++;
 			if (Projectile.ai[0] >= TotalDuration) 
             {

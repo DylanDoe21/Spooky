@@ -50,7 +50,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
 		public override void RandomUpdate(int i, int j)
 		{
-			if (WorldGen.genRand.Next(12) == 0)
+			if (WorldGen.genRand.NextBool(12))
 			{
 				bool isPlayerNear = WorldGen.PlayerLOS(i, j);
 				bool success = WorldGen.GrowTree(i, j);

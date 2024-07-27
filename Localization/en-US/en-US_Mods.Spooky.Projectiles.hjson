@@ -35,10 +35,8 @@ PhantomBomb.DisplayName: Skull Bomb
 PhantomExplosion.DisplayName: Phantom Explosion
 PhantomSeed.DisplayName: Phantom Seed
 PhantomSkullProj.DisplayName: Phantom Skull
-VentricleBiomass.DisplayName: Biomass
 BloodSplatter.DisplayName: Blood
 CruxAura.DisplayName: Crux Aura
-VesicatorDeath.DisplayName: Vesicator
 WarlockSkull.DisplayName: Magic Skull
 SalivaBall.DisplayName: Toxic Spit
 TumorOrb.DisplayName: Flesh Chunk
@@ -180,9 +178,6 @@ SentientKatanaSwingSlash.DisplayName: Conscious Cutter
 StinkBlast.DisplayName: Stink Blast
 TonguebladeSlash.DisplayName: Tongueblade
 EggEventHandler.DisplayName: Egg Barrier
-GiantBiomass.DisplayName: Biomass
-GiantBiomassVesicator.DisplayName: Biomass
-CruxBloodChunk.DisplayName: Blood Clump
 SentientChumCasterBobber.DisplayName: Sentient Bobber
 ThornPillarSeed.DisplayName: Seed
 ThornPillar.DisplayName: Thorn Pillar
@@ -363,3 +358,6 @@ DandelionFloater2.DisplayName: Seed Cluster
 DandelionFloater3.DisplayName: Seed Cluster
 BlueberryExplosion.DisplayName: Frost Explosion
 SnotBulletProj.DisplayName: Mucus Bullet
+BrainLaser.DisplayName: Brain Laser
+GiantBiomassPurple.DisplayName: Bioclump
+GiantBiomassRed.DisplayName: Bioclump

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using System.Linq;
 
 using Spooky.Core;
 using Spooky.Effects;
@@ -32,9 +33,7 @@ namespace Spooky.Content.NPCs.EggEvent
         float addedStretch = 0f;
 		float stretchRecoil = 0f;
 
-        bool SpawnedEnemies = false;
-        bool EventEnemiesExist = true;
-
+        bool HasSpawnedBiojetter = false;
         bool OrroboroDoesNotExist;
 
         private static Asset<Texture2D> NPCTexture;
@@ -54,16 +53,14 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(SpawnedEnemies);
-            writer.Write(EventEnemiesExist);
+            writer.Write(HasSpawnedBiojetter);
             writer.Write(OrroboroDoesNotExist);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            SpawnedEnemies = reader.ReadBoolean();
-            EventEnemiesExist = reader.ReadBoolean();
+            HasSpawnedBiojetter = reader.ReadBoolean();
             OrroboroDoesNotExist = reader.ReadBoolean();
         }
 
@@ -144,7 +141,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void FindFrame(int frameHeight)
         {
-            if (NPC.ai[1] == 0)
+            if (NPC.ai[0] == 0)
             {
                 if (OrroboroDoesNotExist)
                 {
@@ -157,7 +154,7 @@ namespace Spooky.Content.NPCs.EggEvent
             }
             else
             {
-                NPC.frame.Y = (int)NPC.ai[2] * frameHeight;
+                NPC.frame.Y = (int)NPC.ai[1] * frameHeight;
             }
         }
 
@@ -166,282 +163,62 @@ namespace Spooky.Content.NPCs.EggEvent
             return true;
         }
 
-        public void SwitchToNextWave()
-        {
-            if (EggEventWorld.Wave < 7)
-            {
-                CombatText.NewText(NPC.getRect(), Color.Magenta, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventWaveComplete"), true);
-                
-                NPC.ai[0] = 420;
-                
-                SpawnedEnemies = false;
-
-				EggEventWorld.Wave++;
-
-				if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.WorldData);
-                }
-
-                NPC.netUpdate = true;
-            }
-            else
-            {
-                SoundEngine.PlaySound(EventEndSound, NPC.Center);
-
-                NPC.ai[0] = 0;
-                EggEventWorld.Wave = 0;
-                EggEventWorld.EggEventActive = false;
-
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.WorldData);
-                }
-
-                if (!Flags.downedEggEvent)
-                {
-                    //event end message
-                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
-                    if (Main.netMode != NetmodeID.Server)
-                    {
-                        Main.NewText(text, 171, 64, 255);
-                    }
-                    else
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                    }
-
-                    if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
-                        ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)SpookyMessageType.EggIncursionDowned);
-                        packet.Send();
-                    }
-                    else
-                    {
-                        Flags.downedEggEvent = true;
-                    }
-                }
-
-                NPC.netUpdate = true;
-            }
-        }
-
         //spawn an enemy based on the type inputted
-        public void SpawnEnemy(int Type)
+        public void SpawnEnemy(int BiomassType, int Type)
         {
-            //0 = Glutinous
-            //1 = Vigilante
-            //2 = Ventricle
-            //3 = Crux
-            //4 = Vesicator
-
-            int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), (int)(NPC.Center.X + Main.rand.Next(-900, 900)), (int)(NPC.Center.Y + Main.rand.Next(100, 150)), 
-            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomass>(), 0, 0, 0, 0, 0, Type);
-            Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
-        }
-
-        //spawn enemies for each wave, along with additional enemies when the event is rematched
-        public void SpawnEnemies()
-        {
-            if (!SpawnedEnemies)
+            switch (BiomassType)
             {
-                switch (EggEventWorld.Wave)
+                case 0:
                 {
-                    //wave enemies: Glutinous x3, Vigilante x1
-                    //post defeat: Vigilante x1, Ventricle x1
-                    case 0:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-                        
-                        SpawnEnemy(1);
+                    //0 = GooSlug
+                    //1 = CruxBat
+                    //2 = EarWormHead
+                    int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), (int)(Main.LocalPlayer.Center.X + Main.rand.Next(-900, 900)), (int)(NPC.Center.Y + Main.rand.Next(100, 150)), 
+                    Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, 0, 0, 0, Type);
+                    Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
 
-                        if (Flags.downedEggEvent)
-                        {
-                            SpawnEnemy(1);
-                            SpawnEnemy(2);
-                        }
-
-                        break;
-                    }
-                    
-                    //wave enemies: Glutinous x4, Vigilante x2
-                    //post defeat: Ventricle x2
-                    case 1:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                        {
-                            SpawnEnemy(1);
-                        }
-
-                        if (Flags.downedEggEvent)
-                        {
-                            for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                            {
-                                SpawnEnemy(2);
-                            }
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Glutinous x3, Vigilante x2, Ventricle x1
-                    //post defeat: Vigilante x1, Crux x1
-                    case 2:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                        {
-                            SpawnEnemy(1);
-                        }
-
-                        SpawnEnemy(2);
-
-                        if (Flags.downedEggEvent)
-                        {
-                            SpawnEnemy(1);
-                            SpawnEnemy(3);
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Glutinous x2, Vigilante x2, Ventricle x2
-                    //post defeat: Glutinous x2, Crux x1
-                    case 3:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                            SpawnEnemy(1);
-                            SpawnEnemy(2);
-                        }
-
-                        if (Flags.downedEggEvent)
-                        {
-                            SpawnEnemy(0);
-                            SpawnEnemy(3);
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Vigilante x3, Crux x1
-                    //post defeat: Glutinous x2, Crux x1
-                    case 4:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 3; numEnemy++)
-                        {
-                            SpawnEnemy(1);
-                        }
-
-                        SpawnEnemy(3);
-
-                        if (Flags.downedEggEvent)
-                        {
-                            for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                            {
-                                SpawnEnemy(0);
-                            }
-
-                            SpawnEnemy(3);
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Glutinous x4, Vigilante x2, Crux x2
-                    //post defeat: Vesicator x1
-                    case 5:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                        {
-                            SpawnEnemy(1);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                        {
-                            SpawnEnemy(3);
-                        }
-
-                        if (Flags.downedEggEvent)
-                        {
-                            SpawnEnemy(4);
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Glutinous x5, Vesicator x1
-                    //post defeat: Ventricle x2
-                    case 6:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 5; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-
-                        SpawnEnemy(4);
-
-                        if (Flags.downedEggEvent)
-                        {
-                            for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                            {
-                                SpawnEnemy(2);
-                            }
-                        }
-
-                        break;
-                    }
-
-                    //wave enemies: Glutinous x4, Vigilante x2, Ventricle x1, Crux x1, Vesicator x1
-                    //post defeat: Ventricle x1, Crux x1
-                    case 7:
-                    {
-                        for (int numEnemy = 1; numEnemy <= 4; numEnemy++)
-                        {
-                            SpawnEnemy(0);
-                        }
-
-                        for (int numEnemy = 1; numEnemy <= 2; numEnemy++)
-                        {   
-                            SpawnEnemy(1);
-                        }
-
-                        SpawnEnemy(2);
-                        SpawnEnemy(3);
-                        SpawnEnemy(4);
-
-                        if (Flags.downedEggEvent)
-                        {
-                            SpawnEnemy(2);
-                            SpawnEnemy(3);
-                        }
-
-                        break;
-                    }
+                    break;
                 }
 
-                SpawnedEnemies = true;
+                case 1:
+                {
+                    //0 = HoppingHeart
+                    //1 = TongueBiter
+                    //2 = ExplodingAppendix
+                    //3 = CoughLungs
+                    //4 = HoverBrain
+                    int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), (int)(Main.LocalPlayer.Center.X + Main.rand.Next(-900, 900)), (int)(NPC.Center.Y + Main.rand.Next(100, 150)), 
+                    Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassRed>(), 0, 0, 0, 0, 0, Type);
+                    Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
+
+                    break;
+                }
             }
         }
+
+        public int EventActiveNPCCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC Enemy = Main.npc[i];
+
+				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWormHead>(),
+				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
+
+				if (!Enemy.active || !EventNPCs.Contains(Enemy.type))
+				{
+					continue;
+				}
+                else
+                {
+                    NpcCount++;
+                }
+			}
+
+			return NpcCount;
+		}
 
         public override void AI()
         {
@@ -470,7 +247,7 @@ namespace Spooky.Content.NPCs.EggEvent
 			addedStretch = -stretchRecoil;
 
             //right click functionality
-            if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) && NPC.Distance(player.Center) <= 200f && OrroboroDoesNotExist && NPC.ai[1] == 0)
+            if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) && NPC.Distance(player.Center) <= 200f && !Main.mapFullscreen && OrroboroDoesNotExist && NPC.ai[0] == 0)
             {
                 if (Main.mouseRight && Main.mouseRightRelease && !EggEventWorld.EggEventActive)
                 {
@@ -481,7 +258,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         SoundEngine.PlaySound(EggDecaySound, NPC.Center);
 
-                        NPC.ai[1] = 1;
+                        NPC.ai[0] = 1;
                     }
                     //if the player hasnt completed the egg incursion or has a strange cyst, start the egg incursion
                     else if ((player.HasItem(ModContent.ItemType<Concoction>()) && !Flags.downedEggEvent) || player.ConsumeItem(ModContent.ItemType<StrangeCyst>()))
@@ -490,8 +267,14 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         SpookyPlayer.ScreenShakeAmount = 8;
 
-                        NPC.ai[0] = 420;
+                        EggEventWorld.EventTimeLeftUI = 21600;
                         EggEventWorld.EggEventActive = true;
+
+                        for (int numEnemies = 0; numEnemies <= 6; numEnemies++)
+                        {
+                            int BiomassType = Main.rand.Next(0, 2);
+                            SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2));
+                        }
 
                         if (Main.netMode == NetmodeID.Server)
                         {
@@ -504,21 +287,21 @@ namespace Spooky.Content.NPCs.EggEvent
             }
 
             //orroboro spawn animation
-            if (NPC.ai[1] > 0)
+            if (NPC.ai[0] > 0)
             {
-                NPC.ai[1]++;
+                NPC.ai[0]++;
 
-                //stretch the egg and increase the frame count using NPC.ai[2] 
-                if (NPC.ai[2] < 5)
+                //stretch the egg and increase the frame count using NPC.ai[1] 
+                if (NPC.ai[1] < 5)
                 {
-                    if (NPC.ai[1] >= 45)
+                    if (NPC.ai[0] >= 45)
                     {
                         SoundEngine.PlaySound(EggCrackSound1, NPC.Center);
 
                         stretchRecoil = Main.rand.NextFloat(0.25f, 0.5f);
 
-                        NPC.ai[2]++;
-                        NPC.ai[1] = 1;
+                        NPC.ai[1]++;
+                        NPC.ai[0] = 1;
                     }
                 }
                 //spawn orroboro, reset ai variables
@@ -556,67 +339,159 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
                     }
 
+                    NPC.ai[0] = 0;
                     NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
                 }
             }
 
             //egg event handling
             if (EggEventWorld.EggEventActive)
             {
-                //bool to check if any enemies during the event exist
-                EventEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<Glutinous>()) || NPC.AnyNPCs(ModContent.NPCType<Vigilante>()) || 
-                NPC.AnyNPCs(ModContent.NPCType<Ventricle>()) || NPC.AnyNPCs(ModContent.NPCType<Crux>()) || NPC.AnyNPCs(ModContent.NPCType<Vesicator>());
+                //converts the timeleft to actual seconds, goes up to 360 seconds (or 6 minutes)
+                //notes: 
+                //60 = 1 minute
+                //120 = 2 minutes
+                //180 = 3 minutes
+                //240 = 4 minutes
+                //300 = 5 minutes
+                //360 = 6 minutes
+                float timeLeft = EggEventWorld.EventTimeLeft / 60;
 
-                //set the vignette effect around the egg
-                VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(0f, 1700f, 1f, new Color(18, 2, 0), new Vector2(NPC.Center.X, NPC.Center.Y - 85));
-
-                //push players towards the egg if they get too far so they cannot leave the area during the event
-                for (int i = 0; i <= Main.maxPlayers; i++)
+                //increment both timers
+                if (EggEventWorld.EventTimeLeft < 21600)
                 {
-                    Player ActivePlayer = Main.player[i];
+                    EggEventWorld.EventTimeLeft++;
+                    EggEventWorld.EventTimeLeftUI--;
 
-                    if (ActivePlayer.active && !ActivePlayer.dead)
+                    int ChanceToSpawnEnemy = 300;
+
+                    if (timeLeft >= 60) ChanceToSpawnEnemy = 300;
+                    if (timeLeft >= 120) ChanceToSpawnEnemy = 250;
+                    if (timeLeft >= 180) ChanceToSpawnEnemy = 200;
+                    if (timeLeft >= 240) ChanceToSpawnEnemy = 150;
+
+                    //spawn a biojetter at 3 minutes and a little after 4 minutes
+                    if (timeLeft == 179 || timeLeft == 279)
                     {
-                        if (ActivePlayer.Distance(new Vector2(NPC.Center.X, NPC.Center.Y - 85)) > 1600 && ActivePlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+                        HasSpawnedBiojetter = false;
+                    }
+                    if (timeLeft == 180 || timeLeft == 280)
+                    {
+                        if (!HasSpawnedBiojetter)
                         {
-                            Vector2 movement = new Vector2(NPC.Center.X, NPC.Center.Y - 85) - ActivePlayer.Center;
-                            float difference = movement.Length() - 600;
-                            movement.Normalize();
-                            movement *= difference < 25f ? difference : 25f;
-                            ActivePlayer.position += movement;
+                            SpawnEnemy(0, 3);
+
+                            HasSpawnedBiojetter = true;
+
+                            NPC.netUpdate = true;
+                        }   
+                    }
+
+                    //if theres no enemies for too long, then manually spawn a bunch of them
+                    if (EventActiveNPCCount() <= 0)
+                    {
+                        NPC.ai[2]++;
+
+                        if (NPC.ai[2] >= 240)
+                        {
+                            for (int numEnemies = 0; numEnemies <= 5; numEnemies++)
+                            {
+                                if (timeLeft < 60)
+                                {
+                                    int BiomassType = Main.rand.Next(0, 2);
+                                    SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2));
+                                }
+                                if (timeLeft >= 60 && timeLeft < 180)
+                                {
+                                    int BiomassType = Main.rand.Next(0, 2);
+                                    SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 3));
+                                }
+                                if (timeLeft >= 180)
+                                {
+                                    int BiomassType = Main.rand.Next(0, 2);
+                                    SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 3) : Main.rand.Next(0, 5));
+                                }
+                            }
+
+                            NPC.ai[2] = -60;
+                        }
+                    }
+
+                    //randomly spawn enemies throughout the event
+                    if (EventActiveNPCCount() < 20 && Main.rand.NextBool(ChanceToSpawnEnemy))
+                    {
+                        if (timeLeft < 60)
+                        {
+                            int BiomassType = Main.rand.Next(0, 2);
+                            SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2));
+                        }
+                        if (timeLeft >= 60 && timeLeft < 180)
+                        {
+                            int BiomassType = Main.rand.Next(0, 2);
+                            SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 3));
+                        }
+                        if (timeLeft >= 180)
+                        {
+                            int BiomassType = Main.rand.Next(0, 2);
+                            SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 3) : Main.rand.Next(0, 5));
                         }
                     }
                 }
-
-                //cooldown before switching to the next wave
-                NPC.ai[0]--;
-
-                //spawn enemies before checking for the wave switch so the enemies spawn in first
-                //prevents the wave from being switched automatically before enemies are spawned
-                if (NPC.ai[0] == 170)
+                else
                 {
-                    SpawnEnemies();
+                    SoundEngine.PlaySound(EventEndSound, NPC.Center);
+
+                    EggEventWorld.EggEventActive = false;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
+
+                    if (!Flags.downedEggEvent)
+                    {
+                        //event end message
+                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
+                        if (Main.netMode != NetmodeID.Server)
+                        {
+                            Main.NewText(text, 171, 64, 255);
+                        }
+                        else
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        }
+
+                        if (Main.netMode != NetmodeID.SinglePlayer)
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)SpookyMessageType.EggIncursionDowned);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Flags.downedEggEvent = true;
+                        }
+                    }
+                    else
+                    {
+                        //event end message
+                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOverBeaten");
+                        if (Main.netMode != NetmodeID.Server)
+                        {
+                            Main.NewText(text, 171, 64, 255);
+                        }
+                        else
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        }
+                    }
 
                     NPC.netUpdate = true;
-                }
-
-                if ((NPC.ai[0] <= 0 && EggEventWorld.Wave < 10) || EggEventWorld.Wave >= 10)
-                {
-                    if (SpawnedEnemies && !EventEnemiesExist)
-                    {
-                        SwitchToNextWave();
-
-                        NPC.netUpdate = true;
-                    }
                 }
             }
             else
             {
-                NPC.ai[0] = 0;
                 ShieldScale = 0.5f;
-                SpawnedEnemies = false;
             }
         }
     }

@@ -34,7 +34,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
         {
             if (Projectile.ai[0] >= 20)
             {
-                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/RedAura");
+                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/Aura");
 
                 float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
@@ -134,7 +134,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
         {
             if (Projectile.ai[0] >= 20)
             {
-                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/RedAura");
+                AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/Projectiles/Aura");
 
                 float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 

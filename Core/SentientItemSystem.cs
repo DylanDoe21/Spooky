@@ -29,28 +29,28 @@ namespace Spooky.Core
 			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
 			AddTransformation(ItemID.Bladetongue, ModContent.ItemType<SentientBladeTongue>());
 			AddTransformation(ItemID.PaladinsHammer, ModContent.ItemType<SentientPaladinsHammer>());
-			//AddTransformation(ItemID.Keybrand, ModContent.ItemType<SentientKeybrand>());
+			AddTransformation(ItemID.Keybrand, ModContent.ItemType<SentientKeybrand>());
 
 			//ranged
 			AddTransformation(ItemID.BloodRainBow, ModContent.ItemType<SentientBloodRainBow>());
 			AddTransformation(ItemID.Gatligator, ModContent.ItemType<SentientGatligator>());
 			AddTransformation(ItemID.Toxikarp, ModContent.ItemType<SentientToxikarp>());
-			//AddTransformation(ItemID.VenusMagnum, ModContent.ItemType<SentientVenusMagnum>());
-			//AddTransformation(ItemID.ProximityMineLauncher, ModContent.ItemType<SentientMineLauncher>());
+			AddTransformation(ItemID.VenusMagnum, ModContent.ItemType<SentientVenusMagnum>());
+			AddTransformation(ItemID.ProximityMineLauncher, ModContent.ItemType<SentientMineLauncher>());
 
 			//magic
 			AddTransformation(ItemID.BookofSkulls, ModContent.ItemType<SentientSkullBook>());
 			AddTransformation(ItemID.ClingerStaff, ModContent.ItemType<SentientClingerStaff>());
 			AddTransformation(ItemID.SoulDrain, ModContent.ItemType<SentientLifeDrain>());
-			//AddTransformation(ItemID.LeafBlower, ModContent.ItemType<SentientLeafBlower>());
-			//AddTransformation(ItemID.MagnetSphere, ModContent.ItemType<SentientMagnetSphere>());
+			AddTransformation(ItemID.LeafBlower, ModContent.ItemType<SentientLeafBlower>());
+			AddTransformation(ItemID.MagnetSphere, ModContent.ItemType<SentientMagnetSphere>());
 
 			//summon
 			AddTransformation(ItemID.BlandWhip, ModContent.ItemType<SentientLeatherWhip>());
 			AddTransformation(ItemID.ImpStaff, ModContent.ItemType<SentientImpStaff>());
 			AddTransformation(ItemID.HoundiusShootius, ModContent.ItemType<SentientShootius>());
-			//AddTransformation(ItemID.RavenStaff, ModContent.ItemType<SentientRavenStaff>());
-			//AddTransformation(ItemID.DeadlySphereStaff, ModContent.ItemType<SentientSphereStaff>());
+			AddTransformation(ItemID.RavenStaff, ModContent.ItemType<SentientRavenStaff>());
+			AddTransformation(ItemID.DeadlySphereStaff, ModContent.ItemType<SentientSphereStaff>());
 
 			//misc stuff
 			AddTransformation(ItemID.BloodFishingRod, ModContent.ItemType<SentientChumCaster>());

@@ -587,8 +587,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             ChargeDirection *= Enraged ? 25 : 22;
                             NPC.velocity = ChargeDirection;
 
-                            int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroTongue>(), ai3: NPC.whoAmI);
-                            Main.npc[Tongue].velocity = NPC.velocity * 1.75f;
+                            int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroTongue>(), ai1: SavePlayerPosition.X, ai2: SavePlayerPosition.Y, ai3: NPC.whoAmI);
                     
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {

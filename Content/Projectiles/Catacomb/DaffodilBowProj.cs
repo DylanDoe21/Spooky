@@ -43,6 +43,11 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
             Player player = Main.player[Projectile.owner];
 
+            if (!player.active || player.dead || player.noItems || player.CCed) 
+            {
+                Projectile.Kill();
+            }
+
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
