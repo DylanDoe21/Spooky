@@ -99,6 +99,16 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             }
         }
 
+        public void NewNPC(int Type)
+        {
+            int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X , (int)Projectile.Center.Y + Projectile.height / 2, Type);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+            }
+        }
+
         public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
@@ -140,61 +150,31 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             {
                 case 0:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<HoppingHeart>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<HoppingHeart>());
                     break;
                 }
 
                 case 1:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<TongueBiter>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<TongueBiter>());
                     break;
                 }
 
                 case 2:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<ExplodingAppendix>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<ExplodingAppendix>());
                     break;
                 }
 
                 case 3:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<CoughLungs>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<CoughLungs>());
                     break;
                 }
 
                 case 4:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<HoverBrain>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<HoverBrain>());
                     break;
                 }
             }

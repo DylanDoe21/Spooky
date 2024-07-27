@@ -56,6 +56,12 @@ namespace Spooky.Content.NPCs.EggEvent
 				EventTimeLeftUI = 0;
 				EggEventActive = false;
 			}
+
+			if (!EggEventActive)
+			{
+				EventTimeLeft = 0;
+				EventTimeLeftUI = 0;
+			}
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

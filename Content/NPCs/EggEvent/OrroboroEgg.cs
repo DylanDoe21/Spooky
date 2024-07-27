@@ -370,12 +370,12 @@ namespace Spooky.Content.NPCs.EggEvent
                     if (timeLeft >= 180) ChanceToSpawnEnemy = 200;
                     if (timeLeft >= 240) ChanceToSpawnEnemy = 150;
 
-                    //spawn a biojetter at 3 minutes and a little after 4 minutes
-                    if (timeLeft == 179 || timeLeft == 279)
+                    //spawn a biojetter a little before 3 minutes and a little after 4 minutes
+                    if (timeLeft == 149 || timeLeft == 279)
                     {
                         HasSpawnedBiojetter = false;
                     }
-                    if (timeLeft == 180 || timeLeft == 280)
+                    if (timeLeft == 150 || timeLeft == 280)
                     {
                         if (!HasSpawnedBiojetter)
                         {

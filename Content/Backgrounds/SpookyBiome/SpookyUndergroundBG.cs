@@ -8,7 +8,7 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
         {
 			for (int i = 0; i <= 3; i++)
 			{
-                textureSlots[i] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUGOrange" + i.ToString());
+                textureSlots[i] = BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyUG" + i.ToString());
 			}
 		}
 	}

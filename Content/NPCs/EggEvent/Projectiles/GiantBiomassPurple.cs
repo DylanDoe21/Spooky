@@ -99,6 +99,16 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             }
         }
 
+        public void NewNPC(int Type)
+        {
+            int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + Projectile.height / 2, Type);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+            }
+        }
+
         public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
@@ -140,49 +150,25 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             {
                 case 0:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<GooSlug>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<GooSlug>());
                     break;
                 }
 
                 case 1:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<CruxBat>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<CruxBat>());
                     break;
                 }
 
                 case 2:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<EarWormHead>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<EarWormHead>());
                     break;
                 }
 
                 case 3:
                 {
-                    int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<Biojetter>());
-
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-                    }
-
+                    NewNPC(ModContent.NPCType<Biojetter>());
                     break;
                 }
             }
