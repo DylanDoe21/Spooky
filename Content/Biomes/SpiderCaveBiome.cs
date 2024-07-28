@@ -40,7 +40,7 @@ namespace Spooky.Content.Biomes
 
             Tile tile = Framing.GetTileSafely(x, y);
 
-            if (!WorldGen.InWorld(x, y))
+            if (!WorldGen.InWorld(x, y) || !Main.BackgroundEnabled)
             {
                 return;
             }
@@ -78,7 +78,7 @@ namespace Spooky.Content.Biomes
 
         private void ForceDrawBlack(On_Main.orig_DrawBlack orig, Main self, bool force)
         {
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()) && Main.BackgroundEnabled)
             {
                 orig(self, true);
             }
@@ -90,7 +90,7 @@ namespace Spooky.Content.Biomes
 
         private float NewThreshold(float orig)
         {
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()) && Main.BackgroundEnabled)
             {
                 return 0.1f;
             }

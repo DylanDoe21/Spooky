@@ -93,6 +93,7 @@ Other Miscellaneous Additions:
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
 -Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory
 -Added a few new types of zomboids that spawn during various vanilla events
+-Added sentient versions of the following items: Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, Deadly Sphere Staff
 
 
 
@@ -227,7 +228,8 @@ Fixed all of the following multiplayer bugs and issues:
 -Old hunter not waking up correctly when spoken to
 -Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
+-Rot gourds dirt debris slam attack not actually impacting the ground and creating projectiles
 -Attempted to fix some desyncing issues with the pandoras box event
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
--Eye stalk trees and glowshroom trees now growing correctly
--Spooky mod grasses not being saved on world exit when placed with seeds
+-Eye stalk trees and glowshroom trees immediately breaking when growing
+-Spooky mod grass blocks not being saved on world exit when placed with seeds

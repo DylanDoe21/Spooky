@@ -1,5 +1,6 @@
 RotGourdSpawn: Rot Gourd has awoken!
 SpookySpiritSpawn: Spooky Spirit has awoken!
+MocoSpawn: Moco has awoken!
 DaffodilSpawn: Daffodil has awoken!
 OrroboroSpawn: Orro & Boro have awoken!
 BigBoneSpawn: Big Bone has awoken!
@@ -8,6 +9,5 @@ EggNoConcoction: You need a special concoction to open the egg
 EggEventBegin: The Egg Incursion has begun!
 EggEventOver: The egg's barrier has been broken!
 EggEventOverBeaten: The egg incursion has ended
-EggEventWaveComplete: Wave Complete!
 RaveyardStart: A rave has started in the cemetery!
 RaveyardEnd: The rave in the cemetery has ended

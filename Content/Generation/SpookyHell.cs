@@ -415,7 +415,7 @@ namespace Spooky.Content.Generation
             bool IsSmallWorld = Main.maxTilesX < 6400;
             bool IsMediumWorld = Main.maxTilesX < 8400 && Main.maxTilesX > 6400;
 
-            origin = new Point(LakeX, WaterHeightLimit - (IsSmallWorld ? 25 : (IsMediumWorld ? 30 : 35)));
+            origin = new Point(LakeX, WaterHeightLimit - (IsSmallWorld ? 25 : (IsMediumWorld ? 28 : 34)));
 			center = origin.ToVector2() * 16f + new Vector2(8f);
 
 			angle = MathHelper.Pi * 0.15f;
@@ -738,7 +738,7 @@ namespace Spooky.Content.Generation
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
 
             //place orroboro nest
-            GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 23, 19);
+            GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 23, 23);
 
             //place random structures after the main ones are generated
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
@@ -860,7 +860,8 @@ namespace Spooky.Content.Generation
                 {
                     Flags.EggPosition = new Vector2(startX * 16, startY * 16);
                     int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
-                    Main.npc[Egg].position.X += 2;
+                    Main.npc[Egg].position.X += 1;
+                    Main.npc[Egg].position.Y -= 32;
                 }
 
                 placed = true;

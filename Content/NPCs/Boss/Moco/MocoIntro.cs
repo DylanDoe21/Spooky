@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Drawing;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -185,6 +187,18 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 if (NPC.ai[2] >= 360)
                 {
                     SoundEngine.PlaySound(SoundID.DD2_BetsyWindAttack, NPC.Center);
+
+                    //spawn message
+                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.MocoSpawn");
+
+                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
+                    else 
+                    {
+                        Main.NewText(text, 171, 64, 255);
+                    }
 
                     //spawn particles
                     for (int numParticles = 0; numParticles <= 12; numParticles++)

@@ -95,29 +95,22 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 				return false;
 			}
 
-			int x = i;
-			int y = j;
-			while (Main.tile[x, y].TileType == Type) x--;
-			x++;
-			while (Main.tile[x, y].TileType == Type) y--;
-			y++;
-
 			Player player = Main.LocalPlayer;
 			if (player.HasItem(ModContent.ItemType<CottonSwab>())) 
 			{
 				SoundEngine.PlaySound(SneezeSound, player.Center);
+				
+				int x = i;
+				int y = j;
+				while (Main.tile[x, y].TileType == Type) x--;
+				x++;
+				while (Main.tile[x, y].TileType == Type) y--;
+				y++;
 
-				//TODO: add a multiplayer packer for this
-				if (Main.netMode != NetmodeID.SinglePlayer) 
-				{
-					//ModPacket packet = Mod.GetPacket();
-					//packet.Write((byte)SpookyMessageType.SpawnMoco);
-					//packet.Send();
-				}
-				else 
-				{
-					NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, x * 16 + 55, y * 16 + 50), (x * 16 + 55), (y * 16 + 50), ModContent.NPCType<MocoSpawner>());
-				}
+				int SpawnX = (x * 16 + 55);
+				int SpawnY = (y * 16 + 50);
+
+				Projectile.NewProjectile(new EntitySource_TileInteraction(player, x * 16, y * 16), SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MocoSpawnerProj>(), 0, 0, Main.myPlayer);
 			}
 
 			return true;

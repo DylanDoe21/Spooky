@@ -32,6 +32,9 @@ namespace Spooky
         public static int SpookySpiritSpawnX;
         public static int SpookySpiritSpawnY;
 
+        public static int MocoSpawnX;
+        public static int MocoSpawnY;
+
         public static int DaffodilSpawnX;
         public static int DaffodilSpawnY;
         public static int DaffodilParent;
@@ -111,14 +114,12 @@ namespace Spooky
                 }
                 case SpookyMessageType.SpawnMoco:
                 {
-                    int Type = ModContent.NPCType<Moco>();
-                    NPC.SpawnOnPlayer(whoAmI, Type);
-                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: whoAmI, number2: Type);
+                    NPC.NewNPC(null, MocoSpawnX, MocoSpawnY, ModContent.NPCType<MocoSpawner>());
 					break;
                 }
                 case SpookyMessageType.SpawnOrroboro:
                 {
-                    NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>(), 0, -1);
+                    NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>(), ai0: -1);
                     break;
                 }
                 case SpookyMessageType.SpawnDaffodilEye:

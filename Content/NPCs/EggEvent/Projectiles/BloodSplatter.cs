@@ -1,63 +1,95 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class BloodSplatter : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 10;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-        }
+        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
+
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[6];
+
+		private static Asset<Texture2D> ProjTexture;
 		
         public override void SetDefaults()
         {
-            Projectile.width = 30;                  			 
-            Projectile.height = 56;          
-			Projectile.friendly = false;
-            Projectile.hostile = true;                 			  		
+			Projectile.width = 18;
+            Projectile.height = 18;
+			Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;             					
-            Projectile.timeLeft = 400;
+            Projectile.ignoreWater = false;
+            Projectile.timeLeft = 35;
+            Projectile.alpha = 255;
+		}
+
+        public override bool PreDraw(ref Color lightColor)
+		{
+			if (runOnce)
+			{
+				return false;
+			}
+
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
+
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				Color color = Color.Red;
+                color *= (Projectile.timeLeft) / 90f;
+
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
+
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
+
+				float max = betweenPositions.Length() / 4;
+
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
+
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
+				}
+
+				previousPosition = currentPos;
+			}
+
+			return true;
 		}
 
         public override void AI()
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 4)
-            {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 10)
-                {
-                    Projectile.Kill();
-                }
-            }
-
-            if (Projectile.ai[0] == 0)
-            {
-                Projectile.velocity *= Main.rand.NextFloat(2f, 2.5f);
-                Projectile.scale = Main.rand.NextFloat(0.95f, 1.25f);
-                Projectile.ai[0] = 1;
-            }
-
             Projectile.velocity.Y += 0.08f;
 
-			//fix Projectile direction
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
-            if (Projectile.direction == 1)
-            {
-			    Projectile.rotation += 0.1f * (float)Projectile.direction;
-            }
-            else
-            {
-                Projectile.rotation += -0.1f * (float)Projectile.direction;
-            }
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = Projectile.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
 		}
     }
 }

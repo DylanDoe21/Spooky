@@ -109,8 +109,8 @@ namespace Spooky.Core
                 if (!NPC.AnyNPCs(ModContent.NPCType<OrroboroEgg>()) && Flags.EggPosition != Vector2.Zero)
                 {
                     int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
-                    Main.npc[Egg].position.X += 5;
-                    Main.npc[Egg].position.Y += 25;
+                    Main.npc[Egg].position.X += 1;
+                    Main.npc[Egg].position.Y -= 32;
                 }
 
                 //spawn moco idols in each ambush room

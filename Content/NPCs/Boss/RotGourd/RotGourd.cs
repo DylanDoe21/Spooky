@@ -32,8 +32,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		public bool SecondFlySpawned = false;
 		public bool ThirdFlySpawned = false;
 
-		Vector2 SavePlayerPosition;
-
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 2;
@@ -52,10 +50,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SendExtraAI(BinaryWriter writer)
         {
-			//ints
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
-
             //bools
 			writer.Write(HasSpawnedFlies);
             writer.Write(FirstFlySpawned);
@@ -70,10 +64,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-			//ints
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
-
 			//bools
 			HasSpawnedFlies = reader.ReadBoolean();
             FirstFlySpawned = reader.ReadBoolean();
@@ -710,11 +700,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 					if (NPC.localAI[1] < 3)
 					{
-						if (NPC.localAI[0] == 2)
-						{
-							SavePlayerPosition = new Vector2(NPC.Center.X, NPC.Center.Y - 250);
-						}
-
 						if (NPC.localAI[0] == 60)
 						{
 							NPC.noTileCollide = true;
@@ -732,7 +717,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 						if (NPC.localAI[0] >= 90)
 						{
-							if (NPC.position.Y >= SavePlayerPosition.Y)
+							if (NPC.position.Y >= player.Center.Y - 150)
 							{
 								NPC.noTileCollide = false;
 							}
@@ -773,6 +758,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							
 							//complete the slam attack
 							NPC.localAI[2] = 1; 
+
+							NPC.netUpdate = true;
 						}
 
 						if (NPC.localAI[2] >= 1)

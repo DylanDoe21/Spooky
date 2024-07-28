@@ -8,15 +8,16 @@ Currently the mod has:
 
 -Tons of other usual content such as weapons, armor sets, accessories, pets, enemies, blocks, and whatever else
 
--Banger soundtracks for the biomes, events, and bosses
+-Banger soundtracks for all of the biomes, events, and bosses
 
 -And more to come in the future!
 
 
 Some Warnings:
 -This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with other mods how you like, but just be aware of potential issues!
--It is also recommended to use medium or large worlds while playing this mod. Small worlds will still work but it may not be ideal for a playthrough, especially with multiple people or if you are using multiple mods with world generation
--While spooky mod is technically "multiplayer compatible", there are currently many issues in the mod that may affect certain features. Most things usually work but things may be unstable! I am going to continue working to fix these issues, but it may take time due to multiplayer issues sometimes being incredibly frustrating to fix, I hope you can understand, and I appreciate the patience!
+-It is also somewhat recommended to use medium or large worlds while playing this mod. Small worlds still work perfectly fine with spooky mod's world generation, but it may not be ideal for a playthrough with multiple people or if you are using multiple mods with lots of world generation
+-Spooky mod is not currently compatible with any of terraria's secret world seeds. It may work with some seeds, but issues such as biomes generating incorrectly, world generation freezing, and crashing may happen!
+-While spooky mod is mostly multiplayer compatible, there may be some issues. Multiplayer issues will continue getting fixed as the mod is worked on, and it would be greatly appreciated if any multiplayer issues you encounter are reported on either this mod's steam page or our discord server
 
 
 [h1]Developers[/h1]

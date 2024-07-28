@@ -34,7 +34,7 @@ namespace Spooky.Content.Generation
             //biome position stuff
             initialStartPosX = GenVars.dungeonX;
             startPosX = GenVars.dungeonX;
-            startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3)) : Main.maxTilesY / 2 + 100;
+            startPosY = Main.maxTilesY >= 1800 ? (Main.maxTilesY - (Main.maxTilesY / 3) - 30) : Main.maxTilesY / 2 + 100;
 
             //attempt to find a valid position for the biome to place in
             bool foundValidPosition = false;
@@ -299,6 +299,15 @@ namespace Spooky.Content.Generation
             GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterSkull", 12, 8);
             GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 30), "OldHunterTorso", 12, 8);
             GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 30), "OldHunterLegs", 12, 8);
+
+            //place giant web in the center of the biome
+            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 8);
+            Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
+
+            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
+            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
+            Main.npc[GiantWeb].position.X += 18;
+            Main.npc[GiantWeb].position.Y += 1518;
             
             //generate structures
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
@@ -443,15 +452,6 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-            
-            //place giant web in the center of the biome
-            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 8);
-            Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
-
-            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
-            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
-            Main.npc[GiantWeb].position.X += 18;
-            Main.npc[GiantWeb].position.Y += 1518;
 
             //spread grass after placing structures, but before placing ambient tiles
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
@@ -741,19 +741,42 @@ namespace Spooky.Content.Generation
         //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
         public static bool CanPlaceBiome(int X, int Y)
         {
-            for (int i = X - 300; i < X + 300; i++)
-            {
-                for (int j = Y - 100; j < Y; j++)
-                {
-                    int[] InvalidTiles = { TileID.SnowBlock, TileID.IceBlock, TileID.Sandstone, TileID.JungleGrass, TileID.LihzahrdBrick };
+            Point origin = new Point(startPosX, startPosY);
+            Vector2 center = origin.ToVector2() * 16f + new Vector2(8f);
 
-                    if (Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType) && !Main.tileDungeon[Main.tile[i, j].TileType])
+            float angle = MathHelper.Pi * 0.15f;
+            float otherAngle = MathHelper.PiOver2 - angle;
+
+            //slightly bigger size than default to account for the area of spider cave walls around the biome
+            int InitialSize = Main.maxTilesY >= 1800 ? 270 : 170;
+            int biomeSize = InitialSize + (Main.maxTilesX / 180);
+            float actualSize = biomeSize * 16f;
+            float constant = actualSize * 2f / (float)Math.Sin(angle);
+
+            float biomeSpacing = actualSize * (float)Math.Sin(otherAngle) / (float)Math.Sin(angle);
+            int verticalRadius = (int)(constant / 16f);
+
+            Vector2 biomeOffset = Vector2.UnitY * biomeSpacing;
+            Vector2 biomeTop = center - biomeOffset;
+            Vector2 biomeBottom = center + biomeOffset;
+
+            //first place a bunch of spider caves as a barrier around the biome
+            for (int i = origin.X - biomeSize - 2; i <= origin.X + biomeSize + 2; i++)
+            {
+                for (int j = (int)(origin.Y - verticalRadius * 0.4f) - 3; j <= origin.Y + verticalRadius + 3; j++)
+                {
+                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
-                        return false;
+                        int[] InvalidTiles = { TileID.SnowBlock, TileID.IceBlock, TileID.Sandstone, TileID.JungleGrass, TileID.LihzahrdBrick };
+
+                        if (WorldGen.InWorld(i, j) && (InvalidTiles.Contains(Main.tile[i, j].TileType) || Main.tileDungeon[Main.tile[i, j].TileType]))
+                        {
+                            return false;
+                        }
                     }
                 }
             }
-
+    
             return true;
         }
 

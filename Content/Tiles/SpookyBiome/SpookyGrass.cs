@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +17,8 @@ namespace Spooky.Content.Tiles.SpookyBiome
 {
 	public class SpookyGrass : ModTile
 	{
+        private static Asset<Texture2D> MergeTexture;
+
 		public override void SetStaticDefaults()
 		{
             TileID.Sets.Grass[Type] = true;
@@ -39,12 +42,15 @@ namespace Spooky.Content.Tiles.SpookyBiome
             if (Main.tile[i - 1, j].TileType == ModContent.TileType<SpookyGrassGreen>() || Main.tile[i + 1, j].TileType == ModContent.TileType<SpookyGrassGreen>() ||
             Main.tile[i, j - 1].TileType == ModContent.TileType<SpookyGrassGreen>() || Main.tile[i, j + 1].TileType == ModContent.TileType<SpookyGrassGreen>())
             {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/SpookyGrassBlend").Value;
+                if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+                {
+                    MergeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/SpookyGrassBlend");
 
-                Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+                    Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
-                spriteBatch.Draw(tex, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-                new Rectangle(Main.tile[i, j].TileFrameX, Main.tile[i, j].TileFrameY, 16, 16), Lighting.GetColor(i, j));
+                    spriteBatch.Draw(MergeTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
+                    new Rectangle(Main.tile[i, j].TileFrameX, Main.tile[i, j].TileFrameY, 16, 16), Lighting.GetColor(i, j));
+                }
             }
         }
 

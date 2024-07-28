@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs.EggEvent
         bool IsFalling = false;
         bool HasSpawnedEyes = false;
 
-        public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/EggEvent/BiojetterFly", SoundType.Sound) { Volume = 0.1f };
+        public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/EggEvent/BiojetterFly", SoundType.Sound) { Volume = 0.35f };
         public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/BiojetterScream", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SquishSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
 
@@ -33,9 +33,9 @@ namespace Spooky.Content.NPCs.EggEvent
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BiojetterBestiary",
-                Position = new Vector2(0f, -10f),
+                Position = new Vector2(0f, -20f),
                 PortraitPositionXOverride = 0f,
-                PortraitPositionYOverride = -10f
+                PortraitPositionYOverride = -20f
             };
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             NPC.lifeMax = 2200;
             NPC.damage = 50;
-            NPC.defense = 50;
+            NPC.defense = 0;
             NPC.width = 152;
             NPC.height = 142;
             NPC.npcSlots = 1f;
@@ -106,6 +106,8 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
+            NPC.rotation = NPC.velocity.X * 0.02f;
+
             if (!HasSpawnedEyes)
             {
                 for (int numEyes = 0; numEyes < 5; numEyes++)
@@ -131,16 +133,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.ai[1] >= 5)
             {
-                NPC.rotation += 0.05f + (NPC.velocity.X / 40);
+                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.ProjectileType<BiojetterDeath>(), NPC.damage, 0, NPC.target);
 
-                NPC.defense = 0;
-                NPC.ai[0] = 2;
-            }
-            else
-            {
-                NPC.rotation = NPC.velocity.X * 0.02f;
-
-                NPC.defense = 50;
+                NPC.active = false;
             }
 
             switch ((int)NPC.ai[0])
@@ -283,25 +278,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         NPC.netUpdate = true;
                     }
-
-                    break;
-                }
-
-                //go blind and fly around crazily and then blow up on contact with a surface
-                case 2:
-                {
-                    /*
-                    NPC.noGravity = false;
-
-                    if (!IsColliding())
-                    {
-                        NPC.localAI[2]++;
-                    }
-                    if (NPC.localAI[2] > 5)
-                    {
-                        NPC.noTileCollide = false;
-                    }
-                    */
 
                     break;
                 }

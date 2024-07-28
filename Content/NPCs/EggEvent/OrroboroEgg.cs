@@ -170,9 +170,11 @@ namespace Spooky.Content.NPCs.EggEvent
             {
                 case 0:
                 {
+                    //Types:
                     //0 = GooSlug
                     //1 = CruxBat
                     //2 = EarWormHead
+                    //3 = Biojetter
                     int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), (int)(Main.LocalPlayer.Center.X + Main.rand.Next(-900, 900)), (int)(NPC.Center.Y + Main.rand.Next(100, 150)), 
                     Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, 0, 0, 0, Type);
                     Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
@@ -182,6 +184,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                 case 1:
                 {
+                    //Types:
                     //0 = HoppingHeart
                     //1 = TongueBiter
                     //2 = ExplodingAppendix
@@ -196,6 +199,7 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
+        //get the total number of active egg incursion enemies
         public int EventActiveNPCCount()
 		{
 			int NpcCount = 0;
