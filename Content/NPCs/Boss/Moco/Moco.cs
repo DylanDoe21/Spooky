@@ -73,16 +73,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //bools
             writer.Write(Phase2);
             writer.Write(Transition);
-            writer.Write(Sneezing);
-            writer.Write(FinishedSneezing);
-            writer.Write(EyesPoppedOut);
             writer.Write(SwitchedSides);
             writer.Write(AfterImages);
 
             //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -94,16 +90,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //bools
             Phase2 = reader.ReadBoolean();
             Transition = reader.ReadBoolean();
-            Sneezing = reader.ReadBoolean();
-            FinishedSneezing = reader.ReadBoolean();
-            EyesPoppedOut = reader.ReadBoolean();
             SwitchedSides = reader.ReadBoolean();
             AfterImages = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -347,6 +339,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         FinishedSneezing = false;
 
                         CurrentFrameX = 2;
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] >= 300)
@@ -617,7 +611,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<GiantSnot>(), Damage, 0, NPC.target, Phase2 ? 1 : 0);
                     }
                     
-                    //after shooting the booger, stay still zip towards the player quickly if the get too far away
+                    //after shooting the booger, zip towards the player quickly if the get too far away
                     if (NPC.localAI[0] >= 155)
                     {
                         //quickly move to a location above the player if they are too far away
@@ -896,6 +890,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<MocoEye>(), Damage, 0f, Main.myPlayer, 0, NPC.whoAmI);
                         }
+
+                        NPC.netUpdate = true;
                     }
 
                     //set this to true so the sneezing animation can finish playing
@@ -904,6 +900,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         CurrentFrameX = 2;
 
                         EyesPoppedOut = false;
+
+                        NPC.netUpdate = true;
                     }
 
                     //go to next attack
@@ -1225,10 +1223,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
         //spawn mocling minions with the provided amount
         public void SpawnMoclings(int Amount)
         {
+            Player player = Main.player[NPC.target];
+
             for (int numFlies = 1; numFlies <= Amount; numFlies++)
             {
-                int SpawnX = Main.rand.NextBool() ? (int)Main.screenPosition.X - 100 : (int)Main.screenPosition.X + Main.screenWidth + 100;
-                int SpawnY = (int)NPC.Center.Y + Main.rand.Next(-100, 100);
+                int SpawnX = Main.rand.NextBool() ? (int)player.Center.X - 1200 : (int)player.Center.X + 1200;
+                int SpawnY = (int)NPC.Center.Y + Main.rand.Next(-300, 300);
 
                 int NewMocling = NPC.NewNPC(NPC.GetSource_FromAI(), SpawnX, SpawnY, ModContent.NPCType<MoclingMinion>(), ai1: NPC.whoAmI);
 

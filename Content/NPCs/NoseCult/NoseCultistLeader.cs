@@ -54,33 +54,23 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(Sneezing);
-            writer.Write(Casting);
-            writer.Write(Charging);
             writer.Write(HasSpawnedEnemies);
             writer.Write(hasCollidedWithWall);
 
             //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
-            writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            Sneezing = reader.ReadBoolean();
-            Casting = reader.ReadBoolean();
-            Charging = reader.ReadBoolean();
             HasSpawnedEnemies = reader.ReadBoolean();
             hasCollidedWithWall = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
-            NPC.localAI[3] = reader.ReadSingle();
         }
 
         public override void SetDefaults()

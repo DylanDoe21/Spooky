@@ -81,6 +81,8 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
             if (Projectile.alpha > 0)
             {
                 Projectile.alpha -= 20;
+                
+                Projectile.netUpdate = true;
             }
 
             if (!IsColliding())

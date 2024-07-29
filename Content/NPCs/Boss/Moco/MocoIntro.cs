@@ -35,6 +35,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            //writer.Write(RandomGoToX);
+            //writer.Write(RandomGoToY);
+
             //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
@@ -43,6 +47,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            //RandomGoToX = reader.ReadInt32();
+            //RandomGoToY = reader.ReadInt32();
+
             //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
@@ -123,6 +131,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 NPC.ai[1]++;
                 NPC.ai[0] = 0;
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.ai[1] >= 3)
@@ -146,7 +156,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             Velocity.Normalize();
                             Velocity *= 5f;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), ProjectilePosition, Velocity, ModContent.ProjectileType<MocoSpawnerPower>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+					        {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), ProjectilePosition, Velocity, ModContent.ProjectileType<MocoSpawnerPower>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+                            }
                         }
                     }
                 }
@@ -217,8 +230,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
 						NetMessage.SendData(MessageID.SyncNPC, number: Moco);
 					}
 
-                    NPC.active = false;
                     NPC.netUpdate = true;
+
+                    NPC.active = false;
                 }
             }
 		}
@@ -244,6 +258,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             }
 
             NPC.velocity = Vector2.Lerp(GoToVelocity.SafeNormalize(Vector2.Zero) * velocityLength, GoToVelocity / 6f, lerpValue);
+            
             NPC.netUpdate = true;
         }
     }
