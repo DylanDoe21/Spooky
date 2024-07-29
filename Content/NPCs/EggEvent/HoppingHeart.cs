@@ -68,14 +68,35 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             NPC.frameCounter++;
 
-            if (NPC.frameCounter > 4)
+            if (NPC.localAI[0] <= 420)
             {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0;
+                if (NPC.frameCounter > 4)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 11)
+                {
+                    NPC.frame.Y = 0 * frameHeight;
+                }
             }
-            if (NPC.frame.Y >= frameHeight * 11)
+            
+            if (NPC.localAI[0] > 420 && NPC.velocity.Y == 0)
             {
-                NPC.frame.Y = 0 * frameHeight;
+                if (NPC.frame.Y >= frameHeight * 11)
+                {
+                    NPC.frame.Y = 12 * frameHeight;
+                }
+
+                if (NPC.frameCounter > 4)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 13)
+                {
+                    NPC.frame.Y = 11 * frameHeight;
+                }
             }
         }
 
@@ -88,7 +109,18 @@ namespace Spooky.Content.NPCs.EggEvent
 
             NPC.rotation = NPC.velocity.Y * (NPC.direction == -1 ? 0.04f : -0.04f);
 
-            JumpToTarget(player, 350, 30);
+            NPC.localAI[0]++;
+            if (NPC.localAI[0] <= 420)
+            {
+                JumpToTarget(player, 350, 30);
+            }
+            else
+            {
+                if (NPC.velocity.Y == 0)
+                {
+
+                }
+            }
         }
 
         public void JumpToTarget(Player target, int JumpHeight, int TimeBeforeNextJump)
@@ -117,11 +149,6 @@ namespace Spooky.Content.NPCs.EggEvent
                 {
                     if (NPC.ai[1] == 10)
                     {
-                        if (target.Distance(NPC.Center) <= 450f)
-                        {
-                            SoundEngine.PlaySound(SoundID.GlommerBounce, NPC.Center);
-                        }
-                        
                         velocity.Y -= 0.25f;
                         
                         HasJumped = true;

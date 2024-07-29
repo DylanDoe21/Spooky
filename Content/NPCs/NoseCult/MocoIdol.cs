@@ -146,16 +146,6 @@ namespace Spooky.Content.NPCs.NoseCult
                 //int playerCount = 0;
                 int playerInEventCount = 0;
 
-                /*
-                //dont count players if they are dead or not active
-                if (!player.active || player.dead)
-                {
-                    continue;
-                }
-
-                playerCount++;
-                */
-
                 if (player.active && !player.dead && player.Hitbox.Intersects(CollisionRectangle))
                 {
                     playerInEventCount++;
@@ -383,9 +373,10 @@ namespace Spooky.Content.NPCs.NoseCult
                             {
                                 NetMessage.SendData(MessageID.WorldData);
                             }
+                            
+                            NPC.netUpdate = true;
 
                             NPC.active = false;
-                            NPC.netUpdate = true;
                         }
                     }
                 }

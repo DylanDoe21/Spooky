@@ -35,26 +35,22 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            //writer.Write(RandomGoToX);
-            //writer.Write(RandomGoToY);
+            //vector2
+            writer.WriteVector2(SaveNPCPosition);
 
             //floats
-            writer.Write(NPC.localAI[0]);
-            writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
+            writer.Write(RandomGoToX);
+            writer.Write(RandomGoToY);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            //RandomGoToX = reader.ReadInt32();
-            //RandomGoToY = reader.ReadInt32();
+            //vector2
+            SaveNPCPosition = reader.ReadVector2();
 
             //floats
-            NPC.localAI[0] = reader.ReadSingle();
-            NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
+            RandomGoToX = reader.ReadSingle();
+            RandomGoToY = reader.ReadSingle();
         }
 
         public override void SetDefaults()

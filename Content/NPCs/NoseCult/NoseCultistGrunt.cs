@@ -23,22 +23,6 @@ namespace Spooky.Content.NPCs.NoseCult
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
 
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(NPC.localAI[0]);
-            writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
-            writer.Write(NPC.localAI[3]);
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            NPC.localAI[0] = reader.ReadSingle();
-            NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
-            NPC.localAI[3] = reader.ReadSingle();
-        }
-        
         public override void SetDefaults()
 		{
             NPC.lifeMax = 150;
@@ -134,6 +118,8 @@ namespace Spooky.Content.NPCs.NoseCult
             if (NPC.localAI[0] >= NPC.localAI[3] && NPC.velocity.Y == 0)
             {
                 NPC.localAI[1] = 1;
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.localAI[1] > 0)

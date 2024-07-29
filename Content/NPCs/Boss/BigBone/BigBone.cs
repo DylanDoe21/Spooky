@@ -103,11 +103,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             writer.Write(SpecialAttack[0]);
             writer.Write(SpecialAttack[1]);
 
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
+            writer.WriteVector2(SaveNPCPosition);
+
             //ints
             writer.Write(ScaleTimerLimit);
             writer.Write(SaveDirection);
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
 
             //bools
             writer.Write(Phase2);
@@ -137,11 +139,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             SpecialAttack[0] = reader.ReadInt32();
             SpecialAttack[1] = reader.ReadInt32();
 
+            //vector2
+            SavePlayerPosition = reader.ReadVector2();
+            SaveNPCPosition = reader.ReadVector2();
+
             //ints
             ScaleTimerLimit = reader.ReadInt32();
             SaveDirection = reader.ReadInt32();
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
 
             //bools
             Phase2 = reader.ReadBoolean();

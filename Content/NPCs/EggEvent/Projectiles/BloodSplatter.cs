@@ -53,13 +53,13 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				Vector2 currentPos = trailLength[k];
 				Vector2 betweenPositions = previousPosition - currentPos;
 
-				float max = betweenPositions.Length() / 4;
+				float max = betweenPositions.Length();
 
 				for (int i = 0; i < max; i++)
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 2f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;

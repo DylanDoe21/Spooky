@@ -128,7 +128,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             for (int numExplosion = 0; numExplosion < 5; numExplosion++)
             {
                 int dust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
-                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.5f));
+                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(0.75f, 1f));
                 Main.dust[dust].noGravity = true;
 
                 if (Main.rand.NextBool(2))

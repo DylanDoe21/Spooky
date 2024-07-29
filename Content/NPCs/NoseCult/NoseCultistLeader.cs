@@ -8,12 +8,10 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
@@ -53,8 +51,12 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //bools
-            writer.Write(HasSpawnedEnemies);
+			//vector2
+            writer.WriteVector2(ParentCenter);
+			writer.WriteVector2(SavePosition);
+
+			//bools
+			writer.Write(HasSpawnedEnemies);
             writer.Write(hasCollidedWithWall);
 
             //floats
@@ -64,6 +66,10 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+			//vector2
+			ParentCenter = reader.ReadVector2();
+			SavePosition = reader.ReadVector2();
+
             //bools
             HasSpawnedEnemies = reader.ReadBoolean();
             hasCollidedWithWall = reader.ReadBoolean();
@@ -249,6 +255,8 @@ namespace Spooky.Content.NPCs.NoseCult
                     if (NPC.localAI[0] == 5)
                     {
                         SavePosition = new Vector2(ParentCenter.X + Main.rand.Next(-350, 350), ParentCenter.Y - Main.rand.Next(50, 150));
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] > 5)
@@ -528,8 +536,11 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         int[] Types = new int[] { ModContent.ProjectileType<NoseBallPurpleProj>(), ModContent.ProjectileType<NoseBallRedProj>() };
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
-                        Main.rand.Next(-10, 11), Main.rand.Next(-12, -2), Main.rand.Next(Types), 0, 0f, Main.myPlayer);
+						if (Main.netMode != NetmodeID.MultiplayerClient)
+						{
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
+							Main.rand.Next(-10, 11), Main.rand.Next(-12, -2), Main.rand.Next(Types), 0, 0f, Main.myPlayer);
+						}
                     }
 
                     if (NPC.localAI[0] >= 200)

@@ -66,6 +66,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
+            writer.WriteVector2(SaveNPCPosition);
+
             //ints
             writer.Write(CurrentFrameX);
             writer.Write(SaveDirection);
@@ -83,6 +87,10 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //vector2
+            SavePlayerPosition = reader.ReadVector2();
+            SaveNPCPosition = reader.ReadVector2();
+
             //ints
             CurrentFrameX = reader.ReadInt32();
             SaveDirection = reader.ReadInt32();

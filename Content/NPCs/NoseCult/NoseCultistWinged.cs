@@ -2,13 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
-using ReLogic.Content;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -31,7 +28,21 @@ namespace Spooky.Content.NPCs.NoseCult
             };
         }
 
-        public override void SetDefaults()
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			//vector2
+			writer.WriteVector2(ParentCenter);
+			writer.WriteVector2(SavePosition);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			//vector2
+			ParentCenter = reader.ReadVector2();
+			SavePosition = reader.ReadVector2();
+		}
+
+		public override void SetDefaults()
         {
             NPC.lifeMax = 230;
             NPC.damage = 30;
@@ -128,7 +139,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     ShootSpeed.Normalize();
                     ShootSpeed *= 12f;
 
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
 
                     NPC.ai[2]++;
 

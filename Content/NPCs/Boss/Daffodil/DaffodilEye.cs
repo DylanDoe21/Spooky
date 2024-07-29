@@ -62,9 +62,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
 
             //bools
             writer.Write(Phase2);
@@ -80,9 +79,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
+            //vector2
+            SavePlayerPosition = reader.ReadVector2();
 
             //bools
             Phase2 = reader.ReadBoolean();

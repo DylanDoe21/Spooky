@@ -74,7 +74,10 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
                 ShootSpeed.X *= Main.rand.NextFloat(10f, 15f);
                 ShootSpeed.Y *= Main.rand.NextFloat(10f, 15f);
 
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, ShootSpeed, ModContent.ProjectileType<OrbitingBoogerProj>(), NPC.damage / 4, 0f, Main.myPlayer);
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, ShootSpeed, ModContent.ProjectileType<OrbitingBoogerProj>(), NPC.damage / 4, 0f, Main.myPlayer);
+				}
 
                 NPC.active = false;
             }

@@ -32,12 +32,18 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
+
             //bools
             writer.Write(HasHitSurface);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //vector2
+            SavePlayerPosition = reader.ReadVector2();
+
             //bools
             HasHitSurface = reader.ReadBoolean();
         }
