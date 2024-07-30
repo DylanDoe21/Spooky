@@ -331,6 +331,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (Parent.localAI[0] == 60)
                     {
                         SavePlayerPosition = player.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     if (Parent.localAI[0] == 70)
@@ -368,6 +370,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             SpookyPlayer.ScreenShakeAmount = 8;
 
                             HasHitSurface = true;
+
+                            NPC.netUpdate = true;
                         }
                     }
                     
@@ -380,6 +384,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (Parent.localAI[0] >= 250)
                     {
                         HasHitSurface = false;
+
+                        NPC.netUpdate = true;
                     }
 
                     break;

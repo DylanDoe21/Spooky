@@ -109,6 +109,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 RandomGoToX = Main.rand.NextFloat(-85f, 85f);
                 RandomGoToY = Main.rand.NextFloat(-100f, -50f);
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.ai[0] > 1 && NPC.ai[0] <= 10)
@@ -163,6 +165,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 if (NPC.ai[2] == 300)
                 {
                     SaveNPCPosition = NPC.Center;
+
+                    NPC.netUpdate = true;
                 }
 
                 if (NPC.ai[2] >= 300)

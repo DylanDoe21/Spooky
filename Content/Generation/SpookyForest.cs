@@ -15,6 +15,7 @@ using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
+using Spooky.Content.Tiles.SpookyBiome.Gourds;
 using Spooky.Content.Tiles.SpookyBiome.Mushrooms;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 
@@ -381,9 +382,11 @@ namespace Spooky.Content.Generation
                     if (tile.TileType == (ushort)ModContent.TileType<SpookyGrass>())
                     {
                         //gourds
-                        if (WorldGen.genRand.NextBool(7))
+                        if (WorldGen.genRand.NextBool(3) && CanGrowGourd(X, Y))
                         {
-                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium>(), (ushort)ModContent.TileType<GourdGiant>() };
+                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdGreen>(), (ushort)ModContent.TileType<GourdLime>(), 
+                            (ushort)ModContent.TileType<GourdLimeOrange>(), (ushort)ModContent.TileType<GourdOrange>(), (ushort)ModContent.TileType<GourdRed>(), 
+                            (ushort)ModContent.TileType<GourdWhite>(), (ushort)ModContent.TileType<GourdYellow>(), (ushort)ModContent.TileType<GourdYellowGreen>() };
 
                             WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, WorldGen.genRand.Next(0, 2));
                         }
@@ -403,11 +406,13 @@ namespace Spooky.Content.Generation
                     if (tile.TileType == (ushort)ModContent.TileType<SpookyGrassGreen>())
                     {
                         //gourds
-                        if (WorldGen.genRand.NextBool(7))
+                        if (WorldGen.genRand.NextBool(3) && CanGrowGourd(X, Y))
                         {
-                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdSmall>(), (ushort)ModContent.TileType<GourdLarge>() };
+                            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdGreen>(), (ushort)ModContent.TileType<GourdLime>(), 
+                            (ushort)ModContent.TileType<GourdLimeOrange>(), (ushort)ModContent.TileType<GourdOrange>(), (ushort)ModContent.TileType<GourdRed>(), 
+                            (ushort)ModContent.TileType<GourdWhite>(), (ushort)ModContent.TileType<GourdYellow>(), (ushort)ModContent.TileType<GourdYellowGreen>() };
 
-                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, WorldGen.genRand.Next(0, 2));    
+                            WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Gourds), true, WorldGen.genRand.Next(0, 2));
                         }
 
                         //grow weeds
@@ -647,6 +652,27 @@ namespace Spooky.Content.Generation
                 for (int j = Y; j < Y + 300; j++)
                 {
                     if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        //make sure normal gourds cant place close to each other
+        public static bool CanGrowGourd(int X, int Y)
+        {
+            ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdGreen>(), (ushort)ModContent.TileType<GourdLime>(), 
+            (ushort)ModContent.TileType<GourdLimeOrange>(), (ushort)ModContent.TileType<GourdOrange>(), (ushort)ModContent.TileType<GourdRed>(), 
+            (ushort)ModContent.TileType<GourdWhite>(), (ushort)ModContent.TileType<GourdYellow>(), (ushort)ModContent.TileType<GourdYellowGreen>() };
+
+            for (int i = X - 10; i < X + 10; i++)
+            {
+                for (int j = Y - 5; j < Y + 5; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Gourds.Contains(Main.tile[i, j].TileType))
                     {
                         return false;
                     }

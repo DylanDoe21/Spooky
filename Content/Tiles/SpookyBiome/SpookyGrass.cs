@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
+using Spooky.Content.Tiles.SpookyBiome.Gourds;
 using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Tiles.SpookyBiome
@@ -79,9 +80,11 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 }
                 
                 //grow colored gourds
-                if (Main.rand.NextBool(40))
+                if (Main.rand.NextBool(40) && SpookyForest.CanGrowGourd(i, j))
                 {
-                    ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdMedium>(), (ushort)ModContent.TileType<GourdGiant>() };
+                    ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdGreen>(), (ushort)ModContent.TileType<GourdLime>(), 
+                    (ushort)ModContent.TileType<GourdLimeOrange>(), (ushort)ModContent.TileType<GourdOrange>(), (ushort)ModContent.TileType<GourdRed>(), 
+                    (ushort)ModContent.TileType<GourdWhite>(), (ushort)ModContent.TileType<GourdYellow>(), (ushort)ModContent.TileType<GourdYellowGreen>() };
 
                     ushort newObject = Main.rand.Next(Gourds);
 

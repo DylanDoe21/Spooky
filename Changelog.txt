@@ -26,17 +26,17 @@ New Nose Dungeon:
 -While the actual dungeon bricks are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with gray occultist bricks
 
 
-Moco Rework:
+New Moco Rework:
 
--Moco has new AI now because his fight was very old and outdated compared to every other spooky mod boss so we took the opportunity to update it
--To keep it a surprise, you will have to fight moco in game to find out what its like
+-Because its fight was very old and outdated compared to every other spooky mod boss, and with the introduction of the nose dungeon, we decided to rework mocos AI to make it feel more unique and up to date
+-To keep it a surprise, you will have to fight moco in game to find out what its like (I am also too lazy to write out mocos entire attack pattern)
 
 
 Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
 
--Little eye's quest system has now been entirely reworked into a bounty quest type system, with a brand new UI, and 4 brand new minibosses to fight
+-Little eye's quest system has been entirely reworked into an optional bounty-like system, with a new UI, and 4 new little minibosses to fight
 -Each quest will have you go to each main spooky mod biome and find a miniboss which you will fight and then bring back the item it drops back to little eye for rewards
--You can also complete all 4 of the bounties in any order you like, but once you choose a bounty, you must complete that bounty before you can select another one
+-You can now complete all 4 of the bounties in any order you like, but once you choose a bounty, you must complete that bounty before you can select another one
 -Orro-boro is now also a bounty quest, but it is separate from the other 4 and you can unlock it by defeating all 3 mechanical bosses
 (The orro-boro bounty is also not tied to the other ones, meaning you do not have to complete any of the other 4 bounties to unlock it)
 -Each miniboss also has some unique rewards they drop if you want some extra goodies
@@ -93,7 +93,8 @@ Other Miscellaneous Additions:
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
 -Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory
 -Added a few new types of zomboids that spawn during various vanilla events
--Added sentient versions of the following items: Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, Deadly Sphere Staff
+-Added some new sprites for the existing spooky forest gourd tiles, added a few more gourd variants with their own unique carved faces, and made rotten gourds carvable
+-Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
 
 
 
@@ -130,6 +131,7 @@ Weapons & Gear:
 -Massively buffed the soul skull scepter minions charging speed
 -Slightly increased the thorn daggers base use speed
 -Root armor set bonus healing now has a 5 second cooldown before you can heal again
+-Nerfed gator guns base damage from 45 to 35
 
 
 Enemy & Boss Changes:
@@ -157,11 +159,11 @@ Enemy & Boss Changes:
 -Daffodil now has a new punch attack in phase 2
 -Spooky spirit now has a new eye deathbeam projectile to fix collision issues the previous one had
 -Nerfed spooky spirit's base health from 3500 to 3000, and its base defense from 15 to 8
+-Lowered the threshold for rot gourd to enter into its desperation phase (Previously was (Rot Gourd Max HP / 3), it is now (Rot Gourd Max HP / 4))
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Heavily nerfed monster eyes jumping rate and speed, and added a new gore effect when they die
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
 -Lowered the defense of some of the spider grotto enemies
--Nerfed all of the egg incursion enemies health
 
 
 Miscellaneous:
@@ -174,16 +176,16 @@ Miscellaneous:
 -Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
 -Old hunter pieces now have better generation and place in spots that are a bit easier to find
--All fishing rods can now fish in the blood lake in the eye valley, but the goblin shark rod is still the only way to fish up the blood lake enemies
+-All fishing rods can now fish in the blood lake in the eye valley (The goblin shark rod is still the only way to fish up the blood lake enemies)
+-Spooky forest gourds can no longer naturally grow too close to each other
 -Revamped the visual effects for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
--Egg incursion now has 8 waves instead of 12
 
 
 Removals:
 
--Removed all the previous catacomb second layer enemies, replaced with new ones mentioned above
+-Removed all the previous catacomb second layer enemies, replaced with new ones mentioned in the catacomb improvements section
+-Removed the feature where gravestones wouldn't spawn from your character if you died in the catacombs, since you can now break blocks in the catacombs
 -Removed the cotton swabs crafting recipe due to the new way it is obtained
--Removed the mechanic where gravestones wouldn't spawn from your character if you died in the catacombs since you can now break blocks in it
 
 
 
@@ -217,8 +219,9 @@ Fixed all of the following bugs and issues:
 -I.C.U rocket projectile having collision issues and its afterimages drawing extremely weirdly
 -Moco's lingering booger projectiles getting stuck inside of blocks if moco is inside of blocks when shooting them
 -Goblin shark rod being able to fish in lava
--Fixed multiple spooky mod worldgen variables using Main.rand instead of WorldGen.genRand (If you don't know why this is important, WorldGen.genRand is a number generator but it depends on the world seed, whereas Main.rand doesn't)
+-Multiple spooky mod worldgen variables using Main.rand instead of WorldGen.genRand (For context, WorldGen.genRand is a number generator that stays the same depending on the world seed, whereas Main.rand doesn't)
 -Yellow candy buff from the bag o' treats not displaying the correct bonus it gives (It is meant to give 10% increased whip use speed, not an extra minion slot)
+-Gator gun and venom gasser doing contact damage
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 
@@ -229,6 +232,7 @@ Fixed all of the following multiplayer bugs and issues:
 -Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack not actually impacting the ground and creating projectiles
+-A lot of enemies and bosses in the mod having janky/glitchy movement
 -Attempted to fix some desyncing issues with the pandoras box event
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
 -Eye stalk trees and glowshroom trees immediately breaking when growing

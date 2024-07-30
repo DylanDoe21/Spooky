@@ -170,7 +170,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 				NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
 			}
 
-			if (NPC.life > (NPC.lifeMax / 3))
+			if (NPC.life > (NPC.lifeMax / 4))
 			{
 				spriteBatch.Draw(moldTex3, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
 				NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
@@ -220,7 +220,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 				NPC.netUpdate = true;
 			}
 
-			if (NPC.life < (NPC.lifeMax / 3) && !ThirdFlySpawned)
+			if (NPC.life < (NPC.lifeMax / 4) && !ThirdFlySpawned)
 			{
 				NPC.localAI[0] = 0;
 				NPC.localAI[1] = 0;
@@ -711,6 +711,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						if (NPC.localAI[0] == 2)
 						{
 							SavePlayerPosition = new Vector2(NPC.Center.X, NPC.Center.Y - 250);
+
+							NPC.netUpdate = true;
 						}
 
 						if (NPC.localAI[0] == 60)

@@ -566,6 +566,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         int time1 = Enraged ? 60 : 80;
                         int time2 = Enraged ? 120 : 160;
                         int time3 = Enraged ? 180 : 240;
+                        
                         if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                         {
                             Vector2 CenterPoint = player.Center;
@@ -574,6 +575,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             
                             //use SavePlayerPosition to save where the telegraph was
                             SavePlayerPosition = CenterPoint;
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)

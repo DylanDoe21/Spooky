@@ -558,6 +558,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     if (NPC.localAI[0] == 60)
                     {
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake, and cause a circle of dusts around big bone that becomes bigger over time
@@ -1058,6 +1060,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             SaveRotation = NPC.rotation;
                             SaveDirection = NPC.direction;
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 240)
@@ -1433,6 +1437,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 
                         Recoil *= -5; 
                         NPC.velocity = Recoil;
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)

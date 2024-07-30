@@ -35,7 +35,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         bool ActuallyDead = false;
 
         Vector2[] SavePoint = new Vector2[5];
-        Vector2 SavePlayerPosition;
 
         private static Asset<Texture2D> EyeTexture;
 
@@ -62,9 +61,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //vector2
-            writer.WriteVector2(SavePlayerPosition);
-
             //bools
             writer.Write(Phase2);
             writer.Write(SpawnedHands);
@@ -79,9 +75,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //vector2
-            SavePlayerPosition = reader.ReadVector2();
-
             //bools
             Phase2 = reader.ReadBoolean();
             SpawnedHands = reader.ReadBoolean();

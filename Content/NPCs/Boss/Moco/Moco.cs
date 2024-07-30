@@ -307,6 +307,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     if (NPC.localAI[0] == 60)
                     {
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 240)
@@ -475,6 +477,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         AfterImages = false;
 
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake
@@ -582,6 +586,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         AfterImages = false;
 
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake
@@ -709,6 +715,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         AfterImages = false;
 
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake
@@ -847,6 +855,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         AfterImages = false;
 
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake
@@ -861,6 +871,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.localAI[1] = NPC.rotation;
 
                         SavePlayerPosition = player.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] > 100)
@@ -956,6 +968,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     if (NPC.localAI[0] == 90)
                     {
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake
@@ -1045,6 +1059,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 140)
                     {
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //shake
@@ -1176,6 +1192,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         AfterImages = false;
 
                         SaveNPCPosition = NPC.Center;
+
+                        NPC.netUpdate = true;
 
                         //summon moclings if there isnt any
                         int Amount = 12 - NumberOfMoclings();

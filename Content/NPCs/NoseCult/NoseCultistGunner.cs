@@ -148,6 +148,8 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.localAI[0] = 0;
                 NPC.localAI[1] = 0;
                 NPC.localAI[2] = 0;
+
+                NPC.netUpdate = true;
             }
         }
 

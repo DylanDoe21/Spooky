@@ -119,6 +119,8 @@ namespace Spooky.Content.NPCs.NoseCult
             if (NPC.ai[1] == 5)
             {
                 SavePosition = new Vector2(ParentCenter.X + Main.rand.Next(-300, 300), ParentCenter.Y - Main.rand.Next(10, 150));
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.ai[1] > 5 && NPC.ai[0] < 180)

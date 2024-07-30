@@ -330,6 +330,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     if (NPC.localAI[0] == 180 || NPC.localAI[0] == 380)
                     {
                         SavePlayerPosition = player.Center;
+
+                        NPC.netUpdate = true;
                     }
 
                     //slow down before charging

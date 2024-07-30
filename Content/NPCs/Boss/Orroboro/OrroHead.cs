@@ -522,6 +522,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[0] == 200)
                         {
                             SavePlayerPosition = player.Center;
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.localAI[0] == 210)

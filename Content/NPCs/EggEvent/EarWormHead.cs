@@ -16,8 +16,6 @@ namespace Spooky.Content.NPCs.EggEvent
     public class EarWormHead : ModNPC
     {
         private bool segmentsSpawned;
-        
-        Vector2 SavePlayerPosition;
 
         private static Asset<Texture2D> NPCTexture;
 
@@ -38,18 +36,12 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //vector2
-			writer.WriteVector2(SavePlayerPosition);
-
             //bools
             writer.Write(segmentsSpawned);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //vector2
-			SavePlayerPosition = reader.ReadVector2();
-
             //bools
             segmentsSpawned = reader.ReadBoolean();
         }

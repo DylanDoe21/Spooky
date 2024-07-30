@@ -3012,46 +3012,6 @@ WebBlockItem: {
 	Tooltip: ""
 }
 
-GourdGiantItem: {
-	DisplayName: Red Carved Gourd
-	Tooltip: ""
-}
-
-GourdGiantLitItem: {
-	DisplayName: Red Gourd O' Lantern
-	Tooltip: ""
-}
-
-GourdLargeItem: {
-	DisplayName: Orange Carved Gourd
-	Tooltip: ""
-}
-
-GourdLargeLitItem: {
-	DisplayName: Orange Gourd O' Lantern
-	Tooltip: ""
-}
-
-GourdMediumItem: {
-	DisplayName: Yellow Carved Gourd
-	Tooltip: ""
-}
-
-GourdMediumLitItem: {
-	DisplayName: Yellow Gourd O' Lantern
-	Tooltip: ""
-}
-
-GourdSmallItem: {
-	DisplayName: Green Carved Gourd
-	Tooltip: ""
-}
-
-GourdSmallLitItem: {
-	DisplayName: Green Gourd O' Lantern
-	Tooltip: ""
-}
-
 CandleItem: {
 	DisplayName: Old Wax Candle
 	Tooltip:
@@ -3157,6 +3117,96 @@ TinyGhostJarItem: {
 
 TinyMushroomCageItem: {
 	DisplayName: Tiny Mushroom Cage
+	Tooltip: ""
+}
+
+GourdGreenCarvedItem: {
+	DisplayName: Green Carved Gourd
+	Tooltip: ""
+}
+
+GourdGreenCarvedLitItem: {
+	DisplayName: Green Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdLimeCarvedItem: {
+	DisplayName: Lime Carved Gourd
+	Tooltip: ""
+}
+
+GourdLimeCarvedLitItem: {
+	DisplayName: Lime Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdLimeOrangeCarvedItem: {
+	DisplayName: Lime-Orange Carved Gourd
+	Tooltip: ""
+}
+
+GourdLimeOrangeCarvedLitItem: {
+	DisplayName: Lime-Orange Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdOrangeCarvedItem: {
+	DisplayName: Orange Carved Gourd
+	Tooltip: ""
+}
+
+GourdOrangeCarvedLitItem: {
+	DisplayName: Orange Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdRedCarvedItem: {
+	DisplayName: Red Carved Gourd
+	Tooltip: ""
+}
+
+GourdRedCarvedLitItem: {
+	DisplayName: Red Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdRottenCarvedItem: {
+	DisplayName: Rotten Carved Gourd
+	Tooltip: ""
+}
+
+GourdRottenCarvedLitItem: {
+	DisplayName: Rotten Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdWhiteCarvedItem: {
+	DisplayName: White Carved Gourd
+	Tooltip: ""
+}
+
+GourdWhiteCarvedLitItem: {
+	DisplayName: White Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdYellowCarvedItem: {
+	DisplayName: Yellow Carved Gourd
+	Tooltip: ""
+}
+
+GourdYellowCarvedLitItem: {
+	DisplayName: Yellow Gourd-o-Lantern
+	Tooltip: ""
+}
+
+GourdYellowGreenCarvedItem: {
+	DisplayName: Yellow-Green Carved Gourd
+	Tooltip: ""
+}
+
+GourdYellowGreenCarvedLitItem: {
+	DisplayName: Yellow-Green Gourd-o-Lantern
 	Tooltip: ""
 }
 
