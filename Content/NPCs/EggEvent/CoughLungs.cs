@@ -134,11 +134,11 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 6; numGores++)
+                for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/GlutinousGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CoughLungGore" + numGores).Type);
                     }
                 }
             }

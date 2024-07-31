@@ -133,9 +133,12 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.ai[1] >= 5)
             {
+                NPC.immortal = false;
+                NPC.dontTakeDamage = false;
+
                 Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.ProjectileType<BiojetterDeath>(), NPC.damage, 0, NPC.target);
 
-                NPC.active = false;
+                player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
             }
 
             switch ((int)NPC.ai[0])

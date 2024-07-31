@@ -159,10 +159,26 @@ namespace Spooky.Content.NPCs.EggEvent
                 //explode
                 if (NPC.ai[2] >= 120)
                 {
-                    SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
                     SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryShot, NPC.Center);
 
-                    //TODO: produce gores and projectiles here
+                    //lingering ichor cloud
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage / 4, 0);
+
+                    //spawn splatter
+                    int NumProjectiles = Main.rand.Next(15, 25);
+                    for (int i = 0; i < NumProjectiles; i++)
+                    {
+                        //chance to shoot them directly up
+                        if (Main.rand.NextBool(2))
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 4), Main.rand.Next(-8, -3), ModContent.ProjectileType<AppendixSplatter>(), 0, 0);
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-8, -1), ModContent.ProjectileType<AppendixSplatter>(), 0, 0);
+                        }
+                    }
 
                     player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                 }
@@ -178,7 +194,13 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                //Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.ProjectileType<VesicatorDeath>(), NPC.damage, 0, NPC.target);
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ExplodingAppendixGore" + numGores).Type);
+                    }
+                }
             }
         }
     }

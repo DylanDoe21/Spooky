@@ -83,6 +83,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             }
 
             //timer for when it should start attacking you
+            //dont increase at all if the player is wearing the full combined accessory
             if (!player.GetModPlayer<SpookyPlayer>().CreepyPasta)
             {
                 Projectile.ai[1]++;

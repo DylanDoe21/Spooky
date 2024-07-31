@@ -24,7 +24,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.DefaultToWhip();
 
 			Projectile.WhipSettings.Segments = 50;
-			Projectile.WhipSettings.RangeMultiplier = 1.75f;
+			Projectile.WhipSettings.RangeMultiplier = 2.1f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 

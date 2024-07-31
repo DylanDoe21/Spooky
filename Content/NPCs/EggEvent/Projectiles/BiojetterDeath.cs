@@ -38,13 +38,18 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            Color color = new Color(127, 127, 127, 0).MultiplyRGBA(Color.Red);
+            Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Red);
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
-
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;
             Rectangle rectangle = new(0, AuraTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, AuraTexture.Width(), AuraTexture.Height() / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(AuraTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.ai[0] / 35 + (Projectile.ai[0] < 450 ? time : time2), SpriteEffects.None, 0);
+
+            for (int i = 0; i < 360; i += 90)
+            {
+                Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
+
+                Main.EntitySpriteDraw(AuraTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color * 0.2f, Projectile.rotation - i, drawOrigin, Projectile.ai[0] / 35 + (Projectile.ai[0] < 450 ? time : time2), SpriteEffects.None, 0);
+            }
 
             return true;
         }
@@ -154,11 +159,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             }
 
             //spawn vesicator gores
-            for (int numGores = 1; numGores <= 10; numGores++)
+            for (int numGores = 1; numGores <= 7; numGores++)
             {
                 if (Main.netMode != NetmodeID.Server) 
                 {
-                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-22, 22), Main.rand.Next(-15, -2)), ModContent.Find<ModGore>("Spooky/VesicatorGore" + numGores).Type);
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-22, 22), Main.rand.Next(-15, -2)), ModContent.Find<ModGore>("Spooky/BiojetterGore" + numGores).Type);
                 }
             }
 

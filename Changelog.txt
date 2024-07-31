@@ -17,18 +17,16 @@ Eye Valley Improvements:
 
 New Nose Dungeon:
 
--A large linear dungeon in the eye valley consisting of large combat rooms connected by hallways, inhabited by strange cultists
--Found at the very edge of the biome is a large broken temple with a brand new fancy looking statue used to summon moco
+-A large linear dungeon in the eye valley inhabited by strange cultists
 -The entrance of the dungeon is blocked off by a locked trapdoor, which can only be opened with a shadow key
 -At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other combat rooms
--At the end of the last room, you can enter a funny fire exit tunnel to backtrack to the entrance, where the barrier previously blocking the opposite side is now opened
--This newly opened hallway takes you to a giant arena where you will fight a new mini-boss
+-At the end of the dungeon, you can use the fire exit to back track to the beginning without having to go back through the spike-filled hallways or combat rooms
 -While the actual dungeon bricks are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with gray occultist bricks
 
 
 New Moco Rework:
 
--Because its fight was very old and outdated compared to every other spooky mod boss, and with the introduction of the nose dungeon, we decided to rework mocos AI to make it feel more unique and up to date
+-Because its fight was very old and outdated compared to every other spooky mod boss, and with the introduction of the nose dungeon, we decided to rework mocos AI to make it feel more unique and up-to-date
 -To keep it a surprise, you will have to fight moco in game to find out what its like (I am also too lazy to write out mocos entire attack pattern)
 
 
@@ -36,10 +34,10 @@ Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
 
 -Little eye's quest system has been entirely reworked into an optional bounty-like system, with a new UI, and 4 new little minibosses to fight
 -Each quest will have you go to each main spooky mod biome and find a miniboss which you will fight and then bring back the item it drops back to little eye for rewards
--You can now complete all 4 of the bounties in any order you like, but once you choose a bounty, you must complete that bounty before you can select another one
--Orro-boro is now also a bounty quest, but it is separate from the other 4 and you can unlock it by defeating all 3 mechanical bosses
-(The orro-boro bounty is also not tied to the other ones, meaning you do not have to complete any of the other 4 bounties to unlock it)
--Each miniboss also has some unique rewards they drop if you want some extra goodies
+-Each miniboss also has some unique rewards they drop along with the quest item you have to turn in
+-You can also now complete all 4 of the bounties in any order you like, however once you choose a specific bounty, you must complete that bounty before you can select another one
+-Orro-boro is now a bounty quest, and becomes available to you after defeating all 3 mechanical bosses, after which little eye will give you the concoction
+(NOTE: The orro-boro bounty is also no longer tied to the other quests, meaning you do not have to complete any of the other 4 bounties to unlock it, but you will still miss out on some unique items!)
 
 
 Catacomb Improvements:
@@ -107,7 +105,7 @@ Weapons & Gear:
 -Every single spooky mod whip has been buffed, they have all recieved some combination of damage buffs, range buffs, and/or buffs to their special abilities
 -Living flesh armor set bonus changed, you now have a chance to spawn eye projectiles that fling themselves at enemies to deal more damage whenever you hit them with a whip
 -Increased the use speed of the harvester's scythe
--Buffed spooky busters use speed and knockback a bit
+-Buffed spooky busters damage, use speed, and knockback a bit, and the skull bomb projectiles now fall faster
 -Smile dog no longer attempts to attack the player while you have the creepypasta combination accessory equipped
 -Buffed dave & mike's base damage and critical strike chance
 -Reduced the spirit amulet's homing seeds base damage from 30 to 20, and they no longer inflict knockback on enemies
@@ -132,6 +130,8 @@ Weapons & Gear:
 -Slightly increased the thorn daggers base use speed
 -Root armor set bonus healing now has a 5 second cooldown before you can heal again
 -Nerfed gator guns base damage from 45 to 35
+-Buffed the damage from all projectiles spawned by the combined creepypasta accessory
+-Slightly reduced the range slenderman tentacles can detect enemies
 
 
 Enemy & Boss Changes:
@@ -168,7 +168,7 @@ Enemy & Boss Changes:
 
 Miscellaneous:
 
--Sentient hearts now only require 2 to be researched in journey mode to unlock duplication
+-Sentient hearts now only require 1 to be researched in journey mode to unlock duplication
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up, and now produces gores when it lands or hits daffodil
 -The giant egg in the eye valley now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
@@ -236,4 +236,4 @@ Fixed all of the following multiplayer bugs and issues:
 -Attempted to fix some desyncing issues with the pandoras box event
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
 -Eye stalk trees and glowshroom trees immediately breaking when growing
--Spooky mod grass blocks not being saved on world exit when placed with seeds
+-Spooky mod grass blocks not being saved when placed with seeds

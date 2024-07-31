@@ -16,8 +16,8 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.noUseGraphic = true;
 			Item.width = 40;
 			Item.height = 48;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
+			Item.useTime = 28;
+			Item.useAnimation = 28;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;

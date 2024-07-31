@@ -189,10 +189,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (Main.netMode != NetmodeID.Server) 
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
-                {
-                    //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, ModContent.Find<ModGore>("Spooky/OrroHeadGore" + numGores).Type);
-                }
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, ModContent.Find<ModGore>("Spooky/EarWormGore1").Type);
             }
 
             return true;

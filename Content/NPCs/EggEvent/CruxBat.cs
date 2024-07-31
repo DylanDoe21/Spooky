@@ -209,18 +209,16 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
-            /*
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 4; numGores++)
+                for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CruxGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CruxBatGore" + numGores).Type);
                     }
                 }
             }
-            */
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.defense = 0;
             NPC.width = 2;
             NPC.height = 2;
+            NPC.npcSlots = 0f;
             NPC.knockBackResist = 0f;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;

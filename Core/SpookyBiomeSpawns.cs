@@ -447,7 +447,7 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				int[] SpiderGrottoTiles = { ModContent.TileType<DampGrass>(), ModContent.TileType<DampSoil>(), ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomMoss>() };
+				int[] SpiderGrottoTiles = { ModContent.TileType<DampGrass>(), ModContent.TileType<DampSoil>(), ModContent.TileType<WebBlock>(), ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomMoss>() };
 
 				//do not allow spider grotto enemies to spawn on non spider grotto tiles
 				if (SpiderGrottoTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
@@ -468,25 +468,25 @@ namespace Spooky.Core
 					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
-						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 3);
-						pool.Add(ModContent.NPCType<JumpingSpider1>(), 3);
-						pool.Add(ModContent.NPCType<JumpingSpider2>(), 3);
-						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
-						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver1>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver2>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver3>(), 2);
-						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 4);
+						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 4);
+						pool.Add(ModContent.NPCType<JumpingSpider1>(), 4);
+						pool.Add(ModContent.NPCType<JumpingSpider2>(), 4);
+						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 4);
+						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 3);
+						pool.Add(ModContent.NPCType<OrbWeaver1>(), 3);
+						pool.Add(ModContent.NPCType<OrbWeaver2>(), 3);
+						pool.Add(ModContent.NPCType<OrbWeaver3>(), 3);
+						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 5);
 
 						if (Main.hardMode)
 						{
-							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
-							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
-							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
-							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 2);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 1);
-							pool.Add(ModContent.NPCType<WhipSpider>(), 1);
+							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 2);
+							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 2);
+							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 2);
+							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 2);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 3);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 2);
+							pool.Add(ModContent.NPCType<WhipSpider>(), 2);
 						}
 					}
 				}

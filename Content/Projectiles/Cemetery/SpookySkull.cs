@@ -63,7 +63,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             Projectile.rotation += 0.2f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
             Projectile.velocity.X = Projectile.velocity.X * 0.99f;
 
             if (Projectile.velocity.Y > 1)

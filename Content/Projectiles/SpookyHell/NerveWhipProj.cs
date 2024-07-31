@@ -22,7 +22,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.DefaultToWhip();
 
 			Projectile.WhipSettings.Segments = 30;
-			Projectile.WhipSettings.RangeMultiplier = 1.25f;
+			Projectile.WhipSettings.RangeMultiplier = 1.5f;
 		}
 
 		int numHits = 0;

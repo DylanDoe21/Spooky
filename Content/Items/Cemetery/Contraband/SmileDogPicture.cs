@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<SmilingDog>()] <= 0;
 			if (NotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<SmilingDog>(), 25, 2f, player.whoAmI);
+				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<SmilingDog>(), 30, 1f, player.whoAmI);
 			}
         }
     }

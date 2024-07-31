@@ -128,7 +128,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 {
                     Projectile.ai[0] = 10 + Main.rand.Next(10);
 
-                    float maxDistance = 600f;
+                    float maxDistance = 400f;
                     int target = -1;
 
                     for (int i = 0; i < Main.maxNPCs; i++)

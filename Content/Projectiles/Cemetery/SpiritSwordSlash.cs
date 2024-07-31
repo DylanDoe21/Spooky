@@ -126,7 +126,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             return true;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
             Player player = Main.player[Projectile.owner];
 
@@ -151,7 +151,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center.X, target.Center.Y, 
-                    Main.rand.Next(-2, 2), Main.rand.Next(-7, -5), ModContent.ProjectileType<SpookySkull>(), Projectile.damage, 0, Main.myPlayer, 0, 0);
+                    Main.rand.Next(-2, 2), Main.rand.Next(-10, -6), ModContent.ProjectileType<SpookySkull>(), Projectile.damage / 2, 0, Main.myPlayer);
                 }
             }
         }

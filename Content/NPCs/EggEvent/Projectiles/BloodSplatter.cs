@@ -12,7 +12,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
         bool runOnce = true;
-		Vector2[] trailLength = new Vector2[6];
+		Vector2[] trailLength = new Vector2[8];
 
 		private static Asset<Texture2D> ProjTexture;
 		

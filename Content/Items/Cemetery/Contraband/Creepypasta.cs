@@ -34,14 +34,14 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             bool SwirlNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PolybiusSwirl>()] <= 0;
 			if (SwirlNotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(null, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<PolybiusSwirl>(), 80, 0f, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(null, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<PolybiusSwirl>(), 90, 0f, player.whoAmI, 0f, 0f);
 			}
 
             //spawn smile dog
             bool DogNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<SmilingDog>()] <= 0;
 			if (DogNotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<SmilingDog>(), 100, 2f, player.whoAmI);
+				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<SmilingDog>(), 150, 2f, player.whoAmI);
 			}
 
             //spawn slenderman tentacles
@@ -62,7 +62,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
                     if (!spawnedTentacle[i])
                     {
                         Vector2 vel = new Vector2(Main.rand.Next(-13, 14), Main.rand.Next(-13, 14)) * 0.25f;
-                        Projectile.NewProjectile(null, player.Center, vel, ModContent.ProjectileType<SlendermanTentacle>(), 90, 0f, Main.myPlayer, Main.rand.Next(120), i + 3);
+                        Projectile.NewProjectile(null, player.Center, vel, ModContent.ProjectileType<SlendermanTentacle>(), 100, 0f, Main.myPlayer, Main.rand.Next(120), i + 3);
                     }
                 }
             }

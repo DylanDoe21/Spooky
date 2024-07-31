@@ -179,11 +179,11 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 12; numGores++)
+                for (int numGores = 1; numGores <= 7; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, (NPC.velocity * 0.5f) + new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, -1)), ModContent.Find<ModGore>("Spooky/MonsterEyeChunk").Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/HoppingHeartGore" + numGores).Type);
                     }
                 }
             }

@@ -11,7 +11,6 @@ namespace Spooky.Content.Items.SpookyHell
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 2;
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
             ItemID.Sets.AnimatesAsSoul[Type] = true;
         }

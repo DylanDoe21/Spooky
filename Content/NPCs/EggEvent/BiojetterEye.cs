@@ -116,6 +116,11 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
+        public override bool CheckActive()
+        {
+            return false;
+        }
+
         public override void AI()
 		{
             NPC Parent = Main.npc[(int)NPC.ai[2]];

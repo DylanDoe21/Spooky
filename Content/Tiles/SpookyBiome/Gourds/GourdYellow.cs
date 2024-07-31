@@ -79,7 +79,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
         }
     }
 
-    [LegacyName("GourdSmallCaved")]
+    [LegacyName("GourdSmallCarved")]
     public class GourdYellowCarved : GourdYellow
     {
         public override void SetStaticDefaults()
@@ -149,7 +149,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
         }
     }
 
-    [LegacyName("GourdSmallCavedLit")]
+    [LegacyName("GourdSmallCarvedLit")]
     public class GourdYellowCarvedLit : GourdYellowCarved
     {
         public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Gourds/GourdYellowCarved";
