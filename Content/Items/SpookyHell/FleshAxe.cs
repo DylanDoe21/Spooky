@@ -19,8 +19,8 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
 			Item.autoReuse = true;
-            Item.width = 54;
-            Item.height = 48;
+            Item.width = 64;
+            Item.height = 58;
             Item.useTime = 35;
 			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Swing;
@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.SpookyHell
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			int Slash = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<FleshAxeSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
-			Main.projectile[Slash].scale *= (Item.scale - 0.2f);
+			Main.projectile[Slash].scale *= (Item.scale);
 
             return false;
 		}
