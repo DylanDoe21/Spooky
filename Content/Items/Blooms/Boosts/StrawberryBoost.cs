@@ -6,6 +6,7 @@ using Spooky.Content.Buffs;
 
 namespace Spooky.Content.Items.Blooms.Boosts
 {
+	//TODO: change this to a projectile that can be collided with (also so i dont have to have a bloat folder in the blooms folder)
 	public class StrawberryBoost : ModItem
 	{
 		public override void SetStaticDefaults()

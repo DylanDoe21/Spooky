@@ -19,8 +19,8 @@ New Nose Dungeon:
 
 -A large linear dungeon in the eye valley inhabited by strange cultists
 -The entrance of the dungeon is blocked off by a locked trapdoor, which can only be opened with a shadow key
--At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other combat rooms
--At the end of the dungeon, you can use the fire exit to back track to the beginning without having to go back through the spike-filled hallways or combat rooms
+-At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other rooms
+-At the end of the dungeon, you can use the fire exit to back track to the beginning without having to go back through the spike-filled hallways
 -While the actual dungeon bricks are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with gray occultist bricks
 
 
@@ -28,11 +28,12 @@ New Moco Rework:
 
 -Because its fight was very old and outdated compared to every other spooky mod boss, and with the introduction of the nose dungeon, we decided to rework mocos AI to make it feel more unique and up-to-date
 -To keep it a surprise, you will have to fight moco in game to find out what its like (I am also too lazy to write out mocos entire attack pattern)
+-Mocos weapon drops are also no longer directly dropped directly, they are now craftable with various materials
 
 
 Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
 
--Little eye's quest system has been entirely reworked into an optional bounty-like system, with a new UI, and 4 new little minibosses to fight
+-Little eye's quest system has been entirely reworked into an optional bounty system, with a new UI, and 4 new little minibosses to fight
 -Each quest will have you go to each main spooky mod biome and find a miniboss which you will fight and then bring back the item it drops back to little eye for rewards
 -Each miniboss also has some unique rewards they drop along with the quest item you have to turn in
 -You can also now complete all 4 of the bounties in any order you like, however once you choose a specific bounty, you must complete that bounty before you can select another one
@@ -46,7 +47,7 @@ Catacomb Improvements:
 -Every single catacomb layer barrier has now been replaced with an unbreakable trapdoor that you open by right-clicking while you have that corresponding key in your inventory
 -Changed some of the light source furniture tiles in both layers of the catacombs to make it aesthetically better and cleaner looking
 -Added new moss blocks that grows on catacomb bricks, instead of there just being random clumps of swampy cemetery dirt in the catacombs
--Resprited all of the plants and vines in the catacombs
+-Resprited all of the bricks, plants, and vines in the catacombs
 -Giant flowers now grow naturally in the second layer of the catacombs instead of always being pre-generated in the same locations in each room
 -Added a new fishing lake room to layer 2
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies

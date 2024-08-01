@@ -122,7 +122,7 @@ namespace Spooky.Content.NPCs.Friendly
 			.Add<MossyPebble>()
 			.Add<EyeValleyCompass>()
 			.Add(new Item(ModContent.ItemType<InchwormApple>()) { shopCustomPrice = 200000 })
-			.Add(new Item(ModContent.ItemType<WinterSeed>()) { shopCustomPrice = 50000 });
+			.Add(new Item(ModContent.ItemType<WinterSeed>()) { shopCustomPrice = 150000 });
             npcShop.Register();
         }
 

@@ -44,17 +44,6 @@ namespace Spooky.Content.Items.BossBags
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            //weapon drops
-            int[] MainItem = new int[] 
-			{ 
-				ModContent.ItemType<BoogerFlail>(), 
-				ModContent.ItemType<BoogerBlaster>(), 
-				ModContent.ItemType<BoogerBook>(),
-				ModContent.ItemType<BoogerStaff>() 
-			};
-
-            itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
-
 			//boss mask
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<MocoMask>(), 7));
 

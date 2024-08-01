@@ -80,6 +80,7 @@ namespace Spooky.Core
             {
                 return true;
             }
+            //conditions to account for when the player still has locked bloom slots
             else
             {
                 //if every single buff slot is filled and both slot 3 and slot 4 are locked, dont allow the player to consume a bloom
@@ -107,7 +108,7 @@ namespace Spooky.Core
         {
             int TimeMultiplier = 1;
             
-            //winter blackberry causes other blooms besides itself to have double the durations sometimes
+            //winter blackberry has a chance to cause blooms besides itself to have double the durations
             if (WinterBlackberry && BuffName != "WinterBlackberry" && Main.rand.NextBool(5))
             {
                 TimeMultiplier = 2;
@@ -157,7 +158,7 @@ namespace Spooky.Core
                 return;
             }
 
-            //add the buff to the list by checking each slot to see if its open, and if it is add that buff to that slot
+            //if the buff is not already in the players slots, then add the buff to the list by checking each slot to see if its open, and if it is add that buff to that slot
             //only attempt to check beyond the second slot when the player has each unlockable slot unlocked
             if (BloomBuffSlots[0] == string.Empty)
             {
@@ -247,6 +248,7 @@ namespace Spooky.Core
                 BloomBuffSlots[3] = string.Empty;
             }
 
+            //set the duration of a buff slot to 0 if the slot is empty
 			if (BloomBuffSlots[0] == string.Empty)
 			{
 				Duration1 = 0;
@@ -265,7 +267,7 @@ namespace Spooky.Core
 			}
 		}
 
-        //save and load the unlocked slots so they are permanent
+        //save/load the position of the players UI position so it doesnt reset when leaving the world and save/load unlocked slots so they are actually saved per player
         public override void SaveData(TagCompound tag)
         {
             tag["UITopLeft"] = UITopLeft;
@@ -433,7 +435,7 @@ namespace Spooky.Core
 
 				if (DandelionHerdTimer % 30 == 0 && DandelionHerdTimer > 0)
 				{
-					Projectile.NewProjectile(null, Player.Center, new Vector2(0, Main.rand.Next(1, 3)), Main.rand.Next(Types), 35 + (Player.wingTimeMax / 10), 0, Player.whoAmI);
+					Projectile.NewProjectile(null, Player.Center, new Vector2(0, Main.rand.Next(1, 3)), Main.rand.Next(Types), 20 + (Player.wingTimeMax / 10), 0, Player.whoAmI);
 				}
 			}
 			else
