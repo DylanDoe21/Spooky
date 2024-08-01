@@ -53,7 +53,6 @@ namespace Spooky.Core
         public static bool LittleEyeBounty3 = false;
         public static bool LittleEyeBounty4 = false;
         public static bool BountyInProgress = false;
-        public static bool DailyQuest = false;
 
         public static bool encounteredMan = false;
         public static bool encounteredBaby = false;
@@ -95,7 +94,6 @@ namespace Spooky.Core
             LittleEyeBounty3 = false;
             LittleEyeBounty4 = false;
             BountyInProgress = false;
-            DailyQuest = false;
 
             encounteredMan = false;
             encounteredBaby = false;
@@ -150,7 +148,6 @@ namespace Spooky.Core
             if (LittleEyeBounty3) tag["LittleEyeBounty3"] = true;
             if (LittleEyeBounty4) tag["LittleEyeBounty4"] = true;
             if (BountyInProgress) tag["BountyInProgress"] = true;
-            if (DailyQuest) tag["DailyQuest"] = true;
 
             if (encounteredMan) tag["encounteredMan"] = true;
             if (encounteredBaby) tag["encounteredBaby"] = true;
@@ -205,7 +202,6 @@ namespace Spooky.Core
             LittleEyeBounty3 = tag.ContainsKey("LittleEyeBounty3");
             LittleEyeBounty4 = tag.ContainsKey("LittleEyeBounty4");
             BountyInProgress = tag.ContainsKey("BountyInProgress");
-            DailyQuest = tag.ContainsKey("DailyQuest");
 
             encounteredMan = tag.ContainsKey("encounteredMan");
             encounteredBaby = tag.ContainsKey("encounteredBaby");
@@ -269,7 +265,6 @@ namespace Spooky.Core
             questFlags[2] = LittleEyeBounty3;
             questFlags[3] = LittleEyeBounty4;
             questFlags[4] = BountyInProgress;
-            questFlags[5] = DailyQuest;
             writer.Write(questFlags);
 
             var encounterFlags = new BitsByte();
@@ -332,7 +327,6 @@ namespace Spooky.Core
             LittleEyeBounty3 = questFlags[2];
             LittleEyeBounty4 = questFlags[3];
             BountyInProgress = questFlags[4];
-            DailyQuest = questFlags[5];
 
             BitsByte encounterFlags = reader.ReadByte();
             encounteredMan = encounterFlags[0];

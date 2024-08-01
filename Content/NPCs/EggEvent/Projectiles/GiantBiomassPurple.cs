@@ -112,6 +112,13 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
+            
+            //spawn blood splatter
+            int NumProjectiles = Main.rand.Next(15, 25);
+            for (int i = 0; i < NumProjectiles; i++)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-15, 16), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+            }
 
             //spawn blood explosion clouds
             for (int numExplosion = 0; numExplosion < 8; numExplosion++)

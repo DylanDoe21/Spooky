@@ -64,7 +64,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
                 if (!NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()))
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
 

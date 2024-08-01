@@ -162,6 +162,11 @@ namespace Spooky.Content.NPCs.EggEvent
                     SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
                     SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryShot, NPC.Center);
 
+                    if (player.Distance(NPC.Center) <= 250f)
+                    {
+                        SpookyPlayer.ScreenShakeAmount = 4f;
+                    }
+
                     //lingering ichor cloud
                     Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage / 4, 0);
 

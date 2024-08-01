@@ -10,8 +10,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
-using Spooky.Core;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
@@ -25,12 +25,14 @@ namespace Spooky.Content.NPCs.EggEvent
             Main.npcFrameCount[NPC.type] = 7;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
+            /*
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(6f, 6f),
                 PortraitPositionXOverride = 6f,
                 PortraitPositionYOverride = 6f
             };
+            */
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
@@ -55,7 +57,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 2, 0);
             NPC.HitSound = SoundID.Item177;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -87,7 +89,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.frameCounter++;
 
             //normal animations
-            if (NPC.localAI[0] == 0)
+            if (NPC.localAI[0] <= 480)
             {
                 if (NPC.frameCounter > 6)
                 {
@@ -99,9 +101,14 @@ namespace Spooky.Content.NPCs.EggEvent
                     NPC.frame.Y = 0 * frameHeight;
                 }
             }
-            //eating animation
+            //coughing animation
             else
             {
+                if (NPC.frame.Y < frameHeight * 6)
+                {
+                    NPC.frame.Y = 5 * frameHeight;
+                }
+
                 if (NPC.frameCounter > 2)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
@@ -109,7 +116,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 }
                 if (NPC.frame.Y >= frameHeight * 7)
                 {
-                    NPC.frame.Y = 5 * frameHeight;
+                    NPC.frame.Y = 6 * frameHeight;
                 }
             }
         }
@@ -121,9 +128,44 @@ namespace Spooky.Content.NPCs.EggEvent
 
             NPC.rotation = NPC.velocity.X * 0.05f;
 
-            NPC.ai[0]++;
-			if (NPC.ai[0] > 420)
+            NPC.localAI[0]++;
+			if (NPC.localAI[0] == 420)
             {
+                NPC.velocity.Y = -10;
+            }
+
+            if (NPC.localAI[0] > 420)
+            {
+                NPC.aiStyle = -1;
+                NPC.velocity *= 0.9f;
+            }
+            else
+            {
+                NPC.aiStyle = 22;
+			    AIType = NPCID.Wraith;
+            }
+
+            if (NPC.localAI[0] == 480)
+            {
+                SoundEngine.PlaySound(SoundID.NPCHit27, NPC.Center);
+
+                //spawn splatter
+                for (int i = 0; i < 6; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y + 22, Main.rand.Next(-4, 5), 0, ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                }
+
+                for (int i = 0; i < 3; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y + 30, Main.rand.Next(-4, 5), 4, ModContent.ProjectileType<CoughCloud>(), NPC.damage / 4, 0);
+                }
+            }
+
+            if (NPC.localAI[0] == 520)
+            {
+                NPC.localAI[0] = 0;
+
+                NPC.netUpdate = true;
             }
 		}
 

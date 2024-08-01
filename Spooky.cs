@@ -54,6 +54,13 @@ namespace Spooky
         public static ModKeybind AccessoryHotkey { get; private set; }
         public static ModKeybind ArmorBonusHotkey { get; private set; }
 
+        internal static Spooky mod;
+
+        public Spooky()
+		{
+			mod = this;
+		}
+
         public override void Load()
         {
             Instance = this;
@@ -95,7 +102,9 @@ namespace Spooky
 
             AccessoryHotkey = null;
             ArmorBonusHotkey = null;
-        }
+
+			mod = null;
+		}
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
@@ -244,6 +253,40 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.BountyAccepted:
+                {
+                    Flags.BountyInProgress = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.Bounty1Complete:
+                {
+                    Flags.LittleEyeBounty1 = true;
+                    Flags.BountyInProgress = false;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.Bounty2Complete:
+                {
+                    Flags.LittleEyeBounty2 = true;
+                    Flags.BountyInProgress = false;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.Bounty3Complete:
+                {
+                    Flags.LittleEyeBounty3 = true;
+                    Flags.BountyInProgress = false;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.Bounty4Complete:
+                {
+                    Flags.LittleEyeBounty4 = true;
+                    Flags.BountyInProgress = false;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
 				//should never occur I think?
 				default:
                 {
@@ -280,5 +323,10 @@ namespace Spooky
         CatacombKey1,
         CatacombKey2,
         CatacombKey3,
+        BountyAccepted,
+        Bounty1Complete,
+        Bounty2Complete,
+        Bounty3Complete,
+        Bounty4Complete,
 	}
 }

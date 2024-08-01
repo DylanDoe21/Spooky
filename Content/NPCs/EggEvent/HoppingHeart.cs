@@ -126,7 +126,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         int[] Types = new int[] { ModContent.ProjectileType<HeartGlob1>(), ModContent.ProjectileType<HeartGlob2>() };
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -16 : 16), NPC.Center.Y - 17,
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -28 : 28), NPC.Center.Y - 18,
                         (NPC.direction == -1 ? Main.rand.Next(-10, -4) : Main.rand.Next(4, 10)), Main.rand.Next(-7, -3), Main.rand.Next(Types), NPC.damage / 4, 0f, Main.myPlayer);
                     }
 

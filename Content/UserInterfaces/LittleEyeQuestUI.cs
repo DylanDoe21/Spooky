@@ -1,8 +1,10 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.UI.Chat;
 using Terraria.Localization;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -20,12 +22,30 @@ namespace Spooky.Content.UserInterfaces
 
         public static Rectangle MouseScreenArea => Utils.CenteredRectangle(Main.MouseScreen, Vector2.One * 2f);
 
+        private static Asset<Texture2D> BountyIcon1Done;
+        private static Asset<Texture2D> BountyIcon1NotDone;
+        private static Asset<Texture2D> BountyIcon2Done;
+        private static Asset<Texture2D> BountyIcon2NotDone;
+        private static Asset<Texture2D> BountyIcon3Done;
+        private static Asset<Texture2D> BountyIcon3NotDone;
+        private static Asset<Texture2D> BountyIcon4Done;
+        private static Asset<Texture2D> BountyIcon4NotDone;
+        private static Asset<Texture2D> BountyIcon5Done;
+        private static Asset<Texture2D> BountyIcon5NotDone;
+        
+        //misc textures
+        private static Asset<Texture2D> BountyIconSelectedOutline;
+        private static Asset<Texture2D> BountyIconLocked;
+        private static Asset<Texture2D> BountyIcon5Locked;
+
         public static void Draw(SpriteBatch spriteBatch)
         {
             Player player = Main.LocalPlayer;
 
-            //dont draw at all if the UI isnt open
-            if (!UIOpen)
+			Mod Mod = Spooky.mod;
+
+			//dont draw at all if the UI isnt open
+			if (!UIOpen)
             {
                 LittleEye = -1;
                 return;
@@ -57,6 +77,7 @@ namespace Spooky.Content.UserInterfaces
 
             Point ButtonTopLeft = (UITopLeft + new Vector2(-525f, -110f) * UIBoxScale).ToPoint();
 
+			//define all the string values needed for the UI
 			string QuestIcon1Text = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty1");
 			string Quest1ConditionText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty1Condition");
 
@@ -78,13 +99,16 @@ namespace Spooky.Content.UserInterfaces
 			string Quest5AcceptText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty5Accept");
 			string Quest5WarningText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.Bounty5Warning");
 
+            string QuestAcceptedText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyAccepted");
+
 			string QuestCompleteText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyCompleted");
 
             Texture2D ButtonSelectedTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIconSelectedOutline").Value;
 
+
 			//draw each bounty icon and display text when hovering over it
 
-			//eye gremlin display stuff
+			//First bounty
 			Vector2 Icon1TopLeft = ButtonTopLeft.ToVector2() + new Vector2(315f, -24f) * Main.UIScale;
 
             Texture2D Icon1Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
@@ -96,12 +120,32 @@ namespace Spooky.Content.UserInterfaces
 
                 DrawIcon(spriteBatch, Icon1TopLeft, ButtonSelectedTexture);
 
-				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, 
-				QuestIcon1Text, Quest1ConditionText, QuestAcceptText, QuestWarningText, Color.OrangeRed);
-
-				if (Main.mouseLeftRelease && Main.mouseLeft)
+                if (Flags.BountyInProgress)
                 {
-                    //TODO: implement accepting bounty here
+                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
+                }
+                else
+                {
+				    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon1Text, Quest1ConditionText, QuestAcceptText, QuestWarningText, Color.OrangeRed);
+
+                    //accept bounty
+                    if (Main.mouseLeftRelease && Main.mouseLeft)
+                    {
+                        //TODO: spawn item on the player that attracts the miniboss
+
+						if (Main.netMode != NetmodeID.SinglePlayer)
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)SpookyMessageType.BountyAccepted);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Flags.BountyInProgress = true;
+                        }
+
+						UIOpen = false;
+                    }
                 }
             }
 
@@ -117,12 +161,32 @@ namespace Spooky.Content.UserInterfaces
 
                 DrawIcon(spriteBatch, Icon2TopLeft, ButtonSelectedTexture);
 
-				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
-				QuestIcon2Text, Quest2ConditionText, QuestAcceptText, QuestWarningText, Color.SeaGreen);
-
-				if (Main.mouseLeftRelease && Main.mouseLeft)
+                if (Flags.BountyInProgress)
                 {
-                    //TODO: implement accepting bounty here
+                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
+                }
+                else
+                {
+                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon2Text, Quest2ConditionText, QuestAcceptText, QuestWarningText, Color.SeaGreen);
+
+                    //accept bounty
+                    if (Main.mouseLeftRelease && Main.mouseLeft)
+                    {
+                        //TODO: spawn item on the player that attracts the miniboss
+
+                        if (Main.netMode != NetmodeID.SinglePlayer)
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)SpookyMessageType.BountyAccepted);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Flags.BountyInProgress = true;
+                        }
+
+                        UIOpen = false;
+                    }
                 }
             }
 
@@ -138,12 +202,32 @@ namespace Spooky.Content.UserInterfaces
 
                 DrawIcon(spriteBatch, Icon3TopLeft, ButtonSelectedTexture);
 
-				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
-				QuestIcon3Text, Quest3ConditionText, QuestAcceptText, QuestWarningText, Color.Chocolate);
-
-				if (Main.mouseLeftRelease && Main.mouseLeft)
+                if (Flags.BountyInProgress)
                 {
-                    //TODO: implement accepting bounty here
+                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
+                }
+                else
+                {
+                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon3Text, Quest3ConditionText, QuestAcceptText, QuestWarningText, Color.Chocolate);
+
+                    //accept bounty
+                    if (Main.mouseLeftRelease && Main.mouseLeft)
+                    {
+                        //TODO: spawn item on the player that attracts the miniboss
+
+                        if (Main.netMode != NetmodeID.SinglePlayer)
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)SpookyMessageType.BountyAccepted);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Flags.BountyInProgress = true;
+                        }
+
+                        UIOpen = false;
+                    }
                 }
             }
 
@@ -159,12 +243,32 @@ namespace Spooky.Content.UserInterfaces
 
                 DrawIcon(spriteBatch, Icon4TopLeft, ButtonSelectedTexture);
 
-				DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
-				QuestIcon4Text, Quest4ConditionText, QuestAcceptText, QuestWarningText, Color.HotPink);
-
-				if (Main.mouseLeftRelease && Main.mouseLeft)
+                if (Flags.BountyInProgress)
                 {
-                    //TODO: implement accepting bounty here
+                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
+                }
+                else
+                {
+                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon4Text, Quest4ConditionText, QuestAcceptText, QuestWarningText, Color.HotPink);
+
+                    //accept bounty
+                    if (Main.mouseLeftRelease && Main.mouseLeft)
+                    {
+                        //TODO: spawn item on the player that attracts the miniboss
+
+                        if (Main.netMode != NetmodeID.SinglePlayer)
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)SpookyMessageType.BountyAccepted);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Flags.BountyInProgress = true;
+                        }
+
+                        UIOpen = false;
+                    }
                 }
             }
 
@@ -200,39 +304,28 @@ namespace Spooky.Content.UserInterfaces
 					//display the actual quest text if you havent killed orro-boro but you killed the mechs
                     if (!Flags.downedOrroboro)
                     {
-						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
-						QuestIcon5Text, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon5Text, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
 					}
 					//if you have killed orro-boro display the quest as complete
                     else
                     {
-						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
-						QuestCompleteText, string.Empty, string.Empty, string.Empty, Color.White);
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, string.Empty, string.Empty, string.Empty, Color.White);
 					}
                 }
 				//if you havent killed all 3 mechs, then display the quest as locked
 				else
 				{
-					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale,
-					string.Empty, QuestIcon5LockedText, string.Empty, string.Empty, Color.Red);
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestIcon5LockedText, string.Empty, string.Empty, Color.Red);
 				}
 
-                if (Main.mouseLeftRelease && Main.mouseLeft)
+                //accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
+				if (Main.mouseLeftRelease && Main.mouseLeft)
                 {
-                    //TODO: implement accepting bounty here
+                    //TODO: spawn item on the player that attracts the miniboss
+
+                    UIOpen = false;
                 }
             }
-
-            /*
-            //might not even be necessary to implement
-            if (!IsHoveringOverAnyButton)
-            {
-                string NoSelectedText = "[c/8284FF: So, you want to help me with some tasks?]"
-                + "\n[c/8284FF: Well, you can help me find some of my lost... experiments.]"
-                + "\n[c/8284FF: If you can track them down, I can give you some pretty crazy goodies.]";
-                DrawTextDescription(spriteBatch, UITopLeft + new Vector2(300f, 120f) * UIBoxScale, NoSelectedText);
-            }
-            */
         }
 
         public static bool InRangeOfNPC()

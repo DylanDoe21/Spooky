@@ -153,7 +153,7 @@ namespace Spooky.Content.NPCs.EggEvent
             }
 
             //turn around after vertically passing the player
-            if (NPC.ai[0] >= 135 && NPC.ai[0] <= 190)
+            if (NPC.ai[0] >= 135 && NPC.ai[0] <= 200)
             {
                 double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                 while (angle > Math.PI)
@@ -176,7 +176,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.ai[0] > 175)
             {
-                NPC.velocity *= 0.95f;
+                NPC.velocity *= 0.92f;
             }
 
             if (NPC.ai[0] > 245)

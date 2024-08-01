@@ -1,0 +1,21 @@
+Monster:
+
+Grabs player with hands
+Spawns buffed monster eyes as its killed
+Jumping attack where it slams the ground?
+
+
+Eye wizard:
+
+Casts spells 
+Shoots eye like ruins at the player that take up space
+Uses magic bolts with very homing that applies for a second every two seconds
+Shoots energy ball that bounces off of surfaces
+
+
+Stitched spider:
+
+Crawls around with legs (dan yami spider code lol)
+shoots web out of its back that lands on the ground to slow the player?
+Can charge towards the player really quickly
+As it dies, its legs fall off until eventually it just falls to ground and becomes immobile (plays a clothes ripping sound potentially?)

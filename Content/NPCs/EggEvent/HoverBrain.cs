@@ -208,7 +208,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         ShootSpeed.Normalize();
                         ShootSpeed *= 25f;
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -20 : 20), NPC.Center.Y, 
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -18 : 18), NPC.Center.Y, 
                         ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BrainLaser>(), NPC.damage / 4, 0f, Main.myPlayer);
                     }
 

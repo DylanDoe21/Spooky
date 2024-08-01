@@ -16,6 +16,7 @@ LittleEyeBounties: {
 	BountyWarning: You will not be able to accept another bounty until you finish this one!
 	Bounty5Accept: Click to accept this bounty and recieve the concoction to open the giant egg
 	Bounty5Warning: Good Luck!
+	BountyAccepted: You cannot select another bounty until you complete your current one
 	BountyCompleted: You have completed this bounty!
 }
 
