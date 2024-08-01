@@ -119,7 +119,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int Blood = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 7), Main.rand.Next(-3, 3), ModContent.ProjectileType<BloodSplatter>(), 0, 0);
+                    int Blood = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 13), Main.rand.Next(-12, 13), ModContent.ProjectileType<RedSplatter>(), 0, 0);
                     Main.projectile[Blood].scale = 0.5f;
                 }
             }

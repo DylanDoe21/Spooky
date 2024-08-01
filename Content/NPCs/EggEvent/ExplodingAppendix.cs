@@ -169,15 +169,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     int NumProjectiles = Main.rand.Next(15, 25);
                     for (int i = 0; i < NumProjectiles; i++)
                     {
-                        //chance to shoot them directly up
-                        if (Main.rand.NextBool(2))
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 4), Main.rand.Next(-8, -3), ModContent.ProjectileType<AppendixSplatter>(), 0, 0);
-                        }
-                        else
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-8, -1), ModContent.ProjectileType<AppendixSplatter>(), 0, 0);
-                        }
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
                     }
 
                     player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
@@ -194,6 +186,12 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
+                //spawn splatter
+                for (int i = 0; i < 6; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-8, 9), Main.rand.Next(-8, -3), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                }
+
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

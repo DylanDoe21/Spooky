@@ -166,8 +166,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                     ShootSpeed.Normalize();
                     ShootSpeed *= 8;
 
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                    ShootSpeed.Y, ProjectileID.WebSpit, NPC.damage / 4, 0, NPC.target);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, ProjectileID.WebSpit, NPC.damage / 4, 0, NPC.target);
 
                     //random delay before it can spit again
                     NPC.ai[0] = Main.rand.Next(0, 60);

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
@@ -283,11 +284,17 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			if (NPC.life <= 0) 
             {
+                //spawn splatter
+                for (int i = 0; i < 10; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                }
+
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/VigilanteGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TongueBiterGore" + numGores).Type);
                     }
                 }
             }

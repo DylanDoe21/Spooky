@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
-    public class AppendixSplatter : ModProjectile
+    public class GreenSplatter : ModProjectile
     {
         public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
 			for (int k = 0; k < trailLength.Length; k++)
 			{
-				Color color = Color.Gold;
+				Color color = Color.Lime.MultiplyRGBA(lightColor);
                 color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)

@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.EggEvent.Projectiles;
+
 namespace Spooky.Content.NPCs.EggEvent
 {
 	public class HoppingHeart : ModNPC
@@ -83,12 +85,12 @@ namespace Spooky.Content.NPCs.EggEvent
             
             if (NPC.localAI[0] > 420 && NPC.velocity.Y == 0)
             {
-                if (NPC.frame.Y >= frameHeight * 11)
+                if (NPC.frame.Y < frameHeight * 11)
                 {
-                    NPC.frame.Y = 12 * frameHeight;
+                    NPC.frame.Y = 11 * frameHeight;
                 }
 
-                if (NPC.frameCounter > 4)
+                if (NPC.frameCounter > 10)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
@@ -118,7 +120,22 @@ namespace Spooky.Content.NPCs.EggEvent
             {
                 if (NPC.velocity.Y == 0)
                 {
+                    if (NPC.localAI[0] % 20 == 0)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
+                        int[] Types = new int[] { ModContent.ProjectileType<HeartGlob1>(), ModContent.ProjectileType<HeartGlob2>() };
+
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -16 : 16), NPC.Center.Y - 17,
+                        (NPC.direction == -1 ? Main.rand.Next(-10, -4) : Main.rand.Next(4, 10)), Main.rand.Next(-7, -3), Main.rand.Next(Types), NPC.damage / 4, 0f, Main.myPlayer);
+                    }
+
+                    if (NPC.localAI[0] >= 570)
+                    {
+                        NPC.localAI[0] = 0;
+                        
+                        NPC.netUpdate = true;
+                    }
                 }
             }
         }
@@ -171,14 +188,16 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
-        {
-        }
-
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
+                //spawn splatter
+                for (int i = 0; i < 10; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                }
+
                 for (int numGores = 1; numGores <= 7; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

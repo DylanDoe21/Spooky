@@ -176,6 +176,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
 				//set player to eaten so that it hides them
                 player.GetModPlayer<SpookyPlayer>().EatenByGooSlug = true;
+                player.GetModPlayer<SpookyPlayer>().GooSlugEatCooldown = 180;
 
 				//set frame to eating animation
 				if (NPC.localAI[1] == 0)
@@ -200,8 +201,6 @@ namespace Spooky.Content.NPCs.EggEvent
 				if (NPC.localAI[2] >= 160 || !player.active || player.dead)
 				{
 					SoundEngine.PlaySound(SpitSound, NPC.Center);
-
-					player.GetModPlayer<SpookyPlayer>().GooSlugEatCooldown = 180;
 
 					player.velocity.X = NPC.spriteDirection == -1 ? -12 : 12;
 					player.velocity.Y = Main.rand.Next(-10, -5);

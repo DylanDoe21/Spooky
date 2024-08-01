@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
-    public class BloodSplatter : ModProjectile
+    public class YellowSplatter : ModProjectile
     {
         public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
         bool runOnce = true;
-		Vector2[] trailLength = new Vector2[8];
+		Vector2[] trailLength = new Vector2[6];
 
 		private static Asset<Texture2D> ProjTexture;
 		
@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
 			for (int k = 0; k < trailLength.Length; k++)
 			{
-				Color color = Color.Red;
+				Color color = Color.Gold.MultiplyRGBA(lightColor);
                 color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)
@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 2f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -70,7 +70,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         public override void AI()
         {
-            Projectile.velocity.Y += 0.08f;
+            Projectile.velocity.Y += 0.25f;
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 

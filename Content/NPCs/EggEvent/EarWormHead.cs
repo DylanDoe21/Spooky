@@ -11,6 +11,8 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.EggEvent.Projectiles;
+
 namespace Spooky.Content.NPCs.EggEvent
 {
     public class EarWormHead : ModNPC
@@ -59,7 +61,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit9;
-            NPC.DeathSound = SoundID.Zombie40;
+            NPC.DeathSound = SoundID.Zombie40 with { Pitch = 0.45f };
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellEventBiome>().Type };
         }
@@ -151,7 +153,7 @@ namespace Spooky.Content.NPCs.EggEvent
             }
 
             //turn around after vertically passing the player
-            if (NPC.ai[0] >= 135 && NPC.ai[0] <= 220)
+            if (NPC.ai[0] >= 135 && NPC.ai[0] <= 190)
             {
                 double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                 while (angle > Math.PI)
@@ -172,7 +174,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4.5f) * NPC.ai[1]);
             }
 
-            if (NPC.ai[0] > 185)
+            if (NPC.ai[0] > 175)
             {
                 NPC.velocity *= 0.95f;
             }
@@ -187,6 +189,12 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override bool CheckDead()
         {
+            //spawn splatter
+            for (int i = 0; i < 2; i++)
+            {
+                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+            }
+
             if (Main.netMode != NetmodeID.Server) 
             {
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, ModContent.Find<ModGore>("Spooky/EarWormGore1").Type);

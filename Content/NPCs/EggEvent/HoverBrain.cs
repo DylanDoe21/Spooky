@@ -234,6 +234,12 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			if (NPC.life <= 0) 
             {
+                //spawn splatter
+                for (int i = 0; i < 8; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                }
+
                 for (int numGores = 1; numGores <= 8; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

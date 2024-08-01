@@ -171,15 +171,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             int NumProjectiles = Main.rand.Next(15, 25);
             for (int i = 0; i < NumProjectiles; i++)
             {
-                //chance to shoot them directly up
-                if (Main.rand.NextBool(2))
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 4), Main.rand.Next(-8, -3), ModContent.ProjectileType<BloodSplatter>(), 0, 0);
-                }
-                else
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-8, -1), ModContent.ProjectileType<BloodSplatter>(), 0, 0);
-                }
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-15, -7), ModContent.ProjectileType<RedSplatter>(), 0, 0);
             }
 
             //spawn blood explosion clouds

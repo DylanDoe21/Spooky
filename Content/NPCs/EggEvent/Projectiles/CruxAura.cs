@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
@@ -40,7 +41,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
                 float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-                Color color = new Color(127, 127, 127, 0).MultiplyRGBA(Color.Purple);
+                Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Purple);
 
                 Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
@@ -48,7 +49,12 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
       
                 Rectangle rectangle = new(0, AuraTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, AuraTexture.Width(), AuraTexture.Height() / Main.projFrames[Projectile.type]);
                 
-                Main.EntitySpriteDraw(AuraTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.ai[2] / 35 + (Projectile.ai[2] < 250 ? time : time2), SpriteEffects.None, 0);
+                for (int i = 0; i < 360; i += 90)
+                {
+                    Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
+
+                    Main.EntitySpriteDraw(AuraTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color * 0.2f, Projectile.rotation - i, drawOrigin, Projectile.ai[2] / 35 + (Projectile.ai[2] < 250 ? time : time2), SpriteEffects.None, 0);
+                }
             }
 
             return true;

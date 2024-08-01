@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Content.NPCs.EggEvent.Projectiles;
+
 namespace Spooky.Content.NPCs.EggEvent
 {
     public class EarWormBody : ModNPC
@@ -54,6 +56,11 @@ namespace Spooky.Content.NPCs.EggEvent
             //kill segment if the head doesnt exist
 			if (!Parent.active)
             {
+                if (Main.rand.NextBool())
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                }
+
                 if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EarWormGore2").Type);
@@ -139,6 +146,11 @@ namespace Spooky.Content.NPCs.EggEvent
             //kill segment if the head doesnt exist
 			if (!Parent.active)
             {
+                if (Main.rand.NextBool())
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                }
+
                 if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EarWormGore3").Type);
@@ -214,6 +226,11 @@ namespace Spooky.Content.NPCs.EggEvent
             //kill segment if the head doesnt exist
 			if (!Parent.active)
             {
+                if (Main.rand.NextBool())
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                }
+
                 if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EarWormGore4").Type);
@@ -262,6 +279,11 @@ namespace Spooky.Content.NPCs.EggEvent
             //kill segment if the head doesnt exist
 			if (!Parent.active)
             {
+                if (Main.rand.NextBool())
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                }
+
                 if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EarWormGore5").Type);

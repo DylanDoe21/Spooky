@@ -61,8 +61,7 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 7),
-                    Main.rand.Next(-3, 3), ModContent.ProjectileType<BloodSplatter>(), 0, 0, 0, 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-7, 8), Main.rand.Next(-7, 8), ModContent.ProjectileType<RedSplatter>(), 0, 0);
                 }
             }
 

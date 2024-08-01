@@ -12,6 +12,8 @@ using System.IO;
 using System.Collections.Generic;
 using Spooky.Core;
 
+using Spooky.Content.NPCs.EggEvent.Projectiles;
+
 namespace Spooky.Content.NPCs.EggEvent
 {
     public class CoughLungs : ModNPC  
@@ -134,6 +136,12 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			if (NPC.life <= 0) 
             {
+                //spawn splatter
+                for (int i = 0; i < 8; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                }
+
                 for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

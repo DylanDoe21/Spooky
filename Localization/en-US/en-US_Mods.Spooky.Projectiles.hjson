@@ -35,7 +35,6 @@ PhantomBomb.DisplayName: Skull Bomb
 PhantomExplosion.DisplayName: Phantom Explosion
 PhantomSeed.DisplayName: Phantom Seed
 PhantomSkullProj.DisplayName: Phantom Skull
-BloodSplatter.DisplayName: Blood
 CruxAura.DisplayName: Crux Aura
 WarlockSkull.DisplayName: Magic Skull
 SalivaBall.DisplayName: Toxic Spit
@@ -126,7 +125,6 @@ ToxicBubble.DisplayName: Toxic Bubble
 ToxicBubblePurple.DisplayName: Toxic Bubble
 ToxicBubbleBlue.DisplayName: Toxic Bubble
 ToxicBubbleRed.DisplayName: Toxic Bubble
-ToxicBloodSplatter.DisplayName: Blood Splatter
 SentientLeatherWhipProj.DisplayName: Licker
 SentientShootiusSentry.DisplayName: Sentient Shootius
 SentientShootiusBolt.DisplayName: Sentient Shootius Bolt
@@ -358,12 +356,15 @@ DandelionFloater2.DisplayName: Seed Cluster
 DandelionFloater3.DisplayName: Seed Cluster
 BlueberryExplosion.DisplayName: Frost Explosion
 SnotBulletProj.DisplayName: Mucus Bullet
-BrainLaser.DisplayName: Brain Laser
-GiantBiomassPurple.DisplayName: Bioclump
-GiantBiomassRed.DisplayName: Bioclump
-BiojetterDeath.DisplayName: Biojetter Death
-MocoSpawnerProj.DisplayName: Moco Spawner Proj
+BrainLaser.DisplayName: Psybeam
+GiantBiomassPurple.DisplayName: Biomass
+GiantBiomassRed.DisplayName: Biomass
+BiojetterDeath.DisplayName: Biojetter
+MocoSpawnerProj.DisplayName: Moco Spawner
 HeartGlob1.DisplayName: Heart Glob1
 HeartGlob2.DisplayName: Heart Glob2
 AppendixLingerCloud.DisplayName: Ichor Cloud
-AppendixSplatter.DisplayName: Ichor Splatter
+ToxicBloodSplatter.DisplayName: Toxic Blood Splatter
+YellowSplatter.DisplayName: Ichor
+RedSplatter.DisplayName: Blood
+GreenSplatter.DisplayName: Ooze

@@ -29,6 +29,7 @@ namespace Spooky.Content.NPCs.EggEvent
     public class OrroboroEgg : ModNPC
     {
         float ShieldScale = 0.5f;
+        float ShieldAlpha = 1f;
 
         float addedStretch = 0f;
 		float stretchRecoil = 0f;
@@ -108,6 +109,7 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
+            float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 150f)) / 2f + 0.5f;
 
             if (!Flags.downedEggEvent || EggEventWorld.EggEventActive) 
             {
@@ -117,7 +119,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 {
                     shieldColor = Color.Lerp(Color.Indigo, Color.Red, fade);
 
-                    if (ShieldScale < 0.8f)
+                    if (NPC.ai[3] == 0 && ShieldScale < 0.8f)
                     {
                         ShieldScale += 0.0025f;
                     }
@@ -128,7 +130,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                 var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 12);
                 DrawData drawData = new DrawData(ModContent.Request<Texture2D>("Spooky/ShaderAssets/EggShieldNoise").Value, center,
-                new Rectangle(0, 0, 500, 420), shieldColor, 0, new Vector2(250f, 250f), NPC.scale * (ShieldScale + fade * 0.05f), SpriteEffects.None, 0);
+                new Rectangle(0, 0, 500, 420), shieldColor * ShieldAlpha, 0, new Vector2(250f, 250f), NPC.scale * (ShieldScale + (NPC.ai[3] > 0 ? fade2 * 0.25f : fade * 0.05f)), SpriteEffects.None, 0);
 
                 GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + fade * 0.5f));
                 GameShaders.Misc["ForceField"].Apply(drawData);
@@ -211,13 +213,13 @@ namespace Spooky.Content.NPCs.EggEvent
 				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWormHead>(),
 				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
 
-				if (!Enemy.active || !EventNPCs.Contains(Enemy.type))
+				if (Enemy.active && EventNPCs.Contains(Enemy.type))
 				{
-					continue;
+					NpcCount++;
 				}
                 else
                 {
-                    NpcCount++;
+                    continue;
                 }
 			}
 
@@ -388,7 +390,7 @@ namespace Spooky.Content.NPCs.EggEvent
                             HasSpawnedBiojetter = true;
 
                             NPC.netUpdate = true;
-                        }   
+                        }
                     }
 
                     //if theres no enemies for too long, then manually spawn a bunch of them
@@ -443,58 +445,77 @@ namespace Spooky.Content.NPCs.EggEvent
                 }
                 else
                 {
-                    SoundEngine.PlaySound(EventEndSound, NPC.Center);
+                    NPC.ai[3]++;
 
-                    EggEventWorld.EggEventActive = false;
-
-                    if (Main.netMode == NetmodeID.Server)
+                    if (NPC.ai[3] == 120)
                     {
-                        NetMessage.SendData(MessageID.WorldData);
+                        SoundEngine.PlaySound(EventEndSound, NPC.Center);
                     }
 
-                    if (!Flags.downedEggEvent)
+                    if (NPC.ai[3] >= 120)
                     {
-                        //event end message
-                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
-                        if (Main.netMode != NetmodeID.Server)
+                        ShieldScale += 0.25f;
+                        ShieldAlpha -= 0.06f;
+                    }
+
+                    if (NPC.ai[3] >= 120 && ShieldAlpha <= 0f)
+                    {
+                        SpookyPlayer.ScreenShakeAmount = 8f;
+
+                        if (!Flags.downedEggEvent)
                         {
-                            Main.NewText(text, 171, 64, 255);
+                            //event end message
+                            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
+                            if (Main.netMode != NetmodeID.Server)
+                            {
+                                Main.NewText(text, 171, 64, 255);
+                            }
+                            else
+                            {
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                            }
+
+                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            {
+                                ModPacket packet = Mod.GetPacket();
+                                packet.Write((byte)SpookyMessageType.EggIncursionDowned);
+                                packet.Send();
+                            }
+                            else
+                            {
+                                Flags.downedEggEvent = true;
+                            }
                         }
                         else
                         {
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                            //event end message (different for after you have beaten the event already)
+                            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOverBeaten");
+                            if (Main.netMode != NetmodeID.Server)
+                            {
+                                Main.NewText(text, 171, 64, 255);
+                            }
+                            else
+                            {
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                            }
                         }
 
-                        if (Main.netMode != NetmodeID.SinglePlayer)
-                        {
-                            ModPacket packet = Mod.GetPacket();
-                            packet.Write((byte)SpookyMessageType.EggIncursionDowned);
-                            packet.Send();
-                        }
-                        else
-                        {
-                            Flags.downedEggEvent = true;
-                        }
-                    }
-                    else
-                    {
-                        //event end message
-                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOverBeaten");
-                        if (Main.netMode != NetmodeID.Server)
-                        {
-                            Main.NewText(text, 171, 64, 255);
-                        }
-                        else
-                        {
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                        }
-                    }
+                        EggEventWorld.EggEventActive = false;
 
-                    NPC.netUpdate = true;
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+
+                        NPC.ai[3] = 0;
+
+                        NPC.netUpdate = true;
+                    }
                 }
             }
             else
             {
+                ShieldAlpha = 1f;
                 ShieldScale = 0.5f;
             }
         }
