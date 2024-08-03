@@ -38,8 +38,8 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 
 		public override void SetStaticDefaults()
 		{
-			Main.tileFrameImportant[Type] = true;
 			Main.tileSolid[Type] = false;
+			Main.tileFrameImportant[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Width = 4;
 			TileObjectData.newTile.Height = 6;	

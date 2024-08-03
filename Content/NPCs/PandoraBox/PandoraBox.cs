@@ -479,12 +479,11 @@ namespace Spooky.Content.NPCs.PandoraBox
                         }
                     }
                 }
-                
-                SwitchToNextWave();
 
                 if (NPC.ai[0] <= 0 && !EndingAnimation)
                 {
                     NPC.rotation = 0;
+                    SwitchToNextWave();
                     SpawnEnemies();
                 }
 

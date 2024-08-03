@@ -8,6 +8,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.NPCs.EggEvent.Projectiles;
@@ -26,6 +27,18 @@ namespace Spooky.Content.NPCs.EggEvent
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //bools
+            writer.Write(HasJumped);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //bools
+            HasJumped = reader.ReadBoolean();
         }
 
 		public override void SetDefaults()
@@ -77,7 +90,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 11)
+                if (NPC.frame.Y >= frameHeight * 10)
                 {
                     NPC.frame.Y = 0 * frameHeight;
                 }
@@ -85,9 +98,9 @@ namespace Spooky.Content.NPCs.EggEvent
             
             if (NPC.localAI[0] > 420 && NPC.velocity.Y == 0)
             {
-                if (NPC.frame.Y < frameHeight * 11)
+                if (NPC.frame.Y < frameHeight * 10)
                 {
-                    NPC.frame.Y = 11 * frameHeight;
+                    NPC.frame.Y = 10 * frameHeight;
                 }
 
                 if (NPC.frameCounter > 10)
@@ -126,8 +139,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         int[] Types = new int[] { ModContent.ProjectileType<HeartGlob1>(), ModContent.ProjectileType<HeartGlob2>() };
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -28 : 28), NPC.Center.Y - 18,
-                        (NPC.direction == -1 ? Main.rand.Next(-10, -4) : Main.rand.Next(4, 10)), Main.rand.Next(-7, -3), Main.rand.Next(Types), NPC.damage / 4, 0f, Main.myPlayer);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+				        {
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -5 : 5), NPC.Center.Y - 18,
+                            (NPC.direction == -1 ? Main.rand.Next(-10, -4) : Main.rand.Next(4, 10)), Main.rand.Next(-7, -3), Main.rand.Next(Types), NPC.damage / 4, 0f, Main.myPlayer);
+                        }
                     }
 
                     if (NPC.localAI[0] >= 570)
@@ -192,10 +208,13 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                //spawn splatter
-                for (int i = 0; i < 10; i++)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+                    //spawn splatter
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                    }
                 }
 
                 for (int numGores = 1; numGores <= 7; numGores++)

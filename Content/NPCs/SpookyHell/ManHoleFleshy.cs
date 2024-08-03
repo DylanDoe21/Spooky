@@ -7,6 +7,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
@@ -26,6 +27,20 @@ namespace Spooky.Content.NPCs.SpookyHell
             Main.npcFrameCount[NPC.type] = 11;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //floats
+            writer.Write(destinationX);
+            writer.Write(destinationY);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //floats
+            destinationX = reader.ReadSingle();
+            destinationY = reader.ReadSingle();
         }
 
         public override void SetDefaults()

@@ -668,7 +668,7 @@ namespace Spooky.Content.Generation
             (ushort)ModContent.TileType<GourdLimeOrange>(), (ushort)ModContent.TileType<GourdOrange>(), (ushort)ModContent.TileType<GourdRed>(), 
             (ushort)ModContent.TileType<GourdWhite>(), (ushort)ModContent.TileType<GourdYellow>(), (ushort)ModContent.TileType<GourdYellowGreen>() };
 
-            for (int i = X - 10; i < X + 10; i++)
+            for (int i = X - 5; i < X + 5; i++)
             {
                 for (int j = Y - 5; j < Y + 5; j++)
                 {

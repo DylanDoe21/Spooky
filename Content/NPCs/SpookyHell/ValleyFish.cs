@@ -67,7 +67,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.HitSound = SoundID.NPCHit8;
+            NPC.HitSound = SoundID.NPCHit9;
 			NPC.DeathSound = SoundID.NPCDeath22;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellLake>().Type };

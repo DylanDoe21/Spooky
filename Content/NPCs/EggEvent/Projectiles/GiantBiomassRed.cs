@@ -114,10 +114,9 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
             //spawn blood splatter
-            int NumProjectiles = Main.rand.Next(15, 25);
-            for (int i = 0; i < NumProjectiles; i++)
+            for (int i = 0; i < 8; i++)
             {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-15, 16), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-8, 9), Main.rand.Next(-8, 5), ModContent.ProjectileType<RedSplatter>(), 0, 0);
             }
 
             //spawn blood explosion clouds

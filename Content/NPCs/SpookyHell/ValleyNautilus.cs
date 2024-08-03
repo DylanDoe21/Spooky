@@ -54,6 +54,10 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //vector2
+            writer.WriteVector2(SavePosition);
+            writer.WriteVector2(SavePlayerPosition);
+
             //bools
             writer.Write(Charging);
 
@@ -66,6 +70,10 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //vector2
+			SavePosition = reader.ReadVector2();
+            SavePlayerPosition = reader.ReadVector2();
+
             //bools
             Charging = reader.ReadBoolean();
 
@@ -88,8 +96,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.value = Item.buyPrice(0, 3, 0, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.HitSound = HitSound;
-			NPC.DeathSound = DeathSound;
+            NPC.HitSound = SoundID.NPCHit18;
+			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellLake>().Type };
         }

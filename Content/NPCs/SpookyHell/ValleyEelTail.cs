@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,8 +11,6 @@ namespace Spooky.Content.NPCs.SpookyHell
     public class ValleyEelTail : ModNPC
     {
         private static Asset<Texture2D> NPCTexture;
-
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -36,7 +33,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.behindTiles = true;
-            NPC.HitSound = HitSound;
+            NPC.HitSound = SoundID.NPCHit18;
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)

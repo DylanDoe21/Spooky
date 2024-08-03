@@ -43,6 +43,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //bools
+            writer.Write(IsFalling);
+            writer.Write(HasSpawnedEyes);
+
+            //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -50,6 +55,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //bools
+            IsFalling = reader.ReadBoolean();
+            HasSpawnedEyes = reader.ReadBoolean();
+
+            //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -129,6 +139,8 @@ namespace Spooky.Content.NPCs.EggEvent
                 }
 
                 HasSpawnedEyes = true;
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.ai[1] >= 5)

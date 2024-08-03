@@ -36,6 +36,26 @@ namespace Spooky.Content.NPCs.EggEvent
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //bools
+            writer.Write(Shake);
+
+            //floats
+            writer.Write(ScaleAmount);
+            writer.Write(SaveRotation);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //bools
+            Shake = reader.ReadBoolean();
+
+            //floats
+            ScaleAmount = reader.ReadSingle();
+            SaveRotation = reader.ReadSingle();
+        }
+
         public override void SetDefaults()
         {
             NPC.lifeMax = 500;
@@ -167,14 +187,17 @@ namespace Spooky.Content.NPCs.EggEvent
                         SpookyPlayer.ScreenShakeAmount = 4f;
                     }
 
-                    //lingering ichor cloud
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage / 4, 0);
-
-                    //spawn splatter
-                    int NumProjectiles = Main.rand.Next(15, 25);
-                    for (int i = 0; i < NumProjectiles; i++)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+				    {
+                        //lingering ichor cloud
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage / 4, 0);
+                        
+                        //spawn splatter
+                        int NumProjectiles = Main.rand.Next(15, 25);
+                        for (int i = 0; i < NumProjectiles; i++)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                        }
                     }
 
                     player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
@@ -191,10 +214,13 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                //spawn splatter
-                for (int i = 0; i < 6; i++)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-8, 9), Main.rand.Next(-8, -3), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+                    //spawn splatter
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-8, 9), Main.rand.Next(-8, -3), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                    }
                 }
 
                 for (int numGores = 1; numGores <= 4; numGores++)

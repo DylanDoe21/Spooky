@@ -22,8 +22,6 @@ namespace Spooky.Content.NPCs.SpookyHell
         private static Asset<Texture2D> GlowTexture;
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
         public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/ValleyEelGrowl", SoundType.Sound) { PitchVariance = 0.6f };
 
         public override void SetStaticDefaults()
@@ -44,9 +42,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //ints
-            writer.Write(SavePlayerPosition.X);
-            writer.Write(SavePlayerPosition.Y);
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
 
             //bools
             writer.Write(segmentsSpawned);
@@ -60,9 +57,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //ints
-            SavePlayerPosition.X = reader.ReadInt32();
-            SavePlayerPosition.Y = reader.ReadInt32();
+            //vector2
+			SavePlayerPosition = reader.ReadVector2();
 
             //bools
             segmentsSpawned = reader.ReadBoolean();
@@ -87,8 +83,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.behindTiles = true;
-            NPC.HitSound = HitSound;
-            NPC.DeathSound = DeathSound;
+            NPC.HitSound = SoundID.NPCHit18;
+			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellLake>().Type };
         }

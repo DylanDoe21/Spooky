@@ -26,9 +26,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1000;
+            NPC.lifeMax = 700;
             NPC.damage = 35;
-            NPC.defense = 10;
+            NPC.defense = 5;
             NPC.width = 14;
             NPC.height = 14;
             NPC.knockBackResist = 0f;
@@ -56,9 +56,12 @@ namespace Spooky.Content.NPCs.EggEvent
             //kill segment if the head doesnt exist
 			if (!Parent.active)
             {
-                if (Main.rand.NextBool())
-                {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+                    if (Main.rand.NextBool())
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                    }
                 }
 
                 if (Main.netMode != NetmodeID.Server) 
@@ -146,9 +149,12 @@ namespace Spooky.Content.NPCs.EggEvent
             //kill segment if the head doesnt exist
 			if (!Parent.active)
             {
-                if (Main.rand.NextBool())
-                {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+                    if (Main.rand.NextBool())
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                    }
                 }
 
                 if (Main.netMode != NetmodeID.Server) 

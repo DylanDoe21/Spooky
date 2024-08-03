@@ -17,8 +17,8 @@ namespace Spooky.Content.Tiles.MusicBox
             Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileObsidianKill[Type] = true;
-            TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
             TileObjectData.newTile.Origin = new Point16(0, 1);

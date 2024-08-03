@@ -21,11 +21,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);
-            TileObjectData.newSubTile.CopyFrom(TileObjectData.newTile);
             TileObjectData.newTile.DrawYOffset = -2;
-            TileObjectData.newSubTile.LavaDeath = false;
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newSubTile.LavaPlacement = LiquidPlacement.Allowed;
+            TileObjectData.newTile.LavaDeath = false;
+            TileObjectData.newTile.LavaPlacement = LiquidPlacement.Allowed;
             TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(114, 13, 39), name);

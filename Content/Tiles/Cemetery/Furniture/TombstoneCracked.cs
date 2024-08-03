@@ -14,11 +14,10 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
             Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
-            TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
-            TileObjectData.addTile(Type);
             TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.addTile(Type);
             AddMapEntry(new Color(39, 39, 49));
             DustType = DustID.Stone;
             HitSound = SoundID.Tink;

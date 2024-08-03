@@ -12,6 +12,9 @@ using Spooky.Core;
 
 namespace Spooky.Content.UserInterfaces
 {
+    //TODO:
+    //make icons display using the locked texture once a bounty has been accepted
+    //allow players to click the icon of the quest they accepted in case they loose the item to attract the miniboss (will likely require a separate accepted bool for each quest)
     public class LittleEyeQuestUI
     {
         public static int LittleEye = -1;
@@ -22,6 +25,7 @@ namespace Spooky.Content.UserInterfaces
 
         public static Rectangle MouseScreenArea => Utils.CenteredRectangle(Main.MouseScreen, Vector2.One * 2f);
 
+        //actual icon textures
         private static Asset<Texture2D> BountyIcon1Done;
         private static Asset<Texture2D> BountyIcon1NotDone;
         private static Asset<Texture2D> BountyIcon2Done;
@@ -33,7 +37,7 @@ namespace Spooky.Content.UserInterfaces
         private static Asset<Texture2D> BountyIcon5Done;
         private static Asset<Texture2D> BountyIcon5NotDone;
         
-        //misc textures
+        //misc icon textures
         private static Asset<Texture2D> BountyIconSelectedOutline;
         private static Asset<Texture2D> BountyIconLocked;
         private static Asset<Texture2D> BountyIcon5Locked;
@@ -311,20 +315,20 @@ namespace Spooky.Content.UserInterfaces
                     {
 						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, string.Empty, string.Empty, string.Empty, Color.White);
 					}
+
+                    //accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
+                    if (Main.mouseLeftRelease && Main.mouseLeft)
+                    {
+                        //TODO: spawn item on the player that attracts the miniboss
+
+                        UIOpen = false;
+                    }
                 }
 				//if you havent killed all 3 mechs, then display the quest as locked
 				else
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestIcon5LockedText, string.Empty, string.Empty, Color.Red);
 				}
-
-                //accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
-				if (Main.mouseLeftRelease && Main.mouseLeft)
-                {
-                    //TODO: spawn item on the player that attracts the miniboss
-
-                    UIOpen = false;
-                }
             }
         }
 

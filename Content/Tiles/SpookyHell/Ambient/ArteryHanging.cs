@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             Main.tileFrameImportant[Type] = true;
             Main.tileSolid[Type] = false;
             Main.tileLighted[Type] = true;
-             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.AnchorBottom = default(AnchorData);
 			TileObjectData.newTile.DrawYOffset = -2;

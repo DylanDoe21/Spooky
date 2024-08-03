@@ -18,8 +18,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             Main.tileLighted[Type] = true;
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
-            TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomMoss>() };
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(166, 158, 187));

@@ -20,8 +20,8 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             Main.tileSolid[Type] = false;
             TileID.Sets.SwaysInWindBasic[Type] = true;
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
-            TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>() };
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(31, 85, 37));

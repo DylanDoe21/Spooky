@@ -20,9 +20,6 @@ namespace Spooky.Content.NPCs.SpookyHell
         private static Asset<Texture2D> GlowTexture;
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 11;
@@ -57,8 +54,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 1, 50, 0);
-            NPC.HitSound = HitSound;
-			NPC.DeathSound = DeathSound;
+            NPC.HitSound = SoundID.DD2_DrakinHurt;
+			NPC.DeathSound = SoundID.DD2_DrakinDeath;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellLake>().Type };
         }
 

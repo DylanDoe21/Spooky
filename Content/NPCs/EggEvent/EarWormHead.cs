@@ -19,6 +19,8 @@ namespace Spooky.Content.NPCs.EggEvent
     {
         private bool segmentsSpawned;
 
+        Vector2 SavePlayerPosition;
+
         private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
@@ -38,21 +40,27 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
+
             //bools
             writer.Write(segmentsSpawned);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //vector2
+            SavePlayerPosition = reader.ReadVector2();
+
             //bools
             segmentsSpawned = reader.ReadBoolean();
         }
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1000;
-            NPC.damage = 45;
-            NPC.defense = 10;
+            NPC.lifeMax = 700;
+            NPC.damage = 42;
+            NPC.defense = 5;
             NPC.width = 20;
             NPC.height = 20;
             NPC.npcSlots = 1f;
@@ -148,14 +156,16 @@ namespace Spooky.Content.NPCs.EggEvent
             //charge up
             if (NPC.ai[0] == 135)
             {
+                SavePlayerPosition = new Vector2(player.Center.X, player.Center.Y - 50);
+
                 NPC.velocity.X *= 0;
                 NPC.velocity.Y = -25;
             }
 
             //turn around after vertically passing the player
-            if (NPC.ai[0] >= 135 && NPC.ai[0] <= 200)
+            if (NPC.ai[0] >= 135 && NPC.ai[0] < 185)
             {
-                double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
+                double angle = NPC.DirectionTo(SavePlayerPosition).ToRotation() - NPC.velocity.ToRotation();
                 while (angle > Math.PI)
                 {
                     angle -= 2.0 * Math.PI;
@@ -189,10 +199,13 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override bool CheckDead()
         {
-            //spawn splatter
-            for (int i = 0; i < 2; i++)
-            {
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+                //spawn splatter
+                for (int i = 0; i < 2; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<GreenSplatter>(), 0, 0);
+                }
             }
 
             if (Main.netMode != NetmodeID.Server) 

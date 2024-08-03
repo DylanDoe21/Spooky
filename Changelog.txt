@@ -169,6 +169,7 @@ Enemy & Boss Changes:
 
 Miscellaneous:
 
+-The spider grotto biome can now generate inbetween the dungeon and snow biome if there is enough room
 -Sentient hearts now only require 1 to be researched in journey mode to unlock duplication
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up, and now produces gores when it lands or hits daffodil
 -The giant egg in the eye valley now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
@@ -234,7 +235,8 @@ Fixed all of the following multiplayer bugs and issues:
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack not actually impacting the ground and creating projectiles
 -A lot of enemies and bosses in the mod having janky/glitchy movement
--Attempted to fix some desyncing issues with the pandoras box event
+-Attempted to fix some desync issues with the pandoras box event enemies
+-Pandoras box event randomly advancing to the next wave when enemies from the prior wave still exist
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
 -Eye stalk trees and glowshroom trees immediately breaking when growing
 -Spooky mod grass blocks not being saved when placed with seeds

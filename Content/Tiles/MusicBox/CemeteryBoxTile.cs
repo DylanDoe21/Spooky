@@ -15,8 +15,8 @@ namespace Spooky.Content.Tiles.MusicBox
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileObsidianKill[Type] = true;
-            TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.newTile.StyleLineSkip = 2;

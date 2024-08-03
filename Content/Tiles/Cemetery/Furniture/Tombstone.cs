@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
 			TileObjectData.newTile.Width = 2;
-			TileObjectData.newTile.Height = 3;	
+			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.Origin = new Point16(0, 2);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);

@@ -1,21 +1,37 @@
-Monster:
+Bigger Eye:
 
-Grabs player with hands
-Spawns buffed monster eyes as its killed
-Jumping attack where it slams the ground?
-
-
-Eye wizard:
-
-Casts spells 
 Shoots eye like ruins at the player that take up space
 Uses magic bolts with very homing that applies for a second every two seconds
 Shoots energy ball that bounces off of surfaces
+Uses beam of confusion to try and confuse the player (question mark particles on the projectile for comedic effect)
+
+accessory: grants increased magic damage, and summons an eye orbiting around the player that increases the damage of magic projectiles that touch it
 
 
-Stitched spider:
+Stitches:
 
-Crawls around with legs (dan yami spider code lol)
-shoots web out of its back that lands on the ground to slow the player?
-Can charge towards the player really quickly
-As it dies, its legs fall off until eventually it just falls to ground and becomes immobile (plays a clothes ripping sound potentially?)
+-Generally crawls around the player and uses the darkness of the grotto to hide before attacks
+-Ghoots web out of its back that lands on the ground to slow the player?
+-Can charge towards the player really quickly from random positions
+-As it dies, its legs fall off until eventually it just falls to ground and becomes immobile (plays a clothes ripping sound potentially?)
+
+accessory: idk yet
+
+
+The Gremlin:
+
+-Chases player by stomping around (causes a footstep sound to play and screenshake
+-Grabs player with hands
+-Jump attack with ground shockwave
+-Eyes fall out of his head as he dies, they act as minions
+
+accessory: spawns a hand out of you that grabs at enemies, deals damage equal to whatever item you are holding (Has base damage if an item you are holding deals no damage)
+
+
+Book of Souls:
+
+-Summons 3 ghosts: melee brute, mage, and supporter
+-all 3 must be killed to destroy the book, book itself does not have hp or contact damage, it also just slowly follows the player (possibly speeds up if the player is too far)
+-When each is killed they play an animation where they get sucked back into the book (probably via projectile that uses the same sprite as each ghost)
+
+accessory: the book itself, allows you to choose between summoning three different ghosts corresponding to the minibosses with right click

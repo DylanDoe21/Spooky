@@ -29,18 +29,14 @@ namespace Spooky.Content.NPCs.EggEvent
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
-            {
-                Position = new Vector2(12f, 5f),
-                PortraitPositionXOverride = 6f,
-                PortraitPositionYOverride = 0f
-            };
-
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
+
             //floats
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
@@ -48,6 +44,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //vector2
+			SavePlayerPosition = reader.ReadVector2();
+
             //floats
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
@@ -55,9 +54,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 550;
-            NPC.damage = 45;
-            NPC.defense = 10;
+            NPC.lifeMax = 420;
+            NPC.damage = 40;
+            NPC.defense = 5;
             NPC.width = 98;
             NPC.height = 122;
             NPC.npcSlots = 1f;
@@ -211,10 +210,13 @@ namespace Spooky.Content.NPCs.EggEvent
         {
 			if (NPC.life <= 0) 
             {
-                //spawn splatter
-                for (int i = 0; i < 5; i++)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+                    //spawn splatter
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                    }
                 }
 
                 for (int numGores = 1; numGores <= 6; numGores++)

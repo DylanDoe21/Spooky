@@ -38,6 +38,10 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //vector2
+            writer.WriteVector2(SavePosition);
+            writer.WriteVector2(SavePlayerPosition);
+
             //ints
             writer.Write(repeats);
 
@@ -51,6 +55,10 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //vector2
+			SavePosition = reader.ReadVector2();
+			SavePlayerPosition = reader.ReadVector2();
+
             //ints
             repeats = reader.ReadInt32();
 
@@ -201,6 +209,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                         if (NPC.localAI[0] == 5)
                         {
                             SavePosition = new Vector2(player.Center.X + Main.rand.Next(-250, 250), player.Center.Y - Main.rand.Next(120, 180));
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.localAI[0] > 5 && NPC.localAI[0] <= 120)
@@ -251,6 +261,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                         SavePlayerPosition = player.Center;
 
                         NPC.velocity *= 0;
+
+                        NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] == 75)

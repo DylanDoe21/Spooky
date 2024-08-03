@@ -24,7 +24,7 @@ Some Warnings:
 
 Massive thanks to all the people who have helped out the mod in some way, or are actively helping develop it!
 
-Developers: DylanDoe21 (myself), Hugekraken, Taco, Waasephi, Seasalt, Dandy, Hat in a River, Bananalizard, Rockwizard5, Luxcapacitor, Angel, Jim2OUK
+Developers: DylanDoe21, Hugekraken, Taco, Waasephi, Seasalt, Dandy, Hat in a River, Bananalizard, Rockwizard5, Luxcapacitor, Angel, Jim2OUK
 Contributors: Grae, Graydee, Vortex of Rainbows, HondaCivicMoment, RocketLauncher, Guck, Ennway
 Also credit to zapsplat.com, a free sound library where I get most of this mods custom sound effects come from
 
