@@ -9,16 +9,13 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 {
     public class SpiderWeb : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
-
-        bool runOnce = true;
-		Vector2[] trailLength = new Vector2[6];
+        public override string Texture => "Spooky/Content/Projectiles/SpiderCave/CannonEggBig";
 
 		private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
@@ -31,52 +28,25 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             Projectile.tileCollide = false;
             Projectile.timeLeft = 180;
             Projectile.penetrate = 1;
-            Projectile.alpha = 255;
         }
 
         public override bool PreDraw(ref Color lightColor)
-		{
-			if (runOnce)
-			{
-				return false;
-			}
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
-			Vector2 previousPosition = Projectile.Center;
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
+            }
 
-			for (int k = 0; k < trailLength.Length; k++)
-			{
-				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
-				scale *= 1f;
-
-                Color color = Color.Lerp(Color.Gray, Color.White, scale);
-                color *= (Projectile.timeLeft) / 90f;
-
-				if (trailLength[k] == Vector2.Zero)
-				{
-					return true;
-				}
-
-				Vector2 drawPos = trailLength[k] - Main.screenPosition;
-				Vector2 currentPos = trailLength[k];
-				Vector2 betweenPositions = previousPosition - currentPos;
-
-				float max = betweenPositions.Length() / (4 * scale);
-
-				for (int i = 0; i < max; i++)
-				{
-					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
-
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.6f, SpriteEffects.None, 0f);
-				}
-
-				previousPosition = currentPos;
-			}
-
-			return true;
-		}
+            return true;
+        }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -84,23 +54,10 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         }
 
         public override void AI()
-        {
-			if (runOnce)
-			{
-				for (int i = 0; i < trailLength.Length; i++)
-				{
-					trailLength[i] = Vector2.Zero;
-				}
-				runOnce = false;
-			}
+        {   
+            Projectile.rotation += 0.35f * (float)Projectile.direction;
 
-			Vector2 current = Projectile.Center;
-			for (int i = 0; i < trailLength.Length; i++)
-			{
-				Vector2 previousPosition = trailLength[i];
-				trailLength[i] = current;
-				current = previousPosition;
-			}
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.05f;
         }
     }
 }

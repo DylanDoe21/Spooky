@@ -145,7 +145,7 @@ namespace Spooky.Content.UserInterfaces
                 }
 				else if (Flags.LittleEyeBounty1)
 				{
-					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.OrangeRed);
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
 				}
                 else
                 {
@@ -189,7 +189,7 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else if (Flags.LittleEyeBounty2)
 				{
-					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.SeaGreen);
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
 				}
 				else
                 {
@@ -233,7 +233,7 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else if (Flags.LittleEyeBounty3)
 				{
-					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Chocolate);
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
 				}
 				else
                 {
@@ -277,7 +277,7 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else if (Flags.LittleEyeBounty4)
 				{
-					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.HotPink);
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
 				}
 				else
                 {
@@ -326,7 +326,7 @@ namespace Spooky.Content.UserInterfaces
 					//display the actual quest text if you havent killed orro-boro but you killed the mechs
 					if (Flags.downedOrroboro)
 					{
-						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Magenta);
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
 					}
 					//if you have killed orro-boro display the quest as complete
 					else

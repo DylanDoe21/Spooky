@@ -39,8 +39,8 @@ namespace Spooky.Content.NPCs.Quest
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/StitchSpiderBestiary",
-                Position = new Vector2(0f, -25f),
-                PortraitPositionXOverride = 0f,
+                Position = new Vector2(1f, -25f),
+                PortraitPositionXOverride = 1f,
                 PortraitPositionYOverride = -20f
             };
 
@@ -354,7 +354,7 @@ namespace Spooky.Content.NPCs.Quest
 				{
 					NPC.localAI[0]++;
 
-					if (NPC.localAI[1] < 3)
+					if (NPC.localAI[1] < (NPC.life < (NPC.lifeMax / 2) ? 3 : 2))
 					{
 						if (NPC.localAI[0] < 45)
 						{
@@ -442,7 +442,7 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 50, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 4, 0, NPC.target);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 4, 0, NPC.target);
 					}
 
 					if (NPC.localAI[0] >= 360)
