@@ -196,6 +196,8 @@ namespace Spooky.Content.NPCs.EggEvent
                         {
                             IsFalling = true;
                             NPC.noGravity = false;
+
+                            NPC.netUpdate = true;
                         }
                     }
 
@@ -209,6 +211,8 @@ namespace Spooky.Content.NPCs.EggEvent
                             NPC.noGravity = true;
 
                             NPC.localAI[1] = 120;
+
+                            NPC.netUpdate = true;
                         }
                     }
 

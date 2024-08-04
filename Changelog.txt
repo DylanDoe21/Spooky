@@ -181,6 +181,7 @@ Miscellaneous:
 -All fishing rods can now fish in the blood lake in the eye valley (The goblin shark rod is still the only way to fish up the blood lake enemies)
 -Spooky forest gourds can no longer naturally grow too close to each other
 -Revamped the visual effects for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
+-Polished up the visual effect for the auras created by orro-boro and egg incursion enemies
 
 
 Removals:
@@ -235,7 +236,6 @@ Fixed all of the following multiplayer bugs and issues:
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack not actually impacting the ground and creating projectiles
 -A lot of enemies and bosses in the mod having janky/glitchy movement
--Attempted to fix some desync issues with the pandoras box event enemies
 -Pandoras box event randomly advancing to the next wave when enemies from the prior wave still exist
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
 -Eye stalk trees and glowshroom trees immediately breaking when growing

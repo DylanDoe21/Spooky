@@ -187,11 +187,11 @@ namespace Spooky.Content.NPCs.EggEvent
                         SpookyPlayer.ScreenShakeAmount = 4f;
                     }
 
+                    //lingering ichor cloud
+                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage / 4, 0);
+
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-				    {
-                        //lingering ichor cloud
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage / 4, 0);
-                        
+				    {   
                         //spawn splatter
                         int NumProjectiles = Main.rand.Next(15, 25);
                         for (int i = 0; i < NumProjectiles; i++)

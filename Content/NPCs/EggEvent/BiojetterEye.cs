@@ -144,6 +144,7 @@ namespace Spooky.Content.NPCs.EggEvent
             if (NPC.life <= 0) 
             {
                 Parent.ai[1]++;
+                Parent.netUpdate = true;
             }
         }
 	}

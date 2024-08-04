@@ -88,7 +88,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.value = Item.buyPrice(0, 1, 0, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.HitSound = SoundID.NPCHit48 with { Pitch = -5f };
+            NPC.HitSound = SoundID.NPCHit48 with { Pitch = -0.5f };
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.NoseTempleBiome>().Type };

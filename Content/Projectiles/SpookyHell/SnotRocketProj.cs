@@ -96,7 +96,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             float maxAmount = 30;
 			int currentAmount = 0;
-			while (currentAmount < maxAmount)
+			while (currentAmount <= maxAmount)
 			{
 				Vector2 velocity = new Vector2(5f, 5f);
 				Vector2 Bounds = new Vector2(3f, 3f);

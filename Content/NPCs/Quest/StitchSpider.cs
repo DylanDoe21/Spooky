@@ -8,7 +8,10 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Collections.Generic;
+
+using Spooky.Content.NPCs.Quest.Projectiles;
 
 namespace Spooky.Content.NPCs.Quest
 {
@@ -16,12 +19,15 @@ namespace Spooky.Content.NPCs.Quest
 	{
 		List<SpiderLeg> legs;
 
-		float MovementSpeed = 0f;
+		float IdleSpeed = 0f;
+		float SaveRotation;
 
 		bool LostLeg1 = false;
 		bool LostLeg2 = false;
 		bool LostLeg3 = false;
 		bool LostLeg4 = false;
+
+		Vector2 SavePlayerPosition;
 
 		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> NPCTexture;
@@ -39,6 +45,42 @@ namespace Spooky.Content.NPCs.Quest
             };
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+        }
+
+		public override void SendExtraAI(BinaryWriter writer)
+        {
+            //vector2
+            writer.WriteVector2(SavePlayerPosition);
+
+            //bools
+            writer.Write(LostLeg1);
+            writer.Write(LostLeg2);
+            writer.Write(LostLeg3);
+            writer.Write(LostLeg4);
+
+            //floats
+			writer.Write(IdleSpeed);
+			writer.Write(SaveRotation);
+            writer.Write(NPC.localAI[0]);
+			writer.Write(NPC.localAI[1]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //vector2
+            SavePlayerPosition = reader.ReadVector2();
+
+            //bools
+            LostLeg1 = reader.ReadBoolean();
+            LostLeg2 = reader.ReadBoolean();
+            LostLeg3 = reader.ReadBoolean();
+            LostLeg4 = reader.ReadBoolean();
+
+            //floats
+            IdleSpeed = reader.ReadSingle();
+            SaveRotation = reader.ReadSingle();
+            NPC.localAI[0] = reader.ReadSingle();
+			NPC.localAI[1] = reader.ReadSingle();
         }
 
 		public override void SetDefaults()
@@ -136,7 +178,7 @@ namespace Spooky.Content.NPCs.Quest
 			{
 				for (int i = 0; i < legs.Count; i += 1)
 				{
-					legs[i].LegUpdate(NPC.Center, NPC.rotation, 128, NPC.velocity * 2);
+					legs[i].LegUpdate(NPC.Center, NPC.rotation, 128, NPC.velocity);
 				}
 			}
 		}
@@ -146,14 +188,7 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-			NPC.direction = NPC.velocity.X > 0 ? -1 : 1;
-
 			NPC.rotation = NPC.velocity.ToRotation();
-
-            if (NPC.spriteDirection == 1)
-            {
-				NPC.rotation += MathHelper.Pi;
-            }
 
 			UpdateSpiderLegs();
 
@@ -162,20 +197,20 @@ namespace Spooky.Content.NPCs.Quest
 				//passive movement before becoming hostile
 				case 0:
 				{
-					if (MovementSpeed > 0.06f)
+					if (IdleSpeed > 0.06f)
 					{
-						MovementSpeed -= 0.1f;
+						IdleSpeed -= 0.1f;
 					}
-					if (MovementSpeed < 0.05f)
+					if (IdleSpeed < 0.05f)
 					{
-						MovementSpeed += 0.01f;
+						IdleSpeed += 0.01f;
 					}
 
-					Vector2 ChargeDirection = player.Center - NPC.Center;
-					ChargeDirection.Normalize();
+					Vector2 MoveSpeed = player.Center - NPC.Center;
+					MoveSpeed.Normalize();
 							
-					ChargeDirection *= MovementSpeed;
-					NPC.velocity += ChargeDirection / 4;
+					MoveSpeed *= IdleSpeed;
+					NPC.velocity += MoveSpeed / 4;
 
 					NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -5f, 5f);
 					NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -5f, 5f);
@@ -186,11 +221,24 @@ namespace Spooky.Content.NPCs.Quest
 				//chase the player directly
 				case 1:
 				{
-					Vector2 ChargeDirection = player.Center - NPC.Center;
-					ChargeDirection.Normalize();
-							
-					ChargeDirection *= 4f;
-					NPC.velocity = ChargeDirection;
+					NPC.localAI[0]++;
+
+					if (player.Distance(NPC.Center) >= 25f)
+					{
+						Vector2 MoveSpeed = player.Center - NPC.Center;
+						MoveSpeed.Normalize();
+								
+						MoveSpeed *= 4f;
+						NPC.velocity = MoveSpeed;
+					}
+
+					if (NPC.localAI[0] >= 300)
+					{
+						NPC.localAI[0] = 0;
+						NPC.ai[0]++;
+
+						NPC.netUpdate = true;
+					}
 
 					break;
 				}
@@ -198,18 +246,213 @@ namespace Spooky.Content.NPCs.Quest
 				//go above the player and then charge at the player
 				case 2:
 				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[0] < 100)
+					{
+						Vector2 GoTo = player.Center;
+						GoTo.X += (NPC.Center.X < player.Center.X) ? -600 : 600;
+						GoTo.Y += (NPC.Center.Y < player.Center.Y) ? -600 : 600;
+
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+					}
+
+					if (NPC.localAI[0] == 100)
+					{
+						SoundEngine.PlaySound(SoundID.NPCHit29 with { Pitch = -0.5f }, NPC.Center);
+
+						NPC.velocity *= 0.1f;
+
+						SavePlayerPosition = player.Center;
+					}
+
+					if (NPC.localAI[0] == 130)
+					{
+						SoundEngine.PlaySound(SoundID.NPCDeath31 with { Pitch = -0.5f }, NPC.Center);
+
+						Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+						ChargeDirection.Normalize();
+								
+						ChargeDirection *= 45f;
+						NPC.velocity = ChargeDirection;
+					}
+
+					if (NPC.localAI[0] >= 130)
+					{
+						NPC.velocity *= 0.965f;
+					}
+
+					if (NPC.localAI[0] >= 270)
+					{
+						NPC.localAI[0] = 0;
+						NPC.ai[0]++;
+
+						NPC.netUpdate = true;
+					}
+
 					break;
 				}
 
-				//go above the player and then charge at the player
+				//shoot web to trap the player in
 				case 3:
 				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[0] <= 45)
+					{
+						Vector2 GoTo = player.Center;
+						GoTo.X += (NPC.Center.X < player.Center.X) ? -600 : 600;
+
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+					}
+					else
+					{
+						if (player.Distance(NPC.Center) >= 25f)
+						{
+							Vector2 MoveSpeed = player.Center - NPC.Center;
+							MoveSpeed.Normalize();
+									
+							MoveSpeed *= 2f;
+							NPC.velocity = MoveSpeed;
+						}
+					}
+
+					if (NPC.localAI[0] == 180 || NPC.localAI[0] == 210 || NPC.localAI[0] == 240)
+					{
+						SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
+						Vector2 ShootSpeed = player.Center - NPC.Center;
+						ShootSpeed.Normalize();
+						ShootSpeed *= 18f;
+
+						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
+						Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+						if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+						{
+							position += muzzleOffset;
+						}
+
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SpiderWeb>(), NPC.damage / 4, 0, NPC.target);
+					}
+
+					if (NPC.localAI[0] >= 300)
+					{
+						NPC.localAI[0] = 0;
+						NPC.ai[0]++;
+
+						NPC.netUpdate = true;
+					}
+
 					break;
 				}
 
-				//shoot webs out of its back that turn back around toward the player
+				//go to the side of the player, charge horizontally, repeat 3 times
 				case 4:
 				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[1] < 3)
+					{
+						if (NPC.localAI[0] < 45)
+						{
+							Vector2 GoTo = player.Center;
+							GoTo.X += (NPC.Center.X < player.Center.X) ? -600 : 600;
+
+							float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+						}
+
+						if (NPC.localAI[0] == 45)
+						{
+							NPC.velocity *= 0.1f;
+
+							SavePlayerPosition = player.Center;
+						}
+
+						if (NPC.localAI[0] == 55)
+						{
+							SoundEngine.PlaySound(SoundID.NPCDeath31 with { Pitch = -0.5f }, NPC.Center);
+
+							Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+							ChargeDirection.Normalize();
+									
+							ChargeDirection *= 35f;
+							NPC.velocity.X = ChargeDirection.X;
+							NPC.velocity.Y = ChargeDirection.Y / 5;
+						}
+
+						if (NPC.localAI[0] >= 55)
+						{
+							NPC.velocity *= 0.98f;
+						}
+
+						if (NPC.localAI[0] >= 130)
+						{
+							NPC.localAI[0] = 0;
+							NPC.localAI[1]++;
+
+							NPC.netUpdate = true;
+						}
+					}
+					else
+					{
+						if (NPC.localAI[0] >= 20)
+						{
+							NPC.localAI[0] = 0;
+							NPC.localAI[1] = 0;
+							NPC.ai[0] = NPC.life < (NPC.lifeMax / 2) ? 5 : 1;
+
+							NPC.netUpdate = true;
+						}
+					}
+
+					break;
+				}
+
+				//rapid fire detonating flames out of its cannon
+				case 5:
+				{
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[0] < 55)
+					{
+						Vector2 GoTo = player.Center;
+						GoTo.X += (NPC.Center.X < player.Center.X) ? -350 : 350;
+						GoTo.Y -= 150;
+
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+					}
+
+					if (NPC.localAI[0] == 55)
+					{
+						NPC.velocity.X *= 0;
+						NPC.velocity.Y = 5;
+					}
+
+					if (NPC.localAI[0] >= 55 && NPC.localAI[0] <= 150)
+					{
+						NPC.velocity *= 0.97f;
+					}
+
+					if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 240 && NPC.localAI[0] % 10 == 0)
+					{
+						SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
+
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 50, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 4, 0, NPC.target);
+					}
+
+					if (NPC.localAI[0] >= 360)
+					{
+						NPC.localAI[0] = 0;
+						NPC.ai[0] = 1;
+
+						NPC.netUpdate = true;
+					}
+
 					break;
 				}
 			}
@@ -217,33 +460,39 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {
+			//make spider aggressive
+			if (NPC.ai[0] == 0)
+			{
+				NPC.ai[0]++;
+
+				NPC.netUpdate = true;
+			}
+
 			//Leg pattern:
 			//7 3
 			//6 2
 			//5 1
 			//4 0
 
+			//cause legs to fall off at certain hp intervals
             if (NPC.life <= (NPC.lifeMax * 0.8f) && !LostLeg1)
             {
 				legs[3].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
 				LostLeg1 = true;
 			}
-
 			if (NPC.life <= (NPC.lifeMax * 0.6f) && !LostLeg2)
             {
 				legs[5].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
 				LostLeg2 = true;
 			}
-
 			if (NPC.life <= (NPC.lifeMax * 0.4f) && !LostLeg3)
             {
 				legs[7].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
 				LostLeg3 = true;
 			}
-
 			if (NPC.life <= (NPC.lifeMax * 0.2f) && !LostLeg4)
             {
 				legs[1].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
@@ -251,6 +500,7 @@ namespace Spooky.Content.NPCs.Quest
 				LostLeg4 = true;
 			}
 
+			//on death destroy the rest of the legs
 			if (NPC.life <= 0)
             {
 				legs[0].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);

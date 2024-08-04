@@ -106,8 +106,24 @@ namespace Spooky.Content.UserInterfaces
             string QuestAcceptedText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyAccepted");
 
 			string QuestCompleteText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyCompleted");
+            string QuestCompleteRematchText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyCompletedItem");
 
-            Texture2D ButtonSelectedTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIconSelectedOutline").Value;
+            //actual icon textures
+            BountyIcon1Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1Done");
+            BountyIcon1NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone");
+            BountyIcon2Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1Done");
+            BountyIcon2NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone");
+            BountyIcon3Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon3Done");
+            BountyIcon3NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon3NotDone");
+            BountyIcon4Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon4Done");
+            BountyIcon4NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon4NotDone");
+            BountyIcon5Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Done");
+            BountyIcon5NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5NotDone");
+            
+            //misc icon textures
+            BountyIconSelectedOutline ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIconSelectedOutline");
+            BountyIconLocked ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIconLocked");
+            BountyIcon5Locked ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Locked");
 
 
 			//draw each bounty icon and display text when hovering over it
@@ -115,19 +131,22 @@ namespace Spooky.Content.UserInterfaces
 			//First bounty
 			Vector2 Icon1TopLeft = ButtonTopLeft.ToVector2() + new Vector2(315f, -24f) * Main.UIScale;
 
-            Texture2D Icon1Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
-            DrawIcon(spriteBatch, Icon1TopLeft, Icon1Texture);
+            DrawIcon(spriteBatch, Icon1TopLeft, Flags.BountyInProgress ? BountyIconLocked.Value : (Flags.LittleEyeBounty1 ? BountyIcon1Done.Value : BountyIcon1NotDone.Value));
 
-            if (IsMouseOverUI(Icon1TopLeft, Icon1Texture, UIBoxScale))
+            if (IsMouseOverUI(Icon1TopLeft, BountyIcon1Done.Value, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
-                DrawIcon(spriteBatch, Icon1TopLeft, ButtonSelectedTexture);
+                DrawIcon(spriteBatch, Icon1TopLeft, BountyIconSelectedOutline.Value);
 
                 if (Flags.BountyInProgress)
                 {
                     DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
                 }
+				else if (Flags.LittleEyeBounty1)
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.OrangeRed);
+				}
                 else
                 {
 				    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon1Text, Quest1ConditionText, QuestAcceptText, QuestWarningText, Color.OrangeRed);
@@ -153,23 +172,26 @@ namespace Spooky.Content.UserInterfaces
                 }
             }
 
-            //chalupo display stuff
+            //evil book display stuff
             Vector2 Icon2TopLeft = ButtonTopLeft.ToVector2() + new Vector2(400f, -24f) * Main.UIScale;
 
-            Texture2D Icon2Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone").Value;
-            DrawIcon(spriteBatch, Icon2TopLeft, Icon2Texture);
+			DrawIcon(spriteBatch, Icon2TopLeft, Flags.BountyInProgress ? BountyIconLocked.Value : (Flags.LittleEyeBounty2 ? BountyIcon2Done.Value : BountyIcon2NotDone.Value));
 
-            if (IsMouseOverUI(Icon2TopLeft, Icon2Texture, UIBoxScale))
+			if (IsMouseOverUI(Icon2TopLeft, BountyIcon2Done.Value, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
-                DrawIcon(spriteBatch, Icon2TopLeft, ButtonSelectedTexture);
+                DrawIcon(spriteBatch, Icon2TopLeft, BountyIconSelectedOutline.Value);
 
-                if (Flags.BountyInProgress)
-                {
-                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
-                }
-                else
+				if (Flags.BountyInProgress)
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
+				}
+				else if (Flags.LittleEyeBounty2)
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.SeaGreen);
+				}
+				else
                 {
                     DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon2Text, Quest2ConditionText, QuestAcceptText, QuestWarningText, Color.SeaGreen);
 
@@ -197,20 +219,23 @@ namespace Spooky.Content.UserInterfaces
             //spider grotto display stuff
             Vector2 Icon3TopLeft = ButtonTopLeft.ToVector2() + new Vector2(485f, -24f) * Main.UIScale;
 
-            Texture2D Icon3Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon3NotDone").Value;
-            DrawIcon(spriteBatch, Icon3TopLeft, Icon3Texture);
+			DrawIcon(spriteBatch, Icon3TopLeft, Flags.BountyInProgress ? BountyIconLocked.Value : (Flags.LittleEyeBounty3 ? BountyIcon3Done.Value : BountyIcon3NotDone.Value));
 
-            if (IsMouseOverUI(Icon3TopLeft, Icon3Texture, UIBoxScale))
+			if (IsMouseOverUI(Icon3TopLeft, BountyIcon3Done.Value, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
-                DrawIcon(spriteBatch, Icon3TopLeft, ButtonSelectedTexture);
+                DrawIcon(spriteBatch, Icon3TopLeft, BountyIconSelectedOutline.Value);
 
-                if (Flags.BountyInProgress)
-                {
-                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
-                }
-                else
+				if (Flags.BountyInProgress)
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
+				}
+				else if (Flags.LittleEyeBounty3)
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Chocolate);
+				}
+				else
                 {
                     DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon3Text, Quest3ConditionText, QuestAcceptText, QuestWarningText, Color.Chocolate);
 
@@ -238,20 +263,23 @@ namespace Spooky.Content.UserInterfaces
             //eye wizard display stuff
             Vector2 Icon4TopLeft = ButtonTopLeft.ToVector2() + new Vector2(570f, -24f) * Main.UIScale;
 
-            Texture2D Icon4Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon4NotDone").Value;
-            DrawIcon(spriteBatch, Icon4TopLeft, Icon4Texture);
+			DrawIcon(spriteBatch, Icon4TopLeft, Flags.BountyInProgress ? BountyIconLocked.Value : (Flags.LittleEyeBounty4 ? BountyIcon4Done.Value : BountyIcon4NotDone.Value));
 
-            if (IsMouseOverUI(Icon4TopLeft, Icon4Texture, UIBoxScale))
+			if (IsMouseOverUI(Icon4TopLeft, BountyIcon4Done.Value, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
-                DrawIcon(spriteBatch, Icon4TopLeft, ButtonSelectedTexture);
+                DrawIcon(spriteBatch, Icon4TopLeft, BountyIconSelectedOutline.Value);
 
-                if (Flags.BountyInProgress)
-                {
-                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
-                }
-                else
+				if (Flags.BountyInProgress)
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
+				}
+				else if (Flags.LittleEyeBounty4)
+				{
+					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.HotPink);
+				}
+				else
                 {
                     DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon4Text, Quest4ConditionText, QuestAcceptText, QuestWarningText, Color.HotPink);
 
@@ -278,56 +306,41 @@ namespace Spooky.Content.UserInterfaces
 
             //orroboro display stuff
             Vector2 Icon5TopLeft = ButtonTopLeft.ToVector2() + new Vector2(655f, -24f) * Main.UIScale;
-            Texture2D Icon5Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Locked").Value;
 
             bool downedAllMechs = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
 
-            if (downedAllMechs)
-            {
-                if (!Flags.downedOrroboro)
-                {
-                    Icon5Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5NotDone").Value;
-                }
-                else
-                {
-                    Icon5Texture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon5Done").Value;
-                }
-            }
+			DrawIcon(spriteBatch, Icon5TopLeft, !downedAllMechs ? BountyIcon5Locked.Value : (Flags.downedOrroboro ? BountyIcon5Done.Value : BountyIcon5NotDone.Value));
 
-            DrawIcon(spriteBatch, Icon5TopLeft, Icon5Texture);
-
-            if (IsMouseOverUI(Icon5TopLeft, Icon5Texture, UIBoxScale))
+			if (IsMouseOverUI(Icon5TopLeft, BountyIcon5Done.Value, UIBoxScale))
             {
                 IsHoveringOverAnyButton = true;
 
-                DrawIcon(spriteBatch, Icon5TopLeft, ButtonSelectedTexture);
-                
-				//quest text
-                if (downedAllMechs)
-                {
-					//display the actual quest text if you havent killed orro-boro but you killed the mechs
-                    if (!Flags.downedOrroboro)
-                    {
-						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon5Text, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
-					}
-					//if you have killed orro-boro display the quest as complete
-                    else
-                    {
-						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, string.Empty, string.Empty, string.Empty, Color.White);
-					}
+                DrawIcon(spriteBatch, Icon5TopLeft, BountyIconSelectedOutline.Value);
 
-                    //accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
-                    if (Main.mouseLeftRelease && Main.mouseLeft)
-                    {
-                        //TODO: spawn item on the player that attracts the miniboss
-
-                        UIOpen = false;
-                    }
-                }
-				//if you havent killed all 3 mechs, then display the quest as locked
-				else
+				if (!downedAllMechs)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, string.Empty, QuestIcon5LockedText, string.Empty, string.Empty, Color.Red);
+				}
+				else
+				{
+					//display the actual quest text if you havent killed orro-boro but you killed the mechs
+					if (Flags.downedOrroboro)
+					{
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Magenta);
+					}
+					//if you have killed orro-boro display the quest as complete
+					else
+					{
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon5Text, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
+					}
+
+					//accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
+					if (Main.mouseLeftRelease && Main.mouseLeft)
+					{
+						//TODO: spawn item on the player that attracts the miniboss
+
+						UIOpen = false;
+					}
 				}
             }
         }
