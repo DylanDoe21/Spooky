@@ -7,8 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.NoseCult.Projectiles
 {
-    public class NoseCultistGruntSnot : ModProjectile
+    public class SnotMonsterBooger : ModProjectile
     {
+        public override string Texture => "Spooky/Content/NPCs/NoseCult/Projectiles/NoseCultistGruntSnot";
+
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
@@ -25,7 +27,6 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 400;
-            Projectile.alpha = 255;
 		}
         
         public override bool PreDraw(ref Color lightColor)
@@ -65,12 +66,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.05f;
-            
-            if (Projectile.alpha > 0)
-            {
-                Projectile.alpha -= 15;
-            }
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
 		}
 
 		public override void OnKill(int timeLeft)

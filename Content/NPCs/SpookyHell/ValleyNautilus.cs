@@ -31,9 +31,6 @@ namespace Spooky.Content.NPCs.SpookyHell
         private static Asset<Texture2D> GlowTexture;
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;

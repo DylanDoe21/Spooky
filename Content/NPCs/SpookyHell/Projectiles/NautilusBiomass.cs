@@ -19,7 +19,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
         float RotateSpeed = 0.2f;
         float ScaleAmount = 0.05f;
 
-        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath3", SoundType.Sound);
+        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/BiomassExplode2", SoundType.Sound);
 
         public override void SetDefaults()
         {

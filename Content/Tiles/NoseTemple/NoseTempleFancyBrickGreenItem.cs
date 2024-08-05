@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Tiles.NoseTemple.Furniture;
+
 namespace Spooky.Content.Tiles.NoseTemple
 {
     public class NoseTempleFancyBrickGreenItem : ModItem
@@ -35,6 +37,10 @@ namespace Spooky.Content.Tiles.NoseTemple
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<NoseTempleFancyWallGreenItem>(), 4)
             .AddTile(TileID.WorkBenches)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<NoseTemplePlatformGreenItem>(), 2)
             .Register();
         }
     }

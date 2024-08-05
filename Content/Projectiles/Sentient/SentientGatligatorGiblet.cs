@@ -15,7 +15,7 @@ namespace Spooky.Content.Projectiles.Sentient
     {
         private static Asset<Texture2D> ProjTexture;
 
-        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath2", SoundType.Sound);
+        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/BiomassExplode1", SoundType.Sound);
 
         public override void SetStaticDefaults()
 		{

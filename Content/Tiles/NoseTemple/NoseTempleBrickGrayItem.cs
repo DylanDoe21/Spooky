@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Content.Tiles.NoseTemple
@@ -38,10 +37,6 @@ namespace Spooky.Content.Tiles.NoseTemple
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<NoseTempleWallGrayItem>(), 4)
             .AddTile(TileID.WorkBenches)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<NoseTemplePlatformGrayItem>(), 2)
             .Register();
         }
     }

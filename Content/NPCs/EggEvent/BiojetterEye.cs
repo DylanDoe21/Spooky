@@ -143,6 +143,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.life <= 0) 
             {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BiojetterEyeGore").Type);
+                }
+
                 Parent.ai[1]++;
                 Parent.netUpdate = true;
             }

@@ -46,13 +46,13 @@ namespace Spooky.Content.NPCs.EggEvent
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 550;
+            NPC.lifeMax = 450;
             NPC.damage = 30;
             NPC.defense = 20;
             NPC.width = 54;
 			NPC.height = 96;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.5f;
+			NPC.knockBackResist = 0.75f;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 2, 0);

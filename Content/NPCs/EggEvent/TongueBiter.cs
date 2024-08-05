@@ -28,8 +28,6 @@ namespace Spooky.Content.NPCs.EggEvent
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
         public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/TongueBiterCharge", SoundType.Sound) { PitchVariance = 0.6f };
 
         public override void SetStaticDefaults()
@@ -82,7 +80,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 700;
+            NPC.lifeMax = 500;
             NPC.damage = 40;
             NPC.defense = 10;
             NPC.width = 92;

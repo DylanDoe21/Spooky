@@ -74,9 +74,14 @@ namespace Spooky.Content.NPCs.NoseCult
             {
                 NPC.ai[1] += 0.2f;
 
-                if (NPC.ai[1] >= 12)
+                if (NPC.ai[1] >= 20)
                 {
-                    NPC.active = false;
+                    for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 5, Main.rand.Next(-4, 5), Main.rand.Next(-4, 0), ModContent.ProjectileType<SnotMonsterBooger>(), NPC.damage / 4, 0, NPC.target);
+                    }
+
+                    player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                 }
             }
 		}

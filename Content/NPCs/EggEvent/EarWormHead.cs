@@ -58,7 +58,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 700;
+            NPC.lifeMax = 620;
             NPC.damage = 42;
             NPC.defense = 5;
             NPC.width = 20;
@@ -163,7 +163,7 @@ namespace Spooky.Content.NPCs.EggEvent
             }
 
             //turn around after vertically passing the player
-            if (NPC.ai[0] >= 135 && NPC.ai[0] < 185)
+            if (NPC.ai[0] >= 135)
             {
                 double angle = NPC.DirectionTo(SavePlayerPosition).ToRotation() - NPC.velocity.ToRotation();
                 while (angle > Math.PI)
@@ -186,7 +186,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.ai[0] > 175)
             {
-                NPC.velocity *= 0.92f;
+                NPC.velocity *= 0.88f;
             }
 
             if (NPC.ai[0] > 245)

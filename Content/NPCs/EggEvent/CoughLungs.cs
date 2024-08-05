@@ -46,7 +46,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.width = 72;
 			NPC.height = 70;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0f;
+			NPC.knockBackResist = 0.5f;
             NPC.noGravity = true;
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 2, 0);

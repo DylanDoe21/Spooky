@@ -23,7 +23,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/EggEvent/BiojetterFly", SoundType.Sound) { Volume = 0.35f };
         public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/BiojetterScream", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle SquishSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -148,9 +147,9 @@ namespace Spooky.Content.NPCs.EggEvent
                 NPC.immortal = false;
                 NPC.dontTakeDamage = false;
 
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.ProjectileType<BiojetterDeath>(), NPC.damage, 0, NPC.target);
-
                 player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
+
+                NPC.netUpdate = true;
             }
 
             switch ((int)NPC.ai[0])
@@ -276,7 +275,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //do squishing animation before spitting
                     if (NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
                     {
-                        SoundEngine.PlaySound(SquishSound, NPC.Center);
+                        //SoundEngine.PlaySound(SquishSound, NPC.Center);
 
                         NPC.velocity.Y = -4;
                     }
@@ -312,7 +311,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                //Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.ProjectileType<BiojetterDeath>(), NPC.damage, 0, NPC.target);
+                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.ProjectileType<BiojetterDeath>(), NPC.damage, 0, NPC.target);
             }
         }
     }

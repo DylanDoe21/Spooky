@@ -559,6 +559,7 @@ namespace Spooky.Core
                     SoundEngine.PlaySound(SoundID.Item103, Player.Center);
                     Player.AddBuff(ModContent.BuffType<EmbryoRevival>(), 300);
                     Player.AddBuff(ModContent.BuffType<EmbryoCooldown>(), 36000);
+                    Player.immuneTime += 60;
                     Player.statLife = 1;
                     ShouldRevive = false;
                 }

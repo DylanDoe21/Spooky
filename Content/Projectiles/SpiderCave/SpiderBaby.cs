@@ -149,6 +149,12 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 Projectile.velocity.Y = -9f;
             }
 
+            //jump if the target is too high
+            if (Projectile.velocity.Y == 0 && target.Center.Y < Projectile.Center.Y - 50)
+            {
+                Projectile.velocity.Y = Main.rand.Next(-12, -6);
+            }
+
             Projectile.velocity.Y += 0.35f;
 
             if (Projectile.velocity.Y > 15f)

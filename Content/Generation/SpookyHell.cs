@@ -874,7 +874,7 @@ namespace Spooky.Content.Generation
             int[] InvalidTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(),
             ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(),
             ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(),
-            ModContent.TileType<LivingFlesh>(), ModContent.TileType<ValleyStone>(), ModContent.TileType<OrroboroNestBlock>() };
+            ModContent.TileType<LivingFlesh>(), ModContent.TileType<ValleyStone>(), ModContent.TileType<OrroboroNestBlock>(), TileID.SlimeBlock};
 
             for (int i = X - 35; i < X + 35; i++)
             {

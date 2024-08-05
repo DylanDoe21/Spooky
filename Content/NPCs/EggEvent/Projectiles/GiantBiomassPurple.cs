@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/EnemyDeath3", SoundType.Sound);
+        public static readonly SoundStyle ExplosionSound = new("Spooky/Content/Sounds/EggEvent/BiomassExplode2", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

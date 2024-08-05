@@ -103,11 +103,11 @@ namespace Spooky.Content.NPCs.Friendly
             Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.1f);
             NPC.velocity *= 0;
 
-            bool PlayerHasSkeletonPiece = Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterHat>()) || Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterSkull>()) ||
-            Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterTorso>()) || Main.player[Main.myPlayer].HasItem(ModContent.ItemType<OldHunterLegs>());
+            Player player = Main.player[Main.myPlayer];
 
-            if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 2, (int)Main.MouseWorld.Y - 2, 5, 5)) && 
-            NPC.Hitbox.Intersects(Main.player[Main.myPlayer].Hitbox) && PlayerHasSkeletonPiece && Main.myPlayer == Main.player[Main.myPlayer].whoAmI)
+            bool PlayerHasSkeletonPiece = player.HasItem(ModContent.ItemType<OldHunterHat>()) || player.HasItem(ModContent.ItemType<OldHunterSkull>()) || player.HasItem(ModContent.ItemType<OldHunterTorso>()) || player.HasItem(ModContent.ItemType<OldHunterLegs>());
+
+            if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 2, (int)Main.MouseWorld.Y - 2, 5, 5)) && !Main.mapFullscreen && PlayerHasSkeletonPiece && NPC.Hitbox.Intersects(player.Hitbox) && Main.myPlayer == player.whoAmI)
             {
                 NPC.GivenName = Language.GetTextValue("Mods.Spooky.NPCs.GiantWeb.DisplayNameAlt");
 
@@ -128,7 +128,7 @@ namespace Spooky.Content.NPCs.Friendly
 
                 SpookyPlayer.ScreenShakeAmount = 5;
 
-                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
+                if (player.ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
 				    {
@@ -141,7 +141,7 @@ namespace Spooky.Content.NPCs.Friendly
                         Flags.OldHunterHat = true;
                     }
                 }
-                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
+                if (player.ConsumeItem(ModContent.ItemType<OldHunterSkull>()) && !Flags.OldHunterSkull)
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
 				    {
@@ -154,7 +154,7 @@ namespace Spooky.Content.NPCs.Friendly
                         Flags.OldHunterSkull = true;
                     }
                 }
-                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
+                if (player.ConsumeItem(ModContent.ItemType<OldHunterTorso>()) && !Flags.OldHunterTorso)
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
 				    {
@@ -167,7 +167,7 @@ namespace Spooky.Content.NPCs.Friendly
                         Flags.OldHunterTorso = true;
                     }
                 }
-                if (Main.player[Main.myPlayer].ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
+                if (player.ConsumeItem(ModContent.ItemType<OldHunterLegs>()) && !Flags.OldHunterLegs) 
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
 				    {

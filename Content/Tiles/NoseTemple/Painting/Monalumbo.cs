@@ -25,6 +25,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Painting
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(181, 176, 160));
             HitSound = SoundID.Dig;
+            DustType = -1;
 		}
     }
 }
