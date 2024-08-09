@@ -65,7 +65,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
 			NPC.spriteDirection = NPC.Center.X > Parent.Center.X ? -1 : 1;
 
-			if (!Parent.active)
+			if (!Parent.active && Parent.type != ModContent.NPCType<MocoIdol6>())
 			{
 				NPC.active = false;
 			}

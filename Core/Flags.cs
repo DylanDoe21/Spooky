@@ -20,6 +20,10 @@ namespace Spooky.Core
         public static Vector2 MocoIdolPosition5 = Vector2.Zero;
         public static Vector2 LeaderIdolPositon = Vector2.Zero;
 
+        //compass positions
+        public static Vector2 SpiderGrottoCenter = Vector2.Zero;
+        public static Vector2 EyeValleyCenter = Vector2.Zero;
+
         public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
         public static bool downedMoco = false;

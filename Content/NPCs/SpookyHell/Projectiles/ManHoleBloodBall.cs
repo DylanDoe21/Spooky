@@ -25,6 +25,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
         {
             Projectile.width = 38;
             Projectile.height = 46;
+            Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = true;
             Projectile.penetrate = -1;
@@ -55,11 +56,6 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             }
 
             return true;
-        }
-
-        public override bool CanHitPlayer(Player target)
-        {
-            return false;
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

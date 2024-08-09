@@ -7,39 +7,44 @@ namespace Spooky.Effects
     [Autoload(Side = ModSide.Client)]
     class VignettePlayer : ModPlayer
 	{
-		private bool _lastTickVignetteActive;
-		private bool _vignetteActive;
-		private Vector2 _targetPosition;
-		private float _opacity;
-		private float _radius;
-		private float _fadeDistance;
-		private Color _color;
+		private bool WasActiveLastTick;
+		private bool IsActive;
+		private Vector2 TargetPosition;
+		private float Opacity;
+		private float Radius;
+		private float FadeDistance;
+		private Color Color;
 
 		public override void ResetEffects()
 		{
-			_lastTickVignetteActive = _vignetteActive;
-			_vignetteActive = false;
+			WasActiveLastTick = IsActive;
+			IsActive = false;
 		}
 
 		public void SetVignette(float radius, float colorFadeDistance, float opacity) => SetVignette(radius, colorFadeDistance, opacity, Color.Black, Main.screenPosition);
 
 		public void SetVignette(float radius, float colorFadeDistance, float opacity, Color color, Vector2 targetPosition)
 		{
-			_radius = radius;
-			_targetPosition = targetPosition;
-			_fadeDistance = colorFadeDistance;
-			_color = color;
-			_opacity = opacity;
-			_vignetteActive = true;
+			Radius = radius;
+			TargetPosition = targetPosition;
+			FadeDistance = colorFadeDistance;
+			Color = color;
+			Opacity = opacity;
+			IsActive = true;
 		}
 
 		public override void PostUpdateMiscEffects()
 		{
-			Spooky.vignetteShader.UseColor(_color);
-			Spooky.vignetteShader.UseIntensity(_opacity);
-			Spooky.vignetteEffect.Parameters["Radius"].SetValue(_radius);
-			Spooky.vignetteEffect.Parameters["FadeDistance"].SetValue(_fadeDistance);
-			Player.ManageSpecialBiomeVisuals("Spooky:Vignette", _vignetteActive || _lastTickVignetteActive, _targetPosition);
+			if (!IsActive)
+			{
+    			return;
+			}
+
+			Spooky.vignetteShader.UseColor(Color);
+			Spooky.vignetteShader.UseIntensity(Opacity);
+			Spooky.vignetteEffect.Parameters["Radius"].SetValue(Radius);
+			Spooky.vignetteEffect.Parameters["FadeDistance"].SetValue(FadeDistance);
+			Player.ManageSpecialBiomeVisuals("Spooky:Vignette", IsActive || WasActiveLastTick, TargetPosition);
 		}
 	}
 }

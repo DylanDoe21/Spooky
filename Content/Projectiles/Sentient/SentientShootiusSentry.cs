@@ -75,6 +75,12 @@ namespace Spooky.Content.Projectiles.Sentient
 			return false;
 		}
 
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			fallThrough = false;
+			return true;
+		}
+
         public override void AI()
         {
             //animation

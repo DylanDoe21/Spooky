@@ -238,7 +238,7 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SphiderFlail>(), 15));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SphiderFlail>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -134,7 +134,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
                 NPC.spriteDirection = SaveDirection;
                 NPC.rotation = SaveRotation;
 
-                Vector2 ChargeSpeed = Parent.Center - NPC.Center;
+                Vector2 ChargeSpeed = new Vector2(Parent.Center.X + (Parent.direction == -1 ? -40 : 40), Parent.Center.Y) - NPC.Center;
                 ChargeSpeed.Normalize();
                 ChargeSpeed *= 22;
                 NPC.velocity = ChargeSpeed;

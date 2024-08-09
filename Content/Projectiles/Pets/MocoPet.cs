@@ -10,9 +10,11 @@ namespace Spooky.Content.Projectiles.Pets
 {
 	public class MocoPet : ModProjectile
 	{
+        public override string Texture => "Spooky/Content/NPCs/SpookyHell/Mocling";
+
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 4;
+			Main.projFrames[Projectile.type] = 9;
 			Main.projPet[Projectile.type] = true;
 
             ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, Main.projFrames[Projectile.type], 5)
@@ -50,12 +52,12 @@ namespace Spooky.Content.Projectiles.Pets
             }
 
 			Projectile.frameCounter++;
-			if (Projectile.frameCounter >= 6) 
+			if (Projectile.frameCounter >= 3)
 			{
 				Projectile.frameCounter = 0;
 				
                 Projectile.frame++;
-				if (Projectile.frame >= 4) 
+				if (Projectile.frame >= 8) 
 				{
 					Projectile.frame = 0;
 				}

@@ -48,6 +48,15 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			return false;
 		}
 
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            Player player = Main.player[Projectile.owner];
+
+            fallThrough = Projectile.position.Y < player.Center.Y - 20 && !isAttacking;
+
+            return true;
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -140,8 +149,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
             Projectile.rotation = 0;
 
-            Vector2 center2 = Projectile.Center;
-            Vector2 vector48 = target.Center - center2;
+            Vector2 vector48 = target.Center - Projectile.Center;
             float targetDistance = vector48.Length();
 
             if (Projectile.velocity.Y == 0 && (HoleBelow() || (targetDistance <= 50f && Projectile.position.X == Projectile.oldPosition.X)))
@@ -215,8 +223,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
             {
                 Projectile.rotation = 0;
 
-                Vector2 center2 = Projectile.Center;
-                Vector2 vector48 = player.Center - center2;
+
+                Vector2 vector48 = player.Center - Projectile.Center;
                 float playerDistance = vector48.Length();
 
                 if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 170f) || (playerDistance > 170f && Projectile.position.X == Projectile.oldPosition.X)))
@@ -428,17 +436,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
             }
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-        {
-            Player player = Main.player[Projectile.owner];
-            Vector2 center2 = Projectile.Center;
-            Vector2 vector48 = player.Center - center2;
-            float playerDistance = vector48.Length();
-            fallThrough = playerDistance > 200f;
-
-            return true;
-        }
-
         private bool HoleBelow()
         {
             int tileWidth = 4;
@@ -468,5 +465,20 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
     public class SpiderBabyRed : SpiderBabyGreen
     {
+        public override void SetDefaults()
+        {
+            Projectile.width = 22;
+			Projectile.height = 20;
+            Projectile.DamageType = DamageClass.Summon;
+			Projectile.minion = true;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = true;
+            Projectile.netImportant = true;
+            Projectile.timeLeft = 2;
+            Projectile.penetrate = -1;
+			Projectile.minionSlots = 0.5f;
+            Projectile.aiStyle = -1;
+        }
     }
 }

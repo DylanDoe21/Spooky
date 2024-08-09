@@ -7,10 +7,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class Leech : ModProjectile
     {
+        bool isAttacking = false;
+
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
@@ -18,6 +22,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
+			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -25,10 +31,16 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.width = 14;
             Projectile.height = 14;
             Projectile.DamageType = DamageClass.Summon;
+            Projectile.localNPCHitCooldown = 30;
+            Projectile.usesLocalNPCImmunity = true;
+			Projectile.minion = true;
             Projectile.friendly = true;
+            Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 600;
-            Projectile.penetrate = 2;
+            Projectile.netImportant = true;
+            Projectile.timeLeft = 2;
+            Projectile.penetrate = -1;
+			Projectile.minionSlots = 0.5f;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -49,17 +61,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return true;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-            Player player = Main.player[Projectile.owner];
-
-            if (player.statLife < (player.statLifeMax2 / 2))
-            {
-                int healingAmount =  Main.rand.Next(2, 5);
-                player.statLife += healingAmount;
-                player.HealEffect(healingAmount, true); 
-            }
-        }
+			return false;
+		}
 
         public override void AI()
         {
@@ -76,70 +81,56 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Player player = Main.player[Projectile.owner];
 
-			if (Projectile.ai[0] == 0) 
-            {
-				player.statLife -= 10;
-				player.HealEffect(-10);
+            if (player.dead)
+			{
+				player.GetModPlayer<SpookyPlayer>().LeechMinion = false;
+			}
 
-                Projectile.ai[0] = 1;
+			if (player.GetModPlayer<SpookyPlayer>().LeechMinion)
+			{
+				Projectile.timeLeft = 2;
 			}
 
             //fix rotation
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            //homing stuff
-            Projectile.ai[1]++;
-            if (Projectile.ai[1] > 60)
+            for (int i = 0; i < 200; i++)
             {
-                int foundTarget = HomeOnTarget();
-                if (foundTarget != -1)
+				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+				if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 550f)
                 {
-                    NPC target = Main.npc[foundTarget];
-                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
-                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 15);
-                }
-                else
+					AttackingAI(Target);
+
+					break;
+				}
+				else
+				{
+					isAttacking = false;
+				}
+
+				NPC NPC = Main.npc[i];
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 550f)
                 {
-                    float goToX = player.Center.X - Projectile.Center.X;
-                    float goToY = player.Center.Y - Projectile.Center.Y;
-                    float speed = 0.23f;
-                    
-                    if (Projectile.velocity.X < goToX)
-                    {
-                        Projectile.velocity.X = Projectile.velocity.X + speed;
-                        if (Projectile.velocity.X < 0f && goToX > 0f)
-                        {
-                            Projectile.velocity.X = Projectile.velocity.X + speed;
-                        }
-                    }
-                    else if (Projectile.velocity.X > goToX)
-                    {
-                        Projectile.velocity.X = Projectile.velocity.X - speed;
-                        if (Projectile.velocity.X > 0f && goToX < 0f)
-                        {
-                            Projectile.velocity.X = Projectile.velocity.X - speed;
-                        }
-                    }
-                    if (Projectile.velocity.Y < goToY)
-                    {
-                        Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                        if (Projectile.velocity.Y < 0f && goToY > 0f)
-                        {
-                            Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                            return;
-                        }
-                    }
-                    else if (Projectile.velocity.Y > goToY)
-                    {
-                        Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                        if (Projectile.velocity.Y > 0f && goToY < 0f)
-                        {
-                            Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                            return;
-                        }
-                    }
-                }
+					AttackingAI(NPC);
+
+					break;
+				}
+				else
+				{
+					isAttacking = false;
+				}
+            }
+
+			if (!isAttacking && Projectile.Distance(new Vector2(player.Center.X, player.Center.Y - 100)) >= 50)
+            {
+                IdleAI(player);
+            }
+
+            //teleport to the player if they get too far
+            if (Projectile.Distance(player.Center) > 1200f)
+            {
+                Projectile.position = player.Center;
             }
 
             //prevent Projectiles clumping together
@@ -148,7 +139,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile other = Main.projectile[num];
 				if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
 				{
-					const float pushAway = 0.08f;
+					const float pushAway = 0.2f;
 					if (Projectile.position.X < other.position.X)
 					{
 						Projectile.velocity.X -= pushAway;
@@ -169,39 +160,98 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
         }
 
-        private int HomeOnTarget()
-        {
-            const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 300;
+        public void AttackingAI(NPC target)
+		{
+			isAttacking = true;
 
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
+            float goToX = target.Center.X - Projectile.Center.X;
+            float goToY = target.Center.Y - Projectile.Center.Y;
+            float speed = 0.5f;
+            
+            if (Projectile.velocity.X < goToX)
             {
-                NPC target = Main.npc[i];
-                if (target.CanBeChasedBy(Projectile) && (!target.wet || homingCanAimAtWetEnemies))
+                Projectile.velocity.X = Projectile.velocity.X + speed;
+                if (Projectile.velocity.X < 0f && goToX > 0f)
                 {
-                    float distance = Projectile.Distance(target.Center);
-                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
-                    {
-                        selectedTarget = i;
-                    }
+                    Projectile.velocity.X = Projectile.velocity.X + speed;
                 }
             }
+            else if (Projectile.velocity.X > goToX)
+            {
+                Projectile.velocity.X = Projectile.velocity.X - speed;
+                if (Projectile.velocity.X > 0f && goToX < 0f)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X - speed;
+                }
+            }
+            if (Projectile.velocity.Y < goToY)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                if (Projectile.velocity.Y < 0f && goToY > 0f)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                    return;
+                }
+            }
+            else if (Projectile.velocity.Y > goToY)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                if (Projectile.velocity.Y > 0f && goToY < 0f)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                    return;
+                }
+            }
+        }
 
-            return selectedTarget;
+        public void IdleAI(Player player)
+		{
+            float goToX = player.Center.X - Projectile.Center.X;
+            float goToY = (player.Center.Y - 100) - Projectile.Center.Y;
+            float speed = 0.23f;
+            
+            if (Projectile.velocity.X < goToX)
+            {
+                Projectile.velocity.X = Projectile.velocity.X + speed;
+                if (Projectile.velocity.X < 0f && goToX > 0f)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X + speed;
+                }
+            }
+            else if (Projectile.velocity.X > goToX)
+            {
+                Projectile.velocity.X = Projectile.velocity.X - speed;
+                if (Projectile.velocity.X > 0f && goToX < 0f)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X - speed;
+                }
+            }
+            if (Projectile.velocity.Y < goToY)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                if (Projectile.velocity.Y < 0f && goToY > 0f)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                    return;
+                }
+            }
+            else if (Projectile.velocity.Y > goToY)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                if (Projectile.velocity.Y > 0f && goToY < 0f)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                    return;
+                }
+            }
         }
 
         public override void OnKill(int timeLeft)
-		{	
-			SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.position);
-
-			for (int numDust = 0; numDust < 20; numDust++)
+		{
+			for (int numDust = 0; numDust < 10; numDust++)
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 
-                Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default(Color), 2f);
-
-                Main.dust[dust].scale *= Main.rand.NextFloat(1f, 2f);
-                Main.dust[dust].velocity *= 3f;
+                int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, DustID.Blood, 0f, 0f, 100, default, 1f);
+                Main.dust[dust].velocity *= 1.5f;
                 Main.dust[dust].noGravity = true;
 
                 if (Main.rand.NextBool(2))

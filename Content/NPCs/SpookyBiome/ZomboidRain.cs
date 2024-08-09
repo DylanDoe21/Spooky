@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
             NPC.lifeMax = 65;
             NPC.damage = 20;
-            NPC.defense = 10;
+            NPC.defense = 5;
             NPC.width = 36;
 			NPC.height = 42;
             NPC.npcSlots = 1f;

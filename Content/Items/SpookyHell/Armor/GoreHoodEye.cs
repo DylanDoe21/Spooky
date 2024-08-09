@@ -35,7 +35,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<MiniOrroHead>()] <= 0)
 			{
-				SpawnWorm(ModContent.ProjectileType<MiniOrroHead>(), ModContent.ProjectileType<MiniOrroBody>(), ModContent.ProjectileType<MiniOrroTail>(), new Vector2(player.Center.X, player.Center.Y - 50), player, 70, 0);
+				SpawnWorm(ModContent.ProjectileType<MiniOrroHead>(), ModContent.ProjectileType<MiniOrroBody>(), ModContent.ProjectileType<MiniOrroTail>(), new Vector2(player.Center.X, player.Center.Y - 50), player, 85, 0);
 			}
 		}
 

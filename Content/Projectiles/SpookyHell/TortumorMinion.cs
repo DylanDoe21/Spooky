@@ -31,7 +31,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.minion = true;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
@@ -67,7 +67,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			for (int i = 0; i < 200; i++)
             {
 				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-				if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 600f)
+				if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 550f)
                 {
 					AttackingAI(Target);
 
@@ -79,7 +79,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				}
 
 				NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 600f)
+                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 550f)
                 {
 					AttackingAI(NPC);
 

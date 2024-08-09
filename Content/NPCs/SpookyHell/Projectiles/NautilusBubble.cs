@@ -117,8 +117,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
             for (int numDusts = 0; numDusts < 35; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, default, 1f);
-                Main.dust[newDust].color = Color.Red;
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, Color.Red, 1f);
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 Main.dust[newDust].noGravity = true;
@@ -179,8 +178,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
             for (int numDusts = 0; numDusts < 35; numDusts++)
 			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, default, 1f);
-                Main.dust[newDust].color = Color.Purple;
+				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CauldronBubble>(), 0f, -2f, 0, Color.Purple, 1f);
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 Main.dust[newDust].noGravity = true;

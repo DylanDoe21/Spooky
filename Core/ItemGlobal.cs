@@ -26,9 +26,8 @@ namespace Spooky.Core
                 return;
             }
 
-            //manually handle daffodils music box recording if her intro themes are playing, since music boxes cant be assigned more than one song
-            if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && 
-            (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") || Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
+            //manually handle daffodils music box recording if any of her themes are playing, since music boxes cant be assigned more than one song
+            if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") || Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
             {
                 SoundEngine.PlaySound(SoundID.Item166, player.Center);
                 item.ChangeItemType(ModContent.ItemType<DaffodilBox>());

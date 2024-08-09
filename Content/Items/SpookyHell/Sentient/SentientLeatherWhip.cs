@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 38;
+            Item.damage = 42;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;

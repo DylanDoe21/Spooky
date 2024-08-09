@@ -110,14 +110,10 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 NPC.aiStyle = 26;
 			    AIType = NPCID.Unicorn;
-
-                SaveDirection = NPC.direction;
             }
             else
             {
                 NPC.aiStyle = 0;
-
-                NPC.direction = NPC.spriteDirection = SaveDirection;
 
                 NPC.localAI[2]++;
 
@@ -146,7 +142,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PheromoneWhip>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PheromoneWhip>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -42,6 +42,12 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			return false;
 		}
 
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			fallThrough = false;
+			return true;
+		}
+
         public override void AI()
         {
             if (!isAttacking || (isAttacking && Projectile.ai[0] < 50))

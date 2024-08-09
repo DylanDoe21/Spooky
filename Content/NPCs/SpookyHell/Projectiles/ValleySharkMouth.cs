@@ -138,7 +138,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
                 Vector2 ChargeSpeed = Parent.Center - NPC.Center;
                 ChargeSpeed.Normalize();
-                ChargeSpeed *= 12;
+                ChargeSpeed *= 22;
                 NPC.velocity = ChargeSpeed;
 
                 if (NPC.Distance(Parent.Center) <= 30f)

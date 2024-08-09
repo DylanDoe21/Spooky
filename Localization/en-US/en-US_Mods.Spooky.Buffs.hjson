@@ -448,3 +448,8 @@ StrawberryBoostBuff: {
 	DisplayName: Strawberry Boost
 	Description: 10% increase to damage, crit chance, knockback, and move speed
 }
+
+LeechBuff: {
+	DisplayName: Leech
+	Description: The leech will fight with you
+}

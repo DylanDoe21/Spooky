@@ -83,6 +83,7 @@ namespace Spooky.Core
         public bool SpiderBabyMinion = false;
         public bool TumorMinion = false;
         public bool NoseMinion = false;
+        public bool LeechMinion = false;
         public bool Grug = false;
         public bool DaffodilHand = false;
         public bool OldHunter = false;
@@ -212,6 +213,7 @@ namespace Spooky.Core
             SpiderBabyMinion = false;
             TumorMinion = false;
             NoseMinion = false;
+            LeechMinion = false;
             Grug = false;
             DaffodilHand = false;
             OldHunter = false;

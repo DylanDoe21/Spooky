@@ -50,10 +50,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             Player player = Main.player[Projectile.owner];
-            Vector2 center2 = Projectile.Center;
-            Vector2 vector48 = player.Center - center2;
-            float playerDistance = vector48.Length();
-            fallThrough = playerDistance > 200f;
+
+            fallThrough = Projectile.position.Y < player.Center.Y - 20 && !isAttacking;
+
             return true;
         }
 

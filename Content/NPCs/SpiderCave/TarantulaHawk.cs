@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.SpiderCave
             NPC.noGravity = true;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit32;
-			NPC.DeathSound = SoundID.NPCDeath38;
+			NPC.DeathSound = SoundID.NPCDeath32 with { Pitch = -0.5f };
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
         }
 
@@ -351,7 +351,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarantulaHawkBow>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarantulaHawkBow>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -421,7 +421,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TatantulaFlyTome>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TatantulaFlyTome>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

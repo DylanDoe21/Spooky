@@ -20,8 +20,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetDefaults()
         {
-			Projectile.width = 16;                   			 
-            Projectile.height = 16;     
+			Projectile.width = 24;                   			 
+            Projectile.height = 24;     
 			Projectile.friendly = true;                               			  		
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;  

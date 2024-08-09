@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 75;
-            NPC.damage = 35;
+            NPC.damage = 25;
 			NPC.defense = 15;
 			NPC.width = 74;
 			NPC.height = 52;
@@ -86,7 +86,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-            if (Vector2.Distance(player.Center, NPC.Center) <= 350f || NPC.localAI[0] >= 250)
+            if (Vector2.Distance(player.Center, NPC.Center) <= 450f || NPC.localAI[0] >= 250)
             {
                 NPC.localAI[0]++;
             }
@@ -134,8 +134,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 20, NPC.Center.Y), 
-                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                    Type, NPC.damage / 4, 0f, Main.myPlayer);
+                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles), Type, NPC.damage / 4, 0f, Main.myPlayer);
                 }
             }
 
@@ -144,8 +143,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 20, NPC.Center.Y), 
-                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                    Type, NPC.damage / 4, 0f, Main.myPlayer);
+                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles), Type, NPC.damage / 4, 0f, Main.myPlayer);
                 }
             }
         }
@@ -153,7 +151,7 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverShield>(), 15));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverShield>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -205,7 +203,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-            if (Vector2.Distance(player.Center, NPC.Center) <= 350f || NPC.localAI[0] >= 250)
+            if (Vector2.Distance(player.Center, NPC.Center) <= 450f || NPC.localAI[0] >= 250)
             {
                 NPC.localAI[0]++;
             }
@@ -247,7 +245,7 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpiderChitin>(), 3, 1, 3));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverStaff>(), 15));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverStaff>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -299,7 +297,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-            if (Vector2.Distance(player.Center, NPC.Center) <= 350f || NPC.localAI[0] >= 250)
+            if (Vector2.Distance(player.Center, NPC.Center) <= 450f || NPC.localAI[0] >= 250)
             {
                 NPC.localAI[0]++;
             }
@@ -392,7 +390,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             NPC.spriteDirection = NPC.direction;
 
-            if (Vector2.Distance(player.Center, NPC.Center) <= 450f || NPC.localAI[0] >= 250)
+            if (Vector2.Distance(player.Center, NPC.Center) <= 550f || NPC.localAI[0] >= 250)
             {
                 NPC.localAI[0]++;
             }
@@ -433,8 +431,8 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverBoomerang>(), 10));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverGiantStaff>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverBoomerang>(), 8));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OrbWeaverGiantStaff>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

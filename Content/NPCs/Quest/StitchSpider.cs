@@ -86,23 +86,23 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 3000;
-            NPC.damage = 25;
-			NPC.defense = 5;
+            NPC.damage = 50;
+			NPC.defense = 10;
 			NPC.width = 58;
 			NPC.height = 58;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 0, 2, 0);
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit32;
 			NPC.DeathSound = SoundID.NPCDeath35;
+			NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * bossAdjustment);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.85f * bossAdjustment);
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

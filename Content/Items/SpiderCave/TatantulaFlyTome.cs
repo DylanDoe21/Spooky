@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.SpiderCave
 
         public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[Item.shoot] < 20;
+			return player.ownedProjectileCounts[Item.shoot] < 10;
 		}
 
         public override Vector2? HoldoutOffset()

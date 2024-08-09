@@ -35,9 +35,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.height = 14;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.localNPCHitCooldown = 30;
+            Projectile.usesLocalNPCImmunity = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.usesLocalNPCImmunity = true;
             Projectile.netImportant = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 2;

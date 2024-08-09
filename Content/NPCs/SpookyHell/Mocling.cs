@@ -51,6 +51,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.height = 36;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 0, 0, 25);
             NPC.noGravity = true;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit22 with { Pitch = 0.45f };

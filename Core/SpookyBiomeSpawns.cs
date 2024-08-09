@@ -64,25 +64,33 @@ namespace Spooky.Core
 				maxSpawns = 0;
 			}
 
+			/*
+			//increase spawns in the spider grotto because they are really low for some reason
+			if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+            {
+				spawnRate /= 2;
+			}
+			*/
+
+			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
+			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
+			{
+				spawnRate /= 5;
+			}
+
+			//drastically increase spawns during the raveyard so all the funny skeletons spawn
+			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
+            {
+				spawnRate /= 5;
+				maxSpawns *= 5;
+			}
+
 			//disable spawns during a hallucination encounter
             if (player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
 			player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
 			{
 				spawnRate = 0;
 				maxSpawns = 0;
-			}
-
-			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
-			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
-			{
-				spawnRate /= 2;
-			}
-
-			//drastically increase spawns during the raveyard so all the funny skeletons spawn
-			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
-            {
-				spawnRate = (int)(spawnRate / 5);
-				maxSpawns = (int)(maxSpawns * 5);
 			}
 		}
 
@@ -447,10 +455,10 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				int[] SpiderGrottoTiles = { ModContent.TileType<DampGrass>(), ModContent.TileType<DampSoil>(), ModContent.TileType<WebBlock>(), ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomMoss>() };
+				int[] InvalidTiles = { ModContent.TileType<SpookyStoneBricks>() };
 
-				//do not allow spider grotto enemies to spawn on non spider grotto tiles
-				if (SpiderGrottoTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				//do not allow spider grotto enemies to spawn inside of the structures in the biome
+				if (!InvalidTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					//critters
 					pool.Add(ModContent.NPCType<Ant1>(), 1);
@@ -471,21 +479,21 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 4);
 						pool.Add(ModContent.NPCType<JumpingSpider1>(), 4);
 						pool.Add(ModContent.NPCType<JumpingSpider2>(), 4);
-						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 4);
+						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
 						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 3);
-						pool.Add(ModContent.NPCType<OrbWeaver1>(), 3);
-						pool.Add(ModContent.NPCType<OrbWeaver2>(), 3);
-						pool.Add(ModContent.NPCType<OrbWeaver3>(), 3);
-						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 5);
+						pool.Add(ModContent.NPCType<OrbWeaver1>(), 2);
+						pool.Add(ModContent.NPCType<OrbWeaver2>(), 2);
+						pool.Add(ModContent.NPCType<OrbWeaver3>(), 2);
+						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 4);
 
 						if (Main.hardMode)
 						{
 							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 2);
-							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 2);
-							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 2);
-							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 2);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 3);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 2);
+							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
+							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
+							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 2);
+							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 1);
 							pool.Add(ModContent.NPCType<WhipSpider>(), 2);
 						}
 					}

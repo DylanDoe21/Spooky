@@ -29,8 +29,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 90;
-            NPC.damage = 30;
+            NPC.lifeMax = 75;
+            NPC.damage = 25;
             NPC.defense = 18;
             NPC.width = 60;
             NPC.height = 60;
@@ -126,7 +126,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 //spawn blood explosion clouds
                 for (int numExplosion = 0; numExplosion < 8; numExplosion++)
                 {
-                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Purple * 0.65f, Main.rand.NextFloat(0.5f, 0.8f));
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Indigo * 0.65f, Main.rand.NextFloat(0.5f, 0.8f));
                     Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-4f, 4f);
                     Main.dust[DustGore].noGravity = true;
 

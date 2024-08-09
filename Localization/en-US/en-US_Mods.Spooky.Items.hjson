@@ -1183,7 +1183,7 @@ MocoTissue: {
 	DisplayName: Suspicious Looking Tissue
 	Tooltip:
 		'''
-		Summons a baby moco pet
+		Summons a pet mocling
 		'The most unsanitary tissue known to mankind'
 		'''
 }
@@ -1461,7 +1461,7 @@ OrbWeaverShield: {
 	Tooltip:
 		'''
 		Hold out a spiked shield that deals more damage the faster you are moving
-		After 3 seconds of being held, the shield will become changed
+		After 3 seconds of being held, the shield's spikes will become charged
 		Release when charged to fire out the shield's spikes
 		'''
 }
@@ -1542,7 +1542,7 @@ TatantulaFlyTome: {
 	Tooltip:
 		'''
 		Conjures flies that follow your cursor while continously using the grimoire
-		Releasing while having 10 or more flies around your cursor causes them to home in on enemies
+		Releasing while having 10 flies around your cursor causes them to home in on enemies
 		'''
 }
 
@@ -1880,14 +1880,18 @@ EyeHead: {
 	DisplayName: Living Flesh Mask
 	Tooltip:
 		'''
-		3% increased summon damage
+		8% increased summon damage
 		Increases your max number of minions by 1
 		'''
 }
 
 EyeLegs: {
 	DisplayName: Living Flesh Leggings
-	Tooltip: 5% increased summon damage and movement speed
+	Tooltip:
+		'''
+		6% increased summon damage 
+		12% increased movement speed
+		'''
 }
 
 GoreBody: {
@@ -2230,9 +2234,8 @@ LeechStaff: {
 	DisplayName: Swarm Scepter
 	Tooltip:
 		'''
-		Casts leeches that will swarm nearby enemies at the cost of 10 life
-		Leeches cannot be summoned when below half health, and they do not take up minion slots
-		If you are below half health, leeches will sometimes heal you on enemy hits
+		Summons weak but agile leeches that rapidly damage enemies
+		Leeches only take up half of a minion slot
 		'''
 }
 
@@ -2517,6 +2520,11 @@ CatacombCrate2: {
 
 GiantCoffinItem: {
 	DisplayName: Old Wood Casket
+	Tooltip: ""
+}
+
+GoldenPotItem: {
+	DisplayName: Gilded Pot
 	Tooltip: ""
 }
 
