@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.DoubleJump;
+			NPC.DeathSound = SoundID.DoubleJump with { Volume = 2f };
             NPC.aiStyle = 3;
             AIType = NPCID.Crab;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome>().Type };

@@ -1233,7 +1233,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.velocity *= 0.85f;
                     }
 
-                    if (NPC.localAI[0] >= 470)
+                    if (NPC.localAI[0] >= 450)
                     {
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;

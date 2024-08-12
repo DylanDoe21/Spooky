@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void SetDefaults()
 		{
             NPC.lifeMax = 100;
-            NPC.damage = 22;
+            NPC.damage = 20;
             NPC.defense = 5;
             NPC.width = 46;
 			NPC.height = 56;
@@ -104,8 +104,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		{
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 30 / 3 : Main.expertMode ? 25 / 2 : 12;
-
             NPC.spriteDirection = NPC.direction;
 
             NPC.localAI[0]++;
@@ -126,11 +124,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed.X *= 4.5f;
-                    ShootSpeed.Y *= 4.5f;
+                    ShootSpeed *= 4.5f;
                     
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 20, ShootSpeed.X, 
-                    ShootSpeed.Y, ModContent.ProjectileType<WarlockSkull>(), Damage, 1, NPC.target, 0, 0);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 20, ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<WarlockSkull>(), NPC.damage / 4, 2, NPC.target, 0, NPC.whoAmI);
                 }
             }
 

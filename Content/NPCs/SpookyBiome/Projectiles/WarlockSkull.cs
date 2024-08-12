@@ -12,7 +12,8 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 { 
     public class WarlockSkull : ModProjectile
     {
-        int Offset = Main.rand.Next(-20, 20);
+        int OffsetX = Main.rand.Next(-20, 20);
+        int OffsetY = Main.rand.Next(-20, 20);
 
         private static Asset<Texture2D> ProjTexture;
 
@@ -57,6 +58,8 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
 		public override void AI()
         {
+            NPC Parent = Main.npc[(int)Projectile.ai[1]];
+
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
             Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
@@ -80,48 +83,42 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
             if (Projectile.ai[0] < 75)
             {
-                for (int k = 0; k < Main.maxNPCs; k++)
-                {
-                    if (Main.npc[k].active && (Main.npc[k].type == ModContent.NPCType<ZomboidWarlock>()))
-                    {
-                        float goToX = Main.npc[k].Center.X + Offset - Projectile.Center.X;
-                        float goToY = Main.npc[k].Center.Y + Offset - Projectile.Center.Y;
-                        float speed = 0.12f;
+                float goToX = Parent.Center.X + OffsetX - Projectile.Center.X;
+                float goToY = Parent.Center.Y + OffsetY - Projectile.Center.Y;
+                float speed = 0.12f;
 
-                        if (Projectile.velocity.X < goToX)
-                        {
-                            Projectile.velocity.X = Projectile.velocity.X + speed;
-                            if (Projectile.velocity.X < 0f && goToX > 0f)
-                            {
-                                Projectile.velocity.X = Projectile.velocity.X + speed;
-                            }
-                        }
-                        else if (Projectile.velocity.X > goToX)
-                        {
-                            Projectile.velocity.X = Projectile.velocity.X - speed;
-                            if (Projectile.velocity.X > 0f && goToX < 0f)
-                            {
-                                Projectile.velocity.X = Projectile.velocity.X - speed;
-                            }
-                        }
-                        if (Projectile.velocity.Y < goToY)
-                        {
-                            Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                            if (Projectile.velocity.Y < 0f && goToY > 0f)
-                            {
-                                Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                                return;
-                            }
-                        }
-                        else if (Projectile.velocity.Y > goToY)
-                        {
-                            Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                            if (Projectile.velocity.Y > 0f && goToY < 0f)
-                            {
-                                Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                                return;
-                            }
-                        }
+                if (Projectile.velocity.X < goToX)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X + speed;
+                    if (Projectile.velocity.X < 0f && goToX > 0f)
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X + speed;
+                    }
+                }
+                else if (Projectile.velocity.X > goToX)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X - speed;
+                    if (Projectile.velocity.X > 0f && goToX < 0f)
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X - speed;
+                    }
+                }
+                if (Projectile.velocity.Y < goToY)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                    if (Projectile.velocity.Y < 0f && goToY > 0f)
+                    {
+                        Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                        return;
+                    }
+                }
+                else if (Projectile.velocity.Y > goToY)
+                {
+                    Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                    if (Projectile.velocity.Y > 0f && goToY < 0f)
+                    {
+                        Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                        return;
                     }
                 }
             }

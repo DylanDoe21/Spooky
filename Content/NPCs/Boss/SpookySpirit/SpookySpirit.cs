@@ -174,6 +174,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             //draw aura
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
             AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritAura");
+            EyeTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye1");
+            EyeTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye2");
 
             Vector2 drawOrigin = new(AuraTexture.Width() * 0.5f, NPC.height * 0.5f);
 
@@ -184,61 +186,36 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
 
-            for (int numEffect = 0; numEffect < 4; numEffect++)
+            //draw aura
+            for (int i = 0; i < 360; i += 90)
             {
-                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, (EyeSprite ? Color.OrangeRed : Color.BlueViolet), numEffect));
-
-                float fade = Main.GameUpdateCount % 60 / 60f;
-                int index = (int)(Main.GameUpdateCount / 60 % 3);
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, (EyeSprite ? Color.OrangeRed : Color.BlueViolet), i / 30));
 
                 if (Flags.RaveyardHappening)
                 {
                     color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(PartyColors[index], PartyColors[(index + 1) % 3], fade));
                 }
 
-                Color newColor = color;
-                newColor = NPC.GetAlpha(newColor);
-                newColor *= 1f;
-                Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y) + (numEffect / 2 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4) * numEffect;
-                Main.EntitySpriteDraw(AuraTexture.Value, vector, NPC.frame, newColor, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
+                Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
+
+                spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.75f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.15f, effects, 0);
             }
+
+            //draw spooky spirit itself
+            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
             
-            return true;
-		}
-
-        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            //make alpha fade in and out properly
-            if (NPC.alpha < 5 && alpha < 1f)
-            {
-                alpha += 0.01f;
-            }
-            if (NPC.alpha >= 5 && alpha > 0f)
-            {
-                alpha -= 0.05f;
-            }
-
-            EyeTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye1");
-            EyeTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/SpookySpiritEye2");
-
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            if (SaveDirection != 0)
-            {
-                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
-            
+            //eye glowmasks
             if (!EyeSprite)
             {
-                Main.EntitySpriteDraw(EyeTexture1.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
-                new Color(255, 255, 255) * Math.Min(1f, (Main.screenPosition.Y - 500f) / 1000f * alpha), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
-            }
+				Main.EntitySpriteDraw(EyeTexture1.Value, NPC.Center - Main.screenPosition, NPC.frame, new Color(255, 255, 255) * alpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+			}
             if (EyeSprite)
             {
-                Main.EntitySpriteDraw(EyeTexture2.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, 
-                new Color(255, 255, 255) * Math.Min(1f, (Main.screenPosition.Y - 500f) / 1000f * alpha), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
-            }
-        }
+				Main.EntitySpriteDraw(EyeTexture2.Value, NPC.Center - Main.screenPosition, NPC.frame, new Color(255, 255, 255) * alpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+			}
+            
+            return false;
+		}
 
         public override void FindFrame(int frameHeight)
         {
@@ -273,6 +250,16 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             else
             {
                 NPC.spriteDirection = NPC.direction;
+            }
+
+            //make alpha fade in and out properly
+            if (NPC.alpha < 5 && alpha < 1f)
+            {
+                alpha += 0.05f;
+            }
+            if (NPC.alpha >= 5 && alpha > 0f)
+            {
+                alpha -= 0.05f;
             }
 
             NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.02f : -0.02f);

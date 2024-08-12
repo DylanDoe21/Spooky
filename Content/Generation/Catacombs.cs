@@ -43,7 +43,7 @@ namespace Spooky.Content.Generation
         public static bool placedLootRoom2 = false;
         public static bool placedLootRoom3 = false;
         public static bool placedLootRoom4 = false;
-        public static bool placedMoyaiRoom = false;
+        public static bool placedRareSecretRoom = false;
 
         Vector2[] Layer2LootRooms = new Vector2[3];
         Vector2 PandoraRoomPosition;
@@ -108,7 +108,17 @@ namespace Spooky.Content.Generation
                         }
                         else 
                         {
-                            Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                            //rare chance to place a golden treasure room
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            {
+                                //only one treasure room can be placed in a world
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
+                                placedRareSecretRoom = true;
+                            }
+                            else
+                            {
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                            }
                         }
 
                         //place entrance room in the top row in the center
@@ -130,11 +140,11 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
-                                placedMoyaiRoom = true;
+                                placedRareSecretRoom = true;
                             }
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(12))
@@ -160,11 +170,11 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
-                                placedMoyaiRoom = true;
+                                placedRareSecretRoom = true;
                             }
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(10))
@@ -190,11 +200,11 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
-                                placedMoyaiRoom = true;
+                                placedRareSecretRoom = true;
                             }
                             //place trap rooms sometimes
                             else if (WorldGen.genRand.NextBool(10))
@@ -212,11 +222,11 @@ namespace Spooky.Content.Generation
                     if (Y == (int)Main.worldSurface + 190)
                     {
                         //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
+                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
                         {
                             //only one treasure room can be placed in a world
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
-                            placedMoyaiRoom = true;
+                            placedRareSecretRoom = true;
                         }
                         //place trap rooms sometimes
                         else if (WorldGen.genRand.NextBool(10))
@@ -233,11 +243,11 @@ namespace Spooky.Content.Generation
                     if (Y == (int)Main.worldSurface + 235)
                     {
                         //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(200) && !placedMoyaiRoom)
+                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
                         {
                             //only one treasure room can be placed in a world
                             Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom", origin.ToPoint16(), Mod);
-                            placedMoyaiRoom = true;
+                            placedRareSecretRoom = true;
                         }
                         //place trap rooms sometimes
                         else if (WorldGen.genRand.NextBool(10))
@@ -300,6 +310,7 @@ namespace Spooky.Content.Generation
             placedLootRoom2 = false;
             placedLootRoom3 = false;
             placedLootRoom4 = false;
+            placedRareSecretRoom = false;
 
             //sets the width for the catacombs second layer (how many rooms it has horizontally)
             //240 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
@@ -366,7 +377,15 @@ namespace Spooky.Content.Generation
                         }
                         else
                         {
-                            if (WorldGen.genRand.NextBool(10))
+                            //rare chance to place a golden treasure room
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            {
+                                //only one treasure room can be placed in a world
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
+                                placedRareSecretRoom = true;
+                            }
+                            //place puzzle rooms sometimes
+                            else if (WorldGen.genRand.NextBool(10))
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             }
@@ -394,7 +413,15 @@ namespace Spooky.Content.Generation
                         }
                         else
                         {
-                            if (WorldGen.genRand.NextBool(10))
+                            //rare chance to place a golden treasure room
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            {
+                                //only one treasure room can be placed in a world
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
+                                placedRareSecretRoom = true;
+                            }
+                            //place puzzle rooms sometimes
+                            else if (WorldGen.genRand.NextBool(10))
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             }
@@ -420,7 +447,15 @@ namespace Spooky.Content.Generation
                         }
                         else
                         {
-                            if (WorldGen.genRand.NextBool(10))
+                            //rare chance to place a golden treasure room
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            {
+                                //only one treasure room can be placed in a world
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
+                                placedRareSecretRoom = true;
+                            }
+                            //place puzzle rooms sometimes
+                            else if (WorldGen.genRand.NextBool(10))
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             }
@@ -442,7 +477,15 @@ namespace Spooky.Content.Generation
                         }
                         else
                         {
-                            if (WorldGen.genRand.NextBool(10))
+                            //rare chance to place a golden treasure room
+                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            {
+                                //only one treasure room can be placed in a world
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
+                                placedRareSecretRoom = true;
+                            }
+                            //place puzzle rooms sometimes
+                            else if (WorldGen.genRand.NextBool(10))
                             {
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                             }
@@ -456,7 +499,15 @@ namespace Spooky.Content.Generation
                     //fifth row
                     if (Y == layer2Start + 168)
                     {
-                        if (WorldGen.genRand.NextBool(10))
+                        //rare chance to place a golden treasure room
+                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                        {
+                            //only one treasure room can be placed in a world
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
+                            placedRareSecretRoom = true;
+                        }
+                        //place puzzle rooms sometimes
+                        else if (WorldGen.genRand.NextBool(10))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                         }
@@ -469,7 +520,15 @@ namespace Spooky.Content.Generation
                     //sixth row
                     if (Y == layer2Start + 210)
                     {
-                        if (WorldGen.genRand.NextBool(10))
+                        //rare chance to place a golden treasure room
+                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                        {
+                            //only one treasure room can be placed in a world
+                            Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
+                            placedRareSecretRoom = true;
+                        }
+                        //place puzzle rooms sometimes
+                        else if (WorldGen.genRand.NextBool(10))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
                         }

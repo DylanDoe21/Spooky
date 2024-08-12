@@ -14,7 +14,6 @@ using Spooky.Content.UserInterfaces;
 using Mono.Cecil;
 using Spooky.Content.Projectiles.Sentient;
 using Terraria.GameContent.ItemDropRules;
-using Spooky.Content.Items.Blooms.Boosts;
 
 namespace Spooky.Core
 {
@@ -390,15 +389,7 @@ namespace Spooky.Core
 
 					for (int numBerries = 0; numBerries < 3; numBerries++)
 					{
-						int newItem = Item.NewItem(Player.GetSource_ReleaseEntity(), Player.Hitbox, ModContent.ItemType<StrawberryBoost>());
-						Main.item[newItem].velocity.X = Main.rand.Next(-8, 9);
-						Main.item[newItem].velocity.Y = Main.rand.Next(1, 7);
-						Main.item[newItem].noGrabDelay = 120;
-
-						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-						{
-							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-						}
+                        //TODO: spawn straberry boost projectile here
 					}
 
 					WinterStrawberryTimer = 0;

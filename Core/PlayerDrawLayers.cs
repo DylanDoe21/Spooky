@@ -211,4 +211,53 @@ namespace Spooky.Core
             drawInfo.DrawDataCache.Add(new DrawData(tex2, roundedPos - Main.screenPosition, null, color * 0.8f, 0, tex2.Size() / 2, 1.2f, SpriteEffects.None, 0));
         }
     }
+
+    //biome compass drawing
+    public class BiomeCompasses : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return (drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().SpiderGrottoCompass || drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().EyeValleyCompass) && !drawInfo.drawPlayer.dead;
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            if (drawInfo.drawPlayer.dead)
+            {
+                return;
+            }
+
+            Texture2D GrottoCompassTex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpiderCave/Misc/GrottoCompass").Value;
+            Texture2D EyeValleyCompassTex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Misc/EyeValleyCompass").Value;
+            Texture2D ArrowTex = ModContent.Request<Texture2D>("Spooky/Content/Items/CompassArrow").Value;
+
+            float pulse = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
+
+            Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 45, MidpointRounding.AwayFromZero));
+
+            if (drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().SpiderGrottoCompass)
+            {
+                Vector2 vector = new Vector2(roundedPos.X, roundedPos.Y);
+                float RotateX = Flags.SpiderGrottoCenter.X - vector.X;
+                float RotateY = Flags.SpiderGrottoCenter.Y - vector.Y;
+                float rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+                drawInfo.DrawDataCache.Add(new DrawData(GrottoCompassTex, roundedPos - Main.screenPosition, null, Color.White, 0f, GrottoCompassTex.Size() / 2, 1f, SpriteEffects.None, 0));
+                drawInfo.DrawDataCache.Add(new DrawData(ArrowTex, roundedPos - Main.screenPosition, null, Color.White, rotation, ArrowTex.Size() / 2, 0.8f + pulse / 2f, SpriteEffects.None, 0));
+            }
+            if (drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().EyeValleyCompass)
+            {
+                Vector2 vector = new Vector2(roundedPos.X, roundedPos.Y);
+                float RotateX = Flags.EyeValleyCenter.X - vector.X;
+                float RotateY = Flags.EyeValleyCenter.Y - vector.Y;
+                float rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+                drawInfo.DrawDataCache.Add(new DrawData(EyeValleyCompassTex, roundedPos - Main.screenPosition, null, Color.White, 0f, EyeValleyCompassTex.Size() / 2, 1f, SpriteEffects.None, 0));
+                drawInfo.DrawDataCache.Add(new DrawData(ArrowTex, roundedPos - Main.screenPosition, null, Color.White, rotation, ArrowTex.Size() / 2, 0.8f + pulse / 2f, SpriteEffects.None, 0));
+            }
+        }
+    }
 }

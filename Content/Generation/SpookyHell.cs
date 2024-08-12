@@ -858,7 +858,10 @@ namespace Spooky.Content.Generation
 
                 if (StructureFile == "OrroboroNest")
                 {
+                    Flags.EyeValleyCenter =  new Vector2(startX * 16, startY * 16);
+
                     Flags.EggPosition = new Vector2(startX * 16, startY * 16);
+                    
                     int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
                     Main.npc[Egg].position.X += 1;
                     Main.npc[Egg].position.Y -= 32;

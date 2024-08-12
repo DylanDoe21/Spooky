@@ -63,7 +63,7 @@ BouncerDeathmark: {
 
 CatacombDebuff: {
 	DisplayName: Curse of the Catacombs
-	Description: A curse prevents you from using teleportation
+	Description: A curse is reducing your vision
 }
 
 CrossCooldown: {
@@ -419,11 +419,6 @@ HunterScarfMark: {
 	Description: ""
 }
 
-ToothyDebuff: {
-	DisplayName: Chomped
-	Description: The plant monster is latched onto you!
-}
-
 BeeDamageBuff: {
 	DisplayName: Pollenation Damage
 	Description: ""
@@ -452,4 +447,9 @@ StrawberryBoostBuff: {
 LeechBuff: {
 	DisplayName: Leech
 	Description: The leech will fight with you
+}
+
+ToothyDebuff: {
+	DisplayName: Toothy Debuff
+	Description: Mods.Spooky.Buffs.ToothyDebuff.Description
 }

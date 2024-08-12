@@ -86,7 +86,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 3000;
-            NPC.damage = 50;
+            NPC.damage = 40;
 			NPC.defense = 10;
 			NPC.width = 58;
 			NPC.height = 58;
@@ -329,7 +329,7 @@ namespace Spooky.Content.NPCs.Quest
 						ShootSpeed.Normalize();
 						ShootSpeed *= 18f;
 
-						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
+						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 120f;
 						Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
 
 						if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -337,7 +337,7 @@ namespace Spooky.Content.NPCs.Quest
 							position += muzzleOffset;
 						}
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SpiderWeb>(), NPC.damage / 4, 0, NPC.target);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SpiderWeb>(), NPC.damage / 5, 0, NPC.target);
 					}
 
 					if (NPC.localAI[0] >= 300)
@@ -444,7 +444,7 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 4, 0, NPC.target);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 5, 0, NPC.target);
 					}
 
 					if (NPC.localAI[0] >= 360)

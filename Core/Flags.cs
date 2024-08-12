@@ -8,6 +8,7 @@ namespace Spooky.Core
 {
     public class Flags : ModSystem
     {
+        //positions for npc spawning
         public static Vector2 DaffodilPosition = Vector2.Zero;
         public static Vector2 PandoraPosition = Vector2.Zero;
         public static Vector2 FlowerPotPosition = Vector2.Zero;

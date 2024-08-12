@@ -29,6 +29,13 @@ namespace Spooky.Content.NPCs.EggEvent
             Main.npcFrameCount[NPC.type] = 6;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Position = new Vector2(12f, 0f),
+                PortraitPositionXOverride = 12f,
+                PortraitPositionYOverride = 0f
+            };
+
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 

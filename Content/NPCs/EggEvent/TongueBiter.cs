@@ -40,8 +40,8 @@ namespace Spooky.Content.NPCs.EggEvent
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Rotation = MathHelper.PiOver2,
-                Position = new Vector2(12f, -12f),
-                PortraitPositionXOverride = 6f,
+                Position = new Vector2(5f, -12f),
+                PortraitPositionXOverride = 5f,
                 PortraitPositionYOverride = 0f
             };
 

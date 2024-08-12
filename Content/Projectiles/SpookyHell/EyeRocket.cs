@@ -13,6 +13,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class EyeRocket : ModProjectile
     {
+        int WhoAmI = -1;
+
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
@@ -34,23 +36,49 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.timeLeft = 200;
         }
 
-        public override bool PreDraw(ref Color lightColor)
-        {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+		public override bool PreDraw(ref Color lightColor)
+		{
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+			for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+			{
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
+				Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+				Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Red);
+				Color RealColor = Projectile.GetAlpha(color) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+				Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+				Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, RealColor, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
+			}
+
+			return true;
+		}
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+            Player player = Main.player[Projectile.owner];
+
+            //use this to store the hit npc so it doesnt get damaged by the explosion along with the regular hit
+			int WhoAmI = target.whoAmI;
+
+            //damage all enemies nearby the rocket
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Red);
-                Color RealColor = Projectile.GetAlpha(color) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, RealColor, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
+                NPC npc = Main.npc[i];
+
+                if (npc.Distance(Projectile.Center) <= 70f && npc.active && !npc.friendly && !npc.dontTakeDamage)
+                {
+                    if (i == WhoAmI)
+                    {
+                        continue;
+                    }
+
+                    player.ApplyDamageToNPC(npc, Projectile.damage + Main.rand.Next(-30, 10), Projectile.knockBack, 0, false);
+                }
             }
 
-            return true;
+			Projectile.Kill();
         }
 
         public override void AI()
@@ -90,7 +118,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         private int HomeOnTarget()
         {
-            const float homingMaximumRangeInPixels = 600;
+            const float homingMaximumRangeInPixels = 500;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -111,24 +139,22 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
             //spawn blood splatter
-            int NumProjectiles = Main.rand.Next(8, 12);
+            int NumProjectiles = Main.rand.Next(3, 6);
             for (int i = 0; i < NumProjectiles; i++)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int Blood = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 13), Main.rand.Next(-12, 13), ModContent.ProjectileType<RedSplatter>(), 0, 0);
-                    Main.projectile[Blood].scale = 0.5f;
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -4), ModContent.ProjectileType<RedSplatter>(), 0, 0);
                 }
             }
 
             //spawn blood explosion clouds
             for (int numExplosion = 0; numExplosion < 5; numExplosion++)
             {
-                int dust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, 
-                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(0.75f, 1f));
+                int dust = Dust.NewDust(Projectile.Center, Projectile.width / 2, Projectile.height / 2, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(0.75f, 1f));
                 Main.dust[dust].noGravity = true;
 
                 if (Main.rand.NextBool(2))

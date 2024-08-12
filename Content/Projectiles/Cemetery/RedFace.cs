@@ -20,11 +20,13 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             Projectile.width = 88;
 			Projectile.height = 56;
+            Projectile.localNPCHitCooldown = 60;
+            Projectile.usesLocalNPCImmunity = true;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
-            Projectile.alpha = 255;
             Projectile.timeLeft = 1000;
             Projectile.penetrate = 3;
+            Projectile.alpha = 255;
             Projectile.aiStyle = -1;
         }
 

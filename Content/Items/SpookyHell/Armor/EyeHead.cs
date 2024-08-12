@@ -38,7 +38,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.GetDamage(DamageClass.Summon) += 0.08f;
 			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.08f;
-			player.maxMinions += 1;
 		}
 
 		public override void AddRecipes()

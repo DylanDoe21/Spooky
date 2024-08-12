@@ -304,6 +304,8 @@ namespace Spooky.Content.Generation
             Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 8);
             Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
 
+            Flags.SpiderGrottoCenter = new Vector2(origin.X * 16, origin.Y * 16);
+
             Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
             int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
             Main.npc[GiantWeb].position.X += 18;

@@ -35,10 +35,12 @@ namespace Spooky.Effects
 
 		public override void PostUpdateMiscEffects()
 		{
+			/*
 			if (!IsActive)
 			{
     			return;
 			}
+			*/
 
 			Spooky.vignetteShader.UseColor(Color);
 			Spooky.vignetteShader.UseIntensity(Opacity);

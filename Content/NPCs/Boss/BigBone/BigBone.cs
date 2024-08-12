@@ -274,36 +274,43 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             //draw healing aura if any healing flowers exist
             if (NPC.CountNPCS(ModContent.NPCType<HealingFlower>()) > 0)
 			{
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
+
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.Red * 0.65f, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
             //draw invulnerability aura if defensive flowers exist
             if (NPC.CountNPCS(ModContent.NPCType<DefensiveFlower>()) > 0)
 			{
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.OrangeRed);
+
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.OrangeRed * 0.65f, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
             //draw aura during death animation
             if (DeathAnimation)
             {
+                Color color1 = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.OrangeRed);
+                Color color2 = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Orange);
+
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.Red * 0.65f, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 1.2f, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color1, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 1.2f, effects, 0);
                 }
 
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, Color.OrangeRed * 0.65f, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 0.9f, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color2, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 0.9f, effects, 0);
                 }
             }
 

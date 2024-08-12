@@ -1340,7 +1340,7 @@ SpiderLegs: {
 
 GrottoCompass: {
 	DisplayName: Rusted Compass
-	Tooltip: Points to the location of the spider-infested grotto
+	Tooltip: Points to the location of the spider-infested grotto when held
 }
 
 InchwormBlackItem: {
@@ -1878,11 +1878,7 @@ EyeBody: {
 
 EyeHead: {
 	DisplayName: Living Flesh Mask
-	Tooltip:
-		'''
-		8% increased summon damage
-		Increases your max number of minions by 1
-		'''
+	Tooltip: 8% increased summon damage
 }
 
 EyeLegs: {
@@ -1948,7 +1944,7 @@ CreepyChunk: {
 
 EyeValleyCompass: {
 	DisplayName: Fleshy Compass
-	Tooltip: Points to the direction of a strange biome in the underworld
+	Tooltip: Points to the direction of a strange biome in the underworld when held
 }
 
 LeechWhipGore: {
@@ -2524,7 +2520,7 @@ GiantCoffinItem: {
 }
 
 GoldenPotItem: {
-	DisplayName: Gilded Pot
+	DisplayName: Pot of Avarice
 	Tooltip: ""
 }
 

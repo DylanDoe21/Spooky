@@ -37,7 +37,7 @@ namespace Spooky.Content.Biomes
             if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !PandoraBoxWorld.PandoraEventActive && !Flags.downedBigBone)
             {
                 VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(0f, 450f, 1f, Color.Black, player.Center);
+                vignettePlayer.SetVignette(0f, 500f, 1f, Color.Black, player.Center);
             }
 
             if (!Flags.downedBigBone)

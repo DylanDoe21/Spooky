@@ -158,9 +158,15 @@ namespace Spooky.Content.Projectiles.Cemetery
             Vector2 vector48 = target.Center - center2;
             float targetDistance = vector48.Length();
 
-            if (Projectile.velocity.Y == 0 && ((HoleBelow() && targetDistance > 5f) || (targetDistance > 5f && Projectile.position.X == Projectile.oldPosition.X)))
+            if (Projectile.velocity.Y == 0 && (HoleBelow() || (targetDistance <= 50f && Projectile.position.X == Projectile.oldPosition.X)))
             {
-                Projectile.velocity.Y = -10f;
+                Projectile.velocity.Y = -9f;
+            }
+
+            //jump if the target is too high
+            if (Projectile.velocity.Y == 0 && target.Center.Y < Projectile.Center.Y - 50)
+            {
+                Projectile.velocity.Y = Main.rand.Next(-12, -6);
             }
 
             Projectile.velocity.Y += 0.35f;

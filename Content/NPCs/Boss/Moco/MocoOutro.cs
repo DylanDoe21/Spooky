@@ -90,12 +90,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            NPC.rotation = 0;
-            NPC.spriteDirection = NPC.velocity.X < 0 ? -1 : 1;
+            NPC.rotation = NPC.velocity.X * 0.005f;
+            NPC.spriteDirection = NPC.direction;
 
             NPC.ai[0]++;
 
-            if (NPC.ai[0] < 240)
+            if (NPC.ai[0] < 300)
             {
                 if (NPC.ai[0] % 60 == 0)
                 {
@@ -105,18 +105,18 @@ namespace Spooky.Content.NPCs.Boss.Moco
                 }
                 else
                 {
-                    NPC.velocity *= 0.9f;
+                    NPC.velocity *= 0.85f;
                 }
             }
 
-            if (NPC.ai[0] == 300)
+            if (NPC.ai[0] == 360)
             {
                 SoundEngine.PlaySound(FlyingSound, NPC.Center);
 
                 MoveToPlayer(player, player.Center.X < NPC.Center.X ? -500f : 500f, -250f);
             }
 
-            if (NPC.ai[0] >= 300)
+            if (NPC.ai[0] >= 360)
             {
                 NPC.EncourageDespawn(60);
             }

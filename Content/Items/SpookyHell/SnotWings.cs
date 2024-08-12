@@ -49,7 +49,8 @@ namespace Spooky.Content.Items.SpookyHell
 				//spawn ooze gores as the player is flying
                 if (Main.rand.NextBool(10))
                 {
-					Gore.NewGore(player.GetSource_FromThis(), player.Center + new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(0, 12)), Vector2.Zero, Main.rand.Next(1024, 1027));
+					int newGore = Gore.NewGore(player.GetSource_FromThis(), player.Center + new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(0, 12)), Vector2.Zero, Main.rand.Next(1024, 1027));
+					//TODO: can dye shaders be applied to gores?
                 }
 
 				return true;

@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,8 +18,8 @@ namespace Spooky.Content.Items.Catacomb.Misc
 			Item.height = 46;
             Item.consumable = true;
 			Item.noUseGraphic = true;
-            Item.useTime = 5;
-            Item.useAnimation = 5;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.rare = ItemRarityID.Yellow;
             Item.maxStack = 1;
@@ -26,7 +27,18 @@ namespace Spooky.Content.Items.Catacomb.Misc
 
 		public override bool? UseItem(Player player)
         {
+			SoundEngine.PlaySound(SoundID.ResearchComplete with { Pitch = 1.5f }, player.Center);
+			SoundEngine.PlaySound(SoundID.DoubleJump with { Volume = 2f }, player.Center);
+
 			player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4 = true;
+
+			for (int numGores = 1; numGores <= 30; numGores++)
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(player.GetSource_ItemUse(player.HeldItem), player.Center, new Vector2(Main.rand.Next(-22, 22), Main.rand.Next(-15, -2)), Main.rand.Next(276, 283));
+                }
+            }
 
 			return true;
         }

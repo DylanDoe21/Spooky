@@ -97,7 +97,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                 ShootSpeed *= 2f;
 
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                ShootSpeed.Y, ModContent.ProjectileType<StitchBolt>(), Damage, 0, NPC.target, 0, 0);
+                ShootSpeed.Y, ModContent.ProjectileType<StitchBolt>(), Damage, 0, NPC.target);
             }
         }
 

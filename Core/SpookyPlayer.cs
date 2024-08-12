@@ -138,6 +138,8 @@ namespace Spooky.Core
         public bool EatenByGooSlug = false;
         public bool RaveyardGuardsHostile = false;
         public bool WhipSpiderAggression = false;
+        public bool SpiderGrottoCompass = false;
+        public bool EyeValleyCompass = false;
 
         //sounds
         public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
@@ -157,9 +159,6 @@ namespace Spooky.Core
 
         public override void ResetEffects()
         {
-            //misc
-            WhipSpiderAggression = false;
-
             //armors
             GourdSet = false;
             RootSet = false;
@@ -245,7 +244,10 @@ namespace Spooky.Core
             BigBonePet = false;
 
             //misc stuff
+            WhipSpiderAggression = false;
             EatenByGooSlug = false;
+            SpiderGrottoCompass = false;
+            EyeValleyCompass = false;
         }
 
         public override void ModifyScreenPosition()
@@ -414,7 +416,7 @@ namespace Spooky.Core
             }
 
             //rarely spawn the red face when hitting an enemy
-            if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(50))
+            if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(40))
             {
                 RedGodzillaCartridgeSpawnDelay = 360;
 
@@ -578,6 +580,7 @@ namespace Spooky.Core
                 PlayerDrawLayers.Head.Hide();
             }
 
+            //do not draw anything if the player is being eaten by a goo slug
 			if (EatenByGooSlug)
 			{
 				drawInfo.drawPlayer.frozen = true;
