@@ -29,7 +29,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.knockBack = 5;
             Item.rare = ItemRarityID.Blue;
            	Item.value = Item.buyPrice(gold: 1);
-            Item.UseSound = SoundID.Item10;
+            Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<GourdFlailProj>();
             Item.shootSpeed = 12f;
 		}

@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.knockBack = 5;
             Item.rare = ItemRarityID.White;
            	Item.value = Item.buyPrice(gold: 1);
-            Item.UseSound = SoundID.Item10;
+            Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<ShroomFlailProj>();
             Item.shootSpeed = 12f;
 		}

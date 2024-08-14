@@ -68,6 +68,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 			return true;
 		}
 
+		public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             Projectile.velocity.Y += 0.25f;

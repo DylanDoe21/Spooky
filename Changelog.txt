@@ -90,7 +90,7 @@ Other Miscellaneous Additions:
 
 -Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass, colored mushrooms, and catacomb grass vines on it
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
--Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory (These items will not work on older worlds created before this update)
+-Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory (These compasses will sadly not work on older worlds created before this update)
 -Added a few new types of zomboids that spawn during various vanilla events
 -Added some new sprites for the existing spooky forest gourd tiles, added a few more gourd variants with their own unique carved faces, and made rotten gourds carvable
 -Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
@@ -123,7 +123,7 @@ Weapons & Gear:
 -Cross charm now gives you 15 defense while active instead of increasing your damage reduction
 -Glass pyramid now gives you 40% damage reduction for 3 hits instead of increasing your defense
 -Changed totally legal shotguns rarity color from light red to light orange to properly reflect its tier in progression
--Buffed all of the prehardmode sentient weapons base damage due to moco being moved to post-skeletron in progression
+-Buffed most of the prehardmode sentient weapons base damage due to moco being moved to post-skeletron in progression
 -Massively increased the speed at which the samson's cuff projectile homes in on an enemy
 -Necronomicon skulls now create gores when they die instead of fading away, and their chomping sound now plays with lower volume
 -Gore staff damage buffed, and the tortumor minions now have new behavior to match the new red tortumors behavior
@@ -135,11 +135,13 @@ Weapons & Gear:
 -Buffed the damage from all projectiles spawned by the combined creepypasta accessory
 -Slightly reduced the range slenderman tentacles can detect enemies
 -Undying embryo now gives one second of immunity frames upon being revived
+-Flesh mincer and living flesh mincer now have extended handles on their sprites to give them longer range
 -Strange spider egg baby spider minions now jump up to reach targetted enemies if they are too high, and will not fall through platforms unless the player is below them
 -Sentient shootius, staff of the weaver, and scepter of the weaver sentries now stand on platforms properly
 -Reworked the swarm scepter, its weird gimmick of using health to summon temporary minions is removed, instead it now works like a normal summon weapon that summons weak leeches that each cost 1/2 a minion slot
 -Buffed the damage for the baby orro and boro minions spawned by the gore armor set
 -I.C.U rockets now deal damage to all enemies nearby it when they explode
+-Spooky mod flails now make the same use sound as vanilla flails do
 
 
 Enemy & Boss Changes:

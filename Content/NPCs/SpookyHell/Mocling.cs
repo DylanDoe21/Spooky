@@ -32,12 +32,20 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //vector2
+            writer.WriteVector2(GoToPosition);
+            writer.WriteVector2(SavePosition);
+
             //floats
             writer.Write(NPC.localAI[0]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //vector2
+            GoToPosition = reader.ReadVector2();
+            SavePosition = reader.ReadVector2();
+
             //floats
             NPC.localAI[0] = reader.ReadSingle();
         }

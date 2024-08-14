@@ -59,9 +59,11 @@ BigFlower.DisplayName: Solar Flower
 DefensiveFlower.DisplayName: Defensive Flower
 HealingFlower.DisplayName: Healing Flower
 CatacombGuardian.DisplayName: Catacomb Guardian
+BigBoneArenaBG.DisplayName: ""
 DaffodilBody.DisplayName: ""
 DaffodilHandLeft.DisplayName: Daffodil
 DaffodilHandRight.DisplayName: Daffodil
+DaffodilArenaBG.DisplayName: ""
 MoclingMinion.DisplayName: Mocling
 MocoIntro.DisplayName: Mocling
 MocoOutro.DisplayName: Mocling

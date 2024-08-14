@@ -132,18 +132,18 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 17;
-			float launchSpeed = 30f; 
-			float maxLaunchLength = 850f;
-			float retractAcceleration = 3f; 
+			float launchSpeed = 30f;
+			float maxLaunchLength = 360f;
+			float retractAcceleration = 3f;
 			float maxRetractSpeed = 30f;
-			float forcedRetractAcceleration = 30f; 
-			float maxForcedRetractSpeed = 20f; 
+			float forcedRetractAcceleration = 30f;
+			float maxForcedRetractSpeed = 20f;
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
 			int unusedChainLength = 60;
-			int defaultHitCooldown = 10; 
-			int spinHitCooldown = 20; 
-			int movingHitCooldown = 20; 
+			int defaultHitCooldown = 10;
+			int spinHitCooldown = 20;
+			int movingHitCooldown = 20;
 			int ricochetTimeLimit = launchTimeLimit + 5;
 
 			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
@@ -522,7 +522,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 17;
 			float launchSpeed = 30f; 
-			float maxLaunchLength = 850f;
+			float maxLaunchLength = 360f;
 			float retractAcceleration = 3f; 
 			float maxRetractSpeed = 30f;
 			float forcedRetractAcceleration = 30f; 

@@ -24,12 +24,13 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 20;                   			 
-            Projectile.height = 20;         
+			Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.friendly = false;
 			Projectile.hostile = true;
             Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-            Projectile.penetrate = 1;                  					
+            Projectile.penetrate = 1;
             Projectile.timeLeft = 360;
             Projectile.alpha = 255;
 		}
@@ -38,14 +39,14 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         {
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Crimson);
-
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
+                Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.HotPink);
+
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);

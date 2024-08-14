@@ -66,6 +66,18 @@ namespace Spooky.Core
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
                     }
+                } 
+                //spawn daffodil background handler
+                if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilArenaBG>()) && Flags.DaffodilPosition != Vector2.Zero)
+                {
+                    int DaffodilBG = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilArenaBG>());
+                    Main.npc[DaffodilBG].position.X -= 8;
+                    Main.npc[DaffodilBG].position.Y += 25;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: DaffodilBG);
+                    }
                 }
 
                 //spawn pandoras box
@@ -89,6 +101,18 @@ namespace Spooky.Core
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+                    }
+                }
+                //spawn big bone background handler
+                if (!NPC.AnyNPCs(ModContent.NPCType<BigBoneArenaBG>()) && Flags.FlowerPotPosition != Vector2.Zero)
+                {
+                    int BigBoneBG = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigBoneArenaBG>());
+                    Main.npc[BigBoneBG].position.X -= 15;
+                    Main.npc[BigBoneBG].position.Y += 22;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: BigBoneBG);
                     }
                 }
 

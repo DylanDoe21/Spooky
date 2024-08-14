@@ -95,6 +95,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
+			player.itemRotation = 0;
+
 			switch (Projectile.ai[0])
             {
 				//shooting out

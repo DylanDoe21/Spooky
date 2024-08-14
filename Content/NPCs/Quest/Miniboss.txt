@@ -1,9 +1,10 @@
 Bigger Eye:
 
 Shoots eye like ruins at the player that take up space
-Uses magic bolts with very homing that applies for a second every two seconds
+Uses magic bolts with varied homing that applies for a second every two seconds
 Shoots energy ball that bounces off of surfaces
 Uses beam of confusion to try and confuse the player (question mark particles on the projectile for comedic effect)
+Mid-way through, he summons like 2 ghosts of himself that are easy to kill but will just fly around the player and try to bother you (charging and ect)
 
 accessory: grants increased magic damage, and summons an eye orbiting around the player that increases the damage of magic projectiles that touch it
 

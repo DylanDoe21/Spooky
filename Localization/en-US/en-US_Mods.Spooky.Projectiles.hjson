@@ -373,5 +373,7 @@ SpiderWeb.DisplayName: Spider Web
 SpiderWebFire.DisplayName: Spider Web Fire
 SnotMonsterBooger.DisplayName: Snot
 LingeringEye.DisplayName: Eye Rune
-HomingEye.DisplayName: Homing Eye
-LingeringEyeSpawner.DisplayName: Lingering Eye Spawner
+HomingEye.DisplayName: Magic Eye
+LingeringEyeSpawner.DisplayName: Magic Bolt
+BouncingEye.DisplayName: Bouncing Eye
+VenomHarpoonSpike.DisplayName: Venom Harpoon Spike

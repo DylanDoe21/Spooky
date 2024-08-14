@@ -20,6 +20,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         {
             Projectile.width = 74;
             Projectile.height = 34;
+            Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;

@@ -2333,7 +2333,6 @@ LivingFleshWhip: {
 	Tooltip:
 		'''
 		Your summons will focus struck enemies
-		Quickly lashes out two different flesh whips with varying range
 		Hitting enemies may halve their defense for a short time
 		'''
 }

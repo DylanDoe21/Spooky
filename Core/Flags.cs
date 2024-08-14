@@ -120,6 +120,9 @@ namespace Spooky.Core
             tag["MocoIdolPosition5"] = MocoIdolPosition5;
             tag["LeaderIdolPositon"] = LeaderIdolPositon;
 
+            tag["SpiderGrottoCenter"] = SpiderGrottoCenter;
+            tag["EyeValleyCenter"] = EyeValleyCenter;
+
             if (downedRotGourd) tag["downedRotGourd"] = true;
             if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
             if (downedMoco) tag["downedMoco"] = true;
@@ -174,6 +177,9 @@ namespace Spooky.Core
             MocoIdolPosition5 = tag.Get<Vector2>("MocoIdolPosition5");
             LeaderIdolPositon = tag.Get<Vector2>("LeaderIdolPositon");
 
+            SpiderGrottoCenter = tag.Get<Vector2>("SpiderGrottoCenter");
+            EyeValleyCenter =  tag.Get<Vector2>("EyeValleyCenter");
+
             downedRotGourd = tag.ContainsKey("downedRotGourd");
             downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
             downedMoco = tag.ContainsKey("downedMoco");
@@ -227,6 +233,9 @@ namespace Spooky.Core
             writer.WriteVector2(MocoIdolPosition4);
             writer.WriteVector2(MocoIdolPosition5);
             writer.WriteVector2(LeaderIdolPositon);
+
+            writer.WriteVector2(SpiderGrottoCenter);
+            writer.WriteVector2(EyeValleyCenter);
 
             var downedFlags = new BitsByte();
             downedFlags[0] = downedRotGourd;
@@ -293,6 +302,9 @@ namespace Spooky.Core
             MocoIdolPosition4 = reader.ReadVector2();
             MocoIdolPosition5 = reader.ReadVector2();
             LeaderIdolPositon = reader.ReadVector2();
+
+            SpiderGrottoCenter = reader.ReadVector2();
+            EyeValleyCenter = reader.ReadVector2();
 
             BitsByte downedFlags = reader.ReadByte();
             downedRotGourd = downedFlags[0];

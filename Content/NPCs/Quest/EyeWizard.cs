@@ -308,14 +308,10 @@ namespace Spooky.Content.NPCs.Quest
 				{
 					NPC.localAI[0]++;
 
-					//go to the player
-					if (NPC.localAI[0] < 180)
-					{
-						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 250);
+					Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 250);
 
-						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 15);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-					}
+					float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 10);
+					NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
 					if (NPC.localAI[0] >= 180)
 					{
@@ -332,8 +328,10 @@ namespace Spooky.Content.NPCs.Quest
                         NPC.netUpdate = true;
 					}
 
-					if (NPC.localAI[0] > 180 && NPC.localAI[0] <= 480)
+					if (NPC.localAI[0] > 180 && NPC.localAI[0] <= 420)
 					{
+						SaveNPCPosition = NPC.Center;
+
 						NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
 
@@ -351,11 +349,76 @@ namespace Spooky.Content.NPCs.Quest
 						}
 					}
 
-					if (NPC.localAI[0] >= 540)
+					if (NPC.localAI[0] == 420)
+					{
+						CurrentFrameX = 0;
+						NPC.frame.Y = 0;
+					}
+
+					if (NPC.localAI[0] >= 630)
 					{
 						CurrentFrameX = 0;
 						NPC.frame.Y = 0;
 
+						NPC.localAI[0] = 0;
+						NPC.ai[0]++;
+
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				//shout out bouncing eyes
+				case 4:
+				{
+					NPC.localAI[0]++;
+
+					//go to the player
+					if (NPC.localAI[0] < 300)
+					{
+						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 300);
+
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 8);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+					}
+
+					if (NPC.localAI[0] >= 240)
+					{
+						NPC.velocity *= 0.85f;
+					}
+
+					if (NPC.localAI[0] == 240)
+					{
+						CurrentFrameX = 1;
+						NPC.frame.Y = 0;
+
+                        NPC.netUpdate = true;
+					}
+
+					if (NPC.localAI[0] > 240 && NPC.localAI[0] <= 360)
+					{
+						SaveNPCPosition = NPC.Center;
+
+						NPC.Center = SaveNPCPosition;
+                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
+
+						if (NPC.localAI[0] % 10 == 0)
+						{
+							SoundEngine.PlaySound(SoundID.NPCHit8, NPC.Center);
+
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 45, Main.rand.Next(-15, 16), Main.rand.Next(-15, -6), ModContent.ProjectileType<BouncingEye>(), NPC.damage / 4, 2, NPC.target);
+						}
+					}
+
+					if (NPC.localAI[0] == 360)
+					{
+						CurrentFrameX = 0;
+						NPC.frame.Y = 0;
+					}
+
+					if (NPC.localAI[0] >= 600)
+					{
 						NPC.localAI[0] = 0;
 						NPC.ai[0] = 1;
 

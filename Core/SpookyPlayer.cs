@@ -416,7 +416,7 @@ namespace Spooky.Core
             }
 
             //rarely spawn the red face when hitting an enemy
-            if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(40))
+            if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(50))
             {
                 RedGodzillaCartridgeSpawnDelay = 360;
 
