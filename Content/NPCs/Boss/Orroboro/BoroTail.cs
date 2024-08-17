@@ -51,6 +51,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 		public override bool PreAI()
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+            //kill segment if the head doesnt exist
+			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
+            {
+				NPC.active = false;
+			}
+
             //go invulnerable and shake during phase 2 transition
             if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
             {
@@ -66,12 +74,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
                     NPC.Center += Main.rand.NextVector2Square(-2, 2);
                 }
-            }
-
-            //kill segment if the head doesnt exist
-			if (!Main.npc[(int)NPC.ai[1]].active)
-            {
-                NPC.active = false;
             }
 			
 			if (NPC.ai[1] < (double)Main.npc.Length)

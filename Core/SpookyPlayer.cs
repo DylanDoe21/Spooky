@@ -67,6 +67,7 @@ namespace Spooky.Core
         public bool RedMistClarinet = false;
         public bool SlendermanPage = false;
         public bool SmileDogPicture = false;
+        public bool StitchedCloak = false;
 
         //expert accessories
         public bool FlyAmulet = false;
@@ -196,6 +197,7 @@ namespace Spooky.Core
             RedMistClarinet = false;
             SlendermanPage = false;
             SmileDogPicture = false;
+            StitchedCloak = false;
 
             //expert accessories
             FlyAmulet = false;

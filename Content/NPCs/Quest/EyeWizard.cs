@@ -232,17 +232,17 @@ namespace Spooky.Content.NPCs.Quest
 				{
 					NPC.localAI[0]++;
 
+					//go to the player
+					if (NPC.localAI[0] < 70)
+					{
+						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 250);
+
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 15);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+					}
+
 					if (NPC.localAI[1] < 3)
 					{
-						//go to the player
-						if (NPC.localAI[0] < 70)
-						{
-							Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 250);
-
-							float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 15);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-						}
-
 						if (NPC.localAI[0] >= 70)
 						{
 							NPC.velocity *= 0.85f;

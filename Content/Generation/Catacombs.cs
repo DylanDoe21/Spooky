@@ -34,7 +34,7 @@ namespace Spooky.Content.Generation
         int switchRoom = 0;
 
         int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 
         public static int EntranceY = 0;
         public static int PositionX = 0;
@@ -369,7 +369,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
-                        //do not place the first loot room in the middle where the entrance is either
+                        //do not place this loot room in the middle of the catacombs as this is where the entrance room generates
                         if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-1", origin.ToPoint16(), Mod);
@@ -436,6 +436,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 84)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
+                        //do not place this loot room in the middle of the catacombs as this is where pandoras box room generates
                         if (!placedLootRoom3 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
                             Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
@@ -470,6 +471,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 126)
                     {
                         //randomly place the loot room, or place it automatically if it reaches the edge
+                        //do not place this loot room in the middle of the catacombs as this is where the fishing room and the entrance to big bones arena generates (except on large worlds)
                         if (!placedLootRoom4 && X != XMiddle && (WorldGen.genRand.NextBool(3) || X == XMiddle + layer2Width))
                         {
                             Layer2LootRooms[2] = new Vector2(origin.X, origin.Y);
@@ -477,21 +479,29 @@ namespace Spooky.Content.Generation
                         }
                         else
                         {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            //place fishing room in the middle of the fourth row
+                            if (X == XMiddle)
                             {
-                                //only one treasure room can be placed in a world
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            //place puzzle rooms sometimes
-                            else if (WorldGen.genRand.NextBool(10))
-                            {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-14", origin.ToPoint16(), Mod);
                             }
                             else
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                                //rare chance to place a golden treasure room
+                                if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                                {
+                                    //only one treasure room can be placed in a world
+                                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
+                                    placedRareSecretRoom = true;
+                                }
+                                //place puzzle rooms sometimes
+                                else if (WorldGen.genRand.NextBool(10))
+                                {
+                                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3), origin.ToPoint16(), Mod);
+                                }
+                                else
+                                {
+                                    Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
+                                }
                             }
                         }
                     }
@@ -515,7 +525,7 @@ namespace Spooky.Content.Generation
                         {
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom, origin.ToPoint16(), Mod);
                         }
-                    }   
+                    }
 
                     //sixth row
                     if (Y == layer2Start + 210)
@@ -550,7 +560,7 @@ namespace Spooky.Content.Generation
                     Vector2 verticalHallOrigin = new Vector2(X - 7, Y + 15);
 
                     //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
-                    if (Y < (int)Main.worldSurface + layer1Depth + layer2Depth - 20)
+                    if (Y < (int)Main.worldSurface + layer1Depth + layer2Depth - 40)
                     {
                         //dont place a hall on the last room
                         if (X < XMiddle + layer2Width)

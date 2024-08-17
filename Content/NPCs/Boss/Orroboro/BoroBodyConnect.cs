@@ -13,11 +13,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
@@ -36,29 +33,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = 15000;
             NPC.damage = 55;
             NPC.defense = 15;
-            NPC.width = 65;
-            NPC.height = 65;
+            NPC.width = 42;
+            NPC.height = 42;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
             NPC.noGravity = true;
-            NPC.HitSound = HitSound;
+            NPC.HitSound = SoundID.NPCHit13;
             NPC.aiStyle = -1;
-        }
-
-        public override void FindFrame(int frameHeight)
-        {
-            NPC.frameCounter++;
-            if (NPC.frameCounter > 4)
-            {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0;
-            }
-            if (NPC.frame.Y >= frameHeight * 5)
-            {
-                NPC.frame.Y = 0;
-            }
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -72,6 +55,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override bool PreAI()
         {   
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+            //kill segment if the head doesnt exist
+			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
+            {
+				NPC.active = false;
+			}
+
             //go invulnerable and shake during phase 2 transition
             if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
             {
@@ -87,12 +78,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
                     NPC.Center += Main.rand.NextVector2Square(-2, 2);
                 }
-            }
-
-            //kill segment if the head doesnt exist
-			if (!Main.npc[(int)NPC.ai[1]].active)
-            {
-                NPC.active = false;
             }
 			
 			if (NPC.ai[1] < (double)Main.npc.Length)

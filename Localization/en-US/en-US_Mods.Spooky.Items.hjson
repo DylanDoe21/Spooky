@@ -204,7 +204,7 @@ WinterStrawberry: {
 }
 
 BoneMask: {
-	DisplayName: Disciple's Mask
+	DisplayName: Ancient Skull Mask
 	Tooltip:
 		'''
 		Fire off homing skull wisps while you are flying or running
@@ -1392,6 +1392,15 @@ SpiderKey: {
 		'''
 }
 
+StitchedCloth: {
+	DisplayName: Stitched Fabric
+	Tooltip:
+		'''
+		Little Eye's extremely expensive fabric
+		Bounty Quest Item
+		'''
+}
+
 BoneBow: {
 	DisplayName: Bone Bender
 	Tooltip: Fires piercing bones that ignore 50% of enemy defense
@@ -1526,6 +1535,15 @@ SpiderSummonEgg: {
 SpiderSword: {
 	DisplayName: Spider Stabber
 	Tooltip: Can sometimes poison enemies
+}
+
+StitchedCloak: {
+	DisplayName: Stitched Cloak
+	Tooltip:
+		'''
+		Increases your movement acceleration
+		Grants you spider legs that allow you to freely crawl on walls
+		'''
 }
 
 TarantulaHawkBow: {
@@ -2246,7 +2264,7 @@ LeechWhip: {
 }
 
 MouthFlamethrower: {
-	DisplayName: Venom Gasser
+	DisplayName: Venom Sprayer
 	Tooltip: Spews out a stream of venomous gas breath
 }
 

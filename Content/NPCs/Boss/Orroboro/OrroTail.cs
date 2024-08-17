@@ -13,8 +13,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -32,17 +30,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 12000;
+            NPC.lifeMax = 15000;
             NPC.damage = 55;
             NPC.defense = 15;
-            NPC.width = 55;
-            NPC.height = 55;
+            NPC.width = 30;
+            NPC.height = 30;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
             NPC.noGravity = true;
-            NPC.HitSound = HitSound;
+            NPC.HitSound = SoundID.NPCHit13;
             NPC.aiStyle = -1;
         }
 
@@ -68,14 +66,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 		public override bool PreAI()
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
             //kill segment if the head doesnt exist
-			if (!Main.npc[(int)NPC.ai[1]].active)
+			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
             {
-                if (Main.netMode != NetmodeID.Server) 
-                {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TailGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TailGore2").Type);
-                }
+                SpawnGores();
 
                 NPC.active = false;
             }
@@ -97,6 +93,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
             
             return false;
+        }
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0) 
+            {
+                SpawnGores();
+            }
+        }
+
+        public void SpawnGores()
+        {
+            if (Main.netMode != NetmodeID.Server) 
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TailGore").Type);
+            }
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

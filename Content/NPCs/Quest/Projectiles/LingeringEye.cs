@@ -38,11 +38,11 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
             for (int i = 0; i < 360; i += 90)
             {
-                Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
+                Color color = new Color(Projectile.alpha, Projectile.alpha, Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
 
                 Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2.5f), 0).RotatedBy(MathHelper.ToRadians(i));
 
-                Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color * 0.5f, Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color, Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0);
             }
 
             return false;

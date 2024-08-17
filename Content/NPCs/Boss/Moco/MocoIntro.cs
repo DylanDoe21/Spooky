@@ -25,6 +25,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
+
+        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound);
         
         public override void SetStaticDefaults()
 		{
@@ -117,6 +119,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 if (Parent.active && Parent.type == ModContent.NPCType<MocoSpawner>())
                 {
+                    SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
                     MoveToParent(Parent, RandomGoToX, RandomGoToY);
                 }
             }

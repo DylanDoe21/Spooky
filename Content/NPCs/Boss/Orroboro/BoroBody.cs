@@ -8,8 +8,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 {
     public class BoroBody : OrroBody
     {
-        public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroBody";
-
         private static Asset<Texture2D> NPCTexture;
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -35,7 +33,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
     public class BoroBodyP1 : OrroBodyP1
     {
-        public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroBody";
+        public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/BoroBody";
 
 		private static Asset<Texture2D> NPCTexture;
 

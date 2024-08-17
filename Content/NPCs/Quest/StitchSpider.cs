@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.NPCs.Quest.Projectiles;
 
 namespace Spooky.Content.NPCs.Quest
@@ -459,6 +460,11 @@ namespace Spooky.Content.NPCs.Quest
 				}
 			}
 		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StitchedCloth>()));
+        }
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {

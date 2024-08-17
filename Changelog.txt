@@ -142,6 +142,7 @@ Weapons & Gear:
 -Buffed the damage for the baby orro and boro minions spawned by the gore armor set
 -I.C.U rockets now deal damage to all enemies nearby it when they explode
 -Spooky mod flails now make the same use sound as vanilla flails do
+-Nerfed the damage that the hunter soul scepter ranger minion's bullets do
 
 
 Enemy & Boss Changes:
@@ -239,6 +240,8 @@ Fixed all of the following bugs and issues:
 -Gator gun and venom gasser doing contact damage
 -Whip spiders tongues coming from and retracting to incorrect locations on the whip spider itself
 -Spider grotto biomes overall spawn rates being way too low due to a tile checking issue
+-Orro & Boro not dropping any coins on normal or journey mode
+-Orro & Boro's body segments sometimes not producing gores properly when killed
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,11 +12,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 5;
+            Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
@@ -36,29 +33,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = 15000;
             NPC.damage = 55;
             NPC.defense = 15;
-            NPC.width = 65;
-            NPC.height = 65;
+            NPC.width = 30;
+            NPC.height = 30;
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
             NPC.noGravity = true;
-            NPC.HitSound = HitSound;
+            NPC.HitSound = SoundID.NPCHit13;
             NPC.aiStyle = -1;
-        }
-
-        public override void FindFrame(int frameHeight)
-        {
-            NPC.frameCounter++;
-            if (NPC.frameCounter > 4)
-            {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0;
-            }
-            if (NPC.frame.Y >= frameHeight * 5)
-            {
-                NPC.frame.Y = frameHeight * 0;
-            }
         }
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -83,14 +66,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 		public override bool PreAI()
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
             //kill segment if the head doesnt exist
-			if (!Main.npc[(int)NPC.ai[1]].active)
+			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
             {
-                if (Main.netMode != NetmodeID.Server) 
-                {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BodyGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BodyGore2").Type);
-                }
+                SpawnGores();
 
                 NPC.active = false;
             }
@@ -112,6 +93,41 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
 
 			return false;
+        }
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0) 
+            {
+                SpawnGores();
+            }
+        }
+
+        public void SpawnGores()
+        {
+            for (int numGores = 1; numGores <= 4; numGores++)
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BodyGore" + Main.rand.Next(1, 3)).Type);
+                }
+            }
+
+            if (NPC.type == ModContent.NPCType<OrroBody>() && Main.rand.NextBool())
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/OrroEyeGore").Type);
+                }
+            }
+
+            if (NPC.type == ModContent.NPCType<BoroBody>() && Main.rand.NextBool())
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BoroMouthGore").Type);
+                }
+            }
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -142,6 +158,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override bool PreAI()
         {   
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+            //kill segment if the head doesnt exist
+			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
+            {
+				NPC.active = false;
+			}
+
             //go invulnerable and shake during phase 2 transition
             if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
             {
@@ -157,12 +181,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
                     NPC.Center += Main.rand.NextVector2Square(-2, 2);
                 }
-            }
-
-            //kill segment if the head doesnt exist
-			if (!Main.npc[(int)NPC.ai[1]].active)
-            {
-                NPC.active = false;
             }
 			
 			if (NPC.ai[1] < (double)Main.npc.Length)

@@ -37,18 +37,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 5;
+            Main.npcFrameCount[NPC.type] = 4;
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BoroBestiary",
-                Position = new Vector2(2f, -35f),
+                Position = new Vector2(0f, 85f),
                 PortraitPositionXOverride = 0f,
-                PortraitPositionYOverride = -24f
+                PortraitPositionYOverride = 65f
             };
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
@@ -97,16 +96,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = 15000;
             NPC.damage = 55;
             NPC.defense = 15;
-            NPC.width = 65;
-            NPC.height = 65;
+            NPC.width = 30;
+            NPC.height = 30;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 6, 0, 0);
             NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
-            NPC.HitSound = HitSound;
+            NPC.HitSound = SoundID.NPCHit13;
             NPC.DeathSound = SoundID.Zombie38;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
@@ -127,21 +127,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 			});
 		}
 
-        //rotate the bosses map icon to the NPCs direction
-        public override void BossHeadRotation(ref float rotation)
-        {
-            rotation = NPC.rotation;
-        }
-
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
-            if (NPC.frameCounter > 4)
+            if (NPC.frameCounter > 8)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0;
             }
-            if (NPC.frame.Y >= frameHeight * 5)
+            if (NPC.frame.Y >= frameHeight * 4)
             {
                 NPC.frame.Y = frameHeight * 0;
             }
@@ -201,19 +195,20 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.realLife = NPC.whoAmI;
                     int latestNPC = NPC.whoAmI;
 
-                    for (int Segment = 0; Segment < 3; Segment++)
+                    for (int Segment = 0; Segment < 7; Segment++)
                     {
-                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                        ModContent.NPCType<BoroBody>(), NPC.whoAmI, 0, latestNPC);                   
+                        int Type = Segment == 2 ? ModContent.NPCType<BoroBodyWings>() : ModContent.NPCType<BoroBody>();
+
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), Type, NPC.whoAmI, 0, latestNPC);   
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                        if (Type == ModContent.NPCType<BoroBody>()) Main.npc[latestNPC].frame.Y = 38 * Main.rand.Next(0, 3); //38 is the segments actual sprite height on the png
                         NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
                     }
 
-                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), 
-                    ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
-                    Main.npc[latestNPC].lifeMax = NPC.lifeMax;
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
+                    Main.npc[latestNPC].lifeMax = NPC.lifeMax;         
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;
                     NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
@@ -351,8 +346,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X *= (Enraged ? 27 : 22) + Main.rand.Next(-5, 5);
-                            ChargeDirection.Y *= (Enraged ? 27 : 22) + Main.rand.Next(-5, 5);
+                            ChargeDirection.X *= (Enraged ? 40 : 32) + Main.rand.Next(-5, 5);
+                            ChargeDirection.Y *= (Enraged ? 40 : 32) + Main.rand.Next(-5, 5);
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
                         }
@@ -370,10 +365,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
                     else
                     {
+                        NPC.velocity *= 0.95f;
+
                         if (NPC.localAI[0] >= 60)
                         {
-                            NPC.velocity *= 0.9f;
-
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.ai[0]++;
@@ -441,6 +436,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] == 130 || NPC.localAI[0] == 140 || NPC.localAI[0] == 150 || NPC.localAI[0] == 160 || NPC.localAI[0] == 170)
                         {
+                            SoundEngine.PlaySound(SpitSound, NPC.Center);
+
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
                             ShootSpeed.X *= Enraged ? 5f : 3f;
@@ -573,13 +570,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), CenterPoint.X, CenterPoint.Y, 0, 0, ModContent.ProjectileType<AcidTarget>(), 0, 0f, Main.myPlayer);
                             
-                            //use SavePlayerPosition to save where the telegraph was
+                            //use SavePlayerPosition to save where the telegraph is
                             SavePlayerPosition = CenterPoint;
 
                             NPC.netUpdate = true;
                         }
 
-                        if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
+                        if (NPC.localAI[0] == time1 + 14 || NPC.localAI[0] == time2 + 14 || NPC.localAI[0] == time3 + 14)
                         {
                             SoundEngine.PlaySound(LickSound, NPC.Center);
 
@@ -587,8 +584,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             ChargeDirection.Normalize();
                             ChargeDirection *= Enraged ? 25 : 22;
                             NPC.velocity = ChargeDirection;
+                        }
 
-                            int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BoroTongue>(), ai1: SavePlayerPosition.X, ai2: SavePlayerPosition.Y, ai3: NPC.whoAmI);
+                        if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
+                        {
+                            int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<BoroTongue>(), ai1: SavePlayerPosition.X, ai2: SavePlayerPosition.Y, ai3: NPC.whoAmI);
                     
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -740,9 +740,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override bool CheckDead()
         {
-            if (Main.netMode != NetmodeID.Server) 
+            for (int numGores = 1; numGores <= 2; numGores++)
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
+                if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 2, ModContent.Find<ModGore>("Spooky/BoroHeadGore" + numGores).Type);
                 }

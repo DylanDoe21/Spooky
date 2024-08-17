@@ -14,13 +14,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     [AutoloadBossHead]
     public class OrroHeadP1 : ModNPC
     {
+        public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroHead";
+
         private bool segmentsSpawned;
         public bool Chomp = false;
         public bool OpenMouth = false;
 
         Vector2 SavePlayerPosition;
 
-        public static readonly SoundStyle HitSound = new("Spooky/Content/Sounds/EggEvent/EnemyHit", SoundType.Sound);
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound2 = new("Spooky/Content/Sounds/Orroboro/HissLong", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle SpitSound = new("Spooky/Content/Sounds/Orroboro/VenomSpit", SoundType.Sound) { PitchVariance = 0.6f };
@@ -81,8 +82,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.lifeMax = 32000;
             NPC.damage = 55;
             NPC.defense = 15;
-            NPC.width = 75;
-            NPC.height = 75;
+            NPC.width = 30;
+            NPC.height = 30;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 12, 0, 0);
@@ -91,7 +92,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.netAlways = true;
-            NPC.HitSound = HitSound;
+            NPC.HitSound = SoundID.NPCHit13;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Orroboro");
         }
@@ -136,12 +137,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             
             return false;
         }
-
-        //rotate the bosses map icon to the NPCs direction
-        public override void BossHeadRotation(ref float rotation)
-        {
-            rotation = NPC.rotation;
-        }
         
         public override void AI()
         {
@@ -166,12 +161,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.realLife = NPC.whoAmI;
                     int latestNPC = NPC.whoAmI;
 
-                    for (int Segment1 = 0; Segment1 < 3; Segment1++)
+                    for (int Segment1 = 0; Segment1 < 7; Segment1++)
                     {
-                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<OrroBodyP1>(), NPC.whoAmI, 0, latestNPC);                   
+                        int Type = Segment1 == 2 ? ModContent.NPCType<OrroBodyWingsP1>() : ModContent.NPCType<OrroBodyP1>();
+
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), Type, NPC.whoAmI, 0, latestNPC);                   
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                        if (Type == ModContent.NPCType<OrroBodyP1>()) Main.npc[latestNPC].frame.Y = 38 * Main.rand.Next(0, 3); //38 is the segments actual sprite height on the png
                         NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
                     }
                     
@@ -181,12 +179,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;
                     NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
 
-                    for (int Segment2 = 0; Segment2 < 3; Segment2++)
+                    for (int Segment2 = 0; Segment2 < 7; Segment2++)
                     {
-                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroBodyP1>(), NPC.whoAmI, 0, latestNPC);
+                        int Type = Segment2 == 2 ? ModContent.NPCType<BoroBodyWingsP1>() : ModContent.NPCType<BoroBodyP1>();
+
+                        latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), Type, NPC.whoAmI, 0, latestNPC);
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
+                        if (Type == ModContent.NPCType<BoroBodyP1>()) Main.npc[latestNPC].frame.Y = 38 * Main.rand.Next(0, 3); //38 is the segments actual sprite height on the png
                         NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
                     }
 
@@ -315,61 +316,71 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     NPC.localAI[0]++;
 
-                    //chase the player
-                    if (NPC.localAI[0] < 170 || (NPC.localAI[0] >= 240 && NPC.localAI[0] < 370))
+                    if (NPC.localAI[1] < 2)
                     {
-                        Chomp = true;
+                        //chase the player
+                        if (NPC.localAI[0] < 170)
+                        {
+                            Chomp = true;
 
-                        //chase movement
-                        Vector2 GoTo = player.Center;
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 7f);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                            //chase movement
+                            Vector2 GoTo = player.Center;
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 7f);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+
+                        //save the players location
+                        if (NPC.localAI[0] == 180)
+                        {
+                            SavePlayerPosition = player.Center;
+
+                            NPC.netUpdate = true;
+                        }
+
+                        //slow down before charging
+                        if ((NPC.localAI[0] >= 170 && NPC.localAI[0] < 190))
+                        {
+                            Chomp = false;
+                            NPC.velocity *= 0.9f;
+                        }
+
+                        //charge at the saved location
+                        if (NPC.localAI[0] == 190)
+                        {
+                            OpenMouth = true;
+
+                            SoundEngine.PlaySound(HissSound1, NPC.Center);
+
+                            Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+                            ChargeDirection.Normalize();
+                            ChargeDirection.X *= 28;
+                            ChargeDirection.Y *= 20;
+                            NPC.velocity = ChargeDirection;
+                        }
+
+                        //slow down after charging
+                        if (NPC.localAI[0] == 220)
+                        {
+                            OpenMouth = false;
+                            Chomp = false;
+
+                            NPC.velocity *= 0.2f;
+                        }
+
+                        if (NPC.localAI[0] > 250)
+                        {
+                            OpenMouth = false;
+                            Chomp = false;
+
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1]++;
+                            NPC.netUpdate = true;
+                        }
                     }
-
-                    //save the players location
-                    if (NPC.localAI[0] == 180 || NPC.localAI[0] == 380)
+                    else
                     {
-                        SavePlayerPosition = player.Center;
-
-                        NPC.netUpdate = true;
-                    }
-
-                    //slow down before charging
-                    if ((NPC.localAI[0] >= 170 && NPC.localAI[0] < 190) || (NPC.localAI[0] >= 370 && NPC.localAI[0] < 390))
-                    {
-                        Chomp = false;
-                        NPC.velocity *= 0.9f;
-                    }
-
-                    //charge at the saved location
-                    if (NPC.localAI[0] == 190 || NPC.localAI[0] == 390)
-                    {
-                        OpenMouth = true;
-
-                        SoundEngine.PlaySound(HissSound1, NPC.Center);
-
-                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
-                        ChargeDirection.Normalize();
-                        ChargeDirection.X *= 28;
-                        ChargeDirection.Y *= 20;
-                        NPC.velocity = ChargeDirection;
-                    }
-
-                    //slow down after charging
-                    if (NPC.localAI[0] == 220 || NPC.localAI[0] == 430)
-                    {
-                        OpenMouth = false;
-                        Chomp = false;
-
-                        NPC.velocity *= 0.2f;
-                    }
-
-                    if (NPC.localAI[0] > 450)
-                    {
-                        OpenMouth = false;
-                        Chomp = false;
-
                         NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
                         NPC.ai[0]++;
                         NPC.netUpdate = true;
                     }
@@ -679,7 +690,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity.Y = -32;
                     }
 
-                    if (NPC.localAI[0] >= 130 && NPC.localAI[0] <= 180)
+                    if (NPC.localAI[0] >= 150 && NPC.localAI[0] <= 200)
                     {
                         if (NPC.localAI[0] % 2 == 0)
                         {
@@ -698,7 +709,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity *= 0.95f;
                     }
 
-                    if (NPC.localAI[0] > 180)
+                    if (NPC.localAI[0] > 200)
                     {
                         OpenMouth = false;
                     }
