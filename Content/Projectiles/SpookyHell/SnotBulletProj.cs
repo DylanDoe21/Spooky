@@ -77,7 +77,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			for (int i = 0; i < Main.maxNPCs; i++)
 			{
 				NPC NPC = Main.npc[i];
-				if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(target.Center, NPC.Center) <= 400f)
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(target.Center, NPC.Center) <= 400f)
 				{
 					//dont allow the bullet to bounce to the same enemy it already hit
 					if (i == WhoAmI)

@@ -67,7 +67,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 NPC npc = Main.npc[i];
 
-                if (npc.Distance(Projectile.Center) <= 70f && npc.active && !npc.friendly && !npc.dontTakeDamage)
+                if (npc.Distance(Projectile.Center) <= 80f && npc.active && !npc.friendly && !npc.dontTakeDamage)
                 {
                     if (i == WhoAmI)
                     {

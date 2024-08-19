@@ -143,7 +143,7 @@ Weapons & Gear:
 -I.C.U rockets now deal damage to all enemies nearby it when they explode
 -Spooky mod flails now make the same use sound as vanilla flails do
 -Nerfed the damage that the hunter soul scepter ranger minion's bullets do
--Moco's drops can no longer be shimmered into each other due to them being craftable
+-Moco's weapon drops can no longer be shimmered into each other due to them being craftable
 
 
 Enemy & Boss Changes:
@@ -177,6 +177,7 @@ Enemy & Boss Changes:
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
 -Lowered the defense of some of the spider grotto enemies
 -Tarantula hawks, adult trapdoor spiders, and whip spiders are no longer immune to knockback and now just have high knockback resistance
+-Changed the tarantula hawks death sound
 -Increased the spawnrate of catacomb guardians if you enter the catacombs before opening the barrier
 
 
@@ -237,7 +238,7 @@ Fixed all of the following bugs and issues:
 -I.C.U rocket projectile having collision issues and its afterimages drawing extremely weirdly
 -Moco's lingering booger projectiles getting stuck inside of blocks if moco is inside of blocks when shooting them
 -Goblin shark rod being able to fish in lava
--Multiple spooky mod worldgen variables using Main.rand instead of WorldGen.genRand (For context, WorldGen.genRand is a number generator that stays the same depending on the world seed, whereas Main.rand doesn't)
+-Multiple spooky mod worldgen variables using Main.rand instead of WorldGen.genRand (For context, WorldGen.genRand is a number generator that stays the same depending on the world seed, whereas Main.rand doesnt)
 -Yellow candy buff from the bag o' treats not displaying the correct bonus it gives (It is meant to give 10% increased whip use speed, not an extra minion slot)
 -Gator gun and venom gasser doing contact damage
 -Whip spiders tongues coming from and retracting to incorrect locations on the whip spider itself
@@ -245,6 +246,8 @@ Fixed all of the following bugs and issues:
 -Orro & Boro not dropping any coins on normal or journey mode
 -Orro & Boro's body segments sometimes not producing gores properly when killed
 -Gilded mage armor set bonus scaling beyond 10 gold coins if you have more than 10 gold coins in your inventory
+-Raveyard skeletons clothing not fading away properly when the skeletons themselves are fading away
+-Various items in the mod (including certain on-hit items, accessories with special effects applied to npcs, and minions/sentries) either activating their effects on target dummies or targetting target dummies
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

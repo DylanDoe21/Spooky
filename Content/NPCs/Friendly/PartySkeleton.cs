@@ -147,7 +147,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
 
                 Main.EntitySpriteDraw(ShirtTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 
             if (shirtLogo)
@@ -167,7 +167,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
 
                 Main.EntitySpriteDraw(ShirtLogoTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 
             if (hasPants)
@@ -192,7 +192,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
 
                 Main.EntitySpriteDraw(PantsTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 
             if (hasSunGlasses)
@@ -200,7 +200,7 @@ namespace Spooky.Content.NPCs.Friendly
                 SunglassesTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Friendly/SkeletonClothes/SunGlasses");
 
                 Main.EntitySpriteDraw(SunglassesTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-                NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
         }
 

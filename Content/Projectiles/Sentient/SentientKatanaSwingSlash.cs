@@ -107,7 +107,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 target.velocity = -Knockback * target.knockBackResist;
             }
 
-            if (!hasHitSomething)
+            if (!hasHitSomething && target.CanBeChasedBy(this))
             {
                 hasHitSomething = true;
 

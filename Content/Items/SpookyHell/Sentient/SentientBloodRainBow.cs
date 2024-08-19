@@ -15,6 +15,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         {
             Item.damage = 30;
 			Item.DamageType = DamageClass.Ranged;
+            Item.noMelee = true;
 			Item.autoReuse = true;
             Item.width = 48;
             Item.height = 76;

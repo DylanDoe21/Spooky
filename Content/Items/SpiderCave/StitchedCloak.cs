@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpiderCave
             Item.width = 38;
             Item.height = 30;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Orange;  
+            Item.rare = ItemRarityID.Green;  
             Item.value = Item.buyPrice(gold: 10);
         }
 

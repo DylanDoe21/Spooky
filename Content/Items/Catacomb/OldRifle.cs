@@ -17,10 +17,10 @@ namespace Spooky.Content.Items.Catacomb
 			Item.damage = 135;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.autoReuse = true; 
-			Item.width = 106;           
+			Item.autoReuse = true;
+			Item.width = 106;
 			Item.height = 30;
-			Item.useTime = 55;         
+			Item.useTime = 55;
 			Item.useAnimation = 55;
 			Item.useStyle = ItemUseStyleID.Shoot;         
 			Item.knockBack = 5;

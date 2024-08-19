@@ -1643,6 +1643,15 @@ Candy4: {
 	Tooltip: ""
 }
 
+EyeGoblinTongue: {
+	DisplayName: Goblin's Tongue
+	Tooltip:
+		'''
+		An abnormally long human-like tongue
+		Bounty Quest Item
+		'''
+}
+
 FlyBigItem: {
 	DisplayName: Giant Fly
 	Tooltip: ""

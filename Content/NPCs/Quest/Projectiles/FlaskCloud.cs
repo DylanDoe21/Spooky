@@ -49,7 +49,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         {
             Projectile.velocity *= 0;
 
-            int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, default, Main.rand.NextFloat(0.2f, 0.4f));
+            int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, default, Main.rand.NextFloat(0.5f, 1f));
             Main.dust[DustEffect].velocity *= 0;
             Main.dust[DustEffect].alpha = 100;
 

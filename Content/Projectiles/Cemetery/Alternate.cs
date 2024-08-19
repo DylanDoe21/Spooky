@@ -115,11 +115,13 @@ namespace Spooky.Content.Projectiles.Cemetery
             //slow down any nearby non-boss enemy
             for (int i = 0; i < Main.maxNPCs; i++)
 			{
-				if (Main.npc[i].active && Main.npc[i].Distance(Projectile.Center) <= 250f)
+                NPC NPC = Main.npc[i];
+
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && NPC.Distance(Projectile.Center) <= 250f)
                 {
-                    if (!Main.npc[i].boss && Main.npc[i].type != NPCID.EaterofWorldsHead && Main.npc[i].type != NPCID.EaterofWorldsBody && Main.npc[i].type != NPCID.EaterofWorldsTail)
+                    if (!NPC.boss && NPC.type != NPCID.EaterofWorldsHead && NPC.type != NPCID.EaterofWorldsBody && NPC.type != NPCID.EaterofWorldsTail)
                     {
-                        Main.npc[i].velocity *= player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 0.75f : 0.95f;
+                        NPC.velocity *= player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 0.75f : 0.95f;
                     }
                 }
             }

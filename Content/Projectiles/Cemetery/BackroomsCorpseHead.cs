@@ -119,9 +119,11 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             for (int i = 0; i < Main.maxNPCs; i++)
 			{
-				if (Main.npc[i].active && !Main.npc[i].friendly && !Main.npc[i].dontTakeDamage && !NPCID.Sets.CountsAsCritter[Main.npc[i].type])
+                NPC NPC = Main.npc[i];
+                
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && NPC.Distance(Projectile.Center) <= 450f)
                 {
-                    Main.npc[i].AddBuff(ModContent.BuffType<BackroomsDecay>(), 2);
+                    NPC.AddBuff(ModContent.BuffType<BackroomsDecay>(), 2);
                 }
             }
 		}

@@ -85,16 +85,16 @@ SadGhostBig: Larger ghosts that are constantly sad for some reason. They spend t
 SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby.
 SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
 //egg event
-Biojetter: A creature with multiple extendable eyes and biothrusters which allow it to fly by expelling nasty organic goo. It is also very volatile and will explode if injured.
+Biojetter: A creature with multiple extendable eyes that allow it to see from multiple angles and directions, along with biothrusters which allow it to fly by expelling nasty organic goo. It stores tons of goo and substances in its body and will explode if injured enough.
 CoughLungs: Filled with a nasty ichor gas, it can cough it up to create lingering clouds that are harmful when breathed in.
 CruxBat: A powerful brain resembling a bat, combined with constant power being pumped into it from its heart, allows it to use psychic power to conjure auras that weaken their foes.
 EarWormHead: Using their large ear, they can listen to sounds and vibrations from underground to tell where their target is, before quickly digging out of the ground to ambush their prey.
 ExplodingAppendix: While not exactly powerful, these sacks of flesh can explode themselves as an attack to release the harmful ichor that filles their bodies
 FleshBolster: Using fleshy tendrils attached to its main sac, it can inject its power into other creatures directly to make them stronger.
 GooSlug: Hungry and brainless, they will attempt to each anything in their path. Though luckily they are picky eaters, and will spit things out if they taste bad.
-HoppingHeart: Using squishy flesh they can easily rebound and jump off the ground. The tube on their head can be used to shoot out harmful blood with pressure from inside its body.
-HoverBrain: A large brain with psychic power that can fire out beams to mess with other creatures brains.
-TongueBiter: A large mutated tongue with a large mouth. It can use the many tubes coming off of its back as boosters to propel itself through the air.
+HoppingHeart: With their squishy flesh they can easily rebound and jump off the ground. The tube on their head can be used to shoot out harmful blood with pressure from inside its body.
+HoverBrain: A large brain with psychic power that can fire out beams to mess with other creatures brains, after which they can go in close range to kill their target.
+TongueBiter: A mutated tongue with a large mouth for clamping down on prey. It can use the many tubes coming off of its back as boosters to propel itself through the air.
 //friendly town npcs
 DumbZomboid: A zomboid that got lost. It does not know how to read. Or think.
 LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
@@ -213,3 +213,4 @@ SnotMonster: Humanoid beings formed with magic snot by the conjurers, they serve
 SnotSlime: The snot from the conjurers has enough magical power to live on its own, and can hop around in the form of a living blob.
 //quest minibosses
 StitchSpider: A sewing project turned chimera, this spider-like creature made out of felt and spider skin now crawls around the spider grotto after it escaped. It also has metal fangs and a mortar cannon in its body which allows it to fire off heat-seeking missiles.
+EyeWizard: Little eye's most successful experiment, a large clone of himself that possesses enchanced alchemical abilities, can use various spells, and can move freely without being stuck on the ground. After finding a stylish cloak and hat it left little eye's lab to hone its skills further, making little eye extremely jealous.

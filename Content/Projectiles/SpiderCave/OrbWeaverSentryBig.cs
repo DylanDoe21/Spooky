@@ -84,7 +84,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             for (int i = 0; i < 200; i++)
             {
 				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                if (Target != null && Target.CanBeChasedBy(this, false) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 500f)
+                if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(Projectile.Center, Target.Center) <= 500f)
                 {
 					AttackingAI(Target);
 
@@ -96,7 +96,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 }
 
 				NPC NPC = Main.npc[i];
-                if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 500f)
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 500f)
                 {
 					AttackingAI(NPC);
 
