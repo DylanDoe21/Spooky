@@ -189,7 +189,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 NPC.velocity *= 0.83f;
             }
 
-            if (NPC.ai[0] > 245)
+            if (NPC.ai[0] > 215)
             {
                 NPC.ai[0] = 0;
                 NPC.ai[1] = 0;

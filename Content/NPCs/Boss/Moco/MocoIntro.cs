@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound);
+        public static readonly SoundStyle FlyingSound = new("Spooky/Content/Sounds/Moco/MocoFlying", SoundType.Sound) { Pitch = 0.45f, Volume = 0.5f };
         
         public override void SetStaticDefaults()
 		{
@@ -109,6 +109,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             if (NPC.ai[0] == 1)
             {
+                SoundEngine.PlaySound(FlyingSound, NPC.Center);
+
                 RandomGoToX = Main.rand.NextFloat(-85f, 85f);
                 RandomGoToY = Main.rand.NextFloat(-100f, -50f);
 
@@ -119,8 +121,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 if (Parent.active && Parent.type == ModContent.NPCType<MocoSpawner>())
                 {
-                    SoundEngine.PlaySound(FlyingSound, NPC.Center);
-
                     MoveToParent(Parent, RandomGoToX, RandomGoToY);
                 }
             }
@@ -208,11 +208,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //spawn message
                     string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.MocoSpawn");
 
-                    if (Main.netMode != NetmodeID.SinglePlayer) 
+                    if (Main.netMode == NetmodeID.Server)
                     {
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
-                    else 
+                    else if (Main.netMode == NetmodeID.SinglePlayer) 
                     {
                         Main.NewText(text, 171, 64, 255);
                     }

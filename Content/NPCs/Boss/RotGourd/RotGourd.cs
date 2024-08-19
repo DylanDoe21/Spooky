@@ -15,6 +15,7 @@ using Spooky.Core;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
@@ -1117,11 +1118,14 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			//pumpkin carving kit
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PumpkinCarvingKit>()));
 
+			//spider grotto compass
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<GrottoCompass>()));
+
 			//drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RotGourdMask>(), 7));
 
 			//pumpkin gut bloom seed, drop directly from the boss
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FallSeed>(), 1, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FallSeed>()));
 
             //trophy always drops directly from the boss
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RotGourdTrophyItem>(), 10));

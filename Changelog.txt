@@ -143,6 +143,7 @@ Weapons & Gear:
 -I.C.U rockets now deal damage to all enemies nearby it when they explode
 -Spooky mod flails now make the same use sound as vanilla flails do
 -Nerfed the damage that the hunter soul scepter ranger minion's bullets do
+-Moco's drops can no longer be shimmered into each other due to them being craftable
 
 
 Enemy & Boss Changes:
@@ -195,6 +196,7 @@ Miscellaneous:
 -Revamped the visual effects for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
 -Polished up the visual effect for the auras created by orro-boro and egg incursion enemies
 -Increased the drop rates for the spider grotto enemy weapon drops (Both prehardmode and hardmode drops)
+-Added a recipe group in spooky mod for items that are craftable with both demonite and crimtane so they dont have 2 separate recipes anymore
 
 
 Removals:
@@ -242,6 +244,7 @@ Fixed all of the following bugs and issues:
 -Spider grotto biomes overall spawn rates being way too low due to a tile checking issue
 -Orro & Boro not dropping any coins on normal or journey mode
 -Orro & Boro's body segments sometimes not producing gores properly when killed
+-Gilded mage armor set bonus scaling beyond 10 gold coins if you have more than 10 gold coins in your inventory
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

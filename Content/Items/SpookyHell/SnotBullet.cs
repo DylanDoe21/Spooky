@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
@@ -25,5 +26,14 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.shoot = ModContent.ProjectileType<SnotBulletProj>();
 			Item.shootSpeed = 40f;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe(50)
+			.AddIngredient(ItemID.MusketBall, 50)
+			.AddIngredient(ModContent.ItemType<SnotGlob>())
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
 	}
 }

@@ -942,7 +942,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DaffodilMask>(), 7));
 
             //pollen bloom seed, drop directly from the boss
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpringSeed>(), 1, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpringSeed>()));
 
             //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DaffodilTrophyItem>(), 10));

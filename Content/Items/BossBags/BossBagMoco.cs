@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Moco;
 
 namespace Spooky.Content.Items.BossBags
@@ -54,6 +55,9 @@ namespace Spooky.Content.Items.BossBags
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
+
+			//material
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SnotGlob>(), 1, 22, 35));
 
 			//boss mask
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<MocoMask>(), 7));

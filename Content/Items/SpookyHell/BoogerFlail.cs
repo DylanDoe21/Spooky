@@ -5,17 +5,13 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using System;
 
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
 {
     public class BoogerFlail : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BoogerBlaster>();
-        }
-
 		public override void SetDefaults() 
         {
 			Item.damage = 60;
@@ -43,6 +39,15 @@ namespace Spooky.Content.Items.SpookyHell
             ModContent.ProjectileType<BoogerFlailProj>(), damage, knockback, player.whoAmI);
 
             return false;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddRecipeGroup("SpookyMod:DemoniteBars", 15)
+			.AddIngredient(ModContent.ItemType<SnotGlob>(), 12)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
 	}
 }

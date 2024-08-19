@@ -96,7 +96,7 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit32;
-			NPC.DeathSound = SoundID.NPCDeath35;
+			NPC.DeathSound = SoundID.Item14;
 			NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
@@ -445,7 +445,7 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 5, 0, NPC.target);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 4, 0, NPC.target);
 					}
 
 					if (NPC.localAI[0] >= 360)
@@ -515,6 +515,14 @@ namespace Spooky.Content.NPCs.Quest
 				legs[2].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 				legs[4].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 				legs[6].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/StitchSpiderGore" + numGores).Type);
+                    }
+                }
 			}
 		}
 	}

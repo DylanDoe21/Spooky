@@ -4,17 +4,13 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
 {
     public class BoogerBook : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BoogerStaff>();
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 50;
@@ -40,5 +36,14 @@ namespace Spooky.Content.Items.SpookyHell
 		{
 			return new Vector2(-3, 0);
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddRecipeGroup("SpookyMod:DemoniteBars", 15)
+			.AddIngredient(ModContent.ItemType<SnotGlob>(), 12)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

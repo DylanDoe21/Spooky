@@ -85,16 +85,16 @@ SadGhostBig: Larger ghosts that are constantly sad for some reason. They spend t
 SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby.
 SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
 //egg event
-Biojetter: Lore
-CoughLungs: Lore
-CruxBat: Lore
-EarWormHead: Lore
-ExplodingAppendix: Lore
-FleshBolster: Lore
-GooSlug: Lore
-HoppingHeart: Lore
-HoverBrain: Lore
-TongueBiter: Lore
+Biojetter: A creature with multiple extendable eyes and biothrusters which allow it to fly by expelling nasty organic goo. It is also very volatile and will explode if injured.
+CoughLungs: Filled with a nasty ichor gas, it can cough it up to create lingering clouds that are harmful when breathed in.
+CruxBat: A powerful brain resembling a bat, combined with constant power being pumped into it from its heart, allows it to use psychic power to conjure auras that weaken their foes.
+EarWormHead: Using their large ear, they can listen to sounds and vibrations from underground to tell where their target is, before quickly digging out of the ground to ambush their prey.
+ExplodingAppendix: While not exactly powerful, these sacks of flesh can explode themselves as an attack to release the harmful ichor that filles their bodies
+FleshBolster: Using fleshy tendrils attached to its main sac, it can inject its power into other creatures directly to make them stronger.
+GooSlug: Hungry and brainless, they will attempt to each anything in their path. Though luckily they are picky eaters, and will spit things out if they taste bad.
+HoppingHeart: Using squishy flesh they can easily rebound and jump off the ground. The tube on their head can be used to shoot out harmful blood with pressure from inside its body.
+HoverBrain: A large brain with psychic power that can fire out beams to mess with other creatures brains.
+TongueBiter: A large mutated tongue with a large mouth. It can use the many tubes coming off of its back as boosters to propel itself through the air.
 //friendly town npcs
 DumbZomboid: A zomboid that got lost. It does not know how to read. Or think.
 LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.

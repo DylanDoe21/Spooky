@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(SoundID.Item56, Projectile.position);
+			SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
 
 			if (Projectile.velocity.X != oldVelocity.X)
 			{

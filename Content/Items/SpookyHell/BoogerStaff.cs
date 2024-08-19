@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Minion;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell
@@ -13,7 +14,6 @@ namespace Spooky.Content.Items.SpookyHell
 	{
 		public override void SetStaticDefaults()
         {
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BoogerFlail>();
 			Item.staff[Item.type] = true;
         }
 
@@ -47,5 +47,14 @@ namespace Spooky.Content.Items.SpookyHell
 
 			return false;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddRecipeGroup("SpookyMod:DemoniteBars", 15)
+			.AddIngredient(ModContent.ItemType<SnotGlob>(), 12)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.Localization;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,7 +37,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
             for (int i = 0; i < 360; i += 90)
             {
-                Color color = new Color(Projectile.alpha, Projectile.alpha, Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
+                Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
 
                 Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2.5f), 0).RotatedBy(MathHelper.ToRadians(i));
 
@@ -52,7 +51,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         {
             if (Projectile.timeLeft <= 60)
             {
-                Projectile.alpha += 5;
+                Projectile.alpha += 4;
             }
         }
     }

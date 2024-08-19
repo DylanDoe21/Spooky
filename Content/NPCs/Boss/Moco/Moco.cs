@@ -18,6 +18,7 @@ using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Moco.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
@@ -1100,7 +1101,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             Vector2 ShootSpeed = new Vector2(NPC.Center.X + ShootTowards, NPC.Center.Y) - NPC.Center;
                             ShootSpeed.Normalize();
-                            ShootSpeed.X *= Main.rand.Next(15, 23);
+                            ShootSpeed.X *= Main.rand.Next(12, 20);
 
                             int RandomVelocityY = Main.rand.Next(-25, 26);
 
@@ -1337,6 +1338,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
             };
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
+
+            //material
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SnotGlob>(), 1, 12, 20));
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));

@@ -97,6 +97,12 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                     WorldGen.PlaceTile(i + 1, j, ModContent.TileType<GiantRoot>(), true);
                     Framing.GetTileSafely(i + 1, j).TileFrameX = 54;
                     Framing.GetTileSafely(i + 1, j).TileFrameY = 0;
+
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        NetMessage.SendTileSquare(-1, i - 1, j, 1, 1, TileChangeType.None);
+                        NetMessage.SendTileSquare(-1, i + 1, j, 1, 1, TileChangeType.None);
+                    }
                 }
                 //left root only
                 else if (SolidTile(i - 1, j - 1) && NoSlopedTile(i - 1, j - 1) && !Framing.GetTileSafely(i - 1, j).HasTile)
@@ -109,6 +115,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                     WorldGen.PlaceTile(i - 1, j, ModContent.TileType<GiantRoot>(), true);
                     Framing.GetTileSafely(i - 1, j).TileFrameX = 54;
                     Framing.GetTileSafely(i - 1, j).TileFrameY = 18;
+
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        NetMessage.SendTileSquare(-1, i - 1, j, 1, 1, TileChangeType.None);
+                    }
                 }
                 //right root only
                 else if (SolidTile(i + 1, j - 1) && NoSlopedTile(i + 1, j - 1) && !Framing.GetTileSafely(i + 1, j).HasTile)
@@ -121,7 +132,17 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                     WorldGen.PlaceTile(i + 1, j, ModContent.TileType<GiantRoot>(), true);
                     Framing.GetTileSafely(i + 1, j).TileFrameX = 54;
                     Framing.GetTileSafely(i + 1, j).TileFrameY = 0;
+
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        NetMessage.SendTileSquare(-1, i + 1, j, 1, 1, TileChangeType.None);
+                    }
                 }
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 1, 1, TileChangeType.None);
+				}
             }
             //otherwise dont allow the tree to grow
             else
@@ -140,6 +161,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                 {
                     Framing.GetTileSafely(i, j + numSegments).TileFrameX = 18;
                 }
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j - numSegments, 1, 1, TileChangeType.None);
+				}
             }
 
             return true;

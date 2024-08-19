@@ -1970,6 +1970,20 @@ LeechWhipGore: {
 	Tooltip: ""
 }
 
+NoseTempleResetter: {
+	DisplayName: Nose Idol of Time Reversal
+	Tooltip:
+		'''
+		Reverses time inside of the nose temple when used, resetting all of the combat rooms
+		Cannot be used if any players are inside of the nose temple
+		'''
+}
+
+SnotGlob: {
+	DisplayName: Snot Glob
+	Tooltip: ""
+}
+
 SpookyHellKey: {
 	DisplayName: Eye Valley Key
 	Tooltip:
@@ -2373,14 +2387,23 @@ NerveWhip: {
 		'''
 }
 
+Sneezer: {
+	DisplayName: Sneezer
+	Tooltip:
+		'''
+		Fires out boogers at a constant rate
+		'The booger blaster's younger cousin'
+		'''
+}
+
 SnotArrow: {
-	DisplayName: Snot Arrow
-	Tooltip: Bounces off of solid surfaces
+	DisplayName: Booger Arrow
+	Tooltip: Bounces off of surfaces and enemies
 }
 
 SnotBullet: {
 	DisplayName: Mucus Bullet
-	Tooltip: Ricochets to another nearby enemy when it hits an enemy
+	Tooltip: Ricochets to another nearby enemy on hit
 }
 
 SnotRocket: {
@@ -2418,7 +2441,7 @@ RaveyardDisc1: {
 
 RaveyardDisc2: {
 	DisplayName: Raveyard Vinyl #2
-	Tooltip: "[c/6FE4A5:Deathrattlin' Raving] by Luxcapacitor"
+	Tooltip: "[c/6FE4A5:Deathrattlin' Raving (Legacy Version)] by Luxcapacitor"
 }
 
 RaveyardDisc3: {
@@ -3474,16 +3497,7 @@ CatacombWeedKiller: {
 	DisplayName: Catacomb Weed Killer
 	Tooltip:
 		'''
-		Delets all catacomb ambient weed tiles
-		Testing Item
-		'''
-}
-
-NoseTempleTest: {
-	DisplayName: Nose Temple Resetter
-	Tooltip:
-		'''
-		Resets all of the nose temple rooms
+		Deletes all catacomb ambient weed tiles
 		Testing Item
 		'''
 }

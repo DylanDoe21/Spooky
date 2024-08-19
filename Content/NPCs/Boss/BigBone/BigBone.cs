@@ -1604,7 +1604,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlowerPotHead>(), 20));
 
             //sunflower bloom seed, drop directly from the boss
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SummerSeed>(), 1, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SummerSeed>()));
 
             //trophy always drops directly from the boss
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BigBoneTrophyItem>(), 10));

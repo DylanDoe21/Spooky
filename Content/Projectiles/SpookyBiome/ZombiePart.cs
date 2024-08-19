@@ -75,8 +75,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 				SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
 
-				Projectile.velocity.X = -Projectile.velocity.X * 1.1f;
-				Projectile.velocity.Y = -Projectile.velocity.Y * 1.1f;
+				Projectile.velocity = -Projectile.velocity * 1.1f;
 			}
 		}
 

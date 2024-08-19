@@ -48,8 +48,16 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 			else
 			{
 				float bonusPerGold = 0.02f;
-				int numGoldCoins = player.CountItem(ItemID.GoldCoin, 10);
-                player.GetDamage(DamageClass.Magic) += bonusPerGold * numGoldCoins;
+				int numGoldCoins = player.CountItem(ItemID.GoldCoin);
+
+				if (numGoldCoins < 10)
+				{
+					player.GetDamage(DamageClass.Magic) += bonusPerGold * numGoldCoins;
+				}
+				else
+				{
+					player.GetDamage(DamageClass.Magic) += 0.2f;
+				}
 			}
         }
 

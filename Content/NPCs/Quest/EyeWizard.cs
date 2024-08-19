@@ -266,15 +266,15 @@ namespace Spooky.Content.NPCs.Quest
 
 						if (NPC.localAI[0] == 125)
 						{
+							SoundEngine.PlaySound(SoundID.Item80, NPC.Center);
+
 							Vector2 NPCPosition = NPC.Center + new Vector2(0, 25).RotatedByRandom(360);
 
-							SoundEngine.PlaySound(SoundID.NPCHit8, NPCPosition);
+							Vector2 ShootSpeed = NPC.Center - NPCPosition;
+							ShootSpeed.Normalize();
+							ShootSpeed *= -5f;
 
-							Vector2 Velocity = NPC.Center - NPCPosition;
-							Velocity.Normalize();
-							Velocity *= -5f;
-
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, Velocity, ModContent.ProjectileType<LingeringEyeSpawner>(), NPC.damage / 4, 2, NPC.target);
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, ShootSpeed, ModContent.ProjectileType<LingeringEyeSpawner>(), NPC.damage / 4, 2, NPC.target);
 						}
 
 						if (NPC.localAI[0] >= 145)
@@ -318,11 +318,14 @@ namespace Spooky.Content.NPCs.Quest
 						NPC.velocity *= 0.85f;
 					}
 
-					if (NPC.localAI[0] == 180)
+					if (NPC.localAI[0] == 150)
 					{
 						CurrentFrameX = 1;
 						NPC.frame.Y = 0;
+					}
 
+					if (NPC.localAI[0] == 180)
+					{
 						SaveNPCPosition = NPC.Center;
 
                         NPC.netUpdate = true;
@@ -339,13 +342,13 @@ namespace Spooky.Content.NPCs.Quest
 						{
 							Vector2 NPCPosition = NPC.Center + new Vector2(0, 25).RotatedByRandom(360);
 
-							SoundEngine.PlaySound(SoundID.NPCHit8, NPCPosition);
+							SoundEngine.PlaySound(SoundID.Item79, NPCPosition);
 
-							Vector2 Velocity = NPC.Center - NPCPosition;
-							Velocity.Normalize();
-							Velocity *= Main.rand.NextFloat(-10f, -5f);
+							Vector2 ShootSpeed = NPC.Center - NPCPosition;
+							ShootSpeed.Normalize();
+							ShootSpeed *= Main.rand.NextFloat(-10f, -5f);
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, Velocity, ModContent.ProjectileType<HomingEye>(), NPC.damage / 4, 2, NPC.target);
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, ShootSpeed, ModContent.ProjectileType<HomingEye>(), NPC.damage / 4, 2, NPC.target);
 						}
 					}
 
@@ -405,7 +408,7 @@ namespace Spooky.Content.NPCs.Quest
 
 						if (NPC.localAI[0] % 10 == 0)
 						{
-							SoundEngine.PlaySound(SoundID.NPCHit8, NPC.Center);
+							SoundEngine.PlaySound(SoundID.Item85, NPC.Center);
 
 							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 45, Main.rand.Next(-15, 16), Main.rand.Next(-15, -6), ModContent.ProjectileType<BouncingEye>(), NPC.damage / 4, 2, NPC.target);
 						}
@@ -420,11 +423,65 @@ namespace Spooky.Content.NPCs.Quest
 					if (NPC.localAI[0] >= 600)
 					{
 						NPC.localAI[0] = 0;
-						NPC.ai[0] = 1;
+						NPC.ai[0] = NPC.life < (NPC.lifeMax / 2) ? 5 : 1;
 
 						NPC.netUpdate = true;
 					}
 
+					break;
+				}
+
+				//throw a random potion
+				case 5:
+				{
+					NPC.localAI[0]++;
+
+					//go to the player
+					if (NPC.localAI[0] < 180)
+					{
+						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 300);
+
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 8);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+					}
+
+					if (NPC.localAI[0] >= 180)
+					{
+						NPC.velocity *= 0.85f;
+					}
+
+					if (NPC.localAI[0] == 240)
+					{
+						SoundEngine.PlaySound(SoundID.Item106, NPC.Center);
+
+						Vector2 Recoil = player.Center - NPC.Center;
+						Recoil.Normalize();
+						Recoil *= -12f;
+						NPC.velocity = Recoil;
+
+						Vector2 ShootSpeed = player.Center - NPC.Center;
+						ShootSpeed.Normalize();
+						ShootSpeed *= 15f;
+
+						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 120f;
+						Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+						if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+						{
+							position += muzzleOffset;
+						}
+
+						int[] Types = new int[] { ModContent.ProjectileType<FlaskChilled>(), ModContent.ProjectileType<FlaskIchor>(), ModContent.ProjectileType<FlaskVenom>() };
+
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, Main.rand.Next(Types), NPC.damage / 4, 0, NPC.target);
+					}
+
+					if (NPC.localAI[0] >= 300)
+					{
+						NPC.localAI[0] = 0;
+						NPC.ai[0] = 1;
+					}
+ 
 					break;
 				}
 			}

@@ -20,13 +20,7 @@ namespace Spooky.Content.Items.BossSummon
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DemoniteBar, 5)
-            .AddRecipeGroup(RecipeGroupID.IronBar, 2)
-            .AddTile(TileID.Anvils)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ItemID.CrimtaneBar, 5)
+            .AddRecipeGroup("SpookyMod:DemoniteBars", 5)
             .AddRecipeGroup(RecipeGroupID.IronBar, 2)
             .AddTile(TileID.Anvils)
             .Register();

@@ -84,6 +84,11 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             {
                 WorldGen.PlaceTile(i, j, ModContent.TileType<BigFlower>(), true);
                 Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 1, 1, TileChangeType.None);
+				}
             }
             //otherwise dont allow the tree to grow
             else
@@ -103,6 +108,11 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
                 {
                     Framing.GetTileSafely(i, j - numSegments).TileFrameX = 16;
                 }
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j - numSegments, 1, 1, TileChangeType.None);
+				}
             }
 
             return true;

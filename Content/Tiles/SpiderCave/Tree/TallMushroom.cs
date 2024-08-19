@@ -72,6 +72,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             {
                 WorldGen.PlaceTile(i, j, ModContent.TileType<TallMushroom>(), true);
                 Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(8) * 18);
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 1, 1, TileChangeType.None);
+				}
             }
             //otherwise dont allow the tree to grow
             else
@@ -89,6 +94,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                 {
                     Framing.GetTileSafely(i, j - numSegments).TileFrameX = 18;
                 }
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j - numSegments, 1, 1, TileChangeType.None);
+				}
             }
 
             return true;

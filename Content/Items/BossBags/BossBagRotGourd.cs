@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.RotGourd;
 
@@ -49,6 +50,9 @@ namespace Spooky.Content.Items.BossBags
 
 			//pumpkin carving kit
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<PumpkinCarvingKit>(), 1));
+
+			//spider grotto compass
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<GrottoCompass>(), 1));
 
 			//boss mask
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<RotGourdMask>(), 7));

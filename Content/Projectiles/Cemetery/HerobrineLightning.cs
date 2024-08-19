@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class HerobrineLightning : ModProjectile
     {
-        bool HasHitBoss = false;
+        static bool HasHitBoss = false;
 
         private static Asset<Texture2D> ProjTexture;
 
