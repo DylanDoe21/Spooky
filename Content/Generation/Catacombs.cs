@@ -1039,7 +1039,7 @@ namespace Spooky.Content.Generation
 
                         int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
 
-                        if (WorldGen.genRand.NextBool(10))
+                        if (WorldGen.genRand.NextBool(15))
                         {
                             chest.item[0].SetDefaults(WorldGen.genRand.Next(RareItem));
                         }

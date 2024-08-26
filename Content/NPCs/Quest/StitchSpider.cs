@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Quest
 {
 	public class StitchSpider : ModNPC
 	{
-		List<SpiderLeg> LegsList;
+		List<SpiderLeg> legs;
 
 		float IdleSpeed = 0f;
 		float SaveRotation;
@@ -119,16 +119,16 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			if (LegsList != null)
+			if (legs != null)
 			{
-				for (int i = 0; i < LegsList.Count; i++)
+				for (int i = 0; i < legs.Count; i++)
 				{
 					if (i == 3 && LostLeg1) continue;
 					if (i == 5 && LostLeg2) continue;
 					if (i == 7 && LostLeg3) continue;
 					if (i == 1 && LostLeg4) continue;
 
-					LegsList[i].Draw(NPC.Center, NPC.rotation, false, spriteBatch, NPC.whoAmI);
+					legs[i].Draw(NPC.Center, NPC.rotation, false, spriteBatch, NPC.whoAmI);
 				}
 			}
 
@@ -161,11 +161,11 @@ namespace Spooky.Content.NPCs.Quest
             return NPC.ai[0] != 0;
         }
 
-		public void UpdateSpiderLegsList()
+		public void UpdateSpiderLegs()
 		{
-			if (LegsList == null)
+			if (legs == null)
 			{
-				LegsList = new List<SpiderLeg>();
+				legs = new List<SpiderLeg>();
 				Vector2[] legbody = { new Vector2(-10, -12), new Vector2(0, -12), new Vector2(10, -12), new Vector2(20, -8) };
 				Vector2[] legbodyExtended = { new Vector2(-12, -64), new Vector2(32, -84), new Vector2(72, -84), new Vector2(100, -80) };
 
@@ -173,15 +173,15 @@ namespace Spooky.Content.NPCs.Quest
 				{
 					for (int i = 0; i < legbodyExtended.Length; i++)
 					{
-						LegsList.Add(new SpiderLeg(new Vector2(legbodyExtended[i].X, legbodyExtended[i].Y * numLegs), new Vector2(legbody[i].X, legbody[i].Y * numLegs), numLegs));
+						legs.Add(new SpiderLeg(new Vector2(legbodyExtended[i].X, legbodyExtended[i].Y * numLegs), new Vector2(legbody[i].X, legbody[i].Y * numLegs), numLegs));
 					}
 				}
 			}
 			else
 			{
-				for (int i = 0; i < LegsList.Count; i += 1)
+				for (int i = 0; i < legs.Count; i += 1)
 				{
-					LegsList[i].LegUpdate(NPC.Center, NPC.rotation, 128, NPC.velocity);
+					legs[i].LegUpdate(NPC.Center, NPC.rotation, 128, NPC.velocity);
 				}
 			}
 		}
@@ -193,7 +193,7 @@ namespace Spooky.Content.NPCs.Quest
 
 			NPC.rotation = NPC.velocity.ToRotation();
 
-			UpdateSpiderLegsList();
+			UpdateSpiderLegs();
 
 			switch ((int)NPC.ai[0])
 			{
@@ -482,39 +482,39 @@ namespace Spooky.Content.NPCs.Quest
 			//5 1
 			//4 0
 
-			//cause LegsList to fall off at certain hp intervals
+			//cause legs to fall off at certain hp intervals
             if (NPC.life <= (NPC.lifeMax * 0.8f) && !LostLeg1)
             {
-				LegsList[3].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[3].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
 				LostLeg1 = true;
 			}
 			if (NPC.life <= (NPC.lifeMax * 0.6f) && !LostLeg2)
             {
-				LegsList[5].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[5].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
 				LostLeg2 = true;
 			}
 			if (NPC.life <= (NPC.lifeMax * 0.4f) && !LostLeg3)
             {
-				LegsList[7].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[7].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
 				LostLeg3 = true;
 			}
 			if (NPC.life <= (NPC.lifeMax * 0.2f) && !LostLeg4)
             {
-				LegsList[1].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[1].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
 				LostLeg4 = true;
 			}
 
-			//on death destroy the rest of the LegsList
+			//on death destroy the rest of the legs
 			if (NPC.life <= 0)
             {
-				LegsList[0].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
-				LegsList[2].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
-				LegsList[4].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
-				LegsList[6].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[0].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[2].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[4].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[6].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
 
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
@@ -529,7 +529,7 @@ namespace Spooky.Content.NPCs.Quest
 
 	public class SpiderLeg
 	{
-		int LegsListide;
+		int LegSide;
 
 		float MaxLegDistance;
 		float LerpValue = 1f;
@@ -540,19 +540,19 @@ namespace Spooky.Content.NPCs.Quest
 		Vector2 CurrentLegPosition;
 		Vector2 DesiredLegPosition;
 
-		private static Asset<Texture2D> LegsListegmentTexture;
+		private static Asset<Texture2D> LegSegmentTexture;
 		private static Asset<Texture2D> LegClawTexture;
 
 		public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/SpiderWalk", SoundType.Sound) { Volume = 1.2f, PitchVariance = 0.6f };
 
-		public SpiderLeg(Vector2 Startleg, Vector2 BodyPosition, int LegsListide)
+		public SpiderLeg(Vector2 Startleg, Vector2 BodyPosition, int LegSide)
 		{
 			LegPosition = Startleg;
 			PreviousLegPosition = Startleg;
 			CurrentLegPosition = Startleg;
 			DesiredLegPosition = Startleg;
 			this.BodyPosition = BodyPosition;
-			this.LegsListide = LegsListide;
+			this.LegSide = LegSide;
 		}
 
 		public void LegUpdate(Vector2 Position, float Angle, float MaxLegDistance, Vector2 Velocity)
@@ -584,35 +584,35 @@ namespace Spooky.Content.NPCs.Quest
 
 		public void Draw(Vector2 Position, float Angle, bool gibs, SpriteBatch spriteBatch, int whoAmI)
 		{
-			int LegsListegmentLength = 68;
+			int LegSegmentLength = 68;
 			int LegClawLength = 78;
 
 			Vector2 start = Position + BodyPosition.RotatedBy(Angle);
 
 			Vector2 middle = LegPosition - start;
 
-			float angleleg1 = (LegPosition - start).ToRotation() + (MathHelper.Clamp((MathHelper.Pi / 2f) - MathHelper.ToRadians(middle.Length() / 1.6f), MathHelper.Pi / 12f, MathHelper.Pi / 2f) * LegsListide);
+			float angleleg1 = (LegPosition - start).ToRotation() + (MathHelper.Clamp((MathHelper.Pi / 2f) - MathHelper.ToRadians(middle.Length() / 1.6f), MathHelper.Pi / 12f, MathHelper.Pi / 2f) * LegSide);
 
 			Vector2 legdist = angleleg1.ToRotationVector2();
 			legdist.Normalize();
 			Vector2 halfway1 = legdist;
-			legdist *= LegsListegmentLength - 7;
+			legdist *= LegSegmentLength - 7;
 
 			Vector2 leg2 = (Position + BodyPosition.RotatedBy(Angle)) + legdist;
 
 			float angleleg2 = (LegPosition - leg2).ToRotation();
 
-			halfway1 *= LegsListegmentLength / 2;
+			halfway1 *= LegSegmentLength / 2;
 			Vector2 halfway2 = leg2 + (angleleg2.ToRotationVector2() * LegClawLength / 2);
 
 			if (!gibs)
 			{
-				LegsListegmentTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/StitchSpiderLegSegment");
+				LegSegmentTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/StitchSpiderLegSegment");
 				LegClawTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/StitchSpiderLegSegmentClaw");
 				
 				//first leg segment
 				Color LightColor = Lighting.GetColor((int)((start.X + halfway1.X) / 16f), (int)((start.Y + halfway1.Y) / 16f));
-				spriteBatch.Draw(LegsListegmentTexture.Value, start - Main.screenPosition, null, LightColor, angleleg1, new Vector2(4, LegsListegmentTexture.Height() / 2f), 1f, angleleg1.ToRotationVector2().X > 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
+				spriteBatch.Draw(LegSegmentTexture.Value, start - Main.screenPosition, null, LightColor, angleleg1, new Vector2(4, LegSegmentTexture.Height() / 2f), 1f, angleleg1.ToRotationVector2().X > 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
 				
 				//second leg segment
 				LightColor = Lighting.GetColor((int)(halfway2.X / 16f), (int)(halfway2.Y / 16f));

@@ -77,12 +77,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
             }
 
-			for (int i = 0; i < 200; i++)
+			for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
                 if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type])
                 {
-                    Shoot(Target);
+                    AttackingAI(Target);
 
                     break;
                 }
@@ -94,7 +94,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 NPC NPC = Main.npc[i];
                 if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 500f)
                 {
-                    Shoot(NPC);
+                    AttackingAI(NPC);
 
                     break;
                 }
@@ -106,7 +106,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			if (!isAttacking)
 			{
-				IdleMovement(player);
+				IdleAI(player);
 			}
 
             //prevent Projectiles clumping together
@@ -136,7 +136,62 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
 		}
 
-		public void IdleMovement(Player player)
+        public void AttackingAI(NPC target)
+        {
+			isAttacking = true;
+
+			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y);
+			float RotateX = target.Center.X - vector.X;
+			float RotateY = target.Center.Y - vector.Y;
+			Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+			Projectile.localAI[0]++;
+
+			if (Projectile.localAI[0] < 60)
+			{
+				IdleAIButForNPCs(target);
+			}
+
+			if (Projectile.localAI[0] == 60)
+			{
+				SaveProjPosition = Projectile.Center;
+			}
+
+			if (Projectile.localAI[0] > 60 && Projectile.localAI[0] < 90)
+			{
+				Projectile.Center = new Vector2(SaveProjPosition.X, SaveProjPosition.Y);
+                Projectile.Center += Main.rand.NextVector2Square(-3, 3);
+			}
+
+			if (Projectile.localAI[0] == 90)
+			{
+				SoundEngine.PlaySound(SneezeSound, Projectile.Center);
+
+				Vector2 Recoil = target.Center - Projectile.Center;
+				Recoil.Normalize(); 
+				Recoil *= -8;
+				Projectile.velocity = Recoil;
+
+				Vector2 AttackingAISpeed = target.Center - Projectile.Center;
+                AttackingAISpeed.Normalize();
+                AttackingAISpeed *= 20f;
+                        
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+                AttackingAISpeed.X, AttackingAISpeed.Y, ModContent.ProjectileType<NoseMinionBooger>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
+			}
+
+			if (Projectile.localAI[0] >= 90)
+			{
+				Projectile.velocity *= 0.95f;
+			}
+
+			if (Projectile.localAI[0] >= 110)
+			{
+				Projectile.localAI[0] = 0;
+			}
+		}
+
+		public void IdleAI(Player player)
         {
 			Projectile.rotation = 0;
 
@@ -231,7 +286,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             }
         }
 
-		public void IdleMovementButForNPCs(NPC npc)
+		public void IdleAIButForNPCs(NPC npc)
         {
 			float num16 = 0.5f;
             Vector2 vector3 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
@@ -311,60 +366,5 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.spriteDirection = 1;
             }
         }
-
-		public void Shoot(NPC target)
-        {
-			isAttacking = true;
-
-			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y);
-			float RotateX = target.Center.X - vector.X;
-			float RotateY = target.Center.Y - vector.Y;
-			Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-
-			Projectile.localAI[0]++;
-
-			if (Projectile.localAI[0] < 60)
-			{
-				IdleMovementButForNPCs(target);
-			}
-
-			if (Projectile.localAI[0] == 60)
-			{
-				SaveProjPosition = Projectile.Center;
-			}
-
-			if (Projectile.localAI[0] > 60 && Projectile.localAI[0] < 90)
-			{
-				Projectile.Center = new Vector2(SaveProjPosition.X, SaveProjPosition.Y);
-                Projectile.Center += Main.rand.NextVector2Square(-3, 3);
-			}
-
-			if (Projectile.localAI[0] == 90)
-			{
-				SoundEngine.PlaySound(SneezeSound, Projectile.Center);
-
-				Vector2 Recoil = target.Center - Projectile.Center;
-				Recoil.Normalize(); 
-				Recoil *= -8;
-				Projectile.velocity = Recoil;
-
-				Vector2 ShootSpeed = target.Center - Projectile.Center;
-                ShootSpeed.Normalize();
-                ShootSpeed *= 20f;
-                        
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<NoseMinionBooger>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
-			}
-
-			if (Projectile.localAI[0] >= 90)
-			{
-				Projectile.velocity *= 0.95f;
-			}
-
-			if (Projectile.localAI[0] >= 110)
-			{
-				Projectile.localAI[0] = 0;
-			}
-		}
     }
 }

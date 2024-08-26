@@ -24,8 +24,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
             SoundEngine.PlaySound(SoundID.NPCHit13 with { Pitch = 1.25f }, Projectile.Center);
 
-				Projectile.position = Projectile.position + Projectile.velocity;
-				Projectile.velocity = -Projectile.velocity;
+            Projectile.position = Projectile.position + Projectile.velocity;
+            Projectile.velocity = -Projectile.velocity;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

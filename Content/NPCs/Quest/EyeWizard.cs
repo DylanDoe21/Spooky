@@ -423,7 +423,7 @@ namespace Spooky.Content.NPCs.Quest
 					if (NPC.localAI[0] >= 600)
 					{
 						NPC.localAI[0] = 0;
-						NPC.ai[0] = NPC.life < (NPC.lifeMax / 2) ? 5 : 1;
+						NPC.ai[0] = 1; //NPC.life < (NPC.lifeMax / 2) ? 5 : 1;
 
 						NPC.netUpdate = true;
 					}
@@ -432,6 +432,8 @@ namespace Spooky.Content.NPCs.Quest
 				}
 
 				//throw a random potion
+				//TODO: rework this completely
+				//NEW IDEA: bigger eye vanishes, creates a ring of illusions around the player. before closing in, a few turn green which you must pass through to not get hit
 				case 5:
 				{
 					NPC.localAI[0]++;
@@ -450,6 +452,7 @@ namespace Spooky.Content.NPCs.Quest
 						NPC.velocity *= 0.85f;
 					}
 
+					/*
 					if (NPC.localAI[0] == 240)
 					{
 						SoundEngine.PlaySound(SoundID.Item106, NPC.Center);
@@ -463,7 +466,7 @@ namespace Spooky.Content.NPCs.Quest
 						ShootSpeed.Normalize();
 						ShootSpeed *= 15f;
 
-						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 120f;
+						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 60f;
 						Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
 
 						if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -475,6 +478,7 @@ namespace Spooky.Content.NPCs.Quest
 
 						Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, Main.rand.Next(Types), NPC.damage / 4, 0, NPC.target);
 					}
+					*/
 
 					if (NPC.localAI[0] >= 300)
 					{

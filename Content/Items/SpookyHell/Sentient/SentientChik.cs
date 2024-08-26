@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
             Item.rare = ModContent.RarityType<SentientRarity>();
-            Item.value = Item.buyPrice(gold: 45);
+            Item.value = Item.buyPrice(gold: 30);
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<SentientChikProj>();
             Item.shootSpeed = 8f;

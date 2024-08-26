@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Catacomb.Misc;
@@ -70,7 +71,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            NPC.rotation += 0.05f * (float)NPC.direction;
+            NPC.rotation += (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y)) * 0.01f * (float)NPC.direction;
 
             if (NPC.ai[0] == 0)
             {

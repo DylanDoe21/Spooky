@@ -453,3 +453,18 @@ ToothyDebuff: {
 	DisplayName: Toothy Debuff
 	Description: Mods.Spooky.Buffs.ToothyDebuff.Description
 }
+
+SentientKeybrandDebuff: {
+	DisplayName: Sentient Keybrand Debuff
+	Description: Mods.Spooky.Buffs.SentientKeybrandDebuff.Description
+}
+
+WingedBiomassBuff: {
+	DisplayName: Winged Biomass
+	Description: The winged biomass is looking out for you
+}
+
+BillyBuff: {
+	DisplayName: Billy Bone
+	Description: Billy Bone the raven protects you!
+}

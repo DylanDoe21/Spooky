@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.SpookyHell.Misc
             Item.width = 12;
 			Item.height = 12;
 			Item.consumable = true;
-			Item.value = Item.buyPrice(0, 0, 25);
+			Item.value = Item.buyPrice(silver: 15);
 			Item.maxStack = 9999;
 			Item.rare = ItemRarityID.Orange;
             Item.ammo = AmmoID.Solution;

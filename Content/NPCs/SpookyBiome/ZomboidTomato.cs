@@ -13,7 +13,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
     public class ZomboidTomato : ModNPC  
     {
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/TomatoSplat", SoundType.Sound);
+        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/Splat", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {

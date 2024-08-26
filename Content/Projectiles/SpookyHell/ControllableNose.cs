@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -60,7 +61,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.Kill();
             }
 
-            if (player.channel && player.statMana > 5)
+            if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana)
             {
                 Projectile.timeLeft = 2;
 
@@ -73,7 +74,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 if (Projectile.ai[0] % 20 == 2)
                 {
-                    player.statMana -= 5;
+                    player.statMana -= ItemGlobal.ActiveItem(player).mana;
 
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 

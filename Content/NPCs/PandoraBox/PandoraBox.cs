@@ -64,8 +64,10 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC.defense = 0;
             NPC.width = 46;
             NPC.height = 36;
+            NPC.npcSlots = 0f;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
+            NPC.dontCountMe = true;
         }
 
         public override bool NeedSaving()

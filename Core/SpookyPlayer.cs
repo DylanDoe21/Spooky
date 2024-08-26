@@ -90,6 +90,8 @@ namespace Spooky.Core
         public bool OldHunter = false;
         public bool SoulSkull = false;
         public bool Brainy = false;
+        public bool WingedBiomass = false;
+        public bool Billy = false;
 
         //pets
         public bool BatPet = false;
@@ -220,6 +222,8 @@ namespace Spooky.Core
             OldHunter = false;
             SoulSkull = false;
             Brainy = false;
+            WingedBiomass = false;
+            Billy = false;
 
             //pets
             BatPet = false;

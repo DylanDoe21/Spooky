@@ -32,7 +32,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();
-            Item.value = Item.buyPrice(gold: 45);
+            Item.value = Item.buyPrice(gold: 50);
             Item.shoot = ModContent.ProjectileType<DrainedSoulHealth>();
             Item.shootSpeed = 0f;
         }

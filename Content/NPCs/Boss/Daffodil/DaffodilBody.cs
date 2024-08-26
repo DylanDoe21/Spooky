@@ -24,13 +24,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.defense = 0;
             NPC.width = 530;
             NPC.height = 270;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 0f;
             NPC.knockBackResist = 0f;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.behindTiles = true;
+            NPC.dontCountMe = true;
             NPC.aiStyle = -1;
 		}
 

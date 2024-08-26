@@ -53,7 +53,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.ai[0]++;
             if (Projectile.ai[0] == 60)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetal>(), 50, 0, player.whoAmI, Projectile.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetal>(), Projectile.damage, 0, player.whoAmI, Projectile.whoAmI);
             }
         }
     }

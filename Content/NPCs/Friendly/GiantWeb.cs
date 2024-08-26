@@ -37,11 +37,13 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.defense = 0;
             NPC.width = 334;
 			NPC.height = 278;
+            NPC.npcSlots = 0f;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.behindTiles = true;
+            NPC.dontCountMe = true;
             NPC.aiStyle = -1;
         }
 

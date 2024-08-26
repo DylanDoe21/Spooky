@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class FlameIdolProj : ModProjectile
@@ -77,7 +79,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.position = player.Center - Projectile.Size / 2 + new Vector2((Projectile.direction == -1 ? -20 : 20), -5);
 
-			if (player.channel && player.statMana > 0)
+			if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana)
             {
                 player.AddBuff(BuffID.OnFire, 2);
 
@@ -91,7 +93,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 if (Projectile.localAI[0] >= 60)
                 {
-                    player.statMana -= 10;
+                    player.statMana -= ItemGlobal.ActiveItem(player).mana;
 
                     SoundEngine.PlaySound(SoundID.Item42, Projectile.Center);
 

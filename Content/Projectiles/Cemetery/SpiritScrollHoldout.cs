@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Cemetery
 {
 	public class SpiritScrollHoldout : ModProjectile
@@ -53,7 +55,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.position = player.Center - Projectile.Size / 2 + new Vector2((Projectile.direction == -1 ? -15 : 15), 0);
 
-			if (player.channel && player.statMana > 12)
+			if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana)
             {
                 Projectile.timeLeft = 2;
 
@@ -68,7 +70,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                 if (Projectile.ai[2] >= 30)
                 {
-                    player.statMana -= 12;
+                    player.statMana -= ItemGlobal.ActiveItem(player).mana;
 
                     SoundEngine.PlaySound(SoundID.DD2_EtherianPortalSpawnEnemy with { Volume = SoundID.DD2_EtherianPortalSpawnEnemy.Volume * 2.5f }, Projectile.Center);
 

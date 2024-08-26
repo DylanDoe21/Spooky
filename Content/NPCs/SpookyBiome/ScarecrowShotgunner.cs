@@ -138,12 +138,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 IsShooting = true;
 
-                NPC.knockBackResist = 0f;
-
                 NPC.localAI[0]++;
 
                 if (NPC.localAI[0] >= 300)
                 {
+                    NPC.knockBackResist = 0f;
+
                     if (NPC.velocity.X > 0 || NPC.velocity.X < 0)
                     {
                         NPC.velocity.X *= 0.5f;
@@ -153,6 +153,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
                 else
                 {
+                    NPC.knockBackResist = 0.8f;
+
                     NPC.aiStyle = 3;
                     AIType = NPCID.GoblinScout;
                 }
@@ -208,8 +210,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             else
             {
                 IsShooting = false;
-
-                NPC.knockBackResist = 0.8f;
 
                 NPC.aiStyle = 3;
                 AIType = NPCID.GoblinScout;

@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 1;
             Item.rare = ModContent.RarityType<SentientRarity>();
-            Item.value = Item.buyPrice(gold: 20);
+            Item.value = Item.buyPrice(gold: 10);
             Item.UseSound = SoundID.Item171;
             Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Arrow;

@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.knockBackResist = 0f;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+			NPC.dontCountMe = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;

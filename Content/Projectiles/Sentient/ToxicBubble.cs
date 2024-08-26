@@ -10,6 +10,8 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class ToxicBubble : ModProjectile
     {
+        int Bounces = 0;
+
         public override void SetDefaults()
         {
             Projectile.width = 32;
@@ -26,8 +28,6 @@ namespace Spooky.Content.Projectiles.Sentient
         {
 			Projectile.rotation += 0.3f * (float)Projectile.direction;
         }
-
-		int Bounces = 0;
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{

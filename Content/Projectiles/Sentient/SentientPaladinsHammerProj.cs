@@ -50,7 +50,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Lime) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length) * 0.5f;
+                Color color = Projectile.GetAlpha(Color.Lime * 0.5f) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length) * 0.5f;
                 Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, effects, 0);
             }
@@ -65,11 +65,12 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SpookyPlayer.ScreenShakeAmount = 4;
             SoundEngine.PlaySound(HitSound, target.Center);
 
+            SpookyPlayer.ScreenShakeAmount = 4;
+
             for (int numDusts = 0; numDusts < 10; numDusts++)
-			{                                                                                  
+			{                                                                   
 				int newDust = Dust.NewDust(target.position, target.width, target.height, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1f);
 				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
 				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;

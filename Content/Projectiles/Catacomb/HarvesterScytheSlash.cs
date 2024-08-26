@@ -136,7 +136,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 target.velocity = -Knockback * target.knockBackResist;
             }
 
-            if (!hasHitSomething)
+            if (!hasHitSomething && target.CanBeChasedBy(this))
             {
                 hasHitSomething = true;
 

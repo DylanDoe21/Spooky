@@ -66,14 +66,14 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 2200;
+            NPC.lifeMax = 2500;
             NPC.damage = 50;
             NPC.defense = 0;
             NPC.width = 152;
             NPC.height = 142;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 2, 0, 0);
+            NPC.value = Item.buyPrice(0, 0, 80, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.immortal = true;
@@ -221,7 +221,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         NPC.noGravity = true;
 
                         NPC.localAI[0] = 0;
-                        //NPC.ai[0]++;
+                        NPC.ai[0]++;
 
                         NPC.netUpdate = true;
                     }
@@ -284,9 +284,10 @@ namespace Spooky.Content.NPCs.EggEvent
                         NPC.velocity *= 0.1f;
                     }
 
-                    //spit out goo
+                    //spit out biomass
                     if (NPC.localAI[0] == 120)
                     {
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 55, Main.rand.Next(-2, 2), Main.rand.Next(2, 5), ModContent.ProjectileType<BiojetterBiomass>(), NPC.damage / 3, 0, NPC.target);
                     }
 
                     if (NPC.localAI[0] > 160)

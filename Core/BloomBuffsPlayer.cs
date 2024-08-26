@@ -389,7 +389,7 @@ namespace Spooky.Core
 
 					for (int numBerries = 0; numBerries < 3; numBerries++)
 					{
-                        //TODO: spawn straberry boost projectile here
+                        Projectile.NewProjectile(null, Player.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10)), ModContent.ProjectileType<StrawberryBoost>(), 0, 0, Player.whoAmI);
 					}
 
 					WinterStrawberryTimer = 0;
@@ -407,13 +407,13 @@ namespace Spooky.Core
 
                 if (SpringIrisTimer >= 3600)
                 {
-                    Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetalLockOn>(), 0, 0, Player.whoAmI);
+                    Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetalLockOn>(), 50, 0, Player.whoAmI);
 
                     SpringIrisTimer = 0;
                 }
             }
 
-            //spawn invisible rose thorn projectile on the player so the ring looks like its inflicting damage
+            //spawn rose thorn projectile on the player
 			if (SpringRose && Player.ownedProjectileCounts[ModContent.ProjectileType<RoseThornRing>()] < 1)
 			{
 				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<RoseThornRing>(), 40, 0, Player.whoAmI);

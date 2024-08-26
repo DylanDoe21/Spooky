@@ -95,10 +95,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Projectile.alpha -= 5;
 			}
 
-            Projectile.localAI[0]++;
+            Projectile.ai[0]++;
             
             //make Projectile spin
-            if (Projectile.localAI[0] > 30 && Projectile.localAI[0] < 75)
+            if (Projectile.ai[0] > 30 && Projectile.ai[0] < 75)
             {
                 Projectile.spriteDirection = Projectile.velocity.X  > 0 ? 1 : -1;
                 
@@ -115,7 +115,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
 
             //make projectile charge at the player
-            if (Projectile.localAI[0] == 75)
+            if (Projectile.ai[0] == 75)
             {
                 Projectile.tileCollide = true;
 
@@ -123,7 +123,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12; //12 is the "charge" speed
             }
 
-            if (Projectile.localAI[0] > 75 || Projectile.localAI[0] < 30)
+            if (Projectile.ai[0] > 75 || Projectile.ai[0] < 30)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
                 Projectile.rotation += 0f * (float)Projectile.direction;	

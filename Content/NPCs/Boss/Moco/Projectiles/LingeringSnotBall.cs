@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
         private static Asset<Texture2D> ProjTexture;
 
-        public static readonly SoundStyle SplatSound = new("Spooky/Content/Sounds/TomatoSplat", SoundType.Sound) { Volume = 0.5f };
+        public static readonly SoundStyle SplatSound = new("Spooky/Content/Sounds/Splat", SoundType.Sound) { Volume = 0.5f };
 
         public override void SetStaticDefaults()
         {

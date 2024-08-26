@@ -153,10 +153,10 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.tileCollide = false;
 
                 //target an enemy
-                for (int i = 0; i < 200; i++)
+                for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                    if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type])
+                    if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 750f)
                     {
                         AttackingAI(Target);
 
@@ -278,13 +278,13 @@ namespace Spooky.Content.Projectiles.Sentient
                 //set frame to charging immediately 
                 Projectile.frame = 5;
                 
-                Vector2 ChargeDirection = target.Center - Projectile.Center;
-                ChargeDirection.Normalize();
-                        
-                ChargeDirection.X *= 25;
-                ChargeDirection.Y *= 1;
-                Projectile.velocity.X = ChargeDirection.X;
-                Projectile.velocity.Y = ChargeDirection.Y;
+                Vector2 ChargeSpeed = target.Center - Projectile.Center;
+                ChargeSpeed.Normalize();
+
+                ChargeSpeed.X *= 25;
+                ChargeSpeed.Y *= 1;
+                Projectile.velocity.X = ChargeSpeed.X;
+                Projectile.velocity.Y = ChargeSpeed.Y;
             }
 
             //slow down at the end of the charge

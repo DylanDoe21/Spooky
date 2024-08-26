@@ -96,37 +96,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.ai[0] > 30)
             {
-                int foundTarget = HomeOnTarget();
-                if (foundTarget != -1)
-                {
-                    NPC target = Main.npc[foundTarget];
-                    Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 18;
-                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
-                    Projectile.tileCollide = false;
-                }
+				NPC target = Main.npc[(int)Projectile.ai[1]];
+				Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 18;
+				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+				Projectile.tileCollide = false;
             }
 		}
-
-        private int HomeOnTarget()
-        {
-            const float homingMaximumRangeInPixels = 500;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC target = Main.npc[i];
-                if (target.CanBeChasedBy(Projectile))
-                {
-                    float distance = Projectile.Distance(target.Center);
-                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
-                    {
-                        selectedTarget = i;
-                    }
-                }
-            }
-
-            return selectedTarget;
-        }
 
         public override void OnKill(int timeLeft)
 		{

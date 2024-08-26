@@ -13,21 +13,35 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 40;
+            Item.damage = 70;
 			Item.DamageType = DamageClass.Ranged;
-            Item.autoReuse = true;
-			Item.noMelee = true;
+            Item.noMelee = true;
+			Item.autoReuse = false;
+			Item.noUseGraphic = true;
+			Item.channel = true;
 			Item.width = 74;
 			Item.height = 36;
-            //Item.useTime = 12;
-			//Item.useAnimation = 12;
-			//Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 50;
+			Item.useAnimation = 50;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
             Item.rare = ModContent.RarityType<SentientRarity>();
-            Item.value = Item.buyPrice(gold: 30);
-            //Item.UseSound = SoundID.Item111;
-            //Item.shoot = ModContent.ProjectileType<ToxicBubble>();
-            //Item.shootSpeed = 12f;
+            Item.value = Item.buyPrice(gold: 45);
+            Item.shoot = ModContent.ProjectileType<SentientMineLauncherProj>();
+			Item.useAmmo = AmmoID.Rocket;
+			Item.shootSpeed = 0f;
         }
+
+        public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[ModContent.ProjectileType<SentientMineLauncherProj>()] < 1;
+		}
+		
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<SentientMineLauncherProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+
+			return false;
+		}
     }
 }

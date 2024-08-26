@@ -17,18 +17,19 @@ Eye Valley Improvements:
 
 New Nose Dungeon:
 
--A large linear dungeon in the eye valley inhabited by strange cultists
+-A large combat dungeon inhabited by strange cultists, found towards the edge of the eye valley
 -The entrance of the dungeon is blocked off by a locked trapdoor, which can only be opened with a shadow key
 -At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other rooms
 -At the end of the dungeon, you can use the fire exit to back track to the beginning without having to go back through the spike-filled hallways
--While the actual dungeon bricks are indestructable, you can craft each occultist brick color at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with gray occultist bricks
+-While the actual dungeon bricks are indestructable, you can craft each different colored brick at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with the gray bricks
 
 
 New Moco Rework:
 
 -Because its fight was very old and outdated compared to every other spooky mod boss, and with the introduction of the nose dungeon, we decided to rework mocos AI to make it feel more unique and up-to-date
 -To keep it a surprise, you will have to fight moco in game to find out what its like (I am also too lazy to write out mocos entire attack pattern)
--Mocos weapon drops are also no longer directly dropped directly, they are now craftable with various materials
+-Moco also now drops a new snot material, which can be used to craft all of his weapon drops and a few other things
+-You can also get snot from re-matching the nose cultists after moco is defeated
 
 
 Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
@@ -49,7 +50,7 @@ Catacomb Improvements:
 -Added new moss blocks that grows on catacomb bricks, instead of there just being random clumps of swampy cemetery dirt in the catacombs
 -Resprited all of the bricks, plants, and vines in the catacombs
 -Giant flowers now grow naturally in the second layer of the catacombs instead of always being pre-generated in the same locations in each room
--Added a new fishing lake room and a rare secret room the the second layer
+-Added a new fishing lake room and a rare gold treasure room in the second layer of the catacombs
 -Removed all the previous catacomb layer 2 enemies, and added a large amount of entirely new enemies, some with new gimmicks and others with improved gimmicks of old enemies
 -Added fly particles to some of the coffin tiles, and removed the literal actuated poo blocks out of every catacomb room
 -Daffodil's arena and big bone's arena now have new custom backgrounds, both made by Hat in a river
@@ -91,8 +92,10 @@ Other Miscellaneous Additions:
 -Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass, colored mushrooms, and catacomb grass vines on it
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
 -Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory (These compasses will sadly not work on older worlds created before this update)
--Added a few new types of zomboids that spawn during various vanilla events
+-Added a few new types of zomboids that spawn during various vanilla events in the spooky forest (like rain and blood moons)
 -Added some new sprites for the existing spooky forest gourd tiles, added a few more gourd variants with their own unique carved faces, and made rotten gourds carvable
+-Added various new snot-themed ammo types crafted with moco's new booger material
+-Added the sneezer, a new booger blaster variant that constantly fires out boogers rather than being a charge weapon, but is a bit lower damage than the normal booger blaster
 -Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
 
 
@@ -116,7 +119,7 @@ Weapons & Gear:
 -Creepy candle no longer increases magic damage, but magic projectiles now have a much higher chance to set enemies on fire while wearing it
 -Gilded mage armor can now be crafted with both gold or platinum bars
 -Gilded mage tunic now gives 10% increased magic damage instead of a flat increase of 5
--Nerfed the plant puncher staff's damage from 50 to 30, but you can now have up to 2 hands at once
+-Nerfed the plant puncher staff's damage from 50 to 35, but you can now have up to 2 hands at once
 -Venomous spiderpoon projectiles now have a higher vertical shoot range
 -Cowbell entity minions now use local immunity frames so they dont prevent other projectiles from hitting enemies
 -Old hunter's scarf mark enemy damage multiplier nerfed from 1.5x to 1.2x
@@ -144,6 +147,7 @@ Weapons & Gear:
 -Spooky mod flails now make the same use sound as vanilla flails do
 -Nerfed the damage that the hunter soul scepter ranger minion's bullets do
 -Moco's weapon drops can no longer be shimmered into each other due to them being craftable
+-Changed all sentient item money values based on the money values of the items they are upgraded from (This affects things like sell prices and reforge cost)
 
 
 Enemy & Boss Changes:
@@ -245,9 +249,12 @@ Fixed all of the following bugs and issues:
 -Spider grotto biomes overall spawn rates being way too low due to a tile checking issue
 -Orro & Boro not dropping any coins on normal or journey mode
 -Orro & Boro's body segments sometimes not producing gores properly when killed
--Gilded mage armor set bonus scaling beyond 10 gold coins if you have more than 10 gold coins in your inventory
+-Gilded mage armor set bonus scaling beyond 10 gold coins if you have more than 10 gold coins in your inventory outside of your coins slot
 -Raveyard skeletons clothing not fading away properly when the skeletons themselves are fading away
 -Various items in the mod (including certain on-hit items, accessories with special effects applied to npcs, and minions/sentries) either activating their effects on target dummies or targetting target dummies
+-Spooky Scroll, Snot-Nosed Tome, and Idol of Flame consuming a set amount of mana instead of being dependant on the actual item's mana cost
+-Spooky mod holdout projectiles not being disabled if you were frozen/stunned by a debuff or arent holding an item
+-Yellow catacombs barrier sometimes not generating during world generation
 -Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
 
 

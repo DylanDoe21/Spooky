@@ -34,6 +34,25 @@ namespace Spooky.Core
     {
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
+			//increase spawns in the spider grotto because they are really low for some reason
+			if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+            {
+				spawnRate /= 2;
+			}
+
+			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
+			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
+			{
+				spawnRate /= 5;
+			}
+
+			//drastically increase spawns during the raveyard so all the funny skeletons spawn
+			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
+            {
+				spawnRate /= 5;
+				maxSpawns *= 5;
+			}
+
 			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
 			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) ||
             NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
@@ -62,27 +81,6 @@ namespace Spooky.Core
             {
 				spawnRate = 0;
 				maxSpawns = 0;
-			}
-
-			/*
-			//increase spawns in the spider grotto because they are really low for some reason
-			if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
-            {
-				spawnRate /= 2;
-			}
-			*/
-
-			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
-			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
-			{
-				spawnRate /= 5;
-			}
-
-			//drastically increase spawns during the raveyard so all the funny skeletons spawn
-			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
-            {
-				spawnRate /= 5;
-				maxSpawns *= 5;
 			}
 
 			//disable spawns during a hallucination encounter
@@ -476,15 +474,15 @@ namespace Spooky.Core
 					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
-						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 4);
-						pool.Add(ModContent.NPCType<JumpingSpider1>(), 4);
-						pool.Add(ModContent.NPCType<JumpingSpider2>(), 4);
+						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 3);
+						pool.Add(ModContent.NPCType<JumpingSpider1>(), 3);
+						pool.Add(ModContent.NPCType<JumpingSpider2>(), 3);
 						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
-						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 3);
+						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
 						pool.Add(ModContent.NPCType<OrbWeaver1>(), 2);
 						pool.Add(ModContent.NPCType<OrbWeaver2>(), 2);
 						pool.Add(ModContent.NPCType<OrbWeaver3>(), 2);
-						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 4);
+						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 3);
 
 						if (Main.hardMode)
 						{

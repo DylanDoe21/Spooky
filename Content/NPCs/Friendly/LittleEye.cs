@@ -120,11 +120,6 @@ namespace Spooky.Content.NPCs.Friendly
 				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default8"),
 			};
 
-			if (Main.player[Main.myPlayer].HasItem(ModContent.ItemType<Concoction>()) && !EggEventWorld.EggEventActive && !Flags.downedEggEvent)
-            {
-				return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.EggEventAdvice");
-			}
-
 			if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
 				return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.OrroBoro");

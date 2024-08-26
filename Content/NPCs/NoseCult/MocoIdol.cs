@@ -36,11 +36,11 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.width = 68;
 			NPC.height = 64;
             NPC.npcSlots = 0f;
-			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+            NPC.dontCountMe = true;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

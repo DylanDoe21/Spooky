@@ -68,7 +68,12 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 			return true;
 		}
 
-		public override bool? CanCutTiles()
+		public override bool? CanDamage()
+        {
+			return false;
+        }
+
+        public override bool? CanCutTiles()
         {
             return false;
         }

@@ -91,10 +91,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 			}
 
             //target an enemy
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type])
+                if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 750f)
                 {
                     AttackingAI(Target);
 
@@ -236,7 +236,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     int offset = saveDirection == 1 ? -20 : 20;
                             
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + offset, Projectile.Center.Y - 20, Main.rand.Next(-2, 3), 
-                    Main.rand.Next(-5, -3), ModContent.ProjectileType<OldHunterMagicBolt>(), Projectile.damage / 2, 2f, Main.myPlayer, 0f, 0f);
+                    Main.rand.Next(-5, -3), ModContent.ProjectileType<OldHunterMagicBolt>(), Projectile.damage / 2, 2f, Main.myPlayer, 0f, target.whoAmI);
                 }
             }
 

@@ -124,7 +124,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
             //target an enemy
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
                 if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 300f)

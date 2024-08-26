@@ -23,7 +23,6 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 600;
-            Projectile.alpha = 255;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -36,7 +35,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
             Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Color.Red, Projectile.rotation, drawOrigin, Projectile.ai[0] / 37, SpriteEffects.None, 0);
 
-            return true;
+            return false;
         }
 
         public override bool? CanDamage()
@@ -68,8 +67,6 @@ namespace Spooky.Content.Projectiles.Sentient
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
-
-            float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
             for (int target = 0; target < Main.maxNPCs; target++)
             {

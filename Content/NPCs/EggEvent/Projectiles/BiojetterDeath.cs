@@ -71,7 +71,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
     
         public override void AI()
         {
-            Projectile.rotation += 0.25f * (float)Projectile.direction;
+            Projectile.rotation += Projectile.velocity.X * 0.02f;
             
             if (Projectile.ai[0] < 450)
             {

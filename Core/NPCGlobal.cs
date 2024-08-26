@@ -22,8 +22,13 @@ using Spooky.Content.Projectiles.SpiderCave;
 namespace Spooky.Core
 {
     public class NPCGlobal : GlobalNPC
-    {
-        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+	{
+		public override bool InstancePerEntity => true;
+
+		public int KeybrandDefenseStacks = 0;
+		public bool InitializedKeybrandDefense = false;
+
+		public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //draw white aura on an enemy with the bee damage buff
             if (npc.HasBuff(ModContent.BuffType<BeeDamageBuff>()))
@@ -42,7 +47,7 @@ namespace Spooky.Core
 
                 var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-                Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.White) * 0.5f;
+                Color color = new Color(125 - npc.alpha, 125 - npc.alpha, 125 - npc.alpha, 0).MultiplyRGBA(Color.White) * 0.5f;
 
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
@@ -68,7 +73,7 @@ namespace Spooky.Core
 
                 var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-                Color color = new Color(127 - npc.alpha, 127 - npc.alpha, 127 - npc.alpha, 0).MultiplyRGBA(Color.Gold) * 0.5f;
+                Color color = new Color(125 - npc.alpha, 125 - npc.alpha, 125 - npc.alpha, 0).MultiplyRGBA(Color.Gold) * 0.5f;
                 
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
