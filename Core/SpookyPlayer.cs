@@ -117,8 +117,17 @@ namespace Spooky.Core
         public bool MocoPet = false;
         public bool BigBonePet = false;
 
-        //misc stuff
-        public static float ScreenShakeAmount = 0;
+        //misc bools
+        public bool EatenByGooSlug = false;
+        public bool RaveyardGuardsHostile = false;
+        public bool WhipSpiderAggression = false;
+        public bool SpiderGrottoCompass = false;
+        public bool EyeValleyCompass = false;
+        public bool NoseCultistDisguise1 = false;
+		public bool NoseCultistDisguise2 = false;
+
+		//misc timers
+		public static float ScreenShakeAmount = 0;
         public float SpiderStealthAlpha = 0f;
         public int SpiderSpeedTimer = 0;
         public int FlySpawnTimer = 0;
@@ -138,11 +147,6 @@ namespace Spooky.Core
         public int GeminiMockerySpawnTimer = 0;
         public int GooSlugEatCooldown = 0;
         public int RootHealCooldown = 0;
-        public bool EatenByGooSlug = false;
-        public bool RaveyardGuardsHostile = false;
-        public bool WhipSpiderAggression = false;
-        public bool SpiderGrottoCompass = false;
-        public bool EyeValleyCompass = false;
 
         //sounds
         public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
@@ -249,12 +253,14 @@ namespace Spooky.Core
             MocoPet = false;
             BigBonePet = false;
 
-            //misc stuff
+            //misc bools
             WhipSpiderAggression = false;
             EatenByGooSlug = false;
             SpiderGrottoCompass = false;
             EyeValleyCompass = false;
-        }
+            NoseCultistDisguise1 = false;
+			NoseCultistDisguise2 = false;
+		}
 
         public override void ModifyScreenPosition()
         {
@@ -319,13 +325,6 @@ namespace Spooky.Core
                     ShootSpeed *= -100f;
 
                     //each lighting bolt is set to deal 1 damage, the actual final damage is handled in the projectile itself
-                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
-                    ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation());
-
-                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
-                    ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation(), 100);
-                    Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
-                    ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation(), 100);
                     Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y - Main.screenHeight, ShootSpeed.X, ShootSpeed.Y,
                     ModContent.ProjectileType<HerobrineLightning>(), 1, 0f, Player.whoAmI, ShootSpeed.ToRotation(), 100);
 
@@ -679,7 +678,7 @@ namespace Spooky.Core
             }
 
             //grant the player the skull frenzy when they absorb enough souls
-            if (SkullFrenzyCharge >= 20)
+            if (SkullFrenzyCharge >= 10)
             {
                 Player.AddBuff(ModContent.BuffType<SkullFrenzyBuff>(), 600);
 
@@ -691,12 +690,6 @@ namespace Spooky.Core
                     Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
                     Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
                     Main.dust[newDust].noGravity = true;
-
-                    if (Main.rand.NextBool(2))
-                    {
-                        Main.dust[newDust].scale = 0.5f;
-                        Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
-                    }
                 }
 
                 SkullFrenzyCharge = 0;
@@ -808,7 +801,8 @@ namespace Spooky.Core
                         center.Y = y * 16;
                     }
 
-                    Projectile.NewProjectile(null, center.X, center.Y, 0, -0.3f, ModContent.ProjectileType<NaturesMockery>(), 0, 0, Main.myPlayer, 0, 0, 4);
+                    int NewProj = Projectile.NewProjectile(null, center.X, center.Y, 0, -0.3f, ModContent.ProjectileType<NaturesMockery>(), 0, 0, Main.myPlayer, 0, 0, 4);
+                    Main.projectile[NewProj].frame = AnalogHorrorTape ? 4 : Main.rand.Next(0, 4);
 
                     GeminiMockerySpawnTimer = 0;
                 }

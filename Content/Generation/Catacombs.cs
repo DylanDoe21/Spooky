@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.SpiderCave.OldHunter;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
@@ -482,7 +483,7 @@ namespace Spooky.Content.Generation
                             //place fishing room in the middle of the fourth row
                             if (X == XMiddle)
                             {
-                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-14", origin.ToPoint16(), Mod);
+                                Generator.GenerateStructure("Content/Structures/CatacombLayer2/FishingRoom", origin.ToPoint16(), Mod);
                             }
                             else
                             {
@@ -1035,7 +1036,7 @@ namespace Spooky.Content.Generation
                     //place stuff in barrels
                     if (chestTile.TileFrameX == 5 * 36)
                     {
-                        int[] RareItem = new int[] { ItemID.WaterBolt, ItemID.BoneSword, ItemID.BonePickaxe };
+                        int[] RareItem = new int[] { ModContent.ItemType<SkullAmulet>(), ModContent.ItemType<RustyRing>() };
 
                         int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
 
@@ -1178,15 +1179,18 @@ namespace Spooky.Content.Generation
                         //bars
                         int[] Bars = new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar };
 
+                        //cross charm
+                        chest.item[0].SetDefaults(ModContent.ItemType<CrossCharm>());
+                        chest.item[0].stack = 1;
                         //bars
-                        chest.item[0].SetDefaults(WorldGen.genRand.Next(Bars));
-                        chest.item[0].stack = WorldGen.genRand.Next(3, 11);
+                        chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+                        chest.item[1].stack = WorldGen.genRand.Next(3, 11);
                         //recovery potions
-                        chest.item[1].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
-                        chest.item[1].stack = WorldGen.genRand.Next(1, 4);
+                        chest.item[2].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
+                        chest.item[2].stack = WorldGen.genRand.Next(1, 4);
                         //ammos
-                        chest.item[2].SetDefaults(WorldGen.genRand.Next(Ammo));
-                        chest.item[2].stack = WorldGen.genRand.Next(8, 16);
+                        chest.item[3].SetDefaults(WorldGen.genRand.Next(Ammo));
+                        chest.item[3].stack = WorldGen.genRand.Next(8, 16);
                     }
                 }
             }

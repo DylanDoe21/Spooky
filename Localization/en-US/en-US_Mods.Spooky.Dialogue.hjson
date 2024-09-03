@@ -80,9 +80,13 @@ LittleEye: {
 	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any regular fishing rod in it.
 	OrroBoro: Hey, there's like a giant worm chasing you right now. Maybe go deal with that?
 	Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them!
+	Quest1Complete: You're did it!
+	Quest2Complete: You're did it!
+	Quest3Complete: You're did it!
+	Quest4Complete: You're did it!
 	//buttons
 	Button1: Bounties
-	Button2: Cauldron?
+	Button2: Cauldron
 }
 
 OldHunter: {
@@ -131,7 +135,9 @@ PartySkeleton: {
 SkeletonBouncer: {
 	Dialogue1: You must be new around here. I don't wanna see you getting into any trouble, these parties take a lot of time and effort to set up.
 	Dialogue2: Move along, go have fun and party. Just don't go bothering anyone.
-	Dialogue3: ...
+	Dialogue3: These parties are super fun. Just don't go around comitting crimes or I'll have to murder you with my machine pistol.
+	Dialogue4: Companies been supplying us with these new otherworldy guns. They claim its better than what we had before but I don't know, I swear I heard it scream.
+	Dialogue5: ...
 }
 
 SuspiciousSkeleton: {
@@ -182,14 +188,63 @@ Daffodil: {
 	BackToSleep: Nah...
 }
 
+NoseBrute: {
+	Dialogue1: Hrnnngg...
+	Dialogue2: Grunt...
+	Dialogue3: Snoooort...
+}
+
+NoseGrunt: {
+	Dialogue1: Sniffle...
+	Dialogue2: Moco... The great one...
+	Dialogue3: All hail Moco!
+	Dialogue4: The great one will arrive if we keep up these rituals.
+	Dialogue5: I don't know what our leader does with the snot we give him, but it is probably for the greater good.
+}
+
+NoseGunner: {
+	Dialogue1: My gun speaks to me and tells me the holy nose will come soon. I am grateful.
+	Dialogue2: The great one's snot has allowed us to make and use these weapons, and together we will repay the favor.
+	Dialogue3: Being sacrificed into to a booger blaster is the greatest experience one could ever imagine. I hope one day Noseferatu will let me become one.
+	Dialogue4: Jealous? Maybe if you keep up your rituals, you can wield a booger blaster yourself.
+}
+
+NoseLeader: {
+	Button: Blessing (5 Snot Globs)
+	NoseBlessing: Here my little follower, for you a blessing straight from my nose. Use it wisely...
+	NoseBlessingBroke: Did you come to me and expect to yield results with no sacred snot? Shameful.
+	Dialogue1: My little disciple, have you come to sacrifice yourself for the holy one?
+	Dialogue2: I am out of holy booger blasters. I can make you into one, though.
+	Dialogue3: What are you doing away from the shrine? It is worshipping hour.
+	Dialogue4: Sniffle... you know, you look like you could use more snot. on your cloak.
+	Dialogue5: Our rituals have allowed us to turn those sacred moclings back into the great one. Only those who are worthy may witness it in all its glory.
+	Dialogue6: The nose that sneezed out the nose that sneezed out the nose. This is the process that created our kind and this world.
+}
+
+NoseMage: {
+	Dialogue1: I am trying to focus on my magic, I cannot talk now.
+	Dialogue2: We are worshipping, I am channeling my power, and you will ascend with us someday.
+	Dialogue3: Leave me to my arcane practices, please.
+	Dialogue4: Moco is the great one. It is the being that first brought snot to our land, and for that we thank it with our praise.
+	Dialogue5: Perhaps you yourself could harvest the arcane power and ascend further to become a snot mage.
+	Dialogue6: You look weak. A disciplined disciple of the nose will eventually be given the blessing of snot magic.
+}
+
+NoseWinged: {
+	Dialogue1: Our wings allow us to get closer to the great moco.
+	Dialogue2: The cult is powerful, and our rituals are increasing the great one's power.
+	Dialogue3: The great moco allows us to use its snot to further our power, as long as we return the favor with our rituals.
+	Dialogue4: These wings took me years to obtain. After getting in favor with our leader, he created them for me.
+}
+
 PandoraBox: {
 	Button: Open
 	Dialogue: It's a strange box with a weird aura emanating from it. Will you open it?
 }
 
 SentientCap: {
-	Dialogue1: Hi Hi Hi Hi!
-	Dialogue2: NIGHTMARE NIGHTMARE NIGHTMARE
+	Dialogue1: Hi Hi Hi!
+	Dialogue2: NIGHTMARE
 	Dialogue3: I love sitting on your head
 	Dialogue4: I'm cappin!
 	Dialogue5: Isn't this so silly?
@@ -205,9 +260,3 @@ TheMan: {
 }
 
 TheHorse: How hungry?
-
-CatacombKeys: {
-	Key1: The yellow barrier has been opened!
-	Key2: The red barrier has been opened!
-	Key3: The orange barrier has been opened!
-}

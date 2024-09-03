@@ -943,6 +943,16 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
         public override void OnKill()
         {
+            if (!Flags.downedSpookySpirit)
+			{
+				Flags.GuaranteedRaveyard = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
             NPC.SetEventFlagCleared(ref Flags.downedSpookySpirit, -1);
 
             if (!MenuSaveSystem.hasDefeatedSpookySpirit)

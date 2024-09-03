@@ -44,11 +44,7 @@ FlyBuff: {
 
 SkullFrenzyBuff: {
 	DisplayName: Necromantic Frenzy
-	Description:
-		'''
-		The power of necromancy flows through you
-		Increased damage, critical strike chance, knockback, and movement speed
-		'''
+	Description: Increased damage, critical strike chance, knockback, and movement speed
 }
 
 SnottySchnozCooldown: {
@@ -451,12 +447,12 @@ LeechBuff: {
 
 ToothyDebuff: {
 	DisplayName: Toothy Debuff
-	Description: Mods.Spooky.Buffs.ToothyDebuff.Description
+	Description: ""
 }
 
 SentientKeybrandDebuff: {
 	DisplayName: Sentient Keybrand Debuff
-	Description: Mods.Spooky.Buffs.SentientKeybrandDebuff.Description
+	Description: ""
 }
 
 WingedBiomassBuff: {
@@ -465,6 +461,6 @@ WingedBiomassBuff: {
 }
 
 BillyBuff: {
-	DisplayName: Billy Bone
-	Description: Billy Bone the raven protects you!
+	DisplayName: Billy-Bone
+	Description: Billy-Bone the raven protects you!
 }

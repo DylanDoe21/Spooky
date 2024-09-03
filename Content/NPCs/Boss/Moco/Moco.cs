@@ -1368,6 +1368,13 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         }
                     }
                 }
+
+                Flags.GuaranteedRaveyard = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
             }
 
             NPC.SetEventFlagCleared(ref Flags.downedMoco, -1);

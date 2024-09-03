@@ -128,11 +128,11 @@ namespace Spooky.Content.NPCs.PandoraBox
                     if (NPC.frame.Y >= frameHeight * 5)
                     {
                         NPC.frame.Y = 1 * frameHeight;
+                        PlayAnimation = false;
                     }
                 }
                 else
                 {
-                    NPC.frameCounter = 0;
                     NPC.frame.Y = 1 * frameHeight;
                 }
             }
@@ -421,11 +421,6 @@ namespace Spooky.Content.NPCs.PandoraBox
 
             Spooky.PandoraBoxX = (int)NPC.Center.X;
             Spooky.PandoraBoxY = (int)NPC.Center.Y;
-
-            if (NPC.frame.Y >= NPC.height * 4)
-            {
-                PlayAnimation = false;
-            }
 
             if (NPC.ai[2] > 0)
             {

@@ -52,21 +52,5 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			noBreak = true;
 			return true;
 		}
-
-		/*
-		public override bool RightClick(int i, int j)
-		{
-			if (NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeaderIdle>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>()) || NPC.AnyNPCs(ModContent.NPCType<MocoIdol6>()) || !Flags.downedMocoIdol6)
-			{
-				return false;
-			}
-
-			//TODO: add a multiplayer packet for this
-			int Idol = NPC.NewNPC(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (int)Flags.LeaderIdolPositon.X, (int)Flags.LeaderIdolPositon.Y, ModContent.NPCType<MocoIdol6>());
-            Main.npc[Idol].position.X += 8;
-
-			return true;
-		}
-		*/
     }
 }

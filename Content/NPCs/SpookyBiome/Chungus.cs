@@ -10,7 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -144,7 +144,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BustlingGlowshroom>(), 30));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpookyGlowshroom>(), 1, 2, 5));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

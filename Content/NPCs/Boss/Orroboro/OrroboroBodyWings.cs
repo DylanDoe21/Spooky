@@ -12,7 +12,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
 		public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroboroBodyWings";
 
-		float WingRotationDegrees;
+		public float WingRotationDegrees;
 
 	    public bool wingFlap;
 		public bool IsPhase1Segment;
@@ -57,6 +57,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
+			Wing1Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing1");
+			Wing2Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing2");
+
 			if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
 			{
 				for (int i = 0; i < 360; i += 30)
@@ -65,6 +68,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
 					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.2f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
+
+					Vector2 vector1 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
+					Vector2 vector2 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
+
+					float num = MathHelper.ToRadians(WingRotationDegrees);
+
+					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, color * 0.2f,
+					NPC.rotation + num, new Vector2(0f, Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
+
+					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, color * 0.2f,
+					NPC.rotation - num, new Vector2(Wing2Texture.Width(), Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
 				}
 			}
 
@@ -281,10 +295,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroboroBodyWings";
         
 		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> Wing1Texture;
+		private static Asset<Texture2D> Wing2Texture;
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			Wing1Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing1");
+			Wing2Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing2");
 
 			if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
 			{
@@ -294,6 +313,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
 					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.2f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
+
+					Vector2 vector1 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
+					Vector2 vector2 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
+
+					float num = MathHelper.ToRadians(WingRotationDegrees);
+
+					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, color * 0.2f,
+					NPC.rotation + num, new Vector2(0f, Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
+
+					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, color * 0.2f,
+					NPC.rotation - num, new Vector2(Wing2Texture.Width(), Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
 				}
 			}
 

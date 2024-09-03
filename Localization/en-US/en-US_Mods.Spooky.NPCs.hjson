@@ -86,9 +86,6 @@ BoroTongue.DisplayName: Boro's Tongue
 PhantomSkull.DisplayName: Phantom Skull
 OrbitingBooger.DisplayName: Booger Ball
 //hallucinations
-TheBaby.DisplayName: The Baby
-TheFlesh.DisplayName: The Flesh
-TheHorse.DisplayName: The Horse
 TheMan.DisplayName: The Man
 //catacombs layer 1
 Skeletoid1.DisplayName: Skeletoid
@@ -128,6 +125,10 @@ CelebrationSkeletoid4.DisplayName: Muerto Skeletoid
 CelebrationSkeletoid5.DisplayName: Muerto Skeletoid
 Dahlia.DisplayName: Diva Dahlia
 DahliaEye.DisplayName: Diva Dahlia
+FlushBush1.DisplayName: Flush Bush
+FlushBush2.DisplayName: Flush Bush
+FlushBush3.DisplayName: Flush Bush
+FlushBush4.DisplayName: Flush Bush
 JumpingSeed1.DisplayName: Hopseed
 JumpingSeed2.DisplayName: Hopseed
 JumpingSeed3.DisplayName: Hopseed
@@ -233,7 +234,7 @@ OldHunter: {
 		LoveBiome: Ahh the good ol' {BiomeName}. Still love this place despite them ugly ass spiders wandering around!
 		LikeBiome: The {BiomeName} is my type of biome. Nothin' says home quite like fending off venomous bugs and bats!
 		DislikeBiome: Not really likin' {BiomeName}, too peaceful and calm for me.
-		HateBiome: What the hell is this so-called Hallowed? I ain't wanna live in fairytale land!
+		HateBiome: What the hell is this so-called Hallowed? I ain't gonna live in some fairytale land!
 		LoveNPC: "{NPCName} is awesome! Glad there's some hard-core dudes out there!"
 		LikeNPC: I like {NPCName}. Honestly I'm just glad I got someone old to talk with haha!
 		DislikeNPC: "{NPCName}? Seems way too hoity-toity for me."

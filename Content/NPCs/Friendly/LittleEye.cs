@@ -8,9 +8,8 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -96,8 +95,77 @@ namespace Spooky.Content.NPCs.Friendly
 			//quest button
 			if (firstButton) 
             {
-				LittleEyeQuestUI.LittleEye = NPC.whoAmI;
-                LittleEyeQuestUI.UIOpen = true;
+				Player player = Main.LocalPlayer;
+
+				if (player.ConsumeItem(ModContent.ItemType<BountyItem1>()))
+				{
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1Complete");
+
+					if (Main.netMode != NetmodeID.SinglePlayer)
+					{
+						ModPacket packet = Mod.GetPacket();
+						packet.Write((byte)SpookyMessageType.Bounty1Complete);
+						packet.Send();
+					}
+					else
+					{
+						Flags.LittleEyeBounty1 = true;
+						Flags.BountyInProgress = false;
+					}
+				}
+				else if (player.ConsumeItem(ModContent.ItemType<BountyItem2>()))
+				{
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2Complete");
+
+					if (Main.netMode != NetmodeID.SinglePlayer)
+					{
+						ModPacket packet = Mod.GetPacket();
+						packet.Write((byte)SpookyMessageType.Bounty2Complete);
+						packet.Send();
+					}
+					else
+					{
+						Flags.LittleEyeBounty2 = true;
+						Flags.BountyInProgress = false;
+					}
+				}
+				else if (player.ConsumeItem(ModContent.ItemType<BountyItem3>()))
+				{
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3Complete");
+
+					if (Main.netMode != NetmodeID.SinglePlayer)
+					{
+						ModPacket packet = Mod.GetPacket();
+						packet.Write((byte)SpookyMessageType.Bounty3Complete);
+						packet.Send();
+					}
+					else
+					{
+						Flags.LittleEyeBounty3 = true;
+						Flags.BountyInProgress = false;
+					}
+				}
+				else if (player.ConsumeItem(ModContent.ItemType<BountyItem4>()))
+				{
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4Complete");
+
+					if (Main.netMode != NetmodeID.SinglePlayer)
+					{
+						ModPacket packet = Mod.GetPacket();
+						packet.Write((byte)SpookyMessageType.Bounty4Complete);
+						packet.Send();
+					}
+					else
+					{
+						Flags.LittleEyeBounty4 = true;
+						Flags.BountyInProgress = false;
+					}
+				}
+				else
+				{
+					LittleEyeQuestUI.LittleEye = NPC.whoAmI;
+					LittleEyeQuestUI.UIOpen = true;
+				}
 			}
 			//cauldron button
 			else
@@ -108,24 +176,12 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override string GetChat()
 		{
-			List<string> Dialogue = new List<string>
-			{
-                Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default1"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default2"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default3"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default4"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default5"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default6"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default7"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default8"),
-			};
-
 			if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
 				return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.OrroBoro");
 			}
 
-			return Main.rand.Next(Dialogue);
+			return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default" + Main.rand.Next(1, 9));
 		}
 
 		public override bool PreAI()

@@ -68,9 +68,11 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
             Tile tile = Framing.GetTileSafely(i, j);
             if (tile.TileFrameX < 18)
             {
-                r = 0.4f;
-                g = 0.75f;
-                b = 0.2f;
+                float divide = 350f;
+
+                r = 138f / divide;
+                g = 234f / divide;
+                b = 108f / divide;
             }
         }
 

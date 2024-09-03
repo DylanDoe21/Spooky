@@ -98,7 +98,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
 			bool AllIdolsDowned = IsSmallWorld ? Flags.downedMocoIdol1 && Flags.downedMocoIdol3 && Flags.downedMocoIdol4 : Flags.downedMocoIdol1 && Flags.downedMocoIdol2 && Flags.downedMocoIdol3 && Flags.downedMocoIdol4 && Flags.downedMocoIdol5;
 
-			if (AllIdolsDowned)
+			if (AllIdolsDowned || Flags.MinibossBarrierOpen)
 			{
 				tile.Get<TileWallWireStateData>().IsActuated = true;
             }

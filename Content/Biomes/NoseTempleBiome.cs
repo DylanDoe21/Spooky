@@ -29,7 +29,8 @@ namespace Spooky.Content.Biomes
 
             int[] DungeonWalls = new int[] { ModContent.WallType<NoseTempleWallPurple>(), ModContent.WallType<NoseTempleFancyWallPurple>(), ModContent.WallType<NoseTempleWallBGPurple>(),
             ModContent.WallType<NoseTempleWallGreen>(), ModContent.WallType<NoseTempleFancyWallGreen>(), ModContent.WallType<NoseTempleWallBGGreen>(),
-            ModContent.WallType<NoseTempleWallGray>(), ModContent.WallType<NoseTempleFancyWallGray>(), ModContent.WallType<NoseTempleWallBGGray>() };
+            ModContent.WallType<NoseTempleWallGray>(), ModContent.WallType<NoseTempleFancyWallGray>(), ModContent.WallType<NoseTempleWallBGGray>(),
+            ModContent.WallType<NoseTempleWallRed>(), ModContent.WallType<NoseTempleFancyWallRed>(), ModContent.WallType<NoseTempleWallBGRed>() };
 
             bool BiomeCondition = player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()) && DungeonWalls.Contains(Main.tile[PlayerX, PlayerY].WallType);
 

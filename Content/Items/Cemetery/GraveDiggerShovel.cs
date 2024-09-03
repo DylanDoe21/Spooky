@@ -14,30 +14,56 @@ namespace Spooky.Content.Items.Cemetery
 {
 	public class GraveDiggerShovel : ModItem
 	{
+		int numUses = -1;
+
 		public override void SetDefaults()
 		{
-			Item.damage = 12;
+			Item.damage = 25;
 			Item.crit = 10;
-			Item.DamageType = DamageClass.Ranged;
-			Item.noMelee = true;
-			Item.autoReuse = true;
+			Item.DamageType = DamageClass.Melee;
 			Item.noUseGraphic = true;
-			Item.width = 42;           
+			Item.autoReuse = true;
+			Item.noMelee = true;
+			Item.channel = true;
+			Item.width = 42;
 			Item.height = 42;
-			Item.useTime = 12;         
-			Item.useAnimation = 12;
-			Item.useStyle = ItemUseStyleID.Swing;       
-			Item.knockBack = 7;
-			Item.rare = ItemRarityID.Blue;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 5;
+            Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 1);
-			Item.UseSound = SoundID.Item1;
-			Item.shoot = ModContent.ProjectileType<GraveDiggerShovelProj>();
-			Item.shootSpeed = 12f;
+            Item.UseSound = SoundID.Item1;
+            Item.shoot = ModContent.ProjectileType<GraveDiggerShovelSwung>();
+            Item.shootSpeed = 12f;
 		}
 
         public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[Item.shoot] < 1;
+			return player.ownedProjectileCounts[ModContent.ProjectileType<GraveDiggerShovelProj>()] <= 0;
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			numUses++;
+
+			type = numUses == 4 ? ModContent.ProjectileType<GraveDiggerShovelProj>() : ModContent.ProjectileType<GraveDiggerShovelSwung>();
+
+			if (numUses > 4)
+            {
+                numUses = 0;
+            }
+
+			if (numUses < 4)
+			{
+				Projectile.NewProjectileDirect(source, position + (velocity * 20) + (velocity.RotatedBy(-1.57f * player.direction) * 20), Vector2.Zero, type, damage, knockback, player.whoAmI, numUses == 0 || numUses == 2 ? 0 : 1);
+			}
+			else
+			{
+				Projectile.NewProjectile(source, position, velocity, type, damage / 2, knockback, player.whoAmI);
+			}
+			
+			return false;
 		}
 	}
 }

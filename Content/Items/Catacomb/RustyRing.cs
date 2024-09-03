@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Core;
 using Spooky.Content.Biomes;
 
 namespace Spooky.Content.Items.Catacomb
@@ -20,12 +19,13 @@ namespace Spooky.Content.Items.Catacomb
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 += 20;
+            player.statLifeMax2 += 60;
+            player.lifeRegen += 10;
 
             if (player.ZoneDungeon || player.InModBiome(ModContent.GetInstance<CatacombBiome>()) || player.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
             {
-                player.lifeRegen += 5;
-            }
+				player.findTreasure = true;
+			}
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.NoseCult
 		public override void SetDefaults()
         {
             NPC.lifeMax = 230;
-            NPC.damage = 30;
+            NPC.damage = 35;
             NPC.defense = 5;
             NPC.width = 78;
 			NPC.height = 72;
@@ -123,7 +123,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.netUpdate = true;
             }
 
-            if (NPC.ai[1] > 5 && NPC.ai[0] < 180)
+            if (NPC.ai[1] > 5 && NPC.ai[1] < 30)
             {
                 Vector2 GoTo = SavePosition;
 
@@ -131,17 +131,20 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
             }
 
+            if (NPC.ai[1] >= 30)
+            {
+                NPC.velocity *= 0.92f;
+            }
+
             if (NPC.ai[1] >= 180)
             {
-                NPC.velocity *= 0.85f;
-
                 if (NPC.frame.Y == 7 * NPC.height && NPC.ai[2] == 0)
                 {
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
                     ShootSpeed *= 12f;
 
-					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage / 3, 0f, Main.myPlayer);
 
                     NPC.ai[2]++;
 

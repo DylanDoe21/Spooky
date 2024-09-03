@@ -49,6 +49,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			{
 				ModContent.ItemType<GlowBulb>(),
 				ModContent.ItemType<OldRifle>(),
+				ModContent.ItemType<FlameIdol>(),
 				ModContent.ItemType<HunterSoulScepter>(),
 				ModContent.ItemType<CrossCharm>()
 			};

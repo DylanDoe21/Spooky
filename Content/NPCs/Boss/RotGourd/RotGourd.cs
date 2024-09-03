@@ -1135,6 +1135,16 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
         public override void OnKill()
         {
+			if (!Flags.downedRotGourd)
+			{
+				Flags.GuaranteedRaveyard = true;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
             NPC.SetEventFlagCleared(ref Flags.downedRotGourd, -1);
 
 			if (!MenuSaveSystem.hasDefeatedRotGourd)

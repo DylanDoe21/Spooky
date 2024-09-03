@@ -146,7 +146,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 //int playerCount = 0;
                 int playerInEventCount = 0;
 
-                if (player.active && !player.dead && player.Hitbox.Intersects(CollisionRectangle))
+				if (player.active && !player.dead && player.Hitbox.Intersects(CollisionRectangle))
                 {
                     playerInEventCount++;
                 }
@@ -192,7 +192,9 @@ namespace Spooky.Content.NPCs.NoseCult
             AnyCultistsExist = NPC.AnyNPCs(ModContent.NPCType<NoseCultistBrute>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGrunt>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistGunner>()) || 
             NPC.AnyNPCs(ModContent.NPCType<NoseCultistMage>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistWinged>()) || NPC.AnyNPCs(ModContent.NPCType<NoseCultistLeader>());
 
-            if (AnyPlayersInRange() && NPC.ai[1] == 0)
+			bool playerDisguised = player.GetModPlayer<SpookyPlayer>().NoseCultistDisguise1 && player.GetModPlayer<SpookyPlayer>().NoseCultistDisguise2;
+
+			if (AnyPlayersInRange() && NPC.ai[1] == 0 && !playerDisguised)
             {
                 //activate every single nose cultist attatched to this altar
                 NPC.ai[1] = 1;
@@ -619,7 +621,7 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn the cultist leader
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) > (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 120, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) < (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 120, NPC.whoAmI);
                 NPC.ai[0]++;
             }
 

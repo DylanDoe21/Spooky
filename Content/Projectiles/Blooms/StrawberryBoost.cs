@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.height = 38;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 540;
             Projectile.penetrate = 1;
         }
 
@@ -40,13 +40,18 @@ namespace Spooky.Content.Projectiles.Blooms
             return false;
         }
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return false;
+		}
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
             Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
-            Projectile.velocity *= 0.95f;
+            Projectile.velocity *= 0.97f;
 
             Projectile.ai[0]++;
 
@@ -60,6 +65,17 @@ namespace Spooky.Content.Projectiles.Blooms
 
                     Projectile.Kill();
                 }
+
+                if (Projectile.Distance(player.Center) <= 150f)
+                {
+                    Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 20;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                }
+            }
+
+            if (Projectile.timeLeft <= 60)
+            {
+                Projectile.alpha += 5;
             }
         }
     }

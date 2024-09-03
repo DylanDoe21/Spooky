@@ -12,9 +12,9 @@ LittleEyeBounties: {
 	Bounty3Condition: Bounty Mission: Find this monster in the Spider Grotto and defeat it
 	Bounty4Condition: Bounty Mission: Find this monster in the Valley of Eyes and defeat it
 	Bounty5Condition: Bounty Mission: Find the Giant Egg in the Valley of Eyes and open it using the concoction
-	BountyAccept: Click to accept this bounty and recieve an item to attract said monster
+	BountyAccept: Click to accept this bounty and receive an item to attract said monster
 	BountyWarning: You will not be able to accept another bounty until you finish this one!
-	Bounty5Accept: Click to accept this bounty and recieve the concoction to open the giant egg
+	Bounty5Accept: Click to accept this bounty and receive the concoction to open the giant egg
 	Bounty5Warning: Good Luck!
 	BountyAccepted: You cannot select another bounty until you complete your current one
 	BountyCompleted: You have completed this bounty!

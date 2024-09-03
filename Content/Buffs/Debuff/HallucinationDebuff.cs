@@ -22,22 +22,4 @@ namespace Spooky.Content.Buffs.Debuff
 			Lighting.GlobalBrightness = 0f;
 		}
     }
-
-	public class HallucinationDebuff2 : HallucinationDebuff1
-	{
-	}
-
-	public class HallucinationDebuff3 : HallucinationDebuff1
-	{
-	}
-
-	public class HallucinationDebuff4 : HallucinationDebuff1
-	{
-		public override void Update(Player player, ref int buffIndex)
-		{
-			player.velocity.X *= 0;
-			player.velocity.Y += 0.35f;
-			Lighting.GlobalBrightness = 0f;
-		}
-	}
 }

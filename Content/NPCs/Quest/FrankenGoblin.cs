@@ -5,7 +5,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Items.Quest;
 
 namespace Spooky.Content.NPCs.Quest
 {
@@ -76,7 +76,7 @@ namespace Spooky.Content.NPCs.Quest
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EyeGoblinTongue>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BountyItem1>()));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

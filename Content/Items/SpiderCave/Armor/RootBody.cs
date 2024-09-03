@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-            player.GetDamage(DamageClass.Ranged).Flat += 5;
+			player.GetDamage(DamageClass.Ranged) += 0.12f;
         }
 
 		public override void AddRecipes()

@@ -166,7 +166,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void SetDefaults()
         {
             NPC.lifeMax = 65000;
-            NPC.damage = 65;
+            NPC.damage = 70;
             NPC.defense = 65;
             NPC.width = 134;
             NPC.height = 170;
@@ -424,7 +424,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 85 / 3 : Main.expertMode ? 65 / 2 : 45;
+            int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 45;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -1638,6 +1638,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 else
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                }
+
+                Flags.GuaranteedRaveyard = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
                 }
             }
 

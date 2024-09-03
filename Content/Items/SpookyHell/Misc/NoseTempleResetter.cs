@@ -70,7 +70,8 @@ namespace Spooky.Content.Items.SpookyHell.Misc
         public override void AddRecipes()
         {
             CreateRecipe()
-			.AddIngredient(ModContent.ItemType<NoseTempleBrickGrayItem>(), 20)
+            .AddRecipeGroup("SpookyMod:DemoniteBars", 10)
+            .AddIngredient(ItemID.Wire, 15)
 			.AddIngredient(ModContent.ItemType<SnotGlob>(), 5)
             .AddTile(TileID.Anvils)
             .Register();

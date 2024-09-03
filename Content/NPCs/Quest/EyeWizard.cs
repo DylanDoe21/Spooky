@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
 
 namespace Spooky.Content.NPCs.Quest

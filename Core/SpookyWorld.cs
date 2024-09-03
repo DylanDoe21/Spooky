@@ -170,9 +170,14 @@ namespace Spooky.Core
                 }
 
                 //chance to activate raveyard each night
-                if (DaySwitched && !Main.dayTime && Main.rand.NextBool(15))
+                if (DaySwitched && !Main.dayTime && (Main.rand.NextBool(15) || Flags.GuaranteedRaveyard))
                 {
                     Flags.RaveyardHappening = true;
+
+                    if (Flags.GuaranteedRaveyard)
+                    {
+                        Flags.GuaranteedRaveyard = false;
+                    }
 
                     if (Main.netMode == NetmodeID.Server)
                     {

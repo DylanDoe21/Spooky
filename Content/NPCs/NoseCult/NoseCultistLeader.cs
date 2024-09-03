@@ -78,8 +78,8 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 4000;
-            NPC.damage = 35;
+            NPC.lifeMax = 4500;
+            NPC.damage = 50;
             NPC.defense = 5;
             NPC.width = 122;
 			NPC.height = 128;
@@ -319,7 +319,8 @@ namespace Spooky.Content.NPCs.NoseCult
                             ShootSpeed.X *= Main.rand.NextFloat(12f, 17f);
                             ShootSpeed.Y *= Main.rand.NextFloat(12f, 17f);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y - 50), ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y - 50), ShootSpeed, 
+                            ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 3, 0f, Main.myPlayer);
                         }
                     }
 
@@ -562,12 +563,17 @@ namespace Spooky.Content.NPCs.NoseCult
                     if (NPC.localAI[0] < 60)
                     {
                         CurrentFrameX = 0;
+
+                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
+
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        
                     }
-
-                    Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 150);
-
-                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
-                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    else
+                    {
+                        NPC.velocity *= 0.95f;
+                    }
 
                     if (NPC.localAI[0] == 60)
                     {
@@ -642,6 +648,16 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void OnKill()
         {
+            if (!Flags.MinibossBarrierOpen)
+            {
+                Flags.MinibossBarrierOpen = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedMocoIdol6, -1);
         }
     }

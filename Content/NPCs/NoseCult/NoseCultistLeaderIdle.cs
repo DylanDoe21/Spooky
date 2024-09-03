@@ -3,8 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
-using System.Linq;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -15,7 +15,9 @@ namespace Spooky.Content.NPCs.NoseCult
 		{	
 			Main.npcFrameCount[NPC.type] = 9;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
-			
+			NPCID.Sets.ShimmerTownTransform[Type] = false;
+			NPCID.Sets.NoTownNPCHappiness[Type] = true;
+
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
@@ -60,7 +62,30 @@ namespace Spooky.Content.NPCs.NoseCult
             return false;
         }
 
-        public override void AI()
+		public override bool CanChat()
+		{
+			return Main.LocalPlayer.GetModPlayer<SpookyPlayer>().NoseCultistDisguise1 && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().NoseCultistDisguise2;
+		}
+
+		public override void SetChatButtons(ref string button, ref string button2)
+		{
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.NoseLeader.Button");
+		}
+
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		{
+			if (firstButton)
+			{
+				Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.NoseLeader.NoseBlessing");
+			}
+		}
+
+		public override string GetChat()
+		{
+			return Language.GetTextValue("Mods.Spooky.Dialogue.NoseLeader.Dialogue" + Main.rand.Next(1, 7));
+		}
+
+		public override void AI()
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 

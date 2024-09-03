@@ -100,7 +100,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.height = 30;
             NPC.npcSlots = 25f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 6, 0, 0);
+            NPC.value = Item.buyPrice(0, 3, 0, 0);
             NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -769,6 +769,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                             }
                         }
+                    }
+
+                    Flags.GuaranteedRaveyard = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
                     }
                 }
 

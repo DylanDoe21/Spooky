@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.Catacomb
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 60;
 			Item.mana = 10;
 			Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;
@@ -26,8 +26,8 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
-			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(gold: 2);
+			Item.rare = ItemRarityID.LightRed;
+			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item117;
 			Item.shoot = ModContent.ProjectileType<FlameIdolProj>();
 			Item.shootSpeed = 0f;

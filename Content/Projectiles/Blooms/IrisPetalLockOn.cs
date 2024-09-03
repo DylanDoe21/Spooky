@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
             //spawn the iris petal projectile and set this as its parent
             Projectile.ai[0]++;
-            if (Projectile.ai[0] == 60)
+            if (Projectile.ai[0] == 120)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetal>(), Projectile.damage, 0, player.whoAmI, Projectile.whoAmI);
             }

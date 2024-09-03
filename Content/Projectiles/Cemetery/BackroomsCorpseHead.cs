@@ -121,7 +121,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 			{
                 NPC NPC = Main.npc[i];
                 
-				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && NPC.Distance(Projectile.Center) <= 450f)
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && NPC.Distance(Projectile.Center) <= 350f)
                 {
                     NPC.AddBuff(ModContent.BuffType<BackroomsDecay>(), 2);
                 }

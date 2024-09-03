@@ -239,7 +239,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FlameIdol>(), 30));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullAmulet>(), 12));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ZomboidPyromancerHood>(), 5));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 100));
         }

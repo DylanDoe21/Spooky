@@ -385,7 +385,7 @@ namespace Spooky.Core
 
 				if (WinterStrawberryTimer >= 2400)
 				{
-                    SoundEngine.PlaySound(SoundID.Item29 with { Volume = 0.5f }, Player.Center);
+                    SoundEngine.PlaySound(SoundID.Item29 with { Volume = 0.2f }, Player.Center);
 
 					for (int numBerries = 0; numBerries < 3; numBerries++)
 					{

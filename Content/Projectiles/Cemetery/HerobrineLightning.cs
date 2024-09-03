@@ -11,7 +11,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class HerobrineLightning : ModProjectile
     {
-        static bool HasHitBoss = false;
+        bool HasHitBoss = false;
 
         private static Asset<Texture2D> ProjTexture;
 
@@ -54,7 +54,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     continue;
                 Vector2 offset = Projectile.oldPos[i - 1] - Projectile.oldPos[i];
                 int length = (int)offset.Length();
-                float scale = Projectile.scale * (float)Math.Sin(i / MathHelper.Pi) * 2;
+                float scale = Projectile.scale * (float)Math.Sin(i / MathHelper.Pi) * 3;
                 offset.Normalize();
                 const int step = 3;
                 for (int j = 0; j < length; j += step)
@@ -155,7 +155,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             if (target.boss)
             {
-                modifiers.FinalDamage += (target.lifeMax / 10) - 1;
+                modifiers.FinalDamage += (target.lifeMax * 0.15f) - 1;
 
                 HasHitBoss = true;
             }

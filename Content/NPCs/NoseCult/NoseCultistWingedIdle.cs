@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 
 using Spooky.Content.Dusts;
+using Spooky.Core;
+using Terraria.Localization;
 
 namespace Spooky.Content.NPCs.NoseCult
 {
@@ -14,7 +16,9 @@ namespace Spooky.Content.NPCs.NoseCult
 		{	
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
-			
+			NPCID.Sets.ShimmerTownTransform[Type] = false;
+			NPCID.Sets.NoTownNPCHappiness[Type] = true;
+
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
@@ -59,7 +63,22 @@ namespace Spooky.Content.NPCs.NoseCult
             return false;
         }
 
-        public override void AI()
+		public override bool CanChat()
+		{
+			return Main.LocalPlayer.GetModPlayer<SpookyPlayer>().NoseCultistDisguise1 && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().NoseCultistDisguise2;
+		}
+
+		public override void SetChatButtons(ref string button, ref string button2)
+		{
+			button = "";
+		}
+
+		public override string GetChat()
+		{
+			return Language.GetTextValue("Mods.Spooky.Dialogue.NoseWinged.Dialogue" + Main.rand.Next(1, 5));
+		}
+
+		public override void AI()
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 

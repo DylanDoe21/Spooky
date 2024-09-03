@@ -15,36 +15,6 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
-        //stuff for entity drops
-        //catacomb entity condition
-        public class CatacombEntityCondition : IItemDropRuleCondition
-        {
-            public bool CanDrop(DropAttemptInfo info) 
-            {
-                if (!info.IsInSimulation) 
-                {
-                    NPC npc = info.npc;
-
-                    if (npc.value > 0 && (info.player.InModBiome<CatacombBiome>() || info.player.InModBiome<CatacombBiome2>()) && !Flags.encounteredBaby)
-                    {
-                        return true;
-                    }
-                }
-                
-                return false;
-            }
-
-            public bool CanShowItemDropInUI() 
-            {
-                return false;
-            }
-
-            public string GetConditionDescription() 
-            {
-                return null;
-            }
-        }
-
         //underworld condition workaround so eye valley enemies dont drop living fire blocks or the hel-fire
         public class UnderworldDropCondition : IItemDropRuleCondition
         {

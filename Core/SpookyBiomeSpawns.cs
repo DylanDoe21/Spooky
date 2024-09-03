@@ -41,7 +41,7 @@ namespace Spooky.Core
 			}
 
 			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
-			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
+			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.downedSpookySpirit) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.downedDaffodil))
 			{
 				spawnRate /= 5;
 			}
@@ -84,8 +84,7 @@ namespace Spooky.Core
 			}
 
 			//disable spawns during a hallucination encounter
-            if (player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff2>()) ||
-			player.HasBuff(ModContent.BuffType<HallucinationDebuff3>()) || player.HasBuff(ModContent.BuffType<HallucinationDebuff4>()))
+            if (player.HasBuff(ModContent.BuffType<HallucinationDebuff1>()) )
 			{
 				spawnRate = 0;
 				maxSpawns = 0;
@@ -310,10 +309,10 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-				int[] CatacombLayer1Tiles = { ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombFlooring>() };
+				int[] VanillaTilesList = new int[692];
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
-				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				if (!VanillaTilesList.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					if (Flags.CatacombKey1)
 					{
@@ -348,10 +347,10 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-                int[] CatacombLayer2Tiles = { ModContent.TileType<CatacombBrick2>(), ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<GildedBrick>() };
+                int[] VanillaTilesList = new int[692];
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
-				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				if (!VanillaTilesList.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					if (Flags.CatacombKey2)
 					{
@@ -361,6 +360,10 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid3>(), 5);
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid4>(), 5);
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid5>(), 5);
+						pool.Add(ModContent.NPCType<FlushBush1>(), 3);
+						pool.Add(ModContent.NPCType<FlushBush2>(), 3);
+						pool.Add(ModContent.NPCType<FlushBush3>(), 3);
+						pool.Add(ModContent.NPCType<FlushBush4>(), 3);
 						pool.Add(ModContent.NPCType<JumpingSeed1>(), 5);
 						pool.Add(ModContent.NPCType<JumpingSeed2>(), 5);
 						pool.Add(ModContent.NPCType<JumpingSeed3>(), 5);

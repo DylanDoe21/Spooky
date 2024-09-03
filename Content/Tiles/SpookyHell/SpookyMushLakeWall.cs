@@ -50,9 +50,6 @@ namespace Spooky.Content.Tiles.SpookyHell
 
                 Vector2 pos = new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero;
 
-                float fade1 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
-                float fade2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
-
                 float time = Main.GameUpdateCount * 0.01f;
 
                 float intensity1 = 0.7f;

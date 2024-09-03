@@ -297,11 +297,6 @@ BossBagSpookySpirit: {
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
-BabyRattle: {
-	DisplayName: Baby Rattle
-	Tooltip: An unusually large baby rattle
-}
-
 Brick: {
 	DisplayName: Heavy Brick
 	Tooltip:
@@ -336,11 +331,6 @@ CowBell: {
 	Tooltip: An ancient cowbell, with a mysterious origin
 }
 
-CreepyFace: {
-	DisplayName: Screeching Face
-	Tooltip: It whispers discouraging phrases to you
-}
-
 EMFReader: {
 	DisplayName: EMF Reader
 	Tooltip:
@@ -358,11 +348,6 @@ Fertilizer: {
 		A smelly bag of dirt and bones
 		Summons Big Bone when used when nearby the giant flower pot
 		'''
-}
-
-Horseshoe: {
-	DisplayName: Old Horseshoe
-	Tooltip: You can hear the clopping noises
 }
 
 RottenSeed: {
@@ -644,8 +629,9 @@ RustyRing: {
 	DisplayName: Rusted Ring
 	Tooltip:
 		'''
-		Increases your maximum life by 20
-		Increases your life regeneration while in any dungeon
+		Increases your maximum life by 60
+		Increases your life regeneration
+		Grants you the spelunker effect while in the dungeon or catacombs
 		'''
 }
 
@@ -654,7 +640,7 @@ SkullAmulet: {
 	Tooltip:
 		'''
 		Allows you to absorb the souls of enemies you kill 
-		After 20 souls are absorbed, you will enter a frenzy for 10 seconds
+		After 10 souls are absorbed, you will enter a frenzy for 10 seconds
 		During this frenzy you gain increases to various stats
 		'''
 }
@@ -722,7 +708,7 @@ HerobrineAltar: {
 		'''
 		Press the Accessory Hotkey to summon powerful lighting from the sky at your cursor position
 		The lighting bolts will deal extremely high damage to enemies
-		Bosses will take 10% of their maximum life as damage
+		Bosses will take 15% of their maximum life as damage
 		This ability has a 2 minute cooldown before it can be used again
 		'Removed Herobrine'
 		'''
@@ -975,6 +961,16 @@ LittleEyeHat: {
 MocoMask: {
 	DisplayName: Moco Mask
 	Tooltip: ""
+}
+
+NoseCultistHood: {
+	DisplayName: Nose Cultist Hood
+	Tooltip: Disguise as a cultist when worn with the cultist robe
+}
+
+NoseCultistRobe: {
+	DisplayName: Nose Cultist Robe
+	Tooltip: Disguise as a cultist when worn with the cultist hood
 }
 
 OrroMask: {
@@ -1296,9 +1292,121 @@ YellowSpore: {
 	Tooltip: Summons a small mushroom hopper to provide light
 }
 
+BountyItem1: {
+	DisplayName: Goblin's Tongue
+	Tooltip:
+		'''
+		An abnormally long human-like tongue
+		Bounty Quest Item
+		'''
+}
+
+BountyItem2: {
+	DisplayName: Tome of Spirits
+	Tooltip:
+		'''
+		Should probably never be opened ever again
+		Bounty Quest Item
+		'''
+}
+
+BountyItem3: {
+	DisplayName: Stitched Fabric
+	Tooltip:
+		'''
+		Little Eye's extremely expensive fabric
+		Bounty Quest Item
+		'''
+}
+
+BountyItem4: {
+	DisplayName: Wizard thing
+	Tooltip:
+		'''
+		Placeholder item rn
+		Bounty Quest Item
+		'''
+}
+
+GhostBookBlue: {
+	DisplayName: Tome of Spirits (Blue)
+	Tooltip:
+		'''
+		Summons a ghostly spirit that grants you a protective barrier at low health
+		Use to change the type of spirit this book summons
+		'''
+}
+
+GhostBookGreen: {
+	DisplayName: Tome of Spirits (Green)
+	Tooltip:
+		'''
+		Summons a magical spirit that uses spells at nearby enemies
+		Use to change the type of spirit this book summons
+		'''
+}
+
+GhostBookRed: {
+	DisplayName: Tome of Spirits (Red)
+	Tooltip:
+		'''
+		Summons a strong spirit that punches nearby enemies away from you
+		Use to change the type of spirit this book summons
+		'''
+}
+
+MagicEyeOrb: {
+	DisplayName: Eyeball of Pondering
+	Tooltip:
+		'''
+		Summons a glass eye that boosts your magic stats and sometimes looks at enemies
+		Enemies being looked at by the eye will take more damage from your magic attacks
+		The eye will crack when you are damaged and will shatter after 5 hits
+		The eye will respawn 30 seconds after being destroyed
+		'''
+}
+
+SewingThread: {
+	DisplayName: Sewing Thread
+	Tooltip:
+		'''
+		Using items will sometimes launch out a piercing thread
+		The thread will deal more damage the more enemies it pierces
+		'''
+}
+
+StitchedCloak: {
+	DisplayName: Stitched Cloak
+	Tooltip:
+		'''
+		Increases your movement acceleration
+		Grants you spider legs that allow you to freely crawl on walls
+		'''
+}
+
+SummonItem1: {
+	DisplayName: Goblin Summon Item
+	Tooltip: Attracts a creature in the spooky forest while in your inventory
+}
+
+SummonItem2: {
+	DisplayName: Book Summon Item
+	Tooltip: Attracts a creature in the swampy cemetery while in your inventory
+}
+
+SummonItem3: {
+	DisplayName: Spider Summon Item
+	Tooltip: Attracts a creature in the spider grotto while in your inventory
+}
+
+SummonItem4: {
+	DisplayName: Wizard Summon Item
+	Tooltip: Attracts a creature in the valley of eyes while in your inventory
+}
+
 RootBody: {
 	DisplayName: Root Body Plate
-	Tooltip: Increases your ranged damage by 5
+	Tooltip: 12% increased ranged damage
 }
 
 RootHead: {
@@ -1389,15 +1497,6 @@ SpiderKey: {
 		'''
 		Unlocks a spider chest in the dungeon
 		Cannot be used until plantera has been defeated
-		'''
-}
-
-StitchedCloth: {
-	DisplayName: Stitched Fabric
-	Tooltip:
-		'''
-		Little Eye's extremely expensive fabric
-		Bounty Quest Item
 		'''
 }
 
@@ -1537,15 +1636,6 @@ SpiderSword: {
 	Tooltip: Can sometimes poison enemies
 }
 
-StitchedCloak: {
-	DisplayName: Stitched Cloak
-	Tooltip:
-		'''
-		Increases your movement acceleration
-		Grants you spider legs that allow you to freely crawl on walls
-		'''
-}
-
 TarantulaHawkBow: {
 	DisplayName: Spider-Wing Longbow
 	Tooltip:
@@ -1641,15 +1731,6 @@ Candy3: {
 Candy4: {
 	DisplayName: Summoner Candy
 	Tooltip: ""
-}
-
-EyeGoblinTongue: {
-	DisplayName: Goblin's Tongue
-	Tooltip:
-		'''
-		An abnormally long human-like tongue
-		Bounty Quest Item
-		'''
 }
 
 FlyBigItem: {
@@ -1853,11 +1934,6 @@ OldWoodSword: {
 	Tooltip: ""
 }
 
-SewingThread: {
-	DisplayName: Sewing Thread
-	Tooltip: ""
-}
-
 ShroomFlail: {
 	DisplayName: Fungal Flail
 	Tooltip: ""
@@ -1894,7 +1970,7 @@ WarlockRobe: {
 	DisplayName: Warlock's Cloak
 	Tooltip:
 		'''
-		Increases your summon damage by 2
+		Increases your max number of minions by 1
 		5% increased movement speed
 		'''
 }
@@ -2423,6 +2499,15 @@ SnotBullet: {
 	Tooltip: Ricochets to another nearby enemy on hit
 }
 
+SnotMedication: {
+	DisplayName: Allergy Medication
+	Tooltip:
+		'''
+		Grants immunity to the oozed debuff
+		Getting inflicted with the oozed debuff will turn it into a positive buff
+		'''
+}
+
 SnotRocket: {
 	DisplayName: Snot Rocket
 	Tooltip:
@@ -2887,6 +2972,11 @@ NoseTemplePlatformGrayItem: {
 	Tooltip: ""
 }
 
+NoseTemplePlatformRedItem: {
+	DisplayName: Red Occultist Platform
+	Tooltip: ""
+}
+
 BaxterPaintingItem: {
 	DisplayName: Portrait of Baxter
 	Tooltip: "'Waasephi'"
@@ -2927,6 +3017,11 @@ NoseTempleBrickGrayItem: {
 	Tooltip: ""
 }
 
+NoseTempleBrickRedItem: {
+	DisplayName: Red Occultist Brick
+	Tooltip: ""
+}
+
 NoseTempleFancyBrickGreenItem: {
 	DisplayName: Green Occultist Slab
 	Tooltip: ""
@@ -2939,6 +3034,11 @@ NoseTempleFancyBrickPurpleItem: {
 
 NoseTempleFancyBrickGrayItem: {
 	DisplayName: Gray Occultist Slab
+	Tooltip: ""
+}
+
+NoseTempleFancyBrickRedItem: {
+	DisplayName: Red Occultist Slab
 	Tooltip: ""
 }
 
@@ -2957,6 +3057,11 @@ NoseTempleFancyWallGrayItem: {
 	Tooltip: ""
 }
 
+NoseTempleFancyWallRedItem: {
+	DisplayName: Red Occultist Slab Wall
+	Tooltip: ""
+}
+
 NoseTempleWallGreenItem: {
 	DisplayName: Green Occultist Brick Wall
 	Tooltip: ""
@@ -2972,8 +3077,8 @@ NoseTempleWallGrayItem: {
 	Tooltip: ""
 }
 
-SnotStoneItem: {
-	DisplayName: Snot Stone
+NoseTempleWallRedItem: {
+	DisplayName: Red Occultist Brick Wall
 	Tooltip: ""
 }
 
@@ -3516,5 +3621,47 @@ CatacombWeedKiller: {
 		'''
 		Deletes all catacomb ambient weed tiles
 		Testing Item
+		'''
+}
+
+GooChompers: {
+	DisplayName: Gooey Chompers
+	Tooltip: ""
+}
+
+PeptoStomach: {
+	DisplayName: Peptobyssmal
+	Tooltip:
+		'''
+		Hitting enemies will give them a stomach ache 
+		Killing enemies with this debuff will explode into damaging pepto bismal bubbles
+		'''
+}
+
+SmokerLung: {
+	DisplayName: Smoker's Lungs
+	Tooltip:
+		'''
+		Randomly cough out clouds of damaging smoke
+		Enemies caught in the smoke will also cough smoke randomly for a bit of time
+		'''
+}
+
+StonedKidney: {
+	DisplayName: Stoned Kidney
+	Tooltip:
+		'''
+		While not using items you will charge up a kidney rock 
+		At full charge, using an item will launch the stone and explode ichor
+		'''
+}
+
+VeinChain: {
+	DisplayName: Two-Way Blood-Way
+	Tooltip:
+		'''
+		Attach a chain to nearby enemies that will damage them and drain their life
+		You can have up to 3 chains attached to different enemies at a time
+		If your health is too low, the maximum number of chains will be lowered
 		'''
 }

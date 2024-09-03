@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items.SpiderCave
+namespace Spooky.Content.Items.Quest
 {
 	//[AutoloadEquip(EquipType.Front, EquipType.Back)]
 	public class StitchedCloak : ModItem

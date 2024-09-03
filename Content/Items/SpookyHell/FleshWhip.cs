@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.SpookyHell
             Item.value = Item.buyPrice(gold: 3);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<FleshWhipProj>();
-			Item.shootSpeed = 3f;
+			Item.shootSpeed = 3.8f;
         }
 
 		public override bool MeleePrefix() 

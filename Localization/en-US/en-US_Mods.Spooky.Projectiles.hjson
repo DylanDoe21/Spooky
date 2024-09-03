@@ -179,8 +179,6 @@ EggEventHandler.DisplayName: Egg Barrier
 SentientChumCasterBobber.DisplayName: Sentient Bobber
 ThornPillarSeed.DisplayName: Seed
 ThornPillar.DisplayName: Thorn Pillar
-TheHorseFly.DisplayName: Horse Fly
-HorseshoeProj.DisplayName: Unlucky Horseshoe
 SolarDeathbeamTelegraph.DisplayName: Telegraph
 ChungusSpore.DisplayName: Spore
 FlameIdolProj.DisplayName: Flame Idol
@@ -223,7 +221,6 @@ PandoraCrossSound.DisplayName: Cross Bass
 RotGourdMinion.DisplayName: Rot-Goober
 PandoraRosaryHand.DisplayName: Ghastly Hand
 PandoraChaliceOrb.DisplayName: Ghastly Orb
-CreepyFaceSound.DisplayName: Screech
 OldWoodArrowProj.DisplayName: Old Wood Arrow
 PandoraCuffProj.DisplayName: Samson's Cuff
 HarvesterScytheSlash.DisplayName: Harvester's Scythe
@@ -404,6 +401,7 @@ WingedBiomassEye.DisplayName: Eye
 Billy.DisplayName: Billy Bone
 BillyFeather.DisplayName: Billy Feather
 BiojetterBiomass.DisplayName: Biojetter Biomass
-BillyPhantomPortal.DisplayName: Billy Phantom Portal
+BillyPhantomPortal.DisplayName: Phantom Portal
 BillyPhantom.DisplayName: Billy Phantom
 StrawberryBoost.DisplayName: Strawberry Boost
+GraveDiggerShovelSwung.DisplayName: Cemetery Digger's Shovel

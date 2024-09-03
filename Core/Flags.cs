@@ -40,12 +40,14 @@ namespace Spooky.Core
         public static bool downedMocoIdol4 = false;
         public static bool downedMocoIdol5 = false;
         public static bool downedMocoIdol6 = false;
+        public static bool MinibossBarrierOpen = false;
 
         public static bool SpookyBackgroundAlt = false;
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
         public static bool RaveyardHappening = false;
+        public static bool GuaranteedRaveyard = false;
 
         public static bool OldHunterAssembled = false;
         public static bool OldHunterHat = false;
@@ -81,12 +83,14 @@ namespace Spooky.Core
             downedMocoIdol4 = false;
             downedMocoIdol5 = false;
             downedMocoIdol6 = false;
+            MinibossBarrierOpen = false;
 
             SpookyBackgroundAlt = false;
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
             RaveyardHappening = false;
+            GuaranteedRaveyard = false;
 
             OldHunterAssembled = false;
             OldHunterHat = false;
@@ -138,12 +142,14 @@ namespace Spooky.Core
             if (downedMocoIdol4) tag["downedMocoIdol4"] = true;
             if (downedMocoIdol5) tag["downedMocoIdol5"] = true;
             if (downedMocoIdol6) tag["downedMocoIdol6"] = true;
+            if (MinibossBarrierOpen) tag["MinibossBarrierOpen"] = true;
 
             if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
             if (CatacombKey1) tag["CatacombKey1"] = true;
             if (CatacombKey2) tag["CatacombKey2"] = true;
             if (CatacombKey3) tag["CatacombKey3"] = true;
             if (RaveyardHappening) tag["RaveyardHappening"] = true;
+            if (GuaranteedRaveyard) tag["GuaranteedRaveyard"] = true;
 
             if (OldHunterAssembled) tag["OldHunterAssembled"] = true;
             if (OldHunterHat) tag["OldHunterHat"] = true;
@@ -195,12 +201,14 @@ namespace Spooky.Core
             downedMocoIdol4 = tag.ContainsKey("downedMocoIdol4");
             downedMocoIdol5 = tag.ContainsKey("downedMocoIdol5");
             downedMocoIdol6 = tag.ContainsKey("downedMocoIdol6");
+            MinibossBarrierOpen = tag.ContainsKey("MinibossBarrierOpen");
 
             SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
             CatacombKey1 = tag.ContainsKey("CatacombKey1");
             CatacombKey2 = tag.ContainsKey("CatacombKey2");
             CatacombKey3 = tag.ContainsKey("CatacombKey3");
             RaveyardHappening = tag.ContainsKey("RaveyardHappening");
+            GuaranteedRaveyard = tag.ContainsKey("GuaranteedRaveyard");
             
             OldHunterAssembled = tag.ContainsKey("OldHunterAssembled");
             OldHunterHat = tag.ContainsKey("OldHunterHat");
@@ -255,6 +263,7 @@ namespace Spooky.Core
             noseDungeonFlags[3] = downedMocoIdol4;
             noseDungeonFlags[4] = downedMocoIdol5;
             noseDungeonFlags[5] = downedMocoIdol6;
+            noseDungeonFlags[6] = MinibossBarrierOpen;
             writer.Write(noseDungeonFlags);
 
             var miscFlags = new BitsByte();
@@ -263,6 +272,7 @@ namespace Spooky.Core
             miscFlags[2] = CatacombKey2;
             miscFlags[3] = CatacombKey3;
             miscFlags[4] = RaveyardHappening;
+            miscFlags[5] = GuaranteedRaveyard;
             writer.Write(miscFlags);
 
             var oldHunterFlags = new BitsByte();
@@ -323,6 +333,7 @@ namespace Spooky.Core
             downedMocoIdol4 = noseDungeonFlags[3];
             downedMocoIdol5 = noseDungeonFlags[4];
             downedMocoIdol6 = noseDungeonFlags[5];
+            MinibossBarrierOpen = noseDungeonFlags[6];
 
             BitsByte miscFlags = reader.ReadByte();
             SpookyBackgroundAlt = miscFlags[0];
@@ -330,6 +341,7 @@ namespace Spooky.Core
             CatacombKey2 = miscFlags[2];
             CatacombKey3 = miscFlags[3];
             RaveyardHappening = miscFlags[4];
+            GuaranteedRaveyard = miscFlags[5];
 
             BitsByte oldHunterFlags = reader.ReadByte();
             OldHunterAssembled = oldHunterFlags[0];

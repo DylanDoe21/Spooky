@@ -874,10 +874,10 @@ namespace Spooky.Content.Generation
         //determine if a structure can be placed at a set position
         public static bool CanPlaceStructure(int X, int Y)
         {
-            int[] InvalidTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(),
-            ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(),
-            ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(),
-            ModContent.TileType<LivingFlesh>(), ModContent.TileType<ValleyStone>(), ModContent.TileType<OrroboroNestBlock>(), TileID.SlimeBlock};
+            int[] InvalidTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(), ModContent.TileType<NoseTempleBrickRed>(),
+            ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(), ModContent.TileType<NoseTempleFancyBrickRed>(),
+            ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(), ModContent.TileType<NoseTemplePlatformRed>(),
+            ModContent.TileType<LivingFlesh>(), ModContent.TileType<ValleyStone>(), ModContent.TileType<OrroboroNestBlock>(), TileID.SlimeBlock };
 
             for (int i = X - 35; i < X + 35; i++)
             {
@@ -1092,8 +1092,9 @@ namespace Spooky.Content.Generation
             int BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
             int Platform = ModContent.TileType<NoseTemplePlatformPurple>();
 
-            NoseTempleBrickColor = WorldGen.genRand.Next(0, 3);
-            NoseTempleSlabColor = WorldGen.genRand.Next(0, 3);
+            //for debugging: 0 = gray, 1 = green, 2 = purple, 3 = red (applies to both brick colors)
+            NoseTempleBrickColor = WorldGen.genRand.Next(0, 4);
+            NoseTempleSlabColor = WorldGen.genRand.Next(0, 4);
 
             switch (NoseTempleBrickColor)
             {
@@ -1122,6 +1123,15 @@ namespace Spooky.Content.Generation
                     BrickWall = ModContent.WallType<NoseTempleWallPurple>();
                     BrickWallSafe = ModContent.WallType<NoseTempleWallPurpleSafe>();
                     BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
+                    break;
+                }
+                case 3:
+                {
+                    Brick = ModContent.TileType<NoseTempleBrickRed>();
+                    BrickSafe = ModContent.TileType<NoseTempleBrickRedSafe>();
+                    BrickWall = ModContent.WallType<NoseTempleWallRed>();
+                    BrickWallSafe = ModContent.WallType<NoseTempleWallRedSafe>();
+                    BGBrickWall = ModContent.WallType<NoseTempleWallBGRed>();
                     break;
                 }
             }
@@ -1155,8 +1165,18 @@ namespace Spooky.Content.Generation
                     Platform = ModContent.TileType<NoseTemplePlatformPurple>();
                     break;
                 }
+                case 3:
+                {
+                    FancyBrick = ModContent.TileType<NoseTempleFancyBrickRed>();
+                    FancyBrickSafe = ModContent.TileType<NoseTempleFancyBrickRedSafe>();
+                    FancyBrickWall = ModContent.WallType<NoseTempleFancyWallRed>();
+                    FancyBrickWallSafe = ModContent.WallType<NoseTempleFancyWallRedSafe>();
+                    Platform = ModContent.TileType<NoseTemplePlatformRed>();
+                    break;
+                }
             }
 
+            //actual tile conversions
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
@@ -1208,7 +1228,7 @@ namespace Spooky.Content.Generation
                     {
                         tile.WallType = (ushort)BGBrickWall;
                     }
-                    //Platforms
+                    //platforms
                     if (tile.TileType == ModContent.TileType<NoseTemplePlatformPurple>())
                     {
                         tile.TileType = (ushort)Platform;

@@ -78,15 +78,19 @@ namespace Spooky.Content.Projectiles.Cemetery
             //lifesteal from enemies
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (Main.npc[i].Hitbox.Intersects(Projectile.Hitbox) && Main.npc[i].active && !Main.npc[i].friendly && 
-                !Main.npc[i].dontTakeDamage && !NPCID.Sets.CountsAsCritter[Main.npc[i].type] && Projectile.ai[1] % 20 == 5)
+                NPC NPC = Main.npc[i];
+                
+                if (Projectile.ai[1] % 20 == 5)
                 {
-                    int damageDone = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? Main.rand.Next(80, 100) : Main.rand.Next(10, 15);
-                    int lifeStealDivider = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 5 : 2;
+                    if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Main.npc[i].Hitbox.Intersects(Projectile.Hitbox))
+                    {
+                        int damageDone = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? Main.rand.Next(100, 150) : Main.rand.Next(15, 22);
+                        int lifeStealDivider = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 5 : 2;
 
-                    player.ApplyDamageToNPC(Main.npc[i], damageDone, 0, 0, false, null, false);
-                    player.statLife += damageDone / lifeStealDivider;
-                    player.HealEffect(damageDone / lifeStealDivider, true);
+                        player.ApplyDamageToNPC(Main.npc[i], damageDone, 0, 0, false, null, false);
+                        player.statLife += damageDone / lifeStealDivider;
+                        player.HealEffect(damageDone / lifeStealDivider, true);
+                    }
                 }
             }
         }

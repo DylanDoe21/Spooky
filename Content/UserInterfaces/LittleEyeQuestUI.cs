@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.Items.BossSummon;
+using Spooky.Content.Items.Quest;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -111,8 +113,8 @@ namespace Spooky.Content.UserInterfaces
             //actual icon textures
             BountyIcon1Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1Done");
             BountyIcon1NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone");
-            BountyIcon2Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1Done");
-            BountyIcon2NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1NotDone");
+            BountyIcon2Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon2Done");
+            BountyIcon2NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon2NotDone");
             BountyIcon3Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon3Done");
             BountyIcon3NotDone ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon3NotDone");
             BountyIcon4Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon4Done");
@@ -146,6 +148,19 @@ namespace Spooky.Content.UserInterfaces
 				else if (Flags.LittleEyeBounty1)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
+
+					//give the player the item again if they wish to rematch the miniboss
+					if (Main.mouseLeftRelease && Main.mouseLeft && !player.HasItem(ModContent.ItemType<SummonItem1>()))
+					{
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem1>());
+
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+
+						UIOpen = false;
+					}
 				}
                 else
                 {
@@ -154,18 +169,23 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
-                        //TODO: spawn item on the player that attracts the miniboss
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem1>());
+
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
 
 						if (Main.netMode != NetmodeID.SinglePlayer)
-                        {
-                            ModPacket packet = Mod.GetPacket();
-                            packet.Write((byte)SpookyMessageType.BountyAccepted);
-                            packet.Send();
-                        }
-                        else
-                        {
-                            Flags.BountyInProgress = true;
-                        }
+						{
+							ModPacket packet = Mod.GetPacket();
+							packet.Write((byte)SpookyMessageType.BountyAccepted);
+							packet.Send();
+						}
+						else
+						{
+							Flags.BountyInProgress = true;
+						}
 
 						UIOpen = false;
                     }
@@ -190,6 +210,19 @@ namespace Spooky.Content.UserInterfaces
 				else if (Flags.LittleEyeBounty2)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
+
+					//give the player the item again if they wish to rematch the miniboss
+					if (Main.mouseLeftRelease && Main.mouseLeft && !player.HasItem(ModContent.ItemType<SummonItem2>()))
+					{
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem2>());
+
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+
+						UIOpen = false;
+					}
 				}
 				else
                 {
@@ -198,9 +231,14 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
-                        //TODO: spawn item on the player that attracts the miniboss
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem2>());
 
-                        if (Main.netMode != NetmodeID.SinglePlayer)
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+
+						if (Main.netMode != NetmodeID.SinglePlayer)
                         {
                             ModPacket packet = Mod.GetPacket();
                             packet.Write((byte)SpookyMessageType.BountyAccepted);
@@ -234,6 +272,19 @@ namespace Spooky.Content.UserInterfaces
 				else if (Flags.LittleEyeBounty3)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
+
+					//give the player the item again if they wish to rematch the miniboss
+					if (Main.mouseLeftRelease && Main.mouseLeft && !player.HasItem(ModContent.ItemType<SummonItem3>()))
+					{
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem3>());
+
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+
+						UIOpen = false;
+					}
 				}
 				else
                 {
@@ -242,9 +293,14 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
-                        //TODO: spawn item on the player that attracts the miniboss
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem3>());
 
-                        if (Main.netMode != NetmodeID.SinglePlayer)
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+
+						if (Main.netMode != NetmodeID.SinglePlayer)
                         {
                             ModPacket packet = Mod.GetPacket();
                             packet.Write((byte)SpookyMessageType.BountyAccepted);
@@ -278,6 +334,19 @@ namespace Spooky.Content.UserInterfaces
 				else if (Flags.LittleEyeBounty4)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
+
+					//give the player the item again if they wish to rematch the miniboss
+					if (Main.mouseLeftRelease && Main.mouseLeft && !player.HasItem(ModContent.ItemType<SummonItem4>()))
+					{
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem4>());
+
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+
+						UIOpen = false;
+					}
 				}
 				else
                 {
@@ -286,9 +355,14 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
-                        //TODO: spawn item on the player that attracts the miniboss
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem4>());
 
-                        if (Main.netMode != NetmodeID.SinglePlayer)
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
+
+						if (Main.netMode != NetmodeID.SinglePlayer)
                         {
                             ModPacket packet = Mod.GetPacket();
                             packet.Write((byte)SpookyMessageType.BountyAccepted);
@@ -332,12 +406,27 @@ namespace Spooky.Content.UserInterfaces
 					else
 					{
 						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon5Text, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
+
+						if (Main.mouseLeftRelease && Main.mouseLeft && !player.HasItem(ModContent.ItemType<Concoction>()))
+						{
+							int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<Concoction>());
+
+							if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+							{
+								NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+							}
+						}
 					}
 
 					//accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
 					if (Main.mouseLeftRelease && Main.mouseLeft)
 					{
-						//TODO: spawn item on the player that attracts the miniboss
+						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<Concoction>());
+
+						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+						{
+							NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+						}
 
 						UIOpen = false;
 					}

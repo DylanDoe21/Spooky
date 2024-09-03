@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Items.SpookyHell.Misc;
+
 namespace Spooky.Content.Items.SpookyHell
 {
 	[AutoloadEquip(EquipType.Wings)]
@@ -60,5 +62,14 @@ namespace Spooky.Content.Items.SpookyHell
 				return false;
 			}
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ModContent.ItemType<SnotGlob>(), 12)
+			.AddIngredient(ItemID.Cobweb, 25)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

@@ -161,9 +161,6 @@ namespace Spooky.Core
 
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot) 
         {
-			//entity drop
-			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.CatacombEntityCondition(), ModContent.ItemType<BabyRattle>(), 450));
-
             //make enemies drop spooky mod's biome keys, with a 1 in 2500 chance like vanilla's biome keys
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpookyKeyCondition(), ModContent.ItemType<SpookyBiomeKey>(), 2500));
 			globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.CemeteryKeyCondition(), ModContent.ItemType<CemeteryKey>(), 2500));

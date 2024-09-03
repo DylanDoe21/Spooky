@@ -100,19 +100,18 @@ namespace Spooky.Content.Projectiles.Sentient
             for (int i = 0; i < 200; i++)
             {
                 NPC NPC = Main.npc[i];
-                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+
+                //prioritize bosses over normal enemies
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.boss && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
                 {
-                    //prioritize bosses
-                    if (NPC.boss)
-                    {
-                        AttackingAI(NPC, owner);
-                        break;
-                    }
-                    else
-                    {
-                        AttackingAI(NPC, owner);
-                        break;
-                    }
+                    AttackingAI(NPC, owner);
+                    break;
+                }
+                //if no boss is found, target other enemies normally
+                else if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+                {
+                    AttackingAI(NPC, owner);
+                    break;
                 }
                 else
                 {

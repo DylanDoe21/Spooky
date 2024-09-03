@@ -965,6 +965,16 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
             }
 
+            if (!Flags.downedDaffodil)
+            {
+                Flags.GuaranteedRaveyard = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+            }
+
             NPC.SetEventFlagCleared(ref Flags.downedDaffodil, -1);
 
             if (!MenuSaveSystem.hasDefeatedDaffodil)
