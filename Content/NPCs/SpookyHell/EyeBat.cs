@@ -23,6 +23,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 8;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 5;
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
@@ -62,18 +64,18 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+
 			if (NPC.localAI[0] >= 180)
 			{
-                NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+                Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
 
-				Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Purple);
-
-                var effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-
-                for (int repeats = 0; repeats < 4; repeats++)
+                for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
                 {
-                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
-                    Main.spriteBatch.Draw(NPCTexture.Value, afterImagePosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, effects, 0f);
+                    var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                    Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
+                    Color color = NPC.GetAlpha(Color.Purple) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length));
+                    spriteBatch.Draw(NPCTexture.Value, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
                 }
 			}
             

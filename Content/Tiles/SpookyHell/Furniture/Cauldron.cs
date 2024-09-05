@@ -93,10 +93,16 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = false;
-            Projectile.hostile = false;
-        }
+			Projectile.hostile = false;
+			Projectile.hide = true;
+		}
 
-        public override void AI()
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			behindNPCs.Add(index);
+		}
+
+		public override void AI()
         {
 			if (shakeTimer-- > 0)
 			{

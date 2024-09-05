@@ -58,7 +58,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.width = 22;
 			NPC.height = 56;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.8f;
+			NPC.knockBackResist = 0.65f;
             NPC.value = Item.buyPrice(0, 0, 5, 0);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath6;
@@ -142,19 +142,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                 if (NPC.localAI[0] >= 300)
                 {
-                    NPC.knockBackResist = 0f;
-
-                    if (NPC.velocity.X > 0 || NPC.velocity.X < 0)
-                    {
-                        NPC.velocity.X *= 0.5f;
-                    }
-
                     NPC.aiStyle = 0;
                 }
                 else
                 {
-                    NPC.knockBackResist = 0.8f;
-
                     NPC.aiStyle = 3;
                     AIType = NPCID.GoblinScout;
                 }

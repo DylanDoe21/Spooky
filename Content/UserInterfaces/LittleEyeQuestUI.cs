@@ -169,6 +169,8 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1Accepted");
+
 						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem1>());
 
 						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
@@ -231,6 +233,8 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2Accepted");
+
 						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem2>());
 
 						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
@@ -293,6 +297,8 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3Accepted");
+
 						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem3>());
 
 						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
@@ -355,6 +361,8 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft)
                     {
+						Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4Accepted");
+
 						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<SummonItem4>());
 
 						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
@@ -397,30 +405,25 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else
 				{
-					//display the actual quest text if you havent killed orro-boro but you killed the mechs
+					//if you have killed orro-boro display the quest as complete
 					if (Flags.downedOrroboro)
 					{
 						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, string.Empty, Color.Lime);
 					}
-					//if you have killed orro-boro display the quest as complete
+					//display the actual quest text if you havent killed orro-boro but you killed the mechs
 					else
 					{
 						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestIcon5Text, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
-
-						if (Main.mouseLeftRelease && Main.mouseLeft && !player.HasItem(ModContent.ItemType<Concoction>()))
-						{
-							int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<Concoction>());
-
-							if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-							{
-								NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-							}
-						}
 					}
 
 					//accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
-					if (Main.mouseLeftRelease && Main.mouseLeft)
+					if (Main.mouseLeftRelease && Main.mouseLeft && !player.HasItem(ModContent.ItemType<Concoction>()))
 					{
+						if (!Flags.downedOrroboro)
+						{
+							Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest5Accepted");
+						}
+
 						int newItem = Item.NewItem(player.GetSource_DropAsItem(), player.Hitbox, ModContent.ItemType<Concoction>());
 
 						if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)

@@ -7,6 +7,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 using Spooky.Core;
 using Spooky.Content.Biomes;
@@ -29,8 +30,32 @@ namespace Spooky.Content.NPCs.NoseCult
 		{
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
-        
-        public override void SetDefaults()
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			//bools
+			writer.Write(AnyCultistsExist);
+			writer.Write(Shake);
+
+			//floats
+			writer.Write(NPC.localAI[0]);
+			writer.Write(NPC.localAI[1]);
+			writer.Write(NPC.localAI[2]);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			//bools
+			AnyCultistsExist = reader.ReadBoolean();
+			Shake = reader.ReadBoolean();
+
+			//floats
+			NPC.localAI[0] = reader.ReadSingle();
+			NPC.localAI[1] = reader.ReadSingle();
+			NPC.localAI[2] = reader.ReadSingle();
+		}
+
+		public override void SetDefaults()
 		{
             NPC.lifeMax = 5;
             NPC.width = 68;
@@ -41,7 +66,8 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.immortal = true;
 			NPC.dontTakeDamage = true;
             NPC.dontCountMe = true;
-        }
+			NPC.hide = true;
+		}
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -51,17 +77,16 @@ namespace Spooky.Content.NPCs.NoseCult
 
                 float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
 
-                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4);
-                Color color = new Color(127 - NPC.alpha, 127 - NPC.alpha, 127 - NPC.alpha, 0).MultiplyRGBA(Color.Lime);
+                Vector2 drawPosition = new Vector2(NPC.Center.X, NPC.Center.Y) + new Vector2(0, NPC.gfxOffY + 4);
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lime);
 
-                for (int repeats = 0; repeats < 4; repeats++)
-                {
-                    Vector2 afterImagePosition = new Vector2(NPC.Center.X, NPC.Center.Y) + NPC.rotation.ToRotationVector2() - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
-                    Main.spriteBatch.Draw(NPCTexture.Value, afterImagePosition, NPC.frame, color * fade, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, SpriteEffects.None, 0f);
-                }
+				for (int i = 0; i < 360; i += 60)
+				{
+					Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 5.5f), 0).RotatedBy(MathHelper.ToRadians(i));
 
-                Main.spriteBatch.Draw(NPCTexture.Value, drawPosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 1.2f, SpriteEffects.None, 0f);
-            }
+					Main.EntitySpriteDraw(NPCTexture.Value, drawPosition + circular - Main.screenPosition, NPC.frame, color * fade, NPC.rotation, NPC.frame.Size() / 2f, 1f, SpriteEffects.None, 0);
+				}
+			}
 
             //draw sparkle
             if (NPC.ai[2] > 65)
@@ -401,7 +426,17 @@ namespace Spooky.Content.NPCs.NoseCult
             return false;
         }
 
-        public override void AI()
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return false;
+		}
+
+		public override void DrawBehind(int index)
+		{
+			Main.instance.DrawCacheNPCsBehindNonSolidTiles.Add(index);
+		}
+
+		public override void AI()
         {
             //spawn all the cultists
             if (NPC.ai[0] == 0)
@@ -430,12 +465,12 @@ namespace Spooky.Content.NPCs.NoseCult
                 //bob up and down 
                 if (NPC.localAI[0] == 0)
                 {
-                    NPC.localAI[1] = Flags.MocoIdolPosition1.Y - 50;
+                    NPC.localAI[1] = Flags.MocoIdolPosition1.Y - 85;
                     NPC.localAI[0]++;
                 }
 
                 NPC.localAI[2]++;
-                NPC.position.Y = NPC.localAI[1] + (float)Math.Sin(NPC.localAI[2] / 100) * 10;
+                NPC.position.Y = NPC.localAI[1] + (float)Math.Sin(NPC.localAI[2] / 150) * 10;
             }
         }
     }
@@ -535,9 +570,9 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 120, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 50, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
                 SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);

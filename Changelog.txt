@@ -4,6 +4,8 @@
 Eye Valley Improvements:
 
 -Changed the terrain generation to be more rough looking, making it more interesting and natural
+-Changed the screen tint of the eye valley to be more fitting with the biome
+-Added some new resprites for some of the blocks in the biome
 -Added pillars of flesh walls that generate in the biome
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
 -Added many new ambient structures that spawn in the biome to make it more visually interesting
@@ -22,7 +24,7 @@ New Nose Dungeon:
 -At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other rooms
 -At the end of the dungeon, you can use the fire exit to back track to the beginning without having to go back through the spike-filled hallways
 -While the actual dungeon bricks are indestructable, you can craft each different colored brick at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with the gray bricks
--Added a post-moco item you can use to reset the dungeon to rematch the cultists, or if you're more interesting in world-building you can disguise yourself as a cult memebr to talk with them and get some insights on them
+-Added a post-moco item you can use to reset the dungeon to rematch the cultists, or if you're more interesting in worldbuilding you can disguise yourself as a cult memebr to talk with them to gain some insights
 
 
 New Moco Rework:
@@ -224,7 +226,7 @@ Removals:
 -Removed the cotton swabs crafting recipe due to the new way it is obtained
 -Removed all of the hallucination entities except for the cowbell entity, this was done for 2 reasons:
  1) All of the entities in the game besides the cowbell one were just literal re-hashes of what the cowbell entities gimmick was, and they didnt do anything different or interesting to separate themselves from the original 
- 2) The cowbell entity has a massive future rework planned, which is going to involve massively expanding on its presence in the game and more than just its original encounter
+ 2) The cowbell entity has a massive future rework planned, which is going to massively expanding on its presence in the game and involves more than just its original encounter
 
 
 
@@ -271,7 +273,8 @@ Fixed all of the following bugs and issues:
 -Spooky Scroll, Snot-Nosed Tome, and Idol of Flame consuming a set amount of mana instead of being dependant on the actual item's mana cost
 -Spooky mod holdout projectiles not being disabled if you are frozen/stunned by a debuff or arent holding an item
 -Yellow catacombs barrier sometimes not generating during world generation
--Strange issue where turning off the vanilla background config, leaving your world, reloading the mod, re-entering the world and re-enabling background config would cause the spider grotto lighting to become weird and messed up
+-Creepy cauldron drawing infront of enemies
+-Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background condig changed
 
 
 Fixed all of the following multiplayer bugs and issues:
@@ -281,8 +284,8 @@ Fixed all of the following multiplayer bugs and issues:
 -Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack inconsistently not impacting the ground and creating projectiles
--Spooky spirit's glowmask flickering
--A lot of enemies and bosses in the mod having janky/glitchy movement
+-Spooky spirit's glowmask weirdly flickering
+-A lot of enemies and bosses in the mod having janky/glitchy movement (This was due to certain data not being synced in the correct way)
 -Pandoras box event randomly advancing to the next wave when enemies from the prior wave still exist
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
 -Eye stalk trees and glowshroom trees immediately breaking when growing

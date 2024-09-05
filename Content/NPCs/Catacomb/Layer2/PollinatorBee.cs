@@ -22,6 +22,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public static List<int> BuffableNPCs = new List<int>() 
         {
+            ModContent.NPCType<FlushBush1>(),
+            ModContent.NPCType<FlushBush2>(),
             ModContent.NPCType<JumpingSeed1>(),
             ModContent.NPCType<JumpingSeed2>(),
             ModContent.NPCType<JumpingSeed3>(),

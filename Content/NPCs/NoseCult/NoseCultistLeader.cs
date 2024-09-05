@@ -251,12 +251,16 @@ namespace Spooky.Content.NPCs.NoseCult
                         NPC.netUpdate = true;
                     }
 
-                    if (NPC.localAI[0] > 5)
+                    if (NPC.localAI[0] > 5 && NPC.localAI[0] < 60)
                     {
                         Vector2 GoTo = SavePosition;
 
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    }
+                    else
+                    {
+                        NPC.velocity *= 0.92f;
                     }
 
                     if (NPC.localAI[0] >= 120)

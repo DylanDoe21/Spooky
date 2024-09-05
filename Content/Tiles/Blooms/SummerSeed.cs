@@ -17,8 +17,9 @@ namespace Spooky.Content.Tiles.Blooms
             Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
-            Item.width = 52;
-			Item.height = 52;
+            Item.noUseGraphic = true;
+            Item.width = 34;
+			Item.height = 42;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
             Item.rare = ItemRarityID.Blue;

@@ -130,8 +130,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
                 NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
             }
-
-            if (NPC.ai[1] >= 30)
+            else
             {
                 NPC.velocity *= 0.92f;
             }

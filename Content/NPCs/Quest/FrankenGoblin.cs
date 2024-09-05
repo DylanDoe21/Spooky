@@ -11,6 +11,8 @@ namespace Spooky.Content.NPCs.Quest
 {
     public class FrankenGoblin : ModNPC  
     {
+        public bool SpawnedHands = false;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 10;

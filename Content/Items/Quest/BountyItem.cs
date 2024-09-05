@@ -38,12 +38,10 @@ namespace Spooky.Content.Items.Quest
 
     public class BountyItem4 : ModItem
 	{
-        public override string Texture => "Spooky/Content/NPCs/Quest/BanditBook";
-
         public override void SetDefaults()
 		{
-			Item.width = 32;
-            Item.height = 42;
+			Item.width = 28;
+            Item.height = 38;
 			Item.rare = ItemRarityID.Quest;
 		}
     }

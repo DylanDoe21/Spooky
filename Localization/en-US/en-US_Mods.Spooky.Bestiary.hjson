@@ -7,9 +7,6 @@ BoroHead: A blind and aggressive serpent that works together with Orro to defend
 RotGourd: This giant rotting husk and their little fly friends are not fond of invaders in their land. Rotty will aggressively jump while jerry acts as a turret, spitting nasty mold spores and bugs.
 SpookySpirit: A giant, mischevious spirit who uses ghastly apparations to mess with those who distrub its statue. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery.
 //hallucinations
-TheBaby: It won't stop crying...
-TheFlesh: What a coward.
-TheHorse: Are you still hungry now?
 TheMan: Always observing.
 //catacombs layer 1
 CatacombGuardian: Any fool attempting to enter the catacombs unpermitted will face the wrath of the catacomb guardian.
@@ -41,6 +38,8 @@ CelebrationSkeletoid3: They used to throw large celebrations in the lower cataco
 CelebrationSkeletoid4: After death, they continue to live in the deep catacombs due to excess necromantic magic.
 CelebrationSkeletoid5: Due to the plant infestation in the lower catacombs, the celebrations they used to throw have been moved to the surface instead.
 Dahlia: A strange flower that became so jealous of the lower catacombs guardian, she tried to mimic her look. Looks like she went a little overboard though.
+FlushBush1: They lure targets with their sweet smelling flowers, only to attack once the intruder faces away from them.
+FlushBush2: The thorns they can poke out and retract are coated in dangerous poison. The paper-like cloak surrounding them is covering their true body, which has never been seen before.
 JumpingSeed1: A small juvenile seedling that spends its time buried in the ground so it may eventually grow into a bigger plant.
 JumpingSeed2: Despite their small size, they can leap out of the ground when disturbed. While not too harmful, it can scare those who aren't expecting it.
 JumpingSeed3: It is unknown where exactly these seeds come from. They may actually be the seeds that grow into the other plant creatures in the deep catacombs.

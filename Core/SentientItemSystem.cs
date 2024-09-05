@@ -85,6 +85,7 @@ namespace Spooky.Core
             bool breakOut = false;
 			int i = 0;
 			int j = 0;
+
             for (i = -10; i < 10; i++)
 			{
 				for (j = -10; j < 10; j++)
@@ -96,12 +97,17 @@ namespace Spooky.Core
 						break;
 					}
 				}
+
 				if (breakOut)
+				{
 					break;
+				}
 			}
 
 			if (!breakOut)
+			{
 				return;
+			}
 
 			Vector2 offset = new Vector2(32, 0);
 			Vector2 pos = (new Vector2(x + i, y + j) * 16)  + offset;
@@ -114,7 +120,7 @@ namespace Spooky.Core
         }
     }
 
-	public class CauldronGItem : GlobalItem
+	public class CauldronGlobalItem : GlobalItem
 	{
         public override void OnCreated(Item item, ItemCreationContext context)
         {

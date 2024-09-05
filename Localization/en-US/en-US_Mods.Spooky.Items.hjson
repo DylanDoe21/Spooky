@@ -1320,10 +1320,10 @@ BountyItem3: {
 }
 
 BountyItem4: {
-	DisplayName: Wizard thing
+	DisplayName: Decapitated Eye
 	Tooltip:
 		'''
-		Placeholder item rn
+		It's Bigger Eye's... head?
 		Bounty Quest Item
 		'''
 }
@@ -1385,23 +1385,39 @@ StitchedCloak: {
 }
 
 SummonItem1: {
-	DisplayName: Goblin Summon Item
-	Tooltip: Attracts a creature in the spooky forest while in your inventory
+	DisplayName: Red Velvet Cake
+	Tooltip:
+		'''
+		It smells absolutely delectable
+		Attracts a creature in the spooky forest while in your inventory
+		'''
 }
 
 SummonItem2: {
-	DisplayName: Book Summon Item
-	Tooltip: Attracts a creature in the swampy cemetery while in your inventory
+	DisplayName: Bag of Coins
+	Tooltip:
+		'''
+		It smells like chocolate
+		Attracts a creature in the swampy cemetery while in your inventory
+		'''
 }
 
 SummonItem3: {
-	DisplayName: Spider Summon Item
-	Tooltip: Attracts a creature in the spider grotto while in your inventory
+	DisplayName: Fungus Beetle
+	Tooltip:
+		'''
+		A large spider's favorite snack
+		Attracts a creature in the spider grotto while in your inventory
+		'''
 }
 
 SummonItem4: {
-	DisplayName: Wizard Summon Item
-	Tooltip: Attracts a creature in the valley of eyes while in your inventory
+	DisplayName: Eye Drops
+	Tooltip:
+		'''
+		Soothes an irritated eye
+		Attracts a creature in the valley of eyes while in your inventory
+		'''
 }
 
 RootBody: {
