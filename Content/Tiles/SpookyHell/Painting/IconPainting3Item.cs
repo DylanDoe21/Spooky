@@ -1,9 +1,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.SpookyHell.Painting
 {
-	public class LittleEyePaintingItem : ModItem
+	public class IconPainting3Item : ModItem
     {
 		public override void SetDefaults() 
 		{
@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<LittleEyePainting>();
+			Item.createTile = ModContent.TileType<IconPainting3>();
 		}
 	}
 }

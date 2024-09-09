@@ -13,15 +13,14 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
         {
-            Projectile.width = 66;
-            Projectile.height = 64;
+            Projectile.width = 96;
+            Projectile.height = 96;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 600;
-            Projectile.alpha = 255;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -30,11 +29,11 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-            Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+            Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
             Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Color.Cyan, Projectile.rotation, drawOrigin, Projectile.ai[0] / 37, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.Cyan), Projectile.rotation, drawOrigin, Projectile.ai[0] / 47, SpriteEffects.None, 0);
 
-            return true;
+            return false;
         }
 
         public override bool? CanDamage()
@@ -51,15 +50,20 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player player = Main.player[Projectile.owner];
 
-            Projectile.position = new Vector2(player.Center.X - Projectile.width / 2, player.Center.Y - Projectile.height / 2);
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
 
             if (Projectile.ai[0] < 350)
             {
-                Projectile.ai[0] += 50;
+                Projectile.ai[0] += 25;
             }
             else
             {
-                Projectile.Kill();
+                Projectile.alpha += 50;
+
+                if (Projectile.alpha >= 255)
+                {
+                    Projectile.Kill();
+                }
             }
         }
 

@@ -19,7 +19,6 @@ namespace Spooky.Content.Tiles.SpiderCave
 			TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<DampSoil>();
-            Main.tileBrick[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;

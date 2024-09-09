@@ -3,13 +3,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.Enums;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Tiles.SpookyHell.Furniture
+namespace Spooky.Content.Tiles.SpookyHell.Painting
 {
-    public class LittleEyePainting : ModTile
+    public class IconPainting5 : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -20,10 +22,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileID.Sets.FramesOnKillWall[Type] = true;
             TileID.Sets.DisableSmartCursor[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
-			TileObjectData.newTile.Origin = new Point16(1, 1);
+            TileObjectData.newTile.Width = 4;
+            TileObjectData.newTile.Height = 4;
+            TileObjectData.newTile.Origin = new Point16(2, 2);
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(181, 176, 160));
+			AddMapEntry(new Color(90, 50, 30), Language.GetText("MapObject.Painting"));
             HitSound = SoundID.Dig;
+			DustType = -1;
 		}
     }
 }

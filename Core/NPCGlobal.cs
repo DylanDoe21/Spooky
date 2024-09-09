@@ -18,6 +18,7 @@ using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Projectiles.Blooms;
 
 namespace Spooky.Core
 {

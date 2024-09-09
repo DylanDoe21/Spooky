@@ -185,6 +185,12 @@ namespace Spooky.Core
 				player.GetModPlayer<BloomBuffsPlayer>().DandelionHerdTimer++;
 			}
 
+			//increase timer for spawning dandelion herd projectiles while flying
+			if (player.GetModPlayer<BloomBuffsPlayer>().DandelionMapleSeed && inUse && player.wingTime > 0)
+			{
+				player.GetModPlayer<BloomBuffsPlayer>().DandelionMapleSeedTimer++;
+			}
+
 			return base.WingUpdate(wings, player, inUse);
 		}
 	}

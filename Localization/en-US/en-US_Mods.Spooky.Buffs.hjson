@@ -464,3 +464,8 @@ BillyBuff: {
 	DisplayName: Billy-Bone
 	Description: Billy-Bone the raven protects you!
 }
+
+GooseberryBoostBuff: {
+	DisplayName: Gooseberry Boost
+	Description: 15% increased life regen and movement acceleration
+}

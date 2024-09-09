@@ -492,6 +492,11 @@ namespace Spooky.Content.NPCs.Quest
 			}
 		}
 
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BountyItem4>()));
+        }
+
 		public override void HitEffect(NPC.HitInfo hit) 
         {
 			//become aggressive on hit

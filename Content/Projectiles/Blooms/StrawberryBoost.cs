@@ -2,13 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using ReLogic.Content;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Content.Buffs;
-using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.Blooms
 {

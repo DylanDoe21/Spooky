@@ -812,52 +812,11 @@ namespace Spooky.Core
                 GeminiMockerySpawnTimer = 0;
             }
 
-            //all of these calculations are just copied from vanilla's stopwatch
-            //too lazy to change all the num things tbh
-            Vector2 SpeedVector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
-
-            if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
-            {
-                SpeedVector += Player.velocity;
-            }
-
-            Player.speedSlice[0] = SpeedVector.Length();
-
-            int num15 = (int)(1f + SpeedVector.Length() * 6f);
-            if (num15 > Player.speedSlice.Length)
-            {
-                num15 = Player.speedSlice.Length;
-            }
-
-            float num16 = 0f;
-            for (int num17 = num15 - 1; num17 > 0; num17--)
-            {
-                Player.speedSlice[num17] = Player.speedSlice[num17 - 1];
-            }
-
-            Player.speedSlice[0] = SpeedVector.Length();
-            for (int m = 0; m < Player.speedSlice.Length; m++)
-            {
-                if (m < num15)
-                {
-                    num16 += Player.speedSlice[m];
-                }
-                else
-                {
-                    Player.speedSlice[m] = num16 / (float)num15;
-                }
-            }
-
-            num16 /= num15;
-            int num18 = 42240;
-            int num19 = 216000;
-            float num20 = num16 * (float)num19 / (float)num18;
-
             if (CarnisFlavorEnhancer)
             {
                 CarnisSporeSpawnTimer++;
 
-                if (num20 >= 10)
+                if (PlayerSpeed(Player) >= 10)
                 {
                     CarnisSporeSpawnTimer++;
 
@@ -876,11 +835,11 @@ namespace Spooky.Core
             if (BoneMask)
             {
                 //do not shoot skulls under 20mph (basically if you are not moving fast enough)
-                if (num20 >= 20)
+                if (PlayerSpeed(Player) >= 20)
                 {
                     BoneWispTimer++;
 
-                    if (BoneWispTimer >= 180 / (num20 / 10))
+                    if (BoneWispTimer >= 180 / (PlayerSpeed(Player) / 10))
                     {
                         SoundEngine.PlaySound(SoundID.Item8, Player.Center);
 
@@ -888,7 +847,7 @@ namespace Spooky.Core
                         Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
 
                         //scale the damage based on the player's current speed
-                        int damage = 80 + ((int)num20 / 3);
+                        int damage = 80 + ((int)PlayerSpeed(Player) / 3);
 
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
                         ModContent.ProjectileType<BoneMaskWisp>(), damage, 0f, Main.myPlayer);
@@ -945,6 +904,12 @@ namespace Spooky.Core
                 Player.maxRunSpeed += 5f;
                 Player.runAcceleration += 0.075f;
             }
+
+            if (Player.HasBuff(ModContent.BuffType<GooseberryBoostBuff>()))
+            {
+                Player.maxRunSpeed += 6f;
+                Player.runAcceleration += 0.015f;
+            }
         }
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
@@ -991,7 +956,7 @@ namespace Spooky.Core
                     }
 
                     //crate
-                    if (Main.rand.NextBool() && attempt.crate && Flags.downedRotGourd)
+                    if (Main.rand.NextBool() && attempt.crate)
                     {
                         itemDrop = ModContent.ItemType<SpookyCrate>();
                     }
@@ -1091,6 +1056,52 @@ namespace Spooky.Core
                     }
                 }
             }
+        }
+
+        public static float PlayerSpeed(Player Player)
+        {
+            //all of these calculations are just copied from vanilla's stopwatch
+            //too lazy to change all the num things tbh
+            Vector2 SpeedVector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
+
+            if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)
+            {
+                SpeedVector += Player.velocity;
+            }
+
+            Player.speedSlice[0] = SpeedVector.Length();
+
+            int num15 = (int)(1f + SpeedVector.Length() * 6f);
+            if (num15 > Player.speedSlice.Length)
+            {
+                num15 = Player.speedSlice.Length;
+            }
+
+            float num16 = 0f;
+            for (int num17 = num15 - 1; num17 > 0; num17--)
+            {
+                Player.speedSlice[num17] = Player.speedSlice[num17 - 1];
+            }
+
+            Player.speedSlice[0] = SpeedVector.Length();
+            for (int m = 0; m < Player.speedSlice.Length; m++)
+            {
+                if (m < num15)
+                {
+                    num16 += Player.speedSlice[m];
+                }
+                else
+                {
+                    Player.speedSlice[m] = num16 / (float)num15;
+                }
+            }
+
+            num16 /= num15;
+            int num18 = 42240;
+            int num19 = 216000;
+            float num20 = num16 * (float)num19 / (float)num18;
+
+            return num20;
         }
     }
 }

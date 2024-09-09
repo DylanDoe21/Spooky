@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.NoseTemple.Painting
@@ -20,7 +21,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Painting
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(181, 176, 160));
+			AddMapEntry(new Color(90, 50, 30), Language.GetText("MapObject.Painting"));
             HitSound = SoundID.Dig;
             DustType = -1;
 		}

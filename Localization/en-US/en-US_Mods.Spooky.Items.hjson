@@ -27,8 +27,7 @@ DandelionTumbleweed: {
 	DisplayName: Tumblingweed
 	Tooltip:
 		'''
-		Grants you a temporary tumbleweed mount that allows you to move fast and jump really high
-		Deals damage when ramming into enemies that increases with speed
+		Damaing enemies while flying will summon a tumbleweed to deal more damage
 		5 minute duration
 		'''
 }
@@ -49,7 +48,7 @@ FallGourd: {
 	DisplayName: The Squash
 	Tooltip:
 		'''
-		Increases damage by 12% while you are falling down
+		Increases damage by 15% while you are falling down
 		5 minute duration
 		'''
 }
@@ -137,8 +136,8 @@ SummerOrange: {
 	DisplayName: Angry Orange
 	Tooltip:
 		'''
-		Grants you an aura that sets enemies inside of it on fire
-		The auras radius will increase the faster you are currently moving
+		Gain an orbiting angry orange that damages enemies and burns them
+		The faster you are moving the more its speed, range, and damage increase
 		5 minute duration
 		'''
 }
@@ -147,7 +146,7 @@ SummerPineapple: {
 	DisplayName: Poker Pineapple
 	Tooltip:
 		'''
-		Increases damage dealt from critical hits by 35% but halves your overall critical strike chance
+		Increases damage dealt from critical hits by 40% but halves your overall critical strike chance
 		Landing a critical hit will also heal a bit of your health
 		5 minute duration
 		'''
@@ -186,9 +185,9 @@ WinterGooseberry: {
 	DisplayName: Plump Gooseberry
 	Tooltip:
 		'''
-		Every third instance of damage you deal has a 30% chance to spawn a Gooseberry you can pick up
-		Gooseberries increase life regeneration and damage by 10% for a short time when picked up 
-		However, gooseberries will be destroyed upon making contact with hostile projectiles
+		Every third instance of damage you deal has a one in three chance to launch a gooseberry upward
+		Gooseberries increase life regeneration and movement acceleration by 15% for a short time when picked up 
+		Gooseberries will be destroyed upon making contact with hostile enemies or projectiles
 		5 minute duration
 		'''
 }
@@ -2968,11 +2967,6 @@ CultistTableItem: {
 	Tooltip: ""
 }
 
-FireExitSignItem: {
-	DisplayName: Fire Exit Sign
-	Tooltip: ""
-}
-
 NoseTemplePlatformGreenItem: {
 	DisplayName: Green Occultist Platform
 	Tooltip: ""
@@ -2996,6 +2990,11 @@ NoseTemplePlatformRedItem: {
 BaxterPaintingItem: {
 	DisplayName: Portrait of Baxter
 	Tooltip: "'Waasephi'"
+}
+
+FireExitSignItem: {
+	DisplayName: Fire Exit Sign
+	Tooltip: ""
 }
 
 LuigiPaintingItem: {
@@ -3552,6 +3551,31 @@ EyeWorkBenchItem: {
 	Tooltip: ""
 }
 
+IconPainting1Item: {
+	DisplayName: Pumpkin Face
+	Tooltip: "'DylanDoe21'"
+}
+
+IconPainting2Item: {
+	DisplayName: Scary Logo
+	Tooltip: "'Honda'"
+}
+
+IconPainting3Item: {
+	DisplayName: Spooky Midnight
+	Tooltip: "'Hugekraken'"
+}
+
+IconPainting4Item: {
+	DisplayName: Spooky Sunrise
+	Tooltip: "'Hugekraken'"
+}
+
+IconPainting5Item: {
+	DisplayName: Nose Cultist Portrait
+	Tooltip: "'Hugekraken'"
+}
+
 LittleEyePaintingItem: {
 	DisplayName: Little Eye's Self Portrait
 	Tooltip: "'Waasephi'"
@@ -3650,7 +3674,7 @@ PeptoStomach: {
 	Tooltip:
 		'''
 		Hitting enemies will give them a stomach ache 
-		Killing enemies with this debuff will explode into damaging pepto bismal bubbles
+		Killing enemies with this debuff will explode into damaging pink bubbles
 		'''
 }
 
@@ -3676,7 +3700,7 @@ VeinChain: {
 	DisplayName: Two-Way Blood-Way
 	Tooltip:
 		'''
-		Attach a chain to nearby enemies that will damage them and drain their life
+		Attach a chain to enemies you hit that will damage them and drain their life
 		You can have up to 3 chains attached to different enemies at a time
 		If your health is too low, the maximum number of chains will be lowered
 		'''

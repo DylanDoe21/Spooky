@@ -411,7 +411,7 @@ namespace Spooky.Content.NPCs.NoseCult
         }
 
         //spawn enemies method for easy spawning and easily setting each cultists parent to this altar
-        public void SpawnNPC(int Type, int X, int Y, int Parent)
+        public void SpawnCultist(int Type, int X, int Y, int Parent)
         {
             int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), X, Y, Type, ai0: Parent);
 
@@ -433,7 +433,14 @@ namespace Spooky.Content.NPCs.NoseCult
 
 		public override void DrawBehind(int index)
 		{
-			Main.instance.DrawCacheNPCsBehindNonSolidTiles.Add(index);
+            if (NPC.ai[2] < 70)
+            {
+			    Main.instance.DrawCacheNPCsBehindNonSolidTiles.Add(index);
+            }
+            else
+            {
+				Main.instance.DrawCacheNPCProjectiles.Add(index);
+			}
 		}
 
 		public override void AI()
@@ -441,14 +448,14 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
@@ -465,12 +472,12 @@ namespace Spooky.Content.NPCs.NoseCult
                 //bob up and down 
                 if (NPC.localAI[0] == 0)
                 {
-                    NPC.localAI[1] = Flags.MocoIdolPosition1.Y - 85;
+                    NPC.localAI[1] = Flags.MocoIdolPosition1.Y - 62;
                     NPC.localAI[0]++;
                 }
 
                 NPC.localAI[2]++;
-                NPC.position.Y = NPC.localAI[1] + (float)Math.Sin(NPC.localAI[2] / 150) * 10;
+                NPC.position.Y = NPC.localAI[1] + (float)Math.Sin(NPC.localAI[2] / 100) * 10;
             }
         }
     }
@@ -484,14 +491,14 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
@@ -527,14 +534,14 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X - 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 200, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
@@ -570,12 +577,12 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 120, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 50, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 120, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X - 50, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X + 100, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGruntIdle>(), (int)NPC.Center.X + 190, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 250, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
@@ -611,14 +618,14 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn all the cultists
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 280, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X - 65, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 90, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
-                SpawnNPC(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X + 280, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X - 280, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X - 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistBruteIdle>(), (int)NPC.Center.X - 65, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistGunnerIdle>(), (int)NPC.Center.X + 90, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 150, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistWingedIdle>(), (int)NPC.Center.X + 220, (int)NPC.Center.Y + 100, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistMageIdle>(), (int)NPC.Center.X + 280, (int)NPC.Center.Y + 100, NPC.whoAmI);
 
                 NPC.ai[0]++;
             }
@@ -656,7 +663,7 @@ namespace Spooky.Content.NPCs.NoseCult
             //spawn the cultist leader
             if (NPC.ai[0] == 0)
             {
-                SpawnNPC(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) < (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 120, NPC.whoAmI);
+                SpawnCultist(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) < (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 120, NPC.whoAmI);
                 NPC.ai[0]++;
             }
 

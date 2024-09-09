@@ -18,7 +18,7 @@ LittleEyeBounties: {
 	Bounty5Warning: Good Luck!
 	BountyAccepted: You cannot select another bounty until you complete your current one
 	BountyCompleted: You have completed this bounty!
-	BountyCompletedItem: Click this button to get the item to summon this monster if you'd like to rematch it (Just in case you have lost or thrown away the item to summon it)
+	BountyCompletedItem: Click this button to get the item to summon this monster if you'd like to rematch it
 }
 
 EggEvent: {

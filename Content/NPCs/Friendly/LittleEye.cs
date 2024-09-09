@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.Tiles.SpookyHell.Painting;
 using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -101,6 +102,10 @@ namespace Spooky.Content.NPCs.Friendly
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1Complete");
 
+					SpawnItem(ModContent.ItemType<SewingThread>(), 1);
+					SpawnItem(ModContent.ItemType<IconPainting2Item>(), 1);
+					SpawnItem(ItemID.GoldCoin, 5);
+
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
 						ModPacket packet = Mod.GetPacket();
@@ -116,6 +121,12 @@ namespace Spooky.Content.NPCs.Friendly
 				else if (player.ConsumeItem(ModContent.ItemType<BountyItem2>()))
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2Complete");
+
+					int[] Books = new int[] { ModContent.ItemType<GhostBookBlue>(), ModContent.ItemType<GhostBookGreen>(), ModContent.ItemType<GhostBookRed>() };
+
+					SpawnItem(Main.rand.Next(Books), 1);
+					SpawnItem(ModContent.ItemType<IconPainting2Item>(), 1);
+					SpawnItem(ItemID.GoldCoin, 5);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
@@ -133,6 +144,10 @@ namespace Spooky.Content.NPCs.Friendly
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3Complete");
 
+					SpawnItem(ModContent.ItemType<StitchedCloak>(), 1);
+					SpawnItem(ModContent.ItemType<IconPainting3Item>(), 1);
+					SpawnItem(ItemID.GoldCoin, 5);
+
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
 						ModPacket packet = Mod.GetPacket();
@@ -148,6 +163,10 @@ namespace Spooky.Content.NPCs.Friendly
 				else if (player.ConsumeItem(ModContent.ItemType<BountyItem4>()))
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4Complete");
+
+					SpawnItem(ModContent.ItemType<MagicEyeOrb>(), 1);
+					SpawnItem(ModContent.ItemType<IconPainting4Item>(), 1);
+					SpawnItem(ItemID.GoldCoin, 5);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
@@ -173,6 +192,16 @@ namespace Spooky.Content.NPCs.Friendly
 				Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Upgrades");
 			}
 		}
+
+        public void SpawnItem(int Type, int Amount)
+        {
+            int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, Type, Amount);
+
+			if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+			{
+				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+			}
+        }
 
 		public override string GetChat()
 		{

@@ -132,8 +132,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 10;
-			float launchSpeed = 20f;
-			float maxLaunchLength = 300f;
+			float launchSpeed = 25f;
+			float maxLaunchLength = 700f;
 			float retractAcceleration = 2.5f;
 			float maxRetractSpeed = 25f; 
 			float forcedRetractAcceleration = 25f;

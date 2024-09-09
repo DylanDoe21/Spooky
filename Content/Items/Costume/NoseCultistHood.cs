@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.Misc;
 
 namespace Spooky.Content.Items.Costume
 {
@@ -21,5 +22,14 @@ namespace Spooky.Content.Items.Costume
         {
 			player.GetModPlayer<SpookyPlayer>().NoseCultistDisguise1 = true;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+			.AddIngredient(ItemID.Silk, 12)
+			.AddIngredient(ModContent.ItemType<SnotGlob>(), 5)
+            .AddTile(TileID.Loom)
+            .Register();
+        }
 	}
 }

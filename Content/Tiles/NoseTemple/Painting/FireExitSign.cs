@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Tiles.NoseTemple.Furniture
+namespace Spooky.Content.Tiles.NoseTemple.Painting
 {
     public class FireExitSign : ModTile
     {

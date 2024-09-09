@@ -60,11 +60,13 @@ namespace Spooky.Core
 		//misc stuff
 		public int FallSoulPumpkinTimer = 0;
 		public int FallZucchiniTimer = 0;
+        public int WinterGooseberryHits = 0;
 		public int WinterStrawberryTimer = 0;
         public int SpringIrisTimer = 0;
         public int SummerLemonsShot = 0;
         public int SummerLemonDelay = 0;
 		public int DandelionHerdTimer = 0;
+		public int DandelionMapleSeedTimer = 0;
 		public int DragonFruitTimer = 0;
 		public int DragonfruitStacks = 0;
 
@@ -389,7 +391,7 @@ namespace Spooky.Core
 
 					for (int numBerries = 0; numBerries < 3; numBerries++)
 					{
-                        Projectile.NewProjectile(null, Player.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10)), ModContent.ProjectileType<StrawberryBoost>(), 0, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, Player.Center, new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11)), ModContent.ProjectileType<StrawberryBoost>(), 0, 0, Player.whoAmI);
 					}
 
 					WinterStrawberryTimer = 0;
@@ -419,6 +421,14 @@ namespace Spooky.Core
 				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<RoseThornRing>(), 40, 0, Player.whoAmI);
 			}
 
+            //spawn an orbiting orange
+			if (SummerOrange && Player.ownedProjectileCounts[ModContent.ProjectileType<OrangeOrbiter>()] < 1)
+			{
+                SoundEngine.PlaySound(SoundID.DD2_BetsySummon with { Pitch = 0.75f, Volume = 0.1f }, Player.Center);
+
+                Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<OrangeOrbiter>(), 150, 0, Player.whoAmI, Main.rand.Next(0, 360));
+			}
+
 			//spawn dandelion herd clusters while the player is flying, the timer itself is handled in ItemGlobal to account for the player using wings
 			if (DandelionHerd)
 			{
@@ -427,11 +437,28 @@ namespace Spooky.Core
 				if (DandelionHerdTimer % 30 == 0 && DandelionHerdTimer > 0)
 				{
 					Projectile.NewProjectile(null, Player.Center, new Vector2(0, Main.rand.Next(1, 3)), Main.rand.Next(Types), 20 + (Player.wingTimeMax / 10), 0, Player.whoAmI);
+
+                    DandelionHerdTimer = 0;
 				}
 			}
 			else
 			{
 				DandelionHerdTimer = 0;
+			}
+
+			//spawn maple seed boosters while the player is flying, the timer itself is handled in ItemGlobal to account for the player using wings
+			if (DandelionMapleSeed)
+			{
+				if (DandelionMapleSeedTimer % 80 == 0 && DandelionMapleSeedTimer > 0)
+				{
+					Projectile.NewProjectile(null, Player.Center, new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-3, 4)), ModContent.ProjectileType<MapleSeedBoost>(), 0, 0, Player.whoAmI);
+
+                    DandelionMapleSeedTimer = 0;
+				}
+			}
+			else
+			{
+				DandelionMapleSeedTimer = 0;
 			}
 
 			//spawn orbiting dragon fruits around the player and spawn more with each stack the player has
@@ -447,7 +474,7 @@ namespace Spooky.Core
 
 					int DistanceFromPlayer = 20 * (numOrbiters + 1);
 
-					Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<DragonfruitOrbiter>(), 55, 3, Player.whoAmI, Main.rand.Next(0, 2), Main.rand.Next(0, 360), DistanceFromPlayer);
+					Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<DragonfruitOrbiter>(), 60, 3, Player.whoAmI, Main.rand.Next(0, 2), Main.rand.Next(0, 360), DistanceFromPlayer);
 
 					DragonFruitTimer = 0;
 				}
@@ -466,10 +493,10 @@ namespace Spooky.Core
 
         public override void PostUpdate()
         {
-            //fall gourd increases damage by 12% if you are falling
+            //fall gourd increases damage if you are falling
 			if (FallGourd && Player.velocity.Y > 0f)
 			{
-				Player.GetDamage(DamageClass.Generic) += 0.12f;
+				Player.GetDamage(DamageClass.Generic) += 0.15f;
 			}
 
 			//give the player additional life regeneration for each bloom slot in use
@@ -496,10 +523,10 @@ namespace Spooky.Core
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			//increase all crit damage by 35% with the poker pineapple
+			//increase all crit damage by 40% with the poker pineapple
 			if (SummerPineapple)
 			{
-				modifiers.CritDamage += 1.35f;
+				modifiers.CritDamage += 1.4f;
 			}
 		}
 
@@ -530,7 +557,23 @@ namespace Spooky.Core
 
 				Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<BlueberryExplosion>(), 0, 0, Player.whoAmI);
 			}
-			
+
+			//spawn gooseberries on every third enemy hit with a 33% chance
+			if (WinterGooseberry)
+			{
+				WinterGooseberryHits++;
+
+				if (WinterGooseberryHits > 2)
+				{
+					if (Main.rand.NextBool(3))
+					{
+						Projectile.NewProjectile(null, target.Center, new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-5, -2)), ModContent.ProjectileType<GooseberryBoost>(), 0, 0, Player.whoAmI);
+					}
+
+					WinterGooseberryHits = 0;
+				}
+			}
+
 			base.OnHitNPC(target, hit, damageDone);
 		}
 	}

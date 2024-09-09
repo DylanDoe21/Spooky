@@ -17,8 +17,8 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void SetDefaults()
         {
-            Projectile.width = 66;
-            Projectile.height = 64;
+            Projectile.width = 96;
+            Projectile.height = 96;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
@@ -31,9 +31,9 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-            Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6.28318548f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+            Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
             Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Color.Red, Projectile.rotation, drawOrigin, Projectile.ai[0] / 37, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.Red), Projectile.rotation, drawOrigin, Projectile.ai[0] / 47, SpriteEffects.None, 0);
 
             return false;
         }
@@ -52,22 +52,30 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             Player player = Main.player[Projectile.owner];
 
-            Projectile.position = new Vector2(player.Center.X - Projectile.width / 2, player.Center.Y - Projectile.height / 2);
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
 
             if (Projectile.ai[0] < 450)
             {
-                Projectile.ai[0] += 50;
+                if (Projectile.ai[0] == 0)
+                {
+                    SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
+                }
+
+                Projectile.ai[0] += 25;
             }
             else
             {
-                Projectile.Kill();
+                Projectile.alpha += 20;
+
+                if (Projectile.alpha >= 255)
+                {
+                    Projectile.Kill();
+                }
             }
         }
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
-
             for (int target = 0; target < Main.maxNPCs; target++)
             {
                 NPC npc = Main.npc[target];
