@@ -9,7 +9,8 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 {
 	public class TumorOrb : ModProjectile
 	{
-        int Offset = Main.rand.Next(-50, 50);
+        int OffsetX = Main.rand.Next(-50, 50);
+        int OffsetY = Main.rand.Next(-50, 50);
 
         public override void SetStaticDefaults()
         {
@@ -45,8 +46,8 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
                 
                 if (Main.npc[index1].active && (Main.npc[index1].type == ModContent.NPCType<TortumorFleshy>() || Main.npc[index1].type == ModContent.NPCType<TortumorGiant>())) 
                 {
-                    float goToX = Main.npc[index1].Center.X + Offset - Projectile.Center.X;
-                    float goToY = Main.npc[index1].Center.Y + Offset - Projectile.Center.Y;
+                    float goToX = Main.npc[index1].Center.X + OffsetX - Projectile.Center.X;
+                    float goToY = Main.npc[index1].Center.Y + OffsetY - Projectile.Center.Y;
 
                     float speed = 0.12f;
                     

@@ -530,11 +530,11 @@ namespace Spooky.Content.Generation
                 int x = PositionX <= (Main.maxTilesX / 2) ? PositionX + ((Main.maxTilesX / 12) / 6) : PositionX - ((Main.maxTilesX / 12) / 6);
                 int y = PositionY; //start here to not touch floating islands
 
-                while (!WorldGen.SolidTile(x, y) && y <= Main.worldSurface)
+                while ((!WorldGen.SolidTile(x, y) || !Cemetery.NoFloatingIsland(x, y)) && y <= Main.worldSurface)
 				{
 					y++;
 				}
-                if (WorldGen.SolidTile(x, y))
+                if (WorldGen.SolidTile(x, y) && Cemetery.NoFloatingIsland(x, y))
 				{
                     Vector2 origin = new Vector2(x - 10, y - 25);
 

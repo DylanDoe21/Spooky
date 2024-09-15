@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.Friendly
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 250;
+            NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 334;
@@ -183,6 +183,11 @@ namespace Spooky.Content.NPCs.Friendly
                     }
                 }
 
+                if (Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
+                {
+
+                }
+
                 NPC.ai[0] = 0;
 
                 NPC.netUpdate = true;
@@ -227,8 +232,6 @@ namespace Spooky.Content.NPCs.Friendly
                 {
                     Flags.OldHunterAssembled = true;
                 }
-
-                NPC.netUpdate = true;
                 
                 NPC.active = false;
             }

@@ -12,6 +12,9 @@ using System.IO;
 using System.Collections.Generic;
 using Spooky.Core;
 
+using Spooky.Content.Items.SpookyHell.EggEvent;
+using Spooky.Content.Items.SpookyHell.Misc;
+
 namespace Spooky.Content.NPCs.EggEvent
 {
     public class GooSlug : ModNPC  
@@ -219,7 +222,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 5, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GooChompers>(), 40));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

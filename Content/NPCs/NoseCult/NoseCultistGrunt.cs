@@ -130,7 +130,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 {
                     SoundEngine.PlaySound(SneezeSound, NPC.Center);
 
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, NPC.direction == -1 ? -10 : 10, 0, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 2, 1f, NPC.target);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, NPC.direction == -1 ? -10 : 10, 0, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 3, 1f, NPC.target);
                     
                     NPC.localAI[2]++;
 

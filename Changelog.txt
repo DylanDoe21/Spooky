@@ -187,6 +187,7 @@ Enemy & Boss Changes:
 -Changed the tarantula hawks death sound
 -Increased the spawnrate of catacomb guardians if you enter the catacombs before opening the barrier
 -Bungus and chunky fungus now drop 2 to 5 spooky glowshrooms
+-Hopping candy baskets no longer behave like slimes, they now hop randomly towards the player and dont deal damage anymore
 
 
 Miscellaneous:
@@ -202,11 +203,12 @@ Miscellaneous:
 -Old hunter pieces now have better generation and place in spots that are a bit easier to find
 -All fishing rods can now fish in the blood lake in the eye valley (The goblin shark rod is still the only way to fish up the blood lake enemies)
 -Spooky forest gourds can no longer naturally grow too close to each other
--Revamped the visual effects for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
+-Redid the visual effects/trails for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
 -Polished up the visual effect for the auras created by orro-boro and egg incursion enemies
 -Increased the drop rates for the spider grotto enemy weapon drops (Both prehardmode and hardmode drops)
 -Added a recipe group in spooky mod for items that are craftable with both demonite and crimtane so they dont have 2 separate recipes anymore
 -Defeating any spooky mod boss for the first time in a world will now guarantee a raveyard at the beginning of the next in-game night
+-Swampy cemetery biome no longer takes priority over terraria's ocean biome (This is just incase the cemetery generates too close to the ocean biome on smaller worlds)
 
 
 Removals:
@@ -216,7 +218,7 @@ Removals:
 -Removed the cotton swabs crafting recipe due to the new way it is obtained
 -Removed all of the hallucination entities except for the cowbell entity, this was done for 2 reasons:
  1) All of the entities in the game besides the cowbell one were just literal re-hashes of what the cowbell entities gimmick was, and they didnt do anything different or interesting to separate themselves from the original 
- 2) The cowbell entity has a massive future rework planned, which is going to massively expanding on its presence in the game and involves more than just its original encounter
+ 2) The cowbell entity has a a rework planned for it in the future (Cannot promise how soon it will be)
 
 
 
@@ -264,6 +266,7 @@ Fixed all of the following bugs and issues:
 -Spooky mod holdout projectiles not being disabled if you are frozen/stunned by a debuff or arent holding an item
 -Yellow catacombs barrier sometimes not generating during world generation
 -Creepy cauldron drawing infront of enemies
+-Little bone's house sometimes placing on floating islands on larger worlds
 -Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background condig changed
 
 

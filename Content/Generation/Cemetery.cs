@@ -350,11 +350,11 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            if (numJungleTiles > 100)
+            if (numJungleTiles > 250)
             {
                 return false;
             }
-            else if (numDesertTiles > 150)
+            else if (numDesertTiles > 250)
             {
                 return false;
             }

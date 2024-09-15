@@ -47,9 +47,28 @@ namespace Spooky.Content.Generation
         public static bool placedRareSecretRoom = false;
 
         Vector2[] Layer2LootRooms = new Vector2[3];
-        Vector2 PandoraRoomPosition;
+		Vector2 PandoraRoomPosition;
 
-        private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
+		public override void Load()
+		{
+			On_WorldGen.ShimmerMakeBiome += ShimmerPositionEdit;
+		}
+
+		private static bool ShimmerPositionEdit(On_WorldGen.orig_ShimmerMakeBiome orig, int X, int Y)
+		{
+			if (GenVars.JungleX < (Main.maxTilesX / 2))
+			{
+				X = Math.Clamp(X, 100, 250);
+			}
+			else
+			{
+				X = Math.Clamp(X, Main.maxTilesX - 250, Main.maxTilesX - 100);
+			}
+
+			return orig(X, Y);
+		}
+
+		private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs").Value;
 
@@ -379,7 +398,7 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
@@ -415,7 +434,7 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
@@ -450,7 +469,7 @@ namespace Spooky.Content.Generation
                         else
                         {
                             //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                            if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
                             {
                                 //only one treasure room can be placed in a world
                                 Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
@@ -488,7 +507,7 @@ namespace Spooky.Content.Generation
                             else
                             {
                                 //rare chance to place a golden treasure room
-                                if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                                if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
                                 {
                                     //only one treasure room can be placed in a world
                                     Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
@@ -511,7 +530,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 168)
                     {
                         //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                        if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
                         {
                             //only one treasure room can be placed in a world
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
@@ -532,7 +551,7 @@ namespace Spooky.Content.Generation
                     if (Y == layer2Start + 210)
                     {
                         //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
+                        if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
                         {
                             //only one treasure room can be placed in a world
                             Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom", origin.ToPoint16(), Mod);
@@ -968,56 +987,10 @@ namespace Spooky.Content.Generation
 
                 WorldGen.makeTemple(newTempleX, newTempleY);
             });
-
-            //re-locate the shimmer to be closer to the edge of the world so it also never gets generated over by the catacombs
-            int shimmerIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shimmer"));
-            tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
-            {
-                //copy-pasted and slightly modified shimmer generation code from terraria itself
-                int RandomY1 = (int)(Main.worldSurface + Main.rockLayer) / 2 + 100;
-                int RandomY2 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
-
-                if (RandomY2 > Main.maxTilesY - 200)
-                {
-                    RandomY2 = Main.maxTilesY - 200;
-                }
-                if (RandomY2 <= RandomY1)
-                {
-                    RandomY2 = RandomY1 + 50;
-                }
-
-                int ShimmerX = GenVars.dungeonSide < 0 ? Main.maxTilesX - 100 : 100;
-                int ShimmerY = WorldGen.genRand.Next(RandomY1, RandomY2);
-
-                int ShimmerXAnniversary = (int)Main.worldSurface + 150;
-                int ShimmerYAnniversary = (int)(Main.rockLayer + Main.worldSurface + 200) / 2;
-
-                if (ShimmerYAnniversary <= ShimmerXAnniversary)
-                {
-                    ShimmerYAnniversary = ShimmerXAnniversary + 50;
-                }
-
-                if (WorldGen.tenthAnniversaryWorldGen)
-                {
-                    ShimmerY = WorldGen.genRand.Next(ShimmerXAnniversary, ShimmerYAnniversary);
-                }
-
-                while (!WorldGen.ShimmerMakeBiome(ShimmerX, ShimmerY))
-                {
-                    //this changes the shimmer position to be closer to the edge of the world
-                    ShimmerX = (GenVars.dungeonSide < 0) ? (int)(Main.maxTilesX * 0.95f) : (int)(Main.maxTilesX * 0.05f);
-                    ShimmerY = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, RandomY2);
-                }
-
-                GenVars.shimmerPosition = new Vector2D((double)ShimmerX, (double)ShimmerY);
-
-                //add the shimmer as a protected structure so nothing attempts to generate over it
-                GenVars.structures.AddProtectedStructure(new Rectangle(ShimmerX - 200 / 2, ShimmerY - 200 / 2, 200, 200));
-            });
         }
 
-        //place items in chests
-        public override void PostWorldGen()
+		//place items in chests
+		public override void PostWorldGen()
 		{
             for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
             {

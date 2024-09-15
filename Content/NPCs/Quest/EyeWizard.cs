@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 10;
+			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
@@ -64,8 +65,8 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 3000;
-            NPC.damage = 35;
+            NPC.lifeMax = 3800;
+            NPC.damage = 45;
 			NPC.defense = 5;
 			NPC.width = 54;
 			NPC.height = 116;

@@ -85,8 +85,8 @@ SpringHeartFlower: {
 	DisplayName: Bleeding Heart
 	Tooltip:
 		'''
-		Increases life regeneration by 10%
-		Grants an additional 10% life regeneration for each of your occupied bloom buff slots
+		Increases your life regeneration by 10%
+		Grants an additional 10% life regeneration for each of your other occupied bloom buff slots
 		5 minute duration
 		'''
 }
@@ -113,7 +113,7 @@ SpringOrchid: {
 }
 
 SpringRose: {
-	DisplayName: Thorn-Tipped Rose
+	DisplayName: Thorn Tipped Rose
 	Tooltip:
 		'''
 		Grants you a ring of thorns that deals a small amount of damage to enemies
@@ -146,14 +146,14 @@ SummerPineapple: {
 	DisplayName: Poker Pineapple
 	Tooltip:
 		'''
-		Increases damage dealt from critical hits by 40% but halves your overall critical strike chance
+		Increases damage dealt from critical hits by 35% but halves your overall critical strike chance
 		Landing a critical hit will also heal a bit of your health
 		5 minute duration
 		'''
 }
 
 SummerSunflower: {
-	DisplayName: Sunny-Side Up
+	DisplayName: Sunny Side Up
 	Tooltip:
 		'''
 		Significantly increases the growth rate of all bloom crops
@@ -185,7 +185,7 @@ WinterGooseberry: {
 	DisplayName: Plump Gooseberry
 	Tooltip:
 		'''
-		Every third instance of damage you deal has a one in three chance to launch a gooseberry upward
+		Every third instance of damage you deal has a 33% chance to launch a gooseberry upward
 		Gooseberries increase life regeneration and movement acceleration by 15% for a short time when picked up 
 		Gooseberries will be destroyed upon making contact with hostile enemies or projectiles
 		5 minute duration
@@ -862,7 +862,7 @@ DiscoSkull: {
 
 GraveDiggerShovel: {
 	DisplayName: Cemetery Digger's Shovel
-	Tooltip: Throw a returning shovel to bash enemies with
+	Tooltip: Bash enemies with a rusty shovel
 }
 
 PartyNailgun: {
@@ -1463,7 +1463,7 @@ SpiderLegs: {
 
 GrottoCompass: {
 	DisplayName: Rusted Compass
-	Tooltip: Points to the location of the spider-infested grotto when held
+	Tooltip: Points to the location of the spider-infested grotto when held in your hotbar
 }
 
 InchwormBlackItem: {
@@ -2055,6 +2055,75 @@ GoreLegs: {
 		'''
 }
 
+GiantEar: {
+	DisplayName: Ear Parasite
+	Tooltip:
+		'''
+		Summons an ear parasite companion that vomits out flesh blobs every 30 seconds
+		Picking these flesh blobs up will give you a buff for 20 seconds
+		The buff given corresponds to the color of the flesh blob
+		'''
+}
+
+GooChompers: {
+	DisplayName: Gooey Chompers
+	Tooltip:
+		'''
+		Hitting enemies can attach a set of goo jaws to deal additional damage
+		The damage they deal scales with how much damage you did on that hit
+		'''
+}
+
+PeptoStomach: {
+	DisplayName: Peptobyssmal
+	Tooltip:
+		'''
+		Hitting enemies will give them a stomach ache 
+		Killing enemies with this debuff will explode into damaging pink bubbles
+		'''
+}
+
+SmokerLung: {
+	DisplayName: Smoker's Lungs
+	Tooltip:
+		'''
+		Randomly cough out clouds of damaging smoke
+		Enemies caught in the smoke will also cough smoke randomly for a bit of time
+		'''
+}
+
+StonedKidney: {
+	DisplayName: Stoned Kidney
+	Tooltip:
+		'''
+		While not using items you will charge up a kidney rock 
+		At full charge, using an item will launch the stone and explode ichor
+		'''
+}
+
+VeinChain: {
+	DisplayName: Two-Way Blood-Way
+	Tooltip:
+		'''
+		Attach a chain to enemies you hit that will damage them and drain their life
+		You can have up to 3 chains attached to different enemies at a time
+		If your health is too low, the maximum number of chains will be lowered
+		'''
+}
+
+TotalOrganPackage: {
+	DisplayName: Total Organ Package
+	Tooltip:
+		'''
+		Grants the ability of all organ accessories
+		Hitting enemies will give them a stomach ache, on death they will explode pink bubbles
+		While not using items you will charge up a kidney rock, using an item will launch the stone and explode ichor
+		Randomly cough out clouds of damaging smoke, enemies caught in the smoke will cough smoke randomly
+		Hitting enemies can attach a set of goo jaws to deal additional damage
+		Summons an ear parasite companion that vomits out buffing flesh blobs you can pick up every 30 seconds
+		'''
+}
+
 ArteryPiece: {
 	DisplayName: Living Artery
 	Tooltip: Filled with strange blood
@@ -2067,7 +2136,7 @@ CreepyChunk: {
 
 EyeValleyCompass: {
 	DisplayName: Fleshy Compass
-	Tooltip: Points to the direction of a strange biome in the underworld when held
+	Tooltip: Points to the direction of a strange biome in the underworld when held in your hotbar
 }
 
 LeechWhipGore: {
@@ -2208,7 +2277,7 @@ SentientLeafBlower: {
 	DisplayName: Carrion Chunker
 	Tooltip:
 		'''
-		Rapidly spits out a bunch of meat and other organic chunks with different abilities
+		Rapidly spits out a bunch of different organic chunks that all do different things
 		'Heart healthy!'
 		'''
 }
@@ -2296,7 +2365,7 @@ SentientSphereStaff: {
 	Tooltip:
 		'''
 		Summons winged biomass chunks to attack foes
-		After attacking a single enemy for too long, the biomass will chase its target and explode itself
+		After attacking a specific enemy for too long, the biomass will chase its target and explode
 		'Probably not a symbol of health'
 		'''
 }
@@ -2817,7 +2886,7 @@ MocoBox: {
 }
 
 NoseTempleBox: {
-	DisplayName: Music Box (Snottre-Dame)
+	DisplayName: Music Box (Temple of Moco)
 	Tooltip: "[c/EF5145:Grand Sinus Corridors] by BananaLizard"
 }
 
@@ -3661,47 +3730,5 @@ CatacombWeedKiller: {
 		'''
 		Deletes all catacomb ambient weed tiles
 		Testing Item
-		'''
-}
-
-GooChompers: {
-	DisplayName: Gooey Chompers
-	Tooltip: ""
-}
-
-PeptoStomach: {
-	DisplayName: Peptobyssmal
-	Tooltip:
-		'''
-		Hitting enemies will give them a stomach ache 
-		Killing enemies with this debuff will explode into damaging pink bubbles
-		'''
-}
-
-SmokerLung: {
-	DisplayName: Smoker's Lungs
-	Tooltip:
-		'''
-		Randomly cough out clouds of damaging smoke
-		Enemies caught in the smoke will also cough smoke randomly for a bit of time
-		'''
-}
-
-StonedKidney: {
-	DisplayName: Stoned Kidney
-	Tooltip:
-		'''
-		While not using items you will charge up a kidney rock 
-		At full charge, using an item will launch the stone and explode ichor
-		'''
-}
-
-VeinChain: {
-	DisplayName: Two-Way Blood-Way
-	Tooltip:
-		'''
-		Attach a chain to enemies you hit that will damage them and drain their life
-		You can have up to 3 chains attached to different enemies at a time
-		If your health is too low, the maximum number of chains will be lowered
 		'''
 }

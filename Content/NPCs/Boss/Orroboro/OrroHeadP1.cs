@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.defense = 15;
             NPC.width = 30;
             NPC.height = 30;
-            NPC.npcSlots = 25f;
+            NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 12, 0, 0);
             NPC.boss = true;

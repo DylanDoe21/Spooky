@@ -273,14 +273,34 @@ namespace Spooky.Core
         {
             tag["UITopLeft"] = UITopLeft;
 
-            if (UnlockedSlot3) tag["UnlockedSlot3"] = true;
+            tag["BloomBuffSlot1"] = BloomBuffSlots[0];
+            tag["BloomBuffSlot2"] = BloomBuffSlots[1];
+            tag["BloomBuffSlot3"] = BloomBuffSlots[2];
+            tag["BloomBuffSlot4"] = BloomBuffSlots[3];
+
+			tag["Duration1"] = Duration1;
+			tag["Duration2"] = Duration2;
+			tag["Duration3"] = Duration3;
+			tag["Duration4"] = Duration4;
+
+			if (UnlockedSlot3) tag["UnlockedSlot3"] = true;
             if (UnlockedSlot4) tag["UnlockedSlot4"] = true;
         }
         public override void LoadData(TagCompound tag)
         {
             UITopLeft = tag.Get<Vector2>("UITopLeft");
 
-            UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
+            BloomBuffSlots[0] = tag.Get<string>("BloomBuffSlot1");
+			BloomBuffSlots[1] = tag.Get<string>("BloomBuffSlot2");
+			BloomBuffSlots[2] = tag.Get<string>("BloomBuffSlot3");
+			BloomBuffSlots[3] = tag.Get<string>("BloomBuffSlot4");
+
+			Duration1 = tag.Get<int>("Duration1");
+			Duration2 = tag.Get<int>("Duration2");
+			Duration3 = tag.Get<int>("Duration3");
+			Duration4 = tag.Get<int>("Duration4");
+
+			UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
         }
 
@@ -523,10 +543,10 @@ namespace Spooky.Core
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			//increase all crit damage by 40% with the poker pineapple
+			//increase all crit damage with the poker pineapple
 			if (SummerPineapple)
 			{
-				modifiers.CritDamage += 1.4f;
+				modifiers.CritDamage += 1.35f;
 			}
 		}
 

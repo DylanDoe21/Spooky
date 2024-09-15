@@ -25,9 +25,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-			r = 0.25f;
-            g = 0.03f;
-            b = 0.04f;
+			r = 0.35f;
+            g = 0.13f;
+            b = 0.14f;
         }
     }
 

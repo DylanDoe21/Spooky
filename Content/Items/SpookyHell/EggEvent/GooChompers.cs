@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Items.SpookyHell
+namespace Spooky.Content.Items.SpookyHell.EggEvent
 {
-    public class StonedKidney : ModItem
+    public class GooChompers : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 62;
+            Item.width = 48;
             Item.height = 48;
             Item.accessory = true;
             Item.rare = ItemRarityID.LightPurple;

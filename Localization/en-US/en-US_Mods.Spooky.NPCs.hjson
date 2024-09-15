@@ -140,7 +140,7 @@ OrchidPinkBig.DisplayName: Observing Orchid
 OrchidPinkSmall.DisplayName: Observing Orchid
 OrchidPurpleBig.DisplayName: Observing Orchid
 OrchidPurpleSmall.DisplayName: Observing Orchid
-OrchidStem.DisplayName: Orchid Stem
+OrchidStem.DisplayName: ""
 PitcherPlant1.DisplayName: Spitcher Plant
 PitcherPlant2.DisplayName: Spitcher Plant
 PitcherPlant3.DisplayName: Spitcher Plant
@@ -380,3 +380,6 @@ SnotSlime.DisplayName: Snot Slime
 EyeWizard.DisplayName: Bigger Eye
 StitchSpider.DisplayName: Stitches
 FrankenGoblin.DisplayName: Frank the Goblin
+FrankenGoblinHandFront.DisplayName: Frank's Hand
+FrankenGoblinHandBack.DisplayName: Frank's Hand
+FrankenGoblinEye.DisplayName: Monster Eye

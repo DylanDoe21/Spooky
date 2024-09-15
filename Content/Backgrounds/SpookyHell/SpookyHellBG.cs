@@ -120,7 +120,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                         {
                             Texture2D BGTextureGlow = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyHell/SpookyHellBG" + Layers + "_Glow").Value;
 
-                            Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, Color.White * Transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, (Color.White * 0.6f) * Transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
                         }
                     }
                 }

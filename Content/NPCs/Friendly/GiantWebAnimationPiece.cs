@@ -24,7 +24,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1;
+            NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 30;
@@ -78,7 +78,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1;
+            NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 30;

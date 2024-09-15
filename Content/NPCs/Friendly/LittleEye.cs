@@ -103,8 +103,8 @@ namespace Spooky.Content.NPCs.Friendly
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1Complete");
 
 					SpawnItem(ModContent.ItemType<SewingThread>(), 1);
-					SpawnItem(ModContent.ItemType<IconPainting2Item>(), 1);
-					SpawnItem(ItemID.GoldCoin, 5);
+					SpawnItem(ModContent.ItemType<IconPainting1Item>(), 1);
+					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
@@ -126,7 +126,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 					SpawnItem(Main.rand.Next(Books), 1);
 					SpawnItem(ModContent.ItemType<IconPainting2Item>(), 1);
-					SpawnItem(ItemID.GoldCoin, 5);
+					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
@@ -146,7 +146,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 					SpawnItem(ModContent.ItemType<StitchedCloak>(), 1);
 					SpawnItem(ModContent.ItemType<IconPainting3Item>(), 1);
-					SpawnItem(ItemID.GoldCoin, 5);
+					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{
@@ -166,7 +166,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 					SpawnItem(ModContent.ItemType<MagicEyeOrb>(), 1);
 					SpawnItem(ModContent.ItemType<IconPainting4Item>(), 1);
-					SpawnItem(ItemID.GoldCoin, 5);
+					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
 					{

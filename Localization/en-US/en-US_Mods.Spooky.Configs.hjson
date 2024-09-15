@@ -54,10 +54,10 @@ SpookyServerConfig: {
 		Label: Halloween Season
 		Tooltip:
 			'''
-			Spooky mod, by default, makes terraria's halloween seasonal event always active
-			Turn this option off to disable the halloween seasonal event being active
-			However, turning this off will not disable the halloween seasonal event if it is normally meant to happen 
-			(Like during October, or when you make it to wave 15 of the pumpkin moon before daytime)
+			Spooky mod, by default, makes terraria's halloween seasonal event always active as a quality of life feature
+			Keep this option on if you want terraria's halloween seasonal content always active while playing
+			Keep this option off if you want terraria's halloween event to only occur when it normally should
+			(Like during the month of October, or when you make it to wave 15 of the pumpkin moon before daytime)
 			'''
 	}
 }

@@ -249,8 +249,20 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void OnKill(int timeLeft)
 		{
-            //TODO: find a different vanilla sound
-            //SoundEngine.PlaySound(SoundID.NPCHit2, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath19, Projectile.Center);
+
+            for (int numDusts = 0; numDusts < 10; numDusts++)
+			{                                                                                  
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default, 1.5f);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+
+				if (Main.dust[dust].position != Projectile.Center)
+                {
+				    Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
+                }
+			}
         }
     }
 }

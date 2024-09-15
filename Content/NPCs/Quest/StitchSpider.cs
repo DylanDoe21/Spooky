@@ -36,6 +36,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 7;
+			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
@@ -86,8 +87,8 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 3000;
-            NPC.damage = 40;
+            NPC.lifeMax = 4000;
+            NPC.damage = 45;
 			NPC.defense = 10;
 			NPC.width = 58;
 			NPC.height = 58;
@@ -103,7 +104,7 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.85f * bossAdjustment);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * bossAdjustment);
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

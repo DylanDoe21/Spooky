@@ -6,25 +6,23 @@ using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
-using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.Quest;
 using Spooky.Content.NPCs.SpiderCave;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
-using Spooky.Content.Tiles.Catacomb;
-using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.NoseTemple;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
-using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Core
@@ -102,6 +100,12 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
+				//quest miniboss
+				if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem1>()) && !NPC.AnyNPCs(ModContent.NPCType<FrankenGoblin>()))
+				{
+					pool.Add(ModContent.NPCType<FrankenGoblin>(), 2);
+				}
+
 				//day time spawns
 				if (Main.dayTime)
 				{
@@ -145,6 +149,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<MonsterEye4>(), 1);
 						pool.Add(ModContent.NPCType<FluffBatSmall1>(), 1);
                     	pool.Add(ModContent.NPCType<FluffBatSmall2>(), 1);
+						pool.Add(ModContent.NPCType<HoppingCandyBasket>(), 0.2f);
 						
 						//windy day enemies
 						if (Main.WindyEnoughForKiteDrops)
@@ -423,6 +428,12 @@ namespace Spooky.Core
 				//do not allow catacomb enemies to spawn on non catacomb tiles
 				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
+					//quest miniboss
+					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem4>()) && !NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()))
+					{
+						pool.Add(ModContent.NPCType<EyeWizard>(), 2);
+					}
+
 					pool.Add(ModContent.NPCType<EyeBat>(), 4);
 					pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
 					pool.Add(ModContent.NPCType<MrHandy>(), 4);
@@ -461,6 +472,12 @@ namespace Spooky.Core
 				//do not allow spider grotto enemies to spawn inside of the structures in the biome
 				if (!InvalidTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
+					//quest miniboss
+					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem3>()) && !NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
+					{
+						pool.Add(ModContent.NPCType<StitchSpider>(), 2);
+					}
+
 					//critters
 					pool.Add(ModContent.NPCType<Ant1>(), 1);
 					pool.Add(ModContent.NPCType<Ant2>(), 1);

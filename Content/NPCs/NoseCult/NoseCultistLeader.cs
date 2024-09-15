@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle SneezeSound1 = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
+        public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -316,7 +316,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         if (NPC.frame.Y >= 3 * NPC.height && NPC.localAI[0] % 10 == 0)
                         {
-                            SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+                            SoundEngine.PlaySound(SneezeSound, NPC.Center);
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
@@ -529,7 +529,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.localAI[0] == 120 || NPC.localAI[0] == 180)
                     {
-                        SoundEngine.PlaySound(SneezeSound1, NPC.Center);
+                        SoundEngine.PlaySound(SneezeSound, NPC.Center);
 
                         int[] Types = new int[] { ModContent.ProjectileType<NoseBallPurpleProj>(), ModContent.ProjectileType<NoseBallRedProj>() };
 

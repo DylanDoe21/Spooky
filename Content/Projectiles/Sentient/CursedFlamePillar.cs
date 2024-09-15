@@ -68,11 +68,12 @@ namespace Spooky.Content.Projectiles.Sentient
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					//gives the projectile after images a shaking effect
-					float x = Main.rand.Next(-5, 6) * scale;
-					float y = Main.rand.Next(-5, 6) * scale;
+					for (int j = 0; j < 360; j += 90)
+					{
+						Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 5f), Main.rand.NextFloat(1f, 5f)).RotatedBy(MathHelper.ToRadians(j));
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), null, color, Projectile.rotation, drawOrigin, scale * 1.2f, SpriteEffects.None, 0f);
+						Main.spriteBatch.Draw(ProjTexture.Value, drawPos + circular, null, color * 0.25f, Projectile.rotation, drawOrigin, scale * 0.9f, SpriteEffects.None, 0f);
+					}
 				}
 
 				previousPosition = currentPos;

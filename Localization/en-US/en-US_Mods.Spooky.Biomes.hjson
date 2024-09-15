@@ -29,8 +29,8 @@ CatacombBiome2: {
 }
 
 NoseTempleBiome: {
-	DisplayName: The Snottre-Dame
-	TownNPCDialogueName: the Snottre-Dame
+	DisplayName: The Temple of Moco
+	TownNPCDialogueName: the Temple of Moco
 }
 
 PandoraBoxBiome: {

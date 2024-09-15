@@ -122,7 +122,7 @@ namespace Spooky.Content.Generation
             //place ceiling of blocks across the top of the biome
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 192; Y++)
+                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 198; Y++)
                 {
                     if (WorldGen.genRand.NextBool(15))
                     {
@@ -713,12 +713,8 @@ namespace Spooky.Content.Generation
                     }
 
                     //slope tiles
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<ValleyStone>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>() ||
-                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<LivingFlesh>() ||
-                    Main.tile[X, Y].TileType == TileID.ObsidianBrick)
+                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMush>() ||
+                    Main.tile[X, Y].TileType == (ushort)ModContent.TileType<ValleyStone>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>() || Main.tile[X, Y].TileType == TileID.ObsidianBrick)
                     {
                         Tile.SmoothSlope(X, Y);
                     }
@@ -961,10 +957,6 @@ namespace Spooky.Content.Generation
                         {
                             DungeonX += (StartPosition < Main.maxTilesX / 2 ? 20 : -19);
                         }
-                        else
-                        {
-                            SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -26), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), 30, false, false);
-                        }
 
                         GenerateNoseTempleStructure(DungeonX, NoseTemplePositionY + 27, "Hallway-" + WorldGen.genRand.Next(1, 9), 10, 10);
 
@@ -1015,7 +1007,7 @@ namespace Spooky.Content.Generation
                             }
                         }
 
-                        SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27), NoseTemplePositionY - 3, ModContent.TileType<SpookyMush>(), 0, 30, false, false);
+                        SpookyWorldMethods.PlaceCircle(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27), NoseTemplePositionY + 3, ModContent.TileType<SpookyMush>(), 0, 35, false, false);
 
                         GenerateNoseTempleStructure(DungeonX + (StartPosition < Main.maxTilesX / 2 ? 26 : -27), NoseTemplePositionY + 18, "CombatRoom-" + WorldGen.genRand.Next(1, 6), 36, 19);
 

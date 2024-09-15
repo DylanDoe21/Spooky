@@ -4,8 +4,6 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
@@ -16,8 +14,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
 		public override void SetDefaults()
 		{
+			NPC.CloneDefaults(NPCID.BoundTownSlimeOld);
             NPC.lifeMax = 60;
-            NPC.damage = 15;
+            NPC.damage = 0;
             NPC.defense = 0;
             NPC.width = 44;
             NPC.height = 30;
@@ -26,10 +25,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.value = Item.buyPrice(0, 0, 2, 0);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
+            NPC.immortal = false;
+            NPC.dontTakeDamage = false;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = 1;
-			AIType = NPCID.HoppinJack;
 			SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyBiome>().Type, ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 

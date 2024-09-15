@@ -423,7 +423,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override bool CheckActive()
         {
-            return false;
+            return NPC.ai[2] > 0;
         }
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)

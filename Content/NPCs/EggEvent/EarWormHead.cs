@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -11,6 +11,9 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.EggEvent;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
@@ -195,6 +198,12 @@ namespace Spooky.Content.NPCs.EggEvent
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 5, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GiantEar>(), 35));
         }
 
         public override bool CheckDead()

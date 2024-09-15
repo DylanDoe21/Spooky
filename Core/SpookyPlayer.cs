@@ -554,15 +554,18 @@ namespace Spooky.Core
             }
         }
 
-        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+		{
+			RaveyardGuardsHostile = false;
+		}
+
+		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             bool ShouldRevive = true;
 
             //embryo revive ability
             if (Player.statLife <= 0)
-            {
-                RaveyardGuardsHostile = false;
-
+			{
                 if (OrroboroEmbyro && !Player.HasBuff(ModContent.BuffType<EmbryoCooldown>()))
                 {
                     SoundEngine.PlaySound(SoundID.Item103, Player.Center);

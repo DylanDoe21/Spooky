@@ -77,7 +77,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override bool CanTownNPCSpawn(int numTownNPCs) 
         {
-            return Flags.OldHunterAssembled && !NPC.AnyNPCs(ModContent.NPCType<OldHunterSleeping>());
+            return Flags.OldHunterAssembled && !NPC.AnyNPCs(ModContent.NPCType<OldHunterSleeping>()) && !NPC.AnyNPCs(ModContent.NPCType<GiantWebAnimationBase>());
 		}
 
         public override List<string> SetNPCNameList() 

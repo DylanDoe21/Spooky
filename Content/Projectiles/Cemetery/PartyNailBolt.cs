@@ -1,10 +1,10 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
+
+using Spooky.Content.NPCs.Friendly;
 
 namespace Spooky.Content.Projectiles.Cemetery
 {
@@ -76,10 +76,15 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+			if (target.type == ModContent.NPCType<SkeletonBouncer>())
+			{
+				hit.Damage -= damageDone;
+			}
+
             target.immune[Projectile.owner] = 0;
         }
 
-        public override void AI()
+		public override void AI()
         {
             if (runOnce)
 			{

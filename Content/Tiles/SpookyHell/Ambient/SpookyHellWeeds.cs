@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<SpookyMushGrass>() };
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(210, 22, 0));
+            AddMapEntry(new Color(139, 31, 25));
             DustType = DustID.Blood;
             HitSound = SoundID.Grass;
         }

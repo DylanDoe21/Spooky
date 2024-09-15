@@ -103,6 +103,8 @@ namespace Spooky.Content.NPCs.SpiderCave
                     {
                         NPC.velocity.Y = -35;
 
+                        Parent.knockBackResist = 0f;
+
                         if (Collision.SolidCollision(NPC.Center, NPC.width, NPC.height))
                         {
                             NPC.ai[0]++;
@@ -114,6 +116,8 @@ namespace Spooky.Content.NPCs.SpiderCave
                     case 1: 
                     {
                         NPC.velocity *= 0;
+
+                        Parent.knockBackResist = 0.75f;
 
                         ParentGoTo(0, 150);
 

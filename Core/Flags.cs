@@ -62,9 +62,6 @@ namespace Spooky.Core
         public static bool BountyInProgress = false;
 
         public static bool encounteredMan = false;
-        public static bool encounteredBaby = false;
-        public static bool encounteredHorse = false;
-        public static bool encounteredFlesh = false;
 
         public override void ClearWorld()
         {
@@ -105,9 +102,6 @@ namespace Spooky.Core
             BountyInProgress = false;
 
             encounteredMan = false;
-            encounteredBaby = false;
-            encounteredHorse = false;
-            encounteredFlesh = false;
 		}
 
         public override void SaveWorldData(TagCompound tag)
@@ -164,9 +158,6 @@ namespace Spooky.Core
             if (BountyInProgress) tag["BountyInProgress"] = true;
 
             if (encounteredMan) tag["encounteredMan"] = true;
-            if (encounteredBaby) tag["encounteredBaby"] = true;
-            if (encounteredHorse) tag["encounteredHorse"] = true;
-            if (encounteredFlesh) tag["encounteredFlesh"] = true;
         }
 
         public override void LoadWorldData(TagCompound tag) 
@@ -223,9 +214,6 @@ namespace Spooky.Core
             BountyInProgress = tag.ContainsKey("BountyInProgress");
 
             encounteredMan = tag.ContainsKey("encounteredMan");
-            encounteredBaby = tag.ContainsKey("encounteredBaby");
-            encounteredHorse = tag.ContainsKey("encounteredHorse");
-            encounteredFlesh = tag.ContainsKey("encounteredFlesh");
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -293,9 +281,6 @@ namespace Spooky.Core
 
             var encounterFlags = new BitsByte();
             encounterFlags[0] = encounteredMan;
-            encounterFlags[1] = encounteredBaby;
-            encounterFlags[2] = encounteredHorse;
-            encounterFlags[3] = encounteredFlesh;
             writer.Write(encounterFlags);
         }
 
@@ -359,9 +344,6 @@ namespace Spooky.Core
 
             BitsByte encounterFlags = reader.ReadByte();
             encounteredMan = encounterFlags[0];
-            encounteredBaby = encounterFlags[1];
-            encounteredHorse = encounterFlags[2];
-            encounteredFlesh = encounterFlags[3];
         }
     }
 }

@@ -99,7 +99,7 @@ namespace Spooky.Content.Biomes
             bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 500;
             bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
 
-            return BiomeCondition && SurfaceCondition;
+            return BiomeCondition && SurfaceCondition && !player.ZoneBeach;
         }
     }
 }

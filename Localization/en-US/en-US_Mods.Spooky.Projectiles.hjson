@@ -257,7 +257,6 @@ TelegraphRedLeft.DisplayName: Telegraph
 TelegraphRedDown.DisplayName: Telegraph
 TelegraphRedRight.DisplayName: Telegraph
 TelegraphRedUp.DisplayName: Telegraph
-GraveDiggerShovelProj.DisplayName: Cemetery Digger's Shovel
 GraveDiggerShovelBonk.DisplayName: Bonk
 SphiderFlailProj.DisplayName: Swingable Sphider
 SphiderFlailWeb.DisplayName: Web Ball
@@ -409,3 +408,4 @@ MapleSeedBoost.DisplayName: Maple Seed Boost
 GooseberryBoost.DisplayName: Gooseberry Boost
 OrangeOrbiter.DisplayName: Angry Orange
 OrangeOrbiterTrail.DisplayName: Angry Orange
+GoblinDebris.DisplayName: Large Debris

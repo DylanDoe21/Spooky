@@ -29,7 +29,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
     public class Moco : ModNPC
     {
         int CurrentFrameX = 0;
-        int SaveDirection;
 
         float ShakeIntensityMult = 1f;
 
@@ -73,7 +72,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             //ints
             writer.Write(CurrentFrameX);
-            writer.Write(SaveDirection);
 
             //bools
             writer.Write(Phase2);
@@ -94,7 +92,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             //ints
             CurrentFrameX = reader.ReadInt32();
-            SaveDirection = reader.ReadInt32();
 
             //bools
             Phase2 = reader.ReadBoolean();

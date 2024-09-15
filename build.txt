@@ -2,8 +2,8 @@ displayName = [c/FFA01C:Spooky Mod]
 author = The Spooky Mod Team
 version = 1.2
 
-buildIgnore = *.csproj, *.user, obj\*, bin\*, lib\*, .vs\*, *.gif, *.piskel, Unused\*
-hideCode = false
+buildIgnore = *.csproj, *.user, obj\*, bin\*, lib\*, .vs\*, *.gif, Unused\*
+hideCode = true
 hideResources = true
 includeSource = false
 includePDB = true

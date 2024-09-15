@@ -66,7 +66,7 @@ namespace Spooky.Content.Items.SpookyHell
 		public override void AddRecipes()
         {
             CreateRecipe()
-			.AddIngredient(ModContent.ItemType<SnotGlob>(), 12)
+			.AddIngredient(ModContent.ItemType<SnotGlob>(), 20)
 			.AddIngredient(ItemID.Cobweb, 25)
             .AddTile(TileID.Anvils)
             .Register();

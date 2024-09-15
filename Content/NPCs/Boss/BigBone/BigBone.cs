@@ -38,6 +38,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public int ScaleTimerLimit = 12;
         public int SaveDirection;
+        
         public float SaveRotation;
         public float ScaleAmount = 0f;
         public float RealScaleAmount = 0f;
@@ -200,12 +201,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
             //only draw the neck stem if the parent is active
-            if (Main.npc[(int)NPC.ai[3]].active)
+            if (Parent.active)
 			{
                 NeckTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneStem");
 
-                Vector2 rootPosition = Main.npc[(int)NPC.ai[3]].Center;
+                Vector2 rootPosition = Parent.Center;
 
                 Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -60), NPC.Center + new Vector2(-60 * NPC.direction, 0).RotatedBy(NPC.rotation), NPC.Center + new Vector2(-14 * NPC.direction, 0).RotatedBy(NPC.rotation) };
                 float bezierProgress = 0;
@@ -518,8 +521,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 //despawning
                 case -3:
                 {
+                    NPC Parent = Main.npc[(int)NPC.ai[3]];
+
                     GoAboveFlowerPot(100);
                     NPC.EncourageDespawn(10);
+
+                    if (NPC.Hitbox.Intersects(Parent.Hitbox))
+                    {
+                        NPC.active = false;
+                    }
 
                     for (int k = 0; k < Main.projectile.Length; k++)
                     {
