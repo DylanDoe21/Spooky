@@ -24,8 +24,6 @@ namespace Spooky.Content.NPCs.Quest
 		int CurrentFrameX = 0; //0 = idle/sleeping  1 = walking/jumping
 		int SaveDirection;
 
-		float TimeForJumping = 0;
-
         bool SpawnedHands = false;
 
 		private static Asset<Texture2D> NPCTexture;
@@ -48,11 +46,13 @@ namespace Spooky.Content.NPCs.Quest
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+			//ints
+			writer.Write(SaveDirection);
+
             //bools
             writer.Write(SpawnedHands);
 
             //floats
-			writer.Write(TimeForJumping);
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
 			writer.Write(NPC.localAI[2]);
@@ -61,11 +61,13 @@ namespace Spooky.Content.NPCs.Quest
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+			//ints
+            SaveDirection = reader.ReadInt32();
+
             //bools
             SpawnedHands = reader.ReadBoolean();
 
             //floats
-			TimeForJumping = reader.ReadSingle();
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
 			NPC.localAI[2] = reader.ReadSingle();

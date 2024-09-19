@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Quest.Projectiles
 {
-    public class SpiderWebFire : ModProjectile
+    public class SpiderMissile : ModProjectile
     {
         public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 

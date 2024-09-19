@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
@@ -52,6 +53,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
         public void DrawLaser(Texture2D texture, Vector2 start, Vector2 unit, float rotation = 0f, float scale = 1f, float maxDist = 2000f, Color color = default, int transDist = 1)
         {
             float beamRotation = unit.ToRotation() + rotation;
+
+            if (Flags.RaveyardHappening)
+            {
+                color = Main.DiscoColor;
+            }
             
             //body
             for (float i = transDist; i <= (maxDist * (1 / LaserScale)); i += LaserSegmentLength)

@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Items.SpookyHell.EggEvent
 {
     public class PeptoStomach : ModItem
@@ -17,6 +19,7 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-        }
+			player.GetModPlayer<SpookyPlayer>().PeptoStomach = true;
+		}
     }
 }

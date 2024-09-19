@@ -7,6 +7,7 @@ Eye Valley Improvements:
 -Changed the screen tint of the eye valley to be more fitting with the biome
 -Added some new resprites for some of the blocks in the biome
 -Added pillars of flesh walls that generate in the biome
+-Lake of blood has new generation, and the special walls in the blood lake now have a cool new visual effect
 -Added many new ambient tiles and resprites for existing ambient tiles to make them look better
 -Added many new ambient structures that spawn in the biome to make it more visually interesting
 -Made eye stalk trees grow way more frequently in the biome during world generation
@@ -35,7 +36,7 @@ New Moco Rework:
 -You can also get snot from re-matching the nose cultists after moco is defeated
 
 
-Little Eye Quest Rework: (NOT FULLY FINISHED IN GAME YET)
+Little Eye Quest Rework:
 
 -Little eye's quest system has been entirely reworked into an optional bounty system, with a new UI, and 4 new minibosses to fight
 -Each quest will have you go to each main spooky mod biome and find a miniboss which you will fight and then bring back the item it drops back to little eye for rewards
@@ -72,8 +73,9 @@ New Bloom Farming Mechanic:
 Some things to note about this buff mechanic:
 -Bloom buffs, like vanilla buffs, can be manually removed by right-clicking the icon of the buff you want to remove
 -The UI for the bloom buffs will only show up if you have a bloom buff active, and if you don't have any bloom buffs it won't show up (Just to make people aware that it isn't a bug if you don't immediately see it in-game)
--Bloom buffs have stacking durations, meaning if you eat multiple of the same bloom, then that blooms base duration will be added onto the remaining duration for the existing buff
+-Bloom buffs have stacking durations, meaning if you eat multiple of the same bloom then that blooms base duration will be added onto the remaining duration for the existing buff
 (Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buff's duration will cap at 20 minutes and it will not go beyond that even if you eat more of that bloom)
+-Don't worry about loosing bloom buffs when leaving your world, as every bloom buff you have and their current durations will be saved with your player on world exit
 
 
 New Music:
@@ -83,7 +85,7 @@ New Music:
 -New redone version of "Graveyard without the G" by Bananalizard, and kept the old version as a legacy theme you can listen to with a vinyl purchased from the music man
 
 
-Config Stuff:
+Configuration Stuff:
 
 -Added new option "Old Hunter Dramatic Light", allows you to enable/disable the dramatic light that gets brighter over time during the old hunter's spawn animation (On by default)
 -Added new option "Draggable Bloom Buff UI", allows you to choose whether or not you are able to drag the new bloom buffs UI box with your mouse (Off by default)
@@ -94,11 +96,11 @@ Other Miscellaneous Additions:
 
 -Added catacomb grass seeds that you can place on the craftable gray and brown catacomb bricks which will grow ambient catacomb grass, colored mushrooms, and catacomb grass vines on it
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
--Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory (These compasses will sadly not work on older worlds created before this update)
+-Added compasses for the spider grotto and eye valley that point toward their respective biome while in your inventory (These compasses will NOT work on older worlds created before this update)
 -Added a few new types of zomboids that spawn during various vanilla events in the spooky forest (like rain and blood moons)
 -Added some new sprites for the existing spooky forest gourd tiles, added a few more gourd variants with their own unique carved faces, and made rotten gourds carvable
 -Added various new snot-themed ammo types crafted with moco's new booger material
--Added the tumor throw, a new yoyo sometimes dropped by the new purple giant tortumor variant
+-Added the tumor throw, a new yoyo sometimes dropped by the new giant tortumor purple variant
 -Added the sneezer, a new booger blaster variant that constantly fires out boogers rather than being a charge weapon, but is a bit lower damage than the normal booger blaster
 -Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
 
@@ -146,11 +148,10 @@ Items & Gear:
 -Strange spider egg baby spider minions now jump up to reach targetted enemies if they are too high, and will not fall through platforms unless the player is below them
 -Sentient shootius, staff of the weaver, and scepter of the weaver sentries now stand on platforms properly
 -Reworked the swarm scepter, its weird gimmick of using health to summon temporary minions is removed, instead it now works like a normal summon weapon that summons weak leeches that each cost 1/2 a minion slot
--Buffed the damage for the baby orro and boro minions spawned by the gore armor set
+-Buffed the damage for the baby orro and boro minions spawned by the gore armor set bonuses
 -I.C.U rockets now deal damage to all enemies nearby it when they explode
 -Spooky mod flails now make the same use sound as vanilla flails do
 -Nerfed the damage that the hunter soul scepter ranger minion's bullets do
--Moco's weapon drops can no longer be shimmered into each other due to them being craftable
 -Changed all sentient item money values based on the money values of the items they are upgraded from (This affects things like sell prices and reforge cost)
 -Bustling glowshroom is now craftable with 15 spooky glowshrooms and is no longer dropped by spooky glowshroom enemies
 -Warlock's cloak no longer gives a flat summon damage increase, but now gives 1 extra minion slot
@@ -158,9 +159,9 @@ Items & Gear:
 -Skull amulet now only requires you to absorb 10 souls to apply the frenzy buff, increased its drop rate from zomboid necromancers, it can now drop from zomboid pyromancers with the same chance as the necromancers, and it can now be found rarely in barrels in the upper catacombs
 -Idol of flame has been reworked to have an explosion attack that doesnt harm you anymore, it has been moved to hardmode as a lower catacombs chest item, and it no longer drops from zomboid pyromancers
 -Cross charm is now found in the random bone chests scattered throughout the lower catacombs instead of being found in one of the main loot rooms (This is because it has been swapped out for the idol of flame)
--Reworked cemetery digger's shovel, it is now a melee item with a custom swing animation and throws the shovel out every 5 swings
--Dave & Mike now prioritize bosses when searching for enemies to target before charging
--Spi-ops armor now requires spider web blocks in its crafting recipe instead of silk
+-Reworked cemetery digger's shovel, it is now a melee item with a custom swing animation (It still bonks enemies on critical hits)
+-Dave & Mike now prioritizes bosses when searching for enemies to target before charging
+-Spi-ops armor now requires spider grotto web blocks in its crafting recipe instead of silk
 -Skull crates now have the idol of flame as part of their main item loot pool
 -Spooky forest crates no longer require rot gourd to be defeated to fish them up
 
@@ -183,7 +184,7 @@ Enemy & Boss Changes:
 -Heavily nerfed monster eyes jumping rate and speed, and added a new gore effect when they die
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
 -Lowered the defense of some of the spider grotto enemies
--Tarantula hawks, adult trapdoor spiders, and whip spiders are no longer immune to knockback and now just have high knockback resistance
+-Adult trapdoor spiders, and whip spiders are no longer immune to knockback and now just have high knockback resistance
 -Changed the tarantula hawks death sound
 -Increased the spawnrate of catacomb guardians if you enter the catacombs before opening the barrier
 -Bungus and chunky fungus now drop 2 to 5 spooky glowshrooms
@@ -192,7 +193,8 @@ Enemy & Boss Changes:
 
 Miscellaneous:
 
--The spider grotto biome can now generate inbetween the dungeon and snow biome if there is enough room
+-The spider grotto can now generate inbetween the dungeon and snow biome if there is enough room
+-Chsnged the color of the foliage blocks in the spider grotto to aesthetically differentiate it from the other spooky mod biomes more
 -Sentient hearts now only require 1 to be researched in journey mode to unlock duplication
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up, and now produces gores when it lands or hits daffodil
 -The giant egg in the eye valley now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
@@ -206,6 +208,7 @@ Miscellaneous:
 -Redid the visual effects/trails for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
 -Polished up the visual effect for the auras created by orro-boro and egg incursion enemies
 -Increased the drop rates for the spider grotto enemy weapon drops (Both prehardmode and hardmode drops)
+-Dissolved bone pet item now has a 1 in 30 chance from dropping from mysterious orange tombstones in the cemetery instead of catacomb fishing crates
 -Added a recipe group in spooky mod for items that are craftable with both demonite and crimtane so they dont have 2 separate recipes anymore
 -Defeating any spooky mod boss for the first time in a world will now guarantee a raveyard at the beginning of the next in-game night
 -Swampy cemetery biome no longer takes priority over terraria's ocean biome (This is just incase the cemetery generates too close to the ocean biome on smaller worlds)
@@ -213,6 +216,7 @@ Miscellaneous:
 
 Removals:
 
+-Moco's weapon drops can no longer be shimmered into each other due to them being craftable now
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned in the catacomb improvements section
 -Removed the feature where gravestones wouldn't spawn from your character if you died in the catacombs, since you can now break blocks in the catacombs
 -Removed the cotton swabs crafting recipe due to the new way it is obtained
@@ -267,7 +271,10 @@ Fixed all of the following bugs and issues:
 -Yellow catacombs barrier sometimes not generating during world generation
 -Creepy cauldron drawing infront of enemies
 -Little bone's house sometimes placing on floating islands on larger worlds
--Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background condig changed
+-Hostile projectiles from bosses and enemies causing raveyard skeleton bouncers to attack players
+-Skeleton raveyard bouncers still attacking players after they were already killed by them
+-Skeleton raveyard bouncer projectiles killing each other and other raveyard skeletons
+-Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background config changed
 
 
 Fixed all of the following multiplayer bugs and issues:

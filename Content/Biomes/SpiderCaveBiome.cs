@@ -21,7 +21,7 @@ namespace Spooky.Content.Biomes
        
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-        public override int BiomeTorchItemType => ItemID.JungleTorch;
+        public override int BiomeTorchItemType => ItemID.YellowTorch;
 
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
 
@@ -63,9 +63,9 @@ namespace Spooky.Content.Biomes
                     float progress = 0.5f + yOff / (int)(Main.LocalPlayer.position.Y / 16) * 0.7f;
                     progress = MathHelper.Max(0.5f, progress);
 
-                    outputColor.X = (0.25f + (yOff > 70 ? ((yOff - 70) * 0.005f) : 0)) * progress * mult;
-                    outputColor.Y = (0.25f + (yOff > 70 ? ((yOff - 70) * 0.0005f) : 0)) * progress * mult;
-                    outputColor.Z = (0.25f - (yOff > 70 ? ((yOff - 70) * 0.005f) : 0)) * progress * mult;
+                    outputColor.X = (0.35f + (yOff > 70 ? ((yOff - 70) * 0.005f) : 0)) * progress * mult;
+                    outputColor.Y = (0.35f + (yOff > 70 ? ((yOff - 70) * 0.0005f) : 0)) * progress * mult;
+                    outputColor.Z = (0.35f - (yOff > 70 ? ((yOff - 70) * 0.005f) : 0)) * progress * mult;
 
                     if (yOff > 90 && mult < 1)
                     {

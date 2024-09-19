@@ -8,6 +8,8 @@ namespace Spooky.Content.Buffs.Debuff
 {
 	public class SentientKeybrandDebuff : ModBuff
 	{
+		public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
+
 		private bool initializeDefense;
         private int storedDefense;
 

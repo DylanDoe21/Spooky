@@ -5,6 +5,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
     public class PhantomSkull : ModNPC

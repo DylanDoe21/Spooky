@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpiderCave
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(43, 100, 38));
+            AddMapEntry(new Color(134, 116, 55));
             RegisterItemDrop(ModContent.ItemType<DampSoilItem>());
             DustType = ModContent.DustType<DampGrassDust>();
 			MineResist = 0.65f;

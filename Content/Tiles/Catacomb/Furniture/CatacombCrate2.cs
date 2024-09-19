@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Items.Catacomb;
-using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.Tiles.Catacomb.Furniture
 {
@@ -96,9 +95,6 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 				ItemDropRule.Common(ItemID.MasterBait, 1, 2, 7),
 			};
 			itemLoot.Add(new OneFromRulesRule(2, highendBait));
-
-			//rarely drop the dissolved bone
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<DissolvedBone>(), 30));
 
             //coins
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 1, 7));

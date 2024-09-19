@@ -367,17 +367,13 @@ GreenSplatter.DisplayName: Ooze
 BlueSplatter.DisplayName: Ooze
 CoughCloud.DisplayName: Ichor Cloud
 SpiderWeb.DisplayName: Spider Web
-SpiderWebFire.DisplayName: Spider Web Fire
+SpiderMissile.DisplayName: Heat-Seeking Missile
 SnotMonsterBooger.DisplayName: Snot
 LingeringEye.DisplayName: Eye Rune
 HomingEye.DisplayName: Magic Eye
 LingeringEyeSpawner.DisplayName: Magic Bolt
 BouncingEye.DisplayName: Bouncing Eye
 VenomHarpoonSpike.DisplayName: Venom Harpoon Spike
-FlaskChilled.DisplayName: Flask Chilled
-FlaskIchor.DisplayName: Flask Ichor
-FlaskVenom.DisplayName: Flask Venom
-FlaskCloud.DisplayName: Flask Cloud
 SneezerProj.DisplayName: Sneezer
 SnotArrowProj.DisplayName: Booger Arrow
 VesicatorBiomass.DisplayName: Biomass
@@ -409,3 +405,10 @@ GooseberryBoost.DisplayName: Gooseberry Boost
 OrangeOrbiter.DisplayName: Angry Orange
 OrangeOrbiterTrail.DisplayName: Angry Orange
 GoblinDebris.DisplayName: Large Debris
+BanditBruiserFist.DisplayName: Phantom Fist
+BanditWizardBall.DisplayName: Magic Blast
+BanditWizardBallSplitting.DisplayName: Magic Blast
+BanditWizardBallSmall.DisplayName: Magic Blast
+BanditPriestBuffBall.DisplayName: Debuff Spell
+BanditPriestCross.DisplayName: Magic Cross Bolt
+PeptoBubble.DisplayName: Pepto Bubble

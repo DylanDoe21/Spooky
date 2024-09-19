@@ -334,7 +334,7 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<BoneStackerBase>(), 4);
 						pool.Add(ModContent.NPCType<ZomboidNecromancer>(), 3);
 						pool.Add(ModContent.NPCType<ZomboidPyromancer>(), 3);
-						pool.Add(ModContent.NPCType<ZomboidGlyphomancer>(), 3);
+						//pool.Add(ModContent.NPCType<ZomboidGlyphomancer>(), 3);
 						pool.Add(ModContent.NPCType<ZomboidSuspiciomancer>(), 2);
 					}
 					else
@@ -521,7 +521,7 @@ namespace Spooky.Core
 			//dumb zomboid can spawn anywhere super rarely
 			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()) && !spawnInfo.Water)
 			{
-				//pool.Add(ModContent.NPCType<DumbZomboid>(), 0.1f);
+				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.1f);
 			}
         }
     }

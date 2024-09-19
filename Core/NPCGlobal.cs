@@ -9,7 +9,6 @@ using System.Linq;
 
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Cemetery.Misc;
 using Spooky.Content.Items.SpiderCave.Misc;
@@ -18,7 +17,7 @@ using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.Projectiles.SpiderCave;
-using Spooky.Content.Projectiles.Blooms;
+using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Core
 {
@@ -154,6 +153,16 @@ namespace Spooky.Core
 							NetMessage.SendData(MessageID.SyncNPC, number: Soul);
 						}
 					}
+				}
+			}
+
+			//ememies with stomach ache explode into pepto bubbles
+			if (npc.HasBuff(ModContent.BuffType<PeptoDebuff>()))
+			{
+				for (int numProjectiles = 0; numProjectiles < Main.rand.Next(4, 8); numProjectiles++)
+				{
+					Projectile.NewProjectile(npc.GetSource_Death(), npc.Center.X, npc.Center.Y, Main.rand.NextFloat(-12f, 12f),
+					Main.rand.NextFloat(-2f, 0f), ModContent.ProjectileType<PeptoBubble>(), npc.damage, 0, Main.myPlayer);
 				}
 			}
 

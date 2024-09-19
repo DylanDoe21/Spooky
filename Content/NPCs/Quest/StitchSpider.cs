@@ -446,7 +446,7 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderWebFire>(), NPC.damage / 4, 0, NPC.target);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderMissile>(), NPC.damage / 4, 0, NPC.target);
 					}
 
 					if (NPC.localAI[0] >= 360)

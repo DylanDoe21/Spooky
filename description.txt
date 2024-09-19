@@ -2,22 +2,17 @@ Spooky mod is a fairly large mod that adds in new content with the general theme
 
 Currently the mod has:
 
--Four new biomes and a giant underground structure to explore, all filled with new content
-
--Six brand new bosses, and three new events (all with boss checklist support!)
-
+-Four new biomes and a giant underground structure to explore, all filled with new content to discover
+-Six brand new bosses and three new events, along with boss checklist support for all of them
 -Tons of other usual content such as weapons, armor sets, accessories, pets, enemies, blocks, and whatever else
-
 -Banger soundtracks for all of the biomes, events, and bosses
-
--And more to come in the future!
+-And probably more to come in the future!
 
 
 Some Warnings:
 -This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with other mods how you like, but just be aware of potential issues!
--It is also somewhat recommended to use medium or large worlds while playing this mod. Small worlds still work perfectly fine with spooky mod's world generation, but it may not be ideal for a playthrough with multiple people or if you are using multiple mods with lots of world generation
--Spooky mod is not currently compatible with any of terraria's secret world seeds. It may work with some seeds, but issues such as biomes generating incorrectly, world generation freezing, and crashing may happen!
--While spooky mod is mostly multiplayer compatible, there may be some issues. Multiplayer issues will continue getting fixed as the mod is worked on, and it would be greatly appreciated if any multiplayer issues you encounter are reported on either this mod's steam page or our discord server
+-Spooky mod is not currently compatible with any of terraria's secret world seeds at the moment. It may work with some seeds, but issues such as biomes generating incorrectly, world generation freezing, and crashing may happen!
+-While spooky mod is mostly multiplayer compatible, there may be still be some smaller issues. Multiplayer issues will continue getting fixed as the mod is worked on, and it would be greatly appreciated if any multiplayer issues you encounter are reported on either this mod's steam page or our discord server!
 
 
 [h1]Developers[/h1]
@@ -26,7 +21,7 @@ Massive thanks to all the people who have helped out the mod in some way, or are
 
 Developers: DylanDoe21, Hugekraken, Taco, Waasephi, Seasalt, Dandy, Hat in a River, Bananalizard, Rockwizard5, Luxcapacitor, Angel, Jim2OUK
 Contributors: Grae, Graydee, Vortex of Rainbows, HondaCivicMoment, RocketLauncher, Guck, Ennway
-Also credit to zapsplat.com, a free sound library where I get most of this mods custom sound effects come from
+Also credit to zapsplat.com, a free sound library where most of the custom sound effects used in this mod come from
 
 And of course, thanks to everyone who has supported the mod or shown interest in any way!
 
@@ -34,7 +29,7 @@ And of course, thanks to everyone who has supported the mod or shown interest in
 
 If you have questions, feedback, or just want to hangout, we have a discord server: [h1][url=https://discord.gg/FFp7FwNBxu] Click here to join! [/url][/h1]
 
-Since spooky mod has an official discord server, and discord is generally a better place to communicate, our terraria forums page will very likely not be updated much (Unless I really feel like it)
+We also have a terraria community forums page, which can be found [h1][url=https://forums.terraria.org/index.php?threads/spooky-mod.111311/] Here! [/url][/h1]
 
 You can also listen to and support bananalizard's soundtrack here:
 [h1][url=https://www.youtube.com/playlist?list=PLTkIRNhpw-3HBf7cKj8oRwepQE6vRYsdR] Youtube Playlist [/url][/h1]

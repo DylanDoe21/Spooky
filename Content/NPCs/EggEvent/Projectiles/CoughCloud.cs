@@ -27,6 +27,13 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             target.AddBuff(BuffID.Ichor, 60);
         }
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            Projectile.velocity *= 0;
+
+            return false;
+        }
+
         public override void AI()
         {
             if (Main.rand.NextBool(5))
@@ -35,13 +42,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 Main.dust[DustEffect].velocity *= 0;
                 Main.dust[DustEffect].alpha = 100;
             }
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            Projectile.velocity *= 0;
-
-            return false;
         }
     }
 }

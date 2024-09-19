@@ -16,6 +16,7 @@ using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpiderCave.Tree;
 using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome.Ambient;
 
 using StructureHelper;
 
@@ -246,7 +247,15 @@ namespace Spooky.Content.Generation
                         {
                             WorldGen.KillWall(X, Y);
                         }
-                    }
+
+						//kill random single floating walls
+						if (Main.tile[X, Y].TileType == TileID.LivingMahoganyLeaves)
+						{
+							Tile tile = Main.tile[X, Y];
+
+							tile.TileColor = PaintID.BrownPaint;
+						}
+					}
                 }
             }
 
@@ -437,12 +446,6 @@ namespace Spooky.Content.Generation
                                         }
                                         case 3:
                                         {
-                                            Vector2 structureOrigin = new Vector2(X - 10, Y - 5);
-                                            Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootRoom", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 4:
-                                        {
                                             Vector2 structureOrigin = new Vector2(X - 16, Y - 6);
                                             Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootWeb", structureOrigin.ToPoint16(), Mod);
                                             break;
@@ -562,18 +565,21 @@ namespace Spooky.Content.Generation
                             }
                         }
 
+                        //place rock piles on mossy stone
+                        if (tile.TileType == ModContent.TileType<SpookyStone>())
+                        {
+                            if (WorldGen.genRand.NextBool(3))
+                            {
+                                WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<MossyRock>());           
+                            }
+                        }
+
                         //place spider webs on walls
                         if (WorldGen.genRand.NextBool(120) && Main.tile[X, Y].WallType == ModContent.WallType<DampGrassWall>() && !Main.tile[X, Y].HasTile)
                         {
                             ushort[] WallWebs = new ushort[] { (ushort)ModContent.TileType<WallWeb1>(), (ushort)ModContent.TileType<WallWeb2>() };
 
                             WorldGen.PlaceObject(X, Y, WorldGen.genRand.Next(WallWebs));
-                        }
-
-                        //place mushroom moss on top of mossy stone
-                        if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() && !WorldGen.SolidTile(X, Y - 1) && !WorldGen.SolidTile(X, Y - 2) && !WorldGen.SolidTile(X, Y - 3))
-                        {
-                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<MushroomMoss>();
                         }
                     }
                 }
@@ -905,7 +911,7 @@ namespace Spooky.Content.Generation
 
                 int[] MainItems = new int[] { ItemID.BandofRegeneration, ItemID.AnkletoftheWind, ItemID.HermesBoots, ItemID.CloudinaBottle, ItemID.Aglet, ItemID.LuckyHorseshoe };
 
-                if (chestTile.TileFrameX == 28 * 36 && MainItems.Contains(chest.item[0].type))
+                if (chestTile.TileFrameX == 5 * 36 && MainItems.Contains(chest.item[0].type))
                 {
                     //potions
                     int[] Potions1 = new int[] { ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };

@@ -74,15 +74,16 @@ namespace Spooky.Content.Projectiles.Cemetery
 			return true;
 		}
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-			if (target.type == ModContent.NPCType<SkeletonBouncer>())
-			{
-				hit.Damage -= damageDone;
-			}
+		public override bool? CanHitNPC(NPC target)
+		{
+			bool IsPartySkeleton = target.type == ModContent.NPCType<PartySkeleton1>() || target.type == ModContent.NPCType<PartySkeleton2>() ||
+			target.type == ModContent.NPCType<PartySkeleton3>() || target.type == ModContent.NPCType<PartySkeleton4>() ||
+			target.type == ModContent.NPCType<PartySkeleton5>() || target.type == ModContent.NPCType<PartySkeleton6>() ||
+			target.type == ModContent.NPCType<PartySkeleton7>() || target.type == ModContent.NPCType<PartySkeleton8>() ||
+			target.type == ModContent.NPCType<SkeletonBouncer>() || target.type == ModContent.NPCType<SuspiciousSkeleton>();
 
-            target.immune[Projectile.owner] = 0;
-        }
+			return !IsPartySkeleton;
+		}
 
 		public override void AI()
         {

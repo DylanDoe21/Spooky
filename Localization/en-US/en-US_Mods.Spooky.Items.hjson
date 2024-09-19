@@ -2078,8 +2078,9 @@ PeptoStomach: {
 	DisplayName: Peptobyssmal
 	Tooltip:
 		'''
-		Hitting enemies will give them a stomach ache 
-		Killing enemies with this debuff will explode into damaging pink bubbles
+		Hitting enemies will sometimes give them a stomach ache which weakens them
+		Enemies that have this debuff will explode into damaging pink bubbles on death
+		These pink bubbles can also sometimes inflict stomach ache onto enemies
 		'''
 }
 
@@ -2996,6 +2997,11 @@ CultistChandelierItem: {
 	Tooltip: ""
 }
 
+CultistChestItem: {
+	DisplayName: Occultist Chest
+	Tooltip: ""
+}
+
 CultistClockItem: {
 	DisplayName: Occultist Clock
 	Tooltip: ""
@@ -3033,6 +3039,11 @@ CultistSofaItem: {
 
 CultistTableItem: {
 	DisplayName: Occultist Table
+	Tooltip: ""
+}
+
+CultistWorkBenchItem: {
+	DisplayName: Occultist Work Bench
 	Tooltip: ""
 }
 

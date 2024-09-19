@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
     public class EyeBolt : ModProjectile
@@ -46,6 +48,12 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 				scale *= 1f;
 
 				Color color = Color.Lerp(Color.White, Color.OrangeRed, scale);
+
+				if (Flags.RaveyardHappening)
+                {
+                   	color = Main.DiscoColor;
+                }
+
 				color *= (Projectile.timeLeft * 2) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)

@@ -60,6 +60,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             return false;
         }
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            return false;
+        }
+
         public override void AI()
         {
             Projectile.rotation += 0.1f * Projectile.direction;

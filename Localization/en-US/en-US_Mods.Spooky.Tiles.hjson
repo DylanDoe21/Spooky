@@ -113,6 +113,7 @@ CultistCandelabra.MapEntry: Candelabra
 CultistCandle.MapEntry: Candle
 CultistChair.MapEntry: Chair
 CultistChandelier.MapEntry: Chandelier
+CultistChest.MapEntry: Chest
 CultistClock.MapEntry: Clock
 CultistDoorClosed.MapEntry: Door
 CultistDoorOpen.MapEntry: Door
@@ -121,7 +122,8 @@ CultistLantern.MapEntry: Lantern
 CultistSink.MapEntry: Sink
 CultistSofa.MapEntry: Sofa
 CultistTable.MapEntry: Table
+CultistWorkBench.MapEntry: Work Bench
 TempleTrapdoor.MapEntry: Temple Trapdoor
-CatacombTrapdoor1.MapEntry: Catacomb Trapdoor
-CatacombTrapdoor2.MapEntry: Catacomb Trapdoor
-CatacombTrapdoor3.MapEntry: Catacomb Trapdoor
+CatacombTrapdoor1.MapEntry: Locked Trapdoor
+CatacombTrapdoor2.MapEntry: Locked Trapdoor
+CatacombTrapdoor3.MapEntry: Locked Trapdoor

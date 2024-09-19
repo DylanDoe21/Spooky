@@ -44,9 +44,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 		public float SpinX = 0;
 		public float SpinY = 0;
         public float alpha;
-        
-        public static float fade = Main.GameUpdateCount % 60 / 60f;
-        public static int index = (int)(Main.GameUpdateCount / 60 % 3);
 
         public static Color[] PartyColors = new Color[]
         {
@@ -193,6 +190,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                 if (Flags.RaveyardHappening)
                 {
+                    float fade = Main.GameUpdateCount % 60 / 60f;
+                    int index = (int)(Main.GameUpdateCount / 60 % 3);
+
                     color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(PartyColors[index], PartyColors[(index + 1) % 3], fade));
                 }
 
@@ -207,11 +207,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             //eye glowmasks
             if (!EyeSprite)
             {
-				Main.EntitySpriteDraw(EyeTexture1.Value, NPC.Center - Main.screenPosition, NPC.frame, new Color(255, 255, 255) * alpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+				Main.EntitySpriteDraw(EyeTexture1.Value, NPC.Center - Main.screenPosition, NPC.frame, Color.White * alpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
 			}
             if (EyeSprite)
             {
-				Main.EntitySpriteDraw(EyeTexture2.Value, NPC.Center - Main.screenPosition, NPC.frame, new Color(255, 255, 255) * alpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+				Main.EntitySpriteDraw(EyeTexture2.Value, NPC.Center - Main.screenPosition, NPC.frame, Color.White * alpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
 			}
             
             return false;

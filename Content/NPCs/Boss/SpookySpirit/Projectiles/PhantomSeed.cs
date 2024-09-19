@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
     public class PhantomSeed : ModProjectile
@@ -37,6 +39,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Purple);
+
+			if (Flags.RaveyardHappening)
+            {
+                color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(new Color(148, 80, 0));
+            }
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 

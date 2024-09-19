@@ -4,6 +4,8 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
     public class EyeBeamTelegraph : ModProjectile
@@ -27,6 +29,12 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
             Color color = new Color(Projectile.alpha, Projectile.alpha, Projectile.alpha, 0).MultiplyRGBA(Color.Gold);
             Color color2 = new Color(Projectile.alpha, Projectile.alpha, Projectile.alpha, 0).MultiplyRGBA(Color.OrangeRed);
+
+            if (Flags.RaveyardHappening)
+            {
+                color = new Color(Projectile.alpha, Projectile.alpha, Projectile.alpha, 0).MultiplyRGBA(Main.DiscoColor);
+                color2 = new Color(Projectile.alpha, Projectile.alpha, Projectile.alpha, 0).MultiplyRGBA(Main.DiscoColor);
+            }
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity;

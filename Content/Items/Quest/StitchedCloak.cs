@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.Quest
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            player.GetModPlayer<SpookyPlayer>().StitchedCloak = true;
+            //player.GetModPlayer<SpookyPlayer>().StitchedCloak = true;
         }
 	}
 }

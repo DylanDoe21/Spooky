@@ -82,9 +82,36 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     spriteBatch.Draw(BGRootGlowTexture.Value, DrawPositionParallax, new Rectangle(0, 0, 1680, 1102), color);
                 }
 
-                for (int X = (int)NPC.Center.X - 700; X <= (int)NPC.Center.X + 700; X += 20)
+				int Increment = 20;
+
+                //0 = colored, 1 = white, 2 = retro, 3 = trippy
+				switch (Lighting.LegacyEngine.Mode)
+				{
+					case 0:
+					{
+                        Increment = 20;
+						break;
+					}
+                    case 1:
+					{
+                        Increment = 50;
+						break;
+					}
+                    case 2:
+					{
+                        Increment = 60;
+						break;
+					}
+                    case 3:
+					{
+                        Increment = 50;
+						break;
+					}
+				}
+
+				for (int X = (int)NPC.Center.X - 700; X <= (int)NPC.Center.X + 700; X += Increment)
                 {
-                    for (int Y = (int)NPC.Center.Y - 400; Y <= (int)NPC.Center.Y + 600; Y += 20)
+                    for (int Y = (int)NPC.Center.Y - 400; Y <= (int)NPC.Center.Y + 600; Y += Increment)
                     {
                         if (!Main.tile[X / 16, Y / 16].HasTile)
                         {

@@ -153,20 +153,20 @@ namespace Spooky.Content.NPCs.Friendly
 			return Language.GetTextValue("Mods.Spooky.Dialogue.SkeletonBouncer.Dialogue" + Main.rand.Next(1, 6));
 		}
 
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-            player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
-        }
+		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+		{
+			player.GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+		}
 
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-            if (!projectile.friendly)
-            {
-                Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
-            }
-        }
+		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+		{
+			if (projectile.type == ProjectileID.RottenEgg)
+			{
+				Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().RaveyardGuardsHostile = true;
+			}
+		}
 
-        public override void AI()
+		public override void AI()
         {
             NPC.spriteDirection = NPC.direction;
 

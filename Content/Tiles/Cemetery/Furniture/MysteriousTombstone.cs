@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Cemetery.Projectiles;
 
 namespace Spooky.Content.Tiles.Cemetery.Furniture
@@ -104,6 +105,11 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ItemID.Maggot, Main.rand.Next(1, 4));
 						break;
 					}
+				}
+
+				if (Main.rand.NextBool(30))
+				{
+					Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<DissolvedBone>(), 1);
 				}
 			}
         }

@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Quest
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			float stretch = NPC.velocity.Y * 0.025f;
+			float stretch = NPC.velocity.Y * 0.015f;
 
 			stretch = Math.Abs(stretch);
 

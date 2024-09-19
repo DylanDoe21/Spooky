@@ -109,7 +109,7 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
 
                         var frame = rectangle;
-                        var clr = new Color(80, 80, 80) * Transparency;
+                        var clr = new Color(100, 80, 60) * Transparency;
 
                         Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
 

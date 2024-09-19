@@ -5,6 +5,8 @@ namespace Spooky.Content.Buffs.Debuff
 {
 	public class FleshWhipDefense : ModBuff
 	{
+        public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
+
         private bool initializeStats;
         private int storedDefense;
 

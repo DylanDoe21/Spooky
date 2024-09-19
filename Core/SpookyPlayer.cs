@@ -67,7 +67,7 @@ namespace Spooky.Core
         public bool RedMistClarinet = false;
         public bool SlendermanPage = false;
         public bool SmileDogPicture = false;
-        public bool StitchedCloak = false;
+		public bool PeptoStomach = false;
 
         //expert accessories
         public bool FlyAmulet = false;
@@ -203,7 +203,7 @@ namespace Spooky.Core
             RedMistClarinet = false;
             SlendermanPage = false;
             SmileDogPicture = false;
-            StitchedCloak = false;
+			PeptoStomach = false;
 
             //expert accessories
             FlyAmulet = false;
@@ -433,6 +433,12 @@ namespace Spooky.Core
                     Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
                 }
             }
+
+			//inflict enemies with stomach ache debuff with the pepto stomach
+			if (PeptoStomach && Main.rand.NextBool(10))
+			{
+				target.AddBuff(ModContent.BuffType<PeptoDebuff>(), int.MaxValue);
+			}
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)

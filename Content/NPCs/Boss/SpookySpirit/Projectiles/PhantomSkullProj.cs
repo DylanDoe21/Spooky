@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 {
     public class PhantomSkullProj : ModProjectile
@@ -38,6 +40,11 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 			EyeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookySpirit/Projectiles/PhantomBombGlow");
 
             Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
+
+			if (Flags.RaveyardHappening)
+            {
+                color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(new Color(18, 148, 0));
+            }
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 

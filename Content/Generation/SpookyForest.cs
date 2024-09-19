@@ -289,7 +289,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //grow giant mushrooms
-                for (int Y = (int)Main.worldSurface + 25; Y < Main.maxTilesY - 200; Y++)
+                for (int Y = (int)Main.worldSurface + 25; Y < (Main.maxTilesY / 2); Y++)
                 {
                     if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>()) &&
                     !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)

@@ -86,8 +86,8 @@ namespace Spooky.Content.Projectiles.Pets
                     num++;
                 }
             }
-            direction.X += ((10 + num * 40) * player.direction);
-            direction.Y -= 70f;
+            direction.X += ((10 + num * 20) * player.direction);
+            direction.Y -= 50f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 30f)
             {
