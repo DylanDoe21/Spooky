@@ -115,6 +115,7 @@ Other Miscellaneous Additions:
 -Added the tumor throw, a new yoyo sometimes dropped by the new giant tortumor purple variant
 -Added the sneezer, a new booger blaster variant that constantly fires out boogers rather than being a charge weapon, but is a bit lower damage than the normal booger blaster
 -Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
+-Added new fishing crates to the lake of blood for both pre-hardmode and hardmode
 
 
 
@@ -279,27 +280,29 @@ Fixed all of the following bugs and issues:
 -Gilded mage armor set bonus scaling beyond 10 gold coins if you have more than 10 gold coins in your inventory outside of your coins slot
 -Raveyard skeletons clothing not fading away properly when the skeletons themselves are fading away
 -Various items in the mod (including certain on-hit items, accessories with special effects applied to npcs, and minions/sentries) either activating their effects on target dummies or targetting target dummies
--Spooky Scroll, Snot-Nosed Tome, and Idol of Flame consuming a set amount of mana instead of being dependant on the actual item's mana cost
+-Spooky Scroll, Snot-Nosed Tome, and Idol of Flame consuming a set amount of mana instead of the item's actual mana cost
 -Spooky mod holdout projectiles not being disabled if you are frozen/stunned by a debuff or arent holding an item
 -Yellow catacombs barrier sometimes not generating during world generation
 -Creepy cauldron drawing infront of enemies
 -Little bone's house sometimes placing on floating islands on larger worlds
 -Hostile projectiles from bosses and enemies causing raveyard skeleton bouncers to attack players
--Skeleton raveyard bouncers still attacking players after they were already killed by them
+-Skeleton raveyard bouncers still attacking players after the player has already killed by them
 -Skeleton raveyard bouncer projectiles killing each other and other raveyard skeletons
 -Big bone's red, orange, and phase 2 transition flower's chains sometimes drawing infront of big bone
--Spider grotto and both catacomb layers overall spawn rates being way too low
+-The spider grotto and catacombs overall spawn rates being way too low
+-Catacomb crates not being fished up in the cemetery if spooky spirit has been defeated for the first time
 -Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background config changed
 
 
 Fixed all of the following multiplayer issues:
 
 -Old hunter giant web not saving pieces being inserted properly
--Old hunter not waking up correctly when spoken to
+-Old hunter spawn animation not starting correctly
+-Old hunter not waking up when spoken to
 -Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack inconsistently not impacting the ground and creating projectiles
--Spooky spirit's glowmask weirdly flickering
+-Spooky spirit's glowmasks flickering
 -A lot of enemies and bosses in the mod having janky/glitchy movement (This was due to certain data not being synced in the correct way)
 -Pandoras box event randomly advancing to the next wave when enemies from the prior wave still exist, and a bunch of other desyncing issues with pandoras box in general
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit

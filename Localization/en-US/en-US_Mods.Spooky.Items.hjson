@@ -3528,6 +3528,16 @@ SpookyHellChestItem: {
 	Tooltip: ""
 }
 
+SpookyHellCrate: {
+	DisplayName: Living Flesh Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+SpookyHellCrate2: {
+	DisplayName: Biomass Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
 EyeBlockItem: {
 	DisplayName: Eye Block
 	Tooltip: ""

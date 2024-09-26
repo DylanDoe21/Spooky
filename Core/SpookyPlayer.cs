@@ -24,6 +24,7 @@ using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Core
 {
@@ -1007,41 +1008,51 @@ namespace Spooky.Core
                 if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
                 {
                     //quest fishes
-                    if (attempt.questFish == ModContent.ItemType<GourdFish>() && attempt.rare)
-                    {
+                    if (attempt.questFish == ModContent.ItemType<GourdFish>() && attempt.uncommon)
+					{
                         itemDrop = ModContent.ItemType<GourdFish>();
+
+						return;
                     }
-                    if (attempt.questFish == ModContent.ItemType<ZomboidFish>() && attempt.rare)
-                    {
+                    if (attempt.questFish == ModContent.ItemType<ZomboidFish>() && attempt.uncommon)
+					{
                         itemDrop = ModContent.ItemType<ZomboidFish>();
+
+						return;
                     }
 
-                    //crate
-                    if (Main.rand.NextBool() && attempt.crate)
-                    {
-                        itemDrop = ModContent.ItemType<SpookyCrate>();
+					//crate
+					if (attempt.uncommon && attempt.crate)
+					{
+						itemDrop = ModContent.ItemType<SpookyCrate>();
                     }
                 }
 
                 if (Player.InModBiome<CemeteryBiome>())
                 {
                     //quest fishes
-                    if (attempt.questFish == ModContent.ItemType<SpookySpiritFish>() && attempt.rare)
-                    {
+                    if (attempt.questFish == ModContent.ItemType<SpookySpiritFish>() && attempt.uncommon)
+					{
                         itemDrop = ModContent.ItemType<SpookySpiritFish>();
                     }
-                }
+
+					//crate
+					if (attempt.uncommon && attempt.crate && Flags.downedSpookySpirit)
+					{
+						itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
+					}
+				}
 
                 if (Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>())
                 {
                     //quest fishes
-                    if (attempt.questFish == ModContent.ItemType<HibiscusFish>() && attempt.rare)
-                    {
+                    if (attempt.questFish == ModContent.ItemType<HibiscusFish>() && attempt.uncommon)
+					{
                         itemDrop = ModContent.ItemType<HibiscusFish>();
                     }
 
                     //crate
-                    if (Main.rand.NextBool() && attempt.crate)
+                    if (attempt.uncommon && attempt.crate)
                     {
                         itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
                     }
@@ -1062,21 +1073,27 @@ namespace Spooky.Core
                 npcSpawn = NPCID.None;
 
                 //quest fishes
-                if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.rare)
-                {
+                if (attempt.questFish == ModContent.ItemType<BoogerFish>() && attempt.uncommon)
+				{
                     itemDrop = ModContent.ItemType<BoogerFish>();
 
                     return;
                 }
-                if (attempt.questFish == ModContent.ItemType<OrroEel>() && attempt.rare)
-                {
+                if (attempt.questFish == ModContent.ItemType<OrroEel>() && attempt.uncommon)
+				{
                     itemDrop = ModContent.ItemType<OrroEel>();
 
                     return;
                 }
 
-                //do not allow blood lake enemy catches if any of the enemies already exist in the world
-                bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyMerman>()) || 
+				//crate
+				if (attempt.uncommon && attempt.crate)
+				{
+					itemDrop = Main.hardMode ? ModContent.ItemType<SpookyHellCrate2>() : ModContent.ItemType<SpookyHellCrate>();
+				}
+
+				//do not allow blood lake enemy catches if any of the enemies already exist in the world
+				bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyMerman>()) || 
                 NPC.AnyNPCs(ModContent.NPCType<ValleySquid>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyNautilus>()) || 
                 NPC.AnyNPCs(ModContent.NPCType<ValleyEelHead>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyShark>());
 
