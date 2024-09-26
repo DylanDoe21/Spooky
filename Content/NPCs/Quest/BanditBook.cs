@@ -19,6 +19,8 @@ namespace Spooky.Content.NPCs.Quest
 {
 	public class BanditBook : ModNPC
 	{
+		public bool Shake = false;
+
 		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> GlowTexture1;
 		private static Asset<Texture2D> GlowTexture2;
@@ -71,7 +73,6 @@ namespace Spooky.Content.NPCs.Quest
 			});
 		}
 
-		//TODO: make the book draw with a different color outline based on which ghost is attacking currently
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
@@ -139,6 +140,28 @@ namespace Spooky.Content.NPCs.Quest
 			return false;
 		}
 
+		public override void FindFrame(int frameHeight)
+        {
+			//sleeping animation
+			if (NPC.ai[0] == 0 && NPC.localAI[0] > 0)
+			{
+				NPC.frameCounter++;
+				if (NPC.frameCounter > 15)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+				if (NPC.frame.Y >= frameHeight * 3)
+				{
+					NPC.frame.Y = 2 * frameHeight;
+				}
+			}
+			else
+			{
+				NPC.frame.Y = 0 * frameHeight;
+			}
+        }
+
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return false;
@@ -150,8 +173,6 @@ namespace Spooky.Content.NPCs.Quest
             Player player = Main.player[NPC.target];
 
 			NPC.spriteDirection = NPC.direction;
-
-            NPC.rotation = NPC.velocity.X * 0.03f;
 
 			//NPC.ai[1, 2, 3] are used as a check if each individual ghost is downed, corresponding to the number
 			//will consist of a value of either 0 or 1, where 0 = that respective ghost is alive, and 1 = that respective ghost is dead
@@ -175,10 +196,53 @@ namespace Spooky.Content.NPCs.Quest
 				NPC.ai[0] = 4;
 			}
 
+			//death animation if all of the ghosts are dead
+			if (NPC.ai[1] > 0 && NPC.ai[2] > 0 && NPC.ai[3] > 0)
+			{
+				//set ai to -1 so it doesnt do anything
+				NPC.ai[0] = -1;
+
+				NPC.velocity *= 0.97f;
+
+				NPC.localAI[2]++;
+
+                NPC.localAI[3] += 0.15f;
+
+                if (Shake)
+                {
+                    NPC.rotation += NPC.localAI[3] / 20;
+                    if (NPC.rotation > 0.5f)
+                    {
+                        Shake = false;
+                    }
+                }
+                else
+                {
+                    NPC.rotation -= NPC.localAI[3] / 20;
+                    if (NPC.rotation < -0.5f)
+                    {
+                        Shake = true;
+                    }
+                }
+
+				if (NPC.localAI[2] >= 120)
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Pitch = -1.5f }, NPC.Center);
+
+                    NPC.immortal = false;
+					NPC.dontTakeDamage = false;
+					NPC.netUpdate = true;
+					player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
+                }
+			}
+			else
+			{
+				NPC.rotation = NPC.velocity.X * 0.03f;
+			}
+
 			switch ((int)NPC.ai[0])
 			{
 				//passive floating ai
-				//TODO: add little particles that spawn the ghosts instead of them just appearing
 				case 0:
 				{
 					if (NPC.localAI[1] == 0)
@@ -190,25 +254,45 @@ namespace Spooky.Content.NPCs.Quest
 					NPC.localAI[2]++;
 					NPC.position.Y = NPC.localAI[3] + (float)Math.Sin(NPC.localAI[2] / 30) * 30;
 
-					if (player.Distance(NPC.Center) <= 200f)
+					//activate spawn intro if the player gets close
+					if (player.Distance(NPC.Center) <= 200f && NPC.localAI[0] <= 0) 
 					{
-						int Bandit1 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BanditBruiser>(), ai0: NPC.whoAmI);
-						int Bandit2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BanditPriest>(), ai0: NPC.whoAmI);
-						int Bandit3 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BanditWizard>(), ai0: NPC.whoAmI);
+						NPC.localAI[0]++;
+					}
 
-						if (Main.netMode != NetmodeID.MultiplayerClient)
+					//spawn intro
+					if (NPC.localAI[0] > 0)
+					{
+						NPC.localAI[0]++;
+
+						if (NPC.localAI[0] == 120)
 						{
-							NetMessage.SendData(MessageID.SyncNPC, number: Bandit1);
-							NetMessage.SendData(MessageID.SyncNPC, number: Bandit2);
-							NetMessage.SendData(MessageID.SyncNPC, number: Bandit3);
+							int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(-5, -5), ModContent.ProjectileType<GhostSpawner1>(), 0, 0, NPC.target);
+							Main.projectile[Spawner].ai[2] = NPC.whoAmI;
 						}
 
-						NPC.localAI[1] = 0;
-						NPC.localAI[2] = 0;
-						NPC.localAI[3] = 0;
-						NPC.ai[0]++;
+						if (NPC.localAI[0] == 180)
+						{
+							int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, -5), ModContent.ProjectileType<GhostSpawner2>(), 0, 0, NPC.target);
+							Main.projectile[Spawner].ai[2] = NPC.whoAmI;
+						}
 
-						NPC.netUpdate = true;
+						if (NPC.localAI[0] == 240)
+						{
+							int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(5, -5), ModContent.ProjectileType<GhostSpawner3>(), 0, 0, NPC.target);
+							Main.projectile[Spawner].ai[2] = NPC.whoAmI;
+						}
+
+						if (NPC.localAI[0] >= 320)
+						{
+							NPC.localAI[0] = 0;
+							NPC.localAI[1] = 0;
+							NPC.localAI[2] = 0;
+							NPC.localAI[3] = 0;
+							NPC.ai[0]++;
+
+							NPC.netUpdate = true;
+						}
 					}
 
 					break;

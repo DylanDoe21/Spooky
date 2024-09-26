@@ -435,7 +435,7 @@ namespace Spooky.Content.NPCs.Quest
 
 				//throw a random potion
 				//TODO: rework this completely
-				//NEW IDEA: bigger eye vanishes, creates a ring of illusions around the player. before closing in, a few turn green which you must pass through to not get hit
+				//NEW IDEA: spawn illusions
 				case 5:
 				{
 					NPC.localAI[0]++;

@@ -95,10 +95,10 @@ namespace Spooky.Content.NPCs.Friendly
             }
         }
 
-        public override bool NeedSaving()
-        {
-            return true;
-        }
+        public override bool CheckActive()
+		{
+			return false;
+		}
 
         public override void AI()
         {
@@ -183,11 +183,6 @@ namespace Spooky.Content.NPCs.Friendly
                     }
                 }
 
-                if (Flags.OldHunterHat && Flags.OldHunterSkull && Flags.OldHunterTorso && Flags.OldHunterLegs)
-                {
-
-                }
-
                 NPC.ai[0] = 0;
 
                 NPC.netUpdate = true;
@@ -197,13 +192,6 @@ namespace Spooky.Content.NPCs.Friendly
             {
                 SoundEngine.PlaySound(SoundID.NPCHit11, NPC.Center);
                 SoundEngine.PlaySound(SoundID.DD2_DefeatScene with { Pitch = SoundID.DD2_DefeatScene.Pitch - 0.8f }, NPC.Center);
-
-                int Animation = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
-
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {   
-                    NetMessage.SendData(MessageID.SyncNPC, number: Animation);
-                }
 
                 for (int numGores = 1; numGores <= 15; numGores++)
                 {
@@ -231,10 +219,9 @@ namespace Spooky.Content.NPCs.Friendly
                 else
                 {
                     Flags.OldHunterAssembled = true;
+					Flags.KillWeb = true;
                 }
-                
-                NPC.active = false;
-            }
+			}
         }
     }
 }

@@ -142,6 +142,19 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 }
+
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushPaperGore" + Main.rand.Next(1, 3)).Type);
+                    }
+
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushGore1").Type);
+                    }
+                }
             }
         }
     }
@@ -165,6 +178,26 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 NPC BestiaryParent = new();
                 BestiaryParent.SetDefaults(ModContent.NPCType<FlushBush4>());
                 Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
+                for (int numDusts = 0; numDusts < 12; numDusts++)
+                {                                                                                  
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                    Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                }
+
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushPaperGore" + Main.rand.Next(1, 3)).Type);
+                    }
+
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushGore2").Type);
+                    }
+                }
             }
         }
     }
@@ -193,6 +226,26 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 NPC BestiaryParent = new();
                 BestiaryParent.SetDefaults(ModContent.NPCType<FlushBush1>());
                 Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
+                for (int numDusts = 0; numDusts < 12; numDusts++)
+                {                                                                                  
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                    Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                }
+
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushPaperGore" + Main.rand.Next(1, 3)).Type);
+                    }
+
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushGore1").Type);
+                    }
+                }
             }
         }
     }
@@ -212,5 +265,35 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 		{
 			target.AddBuff(BuffID.Bleeding, 300);
 		}
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0) 
+            {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<FlushBush1>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
+                for (int numDusts = 0; numDusts < 12; numDusts++)
+                {                                                                                  
+                    int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                    Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                }
+
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushPaperGore" + Main.rand.Next(1, 3)).Type);
+                    }
+
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FlushBushGore2").Type);
+                    }
+                }
+            }
+        }
 	}
 }

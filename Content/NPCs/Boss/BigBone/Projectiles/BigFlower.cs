@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.netAlways = true;
+            NPC.hide = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
@@ -98,6 +98,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 
             return true;
+        }
+
+		public override void DrawBehind(int index)
+        {
+            Main.instance.DrawCacheNPCsBehindNonSolidTiles.Add(index);
         }
 
 		public override void AI()

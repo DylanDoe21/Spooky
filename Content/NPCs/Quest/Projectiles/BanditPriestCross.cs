@@ -121,29 +121,8 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
                 Projectile.alpha += 5;
             }
 
-            Vector2 desiredVelocity = Projectile.DirectionTo(Target.Center) * 6;
+            Vector2 desiredVelocity = Projectile.DirectionTo(Target.Center) * 7;
 			Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
         }
-
-        public override void OnKill(int timeLeft)
-		{
-        	float maxAmount = 15;
-			int currentAmount = 0;
-			while (currentAmount <= maxAmount)
-			{
-				Vector2 velocity = new Vector2(1f, 1f);
-				Vector2 Bounds = new Vector2(3f, 3f);
-				float intensity = 5f;
-
-				Vector2 vector12 = Vector2.UnitX * 0f;
-				vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
-				vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.HallowSpray, 0f, 0f, 100, default, 2f);
-				Main.dust[num104].noGravity = true;
-				Main.dust[num104].position = Projectile.Center + vector12;
-				Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
-				currentAmount++;
-			}
-		}
     }
 }

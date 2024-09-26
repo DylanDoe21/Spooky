@@ -56,7 +56,7 @@ namespace Spooky.Content.Projectiles.Pets
 			MountData.heightBoost = 65;
 			MountData.fatigueMax = 320;
 			MountData.yOffset = 0;
-            MountData.playerHeadOffset = 65;
+            MountData.playerHeadOffset = 60;
 			MountData.usesHover = false;
 			MountData.idleFrameLoop = true;
             MountData.constantJump = false;
@@ -99,7 +99,7 @@ namespace Spooky.Content.Projectiles.Pets
 				int MovingTimer = (int)(((float)Main.GameUpdateCount + MoveDelay / 4f * (float)i) % MoveDelay);
 
 				Vector2 LegDestination = FindAirBlock(LegOffsets * 0.4f, player.Center + SpiderLegData.MountCenter + player.velocity * 10f);
-				Vector2 LegDestinationAir = FindAirBlock(LegOffsets * 0.3f, player.Center + SpiderLegData.MountCenter + new Vector2((player.direction == -1 ? -5f : 5f), 75f));
+				Vector2 LegDestinationAir = FindAirBlock(LegOffsets * 0.3f, player.Center + SpiderLegData.MountCenter + new Vector2(player.direction == -1 ? -5f : 5f, grounded >= 2 ? 0f : 75f));
 
 				if ((Vector2.Distance(SpiderLegData.AnchorPoint[i], LegDestination) > SpiderLegData.LegFrameHeight || Vector2.Distance(SpiderLegData.AnchorPoint[i], player.Center + SpiderLegData.MountCenter) > SpiderLegData.LegFrameHeight) && MovingTimer == 1)
 				{
@@ -135,7 +135,7 @@ namespace Spooky.Content.Projectiles.Pets
 			{
 				player.mount._fatigue = 0f;
 			}
-			if (grounded >= 4)
+			if (grounded >= 2)
 			{
 				TimerForVelocity++;
 

@@ -167,12 +167,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
                 case 2:
                 {
-                    NewNPC(ModContent.NPCType<EarWormHead>());
-                    break;
-                }
-
-                case 3:
-                {
                     NewNPC(ModContent.NPCType<Biojetter>());
                     break;
                 }

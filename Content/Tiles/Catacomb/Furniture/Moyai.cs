@@ -50,9 +50,9 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(229, 197, 61));
+            AddMapEntry(new Color(218, 139, 49));
 			DustType = DustID.Gold;
-			HitSound = SoundID.Tink;
+			HitSound = SoundID.Dig;
 		}
 
 		public override bool CreateDust(int i, int j, ref int type) 

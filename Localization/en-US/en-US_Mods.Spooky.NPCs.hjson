@@ -187,11 +187,8 @@ Biojetter.DisplayName: Biojetter
 BiojetterEye.DisplayName: Bio Eye
 CoughLungs.DisplayName: Cough Lungs
 CruxBat.DisplayName: Crux Bat
-EarWormBody.DisplayName: Ear Worm
-EarWormBodyEye1.DisplayName: Ear Worm
-EarWormBodyEye2.DisplayName: Ear Worm
-EarWormHead.DisplayName: Ear Worm
-EarWormTail.DisplayName: Ear Worm
+EarWorm.DisplayName: Ear Worm
+EarWormBase.DisplayName: Ear Worm Base
 ExplodingAppendix.DisplayName: Exploding Appendix
 FleshBolster.DisplayName: Flesh Bolster
 GooSlug.DisplayName: Goo Slug
@@ -385,5 +382,5 @@ FrankenGoblinHandBack.DisplayName: Frank's Hand
 FrankenGoblinEye.DisplayName: Monster Eye
 BanditBook.DisplayName: Book of Spirits
 BanditBruiser.DisplayName: Rarg
-BanditPriest.DisplayName: Blueford
 BanditWizard.DisplayName: Greeny
+BanditPriest.DisplayName: Blueford

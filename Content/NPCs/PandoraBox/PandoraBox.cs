@@ -70,11 +70,6 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC.dontCountMe = true;
         }
 
-        public override bool NeedSaving()
-        {
-            return true;
-        }
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (PandoraBoxWorld.PandoraEventActive)
@@ -137,6 +132,11 @@ namespace Spooky.Content.NPCs.PandoraBox
                 }
             }
         }
+
+        public override bool CheckActive()
+		{
+			return false;
+		}
 
         public void SwitchToNextWave()
         {
@@ -458,6 +458,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                 {
                     NPC.ai[0]--;
 
+                    PlayAnimation = false;
+
                     if (NPC.ai[0] <= 60)
                     {
                         if (Shake)
@@ -532,8 +534,6 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, NPC.Center);
 
-                        NPC.SetEventFlagCleared(ref Flags.downedPandoraBox, -1);
-
                         PlayAnimation = true;
 
                         if (NPC.ai[1] >= 115)
@@ -561,6 +561,11 @@ namespace Spooky.Content.NPCs.PandoraBox
                             }
                             
                             PandoraBoxWorld.PandoraEventActive = false;
+
+                            if (!Flags.downedPandoraBox)
+                            {
+                                Flags.downedPandoraBox = true;
+                            }
 
                             if (Main.netMode == NetmodeID.Server)
                             {

@@ -234,9 +234,6 @@ PetscopTiaraPet.DisplayName: Tiara
 Alternate.DisplayName: Alternate
 BackroomsCorpseHead.DisplayName: Decayed Head
 PolybiusSwirl.DisplayName: Polybius Swirl
-GuineaPig.DisplayName: Guinea Pig
-GooSlime.DisplayName: Goo Slime
-Bat.DisplayName: Creepy Bat
 FoodEnhancerSpore.DisplayName: Food Enhancer Spore
 MiniBoroBody.DisplayName: Mini-Boro
 MiniBoroHead.DisplayName: Mini-Boro
@@ -404,7 +401,6 @@ MapleSeedBoost.DisplayName: Maple Seed Boost
 GooseberryBoost.DisplayName: Gooseberry Boost
 OrangeOrbiter.DisplayName: Angry Orange
 OrangeOrbiterTrail.DisplayName: Angry Orange
-GoblinDebris.DisplayName: Large Debris
 BanditBruiserFist.DisplayName: Phantom Fist
 BanditWizardBall.DisplayName: Magic Blast
 BanditWizardBallSplitting.DisplayName: Magic Blast
@@ -412,3 +408,18 @@ BanditWizardBallSmall.DisplayName: Magic Blast
 BanditPriestBuffBall.DisplayName: Debuff Spell
 BanditPriestCross.DisplayName: Magic Cross Bolt
 PeptoBubble.DisplayName: Pepto Bubble
+GhostSpawner1.DisplayName: Ghost Spawner
+GhostSpawner2.DisplayName: Ghost Spawner
+GhostSpawner3.DisplayName: Ghost Spawner
+GoblinEyeDebris.DisplayName: Bouncy Eye
+GoblinEyeDebrisGrounded.DisplayName: Bouncy Eye
+EarWormSound.DisplayName: Sound Wave
+EarWormSoundBase.DisplayName: Sound Wave
+EarParasite.DisplayName: Ear Parasite
+EarParasiteSound.DisplayName: Sound Wave
+EarParasiteSoundBase.DisplayName: Sound Wave
+VeinChainProj.DisplayName: Leeching Vein
+GooChomperProj.DisplayName: Corrosive Bite
+CoughSmokeCloud.DisplayName: Smoke Cloud
+CoughSmokeCloudSmall.DisplayName: Smoke Cloud
+KidneyRock.DisplayName: Kidney Rock

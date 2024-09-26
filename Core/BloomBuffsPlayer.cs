@@ -518,28 +518,31 @@ namespace Spooky.Core
 			{
 				Player.GetDamage(DamageClass.Generic) += 0.15f;
 			}
+        }
 
+		public override void UpdateLifeRegen()
+		{
 			//give the player additional life regeneration for each bloom slot in use
 			if (SpringHeartFlower)
 			{
 				if (BloomBuffSlots[0] != string.Empty)
 				{
-					Player.lifeRegen += 10;
+					Player.lifeRegen += 5;
 				}
 				if (BloomBuffSlots[1] != string.Empty)
 				{
-					Player.lifeRegen += 10;
+					Player.lifeRegen += 5;
 				}
 				if (BloomBuffSlots[2] != string.Empty)
 				{
-					Player.lifeRegen += 10;
+					Player.lifeRegen += 5;
 				}
 				if (BloomBuffSlots[3] != string.Empty)
 				{
-					Player.lifeRegen += 10;
+					Player.lifeRegen += 5;
 				}
 			}
-        }
+		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{

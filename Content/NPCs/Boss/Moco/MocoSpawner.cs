@@ -41,33 +41,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
 			NPC.dontTakeDamage = true;
         }
 
-        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y + 10) - Main.screenPosition;
-            float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f;
-
-            //DrawPrettyStarSparkle(NPC.Opacity, SpriteEffects.None, vector, Color.White, Color.White, 0.5f, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(5f * time, 4f * time), new Vector2(2, 2));
-            //DrawPrettyStarSparkle(NPC.Opacity, SpriteEffects.None, vector, Color.Lime, Color.Lime, 0.5f, 0f, 0.5f, 0.5f, 1f, 90f, new Vector2(5f * time, 4f * time), new Vector2(2, 2));
-        }
-
-        private static void DrawPrettyStarSparkle(float opacity, SpriteEffects dir, Vector2 drawpos, Color drawColor, Color shineColor, float flareCounter, float fadeInStart, float fadeInEnd, float fadeOutStart, float fadeOutEnd, float rotation, Vector2 scale, Vector2 fatness) 
-        {
-			Texture2D Texture = TextureAssets.Extra[98].Value;
-			Color color = shineColor * opacity * 0.5f;
-			color.A = (byte)0;
-			Vector2 origin = Texture.Size() / 2f;
-			Color color2 = drawColor * 0.5f;
-			float Intensity = Utils.GetLerpValue(fadeInStart, fadeInEnd, flareCounter, clamped: true) * Utils.GetLerpValue(fadeOutEnd, fadeOutStart, flareCounter, clamped: true);
-			Vector2 vector = new Vector2(fatness.X * 0.5f, scale.X) * Intensity;
-			Vector2 vector2 = new Vector2(fatness.Y * 0.5f, scale.Y) * Intensity;
-			color *= Intensity;
-			color2 *= Intensity;
-			Main.EntitySpriteDraw(Texture, drawpos, null, color, (float)Math.PI / 2f + rotation, origin, vector, dir);
-			Main.EntitySpriteDraw(Texture, drawpos, null, color, 0f + rotation, origin, vector2, dir);
-			Main.EntitySpriteDraw(Texture, drawpos, null, color2, (float)Math.PI / 2f + rotation, origin, vector * 0.6f, dir);
-			Main.EntitySpriteDraw(Texture, drawpos, null, color2, 0f + rotation, origin, vector2 * 0.6f, dir);
-		}
-
         public override bool CheckActive()
         {
             return false;

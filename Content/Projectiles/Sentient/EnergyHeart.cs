@@ -58,7 +58,12 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
-            if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana)
+			if (!player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+			{
+				Projectile.Kill();
+			}
+
+			if (player.channel)
             {
                 Projectile.timeLeft = 2;
 
@@ -69,29 +74,29 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 Projectile.ai[0]++;
 
-                int ShootTime = 60;
+                int ShootTime = 40 + ItemGlobal.ActiveItem(player).useTime;
                 float MaxDistance = 300f;
 
-                if (Projectile.frame == 1) 
+                if (Projectile.frame == 1)
                 {
-                    ShootTime = 45;
+                    ShootTime = 30 + ItemGlobal.ActiveItem(player).useTime;
                     MaxDistance = 425f;
                 }
                 if (Projectile.frame == 2) 
                 {
-                    ShootTime = 30;
+                    ShootTime = 20 + ItemGlobal.ActiveItem(player).useTime;
                     MaxDistance = 550f;
                 }
                 
                 if (Projectile.ai[0] >= ShootTime)
                 {
-                    if (Projectile.ai[0] == ShootTime)
+                    if (Projectile.ai[0] == ShootTime && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
                     {
-                        SoundEngine.PlaySound(PumpSound, Projectile.Center);
+						SoundEngine.PlaySound(PumpSound, Projectile.Center);
 
-                        player.statMana -= ItemGlobal.ActiveItem(player).mana;
-                        
-                        int MaxNPCsTargetted = 3 * (Projectile.frame + 1);
+						player.statMana -= ItemGlobal.ActiveItem(player).mana;
+
+						int MaxNPCsTargetted = 3 * (Projectile.frame + 1);
                         
                         for (int i = 0; i < Main.maxNPCs; i++)
                         {

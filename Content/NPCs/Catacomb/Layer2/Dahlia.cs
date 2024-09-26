@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 NPC.ai[0] = 1;
             }
 
-            Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 8;
+            Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
             NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
         }
 

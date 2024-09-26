@@ -72,7 +72,7 @@ EmbryoCooldown: {
 	Description:
 		'''
 		The embryo's revival must recharge
-		Increases all damage and critical strike chance by 8%
+		Increases all damage and critical strike chance
 		'''
 }
 
@@ -218,12 +218,7 @@ SoulSkullBuff: {
 
 SkullTotemBuff: {
 	DisplayName: Skull Idol Empowerment
-	Description:
-		'''
-		12% increased summon damage
-		50% increased whip range
-		+2 max minions
-		'''
+	Description: Increased summon damage, whip range, and +2 max minions
 }
 
 TortumorMinionBuff: {
@@ -346,21 +341,6 @@ MonumentMythosShatter: {
 	Description: You take 2x damage from all attacks
 }
 
-GuineaPigBuff: {
-	DisplayName: Spooky Guinea Pig
-	Description: A magical little guinea pig
-}
-
-GooSlimeBuff: {
-	DisplayName: Goo Slime
-	Description: A gooey little sludge blob
-}
-
-BatBuff: {
-	DisplayName: Creepy Bat
-	Description: It likes to drink blood
-}
-
 InchwormBuff: {
 	DisplayName: Pet Inchworm
 	Description: It wants your apple
@@ -437,7 +417,7 @@ BlueberryFrost: {
 
 StrawberryBoostBuff: {
 	DisplayName: Strawberry Boost
-	Description: 10% increase to damage, crit chance, knockback, and move speed
+	Description: Increase to damage, crit chance, and knockback
 }
 
 LeechBuff: {
@@ -467,10 +447,20 @@ BillyBuff: {
 
 GooseberryBoostBuff: {
 	DisplayName: Gooseberry Boost
-	Description: 15% increased life regen and movement acceleration
+	Description: Increased life regeneration and movement
 }
 
 PeptoDebuff: {
 	DisplayName: Pepto Debuff
+	Description: ""
+}
+
+SmokerLungCooldown: {
+	DisplayName: Smoker's Lungs Cooldown
+	Description: Cannot use your cough ability
+}
+
+SmokerCoughDebuff: {
+	DisplayName: Smoker Cough Debuff
 	Description: ""
 }

@@ -17,7 +17,6 @@ namespace Spooky.Content.Buffs
 			player.GetDamage(DamageClass.Generic) += 0.1f;
 			player.GetCritChance(DamageClass.Generic) += 10;
             player.GetKnockback(DamageClass.Generic) += 1.5f;
-            player.moveSpeed += 0.1f;
 		}
 	}
 }

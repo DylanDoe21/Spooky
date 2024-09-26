@@ -158,7 +158,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.knockBack = 0;
             }
 
-            if (Main.mouseLeft)
+            if (owner.controlUseItem)
             {
                 //set time left super high since this projectile will always die manually
                 Projectile.timeLeft = 10000;

@@ -285,7 +285,7 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 5, 1, 3));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PeptoStomach>(), 35));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PeptoStomach>(), 40));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

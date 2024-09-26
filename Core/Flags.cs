@@ -54,6 +54,7 @@ namespace Spooky.Core
         public static bool OldHunterSkull = false;
         public static bool OldHunterTorso = false;
         public static bool OldHunterLegs = false;
+        public static bool KillWeb = false;
 
         public static bool LittleEyeBounty1 = false; 
         public static bool LittleEyeBounty2 = false;

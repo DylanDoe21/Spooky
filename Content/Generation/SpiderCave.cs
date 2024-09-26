@@ -255,6 +255,19 @@ namespace Spooky.Content.Generation
 
 							tile.TileColor = PaintID.BrownPaint;
 						}
+
+                        //get rid of 1x2 tiles on the ground since it looks weird
+                        if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && !Main.tile[X - 2, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
+                        {
+                            WorldGen.KillTile(X, Y);
+                            WorldGen.KillTile(X - 1, Y);
+                        }
+
+                        //get rid of single tiles on the ground since it looks weird
+                        if (Main.tile[X, Y].HasTile && !Main.tile[X - 1, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
+                        {
+                            WorldGen.KillTile(X, Y);
+                        }
 					}
                 }
             }

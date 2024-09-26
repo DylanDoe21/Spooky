@@ -14,8 +14,6 @@ namespace Spooky.Content.NPCs.Quest
 {
 	public class FrankenGoblinEye : ModNPC
 	{
-        public override string Texture => "Spooky/Content/NPCs/SpookyBiome/MonsterEye2";
-
         bool HasJumped = false;
 
         private static Asset<Texture2D> NPCTexture;

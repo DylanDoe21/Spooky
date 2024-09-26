@@ -19,13 +19,5 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			Item.maxStack = 9999;
 			Item.createTile = ModContent.TileType<GoldenPot>();
         }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<GildedBrickItem>(), 15)
-            .AddTile(TileID.WorkBenches)
-            .Register();
-        }
     }
 }

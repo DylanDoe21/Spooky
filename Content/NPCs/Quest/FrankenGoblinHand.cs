@@ -57,27 +57,29 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.aiStyle = -1;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		public void DrawArms(bool SpawnGore, Color EyeDrawColor)
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
 			//only draw if the parent is active
-			if (Parent.active && Parent.type == ModContent.NPCType<FrankenGoblin>())
+			if (Parent.active && Parent.type == ModContent.NPCType<FrankenGoblin>() && !SpawnGore)
 			{
 				ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/FrankenGoblinArm");
 
-				Vector2 drawOrigin = new Vector2(ChainTexture.Width() * 0.5f, ChainTexture.Height() * 0.5f);
-
 				Vector2 ParentOrigin = new Vector2(Parent.Center.X + (Parent.spriteDirection == 1 ? -25 : 25), Parent.Center.Y + (Parent.localAI[3] == 0 ? 45 : 20));
-				Vector2 NpcOrigin = new Vector2(NPC.Center.X, NPC.Center.Y - 5);
+				Vector2 NpcOrigin = new Vector2(NPC.Center.X, NPC.Center.Y);
 
 				if (NPC.type == ModContent.NPCType<FrankenGoblinHandBack>())
 				{
 					ParentOrigin = new Vector2(Parent.Center.X + (Parent.spriteDirection == -1 ? -45 : 45), Parent.Center.Y + (Parent.localAI[3] == 0 ? 45 : 20));
 				}
 
-				Vector2 ToOwner = NpcOrigin - ParentOrigin;
-				float dist = ToOwner.Length();
+				Vector2 drawOrigin = new Vector2(0, ChainTexture.Height() / 2);
+				Vector2 myCenter = NpcOrigin;
+				Vector2 p0 = ParentOrigin;
+				Vector2 p1 = ParentOrigin;
+				Vector2 p2 = myCenter;
+				Vector2 p3 = myCenter;
 
 				int Length = (int)NPC.Distance(ParentOrigin) / 12;
 				int max = Length <= 10 ? 7 : Length;
@@ -87,19 +89,21 @@ namespace Spooky.Content.NPCs.Quest
 					max = Length <= 10 ? 12 : Length;
 				}
 
-				for (int i = 0; i < max; i++)
+				int segments = max;
+
+				for (int i = 0; i < segments; i++)
 				{
-					float mult = (float)i / max;
-					Vector2 drawPos = Vector2.Lerp(NpcOrigin, ParentOrigin, mult) - Main.screenPosition;
+					float t = i / (float)segments;
+					Vector2 drawPos2 = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+					t = (i + 1) / (float)segments;
+					Vector2 drawPosNext = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+					Vector2 toNext = (drawPosNext - drawPos2);
+					float rotation = toNext.ToRotation();
+					float distance = toNext.Length();
 
-					float droop = (float)Math.Sin(MathHelper.ToRadians(210 * (float)i / max));
-					
-					if (Parent.localAI[3] != 2 || (Parent.localAI[3] == 2 && (Parent.localAI[0] < 60 || Parent.localAI[0] > 480)))
-					{
-						drawPos.Y += droop * (12 - dist * 0.1f);
-					}
+					Color GetlightColor = Lighting.GetColor((int)drawPos2.X / 16, (int)(drawPos2.Y / 16));
 
-					Main.spriteBatch.Draw(ChainTexture.Value, drawPos, null, drawColor, 0, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ChainTexture.Value, drawPos2 - Main.screenPosition, null, GetlightColor, rotation, drawOrigin, NPC.scale * new Vector2((distance + 4) / (float)ChainTexture.Width(), 1), SpriteEffects.None, 0f);
 				}
 
 				if (Parent.localAI[3] == 4 && Parent.localAI[0] >= 80 && Parent.localAI[0] < 170)
@@ -107,20 +111,63 @@ namespace Spooky.Content.NPCs.Quest
 					EyeHoldTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/FrankenGoblinEye");
 
             		Vector2 eyeDrawOrigin = new Vector2(EyeHoldTexture.Width() / 2, EyeHoldTexture.Height() / 2);
-					Vector2 drawPos = new Vector2(NPC.Center.X, NPC.Center.Y - 20) - screenPos;
+					Vector2 drawPos = new Vector2(NPC.Center.X, NPC.Center.Y - 20) - Main.screenPosition;
 
 					if (EyeScale < 1f)
 					{
 						EyeScale += 0.02f;
 					}
 
-					spriteBatch.Draw(EyeHoldTexture.Value, drawPos, null, drawColor, 0, eyeDrawOrigin, EyeScale, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(EyeHoldTexture.Value, drawPos, null, EyeDrawColor, 0, eyeDrawOrigin, EyeScale, SpriteEffects.None, 0f);
 				}
 				else
 				{
 					EyeScale = 0f;
 				}
 			}
+
+			if (SpawnGore)
+			{
+				Vector2 ParentOrigin = new Vector2(Parent.Center.X + (Parent.spriteDirection == 1 ? -25 : 25), Parent.Center.Y + (Parent.localAI[3] == 0 ? 45 : 20));
+				Vector2 NpcOrigin = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+				if (NPC.type == ModContent.NPCType<FrankenGoblinHandBack>())
+				{
+					ParentOrigin = new Vector2(Parent.Center.X + (Parent.spriteDirection == -1 ? -45 : 45), Parent.Center.Y + (Parent.localAI[3] == 0 ? 45 : 20));
+				}
+
+				Vector2 myCenter = NpcOrigin;
+				Vector2 p0 = ParentOrigin;
+				Vector2 p1 = ParentOrigin;
+				Vector2 p2 = myCenter;
+				Vector2 p3 = myCenter;
+
+				int Length = (int)NPC.Distance(ParentOrigin) / 12;
+				int max = Length <= 10 ? 7 : Length;
+
+				if (NPC.type == ModContent.NPCType<FrankenGoblinHandBack>())
+				{
+					max = Length <= 10 ? 12 : Length;
+				}
+
+				int segments = max;
+
+				for (int i = 0; i < segments; i++)
+				{
+					float t = i / (float)segments;
+					Vector2 drawPos2 = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+
+					if (Main.netMode != NetmodeID.Server)
+					{
+						Gore.NewGore(NPC.GetSource_Death(), drawPos2, NPC.velocity, ModContent.Find<ModGore>("Spooky/FrankenGoblinArmGore").Type);
+					}
+				}
+			}
+		}
+		
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			DrawArms(false, drawColor);
 
 			return true;
 		}
@@ -148,6 +195,8 @@ namespace Spooky.Content.NPCs.Quest
 			//kill the hand if the parent does not exist
 			if (!Parent.active || Parent.type != ModContent.NPCType<FrankenGoblin>())
 			{
+				DrawArms(true, Color.White);
+
 				if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/FrankenGoblinHandGore").Type);

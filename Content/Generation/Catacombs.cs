@@ -40,11 +40,11 @@ namespace Spooky.Content.Generation
         public static int EntranceY = 0;
         public static int PositionX = 0;
 
-        public static bool placedLootRoom1 = false;
-        public static bool placedLootRoom2 = false;
-        public static bool placedLootRoom3 = false;
-        public static bool placedLootRoom4 = false;
-        public static bool placedRareSecretRoom = false;
+        public bool placedLootRoom1 = false;
+        public bool placedLootRoom2 = false;
+        public bool placedLootRoom3 = false;
+        public bool placedLootRoom4 = false;
+        public bool placedRareSecretRoom = false;
 
         Vector2[] Layer2LootRooms = new Vector2[3];
 		Vector2 PandoraRoomPosition;
@@ -674,7 +674,7 @@ namespace Spooky.Content.Generation
             Vector2 DaffodilArenaOrigin = new Vector2(XMiddle - 52, DaffodilArenaY - 21);
 
             //place circles of brick around where the arena will generate
-            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 5)
+            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 20)
             {
                 for (int Y = DaffodilArenaY - 21; Y <= DaffodilArenaY + 21; Y += 3)
                 {

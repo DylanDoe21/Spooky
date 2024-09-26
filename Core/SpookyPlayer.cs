@@ -14,6 +14,7 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
@@ -23,7 +24,6 @@ using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using Spooky.Content.Items.SpookyHell.Sentient;
 
 namespace Spooky.Core
 {
@@ -67,10 +67,15 @@ namespace Spooky.Core
         public bool RedMistClarinet = false;
         public bool SlendermanPage = false;
         public bool SmileDogPicture = false;
+		public bool GiantEar = false;
+		public bool GooChompers = false;
 		public bool PeptoStomach = false;
+		public bool SmokerLung = false;
+		public bool StonedKidney = false;
+		public bool VeinChain = false;
 
-        //expert accessories
-        public bool FlyAmulet = false;
+		//expert accessories
+		public bool FlyAmulet = false;
         public bool SpiritAmulet = false;
         public bool MocoNose = false;
         public bool DaffodilHairpin = false;
@@ -94,14 +99,11 @@ namespace Spooky.Core
         public bool Billy = false;
 
         //pets
-        public bool BatPet = false;
         public bool ColumboPet = false;
         public bool CatPet = false;
         public bool FlyPet = false;
         public bool FuzzBatPet = false;
         public bool GhostPet = false;
-        public bool GooSlimePet = false;
-        public bool GuineaPigPet = false;
         public bool InchwormPet = false;
         public bool PandoraBeanPet = false;
         public bool PetscopPet = false;
@@ -129,7 +131,8 @@ namespace Spooky.Core
 		//misc timers
 		public static float ScreenShakeAmount = 0;
         public float SpiderStealthAlpha = 0f;
-        public int SpiderSpeedTimer = 0;
+		public float StonedKidneyCharge = 0f;
+		public int SpiderSpeedTimer = 0;
         public int FlySpawnTimer = 0;
         public int SkullFrenzyCharge = 0;
         public int MocoBoogerCharge = 0;
@@ -146,7 +149,7 @@ namespace Spooky.Core
         public int RedGodzillaCartridgeSpawnDelay = 0;
         public int GeminiMockerySpawnTimer = 0;
         public int GooSlugEatCooldown = 0;
-        public int RootHealCooldown = 0;
+		public int RootHealCooldown = 0;
 
         //sounds
         public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
@@ -203,10 +206,15 @@ namespace Spooky.Core
             RedMistClarinet = false;
             SlendermanPage = false;
             SmileDogPicture = false;
+			GiantEar = false;
+			GooChompers = false;
 			PeptoStomach = false;
+			SmokerLung = false;
+			StonedKidney = false;
+			VeinChain = false;
 
-            //expert accessories
-            FlyAmulet = false;
+			//expert accessories
+			FlyAmulet = false;
             SpiritAmulet = false;
             MocoNose = false;
             DaffodilHairpin = false;
@@ -230,14 +238,11 @@ namespace Spooky.Core
             Billy = false;
 
             //pets
-            BatPet = false;
             ColumboPet = false;
             CatPet = false;
             FlyPet = false;
             FuzzBatPet = false;
             GhostPet = false;
-            GooSlimePet = false;
-            GuineaPigPet = false;
             InchwormPet = false;
             PandoraBeanPet = false;
             PetscopPet = false;
@@ -294,7 +299,7 @@ namespace Spooky.Core
                 return;
             }
 
-            //handle everything when they accessory hotkey is pressed
+            //handle everything when the accessory hotkey is pressed
             if (Spooky.AccessoryHotkey.JustPressed && Main.myPlayer == Player.whoAmI)
             {
                 //create sound with the pandora cross
@@ -332,6 +337,14 @@ namespace Spooky.Core
 
                     Player.AddBuff(ModContent.BuffType<HerobrineAltarCooldown>(), 7200);
                 }
+
+				//spawn a stationary smoke cloud with the smoker lung
+				if (SmokerLung && !Player.HasBuff(ModContent.BuffType<SmokerLungCooldown>()))
+				{
+					Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<CoughSmokeCloud>(), 50, 0f, Player.whoAmI);
+
+					Player.AddBuff(ModContent.BuffType<SmokerLungCooldown>(), 7200);
+				}
             }
 
             //handle everything when they armor bonus hotkey is pressed
@@ -438,6 +451,27 @@ namespace Spooky.Core
 			if (PeptoStomach && Main.rand.NextBool(10))
 			{
 				target.AddBuff(ModContent.BuffType<PeptoDebuff>(), int.MaxValue);
+			}
+
+			//attach a chain to an enemy with the vein chain
+			if (VeinChain && Main.rand.NextBool(10) && target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type] && Vector2.Distance(Player.Center, target.Center) <= 250f)
+			{
+				int MaxChains = Player.statLife < (Player.statLifeMax / 4) ? 1 : (Player.statLife < (Player.statLifeMax / 2) ? 2 : 3);
+
+				if (Player.ownedProjectileCounts[ModContent.ProjectileType<VeinChainProj>()] < MaxChains && !target.GetGlobalNPC<NPCGlobal>().HasVeinChainAttached)
+				{
+					Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<VeinChainProj>(), 35, 0, Player.whoAmI, 0, 0, target.whoAmI);
+					target.GetGlobalNPC<NPCGlobal>().HasVeinChainAttached = true;
+				}
+			}
+
+			//spawn goo jaws on enemies when you hit them with the goo chompers
+			if (GooChompers && Main.rand.NextBool(15) && !target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached)
+			{
+				int Damage = ItemGlobal.ActiveItem(Player).damage > 50 ? ItemGlobal.ActiveItem(Player).damage : 50;
+
+				Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GooChomperProj>(), Damage, 0, Player.whoAmI, target.whoAmI);
+				target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached = true;
 			}
         }
 
@@ -821,6 +855,7 @@ namespace Spooky.Core
                 GeminiMockerySpawnTimer = 0;
             }
 
+			//spawn spores with the vita carnis flavor enhancer
             if (CarnisFlavorEnhancer)
             {
                 CarnisSporeSpawnTimer++;
@@ -841,6 +876,7 @@ namespace Spooky.Core
                 }
             }
 
+			//shoot skulls with big bones expert item
             if (BoneMask)
             {
                 //do not shoot skulls under 20mph (basically if you are not moving fast enough)
@@ -870,6 +906,22 @@ namespace Spooky.Core
                 }
             }
 
+			//handle stoned kidney charge for the UI
+			if (StonedKidney)
+			{
+                bool PlayerHoldingWeapon = ItemGlobal.ActiveItem(Player).damage > 0 && ItemGlobal.ActiveItem(Player).pick <= 0 && ItemGlobal.ActiveItem(Player).hammer <= 0 && 
+			    ItemGlobal.ActiveItem(Player).axe <= 0 && ItemGlobal.ActiveItem(Player).mountType <= 0;
+
+				if ((!Player.controlUseItem || !PlayerHoldingWeapon) && StonedKidneyCharge < 7.5f)
+				{
+					StonedKidneyCharge += 0.05f;
+				}
+			}
+			else
+			{
+				StonedKidneyCharge = 0;
+			}
+
             //sentient cap random dialogue
             if (SentientCap && Main.rand.NextBool(1000))
             {
@@ -895,11 +947,11 @@ namespace Spooky.Core
                 CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
             }
 
+			//handle cooldowns
             if (RootHealCooldown > 0)
             {
                 RootHealCooldown--;
             }
-
             if (GooSlugEatCooldown > 0)
             {
                 GooSlugEatCooldown--;
@@ -916,7 +968,7 @@ namespace Spooky.Core
 
             if (Player.HasBuff(ModContent.BuffType<GooseberryBoostBuff>()))
             {
-                Player.maxRunSpeed += 6f;
+                Player.maxRunSpeed += 3f;
                 Player.runAcceleration += 0.015f;
             }
         }

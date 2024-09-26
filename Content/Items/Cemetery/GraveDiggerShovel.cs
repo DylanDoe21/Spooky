@@ -30,7 +30,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.useTime = 20;
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 5;
+			Item.knockBack = 8;
             Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.Item1;

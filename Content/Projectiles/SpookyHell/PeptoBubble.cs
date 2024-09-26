@@ -33,7 +33,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (Main.rand.NextBool(5))
+			if (Main.rand.NextBool(10))
 			{
 				target.AddBuff(ModContent.BuffType<PeptoDebuff>(), int.MaxValue);
 			}

@@ -22,7 +22,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 2;
-			Item.rare = ItemRarityID.White;
+			Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<ShroomWhipProj>();

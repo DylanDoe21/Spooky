@@ -71,13 +71,13 @@ namespace Spooky.Core
                     float mouseXDist = Main.mouseX + Main.screenPosition.X;
                     float mouseYDist = Main.mouseY + Main.screenPosition.Y;
                 
-                    Vector2 SnotVelocity = player.Center - new Vector2(mouseXDist, mouseYDist);
-                    SnotVelocity.Normalize();
-                    SnotVelocity *= -12;
+                    Vector2 Velocity = player.Center - new Vector2(mouseXDist, mouseYDist);
+					Velocity.Normalize();
+					Velocity *= -12;
 
                     for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
                     {
-                        Projectile.NewProjectile(null, player.Center, SnotVelocity + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)), 
+                        Projectile.NewProjectile(null, player.Center, Velocity + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)), 
                         ModContent.ProjectileType<MocoNoseSnot>(), item.damage + 20, item.knockBack, player.whoAmI);
                     }
 
@@ -150,6 +150,29 @@ namespace Spooky.Core
 				}
 			}
 
+			//shoot out a kidney stone with the stoned kidney
+			if (player.GetModPlayer<SpookyPlayer>().StonedKidney && player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge >= 7.5f)
+			{
+				//if the item in question shoots no projectile, or shoots a projectile and has a shoot speed of zero, then manually set the velocity for the booger projectiles
+				if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0 && (item.shoot <= 0 || (item.shoot > 0 && item.shootSpeed == 0)))
+				{
+					float mouseXDist = Main.mouseX + Main.screenPosition.X;
+					float mouseYDist = Main.mouseY + Main.screenPosition.Y;
+
+					Vector2 Velocity = player.Center - new Vector2(mouseXDist, mouseYDist);
+					Velocity.Normalize();
+					Velocity *= -25;
+
+					for (int numProjectiles = 0; numProjectiles <= 5; numProjectiles++)
+					{
+						Projectile.NewProjectile(null, player.Center, Velocity + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)),
+						ModContent.ProjectileType<KidneyRock>(), 150, item.knockBack, player.whoAmI);
+					}
+
+					player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge = 0f;
+				}
+			}
+
 			return base.UseItem(item, player);
         }
 
@@ -158,9 +181,9 @@ namespace Spooky.Core
             //make items shoot boogers when the snotty schnoz is at full charge
             if (player.GetModPlayer<SpookyPlayer>().MocoNose && player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
             {
-                if (item.damage > 0 && item.shootSpeed != 0)
-                {
-                    SoundEngine.PlaySound(SneezeSound, player.Center);
+				if (item.damage > 0 && item.shootSpeed != 0)
+				{
+					SoundEngine.PlaySound(SneezeSound, player.Center);
 
                     SpookyPlayer.ScreenShakeAmount = 8;
 
@@ -174,7 +197,21 @@ namespace Spooky.Core
                 }
             }
 
-            return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
+			if (player.GetModPlayer<SpookyPlayer>().StonedKidney && player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge >= 7.5f)
+			{
+				if (item.damage > 0 && item.shootSpeed != 0)
+				{
+					for (int numProjectiles = 0; numProjectiles <= 5; numProjectiles++)
+					{
+						Projectile.NewProjectile(null, player.Center, velocity * 2 + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)),
+						ModContent.ProjectileType<KidneyRock>(), 150, item.knockBack, player.whoAmI);
+					}
+
+					player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge = 0f;
+				}
+			}
+
+			return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
 
 		public override bool WingUpdate(int wings, Player player, bool inUse)

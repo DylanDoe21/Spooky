@@ -85,8 +85,7 @@ SpringHeartFlower: {
 	DisplayName: Bleeding Heart
 	Tooltip:
 		'''
-		Increases your life regeneration by 10%
-		Grants an additional 10% life regeneration for each of your other occupied bloom buff slots
+		Grants increased life regeneration for each occupied bloom slot you have, including this bloom
 		5 minute duration
 		'''
 }
@@ -196,8 +195,8 @@ WinterStrawberry: {
 	DisplayName: Mountain Strawberry
 	Tooltip:
 		'''
-		Every 40 seconds some mountain strawberries will spawn that can be picked up
-		They grant 10% increased damage, critical strike chance, knockback, and movement speed
+		Every 40 seconds you will spawn some mountain strawberries you can pick up
+		They grant 10% increased damage, critical strike chance, and knockback for 10 seconds
 		5 minute duration
 		'''
 }
@@ -321,7 +320,7 @@ CottonSwab: {
 		'''
 		Not consumable
 		A peculiarly large cotton swab
-		Summons Moco when used at the giant nose shrine
+		Begins the nose ritual when used at the nose god shrine
 		'''
 }
 
@@ -356,7 +355,7 @@ RottenSeed: {
 
 StrangeCyst: {
 	DisplayName: Strange Cyst
-	Tooltip: Begins the egg incursion event when used at the giant egg
+	Tooltip: Right click the giant egg with this in your inventory to begin the egg incursion
 }
 
 FlowerBody: {
@@ -1135,11 +1134,6 @@ VampireGummy: {
 		'''
 }
 
-BatBlood: {
-	DisplayName: Bat Blood
-	Tooltip: Summons a creepy bat
-}
-
 CatEyes: {
 	DisplayName: Evil Eyes
 	Tooltip: Summons a pet black kitten
@@ -1164,11 +1158,6 @@ GhostPetItem: {
 	Tooltip: Summons a little ghost to provide light
 }
 
-GooDish: {
-	DisplayName: Gooey Petri Dish
-	Tooltip: Summons a friendly goo slime
-}
-
 InchwormApple: {
 	DisplayName: Old Apple
 	Tooltip: Summons a pet Inchworm
@@ -1190,11 +1179,6 @@ OldSaddle: {
 		Summons a rideable trapdoor spider mount
 		Allows you to traverse on walls and ceilings
 		'''
-}
-
-OrangeCabbage: {
-	DisplayName: Orange Cabbage
-	Tooltip: Summons a spooky little guinea pig
 }
 
 OrroboroEye: {
@@ -1542,8 +1526,8 @@ HunterScarf: {
 	DisplayName: Old Hunter's Scarf
 	Tooltip:
 		'''
-		Nearby enemies location will be revealed
-		Revealed enemies will take more damage from your ranged weapons
+		Enemies nearby you will be marked 
+		Marked enemies will take more damage from your ranged weapons
 		'''
 }
 
@@ -2056,20 +2040,19 @@ GoreLegs: {
 }
 
 GiantEar: {
-	DisplayName: Ear Parasite
+	DisplayName: Symbiotic Ear
 	Tooltip:
 		'''
-		Summons an ear parasite companion that vomits out flesh blobs every 30 seconds
-		Picking these flesh blobs up will give you a buff for 20 seconds
-		The buff given corresponds to the color of the flesh blob
+		Summons an ear companion that shoots out damaging sound blasts while you attack
+		The damage of the blast is based on the damage of the weapon you are currently using
 		'''
 }
 
 GooChompers: {
-	DisplayName: Gooey Chompers
+	DisplayName: Corroding Chompers
 	Tooltip:
 		'''
-		Hitting enemies can attach a set of goo jaws to deal additional damage
+		Hitting enemies may attach a set of goo jaws to deal additional damage
 		The damage they deal scales with how much damage you did on that hit
 		'''
 }
@@ -2088,8 +2071,9 @@ SmokerLung: {
 	DisplayName: Smoker's Lungs
 	Tooltip:
 		'''
-		Randomly cough out clouds of damaging smoke
-		Enemies caught in the smoke will also cough smoke randomly for a bit of time
+		Press the Accessory Hotkey to cough up a lingering cloud of smoke
+		Enemies caught in the smoke may also cough out smoke clouds randomly for a short time
+		You cannot create another smoke cloud for 2 minutes
 		'''
 }
 
@@ -2097,8 +2081,8 @@ StonedKidney: {
 	DisplayName: Stoned Kidney
 	Tooltip:
 		'''
-		While not using items you will charge up a kidney rock 
-		At full charge, using an item will launch the stone and explode ichor
+		While not using weapons you will charge up the stoned kidney
+		At full charge, attacking will launch a spread of high damage kidney rocks
 		'''
 }
 
@@ -2106,9 +2090,9 @@ VeinChain: {
 	DisplayName: Two-Way Blood-Way
 	Tooltip:
 		'''
-		Attach a chain to enemies you hit that will damage them and drain their life
-		You can have up to 3 chains attached to different enemies at a time
-		If your health is too low, the maximum number of chains will be lowered
+		Chance on hitting nearby enemies to attach a life-stealing vein on them
+		The chains will remain attached to enemies as long as you are close enough to that enemy
+		You can have up to 3 chains on different enemies, and this amount will lower if your health is lower
 		'''
 }
 
@@ -2116,12 +2100,15 @@ TotalOrganPackage: {
 	DisplayName: Total Organ Package
 	Tooltip:
 		'''
-		Grants the ability of all organ accessories
-		Hitting enemies will give them a stomach ache, on death they will explode pink bubbles
-		While not using items you will charge up a kidney rock, using an item will launch the stone and explode ichor
-		Randomly cough out clouds of damaging smoke, enemies caught in the smoke will cough smoke randomly
-		Hitting enemies can attach a set of goo jaws to deal additional damage
-		Summons an ear parasite companion that vomits out buffing flesh blobs you can pick up every 30 seconds
+		Grants the abilities of all organ accessories
+
+		Chance on hitting nearby enemies to attach a life-stealing vein that damages them and heals you
+		Hitting enemies may attach a set of goo jaws to them to deal additional damage
+		Hitting enemies will sometimes give them a stomach ache, on death they will explode pink bubbles
+		While not using items you will charge up a kidney rock, at full charge attacking will launch the stone
+		Press the Accessory Hotkey to cough up a lingering cloud of smoke
+		Enemies caught in the smoke will also cough smoke clouds randomly for a short time
+		Summons an ear companion that shoots out damaging sound blasts while you attack
 		'''
 }
 
@@ -2366,7 +2353,7 @@ SentientSphereStaff: {
 	Tooltip:
 		'''
 		Summons winged biomass chunks to attack foes
-		After attacking a specific enemy for too long, the biomass will chase its target and explode
+		After attacking a single enemy for too long, the biomass will chase its target and explode
 		'Probably not a symbol of health'
 		'''
 }
@@ -3067,6 +3054,11 @@ NoseTemplePlatformRedItem: {
 	Tooltip: ""
 }
 
+AmbushPaintingItem: {
+	DisplayName: Ambush
+	Tooltip: "'Hat in a River'"
+}
+
 BaxterPaintingItem: {
 	DisplayName: Portrait of Baxter
 	Tooltip: "'Waasephi'"
@@ -3740,6 +3732,15 @@ CatacombWeedKiller: {
 	Tooltip:
 		'''
 		Deletes all catacomb ambient weed tiles
+		Testing Item
+		'''
+}
+
+Bestiary: {
+	DisplayName: Bestiary Completer
+	Tooltip:
+		'''
+		Completes the bestiary
 		Testing Item
 		'''
 }

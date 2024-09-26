@@ -11,10 +11,10 @@ namespace Spooky.Content.UserInterfaces
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             //snotty schnoz UI
-            int resourceBarIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
-            if (resourceBarIndex != -1)
+            int resourceBarIndex1 = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
+            if (resourceBarIndex1 != -1)
             {
-                layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
+                layers.Insert(resourceBarIndex1, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
                 {
                     MocoNoseBar.Draw(Main.spriteBatch, Main.LocalPlayer);
                     return true;
@@ -22,8 +22,20 @@ namespace Spooky.Content.UserInterfaces
                 InterfaceScaleType.None));
             }
 
-            //little eye bounty UI
-            int mouseTextIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
+			//stoned kidney UI
+			int resourceBarIndex2 = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
+			if (resourceBarIndex2 != -1)
+			{
+				layers.Insert(resourceBarIndex2, new LegacyGameInterfaceLayer("Stoned Kidney UI", () =>
+				{
+					StonedKidneyBar.Draw(Main.spriteBatch, Main.LocalPlayer);
+					return true;
+				},
+				InterfaceScaleType.None));
+			}
+
+			//little eye bounty UI
+			int mouseTextIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Little Eye Bounty UI", () =>

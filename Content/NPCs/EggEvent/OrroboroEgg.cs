@@ -19,6 +19,7 @@ using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
+using Spooky.Content.NPCs.Quest.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
@@ -160,10 +161,10 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
-        public override bool NeedSaving()
-        {
-            return true;
-        }
+        public override bool CheckActive()
+		{
+			return false;
+		}
 
         //spawn an enemy based on the type inputted
         public void SpawnEnemy(int BiomassType, int Type)
@@ -175,8 +176,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //Types:
                     //0 = GooSlug
                     //1 = CruxBat
-                    //2 = EarWormHead
-                    //3 = Biojetter
+                    //2 = Biojetter
                     int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), (int)(Main.LocalPlayer.Center.X + Main.rand.Next(-900, 900)), (int)(NPC.Center.Y + Main.rand.Next(100, 150)), 
                     Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, 0, 0, 0, Type);
                     Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
@@ -210,10 +210,32 @@ namespace Spooky.Content.NPCs.EggEvent
 			{
 				NPC Enemy = Main.npc[i];
 
-				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWormHead>(),
+				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
 				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
 
 				if (Enemy.active && EventNPCs.Contains(Enemy.type))
+				{
+					NpcCount++;
+				}
+                else
+                {
+                    continue;
+                }
+			}
+
+			return NpcCount;
+		}
+
+        //get the total number of active ear worms since they are spawned in manuallys
+        public int EarWormCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC Enemy = Main.npc[i];
+
+				if (Enemy.active && Enemy.type == ModContent.NPCType<EarWorm>())
 				{
 					NpcCount++;
 				}
@@ -271,6 +293,17 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, NPC.Center);
 
+                        //event start message
+                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {
+                            Main.NewText(text, 171, 64, 255);
+                        }
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        }
+
                         SpookyPlayer.ScreenShakeAmount = 8;
 
                         EggEventWorld.EventTimeLeftUI = 21600;
@@ -320,17 +353,24 @@ namespace Spooky.Content.NPCs.EggEvent
 
                     if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
                     {
-                        if (Main.netMode != NetmodeID.SinglePlayer) 
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {   
+                            Main.NewText(text, 171, 64, 255);
+                        }
+                        if (Main.netMode == NetmodeID.Server)
                         {
                             ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        }
 
+                        if (Main.netMode != NetmodeID.SinglePlayer) 
+                        {
                             ModPacket packet = Mod.GetPacket();
                             packet.Write((byte)SpookyMessageType.SpawnOrroboro);
                             packet.Send();
                         }
                         else
                         {
-                            Main.NewText(text, 171, 64, 255);
+                            
 
                             NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHeadP1>(), 0, -1);
                         }
@@ -385,7 +425,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         if (!HasSpawnedBiojetter)
                         {
-                            SpawnEnemy(0, 3);
+                            SpawnEnemy(0, 2);
 
                             HasSpawnedBiojetter = true;
 
@@ -394,7 +434,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     }
 
                     //if theres no enemies for too long, then manually spawn a bunch of them
-                    if (EventActiveNPCCount() <= 0)
+                    if (EventActiveNPCCount() <= 1)
                     {
                         NPC.ai[2]++;
 
@@ -414,8 +454,41 @@ namespace Spooky.Content.NPCs.EggEvent
                                 }
                                 if (timeLeft >= 180)
                                 {
-                                    int BiomassType = Main.rand.Next(0, 2);
-                                    SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 3) : Main.rand.Next(0, 5));
+                                    //chance to spawn an ear worm manually
+                                    if (Main.rand.NextBool(5) && EarWormCount() < 4)
+                                    {
+                                        Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+
+                                        center.X += Main.rand.Next(-500, 500);
+
+                                        int numtries = 0;
+                                        int x = (int)(center.X / 16);
+                                        int y = (int)(center.Y / 16);
+
+                                        while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
+                                        {
+                                            y++;
+                                            center.Y = y * 16;
+                                        }
+                                        while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+                                        {
+                                            numtries++;
+                                            y--;
+                                            center.Y = y * 16;
+                                        }
+
+                                        int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
+
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        {
+                                            NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        int BiomassType = Main.rand.Next(0, 2);
+                                        SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5));
+                                    }
                                 }
                             }
 
@@ -426,7 +499,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //randomly spawn enemies throughout the event
                     if (EventActiveNPCCount() < 20 && Main.rand.NextBool(ChanceToSpawnEnemy))
                     {
-                        if (timeLeft < 60)
+						if (timeLeft < 60)
                         {
                             int BiomassType = Main.rand.Next(0, 2);
                             SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2));
@@ -438,11 +511,45 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
                         if (timeLeft >= 180)
                         {
-                            int BiomassType = Main.rand.Next(0, 2);
-                            SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 3) : Main.rand.Next(0, 5));
+							//chance to spawn an ear worm manually
+                            if (Main.rand.NextBool(5) && EarWormCount() < 4)
+                            {
+								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+
+								center.X += Main.rand.Next(-500, 500);
+
+								int numtries = 0;
+								int x = (int)(center.X / 16);
+								int y = (int)(center.Y / 16);
+
+								while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
+								{
+									y++;
+									center.Y = y * 16;
+								}
+								while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+								{
+									numtries++;
+									y--;
+									center.Y = y * 16;
+								}
+
+								int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
+
+								if (Main.netMode != NetmodeID.MultiplayerClient)
+								{
+									NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+								}
+							}
+                            else
+                            {
+                                int BiomassType = Main.rand.Next(0, 2);
+                                SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5));
+                            }
                         }
                     }
                 }
+                //egg incursion ending animation
                 else
                 {
                     NPC.ai[3]++;
@@ -461,6 +568,20 @@ namespace Spooky.Content.NPCs.EggEvent
                     if (NPC.ai[3] >= 120 && ShieldAlpha <= 0f)
                     {
                         SpookyPlayer.ScreenShakeAmount = 8f;
+
+                        //kill all existing egg incursion enemies
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            NPC Enemy = Main.npc[i];
+
+                            int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
+                            ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
+
+                            if (Enemy.active && EventNPCs.Contains(Enemy.type))
+                            {
+                                Main.LocalPlayer.ApplyDamageToNPC(Enemy, Enemy.lifeMax * 2, 0, 0, false);
+                            }
+                        }
 
                         if (!Flags.downedEggEvent)
                         {

@@ -188,6 +188,7 @@ namespace Spooky
                 case SpookyMessageType.OldHunterAssembled:
                 {
                     Flags.OldHunterAssembled = true;
+                    Flags.KillWeb = true;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }

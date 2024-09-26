@@ -63,7 +63,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 }
             }
 
-            if (Main.mouseLeft && Projectile.ai[0] == 0 && Projectile.ai[2] == 0)
+            if (player.controlUseItem && Projectile.ai[0] == 0 && Projectile.ai[2] == 0)
             {
                 Projectile.penetrate = -1;
                 Projectile.timeLeft = 180;

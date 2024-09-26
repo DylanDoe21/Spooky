@@ -75,11 +75,11 @@ namespace Spooky.Content.NPCs.SpiderCave
                     {
                         SoundEngine.PlaySound(SoundID.Zombie74, NPC.Center);
 
-                        NPC.ai[2] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BallSpider>(), ai2: NPC.whoAmI);
+                        int BallSpider = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BallSpider>(), ai2: NPC.whoAmI);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {   
-                            NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[2]);
+                            NetMessage.SendData(MessageID.SyncNPC, number: BallSpider);
                         }
 
                         NPC.netUpdate = true;

@@ -87,7 +87,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                         int damageDone = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? Main.rand.Next(100, 150) : Main.rand.Next(15, 22);
                         int lifeStealDivider = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 5 : 2;
 
-                        player.ApplyDamageToNPC(Main.npc[i], damageDone, 0, 0, false, null, false);
+                        player.ApplyDamageToNPC(Main.npc[i], damageDone, 0, 0, false, null, true);
                         player.statLife += damageDone / lifeStealDivider;
                         player.HealEffect(damageDone / lifeStealDivider, true);
                     }

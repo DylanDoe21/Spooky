@@ -1,11 +1,9 @@
 using Terraria.ModLoader.Config;
 using System.ComponentModel;
 
-using Spooky.Core;
-
 namespace Spooky
 {
-    [BackgroundColor(100, 32, 0, 175)]
+    [BackgroundColor(80, 12, 0, 150)]
     public class SpookyConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
@@ -30,7 +28,7 @@ namespace Spooky
 		public float ScreenShakeIntensity;
     }
 
-    [BackgroundColor(100, 32, 0, 175)]
+    [BackgroundColor(80, 12, 0, 150)]
     public class SpookyServerConfig : ModConfig
 	{
         public override ConfigScope Mode => ConfigScope.ServerSide;

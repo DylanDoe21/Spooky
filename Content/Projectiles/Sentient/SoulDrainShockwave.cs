@@ -85,7 +85,7 @@ namespace Spooky.Content.Projectiles.Sentient
                     Player player = Main.player[Projectile.owner];
 
                     //damage enemies
-                    player.ApplyDamageToNPC(npc, Projectile.damage, 0, 0, false);
+                    player.ApplyDamageToNPC(npc, Projectile.damage, 0, 0, false, null, true);
 
                     //push all enemies away from you
                     Vector2 Knockback = Projectile.Center - npc.Center;

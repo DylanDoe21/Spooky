@@ -28,6 +28,9 @@ namespace Spooky.Core
 		public int KeybrandDefenseStacks = 0;
 		public bool InitializedKeybrandDefense = false;
 
+        public bool HasVeinChainAttached = false;
+        public bool HasGooChompterAttached = false;
+
 		public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             //draw white aura on an enemy with the bee damage buff

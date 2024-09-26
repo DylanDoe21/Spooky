@@ -21,6 +21,7 @@ using Spooky.Content.NPCs.Quest;
 using Spooky.Content.NPCs.SpiderCave;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
+using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.NoseTemple;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpookyBiome;
@@ -35,11 +36,22 @@ namespace Spooky.Core
 			//increase spawns in the spider grotto because they are really low for some reason
 			if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
             {
+				spawnRate /= 3;
+			}
+
+			//increase spawns in the catacombs because they are too low by default
+			if (player.InModBiome(ModContent.GetInstance<CatacombBiome>()))
+            {
 				spawnRate /= 2;
+			}
+			//increase spawns in the catacombs because they are too low by default
+			if (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
+            {
+				spawnRate /= 3;
 			}
 
 			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
-			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.downedSpookySpirit) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.downedDaffodil))
+			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
 			{
 				spawnRate /= 5;
 			}
@@ -314,10 +326,10 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-				int[] VanillaTilesList = new int[692];
+				int[] CatacombLayer1Tiles = { ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombFlooring>() };
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
-				if (!VanillaTilesList.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					if (Flags.CatacombKey1)
 					{
@@ -352,10 +364,10 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-                int[] VanillaTilesList = new int[692];
+                int[] CatacombLayer2Tiles = { ModContent.TileType<CatacombBrick2>(), ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<GildedBrick>() };
 
 				//do not allow catacomb enemies to spawn on non catacomb tiles
-				if (!VanillaTilesList.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					if (Flags.CatacombKey2)
 					{
@@ -365,22 +377,22 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid3>(), 5);
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid4>(), 5);
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid5>(), 5);
-						pool.Add(ModContent.NPCType<FlushBush1>(), 3);
-						pool.Add(ModContent.NPCType<FlushBush2>(), 3);
-						pool.Add(ModContent.NPCType<FlushBush3>(), 3);
-						pool.Add(ModContent.NPCType<FlushBush4>(), 3);
-						pool.Add(ModContent.NPCType<JumpingSeed1>(), 5);
-						pool.Add(ModContent.NPCType<JumpingSeed2>(), 5);
-						pool.Add(ModContent.NPCType<JumpingSeed3>(), 5);
-						pool.Add(ModContent.NPCType<LilySlime1Big>(), 4);
-						pool.Add(ModContent.NPCType<LilySlime1Small>(), 4);
-						pool.Add(ModContent.NPCType<LilySlime2Big>(), 4);
-						pool.Add(ModContent.NPCType<LilySlime2Small>(), 4);
-						pool.Add(ModContent.NPCType<OrchidStem>(), 4);
-						pool.Add(ModContent.NPCType<PitcherPlant1>(), 4);
-						pool.Add(ModContent.NPCType<PitcherPlant2>(), 4);
-						pool.Add(ModContent.NPCType<PitcherPlant3>(), 4);
-						pool.Add(ModContent.NPCType<PitcherPlant4>(), 4);
+						pool.Add(ModContent.NPCType<FlushBush1>(), 2);
+						pool.Add(ModContent.NPCType<FlushBush2>(), 2);
+						pool.Add(ModContent.NPCType<FlushBush3>(), 2);
+						pool.Add(ModContent.NPCType<FlushBush4>(), 2);
+						pool.Add(ModContent.NPCType<JumpingSeed1>(), 4);
+						pool.Add(ModContent.NPCType<JumpingSeed2>(), 4);
+						pool.Add(ModContent.NPCType<JumpingSeed3>(), 4);
+						pool.Add(ModContent.NPCType<LilySlime1Big>(), 3);
+						pool.Add(ModContent.NPCType<LilySlime1Small>(), 3);
+						pool.Add(ModContent.NPCType<LilySlime2Big>(), 3);
+						pool.Add(ModContent.NPCType<LilySlime2Small>(), 3);
+						pool.Add(ModContent.NPCType<OrchidStem>(), 12);
+						pool.Add(ModContent.NPCType<PitcherPlant1>(), 3);
+						pool.Add(ModContent.NPCType<PitcherPlant2>(), 3);
+						pool.Add(ModContent.NPCType<PitcherPlant3>(), 3);
+						pool.Add(ModContent.NPCType<PitcherPlant4>(), 3);
 						pool.Add(ModContent.NPCType<PlantTrap1>(), 2);
 						pool.Add(ModContent.NPCType<PlantTrap2>(), 2);
 						pool.Add(ModContent.NPCType<PlantTrap3>(), 2);
@@ -390,9 +402,9 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<PollinatorBeeDamage>(), 2);
 						pool.Add(ModContent.NPCType<PollinatorBeeHealing>(), 2);
 						pool.Add(ModContent.NPCType<SkeletoidBandit>(), 2);
-						pool.Add(ModContent.NPCType<Sunflower1>(), 4);
-						pool.Add(ModContent.NPCType<Sunflower2>(), 4);
-						pool.Add(ModContent.NPCType<Sunflower3>(), 4);
+						pool.Add(ModContent.NPCType<Sunflower1>(), 3);
+						pool.Add(ModContent.NPCType<Sunflower2>(), 3);
+						pool.Add(ModContent.NPCType<Sunflower3>(), 3);
 
 						//do not spawn smelly if one already exists
 						if (!NPC.AnyNPCs(ModContent.NPCType<Smelly>()))
@@ -506,7 +518,7 @@ namespace Spooky.Core
 
 						if (Main.hardMode)
 						{
-							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 2);
+							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);

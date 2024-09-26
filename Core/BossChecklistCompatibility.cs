@@ -241,7 +241,7 @@ namespace Spooky.Core
 				ModContent.NPCType<Biojetter>(), 
 				ModContent.NPCType<CoughLungs>(), 
 				ModContent.NPCType<CruxBat>(), 
-				ModContent.NPCType<EarWormHead>(),
+				ModContent.NPCType<EarWorm>(),
 				ModContent.NPCType<ExplodingAppendix>(), 
 				ModContent.NPCType<GooSlug>(), 
 				ModContent.NPCType<HoppingHeart>(), 

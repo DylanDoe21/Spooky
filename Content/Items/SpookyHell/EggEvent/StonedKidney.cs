@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Items.SpookyHell.EggEvent
 {
     public class StonedKidney : ModItem
@@ -14,9 +16,10 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(gold: 30);
         }
-       
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-        }
-    }
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			player.GetModPlayer<SpookyPlayer>().StonedKidney = true;
+		}
+	}
 }

@@ -583,7 +583,7 @@ namespace Spooky.Content.NPCs.Quest
 			}
 		}
 
-		public void Draw(Vector2 Position, float Angle, bool gibs, SpriteBatch spriteBatch, int whoAmI)
+		public void Draw(Vector2 Position, float Angle, bool SpawnGore, SpriteBatch spriteBatch, int whoAmI)
 		{
 			int LegSegmentLength = 68;
 			int LegClawLength = 78;
@@ -606,7 +606,7 @@ namespace Spooky.Content.NPCs.Quest
 			halfway1 *= LegSegmentLength / 2;
 			Vector2 halfway2 = leg2 + (angleleg2.ToRotationVector2() * LegClawLength / 2);
 
-			if (!gibs)
+			if (!SpawnGore)
 			{
 				LegSegmentTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/StitchSpiderLegSegment");
 				LegClawTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/StitchSpiderLegSegmentClaw");

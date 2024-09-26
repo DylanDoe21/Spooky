@@ -24,20 +24,8 @@ namespace Spooky.Content.Items.BossSummon
 			Item.width = 26;
 			Item.height = 34;
 			Item.consumable = true;
-			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.maxStack = 9999;
 		}
-
-		public override bool CanUseItem(Player player)
-        {
-            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && 
-			player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()) && !EggEventWorld.EggEventActive)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
 		public override void AddRecipes()
         {

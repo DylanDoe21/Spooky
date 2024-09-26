@@ -2,6 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Core;
+using Spooky.Content.Projectiles.SpookyHell;
+
 namespace Spooky.Content.Items.SpookyHell.EggEvent
 {
     public class TotalOrganPackage : ModItem
@@ -17,7 +20,20 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-        }
+			player.GetModPlayer<SpookyPlayer>().GooChompers = true;
+			player.GetModPlayer<SpookyPlayer>().VeinChain = true;
+			player.GetModPlayer<SpookyPlayer>().PeptoStomach = true;
+			player.GetModPlayer<SpookyPlayer>().StonedKidney = true;
+			player.GetModPlayer<SpookyPlayer>().SmokerLung = true;
+			player.GetModPlayer<SpookyPlayer>().GiantEar = true;
+
+			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<EarParasite>()] <= 0;
+			if (NotSpawned && player.whoAmI == Main.myPlayer)
+			{
+				//leave the source as null for right now
+				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, ModContent.ProjectileType<EarParasite>(), 0, 0f, player.whoAmI);
+			}
+		}
 
         public override void AddRecipes()
         {

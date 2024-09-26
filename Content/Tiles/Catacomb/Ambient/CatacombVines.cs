@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			Main.tileSolid[Type] = false;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			AddMapEntry(new Color(62, 95, 38));
+			AddMapEntry(new Color(23, 69, 29));
 			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 			HitSound = SoundID.Grass;
 		}

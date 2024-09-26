@@ -61,8 +61,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.Kill();
             }
 
-            if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana)
-            {
+			if (!player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+			{
+				Projectile.Kill();
+			}
+
+			if (player.channel)
+{
                 Projectile.timeLeft = 2;
 
                 Vector2 GoTo = Main.MouseWorld;
@@ -72,13 +77,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 Projectile.ai[0]++;
 
-                if (Projectile.ai[0] % 20 == 2)
+                if (Projectile.ai[0] % 10 == 0 && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
                 {
-                    player.statMana -= ItemGlobal.ActiveItem(player).mana;
-
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 
+					player.statMana -= ItemGlobal.ActiveItem(player).mana;
+
+					Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 
                     Main.rand.Next(15, 22), ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
 

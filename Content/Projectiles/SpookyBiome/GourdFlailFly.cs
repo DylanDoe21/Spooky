@@ -76,7 +76,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
-            if (Main.mouseLeft && Projectile.ai[0] == 0)
+            if (player.controlUseItem && Projectile.ai[0] == 0)
             {
                 Projectile.timeLeft = 180;
 

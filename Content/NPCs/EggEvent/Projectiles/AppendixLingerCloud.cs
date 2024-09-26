@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             Projectile.velocity *= 0.95f;
 
-            int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Gold * 0.5f, Main.rand.NextFloat(0.2f, 0.4f));
+            int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CoughCloudDust>(), 0f, 0f, 100, Color.Gold * 0.5f, Main.rand.NextFloat(0.3f, 0.6f));
             Main.dust[DustEffect].velocity *= 0;
             Main.dust[DustEffect].alpha = 100;
         }

@@ -33,27 +33,27 @@ namespace Spooky.Content.Tiles.Blooms
         public override void AddRecipes()
         {
             CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<RottenChunk>())
             .AddIngredient(ItemID.DirtBlock, 6)
             .Register();
 
             CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<RottenChunk>())
             .AddIngredient(ItemID.MudBlock, 6)
             .Register();
 
             CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<RottenChunk>())
             .AddIngredient(ModContent.ItemType<CemeteryDirtItem>(), 6)
             .Register();
 
             CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<RottenChunk>())
             .AddIngredient(ModContent.ItemType<DampSoilItem>(), 6)
             .Register();
 
             CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>(), 1)
+            .AddIngredient(ModContent.ItemType<RottenChunk>())
             .AddIngredient(ModContent.ItemType<SpookyDirtItem>(), 6)
             .Register();
         }

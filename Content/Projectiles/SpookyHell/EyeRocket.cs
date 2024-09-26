@@ -74,7 +74,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         continue;
                     }
 
-                    player.ApplyDamageToNPC(npc, Projectile.damage + Main.rand.Next(-30, 10), Projectile.knockBack, 0, false);
+                    player.ApplyDamageToNPC(npc, Projectile.damage + Main.rand.Next(-30, 10), Projectile.knockBack, 0, false, null, true);
                 }
             }
 

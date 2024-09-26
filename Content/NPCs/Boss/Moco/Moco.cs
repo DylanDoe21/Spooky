@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.netAlways = true;
             NPC.boss = true;
             NPC.HitSound = SoundID.NPCHit22;
-			NPC.DeathSound = SoundID.NPCDeath60;
+			NPC.DeathSound = SoundID.DD2_BetsyWindAttack;
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Moco");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
@@ -1000,7 +1000,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     //spawn mocling projectiles from offscreen
                     if (NPC.localAI[0] >= 150 && NPC.localAI[0] < 280 && NPC.localAI[0] % 10 == 0)
                     {
-                        int SpawnX = Main.rand.NextBool() ? (int)Main.screenPosition.X - 100 : (int)Main.screenPosition.X + Main.screenWidth + 100;
+                        int SpawnX = Main.rand.NextBool() ? (int)player.Center.X - 1200 : (int)player.Center.X + 1200;
                         int SpawnY = (int)NPC.Center.Y + Main.rand.Next(-100, 100);
 
                         SoundEngine.PlaySound(FlyingSound, new Vector2(SpawnX, SpawnY));

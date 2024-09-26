@@ -25,7 +25,7 @@ namespace Spooky.Core
         public static bool DaySwitched;
         public static bool LastTime;
 
-		//check to make sure the player isnt in a subworld so that all of the npcs meant to be saved in specific locations are not spawned in subworlds
+		//check to make sure the player isnt in a subworld so that all of the npcs meant to be saved and spawned in specific world locations are not spawned in subworlds
 		public bool IsInSubworld()
         {
             if (Spooky.Instance.subworldLibrary == null)
@@ -66,7 +66,7 @@ namespace Spooky.Core
                     {
                         NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
                     }
-                } 
+                }
                 //spawn daffodil background handler
                 if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilArenaBG>()) && Flags.DaffodilPosition != Vector2.Zero)
                 {
@@ -217,6 +217,33 @@ namespace Spooky.Core
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
                 }
+            }
+
+            //kill the giant web manually when all pieces are inserted for multiplayer purposes
+            //because setting the npcs health to zero in the web itself doesnt work or update in mp correctly, doing it here and spawning the animation allows it to spawn correctly
+            if (Flags.KillWeb)
+            {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i] != null && Main.npc[i].type == ModContent.NPCType<GiantWeb>())
+                    {
+                        int Animation = NPC.NewNPC(Main.npc[i].GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
+
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {   
+                            NetMessage.SendData(MessageID.SyncNPC, number: Animation);
+                        }
+
+                        Main.npc[i].life = 0;
+
+                        if (Main.netMode == NetmodeID.Server) 
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, i, 0f, 0f, 0f, 0);
+                        }
+                    }
+                }
+
+                Flags.KillWeb = false;
             }
 
             //store whatever vanilla halloween is set to before setting it based on the config

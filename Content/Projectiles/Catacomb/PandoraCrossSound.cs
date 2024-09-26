@@ -78,7 +78,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (npc.Distance(Projectile.Center) <= Projectile.ai[0] && npc.active && !npc.friendly && !npc.dontTakeDamage && !NPCID.Sets.CountsAsCritter[npc.type])
                 {
                     //damage enemies
-                    player.ApplyDamageToNPC(npc, Projectile.damage * 2, 0, 0, false);
+                    player.ApplyDamageToNPC(npc, Projectile.damage * 2, 0, 0, false, null, true);
 
                     //push all enemies away from you
                     Vector2 Knockback = Projectile.Center - npc.Center;

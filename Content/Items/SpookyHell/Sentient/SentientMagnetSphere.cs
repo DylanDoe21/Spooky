@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         public override void SetDefaults()
         {
             Item.damage = 100;
-            Item.mana = 5;
+            Item.mana = 10;
 			Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;
             Item.channel = true;

@@ -167,8 +167,8 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
                 }
                 if (Projectile.ai[0] >= Wave * 2)
                 {
-                    WaveIntensity = Main.rand.NextFloat(-10f, 10f);
-                    Wave = Main.rand.NextFloat(-15f, 15f);
+                    WaveIntensity = Main.rand.NextFloat(-10f, 11f);
+                    Wave = Main.rand.NextFloat(-15f, 16f);
 
                     Projectile.ai[0] = 0;
                 }

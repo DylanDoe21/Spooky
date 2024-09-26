@@ -104,10 +104,11 @@ namespace Spooky.Content.Generation
             return true;
         }
 
+        //TODO: redo the shrine to be a bit smaller to prevent nuking and add the new pet
         private void PlaceSecretPetShrine(GenerationProgress progress, GameConfiguration configuration)
         {
-            Vector2 structureOrigin = new Vector2(Main.maxTilesX / 2 + WorldGen.genRand.Next(-200, 200), Main.maxTilesY / 2 + 20);
-            Generator.GenerateStructure("Content/Structures/SecretPetShrine", structureOrigin.ToPoint16(), Mod);
+            //Vector2 structureOrigin = new Vector2(Main.maxTilesX / 2 + WorldGen.genRand.Next(-200, 200), Main.maxTilesY / 2 + 20);
+            //Generator.GenerateStructure("Content/Structures/SecretPetShrine", structureOrigin.ToPoint16(), Mod);
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)

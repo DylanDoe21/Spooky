@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.EggEvent;
+using System;
 
 namespace Spooky.Content.Backgrounds.SpookyHell
 {
@@ -20,8 +22,10 @@ namespace Spooky.Content.Backgrounds.SpookyHell
         }
 
         public static float Transparency;
-
         public static float TransitionSpeed => 0.02f;
+
+        public static float OutlineTransparency;
+        public static float OutlineTransitionSpeed => 0.012f;
 
         private static void DrawHellBG(On_Main.orig_DrawUnderworldBackground orig, Main self, bool flat)
         {
@@ -50,6 +54,25 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                 if (Transparency < 0f)
                 {
                     Transparency = 0f;
+                }
+            }
+
+            if (EggEventWorld.EggEventActive)
+            {
+				OutlineTransparency += OutlineTransitionSpeed;
+
+                if (OutlineTransparency > 1f)
+                {
+					OutlineTransparency = 1f;
+                }
+            }
+            else
+            {
+				OutlineTransparency -= OutlineTransitionSpeed;
+
+                if (OutlineTransparency < 0f)
+                {
+					OutlineTransparency = 0f;
                 }
             }
 
@@ -111,18 +134,36 @@ namespace Spooky.Content.Backgrounds.SpookyHell
                     for (int j = num6 - 2; j < num6 + 4 + (int)(Main.screenWidth / num5); j++)
                     {
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), (Main.maxTilesY - 200) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
-                        var frame = rectangle;
-                        var color = new Color(85, 70, 70) * Transparency;
+						var frame = rectangle;
 
-                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+						//draw the actual background
+						var color = new Color(85, 70, 70) * Transparency;
 
-                        if (Layers < 3)
+						Main.spriteBatch.Draw(BGTexture, drawPosition, frame, color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+
+						//draw the glow textures
+						if (Layers < 3)
                         {
                             Texture2D BGTextureGlow = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyHell/SpookyHellBG" + Layers + "_Glow").Value;
 
                             Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, (Color.White * 0.6f) * Transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
                         }
-                    }
+
+						//draw egg incursion visual outlines
+						if (Layers < 4 && OutlineTransparency > 0f)
+						{
+							Texture2D BGTextureOutline = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyHell/SpookyHellBG" + Layers).Value; //+ "_Outline").Value;
+
+							for (int i = 0; i < 360; i += 60)
+							{
+								var outlineColor = Color.Lerp(Color.Purple, Color.Red, i / 30) * (OutlineTransparency * 0.1f);
+
+								Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 8f), Main.rand.NextFloat(1f, 8f)).RotatedBy(MathHelper.ToRadians(i));
+
+								Main.spriteBatch.Draw(BGTextureOutline, drawPosition + circular, frame, outlineColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+							}
+						}
+					}
                 }
             }
         }

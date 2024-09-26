@@ -320,6 +320,42 @@ namespace Spooky.Content.NPCs.Quest
 								
 					if (NPC.localAI[2] < 3)
 					{
+						//spawn eyes all over the ground
+						if (NPC.localAI[0] == 40)
+						{
+							for (int i = -4; i <= 4; i++)
+							{
+								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+
+								center.X += Main.rand.Next(200, 300) * i; //distance between each eye
+
+								int numtries = 0;
+								int x = (int)(center.X / 16);
+								int y = (int)(center.Y / 16);
+
+								while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
+								{
+									y++;
+									center.Y = y * 16;
+								}
+								while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+								{
+									numtries++;
+									y--;
+									center.Y = y * 16;
+								}
+
+								if (numtries >= 10)
+								{
+									break;
+								}
+
+								int Eye = Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X - 3, center.Y, 0, 0, ModContent.ProjectileType<GoblinEyeDebrisGrounded>(), NPC.damage / 4, 0, Main.myPlayer);
+								Main.projectile[Eye].frame = Main.rand.Next(0, 4);
+								Main.projectile[Eye].ai[1] = NPC.whoAmI;
+							}
+						}
+
 						//jumping velocity
 						Vector2 JumpTo = new Vector2(player.Center.X, player.Center.Y - 500);
 
@@ -398,26 +434,6 @@ namespace Spooky.Content.NPCs.Quest
 
 							SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound with { Pitch = 1.2f }, NPC.Center);
 
-							//push all nearby players in the air if they are on the ground
-							for (int i = 0; i < Main.maxPlayers; i++)
-							{
-								if (Main.player[i].active && Main.player[i].velocity.Y == 0 && NPC.Distance(Main.player[i].Center) <= 500f)
-								{
-									Main.player[i].velocity.Y -= 8f;
-								}
-							}
-
-							//dirt debris chunks
-							int NumProjectiles = Main.rand.Next(4, 8);
-							for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
-							{
-								float Spread = player.Center.X < NPC.Center.X ? Main.rand.NextFloat(-15f, -4f) : Main.rand.NextFloat(4f, 15f);
-
-								int Debris = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, Spread, 
-								Main.rand.NextFloat(-18f, -12f), ModContent.ProjectileType<GoblinDebris>(), NPC.damage / 4, 0, NPC.target);
-								Main.projectile[Debris].frame = Main.rand.Next(0, 3);
-							}
-
 							//make cool dust effect when slamming the ground
 							for (int numDusts = 0; numDusts < 45; numDusts++)
 							{                                                                                  
@@ -434,11 +450,11 @@ namespace Spooky.Content.NPCs.Quest
 							}
 							
 							//complete the slam attack
-							NPC.localAI[1] = 1;
+							NPC.localAI[1] = NPC.localAI[0];
 						}
 
 						//only loop attack if the jump has been completed
-						if (NPC.localAI[0] >= 140 && NPC.localAI[1] > 0)
+						if (NPC.localAI[0] >= NPC.localAI[1] + 20 && NPC.localAI[1] > 0)
 						{
 							NPC.localAI[0] = 30;
 							NPC.localAI[1] = 0;
@@ -459,7 +475,7 @@ namespace Spooky.Content.NPCs.Quest
 							NPC.localAI[0] = 0;
 							NPC.localAI[1] = 0;
 							NPC.localAI[2] = 0;
-							NPC.localAI[3] = NPC.life < (NPC.lifeMax / 2) ? 4 : 1;
+							NPC.localAI[3] = NPC.life < (NPC.lifeMax / 1.75f) ? 4 : 1;
 
 							NPC.netUpdate = true;
 						}
