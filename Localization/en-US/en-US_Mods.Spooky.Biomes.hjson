@@ -29,7 +29,7 @@ CatacombBiome2: {
 }
 
 NoseTempleBiome: {
-	DisplayName: The Temple of Moco
+	DisplayName: Temple of Moco
 	TownNPCDialogueName: the Temple of Moco
 }
 

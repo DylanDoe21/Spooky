@@ -332,7 +332,7 @@ namespace Spooky.Content.NPCs.Quest
 							{
 								Parent.localAI[0] = 0;
 								Parent.localAI[1] = 0;
-								Parent.ai[0]++;
+								Parent.ai[0] = 1;
 
 								NPC.netUpdate = true;
 							}

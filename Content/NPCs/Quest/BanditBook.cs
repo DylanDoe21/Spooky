@@ -229,6 +229,59 @@ namespace Spooky.Content.NPCs.Quest
                 {
                     SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Pitch = -1.5f }, NPC.Center);
 
+					float maxAmount = 30;
+					int currentAmount = 0;
+
+					int[] DustTypes = new int[] { DustID.GreenTorch, DustID.RedTorch, DustID.BlueTorch };
+
+					while (currentAmount <= maxAmount)
+					{
+						Vector2 velocity = new Vector2(5f, 5f);
+						Vector2 Bounds = new Vector2(3f, 3f);
+						float intensity = 5f;
+
+						Vector2 vector12 = Vector2.UnitX * 0f;
+						vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+						vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+						int num104 = Dust.NewDust(NPC.Center, 0, 0, Main.rand.Next(DustTypes), 0f, 0f, 100, default, 3f);
+						Main.dust[num104].noGravity = true;
+						Main.dust[num104].position = NPC.Center + vector12;
+						Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+						currentAmount++;
+					}
+
+					while (currentAmount <= maxAmount)
+					{
+						Vector2 velocity = new Vector2(10f, 10f);
+						Vector2 Bounds = new Vector2(5f, 5f);
+						float intensity = 5f;
+
+						Vector2 vector12 = Vector2.UnitX * 0f;
+						vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+						vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+						int num104 = Dust.NewDust(NPC.Center, 0, 0, Main.rand.Next(DustTypes), 0f, 0f, 100, default, 3f);
+						Main.dust[num104].noGravity = true;
+						Main.dust[num104].position = NPC.Center + vector12;
+						Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+						currentAmount++;
+					}
+
+					while (currentAmount <= maxAmount)
+					{
+						Vector2 velocity = new Vector2(15f, 15f);
+						Vector2 Bounds = new Vector2(7f, 7f);
+						float intensity = 5f;
+
+						Vector2 vector12 = Vector2.UnitX * 0f;
+						vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+						vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+						int num104 = Dust.NewDust(NPC.Center, 0, 0, Main.rand.Next(DustTypes), 0f, 0f, 100, default, 3f);
+						Main.dust[num104].noGravity = true;
+						Main.dust[num104].position = NPC.Center + vector12;
+						Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+						currentAmount++;
+					}
+
                     NPC.immortal = false;
 					NPC.dontTakeDamage = false;
 					NPC.netUpdate = true;
@@ -324,9 +377,7 @@ namespace Spooky.Content.NPCs.Quest
 					break;
 				}
 
-				//bruiser attacking: he flies to the player and preforms small punches, firing small fist projectiles that chase you a tiny bit
-				//if any other ghosts are dead, preform a giant punch afterward where he charges at the player while punching, which will massively knock back the player
-				//if the bruiser is the only one remaining, then use both of these attacks in a pattern rapidly
+				//bruiser attacking
 				case 2:
 				{
 					NPC.localAI[0]++;
@@ -353,9 +404,7 @@ namespace Spooky.Content.NPCs.Quest
 					break;
 				}
 
-				//caster attacking: go to the player, then squish and fire out homing magic green fireballs
-				//if any other ghosts are dead, then fire out a large homing green fireball that splits into a spread of smaller ones towards the player
-				//if the mage is the only one remaining, then use both of these attacks in a pattern rapidly
+				//caster attacking
 				case 3:
 				{
 					NPC.localAI[0]++;
@@ -376,20 +425,15 @@ namespace Spooky.Content.NPCs.Quest
 					//if the mage is dead, skip to priest attacking
 					if (NPC.ai[2] > 0)
 					{
-						NPC.ai[0]++;
+						NPC.ai[0] = 1;
 					}
 
 					break;
 				}
 
-				//priest attacking: go to the player, shoot a magic ball that has a bunch of large debuff icons that swap rapidly and then stops like a gambling machine
-				//once the debuff symbol is chosen, the projectile will fly to the player at an unavoidable speed and inflict them with that debuff for a while
-				//if any other ghosts are dead, then he will grant the other remaining ghost a buff to their defense
-				//if the priest is the only one remaining, then use a pattern of shooting somewhat weak homing magic bolts, and using the debuff symbol attack
+				//priest desperation phase
 				case 4:
 				{
-					NPC.localAI[0]++;
-
 					//go above the player
 					Vector2 AbovePlayer = new Vector2(player.Center.X, player.Center.Y - 220);
 
@@ -404,10 +448,12 @@ namespace Spooky.Content.NPCs.Quest
 					}
 
 					//if the priest is dead, loop back to first ghost
+					/*
 					if (NPC.ai[3] > 0)
 					{
 						NPC.ai[0] = 1;
 					}
+					*/
 
 					break;
 				}

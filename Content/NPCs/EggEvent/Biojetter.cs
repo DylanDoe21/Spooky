@@ -11,6 +11,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.EggEvent;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
@@ -175,7 +176,7 @@ namespace Spooky.Content.NPCs.EggEvent
                             float overrideRotation = rotationOrigin.ToRotation();
                             Vector2 dustVelo = new Vector2(0, 0).RotatedBy(overrideRotation);
                             Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 5) - 5, 57).RotatedBy(NPC.rotation);
-                            int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.KryptonMoss, 0, 0, 0, Color.White, 2.5f);
+                            int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.GreenBlood, 0, 0, 0, Color.White, 2.5f);
                             Dust dust = Main.dust[index];
                             dust.noGravity = true;
                             dust.fadeIn = 0.1f;
@@ -248,12 +249,12 @@ namespace Spooky.Content.NPCs.EggEvent
                         float overrideRotation = rotationOrigin.ToRotation();
                         Vector2 dustVelo = new Vector2(0, 0).RotatedBy(overrideRotation);
                         Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 5) - 5, 57).RotatedBy(NPC.rotation);
-                        int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.KryptonMoss, 0, 0, 0, Color.White, 2.5f);
+                        int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.GreenBlood, 0, 0, 0, Color.White, 2.5f);
                         Dust dust = Main.dust[index];
                         dust.noGravity = true;
                         dust.fadeIn = 0.1f;
                         dust.velocity = dustVelo;
-                        dust.velocity.Y += 3;
+                        dust.velocity.Y += 10;
                         dust.scale += 0.3f;
                         dust.scale *= NPC.scale;
                         dust.alpha = NPC.alpha;
@@ -305,7 +306,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 3, 1, 3));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 5, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Biojets>(), 2));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -271,6 +271,35 @@ namespace Spooky.Core
             }
         }
 
+        //drops after moco has been defeated
+        public class PostMocoCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info) 
+            {
+                if (!info.IsInSimulation) 
+                {
+                    NPC npc = info.npc;
+
+                    if (Flags.downedMoco)
+                    {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return Flags.downedMoco;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
         //drops after orro & boro have been defeated
         public class PostOrroboroCondition : IItemDropRuleCondition
         {

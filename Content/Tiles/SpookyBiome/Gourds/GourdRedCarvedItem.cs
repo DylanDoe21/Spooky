@@ -8,21 +8,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 10;
+            Item.ResearchUnlockCount = 5;
         }
 
         public override void SetDefaults()
         {
-            Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
+            Item.DefaultToPlaceableTile(ModContent.TileType<GourdRedCarved>());
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
-			Item.useAnimation = 15;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<GourdRedCarved>();
         }
     }
 
@@ -30,21 +23,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 10;
+            Item.ResearchUnlockCount = 5;
         }
 
         public override void SetDefaults()
         {
-            Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
+            Item.DefaultToPlaceableTile(ModContent.TileType<GourdRedCarvedLit>());
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
-			Item.useAnimation = 15;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<GourdRedCarvedLit>();
         }
     }
 }

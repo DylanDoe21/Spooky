@@ -2039,6 +2039,16 @@ GoreLegs: {
 		'''
 }
 
+Biojets: {
+	DisplayName: Bio-Thrusters
+	Tooltip:
+		'''
+		Allows flight and slow fall
+		Hold Down to hover
+		'May create an unpleasent mess'
+		'''
+}
+
 GiantEar: {
 	DisplayName: Symbiotic Ear
 	Tooltip:
@@ -3349,7 +3359,7 @@ OldWoodWorkBenchItem: {
 }
 
 SpookyBiomeChestItem: {
-	DisplayName: Spooky Biome Chest
+	DisplayName: Spooky Forest Chest
 	Tooltip: ""
 }
 

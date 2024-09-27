@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.SpookyHell;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -648,6 +649,7 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SnotWings>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CottonSwab>()));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostMocoCondition(), ModContent.ItemType<SnotGlob>(), 1, 8, 18));
         }
 
         public override void OnKill()

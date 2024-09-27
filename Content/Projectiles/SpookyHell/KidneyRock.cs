@@ -5,6 +5,7 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -14,7 +15,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 		
@@ -51,8 +52,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         public override void AI()
         {
             //fix Projectile direction
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-			Projectile.rotation += 0f * (float)Projectile.direction;
+            Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
             Projectile.ai[0]++;
 

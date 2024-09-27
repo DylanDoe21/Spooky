@@ -17,7 +17,7 @@ namespace Spooky.Content.Tiles.Blooms
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(114, 78, 53));
-            DustType = DustID.Dirt;
+            DustType = DustID.Mud;
 			MineResist = 0.65f;
 		}
 	}

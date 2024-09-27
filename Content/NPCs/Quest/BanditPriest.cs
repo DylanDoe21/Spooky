@@ -157,16 +157,9 @@ namespace Spooky.Content.NPCs.Quest
 
 			addedStretch = -stretchRecoil;
 
-			//reset rotation when attacking
-			if (Parent.ai[0] == 4)
+			if (Parent.ai[0] > 0)
 			{
-				NPC.rotation = 0;
-			}
-
-			switch ((int)Parent.ai[0])
-			{
-				//idle, fly to the book
-				case 1:
+				if (Parent.ai[0] != 4)
 				{
 					GoToPosition(155, -135, 0.45f);
 
@@ -189,186 +182,112 @@ namespace Spooky.Content.NPCs.Quest
 						}
 					}
 
-					break;
-				}
+					NPC.localAI[0]++;
 
-				//attacks
-				case 4:
-				{
-					//if both other ghosts are dead, then use desperation attack
-					//handle the priests desperation AI here since he is the only ghost who gains an entirely new attack when he is the only one left 
-					if (Parent.ai[1] > 0 && Parent.ai[2] > 0)
+					if (NPC.localAI[0] >= 300)
 					{
-						//fly to the player and shoot out homing crosses, 5 times
-						if (Parent.localAI[1] < 5)
+						SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
+
+						Main.NewText("Buffed Other Ghost", Color.White);
+
+						stretchRecoil = 0.5f;
+						
+						NPC.localAI[0] = 0;
+
+						NPC.netUpdate = true;
+					}
+				}
+				else
+				{
+					NPC.rotation = 0;
+
+					NPC.localAI[0]++;
+
+					if (NPC.localAI[1] < 5)
+					{
+						if (NPC.localAI[0] == 2)
 						{
-							if (Parent.localAI[0] == 2)
+							if (player.Center.X > NPC.Center.X)
 							{
-								if (player.Center.X > NPC.Center.X)
-								{
-									SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-350, -180), player.Center.Y - Main.rand.Next(50, 120));
-								}
-								else
-								{
-									SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(180, 350), player.Center.Y - Main.rand.Next(50, 120));
-								}
-
-								NPC.netUpdate = true;
-							}
-
-							if (Parent.localAI[0] > 2 && Parent.localAI[0] < 30)
-							{
-								Vector2 GoTo = SavePlayerPosition;
-
-								float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 22);
-								NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-
-								//slow down when too close to the player
-								if (NPC.Distance(player.Center) <= 250f)
-								{
-									NPC.velocity *= 0.95f;
-								}
+								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-350, -180), player.Center.Y - Main.rand.Next(50, 120));
 							}
 							else
 							{
-								NPC.velocity *= 0.92f;
+								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(180, 350), player.Center.Y - Main.rand.Next(50, 120));
 							}
 
-							if (Parent.localAI[0] == 60)
+							NPC.netUpdate = true;
+						}
+
+						if (NPC.localAI[0] > 2 && NPC.localAI[0] < 30)
+						{
+							Vector2 GoTo = SavePlayerPosition;
+
+							float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 22);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+							//slow down when too close to the player
+							if (NPC.Distance(player.Center) <= 250f)
 							{
-								SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
-
-								stretchRecoil = 0.5f;
-
-								Vector2 ShootSpeed = player.Center - NPC.Center;
-								ShootSpeed.Normalize();
-								ShootSpeed *= 5f;
-
-								Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
-								Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-								if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-								{
-									position += muzzleOffset;
-								}
-
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<BanditPriestCross>(), NPC.damage / 4, 0f, player.whoAmI);
-
-								Parent.localAI[0] = 0;
-								Parent.localAI[1]++;
+								NPC.velocity *= 0.95f;
 							}
 						}
-						//shoot out debuff ball
 						else
 						{
-							Vector2 GoTo = player.Center;
-							GoTo.X += player.Center.X > NPC.Center.X ? -270 : 270;
+							NPC.velocity *= 0.92f;
+						}
 
-							float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+						if (NPC.localAI[0] == 60)
+						{
+							SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
-							if (Parent.localAI[0] == 60)
+							stretchRecoil = 0.5f;
+
+							Vector2 ShootSpeed = player.Center - NPC.Center;
+							ShootSpeed.Normalize();
+							ShootSpeed *= 5f;
+
+							Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
+							Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+							if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 							{
-								SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
-
-								stretchRecoil = 0.5f;
-
-								Vector2 ShootSpeed = player.Center - NPC.Center;
-								ShootSpeed.Normalize();
-								ShootSpeed *= 8.5f;
-
-								Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
-								Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-								if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-								{
-									position += muzzleOffset;
-								}
-
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<BanditPriestBuffBall>(), 0, 0f, player.whoAmI);
-
-								stretchRecoil = 0.5f;
+								position += muzzleOffset;
 							}
 
-							//loop attack
-							if (Parent.localAI[0] >= 300)
-							{
-								Parent.localAI[0] = 0;
-								Parent.localAI[1] = 0;
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<BanditPriestCross>(), NPC.damage / 4, 0f, player.whoAmI);
 
-								NPC.netUpdate = true;
-							}
+							NPC.localAI[0] = 0;
+							NPC.localAI[1]++;
 						}
 					}
+					//shoot out debuff ball
 					else
 					{
-						//fly to the player and shoot out a random debuff projectile
-						if (Parent.localAI[0] < 480)
+						Vector2 GoTo = player.Center;
+						GoTo.X += player.Center.X > NPC.Center.X ? -270 : 270;
+
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+						if (Parent.localAI[0] == 60)
 						{
-							Vector2 GoTo = player.Center;
-							GoTo.X += player.Center.X > NPC.Center.X ? -270 : 270;
+							SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
-							float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+							Main.NewText("Buffed Other Ghost", Color.White);
 
-							if (Parent.localAI[0] == 60)
-							{
-								SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
-
-								stretchRecoil = 0.5f;
-
-								Vector2 ShootSpeed = player.Center - NPC.Center;
-								ShootSpeed.Normalize();
-								ShootSpeed *= 8.5f;
-
-								Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
-								Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-								if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-								{
-									position += muzzleOffset;
-								}
-
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<BanditPriestBuffBall>(), 0, 0f, player.whoAmI);
-
-								stretchRecoil = 0.5f;
-							}
+							stretchRecoil = 0.5f;
 						}
-		
-						if (Parent.localAI[0] >= 300)
+
+						//loop attack
+						if (NPC.localAI[0] >= 300)
 						{
-							//grant the other existing ghost a defense buff
-							if (Parent.ai[1] > 0 || Parent.ai[2] > 0)
-							{
-								Main.NewText("One ghost is dead, attack 2 here", Color.White);
+							NPC.localAI[0] = 0;
+							NPC.localAI[1] = 0;
 
-								Parent.localAI[0] = 0;
-								Parent.ai[0] = 1;
-
-								NPC.netUpdate = true;
-							}
-							//otherwise swap to the next ghost to attack
-							else
-							{
-								Parent.localAI[0] = 0;
-								Parent.ai[0] = 1;
-
-								NPC.netUpdate = true;
-							}
+							NPC.netUpdate = true;
 						}
 					}
-
-					break;
-				}
-
-				//go idle when the other bandits are attacking
-				case 2:
-				{
-					goto case 1;
-				}
-				case 3:
-				{
-					goto case 1;
 				}
 			}
 		}

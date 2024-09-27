@@ -18,18 +18,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override void SetDefaults() 
 		{
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
+			Item.DefaultToPlaceableTile(ModContent.TileType<SpookyHellCrate2Tile>());
             Item.width = 34;
 			Item.height = 34;
-			Item.useTime = 10;
-			Item.useAnimation = 14;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 9999;
 			Item.rare = ItemRarityID.Green;  
 			Item.value = Item.buyPrice(gold: 1);
-			Item.createTile = ModContent.TileType<SpookyHellCrate2Tile>();
 		}
 
 		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup) 
@@ -81,12 +74,12 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			//drop some potions
 			IItemDropRule[] explorationPotions = new IItemDropRule[] 
 			{
-				ItemDropRule.Common(ItemID.ObsidianSkinPotion, 1, 2, 3),
-				ItemDropRule.Common(ItemID.SpelunkerPotion, 1, 2, 3),
-				ItemDropRule.Common(ItemID.HunterPotion, 1, 2, 3),
-				ItemDropRule.Common(ItemID.GravitationPotion, 1, 2, 3),
-				ItemDropRule.Common(ItemID.MiningPotion, 1, 2, 3),
-				ItemDropRule.Common(ItemID.HeartreachPotion, 1, 2, 3),
+				ItemDropRule.Common(ItemID.PotionOfReturn, 1, 2, 3),
+				ItemDropRule.Common(ItemID.AmmoReservationPotion, 1, 2, 3),
+				ItemDropRule.Common(ItemID.EndurancePotion, 1, 2, 3),
+				ItemDropRule.Common(ItemID.BiomeSightPotion, 1, 2, 3),
+				ItemDropRule.Common(ItemID.LuckPotion, 1, 2, 3),
+				ItemDropRule.Common(ItemID.RagePotion, 1, 2, 3),
 			};
 			itemLoot.Add(new OneFromRulesRule(4, explorationPotions));
 

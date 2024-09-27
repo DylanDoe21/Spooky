@@ -8,19 +8,12 @@ namespace Spooky.Content.Tiles.Relic
 	{
 		public override void SetDefaults() 
         {
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
+			Item.DefaultToPlaceableTile(ModContent.TileType<SpookySpiritRelic>());
 			Item.master = true;
-			Item.width = 30;
-			Item.height = 44;
-			Item.useTime = 10;
-			Item.useAnimation = 14;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 9999;
+			Item.width = 16;
+			Item.height = 16;
 			Item.rare = ItemRarityID.Master;
 			Item.value = Item.buyPrice(gold: 1);
-			Item.createTile = ModContent.TileType<SpookySpiritRelic>();
 		}
 	}
 }

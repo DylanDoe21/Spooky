@@ -9,17 +9,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 	{
 		public override void SetDefaults() 
         {
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
-            Item.width = 14;
-			Item.height = 18;
-			Item.useTime = 10;
-			Item.useAnimation = 15;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.holdStyle = ItemHoldStyleID.HoldFront;
-			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<Candle>();
+			Item.DefaultToPlaceableTile(ModContent.TileType<Candle>());
+            Item.width = 16;
+			Item.height = 16;
 		}
 
 		public override void HoldItem(Player player) 

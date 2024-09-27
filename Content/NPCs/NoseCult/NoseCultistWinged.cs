@@ -1,11 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -160,6 +163,11 @@ namespace Spooky.Content.NPCs.NoseCult
 
                 NPC.netUpdate = true;
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostMocoCondition(), ModContent.ItemType<SnotGlob>(), 3, 1, 2));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

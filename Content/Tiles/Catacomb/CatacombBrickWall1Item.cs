@@ -15,16 +15,9 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override void SetDefaults()
         {
-            Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
+            Item.DefaultToPlaceableWall(ModContent.WallType<CatacombBrickWall1Safe>());
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 7;
-			Item.useAnimation = 14;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 9999;
-			Item.createWall = ModContent.WallType<CatacombBrickWall1Safe>();
         }
 
         public override void AddRecipes()
