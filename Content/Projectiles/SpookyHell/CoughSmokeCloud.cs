@@ -34,12 +34,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void AI()
 		{
-			if (Main.rand.NextBool())
-			{
-				int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CoughCloudDust>(), 0f, 0f, 100, Color.DarkGray * 0.5f, Main.rand.NextFloat(0.3f, 0.6f));
-				Main.dust[DustEffect].velocity *= 0;
-				Main.dust[DustEffect].alpha = 100;
-			}
+			int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CoughCloudDust>(), 0f, 0f, 100, Color.DarkGray * 0.5f, Main.rand.NextFloat(0.3f, 0.6f));
+			Main.dust[DustEffect].velocity *= 0;
+			Main.dust[DustEffect].alpha = 100;
         }
     }
 }

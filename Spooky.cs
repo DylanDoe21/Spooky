@@ -161,6 +161,12 @@ namespace Spooky
                     Main.npc[NewNPC].velocity.Y = -8;
                     break;
                 }
+                case SpookyMessageType.PandoraBoxDowned:
+                {
+                    Flags.downedPandoraBox = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 case SpookyMessageType.OldHunterHat:
                 {
                     Flags.OldHunterHat = true;
@@ -307,6 +313,7 @@ namespace Spooky
         SpawnStitch,
         SpawnSheldon,
         SpawnChester,
+        PandoraBoxDowned,
         OldHunterHat,
         OldHunterSkull,
         OldHunterTorso,

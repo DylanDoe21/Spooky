@@ -559,13 +559,19 @@ namespace Spooky.Content.NPCs.PandoraBox
                                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, FunnyBean, 1f);
                                 }
                             }
-                            
-                            PandoraBoxWorld.PandoraEventActive = false;
 
-                            if (!Flags.downedPandoraBox)
+                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            {
+                                ModPacket packet = Mod.GetPacket();
+                                packet.Write((byte)SpookyMessageType.PandoraBoxDowned);
+                                packet.Send();
+                            }
+                            else
                             {
                                 Flags.downedPandoraBox = true;
                             }
+                            
+                            PandoraBoxWorld.PandoraEventActive = false;
 
                             if (Main.netMode == NetmodeID.Server)
                             {

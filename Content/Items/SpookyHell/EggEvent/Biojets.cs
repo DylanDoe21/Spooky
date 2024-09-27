@@ -67,17 +67,14 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 				//hovering logic
 				if (player.wings == player.wingsLogic)
 				{
-					if (player.controlDown)
+					if (player.controlDown && player.wingTime > 0)
 					{
-						if (player.wingTime > 0)
-						{
-							player.velocity.Y *= 0.001f;
+						player.velocity.Y *= 0.0001f;
 
-							if (player.controlLeft || player.controlRight)
-							{
-								player.velocity.X += 0.5f * player.direction;
-								player.velocity.X = MathHelper.Clamp(player.velocity.X, -10, 10);
-							}
+						if (player.controlLeft || player.controlRight)
+						{
+							player.velocity.X += 0.5f * player.direction;
+							player.velocity.X = MathHelper.Clamp(player.velocity.X, -10, 10);
 						}
 
 						EffectRate = 10;

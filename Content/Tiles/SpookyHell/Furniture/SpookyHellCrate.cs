@@ -104,7 +104,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			itemLoot.Add(new OneFromRulesRule(2, highendBait));
 
             //coins
-            itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 0, 2));
+            itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 3, 1, 5));
 		}
 	}
 }

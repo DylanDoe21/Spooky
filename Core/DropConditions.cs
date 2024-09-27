@@ -274,6 +274,8 @@ namespace Spooky.Core
         //drops after moco has been defeated
         public class PostMocoCondition : IItemDropRuleCondition
         {
+            private static LocalizedText Description = Language.GetOrRegister("Mods.Spooky.DropConditions.PostMocoCondition");
+
             public bool CanDrop(DropAttemptInfo info) 
             {
                 if (!info.IsInSimulation) 
@@ -296,7 +298,7 @@ namespace Spooky.Core
 
             public string GetConditionDescription() 
             {
-                return null;
+                return Description.Value;
             }
         }
 
@@ -320,7 +322,7 @@ namespace Spooky.Core
 
             public bool CanShowItemDropInUI() 
             {
-                return true;
+                return Flags.downedOrroboro;
             }
             
             public string GetConditionDescription()

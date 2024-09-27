@@ -464,3 +464,18 @@ SmokerCoughDebuff: {
 	DisplayName: Smoker Cough Debuff
 	Description: ""
 }
+
+NoseBlessingDebuff: {
+	DisplayName: Nose Blessing Debuff
+	Description: ""
+}
+
+NoseBlessingDebuffCooldown: {
+	DisplayName: Nose Blessing Debuff Cooldown
+	Description: ""
+}
+
+NoseBlessingBuff: {
+	DisplayName: Noseferatu's Blessing
+	Description: Attacking enemies will damage them with boogers
+}

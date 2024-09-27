@@ -128,6 +128,7 @@ namespace Spooky.Core
         public bool EyeValleyCompass = false;
         public bool NoseCultistDisguise1 = false;
 		public bool NoseCultistDisguise2 = false;
+		public bool NoseBlessingBuff = false;
 
 		//misc timers
 		public static float ScreenShakeAmount = 0;
@@ -266,6 +267,7 @@ namespace Spooky.Core
             EyeValleyCompass = false;
             NoseCultistDisguise1 = false;
 			NoseCultistDisguise2 = false;
+			NoseBlessingBuff = false;
 		}
 
         public override void ModifyScreenPosition()
@@ -342,9 +344,11 @@ namespace Spooky.Core
 				//spawn a stationary smoke cloud with the smoker lung
 				if (SmokerLung && !Player.HasBuff(ModContent.BuffType<SmokerLungCooldown>()))
 				{
+					SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1.2f }, Player.Center);
+
 					Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<CoughSmokeCloud>(), 50, 0f, Player.whoAmI);
 
-					Player.AddBuff(ModContent.BuffType<SmokerLungCooldown>(), 7200);
+					Player.AddBuff(ModContent.BuffType<SmokerLungCooldown>(), 3600);
 				}
             }
 
@@ -473,6 +477,22 @@ namespace Spooky.Core
 
 				Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GooChomperProj>(), Damage, 0, Player.whoAmI, target.whoAmI);
 				target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached = true;
+			}
+
+			//if the player has the nose blessing buff and hits an npc with the nose blessing debuff
+			if (NoseBlessingBuff && Main.rand.NextBool(10) && Player.ownedProjectileCounts[ModContent.ProjectileType<SnotBlessingOrbiter>()] < 10 && !target.HasBuff(ModContent.BuffType<NoseBlessingDebuffCooldown>()))
+			{
+				if (!target.HasBuff(ModContent.BuffType<NoseBlessingDebuff>()))
+				{
+					target.AddBuff(ModContent.BuffType<NoseBlessingDebuff>(), 360);
+				}
+				
+				if (target.HasBuff(ModContent.BuffType<NoseBlessingDebuff>()))
+				{
+					int distance = Main.rand.Next(0, 360);
+
+					Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<SnotBlessingOrbiter>(), damageDone * 2, 3, Player.whoAmI, target.whoAmI, distance);
+				}
 			}
         }
 

@@ -184,11 +184,11 @@ SadGhostBig.DisplayName: Sad Ghost
 SadGhostSmall.DisplayName: Sad Ghost
 //egg event
 Biojetter.DisplayName: Biojetter
-BiojetterEye.DisplayName: Bio Eye
-CoughLungs.DisplayName: Cough Lungs
+BiojetterEye.DisplayName: Biojetter
+CoughLungs.DisplayName: Coughing Lungs
 CruxBat.DisplayName: Crux Bat
 EarWorm.DisplayName: Ear Worm
-EarWormBase.DisplayName: Ear Worm Base
+EarWormBase.DisplayName: ""
 ExplodingAppendix.DisplayName: Exploding Appendix
 FleshBolster.DisplayName: Flesh Bolster
 GooSlug.DisplayName: Goo Slug

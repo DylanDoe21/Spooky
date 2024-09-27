@@ -215,7 +215,7 @@ NoseGunner: {
 }
 
 NoseLeader: {
-	Button: Blessing (5 Snot Globs)
+	Button: Blessing (1 Snot Glob)
 	NoseBlessing: Here my little follower, for you a blessing straight from my nose. Use it wisely...
 	NoseBlessingBroke: Did you come to me and expect to yield results with no sacred snot? Shameful.
 	Dialogue1: My little disciple, have you come to sacrifice yourself for the holy one?

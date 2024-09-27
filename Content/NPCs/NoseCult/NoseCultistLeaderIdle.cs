@@ -2,15 +2,20 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Buffs;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.SpookyHell.Misc;
 
 namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultistLeaderIdle : ModNPC
 	{
+		public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound);
+
 		public override void SetStaticDefaults()
 		{	
 			Main.npcFrameCount[NPC.type] = 9;
@@ -76,7 +81,36 @@ namespace Spooky.Content.NPCs.NoseCult
 		{
 			if (firstButton)
 			{
-				Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.NoseLeader.NoseBlessing");
+				if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<SnotGlob>()))
+				{
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.NoseLeader.NoseBlessing");
+
+					SoundEngine.PlaySound(SneezeSound, NPC.Center);
+
+					Main.LocalPlayer.AddBuff(ModContent.BuffType<NoseBlessingBuff>(), 36000);
+
+					float maxAmount = 30;
+					int currentAmount = 0;
+					while (currentAmount <= maxAmount)
+					{
+						Vector2 velocity = new Vector2(5f, 5f);
+						Vector2 Bounds = new Vector2(3f, 3f);
+						float intensity = 5f;
+
+						Vector2 vector12 = Vector2.UnitX * 0f;
+						vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+						vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+						int num104 = Dust.NewDust(Main.LocalPlayer.Center, 0, 0, DustID.KryptonMoss, 0f, 0f, 100, default, 3f);
+						Main.dust[num104].noGravity = true;
+						Main.dust[num104].position = Main.LocalPlayer.Center + vector12;
+						Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+						currentAmount++;
+					}
+				}
+				else
+				{
+					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.NoseLeader.NoseBlessingBroke");
+				}
 			}
 		}
 

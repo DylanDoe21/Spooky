@@ -405,7 +405,6 @@ BanditBruiserFist.DisplayName: Phantom Fist
 BanditWizardBall.DisplayName: Magic Blast
 BanditWizardBallSplitting.DisplayName: Magic Blast
 BanditWizardBallSmall.DisplayName: Magic Blast
-BanditPriestBuffBall.DisplayName: Debuff Spell
 BanditPriestCross.DisplayName: Magic Cross Bolt
 PeptoBubble.DisplayName: Pepto Bubble
 GhostSpawner1.DisplayName: Ghost Spawner
@@ -423,3 +422,4 @@ GooChomperProj.DisplayName: Corrosive Bite
 CoughSmokeCloud.DisplayName: Smoke Cloud
 CoughSmokeCloudSmall.DisplayName: Smoke Cloud
 KidneyRock.DisplayName: Kidney Rock
+SnotBlessingOrbiter.DisplayName: Snot Blessing Orbiter

@@ -2083,7 +2083,7 @@ SmokerLung: {
 		'''
 		Press the Accessory Hotkey to cough up a lingering cloud of smoke
 		Enemies caught in the smoke may also cough out smoke clouds randomly for a short time
-		You cannot create another smoke cloud for 2 minutes
+		You cannot create another smoke cloud for 1 minute
 		'''
 }
 

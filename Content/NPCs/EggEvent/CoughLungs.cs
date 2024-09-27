@@ -124,7 +124,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.localAI[0]++;
 			if (NPC.localAI[0] == 420)
             {
-                NPC.velocity.Y = -10;
+                NPC.velocity.Y = -20;
             }
 
             if (NPC.localAI[0] > 420)
@@ -140,7 +140,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.localAI[0] == 480)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit27, NPC.Center);
+                SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1.2f }, NPC.Center);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
 				{

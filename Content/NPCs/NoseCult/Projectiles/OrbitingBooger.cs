@@ -36,6 +36,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.Item177;
 			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.alpha = 255;
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -52,6 +53,11 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
             if (!Parent.active)
             {
                 NPC.active = false;
+            }
+
+            if (NPC.alpha > 0)
+            {
+                NPC.alpha -= 15;
             }
 
             NPC.rotation += 0.25f * (float)Parent.direction;

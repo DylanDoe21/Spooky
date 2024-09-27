@@ -291,6 +291,7 @@ Fixed all of the following bugs and issues:
 -Big bone's red, orange, and phase 2 transition flower's chains sometimes drawing infront of big bone
 -The spider grotto and catacombs overall spawn rates being way too low
 -Catacomb crates not being fished up in the cemetery if spooky spirit has been defeated for the first time
+-Catacomb second layer on small worlds sometimes generating the loot rooms in a way which made it impossible to get to the bottom of the catacombs due to pathways being blocked off
 -Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background config changed
 
 
@@ -300,6 +301,7 @@ Fixed all of the following multiplayer issues:
 -Old hunter spawn animation not starting correctly
 -Old hunter not waking up when spoken to
 -Egg incursion not saving as defeated correctly when completed
+-Pandora's box not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack inconsistently not impacting the ground and creating projectiles
 -Spooky spirit's glowmasks flickering

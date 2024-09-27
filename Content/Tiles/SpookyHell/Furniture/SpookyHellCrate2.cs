@@ -69,7 +69,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				ItemDropRule.Common(ItemID.AdamantiteBar, 1, 2, 5),
 				ItemDropRule.Common(ItemID.TitaniumBar, 1, 2, 5),
 			};
-			itemLoot.Add(new OneFromRulesRule(4, oreBars));
+			itemLoot.Add(new OneFromRulesRule(2, oreBars));
 
 			//drop some potions
 			IItemDropRule[] explorationPotions = new IItemDropRule[] 
@@ -81,7 +81,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				ItemDropRule.Common(ItemID.LuckPotion, 1, 2, 3),
 				ItemDropRule.Common(ItemID.RagePotion, 1, 2, 3),
 			};
-			itemLoot.Add(new OneFromRulesRule(4, explorationPotions));
+			itemLoot.Add(new OneFromRulesRule(2, explorationPotions));
 
 			//healing and mana potions
 			IItemDropRule[] resourcePotions = new IItemDropRule[] 
@@ -90,7 +90,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 				ItemDropRule.Common(ItemID.ManaPotion, 1, 5, 6),
 			};
 
-			itemLoot.Add(new OneFromRulesRule(2, resourcePotions));
+			itemLoot.Add(new OneFromRulesRule(1, resourcePotions));
 
 			//fishing bait
 			IItemDropRule[] highendBait = new IItemDropRule[] 
@@ -101,7 +101,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			itemLoot.Add(new OneFromRulesRule(2, highendBait));
 
             //coins
-            itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 1, 7));
+            itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 3, 1, 5));
 		}
 	}
 }
