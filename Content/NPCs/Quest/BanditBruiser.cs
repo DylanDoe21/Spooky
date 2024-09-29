@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -12,6 +14,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
@@ -21,6 +24,7 @@ namespace Spooky.Content.NPCs.Quest
 	public class BanditBruiser : ModNPC
 	{
 		int SaveDirection;
+		int ShootSpeed;
 
 		float addedStretch = 0f;
 		float stretchRecoil = 0f;
@@ -30,10 +34,11 @@ namespace Spooky.Content.NPCs.Quest
 		Vector2 SavePlayerPosition;
 
 		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> ShieldTexture;
 
 		public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 1;
+            Main.npcFrameCount[NPC.type] = 9;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
@@ -51,6 +56,7 @@ namespace Spooky.Content.NPCs.Quest
 
 			//ints
 			writer.Write(SaveDirection);
+			writer.Write(ShootSpeed);
 
 			//bools
             writer.Write(Shake);
@@ -63,6 +69,7 @@ namespace Spooky.Content.NPCs.Quest
 
 			//ints
             SaveDirection = reader.ReadInt32();
+			ShootSpeed = reader.ReadInt32();
 
 			//bools
             Shake = reader.ReadBoolean();
@@ -73,8 +80,8 @@ namespace Spooky.Content.NPCs.Quest
             NPC.lifeMax = 2750;
             NPC.damage = 40;
 			NPC.defense = 0;
-			NPC.width = 82;
-			NPC.height = 92;
+			NPC.width = 90;
+			NPC.height = 102;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
 			NPC.noTileCollide = true;
@@ -134,7 +141,68 @@ namespace Spooky.Content.NPCs.Quest
 			//draw npc manually for stretching
             spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, effects, 0f);
 
+			//draw forcefield if being buffed
+            if (NPC.HasBuff(ModContent.BuffType<GhostBanditDefense>()))
+            {
+                ShieldTexture ??= ModContent.Request<Texture2D>("Spooky/ShaderAssets/BanditShield");
+
+				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+                var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
+                DrawData drawData = new DrawData(ShieldTexture.Value, center + new Vector2(0, 25), new Rectangle(0, 0, 500, 400), Color.Lerp(Color.Cyan, Color.Blue, fade), 0, new Vector2(250f, 250f), NPC.scale * (0.5f + fade * 0.05f), SpriteEffects.None, 0);
+                GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + fade * 0.5f));
+                GameShaders.Misc["ForceField"].Apply(drawData);
+                drawData.Draw(Main.spriteBatch);
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            }
+
 			return false;
+		}
+
+		public override void FindFrame(int frameHeight)
+        {
+			NPC Parent = Main.npc[(int)NPC.ai[0]];
+
+			if (Parent.localAI[0] >= 480 && (Parent.ai[2] > 0 || Parent.ai[3] > 0))
+			{
+
+			}
+			if (Parent.ai[0] == 2 && Parent.localAI[0] > 60 && Parent.localAI[0] < 480)
+			{
+				if (NPC.frame.Y < frameHeight * 4)
+				{
+					NPC.frame.Y = 4 * frameHeight;
+				}
+
+				NPC.frameCounter++;
+				if (NPC.frameCounter > ShootSpeed)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+				if (NPC.frame.Y >= frameHeight * 9)
+				{
+					NPC.frame.Y = 4 * frameHeight;
+				}
+			}
+			else
+			{
+				NPC.frameCounter++;
+				if (NPC.frameCounter > 7)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+				if (NPC.frame.Y >= frameHeight * 4)
+				{
+					NPC.frame.Y = 0 * frameHeight;
+				}
+			}
 		}
 
 		public override bool CheckActive()
@@ -146,7 +214,7 @@ namespace Spooky.Content.NPCs.Quest
         {
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
-            return Parent.ai[0] == 2;
+            return Parent.ai[0] == 2 && Parent.localAI[0] >= 560;
         }
 
 		public override void AI()
@@ -175,6 +243,16 @@ namespace Spooky.Content.NPCs.Quest
 			}
 
 			addedStretch = -stretchRecoil;
+
+			//buff defense
+			if (NPC.HasBuff(ModContent.BuffType<GhostBanditDefense>()))
+            {
+				NPC.defense = 50;
+			}
+			else
+			{
+				NPC.defense = 0;
+			}
 
 			//reset rotation when attacking
 			if (Parent.ai[0] == 2)
@@ -218,29 +296,41 @@ namespace Spooky.Content.NPCs.Quest
 					if (Parent.localAI[0] < 480)
 					{
 						Vector2 GoTo = player.Center;
-						GoTo.X += player.Center.X > NPC.Center.X ? -350 : 350;
+						GoTo.X += player.Center.X > NPC.Center.X ? -270 : 270;
 
 						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
 						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-						bool ShootFaster = Parent.ai[2] > 0 || Parent.ai[3] > 0;
-						bool ShootExtraFast = Parent.ai[2] > 0 && Parent.ai[3] > 0;
-
-						int Frequency = ShootExtraFast ? 25 : (ShootFaster ? 40 : 60);
-
-						if (Parent.localAI[0] % Frequency == 0 && Parent.localAI[0] > Frequency)
+						if (Parent.localAI[0] >= 60)
 						{
-							SoundEngine.PlaySound(SoundID.Item10, NPC.Center);
+							bool ShootFaster = Parent.ai[2] > 0 || Parent.ai[3] > 0;
+							bool ShootExtraFast = Parent.ai[2] > 0 && Parent.ai[3] > 0;
 
-							NPC.velocity *= 0f;
+							ShootSpeed = ShootExtraFast ? 4 : (ShootFaster ? 6 : 8);
 
-							Vector2 ShootSpeed = player.Center - NPC.Center;
-							ShootSpeed.Normalize();
-							ShootSpeed *= 2;
-								
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + (NPC.direction == -1 ? -50 : 50), NPC.Center.Y), ShootSpeed, ModContent.ProjectileType<BanditBruiserFist>(), NPC.damage / 4, 0, NPC.target);
+							if (NPC.frame.Y == NPC.height * 7)
+							{
+								if (Parent.localAI[1] == 0)
+								{
+									SoundEngine.PlaySound(SoundID.Item10, NPC.Center);
 
-							stretchRecoil = 0.5f;
+									NPC.velocity *= 0f;
+
+									Vector2 ShootSpeed = player.Center - NPC.Center;
+									ShootSpeed.Normalize();
+									ShootSpeed *= 2;
+										
+									Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + (NPC.direction == -1 ? -50 : 50), NPC.Center.Y), ShootSpeed, ModContent.ProjectileType<BanditBruiserFist>(), NPC.damage / 4, 0, NPC.target);
+
+									stretchRecoil = 0.5f;
+
+									Parent.localAI[1] = 1;
+								}
+							}
+							else
+							{
+								Parent.localAI[1] = 0;
+							}
 						}
 					}
 	
@@ -300,6 +390,7 @@ namespace Spooky.Content.NPCs.Quest
 								SaveDirection = 0;
 
 								Parent.localAI[0] = 0;
+								Parent.localAI[1] = 0;
 								Parent.ai[0]++;
 
 								NPC.netUpdate = true;
@@ -309,6 +400,7 @@ namespace Spooky.Content.NPCs.Quest
 						else
 						{
 							Parent.localAI[0] = 0;
+							Parent.localAI[1] = 0;
 							Parent.ai[0]++;
 
 							NPC.netUpdate = true;

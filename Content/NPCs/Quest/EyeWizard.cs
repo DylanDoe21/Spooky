@@ -8,7 +8,6 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -20,6 +19,8 @@ namespace Spooky.Content.NPCs.Quest
 	public class EyeWizard : ModNPC
 	{
 		int CurrentFrameX = 0; //0 = idle flying animation  1 = go inside cloak
+
+		bool SpawnedOrb = false;
 
 		Vector2 SaveNPCPosition;
         Vector2 SavePlayerPosition;
@@ -44,6 +45,9 @@ namespace Spooky.Content.NPCs.Quest
 			//ints
             writer.Write(CurrentFrameX);
 
+			//bools
+            writer.Write(SpawnedOrb);
+
             //floats
             writer.Write(NPC.localAI[0]);
 			writer.Write(NPC.localAI[1]);
@@ -57,6 +61,9 @@ namespace Spooky.Content.NPCs.Quest
 
 			//ints
             CurrentFrameX = reader.ReadInt32();
+
+			//bools
+            SpawnedOrb = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
@@ -172,15 +179,35 @@ namespace Spooky.Content.NPCs.Quest
 
             NPC.rotation = NPC.velocity.X * 0.03f;
 
+			if (!SpawnedOrb)
+			{
+				int Orb = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (Main.rand.NextBool() ? -100 : 100), (int)NPC.Center.Y, ModContent.NPCType<EyeWizardOrb>(), ai0: NPC.whoAmI);
+
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					NetMessage.SendData(MessageID.SyncNPC, number: Orb);
+				}
+
+				SpawnedOrb = true;
+
+				NPC.netUpdate = true;
+			}
+
 			if (NPC.ai[0] == 0)
 			{
 				NPC.noGravity = false;
 				NPC.noTileCollide = false;
+
+				NPC.immortal = true;
+				NPC.dontTakeDamage = true;
 			}
 			else
 			{
 				NPC.noGravity = true;
 				NPC.noTileCollide = true;
+
+				NPC.immortal = false;
+				NPC.dontTakeDamage = false;
 
 				NPC.localAI[2]++;
 
@@ -497,16 +524,5 @@ namespace Spooky.Content.NPCs.Quest
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BountyItem4>()));
         }
-
-		public override void HitEffect(NPC.HitInfo hit) 
-        {
-			//become aggressive on hit
-			if (NPC.ai[0] == 0)
-			{
-				NPC.ai[0]++;
-
-				NPC.netUpdate = true;
-			}
-		}
 	}
 }

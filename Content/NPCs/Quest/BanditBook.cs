@@ -31,18 +31,32 @@ namespace Spooky.Content.NPCs.Quest
         {
             Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/GhostBanditsBestiary",
+                Position = new Vector2(-12f, -55f),
+				PortraitPositionXOverride = -6f,
+                PortraitPositionYOverride = 25f
+            };
         }
 
 		public override void SendExtraAI(BinaryWriter writer)
         {
             //floats
             writer.Write(NPC.localAI[0]);
+			writer.Write(NPC.localAI[1]);
+			writer.Write(NPC.localAI[2]);
+			writer.Write(NPC.localAI[3]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //floats
             NPC.localAI[0] = reader.ReadSingle();
+			NPC.localAI[1] = reader.ReadSingle();
+			NPC.localAI[2] = reader.ReadSingle();
+			NPC.localAI[3] = reader.ReadSingle();
         }
 
 		public override void SetDefaults()
@@ -87,7 +101,7 @@ namespace Spooky.Content.NPCs.Quest
 				Color color = Color.White;
 
 				//change color based on which ghost is attacking
-				if (NPC.ai[0] == 0 || NPC.ai[0] == 1)
+				if (NPC.ai[0] == -1 || NPC.ai[0] == 0 || NPC.ai[0] == 1)
 				{
 					Color[] ColorList = new Color[]
 					{

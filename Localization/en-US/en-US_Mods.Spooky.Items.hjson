@@ -339,6 +339,11 @@ EMFReader: {
 		'''
 }
 
+EMFReaderBroke: {
+	DisplayName: Broken EMF Reader
+	Tooltip: Can be repaired to find ghosts
+}
+
 Fertilizer: {
 	DisplayName: Freaky Fertilizer
 	Tooltip:
@@ -981,8 +986,8 @@ PartySkeletonSkull: {
 	Tooltip: ""
 }
 
-PelusaHead: {
-	DisplayName: Pelusa's Mask
+DandyHead: {
+	DisplayName: Dandy's Mask
 	Tooltip: "'Great for impersonating spooky mod devs!'"
 }
 
@@ -2083,7 +2088,7 @@ SmokerLung: {
 		'''
 		Press the Accessory Hotkey to cough up a lingering cloud of smoke
 		Enemies caught in the smoke may also cough out smoke clouds randomly for a short time
-		You cannot create another smoke cloud for 1 minute
+		You cannot create another smoke cloud for a minute
 		'''
 }
 

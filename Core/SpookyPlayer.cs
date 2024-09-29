@@ -459,7 +459,7 @@ namespace Spooky.Core
 			}
 
 			//attach a chain to an enemy with the vein chain
-			if (VeinChain && Main.rand.NextBool(10) && target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type] && Vector2.Distance(Player.Center, target.Center) <= 250f)
+			if (VeinChain && Main.rand.NextBool(10) && target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type] && Vector2.Distance(Player.Center, target.Center) <= 370f)
 			{
 				int MaxChains = Player.statLife < (Player.statLifeMax / 4) ? 1 : (Player.statLife < (Player.statLifeMax / 2) ? 2 : 3);
 

@@ -13,7 +13,7 @@ namespace Spooky.Content.Projectiles.Sentient
 {
 	public class SentientLeafBlowerProj : ModProjectile
 	{
-        int playerCenterOffset = 4;
+        int playerCenterOffset = 8;
 
         public static readonly SoundStyle UseSound = new("Spooky/Content/Sounds/Splat", SoundType.Sound) { Volume = 0.2f, Pitch = 0.75f };
 
@@ -24,7 +24,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 44;
+            Projectile.width = 54;
             Projectile.height = 114;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
@@ -52,6 +52,11 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 Projectile.Kill();
             }
+
+            if (!player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+			{
+				Projectile.Kill();
+			}
 
             if (Projectile.owner == Main.myPlayer)
             {
@@ -88,7 +93,7 @@ namespace Spooky.Content.Projectiles.Sentient
             player.itemRotation = Projectile.rotation;
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 15 - Projectile.height / 2);
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 7 - Projectile.height / 2);
 
             if (direction.X > 0) 
             {
@@ -99,13 +104,13 @@ namespace Spooky.Content.Projectiles.Sentient
                 player.direction = -1;
             }
 
-			if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana) 
+			if (player.channel) 
             {
                 Projectile.timeLeft = 2;
 
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
                 {
                     player.statMana -= ItemGlobal.ActiveItem(player).mana;
 

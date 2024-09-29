@@ -53,6 +53,17 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             {
                 Projectile.alpha += 4;
             }
+
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] % 120 == 0)
+            {
+                Vector2 ShootSpeed = Main.player[Main.myPlayer].Center - Projectile.Center;
+                ShootSpeed.Normalize();
+                ShootSpeed *= 18f;
+
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<LingeringEyeBolt>(), Projectile.damage, 0, Main.myPlayer);
+            }
         }
     }
 }

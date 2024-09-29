@@ -12,9 +12,6 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
     {
         public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
-        float WaveIntensity = 5f;
-        float Wave = 8f;
-
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[12];
 
@@ -104,46 +101,11 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 				trailLength[i] = current;
 				current = previousPosition;
 			}
-
-            Projectile.ai[0]++;
-            if (Projectile.ai[1] == 0)
-            {
-                if (Projectile.ai[0] > Wave * 0.5f)
-                {
-                    Projectile.ai[0] = 0;
-                    Projectile.ai[1] = 1;
-                }
-                else
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-            }
-            else
-            {
-                if (Projectile.ai[0] <= Wave)
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-                else
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-                if (Projectile.ai[0] >= Wave * 2)
-                {
-                    WaveIntensity = Main.rand.NextFloat(-3f, 3f);
-                    Wave = Main.rand.NextFloat(-3f, 4f);
-
-                    Projectile.ai[0] = 0;
-                }
-            }
         }
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item104, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.DD2_OgreHurt, Projectile.Center);
 
             int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditBruiser>(), ai0: Projectile.ai[2]);
 
@@ -172,17 +134,28 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 		}
     }
 
-    public class GhostSpawner2 : GhostSpawner1
+    public class GhostSpawner2 : ModProjectile
     {
-        float WaveIntensity = 5f;
-        float Wave = 8f;
+        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[12];
 
 		private static Asset<Texture2D> ProjTexture;
 
-        public override bool PreDraw(ref Color lightColor)
+        public override void SetDefaults()
+        {
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 35;
+            Projectile.aiStyle = -1;
+			Projectile.alpha = 255;
+        }
+
+		public override bool PreDraw(ref Color lightColor)
 		{
 			if (runOnce)
 			{
@@ -218,7 +191,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 					float x = Main.rand.Next(-2, 3) * scale;
 					float y = Main.rand.Next(-2, 3) * scale;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), null, Color.Green, Projectile.rotation, drawOrigin, scale * 2f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), null, Color.Lime, Projectile.rotation, drawOrigin, scale * 2f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -227,7 +200,12 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 			return true;
 		}
 
-        public override void AI()
+        public override bool CanHitPlayer(Player target)
+        {
+            return false;
+        }
+
+		public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
@@ -249,46 +227,11 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 				trailLength[i] = current;
 				current = previousPosition;
 			}
-
-            Projectile.ai[0]++;
-            if (Projectile.ai[1] == 0)
-            {
-                if (Projectile.ai[0] > Wave * 0.5f)
-                {
-                    Projectile.ai[0] = 0;
-                    Projectile.ai[1] = 1;
-                }
-                else
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-            }
-            else
-            {
-                if (Projectile.ai[0] <= Wave)
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-                else
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-                if (Projectile.ai[0] >= Wave * 2)
-                {
-                    WaveIntensity = Main.rand.NextFloat(-3f, 3f);
-                    Wave = Main.rand.NextFloat(-3f, 4f);
-
-                    Projectile.ai[0] = 0;
-                }
-            }
         }
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item104, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.DD2_GoblinScream with { Pitch = -0.25f }, Projectile.Center);
 
             int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditWizard>(), ai0: Projectile.ai[2]);
 
@@ -317,17 +260,28 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 		}
     }
 
-    public class GhostSpawner3 : GhostSpawner1
+    public class GhostSpawner3 : ModProjectile
     {
-        float WaveIntensity = 5f;
-        float Wave = 8f;
+        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[12];
 
 		private static Asset<Texture2D> ProjTexture;
 
-        public override bool PreDraw(ref Color lightColor)
+        public override void SetDefaults()
+        {
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 35;
+            Projectile.aiStyle = -1;
+			Projectile.alpha = 255;
+        }
+
+		public override bool PreDraw(ref Color lightColor)
 		{
 			if (runOnce)
 			{
@@ -372,7 +326,12 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 			return true;
 		}
 
-        public override void AI()
+        public override bool CanHitPlayer(Player target)
+        {
+            return false;
+        }
+
+		public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
@@ -394,46 +353,11 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 				trailLength[i] = current;
 				current = previousPosition;
 			}
-
-            Projectile.ai[0]++;
-            if (Projectile.ai[1] == 0)
-            {
-                if (Projectile.ai[0] > Wave * 0.5f)
-                {
-                    Projectile.ai[0] = 0;
-                    Projectile.ai[1] = 1;
-                }
-                else
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-            }
-            else
-            {
-                if (Projectile.ai[0] <= Wave)
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-                else
-                {
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                    Projectile.velocity = perturbedSpeed;
-                }
-                if (Projectile.ai[0] >= Wave * 2)
-                {
-                    WaveIntensity = Main.rand.NextFloat(-3f, 3f);
-                    Wave = Main.rand.NextFloat(-3f, 4f);
-
-                    Projectile.ai[0] = 0;
-                }
-            }
         }
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item104, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.DD2_DarkMageHurt with { Pitch = 1.1f }, Projectile.Center);
 
             int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditPriest>(), ai0: Projectile.ai[2]);
 

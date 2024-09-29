@@ -25,7 +25,7 @@ New Nose Dungeon:
 -At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other rooms
 -At the end of the dungeon, you can use the fire exit to back track to the beginning without having to go back through the spike-filled hallways
 -While the actual dungeon bricks are indestructable, you can craft each different colored brick at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with the gray bricks
--Added a post-moco item you can use to reset the dungeon to rematch the cultists, or if you're more interesting in worldbuilding you can disguise yourself as a cult memebr to talk with them to gain some insights
+-Added a post-moco item you can use to reset the dungeon to rematch the cultists, or if you're more interested in worldbuilding you can disguise yourself as a cult memebr to talk with them to gain some insights
 
 
 New Moco Rework:
@@ -49,7 +49,7 @@ Egg Incursion Rework (Again lol):
 Little Eye Quest Rework:
 
 -Little eye's quest system has been entirely reworked into an optional bounty system, with a new UI, and 4 new minibosses to fight
--Each quest will have you go to each main spooky mod biome and find a miniboss which you will fight and then bring back the item it drops back to little eye for rewards
+-Each quest will have you go to each main spooky mod biome and find a miniboss which you fight, then bring the item it drops back to little eye for rewards
 -Each miniboss also drop a quest item you have to turn in, after which little eye will give you a unique reward and other random stuff
 -You can also now complete all 4 of the bounties in any order you like, however once you choose a specific bounty, you must complete that bounty before you can select another one
 -Orro-boro is now a bounty quest, and becomes available to you after defeating all 3 mechanical bosses, after which little eye will give you the concoction
@@ -87,7 +87,7 @@ Some things to note about this buff mechanic:
 -The UI for the bloom buffs will only show up if you have a bloom buff active, and if you don't have any bloom buffs it won't show up (Just to make people aware that it isn't a bug if you don't immediately see it in-game)
 -Bloom buffs have stacking durations, meaning if you eat multiple of the same bloom then that blooms base duration will be added onto the remaining duration for the existing buff
 (Also keep in mind that while you can do this buff duration stacking with any bloom, every single bloom buff's duration will max out at 20 minutes and it will not go beyond that even if you eat more of that bloom)
--Don't worry about loosing bloom buffs when leaving your world, as every bloom buff you have and their current durations will be saved with your player when you leave the world or game
+-Don't worry about loosing bloom buffs when leaving your world, as every bloom buff you have and their remaining durations will be saved with your player when you leave the world or game
 
 
 New Music:
@@ -116,6 +116,7 @@ Other Miscellaneous Additions:
 -Added the sneezer, a new booger blaster variant that constantly fires out boogers rather than being a charge weapon, but is a bit lower damage than the normal booger blaster
 -Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
 -Added new fishing crates to the lake of blood for both pre-hardmode and hardmode
+-Added new boss relic sprites made by dandy
 
 
 
@@ -235,9 +236,10 @@ Removals:
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned in the catacomb improvements section
 -Removed the feature where gravestones wouldn't spawn from your character if you died in the catacombs, since you can now break blocks in the catacombs
 -Removed the cotton swabs crafting recipe due to the new way it is obtained
+-Removed the secret pet shrine and the associated pets that would generate if you had the spooky mod menu screen completed, as it didnt feel like it served any real purpose, will likely be replaced with something cooler in the future
 -Removed all of the "entities" except for the cowbell entity, this was done for 2 reasons:
  1) All of the entities in the game besides the cowbell one were just literal re-hashes of what the cowbell entities gimmick was, and they didnt do anything different or interesting to separate themselves from the original 
- 2) The cowbell entity has a a rework planned for it in the future (Cannot promise how soon it will be)
+ 2) The cowbell entity has a cool overhaul planned for it in the future (Cannot promise how soon it will be)
 
 
 
@@ -293,6 +295,7 @@ Fixed all of the following bugs and issues:
 -Catacomb crates not being fished up in the cemetery if spooky spirit has been defeated for the first time
 -Catacomb second layer on small worlds sometimes generating the loot rooms in a way which made it impossible to get to the bottom of the catacombs due to pathways being blocked off
 -Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background config changed
+-Issue where spooky mod would cause a crash during world generation when used with the lunar veil mod
 
 
 Fixed all of the following multiplayer issues:
@@ -300,13 +303,13 @@ Fixed all of the following multiplayer issues:
 -Old hunter giant web not saving pieces being inserted properly
 -Old hunter spawn animation not starting correctly
 -Old hunter not waking up when spoken to
--Egg incursion not saving as defeated correctly when completed
 -Pandora's box not saving as defeated correctly when completed
+-Pandoras box event randomly advancing to the next wave when enemies from the prior wave still exist, and a bunch of other desyncing issues with pandoras box in general
+-Egg incursion not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack inconsistently not impacting the ground and creating projectiles
 -Spooky spirit's glowmasks flickering
 -A lot of enemies and bosses in the mod having janky/glitchy movement (This was due to certain data not being synced in the correct way)
--Pandoras box event randomly advancing to the next wave when enemies from the prior wave still exist, and a bunch of other desyncing issues with pandoras box in general
 -Spooky forest gourd tiles not dropping when broken or saving correctly when carved with the gourd carving kit
 -Eye stalk trees and glowshroom trees immediately breaking when growing
 -Spooky mod grass blocks not being saved on world exit when placed with seeds

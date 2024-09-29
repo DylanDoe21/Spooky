@@ -479,3 +479,8 @@ NoseBlessingBuff: {
 	DisplayName: Noseferatu's Blessing
 	Description: Attacking enemies will damage them with boogers
 }
+
+GhostBanditDefense: {
+	DisplayName: Ghost Bandit Defense
+	Description: ""
+}

@@ -374,13 +374,14 @@ NoseCultistLeader.DisplayName: Noseferatu
 SnotMonster.DisplayName: Snot Monster
 SnotSlime.DisplayName: Snot Slime
 //quest minibosses
-EyeWizard.DisplayName: Bigger Eye
-StitchSpider.DisplayName: Stitches
-FrankenGoblin.DisplayName: Frank the Goblin
-FrankenGoblinHandFront.DisplayName: Frank's Hand
-FrankenGoblinHandBack.DisplayName: Frank's Hand
-FrankenGoblinEye.DisplayName: Monster Eye
 BanditBook.DisplayName: Book of Spirits
 BanditBruiser.DisplayName: Rarg
 BanditWizard.DisplayName: Greeny
 BanditPriest.DisplayName: Blueford
+EyeWizard.DisplayName: Bigger Eye
+EyeWizardOrb.DisplayName: Eye Orb
+FrankenGoblin.DisplayName: Frank the Goblin
+FrankenGoblinHandFront.DisplayName: Frank's Hand
+FrankenGoblinHandBack.DisplayName: Frank's Hand
+FrankenGoblinEye.DisplayName: Monster Eye
+StitchSpider.DisplayName: Stitches

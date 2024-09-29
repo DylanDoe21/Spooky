@@ -79,7 +79,7 @@ LittleEye: {
 	Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
 	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any regular fishing rod in it.
 	OrroBoro: Hey, there's like a giant worm chasing you right now. Maybe go deal with that?
-	Upgrades: So you've never heard about my cauldron huh? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them!
+	Upgrades: So, you've never heard about my cauldron? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them!
 	Quest1Accepted: Ok, so if you want to find the gremlin it'll probably be hungry. Take this yummy scrumptious slice of cake I've had saved and hopefully you'll be able to lure it out.
 	Quest2Accepted: With this bag of gold you should be able to attract those devious ghost bandits. Find them and show them what happens when you cause minor property damage to the lab I spent so much time making!
 	Quest3Accepted: Alright, since my sewing project is partially a spider, this dead fungus-covered beetle should do the trick! Just wait around and it'll probably smell it... or maybe detect it with whatever computer I put inside of it.
@@ -215,7 +215,7 @@ NoseGunner: {
 }
 
 NoseLeader: {
-	Button: Blessing (1 Snot Glob)
+	Button: Blessing (Give Snot Glob)
 	NoseBlessing: Here my little follower, for you a blessing straight from my nose. Use it wisely...
 	NoseBlessingBroke: Did you come to me and expect to yield results with no sacred snot? Shameful.
 	Dialogue1: My little disciple, have you come to sacrifice yourself for the holy one?

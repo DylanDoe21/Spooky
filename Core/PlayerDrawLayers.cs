@@ -27,7 +27,28 @@ namespace Spooky.Core
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.shadow == 0f || !drawInfo.drawPlayer.dead;
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) 
+        {
+            Player drawPlayer = drawInfo.drawPlayer;
+            Item headItem = drawPlayer.armor[0];
+
+            if (drawPlayer.armor[10].type > ItemID.None)
+            {
+                headItem = drawPlayer.armor[10];
+            }
+
+			//handle textures for helmets that change with player direction
+            if (ModContent.GetModItem(headItem.type) is IExtendedHelmet ExtendedHelmetDrawer)
+            {
+                if (ExtendedHelmetDrawer.ExtensionTexture.Contains("_Flipped"))
+                {
+                    return (drawInfo.shadow == 0f || !drawInfo.drawPlayer.dead) && drawPlayer.direction == -1;
+                }
+            }
+
+			//otherwise use normal visibility conditions
+            return drawInfo.shadow == 0f || !drawInfo.drawPlayer.dead;
+        }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
@@ -35,14 +56,16 @@ namespace Spooky.Core
             Item headItem = drawPlayer.armor[0];
 
             if (drawPlayer.armor[10].type > ItemID.None)
-                headItem = drawPlayer.armor[10];
-
-            if (ModContent.GetModItem(headItem.type) is IExtendedHelmet extendedHatDrawer)
             {
-                string equipSlotName = extendedHatDrawer.EquipSlotName(drawPlayer) != "" ? extendedHatDrawer.EquipSlotName(drawPlayer) : headItem.ModItem.Name;
+                headItem = drawPlayer.armor[10];
+            }
+
+            if (ModContent.GetModItem(headItem.type) is IExtendedHelmet ExtendedHelmetDrawer)
+            {
+                string equipSlotName = ExtendedHelmetDrawer.EquipSlotName(drawPlayer) != "" ? ExtendedHelmetDrawer.EquipSlotName(drawPlayer) : headItem.ModItem.Name;
                 int equipSlot = EquipLoader.GetEquipSlot(Mod, equipSlotName, EquipType.Head);
 
-                if (extendedHatDrawer.PreDrawExtension(drawInfo) && !drawInfo.drawPlayer.dead && equipSlot == drawPlayer.head)
+                if (ExtendedHelmetDrawer.PreDrawExtension(drawInfo) && !drawInfo.drawPlayer.dead && equipSlot == drawPlayer.head)
                 {
                     int dyeShader = drawPlayer.dye?[0].dye ?? 0;
 
@@ -54,9 +77,9 @@ namespace Spooky.Core
 
                     headDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
 
-                    headDrawPosition += extendedHatDrawer.ExtensionSpriteOffset(drawInfo);
+                    headDrawPosition += ExtendedHelmetDrawer.ExtensionSpriteOffset(drawInfo);
 
-                    Texture2D extraPieceTexture = ModContent.Request<Texture2D>(extendedHatDrawer.ExtensionTexture).Value;
+                    Texture2D extraPieceTexture = ModContent.Request<Texture2D>(ExtendedHelmetDrawer.ExtensionTexture).Value;
 
                     Rectangle frame = extraPieceTexture.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
 

@@ -123,7 +123,6 @@ namespace Spooky.Content.NPCs.PandoraBox
                     if (NPC.frame.Y >= frameHeight * 5)
                     {
                         NPC.frame.Y = 1 * frameHeight;
-                        PlayAnimation = false;
                     }
                 }
                 else
@@ -149,14 +148,14 @@ namespace Spooky.Content.NPCs.PandoraBox
                     SpawnedEnemies = false;
                     HasDoneSpawnAnimation = false;
 
+                    NPC.netUpdate = true;
+
 					PandoraBoxWorld.Wave++;
 
 					if (Main.netMode == NetmodeID.Server)
                     {
                         NetMessage.SendData(MessageID.WorldData);
                     }
-
-                    NPC.netUpdate = true;
                 }
                 else
                 {
@@ -446,6 +445,16 @@ namespace Spooky.Content.NPCs.PandoraBox
                 NPC.ai[2] = 0;
 
                 NPC.netUpdate = true;
+            }
+
+            if (PlayAnimation)
+            {
+                if (NPC.frame.Y >= NPC.height * 4)
+                {
+                    PlayAnimation = false;
+
+                    NPC.netUpdate = true;
+                }
             }
 
             if (PandoraBoxWorld.PandoraEventActive)

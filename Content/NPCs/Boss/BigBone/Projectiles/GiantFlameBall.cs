@@ -222,8 +222,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
 
             //inferno blast
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
-            ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
         }
     }
 }

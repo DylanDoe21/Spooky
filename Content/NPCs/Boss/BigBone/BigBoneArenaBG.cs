@@ -64,10 +64,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 BGRootGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/BigBoneArenaRootsGlow");
 
                 float XParallax = (Main.LocalPlayer.Center.X - NPC.Center.X) * 0.02f;
-                float YParallax = (Main.LocalPlayer.Center.Y - NPC.Center.Y) * 0.02f;
 
                 Vector2 DrawPosition = (NPC.Center - new Vector2((1680 / 2), (1102 / 2))) - screenPos;
-                Vector2 DrawPositionParallax = (NPC.Center - new Vector2((1680 / 2) + XParallax, (1102 / 2) + YParallax)) - screenPos;
+                Vector2 DrawPositionParallax = (NPC.Center - new Vector2((1680 / 2) + XParallax, (1102 / 2))) - screenPos;
                 
                 spriteBatch.Draw(BGTexture.Value, DrawPosition, new Rectangle(0, 0, 1680, 1102), new Color(70, 45, 45));
                 spriteBatch.Draw(BGTexture.Value, DrawPositionParallax, new Rectangle(0, 0, 1680, 1102), new Color(70, 45, 45));

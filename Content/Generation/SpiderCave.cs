@@ -920,43 +920,46 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
-				Tile chestTile = Main.tile[chest.x, chest.y];
+				if (WorldGen.InWorld(chest.x, chest.y))
+				{
+					Tile chestTile = Main.tile[chest.x, chest.y];
 
-                int[] MainItems = new int[] { ItemID.BandofRegeneration, ItemID.AnkletoftheWind, ItemID.HermesBoots, ItemID.CloudinaBottle, ItemID.Aglet, ItemID.LuckyHorseshoe };
+					int[] MainItems = new int[] { ItemID.BandofRegeneration, ItemID.AnkletoftheWind, ItemID.HermesBoots, ItemID.CloudinaBottle, ItemID.Aglet, ItemID.LuckyHorseshoe };
 
-                if (chestTile.TileFrameX == 5 * 36 && MainItems.Contains(chest.item[0].type))
-                {
-                    //potions
-                    int[] Potions1 = new int[] { ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
+					if (chestTile.TileFrameX == 5 * 36 && MainItems.Contains(chest.item[0].type))
+					{
+						//potions
+						int[] Potions1 = new int[] { ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
 
-                    //more potions
-                    int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
+						//more potions
+						int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
 
-                    //recorvery potions
-                    int[] RecoveryPotions = new int[] { ItemID.HealingPotion, ItemID.ManaPotion };
+						//recorvery potions
+						int[] RecoveryPotions = new int[] { ItemID.HealingPotion, ItemID.ManaPotion };
 
-                    //bars
-                    int[] Bars = new int[] { ItemID.GoldBar, ItemID.PlatinumBar };
+						//bars
+						int[] Bars = new int[] { ItemID.GoldBar, ItemID.PlatinumBar };
 
-                    //bars
-                    chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-                    chest.item[1].stack = WorldGen.genRand.Next(5, 16);
-                    //potions
-                    chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
-                    chest.item[2].stack = WorldGen.genRand.Next(1, 3);
-                    //even more potions
-                    chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions2));
-                    chest.item[3].stack = WorldGen.genRand.Next(1, 3);
-                    //recovery potions
-                    chest.item[4].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
-                    chest.item[4].stack = WorldGen.genRand.Next(3, 7);
-                    //goodie bags
-                    chest.item[5].SetDefaults(ItemID.GoodieBag);
-                    chest.item[5].stack = WorldGen.genRand.Next(1, 3);
-                    //gold coins
-                    chest.item[6].SetDefaults(ItemID.GoldCoin);
-                    chest.item[6].stack = WorldGen.genRand.Next(1, 3);
-                }
+						//bars
+						chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+						chest.item[1].stack = WorldGen.genRand.Next(5, 16);
+						//potions
+						chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
+						chest.item[2].stack = WorldGen.genRand.Next(1, 3);
+						//even more potions
+						chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions2));
+						chest.item[3].stack = WorldGen.genRand.Next(1, 3);
+						//recovery potions
+						chest.item[4].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
+						chest.item[4].stack = WorldGen.genRand.Next(3, 7);
+						//goodie bags
+						chest.item[5].SetDefaults(ItemID.GoodieBag);
+						chest.item[5].stack = WorldGen.genRand.Next(1, 3);
+						//gold coins
+						chest.item[6].SetDefaults(ItemID.GoldCoin);
+						chest.item[6].stack = WorldGen.genRand.Next(1, 3);
+					}
+				}
             }
         }
     }

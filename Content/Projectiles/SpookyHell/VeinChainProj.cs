@@ -51,7 +51,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Vector2 p2 = myCenter - new Vector2(45 * (flip ? -1 : 1), 75).RotatedBy(Parent.rotation);
 			Vector2 p3 = myCenter;
 
-			//int Length = (int)Projectile.Distance(player.Center) / 15;
 			int segments = 32;
 
 			for (int i = 0; i < segments; i++)
@@ -83,7 +82,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			NPC Parent = Main.npc[(int)Projectile.ai[2]];
 
-			if (player.Distance(Parent.Center) >= 550f)
+			if (player.Distance(Parent.Center) >= 650f)
 			{
 				Projectile.ai[0] = 1;
 			}

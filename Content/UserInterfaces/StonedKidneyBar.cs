@@ -10,6 +10,7 @@ namespace Spooky.Content.UserInterfaces
 {
     public class StonedKidneyBar
     {
+        //TODO: move to the players inventory
         internal const float DefaultXPosition = 50.103603f;
         internal const float DefaultYPosition = 55.765408f;
 

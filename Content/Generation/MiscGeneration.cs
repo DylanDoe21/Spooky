@@ -104,13 +104,6 @@ namespace Spooky.Content.Generation
             return true;
         }
 
-        //TODO: redo the shrine to be a bit smaller to prevent nuking and add the new pet
-        private void PlaceSecretPetShrine(GenerationProgress progress, GameConfiguration configuration)
-        {
-            //Vector2 structureOrigin = new Vector2(Main.maxTilesX / 2 + WorldGen.genRand.Next(-200, 200), Main.maxTilesY / 2 + 20);
-            //Generator.GenerateStructure("Content/Structures/SecretPetShrine", structureOrigin.ToPoint16(), Mod);
-        }
-
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
@@ -120,12 +113,6 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Biome Dungeon Chests", PlaceSpookyChest));
-
-            if (MenuSaveSystem.hasDefeatedRotGourd && MenuSaveSystem.hasDefeatedSpookySpirit && MenuSaveSystem.hasDefeatedMoco &&
-            MenuSaveSystem.hasDefeatedDaffodil && MenuSaveSystem.hasDefeatedOrroboro && MenuSaveSystem.hasDefeatedBigBone)
-            {
-                tasks.Insert(GenIndex1 + 3, new PassLegacy("Secret Pet Shrine", PlaceSecretPetShrine));
-            }
         }
 
         //place items in chests
@@ -140,59 +127,62 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
-                Tile chestTile = Main.tile[chest.x, chest.y];
+				if (WorldGen.InWorld(chest.x, chest.y))
+				{
+					Tile chestTile = Main.tile[chest.x, chest.y];
 
-                //spooky biome chest items
-				if (chest != null && (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>() || chestTile.TileType == ModContent.TileType<SpookyHellChest>() ||
-                chestTile.TileType == ModContent.TileType<CemeteryBiomeChest>() || chestTile.TileType == ModContent.TileType<SpiderCaveChest>()))
-                {
-                    //potions
-                    int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
+					//spooky biome chest items
+					if (chest != null && (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>() || chestTile.TileType == ModContent.TileType<SpookyHellChest>() ||
+					chestTile.TileType == ModContent.TileType<CemeteryBiomeChest>() || chestTile.TileType == ModContent.TileType<SpiderCaveChest>()))
+					{
+						//potions
+						int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
 
-                    //more potions
-                    int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
+						//more potions
+						int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
 
-                    //cemetery biome chest main item
-                    if (chestTile.TileType == ModContent.TileType<CemeteryBiomeChest>())
-                    {
-                        chest.item[0].SetDefaults(ModContent.ItemType<DiscoSkull>());
-                        chest.item[0].stack = 1;
-                    }
+						//cemetery biome chest main item
+						if (chestTile.TileType == ModContent.TileType<CemeteryBiomeChest>())
+						{
+							chest.item[0].SetDefaults(ModContent.ItemType<DiscoSkull>());
+							chest.item[0].stack = 1;
+						}
 
-                    //spider cave biome chest main item
-                    if (chestTile.TileType == ModContent.TileType<SpiderCaveChest>())
-                    {
-                        chest.item[0].SetDefaults(ModContent.ItemType<VenomHarpoon>());
-                        chest.item[0].stack = 1;
-                    }
+						//spider cave biome chest main item
+						if (chestTile.TileType == ModContent.TileType<SpiderCaveChest>())
+						{
+							chest.item[0].SetDefaults(ModContent.ItemType<VenomHarpoon>());
+							chest.item[0].stack = 1;
+						}
 
-                    //spooky forest biome chest main item
-                    if (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>())
-                    {
-                        chest.item[0].SetDefaults(ModContent.ItemType<ElGourdo>());
-                        chest.item[0].stack = 1;
-                    }
+						//spooky forest biome chest main item
+						if (chestTile.TileType == ModContent.TileType<SpookyBiomeChest>())
+						{
+							chest.item[0].SetDefaults(ModContent.ItemType<ElGourdo>());
+							chest.item[0].stack = 1;
+						}
 
-                    //eye valley biome chest main item
-                    if (chestTile.TileType == ModContent.TileType<SpookyHellChest>())
-                    {
-                        chest.item[0].SetDefaults(ModContent.ItemType<BrainJar>());
-                        chest.item[0].stack = 1;
-                    }
+						//eye valley biome chest main item
+						if (chestTile.TileType == ModContent.TileType<SpookyHellChest>())
+						{
+							chest.item[0].SetDefaults(ModContent.ItemType<BrainJar>());
+							chest.item[0].stack = 1;
+						}
 
-                    //potions
-                    chest.item[1].SetDefaults(WorldGen.genRand.Next(Potions1));
-                    chest.item[1].stack = WorldGen.genRand.Next(1, 3);
-                    //even more potions
-                    chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions2));
-                    chest.item[2].stack = WorldGen.genRand.Next(1, 3);
-                    //recovery potions
-                    chest.item[3].SetDefaults(ItemID.GreaterHealingPotion);
-                    chest.item[3].stack = WorldGen.genRand.Next(5, 11);
-                    //gold coins
-                    chest.item[4].SetDefaults(ItemID.GoldCoin);
-                    chest.item[4].stack = WorldGen.genRand.Next(5, 16);
-                }
+						//potions
+						chest.item[1].SetDefaults(WorldGen.genRand.Next(Potions1));
+						chest.item[1].stack = WorldGen.genRand.Next(1, 3);
+						//even more potions
+						chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions2));
+						chest.item[2].stack = WorldGen.genRand.Next(1, 3);
+						//recovery potions
+						chest.item[3].SetDefaults(ItemID.GreaterHealingPotion);
+						chest.item[3].stack = WorldGen.genRand.Next(5, 11);
+						//gold coins
+						chest.item[4].SetDefaults(ItemID.GoldCoin);
+						chest.item[4].stack = WorldGen.genRand.Next(5, 16);
+					}
+				}
             }
         }
     }

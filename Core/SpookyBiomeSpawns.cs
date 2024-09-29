@@ -248,6 +248,12 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
+				//quest miniboss
+				if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem2>()) && !NPC.AnyNPCs(ModContent.NPCType<BanditBook>()))
+				{
+					pool.Add(ModContent.NPCType<BanditBook>(), 2);
+				}
+
 				//critters
 				//dont spawn rats during blood moons because of the feral rats
 				if (!Main.bloodMoon)
@@ -259,7 +265,7 @@ namespace Spooky.Core
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 4);
+					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 3);
 					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 3);
 					pool.Add(ModContent.NPCType<SadGhostSmall>(), 2);
 					pool.Add(ModContent.NPCType<SadGhostBig>(), 1);
@@ -533,7 +539,7 @@ namespace Spooky.Core
 			//dumb zomboid can spawn anywhere super rarely
 			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()) && !spawnInfo.Water)
 			{
-				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.1f);
+				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.01f);
 			}
         }
     }

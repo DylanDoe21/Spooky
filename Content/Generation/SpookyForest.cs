@@ -738,30 +738,33 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
-				Tile chestTile = Main.tile[chest.x, chest.y];
+				if (WorldGen.InWorld(chest.x, chest.y))
+				{
+					Tile chestTile = Main.tile[chest.x, chest.y];
 
-                if (chestTile.TileType == ModContent.TileType<OldWoodChest>())
-                {
-                    int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
-                    int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };
-                    int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+					if (chestTile.TileType == ModContent.TileType<OldWoodChest>())
+					{
+						int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
+						int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };
+						int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
 
-                    //iron or lead bars
-                    chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-                    chest.item[1].stack = WorldGen.genRand.Next(5, 10);
-                    //light sources
-                    chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
-                    chest.item[2].stack = WorldGen.genRand.Next(3, 8);
-                    //potions
-                    chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
-                    chest.item[3].stack = WorldGen.genRand.Next(2, 3);
-                    //goodie bags
-                    chest.item[4].SetDefaults(ItemID.GoodieBag);
-                    chest.item[4].stack = WorldGen.genRand.Next(1, 2);
-                    //coins
-                    chest.item[5].SetDefaults(ItemID.GoldCoin);
-                    chest.item[5].stack = WorldGen.genRand.Next(1, 2);
-                }
+						//iron or lead bars
+						chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+						chest.item[1].stack = WorldGen.genRand.Next(5, 10);
+						//light sources
+						chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
+						chest.item[2].stack = WorldGen.genRand.Next(3, 8);
+						//potions
+						chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
+						chest.item[3].stack = WorldGen.genRand.Next(2, 3);
+						//goodie bags
+						chest.item[4].SetDefaults(ItemID.GoodieBag);
+						chest.item[4].stack = WorldGen.genRand.Next(1, 2);
+						//coins
+						chest.item[5].SetDefaults(ItemID.GoldCoin);
+						chest.item[5].stack = WorldGen.genRand.Next(1, 2);
+					}
+				}
             }
         }
     }

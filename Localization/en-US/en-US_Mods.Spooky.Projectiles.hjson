@@ -367,9 +367,10 @@ SpiderWeb.DisplayName: Spider Web
 SpiderMissile.DisplayName: Heat-Seeking Missile
 SnotMonsterBooger.DisplayName: Snot
 LingeringEye.DisplayName: Eye Rune
+LingeringEyeSpawner.DisplayName: Rune Magic
 HomingEye.DisplayName: Magic Eye
-LingeringEyeSpawner.DisplayName: Magic Bolt
 BouncingEye.DisplayName: Bouncing Eye
+EyeOrbEnergy.DisplayName: Eye Energy
 VenomHarpoonSpike.DisplayName: Venom Harpoon Spike
 SneezerProj.DisplayName: Sneezer
 SnotArrowProj.DisplayName: Booger Arrow
@@ -405,13 +406,15 @@ BanditBruiserFist.DisplayName: Phantom Fist
 BanditWizardBall.DisplayName: Magic Blast
 BanditWizardBallSplitting.DisplayName: Magic Blast
 BanditWizardBallSmall.DisplayName: Magic Blast
-BanditPriestCross.DisplayName: Magic Cross Bolt
-PeptoBubble.DisplayName: Pepto Bubble
+BanditPriestCross.DisplayName: Cross Bolt
+BanditPriestBall.DisplayName: Magic Blast
+BanditPriestBuffer.DisplayName: Buffing Magic
 GhostSpawner1.DisplayName: Ghost Spawner
 GhostSpawner2.DisplayName: Ghost Spawner
 GhostSpawner3.DisplayName: Ghost Spawner
 GoblinEyeDebris.DisplayName: Bouncy Eye
 GoblinEyeDebrisGrounded.DisplayName: Bouncy Eye
+PeptoBubble.DisplayName: Pepto Bubble
 EarWormSound.DisplayName: Sound Wave
 EarWormSoundBase.DisplayName: Sound Wave
 EarParasite.DisplayName: Ear Parasite
@@ -422,4 +425,5 @@ GooChomperProj.DisplayName: Corrosive Bite
 CoughSmokeCloud.DisplayName: Smoke Cloud
 CoughSmokeCloudSmall.DisplayName: Smoke Cloud
 KidneyRock.DisplayName: Kidney Rock
-SnotBlessingOrbiter.DisplayName: Snot Blessing Orbiter
+SnotBlessingOrbiter.DisplayName: Snot ball
+LingeringEyeBolt.DisplayName: Lingering Eye Bolt

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Quest.Projectiles
 {
-    public class LingeringEyeSpawner : ModProjectile
+    public class LingeringEyeBolt : ModProjectile
     {
         public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
@@ -119,64 +119,13 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
                 Projectile.ai[1] = 0;
                 Projectile.scale = 1f;
             }
-
-            if (Projectile.ai[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                target = -1;
-                float distance = 2000f;
-                for (int k = 0; k < Main.maxPlayers; k++)
-                {
-                    if (Main.player[k].active && !Main.player[k].dead)
-                    {
-                        Vector2 center = Main.player[k].Center;
-                        float currentDistance = Vector2.Distance(center, Projectile.Center);
-                        if (currentDistance < distance || target == -1)
-                        {
-                            distance = currentDistance;
-                            target = k;
-                        }
-                    }
-                }
-                if (target != -1)
-                {
-                    Projectile.ai[0] = 1;
-                    Projectile.netUpdate = true;
-                }
-            }
-            else if (target >= 0 && target < Main.maxPlayers)
-            {
-                Player targetPlayer = Main.player[target];
-                if (!targetPlayer.active || targetPlayer.dead)
-                {
-                    target = -1;
-                    Projectile.ai[0] = 0;
-                    Projectile.netUpdate = true;
-                }
-                else
-                {
-                    float currentRot = Projectile.velocity.ToRotation();
-                    Vector2 direction = targetPlayer.Center - Projectile.Center;
-                    float targetAngle = direction.ToRotation();
-                    if (direction == Vector2.Zero)
-                    {
-                        targetAngle = currentRot;
-                    }
-
-                    float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
-                }
-            }
-
-            Projectile.velocity *= 1.005f;
         }
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item104, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.Item104 with { Volume = 0.5f }, Projectile.Center);
 
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<LingeringEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-
-        	float maxAmount = 30;
+        	float maxAmount = 15;
 			int currentAmount = 0;
 			while (currentAmount <= maxAmount)
 			{

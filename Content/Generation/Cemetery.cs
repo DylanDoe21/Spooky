@@ -8,6 +8,7 @@ using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
 
@@ -395,26 +396,32 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
-				Tile chestTile = Main.tile[chest.x, chest.y];
+				if (WorldGen.InWorld(chest.x, chest.y))
+				{
+					Tile chestTile = Main.tile[chest.x, chest.y];
 
-                if (chestTile.TileFrameX == 15 * 36 && (chest.item[0].type == ItemID.BladedGlove || chest.item[0].type == ItemID.BloodyMachete))
-                {
-                    int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
-                    int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+					if (chestTile.TileFrameX == 15 * 36 && (chest.item[0].type == ItemID.BladedGlove || chest.item[0].type == ItemID.BloodyMachete))
+					{
+						int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
+						int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
 
-                    //iron or lead bars
-                    chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-                    chest.item[1].stack = WorldGen.genRand.Next(8, 15);
-                    //light sources
-                    chest.item[2].SetDefaults(ItemID.GreenTorch);
-                    chest.item[2].stack = WorldGen.genRand.Next(3, 8);
-                    //potions
-                    chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
-                    chest.item[3].stack = WorldGen.genRand.Next(3, 5);
-                    //coins
-                    chest.item[4].SetDefaults(ItemID.GoldCoin);
-                    chest.item[4].stack = WorldGen.genRand.Next(1, 2);
-                }
+                        //broken emf reader
+						chest.item[1].SetDefaults(ModContent.ItemType<EMFReaderBroke>());
+						chest.item[1].stack = 1;
+						//iron or lead bars
+						chest.item[2].SetDefaults(WorldGen.genRand.Next(Bars));
+						chest.item[2].stack = WorldGen.genRand.Next(8, 15);
+						//light sources
+						chest.item[3].SetDefaults(ItemID.GreenTorch);
+						chest.item[3].stack = WorldGen.genRand.Next(3, 8);
+						//potions
+						chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions));
+						chest.item[4].stack = WorldGen.genRand.Next(3, 5);
+						//coins
+						chest.item[5].SetDefaults(ItemID.GoldCoin);
+						chest.item[5].stack = WorldGen.genRand.Next(1, 2);
+					}
+				}
             }
         }
     }

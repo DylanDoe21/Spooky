@@ -58,10 +58,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 BGTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/DaffodilArenaBG");
 
                 float XParallax = (Main.LocalPlayer.Center.X - NPC.Center.X) * 0.02f;
-                float YParallax = (Main.LocalPlayer.Center.Y - NPC.Center.Y) * 0.02f;
 
                 Vector2 DrawPosition = (NPC.Center - new Vector2((1454 / 2), (576 / 2))) - Main.screenPosition;
-                Vector2 DrawPositionParallax = (NPC.Center - new Vector2((1454 / 2) + XParallax, (576 / 2) + YParallax)) - Main.screenPosition;
+                Vector2 DrawPositionParallax = (NPC.Center - new Vector2((1454 / 2) + XParallax, (576 / 2))) - Main.screenPosition;
                 
                 spriteBatch.Draw(BGTexture.Value, DrawPosition, new Rectangle(0, 0, 1454, 576), new Color(47, 59, 55));
                 spriteBatch.Draw(BGTexture.Value, DrawPositionParallax, new Rectangle(0, 0, 1454, 576), new Color(47, 59, 55));

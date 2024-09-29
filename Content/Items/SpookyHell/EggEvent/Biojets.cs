@@ -71,11 +71,10 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 					{
 						player.velocity.Y *= 0.0001f;
 
-						if (player.controlLeft || player.controlRight)
-						{
-							player.velocity.X += 0.5f * player.direction;
-							player.velocity.X = MathHelper.Clamp(player.velocity.X, -10, 10);
-						}
+						if (player.controlLeft) player.velocity.X -= 0.5f;
+						if (player.controlRight) player.velocity.X += 0.5f;
+						
+						player.velocity.X = MathHelper.Clamp(player.velocity.X, -10, 10);
 
 						EffectRate = 10;
 					}

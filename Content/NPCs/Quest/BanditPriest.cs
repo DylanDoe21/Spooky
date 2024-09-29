@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -20,6 +22,8 @@ namespace Spooky.Content.NPCs.Quest
 {
 	public class BanditPriest : ModNPC
 	{
+		int ChosenGhostToBuff;
+
 		float addedStretch = 0f;
 		float stretchRecoil = 0f;
 
@@ -56,7 +60,7 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 2750;
+            NPC.lifeMax = 2500;
             NPC.damage = 40;
 			NPC.defense = 0;
 			NPC.width = 48;
@@ -125,9 +129,7 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-			NPC Parent = Main.npc[(int)NPC.ai[0]];
-
-            return Parent.ai[0] == 4;
+			return false;
         }
 
 		public override void AI()
@@ -182,17 +184,51 @@ namespace Spooky.Content.NPCs.Quest
 						}
 					}
 
-					NPC.localAI[0]++;
+					NPC.localAI[2]++;
 
-					if (NPC.localAI[0] >= 300)
+					if (NPC.localAI[2] == 5)
 					{
-						SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
+						//choose random ghost by default
+						ChosenGhostToBuff = Main.rand.NextBool() ? ModContent.NPCType<BanditBruiser>() : ModContent.NPCType<BanditWizard>();
 
-						Main.NewText("Buffed Other Ghost", Color.White);
+						//if the bruiser is dead, only choose the wizard
+						if (Parent.ai[1] > 0)
+						{
+							ChosenGhostToBuff = ModContent.NPCType<BanditWizard>();
+						}
 
-						stretchRecoil = 0.5f;
-						
-						NPC.localAI[0] = 0;
+						//if the wizard is dead, only choose the bruiser
+						if (Parent.ai[2] > 0)
+						{
+							ChosenGhostToBuff = ModContent.NPCType<BanditBruiser>();
+						}
+
+						for (int i = 0; i < Main.maxNPCs; i++)
+						{
+							//choose to buff either the bruiser or wizard, and make sure that they share the same parent npc as this one
+							if (Main.npc[i].active && Main.npc[i].type == ChosenGhostToBuff && Main.npc[i].ai[0] == NPC.ai[0])
+							{
+								ChosenGhostToBuff = Main.npc[i].whoAmI;
+								break;
+							}
+						}
+					}
+
+					if (NPC.localAI[2] >= 900 && NPC.localAI[2] < 1000)
+					{
+						if (NPC.localAI[2] % 10 == 0)
+						{
+							SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
+
+							stretchRecoil = 0.5f;
+
+							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BanditPriestBuffer>(), 0, 0f, Main.myPlayer, ChosenGhostToBuff);
+						}
+					}
+
+					if (NPC.localAI[2] >= 1000)
+					{
+						NPC.localAI[2] = 0;
 
 						NPC.netUpdate = true;
 					}
@@ -237,7 +273,7 @@ namespace Spooky.Content.NPCs.Quest
 							NPC.velocity *= 0.92f;
 						}
 
-						if (NPC.localAI[0] == 60)
+						if (NPC.localAI[0] >= 60)
 						{
 							SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
@@ -261,22 +297,33 @@ namespace Spooky.Content.NPCs.Quest
 							NPC.localAI[1]++;
 						}
 					}
-					//shoot out debuff ball
+					//shoot out spreads of magic bolts
 					else
 					{
 						Vector2 GoTo = player.Center;
-						GoTo.X += player.Center.X > NPC.Center.X ? -270 : 270;
+						GoTo.X += player.Center.X > NPC.Center.X ? -450 : 450;
 
 						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 12, 25);
 						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-						if (Parent.localAI[0] == 60)
+						if (NPC.localAI[0] > 80)
 						{
-							SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
+							if (NPC.localAI[0] % 60 == 0)
+							{
+								SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
-							Main.NewText("Buffed Other Ghost", Color.White);
+								for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
+								{
+									if (Main.netMode != NetmodeID.MultiplayerClient)
+									{
+										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, 
+										12f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(22) * numProjectiles), 
+										ModContent.ProjectileType<BanditPriestBall>(), NPC.damage / 4, 0f, Main.myPlayer);
+									}
+								}
 
-							stretchRecoil = 0.5f;
+								stretchRecoil = 0.5f;
+							}
 						}
 
 						//loop attack

@@ -97,14 +97,14 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<RaveyardDisc1>()
             .Add<RaveyardDisc2>()
             .Add<RaveyardDisc3>()
-            .Add<BananalizardHead>()
             .Add<DylanDoeHead>()
-            .Add<HatHead>()
             .Add<KrakenHead>()
-            .Add<PelusaHead>()
-            .Add<SeasaltHead>()
             .Add<TacoHead>()
-            .Add<WaasephiHead>();
+            .Add<BananalizardHead>()
+            .Add<SeasaltHead>()
+            .Add<WaasephiHead>()
+            .Add<DandyHead>()
+            .Add<HatHead>();
 
             npcShop.Register();
         }

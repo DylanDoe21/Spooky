@@ -107,7 +107,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 {
                     SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
 
-                    if (player.velocity.Y == 0)
+                    if (player.velocity.Y == 0 && player.Distance(NPC.Center) <= 350f)
                     {
                         SpookyPlayer.ScreenShakeAmount = 8;
                     }

@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -12,6 +14,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
@@ -28,6 +31,7 @@ namespace Spooky.Content.NPCs.Quest
 		Vector2 SavePlayerPosition;
 
 		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> ShieldTexture;
 
 		public override void SetStaticDefaults()
         {
@@ -45,19 +49,19 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SendExtraAI(BinaryWriter writer)
         {
 			//vector2
-			writer.WriteVector2(SavePlayerPosition);
+            writer.WriteVector2(SavePlayerPosition);
 
-            //floats
-            writer.Write(NPC.localAI[0]);
+			//bools
+            writer.Write(Shake);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
 			//vector2
-			SavePlayerPosition = reader.ReadVector2();
+            SavePlayerPosition = reader.ReadVector2();
 
-            //floats
-            NPC.localAI[0] = reader.ReadSingle();
+			//bools
+            Shake = reader.ReadBoolean();
         }
 
 		public override void SetDefaults()
@@ -121,6 +125,26 @@ namespace Spooky.Content.NPCs.Quest
 			//draw npc manually for stretching
             spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, effects, 0f);
 
+			//draw forcefield if being buffed
+            if (NPC.HasBuff(ModContent.BuffType<GhostBanditDefense>()))
+            {
+                ShieldTexture ??= ModContent.Request<Texture2D>("Spooky/ShaderAssets/BanditShield");
+
+				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+                var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
+                DrawData drawData = new DrawData(ShieldTexture.Value, center + new Vector2(0, 25), new Rectangle(0, 0, 500, 400), Color.Lerp(Color.Cyan, Color.Blue, fade), 0, new Vector2(250f, 250f), NPC.scale * (0.5f + fade * 0.05f), SpriteEffects.None, 0);
+                GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + fade * 0.5f));
+                GameShaders.Misc["ForceField"].Apply(drawData);
+                drawData.Draw(Main.spriteBatch);
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            }
+
 			return false;
 		}
 
@@ -131,9 +155,7 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-			NPC Parent = Main.npc[(int)NPC.ai[0]];
-
-            return Parent.ai[0] == 3;
+			return false;
         }
 
 		public override void AI()
@@ -162,6 +184,16 @@ namespace Spooky.Content.NPCs.Quest
 			}
 
 			addedStretch = -stretchRecoil;
+
+			//buff defense
+			if (NPC.HasBuff(ModContent.BuffType<GhostBanditDefense>()))
+            {
+				NPC.defense = 50;
+			}
+			else
+			{
+				NPC.defense = 0;
+			}
 
 			//reset rotation when attacking
 			if (Parent.ai[0] == 3)
@@ -204,20 +236,22 @@ namespace Spooky.Content.NPCs.Quest
 					//fly to the player and shoot out erratic magic balls, repeat 3 times
 					if (Parent.localAI[1] < 3)
 					{
+						//save position based on the side of the player its on
 						if (Parent.localAI[0] == 5)
 						{
 							if (player.Center.X > NPC.Center.X)
 							{
-								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-420, -180), player.Center.Y - Main.rand.Next(50, 120));
+								SavePlayerPosition = new Vector2(player.Center.X - 200, player.Center.Y - Main.rand.Next(50, 120));
 							}
 							else
 							{
-								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(180, 420), player.Center.Y - Main.rand.Next(50, 120));
+								SavePlayerPosition = new Vector2(player.Center.X + 200, player.Center.Y - Main.rand.Next(50, 120));
 							}
 
 							NPC.netUpdate = true;
 						}
 
+						//go to the player, slow down if too close
 						if (Parent.localAI[0] > 5 && Parent.localAI[0] < 40)
 						{
 							Vector2 GoTo = SavePlayerPosition;
@@ -236,10 +270,11 @@ namespace Spooky.Content.NPCs.Quest
 							NPC.velocity *= 0.92f;
 						}
 
+						//shoot out ghost bolts
 						bool ShootExtra = Parent.ai[1] > 0 || Parent.ai[3] > 0;
 						bool ShootFaster = Parent.ai[1] > 0 && Parent.ai[3] > 0;
 
-						if (Parent.localAI[0] == 60 || Parent.localAI[0] == 80 || (Parent.localAI[0] == 100 && ShootExtra))
+						if (Parent.localAI[0] == 80 || Parent.localAI[0] == 100 || (Parent.localAI[0] == 120 && ShootExtra))
 						{
 							SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
@@ -247,7 +282,7 @@ namespace Spooky.Content.NPCs.Quest
 
 							Vector2 ShootSpeed = player.Center - NPC.Center;
 							ShootSpeed.Normalize();
-							ShootSpeed *= ShootFaster ? 12f : 8.5f;
+							ShootSpeed *= ShootFaster ? 11f : 7f;
 
 							Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 							Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -260,10 +295,12 @@ namespace Spooky.Content.NPCs.Quest
 							Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<BanditWizardBall>(), NPC.damage / 4, 0f, Main.myPlayer);
 						}
 
-						if (Parent.localAI[0] >= 120)
+						if (Parent.localAI[0] >= 140)
 						{
 							Parent.localAI[0] = 0;
 							Parent.localAI[1]++;
+
+							NPC.netUpdate = true;
 						}
 					}
 					else
@@ -318,11 +355,12 @@ namespace Spooky.Content.NPCs.Quest
 									Projectile.NewProjectile(NPC.GetSource_FromAI(), position, Vector2.Zero, ModContent.ProjectileType<BanditWizardBallSplitting>(), NPC.damage / 4, 0f, player.whoAmI);
 								}
 
+								//swap to next attack
 								if (Parent.localAI[0] >= 440)
 								{
 									Parent.localAI[0] = 0;
 									Parent.localAI[1] = 0;
-									Parent.ai[0]++;
+									Parent.ai[0] = 1;
 
 									NPC.netUpdate = true;
 								}

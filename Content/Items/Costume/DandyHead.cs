@@ -5,7 +5,8 @@ using Terraria.ModLoader;
 namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class PelusaHead : ModItem
+	[LegacyName("PelusaHead")]
+	public class DandyHead : ModItem
 	{
 		public override void SetDefaults()
 		{

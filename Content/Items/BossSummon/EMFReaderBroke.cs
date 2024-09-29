@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Items.BossSummon
 {
-    public class EMFReader : ModItem
+    public class EMFReaderBroke : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -13,14 +13,13 @@ namespace Spooky.Content.Items.BossSummon
 
         public override void SetDefaults()
         {
-            Item.width = 38;
+            Item.width = 30;
             Item.height = 30;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<EMFReaderBroke>())
             .AddRecipeGroup("SpookyMod:DemoniteBars", 5)
             .AddRecipeGroup(RecipeGroupID.IronBar, 2)
             .AddTile(TileID.Anvils)

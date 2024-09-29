@@ -6,9 +6,11 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Buffs;
+
 namespace Spooky.Content.NPCs.Quest.Projectiles
 {
-    public class LingeringEyeSpawner : ModProjectile
+    public class BanditPriestBuffer : ModProjectile
     {
         public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
@@ -49,7 +51,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
 				if (trailLength[k] == Vector2.Zero)
 				{
-					return true;
+					return false;
 				}
 
 				Vector2 drawPos = trailLength[k] - Main.screenPosition;
@@ -64,11 +66,11 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
                     for (int j = 0; j < 360; j += 90)
                     {
-                        Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
+                        Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Cyan);
 
                         Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2.5f), 0).RotatedBy(MathHelper.ToRadians(j));
 
-                        Main.spriteBatch.Draw(ProjTexture.Value, drawPos + circular, null, color, Projectile.rotation, drawOrigin, scale * 2f, SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(ProjTexture.Value, drawPos + circular, null, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
                     }
 				}
 
@@ -85,7 +87,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
 		public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, 0.4f, 0.3f, 0f);
+            NPC Parent = Main.npc[(int)Projectile.ai[0]];
 
 			if (runOnce)
 			{
@@ -120,74 +122,36 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
                 Projectile.scale = 1f;
             }
 
-            if (Projectile.ai[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                target = -1;
-                float distance = 2000f;
-                for (int k = 0; k < Main.maxPlayers; k++)
-                {
-                    if (Main.player[k].active && !Main.player[k].dead)
-                    {
-                        Vector2 center = Main.player[k].Center;
-                        float currentDistance = Vector2.Distance(center, Projectile.Center);
-                        if (currentDistance < distance || target == -1)
-                        {
-                            distance = currentDistance;
-                            target = k;
-                        }
-                    }
-                }
-                if (target != -1)
-                {
-                    Projectile.ai[0] = 1;
-                    Projectile.netUpdate = true;
-                }
-            }
-            else if (target >= 0 && target < Main.maxPlayers)
-            {
-                Player targetPlayer = Main.player[target];
-                if (!targetPlayer.active || targetPlayer.dead)
-                {
-                    target = -1;
-                    Projectile.ai[0] = 0;
-                    Projectile.netUpdate = true;
-                }
-                else
-                {
-                    float currentRot = Projectile.velocity.ToRotation();
-                    Vector2 direction = targetPlayer.Center - Projectile.Center;
-                    float targetAngle = direction.ToRotation();
-                    if (direction == Vector2.Zero)
-                    {
-                        targetAngle = currentRot;
-                    }
+            Vector2 Speed = Parent.Center - Projectile.Center;
+            Speed.Normalize();
+            Speed *= 25;
 
-                    float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
-                    Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
-                }
-            }
+            Projectile.velocity = Speed;
 
-            Projectile.velocity *= 1.005f;
+            if (Projectile.Hitbox.Intersects(Parent.Hitbox))
+            {
+                Parent.AddBuff(ModContent.BuffType<GhostBanditDefense>(), 600);
+
+                Projectile.Kill();
+            }
         }
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item104, Projectile.Center);
-
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<LingeringEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+			SoundEngine.PlaySound(SoundID.Item104 with { Volume = 0.2f }, Projectile.Center);
 
         	float maxAmount = 30;
 			int currentAmount = 0;
 			while (currentAmount <= maxAmount)
 			{
-				Vector2 velocity = new Vector2(5f, 5f);
-				Vector2 Bounds = new Vector2(3f, 3f);
-				float intensity = 5f;
+				Vector2 velocity = new Vector2(2f, 2f);
+				Vector2 Bounds = new Vector2(2f, 2f);
+				float intensity = 3f;
 
 				Vector2 vector12 = Vector2.UnitX * 0f;
 				vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 				vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Shadowflame, 0f, 0f, 100, default, 2f);
+				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.HallowSpray, 0f, 0f, 100, default, 2f);
 				Main.dust[num104].noGravity = true;
 				Main.dust[num104].position = Projectile.Center + vector12;
 				Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
