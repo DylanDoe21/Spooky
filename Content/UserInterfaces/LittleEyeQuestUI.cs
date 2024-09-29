@@ -25,8 +25,6 @@ namespace Spooky.Content.UserInterfaces
 
         public static readonly Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
 
-        public static Rectangle MouseScreenArea => Utils.CenteredRectangle(Main.MouseScreen, Vector2.One * 2f);
-
         //actual icon textures
         private static Asset<Texture2D> BountyIcon1Done;
         private static Asset<Texture2D> BountyIcon1NotDone;
@@ -516,8 +514,8 @@ namespace Spooky.Content.UserInterfaces
         {
             Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
 
-            if (MouseScreenArea.Intersects(backgroundArea))
-            {
+            if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
+			{
                 return true;
             }
             else

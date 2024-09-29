@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 60;
             Projectile.aiStyle = -1;
         }
 

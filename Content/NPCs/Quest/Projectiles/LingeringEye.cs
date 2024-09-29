@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
                 Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2.5f), 0).RotatedBy(MathHelper.ToRadians(i));
 
-                Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color, Projectile.rotation, drawOrigin, 1f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
 
             return false;
@@ -51,18 +51,46 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         {
             if (Projectile.timeLeft <= 60)
             {
-                Projectile.alpha += 4;
+                Projectile.alpha += 5;
+            }
+
+            if (Projectile.alpha >= 255)
+            {
+                Projectile.Kill();
             }
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] % 120 == 0)
+            if (Projectile.ai[0] >= 120 && Projectile.ai[0] < 180)
             {
+                Projectile.ai[1]++;
+                if (Projectile.ai[1] < 3)
+                {
+                    Projectile.scale -= 0.2f;
+                }
+                if (Projectile.ai[1] >= 3)
+                {
+                    Projectile.scale += 0.2f;
+                }
+                
+                if (Projectile.ai[1] > 6)
+                {
+                    Projectile.ai[1] = 0;
+                    Projectile.scale = 1f;
+                }
+            }
+
+            if (Projectile.ai[0] == 180)
+            {
+                Projectile.scale = 1f;
+
                 Vector2 ShootSpeed = Main.player[Main.myPlayer].Center - Projectile.Center;
                 ShootSpeed.Normalize();
-                ShootSpeed *= 18f;
+                ShootSpeed *= 12f;
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<LingeringEyeBolt>(), Projectile.damage, 0, Main.myPlayer);
+
+                Projectile.ai[0] = 0;
             }
         }
     }

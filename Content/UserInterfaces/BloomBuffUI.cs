@@ -236,15 +236,13 @@ namespace Spooky.Content.UserInterfaces
             }
         }
 
-        public static Rectangle MouseScreenArea => Utils.CenteredRectangle(Main.MouseScreen, Vector2.One * 2f);
-
         //check if the mouse is hovering over a specific button or UI box
         public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 backgroundScale)
         {
             Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
 
-            if (MouseScreenArea.Intersects(backgroundArea))
-            {
+            if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
+			{
                 return true;
             }
             else

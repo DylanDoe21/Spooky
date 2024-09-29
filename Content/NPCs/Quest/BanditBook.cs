@@ -160,7 +160,7 @@ namespace Spooky.Content.NPCs.Quest
 			if (NPC.ai[0] == 0 && NPC.localAI[0] > 0)
 			{
 				NPC.frameCounter++;
-				if (NPC.frameCounter > 15)
+				if (NPC.frameCounter > 6)
 				{
 					NPC.frame.Y = NPC.frame.Y + frameHeight;
 					NPC.frameCounter = 0;

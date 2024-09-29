@@ -67,9 +67,9 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
                 Projectile.rotation += MathHelper.Pi;
             }
 
-            if (Projectile.timeLeft <= 60)
+            if (Projectile.timeLeft <= 30)
             {
-                Projectile.alpha += 5;
+                Projectile.alpha += 10;
             }
             else
             {

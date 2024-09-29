@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 {
                     Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
 
-                    Main.EntitySpriteDraw(AuraTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color * 0.2f, Projectile.rotation - i, drawOrigin, Projectile.localAI[1] / 37 + (Projectile.localAI[1] < 135 ? time : time2), SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(AuraTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color * 0.2f, Projectile.rotation - i, drawOrigin, Projectile.localAI[1] / 37 + (Projectile.localAI[1] < 350 ? time : time2), SpriteEffects.None, 0);
                 }
             }
 

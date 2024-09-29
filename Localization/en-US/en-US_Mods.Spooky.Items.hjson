@@ -1347,10 +1347,9 @@ MagicEyeOrb: {
 	DisplayName: Eyeball of Pondering
 	Tooltip:
 		'''
-		Summons a glass eye that boosts your magic stats and sometimes looks at enemies
-		Enemies being looked at by the eye will take more damage from your magic attacks
-		The eye will crack when you are damaged and will shatter after 5 hits
-		The eye will respawn 30 seconds after being destroyed
+		Summons a glass eye that looks at nearby enemies
+		Enemies being looked at will take more damage from your magic attacks
+		The eye will shatter if you take too much damage, and will come back in 30 seconds
 		'''
 }
 
@@ -2908,9 +2907,7 @@ RaveyardBox: {
 	Tooltip:
 		'''
 		Placeable on ceilings and provides rainbow party light when turned on
-		Cycles through both raveyard songs
-		[c/6FE4A5:Graveyard Without The G] by BananaLizard & Lurak
-		[c/6FE4A5:Deathrattlin' Raving] by Luxcapacitor
+		[c/6FE4A5:Graveyard Without The G] by BananaLizard
 		'''
 }
 

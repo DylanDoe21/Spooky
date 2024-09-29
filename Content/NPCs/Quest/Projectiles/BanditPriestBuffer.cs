@@ -139,24 +139,6 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item104 with { Volume = 0.2f }, Projectile.Center);
-
-        	float maxAmount = 30;
-			int currentAmount = 0;
-			while (currentAmount <= maxAmount)
-			{
-				Vector2 velocity = new Vector2(2f, 2f);
-				Vector2 Bounds = new Vector2(2f, 2f);
-				float intensity = 3f;
-
-				Vector2 vector12 = Vector2.UnitX * 0f;
-				vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
-				vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.HallowSpray, 0f, 0f, 100, default, 2f);
-				Main.dust[num104].noGravity = true;
-				Main.dust[num104].position = Projectile.Center + vector12;
-				Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
-				currentAmount++;
-			}
 		}
     }
 }

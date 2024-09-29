@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.Tiles.SpookyHell.Painting;
@@ -165,6 +166,7 @@ namespace Spooky.Content.NPCs.Friendly
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4Complete");
 
 					SpawnItem(ModContent.ItemType<MagicEyeOrb>(), 1);
+					SpawnItem(ModContent.ItemType<LittleEyeHat>(), 1);
 					SpawnItem(ModContent.ItemType<IconPainting4Item>(), 1);
 					SpawnItem(ItemID.GoldCoin, 10);
 

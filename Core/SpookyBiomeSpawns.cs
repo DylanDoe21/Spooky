@@ -115,7 +115,7 @@ namespace Spooky.Core
 				//quest miniboss
 				if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem1>()) && !NPC.AnyNPCs(ModContent.NPCType<FrankenGoblin>()))
 				{
-					pool.Add(ModContent.NPCType<FrankenGoblin>(), 2);
+					pool.Add(ModContent.NPCType<FrankenGoblin>(), 3);
 				}
 
 				//day time spawns
@@ -251,7 +251,7 @@ namespace Spooky.Core
 				//quest miniboss
 				if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem2>()) && !NPC.AnyNPCs(ModContent.NPCType<BanditBook>()))
 				{
-					pool.Add(ModContent.NPCType<BanditBook>(), 2);
+					pool.Add(ModContent.NPCType<BanditBook>(), 3);
 				}
 
 				//critters
@@ -434,53 +434,7 @@ namespace Spooky.Core
 				}
 			}
 
-			//eye valley spawns
-            if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
-			{ 
-                pool.Clear();
-
-				int[] NoseTempleTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(),
-				ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(),
-				ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>() };
-
-				//do not allow catacomb enemies to spawn on non catacomb tiles
-				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
-				{
-					//quest miniboss
-					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem4>()) && !NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()))
-					{
-						pool.Add(ModContent.NPCType<EyeWizard>(), 2);
-					}
-
-					pool.Add(ModContent.NPCType<EyeBat>(), 4);
-					pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<MrHandy>(), 4);
-					pool.Add(ModContent.NPCType<MrHandyFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<ManHole>(), 3);
-					pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.75f);
-					pool.Add(ModContent.NPCType<Tortumor>(), 3);
-					pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.75f);
-
-					//do not spawn mocling swarms if one exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<MoclingSwarm>()))
-					{
-						pool.Add(ModContent.NPCType<MoclingSwarm>(), 1);
-					}
-
-					//do not spawn giant tortumors if one already exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
-					{
-						pool.Add(ModContent.NPCType<TortumorGiant>(), Main.hardMode ? 1 : 0.5f);
-					}
-
-					//do not spawn giant fleshy tortumors if one already exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
-					{
-						pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), Main.hardMode ? 0.5f : 0.25f);
-					}
-				}
-            }
-
+			//spider grotto spawns
 			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
 			{
 				pool.Clear();
@@ -493,7 +447,7 @@ namespace Spooky.Core
 					//quest miniboss
 					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem3>()) && !NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
 					{
-						pool.Add(ModContent.NPCType<StitchSpider>(), 2);
+						pool.Add(ModContent.NPCType<StitchSpider>(), 3);
 					}
 
 					//critters
@@ -536,10 +490,57 @@ namespace Spooky.Core
 				}
 			}
 
+			//eye valley spawns
+            if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			{ 
+                pool.Clear();
+
+				int[] NoseTempleTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(),
+				ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(),
+				ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>() };
+
+				//do not allow catacomb enemies to spawn on non catacomb tiles
+				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				{
+					//quest miniboss
+					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem4>()) && !NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()))
+					{
+						pool.Add(ModContent.NPCType<EyeWizard>(), 3);
+					}
+
+					pool.Add(ModContent.NPCType<EyeBat>(), 3);
+					pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
+					pool.Add(ModContent.NPCType<MrHandy>(), 3);
+					pool.Add(ModContent.NPCType<MrHandyFleshy>(), 0.8f);
+					pool.Add(ModContent.NPCType<ManHole>(), 3);
+					pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.8f);
+					pool.Add(ModContent.NPCType<Tortumor>(), 3);
+					pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.8f);
+
+					//do not spawn mocling swarms if one exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<MoclingSwarm>()))
+					{
+						pool.Add(ModContent.NPCType<MoclingSwarm>(), 1);
+					}
+
+					//do not spawn giant tortumors if one already exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
+					{
+						pool.Add(ModContent.NPCType<TortumorGiant>(), 0.7f);
+					}
+
+					//do not spawn giant fleshy tortumors if one already exists
+					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
+					{
+						pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), 0.55f);
+					}
+				}
+            }
+
 			//dumb zomboid can spawn anywhere super rarely
 			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()) && !spawnInfo.Water)
 			{
-				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.01f);
+				//pool.Add(ModContent.NPCType<DumbZomboid>(), 0.01f);
 			}
         }
     }

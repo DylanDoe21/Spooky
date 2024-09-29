@@ -193,7 +193,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                 int playerInBiomeCount = 0;
 
-                if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
+                if (player.active && player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
                 {
                     playerInBiomeCount++;
                 }
@@ -664,6 +664,7 @@ namespace Spooky.Content.NPCs.NoseCult
             if (NPC.ai[0] == 0)
             {
                 SpawnCultist(ModContent.NPCType<NoseCultistLeaderIdle>(), (int)NPC.Center.X + ((NPC.Center.X / 16) < (Main.maxTilesX / 2) ? -2 : 2), (int)NPC.Center.Y + 120, NPC.whoAmI);
+                
                 NPC.ai[0]++;
             }
 

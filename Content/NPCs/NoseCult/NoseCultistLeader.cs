@@ -325,7 +325,7 @@ namespace Spooky.Content.NPCs.NoseCult
                             ShootSpeed.Y *= Main.rand.NextFloat(12f, 17f);
 
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y - 50), ShootSpeed, 
-                            ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 3, 0f, Main.myPlayer);
+                            ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
                         }
                     }
 

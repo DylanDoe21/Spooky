@@ -144,7 +144,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             //slowly move toward the player
             if (Projectile.ai[0] <= 120)
             {
-                Vector2 desiredVelocity = Projectile.DirectionTo(Target.Center) * 7;
+                Vector2 desiredVelocity = Projectile.DirectionTo(Target.Center) * 5;
 				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
             

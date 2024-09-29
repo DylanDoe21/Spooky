@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 1;
+           	Main.npcFrameCount[NPC.type] = 10;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
            	NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
@@ -50,12 +50,22 @@ namespace Spooky.Content.NPCs.Quest
         {
 			//vector2
 			writer.WriteVector2(SavePlayerPosition);
+
+			//floats
+            writer.Write(NPC.localAI[0]);
+			writer.Write(NPC.localAI[1]);
+			writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
 			//vector2
 			SavePlayerPosition = reader.ReadVector2();
+
+			//floats
+            NPC.localAI[0] = reader.ReadSingle();
+			NPC.localAI[1] = reader.ReadSingle();
+			NPC.localAI[2] = reader.ReadSingle();
         }
 
 		public override void SetDefaults()
@@ -63,8 +73,8 @@ namespace Spooky.Content.NPCs.Quest
             NPC.lifeMax = 2500;
             NPC.damage = 40;
 			NPC.defense = 0;
-			NPC.width = 48;
-			NPC.height = 98;
+			NPC.width = 50;
+			NPC.height = 112;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
 			NPC.noTileCollide = true;
@@ -122,6 +132,45 @@ namespace Spooky.Content.NPCs.Quest
 			return false;
 		}
 
+		public override void FindFrame(int frameHeight)
+        {
+			NPC Parent = Main.npc[(int)NPC.ai[0]];
+
+			//casting animation
+			if ((Parent.ai[0] != 4 && NPC.localAI[2] > 840 && NPC.localAI[2] < 1000) || (Parent.ai[0] == 4 && ((NPC.localAI[1] < 5 && NPC.localAI[0] >= 30) || (NPC.localAI[1] >= 5 && NPC.localAI[0] > 60))))
+			{
+				if (NPC.frame.Y < frameHeight * 5)
+				{
+					NPC.frame.Y = 5 * frameHeight;
+				}
+
+				NPC.frameCounter++;
+				if (NPC.frameCounter > 7)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+				if (NPC.frame.Y >= frameHeight * 10)
+				{
+					NPC.frame.Y = 7 * frameHeight;
+				}
+			}
+			//idle animation
+			else
+			{
+				NPC.frameCounter++;
+				if (NPC.frameCounter > 7)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+				if (NPC.frame.Y >= frameHeight * 5)
+				{
+					NPC.frame.Y = 0 * frameHeight;
+				}
+			}
+		}
+
 		public override bool CheckActive()
         {
             return false;
@@ -161,6 +210,7 @@ namespace Spooky.Content.NPCs.Quest
 
 			if (Parent.ai[0] > 0)
 			{
+				//if not in its desperation phase, then randomly buff one of the other ghost bandits
 				if (Parent.ai[0] != 4)
 				{
 					GoToPosition(155, -135, 0.45f);
@@ -186,7 +236,7 @@ namespace Spooky.Content.NPCs.Quest
 
 					NPC.localAI[2]++;
 
-					if (NPC.localAI[2] == 5)
+					if (NPC.localAI[2] == 900)
 					{
 						//choose random ghost by default
 						ChosenGhostToBuff = Main.rand.NextBool() ? ModContent.NPCType<BanditBruiser>() : ModContent.NPCType<BanditWizard>();
@@ -214,7 +264,7 @@ namespace Spooky.Content.NPCs.Quest
 						}
 					}
 
-					if (NPC.localAI[2] >= 900 && NPC.localAI[2] < 1000)
+					if (NPC.localAI[2] > 900 && NPC.localAI[2] < 1000)
 					{
 						if (NPC.localAI[2] % 10 == 0)
 						{
@@ -233,6 +283,7 @@ namespace Spooky.Content.NPCs.Quest
 						NPC.netUpdate = true;
 					}
 				}
+				//desperation attacks
 				else
 				{
 					NPC.rotation = 0;
@@ -245,11 +296,11 @@ namespace Spooky.Content.NPCs.Quest
 						{
 							if (player.Center.X > NPC.Center.X)
 							{
-								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-350, -180), player.Center.Y - Main.rand.Next(50, 120));
+								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(-350, -250), player.Center.Y - Main.rand.Next(50, 120));
 							}
 							else
 							{
-								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(180, 350), player.Center.Y - Main.rand.Next(50, 120));
+								SavePlayerPosition = new Vector2(player.Center.X + Main.rand.Next(250, 350), player.Center.Y - Main.rand.Next(50, 120));
 							}
 
 							NPC.netUpdate = true;
@@ -316,7 +367,7 @@ namespace Spooky.Content.NPCs.Quest
 								{
 									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, 
+										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(player.Center.X < NPC.Center.X ? -25 : 25, 0), 
 										12f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(22) * numProjectiles), 
 										ModContent.ProjectileType<BanditPriestBall>(), NPC.damage / 4, 0f, Main.myPlayer);
 									}
@@ -345,8 +396,6 @@ namespace Spooky.Content.NPCs.Quest
 
 			float goToX = (Parent.Center.X + X) - NPC.Center.X;
 			float goToY = (Parent.Center.Y + Y) - NPC.Center.Y;
-
-			NPC.ai[1]++;
 
 			if (NPC.velocity.X > speed)
 			{

@@ -25,6 +25,7 @@ namespace Spooky.Content.NPCs.Quest
 	{
 		float addedStretch = 0f;
 		float stretchRecoil = 0f;
+		float ShieldAlpha = 0f;
 
 		bool Shake = false;
 
@@ -35,7 +36,7 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 1;
+            Main.npcFrameCount[NPC.type] = 10;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
@@ -126,7 +127,7 @@ namespace Spooky.Content.NPCs.Quest
             spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, effects, 0f);
 
 			//draw forcefield if being buffed
-            if (NPC.HasBuff(ModContent.BuffType<GhostBanditDefense>()))
+            if (ShieldAlpha > 0)
             {
                 ShieldTexture ??= ModContent.Request<Texture2D>("Spooky/ShaderAssets/BanditShield");
 
@@ -136,7 +137,7 @@ namespace Spooky.Content.NPCs.Quest
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
                 var center = NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY);
-                DrawData drawData = new DrawData(ShieldTexture.Value, center + new Vector2(0, 25), new Rectangle(0, 0, 500, 400), Color.Lerp(Color.Cyan, Color.Blue, fade), 0, new Vector2(250f, 250f), NPC.scale * (0.5f + fade * 0.05f), SpriteEffects.None, 0);
+                DrawData drawData = new DrawData(ShieldTexture.Value, center + new Vector2(0, 25), new Rectangle(0, 0, 500, 400), Color.Lerp(Color.Cyan, Color.Blue, fade) * ShieldAlpha, 0, new Vector2(250f, 250f), NPC.scale * (0.5f + fade * 0.05f), SpriteEffects.None, 0);
                 GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + fade * 0.5f));
                 GameShaders.Misc["ForceField"].Apply(drawData);
                 drawData.Draw(Main.spriteBatch);
@@ -146,6 +147,45 @@ namespace Spooky.Content.NPCs.Quest
             }
 
 			return false;
+		}
+
+		public override void FindFrame(int frameHeight)
+        {
+			NPC Parent = Main.npc[(int)NPC.ai[0]];
+
+			//casting animation
+			if (Parent.ai[0] == 3 && ((Parent.localAI[0] > 60 && Parent.localAI[0] < 140 && Parent.localAI[1] < 3) || (Parent.localAI[0] >= 140 && Parent.localAI[0] < 220 && Parent.localAI[1] >= 3)))
+			{
+				if (NPC.frame.Y < frameHeight * 5)
+				{
+					NPC.frame.Y = 5 * frameHeight;
+				}
+
+				NPC.frameCounter++;
+				if (NPC.frameCounter > 7)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+				if (NPC.frame.Y >= frameHeight * 10)
+				{
+					NPC.frame.Y = 7 * frameHeight;
+				}
+			}
+			//idle animation
+			else
+			{
+				NPC.frameCounter++;
+				if (NPC.frameCounter > 7)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+				if (NPC.frame.Y >= frameHeight * 5)
+				{
+					NPC.frame.Y = 0 * frameHeight;
+				}
+			}
 		}
 
 		public override bool CheckActive()
@@ -171,6 +211,22 @@ namespace Spooky.Content.NPCs.Quest
 			if (!Parent.active || Parent.type != ModContent.NPCType<BanditBook>())
 			{
                 NPC.active = false;
+			}
+
+			//draw forcefield if being buffed
+            if (NPC.HasBuff(ModContent.BuffType<GhostBanditDefense>()))
+            {
+				if (ShieldAlpha < 1)
+				{
+					ShieldAlpha += 0.05f;
+				}
+			}
+			else
+			{
+				if (ShieldAlpha > 0)
+				{
+					ShieldAlpha -= 0.05f;
+				}
 			}
 
 			//stretch stuff
@@ -398,8 +454,6 @@ namespace Spooky.Content.NPCs.Quest
 
 			float goToX = (Parent.Center.X + X) - NPC.Center.X;
 			float goToY = (Parent.Center.Y + Y) - NPC.Center.Y;
-
-			NPC.ai[1]++;
 
 			if (NPC.velocity.X > speed)
 			{

@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>() };
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(31, 85, 37));
+            AddMapEntry(Color.Gray);
             DustType = DustID.Slush;
             HitSound = SoundID.Dig;
         }

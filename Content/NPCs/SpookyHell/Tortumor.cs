@@ -87,6 +87,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             {
                 NPC.velocity = new Vector2(Main.rand.Next(-13, 14), Main.rand.Next(-13, -5));
                 NPC.ai[2] = 1;
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.ai[0] >= 300)
@@ -94,6 +96,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                 NPC.velocity = new Vector2(Main.rand.Next(-13, 14), Main.rand.Next(-13, 14));
                 NPC.ai[0] = 0;
                 NPC.ai[1] = 0;
+
+                NPC.netUpdate = true;
             }
 
             //bounce off of tiles

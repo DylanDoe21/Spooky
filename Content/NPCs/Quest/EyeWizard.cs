@@ -21,12 +21,14 @@ namespace Spooky.Content.NPCs.Quest
 		int CurrentFrameX = 0; //0 = idle flying animation  1 = go inside cloak
 
 		bool SpawnedOrb = false;
+		bool SpawnedClone = false;
 
 		Vector2 SaveNPCPosition;
         Vector2 SavePlayerPosition;
 
-		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> GlowTexture;
+		private static Asset<Texture2D> EyeClosedTexture;
 
 		public override void SetStaticDefaults()
         {
@@ -47,6 +49,7 @@ namespace Spooky.Content.NPCs.Quest
 
 			//bools
             writer.Write(SpawnedOrb);
+			writer.Write(SpawnedClone);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -64,6 +67,7 @@ namespace Spooky.Content.NPCs.Quest
 
 			//bools
             SpawnedOrb = reader.ReadBoolean();
+			SpawnedClone = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
@@ -73,7 +77,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 3800;
-            NPC.damage = 45;
+            NPC.damage = 32;
 			NPC.defense = 5;
 			NPC.width = 54;
 			NPC.height = 116;
@@ -107,6 +111,7 @@ namespace Spooky.Content.NPCs.Quest
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/EyeWizardGlow");
+			EyeClosedTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/EyeWizardClosed");
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 			
@@ -122,7 +127,15 @@ namespace Spooky.Content.NPCs.Quest
             }
 
             spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
-			spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			
+			if (NPC.ai[0] == 0)
+			{
+				spriteBatch.Draw(EyeClosedTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			}
+			else
+			{
+				spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			}
 
 			return false;
 		}
@@ -189,6 +202,20 @@ namespace Spooky.Content.NPCs.Quest
 				}
 
 				SpawnedOrb = true;
+
+				NPC.netUpdate = true;
+			}
+
+			if (NPC.life < (NPC.lifeMax / 2) && !SpawnedClone)
+			{
+				int Clone = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<EyeWizardClone>(), ai0: NPC.whoAmI);
+
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					NetMessage.SendData(MessageID.SyncNPC, number: Clone);
+				}
+
+				SpawnedClone = true;
 
 				NPC.netUpdate = true;
 			}
@@ -289,7 +316,7 @@ namespace Spooky.Content.NPCs.Quest
 
 						if (NPC.localAI[0] > 75 && NPC.localAI[0] <= 125)
 						{
-							NPC.Center = SaveNPCPosition;
+							//NPC.Center = SaveNPCPosition;
 							NPC.Center += Main.rand.NextVector2Square(-5, 5);
 						}
 
@@ -301,7 +328,7 @@ namespace Spooky.Content.NPCs.Quest
 
 							Vector2 ShootSpeed = NPC.Center - NPCPosition;
 							ShootSpeed.Normalize();
-							ShootSpeed *= -5f;
+							ShootSpeed *= -3.5f;
 
 							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, ShootSpeed, ModContent.ProjectileType<LingeringEyeSpawner>(), NPC.damage / 4, 2, NPC.target);
 						}
@@ -364,10 +391,10 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SaveNPCPosition = NPC.Center;
 
-						NPC.Center = SaveNPCPosition;
+						//NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
 
-						if (NPC.localAI[0] % 30 == 0)
+						if (NPC.localAI[0] % 40 == 0)
 						{
 							Vector2 NPCPosition = NPC.Center + new Vector2(0, 25).RotatedByRandom(360);
 
@@ -432,7 +459,7 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SaveNPCPosition = NPC.Center;
 
-						NPC.Center = SaveNPCPosition;
+						//NPC.Center = SaveNPCPosition;
                         NPC.Center += Main.rand.NextVector2Square(-5, 5);
 
 						if (NPC.localAI[0] % 10 == 0)
@@ -457,64 +484,6 @@ namespace Spooky.Content.NPCs.Quest
 						NPC.netUpdate = true;
 					}
 
-					break;
-				}
-
-				//throw a random potion
-				//TODO: rework this completely
-				//NEW IDEA: spawn illusions
-				case 5:
-				{
-					NPC.localAI[0]++;
-
-					//go to the player
-					if (NPC.localAI[0] < 180)
-					{
-						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 300);
-
-						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 8);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-					}
-
-					if (NPC.localAI[0] >= 180)
-					{
-						NPC.velocity *= 0.85f;
-					}
-
-					/*
-					if (NPC.localAI[0] == 240)
-					{
-						SoundEngine.PlaySound(SoundID.Item106, NPC.Center);
-
-						Vector2 Recoil = player.Center - NPC.Center;
-						Recoil.Normalize();
-						Recoil *= -12f;
-						NPC.velocity = Recoil;
-
-						Vector2 ShootSpeed = player.Center - NPC.Center;
-						ShootSpeed.Normalize();
-						ShootSpeed *= 15f;
-
-						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 60f;
-						Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-						if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-						{
-							position += muzzleOffset;
-						}
-
-						int[] Types = new int[] { ModContent.ProjectileType<FlaskChilled>(), ModContent.ProjectileType<FlaskIchor>(), ModContent.ProjectileType<FlaskVenom>() };
-
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, Main.rand.Next(Types), NPC.damage / 4, 0, NPC.target);
-					}
-					*/
-
-					if (NPC.localAI[0] >= 300)
-					{
-						NPC.localAI[0] = 0;
-						NPC.ai[0] = 1;
-					}
- 
 					break;
 				}
 			}

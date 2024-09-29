@@ -293,7 +293,7 @@ Fixed all of the following bugs and issues:
 -Big bone's red, orange, and phase 2 transition flower's chains sometimes drawing infront of big bone
 -The spider grotto and catacombs overall spawn rates being way too low
 -Catacomb crates not being fished up in the cemetery if spooky spirit has been defeated for the first time
--Catacomb second layer on small worlds sometimes generating the loot rooms in a way which made it impossible to get to the bottom of the catacombs due to pathways being blocked off
+-Catacomb second layer sometimes generating the loot rooms on small worlds in a way which made it impossible to get to the bottom of the catacombs due to pathways being blocked off
 -Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background config changed
 -Issue where spooky mod would cause a crash during world generation when used with the lunar veil mod
 
