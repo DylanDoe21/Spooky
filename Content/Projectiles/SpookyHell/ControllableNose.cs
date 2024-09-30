@@ -67,7 +67,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
 
 			if (player.channel)
-{
+            {
                 Projectile.timeLeft = 2;
 
                 Vector2 GoTo = Main.MouseWorld;

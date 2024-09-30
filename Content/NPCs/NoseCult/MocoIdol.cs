@@ -193,6 +193,8 @@ namespace Spooky.Content.NPCs.NoseCult
 
                 int playerInBiomeCount = 0;
 
+                //for this player count specifically, do not check if the players are dead
+                //this is so the nose temple rooms and event dont actually reset and respawn the idle enemies until the player actually respawns
                 if (player.active && player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
                 {
                     playerInBiomeCount++;

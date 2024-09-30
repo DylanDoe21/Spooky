@@ -493,5 +493,27 @@ namespace Spooky.Content.NPCs.Quest
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BountyItem4>()));
         }
+
+		public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+				if (Main.netMode != NetmodeID.Server) 
+				{
+					Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity / 3, ModContent.Find<ModGore>("Spooky/EyeWizardHatGore").Type);
+				}
+
+				for (int Repeats = 1; Repeats <= 2; Repeats++)
+                {
+					for (int numGores = 1; numGores <= 9; numGores++)
+					{
+						if (Main.netMode != NetmodeID.Server) 
+						{
+							Gore.NewGore(NPC.GetSource_Death(), NPC.Center + new Vector2(Main.rand.Next(-20, 21), Main.rand.Next(-45, 46)), NPC.velocity, ModContent.Find<ModGore>("Spooky/EyeWizardClothGore" + numGores).Type);
+						}
+					}
+				}
+            }
+        }
 	}
 }

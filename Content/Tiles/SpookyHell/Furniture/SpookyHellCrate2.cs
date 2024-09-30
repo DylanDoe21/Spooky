@@ -13,6 +13,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		public override void SetStaticDefaults() 
 		{
 			Item.ResearchUnlockCount = 5;
+			ItemID.Sets.IsFishingCrate[Item.type] = true;
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpookyHellCrate>();
 		}
 

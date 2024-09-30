@@ -1,13 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
-    public class PandoraCrossSound : ModProjectile
+    public class FlameIdolRing : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
 
@@ -31,12 +32,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
             Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                
-            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Cyan);
+
+            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.OrangeRed);
 
             for (int i = 0; i < 360; i += 90)
             {
-                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 1f), Main.rand.NextFloat(1f, 1f)).RotatedBy(MathHelper.ToRadians(i));
+                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 10f), Main.rand.NextFloat(1f, 10f)).RotatedBy(MathHelper.ToRadians(i));
 
                 Main.EntitySpriteDraw(ProjTexture.Value, vector + circular, rectangle, color, Projectile.rotation, drawOrigin, Projectile.ai[0] / 47, SpriteEffects.None, 0);
             }
@@ -60,7 +61,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
 
-            if (Projectile.ai[0] < 350)
+            if (Projectile.ai[0] % 10 == 0)
+            {
+                SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, player.Center);
+
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center + new Vector2(Main.rand.Next(-150, 151), Main.rand.Next(-150, 151)), 
+                Vector2.Zero, ModContent.ProjectileType<FlameIdolAura>(), Projectile.damage / 2, 0f, Main.myPlayer);
+            }
+
+            if (Projectile.ai[0] < 250)
             {
                 Projectile.ai[0] += 25;
             }
@@ -88,15 +97,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     //damage enemies
                     player.ApplyDamageToNPC(npc, Projectile.damage * 2, 0, 0, false, null, true);
 
-                    //push all enemies away from you
-                    Vector2 Knockback = Projectile.Center - npc.Center;
-                    Knockback.Normalize();
-                    Knockback *= 6;
-
-                    if (npc.knockBackResist > 0)
-                    {
-                        npc.velocity = -Knockback;
-                    }
+                    npc.AddBuff(BuffID.OnFire3, 300);
                 }
             }
         }

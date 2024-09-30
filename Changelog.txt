@@ -236,6 +236,7 @@ Removals:
 -Removed all the previous catacomb second layer enemies, replaced with new ones mentioned in the catacomb improvements section
 -Removed the feature where gravestones wouldn't spawn from your character if you died in the catacombs, since you can now break blocks in the catacombs
 -Removed the cotton swabs crafting recipe due to the new way it is obtained
+-Removed all of the little eye quest flasks due to the quest system rework
 -Removed the secret pet shrine and the associated pets that would generate if you had the spooky mod menu screen completed, as it didnt feel like it served any real purpose, will likely be replaced with something cooler in the future
 -Removed all of the "entities" except for the cowbell entity, this was done for 2 reasons:
  1) All of the entities in the game besides the cowbell one were just literal re-hashes of what the cowbell entities gimmick was, and they didnt do anything different or interesting to separate themselves from the original 

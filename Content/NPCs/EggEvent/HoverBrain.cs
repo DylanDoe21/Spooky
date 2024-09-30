@@ -220,7 +220,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -18 : 18), NPC.Center.Y, 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BrainLaser>(), NPC.damage / 4, 0f, Main.myPlayer);
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BrainBeam>(), NPC.damage / 4, 0f, Main.myPlayer);
                         }
                     }
 

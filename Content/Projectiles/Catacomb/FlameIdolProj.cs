@@ -65,6 +65,11 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.Kill();
             }
 
+            if (!player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+			{
+				Projectile.Kill();
+			}
+
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 ProjDirection = Main.MouseWorld - player.position;
@@ -77,12 +82,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.direction = Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
 
-            Projectile.position = player.Center - Projectile.Size / 2 + new Vector2((Projectile.direction == -1 ? -20 : 20), -5);
+            Projectile.position = player.MountedCenter - Projectile.Size / 2 + new Vector2((Projectile.direction == -1 ? -12 : 12), -5);
 
-			if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana)
+			if (player.channel)
             {
-                player.AddBuff(BuffID.OnFire, 2);
-
                 Projectile.timeLeft = 2;
 
                 player.itemRotation = Projectile.rotation;
@@ -91,25 +94,13 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] >= 60)
+                if (Projectile.localAI[0] >= 30 + ItemGlobal.ActiveItem(player).useTime && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
                 {
                     player.statMana -= ItemGlobal.ActiveItem(player).mana;
 
-                    SoundEngine.PlaySound(SoundID.Item42, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, player.MountedCenter);
 
-                    for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
-                    {
-                        int[] Types = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
-
-                        Vector2 Speed = new Vector2(8f, 0f).RotatedByRandom(2 * Math.PI);
-                        Vector2 realSpeed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
-                        Vector2 Position = new Vector2(Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + Main.rand.Next(-20, 20));
-
-                        int GreekFire = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Position, realSpeed, Main.rand.Next(Types), Projectile.damage, 0f, Main.myPlayer, 0, 0);
-                        Main.projectile[GreekFire].DamageType = DamageClass.Magic;
-                        Main.projectile[GreekFire].friendly = true;
-                        Main.projectile[GreekFire].hostile = false;
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<FlameIdolRing>(), Projectile.damage, 0f, Main.myPlayer);
 
                     Projectile.localAI[0] = 0;
                 }

@@ -33,7 +33,15 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (6f + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
             Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.Red), Projectile.rotation, drawOrigin, Projectile.ai[0] / 47, SpriteEffects.None, 0);
+
+            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
+
+            for (int i = 0; i < 360; i += 90)
+            {
+                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 1f), Main.rand.NextFloat(1f, 1f)).RotatedBy(MathHelper.ToRadians(i));
+
+                Main.EntitySpriteDraw(ProjTexture.Value, vector + circular, rectangle, color, Projectile.rotation, drawOrigin, Projectile.ai[0] / 47, SpriteEffects.None, 0);
+            }
 
             return false;
         }

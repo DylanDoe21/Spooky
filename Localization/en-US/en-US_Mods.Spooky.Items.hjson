@@ -512,11 +512,7 @@ FemurFracture: {
 
 FlameIdol: {
 	DisplayName: Idol of Flame
-	Tooltip:
-		'''
-		Hold down to cast out spreads of lingering fire all over the place
-		The flame idol will also ignite you while using it
-		'''
+	Tooltip: Hold down to create a massive combustion aura
 }
 
 GlowBulb: {

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace Spooky.Content.Dusts
 {
@@ -20,15 +21,12 @@ namespace Spooky.Content.Dusts
 
         public override bool Update(Dust dust)
         {
-            dust.alpha++;
+            dust.alpha += 1;
 
-            if (Main.rand.NextBool(12))
-            {
-                dust.velocity.X += Main.rand.NextFloat(-0.01f, 0.01f);
-                dust.velocity.Y += Main.rand.NextFloat(0.04f, 0.06f);
-            }
+            dust.velocity.X += (float)Math.Sin(Main.GameUpdateCount / 20) * 0.02f;
+            dust.velocity.Y -= 0.01f;
 
-            dust.position -= dust.velocity;
+            dust.position += dust.velocity;
 
             if (dust.alpha > 255)
             {

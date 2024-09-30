@@ -25,6 +25,8 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 
 namespace Spooky.Core
 {
@@ -153,8 +155,10 @@ namespace Spooky.Core
         public int GooSlugEatCooldown = 0;
 		public int RootHealCooldown = 0;
 
-        //sounds
-        public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
+		private static Asset<Texture2D> SentientLeafBlowerBackTex;
+
+		//sounds
+		public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
         public static readonly SoundStyle ClarinetSound = new("Spooky/Content/Sounds/Clarinet", SoundType.Sound) { Volume = 0.7f, PitchVariance = 0.6f };
         public static readonly SoundStyle CapSound1 = new("Spooky/Content/Sounds/SentientCap1", SoundType.Sound);
         public static readonly SoundStyle CapSound2 = new("Spooky/Content/Sounds/SentientCap2", SoundType.Sound);
@@ -1020,7 +1024,41 @@ namespace Spooky.Core
             }
         }
 
-        public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
+		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+		{
+			if (drawInfo.shadow != 0f)
+			{
+				return;
+			}
+
+			if (!drawInfo.drawPlayer.frozen && !drawInfo.drawPlayer.dead && !drawInfo.drawPlayer.wet)
+			{
+				if (ItemGlobal.ActiveItem(drawInfo.drawPlayer).type == ModContent.ItemType<SentientLeafBlower>())
+				{
+					SentientLeafBlowerBackTex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Sentient/SentientLeafBlowerBack");
+
+					SpriteEffects spriteEffects = drawInfo.drawPlayer.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+					int xOffset = 10;
+
+					DrawData PlayerBack = new DrawData(SentientLeafBlowerBackTex.Value,
+					new Vector2((int)(drawInfo.drawPlayer.position.X - Main.screenPosition.X + (drawInfo.drawPlayer.width / 2) - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.position.Y - Main.screenPosition.Y + (drawInfo.drawPlayer.height / 2) + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
+					new Rectangle(0, 0, SentientLeafBlowerBackTex.Width(), SentientLeafBlowerBackTex.Height()),
+					drawInfo.colorArmorBody,
+					drawInfo.drawPlayer.bodyRotation,
+					new Vector2(SentientLeafBlowerBackTex.Width() / 2, SentientLeafBlowerBackTex.Height() / 2),
+					1f, 
+					spriteEffects, 
+					0);
+
+					PlayerBack.shader = 0;
+					drawInfo.DrawDataCache.Add(PlayerBack);
+				}
+			}
+		}
+
+
+		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {
             if (!attempt.inLava && !attempt.inHoney)
             {

@@ -14,6 +14,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void SetStaticDefaults() 
 		{
 			Item.ResearchUnlockCount = 5;
+			ItemID.Sets.IsFishingCrate[Item.type] = true;
 		}
 
 		public override void SetDefaults() 

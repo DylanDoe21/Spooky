@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.Fishing
 
         public override bool IsAnglerQuestAvailable()
         {
-            return Flags.downedSpookySpirit;
+            return Flags.downedDaffodil;
         }
 
         public override void AnglerQuestChat(ref string description, ref string catchLocation) 
