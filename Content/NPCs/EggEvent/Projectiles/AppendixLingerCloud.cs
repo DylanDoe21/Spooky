@@ -17,7 +17,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             Projectile.height = 130;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.timeLeft = 300;
             Projectile.penetrate = 3;
             Projectile.alpha = 255;

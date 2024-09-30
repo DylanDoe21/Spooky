@@ -455,7 +455,7 @@ namespace Spooky.Content.NPCs.EggEvent
                                 if (timeLeft >= 180)
                                 {
                                     //chance to spawn an ear worm manually
-                                    if (Main.rand.NextBool(5) && EarWormCount() < 4)
+                                    if (Main.rand.NextBool(7) && EarWormCount() < 4)
                                     {
                                         Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
 
@@ -512,7 +512,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         if (timeLeft >= 180)
                         {
 							//chance to spawn an ear worm manually
-                            if (Main.rand.NextBool(5) && EarWormCount() < 4)
+                            if (Main.rand.NextBool(7) && EarWormCount() < 4)
                             {
 								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
 

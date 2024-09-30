@@ -128,7 +128,7 @@ namespace Spooky.Content.NPCs.Quest
 
             spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 			
-			if (NPC.ai[0] == 0)
+			if (NPC.ai[0] == 0 && !NPC.IsABestiaryIconDummy)
 			{
 				spriteBatch.Draw(EyeClosedTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 			}
