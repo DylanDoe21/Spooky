@@ -209,7 +209,7 @@ Enemy & Boss Changes:
 Miscellaneous:
 
 -The spider grotto can now generate inbetween the dungeon and snow biome if there is enough room
--Chsnged the color of the foliage blocks in the spider grotto to aesthetically differentiate it from the other spooky mod biomes more
+-Changed the color of the foliage blocks in the spider grotto to aesthetically differentiate it from the other spooky mod biomes more
 -Spider grotto no longer generates with spooky forest glowshroom moss or mushrooms anymore
 -Sentient hearts now only require 1 to be researched in journey mode to unlock duplication
 -Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up, and now produces gores when it lands or hits daffodil
@@ -219,10 +219,9 @@ Miscellaneous:
 -Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
 -Old hunter pieces now have better generation and place in spots that are a bit easier to find
--All fishing rods can now fish in the blood lake in the eye valley (The goblin shark rod is still the only way to fish up the blood lake enemies)
+-All fishing rods can now fish in the blood lake in the eye valley (However the goblin shark rod is still the only way to fish up the blood lake enemies)
 -Spooky forest gourds can no longer naturally grow too close to each other
 -Redid the visual effects/trails for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
--Polished up the visual effect for the auras created by orro-boro and egg incursion enemies
 -Increased the drop rates for the spider grotto enemy weapon drops (Both prehardmode and hardmode drops)
 -Dissolved bone pet item now has a 1 in 30 chance from dropping from mysterious orange tombstones in the cemetery instead of catacomb fishing crates
 -Added a recipe group in spooky mod for items that are craftable with both demonite and crimtane so they dont have 2 separate recipes anymore

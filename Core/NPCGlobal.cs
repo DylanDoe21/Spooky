@@ -135,6 +135,15 @@ namespace Spooky.Core
             }
         }
 
+		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+		{
+			//if the glass eye is staring at an enemy multiply the damage they take from magic items
+			if (npc.HasBuff(ModContent.BuffType<GlassEyeDebuff>()) && modifiers.DamageType == DamageClass.Magic)
+			{
+				modifiers.FinalDamage *= 1.35f;
+			}
+		}
+
 		public override void OnKill(NPC npc)
 		{
 			//summon zomboid necromancer souls from undead catacomb enemies if they are killed nearby one

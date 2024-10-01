@@ -16,9 +16,11 @@ namespace Spooky.Content.NPCs.Quest
 		private static Asset<Texture2D> NPCTexture;
 
 		public override void SetStaticDefaults()
-        {
+		{
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
-        }
+
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
+		}
 
 		public override void SetDefaults()
 		{

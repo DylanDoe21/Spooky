@@ -1345,7 +1345,7 @@ MagicEyeOrb: {
 		'''
 		Summons a glass eye that looks at nearby enemies
 		Enemies being looked at will take more damage from your magic attacks
-		The eye will shatter if you take too much damage, and will come back in 30 seconds
+		The eye will shatter if you get hit 5 times, and will respawn after 30 seconds
 		'''
 }
 

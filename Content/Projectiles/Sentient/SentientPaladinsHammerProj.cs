@@ -97,7 +97,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.localAI[0]++;
 
             //target an enemy
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC NPC = Main.npc[i];
 

@@ -6,7 +6,9 @@ using Terraria.GameInput;
 using Terraria.Graphics.CameraModifiers;
 using Terraria.Localization;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Content.Biomes;
@@ -25,8 +27,6 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 
 namespace Spooky.Core
 {
@@ -76,6 +76,12 @@ namespace Spooky.Core
 		public bool SmokerLung = false;
 		public bool StonedKidney = false;
 		public bool VeinChain = false;
+		public bool GhostBookBlue = false;
+		public bool GhostBookGreen = false;
+		public bool GhostBookRed = false;
+		public bool MagicEyeOrb = false;
+		public bool SewingThread = false;
+		public bool StitchedCloak = false;
 
 		//expert accessories
 		public bool FlyAmulet = false;
@@ -154,6 +160,7 @@ namespace Spooky.Core
         public int GeminiMockerySpawnTimer = 0;
         public int GooSlugEatCooldown = 0;
 		public int RootHealCooldown = 0;
+		public int MagicEyeOrbHits = 0;
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
 
@@ -218,6 +225,12 @@ namespace Spooky.Core
 			SmokerLung = false;
 			StonedKidney = false;
 			VeinChain = false;
+			GhostBookBlue = false;
+			GhostBookGreen = false;
+			GhostBookRed = false;
+			MagicEyeOrb = false;
+			SewingThread = false;
+			StitchedCloak = false;
 
 			//expert accessories
 			FlyAmulet = false;
@@ -617,6 +630,18 @@ namespace Spooky.Core
                     }
                 }
             }
+
+			if (MagicEyeOrb)
+			{
+				MagicEyeOrbHits++;
+
+				if (MagicEyeOrbHits == 5)
+				{
+					Player.AddBuff(ModContent.BuffType<GlassEyeCooldown>(), 1800);
+
+					MagicEyeOrbHits = 0;
+				}
+			}
         }
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)

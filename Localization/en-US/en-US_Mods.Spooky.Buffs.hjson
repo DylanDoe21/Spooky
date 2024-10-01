@@ -484,3 +484,13 @@ GhostBanditDefense: {
 	DisplayName: Ghost Bandit Defense
 	Description: ""
 }
+
+GlassEyeDebuff: {
+	DisplayName: Glass Eye Debuff
+	Description: ""
+}
+
+GlassEyeCooldown: {
+	DisplayName: Glass Eye Shattered
+	Description: Your glass eye has been shattered
+}
