@@ -210,4 +210,63 @@ namespace Spooky.Core
             globalLoot.Add(ItemDropRule.ByCondition(new DropConditions.UnderworldDropCondition(), ItemID.HelFire, 400));
         }
     }
+
+    public static class NPCGlobalHelper
+	{
+        //check for npcs that arent considered full bosses internally, or boss segments/pieces (such as skeletrons hands)
+        public static bool IsTechnicallyBoss(this NPC npc)
+		{
+			int type = npc.type;
+			switch (type)
+			{
+                //EoW segments do not count as bosses individually
+				case NPCID.EaterofWorldsHead:
+				case NPCID.EaterofWorldsBody:
+				case NPCID.EaterofWorldsTail:
+
+				//skeletron hand and dungeon guardian
+				case NPCID.SkeletronHand:
+				case NPCID.DungeonGuardian:
+
+				//skeletron prime hands
+				case NPCID.PrimeCannon:
+				case NPCID.PrimeLaser:
+				case NPCID.PrimeSaw:
+				case NPCID.PrimeVice:
+
+				//golem pieces
+				case NPCID.GolemHead:
+				case NPCID.GolemHeadFree:
+				case NPCID.GolemFistLeft:
+				case NPCID.GolemFistRight:
+
+				//martian saucer
+				case NPCID.MartianSaucerCore:
+				case NPCID.MartianSaucerCannon:
+				case NPCID.MartianSaucerTurret:
+				case NPCID.MartianSaucer:
+
+				//flying dutchman
+				case NPCID.PirateShip:
+                case NPCID.PirateShipCannon:
+
+				//frost/pumpkin moon minibosses
+				case NPCID.IceQueen:
+				case NPCID.SantaNK1:
+				case NPCID.Everscream:
+				case NPCID.Pumpking:
+				case NPCID.MourningWood:
+
+				//old ones army
+				case NPCID.DD2Betsy:
+				case NPCID.DD2DarkMageT1:
+				case NPCID.DD2DarkMageT3:
+				case NPCID.DD2OgreT2:
+				case NPCID.DD2OgreT3:
+					return true;
+			}
+
+			return npc.boss || NPCID.Sets.ShouldBeCountedAsBoss[type];
+		}
+    }
 }

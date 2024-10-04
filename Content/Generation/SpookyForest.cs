@@ -127,14 +127,14 @@ namespace Spooky.Content.Generation
                     //surface clumps
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>())
                     {
-                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), WorldGen.genRand.Next(15, 20), 
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(15, 28), WorldGen.genRand.Next(15, 28), 
                         ModContent.TileType<SpookyDirt2>(), false, 0f, 0f, false, true);
                     }
 
                     //bigger clumps underground
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
                     {
-                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(15, 20), WorldGen.genRand.Next(15, 20), 
+                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(15, 28), WorldGen.genRand.Next(15, 28), 
                         ModContent.TileType<SpookyDirt2>(), false, 0f, 0f, false, true);
                     }
                 }

@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
-using Terraria.Audio;
 
 namespace Spooky.Content.Projectiles.Blooms
 {

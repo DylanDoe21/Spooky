@@ -6,7 +6,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Items.Quest
 {
-	//[AutoloadEquip(EquipType.Front, EquipType.Back)]
+	[AutoloadEquip(EquipType.Front)]
 	public class StitchedCloak : ModItem
 	{
 		public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.Quest
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            //player.GetModPlayer<SpookyPlayer>().StitchedCloak = true;
-        }
+            player.GetModPlayer<SpookyPlayer>().StitchedCloak = true;
+		}
 	}
 }

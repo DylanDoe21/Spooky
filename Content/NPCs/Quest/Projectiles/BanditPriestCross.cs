@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
 
-				Color color = Projectile.GetAlpha(Color.Lerp(Color.Blue, Color.Cyan, scale));
+				Color color = Projectile.GetAlpha(Color.Lerp(Color.Gold, Color.Cyan, scale));
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
             for (int i = 0; i < 360; i += 30)
             {
-                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 6f), Main.rand.NextFloat(1f, 6f)).RotatedBy(MathHelper.ToRadians(i));
+                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2f), Main.rand.NextFloat(1f, 2f)).RotatedBy(MathHelper.ToRadians(i));
 
                 Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, Projectile.GetAlpha(Color.Cyan), Projectile.rotation, drawOrigin, 1.05f, SpriteEffects.None, 0);
             }

@@ -108,7 +108,7 @@ namespace Spooky.Content.Projectiles.Sentient
                     break;
                 }
                 //if no boss is found, target other enemies normally
-                else if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+                else if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
                 {
                     AttackingAI(NPC, owner);
                     break;

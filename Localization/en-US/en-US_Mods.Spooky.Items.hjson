@@ -1363,7 +1363,10 @@ StitchedCloak: {
 	Tooltip:
 		'''
 		Increases your movement acceleration
-		Grants you spider legs that allow you to freely crawl on walls
+		Double tap Left or Right to dash horizontally
+		Double tap Up or Down to dash vertically
+		Dashing will leave behind a spider web that can trap enemies inside of it
+		You will not be able to use this dash again for a bit once used
 		'''
 }
 
@@ -1760,7 +1763,7 @@ PumpkinCarvingKit: {
 	DisplayName: Gourd Carving Kit
 	Tooltip:
 		'''
-		Right click spooky forest gourds with this in your inventory to carve them
+		Right click spooky forest gourds while holding this to carve them
 		You can also place Old Wax Candles in them by right clicking them if you have one
 		'''
 }
@@ -2054,7 +2057,7 @@ GiantEar: {
 	Tooltip:
 		'''
 		Summons an ear companion that shoots out damaging sound blasts while you attack
-		The damage of the blast is based on the damage of the weapon you are currently using
+		The damage and frequency of the blasts is based on the weapon you are currently using
 		'''
 }
 
@@ -2111,7 +2114,6 @@ TotalOrganPackage: {
 	Tooltip:
 		'''
 		Grants the abilities of all organ accessories
-
 		Chance on hitting nearby enemies to attach a life-stealing vein that damages them and heals you
 		Hitting enemies may attach a set of goo jaws to them to deal additional damage
 		Hitting enemies will sometimes give them a stomach ache, on death they will explode pink bubbles
@@ -3213,6 +3215,11 @@ SpookyHellPylonItem: {
 		'''
 }
 
+BanditBookRelicItem: {
+	DisplayName: Tome of Spirits Relic
+	Tooltip: ""
+}
+
 BigBoneRelicItem: {
 	DisplayName: Big Bone Relic
 	Tooltip: ""
@@ -3220,6 +3227,16 @@ BigBoneRelicItem: {
 
 DaffodilRelicItem: {
 	DisplayName: Daffodil Relic
+	Tooltip: ""
+}
+
+EyeWizardRelicItem: {
+	DisplayName: Bigger Eye Relic
+	Tooltip: ""
+}
+
+FrankenGoblinRelicItem: {
+	DisplayName: Frank the Goblin Relic
 	Tooltip: ""
 }
 
@@ -3240,6 +3257,11 @@ RotGourdRelicItem: {
 
 SpookySpiritRelicItem: {
 	DisplayName: Spooky Spirit Relic
+	Tooltip: ""
+}
+
+StitchSpiderRelicItem: {
+	DisplayName: Stitches Relic
 	Tooltip: ""
 }
 
@@ -3278,7 +3300,7 @@ CandleItem: {
 	Tooltip:
 		'''
 		Provides a small amount of light
-		Right click a carved gourd with this in your inventory to put it inside
+		Right click a carved gourd while holding this to light it up
 		'''
 }
 

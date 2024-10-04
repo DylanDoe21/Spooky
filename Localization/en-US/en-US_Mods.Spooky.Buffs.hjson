@@ -494,3 +494,13 @@ GlassEyeCooldown: {
 	DisplayName: Glass Eye Shattered
 	Description: Your glass eye has been shattered
 }
+
+StitchedCloakCooldown: {
+	DisplayName: Stitched Cloak Cooldown
+	Description: You cannot use your stitched cloak dash
+}
+
+StitchedCloakWebSlow: {
+	DisplayName: Stitched Cloak Web Slow
+	Description: Mods.Spooky.Buffs.StitchedCloakWebSlow.Description
+}

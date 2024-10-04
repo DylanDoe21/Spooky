@@ -56,11 +56,11 @@ namespace Spooky.Content.Projectiles.Pets
 			MountData.heightBoost = 65;
 			MountData.fatigueMax = 320;
 			MountData.yOffset = 0;
-            MountData.playerHeadOffset = 60;
+            //MountData.playerHeadOffset = 60;
 			MountData.usesHover = false;
 			MountData.idleFrameLoop = true;
             MountData.constantJump = false;
-            MountData.playerYOffsets = Enumerable.Repeat(50, MountData.totalFrames).ToArray();
+            //MountData.playerYOffsets = Enumerable.Repeat(50, MountData.totalFrames).ToArray();
 			MountData.buff = ModContent.BuffType<TrapdoorSpiderMountBuff>();
 
 			if (!Main.dedServ)

@@ -20,6 +20,7 @@ using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
+using Spooky.Content.Projectiles.SpiderCave;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
@@ -162,6 +163,19 @@ namespace Spooky.Core
 		public int RootHealCooldown = 0;
 		public int MagicEyeOrbHits = 0;
 
+		//dashing stuff
+		public const int dashDown = 0;
+		public const int dashUp = 1;
+		public const int dashRight = 2;
+		public const int dashLeft = 3;
+		public int dashCooldown = 600;
+		public int dashDuration = 15;
+		public float dashVelocityX = 15f;
+		public float dashVelocityY = 18f;
+		public int dashDir = -1;
+		public int dashDelay = 0;
+		public int dashTimer = 0;
+
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
 
 		//sounds
@@ -285,6 +299,28 @@ namespace Spooky.Core
             NoseCultistDisguise1 = false;
 			NoseCultistDisguise2 = false;
 			NoseBlessingBuff = false;
+
+			//dashing stuff
+			if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[dashRight] < 15)
+			{
+				dashDir = dashRight;
+			}
+			else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[dashLeft] < 15)
+			{
+				dashDir = dashLeft;
+			}
+			else if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
+			{
+				dashDir = dashUp;
+			}
+			else if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[dashDown] < 15)
+			{
+				dashDir = dashDown;
+			}
+			else
+			{
+				dashDir = -1;
+			}
 		}
 
         public override void ModifyScreenPosition()
@@ -470,7 +506,7 @@ namespace Spooky.Core
             }
 
 			//inflict enemies with stomach ache debuff with the pepto stomach
-			if (PeptoStomach && Main.rand.NextBool(10))
+			if (PeptoStomach && !target.boss && !target.IsTechnicallyBoss() && Main.rand.NextBool(20))
 			{
 				target.AddBuff(ModContent.BuffType<PeptoDebuff>(), int.MaxValue);
 			}
@@ -1008,13 +1044,79 @@ namespace Spooky.Core
             }
         }
 
-        public override void PostUpdateRunSpeeds()
+		public override void PreUpdateMovement()
+		{
+			// If the player can use our dash and has double tapped in a direction, then apply the dash
+			if (CanUseDash())
+			{
+				Vector2 newVelocity = Player.velocity;
+
+				switch (dashDir)
+				{
+					case dashLeft when Player.velocity.X > -dashVelocityX:
+					case dashRight when Player.velocity.X < dashVelocityX:
+					{
+						float dashDirection = dashDir == dashRight ? 1 : -1;
+						newVelocity.X = dashDirection * dashVelocityX;
+						break;
+					}
+					case dashUp when Player.velocity.Y > -dashVelocityY:
+					case dashDown when Player.velocity.Y < dashVelocityY:
+					{
+						float dashDirection = dashDir == dashDown ? 1 : -1;
+						newVelocity.Y = dashDirection * dashVelocityY;
+						break;
+					}
+					default:
+					{
+						return;
+					}
+				}
+
+				SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Player.position);
+
+				dashDelay = dashCooldown;
+				dashTimer = dashDuration;
+
+				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<StitchedCloakWeb>(), 35, 0f, Main.myPlayer);
+
+				Player.AddBuff(ModContent.BuffType<StitchedCloakCooldown>(), dashDelay);
+
+				Player.velocity = newVelocity;
+			}
+
+			if (dashDelay > 0)
+			{
+				dashDelay--;
+			}
+
+			if (dashTimer > 0)
+			{
+				dashTimer--;
+
+				int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Web, 0, 0, default, default, Main.rand.NextFloat(0.75f, 1.5f));
+				Main.dust[dust].velocity *= 0;
+			}
+		}
+
+		//check if you can dash
+		private bool CanUseDash()
+		{
+			return StitchedCloak && Player.dashType == 0 && !Player.setSolar && dashDir != -1 && dashDelay == 0 && !Player.mount.Active;
+		}
+
+		public override void PostUpdateRunSpeeds()
         {
             if (SpiderSpeedTimer > 0)
             {
                 Player.maxRunSpeed += 5f;
                 Player.runAcceleration += 0.075f;
             }
+
+			if (StitchedCloak)
+			{
+				Player.runAcceleration += 0.015f;
+			}
 
             if (Player.HasBuff(ModContent.BuffType<GooseberryBoostBuff>()))
             {

@@ -9,6 +9,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
@@ -35,8 +36,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
         public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = player.HasItem(ModContent.ItemType<PumpkinCarvingKit>()) ? true : false;
-			player.cursorItemIconID = player.HasItem(ModContent.ItemType<PumpkinCarvingKit>()) ? ModContent.ItemType<PumpkinCarvingKit>() : 0;
+
+            bool HasCarvingKit = ItemGlobal.ActiveItem(player).type == ModContent.ItemType<PumpkinCarvingKit>();
+
+			player.cursorItemIconEnabled = HasCarvingKit ? true : false;
+			player.cursorItemIconID = HasCarvingKit ? ModContent.ItemType<PumpkinCarvingKit>() : 0;
 			player.cursorItemIconText = "";
 		}
 
@@ -50,7 +54,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         public override bool RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.HasItem(ModContent.ItemType<PumpkinCarvingKit>()))
+            Player player = Main.LocalPlayer;
+
+            if (ItemGlobal.ActiveItem(player).type == ModContent.ItemType<PumpkinCarvingKit>())
             {
                 SoundEngine.PlaySound(CarveSound, new Vector2(i * 16, j * 16));
 
@@ -102,8 +108,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
         public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
-			player.cursorItemIconEnabled = player.HasItem(ModContent.ItemType<CandleItem>()) ? true : false;
-			player.cursorItemIconID = player.HasItem(ModContent.ItemType<CandleItem>()) ? ModContent.ItemType<CandleItem>() : 0;
+
+            bool HasCandle = ItemGlobal.ActiveItem(player).type == ModContent.ItemType<CandleItem>();
+
+			player.cursorItemIconEnabled = HasCandle ? true : false;
+			player.cursorItemIconID = HasCandle ? ModContent.ItemType<CandleItem>() : 0;
 			player.cursorItemIconText = "";
 		}
 
@@ -117,7 +126,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         public override bool RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.ConsumeItem(ModContent.ItemType<CandleItem>()))
+            Player player = Main.LocalPlayer;
+
+            if (ItemGlobal.ActiveItem(player).type == ModContent.ItemType<CandleItem>() && player.ConsumeItem(ModContent.ItemType<CandleItem>()))
             {
                 SoundEngine.PlaySound(SoundID.Dig, new Vector2(i * 16, j * 16));
 

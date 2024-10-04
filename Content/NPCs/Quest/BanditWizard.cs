@@ -129,7 +129,7 @@ namespace Spooky.Content.NPCs.Quest
 			//draw forcefield if being buffed
             if (ShieldAlpha > 0)
             {
-                ShieldTexture ??= ModContent.Request<Texture2D>("Spooky/ShaderAssets/BanditShield");
+                ShieldTexture ??= ModContent.Request<Texture2D>("Spooky/ShaderAssets/EggShieldNoise");
 
 				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 

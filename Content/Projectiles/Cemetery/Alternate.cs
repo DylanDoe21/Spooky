@@ -119,7 +119,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && NPC.Distance(Projectile.Center) <= 250f)
                 {
-                    if (!NPC.boss && NPC.type != NPCID.EaterofWorldsHead && NPC.type != NPCID.EaterofWorldsBody && NPC.type != NPCID.EaterofWorldsTail)
+                    if (!NPC.boss && !NPC.IsTechnicallyBoss())
                     {
                         NPC.velocity *= player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 0.75f : 0.95f;
                     }

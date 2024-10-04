@@ -227,6 +227,7 @@ Miscellaneous:
 -Added a recipe group in spooky mod for items that are craftable with both demonite and crimtane so they dont have 2 separate recipes anymore
 -Defeating any spooky mod boss for the first time in a world will now guarantee a raveyard at the beginning of the next in-game night
 -Swampy cemetery biome no longer takes priority over terraria's ocean biome (This is just incase the cemetery generates too close to the ocean biome on smaller worlds)
+-Carving spooky forest gourds now require you to actually hold the carving kit or candles in your hotbar to be able to right click the gourds
 
 
 Removals:

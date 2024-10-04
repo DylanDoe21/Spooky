@@ -1,3 +1,4 @@
+using Spooky.Core;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +16,7 @@ namespace Spooky.Content.Buffs.Debuff
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.EaterofWorldsBody && npc.type != NPCID.EaterofWorldsTail)
+            if (!npc.boss && !npc.IsTechnicallyBoss())
             {
                 Dust.NewDust(npc.position, npc.width, npc.height, DustID.GreenMoss);
 				

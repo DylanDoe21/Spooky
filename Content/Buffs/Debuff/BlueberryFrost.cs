@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Buffs.Debuff
 {
 	public class BlueberryFrost : ModBuff
@@ -19,8 +21,11 @@ namespace Spooky.Content.Buffs.Debuff
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.velocity.X *= 0.75f;
-			npc.velocity.Y += !npc.noTileCollide ? 0.10f : 0.01f;
+            if (!npc.boss && !npc.IsTechnicallyBoss())
+            {
+                npc.velocity.X *= 0.75f;
+                npc.velocity.Y += !npc.noTileCollide ? 0.10f : 0.01f;
+            }
 
             if (Main.rand.NextBool(10))
             {

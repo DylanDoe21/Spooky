@@ -9,6 +9,8 @@ namespace Spooky.Content.Buffs.Debuff
 		public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
 
 		private bool initializeStats;
+        private int storedDamage;
+        private int storedDefense;
         Color storedColor;
 
         public override void SetStaticDefaults()
@@ -20,16 +22,13 @@ namespace Spooky.Content.Buffs.Debuff
         {
             if (!initializeStats)
             {
-                storedColor = npc.color;
+                npc.damage = (int)(npc.damage * 0.8f);
+                npc.defense = (int)(npc.defense * 0.75f);
 
                 initializeStats = true;
             }
 
-            if (npc.buffTime[buffIndex] <= 1)
-            {
-                npc.color = storedColor;
-            }
-            else
+            if (npc.buffTime[buffIndex] > 5)
             {
                 Color color = npc.GetAlpha(Color.DeepPink);
                 npc.color = color;

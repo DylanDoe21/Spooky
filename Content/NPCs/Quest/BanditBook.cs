@@ -14,6 +14,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
+using Spooky.Content.Tiles.Relic;
 
 namespace Spooky.Content.NPCs.Quest
 {
@@ -476,6 +477,8 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BanditBookRelicItem>()));
+
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BountyItem2>()));
         }
 	}

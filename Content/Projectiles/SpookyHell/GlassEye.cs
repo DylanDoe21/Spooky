@@ -134,13 +134,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.boss && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
 				{
 					AttackingAI(NPC);
-					break;
+					return;
 				}
+			}
+
+			//target an enemy
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC NPC = Main.npc[i];
+
 				//if no boss is found, target other enemies normally
-				else if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
 				{
 					AttackingAI(NPC);
-					break;
+					return;
 				}
 				else
 				{
@@ -230,6 +237,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			isAttacking = true;
 
 			EnemyToDrawTo = target;
+
+			Projectile.velocity *= 0.95f;
 
 			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y);
 			float RotateX = target.Center.X - vector.X;
