@@ -1264,9 +1264,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                                    
-                            ShootSpeed.X *= 1.5f;
-                            ShootSpeed.Y *= 1.5f;
+                            ShootSpeed *= 1.5f;
 
                             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);

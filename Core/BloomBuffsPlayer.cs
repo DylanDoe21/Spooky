@@ -597,6 +597,19 @@ namespace Spooky.Core
 				}
 			}
 
+			//spawn tumbleweeds randomly on hit while flying
+			if (DandelionTumbleweed && Player.wingTime > 0 && Player.velocity.Y < 0 && Main.rand.NextBool(10))
+			{
+				int RandomPosX = (int)target.Center.X + (Main.rand.NextBool() ? -1200 : 1200);
+				int RandomPosY = (int)target.Center.Y + Main.rand.Next(-150, 150);
+
+				Vector2 ShootSpeed =  (target.Center + target.velocity * 22) - new Vector2(RandomPosX, RandomPosY);
+				ShootSpeed.Normalize();
+				ShootSpeed *= 55f;
+
+				Projectile.NewProjectile(null, new Vector2(RandomPosX, RandomPosY), ShootSpeed, ModContent.ProjectileType<Tumbleweed>(), hit.Damage + 30, 0, Player.whoAmI);
+			}
+
 			base.OnHitNPC(target, hit, damageDone);
 		}
 	}

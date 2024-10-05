@@ -27,7 +27,7 @@ DandelionTumbleweed: {
 	DisplayName: Tumblingweed
 	Tooltip:
 		'''
-		Damaing enemies while flying will summon a tumbleweed to deal more damage
+		Hitting enemies while flying may spawn damaging tumbleweeds to attack
 		5 minute duration
 		'''
 }

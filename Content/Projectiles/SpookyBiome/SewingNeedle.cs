@@ -9,17 +9,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 {
 	public class SewingNeedle : ModProjectile
 	{
-		float SaveRotation;
-
         private static Asset<Texture2D> ChainTexture;
 
         public override void SetDefaults() 
         {
-			Projectile.width = 10;
-			Projectile.height = 24;
-            Projectile.DamageType = DamageClass.Ranged;
+			Projectile.width = 14;
+			Projectile.height = 14;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.timeLeft = 300;
             Projectile.penetrate = -1;
 		}
@@ -30,7 +28,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpiderCave/BallSpiderWeb");
 
-            Vector2 ParentCenter = player.MountedCenter + new Vector2(player.direction == -1 ? -65 : 65, -10);
+            Vector2 ParentCenter = player.MountedCenter;
 
 			Rectangle? chainSourceRectangle = null;
 			float chainHeightAdjustment = 0f;
@@ -62,9 +60,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			return true;
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-			//TODO: multiply damage here
+		int numHits = 0;
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
+		{
+			numHits++;
+			
+			if (numHits < 5)
+			{
+				Projectile.damage = (int)(damageDone * 1.1f);
+			}
 		}
 
 		public override void AI() 
@@ -72,27 +77,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Player player = Main.player[Projectile.owner];
 			Vector2 ParentCenter = player.MountedCenter;
 
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-			Projectile.rotation += 0f * (float)Projectile.direction;
-
-			player.itemRotation = 0;
+			Vector2 vectorTowardsPlayer = Projectile.DirectionTo(ParentCenter).SafeNormalize(Vector2.Zero);
+			Projectile.rotation = vectorTowardsPlayer.ToRotation() + MathHelper.PiOver2;
 
 			Projectile.ai[0]++;
 
-			if (Projectile.ai[0] == 2)
+			if (Projectile.ai[0] >= 25)
 			{
-				//SaveRotation = Projectile.rotation;
-			}
-
-			if (Projectile.ai[0] >= 15)
-			{
-				Projectile.tileCollide = false;
-
-				//Projectile.rotation = SaveRotation;
-
 				Vector2 RetractSpeed = Projectile.Center - ParentCenter;
 				RetractSpeed.Normalize();
-				RetractSpeed *= 12;
+				RetractSpeed *= 35;
 				Projectile.velocity = -RetractSpeed;
 
 				if (Projectile.Hitbox.Intersects(player.Hitbox))

@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using System.Linq;
 
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Projectiles.Blooms;
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Tiles.MusicBox;
 
 namespace Spooky.Core
@@ -171,6 +171,19 @@ namespace Spooky.Core
 
 					player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge = 0f;
 				}
+			}
+
+			//shoot out returning needle with the sewing thread
+			if (player.GetModPlayer<SpookyPlayer>().SewingThread && player.ownedProjectileCounts[ModContent.ProjectileType<SewingNeedle>()] < 1 && Main.rand.NextBool(10))
+			{
+				float mouseXDist = Main.mouseX + Main.screenPosition.X;
+				float mouseYDist = Main.mouseY + Main.screenPosition.Y;
+
+				Vector2 Velocity = player.Center - new Vector2(mouseXDist, mouseYDist);
+				Velocity.Normalize();
+				Velocity *= -22;
+
+				Projectile.NewProjectile(null, player.Center, Velocity, ModContent.ProjectileType<SewingNeedle>(), item.damage, item.knockBack, player.whoAmI);
 			}
 
 			return base.UseItem(item, player);
