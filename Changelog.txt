@@ -293,6 +293,7 @@ Fixed all of the following bugs and issues:
 -Skeleton raveyard bouncer projectiles killing each other and other raveyard skeletons
 -Big bone's red, orange, and phase 2 transition flower's chains sometimes drawing infront of big bone
 -The spider grotto and catacombs overall spawn rates being way too low
+-Spooky mod's vines dropping dirt blocks when the block that the vine is growing off of is broken
 -Catacomb crates not being fished up in the cemetery if spooky spirit has been defeated for the first time
 -Catacomb second layer sometimes generating the loot rooms on small worlds in a way which made it impossible to get to the bottom of the catacombs due to pathways being blocked off
 -Strange issue where the spider grotto lighting would become messed up when leaving and re-opening the game with the background config changed

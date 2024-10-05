@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 using Spooky.Content.Dusts;
 
@@ -13,11 +14,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.tileLighted[Type] = true;
+			Main.tileFrameImportant[Type] = false;
+			Main.tileLavaDeath[Type] = true;
 			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
-			Main.tileNoFail[Type] = true;
-			Main.tileNoAttach[Type] = true;
+			Main.tileBlockLight[Type] = false;
+			Main.tileLighted[Type] = false;
+			TileID.Sets.IsVine[Type] = true;
 			AddMapEntry(new Color(166, 158, 187));
 			DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
@@ -29,33 +32,18 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             g = 0.05f;
             b = 0.15f;
         }
-		
-		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-		{
-			Tile tile = Framing.GetTileSafely(i, j + 1);
-			if (tile.HasTile && tile.TileType == Type) 
-            {
-				WorldGen.KillTile(i, j + 1);
-			}
-		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-		{
-			Tile tileAbove = Framing.GetTileSafely(i, j - 1);
-			int type = -1;
-			if (tileAbove.HasTile && !tileAbove.BottomSlope) 
-            {
-				type = tileAbove.TileType;
-			}
+        {
+			int[] ValidTiles = { ModContent.TileType<SpookyFungusVines>(), ModContent.TileType<MushroomMoss>() };
 
-			if (type == ModContent.TileType<MushroomMoss>() || type == Type) 
-            {
-				return true;
+			if (!ValidTiles.Contains(Main.tile[i, j - 1].TileType))
+			{
+				WorldGen.KillTile(i, j, false, false, false);
 			}
-
-			WorldGen.KillTile(i, j);
-			return true;
-		}
+			
+            return base.TileFrame(i, j, ref resetFrame, ref noBreak);
+        }
 
 		public override void RandomUpdate(int i, int j)
 		{

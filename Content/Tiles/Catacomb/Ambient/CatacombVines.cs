@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 using Spooky.Content.Dusts;
 
@@ -31,33 +32,19 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			g = 0.15f;
 			b = 0f;
         }
-		
-		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-		{
-			Tile tile = Framing.GetTileSafely(i, j + 1);
-			if (tile.HasTile && tile.TileType == Type) 
-            {
-				WorldGen.KillTile(i, j + 1);
-			}
-		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-		{
-			Tile tileAbove = Framing.GetTileSafely(i, j - 1);
-			int type = -1;
-			if (tileAbove.HasTile && !tileAbove.BottomSlope) 
-            {
-				type = tileAbove.TileType;
+        {
+			int[] ValidTiles = { ModContent.TileType<CatacombVines>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
+			ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+
+			if (!ValidTiles.Contains(Main.tile[i, j - 1].TileType))
+			{
+				WorldGen.KillTile(i, j, false, false, false);
 			}
 
-			if (type == ModContent.TileType<CatacombBrick1Grass>() || type == Type)
-            {
-				return true;
-			}
-
-			WorldGen.KillTile(i, j);
-			return true;
-		}
+            return base.TileFrame(i, j, ref resetFrame, ref noBreak);
+        }
 
 		public override void RandomUpdate(int i, int j)
 		{
