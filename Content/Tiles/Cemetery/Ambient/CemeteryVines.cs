@@ -27,6 +27,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
 			AddMapEntry(new Color(31, 85, 37));
 			DustType = ModContent.DustType<CemeteryGrassDust>();
 			HitSound = SoundID.Grass;
+			MineResist = 0.1f;
 		}
 
         public override bool CanDrop(int i, int j)

@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
             if (Flags.RaveyardHappening)
             {
-                color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(new Color(18, 148, 0));
+                color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Orange);
             }
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);

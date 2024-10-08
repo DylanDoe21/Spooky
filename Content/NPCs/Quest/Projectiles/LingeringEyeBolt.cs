@@ -10,7 +10,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 {
     public class LingeringEyeBolt : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
+        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
 
 		int target;
 
@@ -62,14 +62,9 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-                    for (int j = 0; j < 360; j += 90)
-                    {
-                        Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
+					Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
 
-                        Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2.5f), 0).RotatedBy(MathHelper.ToRadians(j));
-
-                        Main.spriteBatch.Draw(ProjTexture.Value, drawPos + circular, null, color, Projectile.rotation, drawOrigin, scale * 2f, SpriteEffects.None, 0f);
-                    }
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.75f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;

@@ -47,7 +47,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 //grow vines
                 if (Main.rand.NextBool(15)) 
                 {
-                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines2>(), true);
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines>(), true);
                 }
             }
 
@@ -107,7 +107,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 //grow vines
                 if (Main.rand.NextBool(15)) 
                 {
-                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines2>(), true);
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines>(), true);
                 }
             }
 

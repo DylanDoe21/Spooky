@@ -46,7 +46,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-			NPC.HitSound = SoundID.NPCHit54;
+			NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };
             NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
@@ -66,20 +66,18 @@ namespace Spooky.Content.NPCs.Cemetery
             //draw aura
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
-
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            for (int numEffect = 0; numEffect < 4; numEffect++)
+            //draw aura
+            for (int i = 0; i < 360; i += 90)
             {
-                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, Color.Red, numEffect));
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, Color.Red, i / 30));
 
-                Vector2 vector = new Vector2(NPC.Center.X - 1, NPC.Center.Y) + (numEffect / 4 * 6f + NPC.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 3) * numEffect;
-                Main.EntitySpriteDraw(NPCTexture.Value, vector, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale * 1.035f, effects, 0);
+                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2f), 0).RotatedBy(MathHelper.ToRadians(i));
+
+                spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.075f, SpriteEffects.None, 0f);
             }
-            
+
             return true;
-		}
+        }
         
         public override void FindFrame(int frameHeight)
 		{

@@ -408,7 +408,7 @@ BanditWizardBallSplitting.DisplayName: Magic Blast
 BanditWizardBallSmall.DisplayName: Magic Blast
 BanditPriestCross.DisplayName: Cross Bolt
 BanditPriestBall.DisplayName: Magic Blast
-BanditPriestBuffer.DisplayName: Buffing Magic
+BanditPriestBuffer.DisplayName: Shield Magic
 GhostSpawner1.DisplayName: Ghost Spawner
 GhostSpawner2.DisplayName: Ghost Spawner
 GhostSpawner3.DisplayName: Ghost Spawner
@@ -433,3 +433,9 @@ GlassEye.DisplayName: Glass Eye
 StitchedCloakWeb.DisplayName: Stitched Cloak Web
 SewingNeedle.DisplayName: Sewing Needle
 Tumbleweed.DisplayName: Tumbleweed
+MistGhostMiniFace.DisplayName: Mistling
+BanditBruiserMinion.DisplayName: Rarg's Spirit
+BanditPriestMinion.DisplayName: Blueford's Spirit
+BanditWizardMinion.DisplayName: Greeny's Spirit
+BanditWizardMinionBall.DisplayName: Magic Blast
+BanditPriestMinionBuffer.DisplayName: Shield Magic

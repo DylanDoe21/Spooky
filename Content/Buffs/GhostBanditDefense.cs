@@ -6,6 +6,14 @@ namespace Spooky.Content.Buffs
 {
 	public class GhostBanditDefense : ModBuff
 	{
-		public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
+		public override void SetStaticDefaults()
+		{
+			Main.buffNoSave[Type] = true;
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.statDefense += 15;
+		}
     }
 }

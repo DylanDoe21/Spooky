@@ -17,7 +17,7 @@ BoneStacker3: These bone slabs have a not so secret weapon, their thorns. Their 
 GiantPutty: Giant slime cubes that wander through the catacombs. These putty slimes are larger than usual, and now have the ability to smell their targets.
 RollingSkull1: Gigantic skulls that mindlessly roll around the catacombs, crushing and destroying anything in their path.
 RollingSkull2: No one knows how these skulls found their way into the catacombs. They can steamroll just about anything, and are capable of chasing intruders at high speeds.
-RollingSkull3: The loud impacts and earthquake-like tremors that some explorers experience in the catacombs are these undead skulls slamming against walls at high speeds.
+RollingSkull3: The loud impacts that some explorers experience in the catacombs are these undead skulls slamming against walls at high speeds.
 RollingSkull4: Gilded skulls made out of pure gold, some say they were created to honor those who passed away and were buried in the catacombs.
 Skeletoid1: These zomboids have been undead for so long, they have transformed into skeletoids. They still wander around the catacombs as if it were a normal day.
 Skeletoid2: Skeletoids can use the plants that overgrow them to their advantage. These ones can use the flower on their face to fire out energy beams.
@@ -61,7 +61,7 @@ PlantTrap3: These carnivorous plants will hunt anything they can get ahold of, e
 PollinatorBeeDamage: These bees are actually completely harmless and don't even have a stinger. They can, however, pollinate their floral allies which can make them stronger for a short time.
 PollinatorBeeHealing: Sometimes found flying aimlessly through the catacombs, they can spread a special pollen with healing properties to other flower creatures to heal their wounds.
 SkeletoidBandit: They were previously thieves who infiltrated the catacombs to steal treasure, only to get lost and die. Their fancy cloaks allow them to stealth through the catacombs and silently shoot their targets.
-Smelly: While not agressive itself, the absolutely horrendous smell and nasty flies they attract definitely are. Make sure to bring a clothespin or nose plug to close your nose while exploring!
+Smelly: While not hostile itself, the absolutely horrendous smell and nasty flies they attract definitely are. Make sure to bring a clothespin or nose plug while exploring!
 Sunflower1: Staying perfectly still, they have learned how to perfect their stealth abilities to sneak up on intruders.
 Sunflower2: They have become great at remaining still and can easily look like a normal sunflower, then quickly ambush their prey when it gets too close.
 Sunflower3: Even though they remain perfectly still when hunting, they also do the same when sleeping. Though waking them from their sleep probably makes them angrier.
@@ -71,18 +71,22 @@ Stitch: Mischevious spirits trapped in pandora's box. They use their fragile wan
 Sheldon: Large blob shaped spirits with a shield that can protect them from certain projectiles. Beware of their dash attack!
 Chester: The strongest soul in pandora's box, it wields an unusually powerful club and a reflective shield to protect itself.
 //cemetery
-TinyRat1: Small rodents that live in the cemetery, they scurry along quietly.
-TinyRat2: These rodents are small and cute, but who knows how dirty they are?
 BloatGhost: Very easy to frighten ghosts that puff up when someone gets too close. They can be hazardous when large groups of them are approached.
-Possessor: These evil ghosts wander around the cemetery at night, maliciously stalking any target it wishes to possess.
-ZomboidCasket: A moving casket with legs on the bottom. Contains a wonderful surprise for anyone who dares to destroy it!
-ZomboidGremlin: Small zomboids with an unusual amount of hostility compared to other zomboids. They will chase any target down despite their comically small size.
-MistGhost: Sometimes grave robbing can have deadly results. These ghosts do not like their burials being disturbed, and will attack anyone who does so.
 FeralRat1: During a blood moon, normally hidden rats wandering around the cemetery get turned into hideous monsters that will chase down anything they see.
 FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in their path.
+HungryGhost: A very lazy ghost that floats around the cemetery. Despite it trying to eat living things, its ghostly body allows any living creature to slip thought it.
+MistGhost: Sometimes grave robbing can have deadly results. These ghosts do not like their burials being disturbed, and will attack anyone who does so.
+MistGhostFaces: An amalgamation of souls combined into one after being buried in the cemetery. Their graves being messed with disturbs them and causes this fusion.
+MistGhostWiggle: These ghosts are powered with magic and are very erratic as a result. Despite this, they will still attack those who dig up their tombs.
+Possessor: These evil ghosts wander around the cemetery at night, maliciously stalking any target it wishes to possess.
 SadGhostBig: Larger ghosts that are constantly sad for some reason. They spend their time wandering the cemetery, and can use their emotions as a weapon.
 SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby.
+SmileGhost: A very happy and jolly spirit, so happy infact that it even has its own group of little followers. However, they are not as nice as they may look.
 SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
+TinyRat1: Small rodents that live in the cemetery, they scurry along quietly.
+TinyRat2: These rodents are small and cute, but who knows how dirty they are?
+ZomboidCasket: A moving casket with legs on the bottom. Contains a wonderful surprise for anyone who dares to destroy it!
+ZomboidGremlin: Small zomboids with an unusual amount of hostility compared to other zomboids. They will chase any target down despite their comically small size.
 //egg event
 Biojetter: A creature with multiple extendable eyes that allow it to see from multiple angles and directions, along with biothrusters which allow it to fly by expelling nasty organic goo. It stores tons of this goo in its body, making it very volatile.
 CoughLungs: Filled with a nasty ichor gas, it can cough it up to create lingering clouds that are harmful when breathed in.
@@ -99,7 +103,7 @@ DumbZomboid: A zomboid that got lost. It does not know how to read. Or think.
 LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
 LittleEye: A strange sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 Musicman: Alien scientist gone rogue, Musicman has become your personal DJ. He looks like he's trying to communicate...
-OldHunter: An ancient old hunter that once called the grotto home before it became taken over by spiders.
+OldHunter: An ancient old hunter that once called the grotto home before it became taken over by spiders. He enjoys collecting guns along with other ranged weapons he can get his hands on.
 PartySkeleton1: Colorful and silly skeletons revived by the power of the raveyard. They love the craziness of a party.
 PartySkeleton2: Ancient skeletons that rise up during crazy parties. They look like they're close to overdosing.
 PartySkeleton3: Unlike most hostile skeletons, these ones are friendly to anyone and are great party guests.
@@ -139,6 +143,7 @@ TinyGhostBoof: A more fancy and well mannered ghost who also smokes its little p
 TinyGhostRare: It's a tiny ghost, but these ones are orange. They can be befriended if you can manage to find and catch one!
 TinyMushroom: Who knew that the mushrooms in the spooky forest could move? Well now you do!
 Witch: As it turns out, the stories of evil witches are true. The death of the flesh wall has unleashed powerful spooky magic, allowing these wretched witches to live at night once again, throwing their toxic flasks at everyone.
+ZomboidArmored: The few times zomboids do something that seems smart, is usually comes back to bite them. This one was smart enough to make armor, but not smart enough to use a material that doesn't attract lightning.
 ZomboidClarinet: Zomboids are known to frequently get themselves into very stupid situations. This ones entire body is stuck inside of a giant instrument.
 ZomboidFungus: Zomboids that have become overgrown with a strange fungus. Despite being blind, they can still sniff out their target's location.
 ZomboidPumpkin: Rooted to the ground, these zomboids are incapable of movement and are constantly angry because of it. They can control their roots to attack nearby foes from below.

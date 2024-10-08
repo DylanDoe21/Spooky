@@ -31,6 +31,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;
+			NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
@@ -62,7 +63,7 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 250;
+            NPC.lifeMax = 8000;
             NPC.damage = 40;
 			NPC.defense = 0;
 			NPC.width = 32;
@@ -75,6 +76,13 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.noGravity = true;
 			NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
+		}
+
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		{
+			//this gets every default hp value for every bandit, then scales them individually and adds them up to get an accurate result of how much hp they actually have
+			//this npcs default hp of 8000 is every bandits default hp added up together
+			NPC.lifeMax = (int)(2750 * 0.75f * bossAdjustment) + (int)(2750 * 0.75f * bossAdjustment) + (int)(2500 * 0.75f * bossAdjustment);
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

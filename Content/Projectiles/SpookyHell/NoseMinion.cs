@@ -172,12 +172,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Recoil *= -8;
 				Projectile.velocity = Recoil;
 
-				Vector2 AttackingAISpeed = target.Center - Projectile.Center;
-                AttackingAISpeed.Normalize();
-                AttackingAISpeed *= 20f;
+				Vector2 ShootSpeed = target.Center - Projectile.Center;
+                ShootSpeed.Normalize();
+                ShootSpeed *= 20f;
                         
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                AttackingAISpeed.X, AttackingAISpeed.Y, ModContent.ProjectileType<NoseMinionBooger>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
+                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<NoseMinionBooger>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
 			}
 
 			if (Projectile.localAI[0] >= 90)

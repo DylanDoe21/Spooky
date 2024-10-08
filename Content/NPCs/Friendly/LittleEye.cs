@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Quest;
+using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.Tiles.SpookyHell.Painting;
 using Spooky.Content.UserInterfaces;
@@ -103,6 +104,13 @@ namespace Spooky.Content.NPCs.Friendly
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1Complete");
 
+					bool IsLastQuest = !Flags.LittleEyeBounty1 && Flags.LittleEyeBounty2 && Flags.LittleEyeBounty3 && Flags.LittleEyeBounty4;
+
+					if (IsLastQuest)
+					{
+						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
+					}
+
 					SpawnItem(ModContent.ItemType<SewingThread>(), 1);
 					SpawnItem(ModContent.ItemType<IconPainting1Item>(), 1);
 					SpawnItem(ItemID.GoldCoin, 10);
@@ -123,9 +131,14 @@ namespace Spooky.Content.NPCs.Friendly
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2Complete");
 
-					int[] Books = new int[] { ModContent.ItemType<GhostBookBlue>(), ModContent.ItemType<GhostBookGreen>(), ModContent.ItemType<GhostBookRed>() };
+					bool IsLastQuest = !Flags.LittleEyeBounty2 && Flags.LittleEyeBounty1 && Flags.LittleEyeBounty3 && Flags.LittleEyeBounty4;
 
-					SpawnItem(Main.rand.Next(Books), 1);
+					if (IsLastQuest)
+					{
+						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
+					}
+
+					SpawnItem(ModContent.ItemType<GhostBook>(), 1);
 					SpawnItem(ModContent.ItemType<IconPainting2Item>(), 1);
 					SpawnItem(ItemID.GoldCoin, 10);
 
@@ -144,6 +157,13 @@ namespace Spooky.Content.NPCs.Friendly
 				else if (player.ConsumeItem(ModContent.ItemType<BountyItem3>()))
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3Complete");
+
+					bool IsLastQuest = !Flags.LittleEyeBounty3 && Flags.LittleEyeBounty1 && Flags.LittleEyeBounty2 && Flags.LittleEyeBounty4;
+
+					if (IsLastQuest)
+					{
+						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
+					}
 
 					SpawnItem(ModContent.ItemType<StitchedCloak>(), 1);
 					SpawnItem(ModContent.ItemType<IconPainting3Item>(), 1);
@@ -164,6 +184,13 @@ namespace Spooky.Content.NPCs.Friendly
 				else if (player.ConsumeItem(ModContent.ItemType<BountyItem4>()))
 				{
 					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4Complete");
+
+					bool IsLastQuest = !Flags.LittleEyeBounty4 && Flags.LittleEyeBounty1 && Flags.LittleEyeBounty2 && Flags.LittleEyeBounty3;
+
+					if (IsLastQuest)
+					{
+						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
+					}
 
 					SpawnItem(ModContent.ItemType<MagicEyeOrb>(), 1);
 					SpawnItem(ModContent.ItemType<LittleEyeHat>(), 1);

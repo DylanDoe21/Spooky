@@ -382,7 +382,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                     {
                         //go to the side of the player
                         if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 100) 
-                        {	
+                        {
                             Vector2 GoTo = player.Center;
                             GoTo.X += (NPC.Center.X < player.Center.X) ? -420 : 420;
                             GoTo.Y -= 20;

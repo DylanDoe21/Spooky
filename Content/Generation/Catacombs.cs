@@ -853,7 +853,7 @@ namespace Spooky.Content.Generation
                     {
                         if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
                         {
-                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines2>());
+                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines>());
                         }
 
                         if (WorldGen.genRand.NextBool(12) && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
@@ -868,9 +868,9 @@ namespace Spooky.Content.Generation
                             tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
                         }
                     }
-                    if (tile.TileType == ModContent.TileType<CatacombVines2>())
+                    if (tile.TileType == ModContent.TileType<CatacombVines>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 3), (ushort)ModContent.TileType<CatacombVines2>());
+                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 3), (ushort)ModContent.TileType<CatacombVines>());
                     }
                 }
             }

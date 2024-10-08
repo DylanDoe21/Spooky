@@ -481,8 +481,8 @@ NoseBlessingBuff: {
 }
 
 GhostBanditDefense: {
-	DisplayName: Ghost Bandit Defense
-	Description: ""
+	DisplayName: Blueford's Holy Shield
+	Description: 15 extra defense
 }
 
 GlassEyeDebuff: {
@@ -502,5 +502,5 @@ StitchedCloakCooldown: {
 
 StitchedCloakWebSlow: {
 	DisplayName: Stitched Cloak Web Slow
-	Description: Mods.Spooky.Buffs.StitchedCloakWebSlow.Description
+	Description: ""
 }

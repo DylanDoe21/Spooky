@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.UI.Chat;

@@ -270,7 +270,6 @@ namespace Spooky.Content.NPCs.Quest
 						if (NPC.rotation > 0.12f)
 						{
 							Shake = false;
-							NPC.netUpdate = true;
 						}
 					}
 					else
@@ -279,7 +278,6 @@ namespace Spooky.Content.NPCs.Quest
 						if (NPC.rotation < -0.12f)
 						{
 							Shake = true;
-							NPC.netUpdate = true;
 						}
 					}
 

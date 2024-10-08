@@ -45,12 +45,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 		public float SpinY = 0;
         public float alpha;
 
-        public static Color[] PartyColors = new Color[]
-        {
-            new Color(80, 0, 148),
-            new Color(18, 148, 0),
-            new Color(148, 80, 0)
-        };
+        public static Color[] PartyColors = new Color[] { Color.Purple, Color.OrangeRed, Color.Lime };
 
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> AuraTexture;

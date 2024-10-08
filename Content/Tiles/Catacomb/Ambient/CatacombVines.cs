@@ -10,6 +10,7 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.Catacomb.Ambient
 {
+	[LegacyName("CatacombVines2")]
 	public class CatacombVines : ModTile
 	{
         private static Asset<Texture2D> GlowTexture;
@@ -24,6 +25,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			AddMapEntry(new Color(23, 69, 29));
 			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 			HitSound = SoundID.Grass;
+			MineResist = 0.1f;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
@@ -89,65 +91,6 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             Tile tile = Framing.GetTileSafely(i, j);
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 			spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.5f);
-		}
-	}
-
-	public class CatacombVines2 : CatacombVines
-	{
-		public override string Texture => "Spooky/Content/Tiles/Catacomb/Ambient/CatacombVines";
-
-		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-		{
-			Tile tileAbove = Framing.GetTileSafely(i, j - 1);
-			int type = -1;
-			if (tileAbove.HasTile && !tileAbove.BottomSlope) 
-            {
-				type = tileAbove.TileType;
-			}
-
-			if (type == ModContent.TileType<CatacombBrick2Grass>() || type == Type)
-            {
-				return true;
-			}
-
-			WorldGen.KillTile(i, j);
-			return true;
-		}
-
-		public override void RandomUpdate(int i, int j)
-		{
-			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-			if (Main.rand.NextBool(5) && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
-            {
-				bool PlaceVine = false;
-				int Test = j;
-				while (Test > j - 10)
-                {
-					Tile testTile = Framing.GetTileSafely(i, Test);
-					if (testTile.BottomSlope) 
-                    {
-						break;
-					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CatacombBrick2Grass>()) 
-                    {
-						Test--;
-						continue;
-					}
-					PlaceVine = true;
-					break;
-				}
-				
-				if (PlaceVine) 
-                {
-					tileBelow.TileType = Type;
-					tileBelow.HasTile = true;
-					WorldGen.SquareTileFrame(i, j + 1, true);
-					if (Main.netMode == NetmodeID.Server) 
-                    {
-						NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
-					}
-				}
-			}
 		}
 	}
 }

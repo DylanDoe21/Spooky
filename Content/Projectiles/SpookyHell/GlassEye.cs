@@ -125,42 +125,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 }
             }
 
-			//target an enemy
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC NPC = Main.npc[i];
-
-				//prioritize bosses over normal enemies
-				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.boss && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
-				{
-					AttackingAI(NPC);
-					return;
-				}
-			}
-
-			//target an enemy
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC NPC = Main.npc[i];
-
-				//if no boss is found, target other enemies normally
-				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
-				{
-					AttackingAI(NPC);
-					return;
-				}
-				else
-				{
-					isAttacking = false;
-				}
-			}
-
-			if (!isAttacking)
-			{
-				IdleAI(player);
-				EnemyToDrawTo = null;
-			}
-
 			//movement stuff
 			if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
 			{
@@ -212,9 +176,39 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
 			}
 
-			if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
+			//prioritize bosses over normal enemies
+			for (int i = 0; i < Main.maxNPCs; i++)
 			{
-				return;
+				NPC NPC = Main.npc[i];
+
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.boss && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+				{
+					AttackingAI(NPC);
+					return;
+				}
+			}
+
+			//target an enemy
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC NPC = Main.npc[i];
+
+				//if no boss is found, target other enemies normally
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+				{
+					AttackingAI(NPC);
+					return;
+				}
+				else
+				{
+					isAttacking = false;
+				}
+			}
+
+			if (!isAttacking)
+			{
+				IdleAI(player);
+				EnemyToDrawTo = null;
 			}
 		}
 

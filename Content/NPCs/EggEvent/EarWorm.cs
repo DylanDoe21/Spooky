@@ -197,6 +197,12 @@ namespace Spooky.Content.NPCs.EggEvent
 		
 			NPC.spriteDirection = Parent.direction;
 
+			//kill the hand if the parent does not exist
+			if (!Parent.active || Parent.type != ModContent.NPCType<EarWormBase>())
+			{
+                NPC.active = false;
+			}
+
 			if (NPC.ai[1] < 300 || NPC.ai[1] > 360)
 			{
 				//EoC rotation

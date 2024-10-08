@@ -77,7 +77,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 Projectile.ai[0]++;
 
-                if (Projectile.ai[0] % 10 == 0 && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+                if (Projectile.ai[0] >= ItemGlobal.ActiveItem(player).useTime && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
                 {
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
@@ -85,6 +85,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 					Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 
                     Main.rand.Next(15, 22), ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+                    Projectile.ai[0] = 0;
                 }
 
                 player.heldProj = Projectile.whoAmI;

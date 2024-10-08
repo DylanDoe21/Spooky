@@ -812,7 +812,7 @@ AnalogHorrorTape: {
 		You will sometimes spawn nature's mockery that sap life from enemies
 		Press the Accessory Hotkey to summon an alternate that slows down nearby enemies
 		Moving will spawn spores that inflict debuffs, becomes stronger if you have well fed buffs
-		Spawns a floating head that decays nearby enemies, rapidly draining their health
+		Spawns a floating head that decays nearby enemies above half health, rapidly draining their health
 		Summons an orbiting moon that can reflect weaker hostile projectiles and damage enemies
 		Grants you a glass pyramid that gives you high defense for 3 hits and then shatters
 		You will take double damage for 10 seconds after the pyramid shatters
@@ -829,7 +829,7 @@ Creepypasta: {
 		Critical hits may spawn orbiting red notes that will attack enemies
 		Summons black tentacles to attack nearby enemies, enemies killed by them may drop pages that buff them
 		Damaging enemies has a rare chance to spawn a red apparition to deal massive damage to them
-		Press the Accessory Hotkey to summon bolts of lighting that smite enemies and deals lots of damage to bosses
+		Press the Accessory Hotkey to summon lighting that smites enemies and deals lots of damage to bosses
 		'''
 }
 
@@ -1286,7 +1286,7 @@ BountyItem1: {
 }
 
 BountyItem2: {
-	DisplayName: Tome of Spirits
+	DisplayName: Tattered Tome
 	Tooltip:
 		'''
 		Should probably never be opened ever again
@@ -1312,30 +1312,13 @@ BountyItem4: {
 		'''
 }
 
-GhostBookBlue: {
-	DisplayName: Tome of Spirits (Blue)
+GhostBook: {
+	DisplayName: Tome of Spirits
 	Tooltip:
 		'''
-		Summons a ghostly spirit that grants you a protective barrier at low health
-		Use to change the type of spirit this book summons
-		'''
-}
-
-GhostBookGreen: {
-	DisplayName: Tome of Spirits (Green)
-	Tooltip:
-		'''
-		Summons a magical spirit that uses spells at nearby enemies
-		Use to change the type of spirit this book summons
-		'''
-}
-
-GhostBookRed: {
-	DisplayName: Tome of Spirits (Red)
-	Tooltip:
-		'''
-		Summons a strong spirit that punches nearby enemies away from you
-		Use to change the type of spirit this book summons
+		Summons one of the grave-robber's spirits to fight with and protect you
+		The spirit summoned depends on the color of the book's eye
+		Use to switch the type of spirit this book summons
 		'''
 }
 
@@ -1365,7 +1348,7 @@ StitchedCloak: {
 		Increases your movement acceleration
 		Double tap Left or Right to dash horizontally
 		Double tap Up or Down to dash vertically
-		Dashing will leave behind a spider web that can trap enemies inside of it
+		Dashing will leave behind a spider web that can trap enemies and damage them
 		You will not be able to use this dash again for a bit once used
 		'''
 }
@@ -1764,7 +1747,7 @@ PumpkinCarvingKit: {
 	Tooltip:
 		'''
 		Right click spooky forest gourds while holding this to carve them
-		You can also place Old Wax Candles in them by right clicking them if you have one
+		You can also place Old Wax Candles in them to light them up
 		'''
 }
 
@@ -2385,7 +2368,7 @@ SentientVenusMagnum: {
 	Tooltip:
 		'''
 		Fires out bile and piercing teeth abhorrently slowly, but speeds up the longer it is used
-		Releasing while at maximum fire rate will unleash a giant explosive glob of bile that does massive damage
+		Releasing while at maximum fire rate will shoot a giant explosive glob of bile
 		'It oozes with power'
 		'''
 }
@@ -3409,7 +3392,7 @@ GourdGreenCarvedItem: {
 }
 
 GourdGreenCarvedLitItem: {
-	DisplayName: Green Gourd-o-Lantern
+	DisplayName: Green Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3419,7 +3402,7 @@ GourdLimeCarvedItem: {
 }
 
 GourdLimeCarvedLitItem: {
-	DisplayName: Lime Gourd-o-Lantern
+	DisplayName: Lime Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3429,7 +3412,7 @@ GourdLimeOrangeCarvedItem: {
 }
 
 GourdLimeOrangeCarvedLitItem: {
-	DisplayName: Lime-Orange Gourd-o-Lantern
+	DisplayName: Lime-Orange Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3439,7 +3422,7 @@ GourdOrangeCarvedItem: {
 }
 
 GourdOrangeCarvedLitItem: {
-	DisplayName: Orange Gourd-o-Lantern
+	DisplayName: Orange Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3449,7 +3432,7 @@ GourdRedCarvedItem: {
 }
 
 GourdRedCarvedLitItem: {
-	DisplayName: Red Gourd-o-Lantern
+	DisplayName: Red Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3459,7 +3442,7 @@ GourdRottenCarvedItem: {
 }
 
 GourdRottenCarvedLitItem: {
-	DisplayName: Rotten Gourd-o-Lantern
+	DisplayName: Rotten Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3469,7 +3452,7 @@ GourdWhiteCarvedItem: {
 }
 
 GourdWhiteCarvedLitItem: {
-	DisplayName: White Gourd-o-Lantern
+	DisplayName: White Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3479,7 +3462,7 @@ GourdYellowCarvedItem: {
 }
 
 GourdYellowCarvedLitItem: {
-	DisplayName: Yellow Gourd-o-Lantern
+	DisplayName: Yellow Gourd 'O Lantern
 	Tooltip: ""
 }
 
@@ -3489,7 +3472,7 @@ GourdYellowGreenCarvedItem: {
 }
 
 GourdYellowGreenCarvedLitItem: {
-	DisplayName: Yellow-Green Gourd-o-Lantern
+	DisplayName: Yellow-Green Gourd 'O Lantern
 	Tooltip: ""
 }
 

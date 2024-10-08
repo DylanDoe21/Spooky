@@ -265,19 +265,25 @@ namespace Spooky.Core
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<ZomboidGremlin>(), 3);
-					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 3);
-					pool.Add(ModContent.NPCType<SadGhostSmall>(), 2);
-					pool.Add(ModContent.NPCType<SadGhostBig>(), 1);
+					pool.Add(ModContent.NPCType<BloatGhostSmall>(), 4);
+					pool.Add(ModContent.NPCType<SadGhostSmall>(), 3);
+					pool.Add(ModContent.NPCType<SadGhostBig>(), 2);
+					pool.Add(ModContent.NPCType<HungryGhost>(), 2);
 
-					if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidCasket>()))
+					if (Main.dayTime)
 					{
-						pool.Add(ModContent.NPCType<ZomboidCasket>(), 2);
+						pool.Add(ModContent.NPCType<SmileGhost>(), 2);
 					}
-
+					
 					if (!Main.dayTime)
 					{
 						pool.Add(ModContent.NPCType<Possessor>(), 3);
+						pool.Add(ModContent.NPCType<ZomboidGremlin>(), 4);
+						
+						if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidCasket>()))
+						{
+							pool.Add(ModContent.NPCType<ZomboidCasket>(), 2);
+						}
 
 						if (Main.bloodMoon)
 						{	

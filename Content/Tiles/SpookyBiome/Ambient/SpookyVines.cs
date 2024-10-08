@@ -24,6 +24,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			AddMapEntry(new Color(138, 61, 8));
 			DustType = ModContent.DustType<SpookyGrassDust>();
 			HitSound = SoundID.Grass;
+			MineResist = 0.1f;
 		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

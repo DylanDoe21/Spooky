@@ -171,17 +171,24 @@ StitchWand.DisplayName: Stitch
 //cemetery
 BloatGhostBig.DisplayName: Bloated Ghost
 BloatGhostSmall.DisplayName: Ghost
-Possessor.DisplayName: Possessor
-PossessorEvil.DisplayName: Possessor
-ZomboidCasket.DisplayName: Zomboid Casket
-ZomboidGremlin.DisplayName: Zombino
-MistGhost.DisplayName: Mist Ghost
 FeralRat1.DisplayName: Feral Rat
 FeralRat2.DisplayName: Feral Rat
-TinyRat1.DisplayName: Tiny Rat
-TinyRat2.DisplayName: Tiny Rat
+HungryGhost.DisplayName: Hungry Ghost
+MistGhost.DisplayName: Mist Ghost
+MistGhostFaces.DisplayName: Mist Ghost
+MistGhostWiggle.DisplayName: Mist Ghost
+Possessor.DisplayName: Devious Ghost
+PossessorEvil.DisplayName: Devious Ghost
 SadGhostBig.DisplayName: Sad Ghost
 SadGhostSmall.DisplayName: Sad Ghost
+SmileGhost.DisplayName: Happy Ghost
+SmileGhostSmall1.DisplayName: Happy Ghost
+SmileGhostSmall2.DisplayName: Happy Ghost
+SmileGhostSmall3.DisplayName: Happy Ghost
+TinyRat1.DisplayName: Tiny Rat
+TinyRat2.DisplayName: Tiny Rat
+ZomboidCasket.DisplayName: Zomboid Casket
+ZomboidGremlin.DisplayName: Zombino
 //egg event
 Biojetter.DisplayName: Biojetter
 BiojetterEye.DisplayName: Biojetter
@@ -276,6 +283,7 @@ TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
 Witch.DisplayName: Evil Witch
+ZomboidArmored.DisplayName: Armored Zomboid
 ZomboidClarinet.DisplayName: Zomboid
 ZomboidFungus.DisplayName: Zomboid
 ZomboidPumpkin.DisplayName: Rooted Zomboid

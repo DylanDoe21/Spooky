@@ -26,6 +26,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Ambient
 			AddMapEntry(new Color(168, 58, 96));
 			DustType = DustID.Blood;
 			HitSound = SoundID.NPCHit13;
+			MineResist = 0.1f;
 		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

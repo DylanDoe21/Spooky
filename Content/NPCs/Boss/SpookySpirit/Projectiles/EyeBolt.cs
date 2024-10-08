@@ -51,7 +51,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
 				if (Flags.RaveyardHappening)
                 {
-                   	color = Main.DiscoColor;
+                   	color = Color.Lerp(Color.Lime, Color.Indigo, scale);
                 }
 
 				color *= (Projectile.timeLeft * 2) / 90f;

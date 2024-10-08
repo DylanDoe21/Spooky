@@ -24,6 +24,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			AddMapEntry(new Color(166, 158, 187));
 			DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
+			MineResist = 0.1f;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

@@ -54,6 +54,8 @@ Little Eye Quest Rework:
 -You can also now complete all 4 of the bounties in any order you like, however once you choose a specific bounty, you must complete that bounty before you can select another one
 -Orro-boro is now a bounty quest, and becomes available to you after defeating all 3 mechanical bosses, after which little eye will give you the concoction
 (The orro-boro quest is also no longer tied to the other quests, meaning you do not have to complete any of the other 4 bounties to unlock it, but you will still miss out on some unique items!)
+-Each individual quest is also renewable, meaning if you re-fight the minibosses and get its item you can turn it into little eye to get the exclusive rewards again (Can be helpful for multiplayer!)
+-Little eye also now gives you the goblin shark rod if you complete all 4 regular bounty missions
 
 
 Catacomb Improvements:
@@ -110,13 +112,14 @@ Other Miscellaneous Additions:
 -Added item versions for some of the exclusive furniture items found in the catacombs so you can break them and take them with you
 -Added compasses for the spider grotto and eye valley that point toward their respective biome while being held in your hotbar (These compasses will NOT work on older worlds created before this update)
 -Added a few new types of zomboids that spawn during various vanilla events in the spooky forest (like rain and blood moons)
+-Added some new ghost enemies in the swampy cemetery
 -Added some new sprites for the existing spooky forest gourd tiles, added a few more gourd variants with their own unique carved faces, and made rotten gourds carvable
--Added various new snot-themed ammo types crafted with moco's new booger material
+-Added various new snot-themed ammo types crafted with moco's new booger material, consisting of a new arrow, bullet, and rocket
 -Added the tumor throw, a new yoyo sometimes dropped by the new giant tortumor purple variant
 -Added the sneezer, a new booger blaster variant that constantly fires out boogers rather than being a charge weapon, but is a bit lower damage than the normal booger blaster
--Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
 -Added new fishing crates to the lake of blood for both pre-hardmode and hardmode
 -Added new boss relic sprites made by dandy
+-Added sentient versions of the Keybrand, Venus Magnum, Proximity Mine Launcher, Leaf Blower, Magnet Sphere, Raven Staff, and Deadly Sphere Staff
 
 
 
@@ -189,12 +192,12 @@ Enemy & Boss Changes:
 -Nerfed orro-boro's overall defense
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
 -Reduced the screenshake intensity for daffodil's fly bullet hell and seed thorn attacks
--Replaced daffodils laser projectile stream in phase 1 with an actual solar beam that sweeps across the arena
--Replaced daffodils laser projectiles in phase 2 with the same new beam projectile, except it doesnt move (This new beam projectile also fixes weird player collision issues the old one had)
+-Changed daffodil's solar deathbeam attack in phase 1 to be an actual beam that sweeps across the arena instead of a stream of projectiles shot at the player
+-Replaced daffodils solar deathbeam projectiles in phase 2 with the same new beam projectile because it fixes some player collision issues (This attack is still mechanically the same and the beams will not move)
 -Daffodil now has a new punch attack in phase 2
 -Spooky spirit now has a new eye deathbeam projectile to fix collision issues the previous one had
 -Nerfed spooky spirit's base health from 3500 to 3000, and its base defense from 15 to 8
--Lowered the threshold for rot gourd to enter into its desperation phase (Previously was (Rot Gourd Max HP / 3), it is now (Rot Gourd Max HP / 4))
+-Lowered the threshold for rot-gourd to enter into its desperation phase because it lasted for way too long (The previous threshold was (Rot Gourd Max HP / 3), it is now (Rot Gourd Max HP / 4))
 -Tiny spider eggs can now be killed, and when killed they will not spawn a tiny spider
 -Heavily nerfed monster eyes jumping rate and speed, and added a new gore effect when they die
 -Candle monsters no longer spit flaming candle wax unless the player is close enough to them
@@ -204,43 +207,45 @@ Enemy & Boss Changes:
 -Increased the spawnrate of catacomb guardians if you enter the catacombs before opening the barrier
 -Bungus and chunky fungus now drop 2 to 5 spooky glowshrooms
 -Hopping candy baskets no longer behave like slimes, they now hop randomly towards the player and dont deal damage anymore
+-Zomboid gremlins and zomboid caskets now only spawn in the swampy cemetery at night
 
 
 Miscellaneous:
 
 -The spider grotto can now generate inbetween the dungeon and snow biome if there is enough room
--Changed the color of the foliage blocks in the spider grotto to aesthetically differentiate it from the other spooky mod biomes more
+-Changed the color of the grass and foliage blocks in the spider grotto to aesthetically differentiate it from the other spooky mod biomes more
 -Spider grotto no longer generates with spooky forest glowshroom moss or mushrooms anymore
+-The amount of ore clumps that generate in the spooky forest underground has been massively reduced, but the sizes of individual ore clumps has been increased a little bit to compensate
 -Sentient hearts now only require 1 to be researched in journey mode to unlock duplication
--Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up, and now produces gores when it lands or hits daffodil
+-Heavy brick now has an additional tooltip that directly states you have to throw it at daffodil to wake her up, and it now produces gores when it lands or hits daffodil
 -The giant egg in the eye valley now has a new animation when it spawns orro-boro, and it now has an improved forcefield effect around it
 -Spooky mod ambient grasses for all biomes now actually grow during world generation
 -The tombstones and various stone caskets found in the cemetery and catacombs now always drop swamp rock when broken
 -Mysterious glowing tombstones can no longer drop goodie bags outside of the raveyard event
 -Old hunter piece tiles now give off light to make them easier to find
 -Old hunter pieces now have better generation and place in spots that are a bit easier to find
--All fishing rods can now fish in the blood lake in the eye valley (However the goblin shark rod is still the only way to fish up the blood lake enemies)
+-All fishing rods can now be used in the blood lake in the eye valley (However the goblin shark rod is still the only way to fish up the blood lake enemies)
 -Spooky forest gourds can no longer naturally grow too close to each other
 -Redid the visual effects/trails for many of the projectiles in the mod (Things like weapon projectiles, enemy/boss projectiles, ect)
--Increased the drop rates for the spider grotto enemy weapon drops (Both prehardmode and hardmode drops)
+-Increased the drop rates for the spider grotto weapons dropped by enemies (Both the prehardmode and hardmode drops)
 -Dissolved bone pet item now has a 1 in 30 chance from dropping from mysterious orange tombstones in the cemetery instead of catacomb fishing crates
 -Added a recipe group in spooky mod for items that are craftable with both demonite and crimtane so they dont have 2 separate recipes anymore
--Defeating any spooky mod boss for the first time in a world will now guarantee a raveyard at the beginning of the next in-game night
 -Swampy cemetery biome no longer takes priority over terraria's ocean biome (This is just incase the cemetery generates too close to the ocean biome on smaller worlds)
--Carving spooky forest gourds now require you to actually hold the carving kit or candles in your hotbar to be able to right click the gourds
+-Carving spooky forest gourds now requires you to actually hold the carving kit or candles in your hotbar to carve/light them up
+-Moco's weapon drops can no longer be shimmered into each other due to them being craftable now
+-Defeating any spooky mod boss for the first time in a world will now guarantee a raveyard at the beginning of the next in-game night
 
 
 Removals:
 
--Moco's weapon drops can no longer be shimmered into each other due to them being craftable now
--Removed all the previous catacomb second layer enemies, replaced with new ones mentioned in the catacomb improvements section
+-Removed all the previous catacomb second layer enemies, replaced with the new ones mentioned above in the catacomb improvements section
 -Removed the feature where gravestones wouldn't spawn from your character if you died in the catacombs, since you can now break blocks in the catacombs
 -Removed the cotton swabs crafting recipe due to the new way it is obtained
 -Removed all of the little eye quest flasks due to the quest system rework
--Removed the secret pet shrine and the associated pets that would generate if you had the spooky mod menu screen completed, as it didnt feel like it served any real purpose, will likely be replaced with something cooler in the future
+-Removed the secret pet shrine and the associated pets that would generate if you had the spooky mod menu screen completed, as it didnt feel like it served any real purpose. Will likely be replaced with something cooler in the future!
 -Removed all of the "entities" except for the cowbell entity, this was done for 2 reasons:
- 1) All of the entities in the game besides the cowbell one were just literal re-hashes of what the cowbell entities gimmick was, and they didnt do anything different or interesting to separate themselves from the original 
- 2) The cowbell entity has a cool overhaul planned for it in the future (Cannot promise how soon it will be)
+ 1) All of the entities in the game besides the cowbell one were just re-hashes of the cow bell entity's gimmick, and they didnt do anything different or interesting to separate themselves from the original 
+ 2) The cowbell entity has an overhaul planned for it in the future (I cannot promise how soon it will be, but it will happen at some point)
 
 
 
@@ -258,7 +263,7 @@ Fixed all of the following bugs and issues:
 -Goblin shark rod being able to fish in lava
 -Swampy cemetery sometimes generating over large amounts of the jungle, and generating on top of the desert if the desert generates past the jungle
 -Spider grotto sometimes generating over the dungeon, and sometimes spawning a bit too close to the snow biome
--Hallucination entities not facing towards the player correctly
+-Cowbell entity not facing towards the player correctly and its glowing eyes/mouth not drawing correctly
 -"Graveyard without the G" and "Bonerattlin' Raving" not displaying with the music display mod for their individual vinyls
 -Spooky mod cooldown buffs being removed when you are healed by the nurse
 -Crux bat not killing its debuff aura if it was using one when killed
@@ -305,9 +310,9 @@ Fixed all of the following multiplayer issues:
 -Old hunter giant web not saving pieces being inserted properly
 -Old hunter spawn animation not starting correctly
 -Old hunter not waking up when spoken to
--Pandora's box not saving as defeated correctly when completed
--Pandoras box event randomly advancing to the next wave when enemies from the prior wave still exist, and a bunch of other desyncing issues with pandoras box in general
--Egg incursion not saving as defeated correctly when completed
+-Pandora's box event randomly advancing to the next wave when enemies from the prior wave still exist, and a bunch of other desyncing issues with pandoras box in general
+-Pandora's box event not saving as defeated correctly when completed
+-Egg incursion event not saving as defeated correctly when completed
 -Orro-boro not charging upward when it breaks out of the giant egg
 -Rot gourds dirt debris slam attack inconsistently not impacting the ground and creating projectiles
 -Spooky spirit's glowmasks flickering
