@@ -550,7 +550,7 @@ namespace Spooky.Core
 			}
 
 			//make candy bag shoot out homing candy when an enemy is hit with a summon item or whip
-			if (CandyBag && (hit.DamageType == DamageClass.Summon || hit.DamageType == DamageClass.SummonMeleeSpeed))
+			if (CandyBag && (hit.DamageType == DamageClass.Summon || hit.DamageType == DamageClass.SummonMeleeSpeed) && Main.rand.NextBool())
 			{
 				CandyBagJustHit = true;
 			}
