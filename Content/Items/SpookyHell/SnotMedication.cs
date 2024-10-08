@@ -1,3 +1,5 @@
+using Humanizer;
+using Spooky.Content.NPCs.Cemetery;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +19,16 @@ namespace Spooky.Content.Items.SpookyHell
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.buffImmune[BuffID.OgreSpit] = true;
+            for (int i = 0; i < player.buffType.Length; i++) 
+			{ 
+				if (player.buffType[i] == BuffID.OgreSpit)
+				{
+					int[] Types = new int[] { BuffID.Regeneration, BuffID.Swiftness, BuffID.Ironskin };
+
+					player.buffTime[i] = 0;
+					player.AddBuff(Main.rand.Next(Types), 600);
+				}
+			}
         }
     }
 }

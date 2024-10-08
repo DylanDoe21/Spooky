@@ -55,7 +55,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.width = 52;
 			NPC.height = 36;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.8f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
@@ -140,29 +140,33 @@ namespace Spooky.Content.NPCs.Cemetery
             }
             else
             {
+                int MaxSpeed = 2;
+
                 //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -30) 
+                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed - 2) 
                 {
                     MoveSpeedX--;
                 }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 30)
+                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed + 2)
                 {
                     MoveSpeedX++;
                 }
 
-                NPC.velocity.X = MoveSpeedX * 0.1f;
+                NPC.velocity.X += MoveSpeedX * 0.01f;
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed - 2, MaxSpeed + 2);
                 
                 //flies to players Y position
-                if (NPC.Center.Y >= player.Center.Y && MoveSpeedY >= -25)
+                if (NPC.Center.Y >= player.Center.Y && MoveSpeedY >= -MaxSpeed)
                 {
                     MoveSpeedY--;
                 }
-                else if (NPC.Center.Y <= player.Center.Y && MoveSpeedY <= 25)
+                else if (NPC.Center.Y <= player.Center.Y && MoveSpeedY <= MaxSpeed)
                 {
                     MoveSpeedY++;
                 }
 
-                NPC.velocity.Y = MoveSpeedY * 0.1f;
+                NPC.velocity.Y += MoveSpeedY * 0.01f;
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
             }
         }
 

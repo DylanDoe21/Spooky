@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,6 +20,8 @@ namespace Spooky.Content.NPCs.Cemetery
 		public int MoveSpeedY = 0;
 
         private static Asset<Texture2D> NPCTexture;
+
+        public static readonly SoundStyle ChaseBeginSound = new("Spooky/Content/Sounds/EggEvent/GooSlugChew", SoundType.Sound) { Volume = 0.75f };
 
         public override void SetStaticDefaults()
 		{
@@ -132,20 +135,31 @@ namespace Spooky.Content.NPCs.Cemetery
             
             if (player.Distance(NPC.Center) > 300f)
             {
+                NPC.ai[3] = 0;
+
                 NPC.velocity *= 0;
 
-                if (NPC.localAI[0] == 0)
+                if (NPC.ai[2] == 0)
                 {
                     NPC.ai[0] = NPC.position.Y;
-                    NPC.localAI[0]++;
+                    NPC.ai[2]++;
                 }
 
                 NPC.ai[1]++;
-                NPC.position.Y = NPC.ai[0] + (float)Math.Sin(NPC.ai[1] / 30) * 30;
+                NPC.position.Y = NPC.ai[0] + (float)Math.Sin(NPC.ai[1] / 50) * 30;
             }
             else
             {
-                NPC.localAI[0] = 0;
+                NPC.ai[0] = 0;
+                NPC.ai[1] = 0;
+                NPC.ai[2] = 0;
+
+                if (NPC.ai[3] == 0)
+                {
+                    SoundEngine.PlaySound(ChaseBeginSound, NPC.Center);
+
+                    NPC.ai[3]++;
+                }
 
                 int MaxSpeed = 2;
 

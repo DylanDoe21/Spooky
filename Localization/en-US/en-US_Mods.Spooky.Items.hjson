@@ -1698,26 +1698,6 @@ WizardGangsterLegs: {
 	Tooltip: Increases maximum mana by 20
 }
 
-Candy1: {
-	DisplayName: Summoner Candy
-	Tooltip: ""
-}
-
-Candy2: {
-	DisplayName: Summoner Candy
-	Tooltip: ""
-}
-
-Candy3: {
-	DisplayName: Summoner Candy
-	Tooltip: ""
-}
-
-Candy4: {
-	DisplayName: Summoner Candy
-	Tooltip: ""
-}
-
 FlyBigItem: {
 	DisplayName: Giant Fly
 	Tooltip: ""
@@ -1800,12 +1780,11 @@ BustlingGlowshroom: {
 }
 
 CandyBag: {
-	DisplayName: Bag O' Treats
+	DisplayName: Bag 'O Treats
 	Tooltip:
 		'''
-		Summons a magical bag of candy to float above you
-		The candy bag will drop pieces of candy every twenty seconds
-		Picking up candies will provide different summoner benefits
+		Summons a magical bag of candy to follow you
+		Hitting enemies with summon weapons will spawn homing candy out of the bag
 		'''
 }
 

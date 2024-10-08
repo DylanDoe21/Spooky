@@ -17,7 +17,7 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace Spooky.Core
 {
-    //separate modplayer for all of the bloom buffs since there is a ton of them and i dont feel like cluttering SpookyPlayer
+    //separate modplayer for all of the bloom buffs since there is a ton of them and i dont feel like cluttering SpookyPlayer more than it already is
     public class BloomBuffsPlayer : ModPlayer
     {
         //list of strings for each buff slot
@@ -84,17 +84,17 @@ namespace Spooky.Core
             //conditions to account for when the player still has locked bloom slots
             else
             {
-                //if every single buff slot is filled and both slot 3 and slot 4 are locked, dont allow the player to consume a bloom
+                //if every single buff slot is filled and both slot 3 and slot 4 are locked, dont allow the player to consume any new blooms
                 if (BloomBuffSlots[0] != string.Empty && BloomBuffSlots[1] != string.Empty && !UnlockedSlot3 && !UnlockedSlot4)
                 {
                     return false;
                 }
-                //if every single buff slot is filled and slot 4 is locked, dont allow the player to consume a bloom
+                //if every single buff slot is filled and slot 4 is locked, dont allow the player to consume any new blooms
                 if (BloomBuffSlots[0] != string.Empty && BloomBuffSlots[1] != string.Empty && BloomBuffSlots[2] != string.Empty && !UnlockedSlot4)
                 {
                     return false;
                 }
-                //if every single buff slot is filled, dont allow the player to consume a bloom
+                //if every single buff slot is filled, dont allow the player to consume any new blooms
                 if (BloomBuffSlots[0] != string.Empty && BloomBuffSlots[1] != string.Empty && BloomBuffSlots[2] != string.Empty && BloomBuffSlots[3] != string.Empty)
                 {
                     return false;

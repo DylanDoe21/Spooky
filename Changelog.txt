@@ -171,6 +171,7 @@ Items & Gear:
 -Nerfed the damage that the hunter soul scepter ranger minion's bullets do
 -Changed all sentient item money values based on the money values of the items they are upgraded from (This affects things like sell prices and reforge cost)
 -Bustling glowshroom is now craftable with 15 spooky glowshrooms and is no longer dropped by spooky glowshroom enemies
+-Bag 'O Treats has been reworked, it now spawns homing candy whenever you hit an enemy with a minion or whip
 -Warlock's cloak no longer gives a flat summon damage increase, but now gives 1 extra minion slot
 -Rusted ring now gives a higher max life increase, grants increased life regeneration at all times instead of inside dungeons, gives you the spelunker effect while in the dungeon/catacombs, and it can now be found rarely in barels in the upper catacombs along with being dropped by putty cubes
 -Skull amulet now only requires you to absorb 10 souls to apply the frenzy buff, increased its drop rate from zomboid necromancers, it can now drop from zomboid pyromancers with the same chance as the necromancers, and it can now be found rarely in barrels in the upper catacombs
@@ -280,7 +281,6 @@ Fixed all of the following bugs and issues:
 -I.C.U rocket projectile having collision issues and its afterimages drawing extremely weirdly
 -Moco's lingering booger projectiles getting stuck inside of blocks if moco is inside of blocks when shooting them
 -Multiple spooky mod worldgen variables using Main.rand instead of WorldGen.genRand (For context, WorldGen.genRand is a random number generator that stays the same depending on the world seed, whereas Main.rand doesnt)
--Yellow candy buff from the bag o' treats not displaying the correct bonus it gives (It is meant to give 10% increased whip use speed, not an extra minion slot)
 -Gator gun and venom gasser doing contact damage
 -Whip spiders tongues coming from and retracting to incorrect locations on the whip spider itself
 -Orro & Boro not dropping any coins on normal or journey mode

@@ -234,7 +234,7 @@ namespace Spooky.Content.NPCs.Quest
 
 					NPC.localAI[2]++;
 
-					if (NPC.localAI[2] == 900)
+					if (NPC.localAI[2] == 1100)
 					{
 						//choose random ghost by default
 						ChosenGhostToBuff = Main.rand.NextBool() ? ModContent.NPCType<BanditBruiser>() : ModContent.NPCType<BanditWizard>();
@@ -262,7 +262,7 @@ namespace Spooky.Content.NPCs.Quest
 						}
 					}
 
-					if (NPC.localAI[2] > 900 && NPC.localAI[2] < 1000)
+					if (NPC.localAI[2] > 1100 && NPC.localAI[2] < 1200)
 					{
 						if (NPC.localAI[2] % 10 == 0)
 						{
@@ -274,7 +274,7 @@ namespace Spooky.Content.NPCs.Quest
 						}
 					}
 
-					if (NPC.localAI[2] >= 1000)
+					if (NPC.localAI[2] >= 1200)
 					{
 						NPC.localAI[2] = 0;
 

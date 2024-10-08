@@ -111,7 +111,8 @@ namespace Spooky
 			{
                 case SpookyMessageType.SpawnMistGhost:
                 {
-                    NPC.NewNPC(null, MistGhostSpawnX, MistGhostSpawnY, ModContent.NPCType<MistGhost>());
+                    int[] Types = new int[] { ModContent.NPCType<MistGhost>(), ModContent.NPCType<MistGhostFaces>(), ModContent.NPCType<MistGhostWiggle>() };
+                    NPC.NewNPC(null, MistGhostSpawnX, MistGhostSpawnY, Main.rand.Next(Types));
                     break;
                 }
                 case SpookyMessageType.SpawnSpookySpirit:

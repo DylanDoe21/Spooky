@@ -32,7 +32,7 @@ namespace Spooky.Content.NPCs.Cemetery
 			NPC.width = 52;
 			NPC.height = 36;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.8f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
 			NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };

@@ -14,11 +14,28 @@ namespace Spooky.Content.NPCs.Cemetery
 {
     public class MistGhostWiggle : ModNPC
     {
+        public int MoveSpeedX = 0;
+		public int MoveSpeedY = 0;
+
         private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //ints
+            writer.Write(MoveSpeedX);
+            writer.Write(MoveSpeedY);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //ints
+            MoveSpeedX = reader.ReadInt32();
+            MoveSpeedY = reader.ReadInt32();
         }
 
         public override void SetDefaults()
@@ -29,14 +46,13 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.width = 50;
 			NPC.height = 54;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };
             NPC.DeathSound = SoundID.NPCDeath6;
-            NPC.aiStyle = 22;
-			AIType = NPCID.Wraith;
+            NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
         }
 
@@ -85,8 +101,39 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+            
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.05f;
+
+            int MaxSpeed = 3;
+
+            //flies to players X position
+            if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed) 
+            {
+                MoveSpeedX--;
+            }
+            else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed)
+            {
+                MoveSpeedX++;
+            }
+
+            NPC.velocity.X += MoveSpeedX * 0.01f;
+            NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
+            
+            //flies to players Y position
+            if (NPC.Center.Y >= player.Center.Y - 20 && MoveSpeedY >= -MaxSpeed)
+            {
+                MoveSpeedY--;
+            }
+            else if (NPC.Center.Y <= player.Center.Y - 20 && MoveSpeedY <= MaxSpeed)
+            {
+                MoveSpeedY++;
+            }
+
+            NPC.velocity.Y += MoveSpeedY * 0.1f;
+            NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
         }
 
         public override void HitEffect(NPC.HitInfo hit)

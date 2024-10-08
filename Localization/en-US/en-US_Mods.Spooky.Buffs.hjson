@@ -3,26 +3,6 @@ BustlingGlowshroomHeal: {
 	Description: Your life regeneration is greatly increased
 }
 
-CandyBuff1: {
-	DisplayName: Summoner Candy
-	Description: 10% increased summon damage
-}
-
-CandyBuff2: {
-	DisplayName: Summoner Candy
-	Description: Slightly increased whip use speed
-}
-
-CandyBuff3: {
-	DisplayName: Summoner Candy
-	Description: Slightly increased whip range
-}
-
-CandyBuff4: {
-	DisplayName: Summoner Candy
-	Description: Increases your maximum number of sentries by 1
-}
-
 DaffodilHairpinCooldown: {
 	DisplayName: Thorn Petal Cooldown
 	Description: Your petal ring is regrowing

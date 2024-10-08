@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,16 +10,34 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.NPCs.Cemetery.Projectiles;
 
 namespace Spooky.Content.NPCs.Cemetery
 {
     public class MistGhostFaces : ModNPC
     {
+        public int MoveSpeedX = 0;
+		public int MoveSpeedY = 0;
+
         private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 5;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //ints
+            writer.Write(MoveSpeedX);
+            writer.Write(MoveSpeedY);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //ints
+            MoveSpeedX = reader.ReadInt32();
+            MoveSpeedY = reader.ReadInt32();
         }
 
         public override void SetDefaults()
@@ -29,14 +48,13 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.width = 52;
 			NPC.height = 52;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };
             NPC.DeathSound = SoundID.NPCDeath6;
-            NPC.aiStyle = 22;
-			AIType = NPCID.Wraith;
+            NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CemeteryBiome>().Type };
         }
 
@@ -85,8 +103,50 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+            
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.05f;
+
+            NPC.ai[0]++;
+
+            if (NPC.ai[0] >= 300)
+            {
+                SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
+                
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MistGhostMiniFace>(), NPC.damage / 4, 2, NPC.target, 0, NPC.whoAmI);
+
+                NPC.ai[0] = 0;
+            }
+
+            int MaxSpeed = 2;
+
+            //flies to players X position
+            if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed) 
+            {
+                MoveSpeedX--;
+            }
+            else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed)
+            {
+                MoveSpeedX++;
+            }
+
+            NPC.velocity.X += MoveSpeedX * 0.01f;
+            NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
+            
+            //flies to players Y position
+            if (NPC.Center.Y >= player.Center.Y - 20 && MoveSpeedY >= -MaxSpeed - 1)
+            {
+                MoveSpeedY--;
+            }
+            else if (NPC.Center.Y <= player.Center.Y - 20 && MoveSpeedY <= MaxSpeed + 1)
+            {
+                MoveSpeedY++;
+            }
+
+            NPC.velocity.Y += MoveSpeedY * 0.01f;
+            NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
         }
 
         public override void HitEffect(NPC.HitInfo hit)

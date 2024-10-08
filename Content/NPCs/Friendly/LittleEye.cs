@@ -9,7 +9,9 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Food;
 using Spooky.Content.Items.Quest;
+using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.Tiles.SpookyHell.Painting;
@@ -112,7 +114,33 @@ namespace Spooky.Content.NPCs.Friendly
 					}
 
 					SpawnItem(ModContent.ItemType<SewingThread>(), 1);
+
+					if (Main.rand.NextBool())
+					{
+						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
+					}
+
 					SpawnItem(ModContent.ItemType<IconPainting1Item>(), 1);
+
+					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
+
+					if (Main.rand.NextBool())
+					{
+						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
+
+						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.ObsidianLockbox, 1);
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.BloodMoonStarter, 1);
+					}
+
 					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
@@ -139,7 +167,33 @@ namespace Spooky.Content.NPCs.Friendly
 					}
 
 					SpawnItem(ModContent.ItemType<GhostBook>(), 1);
+
+					if (Main.rand.NextBool())
+					{
+						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
+					}
+
 					SpawnItem(ModContent.ItemType<IconPainting2Item>(), 1);
+
+					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
+
+					if (Main.rand.NextBool())
+					{
+						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
+
+						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.ObsidianLockbox, 1);
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.BloodMoonStarter, 1);
+					}
+
 					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
@@ -166,7 +220,33 @@ namespace Spooky.Content.NPCs.Friendly
 					}
 
 					SpawnItem(ModContent.ItemType<StitchedCloak>(), 1);
+
+					if (Main.rand.NextBool())
+					{
+						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
+					}
+
 					SpawnItem(ModContent.ItemType<IconPainting3Item>(), 1);
+
+					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
+
+					if (Main.rand.NextBool())
+					{
+						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
+
+						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.ObsidianLockbox, 1);
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.BloodMoonStarter, 1);
+					}
+
 					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
@@ -193,8 +273,34 @@ namespace Spooky.Content.NPCs.Friendly
 					}
 
 					SpawnItem(ModContent.ItemType<MagicEyeOrb>(), 1);
+
+					if (Main.rand.NextBool())
+					{
+						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
+					}
+
 					SpawnItem(ModContent.ItemType<LittleEyeHat>(), 1);
 					SpawnItem(ModContent.ItemType<IconPainting4Item>(), 1);
+
+					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
+
+					if (Main.rand.NextBool())
+					{
+						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
+
+						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.ObsidianLockbox, 1);
+					}
+
+					if (Main.rand.NextBool(3))
+					{
+						SpawnItem(ItemID.BloodMoonStarter, 1);
+					}
+
 					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)

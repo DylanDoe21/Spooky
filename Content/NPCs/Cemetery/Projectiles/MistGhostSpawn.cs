@@ -38,15 +38,17 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 
             if (Projectile.ai[0] >= 1)
             {
+                int[] Types = new int[] { ModContent.NPCType<MistGhost>(), ModContent.NPCType<MistGhostFaces>(), ModContent.NPCType<MistGhostWiggle>() };
+
                 if (Main.netMode != NetmodeID.SinglePlayer) 
 				{
                     ModPacket packet = Mod.GetPacket();
-					packet.Write((byte)SpookyMessageType.SpawnSpookySpirit);
+					packet.Write((byte)SpookyMessageType.SpawnMistGhost);
 					packet.Send();
 				}
 				else 
 				{
-                    NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<MistGhost>());
+                    NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, Main.rand.Next(Types));
 				}
 
                 for (int numDusts = 0; numDusts < 30; numDusts++)

@@ -19,8 +19,7 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 4;
 		}
 
 		public override void SetDefaults()
@@ -53,12 +52,23 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
                 Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + circular - Main.screenPosition, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
 
-            return false;
+            return true;
         }
 
 		public override void AI()
         {
             NPC Parent = Main.npc[(int)Projectile.ai[1]];
+
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 6)
+            {
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
+            }
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? -1 : 1;
 

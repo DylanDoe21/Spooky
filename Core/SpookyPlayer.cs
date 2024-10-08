@@ -48,6 +48,7 @@ namespace Spooky.Core
         //accessories
         public bool BustlingGlowshroom = false;
         public bool CandyBag = false;
+		public bool CandyBagJustHit = false;
         public bool MagicCandle = false;
         public bool SkullAmulet = false;
         public bool CrossCharmShield = false;
@@ -211,7 +212,7 @@ namespace Spooky.Core
             //accessories
             BustlingGlowshroom = false;
             CandyBag = false;
-            MagicCandle = false;
+			MagicCandle = false;
             SkullAmulet = false;
             CrossCharmShield = false;
             PandoraChalice = false;
@@ -547,6 +548,12 @@ namespace Spooky.Core
 					Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<SnotBlessingOrbiter>(), damageDone * 2, 3, Player.whoAmI, target.whoAmI, distance);
 				}
 			}
+
+			//make candy bag shoot out homing candy when an enemy is hit with a summon item or whip
+			if (CandyBag && (hit.DamageType == DamageClass.Summon || hit.DamageType == DamageClass.SummonMeleeSpeed))
+			{
+				CandyBagJustHit = true;
+			}
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
@@ -667,6 +674,7 @@ namespace Spooky.Core
                 }
             }
 
+			//if the player gets hit too many times with the glass eye then give the player the glass eye cooldown
 			if (MagicEyeOrb)
 			{
 				MagicEyeOrbHits++;
@@ -1042,6 +1050,12 @@ namespace Spooky.Core
             {
                 GooSlugEatCooldown--;
             }
+
+			//set candy bag hit to false if you dont have the candy bag
+			if (!CandyBag)
+			{
+				CandyBagJustHit = false;
+			}
         }
 
 		public override void PreUpdateMovement()

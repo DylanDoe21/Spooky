@@ -26,8 +26,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			if (NotSpawned && player.whoAmI == Main.myPlayer)
 			{
 				//leave the source as null for right now
-				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, 
-				ModContent.ProjectileType<CandyBagProj>(), 0, 0f, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(null, player.position.X + (player.width / 2), player.position.Y + (player.height / 2), 0f, 0f, ModContent.ProjectileType<CandyBagProj>(), 15, 2f, player.whoAmI);
 			}
         }
     }
