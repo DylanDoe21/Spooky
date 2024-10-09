@@ -21,8 +21,8 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.channel = true;
 			Item.width = 64;          
 			Item.height = 32;
-			Item.useTime = 45;
-			Item.useAnimation = 45;
+			Item.useTime = 90;
+			Item.useAnimation = 90;
 			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 8;

@@ -29,8 +29,8 @@ namespace Spooky.Content.Items.Cemetery
 			Item.channel = true;
 			Item.width = 24;
             Item.height = 34;
-			Item.useTime = 40;
-			Item.useAnimation = 40;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.Green;

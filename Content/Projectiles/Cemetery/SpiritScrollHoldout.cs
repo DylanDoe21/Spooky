@@ -41,6 +41,11 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.Kill();
             }
 
+            if (!player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+			{
+				Projectile.Kill();
+			}
+
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 ProjDirection = Main.MouseWorld - player.position;
@@ -55,7 +60,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.position = player.Center - Projectile.Size / 2 + new Vector2((Projectile.direction == -1 ? -15 : 15), 0);
 
-			if (player.channel && player.statMana > ItemGlobal.ActiveItem(player).mana)
+			if (player.channel)
             {
                 Projectile.timeLeft = 2;
 
@@ -68,7 +73,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     Projectile.ai[2]++;
                 }
 
-                if (Projectile.ai[2] >= 30)
+                if (Projectile.ai[2] >= ItemGlobal.ActiveItem(player).useTime && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
                 {
                     player.statMana -= ItemGlobal.ActiveItem(player).mana;
 

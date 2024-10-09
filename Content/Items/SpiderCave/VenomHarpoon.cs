@@ -17,7 +17,10 @@ namespace Spooky.Content.Items.SpiderCave
         {
             Item.damage = 118;
 			Item.DamageType = DamageClass.Ranged;
-            Item.noMelee = true;
+			Item.noMelee = true;
+			Item.autoReuse = false;
+			Item.noUseGraphic = true;
+			Item.channel = true;
             Item.width = 110;
             Item.height = 44;
             Item.useTime = 18;
@@ -27,36 +30,22 @@ namespace Spooky.Content.Items.SpiderCave
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.buyPrice(platinum: 1);
             Item.UseSound = SoundID.Zombie45;
-            Item.shoot = ModContent.ProjectileType<VenomHarpoonProj>();
-			Item.shootSpeed = 0f;
+            //Item.shoot = ModContent.ProjectileType<VenomHarpoonProj>();
+			//Item.shootSpeed = 0f;
         }
 
-        public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-16, -10);
-		}
-
+        /*
         public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[ModContent.ProjectileType<VenomHarpoonProj>()] < 1;
 		}
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(player.direction == -1 ? -50 : 50, 50)) * 55f;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position.X += muzzleOffset.X;
-            }
+			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<VenomHarpoonProj>(), damage, knockback, player.whoAmI, 0f, 0f);
 
-            position.Y -= 15;
-
-            for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-            {
-			    Projectile.NewProjectile(source, position, new Vector2(player.direction == -1 ? -50 : 50, Main.rand.Next(-35, 36)), Item.shoot, damage, knockback, player.whoAmI);
-            }
-			
 			return false;
 		}
+        */
     }
 }

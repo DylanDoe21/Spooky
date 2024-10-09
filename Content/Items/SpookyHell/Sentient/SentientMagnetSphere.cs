@@ -21,8 +21,8 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.useTurn = true;
 			Item.width = 36;
 			Item.height = 60;
-            Item.useTime = 20;
-			Item.useAnimation = 20;
+            Item.useTime = 35;
+			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();

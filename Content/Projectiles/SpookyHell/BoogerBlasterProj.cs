@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class BoogerBlasterProj : ModProjectile
@@ -80,13 +82,15 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 				player.velocity.X *= 0.99f;
 
-                Projectile.localAI[0] += 0.25f;
+                Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] == 10 || Projectile.localAI[0] == 20)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3 && Projectile.frame < 2)
                 {
                     SoundEngine.PlaySound(SoundID.Item95, Projectile.Center);
 
                     Projectile.frame++;
+
+                    Projectile.localAI[0] = 0;
                 }
 
                 if (Projectile.frame >= 3)

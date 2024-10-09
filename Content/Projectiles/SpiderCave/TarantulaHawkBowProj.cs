@@ -10,8 +10,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class TarantulaHawkBowProj : ModProjectile
 	{
-        float ExtraUseSpeed = 20;
-
+        int ExtraUseTime = 0;
         int playerCenterOffset = 1;
 
         public override void SetStaticDefaults()
@@ -118,17 +117,14 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] % ExtraUseSpeed == 0)
+                if (Projectile.localAI[0] >= (ItemGlobal.ActiveItem(player).useTime / 3) - ExtraUseTime && Projectile.frame < 3)
                 {
                     Projectile.frame++;
+
+                    Projectile.localAI[0] = 0;
                 }
 
-                if (Projectile.frame > 3)
-                {
-                    Projectile.frame = 3;
-                }
-
-                if (Projectile.frame > 2 && Projectile.localAI[1] < 20)
+                if (Projectile.frame > 2)
                 {
                     Projectile.localAI[1]++;
 
@@ -163,9 +159,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 //reset the ai values so the bow shoots again
                 if (Projectile.localAI[1] >= 20)
                 {
-                    if (ExtraUseSpeed > 2)
+                    if (ExtraUseTime < (ItemGlobal.ActiveItem(player).useTime / 3) - 2)
                     {
-                        ExtraUseSpeed -= 2;
+                        ExtraUseTime++;
                     }
 
                     Projectile.frame = 0;

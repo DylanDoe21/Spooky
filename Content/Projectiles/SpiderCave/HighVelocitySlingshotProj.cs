@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class HighVelocitySlingshotProj : ModProjectile
@@ -81,11 +83,13 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
 
-                Projectile.localAI[0] += 0.25f;
+                Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3 && Projectile.frame < 2)
                 {
                     Projectile.frame++;
+
+                    Projectile.localAI[0] = 0;
                 }
 
                 if (direction.X > 0) 

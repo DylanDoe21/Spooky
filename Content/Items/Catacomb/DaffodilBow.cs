@@ -21,10 +21,10 @@ namespace Spooky.Content.Items.Catacomb
 			Item.autoReuse = false;
 			Item.noUseGraphic = true;
 			Item.channel = true;
-			Item.width = 26;    
-			Item.height = 38;         
-			Item.useTime = 32;         
-			Item.useAnimation = 32;
+			Item.width = 26;
+			Item.height = 38;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;

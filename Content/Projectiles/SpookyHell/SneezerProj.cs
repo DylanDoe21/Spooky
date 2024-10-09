@@ -79,13 +79,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 Projectile.localAI[0]++;
 
-                //charge up the rocket
-                if (Projectile.localAI[0] == 10 || Projectile.localAI[0] == 20)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3 && Projectile.frame < 2)
                 {
                     Projectile.frame++;
+
+                    Projectile.localAI[0] = 0;
                 }
 
-                if (Projectile.localAI[0] >= 30)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3 && Projectile.frame >= 2)
                 {
                     SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
 

@@ -22,8 +22,8 @@ namespace Spooky.Content.Items.Catacomb
 			Item.channel = true;
 			Item.width = 40;
             Item.height = 50;
-			Item.useTime = 35;
-			Item.useAnimation = 35;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.LightRed;

@@ -7,7 +7,7 @@ using System;
 
 namespace Spooky.Content.Projectiles.Blooms
 {
-    public class MapleSeedBoost : ModProjectile
+    public class MapleSeedBooster : ModProjectile
     {
         public override void SetStaticDefaults()
 		{

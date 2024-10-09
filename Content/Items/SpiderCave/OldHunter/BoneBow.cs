@@ -23,8 +23,8 @@ namespace Spooky.Content.Items.SpiderCave.OldHunter
 			Item.channel = true;
 			Item.width = 20;           
 			Item.height = 60;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.Green;

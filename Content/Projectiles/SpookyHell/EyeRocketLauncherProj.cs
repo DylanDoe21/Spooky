@@ -81,14 +81,16 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                 Projectile.localAI[0]++;
 
-                //charge up the rocket
-                if (Projectile.localAI[0] == 10 || Projectile.localAI[0] == 20 || Projectile.localAI[0] == 30 || Projectile.localAI[0] == 40)
+                //charge up the rocket launcher
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 5 && Projectile.frame < 4)
                 {
                     Projectile.frame++;
+
+                    Projectile.localAI[0] = 0;
                 }
 
                 //shoot rocket
-                if (Projectile.localAI[0] >= 50)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 5 && Projectile.frame >= 4)
                 {
                     SpookyPlayer.ScreenShakeAmount = 3;
 

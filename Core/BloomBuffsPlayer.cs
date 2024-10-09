@@ -471,7 +471,7 @@ namespace Spooky.Core
 			{
 				if (DandelionMapleSeedTimer % 80 == 0 && DandelionMapleSeedTimer > 0)
 				{
-					Projectile.NewProjectile(null, Player.Center, new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-3, 4)), ModContent.ProjectileType<MapleSeedBoost>(), 0, 0, Player.whoAmI);
+					Projectile.NewProjectile(null, Player.Center, new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-3, 4)), ModContent.ProjectileType<MapleSeedBooster>(), 0, 0, Player.whoAmI);
 
                     DandelionMapleSeedTimer = 0;
 				}

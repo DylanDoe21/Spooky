@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class BoneBowProj : ModProjectile
@@ -112,11 +114,13 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 				player.velocity.X *= 0.98f;
 
-                Projectile.localAI[0] += 0.5f;
+                Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10 || Projectile.localAI[0] == 15)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3)
                 {
                     Projectile.frame++;
+
+                    Projectile.localAI[0] = 0;
                 }
 			}
 			else 

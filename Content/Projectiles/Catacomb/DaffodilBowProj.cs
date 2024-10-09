@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class DaffodilBowProj : ModProjectile
@@ -97,11 +99,13 @@ namespace Spooky.Content.Projectiles.Catacomb
                     }
                 }
 
-                Projectile.localAI[0] += 0.25f;
+                Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3 && Projectile.frame < 2)
                 {
                     Projectile.frame++;
+
+                    Projectile.localAI[0] = 0;
                 }
 
                 if (direction.X > 0) 

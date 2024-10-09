@@ -101,7 +101,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] == 10 - ExtraUseTime)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime - ExtraUseTime)
                 {
                     Projectile.frame++;
 
@@ -182,7 +182,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
                         ShootSpeed.X + Main.rand.Next(-3, 4), ShootSpeed.Y + Main.rand.Next(-3, 4), ProjType, Projectile.damage, knockBack, Projectile.owner);
 
-                        if (ExtraUseTime < 9)
+                        if (ExtraUseTime < ItemGlobal.ActiveItem(player).useTime - 1)
                         {
                             ExtraUseTime++;
                         }

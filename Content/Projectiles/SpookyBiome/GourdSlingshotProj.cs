@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
 	public class GourdSlingshotProj : ModProjectile
@@ -81,15 +83,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 player.itemRotation = Projectile.rotation;
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
 
-                Projectile.localAI[0] += 0.25f;
+                Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] == 5 || Projectile.localAI[0] == 10 || Projectile.localAI[0] == 15)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3 && Projectile.frame < 2)
                 {
                     Projectile.frame++;
-                }
-                if (Projectile.frame >= 3)
-                {   
-                    Projectile.frame = 2;
+
+                    Projectile.localAI[0] = 0;
                 }
 
                 if (direction.X > 0) 
