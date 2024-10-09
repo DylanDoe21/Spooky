@@ -68,7 +68,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;	
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
 		}
 
 		public override void OnKill(int timeLeft)

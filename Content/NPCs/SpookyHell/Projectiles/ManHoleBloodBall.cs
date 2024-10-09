@@ -62,8 +62,6 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 		{
             Player player = Main.player[Main.myPlayer];
 
-            SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
-
 			Bounces++;
 			if (Bounces > 3)
 			{
@@ -71,13 +69,21 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 			}
             else
             {
-                Projectile.velocity.X = player.Center.X < Projectile.Center.X ? Main.rand.Next(-12, -6) : Main.rand.Next(6, 12);
+                SoundEngine.PlaySound(SoundID.NPCHit8, Projectile.Center);
 
-                if (Projectile.velocity.Y != oldVelocity.Y)
-                {
-                    Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                    Projectile.velocity.Y = -oldVelocity.Y;
-                }
+                //set where the it should be jumping towards
+                Vector2 JumpTo = new(player.Center.X, player.Center.Y - Main.rand.Next(300, 450));
+
+                //set velocity and speed
+                Vector2 velocity = JumpTo - Projectile.Center;
+                velocity.Normalize();
+
+                float speed = MathHelper.Clamp(velocity.Length() / 5, 10, 45);
+
+                velocity.X *= Projectile.ai[0] > 0 ? 1.5f : 1.2f;
+                velocity.Y -= Main.rand.NextFloat(0.5f, 1f);
+
+                Projectile.velocity = velocity * speed;
             }
 
 			return false;

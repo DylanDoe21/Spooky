@@ -4,12 +4,14 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.NPCs.SpookyHell.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
 {
@@ -67,8 +69,27 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void AI()
         {
-            NPC.TargetClosest(true);
-			Player player = Main.player[NPC.target];
+            NPC.ai[0]++;
+            if (NPC.ai[0] > 400 && NPC.ai[0] <= 500)
+            {
+                if (Main.rand.NextBool(8))
+                {
+                    SoundEngine.PlaySound(SoundID.NPCDeath9, NPC.Center);
+
+                    float Spread = (float)Main.rand.Next(-250, 250) * 0.01f;
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, -10,
+                        ModContent.ProjectileType<SalivaBall>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
+                    }
+                }
+            }
+            
+            if (NPC.ai[0] >= 500)
+            {
+                NPC.ai[0] = 0;
+            }
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
