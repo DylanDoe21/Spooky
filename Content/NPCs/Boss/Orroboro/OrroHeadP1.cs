@@ -80,8 +80,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetDefaults()
         {
             NPC.lifeMax = 32000;
-            NPC.damage = 55;
-            NPC.defense = 15;
+            NPC.damage = 60;
+            NPC.defense = 30;
             NPC.width = 30;
             NPC.height = 30;
             NPC.npcSlots = 1f;
@@ -143,7 +143,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 65 / 3 : Main.expertMode ? 50 / 2 : 40;
+            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 55 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 

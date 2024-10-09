@@ -190,8 +190,6 @@ Enemy & Boss Changes:
 
 -Resprited orro-boro and gave them both draconic wings
 -Made a ton of changes to orro-boros fight to make it less annoyingly difficult and more fair, as well as making some of their projectile patterns less bullet-hell like (Too lazy to write an essay listing all of the specific changes)
--Nerfed orro-boros piercing projectile resistance (Previously it divided piercing projectile damage by 1.8, now it divides it by 1.5)
--Nerfed orro-boro's overall defense
 -All of daffodil's attacks are now more spaced out to give you some breathing room inbetween them
 -Reduced the screenshake intensity for daffodil's fly bullet hell and seed thorn attacks
 -Changed daffodil's solar deathbeam attack in phase 1 to be an actual beam that sweeps across the arena instead of a stream of projectiles shot at the player

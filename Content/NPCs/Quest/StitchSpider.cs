@@ -333,7 +333,7 @@ namespace Spooky.Content.NPCs.Quest
 						ShootSpeed.Normalize();
 						ShootSpeed *= 18f;
 
-						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 120f;
+						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 75f;
 						Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
 
 						if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
