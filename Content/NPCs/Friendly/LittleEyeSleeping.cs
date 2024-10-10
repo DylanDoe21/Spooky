@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Tiles.Pylon;
+
 namespace Spooky.Content.NPCs.Friendly
 {
 	public class LittleEyeSleeping : ModNPC
@@ -68,6 +70,17 @@ namespace Spooky.Content.NPCs.Friendly
         public void Rescue()
         {
             NPC.Transform(ModContent.NPCType<LittleEye>());
+			SpawnItem(ModContent.ItemType<SpookyHellPylonItem>(), 1);
+        }
+
+		public void SpawnItem(int Type, int Amount)
+        {
+            int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, Type, Amount);
+
+			if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+			{
+				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+			}
         }
     }
 }
