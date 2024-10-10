@@ -33,6 +33,11 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.aiStyle = -1;
         }
 
+        public override bool CheckActive()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             NPC.TargetClosest(true);
