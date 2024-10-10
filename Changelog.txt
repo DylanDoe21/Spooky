@@ -142,7 +142,6 @@ Items & Gear:
 -Gilded mage armor can now be crafted with both gold or platinum bars
 -Gilded mage tunic now gives 10% increased magic damage instead of a flat increase of 5
 -Nerfed the plant puncher staff's damage from 50 to 35, but you can now have up to 2 hands at once
--Venomous spiderpoon only shoots one harpoon, but it can now be aimed and it now generally works and feels better to use
 -Cowbell entity minions now use local immunity frames so they dont prevent other projectiles from hitting enemies
 -Old hunter's scarf mark enemy damage multiplier nerfed from 1.5x to 1.2x
 -Cross charm now gives you 15 defense while active instead of increasing your damage reduction
@@ -183,6 +182,7 @@ Items & Gear:
 -Skull crates now have the idol of flame as part of their main item loot pool
 -Spooky forest crates no longer require rot gourd to be defeated to fish them up
 -All spooky mod holdout/charging items now scale with the items actual use speed
+-Venomous spiderpoon reworked, it now shoots out one harpoon, and if an enemy is pulled back to you with the harpoon it will shoot a spread of venom spit at the enemy caught by it
 -The trapdoor spider mount is now more lenient when checking for its legs touching solid tiles, which basically means its now much easier to traverse walls and ceilings with the mount without falling off of them
 
 

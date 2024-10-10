@@ -241,11 +241,6 @@ MocoPetBuff: {
 	Description: Sniffle... Achooo!
 }
 
-OrroboroMountBuff: {
-	DisplayName: Eye Worm
-	Description: The eye worm will help you travel
-}
-
 PandoraBeanBuff: {
 	DisplayName: Von Anguston VI
 	Description: Ancient royalty is following you
@@ -483,4 +478,9 @@ StitchedCloakCooldown: {
 StitchedCloakWebSlow: {
 	DisplayName: Stitched Cloak Web Slow
 	Description: ""
+}
+
+OrroboroPetBuff: {
+	DisplayName: Orroboro Ring
+	Description: The worms are slowly consuming each other
 }

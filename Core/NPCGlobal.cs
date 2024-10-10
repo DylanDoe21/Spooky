@@ -104,14 +104,15 @@ namespace Spooky.Core
             //list of every orro & boro segment
             int[] OrroBoroSegments = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
 			ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
-			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>() };
+			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>(),
+			ModContent.NPCType<OrroBodyWings>(), ModContent.NPCType<BoroBodyWings>(), ModContent.NPCType<OrroBodyWingsP1>(), ModContent.NPCType<BoroBodyWingsP1>() };
 
 			//give all orro & boro segments resistance to piercing projectiles because terraria worm moment
             if (OrroBoroSegments.Contains(npc.type))
 			{
                 if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
                 {
-                    modifiers.FinalDamage /= 2;
+                    modifiers.FinalDamage /= 1.8f;
                 }
             }
 
@@ -219,7 +220,7 @@ namespace Spooky.Core
 			int type = npc.type;
 			switch (type)
 			{
-                //EoW segments do not count as bosses individually
+                //EoW segments (because they do not count as bosses individually)
 				case NPCID.EaterofWorldsHead:
 				case NPCID.EaterofWorldsBody:
 				case NPCID.EaterofWorldsTail:
@@ -250,14 +251,14 @@ namespace Spooky.Core
 				case NPCID.PirateShip:
                 case NPCID.PirateShipCannon:
 
-				//frost/pumpkin moon minibosses
+				//frost moon and pumpkin moon minibosses
 				case NPCID.IceQueen:
 				case NPCID.SantaNK1:
 				case NPCID.Everscream:
 				case NPCID.Pumpking:
 				case NPCID.MourningWood:
 
-				//old ones army
+				//old ones army minibosses
 				case NPCID.DD2Betsy:
 				case NPCID.DD2DarkMageT1:
 				case NPCID.DD2DarkMageT3:

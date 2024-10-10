@@ -19,6 +19,9 @@ namespace Spooky.Content.NPCs.EggEvent
 {
     public class Biojetter : ModNPC
     {
+        float addedStretch = 0f;
+		float stretchRecoil = 0f;
+
         bool IsFalling = false;
         bool HasSpawnedEyes = false;
 
@@ -68,8 +71,8 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SetDefaults()
         {
             NPC.lifeMax = 2500;
-            NPC.damage = 50;
-            NPC.defense = 0;
+            NPC.damage = 65;
+            NPC.defense = 12;
             NPC.width = 152;
             NPC.height = 142;
             NPC.npcSlots = 1f;

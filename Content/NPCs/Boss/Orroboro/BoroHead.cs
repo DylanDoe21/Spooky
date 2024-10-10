@@ -714,7 +714,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             
             //master relic and pet
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroRelicItem>()));
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroEye>(), 4));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldBoroDropLootMaster(), ModContent.ItemType<OrroboroRing>(), 4));
 
             //weapon drops
             int[] MainItem = new int[] 

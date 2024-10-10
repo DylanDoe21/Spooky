@@ -1182,12 +1182,12 @@ OldSaddle: {
 		'''
 }
 
-OrroboroEye: {
-	DisplayName: Eye of Orro-Boro
+OrroboroRing: {
+	DisplayName: Orroboro Ring
 	Tooltip:
 		'''
-		Summons a ridable eye serpent
-		'Hope it doesn't try to eat you'
+		Summons an orro-boro ring
+		'Very hypnotic'
 		'''
 }
 
@@ -1643,8 +1643,8 @@ VenomHarpoon: {
 	DisplayName: Venomous Spiderpoon
 	Tooltip:
 		'''
-		Fires out multiple venomous harpoons that can latch onto enemies and pull them towards you
-		The harpoons cannot be aimed vertically
+		Fires out a venomous harpoon that can latch onto enemies and pull them towards you
+		If an enemy is caught and dragged back to you, the spiderpoon will shoot out venom spit
 		'''
 }
 
@@ -2010,7 +2010,7 @@ Biojets: {
 		'''
 		Allows flight and slow fall
 		Hold Down to hover
-		'May create an unpleasent mess'
+		'May create an unpleasant mess'
 		'''
 }
 

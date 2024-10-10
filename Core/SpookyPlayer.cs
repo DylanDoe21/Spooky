@@ -129,6 +129,7 @@ namespace Spooky.Core
         public bool StickyEyePet = false;
         public bool MocoPet = false;
         public bool BigBonePet = false;
+        public bool OrroboroPet = false;
 
         //misc bools
         public bool EatenByGooSlug = false;
@@ -291,6 +292,7 @@ namespace Spooky.Core
             StickyEyePet = false;
             MocoPet = false;
             BigBonePet = false;
+            OrroboroPet = false;
 
             //misc bools
             WhipSpiderAggression = false;

@@ -174,6 +174,7 @@ namespace Spooky.Core
 						if (Main.raining)
 						{
 							pool.Add(ModContent.NPCType<ZomboidRain>(), 3);
+							pool.Add(ModContent.NPCType<ZomboidArmored>(), 0.8f);
 						}
 
 						//bloodmoon enemies

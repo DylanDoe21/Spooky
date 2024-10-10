@@ -302,7 +302,6 @@ RottenGourdFly.DisplayName: Rotten Gourd Fly
 RustedBulletProj.DisplayName: Rusted Bullet
 RustedBulletShrapnel.DisplayName: Rusted Shrapnel
 MoltenCandleChunk.DisplayName: Molten Candle Chunk
-VenomHarpoonProj.DisplayName: Venom Harpoon
 GodGunProj.DisplayName: Holy Fire
 SmilingDog.DisplayName: Smiling Puppy
 DiscoPartySkull.DisplayName: Disco Skull
@@ -372,7 +371,6 @@ LingeringEyeSpawner.DisplayName: Rune Magic
 HomingEye.DisplayName: Magic Eye
 BouncingEye.DisplayName: Bouncing Eye
 EyeOrbEnergy.DisplayName: Eye Energy
-VenomHarpoonSpike.DisplayName: Venom Harpoon Spike
 SneezerProj.DisplayName: Sneezer
 SnotArrowProj.DisplayName: Booger Arrow
 VesicatorBiomass.DisplayName: Biomass
@@ -441,3 +439,7 @@ BanditWizardMinion.DisplayName: Greeny's Spirit
 BanditWizardMinionBall.DisplayName: Magic Blast
 BanditPriestMinionBuffer.DisplayName: Shield Magic
 MapleSeedBooster.DisplayName: Maple Seed Booster
+OrroboroPet.DisplayName: Orroboro Pet
+VenomHarpoonProj.DisplayName: Venomous Spiderpoon
+VenomHarpoonSpike.DisplayName: Venom Harpoon
+VenomHarpoonSpit.DisplayName: Venom Spit

@@ -20,7 +20,6 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.noMelee = true;
 			Item.autoReuse = false;
 			Item.noUseGraphic = true;
-			Item.channel = true;
             Item.width = 110;
             Item.height = 44;
             Item.useTime = 18;
@@ -30,11 +29,10 @@ namespace Spooky.Content.Items.SpiderCave
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.buyPrice(platinum: 1);
             Item.UseSound = SoundID.Zombie45;
-            //Item.shoot = ModContent.ProjectileType<VenomHarpoonProj>();
-			//Item.shootSpeed = 0f;
+            Item.shoot = ModContent.ProjectileType<VenomHarpoonProj>();
+			Item.shootSpeed = 0f;
         }
 
-        /*
         public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[ModContent.ProjectileType<VenomHarpoonProj>()] < 1;
@@ -42,10 +40,9 @@ namespace Spooky.Content.Items.SpiderCave
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<VenomHarpoonProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<VenomHarpoonProj>(), damage, knockback, player.whoAmI);
 
 			return false;
 		}
-        */
     }
 }
