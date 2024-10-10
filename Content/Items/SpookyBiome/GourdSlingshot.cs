@@ -25,8 +25,8 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.channel = true;
 			Item.width = 34;
             Item.height = 40;
-			Item.useTime = 60;
-			Item.useAnimation = 60;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.Blue;

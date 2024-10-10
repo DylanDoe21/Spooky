@@ -37,61 +37,6 @@ namespace Spooky.Content.Generation
             PlaceDungeonChest(ModContent.TileType<SpookyHellChest>());
         }
 
-        private void PlaceOresInMossyStone(GenerationProgress progress, GameConfiguration configuration)
-        {
-            //place clumps of vanilla ores
-            
-            //determine which ores to place based on the opposite of what ores generate
-            ushort OppositeTier1Ore = WorldGen.SavedOreTiers.Copper == TileID.Copper ? TileID.Tin : TileID.Copper;
-            ushort OppositeTier2Ore = WorldGen.SavedOreTiers.Iron == TileID.Iron ? TileID.Lead : TileID.Iron;
-            ushort OppositeTier3Ore = WorldGen.SavedOreTiers.Silver == TileID.Silver ? TileID.Tungsten : TileID.Silver;
-            ushort OppositeTier4Ore = WorldGen.SavedOreTiers.Gold == TileID.Gold ? TileID.Platinum : TileID.Gold;
-
-            for (int copper = 0; copper < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 5E-05); copper++)
-            {
-                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
-
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
-                {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(8, 12), WorldGen.genRand.Next(8, 12), OppositeTier1Ore, false, 0f, 0f, false, true);
-                }
-            }
-
-            for (int iron = 0; iron < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 4E-05); iron++)
-            {
-                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
-
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
-                {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(6, 10), WorldGen.genRand.Next(6, 10), OppositeTier2Ore, false, 0f, 0f, false, true);
-                }
-            }
-
-            for (int silver = 0; silver < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 3E-05); silver++)
-            {
-                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
-
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
-                {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 8), WorldGen.genRand.Next(4, 8), OppositeTier3Ore, false, 0f, 0f, false, true);
-                }
-            }
-
-            for (int gold = 0; gold < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 2E-05); gold++)
-            {
-                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
-
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
-                {
-                    WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(4, 6), OppositeTier4Ore, false, 0f, 0f, false, true);
-                }
-            }
-        }
-
         public static void PlaceDungeonChest(int ChestType)
         {   
             bool placedChest = false;
@@ -162,21 +107,13 @@ namespace Spooky.Content.Generation
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
-            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Spreading Grass"));
-            if (GenIndex1 == -1) 
-            {
-                return;
-            }
-
-            tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Biome Ores", PlaceOresInMossyStone));
-
-            int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
-			if (GenIndex2 == -1)
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
+			if (GenIndex1 == -1)
 			{
 				return;
 			}
 
-            tasks.Insert(GenIndex2 + 1, new PassLegacy("Spooky Biome Dungeon Chests", PlaceSpookyChest));
+            tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Biome Dungeon Chests", PlaceSpookyChest));
         }
 
         //place items in chests

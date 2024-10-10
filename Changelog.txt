@@ -234,6 +234,7 @@ Miscellaneous:
 -Carving spooky forest gourds now requires you to actually hold the carving kit or candles in your hotbar to carve/light them up
 -Moco's weapon drops can no longer be shimmered into each other due to them being craftable now
 -Defeating any spooky mod boss for the first time in a world will now guarantee a raveyard at the beginning of the next in-game night
+-Little eye now automatically gives you the eye valley pylon when woken up
 
 
 Removals:

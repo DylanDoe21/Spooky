@@ -85,7 +85,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3 && Projectile.frame < 2)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime && Projectile.frame < 2)
                 {
                     Projectile.frame++;
 
