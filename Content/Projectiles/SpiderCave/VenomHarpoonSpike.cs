@@ -20,8 +20,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
         public override void SetDefaults() 
         {
-			Projectile.width = 14;
-			Projectile.height = 14;
+			Projectile.width = 24;
+			Projectile.height = 24;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;

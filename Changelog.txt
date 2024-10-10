@@ -25,7 +25,7 @@ New Nose Dungeon:
 -At the beginning of the dungeon, one side is blocked by a barrier that you cannot get to until you've cleared all of the other rooms
 -At the end of the dungeon, you can use the fire exit to back track to the beginning without having to go back through the spike-filled hallways
 -While the actual dungeon bricks are indestructable, you can craft each different colored brick at the creepy cauldron with one gray brick, and you can craft all the nose cultist furniture with the gray bricks
--Added a post-moco item you can use to reset the dungeon to rematch the cultists, or if you're more interested in worldbuilding you can disguise yourself as a cult memebr to talk with them to gain some insights
+-Added a post-moco item you can use to reset the dungeon to rematch the cultists, or if you're more interested in worldbuilding you can disguise yourself as a cult member to talk with them to gain some insights
 
 
 New Moco Rework:

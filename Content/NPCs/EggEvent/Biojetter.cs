@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -24,6 +25,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
         bool IsFalling = false;
         bool HasSpawnedEyes = false;
+
+        private static Asset<Texture2D> NPCTexture;
 
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/EggEvent/BiojetterFly", SoundType.Sound) { Volume = 0.35f };
         public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/BiojetterScream", SoundType.Sound) { PitchVariance = 0.6f };
@@ -73,8 +76,8 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.lifeMax = 2500;
             NPC.damage = 65;
             NPC.defense = 12;
-            NPC.width = 152;
-            NPC.height = 142;
+            NPC.width = 82;
+            NPC.height = 112;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 80, 0);
@@ -100,6 +103,37 @@ namespace Spooky.Content.NPCs.EggEvent
 			});
 		}
 
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			float stretch = 0f;
+
+			stretch = Math.Abs(stretch) - addedStretch;
+			
+			//limit how much it can stretch
+			if (stretch > 0.5f)
+			{
+				stretch = 0.5f;
+			}
+
+			//limit how much it can squish
+			if (stretch < -0.5f)
+			{
+				stretch = -0.5f;
+			}
+
+			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+
+			//draw aura
+			Vector2 drawOrigin = new(NPC.width * 0.5f, NPC.height * 0.5f);
+
+			//draw npc manually for stretching
+            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, SpriteEffects.None, 0f);
+
+			return false;
+		}
+
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
@@ -121,17 +155,29 @@ namespace Spooky.Content.NPCs.EggEvent
 
             NPC.rotation = NPC.velocity.X * 0.02f;
 
+            //stretch stuff
+            if (stretchRecoil > 0)
+			{
+				stretchRecoil -= 0.1f;
+			}
+			else
+			{
+				stretchRecoil = 0;
+			}
+
+			addedStretch = -stretchRecoil;
+
             if (!HasSpawnedEyes)
             {
                 for (int numEyes = 0; numEyes < 5; numEyes++)
                 {
                     Vector2 PositionGoTo = Vector2.Zero;
 
-                    if (numEyes == 0) PositionGoTo = new Vector2(Main.rand.Next(-100, -75), Main.rand.Next(0, 30));
+                    if (numEyes == 0) PositionGoTo = new Vector2(Main.rand.Next(-100, -75), Main.rand.Next(-10, 20));
                     if (numEyes == 1) PositionGoTo = new Vector2(Main.rand.Next(-80, -65), Main.rand.Next(-60, -50));
                     if (numEyes == 2) PositionGoTo = new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-100, -75));
                     if (numEyes == 3) PositionGoTo = new Vector2(Main.rand.Next(65, 80), Main.rand.Next(-60, -50));
-                    if (numEyes == 4) PositionGoTo = new Vector2(Main.rand.Next(75, 100), Main.rand.Next(0, 30));
+                    if (numEyes == 4) PositionGoTo = new Vector2(Main.rand.Next(75, 100), Main.rand.Next(-10, 20));
 
                     int Eye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (int)PositionGoTo.X, (int)NPC.Center.Y + (int)PositionGoTo.Y, ModContent.NPCType<BiojetterEye>(), ai0: PositionGoTo.X, ai1: PositionGoTo.Y, ai2: NPC.whoAmI);
 
@@ -178,7 +224,7 @@ namespace Spooky.Content.NPCs.EggEvent
                             Vector2 rotationOrigin = new Vector2(-direction, 0f);
                             float overrideRotation = rotationOrigin.ToRotation();
                             Vector2 dustVelo = new Vector2(0, 0).RotatedBy(overrideRotation);
-                            Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 5) - 5, 57).RotatedBy(NPC.rotation);
+                            Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 3) - 5, 45).RotatedBy(NPC.rotation);
                             int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.GreenBlood, 0, 0, 0, Color.White, 2.5f);
                             Dust dust = Main.dust[index];
                             dust.noGravity = true;
@@ -251,7 +297,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         Vector2 rotationOrigin = new Vector2(-direction, 0f);
                         float overrideRotation = rotationOrigin.ToRotation();
                         Vector2 dustVelo = new Vector2(0, 0).RotatedBy(overrideRotation);
-                        Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 5) - 5, 57).RotatedBy(NPC.rotation);
+                        Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 3) - 5, 45).RotatedBy(NPC.rotation);
                         int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.GreenBlood, 0, 0, 0, Color.White, 2.5f);
                         Dust dust = Main.dust[index];
                         dust.noGravity = true;
@@ -279,7 +325,9 @@ namespace Spooky.Content.NPCs.EggEvent
                     //do squishing animation before spitting
                     if (NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
                     {
-                        //SoundEngine.PlaySound(SquishSound, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.NPCDeath13 with { Pitch = -1.5f }, NPC.Center);
+
+                        stretchRecoil = 0.5f;
 
                         NPC.velocity.Y = -4;
                     }
