@@ -118,7 +118,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 					if (NPC.localAI[0] >= 420)
 					{
-						NPC.velocity.X *= 0.75f;
+						NPC.velocity.X *= 0.85f;
 					}
 
 					if (NPC.localAI[0] == 480)
@@ -173,7 +173,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 					{
 						if (Main.netMode != NetmodeID.Server)
 						{
-							Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidWindGore" + numGores).Type);
+							Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidArmoredGore" + numGores).Type);
 						}
 					}
 				}
