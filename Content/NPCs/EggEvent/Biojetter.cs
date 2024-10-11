@@ -175,7 +175,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                     if (numEyes == 0) PositionGoTo = new Vector2(Main.rand.Next(-100, -75), Main.rand.Next(-10, 20));
                     if (numEyes == 1) PositionGoTo = new Vector2(Main.rand.Next(-80, -65), Main.rand.Next(-60, -50));
-                    if (numEyes == 2) PositionGoTo = new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-100, -75));
+                    if (numEyes == 2) PositionGoTo = new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-120, -100));
                     if (numEyes == 3) PositionGoTo = new Vector2(Main.rand.Next(65, 80), Main.rand.Next(-60, -50));
                     if (numEyes == 4) PositionGoTo = new Vector2(Main.rand.Next(75, 100), Main.rand.Next(-10, 20));
 

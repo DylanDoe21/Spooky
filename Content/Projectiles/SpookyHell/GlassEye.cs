@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +10,6 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
-using Terraria.Audio;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -181,7 +181,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			{
 				NPC NPC = Main.npc[i];
 
-				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.boss && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.IsTechnicallyBoss() && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
 				{
 					AttackingAI(NPC);
 					return;
@@ -194,7 +194,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				NPC NPC = Main.npc[i];
 
 				//if no boss is found, target other enemies normally
-				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
 				{
 					AttackingAI(NPC);
 					return;

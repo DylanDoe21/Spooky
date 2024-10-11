@@ -96,22 +96,29 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Projectile.localAI[0]++;
 
+            //prioritize bosses over normal enemies
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+                NPC NPC = Main.npc[i];
+
+                //prioritize bosses over normal enemies
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.IsTechnicallyBoss() && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+                {
+                    AttackingAI(NPC, owner);
+                    return;
+                }
+            }
+
             //target an enemy
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC NPC = Main.npc[i];
 
-                //prioritize bosses over normal enemies
-                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.boss && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
-                {
-                    AttackingAI(NPC, owner);
-                    break;
-                }
                 //if no boss is found, target other enemies normally
-                else if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
                 {
                     AttackingAI(NPC, owner);
-                    break;
+                    return;
                 }
                 else
                 {

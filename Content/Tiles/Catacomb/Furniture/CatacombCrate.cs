@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Tiles.Catacomb.Furniture
 {
@@ -101,6 +102,8 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 				ItemDropRule.Common(ItemID.MasterBait, 1, 2, 7),
 			};
 			itemLoot.Add(new OneFromRulesRule(2, highendBait));
+
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CemeteryStoneItem>(), 2, 35, 75));
 
             //coins
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldCoin, 4, 1, 3));

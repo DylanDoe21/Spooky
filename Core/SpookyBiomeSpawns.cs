@@ -66,7 +66,8 @@ namespace Spooky.Core
 			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
 			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) ||
             NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) ||
+			NPC.AnyNPCs(ModContent.NPCType<BanditBook>()) || NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()) || NPC.AnyNPCs(ModContent.NPCType<FrankenGoblin>()) || NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
             {
 				spawnRate = 0;
 				maxSpawns = 0;
