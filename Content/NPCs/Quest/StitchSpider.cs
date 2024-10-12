@@ -614,11 +614,11 @@ namespace Spooky.Content.NPCs.Quest
 			{
 				LegSegmentTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/StitchSpiderLegSegment");
 				LegClawTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/StitchSpiderLegSegmentClaw");
-				
+
 				//first leg segment
 				Color LightColor = Lighting.GetColor((int)((start.X + halfway1.X) / 16f), (int)((start.Y + halfway1.Y) / 16f));
 				spriteBatch.Draw(LegSegmentTexture.Value, start - Main.screenPosition, null, LightColor, angleleg1, new Vector2(4, LegSegmentTexture.Height() / 2f), 1f, angleleg1.ToRotationVector2().X > 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
-				
+
 				//second leg segment
 				LightColor = Lighting.GetColor((int)(halfway2.X / 16f), (int)(halfway2.Y / 16f));
 				spriteBatch.Draw(LegClawTexture.Value, leg2 - Main.screenPosition, null, LightColor, angleleg2, new Vector2(4, LegClawTexture.Height() / 2f), 1f, angleleg2.ToRotationVector2().X > 0 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
@@ -627,10 +627,13 @@ namespace Spooky.Content.NPCs.Quest
 			{
 				NPC Parent = Main.npc[whoAmI];
 
-				Gore.NewGore(Parent.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore1").Type);
-				Gore.NewGore(Parent.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore2").Type);
-				Gore.NewGore(Parent.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore3").Type);
-				Gore.NewGore(Parent.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore4").Type);
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(Parent.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore1").Type);
+					Gore.NewGore(Parent.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore2").Type);
+					Gore.NewGore(Parent.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore3").Type);
+					Gore.NewGore(Parent.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore4").Type);
+				}
 			}
 		}
 	}
