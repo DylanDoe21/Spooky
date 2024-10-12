@@ -11,7 +11,7 @@ Currently the mod has:
 
 Some Warnings:
 -This mod is very worldgen heavy, so playing this mod with other worldgen heavy mods may cause issues or other conflictions! Don't let this discourage you from playing with other mods how you like, but just be aware of potential issues!
--Spooky mod is not currently compatible with any of terraria's secret world seeds at the moment. It may work with some seeds, but issues such as biomes generating incorrectly, world generation freezing, and crashing may happen!
+-Spooky mod is not currently compatible with any of terraria's secret world seeds. It may work with some seeds, but issues such as biomes generating incorrectly, world generation freezing, and crashing may happen!
 -While spooky mod is mostly multiplayer compatible, there may be still be some smaller issues. Multiplayer issues will continue getting fixed as the mod is worked on, and it would be greatly appreciated if any multiplayer issues you encounter are reported on either this mod's steam page or our discord server!
 
 

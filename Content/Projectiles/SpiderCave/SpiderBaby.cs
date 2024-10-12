@@ -15,6 +15,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
         bool playerFlying = false;
         bool isAttacking = false;
 
+        NPC CurrentTarget = null;
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 5;
@@ -52,7 +54,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
         {
             Player player = Main.player[Projectile.owner];
 
-            fallThrough = Projectile.position.Y < player.Center.Y - 20 && !isAttacking;
+            fallThrough = CurrentTarget == null ? (Projectile.position.Y < player.Center.Y - (Projectile.height) && !isAttacking) : (Projectile.position.Y < CurrentTarget.Center.Y - (Projectile.height));
 
             return true;
         }
@@ -87,6 +89,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 				if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type])
                 {
 					AttackingAI(Target);
+                    CurrentTarget = Target;
 
 					break;
 				}
@@ -99,6 +102,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 450f)
                 {
 					AttackingAI(NPC);
+                    CurrentTarget = NPC;
 
 					break;
 				}
@@ -111,6 +115,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             if (!isAttacking)
             {
                 IdleAI(player);
+                CurrentTarget = null;
             }
 
             for (int num = 0; num < Main.projectile.Length; num++)
@@ -152,7 +157,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Vector2 vector48 = target.Center - Projectile.Center;
             float targetDistance = vector48.Length();
 
-            if (Projectile.velocity.Y == 0 && (HoleBelow() || (targetDistance <= 50f && Projectile.position.X == Projectile.oldPosition.X)))
+            if (Projectile.velocity.Y == 0 && (HoleBelow() || (targetDistance > 50f && Projectile.position.X == Projectile.oldPosition.X)))
             {
                 Projectile.velocity.Y = -9f;
             }

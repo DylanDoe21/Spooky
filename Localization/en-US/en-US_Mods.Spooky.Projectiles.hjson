@@ -77,7 +77,6 @@ SpookySpiritPet.DisplayName: Mini Spirit
 CandyBagProj.DisplayName: Candy Bag
 Candy.DisplayName: Candy
 ElGourdoProj.DisplayName: El Gourdo
-EntityMinion.DisplayName: Entity
 LeafProjGreen.DisplayName: Leaf
 LeafProjOrange.DisplayName: Leaf
 LeafProjRed.DisplayName: Leaf
@@ -444,3 +443,6 @@ VenomHarpoonProj.DisplayName: Venomous Spiderpoon
 VenomHarpoonSpike.DisplayName: Venom Harpoon
 VenomHarpoonSpit.DisplayName: Venom Spit
 ZomboidArmoredLightning.DisplayName: Lightning
+EntityMinion1.DisplayName: Mini Entity
+EntityMinion2.DisplayName: Mini Entity
+EntityMinion3.DisplayName: Mini Entity

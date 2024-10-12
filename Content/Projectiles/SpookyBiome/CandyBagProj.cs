@@ -62,7 +62,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			}
 
 			//drop candy
-			if (player.GetModPlayer<SpookyPlayer>().CandyBagJustHit)
+			if (player.GetModPlayer<SpookyPlayer>().CandyBagJustHit && player.GetModPlayer<SpookyPlayer>().CandyBagCooldown == 0)
 			{
 				SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
 
@@ -71,6 +71,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				Main.projectile[Candy].frame = Main.rand.Next(0, 12);
 
 				player.GetModPlayer<SpookyPlayer>().CandyBagJustHit = false;
+				player.GetModPlayer<SpookyPlayer>().CandyBagCooldown = 60;
 			}
 
 			//movement

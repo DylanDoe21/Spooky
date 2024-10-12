@@ -16,6 +16,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         bool playerFlying = false;
         bool isAttacking = false;
 
+        NPC CurrentTarget = null;
+
         public override void SetStaticDefaults()
         {
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
@@ -51,7 +53,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             Player player = Main.player[Projectile.owner];
 
-            fallThrough = Projectile.position.Y < player.Center.Y - 20 && !isAttacking;
+            fallThrough = CurrentTarget == null ? (Projectile.position.Y < player.Center.Y - (Projectile.height) && !isAttacking) : (Projectile.position.Y < CurrentTarget.Center.Y - (Projectile.height));
 
             return true;
         }
@@ -86,6 +88,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 500f)
                 {
                     AttackingAI(Target);
+                    CurrentTarget = Target;
 
                     break;
                 }
@@ -98,6 +101,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 500f)
                 {
                     AttackingAI(NPC);
+                    CurrentTarget = NPC;
 
                     break;
                 }
@@ -110,6 +114,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             if (!isAttacking)
             {
                 IdleAI(player);
+                CurrentTarget = null;
             }
 
             //prevent Projectiles clumping together

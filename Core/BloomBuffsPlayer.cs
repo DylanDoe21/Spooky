@@ -71,7 +71,7 @@ namespace Spooky.Core
 		public int DragonfruitStacks = 0;
 
         //UI default position
-        public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
+        public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 25);
 
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
         public bool CanConsumeFruit(string BuffName)
@@ -282,6 +282,7 @@ namespace Spooky.Core
 			tag["Duration2"] = Duration2;
 			tag["Duration3"] = Duration3;
 			tag["Duration4"] = Duration4;
+            tag["DragonfruitStacks"] = DragonfruitStacks;
 
 			if (UnlockedSlot3) tag["UnlockedSlot3"] = true;
             if (UnlockedSlot4) tag["UnlockedSlot4"] = true;
@@ -299,6 +300,7 @@ namespace Spooky.Core
 			Duration2 = tag.Get<int>("Duration2");
 			Duration3 = tag.Get<int>("Duration3");
 			Duration4 = tag.Get<int>("Duration4");
+            DragonfruitStacks = tag.Get<int>("DragonfruitStacks");
 
 			UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");

@@ -15,7 +15,9 @@ namespace Spooky.Content.Buffs.Minion
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<EntityMinion>()] > 0) 
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<EntityMinion1>()] > 0 ||
+			player.ownedProjectileCounts[ModContent.ProjectileType<EntityMinion2>()] > 0 || 
+			player.ownedProjectileCounts[ModContent.ProjectileType<EntityMinion3>()] > 0) 
 			{
 				player.GetModPlayer<SpookyPlayer>().EntityMinion = true;
 			}

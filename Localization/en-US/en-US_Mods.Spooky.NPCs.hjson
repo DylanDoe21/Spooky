@@ -20,7 +20,7 @@ Moco: {
 	DisplayName: Moco
 
 	BossChecklistIntegration: {
-		SpawnInfo: Right click the nose statue in the valley of eyes while you have a [i:Spooky/CottonSwab] in your inventory. The cotton swab is given to you after completing 3 of little eye's quests, or can be crafted.
+		SpawnInfo: Right click the nose shrine in the valley of eyes while you have a [i:Spooky/CottonSwab] in your inventory.
 		DespawnMessage: Moco has sneezed on all players
 	}
 }
@@ -39,7 +39,7 @@ OrroHead: {
 
 	BossChecklistIntegration: {
 		EntryName: Orro & Boro
-		SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event once. The concoction is given to you after completing all of little eye's quests, or can be crafted.
+		SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event.
 		DespawnMessage: Orro & Boro have protected their egg
 	}
 }

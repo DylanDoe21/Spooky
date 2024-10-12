@@ -12,9 +12,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class HoppingCandyBasket : ModNPC
 	{
+        bool HasJumped = false;
+
 		public override void SetDefaults()
 		{
-			NPC.CloneDefaults(NPCID.BoundTownSlimeOld);
             NPC.lifeMax = 60;
             NPC.damage = 0;
             NPC.defense = 0;
@@ -25,10 +26,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.value = Item.buyPrice(0, 0, 2, 0);
             NPC.noGravity = false;
             NPC.noTileCollide = false;
-            NPC.immortal = false;
-            NPC.dontTakeDamage = false;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.aiStyle = 66;
 			SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyBiome>().Type, ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
 		}
 
@@ -45,7 +45,57 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+
+            JumpToTarget(50, 50, 0);
 		}
+
+        public void JumpToTarget(int JumpHeight, int TimeBeforeNextJump, int DelayBeforeNextJump)
+        {
+            NPC.ai[0]++;
+
+            //set where the it should be jumping towards
+            Vector2 JumpTo = new Vector2(NPC.Center.X + Main.rand.Next(-40, 40), NPC.Center.Y - JumpHeight);
+
+            //set velocity and speed
+            Vector2 velocity = JumpTo - NPC.Center;
+            velocity.Normalize();
+
+            int JumpSpeed = Main.rand.Next(13, 18);
+
+            float speed = MathHelper.Clamp(velocity.Length() / 36, 10, JumpSpeed);
+
+            NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
+
+            //actual jumping
+            if (NPC.ai[0] >= TimeBeforeNextJump)
+            {
+                NPC.ai[1]++;
+
+                if (NPC.velocity == Vector2.Zero && !HasJumped)
+                {
+                    if (NPC.ai[1] == 10)
+                    {
+                        velocity.Y -= 0.25f;
+                        
+                        HasJumped = true;
+                    }
+                }
+                
+                if (NPC.ai[1] < 15 && HasJumped)
+                {
+                    NPC.velocity = velocity * speed;
+                }
+            }
+
+            //loop ai
+            if (NPC.ai[0] >= TimeBeforeNextJump + 100)
+            {
+                HasJumped = false;
+
+                NPC.ai[0] = DelayBeforeNextJump;
+                NPC.ai[1] = 0;
+            }
+        }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {

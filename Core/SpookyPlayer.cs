@@ -164,6 +164,7 @@ namespace Spooky.Core
         public int GooSlugEatCooldown = 0;
 		public int RootHealCooldown = 0;
 		public int MagicEyeOrbHits = 0;
+        public int CandyBagCooldown = 0;
 
 		//dashing stuff
 		public const int dashDown = 0;
@@ -552,8 +553,8 @@ namespace Spooky.Core
 			}
 
 			//make candy bag shoot out homing candy when an enemy is hit with a summon item or whip
-			if (CandyBag && (hit.DamageType == DamageClass.Summon || hit.DamageType == DamageClass.SummonMeleeSpeed) && Main.rand.NextBool())
-			{
+			if (CandyBag && (hit.DamageType == DamageClass.Summon || hit.DamageType == DamageClass.SummonMeleeSpeed))
+			{ 
 				CandyBagJustHit = true;
 			}
         }
@@ -1051,6 +1052,10 @@ namespace Spooky.Core
             if (GooSlugEatCooldown > 0)
             {
                 GooSlugEatCooldown--;
+            }
+            if (CandyBagCooldown > 0)
+            {
+                CandyBagCooldown--;
             }
 
 			//set candy bag hit to false if you dont have the candy bag

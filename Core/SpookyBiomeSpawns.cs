@@ -312,25 +312,13 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<PartySkeleton7>(), 5);
 					pool.Add(ModContent.NPCType<PartySkeleton8>(), 5);
 					pool.Add(ModContent.NPCType<SkeletonBouncer>(), 4);
+					pool.Add(ModContent.NPCType<Musicman>(), 6);
 					pool.Add(ModContent.NPCType<SpookyDance>(), 3);
 
 					//do not spawn suspicious skeletons if one already exists
 					if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
 					{
 						pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 5);
-					}
-
-					//do not spawn musicman if one exists, and if there isnt enough flat ground
-					if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].HasTile &&
-					Main.tile[spawnInfo.SpawnTileX + 1, spawnInfo.SpawnTileY].HasTile &&
-					Main.tile[spawnInfo.SpawnTileX + 2, spawnInfo.SpawnTileY].HasTile &&
-					Main.tile[spawnInfo.SpawnTileX + 3, spawnInfo.SpawnTileY].HasTile &&
-					Main.tile[spawnInfo.SpawnTileX + 4, spawnInfo.SpawnTileY].HasTile)
-					{
-						if (!NPC.AnyNPCs(ModContent.NPCType<Musicman>()))
-						{
-							pool.Add(ModContent.NPCType<Musicman>(), 6);
-						}
 					}
 				}
 			}

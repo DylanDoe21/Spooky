@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.BossSummon
 
         public override void SetDefaults()
         {
-            Item.damage = 10;
+            Item.damage = 12;
 			Item.mana = 10;                        
             Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;  
@@ -34,7 +34,8 @@ namespace Spooky.Content.Items.BossSummon
             Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = CowBellSound;
             Item.buffType = ModContent.BuffType<EntityMinionBuff>();
-			Item.shoot = ModContent.ProjectileType<EntityMinion>();
+			Item.shoot = ModContent.ProjectileType<EntityMinion1>();
+            Item.shootSpeed = 6f;
         }
 
         public override bool CanUseItem(Player player)
@@ -66,18 +67,15 @@ namespace Spooky.Content.Items.BossSummon
             return true;
         }
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
-		{
-			position = Main.MouseWorld;
-		}
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
             if (Flags.encounteredMan)
             {
                 player.AddBuff(Item.buffType, 2);
 
-                var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
+                int[] EntityMinions = { ModContent.ProjectileType<EntityMinion1>(), ModContent.ProjectileType<EntityMinion2>(), ModContent.ProjectileType<EntityMinion3>() };
+
+                var projectile = Projectile.NewProjectileDirect(source, position, velocity, Main.rand.Next(EntityMinions), damage, knockback, Main.myPlayer);
                 projectile.originalDamage = Item.damage;
             }
 

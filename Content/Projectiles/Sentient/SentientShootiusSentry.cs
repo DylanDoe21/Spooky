@@ -128,7 +128,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 }
 
 				NPC NPC = Main.npc[i];
-                if (NPC.active && Target.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 500f)
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 500f)
                 {
 					Shoot(NPC);
 
