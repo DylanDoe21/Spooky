@@ -57,7 +57,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
-            NPC.aiStyle = 7;
+            NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
@@ -314,11 +314,6 @@ namespace Spooky.Content.NPCs.Friendly
             }
 
             return Main.rand.Next(Dialogue);
-		}
-
-		public override bool PreAI()
-		{
-			return false;
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

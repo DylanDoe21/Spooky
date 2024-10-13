@@ -34,6 +34,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.UseSound = SoundID.Item103;     
 			Item.buffType = ModContent.BuffType<SkullWispBuff>();
 			Item.shoot = ModContent.ProjectileType<SkullWisp>();
+			Item.shootSpeed = 5f;
 		}
 
 		public override bool? UseItem(Player player)
@@ -45,11 +46,6 @@ namespace Spooky.Content.Items.SpookyBiome
 			
             return base.UseItem(player);
         }
-
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) 
-		{
-			position = Main.MouseWorld;
-		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

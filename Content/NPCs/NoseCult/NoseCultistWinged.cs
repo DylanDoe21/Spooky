@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultistWinged : ModNPC
 	{
-        Vector2 ParentCenter = Vector2.Zero;
         Vector2 SavePosition;
 
         public override void SetStaticDefaults()
@@ -34,14 +33,12 @@ namespace Spooky.Content.NPCs.NoseCult
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			//vector2
-			writer.WriteVector2(ParentCenter);
 			writer.WriteVector2(SavePosition);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			//vector2
-			ParentCenter = reader.ReadVector2();
 			SavePosition = reader.ReadVector2();
 		}
 
@@ -108,12 +105,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            if (ParentCenter == Vector2.Zero)
-            {
-                NPC Parent = Main.npc[(int)NPC.ai[0]];
-
-                ParentCenter = Parent.Center;
-            }
+            NPC Parent = Main.npc[(int)NPC.ai[0]];
             
             NPC.spriteDirection = NPC.direction;
 
@@ -121,7 +113,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.ai[1] == 5)
             {
-                SavePosition = new Vector2(ParentCenter.X + Main.rand.Next(-300, 300), ParentCenter.Y - Main.rand.Next(10, 150));
+                SavePosition = new Vector2(Parent.Center.X + Main.rand.Next(-300, 300), Parent.Center.Y - Main.rand.Next(10, 150));
 
                 NPC.netUpdate = true;
             }

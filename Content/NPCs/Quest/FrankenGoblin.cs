@@ -245,7 +245,7 @@ namespace Spooky.Content.NPCs.Quest
 
 					break;
 				}
-				//move at the player, swipe hands if they get too close
+				//walk at the player
 				case 1:
 				{
 					NPC.localAI[0]++;
@@ -269,7 +269,7 @@ namespace Spooky.Content.NPCs.Quest
 				//stand still, spin hands around and make them follow the player
 				case 2:
 				{
-					if (NPC.velocity.Y == 0 || NPC.localAI[0] >= 80)
+					if (NPC.velocity.Y == 0 || NPC.localAI[0] >= 120)
 					{
 						NPC.localAI[0]++;
 					}
@@ -288,12 +288,19 @@ namespace Spooky.Content.NPCs.Quest
 						AIType = NPCID.GoblinScout;
 					}
 
-					if (NPC.localAI[0] == 80 && NPC.velocity.Y == 0)
+					if (NPC.localAI[0] == 60)
+					{
+						SoundEngine.PlaySound(SoundID.DeerclopsScream with { Pitch = -1.2f, Volume = 0.85f }, NPC.Center);
+
+						SpookyPlayer.ScreenShakeAmount = 15;
+					}
+
+					if (NPC.localAI[0] == 120 && NPC.velocity.Y == 0)
 					{
 						SoundEngine.PlaySound(StretchSound, NPC.Center);
 					}
 
-					if (NPC.localAI[0] >= 600)
+					if (NPC.localAI[0] >= 640)
 					{
 						NPC.localAI[0] = 0;
 						NPC.localAI[3]++;

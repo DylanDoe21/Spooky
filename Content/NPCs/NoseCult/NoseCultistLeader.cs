@@ -39,6 +39,7 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 9;
+            NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
@@ -434,7 +435,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.localAI[0] == 70)
                     {
-                        NPC.velocity *= 0f;
+                        NPC.velocity = Vector2.Zero;
 
                         SaveDirection = NPC.direction;
                     }
@@ -474,7 +475,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                             SpookyPlayer.ScreenShakeAmount = 8;
 
-                            NPC.velocity *= 0;
+                            NPC.velocity = Vector2.Zero;
 
                             NPC.noGravity = false;
 

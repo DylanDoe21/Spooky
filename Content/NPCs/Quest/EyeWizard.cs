@@ -268,12 +268,17 @@ namespace Spooky.Content.NPCs.Quest
 					NPC.localAI[0]++;
 
 					//go to the player
-					Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 250);
+					if (player.Distance(NPC.Center) > 220f)
+					{
+						Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
+						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+					}
+					else
+					{
+						NPC.velocity *= 0.95f;
+					}
 
-					float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 15);
-					NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-
-					if (NPC.localAI[0] >= 120)
+					if (NPC.localAI[0] >= 180)
 					{
 						NPC.localAI[0] = 0;
 						NPC.localAI[1] = 0;
@@ -293,7 +298,7 @@ namespace Spooky.Content.NPCs.Quest
 					//go to the player
 					if (NPC.localAI[0] < 70)
 					{
-						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 250);
+						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
 
 						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 15);
 						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -366,10 +371,13 @@ namespace Spooky.Content.NPCs.Quest
 				{
 					NPC.localAI[0]++;
 
-					Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 250);
+					if (NPC.localAI[0] < 420)
+					{
+						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
 
-					float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 10);
-					NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 10);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+					}
 
 					if (NPC.localAI[0] >= 180)
 					{
@@ -416,6 +424,21 @@ namespace Spooky.Content.NPCs.Quest
 						NPC.frame.Y = 0;
 					}
 
+					//float towards player
+					if (NPC.localAI[0] >= 420)
+					{
+						//go to the player
+						if (player.Distance(NPC.Center) > 220f)
+						{
+							Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
+							NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+						}
+						else
+						{
+							NPC.velocity *= 0.95f;
+						}
+					}
+
 					if (NPC.localAI[0] >= 630)
 					{
 						CurrentFrameX = 0;
@@ -438,7 +461,7 @@ namespace Spooky.Content.NPCs.Quest
 					//go to the player
 					if (NPC.localAI[0] < 300)
 					{
-						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 300);
+						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
 
 						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 8);
 						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -478,10 +501,25 @@ namespace Spooky.Content.NPCs.Quest
 						NPC.frame.Y = 0;
 					}
 
+					//float towards player
+					if (NPC.localAI[0] >= 360)
+					{
+						//go to the player
+						if (player.Distance(NPC.Center) > 220f)
+						{
+							Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
+							NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+						}
+						else
+						{
+							NPC.velocity *= 0.95f;
+						}
+					}
+
 					if (NPC.localAI[0] >= 600)
 					{
 						NPC.localAI[0] = 0;
-						NPC.ai[0] = 1; //NPC.life < (NPC.lifeMax / 2) ? 5 : 1;
+						NPC.ai[0] = 1;
 
 						NPC.netUpdate = true;
 					}

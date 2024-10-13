@@ -1,0 +1,9 @@
+-Flies spawned by the charm of the flies no longer splash in water
+-Spooky forest gourds will now no longer grow nearby placed saplings
+-Bigger eye now slowly floats towards the player inbetween attacks to make short range items more viable against him
+-Frank the goblin now stays still and roars before using his stretchy hand attack to telegraph it better
+-Fixed stitches not dropping his bounty quest item when killed in multiplayer
+-Fixed spooky mod grounded minions sometimes not jumping over blocks to get to their targets correctly
+-Fixed issue where multiple musicman could spawn during the raveyard event
+-Zomboid warlock skull and gore staff minions will now teleport to you when you get too far away from them
+-Zomboid warlock skull no longer spawns its minion at your cursor position

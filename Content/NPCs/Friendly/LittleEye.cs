@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
-            NPC.aiStyle = 7;
+            NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
 		}
 
@@ -348,14 +348,12 @@ namespace Spooky.Content.NPCs.Friendly
 			return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default" + Main.rand.Next(1, 9));
 		}
 
-		public override bool PreAI()
+		public override void AI()
 		{
 			NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 			
 			NPC.spriteDirection = NPC.direction;
-
-			return false;
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

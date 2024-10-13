@@ -312,13 +312,17 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<PartySkeleton7>(), 5);
 					pool.Add(ModContent.NPCType<PartySkeleton8>(), 5);
 					pool.Add(ModContent.NPCType<SkeletonBouncer>(), 4);
-					pool.Add(ModContent.NPCType<Musicman>(), 6);
 					pool.Add(ModContent.NPCType<SpookyDance>(), 3);
 
 					//do not spawn suspicious skeletons if one already exists
 					if (!NPC.AnyNPCs(ModContent.NPCType<SuspiciousSkeleton>()))
 					{
 						pool.Add(ModContent.NPCType<SuspiciousSkeleton>(), 5);
+					}
+
+					if (!NPC.AnyNPCs(ModContent.NPCType<Musicman>()))
+					{
+						pool.Add(ModContent.NPCType<Musicman>(), 6);
 					}
 				}
 			}

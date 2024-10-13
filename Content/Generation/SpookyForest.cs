@@ -614,7 +614,8 @@ namespace Spooky.Content.Generation
         {
             ushort[] Gourds = new ushort[] { (ushort)ModContent.TileType<GourdGreen>(), (ushort)ModContent.TileType<GourdLime>(), 
             (ushort)ModContent.TileType<GourdLimeOrange>(), (ushort)ModContent.TileType<GourdOrange>(), (ushort)ModContent.TileType<GourdRed>(), 
-            (ushort)ModContent.TileType<GourdWhite>(), (ushort)ModContent.TileType<GourdYellow>(), (ushort)ModContent.TileType<GourdYellowGreen>() };
+            (ushort)ModContent.TileType<GourdWhite>(), (ushort)ModContent.TileType<GourdYellow>(), (ushort)ModContent.TileType<GourdYellowGreen>(),
+            (ushort)ModContent.TileType<SpookySapling>(), (ushort)ModContent.TileType<SpookySaplingGreen>() };
 
             for (int i = X - 12; i < X + 12; i++)
             {

@@ -150,6 +150,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				Projectile.timeLeft = 2;
 			}
 
+			//go to the player if they are too fars
+			if (Projectile.Distance(player.Center) > 1200f)
+			{
+				Projectile.position.X = player.Center.X - (float)(Projectile.width / 2);
+				Projectile.position.Y = player.Center.Y - (float)(Projectile.height / 2);
+				Projectile.netUpdate = true;
+			}
+
 			//prevent projectiles clumping together
 			for (int num = 0; num < Main.projectile.Length; num++)
 			{

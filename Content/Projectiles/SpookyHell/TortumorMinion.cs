@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 
 using Spooky.Core;
 
@@ -22,6 +23,26 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
+
+		public override void SendExtraAI(BinaryWriter writer) 
+		{
+			//ints
+			writer.Write(MoveSpeedX);
+			writer.Write(MoveSpeedY);
+
+			//bools
+			writer.Write(isAttacking);
+		}
+        
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{	
+			//ints
+			MoveSpeedX = reader.ReadInt32();
+			MoveSpeedY = reader.ReadInt32();
+
+			//bools
+			isAttacking = reader.ReadBoolean();
+		}
         
         public override void SetDefaults()
         {
@@ -95,6 +116,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 IdleAI(player);
             }
+
+			//go to the player if they are too fars
+			if (Projectile.Distance(player.Center) > 1200f)
+			{
+				Projectile.position.X = player.Center.X - (float)(Projectile.width / 2);
+				Projectile.position.Y = player.Center.Y - (float)(Projectile.height / 2);
+				Projectile.netUpdate = true;
+			}
 
             //prevent Projectiles clumping together
 			for (int num = 0; num < Main.projectile.Length; num++)

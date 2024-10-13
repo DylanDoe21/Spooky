@@ -221,7 +221,7 @@ namespace Spooky.Content.NPCs.Quest
 
 				case 2:
 				{
-					if (Parent.localAI[0] >= 60 && Parent.localAI[0] < 480 && Parent.velocity.Y == 0)
+					if (Parent.localAI[0] >= 120 && Parent.localAI[0] < 480 && Parent.velocity.Y == 0)
 					{
 						NPC.rotation += (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y)) * 0.1f;
 
@@ -426,7 +426,7 @@ namespace Spooky.Content.NPCs.Quest
 
 				case 2:
 				{
-					if (Parent.localAI[0] >= 60 && Parent.localAI[0] < 480 && Parent.velocity.Y == 0)
+					if (Parent.localAI[0] >= 120 && Parent.localAI[0] < 480 && Parent.velocity.Y == 0)
 					{
 						NPC.rotation += (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y)) * 0.1f;
 

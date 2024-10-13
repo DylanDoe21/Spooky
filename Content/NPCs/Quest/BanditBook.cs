@@ -318,7 +318,7 @@ namespace Spooky.Content.NPCs.Quest
 
 			switch ((int)NPC.ai[0])
 			{
-				//passive floating ai
+				//spawn intro
 				case 0:
 				{
 					if (NPC.localAI[1] == 0)
