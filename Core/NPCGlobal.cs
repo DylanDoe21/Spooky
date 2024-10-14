@@ -214,6 +214,24 @@ namespace Spooky.Core
 
     public static class NPCGlobalHelper
 	{
+		public static void ShootHostileProjectile(this Terraria.NPC npc, Vector2 position, Vector2 velocity, int projType, int damage, float knockback, float ai0 = 0, float ai1 = 0, float ai2 = 0)
+		{
+			if (!npc.friendly)
+			{
+				damage /= 2;
+
+				if (Main.expertMode)
+				{
+					damage /= Main.masterMode ? 3 : 2;
+				}
+			}
+
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				Projectile.NewProjectile(npc.GetSource_FromAI(), position, velocity, projType, damage, knockback, Main.myPlayer, ai0, ai1, ai2);
+			}
+		}
+
         //check for npcs that arent considered full bosses internally, or boss segments/pieces (such as skeletrons hands)
         public static bool IsTechnicallyBoss(this NPC npc)
 		{

@@ -532,6 +532,7 @@ namespace Spooky.Content.NPCs.Quest
 		}
 	}
 
+	//spider leg code referenced from IDGCaptainRussia94's SGAmod: https://github.com/IDGCaptainRussia94/Terraria-SGAmod/blob/master/NPCs/SpiderQueen/SpiderQueen.cs
 	public class SpiderLeg
 	{
 		int LegSide;
