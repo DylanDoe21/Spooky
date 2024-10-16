@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.Quest.Projectiles;
 
@@ -216,7 +217,7 @@ namespace Spooky.Content.NPCs.Quest
 				ShootSpeed.Normalize();
 				ShootSpeed *= Main.rand.NextFloat(-10f, -5f);
 
-				Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, ShootSpeed, ModContent.ProjectileType<HomingEye>(), NPC.damage / 4, 2, NPC.target);
+				NPCGlobalHelper.ShootHostileProjectile(NPC, NPCPosition, ShootSpeed, ModContent.ProjectileType<HomingEye>(), NPC.damage, 3.5f);
 			}
 
 			//scale up and down before switching places

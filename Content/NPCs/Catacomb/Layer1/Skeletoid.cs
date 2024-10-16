@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
@@ -144,8 +145,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 		{
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 40 / 3 : Main.expertMode ? 30 / 2 : 20;
-
             NPC.spriteDirection = NPC.direction;
 
             NPC.localAI[0]++;
@@ -169,9 +168,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
                     ShootSpeed *= 4.5f;
-                    
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y - 25, ShootSpeed.X, 
-                    ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0, NPC.target, 0, 0);
+
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 25), ShootSpeed, ModContent.ProjectileType<SolarLaser>(), NPC.damage, 2.5f);
                 }
             }
 

@@ -606,9 +606,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                                 SaveDirection = NPC.direction;
                                 SavePlayerPosition = new Vector2(player.Center.X, player.Center.Y + 10);
 
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y, 0, 0, 
-                                ModContent.ProjectileType<EyeBeamTelegraph>(), 0, 0f, Main.myPlayer);
-
                                 NPCGlobalHelper.ShootHostileProjectile(NPC, player.Center, Vector2.Zero, ModContent.ProjectileType<EyeBeamTelegraph>(), 0, 0f);
                             }
 
