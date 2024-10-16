@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
@@ -71,7 +72,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 2500;
-            NPC.damage = 40;
+            NPC.damage = 35;
 			NPC.defense = 0;
 			NPC.width = 50;
 			NPC.height = 112;
@@ -185,10 +186,10 @@ namespace Spooky.Content.NPCs.Quest
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
-			Player player = Main.player[Parent.target];
-
 			NPC.TargetClosest(true);
 			NPC.spriteDirection = NPC.direction;
+
+			Player player = Main.player[Parent.target];
 
 			//kill this npc if the parent does not exist
 			if (!Parent.active || Parent.type != ModContent.NPCType<BanditBook>())
@@ -270,7 +271,7 @@ namespace Spooky.Content.NPCs.Quest
 
 							stretchRecoil = 0.5f;
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BanditPriestBuffer>(), 0, 0f, Main.myPlayer, ChosenGhostToBuff);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<BanditPriestBuffer>(), 0, 0f, ai0: ChosenGhostToBuff);
 						}
 					}
 
@@ -340,7 +341,7 @@ namespace Spooky.Content.NPCs.Quest
 								position += muzzleOffset;
 							}
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<BanditPriestCross>(), NPC.damage / 4, 0f, player.whoAmI);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<BanditPriestCross>(), NPC.damage, 3.5f, ai0: player.whoAmI);
 
 							NPC.localAI[0] = 0;
 							NPC.localAI[1]++;
@@ -363,12 +364,8 @@ namespace Spooky.Content.NPCs.Quest
 
 								for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles++)
 								{
-									if (Main.netMode != NetmodeID.MultiplayerClient)
-									{
-										Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(player.Center.X < NPC.Center.X ? -25 : 25, 0), 
-										12f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(22) * numProjectiles), 
-										ModContent.ProjectileType<BanditPriestBall>(), NPC.damage / 4, 0f, Main.myPlayer);
-									}
+									NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center + new Vector2(player.Center.X < NPC.Center.X ? -25 : 25, 0), 
+									12f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(22) * numProjectiles), ModContent.ProjectileType<BanditPriestBall>(), NPC.damage, 3.5f);
 								}
 
 								stretchRecoil = 0.5f;

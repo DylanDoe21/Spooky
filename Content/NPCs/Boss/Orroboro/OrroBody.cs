@@ -16,6 +16,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             Main.npcFrameCount[NPC.type] = 3;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 

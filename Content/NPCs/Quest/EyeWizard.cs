@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -337,7 +338,7 @@ namespace Spooky.Content.NPCs.Quest
 							ShootSpeed.Normalize();
 							ShootSpeed *= -3.5f;
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, ShootSpeed, ModContent.ProjectileType<LingeringEyeSpawner>(), NPC.damage / 4, 2, NPC.target);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPCPosition, ShootSpeed, ModContent.ProjectileType<LingeringEyeSpawner>(), NPC.damage, 3.5f);
 						}
 
 						if (NPC.localAI[0] >= 145)
@@ -414,7 +415,7 @@ namespace Spooky.Content.NPCs.Quest
 							ShootSpeed.Normalize();
 							ShootSpeed *= Main.rand.NextFloat(-10f, -5f);
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPCPosition, ShootSpeed, ModContent.ProjectileType<HomingEye>(), NPC.damage / 4, 2, NPC.target);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPCPosition, ShootSpeed, ModContent.ProjectileType<HomingEye>(), NPC.damage, 3.5f);
 						}
 					}
 
@@ -491,7 +492,8 @@ namespace Spooky.Content.NPCs.Quest
 						{
 							SoundEngine.PlaySound(SoundID.Item85, NPC.Center);
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 45, Main.rand.Next(-15, 16), Main.rand.Next(-15, -6), ModContent.ProjectileType<BouncingEye>(), NPC.damage / 4, 2, NPC.target);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 45),
+							new Vector2(Main.rand.Next(-15, 16), Main.rand.Next(-15, -6)), ModContent.ProjectileType<BouncingEye>(), NPC.damage, 3.5f);
 						}
 					}
 

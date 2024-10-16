@@ -99,9 +99,12 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 				{
 					for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
 					{
-						int GreekFire = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 
-						Main.rand.Next(-2, 3), Main.rand.Next(-6, -2), ProjectileID.GreekFire3, Projectile.damage, 0f, Main.myPlayer, 0, 0);
-						Main.projectile[GreekFire].timeLeft = 120;
+						if (Main.netMode != NetmodeID.MultiplayerClient)
+                		{
+							int GreekFire = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 
+							Main.rand.Next(-2, 3), Main.rand.Next(-6, -2), ProjectileID.GreekFire3, Projectile.damage, 0f, Main.myPlayer, 0, 0);
+							Main.projectile[GreekFire].timeLeft = 120;
+						}
 					}
 				}
 

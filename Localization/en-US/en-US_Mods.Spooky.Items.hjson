@@ -853,11 +853,7 @@ CemeterySolution: {
 
 DiscoSkull: {
 	DisplayName: Disco Skull
-	Tooltip:
-		'''
-		Fires out homing rainbow party skulls
-		Enemies killed by the skulls may sometimes turn into skeletons
-		'''
+	Tooltip: Fires out homing rainbow party skulls
 }
 
 GraveDiggerShovel: {

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
 
@@ -141,8 +142,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y - 30) - NPC.Center;
                     ShootSpeed.Normalize();
                     ShootSpeed *= 12f;
-                    
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, ShootSpeed, ModContent.ProjectileType<WitchPotion>(), NPC.damage / 4, 0, NPC.target);
+
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<WitchPotion>(), NPC.damage, 4.5f);
 
                     CanShootPotion = false;
                     HasThrownPotion = true;

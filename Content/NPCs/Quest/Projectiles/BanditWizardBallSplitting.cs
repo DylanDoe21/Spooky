@@ -112,7 +112,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
                 }
             }
 
-            Player Target = Main.player[Projectile.owner];
+            Player Target = Main.player[(int)Projectile.ai[1]];
 
             Projectile.timeLeft = 5;
 

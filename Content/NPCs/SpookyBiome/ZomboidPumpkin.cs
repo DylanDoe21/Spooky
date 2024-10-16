@@ -137,8 +137,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                             break;
                         }
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X - 3, center.Y + 20, 0, 0, 
-                        ModContent.ProjectileType<ZomboidRootThornTelegraph>(), NPC.damage / 4, 0, Main.myPlayer);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 3, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraph>(), NPC.damage, 3.5f);
                     }
                 }
 
@@ -262,8 +261,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                                 break;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X - 4, center.Y + 20, 0, 0, 
-                            ModContent.ProjectileType<ZomboidRootThornTelegraphFire>(), NPC.damage / 4, 0, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 4, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraphFire>(), NPC.damage, 3.5f);
                         }
                     }
                 }

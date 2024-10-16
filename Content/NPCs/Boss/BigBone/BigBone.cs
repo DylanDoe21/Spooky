@@ -166,9 +166,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 65000;
+            NPC.lifeMax = 72000;
             NPC.damage = 70;
-            NPC.defense = 45;
+            NPC.defense = 50;
             NPC.width = 134;
             NPC.height = 170;
             NPC.knockBackResist = 0f;
@@ -425,8 +425,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         {
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-
-            int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 45;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -711,8 +709,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                        Main.rand.Next(-2, 2), Main.rand.Next(-2, 2), ModContent.ProjectileType<FlowerSpore>(), Damage, 1, Main.myPlayer, 0, 0);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100)), 
+                        new Vector2(Main.rand.Next(-2, 2), Main.rand.Next(-2, 2)), ModContent.ProjectileType<FlowerSpore>(), NPC.damage - 10, 4.5f);
                     }
 
                     if (NPC.localAI[2] >= 560)
@@ -743,8 +741,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, 
-                            ShootSpeed.Y, ModContent.ProjectileType<MassiveFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<MassiveFlameBall>(), NPC.damage + 20, 4.5f);
                         }
 
                         NPC.localAI[2] = 0;
@@ -796,12 +793,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             int ProjType = Phase2 ? ModContent.ProjectileType<HomingFlower>() : ModContent.ProjectileType<BouncingFlower>();
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, 
-                                10f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(13) * numProjectiles), 
-                                ProjType, Damage, 0f, Main.myPlayer);
-                            }
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, 10f * NPC.DirectionTo(player.Center).RotatedBy(MathHelper.ToRadians(13) * numProjectiles), ProjType, NPC.damage, 4.5f);
                         }
                     }
 
@@ -855,11 +847,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             int ProjType = Phase2 ? ModContent.ProjectileType<FlamingWisp>() : ModContent.ProjectileType<BoneWisp>();
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100), 
-                                ShootSpeed.X, ShootSpeed.Y, ProjType, Damage, 1, Main.myPlayer, 0, NPC.whoAmI);
-                            }
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100)), 
+                            ShootSpeed, ProjType, NPC.damage, 4.5f, ai1: NPC.whoAmI);
                         }
                     }
 
@@ -905,28 +894,25 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             if (NPC.localAI[0] == 75)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
                                 {
-                                    for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
-                                    {
-                                        float distance = Main.rand.NextFloat(8f, 12f);
+                                    float distance = Main.rand.NextFloat(8f, 12f);
 
-                                        Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6.28318548f / 5f), default(Vector2)) + player.Center;
-                                    
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), Position, Vector2.Zero, ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f, Main.myPlayer);
+                                    Vector2 Position = (Vector2.One * new Vector2((float)player.width / 3f, (float)player.height / 3f) * distance).RotatedBy((double)((float)(numProjectiles - (5 / 2 - 1)) * 6f / 5f), default(Vector2)) + player.Center;
 
-                                        SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
-                                    }
+                                    NPCGlobalHelper.ShootHostileProjectile(NPC, Position, Vector2.Zero, ModContent.ProjectileType<BigBoneThornTelegraph>(), 0, 0f);
 
-                                    for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
-                                    {
-                                        Vector2 Direction = NPC.Center - SavePoint[numPoints];
-                                        Direction.Normalize();
+                                    SavePoint[numProjectiles] = new Vector2(Position.X, Position.Y);
+                                }
 
-                                        Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
+                                for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
+                                {
+                                    Vector2 Direction = NPC.Center - SavePoint[numPoints];
+                                    Direction.Normalize();
 
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BigBoneThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
-                                    }
+                                    Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
+                                
+                                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<BigBoneThorn>(), NPC.damage + 20, 4.5f, ai0: lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
                                 }
                             }
 
@@ -1014,8 +1000,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                         Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
 
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0, 0,
-                                        ModContent.ProjectileType<SolarThorn>(), Damage + 20, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<SolarThorn>(), NPC.damage + 20, 4.5f, ai0: lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
                                     }
                                 }
                             }
@@ -1062,8 +1047,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         if (NPC.localAI[0] == 60)
                         {
                             SavePlayerPosition = player.Center + player.velocity * 15f;
-                            
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), SavePlayerPosition, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraph>(), 0, 0f, Main.myPlayer);
+
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, SavePlayerPosition, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraph>(), 0, 0f);
 
                             //set big bone's rotation to the predicted spot so it is correct when shooting roses
                             Vector2 newVector = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -1104,11 +1089,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                 SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRose>(), Damage, 0f, Main.myPlayer, 0, 0);
-                                }
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50)), 
+                                ShootSpeed, ModContent.ProjectileType<RazorRose>(), NPC.damage, 4.5f);
                             }
                         }
                     }
@@ -1118,7 +1100,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         if (NPC.localAI[0] == 60)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraphLockOn>(), 0, 0f, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, player.Center, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraphLockOn>(), 0, 0f);
                         }
 
                         if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 240)
@@ -1139,11 +1121,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                 SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50), 
-                                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<RazorRoseOrange>(), Damage, 0f, Main.myPlayer, 0, 0);
-                                }
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50)), 
+                                ShootSpeed, ModContent.ProjectileType<RazorRoseOrange>(), NPC.damage, 4.5f);
                             }
                         }
                     }
@@ -1207,8 +1186,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             int[] Types = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0 + Spread, 
-                            Main.rand.Next(-5, -2), Main.rand.Next(Types), Damage, 1, Main.myPlayer, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Spread, Main.rand.Next(-5, -2)), Main.rand.Next(Types), NPC.damage, 4.5f);
                         }
                     }
 
@@ -1274,7 +1252,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<GiantFlameBall>(), Damage, 1, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<GiantFlameBall>(), NPC.damage + 30, 4.5f);
                         }
                     }
 
@@ -1303,8 +1281,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, 
-                            ShootSpeed.Y, ModContent.ProjectileType<MassiveFlameBall>(), Damage, 1, Main.myPlayer, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<MassiveFlameBall>(), NPC.damage + 30, 4.5f);
                         }
                     }
 
@@ -1377,7 +1354,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                             int ProjType = Phase2 ? ModContent.ProjectileType<DefensiveFlowerSeed>() : ModContent.ProjectileType<HealingFlowerSeed>();
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, speed, ProjType, 0, 0, Main.myPlayer, NPC.whoAmI);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, speed, ProjType, 0, 0f, ai0: NPC.whoAmI);
                         }
                     }
 

@@ -6,136 +6,132 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
+
+using Spooky.Core;
 
 namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 { 
-    public class WarlockSkull : ModProjectile
+    public class WarlockSkull : ModNPC
     {
-        int OffsetX = Main.rand.Next(-20, 20);
-        int OffsetY = Main.rand.Next(-20, 20);
+        int OffsetX = Main.rand.Next(-65, 66);
+        int OffsetY = Main.rand.Next(-65, 66);
 
-        private static Asset<Texture2D> ProjTexture;
+        private static Asset<Texture2D> NPCTexture;
 
-		public override void SetStaticDefaults()
-		{
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-		}
-
-		public override void SetDefaults()
-		{
-			Projectile.width = 16;                   			 
-            Projectile.height = 16;         
-			Projectile.hostile = true;
-            Projectile.tileCollide = true;
-			Projectile.ignoreWater = false;
-            Projectile.penetrate = 1;                  					
-            Projectile.timeLeft = 240;
-			Projectile.alpha = 255;
-		}
-
-        public override bool PreDraw(ref Color lightColor)
+        public override void SetStaticDefaults()
         {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            NPCID.Sets.TrailCacheLength[NPC.type] = 6;
+            NPCID.Sets.TrailingMode[NPC.type] = 2;
+            
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
+        }
 
-            Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
+        public override void SetDefaults()
+        {
+            NPC.lifeMax = 5;
+            NPC.damage = 20;
+            NPC.defense = 0;
+            NPC.width = 16;
+            NPC.height = 16;
+            NPC.noTileCollide = true;
+            NPC.noGravity = true;
+            NPC.HitSound = SoundID.NPCHit3;
+            NPC.DeathSound = SoundID.NPCDeath6;
+            NPC.alpha = 255;
+        }
 
-            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            //draw aura
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
-
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            for (int i = 0; i < 360; i += 90)
             {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.oldRot[oldPos], drawOrigin, scale + (fade / 2), SpriteEffects.None, 0);
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.OrangeRed, Color.Indigo, i / 30));
+
+                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2f), 0).RotatedBy(MathHelper.ToRadians(i));
+
+                for (int repeats = 0; repeats < 4; repeats++)
+                {
+                    Vector2 DrawPosition = NPC.Center + circular - screenPos + new Vector2(0, NPC.gfxOffY + 4) - NPC.velocity * repeats;
+
+                    spriteBatch.Draw(NPCTexture.Value, DrawPosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.12f, SpriteEffects.None, 0f);
+                }
             }
 
             return true;
         }
-
-		public override void AI()
+        
+        public override void AI()
         {
-            NPC Parent = Main.npc[(int)Projectile.ai[1]];
+            NPC Parent = Main.npc[(int)NPC.ai[1]];
 
-            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
+            NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? -1 : 1;
 
-            Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
+            NPC.rotation = NPC.velocity.X * 0.1f;
 
-            if (Projectile.alpha > 0)
+            if (NPC.alpha > 0)
             {
-                Projectile.alpha -= 8;
+                NPC.alpha -= 8;
             }
 
-            Projectile.ai[0]++;
+            NPC.ai[0]++;
 
-            if (Projectile.ai[0] >= 75)
+            if (NPC.ai[0] < 75)
             {
-                Projectile.rotation = Projectile.velocity.ToRotation();
-
-                if (Projectile.spriteDirection == -1)
-                {
-                    Projectile.rotation += MathHelper.Pi;
-                }
-            }
-
-            if (Projectile.ai[0] < 75)
-            {
-                float goToX = Parent.Center.X + OffsetX - Projectile.Center.X;
-                float goToY = Parent.Center.Y + OffsetY - Projectile.Center.Y;
+                float goToX = Parent.Center.X + OffsetX - NPC.Center.X;
+                float goToY = Parent.Center.Y + OffsetY - NPC.Center.Y;
                 float speed = 0.12f;
 
-                if (Projectile.velocity.X < goToX)
+                if (NPC.velocity.X < goToX)
                 {
-                    Projectile.velocity.X = Projectile.velocity.X + speed;
-                    if (Projectile.velocity.X < 0f && goToX > 0f)
+                    NPC.velocity.X = NPC.velocity.X + speed;
+                    if (NPC.velocity.X < 0f && goToX > 0f)
                     {
-                        Projectile.velocity.X = Projectile.velocity.X + speed;
+                        NPC.velocity.X = NPC.velocity.X + speed;
                     }
                 }
-                else if (Projectile.velocity.X > goToX)
+                else if (NPC.velocity.X > goToX)
                 {
-                    Projectile.velocity.X = Projectile.velocity.X - speed;
-                    if (Projectile.velocity.X > 0f && goToX < 0f)
+                    NPC.velocity.X = NPC.velocity.X - speed;
+                    if (NPC.velocity.X > 0f && goToX < 0f)
                     {
-                        Projectile.velocity.X = Projectile.velocity.X - speed;
+                        NPC.velocity.X = NPC.velocity.X - speed;
                     }
                 }
-                if (Projectile.velocity.Y < goToY)
+                if (NPC.velocity.Y < goToY)
                 {
-                    Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                    if (Projectile.velocity.Y < 0f && goToY > 0f)
+                    NPC.velocity.Y = NPC.velocity.Y + speed;
+                    if (NPC.velocity.Y < 0f && goToY > 0f)
                     {
-                        Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                        NPC.velocity.Y = NPC.velocity.Y + speed;
                         return;
                     }
                 }
-                else if (Projectile.velocity.Y > goToY)
+                else if (NPC.velocity.Y > goToY)
                 {
-                    Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                    if (Projectile.velocity.Y > 0f && goToY < 0f)
+                    NPC.velocity.Y = NPC.velocity.Y - speed;
+                    if (NPC.velocity.Y > 0f && goToY < 0f)
                     {
-                        Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                        NPC.velocity.Y = NPC.velocity.Y - speed;
                         return;
                     }
                 }
             }
 
-            if (Projectile.ai[0] == 75)
+            if (NPC.ai[0] == 75)
             {
-                double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, Main.player[Main.myPlayer].position.X - Projectile.position.X);
-                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 8;
+                double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - NPC.position.Y, Main.player[Main.myPlayer].position.X - NPC.position.X);
+                NPC.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 8;
             }
 
-            if (Projectile.ai[0] > 100)
+            if (NPC.ai[0] > 100)
             {
-                Projectile.tileCollide = true;
+                NPC.noTileCollide = false;
             }
             else
             {
-                Projectile.tileCollide = false;
+                NPC.noTileCollide = true;
             }
         }
     }

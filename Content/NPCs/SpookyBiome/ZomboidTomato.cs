@@ -4,8 +4,11 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
 
@@ -87,8 +90,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 int NumProjectiles = Main.rand.Next(4, 7);
                 for (int i = 0; i < NumProjectiles; i++)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y - 10, Main.rand.NextFloat(-2f, 3f), 
-                    Main.rand.NextFloat(-4f, -2f), ModContent.ProjectileType<TomatoGlob>(), NPC.damage / 4, NPC.target);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 10), 
+                    new Vector2(Main.rand.NextFloat(-2f, 3f), Main.rand.NextFloat(-4f, -2f)), ModContent.ProjectileType<TomatoGlob>(), NPC.damage, 0f);
                 }
 
                 for (int numGores = 2; numGores <= 6; numGores++)

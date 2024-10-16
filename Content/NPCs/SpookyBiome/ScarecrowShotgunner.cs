@@ -8,8 +8,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
-using Spooky.Core;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Projectiles.Cemetery;
@@ -187,7 +187,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                         Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(10));
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), positonToShootFrom, newVelocity, ProjectileID.BulletSnowman, NPC.damage / 4, 0, player.whoAmI);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, positonToShootFrom, newVelocity, ProjectileID.BulletSnowman, NPC.damage, 4.5f);
                     }
                 }
                 

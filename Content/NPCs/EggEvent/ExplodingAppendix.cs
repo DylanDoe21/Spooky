@@ -60,8 +60,8 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SetDefaults()
         {
             NPC.lifeMax = 300;
-            NPC.damage = 50;
-            NPC.defense = 50;
+            NPC.damage = 45;
+            NPC.defense = 10;
             NPC.width = 52;
             NPC.height = 62;
             NPC.npcSlots = 1f;
@@ -189,16 +189,13 @@ namespace Spooky.Content.NPCs.EggEvent
                     }
 
                     //lingering ichor cloud
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage / 4, 0);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<AppendixLingerCloud>(), NPC.damage, 0f);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-				    {   
-                        //spawn splatter
-                        int NumProjectiles = Main.rand.Next(15, 25);
-                        for (int i = 0; i < NumProjectiles; i++)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
-                        }
+                    //spawn splatter
+                    int NumProjectiles = Main.rand.Next(15, 25);
+                    for (int i = 0; i < NumProjectiles; i++)
+                    {
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-12, -5)), ModContent.ProjectileType<YellowSplatter>(), 0, 0f);
                     }
 
                     player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
@@ -221,7 +218,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //spawn splatter
                     for (int i = 0; i < 6; i++)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-8, 9), Main.rand.Next(-8, -3), ModContent.ProjectileType<YellowSplatter>(), 0, 0);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(-8, -3)), ModContent.ProjectileType<YellowSplatter>(), 0, 0f);
                     }
                 }
 

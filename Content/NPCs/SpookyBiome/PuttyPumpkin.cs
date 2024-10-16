@@ -106,7 +106,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			//randomly spawn pumpkinlings on hit
             if (Main.rand.NextBool(3))
             {
-                NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
+                int Pumpkin = NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
+
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					NetMessage.SendData(MessageID.SyncNPC, number: Pumpkin);
+				}
             }
 
             if (NPC.life <= 0) 
@@ -114,7 +119,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				//spawn more pumpkinlings on death
 				for (int numSlimes = 0; numSlimes < 3; numSlimes++)
 				{
-					NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
+					int Pumpkin = NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<PuttyPumpkinling>());
+
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						NetMessage.SendData(MessageID.SyncNPC, number: Pumpkin);
+					}
 				}
 
                 for (int numDusts = 0; numDusts < 15; numDusts++)

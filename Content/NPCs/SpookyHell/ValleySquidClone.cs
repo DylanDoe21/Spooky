@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.SpookyHell.Projectiles;
@@ -59,7 +60,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         public override void SetDefaults()
         {
             NPC.lifeMax = 1500;
-            NPC.damage = 55;
+            NPC.damage = 50;
             NPC.defense = 20;
             NPC.width = 44;
             NPC.height = 70;
@@ -121,8 +122,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 		{
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-
-            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 55 / 2 : 45;
 
             NPC.spriteDirection = NPC.direction;
 
@@ -226,8 +225,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                             position += muzzleOffset;
                         }
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X + Spread, 
-                        ShootSpeed.Y + Spread, ModContent.ProjectileType<NautilusSpit1>(), Damage, 0, NPC.target, 0, 0);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, new Vector2(ShootSpeed.X + Spread, ShootSpeed.Y + Spread), ModContent.ProjectileType<NautilusSpit1>(), NPC.damage, 4.5f);
                     }
 
                     if (NPC.localAI[0] >= 80)

@@ -124,7 +124,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     int ShootSpeedX = NPC.direction == -1 ? Main.rand.Next(-5, -2) : Main.rand.Next(3, 6);
 
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 6, ShootSpeedX, -5, ModContent.ProjectileType<NoseCultistMageSnot>(), 0, 0, NPC.target);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 6), new Vector2(ShootSpeedX, -5), ModContent.ProjectileType<NoseCultistMageSnot>(), 0, 0f);
 
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;

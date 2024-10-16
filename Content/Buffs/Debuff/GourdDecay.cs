@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Core;
 using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Buffs.Debuff
@@ -10,6 +11,8 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
 
+		private bool initializeTime;
+		private int storedTime;
 		private bool initializeStats;
         private int storedDamage;
         private int storedDefense;
@@ -21,8 +24,15 @@ namespace Spooky.Content.Buffs.Debuff
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
-			if (!npc.friendly && !npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.EaterofWorldsBody && npc.type != NPCID.EaterofWorldsTail)
+			if (!npc.friendly)
             {
+				if (!initializeTime)
+				{
+					storedTime = npc.buffTime[buffIndex];
+
+					initializeTime = true;
+				}
+
 				if (Main.rand.NextBool(50))
 				{
 					if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -39,7 +49,7 @@ namespace Spooky.Content.Buffs.Debuff
 
                 npc.lifeRegen -= 5;
 
-				if (npc.buffTime[buffIndex] < 1800 && npc.buffTime[buffIndex] > 5)
+				if (npc.buffTime[buffIndex] < (storedTime / 2) && npc.buffTime[buffIndex] > 5 && !npc.IsTechnicallyBoss())
 				{
 					if (!initializeStats)
 					{
@@ -51,13 +61,13 @@ namespace Spooky.Content.Buffs.Debuff
 						initializeStats = true;
 					}
 				}
-			}
 
-			if (npc.buffTime[buffIndex] < 5)
-            {
-				npc.damage = storedDamage;
-                npc.defense = storedDefense;
-            }
+				if (npc.buffTime[buffIndex] < 5 && !npc.IsTechnicallyBoss())
+				{
+					npc.damage = storedDamage;
+					npc.defense = storedDefense;
+				}
+			}
 		}
     }
 }

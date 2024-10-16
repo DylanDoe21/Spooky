@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyHell
@@ -215,7 +216,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         ShootSpeed.Normalize();
                         ShootSpeed *= 5.5f;
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0, NPC.target);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage, 4.5f);
                     }
 
                     if (NPC.localAI[0] >= 250)

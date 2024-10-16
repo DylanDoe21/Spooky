@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.EggEvent
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 450;
-            NPC.damage = 45;
+            NPC.damage = 50;
             NPC.defense = 10;
             NPC.width = 62;
             NPC.height = 68;
@@ -142,11 +142,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         int[] Types = new int[] { ModContent.ProjectileType<HeartGlob1>(), ModContent.ProjectileType<HeartGlob2>() };
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-				        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -5 : 5), NPC.Center.Y - 18,
-                            (NPC.direction == -1 ? Main.rand.Next(-10, -4) : Main.rand.Next(4, 10)), Main.rand.Next(-7, -3), Main.rand.Next(Types), NPC.damage / 4, 0f, Main.myPlayer);
-                        }
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + (NPC.direction == -1 ? -5 : 5), NPC.Center.Y - 18), 
+                        new Vector2((NPC.direction == -1 ? Main.rand.Next(-10, -4) : Main.rand.Next(4, 10)), Main.rand.Next(-7, -3)), Main.rand.Next(Types), NPC.damage, 4.5f);
                     }
 
                     if (NPC.localAI[0] >= 570)
@@ -222,7 +219,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //spawn splatter
                     for (int i = 0; i < 10; i++)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-4, 5), Main.rand.Next(-4, -1)), ModContent.ProjectileType<RedSplatter>(), 0, 0f);
                     }
                 }
 

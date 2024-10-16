@@ -107,7 +107,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
         public override void SetDefaults()
         {
             NPC.lifeMax = 7000;
-            NPC.damage = 40;
+            NPC.damage = 38;
             NPC.defense = 12;
             NPC.width = 78;
             NPC.height = 128;
@@ -242,8 +242,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
         {   
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-
-            int Damage = Main.masterMode ? 40 / 3 : Main.expertMode ? 35 / 2 : 30;
 
             NPC.rotation = NPC.velocity.X * 0.005f;
             NPC.spriteDirection = NPC.direction;
@@ -505,8 +503,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.velocity.Y = -4;
 
                         int VelocityX = Phase2 ? Main.rand.Next(-10, 11) : Main.rand.Next(-7, 8);
-                            
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 35, VelocityX, Main.rand.Next(2, 4), ModContent.ProjectileType<LingeringSnotBall>(), Damage, 0, NPC.target);
+
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 35), 
+                        new Vector2(VelocityX, Main.rand.Next(2, 4)), ModContent.ProjectileType<LingeringSnotBall>(), NPC.damage, 4.5f);
                     }
                     else
                     {
@@ -620,7 +619,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             position += muzzleOffset;
                         }
                             
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<GiantSnot>(), Damage, 0, NPC.target, Phase2 ? 1 : 0);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<GiantSnot>(), NPC.damage, 4.5f, ai0: Phase2 ? 1 : 0);
                     }
                     
                     //after shooting the booger, zip towards the player quickly if the get too far away
@@ -755,8 +754,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         {
                             position += muzzleOffset;
                         }
-                            
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<SnotBall>(), Damage, 0, NPC.target);
+
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<SnotBall>(), NPC.damage, 4.5f);
                     }
 
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
@@ -906,7 +905,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                             ShootSpeed.Normalize();
                             ShootSpeed *= 28;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<MocoEye>(), Damage, 0f, Main.myPlayer, 0, NPC.whoAmI);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<MocoEye>(), NPC.damage, 4.5f, ai1: NPC.whoAmI);
                         }
 
                         NPC.netUpdate = true;
@@ -1005,7 +1004,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         SoundEngine.PlaySound(FlyingSound, new Vector2(SpawnX, SpawnY));
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), SpawnX, SpawnY, 0, 0, ModContent.ProjectileType<MoclingProjectile>(), Damage, 0f, Main.myPlayer);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(SpawnX, SpawnY), Vector2.Zero, ModContent.ProjectileType<MoclingProjectile>(), NPC.damage, 4.5f);
                     }
 
                     if (NPC.localAI[0] >= 320)
@@ -1110,7 +1109,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                                 position += muzzleOffset;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), position, new Vector2(ShootSpeed.X, RandomVelocityY), ModContent.ProjectileType<SnotBall>(), Damage, 0f, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, position, new Vector2(ShootSpeed.X, RandomVelocityY), ModContent.ProjectileType<SnotBall>(), NPC.damage, 4.5f);
                         }
                     }
 

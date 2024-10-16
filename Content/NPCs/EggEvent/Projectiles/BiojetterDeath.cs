@@ -24,6 +24,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             Projectile.width = 82;
             Projectile.height = 108;
+            Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
@@ -146,15 +147,15 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
+            int Damage = Main.masterMode ? 300 : Main.expertMode ? 200 : 100;
+
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
-                if (player.active && !player.dead)
+
+                if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.ai[0] + time)
                 {
-                    if (player.Distance(Projectile.Center) <= Projectile.ai[0] + time)
-                    {
-                        player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.VesicatorExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
-                    }
+                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.VesicatorExplosion")), Damage + Main.rand.Next(-30, 30), 0);
                 }
             }
 
@@ -171,7 +172,10 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             int NumProjectiles = Main.rand.Next(15, 25);
             for (int i = 0; i < NumProjectiles; i++)
             {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-15, -7), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-12, 14), Main.rand.Next(-15, -7), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                }
             }
 
             //spawn blood explosion clouds

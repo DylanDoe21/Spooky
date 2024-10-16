@@ -73,7 +73,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
         {
 			target.AddBuff(BuffID.Venom, 300);
 
-			if (GrappledNPC == null && !target.IsTechnicallyBoss())
+			if (GrappledNPC == null && target.active && target.CanBeChasedBy(this) && !target.IsTechnicallyBoss() && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type])
 			{	
 				GrappledNPC = target;
 

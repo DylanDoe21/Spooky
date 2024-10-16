@@ -49,6 +49,8 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
         public override void AI()
         {
+            Player Target = Main.player[(int)Projectile.ai[2]];
+
             if (Projectile.timeLeft <= 60)
             {
                 Projectile.alpha += 5;
@@ -84,11 +86,14 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             {
                 Projectile.scale = 1f;
 
-                Vector2 ShootSpeed = Main.player[Main.myPlayer].Center - Projectile.Center;
+                Vector2 ShootSpeed = Target.Center - Projectile.Center;
                 ShootSpeed.Normalize();
                 ShootSpeed *= 12f;
 
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<LingeringEyeBolt>(), Projectile.damage, 0, Main.myPlayer);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+			    {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<LingeringEyeBolt>(), Projectile.damage, 0, Main.myPlayer);
+                }
 
                 Projectile.ai[0] = 0;
             }

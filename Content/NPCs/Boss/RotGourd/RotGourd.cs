@@ -88,7 +88,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 2200;
-            NPC.damage = 30;
+            NPC.damage = 22;
             NPC.defense = 5;
             NPC.width = 72;
             NPC.height = 130;
@@ -197,8 +197,6 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 35 / 3 : Main.expertMode ? 25 / 2 : 20;
-
 			NPC.rotation = NPC.velocity.X * 0.02f;
 
 			//despawn if the player dies
@@ -243,11 +241,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
                 {
                     Vector2 vector = Vector2.UnitY.RotatedByRandom(1.57f) * new Vector2(5f, 3f);
 
-					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, vector.X, vector.Y, ModContent.ProjectileType<RotFly>(), Damage, 0f, NPC.target, 0f, (float)NPC.whoAmI);
+					NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, vector, ModContent.ProjectileType<RotFly>(), NPC.damage, 2f, ai1: NPC.whoAmI);
 				}
 
-				NPC.netUpdate = true;
                 HasSpawnedFlies = true;
+				NPC.netUpdate = true;
             }
 
 			//despawn if all players are dead
@@ -504,8 +502,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						{
 							SoundEngine.PlaySound(SoundID.NPCDeath9, NPC.Center);
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 10, ShootSpeed.X + Main.rand.Next(-3, 3), 
-							ShootSpeed.Y + Main.rand.Next(-3, 3), ModContent.ProjectileType<MoldSpore>(), Damage, 1, NPC.target, 0, 0);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 10), 
+							new Vector2(ShootSpeed.X + Main.rand.Next(-3, 3), ShootSpeed.Y + Main.rand.Next(-3, 3)), ModContent.ProjectileType<MoldSpore>(), NPC.damage, 1f);
 						}
 					}
 
@@ -753,8 +751,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							{
 								float Spread = Main.rand.Next(-2500, 2500) * 0.01f;
 
-								Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 20, Spread, 
-								Main.rand.Next(-18, -13), ModContent.ProjectileType<DirtDebris>(), Damage, 2, NPC.target, 0, 0);
+								NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 20), 
+								new Vector2(Spread, Main.rand.Next(-18, -13)), ModContent.ProjectileType<DirtDebris>(), NPC.damage, 4.5f);
 							}
 
 							//make cool dust effect when slamming the ground

@@ -95,8 +95,11 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
             if (Parent.localAI[3] == 3 && Parent.localAI[1] > 0)
             {
-                int Eye = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - 45, Main.rand.Next(-2, 3), Main.rand.Next(-18, -12), ModContent.ProjectileType<GoblinEyeDebris>(), Projectile.damage, 0, Main.myPlayer);
-                Main.projectile[Eye].frame = Projectile.frame;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+			    {
+                    int Eye = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - 45, Main.rand.Next(-2, 3), Main.rand.Next(-18, -12), ModContent.ProjectileType<GoblinEyeDebris>(), Projectile.damage, 0, Main.myPlayer);
+                    Main.projectile[Eye].frame = Projectile.frame;
+                }
 
                 Projectile.active = false;
             }

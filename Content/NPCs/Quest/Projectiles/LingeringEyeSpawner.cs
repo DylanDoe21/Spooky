@@ -169,7 +169,11 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.Item104, Projectile.Center);
 
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<LingeringEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<LingeringEye>(), 
+                Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 0, target == -1 ? 0 : Main.player[target].whoAmI);
+            }
 
         	float maxAmount = 30;
 			int currentAmount = 0;

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.PandoraBox.Projectiles;
 
@@ -146,7 +147,7 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
-            Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BobbertExplosion>(), NPC.damage / 4, 0, Main.myPlayer);
+            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<BobbertExplosion>(), NPC.damage, 4.5f);
 
             NPC.active = false;
         }
@@ -229,7 +230,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             {
                 SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BobbertExplosion>(), NPC.damage / 2, 0, Main.myPlayer);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<BobbertExplosion>(), NPC.damage, 4.5f);
 
                 for (int numDusts = 0; numDusts < 20; numDusts++)
                 {

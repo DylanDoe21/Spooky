@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Buffs;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Quest;
@@ -79,7 +80,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 2750;
-            NPC.damage = 40;
+            NPC.damage = 35;
 			NPC.defense = 0;
 			NPC.width = 90;
 			NPC.height = 102;
@@ -350,12 +351,14 @@ namespace Spooky.Content.NPCs.Quest
 									Vector2 ShootSpeed = player.Center - NPC.Center;
 									ShootSpeed.Normalize();
 									ShootSpeed *= 2;
-										
-									Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + (NPC.direction == -1 ? -50 : 50), NPC.Center.Y), ShootSpeed, ModContent.ProjectileType<BanditBruiserFist>(), NPC.damage / 4, 0, NPC.target);
+
+									NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + (NPC.direction == -1 ? -50 : 50), NPC.Center.Y), ShootSpeed, ModContent.ProjectileType<BanditBruiserFist>(), NPC.damage, 3.5f);
 
 									stretchRecoil = 0.5f;
 
 									Parent.localAI[1] = 1;
+
+									NPC.netUpdate = true;
 								}
 							}
 							else

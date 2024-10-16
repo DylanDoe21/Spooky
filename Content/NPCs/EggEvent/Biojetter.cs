@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SetDefaults()
         {
             NPC.lifeMax = 2500;
-            NPC.damage = 65;
+            NPC.damage = 60;
             NPC.defense = 12;
             NPC.width = 82;
             NPC.height = 112;
@@ -339,7 +339,8 @@ namespace Spooky.Content.NPCs.EggEvent
                     //spit out biomass
                     if (NPC.localAI[0] == 120)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 55, Main.rand.Next(-2, 2), Main.rand.Next(2, 5), ModContent.ProjectileType<BiojetterBiomass>(), NPC.damage / 3, 0, NPC.target);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 55), 
+                        new Vector2(Main.rand.Next(-2, 2), Main.rand.Next(2, 5)), ModContent.ProjectileType<BiojetterBiomass>(), 0, 0f);
                     }
 
                     if (NPC.localAI[0] > 160)
@@ -365,7 +366,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.ProjectileType<BiojetterDeath>(), NPC.damage, 0, NPC.target);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, NPC.velocity, ModContent.ProjectileType<BiojetterDeath>(), 0, 0f);
             }
         }
     }

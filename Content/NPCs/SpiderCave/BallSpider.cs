@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpiderCave.Misc;
 
@@ -166,7 +167,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                     ShootSpeed.Normalize();
                     ShootSpeed *= 8;
 
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, ProjectileID.WebSpit, NPC.damage / 4, 0, NPC.target);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ProjectileID.WebSpit, Parent.damage, 0f);
 
                     //random delay before it can spit again
                     NPC.ai[0] = Main.rand.Next(0, 60);

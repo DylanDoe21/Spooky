@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -67,10 +68,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.White);
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
-                int XOffset = Main.rand.Next(-1, 2);
-                int YOffset = Main.rand.Next(-1, 2);
+                int XOffset = Main.rand.Next(-2, 3);
+                int YOffset = Main.rand.Next(-2, 3);
                 
                 Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(XOffset, NPC.gfxOffY + 4 + YOffset), NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
@@ -121,7 +122,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                     Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(18));
 
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y + 10), newVelocity, ModContent.ProjectileType<MoltenCandleChunk>(), NPC.damage / 4, 0, player.whoAmI);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 10), newVelocity, ModContent.ProjectileType<MoltenCandleChunk>(), NPC.damage, 4.5f);
                 }
 
                 NPC.ai[2] = 0;

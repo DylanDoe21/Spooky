@@ -79,7 +79,7 @@ namespace Spooky.Content.NPCs.Quest
         public override void SetDefaults()
 		{
             NPC.lifeMax = 5000;
-            NPC.damage = 40;
+            NPC.damage = 35;
             NPC.defense = 5;
             NPC.width = 142;
 			NPC.height = 158;
@@ -359,9 +359,8 @@ namespace Spooky.Content.NPCs.Quest
 									break;
 								}
 
-								int Eye = Projectile.NewProjectile(NPC.GetSource_FromThis(), center.X - 3, center.Y, 0, 0, ModContent.ProjectileType<GoblinEyeDebrisGrounded>(), NPC.damage / 4, 0, Main.myPlayer);
-								Main.projectile[Eye].frame = Main.rand.Next(0, 4);
-								Main.projectile[Eye].ai[1] = NPC.whoAmI;
+								NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 3, center.Y), Vector2.Zero, 
+								ModContent.ProjectileType<GoblinEyeDebrisGrounded>(), NPC.damage, 3.5f, ai1: NPC.whoAmI, Frame: Main.rand.Next(0, 4));
 							}
 						}
 

@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyHell;
@@ -173,8 +174,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 55 / 2 : 45;
-
             NPC.spriteDirection = NPC.direction;
 
             if (NPC.ai[0] != 3 || (NPC.ai[0] == 3 && (NPC.localAI[0] < 100 || NPC.localAI[0] > 350)))
@@ -315,8 +314,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                             int[] Types = new int[] { ModContent.ProjectileType<NautilusSpit1>(), ModContent.ProjectileType<NautilusSpit2>() };
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y + 20, ShootSpeed.X + Spread, 
-                            ShootSpeed.Y + Spread, Main.rand.Next(Types), Damage, 0, NPC.target, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(position.X, position.Y + 20), new Vector2(ShootSpeed.X + Spread, ShootSpeed.Y + Spread), Main.rand.Next(Types), NPC.damage, 4.5f);
                         }
 
                         NPC.netUpdate = true;
@@ -520,8 +518,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                             int[] Types = new int[] { ModContent.ProjectileType<NautilusBubble1>(), ModContent.ProjectileType<NautilusBubble2>() };
 
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-20, 20), 
-                            Main.rand.Next(-20, 20), Main.rand.Next(Types), Damage, 0, NPC.target);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-20, 20)), Main.rand.Next(Types), NPC.damage, 0f);
                         }
                     }
 
@@ -600,8 +597,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                             position += muzzleOffset;
                         }
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y, ShootSpeed.X, 
-                        ShootSpeed.Y, ModContent.ProjectileType<NautilusBiomass>(), 0, 0, NPC.target);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<NautilusBiomass>(), 0, 0f);
                     }
                     
                     if (NPC.localAI[0] > 100)

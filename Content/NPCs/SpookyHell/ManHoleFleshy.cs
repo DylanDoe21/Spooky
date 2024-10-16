@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
@@ -119,11 +120,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             {   
                 SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y + 5, player.Center.X < NPC.Center.X ? Main.rand.Next(-10, -2) : Main.rand.Next(2, 10), -10,
-                    ModContent.ProjectileType<ManHoleBloodBall>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
-                }
+                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 5), 
+                new Vector2(player.Center.X < NPC.Center.X ? Main.rand.Next(-10, -2) : Main.rand.Next(2, 10), -10), ModContent.ProjectileType<ManHoleBloodBall>(), NPC.damage, 4.5f);
             }
 
             if (NPC.ai[0] >= 300)

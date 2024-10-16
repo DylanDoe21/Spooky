@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.PandoraBox.Projectiles;
 
@@ -264,8 +265,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                         for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.NextFloat(-5f, 5f), 
-                            Main.rand.NextFloat(-5f, -3f), ModContent.ProjectileType<PandoraEnemySpawnChester>(), 0, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, -3f)), ModContent.ProjectileType<PandoraEnemySpawnChester>(), 0, 0f);
                         }
                     }
 

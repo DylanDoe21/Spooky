@@ -93,7 +93,7 @@ namespace Spooky.Content.NPCs.Quest
 
 				for (int numProjectiles = 0; numProjectiles < 6; numProjectiles++)
 			    {
-                    Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-7, -3)), ModContent.ProjectileType<EyeOrbEnergy>(), 0, 0, Main.myPlayer, Parent.whoAmI);
+					NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-7, -3)), ModContent.ProjectileType<EyeOrbEnergy>(), 0, 0f, ai0: Parent.whoAmI);
                 }
 
 				for (int numGores = 1; numGores <= 4; numGores++)

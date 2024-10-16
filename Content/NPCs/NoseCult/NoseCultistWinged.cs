@@ -138,7 +138,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     ShootSpeed.Normalize();
                     ShootSpeed *= 12f;
 
-					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage / 3, 0f, Main.myPlayer);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage, 4.5f);
 
                     NPC.ai[2]++;
 

@@ -217,11 +217,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         ShootSpeed.Normalize();
                         ShootSpeed *= 25f;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (NPC.direction == -1 ? -18 : 18), NPC.Center.Y, 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BrainBeam>(), NPC.damage / 4, 0f, Main.myPlayer);
-                        }
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + (NPC.direction == -1 ? -18 : 18), NPC.Center.Y), ShootSpeed, ModContent.ProjectileType<BrainBeam>(), NPC.damage, 2f);
                     }
 
                     if (NPC.localAI[0] == 120)
@@ -252,7 +248,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //spawn splatter
                     for (int i = 0; i < 8; i++)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-4, 5), Main.rand.Next(-4, -1)), ModContent.ProjectileType<RedSplatter>(), 0, 0f);
                     }
                 }
 

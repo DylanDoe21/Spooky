@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
 		public override void AI()
 		{
-            Player player = Main.LocalPlayer;
+            Player player = Main.player[(int)Projectile.ai[1]];
 
             if (Projectile.alpha > 0 && Projectile.timeLeft > 60)
             {

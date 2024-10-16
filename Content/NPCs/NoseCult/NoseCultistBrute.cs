@@ -100,8 +100,8 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.localAI[0] == 0)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + Main.rand.Next(-75, 75), NPC.Center.Y + Main.rand.Next(-50, -10)), 
-				Vector2.Zero, ModContent.ProjectileType<NoseCultistBruteFlail>(), NPC.damage / 3, 0f, Main.myPlayer, NPC.whoAmI);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-75, 75), NPC.Center.Y + Main.rand.Next(-50, -10)), 
+                Vector2.Zero, ModContent.ProjectileType<NoseCultistBruteFlail>(), NPC.damage, 4.5f, ai0: NPC.whoAmI);
 
                 NPC.localAI[0] = 1;
             }

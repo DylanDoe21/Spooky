@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Buffs;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Quest;
@@ -68,7 +69,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 2750;
-            NPC.damage = 40;
+            NPC.damage = 35;
 			NPC.defense = 0;
 			NPC.width = 66;
 			NPC.height = 98;
@@ -346,7 +347,7 @@ namespace Spooky.Content.NPCs.Quest
 								position += muzzleOffset;
 							}
 
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<BanditWizardBall>(), NPC.damage / 4, 0f, Main.myPlayer);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<BanditWizardBall>(), NPC.damage, 3.5f);
 						}
 
 						if (Parent.localAI[0] >= 140)
@@ -406,7 +407,7 @@ namespace Spooky.Content.NPCs.Quest
 										position += muzzleOffset;
 									}
 
-									Projectile.NewProjectile(NPC.GetSource_FromAI(), position, Vector2.Zero, ModContent.ProjectileType<BanditWizardBallSplitting>(), NPC.damage / 4, 0f, player.whoAmI);
+									NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<BanditWizardBallSplitting>(), NPC.damage, 3.5f, ai1: player.whoAmI);
 								}
 
 								//swap to next attack

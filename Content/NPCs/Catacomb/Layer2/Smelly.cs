@@ -108,8 +108,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 			//spawn harmful flies
 			if (Main.rand.NextBool(20))
 			{
-				Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + Main.rand.Next(-75, 75), NPC.Center.Y + Main.rand.Next(-50, -10)), 
-				Vector2.Zero, ModContent.ProjectileType<SmellyFly>(), NPC.damage / 4, 0f, Main.myPlayer, 0, NPC.whoAmI);
+				NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-75, 75), NPC.Center.Y + Main.rand.Next(-50, -10)), Vector2.Zero, ModContent.ProjectileType<SmellyFly>(), NPC.damage, 4.5f);
 			}
         }
 

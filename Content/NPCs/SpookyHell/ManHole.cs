@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
@@ -78,11 +79,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                     float Spread = (float)Main.rand.Next(-250, 250) * 0.01f;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, 0 + Spread, -10,
-                        ModContent.ProjectileType<SalivaBall>(), NPC.damage / 4, 1, Main.myPlayer, 0, 0);
-                    }
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Spread, -10), ModContent.ProjectileType<SalivaBall>(), NPC.damage, 4.5f);
                 }
             }
             

@@ -181,8 +181,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-			int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 50 / 2 : 35;
-
             if (NPC.wet)
             {
                 NPC.aiStyle = 3;
@@ -376,8 +374,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                                     Vector2 lineDirection = new Vector2(Main.rand.Next(-15, 15), 16);
 
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), center.X, center.Y + 25, 0, 0, ModContent.ProjectileType<ValleySharkThorn>(), 
-                                    Damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X, center.Y + 25), Vector2.Zero, 
+                                    ModContent.ProjectileType<ValleySharkThorn>(), NPC.damage, 4.5f, ai0: lineDirection.ToRotation() + MathHelper.Pi, ai1: -16 * 60);
                                 }
                             }
 

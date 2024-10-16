@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.Cemetery.Projectiles;
 
@@ -114,8 +115,8 @@ namespace Spooky.Content.NPCs.Cemetery
             if (NPC.ai[0] >= 300)
             {
                 SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
-                
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MistGhostMiniFace>(), NPC.damage / 4, 2, NPC.target, 0, NPC.whoAmI);
+
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<MistGhostMiniFace>(), NPC.damage, 4.5f, ai1: NPC.whoAmI);
 
                 NPC.ai[0] = 0;
             }

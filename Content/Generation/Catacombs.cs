@@ -760,7 +760,7 @@ namespace Spooky.Content.Generation
             for (int tunnelX = XMiddle - 3; tunnelX <= XMiddle + 1; tunnelX++)
             {
                 //this determines how far down the big bone arena entrance is
-                int extraDepthForEntrance = Main.maxTilesX >= 8400 ? -7 : (Main.maxTilesX >= 6400 ? 1 : 9);
+                int extraDepthForEntrance = Main.maxTilesY >= 2400 ? -7 : (Main.maxTilesY >= 1800 ? 1 : 9);
 
                 for (int tunnelY = (int)Main.worldSurface + layer1Depth + layer2Depth + extraDepthForEntrance; tunnelY <= BigBoneArenaY - 36; tunnelY++)
                 {

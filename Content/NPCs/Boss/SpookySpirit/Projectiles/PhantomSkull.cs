@@ -21,17 +21,15 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1;
+            NPC.lifeMax = 45;
             NPC.damage = 35;
             NPC.defense = 0;
             NPC.width = 28;
             NPC.height = 24;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.immortal = true;
-            NPC.dontTakeDamage = true;
-            NPC.HitSound = SoundID.NPCHit1;
-            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.HitSound = SoundID.NPCHit3;
+            NPC.DeathSound = SoundID.NPCDeath6;
             NPC.alpha = 255;
         }
         
@@ -76,7 +74,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
                 ShootSpeed.X *= -Main.rand.NextFloat(2f, 4f);
                 ShootSpeed.Y *= -Main.rand.NextFloat(2f, 4f);
 
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ShootSpeed, ModContent.ProjectileType<PhantomSkullProj>(), NPC.damage / 2, 0f, Main.myPlayer);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<PhantomSkullProj>(), NPC.damage, 4.5f);
 
                 NPC.active = false;
             }

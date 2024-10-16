@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.SpookyHell
 {
     public class ValleyMerman : ModNPC  
@@ -117,8 +119,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
 
-			int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 48 / 2 : 35;
-
             NPC.spriteDirection = NPC.direction;
 
             if (NPC.wet)
@@ -167,7 +167,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         float Spread = Main.rand.Next(-2, 2);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), position.X, position.Y - 10, ShootSpeed.X + Spread, ShootSpeed.Y + Spread, ProjectileID.BloodShot, Damage, 0, NPC.target);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(position.X, position.Y - 10), new Vector2(ShootSpeed.X + Spread, ShootSpeed.Y + Spread), ProjectileID.BloodShot, NPC.damage, 4.5f);
                     }
                 }
 

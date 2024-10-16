@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.PandoraBox.Projectiles;
 
 namespace Spooky.Content.NPCs.PandoraBox
@@ -96,8 +97,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                 ShootSpeed.Normalize();
                 ShootSpeed *= 2f;
 
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, 
-                ShootSpeed.Y, ModContent.ProjectileType<StitchBolt>(), Damage, 0, NPC.target);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<StitchBolt>(), Parent.damage, 4.5f);
             }
         }
 

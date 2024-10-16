@@ -99,7 +99,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			NPC.spriteDirection = NPC.direction;
 
-			int Damage = Main.masterMode ? 300 / 3 : Main.expertMode ? 200 / 2 : 100;
+			int Damage = Main.masterMode ? 400 / 3 : Main.expertMode ? 300 / 2 : 200;
 
 			if (NPC.localAI[2] == 0)
 			{
@@ -131,9 +131,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 						ShootSpeed.Normalize();
 						ShootSpeed *= 100f;
 
-						Projectile.NewProjectile(null, LightingPostion, ShootSpeed, ModContent.ProjectileType<ZomboidArmoredLightning>(), Damage, 0f, player.whoAmI, ShootSpeed.ToRotation(), 100);
-						Projectile.NewProjectile(null, LightingPostion - new Vector2(25, 0), ShootSpeed, ModContent.ProjectileType<ZomboidArmoredLightning>(), Damage, 0f, player.whoAmI, ShootSpeed.ToRotation(), 100);
-						Projectile.NewProjectile(null, LightingPostion + new Vector2(25, 0), ShootSpeed, ModContent.ProjectileType<ZomboidArmoredLightning>(), Damage, 0f, player.whoAmI, ShootSpeed.ToRotation(), 100);
+						NPCGlobalHelper.ShootHostileProjectile(NPC, LightingPostion, ShootSpeed, ModContent.ProjectileType<ZomboidArmoredLightning>(), Damage, 0f, ai0: ShootSpeed.ToRotation(), ai1: 100);
+						NPCGlobalHelper.ShootHostileProjectile(NPC, LightingPostion - new Vector2(25, 0), ShootSpeed, ModContent.ProjectileType<ZomboidArmoredLightning>(), Damage, 0f, ai0: ShootSpeed.ToRotation(), ai1: 100);
+						NPCGlobalHelper.ShootHostileProjectile(NPC, LightingPostion + new Vector2(25, 0), ShootSpeed, ModContent.ProjectileType<ZomboidArmoredLightning>(), Damage, 0f, ai0: ShootSpeed.ToRotation(), ai1: 100);
 
 						Main.NewLightning();
 

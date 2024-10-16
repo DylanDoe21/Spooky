@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.NoseCult.Projectiles;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -78,7 +79,8 @@ namespace Spooky.Content.NPCs.NoseCult
                 {
                     for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 5, Main.rand.Next(-4, 5), Main.rand.Next(-4, 0), ModContent.ProjectileType<SnotMonsterBooger>(), NPC.damage / 4, 0, NPC.target);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 5), 
+                        new Vector2(Main.rand.Next(-4, 5), Main.rand.Next(-4, 0)), ModContent.ProjectileType<SnotMonsterBooger>(), NPC.damage, 2f);
                     }
 
                     player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);

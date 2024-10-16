@@ -62,8 +62,11 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - (Projectile.height / 2), 0, 0, ModContent.ProjectileType<TomatoSauce>(), Projectile.damage, 0, Main.myPlayer);
-
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - (Projectile.height / 2), 0, 0, ModContent.ProjectileType<TomatoSauce>(), Projectile.damage, 0, Main.myPlayer);
+            }
+            
 			for (int numDusts = 0; numDusts < 20; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 0f, -2f, 0, default, 1.5f);

@@ -236,8 +236,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            int Damage = Main.masterMode ? 45 / 3 : Main.expertMode ? 35 / 2 : 25;
-
             if (SaveDirection != 0)
             {
                 NPC.spriteDirection = SaveDirection;
@@ -427,8 +425,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         {
                             SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
-                            Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f), ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60)), 
+                            new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f)), ModContent.ProjectileType<PhantomSeed>(), NPC.damage, 3f);
                         }
                     }
 
@@ -587,7 +585,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                                 Vector2 ProjectileShootPos = new Vector2(NPC.Center.X + (NPC.direction == -1 ? -45 : 45), NPC.Center.Y + 10);
 
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), ProjectileShootPos, ShootSpeed, ModContent.ProjectileType<EyeBolt>(), Damage, 0f, Main.myPlayer);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, ProjectileShootPos, ShootSpeed, ModContent.ProjectileType<EyeBolt>(), NPC.damage, 4.5f);
                             }
 
                             if (NPC.localAI[0] > 180)
@@ -610,6 +608,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y, 0, 0, 
                                 ModContent.ProjectileType<EyeBeamTelegraph>(), 0, 0f, Main.myPlayer);
+
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, player.Center, Vector2.Zero, ModContent.ProjectileType<EyeBeamTelegraph>(), 0, 0f);
                             }
 
                             if (NPC.localAI[0] == 200)
@@ -623,10 +623,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             {
                                 float theta = (SavePlayerPosition - NPC.Center).ToRotation();
 
-                                //ai[0] = npc parent
-                                //ai[1] = laser sweeping speed, for this attack there is none
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)),
-                                ModContent.ProjectileType<EyeBeam>(), Damage + 30, 0f, Main.myPlayer, NPC.whoAmI, 0f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)), ModContent.ProjectileType<EyeBeam>(), NPC.damage + 30, 0f, ai0: NPC.whoAmI);
                             }
 
                             if (NPC.localAI[0] >= 200 && NPC.localAI[0] <= 270)
@@ -706,8 +703,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                         {
                             float Spread = (float)Main.rand.Next(-1000, 1000) * 0.01f;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0 + Spread, Main.rand.Next(-15, -10), 
-                            ModContent.ProjectileType<PhantomBomb>(), Damage, 1, Main.myPlayer, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Spread, Main.rand.Next(-15, -10)), ModContent.ProjectileType<PhantomBomb>(), NPC.damage, 4.5f);
                         }
                     }
 
@@ -811,8 +807,8 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     
                             ShootSpeed = ShootSpeed * -5;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60), 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<PhantomSeed>(), Damage, 1, Main.myPlayer, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60)), 
+                            ShootSpeed, ModContent.ProjectileType<PhantomSeed>(), NPC.damage, 4.5f);
                         }
                     }
                     //make spirit visible again after spin attack

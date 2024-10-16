@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.Catacomb.Layer2.Projectiles;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
@@ -222,10 +223,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     ShootSpeed.X *= 8f;
                     ShootSpeed.Y *= 0f;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), ShootPosition1, ShootSpeed, SpitType, NPC.damage / 4, 0, NPC.target);
-                    }
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, ShootPosition1, ShootSpeed, SpitType, NPC.damage, 4.5f);
 
                     //shoot additional projectile for the hydra varaints
                     if (HydraPlant)
@@ -233,10 +231,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                         //spit the opposite projectile type as the front head
                         int HydraSpitType = SpitType == ModContent.ProjectileType<PitcherSpitPoison>() ? ModContent.ProjectileType<PitcherSpitVenom>() : ModContent.ProjectileType<PitcherSpitPoison>();
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), ShootPosition2, -ShootSpeed, HydraSpitType, NPC.damage / 4, 0, NPC.target);
-                        }
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, ShootPosition2, -ShootSpeed, HydraSpitType, NPC.damage, 4.5f);
                     }
                 }
 

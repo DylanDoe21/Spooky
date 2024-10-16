@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
@@ -30,7 +31,7 @@ namespace Spooky.Content.NPCs.SpiderCave
         public override void SetDefaults()
 		{
             NPC.lifeMax = 90;
-            NPC.damage = 25;
+            NPC.damage = 30;
 			NPC.defense = 5;
 			NPC.width = 58;
 			NPC.height = 102;
@@ -96,12 +97,9 @@ namespace Spooky.Content.NPCs.SpiderCave
 
                     for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y + 50),
-                            Main.rand.NextFloat(5f, 11f) * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y + 150)).RotatedBy(MathHelper.ToRadians(Main.rand.Next(6, 13)) * numProjectiles),
-                            ModContent.ProjectileType<LeafSpiderAcid>(), NPC.damage / 4, 0f, Main.myPlayer);
-                        }
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 50), 
+                        Main.rand.NextFloat(5f, 11f) * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y + 150)).RotatedBy(MathHelper.ToRadians(Main.rand.Next(6, 13)) * numProjectiles), 
+                        ModContent.ProjectileType<LeafSpiderAcid>(), NPC.damage, 4.5f);
                     }
 
                     NPC.ai[0] = 0;

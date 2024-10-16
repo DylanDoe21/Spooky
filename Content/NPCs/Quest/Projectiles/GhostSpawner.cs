@@ -107,12 +107,12 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.DD2_OgreHurt, Projectile.Center);
 
-            int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditBruiser>(), ai0: Projectile.ai[2]);
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditBruiser>(), ai0: Projectile.ai[2]);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                NetMessage.SendData(MessageID.SyncNPC, number: Bandit);
-            }
+				NetMessage.SendData(MessageID.SyncNPC, number: Bandit);
+			}
 
         	float maxAmount = 30;
 			int currentAmount = 0;
@@ -233,12 +233,12 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.DD2_GoblinScream with { Pitch = -0.25f }, Projectile.Center);
 
-            int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditWizard>(), ai0: Projectile.ai[2]);
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditWizard>(), ai0: Projectile.ai[2]);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                NetMessage.SendData(MessageID.SyncNPC, number: Bandit);
-            }
+				NetMessage.SendData(MessageID.SyncNPC, number: Bandit);
+			}
 
         	float maxAmount = 30;
 			int currentAmount = 0;
@@ -359,12 +359,12 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.DD2_DarkMageHurt with { Pitch = 1.1f }, Projectile.Center);
 
-            int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditPriest>(), ai0: Projectile.ai[2]);
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+            	int Bandit = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + 35, ModContent.NPCType<BanditPriest>(), ai0: Projectile.ai[2]);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
                 NetMessage.SendData(MessageID.SyncNPC, number: Bandit);
-            }
+			}
 
         	float maxAmount = 30;
 			int currentAmount = 0;

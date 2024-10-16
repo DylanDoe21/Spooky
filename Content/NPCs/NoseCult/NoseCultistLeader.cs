@@ -325,8 +325,8 @@ namespace Spooky.Content.NPCs.NoseCult
                             ShootSpeed.X *= Main.rand.NextFloat(12f, 17f);
                             ShootSpeed.Y *= Main.rand.NextFloat(12f, 17f);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y - 50), ShootSpeed, 
-                            ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage / 4, 0f, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 50),
+                            ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage, 4.5f);
                         }
                     }
 
@@ -537,11 +537,8 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         int[] Types = new int[] { ModContent.ProjectileType<NoseBallPurpleProj>(), ModContent.ProjectileType<NoseBallRedProj>() };
 
-						if (Main.netMode != NetmodeID.MultiplayerClient)
-						{
-							Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
-							Main.rand.Next(-10, 11), Main.rand.Next(-12, -2), Main.rand.Next(Types), 0, 0f, Main.myPlayer);
-						}
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50),
+                        new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-12, -2)), Main.rand.Next(Types), 0, 0f);
                     }
 
                     if (NPC.localAI[0] >= 200)
@@ -596,8 +593,8 @@ namespace Spooky.Content.NPCs.NoseCult
                     {
                         SoundEngine.PlaySound(SoundID.Item167, NPC.Center);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50, 
-                        Main.rand.Next(-6, 7), Main.rand.Next(-8, -3), ModContent.ProjectileType<NoseCultistEnemySpawner>(), 0, 0f, Main.myPlayer);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-35, 36), NPC.Center.Y - 50),
+                        new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-8, -3)), ModContent.ProjectileType<NoseCultistEnemySpawner>(), 0, 0f);
                     }
 
                     if (NPC.localAI[0] >= 360)

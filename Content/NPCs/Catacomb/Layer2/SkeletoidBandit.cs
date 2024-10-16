@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Costume;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
@@ -152,7 +153,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
                         Vector2 positonToShootFrom = new Vector2(NPC.Center.X + (NPC.direction == -1 ? -20 : 20), NPC.Center.Y + 2);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), positonToShootFrom, ShootSpeed, ProjectileID.BulletSnowman, NPC.damage / 4, 0, player.whoAmI);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, positonToShootFrom, ShootSpeed, ProjectileID.BulletSnowman, NPC.damage, 4.5f);
                     }
 
                     if (NPC.localAI[1] >= 120)

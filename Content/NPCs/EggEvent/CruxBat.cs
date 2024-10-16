@@ -63,8 +63,8 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SetDefaults()
         {
             NPC.lifeMax = 520;
-            NPC.damage = 40;
-            NPC.defense = 5;
+            NPC.damage = 50;
+            NPC.defense = 10;
             NPC.width = 98;
             NPC.height = 122;
             NPC.npcSlots = 1f;
@@ -184,7 +184,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         SoundEngine.PlaySound(ScreamSound, NPC.Center);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CruxAura>(), 0, 0, NPC.target, NPC.whoAmI);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<CruxAura>(), 0, 0f, ai0: NPC.whoAmI);
                     }
 
                     //make sure the aura is always on the center of the crux
@@ -224,7 +224,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //spawn splatter
                     for (int i = 0; i < 6; i++)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-4, 5), Main.rand.Next(-4, -1), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-4, 5), Main.rand.Next(-4, -1)), ModContent.ProjectileType<RedSplatter>(), 0, 0f);
                     }
                 }
 

@@ -167,8 +167,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             Player player = Main.player[Parent.target];
 
-            int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 40 / 2 : 30;
-
             NPC.direction = 1;
 
             //kill the hand if the parent does not exist
@@ -279,8 +277,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             ShootSpeed.Normalize();
                             ShootSpeed *= -10f;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-20, 20), NPC.Center.Y + Main.rand.Next(-20, 20), 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<ChlorophyllFlower>(), Damage, 0f, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-20, 20), NPC.Center.Y + Main.rand.Next(-20, 20)), 
+                            ShootSpeed, ModContent.ProjectileType<ChlorophyllFlower>(), NPC.damage, 4.5f);
                         }
                     }
 

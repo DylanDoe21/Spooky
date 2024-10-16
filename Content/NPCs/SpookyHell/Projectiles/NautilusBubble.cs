@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Localization;
@@ -10,7 +11,6 @@ using System;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
-using Terraria.ID;
 
 namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 {
@@ -110,9 +110,17 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
-            {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BubbleExplosion")), Projectile.damage + Main.rand.Next(-10, 30), 0);
+
+            int Damage = Main.masterMode ? 140 : Main.expertMode ? 90 : 50;
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+			{
+				Player player = Main.player[i];
+
+				if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
+				{
+                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BubbleExplosion")), Damage + Main.rand.Next(-30, 30), 0);
+                }
             }
 
             for (int numDusts = 0; numDusts < 35; numDusts++)
@@ -170,10 +178,15 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
-            {
-                Main.LocalPlayer.AddBuff(BuffID.WitheredArmor, 600);
-                Main.LocalPlayer.AddBuff(BuffID.WitheredWeapon, 600);
+            for (int i = 0; i < Main.maxPlayers; i++)
+			{
+				Player player = Main.player[i];
+
+				if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
+				{
+                    player.AddBuff(BuffID.WitheredArmor, 600);
+                    player.AddBuff(BuffID.WitheredWeapon, 600);
+                }
             }
 
             for (int numDusts = 0; numDusts < 35; numDusts++)

@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb;
@@ -44,7 +45,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
         public override void SetDefaults()
 		{
             NPC.lifeMax = 150;
-            NPC.damage = 20;
+            NPC.damage = 25;
             NPC.defense = 0;
             NPC.width = 46;
 			NPC.height = 56;
@@ -152,8 +153,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
             NPC.spriteDirection = NPC.direction;
 
-            int Damage = Main.masterMode ? 40 / 3 : Main.expertMode ? 30 / 2 : 20;
-
             switch ((int)NPC.localAI[0])
             {
                 case 0:
@@ -226,7 +225,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
                             Vector2 Speed = new Vector2(2f, 0f).RotatedByRandom(2 * Math.PI);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Speed, Main.rand.Next(Types), Damage, 0f, NPC.target, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Speed, Main.rand.Next(Types), NPC.damage, 0f);
                         }
 
                         NPC.localAI[1] = 0;

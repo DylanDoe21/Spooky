@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
@@ -112,8 +113,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
-			int Damage = Main.masterMode ? 90 / 3 : Main.expertMode ? 70 / 2 : 50;
-
 			Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
             float RotateX = player.Center.X - vector.X;
             float RotateY = player.Center.Y - vector.Y;
@@ -162,11 +161,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 					position += muzzleOffset;
 				}
 
-				if (Main.netMode != NetmodeID.MultiplayerClient)
-				{
-					Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, 
-					ShootSpeed.Y, ModContent.ProjectileType<MassiveFlameBallBolt>(), Damage, 1, Main.myPlayer, 0, 0);
-				}
+				NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<MassiveFlameBallBolt>(), 60, 4.5f);
 			}
 		}
 

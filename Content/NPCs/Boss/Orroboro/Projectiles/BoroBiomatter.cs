@@ -25,6 +25,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         {
             Projectile.width = 64;
             Projectile.height = 64;
+            Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
@@ -139,9 +140,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
-            if (Main.LocalPlayer.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
-            {
-                Main.LocalPlayer.Hurt(PlayerDeathReason.ByCustomReason(Main.LocalPlayer.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BiomassExplosion")), (Projectile.damage * 2) + Main.rand.Next(-10, 30), 0);
+            int Damage = Main.masterMode ? 135 : Main.expertMode ? 85 : 50;
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+			{
+				Player player = Main.player[i];
+
+				if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
+				{
+                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BiomassExplosion")), Damage + Main.rand.Next(-10, 30), 0);
+                }
             }
 
             //spawn blood splatter

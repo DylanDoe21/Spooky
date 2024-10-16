@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Food;
 using Spooky.Content.Items.SpookyHell;
@@ -182,10 +183,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         {
                             SoundEngine.PlaySound(SoundID.Item87, NPC.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {  
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TumorOrb>(), NPC.damage / 4, 3, Main.myPlayer, 179, (float)NPC.whoAmI, Main.rand.Next(0, 3));
-                            }
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<TumorOrb>(), NPC.damage, 4.5f, ai0: 179, ai1: NPC.whoAmI, ai2: Main.rand.Next(0, 3));
                         }
                     }
                 }

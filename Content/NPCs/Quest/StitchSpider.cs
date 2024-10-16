@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -90,7 +91,7 @@ namespace Spooky.Content.NPCs.Quest
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 4000;
-            NPC.damage = 40;
+            NPC.damage = 35;
 			NPC.defense = 10;
 			NPC.width = 58;
 			NPC.height = 58;
@@ -341,7 +342,7 @@ namespace Spooky.Content.NPCs.Quest
 							position += muzzleOffset;
 						}
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), position.X, position.Y, ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SpiderWeb>(), NPC.damage / 5, 0, NPC.target);
+						NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<SpiderWeb>(), NPC.damage, 3.5f);
 					}
 
 					if (NPC.localAI[0] >= 300)
@@ -448,7 +449,8 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 1, NPC.Center.Y - 55, Main.rand.Next(-5, 6), Main.rand.Next(-6, -3), ModContent.ProjectileType<SpiderMissile>(), NPC.damage / 4, 0, NPC.target);
+						NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + 1, NPC.Center.Y - 55), 
+						new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-6, -3)), ModContent.ProjectileType<SpiderMissile>(), NPC.damage, 3.5f);
 					}
 
 					if (NPC.localAI[0] >= 360)

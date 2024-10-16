@@ -16,7 +16,6 @@ namespace Spooky.Content.Projectiles
         {
             Projectile.width = 16;
             Projectile.height = 16;
-            Projectile.aiStyle = -1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.tileCollide = false;

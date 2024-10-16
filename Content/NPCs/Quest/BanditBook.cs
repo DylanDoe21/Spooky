@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.NPCs.Quest.Projectiles;
 using Spooky.Content.Tiles.Relic;
@@ -343,20 +344,17 @@ namespace Spooky.Content.NPCs.Quest
 
 						if (NPC.localAI[0] == 120)
 						{
-							int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(-5, -5), ModContent.ProjectileType<GhostSpawner1>(), 0, 0, NPC.target);
-							Main.projectile[Spawner].ai[2] = NPC.whoAmI;
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(-5, -5), ModContent.ProjectileType<GhostSpawner1>(), 0, 0f, ai2: NPC.whoAmI);
 						}
 
 						if (NPC.localAI[0] == 180)
 						{
-							int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, -5), ModContent.ProjectileType<GhostSpawner2>(), 0, 0, NPC.target);
-							Main.projectile[Spawner].ai[2] = NPC.whoAmI;
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(0, -5), ModContent.ProjectileType<GhostSpawner2>(), 0, 0f, ai2: NPC.whoAmI);
 						}
 
 						if (NPC.localAI[0] == 240)
 						{
-							int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(5, -5), ModContent.ProjectileType<GhostSpawner3>(), 0, 0, NPC.target);
-							Main.projectile[Spawner].ai[2] = NPC.whoAmI;
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(5, -5), ModContent.ProjectileType<GhostSpawner3>(), 0, 0f, ai2: NPC.whoAmI);
 						}
 
 						if (NPC.localAI[0] >= 320)
@@ -422,6 +420,8 @@ namespace Spooky.Content.NPCs.Quest
 					if (NPC.ai[1] > 0)
 					{
 						NPC.ai[0]++;
+
+						NPC.netUpdate = true;
 					}
 
 					break;
@@ -449,6 +449,8 @@ namespace Spooky.Content.NPCs.Quest
 					if (NPC.ai[2] > 0)
 					{
 						NPC.ai[0] = 1;
+
+						NPC.netUpdate = true;
 					}
 
 					break;
@@ -469,14 +471,6 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						NPC.velocity *= 0.98f;
 					}
-
-					//if the priest is dead, loop back to first ghost
-					/*
-					if (NPC.ai[3] > 0)
-					{
-						NPC.ai[0] = 1;
-					}
-					*/
 
 					break;
 				}

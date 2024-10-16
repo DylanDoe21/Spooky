@@ -90,7 +90,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         public override void SetDefaults()
         {
             NPC.lifeMax = 22000;
-            NPC.damage = 45;
+            NPC.damage = 50;
             NPC.defense = 20;
             NPC.width = 58;
             NPC.height = 58;
@@ -475,18 +475,18 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] == 200)
                     {
                         //spawn pillars on the walls
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 678, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
-                        Damage, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X - 678, NPC.Center.Y + 400), Vector2.Zero, 
+                        ModContent.ProjectileType<ThornPillarBarrierSide>(), NPC.damage, 0f, ai0: new Vector2(0, 32).ToRotation() + MathHelper.Pi, ai1: -16 * 60);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 672, NPC.Center.Y + 400, 0, 0, ModContent.ProjectileType<ThornPillarBarrierSide>(), 
-                        Damage, 0, Main.myPlayer, new Vector2(0, 32).ToRotation() + MathHelper.Pi, -16 * 60);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + 672, NPC.Center.Y + 400), Vector2.Zero, 
+                        ModContent.ProjectileType<ThornPillarBarrierSide>(), NPC.damage, 0f, ai0: new Vector2(0, 32).ToRotation() + MathHelper.Pi, ai1: -16 * 60);
 
                         //spawn pillars on the floor
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 385, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
-                        Damage, 0, Main.myPlayer, new Vector2(32, 0).ToRotation(), -16 * 60);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 385), Vector2.Zero, 
+                        ModContent.ProjectileType<ThornPillarBarrierFloor>(), NPC.damage, 0f, ai0: new Vector2(32, 0).ToRotation(), ai1: -16 * 60);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 391, 0, 0, ModContent.ProjectileType<ThornPillarBarrierFloor>(), 
-                        Damage, 0, Main.myPlayer, new Vector2(-32, 0).ToRotation(), -16 * 60);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 391), Vector2.Zero, 
+                        ModContent.ProjectileType<ThornPillarBarrierFloor>(), NPC.damage, 0f, ai0: new Vector2(-32, 0).ToRotation(), ai1: -16 * 60);
                     }
 
                     if (NPC.localAI[0] == 360)
@@ -619,8 +619,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                             ShootSpeed.Normalize();
                             ShootSpeed *= 25f;
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-5, 5), NPC.Center.Y + 10 + Main.rand.Next(-5, 5), 
-                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<SolarLaser>(), Damage, 0f, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-5, 5), NPC.Center.Y + 10 + Main.rand.Next(-5, 5)), 
+                            ShootSpeed, ModContent.ProjectileType<SolarLaser>(), NPC.damage, 4.5f);
                         }
                     }
 
@@ -680,11 +680,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
-                        int NumProjectiles = Main.rand.Next(3, 6);
-                        for (int numProjs = 0; numProjs < NumProjectiles; numProjs++)
+                        int MaxProjectiles = Main.rand.Next(3, 6);
+                        for (int numProj = 0; numProj < MaxProjectiles; numProj++)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + 200, Main.rand.NextFloat(-15f, 15f), 
-                            Main.rand.NextFloat(-7f, -3f), ModContent.ProjectileType<ThornBall>(), Damage, 2, NPC.target, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 200), 
+                            new Vector2(Main.rand.NextFloat(-15f, 15f), Main.rand.NextFloat(-7f, -3f)), ModContent.ProjectileType<ThornBall>(), NPC.damage, 4.5f);
                         }
                     }
 
@@ -718,8 +718,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-100, 450),
-                            Main.rand.Next(7, 11), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X - 800, NPC.Center.Y + Main.rand.Next(-100, 450)), 
+                            new Vector2(Main.rand.Next(7, 11), 0), ModContent.ProjectileType<DaffodilFly>(), NPC.damage, 4.5f);
                         }
 
                         //shoot flies from the right
@@ -730,8 +730,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-100, 450),
-                            Main.rand.Next(-10, -6), 0, ModContent.ProjectileType<DaffodilFly>(), Damage, 0, NPC.target, 0, 0);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + 800, NPC.Center.Y + Main.rand.Next(-100, 450)), 
+                            new Vector2(Main.rand.Next(-10, -6), 0), ModContent.ProjectileType<DaffodilFly>(), NPC.damage, 4.5f);
                         }
                     }
 
@@ -772,14 +772,15 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
                     {
-                        //shake the screen for funny rumbling effect
+                        //shake the screen for rumbling effect
                         SpookyPlayer.ScreenShakeAmount = 3;
 
                         if (NPC.localAI[0] % 10 == 2)
                         {
                             SoundEngine.PlaySound(SeedSpawnSound, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + Main.rand.Next(-750, 750), NPC.Center.Y - 50, 0, 8, ModContent.ProjectileType<ThornPillarSeed>(), Damage, 0, NPC.target);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-750, 750), NPC.Center.Y - 50), 
+                            new Vector2(0, 8), ModContent.ProjectileType<ThornPillarSeed>(), NPC.damage, 4.5f);
                         }
                     }
 
@@ -800,8 +801,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] == 20)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X - 470, NPC.Center.Y + 350, 0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + 485, NPC.Center.Y + 350, 0, 0, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f, Main.myPlayer);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X - 470, NPC.Center.Y + 350), Vector2.Zero, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + 485, NPC.Center.Y + 350), Vector2.Zero, ModContent.ProjectileType<TakeCoverTelegraph>(), 0, 0f);
                     }
 
                     if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 120)
@@ -830,10 +831,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                         float theta = (player.Center - NPC.Center).ToRotation() - MathHelper.ToRadians(rotation == -0.035f ? -35 : 35);
 
-                        //ai[0] = npc parent
-                        //ai[1] = laser sweeping speed 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)),
-                        ModContent.ProjectileType<DaffodilBeam>(), Damage + 30, 0f, Main.myPlayer, NPC.whoAmI, rotation);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)), ModContent.ProjectileType<DaffodilBeam>(), NPC.damage + 30, 0f, ai0: NPC.whoAmI, ai1: rotation);
                     }
 
                     if (NPC.localAI[0] >= 360)
@@ -864,7 +862,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                                 positionY = (int)player.Center.Y;
                             }
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), positionX, positionY + 5, 0, 0, ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f, Main.myPlayer);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(positionX, positionY + 5), Vector2.Zero, ModContent.ProjectileType<SolarDeathbeamTelegraph>(), 0, 0f);
 
                             SavePoint[savePoints] = new Vector2(positionX, positionY);
                         }
@@ -896,10 +894,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             float theta = (SavePoint[i] - NPC.Center).ToRotation();
 
-                            //ai[0] = npc parent
-                            //ai[1] = laser sweeping speed, for this attack there is none
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)),
-                            ModContent.ProjectileType<DaffodilBeam>(), Damage + 30, 0f, Main.myPlayer, NPC.whoAmI, 0f);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)), ModContent.ProjectileType<DaffodilBeam>(), NPC.damage + 30, 0f, ai0: NPC.whoAmI);
                         }
                     }
                     

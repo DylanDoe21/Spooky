@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.SpookyHell.Projectiles;
@@ -162,10 +163,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                     for (int numProjectiles = 0; numProjectiles <= 1; numProjectiles++)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TumorOrb>(), NPC.damage / 4, 3, Main.myPlayer, 0, (float)NPC.whoAmI, Main.rand.Next(0, 2));
-                        }
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<TumorOrb>(), NPC.damage, 4.5f, ai1: NPC.whoAmI, ai2: Main.rand.Next(0, 2));
                     }
                 }
 

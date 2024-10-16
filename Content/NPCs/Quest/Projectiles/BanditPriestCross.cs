@@ -94,7 +94,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
 		public override void AI()
         {
-            Player Target = Main.player[Projectile.owner];
+            Player Target = Main.player[(int)Projectile.ai[0]];
 
 			if (runOnce)
 			{

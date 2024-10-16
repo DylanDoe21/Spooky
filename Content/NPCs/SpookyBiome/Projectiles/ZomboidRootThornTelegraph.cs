@@ -43,8 +43,11 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
             {
                 Vector2 lineDirection = new Vector2(0, 16);
                 
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + 13, Projectile.Center.Y - 16, 0, 0,
-                ModContent.ProjectileType<ZomboidRootThorn>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + 13, Projectile.Center.Y - 16, 0, 0,
+                    ModContent.ProjectileType<ZomboidRootThorn>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                }
             }
 
             if (Projectile.ai[0] > 45)
@@ -73,8 +76,11 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
             {
                 Vector2 lineDirection = new Vector2(0, 16);
                 
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + 13, Projectile.Center.Y - 16, 0, 0,
-                ModContent.ProjectileType<ZomboidRootThornFire>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + 13, Projectile.Center.Y - 16, 0, 0,
+                    ModContent.ProjectileType<ZomboidRootThornFire>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                }
             }
 
             if (Projectile.ai[0] > 45)

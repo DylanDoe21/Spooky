@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
@@ -38,7 +39,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 75;
-            NPC.damage = 25;
+            NPC.damage = 30;
 			NPC.defense = 15;
 			NPC.width = 74;
 			NPC.height = 52;
@@ -131,20 +132,14 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             for (int numProjectiles = -3; numProjectiles <= -1; numProjectiles++)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 20, NPC.Center.Y), 
-                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles), Type, NPC.damage / 4, 0f, Main.myPlayer);
-                }
+                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X - 20, NPC.Center.Y), 
+                Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles), Type, NPC.damage, 4.5f);
             }
 
             for (int numProjectiles = 1; numProjectiles <= 3; numProjectiles++)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 20, NPC.Center.Y), 
-                    Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles), Type, NPC.damage / 4, 0f, Main.myPlayer);
-                }
+                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + 20, NPC.Center.Y), 
+                Velocity * NPC.DirectionTo(new Vector2(NPC.Center.X, NPC.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles), Type, NPC.damage, 4.5f);
             }
         }
 
@@ -174,7 +169,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 90;
-            NPC.damage = 40;
+            NPC.damage = 35;
 			NPC.defense = 15;
 			NPC.width = 82;
 			NPC.height = 56;

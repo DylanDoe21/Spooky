@@ -100,7 +100,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SetDefaults()
         {
             NPC.lifeMax = 15000;
-            NPC.damage = 60;
+            NPC.damage = 55;
             NPC.defense = 30;
             NPC.width = 30;
             NPC.height = 30;
@@ -186,8 +186,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-
-            int Damage = Main.masterMode ? 70 / 3 : Main.expertMode ? 55 / 2 : 40;
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
@@ -320,22 +318,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] == positionTime)
                         {
+                            SavePlayerPosition = player.Center;
+
                             NPC.velocity *= 0;
 
-                            NPC.position.X = player.Center.X - 50;
-                            NPC.position.Y = (NPC.Center.Y < player.Center.Y) ? player.Center.Y - 750 : player.Center.Y + 750;
+                            NPC.position.X = player.Center.X - (NPC.width / 2);
+                            NPC.position.Y = player.Center.Y - (NPC.height / 2) + (NPC.Center.Y < player.Center.Y ? -750 : 750);
 
                             if (NPC.Center.Y < player.Center.Y)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y - 170, 0, 0, ModContent.ProjectileType<TelegraphRedDown>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y - 250, 0, 0, ModContent.ProjectileType<TelegraphRedDown>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y - 330, 0, 0, ModContent.ProjectileType<TelegraphRedDown>(), 0, 0f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y - 170), Vector2.Zero, ModContent.ProjectileType<TelegraphRedDown>(), 0, 0f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y - 250), Vector2.Zero, ModContent.ProjectileType<TelegraphRedDown>(), 0, 0f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y - 330), Vector2.Zero, ModContent.ProjectileType<TelegraphRedDown>(), 0, 0f);
                             }
                             else
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y + 170, 0, 0, ModContent.ProjectileType<TelegraphRedUp>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y + 250, 0, 0, ModContent.ProjectileType<TelegraphRedUp>(), 0, 0f);
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X, player.Center.Y + 330, 0, 0, ModContent.ProjectileType<TelegraphRedUp>(), 0, 0f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y + 170), Vector2.Zero, ModContent.ProjectileType<TelegraphRedUp>(), 0, 0f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y + 250), Vector2.Zero, ModContent.ProjectileType<TelegraphRedUp>(), 0, 0f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y + 330), Vector2.Zero, ModContent.ProjectileType<TelegraphRedUp>(), 0, 0f);
                             }
                         }
 
@@ -346,7 +346,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
-                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
 
                             ChargeDirection.X *= 0;
@@ -406,13 +406,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         NPC.velocity *= 0;
 
-                        //this is slightly offset so its even with the other worm in game
-                        NPC.position.X = player.Center.X - 1250;
-                        NPC.position.Y = player.Center.Y - 30;
+                        NPC.position.X = player.Center.X - (NPC.width / 2) - 1250;
+                        NPC.position.Y = player.Center.Y - (NPC.height / 2);
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X - 450, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X - 550, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X - 650, player.Center.Y, 0, 0, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X - 450, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X - 550, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X - 650, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
                     }
 
                     if (NPC.localAI[0] == 90)
@@ -450,11 +449,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             ShootSpeed.Normalize();
                             ShootSpeed *= Enraged ? 4.5f : 3f;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y,
-                                ModContent.ProjectileType<OrroBiomatter>(), Damage, 1, Main.myPlayer);
-                            }
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<OrroBiomatter>(), NPC.damage, 0f);
                         }
                     }
 
@@ -507,11 +502,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                     ShootSpeed.X *= Main.rand.Next(10, 18);
                                     ShootSpeed.Y *= Main.rand.Next(10, 18);
 
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + NPC.velocity.X * 0.5f, NPC.Center.Y + NPC.velocity.Y * 0.5f, 
-                                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeSpit>(), Damage, 0f, Main.myPlayer, 0, 1);
-                                    }
+                                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + NPC.velocity.X * 0.5f, NPC.Center.Y + NPC.velocity.Y * 0.5f), 
+                                    ShootSpeed, ModContent.ProjectileType<EyeSpit>(), NPC.damage, 4.5f);
                                 }
                             }
                         }
@@ -593,11 +585,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         {
                             SoundEngine.PlaySound(SpitSound, NPC.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-2, 3), Main.rand.Next(4, 12), 
-                                ModContent.ProjectileType<EyeSpit2>(), Damage, 0f, Main.myPlayer);
-                            }
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(4, 12)), ModContent.ProjectileType<EyeSpit2>(), NPC.damage, 4.5f);
                         }
 
                         if (NPC.localAI[0] >= 275)
@@ -651,8 +639,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         NPC.velocity *= 0;
 
-                        NPC.position.X = player.Center.X - 1000;
-                        NPC.position.Y = player.Center.Y + 750;
+                        NPC.position.X = player.Center.X - (NPC.width / 2) - 1000;
+                        NPC.position.Y = player.Center.Y - (NPC.height / 2) + 750;
                     }
 
                     if (NPC.localAI[0] == 120)
@@ -683,10 +671,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                                 int ProjectileType = Enraged ? ModContent.ProjectileType<OrroBiomatter>() : ModContent.ProjectileType<EyeSpit>();
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, ShootSpeed.X, ShootSpeed.Y, ProjectileType, Damage, 1, Main.myPlayer, 0, 0);
-                                }
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ProjectileType, NPC.damage, 4.5f);
                             }
 
                             NPC.localAI[2] += 0.025f;

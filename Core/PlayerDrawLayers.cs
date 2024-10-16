@@ -27,7 +27,7 @@ namespace Spooky.Core
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) 
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
             Player drawPlayer = drawInfo.drawPlayer;
             Item headItem = drawPlayer.armor[0];

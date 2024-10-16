@@ -446,6 +446,15 @@ namespace Spooky.Core
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            //inflict enemies with gourd decay while wearing the rotten gourd armor
+            if (GourdSet && hit.DamageType == DamageClass.Melee)
+            {
+                if (Main.rand.NextBool(8))
+                {
+                    target.AddBuff(ModContent.BuffType<GourdDecay>(), Main.rand.Next(600, 1200));
+                }
+            }
+
             //spawn eyes when hitting enemies with whips with the living flesh armor
             if (EyeArmorSet && hit.DamageType == DamageClass.SummonMeleeSpeed && Main.rand.NextBool(5))
             {
@@ -557,18 +566,6 @@ namespace Spooky.Core
 			{ 
 				CandyBagJustHit = true;
 			}
-        }
-
-        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            //inflict enemies with gourd decay while wearing the rotten gourd armor
-            if (GourdSet && hit.DamageType == DamageClass.Melee)
-            {
-                if (Main.rand.NextBool(8))
-                {
-                    target.AddBuff(ModContent.BuffType<GourdDecay>(), 3600);
-                }
-            }
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
