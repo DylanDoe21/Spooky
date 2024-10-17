@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Backgrounds.Cemetery;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
@@ -65,10 +66,10 @@ namespace Spooky.Content.Biomes
         }
        
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
-
-        public override int BiomeTorchItemType => ItemID.GreenTorch;
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
+
+        public override int BiomeTorchItemType => ModContent.ItemType<CemeteryBiomeTorchItem>();
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/CemeteryBiomeIcon";

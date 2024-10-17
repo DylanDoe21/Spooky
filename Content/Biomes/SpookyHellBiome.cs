@@ -8,6 +8,7 @@ using System;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpookyHell.Sentient;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
@@ -18,9 +19,9 @@ namespace Spooky.Content.Biomes
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-        public override int BiomeTorchItemType => ItemID.CrimsonTorch;
-
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<BloodWaterStyle>();
+
+        public override int BiomeTorchItemType => ModContent.ItemType<SpookyHellTorchItem>();
 
         public override void Load()
         {

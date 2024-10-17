@@ -3742,3 +3742,33 @@ Bestiary: {
 		Testing Item
 		'''
 }
+
+CatacombTorch1Item: {
+	DisplayName: Creepy Catacombs Torch
+	Tooltip: ""
+}
+
+CatacombTorch2Item: {
+	DisplayName: Lower Catacombs Torch
+	Tooltip: ""
+}
+
+CemeteryBiomeTorchItem: {
+	DisplayName: Swampy Cemetery Torch
+	Tooltip: ""
+}
+
+SpiderBiomeTorchItem: {
+	DisplayName: Spider Grotto Torch
+	Tooltip: ""
+}
+
+SpookyBiomeTorchItem: {
+	DisplayName: Spooky Forest Torch
+	Tooltip: ""
+}
+
+SpookyHellTorchItem: {
+	DisplayName: Eye Valley Torch
+	Tooltip: ""
+}

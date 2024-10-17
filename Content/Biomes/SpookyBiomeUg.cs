@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Backgrounds.SpookyBiome;
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
@@ -18,10 +19,10 @@ namespace Spooky.Content.Biomes
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
        
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
-
-        public override int BiomeTorchItemType => ItemID.OrangeTorch;
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
+
+        public override int BiomeTorchItemType => ModContent.ItemType<SpookyBiomeTorchItem>();
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/SpookyBiomeUgIcon";

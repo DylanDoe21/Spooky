@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
@@ -10,8 +11,8 @@ using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.Catacomb;
+using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Water;
-using Terraria.DataStructures;
 
 namespace Spooky.Content.Biomes
 { 
@@ -21,9 +22,9 @@ namespace Spooky.Content.Biomes
        
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-        public override int BiomeTorchItemType => ItemID.BoneTorch;
-
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
+
+        public override int BiomeTorchItemType => ModContent.ItemType<CatacombTorch1Item>();
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiomeIcon";
@@ -66,6 +67,8 @@ namespace Spooky.Content.Biomes
     public class CatacombBiome2 : CatacombBiome
     {
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/CatacombLower");
+
+        public override int BiomeTorchItemType => ModContent.ItemType<CatacombTorch2Item>();
 
         public override string BestiaryIcon => "Spooky/Content/Biomes/CatacombBiome2Icon";
 

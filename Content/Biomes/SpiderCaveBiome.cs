@@ -9,6 +9,7 @@ using MonoMod.Cil;
 
 using Spooky.Core;
 using Spooky.Content.Backgrounds.SpiderCave;
+using Spooky.Content.Tiles.SpiderCave.Furniture;
 using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
@@ -21,9 +22,9 @@ namespace Spooky.Content.Biomes
        
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-        public override int BiomeTorchItemType => ItemID.YellowTorch;
-
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
+
+        public override int BiomeTorchItemType => ModContent.ItemType<SpiderBiomeTorchItem>();
 
         public override void Load()
         {
