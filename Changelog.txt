@@ -15,6 +15,7 @@ Other stuff:
 -Zomboid warlock skulls can now be destroyed by hitting them
 -Spooky spirit's orbiting skulls in phase 2 can now be killed before they get shot towards the player
 -Removed the second line of the disco skulls tooltip because it was a scrapped ability
+-Spooky mod sofas now count as chairs and can be sat on
 -Fixed dumb zomboid not spawning, and lowered its spawn rate massively
 -Fixed tome of spirits spawning multiple of each ghost
 -Fixed rotten gourd armor set bonus not working with melee projectiles
