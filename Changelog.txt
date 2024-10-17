@@ -18,3 +18,4 @@ Other stuff:
 -Fixed dumb zomboid not spawning, and lowered its spawn rate massively
 -Fixed tome of spirits spawning multiple of each ghost
 -Fixed rotten gourd armor set bonus not working with melee projectiles
+-Fixed spooky mod melee weapons with swing visual effects not scaling up properly when any of the melee glove accessories are worn

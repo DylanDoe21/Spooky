@@ -48,7 +48,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 				Vector2 position = player.RotatedRelativePoint(new Vector2(player.itemLocation.X + 12f * player.direction + player.velocity.X, player.itemLocation.Y - 14f + player.velocity.Y), true);
 				
 				float divide = 300f;
-				Lighting.AddLight(position, new Vector3(67f / divide, 124f / divide, 181f / divide));
+				Lighting.AddLight(position, new Vector3(166f / divide, 125f / divide, 217f / divide));
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			if (!Item.wet)
 			{
 				float divide = 300f;
-				Lighting.AddLight(Item.Center, new Vector3(67f / divide, 124f / divide, 181f / divide));
+				Lighting.AddLight(Item.Center, new Vector3(166f / divide, 125f / divide, 217f / divide));
 			}
 		}
 
