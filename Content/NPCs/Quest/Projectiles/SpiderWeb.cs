@@ -50,7 +50,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Webbed, 120);
+            target.AddBuff(BuffID.Slow, 180);
         }
 
         public override void AI()

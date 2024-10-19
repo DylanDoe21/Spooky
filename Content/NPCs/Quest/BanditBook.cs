@@ -83,7 +83,7 @@ namespace Spooky.Content.NPCs.Quest
 		{
 			//this gets every default hp value for every bandit, then scales them individually and adds them up to get an accurate result of how much hp they actually have
 			//this npcs default hp of 8000 is every bandits default hp added up together
-			NPC.lifeMax = (int)(2750 * 0.75f * bossAdjustment) + (int)(2750 * 0.75f * bossAdjustment) + (int)(2500 * 0.75f * bossAdjustment);
+			NPC.lifeMax = (int)(2750 * 0.75f * balance * bossAdjustment) + (int)(2750 * 0.75f * balance * bossAdjustment) + (int)(2500 * 0.75f * balance * bossAdjustment);
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

@@ -81,8 +81,8 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetDefaults()
         {
             NPC.lifeMax = 4500;
-            NPC.damage = 50;
-            NPC.defense = 5;
+            NPC.damage = 45;
+            NPC.defense = 15;
             NPC.width = 122;
 			NPC.height = 128;
             NPC.npcSlots = 1f;
@@ -99,7 +99,7 @@ namespace Spooky.Content.NPCs.NoseCult
         //uses boss hp scaling so that it scales based on the amount of players
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * bossAdjustment);
+            NPC.lifeMax = (int)(NPC.lifeMax * balance * bossAdjustment * 0.85f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

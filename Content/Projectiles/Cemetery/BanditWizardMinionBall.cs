@@ -31,7 +31,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.height = 36;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 25;
             Projectile.penetrate = 1;
             Projectile.alpha = 255;
         }

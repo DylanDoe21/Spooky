@@ -169,7 +169,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             }
 
             //idle animation
-            if (Projectile.ai[1] < 45)
+            if (Projectile.ai[1] < 15)
             {
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 6)
@@ -205,7 +205,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.ai[1]++;
 
             //go to the side of the target to prepare for dashing
-            if (Projectile.ai[1] < 60)
+            if (Projectile.ai[1] < 30)
             {
                 Vector2 GoTo = target.Center;
                 GoTo.X += (Projectile.Center.X < target.Center.X) ? -150 : 150;
@@ -215,7 +215,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             }
 
             //dash at the target
-            if (Projectile.ai[1] == 60)
+            if (Projectile.ai[1] == 30)
             {
                 Charging = true;
 
@@ -233,14 +233,14 @@ namespace Spooky.Content.Projectiles.Cemetery
             }
 
             //slow down at the end of the charge
-            if (Projectile.ai[1] >= 80)
+            if (Projectile.ai[1] >= 50)
             {
                 Charging = false;
                 Projectile.velocity *= 0.7f;
             }
 
             //loop ai
-            if (Projectile.ai[1] >= 85)
+            if (Projectile.ai[1] >= 55)
             {
                 Projectile.ai[1] = 0;
             }

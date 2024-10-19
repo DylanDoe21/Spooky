@@ -94,7 +94,7 @@ namespace Spooky.Content.NPCs.Quest
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.85f * bossAdjustment);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
 		}
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 

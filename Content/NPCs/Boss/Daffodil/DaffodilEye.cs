@@ -91,7 +91,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         {
             NPC.lifeMax = 22000;
             NPC.damage = 50;
-            NPC.defense = 20;
+            NPC.defense = 25;
             NPC.width = 58;
             NPC.height = 58;
             NPC.knockBackResist = 0f;
@@ -109,9 +109,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
-        {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
-        }
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
+		}
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {

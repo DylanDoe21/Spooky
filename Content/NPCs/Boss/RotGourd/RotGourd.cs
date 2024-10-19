@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		{
             NPC.lifeMax = 2200;
             NPC.damage = 22;
-            NPC.defense = 5;
+            NPC.defense = 12;
             NPC.width = 72;
             NPC.height = 130;
             NPC.knockBackResist = 0f;
@@ -107,9 +107,9 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 		}
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
-        {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
-        }
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
+		}
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {

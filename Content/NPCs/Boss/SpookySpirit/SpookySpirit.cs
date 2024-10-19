@@ -129,7 +129,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         {
             NPC.lifeMax = 3400;
             NPC.damage = 32;
-            NPC.defense = 8;
+            NPC.defense = 12;
             NPC.width = 116;
             NPC.height = 112;
             NPC.knockBackResist = 0f;
@@ -147,9 +147,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
-        {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
-        }
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
+		}
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {

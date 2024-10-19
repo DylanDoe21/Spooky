@@ -465,6 +465,12 @@ namespace Spooky.Content.NPCs.EggEvent
                                 center.Y = y * 16;
                             }
 
+                            for (int numDusts = 0; numDusts < 25; numDusts++)
+                            {
+                                Dust dust = Dust.NewDustDirect(center, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
+                                dust.noGravity = true;
+                            }
+
                             int Bolster = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y, ModContent.NPCType<FleshBolster>());
 
                             if (Main.netMode != NetmodeID.MultiplayerClient)
