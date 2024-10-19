@@ -293,6 +293,7 @@ ZomboidThorn.DisplayName: Zomboid
 ZomboidTomatoMold.DisplayName: Tomato Zomboid
 ZomboidTomato.DisplayName: Tomato Zomboid
 ZomboidWarlock.DisplayName: Zomboid Warlock
+WarlockSkull.DisplayName: Warlock Skull
 ZomboidWind.DisplayName: Zomboid
 //valley of eyes
 EyeBat.DisplayName: Bat n' Eye
@@ -394,4 +395,3 @@ FrankenGoblinHandFront.DisplayName: Frank's Hand
 FrankenGoblinHandBack.DisplayName: Frank's Hand
 FrankenGoblinEye.DisplayName: Monster Eye
 StitchSpider.DisplayName: Stitches
-WarlockSkull.DisplayName: Warlock Skull
