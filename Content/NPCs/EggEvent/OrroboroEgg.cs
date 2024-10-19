@@ -625,8 +625,8 @@ namespace Spooky.Content.NPCs.EggEvent
                         {
                             NPC Enemy = Main.npc[i];
 
-                            int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
-                            ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
+                            int[] EventNPCs = new int[] { ModContent.NPCType<BiojetterEye>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(), ModContent.NPCType<ExplodingAppendix>(), 
+                            ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>(), ModContent.NPCType<FleshBolster>() };
 
                             if (Enemy.active && EventNPCs.Contains(Enemy.type))
                             {

@@ -70,15 +70,15 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
             NPC.rotation = NPC.velocity.X * 0.1f;
 
-            if (NPC.alpha > 0)
-            {
-                NPC.alpha -= 8;
-            }
-
             NPC.ai[0]++;
 
             if (NPC.ai[0] < 75)
             {
+                if (NPC.alpha > 0)
+                {
+                    NPC.alpha -= 8;
+                }
+
                 float goToX = Parent.Center.X + OffsetX - NPC.Center.X;
                 float goToY = Parent.Center.Y + OffsetY - NPC.Center.Y;
                 float speed = 0.12f;
@@ -122,16 +122,17 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
             if (NPC.ai[0] == 75)
             {
                 double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - NPC.position.Y, Main.player[Main.myPlayer].position.X - NPC.position.X);
-                NPC.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 8;
+                NPC.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 7;
             }
 
             if (NPC.ai[0] > 100)
             {
-                NPC.noTileCollide = false;
-            }
-            else
-            {
-                NPC.noTileCollide = true;
+                NPC.alpha += 5;
+
+                if (NPC.alpha > 255)
+                {
+                    NPC.active = false;
+                }
             }
         }
     }
