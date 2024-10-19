@@ -10,9 +10,9 @@ Important change: Enemy projectile damage fix
 Other stuff:
 
 -Added actual biome torches for every spooky mod biome
--Added flesh bolsters to the egg incursion (They buff other enemies)
+-Added flesh bolsters to the egg incursion (They make other enemies immune to damage)
 -Raveyard no longer has rainbow torches as its biome torch
--Venomous spiderpoon enemy pulling no longer works on orro-boro, friendly critters, or target dummies
+-Venomous spiderpoon enemy pulling no longer works on orro-boro segments, friendly critters, or target dummies
 -Zomboid warlock skulls can now be destroyed by hitting them
 -Spooky spirit's orbiting skulls in phase 2 can now be killed before they get shot towards the player
 -Removed the second line of the disco skulls tooltip because it was a scrapped ability

@@ -11,21 +11,21 @@ namespace Spooky.Content.Buffs
 		public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
 
 		private bool initializeStats;
-        private int storedDamage;
+        private bool storedDontTakeDamage;
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
             if (!initializeStats)
             {
-                storedDamage = npc.damage;
-				npc.damage = (int)(npc.damage * 2.75f);
+                storedDontTakeDamage = npc.dontTakeDamage;
+				npc.dontTakeDamage = true;
 
                 initializeStats = true;
 			}
 
 			if (npc.buffTime[buffIndex] < 5)
             {
-                npc.damage = storedDamage;
+                npc.dontTakeDamage = storedDontTakeDamage;
             }
 		}
     }
