@@ -46,6 +46,26 @@ namespace Spooky.Content.NPCs.EggEvent
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 		}
 
+		public override void SendExtraAI(BinaryWriter writer)
+        {
+			//bools
+			writer.Write(Shake);
+
+            //floats
+            writer.Write(HeightAboveParent);
+            writer.Write(SaveRotation);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+			//bools
+			Shake = reader.ReadBoolean();
+
+            //floats
+            HeightAboveParent = reader.ReadSingle();
+            SaveRotation = reader.ReadSingle();
+        }
+
 		public override void SetDefaults()
 		{
 			NPC.lifeMax = 520;
@@ -359,6 +379,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
 		public override void SendExtraAI(BinaryWriter writer)
         {
+			//bools
+			writer.Write(FoundPosition);
+
             //floats
             writer.Write(destinationX);
             writer.Write(destinationY);
@@ -366,6 +389,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+			//bools
+			FoundPosition = reader.ReadBoolean();
+
             //floats
             destinationX = reader.ReadSingle();
             destinationY = reader.ReadSingle();
@@ -412,8 +438,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			//teleport to another location
 			if (NPC.ai[1] == 1)
 			{
-				NPC.ai[2]++;
-
 				if (!FoundPosition && destinationX == 0f && destinationY == 0f)
 				{
 					Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
@@ -438,38 +462,34 @@ namespace Spooky.Content.NPCs.EggEvent
 
 					destinationX = center.X;
 					destinationY = center.Y;
-				}
 
-				if (NPC.ai[2] >= 30 && NPC.ai[2] <= 90)
+					FoundPosition = true;
+				}
+				else
 				{
-					float PositionX = destinationX * 16f - (float)(NPC.width / 2) + 8f;
-					float PositionY = destinationY * 16f - (float)NPC.height;
+					NPC.ai[2]++;
+					if (NPC.ai[2] > 90 && destinationX != 0f && destinationY != 0f)
+					{
+						NPC.position.X = destinationX - (float)(NPC.width / 2);
+						NPC.position.Y = destinationY - (float)NPC.height + 25f;
+						destinationX = 0f;
+						destinationY = 0f;
 
-					Dust dust = Dust.NewDustDirect(new Vector2(PositionX, PositionY + 12), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
-					dust.noGravity = true;
-				}
+						SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
 
-				if (NPC.ai[2] > 90 && destinationX != 0f && destinationY != 0f)
-                {
-                    NPC.position.X = destinationX - (float)(NPC.width / 2);
-                    NPC.position.Y = destinationY - (float)NPC.height + 25f;
-                    destinationX = 0f;
-                    destinationY = 0f;
+						for (int numDusts = 0; numDusts < 15; numDusts++)
+						{
+							Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 24), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
+							dust.noGravity = true;
+						}
+						
+						NPC.ai[1] = 0;
+						NPC.ai[2] = 0;
 
-					SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
+						FoundPosition = false;
 
-                    for (int numDusts = 0; numDusts < 15; numDusts++)
-                    {
-                        Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 24), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
-                        dust.noGravity = true;
-                    }
-
-					FoundPosition = false;
-                    
-                    NPC.ai[1] = 0;
-					NPC.ai[2] = 0;
-
-					NPC.netUpdate = true;
+						NPC.netUpdate = true;
+					}
 				}
 			}
 		}

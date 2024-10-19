@@ -16,8 +16,6 @@ namespace Spooky.Content.UserInterfaces
         public static bool UIOpen = false;
         public static bool IsDragging = false;
 
-        public static float Transparency = 0f;
-
         private static Asset<Texture2D> BarTexture;
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -25,7 +23,7 @@ namespace Spooky.Content.UserInterfaces
             Player player = Main.LocalPlayer;
 
             //dont draw this ui if its transparent
-            if (Transparency <= 0f)
+            if (player.GetModPlayer<BloomBuffsPlayer>().UITransparency <= 0f || player.ghost || player.dead)
             {
                 return;
             }
@@ -65,7 +63,7 @@ namespace Spooky.Content.UserInterfaces
             }
 
             //draw the main UI box
-            spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, null, Color.White * Transparency, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
 
             //bloom buff icon drawing for each slot
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[0] != string.Empty)
@@ -106,7 +104,7 @@ namespace Spooky.Content.UserInterfaces
             switch (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor])
             {
                 case "FallGourd": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallGourdIcon").Value; 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallGourdIcon").Value;
                     BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallGourd.DisplayName");
                     break;
                 case "FallSoulPumpkin": 
@@ -201,7 +199,7 @@ namespace Spooky.Content.UserInterfaces
 
             if (IconTexture != null)
             {
-                spriteBatch.Draw(IconTexture, IconTopLeft, null, Color.White * Transparency, 0f, Vector2.Zero, Vector2.One * Main.UIScale * 0.9f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(IconTexture, IconTopLeft, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, Vector2.Zero, Vector2.One * Main.UIScale * 0.9f, SpriteEffects.None, 0f);
 
                 //only display text if the player is hovering over the UI, and the inventory is not open
                 if (IsMouseOverUI(IconTopLeft, IconTexture, Vector2.One * Main.UIScale * 0.9f) && !Main.playerInventory)

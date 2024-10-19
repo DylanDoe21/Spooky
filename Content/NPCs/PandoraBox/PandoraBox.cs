@@ -262,7 +262,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                     {
                         PlayAnimation = true;
 
-                        if (NPC.frame.Y == 3 * 36)
+                        NPC.ai[3]++;
+                        if (NPC.ai[3] > 30)
                         {
                             SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
                             SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
@@ -274,6 +275,7 @@ namespace Spooky.Content.NPCs.PandoraBox
 
                             SpawnEnemy(1);
 
+                            NPC.ai[3] = 0;
                             SpawnedEnemies = true;
                         }
                     }

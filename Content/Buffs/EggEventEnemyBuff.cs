@@ -1,13 +1,16 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Dusts;
+using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Buffs
 {
-	public class BeeDamageBuff : ModBuff
+	public class EggEventEnemyBuff : ModBuff
 	{
-        private bool initializeStats;
+		public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
+
+		private bool initializeStats;
         private int storedDamage;
 
 		public override void Update(NPC npc, ref int buffIndex)
@@ -15,7 +18,7 @@ namespace Spooky.Content.Buffs
             if (!initializeStats)
             {
                 storedDamage = npc.damage;
-				npc.damage = (int)(npc.damage * 1.75f);
+				npc.damage = (int)(npc.damage * 2.75f);
 
                 initializeStats = true;
 			}
@@ -24,11 +27,6 @@ namespace Spooky.Content.Buffs
             {
                 npc.damage = storedDamage;
             }
-
-            if (Main.rand.NextBool(10))
-			{
-				Dust.NewDust(npc.position, npc.width, npc.height, ModContent.DustType<BeeDamageDust>());
-			}
 		}
     }
 }

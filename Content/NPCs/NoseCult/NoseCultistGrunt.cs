@@ -25,6 +25,22 @@ namespace Spooky.Content.NPCs.NoseCult
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
+        }
+
         public override void SetDefaults()
 		{
             NPC.lifeMax = 150;
@@ -49,18 +65,6 @@ namespace Spooky.Content.NPCs.NoseCult
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.NoseCultistGrunt"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.NoseTempleBiome>().ModBiomeBestiaryInfoElement)
 			});
-		}
-
-        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            if (Main.bloodMoon)
-            {
-                Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/ZomboidRainBlood").Value;
-
-                var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    
-                Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
-            }
 		}
 
         public override void FindFrame(int frameHeight)
@@ -100,6 +104,11 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
+
+                if (NPC.frame.Y >= 11 * NPC.height)
+                {
+                    NPC.frame.Y = 0;
+                }
             }
         }
         
@@ -114,10 +123,12 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.localAI[0] == 1)
             {
-                NPC.localAI[3] = Main.rand.Next(360, 480);
+                NPC.localAI[3] = Main.rand.Next(400, 540);
+
+                NPC.netUpdate = true;
             }
 
-            if (NPC.localAI[0] >= NPC.localAI[3] && NPC.velocity.Y == 0)
+            if (NPC.localAI[0] > 1 && NPC.localAI[0] >= NPC.localAI[3] && NPC.velocity.Y == 0)
             {
                 NPC.localAI[1] = 1;
 
@@ -128,27 +139,24 @@ namespace Spooky.Content.NPCs.NoseCult
             {
                 NPC.velocity *= 0;
 
-                if (NPC.frame.Y == 8 * NPC.height && NPC.localAI[2] == 0)
+                NPC.localAI[2]++;
+                if (NPC.localAI[2] == 8)
                 {
                     SoundEngine.PlaySound(SneezeSound, NPC.Center);
 
                     NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(NPC.direction == -1 ? -10 : 10, 0), ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage, 4.5f);
 
-                    NPC.localAI[2]++;
+                    NPC.netUpdate = true;
+                }
+
+                if (NPC.localAI[2] > 38)
+                {
+                    NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
 
                     NPC.netUpdate = true;
                 }
-            }
-
-            if (NPC.frame.Y >= 10 * NPC.height)
-            {
-                NPC.frame.Y = 0;
-
-                NPC.localAI[0] = 0;
-                NPC.localAI[1] = 0;
-                NPC.localAI[2] = 0;
-
-                NPC.netUpdate = true;
             }
         }
 

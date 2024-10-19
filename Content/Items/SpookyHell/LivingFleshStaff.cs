@@ -49,7 +49,7 @@ namespace Spooky.Content.Items.SpookyHell
             {
                 position += muzzleOffset;
             }
-
+            
             Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI, 0f, 0f);
 
             return false;

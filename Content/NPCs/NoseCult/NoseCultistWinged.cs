@@ -97,6 +97,11 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
+
+                if (NPC.frame.Y >= 9 * NPC.height)
+                {
+                    NPC.frame.Y = 0;
+                }
             }
         }
 
@@ -110,15 +115,14 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.spriteDirection = NPC.direction;
 
             NPC.ai[1]++;
-
-            if (NPC.ai[1] == 5)
+            if (NPC.ai[1] == 1)
             {
                 SavePosition = new Vector2(Parent.Center.X + Main.rand.Next(-300, 300), Parent.Center.Y - Main.rand.Next(10, 150));
 
                 NPC.netUpdate = true;
             }
 
-            if (NPC.ai[1] > 5 && NPC.ai[1] < 30)
+            if (NPC.ai[1] > 1 && NPC.ai[1] < 30)
             {
                 Vector2 GoTo = SavePosition;
 
@@ -130,9 +134,10 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.velocity *= 0.92f;
             }
 
-            if (NPC.ai[1] >= 180)
+            if (NPC.ai[1] >= 300)
             {
-                if (NPC.frame.Y == 7 * NPC.height && NPC.ai[2] == 0)
+                NPC.ai[2]++;
+                if (NPC.ai[2] == 15)
                 {
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
@@ -140,20 +145,16 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<NoseCultistWingedSnot>(), NPC.damage, 4.5f);
 
-                    NPC.ai[2]++;
+                    NPC.netUpdate = true;
+                }
+
+                if (NPC.ai[2] > 27)
+                {
+                    NPC.ai[1] = 0;
+                    NPC.ai[2] = 0;
 
                     NPC.netUpdate = true;
                 }
-            }
-
-            if (NPC.frame.Y >= 8 * NPC.height)
-            {
-                NPC.frame.Y = 0;
-
-                NPC.ai[1] = 0;
-                NPC.ai[2] = 0;
-
-                NPC.netUpdate = true;
             }
         }
 

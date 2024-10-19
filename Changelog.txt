@@ -10,6 +10,7 @@ Important change: Enemy projectile damage fix
 Other stuff:
 
 -Added actual biome torches for every spooky mod biome
+-Added flesh bolsters to the egg incursion (They buff other enemies)
 -Raveyard no longer has rainbow torches as its biome torch
 -Venomous spiderpoon enemy pulling no longer works on orro-boro, friendly critters, or target dummies
 -Zomboid warlock skulls can now be destroyed by hitting them

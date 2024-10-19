@@ -68,6 +68,12 @@ namespace Spooky.Content.NPCs.Quest
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
+			//kill this npc if the parent does not exist
+			if (!Parent.active || Parent.type != ModContent.NPCType<EyeWizard>())
+			{
+                NPC.active = false;
+			}
+
 			Parent.direction = NPC.Center.X < Parent.Center.X ? -1 : 1;
 
 			NPC.rotation += 0.05f * (float)Parent.direction;

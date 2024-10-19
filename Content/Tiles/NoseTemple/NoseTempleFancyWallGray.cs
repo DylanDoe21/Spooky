@@ -36,15 +36,5 @@ namespace Spooky.Content.Tiles.NoseTemple
             AddMapEntry(new Color(87, 87, 87));
             DustType = DustID.Stone;
         }
-
-        public override bool CanExplode(int i, int j)
-		{
-			return true;
-		}
-
-        public override void KillWall(int i, int j, ref bool fail)
-        {
-            fail = false;
-        }
     }
 }

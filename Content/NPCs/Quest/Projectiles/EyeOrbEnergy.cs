@@ -87,6 +87,12 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
         {
             NPC Parent = Main.npc[(int)Projectile.ai[0]];
 
+			//kill this npc if the parent does not exist
+			if (!Parent.active || Parent.type != ModContent.NPCType<EyeWizard>())
+			{
+                Projectile.active = false;
+			}
+
 			if (runOnce)
 			{
 				for (int i = 0; i < trailLength.Length; i++)

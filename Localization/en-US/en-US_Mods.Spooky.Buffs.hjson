@@ -484,3 +484,8 @@ OrroboroPetBuff: {
 	DisplayName: Orroboro Ring
 	Description: The worms are slowly consuming each other
 }
+
+EggEventEnemyBuff: {
+	DisplayName: Flesh Bolster Buff
+	Description: ""
+}

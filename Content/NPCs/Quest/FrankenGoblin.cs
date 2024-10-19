@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.Quest
 		{
             NPC.lifeMax = 5000;
             NPC.damage = 35;
-            NPC.defense = 5;
+            NPC.defense = 20;
             NPC.width = 142;
 			NPC.height = 158;
             NPC.npcSlots = 1f;

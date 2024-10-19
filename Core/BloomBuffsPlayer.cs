@@ -31,6 +31,8 @@ namespace Spooky.Core
         public int Duration3 = 0;
         public int Duration4 = 0;
 
+        public float UITransparency = 0f;
+
         //bools for each edible bloom
         public bool FallGourd = false;
         public bool FallSoulPumpkin = false;
@@ -315,9 +317,9 @@ namespace Spooky.Core
 			//instead of just appearing, make the UI fade in for a cool effect if the player eats a bloom
 			if (BloomBuffSlots[0] == string.Empty && BloomBuffSlots[1] == string.Empty && BloomBuffSlots[2] == string.Empty && BloomBuffSlots[3] == string.Empty)
 			{
-				if (BloomBuffUI.Transparency > 0f)
+				if (UITransparency > 0f)
 				{
-					BloomBuffUI.Transparency -= 0.05f;
+					UITransparency -= 0.05f;
 				}
 			}
 			else
@@ -325,21 +327,21 @@ namespace Spooky.Core
 				//draw the bloom UI fully when the players inventory is not open
 				if (!Main.playerInventory)
 				{
-					if (BloomBuffUI.Transparency < 1f)
+					if (UITransparency < 1f)
 					{
-						BloomBuffUI.Transparency += 0.05f;
+						UITransparency += 0.05f;
 					}
 				}
 				//fade out a little if the players inventory is open
 				else
 				{
-					if (BloomBuffUI.Transparency > 0.5f)
+					if (UITransparency > 0.5f)
 					{
-						BloomBuffUI.Transparency -= 0.05f;
+						UITransparency -= 0.05f;
 					}
-					if (BloomBuffUI.Transparency < 0.5f)
+					if (UITransparency < 0.5f)
 					{
-						BloomBuffUI.Transparency += 0.05f;
+						UITransparency += 0.05f;
 					}
 				}
 			}

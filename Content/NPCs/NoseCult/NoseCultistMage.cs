@@ -92,6 +92,11 @@ namespace Spooky.Content.NPCs.NoseCult
                 {
                     NPC.frame.Y = 5 * frameHeight;
                 }
+
+                if (NPC.frame.Y >= 7 * NPC.height)
+                {
+                    NPC.frame.Y = 0;
+                }
             }
         }
 
@@ -103,22 +108,18 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.spriteDirection = NPC.direction;
 
             NPC.ai[0]++;
-
-            if (NPC.ai[0] >= 420)
+            if (NPC.ai[0] >= 540)
             {
-                //play pitched up sneezing sound like a real goofy sneeze
-                if (NPC.frame.Y == 6 * NPC.height && NPC.ai[0] < 550 && NPC.ai[2] == 0)
+                NPC.ai[1]++;
+
+                //play pitched up sneeze sound and shoot out booger enemies
+                if (NPC.ai[1] == 60 || NPC.ai[1] == 90)
                 {
                     SoundEngine.PlaySound(SneezeSound1 with { Pitch = 0.2f, Volume = 0.5f }, NPC.Center);
-                    NPC.ai[2] = 1;
-                }
-                else
-                {
-                    NPC.ai[2] = 0;
                 }
 
                 //play actual sneeze sound and shoot out booger enemies
-                if (NPC.ai[0] >= 570)
+                if (NPC.ai[1] > 110)
                 {
                     SoundEngine.PlaySound(SneezeSound2, NPC.Center);
 
@@ -128,7 +129,6 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
 
                     NPC.netUpdate = true;
                 }

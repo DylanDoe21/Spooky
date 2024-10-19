@@ -40,11 +40,11 @@ namespace Spooky.Content.Generation
         public static int EntranceY = 0;
         public static int PositionX = 0;
 
-        public bool placedLootRoom1 = false;
-        public bool placedLootRoom2 = false;
-        public bool placedLootRoom3 = false;
-        public bool placedLootRoom4 = false;
-        public bool placedRareSecretRoom = false;
+        bool placedLootRoom1 = false;
+        bool placedLootRoom2 = false;
+        bool placedLootRoom3 = false;
+        bool placedLootRoom4 = false;
+        bool placedRareSecretRoom = false;
 
         Vector2[] Layer2LootRooms = new Vector2[3];
 		Vector2 PandoraRoomPosition;

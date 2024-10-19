@@ -23,6 +23,8 @@ namespace Spooky.Content.NPCs.SpookyHell
         public float destinationX = 0f;
 		public float destinationY = 0f;
 
+        bool FoundPosition = false;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 11;
@@ -32,6 +34,9 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //bools
+			writer.Write(FoundPosition);
+
             //floats
             writer.Write(destinationX);
             writer.Write(destinationY);
@@ -39,6 +44,9 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //bools
+			FoundPosition = reader.ReadBoolean();
+
             //floats
             destinationX = reader.ReadSingle();
             destinationY = reader.ReadSingle();
@@ -126,85 +134,69 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             if (NPC.ai[0] >= 300)
             {
-                NPC.dontTakeDamage = true;
+                if (!FoundPosition && destinationX == 0f && destinationY == 0f)
+				{
+					Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
 
-                if (NPC.frame.Y == 11 * NPC.height && NPC.ai[0] == 360 && destinationX == 0f && destinationY == 0f)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int num86 = (int)player.position.X / 16;
-                        int num87 = (int)player.position.Y / 16;
-                        int num88 = (int)NPC.position.X / 16;
-                        int num89 = (int)NPC.position.Y / 16;
-                        int num90 = 20;
-                        int num91 = 0;
-                        bool flag4 = false;
+					center.X += Main.rand.Next(-500, 500);
 
-                        while (!flag4 && num91 < 300)
-                        {
-                            int num = num91;
-                            num91 = num + 1;
-                            int num92 = Main.rand.Next(num86 - num90, num86 + num90);
-                            int num93 = Main.rand.Next(num87 - num90, num87 + num90);
-                            for (int num94 = num93; num94 < num87 + num90; num94 = num + 1)
-                            {
-                                if ((num94 < num87 - 4 || num94 > num87 + 4 || num92 < num86 - 4 || num92 > num86 + 4) && (num94 < num89 - 1 || num94 > num89 + 1 || num92 < num88 - 1 || num92 > num88 + 1) && Main.tile[num92, num94].HasUnactuatedTile)
-                                {
-                                    bool flag5 = true;
-                                    if ((Main.tile[num92, num94 - 1].LiquidType == LiquidID.Lava))
-                                    {
-                                        flag5 = false;
-                                    }
+					int numtries = 0;
+					int x = (int)(center.X / 16);
+					int y = (int)(center.Y / 16);
 
-                                    bool ValidForTeleport = Main.tileSolid[(int)Main.tile[num92 - 2, num94].TileType] && Main.tileSolid[(int)Main.tile[num92 - 1, num94].TileType] &&
-                                    Main.tileSolid[(int)Main.tile[num92, num94].TileType] && Main.tileSolid[(int)Main.tile[num92 + 1, num94].TileType] && Main.tileSolid[(int)Main.tile[num92 + 2, num94].TileType];
+					while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
+					{
+						y++;
+						center.Y = y * 16;
+					}
+					while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+					{
+						numtries++;
+						y--;
+						center.Y = y * 16;
+					}
 
-                                    if (flag5 && ValidForTeleport && !Collision.SolidTiles(num92 - 1, num92 + 1, num94 - 4, num94 - 1))
-                                    {
-                                        destinationX = (float)num92;
-                                        destinationY = (float)num94;
-                                        flag4 = true;
-                                        break;
-                                    }
-                                }
+					destinationX = center.X;
+					destinationY = center.Y;
 
-                                num = num94;
-                            }
-                        }
+					FoundPosition = true;
+				}
+				else
+				{
+					NPC.ai[1]++;
 
-                        NPC.netUpdate = true;
-                    }
-                }
+					if (NPC.ai[1] >= 30 && NPC.ai[1] <= 90)
+					{
+						float PositionX = destinationX - (float)(NPC.width / 2);
+                        float PositionY = destinationY - (float)NPC.height;
 
-                if (NPC.ai[0] >= 360 && NPC.ai[0] <= 400)
-                {
-                    float PositionX = destinationX * 16f - (float)(NPC.width / 2) + 8f;
-                    float PositionY = destinationY * 16f - (float)NPC.height;
-
-                    Dust dust = Dust.NewDustDirect(new Vector2(PositionX, PositionY + 32), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
-                    dust.noGravity = true;
-                }
-
-                if (NPC.ai[0] >= 420 && destinationX != 0f && destinationY != 0f)
-                {
-                    NPC.dontTakeDamage = false;
-
-                    NPC.position.X = destinationX * 16f - (float)(NPC.width / 2) + 8f;
-                    NPC.position.Y = destinationY * 16f - (float)NPC.height;
-                    destinationX = 0f;
-                    destinationY = 0f;
-                    NPC.netUpdate = true;
-
-                    SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
-
-                    for (int numDusts = 0; numDusts < 15; numDusts++)
-                    {
-                        Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 24), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
+                        Dust dust = Dust.NewDustDirect(new Vector2(PositionX, PositionY + 32), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
                         dust.noGravity = true;
-                    }
-                    
-                    NPC.ai[0] = 0;
-                }
+					}
+
+					if (NPC.ai[1] > 120 && destinationX != 0f && destinationY != 0f)
+					{
+						NPC.position.X = destinationX - (float)(NPC.width / 2);
+						NPC.position.Y = destinationY - (float)(NPC.height / 2) - 12;
+						destinationX = 0f;
+						destinationY = 0f;
+
+						SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
+
+						for (int numDusts = 0; numDusts < 15; numDusts++)
+						{
+							Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
+							dust.noGravity = true;
+						}
+						
+						NPC.ai[0] = 0;
+						NPC.ai[1] = 0;
+
+						FoundPosition = false;
+
+						NPC.netUpdate = true;
+					}
+				}
             }
         }
 
