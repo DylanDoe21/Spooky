@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             NPC.frameCounter++;
 
-            if (NPC.ai[1] < 180)
+            if (NPC.ai[1] < 240)
             {
                 if (NPC.frameCounter > 2)
                 {
@@ -134,7 +134,7 @@ namespace Spooky.Content.NPCs.NoseCult
                 NPC.velocity *= 0.92f;
             }
 
-            if (NPC.ai[1] >= 300)
+            if (NPC.ai[1] >= 240)
             {
                 NPC.ai[2]++;
                 if (NPC.ai[2] == 15)

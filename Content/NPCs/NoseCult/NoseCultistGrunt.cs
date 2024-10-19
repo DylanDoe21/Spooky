@@ -123,7 +123,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.localAI[0] == 1)
             {
-                NPC.localAI[3] = Main.rand.Next(400, 540);
+                NPC.localAI[3] = Main.rand.Next(300, 480);
 
                 NPC.netUpdate = true;
             }

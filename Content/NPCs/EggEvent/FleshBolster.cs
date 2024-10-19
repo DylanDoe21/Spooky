@@ -118,5 +118,20 @@ namespace Spooky.Content.NPCs.EggEvent
                 NPC.netUpdate = true;
             }
 		}
+
+		public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                //spawn gores
+                for (int numGores = 1; numGores <= 7; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-12, 13)), ModContent.Find<ModGore>("Spooky/FleshBolsterGore" + numGores).Type);
+                    }
+                }
+			}
+		}
     }
 }

@@ -36,6 +36,7 @@ namespace Spooky.Content.NPCs.EggEvent
 		float stretchRecoil = 0f;
 
         bool HasSpawnedBiojetter = false;
+        bool HasSpawnedBolster = false;
         bool OrroboroDoesNotExist;
 
         private static Asset<Texture2D> NPCTexture;
@@ -56,6 +57,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             //bools
             writer.Write(HasSpawnedBiojetter);
+            writer.Write(HasSpawnedBolster);
             writer.Write(OrroboroDoesNotExist);
         }
 
@@ -63,6 +65,7 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             //bools
             HasSpawnedBiojetter = reader.ReadBoolean();
+            HasSpawnedBolster = reader.ReadBoolean();
             OrroboroDoesNotExist = reader.ReadBoolean();
         }
 
@@ -428,6 +431,48 @@ namespace Spooky.Content.NPCs.EggEvent
                             SpawnEnemy(0, 2);
 
                             HasSpawnedBiojetter = true;
+
+                            NPC.netUpdate = true;
+                        }
+                    }
+
+                    //spawn a bolster a little before 3 minutes and a little after 4 minutes
+                    if (timeLeft == 179 || timeLeft == 239 || timeLeft == 299)
+                    {
+                        HasSpawnedBolster = false;
+                    }
+                    if (timeLeft == 180 || timeLeft == 240 || timeLeft == 300)
+                    {
+                        if (!HasSpawnedBolster)
+                        {
+                            Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+
+                            center.X += Main.rand.Next(-500, 500);
+
+                            int numtries = 0;
+                            int x = (int)(center.X / 16);
+                            int y = (int)(center.Y / 16);
+
+                            while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
+                            {
+                                y++;
+                                center.Y = y * 16;
+                            }
+                            while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+                            {
+                                numtries++;
+                                y--;
+                                center.Y = y * 16;
+                            }
+
+                            int Bolster = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y, ModContent.NPCType<FleshBolster>());
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: Bolster);
+                            }
+
+                            HasSpawnedBolster = true;
 
                             NPC.netUpdate = true;
                         }

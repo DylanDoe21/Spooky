@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             NPC.frameCounter++;
 
-            if (NPC.ai[0] < 420)
+            if (NPC.ai[0] < 480)
             {
                 //idle animation
                 if (NPC.frameCounter > 10)
@@ -78,9 +78,9 @@ namespace Spooky.Content.NPCs.NoseCult
             else
             {
                 //casting animation
-                if (NPC.frame.Y < frameHeight * 3)
+                if (NPC.frame.Y < frameHeight * 4)
                 {
-                    NPC.frame.Y = 2 * frameHeight;
+                    NPC.frame.Y = 3 * frameHeight;
                 }
 
                 if (NPC.frameCounter > 15)
@@ -108,7 +108,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.spriteDirection = NPC.direction;
 
             NPC.ai[0]++;
-            if (NPC.ai[0] >= 540)
+            if (NPC.ai[0] >= 480)
             {
                 NPC.ai[1]++;
 

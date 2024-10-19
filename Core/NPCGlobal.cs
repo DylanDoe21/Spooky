@@ -86,26 +86,6 @@ namespace Spooky.Core
                 }
 			}
 
-			//draw pink and red aura if being buffed by a flesh bolster
-			if (npc.HasBuff(ModContent.BuffType<EggEventEnemyBuff>()))
-			{
-				var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-				for (int i = 0; i < 360; i += 90)
-				{
-					Color color = new Color(125 - npc.alpha, 125 - npc.alpha, 125 - npc.alpha, 0).MultiplyRGBA(Color.Lerp(Color.White, Color.HotPink, i / 30));
-
-					Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2f), 0).RotatedBy(MathHelper.ToRadians(i));
-
-					for (int repeats = 0; repeats < 4; repeats++)
-					{
-						Vector2 DrawPosition = npc.Center + circular - screenPos + new Vector2(0, npc.gfxOffY + 4) * repeats;
-
-						spriteBatch.Draw(Terraria.GameContent.TextureAssets.Npc[npc.type].Value, DrawPosition, npc.frame, color, npc.rotation, npc.frame.Size() / 2, npc.scale * 1.2f, effects, 0f);
-					}
-				}
-			}
-
 			return true;
         }
 

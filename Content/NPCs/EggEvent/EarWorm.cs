@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.EggEvent
 		public override void SetDefaults()
 		{
 			NPC.lifeMax = 520;
-			NPC.damage = 55;
+			NPC.damage = 45;
 			NPC.defense = 10;
 			NPC.width = 52;
 			NPC.height = 74;

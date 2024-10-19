@@ -123,7 +123,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
             if (NPC.localAI[0] == 1)
             {
-                NPC.localAI[3] = Main.rand.Next(400, 540);
+                NPC.localAI[3] = Main.rand.Next(300, 420);
 
                 NPC.netUpdate = true;
             }
@@ -158,7 +158,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     NPC.netUpdate = true;
                 }
 
-                if (NPC.localAI[2] > 90)
+                if (NPC.localAI[2] > 55)
                 {
                     NPC.localAI[0] = 0;
                     NPC.localAI[1] = 0;
@@ -166,17 +166,6 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     NPC.netUpdate = true;
                 }
-            }
-
-            if (NPC.frame.Y >= 12 * NPC.height)
-            {
-                NPC.frame.Y = 0;
-
-                NPC.localAI[0] = 0;
-                NPC.localAI[1] = 0;
-                NPC.localAI[2] = 0;
-
-                NPC.netUpdate = true;
             }
         }
 
