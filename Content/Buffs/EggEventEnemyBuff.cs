@@ -12,13 +12,16 @@ namespace Spooky.Content.Buffs
 
 		private bool initializeStats;
         private bool storedDontTakeDamage;
+        private bool storedImmortal;
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
             if (!initializeStats)
             {
                 storedDontTakeDamage = npc.dontTakeDamage;
+                storedImmortal = npc.immortal;
 				npc.dontTakeDamage = true;
+                npc.immortal = true;
 
                 initializeStats = true;
 			}
@@ -26,6 +29,7 @@ namespace Spooky.Content.Buffs
 			if (npc.buffTime[buffIndex] < 5)
             {
                 npc.dontTakeDamage = storedDontTakeDamage;
+                npc.immortal = storedImmortal;
             }
 		}
     }

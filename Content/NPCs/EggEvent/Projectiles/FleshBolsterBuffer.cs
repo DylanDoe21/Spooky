@@ -17,7 +17,6 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 		{
 			ModContent.NPCType<CoughLungs>(),
 			ModContent.NPCType<CruxBat>(),
-			ModContent.NPCType<EarWorm>(),
 			ModContent.NPCType<ExplodingAppendix>(),
 			ModContent.NPCType<GooSlug>(),
 			ModContent.NPCType<HoppingHeart>(),

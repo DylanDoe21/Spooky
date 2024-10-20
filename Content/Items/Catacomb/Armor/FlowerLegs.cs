@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.Catacomb.Armor
 	[AutoloadEquip(EquipType.Legs)]
 	public class FlowerLegs : ModItem
 	{
-		public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/FlowerPotWalk", SoundType.Sound);
+		public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/FlowerPotWalk", SoundType.Sound) { Volume = 0.55f };
 
         public override void SetStaticDefaults()
         {

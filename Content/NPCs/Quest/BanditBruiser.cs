@@ -338,38 +338,44 @@ namespace Spooky.Content.NPCs.Quest
 							bool ShootFaster = Parent.ai[2] > 0 || Parent.ai[3] > 0;
 							bool ShootExtraFast = Parent.ai[2] > 0 && Parent.ai[3] > 0;
 
+							int ActualShootSpeed = ShootExtraFast ? 25 : (ShootFaster ? 35 : 45);
+							int ShootDelay = ShootExtraFast ? 9 : (ShootFaster ? 12 : 15);
+
 							ShootSpeed = ShootExtraFast ? 4 : (ShootFaster ? 6 : 8);
 
-							if (NPC.frame.Y == NPC.height * 7)
+							NPC.ai[1]++;
+							if (NPC.ai[1] == ActualShootSpeed - ShootDelay)
 							{
-								if (Parent.localAI[1] == 0)
-								{
-									SoundEngine.PlaySound(SoundID.Item10, NPC.Center);
+								SoundEngine.PlaySound(SoundID.Item10, NPC.Center);
 
-									NPC.velocity *= 0f;
+								Main.NewText(NPC.ai[1], Color.White);
 
-									Vector2 ShootSpeed = player.Center - NPC.Center;
-									ShootSpeed.Normalize();
-									ShootSpeed *= 2;
+								NPC.velocity *= 0f;
 
-									NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + (NPC.direction == -1 ? -50 : 50), NPC.Center.Y), ShootSpeed, ModContent.ProjectileType<BanditBruiserFist>(), NPC.damage, 3.5f);
+								Vector2 ShootSpeed = player.Center - NPC.Center;
+								ShootSpeed.Normalize();
+								ShootSpeed *= 2;
 
-									stretchRecoil = 0.5f;
+								NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + (NPC.direction == -1 ? -50 : 50), NPC.Center.Y), ShootSpeed, ModContent.ProjectileType<BanditBruiserFist>(), NPC.damage, 3.5f);
 
-									Parent.localAI[1] = 1;
+								stretchRecoil = 0.5f;
 
-									NPC.netUpdate = true;
-								}
+								NPC.netUpdate = true;
 							}
-							else
+
+							if (NPC.ai[1] == ActualShootSpeed)
 							{
-								Parent.localAI[1] = 0;
+								NPC.ai[1] = 0;
+
+								NPC.netUpdate = true;
 							}
 						}
 					}
 	
 					if (Parent.localAI[0] >= 480)
 					{
+						NPC.ai[1] = 0;
+
 						//if one of the other ghosts is dead, then use punch charge attack after the fist projectiles
 						if (Parent.ai[2] > 0 || Parent.ai[3] > 0)
 						{

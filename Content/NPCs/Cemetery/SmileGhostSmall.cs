@@ -51,7 +51,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0.4f;
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };
             NPC.DeathSound = SoundID.NPCDeath6;
             NPC.aiStyle = -1;
@@ -203,7 +203,7 @@ namespace Spooky.Content.NPCs.Cemetery
 			NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.4f;
 			NPC.noGravity = true;
-			NPC.noTileCollide = true;
+			NPC.noTileCollide = false;
 			NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };
             NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = -1;
@@ -261,7 +261,7 @@ namespace Spooky.Content.NPCs.Cemetery
 			NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.4f;
 			NPC.noGravity = true;
-			NPC.noTileCollide = true;
+			NPC.noTileCollide = false;
 			NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };
             NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = -1;

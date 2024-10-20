@@ -41,7 +41,7 @@ namespace Spooky.Content.Items.SpiderCave
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpiderChitin>(), 5)
+            .AddIngredient(ModContent.ItemType<SpiderChitin>(), 10)
 			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 50)
             .AddTile(TileID.Anvils)
             .Register();

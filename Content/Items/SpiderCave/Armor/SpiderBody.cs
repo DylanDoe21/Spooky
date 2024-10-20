@@ -30,14 +30,14 @@ namespace Spooky.Content.Items.SpiderCave.Armor
             CreateRecipe()
 			.AddIngredient(ItemID.SilverBar, 12)
 			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
-			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 50)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 75)
             .AddTile(TileID.Anvils)
             .Register();
 
 			CreateRecipe()
 			.AddIngredient(ItemID.TungstenBar, 12)
 			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
-			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 50)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 75)
             .AddTile(TileID.Anvils)
             .Register();
         }

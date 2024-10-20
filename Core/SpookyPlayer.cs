@@ -446,126 +446,129 @@ namespace Spooky.Core
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //inflict enemies with gourd decay while wearing the rotten gourd armor
-            if (GourdSet && hit.DamageType == DamageClass.Melee)
+            if (target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type])
             {
-                if (Main.rand.NextBool(8))
+                //inflict enemies with gourd decay while wearing the rotten gourd armor
+                if (GourdSet && hit.DamageType == DamageClass.Melee)
                 {
-                    target.AddBuff(ModContent.BuffType<GourdDecay>(), Main.rand.Next(600, 1200));
-                }
-            }
-
-            //spawn eyes when hitting enemies with whips with the living flesh armor
-            if (EyeArmorSet && hit.DamageType == DamageClass.SummonMeleeSpeed && Main.rand.NextBool(5))
-            {
-                Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
-
-                for (int numDusts = 0; numDusts < 10; numDusts++)
-                {                                                                                  
-                    int dust = Dust.NewDust(SpawnPosition, 20, 20, DustID.Blood, 0f, -2f, 0, default, 1.5f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-                    Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                    if (Main.rand.NextBool(8))
+                    {
+                        target.AddBuff(ModContent.BuffType<GourdDecay>(), Main.rand.Next(600, 1200));
+                    }
                 }
 
-                Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, 
-                ModContent.ProjectileType<LivingFleshEye>(), damageDone / 2, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
-            }
-
-            //drop booger charge item when hitting an enemy while wearing the snotty schnoz
-            if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
-            {
-                int itemType = ModContent.ItemType<MocoNoseBooger>();
-                int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
-                Main.item[newItem].noGrabDelay = 0;
-
-                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-                {
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                }
-            }
-
-            //spawn souls when you kill an enemy while wearing the skull amulet
-            if (SkullAmulet && target.life <= 0 && !target.friendly)
-            {
-                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Player.whoAmI);
-            }
-
-            //spawn an orbiting note on critical hits with the clarinet
-            if (RedMistClarinet && RedMistNoteSpawnDelay <= 0 && hit.Crit && Main.rand.NextBool())
-            {
-                SoundEngine.PlaySound(ClarinetSound, Player.Center);
-
-                RedMistNoteSpawnDelay = 120;
-
-                //dont cap the damage if the player has the combined creepypasta accessory
-                int damage = CreepyPasta ? hit.Damage : (hit.Damage >= 70 ? 70 : hit.Damage);
-
-                Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
-            }
-
-            //rarely spawn the red face when hitting an enemy
-            if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(50))
-            {
-                RedGodzillaCartridgeSpawnDelay = 360;
-
-                //dont spawn a red apparition if one already exists
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<RedFace>()] <= 0)
+                //spawn eyes when hitting enemies with whips with the living flesh armor
+                if (EyeArmorSet && hit.DamageType == DamageClass.SummonMeleeSpeed && Main.rand.NextBool(5))
                 {
                     Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
 
-                    Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+                    for (int numDusts = 0; numDusts < 10; numDusts++)
+                    {                                                                                  
+                        int dust = Dust.NewDust(SpawnPosition, 20, 20, DustID.Blood, 0f, -2f, 0, default, 1.5f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                        Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
+                    }
+
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, 
+                    ModContent.ProjectileType<LivingFleshEye>(), damageDone / 2, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+                }
+
+                //drop booger charge item when hitting an enemy while wearing the snotty schnoz
+                if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
+                {
+                    int itemType = ModContent.ItemType<MocoNoseBooger>();
+                    int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
+                    Main.item[newItem].noGrabDelay = 0;
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                    {
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    }
+                }
+
+                //spawn souls when you kill an enemy while wearing the skull amulet
+                if (SkullAmulet && target.life <= 0 && !target.friendly)
+                {
+                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Player.whoAmI);
+                }
+
+                //spawn an orbiting note on critical hits with the clarinet
+                if (RedMistClarinet && RedMistNoteSpawnDelay <= 0 && hit.Crit && Main.rand.NextBool())
+                {
+                    SoundEngine.PlaySound(ClarinetSound, Player.Center);
+
+                    RedMistNoteSpawnDelay = 120;
+
+                    //dont cap the damage if the player has the combined creepypasta accessory
+                    int damage = CreepyPasta ? hit.Damage : (hit.Damage >= 70 ? 70 : hit.Damage);
+
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
+                }
+
+                //rarely spawn the red face when hitting an enemy
+                if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(50))
+                {
+                    RedGodzillaCartridgeSpawnDelay = 360;
+
+                    //dont spawn a red apparition if one already exists
+                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<RedFace>()] <= 0)
+                    {
+                        Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
+
+                        Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+                    }
+                }
+
+                //inflict enemies with stomach ache debuff with the pepto stomach
+                if (PeptoStomach && !target.boss && !target.IsTechnicallyBoss() && Main.rand.NextBool(20))
+                {
+                    target.AddBuff(ModContent.BuffType<PeptoDebuff>(), int.MaxValue);
+                }
+
+                //attach a chain to an enemy with the vein chain
+                if (VeinChain && Main.rand.NextBool(10) && target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type] && Vector2.Distance(Player.Center, target.Center) <= 370f)
+                {
+                    int MaxChains = Player.statLife < (Player.statLifeMax / 4) ? 1 : (Player.statLife < (Player.statLifeMax / 2) ? 2 : 3);
+
+                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<VeinChainProj>()] < MaxChains && !target.GetGlobalNPC<NPCGlobal>().HasVeinChainAttached)
+                    {
+                        Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<VeinChainProj>(), 35, 0, Player.whoAmI, 0, 0, target.whoAmI);
+                        target.GetGlobalNPC<NPCGlobal>().HasVeinChainAttached = true;
+                    }
+                }
+
+                //spawn goo jaws on enemies when you hit them with the goo chompers
+                if (GooChompers && Main.rand.NextBool(15) && !target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached)
+                {
+                    int Damage = ItemGlobal.ActiveItem(Player).damage > 50 ? ItemGlobal.ActiveItem(Player).damage : 50;
+
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GooChomperProj>(), Damage, 0, Player.whoAmI, target.whoAmI);
+                    target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached = true;
+                }
+
+                //if the player has the nose blessing buff and hits an npc with the nose blessing debuff
+                if (NoseBlessingBuff && Main.rand.NextBool(10) && Player.ownedProjectileCounts[ModContent.ProjectileType<SnotBlessingOrbiter>()] < 10 && !target.HasBuff(ModContent.BuffType<NoseBlessingDebuffCooldown>()))
+                {
+                    if (!target.HasBuff(ModContent.BuffType<NoseBlessingDebuff>()))
+                    {
+                        target.AddBuff(ModContent.BuffType<NoseBlessingDebuff>(), 360);
+                    }
+                    
+                    if (target.HasBuff(ModContent.BuffType<NoseBlessingDebuff>()))
+                    {
+                        int distance = Main.rand.Next(0, 360);
+
+                        Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<SnotBlessingOrbiter>(), damageDone * 2, 3, Player.whoAmI, target.whoAmI, distance);
+                    }
+                }
+
+                //make candy bag shoot out homing candy when an enemy is hit with a summon item or whip
+                if (CandyBag && (hit.DamageType == DamageClass.Summon || hit.DamageType == DamageClass.SummonMeleeSpeed))
+                { 
+                    CandyBagJustHit = true;
                 }
             }
-
-			//inflict enemies with stomach ache debuff with the pepto stomach
-			if (PeptoStomach && !target.boss && !target.IsTechnicallyBoss() && Main.rand.NextBool(20))
-			{
-				target.AddBuff(ModContent.BuffType<PeptoDebuff>(), int.MaxValue);
-			}
-
-			//attach a chain to an enemy with the vein chain
-			if (VeinChain && Main.rand.NextBool(10) && target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type] && Vector2.Distance(Player.Center, target.Center) <= 370f)
-			{
-				int MaxChains = Player.statLife < (Player.statLifeMax / 4) ? 1 : (Player.statLife < (Player.statLifeMax / 2) ? 2 : 3);
-
-				if (Player.ownedProjectileCounts[ModContent.ProjectileType<VeinChainProj>()] < MaxChains && !target.GetGlobalNPC<NPCGlobal>().HasVeinChainAttached)
-				{
-					Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<VeinChainProj>(), 35, 0, Player.whoAmI, 0, 0, target.whoAmI);
-					target.GetGlobalNPC<NPCGlobal>().HasVeinChainAttached = true;
-				}
-			}
-
-			//spawn goo jaws on enemies when you hit them with the goo chompers
-			if (GooChompers && Main.rand.NextBool(15) && !target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached)
-			{
-				int Damage = ItemGlobal.ActiveItem(Player).damage > 50 ? ItemGlobal.ActiveItem(Player).damage : 50;
-
-				Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GooChomperProj>(), Damage, 0, Player.whoAmI, target.whoAmI);
-				target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached = true;
-			}
-
-			//if the player has the nose blessing buff and hits an npc with the nose blessing debuff
-			if (NoseBlessingBuff && Main.rand.NextBool(10) && Player.ownedProjectileCounts[ModContent.ProjectileType<SnotBlessingOrbiter>()] < 10 && !target.HasBuff(ModContent.BuffType<NoseBlessingDebuffCooldown>()))
-			{
-				if (!target.HasBuff(ModContent.BuffType<NoseBlessingDebuff>()))
-				{
-					target.AddBuff(ModContent.BuffType<NoseBlessingDebuff>(), 360);
-				}
-				
-				if (target.HasBuff(ModContent.BuffType<NoseBlessingDebuff>()))
-				{
-					int distance = Main.rand.Next(0, 360);
-
-					Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<SnotBlessingOrbiter>(), damageDone * 2, 3, Player.whoAmI, target.whoAmI, distance);
-				}
-			}
-
-			//make candy bag shoot out homing candy when an enemy is hit with a summon item or whip
-			if (CandyBag && (hit.DamageType == DamageClass.Summon || hit.DamageType == DamageClass.SummonMeleeSpeed))
-			{ 
-				CandyBagJustHit = true;
-			}
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)

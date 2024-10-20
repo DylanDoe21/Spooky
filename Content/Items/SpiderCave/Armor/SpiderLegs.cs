@@ -27,17 +27,17 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 
 		public override void AddRecipes()
         {
-            CreateRecipe()
-			.AddIngredient(ItemID.Silk, 25)
+			CreateRecipe()
 			.AddIngredient(ItemID.SilverBar, 10)
-			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 22)
+			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 60)
             .AddTile(TileID.Anvils)
             .Register();
 
 			CreateRecipe()
-			.AddIngredient(ItemID.Silk, 25)
 			.AddIngredient(ItemID.TungstenBar, 10)
-			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 22)
+			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 60)
             .AddTile(TileID.Anvils)
             .Register();
         }

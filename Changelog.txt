@@ -1,1 +1,11 @@
-
+-Added new colored gourd blocks, walls, and platforms
+-Lowered the volume on the flower armor flower pot running sound
+-Buffed spider stabber and reduced the amount of spider chitin in its crafting recipe
+-Strange spider egg now requires more spider chitin to craft
+-Happy ghosts can no longer go through blocks
+-Flesh bolster now has a proper bestiary display texture
+-Fixed rarg not shooting fist projectiles at all in multiplayer
+-Fixed puff of pollen dropping solar sunflower seeds if you have the watering gourd bloom buff
+-Fixed spi-ops leggings still using silk and not web blocks from the spider grotto
+-Fixed multiple spooky mod accessories with on hit effects working on critters and target dummies
+-Fixed an issue where eye valley enemies could spawn inside of the nose temple if its made out of red bricks (Was caused because i forgot to add a check for the red blocks)
