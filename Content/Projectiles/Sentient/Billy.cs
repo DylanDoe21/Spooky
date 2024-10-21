@@ -235,7 +235,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 if (Projectile.ai[1] >= (Projectile.ai[2] == 3 ? 300 : 360))
                 {
-                    Projectile.velocity *= 0;
+                    Projectile.velocity = Vector2.Zero;
 
                     Charging = false;
 

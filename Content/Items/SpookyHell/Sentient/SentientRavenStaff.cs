@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 150;
+            Item.damage = 110;
             Item.mana = 50;
 			Item.DamageType = DamageClass.Summon;
             Item.autoReuse = true;

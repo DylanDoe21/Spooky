@@ -314,7 +314,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     {
                         CurrentFrameX = 1;
 
-                        NPC.velocity *= 0.1f;
+                        NPC.velocity = Vector2.Zero;
 
                         if (NPC.frame.Y >= 3 * NPC.height && NPC.localAI[0] % 10 == 0)
                         {
@@ -388,7 +388,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if ((NPC.localAI[0] > 60 && NPC.localAI[0] < 180) || NPC.localAI[0] >= 330)
                     {
-                        NPC.velocity *= 0.1f;
+                        NPC.velocity = Vector2.Zero;
                     }
 
                     if (NPC.localAI[0] >= 180 && NPC.localAI[0] < 330)
@@ -519,7 +519,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     }
                     else
                     {
-                        NPC.velocity *= 0.1f;
+                        NPC.velocity = Vector2.Zero;
                     }
 
                     if (NPC.localAI[0] == 60)

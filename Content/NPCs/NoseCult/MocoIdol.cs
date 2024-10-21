@@ -67,6 +67,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.dontTakeDamage = true;
             NPC.dontCountMe = true;
 			NPC.hide = true;
+            NPC.DeathSound = DeathSound;
 		}
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -306,10 +307,8 @@ namespace Spooky.Content.NPCs.NoseCult
                             }
                         }
 
-                        if (NPC.ai[2] > 245)
+                        if (NPC.ai[2] == 80)
                         {
-                            SoundEngine.PlaySound(DeathSound, NPC.Center);
-
                             if (NPC.type == ModContent.NPCType<MocoIdol1>())
                             {
                                 if (Main.netMode != NetmodeID.SinglePlayer)
@@ -377,35 +376,14 @@ namespace Spooky.Content.NPCs.NoseCult
                             }
 
                             ActivateLightTiles();
+                        }
 
-                            //spawn gores
-                            for (int numGores = 1; numGores <= 6; numGores++)
-                            {
-                                if (Main.netMode != NetmodeID.Server) 
-                                {
-                                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-5, -2)), ModContent.Find<ModGore>("Spooky/MocoIdolGore" + numGores).Type);
-                                }
-                            }
-
-                            //spawn dusts
-                            for (int numDusts = 0; numDusts < 45; numDusts++)
-                            {
-                                int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemEmerald, 0f, -2f, 0, default, 3f);
-                                Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-16f, 16f);
-                                Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-4f, 4f);
-                                Main.dust[dustGore].noGravity = true;
-                            }
-
-                            NoseCultAmbushWorld.AmbushActive = false;
-
-                            if (Main.netMode == NetmodeID.Server)
-                            {
-                                NetMessage.SendData(MessageID.WorldData);
-                            }
-                            
+                        if (NPC.ai[2] >= 245)
+                        {
+                            NPC.immortal = false;
+                            NPC.dontTakeDamage = false;
                             NPC.netUpdate = true;
-
-                            NPC.active = false;
+                            player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                         }
                     }
                 }
@@ -480,6 +458,37 @@ namespace Spooky.Content.NPCs.NoseCult
 
                 NPC.localAI[2]++;
                 NPC.position.Y = NPC.localAI[1] + (float)Math.Sin(NPC.localAI[2] / 100) * 10;
+            }
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                NoseCultAmbushWorld.AmbushActive = false;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+
+                //spawn gores
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-5, -2)), ModContent.Find<ModGore>("Spooky/MocoIdolGore" + numGores).Type);
+                    }
+                }
+
+                //spawn dusts
+                for (int numDusts = 0; numDusts < 45; numDusts++)
+                {
+                    int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemEmerald, 0f, -2f, 0, default, 3f);
+                    Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-16f, 16f);
+                    Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-4f, 4f);
+                    Main.dust[dustGore].noGravity = true;
+                }
             }
         }
     }

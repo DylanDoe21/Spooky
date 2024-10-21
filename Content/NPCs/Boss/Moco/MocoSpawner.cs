@@ -55,11 +55,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
             {
                 int MocoSpawnOffsetX = ((int)NPC.Center.X / 16) > (Main.maxTilesX / 2) ? -1500 : 1500;
 
-                int MocoIntro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + MocoSpawnOffsetX, (int)NPC.Center.Y, ModContent.NPCType<MocoIntro>(), ai3: NPC.whoAmI);
-
-                if (Main.netMode == NetmodeID.Server)
+                if (!NPC.AnyNPCs(ModContent.NPCType<MocoIntro>()))
                 {
-                    NetMessage.SendData(MessageID.SyncNPC, number: MocoIntro);
+                    int MocoIntro = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + MocoSpawnOffsetX, (int)NPC.Center.Y, ModContent.NPCType<MocoIntro>(), ai3: NPC.whoAmI);
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: MocoIntro);
+                    }
                 }
             }
 

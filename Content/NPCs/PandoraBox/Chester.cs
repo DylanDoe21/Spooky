@@ -195,7 +195,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                 {
                     NPC.localAI[0]++;
 
-                    Vector2 GoTo = new Vector2(player.Center.X , player.Center.Y - 200);
+                    Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
 
                     float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 3, 7);
                     NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -214,7 +214,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                 {
                     NPC.localAI[0]++;
 
-                    NPC.velocity *= 0.5f;
+                    NPC.velocity = Vector2.Zero;
 
                     if (NPC.localAI[0] >= 120)
                     {
@@ -257,9 +257,9 @@ namespace Spooky.Content.NPCs.PandoraBox
                 {
                     NPC.localAI[0]++;
 
-                    NPC.velocity *= 0.2f;
+					NPC.velocity = Vector2.Zero;
 
-                    if (NPC.localAI[0] == 85)
+					if (NPC.localAI[0] == 85)
                     {
                         SoundEngine.PlaySound(BurpSound, NPC.Center);
 

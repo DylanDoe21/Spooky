@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             int Damage = Main.masterMode ? 50 / 3 : Main.expertMode ? 40 / 2 : 30;
 
             //kill the wand if the parent does not exist
-            if (!Parent.active || Parent.life <= 0 || Parent.type != ModContent.NPCType<Stitch>())
+            if (!Parent.active || Parent.type != ModContent.NPCType<Stitch>())
             {
                 if (Main.netMode != NetmodeID.Server) 
                 {

@@ -5,6 +5,7 @@
 -Happy ghosts can no longer go through blocks
 -Flesh bolster now has a proper bestiary display texture
 -Fixed rarg not shooting fist projectiles at all in multiplayer
+-Fixed nose temple idols sometimes not destroying properly and respawning enemies after defeating them in multiplayer
 -Fixed puff of pollen dropping solar sunflower seeds if you have the watering gourd bloom buff
 -Fixed spi-ops leggings still using silk and not web blocks from the spider grotto
 -Fixed multiple spooky mod accessories with on hit effects working on critters and target dummies

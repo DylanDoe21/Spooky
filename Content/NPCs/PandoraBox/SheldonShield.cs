@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.PandoraBox
             NPC Parent = Main.npc[(int)NPC.ai[1]];
 
             //kill the shield if the parent does not exist
-            if (!Parent.active || Parent.life <= 0 || Parent.type != ModContent.NPCType<Sheldon>())
+            if (!Parent.active || Parent.type != ModContent.NPCType<Sheldon>())
             {
                 if (Main.netMode != NetmodeID.Server) 
                 {

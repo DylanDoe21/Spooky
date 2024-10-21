@@ -226,13 +226,16 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         });
                     }
 
-                    int Moco = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<Moco>());
-                    Main.npc[Moco].alpha = 255;
+                    if (!NPC.AnyNPCs(ModContent.NPCType<Moco>()))
+                    {
+                        int Moco = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<Moco>());
+                        Main.npc[Moco].alpha = 255;
 
-                    if (Main.netMode == NetmodeID.Server)
-					{
-						NetMessage.SendData(MessageID.SyncNPC, number: Moco);
-					}
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Moco);
+                        }
+                    }
 
                     NPC.netUpdate = true;
 
