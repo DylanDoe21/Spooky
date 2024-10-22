@@ -211,9 +211,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 					if (FlySpawnTimer % 60 == 20)
 					{
-                        if (Main.myPlayer == Projectile.owner && player.ownedProjectileCounts[ModContent.ProjectileType<GourdFlailFly>()] < 10)
+                        if (player.ownedProjectileCounts[ModContent.ProjectileType<GourdFlailFly>()] < 10)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<GourdFlailFly>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<GourdFlailFly>(), Projectile.damage / 2, Projectile.knockBack, player.whoAmI);
                         }
 					}
 

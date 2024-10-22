@@ -60,7 +60,7 @@ namespace Spooky.Content.Projectiles.Blooms
             
             Projectile.timeLeft = 5;
 
-            if (!Parent.active || player.dead || !player.GetModPlayer<BloomBuffsPlayer>().SpringIris)
+            if (!Parent.active || player.dead || !player.active || !player.GetModPlayer<BloomBuffsPlayer>().SpringIris)
             {
                 Projectile.Kill();
             }

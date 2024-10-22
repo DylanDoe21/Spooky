@@ -67,10 +67,13 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 Projectile.timeLeft = 2;
 
-                Vector2 GoTo = Main.MouseWorld;
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    Vector2 GoTo = Main.MouseWorld;
 
-                float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 10, 20);
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
+                    float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 10, 20);
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
+                }
 
                 Projectile.ai[0]++;
 

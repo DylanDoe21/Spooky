@@ -113,8 +113,11 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 float divide = 1.75f;
 
-                Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld.X, Main.MouseWorld.Y, 0, 0, 
-                ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Projectile.damage / (int)divide, Projectile.knockBack, player.whoAmI);
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld.X, Main.MouseWorld.Y, 0, 0, 
+                    ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Projectile.damage / (int)divide, Projectile.knockBack, player.whoAmI);
+                }
             }
         }
     }

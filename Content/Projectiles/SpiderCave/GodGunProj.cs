@@ -108,22 +108,25 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     //spawn smoke when overheating
                     if (OverheatTimer > 360 && Main.rand.NextBool(5))
                     {
-                        Vector2 Offset = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                        Offset.Normalize();
-                        Offset *= 20;
-
-                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Offset.X, Offset.Y)) * 45f;
-
-                        int DustGore = Dust.NewDust(player.position + muzzleOffset, player.width / 2, player.height / 2, 
-                        ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.2f, 0.6f));
-                        Main.dust[DustGore].velocity.X *= 0.2f;
-                        Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(0f, 1f);
-                        Main.dust[DustGore].noGravity = true;
-
-                        if (Main.rand.NextBool(2))
+                        if (Projectile.owner == Main.myPlayer)
                         {
-                            Main.dust[DustGore].scale = 0.5f;
-                            Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                            Vector2 Offset = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                            Offset.Normalize();
+                            Offset *= 20;
+
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Offset.X, Offset.Y)) * 45f;
+
+                            int DustGore = Dust.NewDust(player.position + muzzleOffset, player.width / 2, player.height / 2, 
+                            ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.2f, 0.6f));
+                            Main.dust[DustGore].velocity.X *= 0.2f;
+                            Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(0f, 1f);
+                            Main.dust[DustGore].noGravity = true;
+
+                            if (Main.rand.NextBool(2))
+                            {
+                                Main.dust[DustGore].scale = 0.5f;
+                                Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                            }
                         }
                     }
 
@@ -165,10 +168,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     {
                         SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= 20;
-
                         int ProjType = ProjectileID.Bullet;
 
                         float Speed = 20f;
@@ -176,11 +175,18 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         float knockBack = ItemGlobal.ActiveItem(player).knockBack;
 
                         player.PickAmmo(ItemGlobal.ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out _);
+                        
+                        if (Projectile.owner == Main.myPlayer)
+                        {
+                            Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 20;
 
-                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
-                        ShootSpeed.X + Main.rand.Next(-3, 4), ShootSpeed.Y + Main.rand.Next(-3, 4), ProjType, Projectile.damage, knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
+                            ShootSpeed.X + Main.rand.Next(-3, 4), ShootSpeed.Y + Main.rand.Next(-3, 4), ProjType, Projectile.damage, knockBack, Projectile.owner);
+                        }
 
                         if (ExtraUseTime < ItemGlobal.ActiveItem(player).useTime - 1)
                         {

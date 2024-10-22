@@ -60,7 +60,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             if (Projectile.ai[0] <= 30)
             {
                 if (Projectile.owner == Main.myPlayer)
-				{
+                {
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();
                     ShootSpeed *= 35;

@@ -172,7 +172,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (Main.mouseLeftRelease && Projectile.ai[0] == 0)
             {
-                if (Main.myPlayer == Projectile.owner)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
                     ChargeDirection.Normalize();

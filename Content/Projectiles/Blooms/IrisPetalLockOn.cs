@@ -36,9 +36,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
             Projectile.timeLeft = 5;
 
-            Projectile.position = new Vector2(Main.MouseWorld.X - (Projectile.width / 2), Main.MouseWorld.Y - (Projectile.height / 2));
-
-            if (player.dead || !player.GetModPlayer<BloomBuffsPlayer>().SpringIris)
+            if (player.dead || !player.active || !player.GetModPlayer<BloomBuffsPlayer>().SpringIris)
             {
                 Projectile.Kill();
             }
@@ -48,12 +46,17 @@ namespace Spooky.Content.Projectiles.Blooms
             {
                 Projectile.alpha -= 5;
             }
-
-            //spawn the iris petal projectile and set this as its parent
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] == 120)
+            
+            if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetal>(), Projectile.damage, 0, player.whoAmI, Projectile.whoAmI);
+                Projectile.position = new Vector2(Main.MouseWorld.X - (Projectile.width / 2), Main.MouseWorld.Y - (Projectile.height / 2));
+
+                //spawn the iris petal projectile and set this as its parent
+                Projectile.ai[0]++;
+                if (Projectile.ai[0] == 120)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<IrisPetal>(), Projectile.damage, 0, player.whoAmI, Projectile.whoAmI);
+                }
             }
         }
     }

@@ -135,10 +135,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         
                         SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= 20;
-
                         int ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
 
                         float Speed = 20f;
@@ -150,9 +146,16 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         //ProjType must be reset so it shoots the correct projectile
                         ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
                         knockBack = player.GetWeaponKnockback(ItemGlobal.ActiveItem(player), knockBack);
+                        
+                        if (Projectile.owner == Main.myPlayer)
+                        {
+                            Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 20;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
-                        ProjType, Projectile.damage, knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
+                            ProjType, Projectile.damage, knockBack, Projectile.owner);
+                        }
                     }
                 }
 

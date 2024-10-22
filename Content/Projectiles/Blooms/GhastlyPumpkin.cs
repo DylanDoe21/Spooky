@@ -64,7 +64,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.spriteDirection = player.direction;
             Projectile.rotation = Projectile.velocity.X * 0.04f;
 
-            if (player.dead || !player.GetModPlayer<BloomBuffsPlayer>().FallSoulPumpkin)
+            if (player.dead || !player.active || !player.GetModPlayer<BloomBuffsPlayer>().FallSoulPumpkin)
             {
                 Projectile.Kill();
             }

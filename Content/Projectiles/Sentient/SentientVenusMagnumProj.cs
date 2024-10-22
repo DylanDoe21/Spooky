@@ -110,10 +110,6 @@ namespace Spooky.Content.Projectiles.Sentient
                     {
                         SoundEngine.PlaySound(SoundID.NPCHit21 with { Pitch = 1.25f }, Projectile.Center);
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= 15f;
-
                         int ProjType = ProjectileID.Bullet;
 
                         float Speed = 15f;
@@ -123,11 +119,18 @@ namespace Spooky.Content.Projectiles.Sentient
                         player.PickAmmo(ItemGlobal.ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out _);
 
                         ProjType = Main.rand.NextBool(15) ? ModContent.ProjectileType<OozeTooth>() : ModContent.ProjectileType<OozeSmall>();
+                        
+                        if (Projectile.owner == Main.myPlayer)
+                        {
+                            Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 15f;
 
-                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 50f;
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 50f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
-                        ShootSpeed.X + Main.rand.Next(-1, 2), ShootSpeed.Y + Main.rand.Next(-1, 2), ProjType, Projectile.damage, knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
+                            ShootSpeed.X + Main.rand.Next(-1, 2), ShootSpeed.Y + Main.rand.Next(-1, 2), ProjType, Projectile.damage, knockBack, Projectile.owner);
+                        }
 
                         if (ExtraUseTime < 8)
                         {
@@ -148,19 +151,22 @@ namespace Spooky.Content.Projectiles.Sentient
 			}
             else
             {
-                //launch massive ooze if at max shooting speed
-                if (Projectile.timeLeft >= 19)
+                if (Projectile.owner == Main.myPlayer)
                 {
-                    SoundEngine.PlaySound(SoundID.NPCHit21 with { Pitch = 0.75f }, Projectile.Center);
+                    //launch massive ooze if at max shooting speed
+                    if (Projectile.timeLeft >= 19)
+                    {
+                        SoundEngine.PlaySound(SoundID.NPCHit21 with { Pitch = 0.75f }, Projectile.Center);
 
-                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                    ShootSpeed.Normalize();
-                    ShootSpeed *= 20;
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 20;
 
-                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 50f;
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 50f;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
-                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<OozeBig>(), Projectile.damage * 5, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
+                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<OozeBig>(), Projectile.damage * 5, Projectile.knockBack, Projectile.owner);
+                    }
                 }
             }
 

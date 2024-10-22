@@ -90,11 +90,14 @@ namespace Spooky.Content.Projectiles.Sentient
 
             if (Projectile.ai[0] == 25)
             {
-                Vector2 ChargeDirection = (Main.MouseWorld + new Vector2(Main.rand.Next(-50, 50), Main.rand.Next(-50, 50))) - Projectile.Center;
-                ChargeDirection.Normalize();
-                        
-                ChargeDirection *= 50;
-                Projectile.velocity = ChargeDirection;
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    Vector2 ChargeDirection = (Main.MouseWorld + new Vector2(Main.rand.Next(-50, 50), Main.rand.Next(-50, 50))) - Projectile.Center;
+                    ChargeDirection.Normalize();
+                            
+                    ChargeDirection *= 50;
+                    Projectile.velocity = ChargeDirection;
+                }
             }
 
             if (Projectile.ai[0] >= 25 && Projectile.position.Y >= player.Center.Y - 35)

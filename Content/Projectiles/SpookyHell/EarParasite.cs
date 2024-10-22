@@ -141,7 +141,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 					SoundEngine.PlaySound(ScreechSound, Projectile.Center);
 
 					if (Projectile.owner == Main.myPlayer)
-				    {
+                	{
 						Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
 						ShootSpeed.Normalize();
 						ShootSpeed *= 10;

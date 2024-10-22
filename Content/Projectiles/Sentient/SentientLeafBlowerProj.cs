@@ -116,15 +116,18 @@ namespace Spooky.Content.Projectiles.Sentient
 
                     SoundEngine.PlaySound(UseSound, Projectile.Center);
 
-                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                    ShootSpeed.Normalize();
-                    ShootSpeed *= 12f;
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 12f;
 
-                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 42f;
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 42f;
 
-                    int Chunk = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
-                    ShootSpeed.X + Main.rand.Next(-2, 3), ShootSpeed.Y + Main.rand.Next(-2, 3), ModContent.ProjectileType<OrganicChunk>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    Main.projectile[Chunk].frame = Main.rand.Next(0, 6);
+                        int Chunk = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
+                        ShootSpeed.X + Main.rand.Next(-2, 3), ShootSpeed.Y + Main.rand.Next(-2, 3), ModContent.ProjectileType<OrganicChunk>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Main.projectile[Chunk].frame = Main.rand.Next(0, 6);
+                    }
 
                     Projectile.localAI[0] = 0;
                 }

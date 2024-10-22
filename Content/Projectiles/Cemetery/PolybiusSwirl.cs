@@ -57,7 +57,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.rotation -= 0.05f;
 
-            if (Main.myPlayer == Projectile.owner)
+            if (Projectile.owner == Main.myPlayer)
             {
                 Projectile.position = new Vector2(Main.MouseWorld.X - (Projectile.width / 2), Main.MouseWorld.Y - (Projectile.height / 2));
             }

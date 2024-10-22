@@ -98,15 +98,18 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
                 {
-                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                    ShootSpeed.Normalize();
-                    ShootSpeed.X *= Main.rand.Next(15, 25);
-                    ShootSpeed.Y *= Main.rand.Next(15, 25);
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                        ShootSpeed.Normalize();
+                        ShootSpeed.X *= Main.rand.Next(15, 25);
+                        ShootSpeed.Y *= Main.rand.Next(15, 25);
 
-                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
-                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeMine>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
+                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeMine>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    }
                 }
 
                 Projectile.timeLeft = 30;

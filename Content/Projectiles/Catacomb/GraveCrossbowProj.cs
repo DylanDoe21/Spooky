@@ -129,7 +129,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			else 
             {
 				if (Projectile.owner == Main.myPlayer)
-				{
+                {
                     if (Projectile.timeLeft >= 29)
                     {
                         SaveDirection = Projectile.spriteDirection;

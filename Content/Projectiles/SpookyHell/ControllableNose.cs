@@ -70,7 +70,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Projectile.timeLeft = 2;
 
-                if (Main.myPlayer == Projectile.owner)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 GoTo = Main.MouseWorld;
 

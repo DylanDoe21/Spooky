@@ -206,7 +206,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                if (Main.myPlayer == Projectile.owner)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();
@@ -223,7 +223,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                if (Main.myPlayer == Projectile.owner)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();

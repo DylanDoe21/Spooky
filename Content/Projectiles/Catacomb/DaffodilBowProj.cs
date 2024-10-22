@@ -120,7 +120,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			else 
             {
 				if (Projectile.owner == Main.myPlayer)
-				{
+                {
                     if (Projectile.timeLeft >= 19)
                     {
                         SaveRotation = Projectile.rotation;

@@ -104,7 +104,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 			else 
             {
 				if (Projectile.owner == Main.myPlayer)
-				{
+                {
                     if (Projectile.timeLeft >= 24)
                     {
                         SaveDirection = Projectile.spriteDirection;

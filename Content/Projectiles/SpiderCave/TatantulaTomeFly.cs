@@ -70,7 +70,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                 Projectile.tileCollide = false;
 
-                if (Main.myPlayer == Projectile.owner)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     float goToX = Main.MouseWorld.X - Projectile.Center.X + Main.rand.Next(-200, 200);
                     float goToY = Main.MouseWorld.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
@@ -168,7 +168,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                     Projectile.tileCollide = true;
 
-                    if (Main.myPlayer == Projectile.owner)
+                    if (Projectile.owner == Main.myPlayer)
                     {
                         Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
                         ChargeDirection.Normalize();

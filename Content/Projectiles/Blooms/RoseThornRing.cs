@@ -58,7 +58,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
             Projectile.position = new Vector2(player.Center.X - (Projectile.width / 2), player.Center.Y - (Projectile.height / 2));
 
-            if (player.dead || !player.GetModPlayer<BloomBuffsPlayer>().SpringRose)
+            if (player.dead || !player.active || !player.GetModPlayer<BloomBuffsPlayer>().SpringRose)
             {
                 Projectile.Kill();
             }

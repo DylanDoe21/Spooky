@@ -76,17 +76,20 @@ namespace Spooky.Content.Projectiles.Sentient
                 {
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
-                    for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                        ShootSpeed.Normalize();
-                        ShootSpeed.X *= Main.rand.Next(10, 25);
-                        ShootSpeed.Y *= Main.rand.Next(10, 25);
+                        for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
+                        {
+                            Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed.X *= Main.rand.Next(10, 25);
+                            ShootSpeed.Y *= Main.rand.Next(10, 25);
 
-                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
-                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<IchorCloud>(), Projectile.damage / 2, 0, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
+                            ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<IchorCloud>(), Projectile.damage / 2, 0, Projectile.owner);
+                        }
                     }
 
                     Projectile.ai[2] = 0;

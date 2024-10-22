@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
             Projectile.rotation += 0.05f * Projectile.direction;
 
-            if (player.dead || !player.GetModPlayer<BloomBuffsPlayer>().Dragonfruit)
+            if (player.dead || !player.active || !player.GetModPlayer<BloomBuffsPlayer>().Dragonfruit)
             {
                 Projectile.Kill();
             }
