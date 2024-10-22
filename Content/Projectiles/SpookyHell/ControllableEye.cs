@@ -60,26 +60,29 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Projectile.rotation += 0.35f * (float)Projectile.direction;
 
-            if (player.channel && Projectile.ai[0] == 0) 
+            if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.timeLeft = 200;
-
-                Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 25;
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
-            }
-            else
-            {
-                Projectile.ai[0]++;
-
-                if (Projectile.ai[0] == 1)
+                if (player.channel && Projectile.ai[0] == 0)
                 {
-                    Projectile.damage *= 2;
+                    Projectile.timeLeft = 200;
+
+                    Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 25;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
                 }
-
-                if (Projectile.ai[0] >= 25)
+                else
                 {
-                    Projectile.velocity.X = Projectile.velocity.X * 0.97f;
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
+                    Projectile.ai[0]++;
+
+                    if (Projectile.ai[0] == 1)
+                    {
+                        Projectile.damage *= 2;
+                    }
+
+                    if (Projectile.ai[0] >= 25)
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X * 0.97f;
+                        Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
+                    }
                 }
             }
 

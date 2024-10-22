@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 
-using Spooky.Core;
 using Spooky.Content.Projectiles.Sentient;
 
 namespace Spooky.Content.Buffs.Minion
@@ -15,18 +14,14 @@ namespace Spooky.Content.Buffs.Minion
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<Grug>()] > 0) 
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<Grug>()] > 0)
 			{
-				player.GetModPlayer<SpookyPlayer>().Grug = true;
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().Grug) 
-			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 0;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 
-using Spooky.Core;
 using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Buffs.Minion
@@ -19,16 +18,12 @@ namespace Spooky.Content.Buffs.Minion
 			player.ownedProjectileCounts[ModContent.ProjectileType<EntityMinion2>()] > 0 || 
 			player.ownedProjectileCounts[ModContent.ProjectileType<EntityMinion3>()] > 0) 
 			{
-				player.GetModPlayer<SpookyPlayer>().EntityMinion = true;
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().EntityMinion) 
-			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 0;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
 		}
 	}

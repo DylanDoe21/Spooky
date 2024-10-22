@@ -90,16 +90,19 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 {
                     SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
 
-                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y);
-                    ShootSpeed.Normalize();
-                    ShootSpeed *= 12;
+                    if (Projectile.owner == Main.myPlayer)
+				    {
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y);
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 12;
 
-                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
+                        Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
 
-                    int Type = Projectile.localAI[1] >= 9 ? ModContent.ProjectileType<BlasterBoogerBig>() : ModContent.ProjectileType<BlasterBoogerSmall>();
-                    int Multiplier = Projectile.localAI[1] >= 9 ? 2 : 1;
+                        int Type = Projectile.localAI[1] >= 9 ? ModContent.ProjectileType<BlasterBoogerBig>() : ModContent.ProjectileType<BlasterBoogerSmall>();
+                        int Multiplier = Projectile.localAI[1] >= 9 ? 2 : 1;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y) + muzzleOffset, ShootSpeed * Multiplier, Type, Projectile.damage * Multiplier, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y) + muzzleOffset, ShootSpeed * Multiplier, Type, Projectile.damage * Multiplier, Projectile.knockBack, Projectile.owner);
+                    }
                     
                     if (Projectile.localAI[1] >= 9)
                     {

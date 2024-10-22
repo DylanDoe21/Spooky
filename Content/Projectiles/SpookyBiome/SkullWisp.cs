@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
@@ -140,13 +140,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				current = previousPosition;
 			}
 
-			if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().SkullWisp = false;
+			if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<SkullWispBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().SkullWisp)
-			{
+			if (player.HasBuff(ModContent.BuffType<SkullWispBuff>()))
+            {
 				Projectile.timeLeft = 2;
 			}
 

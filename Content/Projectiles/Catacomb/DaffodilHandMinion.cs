@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -108,13 +108,13 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Projectile.spriteDirection = Projectile.Center.X > player.Center.X ? 1 : -1;
 
-            if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().DaffodilHand = false;
+            if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<DaffodilHandBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().DaffodilHand)
-			{
+			if (player.HasBuff(ModContent.BuffType<DaffodilHandBuff>())) 
+            {
 				Projectile.timeLeft = 2;
 			}
 

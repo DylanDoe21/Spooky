@@ -94,22 +94,6 @@ namespace Spooky.Core
         public bool OrroboroEmbyro = false;
         public bool BoneMask = false;
 
-        //minions
-        public bool SkullWisp = false;
-        public bool EntityMinion = false;
-        public bool RotGourdMinion = false;
-        public bool SpiderBabyMinion = false;
-        public bool TumorMinion = false;
-        public bool NoseMinion = false;
-        public bool LeechMinion = false;
-        public bool Grug = false;
-        public bool DaffodilHand = false;
-        public bool OldHunter = false;
-        public bool SoulSkull = false;
-        public bool Brainy = false;
-        public bool WingedBiomass = false;
-        public bool Billy = false;
-
         //pets
         public bool ColumboPet = false;
         public bool CatPet = false;
@@ -271,22 +255,6 @@ namespace Spooky.Core
             DaffodilHairpin = false;
             OrroboroEmbyro = false;
             BoneMask = false;
-
-            //minions
-            SkullWisp = false;
-            EntityMinion = false;
-            RotGourdMinion = false;
-            SpiderBabyMinion = false;
-            TumorMinion = false;
-            NoseMinion = false;
-            LeechMinion = false;
-            Grug = false;
-            DaffodilHand = false;
-            OldHunter = false;
-            SoulSkull = false;
-            Brainy = false;
-            WingedBiomass = false;
-            Billy = false;
 
             //pets
             ColumboPet = false;

@@ -140,14 +140,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				{
 					SoundEngine.PlaySound(ScreechSound, Projectile.Center);
 
-					Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-					ShootSpeed.Normalize();
-					ShootSpeed *= 10;
+					if (Projectile.owner == Main.myPlayer)
+				    {
+						Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+						ShootSpeed.Normalize();
+						ShootSpeed *= 10;
 
-					//damage only scales based off of your item if it does over 60 damage to prevent the damage from being obnoxiously low
-					int Damage = ItemGlobal.ActiveItem(player).damage > 60 ? ItemGlobal.ActiveItem(player).damage : 60;
+						//damage only scales based off of your item if it does over 60 damage to prevent the damage from being obnoxiously low
+						int Damage = ItemGlobal.ActiveItem(player).damage > 60 ? ItemGlobal.ActiveItem(player).damage : 60;
 
-					Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<EarParasiteSoundBase>(), Damage, 0, player.whoAmI);
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<EarParasiteSoundBase>(), Damage, 0, player.whoAmI);
+					}
 
 					Projectile.ai[0] = 0;
 				}

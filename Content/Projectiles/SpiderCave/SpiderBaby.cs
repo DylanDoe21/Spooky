@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpiderCave
 {
@@ -63,15 +63,15 @@ namespace Spooky.Content.Projectiles.SpiderCave
         {
             Player player = Main.player[Projectile.owner];
 
-			if (player.dead)
+			if (player.dead || !player.active) 
             {
-				player.GetModPlayer<SpookyPlayer>().SpiderBabyMinion = false;
-            }
+				player.ClearBuff(ModContent.BuffType<SpiderBabyBuff>());
+			}
 
-			if (player.GetModPlayer<SpookyPlayer>().SpiderBabyMinion)
+			if (player.HasBuff(ModContent.BuffType<SpiderBabyBuff>()))
             {
 				Projectile.timeLeft = 2;
-            }
+			}
 
             //target an enemy
             for (int i = 0; i < Main.maxNPCs; i++)

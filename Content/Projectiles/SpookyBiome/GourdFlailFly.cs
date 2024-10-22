@@ -172,11 +172,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (Main.mouseLeftRelease && Projectile.ai[0] == 0)
             {
-                Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
-                ChargeDirection.Normalize();
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
+                    ChargeDirection.Normalize();
 
-                ChargeDirection *= 25;
-                Projectile.velocity = ChargeDirection;
+                    ChargeDirection *= 25;
+                    Projectile.velocity = ChargeDirection;
+                }
 
                 Projectile.ai[0] = 1;
             }

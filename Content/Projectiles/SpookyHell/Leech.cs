@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -81,13 +81,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Player player = Main.player[Projectile.owner];
 
-            if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().LeechMinion = false;
+            if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<LeechBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().LeechMinion)
-			{
+			if (player.HasBuff(ModContent.BuffType<LeechBuff>()))
+            {
 				Projectile.timeLeft = 2;
 			}
 

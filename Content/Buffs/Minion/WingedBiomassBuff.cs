@@ -15,18 +15,14 @@ namespace Spooky.Content.Buffs.Minion
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<WingedBiomass>()] > 0) 
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<WingedBiomass>()] > 0)
 			{
-				player.GetModPlayer<SpookyPlayer>().WingedBiomass = true;
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().WingedBiomass) 
-			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 0;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
 		}
 	}

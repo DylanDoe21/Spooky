@@ -66,14 +66,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.Kill();
 			}
 
-			if (player.channel)
+            if (player.channel)
             {
                 Projectile.timeLeft = 2;
 
-                Vector2 GoTo = Main.MouseWorld;
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Vector2 GoTo = Main.MouseWorld;
 
-                float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 10, 20);
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
+                    float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 10, 20);
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
+                }
 
                 Projectile.ai[0]++;
 
@@ -81,9 +84,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 {
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
-					player.statMana -= ItemGlobal.ActiveItem(player).mana;
+                    player.statMana -= ItemGlobal.ActiveItem(player).mana;
 
-					Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 
                     Main.rand.Next(15, 22), ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                     Projectile.ai[0] = 0;

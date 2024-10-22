@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
@@ -62,13 +63,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             Player player = Main.player[Projectile.owner];
 
-            if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().RotGourdMinion = false;
+            if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<RotGourdMinionBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().RotGourdMinion)
-			{
+			if (player.HasBuff(ModContent.BuffType<RotGourdMinionBuff>()))
+            {
 				Projectile.timeLeft = 2;
 			}
 

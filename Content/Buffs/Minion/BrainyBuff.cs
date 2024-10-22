@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 
-using Spooky.Core;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Buffs.Minion
@@ -17,16 +16,12 @@ namespace Spooky.Content.Buffs.Minion
 		{
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<Brainy>()] > 0) 
 			{
-				player.GetModPlayer<SpookyPlayer>().Brainy = true;
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().Brainy) 
-			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 0;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
 		}
 	}

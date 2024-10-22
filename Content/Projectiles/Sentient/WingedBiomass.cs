@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.Sentient
 {
@@ -81,13 +81,13 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Player player = Main.player[Projectile.owner];
 
-            if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().WingedBiomass = false;
+            if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<WingedBiomassBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().WingedBiomass)
-			{
+			if (player.HasBuff(ModContent.BuffType<WingedBiomassBuff>()))
+            {
 				Projectile.timeLeft = 2;
 			}
 

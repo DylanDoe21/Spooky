@@ -57,7 +57,10 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.rotation -= 0.05f;
 
-            Projectile.position = new Vector2(Main.MouseWorld.X - (Projectile.width / 2), Main.MouseWorld.Y - (Projectile.height / 2));
+            if (Main.myPlayer == Projectile.owner)
+            {
+                Projectile.position = new Vector2(Main.MouseWorld.X - (Projectile.width / 2), Main.MouseWorld.Y - (Projectile.height / 2));
+            }
 
             if (!player.GetModPlayer<SpookyPlayer>().PolybiusArcadeGame || Main.gamePaused)
             {

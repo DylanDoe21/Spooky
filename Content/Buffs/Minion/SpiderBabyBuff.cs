@@ -19,16 +19,12 @@ namespace Spooky.Content.Buffs.Minion
 			player.ownedProjectileCounts[ModContent.ProjectileType<SpiderBabyPurple>()] > 0 || 
 			player.ownedProjectileCounts[ModContent.ProjectileType<SpiderBabyRed>()] > 0) 
 			{
-				player.GetModPlayer<SpookyPlayer>().SpiderBabyMinion = true;
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().SpiderBabyMinion) 
-			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 0;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
 		}
 	}

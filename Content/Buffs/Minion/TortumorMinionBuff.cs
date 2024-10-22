@@ -17,16 +17,12 @@ namespace Spooky.Content.Buffs.Minion
 		{
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<TortumorMinion>()] > 0) 
 			{
-				player.GetModPlayer<SpookyPlayer>().TumorMinion = true;
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().TumorMinion) 
-			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 0;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
 		}
 	}

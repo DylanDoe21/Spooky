@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Food;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.Quest;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Sentient;
@@ -141,6 +142,11 @@ namespace Spooky.Content.NPCs.Friendly
 						SpawnItem(ItemID.BloodMoonStarter, 1);
 					}
 
+					if (Main.rand.NextBool(50))
+					{
+						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
+					}
+
 					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
@@ -192,6 +198,11 @@ namespace Spooky.Content.NPCs.Friendly
 					if (Main.rand.NextBool(3))
 					{
 						SpawnItem(ItemID.BloodMoonStarter, 1);
+					}
+
+					if (Main.rand.NextBool(50))
+					{
+						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
 					}
 
 					SpawnItem(ItemID.GoldCoin, 10);
@@ -247,6 +258,11 @@ namespace Spooky.Content.NPCs.Friendly
 						SpawnItem(ItemID.BloodMoonStarter, 1);
 					}
 
+					if (Main.rand.NextBool(50))
+					{
+						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
+					}
+
 					SpawnItem(ItemID.GoldCoin, 10);
 
 					if (Main.netMode != NetmodeID.SinglePlayer)
@@ -299,6 +315,11 @@ namespace Spooky.Content.NPCs.Friendly
 					if (Main.rand.NextBool(3))
 					{
 						SpawnItem(ItemID.BloodMoonStarter, 1);
+					}
+
+					if (Main.rand.NextBool(50))
+					{
+						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
 					}
 
 					SpawnItem(ItemID.GoldCoin, 10);

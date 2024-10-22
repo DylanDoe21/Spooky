@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
@@ -65,15 +65,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         {
             Player player = Main.player[Projectile.owner];
 
-			if (player.dead)
+			if (player.dead || !player.active) 
             {
-				player.GetModPlayer<SpookyPlayer>().EntityMinion = false;
-            }
+				player.ClearBuff(ModContent.BuffType<EntityMinionBuff>());
+			}
 
-			if (player.GetModPlayer<SpookyPlayer>().EntityMinion)
+			if (player.HasBuff(ModContent.BuffType<EntityMinionBuff>()))
             {
 				Projectile.timeLeft = 2;
-            }
+			}
 
             //target an enemy
             for (int i = 0; i < Main.maxNPCs; i++)

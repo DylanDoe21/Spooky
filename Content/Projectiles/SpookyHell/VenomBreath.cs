@@ -14,8 +14,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void SetDefaults()
         {   
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
@@ -35,8 +35,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             if (Main.rand.NextBool(3))
             {
-                int DustEffect = Dust.NewDust(Projectile.Center, Projectile.width / 5, Projectile.height / 5, 
-                ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.BlueViolet * 0.5f, Main.rand.NextFloat(0.2f, 0.5f));
+                int DustEffect = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.BlueViolet * 0.5f, Main.rand.NextFloat(0.2f, 0.5f));
                 Main.dust[DustEffect].velocity *= 0;
                 Main.dust[DustEffect].alpha = 150;
             }

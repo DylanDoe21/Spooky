@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -63,13 +63,13 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             Lighting.AddLight(Projectile.Center, 0f, 0.25f, 0f);
 
-			if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().SoulSkull = false;
+			if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<SoulSkullBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().SoulSkull)
-			{
+			if (player.HasBuff(ModContent.BuffType<SoulSkullBuff>()))
+            {
 				Projectile.timeLeft = 2;
 			}
 

@@ -17,16 +17,12 @@ namespace Spooky.Content.Buffs.Minion
 		{
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<SoulSkullMinion>()] > 0) 
 			{
-				player.GetModPlayer<SpookyPlayer>().SoulSkull = true;
-			}
-
-			if (player.GetModPlayer<SpookyPlayer>().SoulSkull) 
-			{
-				player.buffTime[buffIndex] = 2;
+				player.buffTime[buffIndex] = 18000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 0;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
 		}
 	}

@@ -70,61 +70,64 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                 Projectile.tileCollide = false;
 
-                float goToX = Main.MouseWorld.X - Projectile.Center.X + Main.rand.Next(-200, 200);
-                float goToY = Main.MouseWorld.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    float goToX = Main.MouseWorld.X - Projectile.Center.X + Main.rand.Next(-200, 200);
+                    float goToY = Main.MouseWorld.Y - Projectile.Center.Y + Main.rand.Next(-200, 200);
 
-                float speed = 0.15f;
+                    float speed = 0.15f;
 
-                if (Vector2.Distance(Projectile.Center, Main.MouseWorld) >= 140)
-                {
-                    speed = 0.5f;
-                }
-                else
-                {
-                    speed = 0.3f;
-                }
+                    if (Vector2.Distance(Projectile.Center, Main.MouseWorld) >= 140)
+                    {
+                        speed = 0.5f;
+                    }
+                    else
+                    {
+                        speed = 0.3f;
+                    }
 
-                if (Projectile.velocity.X > speed)
-                {
-                    Projectile.velocity.X *= 0.98f;
-                }
-                if (Projectile.velocity.Y > speed)
-                {
-                    Projectile.velocity.Y *= 0.98f;
-                }
+                    if (Projectile.velocity.X > speed)
+                    {
+                        Projectile.velocity.X *= 0.98f;
+                    }
+                    if (Projectile.velocity.Y > speed)
+                    {
+                        Projectile.velocity.Y *= 0.98f;
+                    }
 
-                if (Projectile.velocity.X < goToX)
-                {
-                    Projectile.velocity.X = Projectile.velocity.X + speed;
-                    if (Projectile.velocity.X < 0f && goToX > 0f)
+                    if (Projectile.velocity.X < goToX)
                     {
                         Projectile.velocity.X = Projectile.velocity.X + speed;
+                        if (Projectile.velocity.X < 0f && goToX > 0f)
+                        {
+                            Projectile.velocity.X = Projectile.velocity.X + speed;
+                        }
                     }
-                }
-                else if (Projectile.velocity.X > goToX)
-                {
-                    Projectile.velocity.X = Projectile.velocity.X - speed;
-                    if (Projectile.velocity.X > 0f && goToX < 0f)
+                    else if (Projectile.velocity.X > goToX)
                     {
                         Projectile.velocity.X = Projectile.velocity.X - speed;
+                        if (Projectile.velocity.X > 0f && goToX < 0f)
+                        {
+                            Projectile.velocity.X = Projectile.velocity.X - speed;
+                        }
                     }
-                }
-                if (Projectile.velocity.Y < goToY)
-                {
-                    Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                    if (Projectile.velocity.Y < 0f && goToY > 0f)
+                    if (Projectile.velocity.Y < goToY)
                     {
                         Projectile.velocity.Y = Projectile.velocity.Y + speed;
-                        return;
+                        if (Projectile.velocity.Y < 0f && goToY > 0f)
+                        {
+                            Projectile.velocity.Y = Projectile.velocity.Y + speed;
+                            return;
+                        }
                     }
-                }
-                else if (Projectile.velocity.Y > goToY)
-                {
-                    Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                    if (Projectile.velocity.Y > 0f && goToY < 0f)
+                    else if (Projectile.velocity.Y > goToY)
                     {
                         Projectile.velocity.Y = Projectile.velocity.Y - speed;
-                        return;
+                        if (Projectile.velocity.Y > 0f && goToY < 0f)
+                        {
+                            Projectile.velocity.Y = Projectile.velocity.Y - speed;
+                            return;
+                        }
                     }
                 }
 
@@ -165,11 +168,14 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                     Projectile.tileCollide = true;
 
-                    Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
-                    ChargeDirection.Normalize();
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
+                        ChargeDirection.Normalize();
 
-                    ChargeDirection *= -25;
-                    Projectile.velocity = ChargeDirection;
+                        ChargeDirection *= -25;
+                        Projectile.velocity = ChargeDirection;
+                    }
 
                     Projectile.ai[0] = 1;
                 }

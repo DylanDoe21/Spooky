@@ -36,7 +36,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 {
                     Vector2 speed = new Vector2(Main.rand.NextFloat(-7f, 7f), Main.rand.NextFloat(-7f, 7f));
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, speed, ModContent.ProjectileType<TortumorYoyoChunk>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, Projectile.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, speed, ModContent.ProjectileType<TortumorYoyoChunk>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer, Projectile.whoAmI);
                 }
             }
         }

@@ -206,11 +206,14 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                ShootSpeed.Normalize();
-                ShootSpeed *= 45;
-                        
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= 45;
+                            
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+                }
 
                 Projectile.Kill();
             }
@@ -220,11 +223,14 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                ShootSpeed.Normalize();
-                ShootSpeed *= 55;
-                        
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 1f);
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= 55;
+                            
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 1f);
+                }
 
                 Projectile.Kill();
             }

@@ -96,12 +96,15 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                     SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
-                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                    ShootSpeed.Normalize();
-                    ShootSpeed *= 10;
+                    if (Projectile.owner == Main.myPlayer)
+				    {
+                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 10;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, 
-                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, 
+                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    }
 
                     Projectile.frame = 0;
                     Projectile.localAI[0] = 0;

@@ -134,12 +134,15 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         
                         SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= 18;
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 18;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<BoneBowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
+                            ModContent.ProjectileType<BoneBowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        }
                     }
 
                     Projectile.frame = 3;

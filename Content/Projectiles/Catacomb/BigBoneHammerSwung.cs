@@ -214,12 +214,15 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                ShootSpeed.Normalize();
-                ShootSpeed *= 55;
-                        
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= 55;
+                            
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
+                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+                }
 
                 Projectile.Kill();
             }

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -86,13 +86,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Player player = Main.player[Projectile.owner];
 
-			if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().Brainy = false;
+			if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<BrainyBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().Brainy)
-			{
+			if (player.HasBuff(ModContent.BuffType<BrainyBuff>())) 
+            {
 				Projectile.timeLeft = 2;
 			}
 

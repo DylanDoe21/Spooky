@@ -64,24 +64,27 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 Projectile.timeLeft = 5;
             }
 
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<VenomHarpoonSpike>()] < 1 && Projectile.ai[0] == 0)
+            if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.alpha = 255;
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<VenomHarpoonSpike>()] < 1 && Projectile.ai[0] == 0)
+                {
+                    Projectile.alpha = 255;
 
-                SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 
-                Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                ShootSpeed.Normalize();
-                ShootSpeed *= 35;
+                    Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                    ShootSpeed.Normalize();
+                    ShootSpeed *= 35;
 
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
-                ModContent.ProjectileType<VenomHarpoonSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, Projectile.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
+                    ModContent.ProjectileType<VenomHarpoonSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, Projectile.whoAmI);
 
-                Projectile.ai[0] = 1;
-            }
-            else
-            {
-                Projectile.alpha = 0;
+                    Projectile.ai[0] = 1;
+                }
+                else
+                {
+                    Projectile.alpha = 0;
+                }
             }
 
             Projectile.direction = Projectile.spriteDirection = player.direction == 1 ? 1 : -1;

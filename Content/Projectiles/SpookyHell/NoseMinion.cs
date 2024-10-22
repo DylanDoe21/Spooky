@@ -5,7 +5,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Projectiles.SpookyHell
@@ -56,13 +56,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			Projectile.spriteDirection = -Projectile.direction;
 
-			if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().NoseMinion = false;
+			if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<NoseMinionBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().NoseMinion)
-			{
+			if (player.HasBuff(ModContent.BuffType<NoseMinionBuff>()))
+            {
 				Projectile.timeLeft = 2;
 			}
 

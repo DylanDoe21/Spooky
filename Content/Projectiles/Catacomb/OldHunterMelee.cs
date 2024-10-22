@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Core;
+using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -78,13 +78,13 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player player = Main.player[Projectile.owner];
 
-            if (player.dead)
-			{
-				player.GetModPlayer<SpookyPlayer>().OldHunter = false;
+            if (player.dead || !player.active) 
+            {
+				player.ClearBuff(ModContent.BuffType<OldHunterBuff>());
 			}
 
-			if (player.GetModPlayer<SpookyPlayer>().OldHunter)
-			{
+			if (player.HasBuff(ModContent.BuffType<OldHunterBuff>()))
+            {
 				Projectile.timeLeft = 2;
 			}
 
