@@ -35,7 +35,7 @@ namespace Spooky.Content.UserInterfaces
             MouseState mouse = Mouse.GetState();
 
             //only allow UI dragging if the config option is on and the player is not in the inventory
-            if (ModContent.GetInstance<SpookyConfig>().CanDragBloomBuffUI && !Main.playerInventory)
+            if (ModContent.GetInstance<SpookyConfig>().DraggableUI && !Main.playerInventory)
             {
                 //if the player is hovering over the UI panel and presses left click then allow dragging
                 if (IsMouseOverUI(player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)

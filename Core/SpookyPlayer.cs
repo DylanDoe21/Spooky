@@ -28,6 +28,7 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Terraria.ModLoader.IO;
 
 namespace Spooky.Core
 {
@@ -179,6 +180,9 @@ namespace Spooky.Core
 		public int dashDelay = 0;
 		public int dashTimer = 0;
 
+		public Vector2 MocoUITopLeft = new Vector2(Main.screenWidth / 2 + (Main.screenWidth / 12), Main.screenHeight / 1.5f);
+		public Vector2 KidneyUITopLeft = new Vector2(Main.screenWidth / 2 + (Main.screenWidth / 12), Main.screenHeight / 1.5f);
+
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
 
 		//sounds
@@ -188,7 +192,18 @@ namespace Spooky.Core
         public static readonly SoundStyle CapSound2 = new("Spooky/Content/Sounds/SentientCap2", SoundType.Sound);
         public static readonly SoundStyle CapSound3 = new("Spooky/Content/Sounds/SentientCap3", SoundType.Sound);
 
-        public override void OnEnterWorld()
+		public override void SaveData(TagCompound tag)
+		{
+			tag["MocoUITopLeft"] = MocoUITopLeft;
+			tag["KidneyUITopLeft"] = KidneyUITopLeft;
+		}
+		public override void LoadData(TagCompound tag)
+		{
+			MocoUITopLeft = tag.Get<Vector2>("MocoUITopLeft");
+			KidneyUITopLeft = tag.Get<Vector2>("KidneyUITopLeft");
+		}
+
+		public override void OnEnterWorld()
         {
             //un-hide the sun if you enter the world with the spooky mod menu enabled since it hides the sun offscreen
             if (ModContent.GetInstance<SpookyMenu>().IsSelected)

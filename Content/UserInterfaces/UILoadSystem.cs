@@ -16,7 +16,7 @@ namespace Spooky.Content.UserInterfaces
             {
                 layers.Insert(resourceBarIndex1, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
                 {
-                    MocoNoseBar.Draw(Main.spriteBatch, Main.LocalPlayer);
+                    MocoNoseBar.Draw(Main.spriteBatch);
                     return true;
                 },
                 InterfaceScaleType.None));
@@ -28,7 +28,7 @@ namespace Spooky.Content.UserInterfaces
 			{
 				layers.Insert(resourceBarIndex2, new LegacyGameInterfaceLayer("Stoned Kidney UI", () =>
 				{
-					StonedKidneyBar.Draw(Main.spriteBatch, Main.LocalPlayer);
+					StonedKidneyBar.Draw(Main.spriteBatch);
 					return true;
 				},
 				InterfaceScaleType.None));

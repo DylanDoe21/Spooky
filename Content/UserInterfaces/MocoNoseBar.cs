@@ -5,45 +5,82 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Microsoft.Xna.Framework.Input;
 
 namespace Spooky.Content.UserInterfaces
 {
     public class MocoNoseBar
     {
-        internal const float DefaultXPosition = 50.103603f;
-        internal const float DefaultYPosition = 55.765408f;
+		public static bool IsDragging = false;
 
-        private static Asset<Texture2D> BarTexture;
+		private static Asset<Texture2D> BarTexture;
         private static Asset<Texture2D> BarFillTexture;
-        private static Asset<Texture2D> BarFullTexture;
         
-        public static void Draw(SpriteBatch spriteBatch, Player player)
+        public static void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 ScreenPosition = new Vector2(DefaultXPosition, DefaultYPosition);
-
-            float uiScale = Main.UIScale;
-            Vector2 screenPos = ScreenPosition;
-            screenPos.X = (int)(screenPos.X * 0.01f * Main.screenWidth);
-            screenPos.Y = (int)(screenPos.Y * 0.01f * Main.screenHeight);
+			Player player = Main.LocalPlayer;
 
             if (player.GetModPlayer<SpookyPlayer>().MocoNose)
 			{
-                BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBar", AssetRequestMode.ImmediateLoad);
-                BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBarFill", AssetRequestMode.ImmediateLoad);
-                BarFullTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBarFull", AssetRequestMode.ImmediateLoad);
+				BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBar", AssetRequestMode.ImmediateLoad);
+				BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBarFill", AssetRequestMode.ImmediateLoad);
 
-                float offset = (BarTexture.Width() - BarTexture.Width()) * 0.5f;
-                spriteBatch.Draw(BarTexture.Value, screenPos, null, Color.White, 0f, BarTexture.Size() * 0.5f, uiScale, SpriteEffects.None, 0);
+				Vector2 UIBoxScale = Vector2.One * 1.2f * Main.UIScale;
 
-                float completionRatio = (float)player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge / 15f;
-                Rectangle barRectangle = new Rectangle(0, 0, (int)(BarFillTexture.Width() * completionRatio), BarTexture.Width());
-                spriteBatch.Draw(BarFillTexture.Value, screenPos + new Vector2(offset * uiScale, 0), barRectangle, Color.White, 0f, BarFillTexture.Size() * 0.5f, uiScale, SpriteEffects.None, 0);
-        
-                if (player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge >= 15)
-                {
-                    spriteBatch.Draw(BarFullTexture.Value, screenPos, null, Color.White, 0f, BarFullTexture.Size() * 0.5f, uiScale, SpriteEffects.None, 0);
-                }
+				//UI dragging 
+				MouseState mouse = Mouse.GetState();
+
+				//only allow UI dragging if the config option is on and the player is not in the inventory
+				if (ModContent.GetInstance<SpookyConfig>().DraggableUI && !Main.playerInventory)
+				{
+					//if the player is hovering over the UI panel and presses left click then allow dragging
+					if (IsMouseOverUI(player.GetModPlayer<SpookyPlayer>().MocoUITopLeft, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
+					{
+						IsDragging = true;
+					}
+
+					//if the player is dragging and continues to hold mouse left, then move the ui to the center of the mouse
+					if (IsDragging && mouse.LeftButton == ButtonState.Pressed)
+					{
+						player.mouseInterface = true;
+						player.GetModPlayer<SpookyPlayer>().MocoUITopLeft = Main.MouseScreen - (BarTexture.Size() / 2) * UIBoxScale;
+					}
+
+					//if the player lets go of mouse left, stop dragging the UI panel
+					if (IsDragging && mouse.LeftButton == ButtonState.Released)
+					{
+						IsDragging = false;
+					}
+				}
+				else
+				{
+					//set dragging to false here just to be safe
+					IsDragging = false;
+				}
+
+				//draw the main UI box
+				spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<SpookyPlayer>().MocoUITopLeft, null, Color.White, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+
+				float completionRatio = (float)player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge / 15f;
+				Rectangle barRectangle = new Rectangle(0, 0, (int)(BarFillTexture.Width() * completionRatio), BarFillTexture.Height());
+
+				spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().MocoUITopLeft, barRectangle, Color.White, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
 			}
 		}
+
+        //check if the mouse is hovering over this UI
+        public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 backgroundScale)
+        {
+            Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
+
+            if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
+			{
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

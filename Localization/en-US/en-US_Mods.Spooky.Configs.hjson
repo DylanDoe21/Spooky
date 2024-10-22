@@ -36,13 +36,13 @@ SpookyConfig: {
 			'''
 	}
 
-	CanDragBloomBuffUI: {
-		Label: Draggable Bloom Buff UI
+	DraggableUI: {
+		Label: Draggable UIs
 		Tooltip:
 			'''
-			Turning this option on will allow you to drag the bloom buffs UI by holding left click with your mouse over it
-			Keeping this option off will lock the UI in place and disables you from moving it
-			Can be useful to turn on if you are using other mods that add UI in similar locations to prevent overlapping
+			Keeping this option on will allow you to drag the UIs added by spooky mod by holding left click on them and dragging your mouse
+			Keeping this option off will lock each spooky mod UI in place and disables you from moving them
+			Useful if you want to re-locate the UIs to a specific position and then lock them there
 			'''
 	}
 }
