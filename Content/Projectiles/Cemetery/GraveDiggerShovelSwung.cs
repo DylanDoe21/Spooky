@@ -49,6 +49,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
+			Projectile.netImportant = true;
 			Projectile.ownerHitCheck = true;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 16;

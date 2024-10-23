@@ -28,6 +28,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 25;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -102,58 +103,35 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			}
 			else 
             {
-				if (Projectile.owner == Main.myPlayer)
-				{
-                    if (Projectile.timeLeft >= 24)
+                if (Projectile.timeLeft >= 24)
+                {
+                    SaveDirection = Projectile.spriteDirection;
+                    SaveRotation = Projectile.rotation;
+
+                    //set ai[2] to 1 so it cannot shoot again
+                    Projectile.ai[2] = 1;
+
+                    float VolumePitch = Projectile.frame == 2 ? 0f : (Projectile.frame == 1 ? 0.33f : 0.66f);
+                    SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - VolumePitch }, Projectile.Center);
+
+                    int extraDamage = Projectile.frame == 2 ? 10 : (Projectile.frame == 1 ? 5 : 0);
+
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        SaveDirection = Projectile.spriteDirection;
-                        SaveRotation = Projectile.rotation;
-
-                        //set ai[2] to 1 so it cannot shoot again
-                        Projectile.ai[2] = 1;
-
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
 
-                        int extraDamage = 0;
-
-                        switch (Projectile.frame)
-                        {
-                            case 0:
-                            {
-                                SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.66f }, Projectile.Center);
-                                ShootSpeed *= 3;
-                                extraDamage = 0;
-
-                                break;
-                            }
-                            case 1:
-                            {
-                                SoundEngine.PlaySound(ShootSound with { Pitch = ShootSound.Pitch - 0.33f }, Projectile.Center);
-                                ShootSpeed *= 7;
-                                extraDamage = 5;
-
-                                break;
-                            }
-                            case 2:
-                            {
-                                SoundEngine.PlaySound(ShootSound, Projectile.Center);
-                                ShootSpeed *= 12;
-                                extraDamage = 10;
-
-                                break;
-                            }
-                        }
+                        ShootSpeed *= Projectile.frame == 2 ? 12 : (Projectile.frame == 1 ? 8 : 4);
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<MossyPebbleProj>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
-
-                    Projectile.frame = 0;
-                    Projectile.spriteDirection = SaveDirection;
-                    Projectile.rotation = SaveRotation;
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
                 }
+
+                Projectile.frame = 0;
+                Projectile.spriteDirection = SaveDirection;
+                Projectile.rotation = SaveRotation;
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
 			}
 
             player.heldProj = Projectile.whoAmI;

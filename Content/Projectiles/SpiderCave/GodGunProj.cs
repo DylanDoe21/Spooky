@@ -30,6 +30,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 20;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;

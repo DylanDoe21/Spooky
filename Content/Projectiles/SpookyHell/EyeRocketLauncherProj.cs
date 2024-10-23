@@ -24,6 +24,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -97,7 +98,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
                     if (Projectile.owner == Main.myPlayer)
-                	{
+                    {
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
                         ShootSpeed *= 10;

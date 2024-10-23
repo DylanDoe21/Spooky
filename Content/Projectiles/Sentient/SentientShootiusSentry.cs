@@ -33,6 +33,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.sentry = true;
+            Projectile.netImportant = true;
             Projectile.timeLeft = Projectile.SentryLifeTime;
         }
 

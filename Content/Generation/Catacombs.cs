@@ -38,6 +38,7 @@ namespace Spooky.Content.Generation
         int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 
         public static int EntranceY = 0;
+        public static int EntranceBottomY = 0;
         public static int PositionX = 0;
 
         bool placedLootRoom1 = false;

@@ -21,6 +21,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.alpha = 255;
             Projectile.penetrate = -1;

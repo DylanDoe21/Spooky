@@ -132,7 +132,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void AI()
         {
-            Player owner = Main.player[Projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             if (runOnce)
 			{
@@ -152,7 +152,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 				current = previousPosition;
 			}
 
-            if (!owner.active || owner.dead || owner.noItems || owner.CCed) 
+            if (!player.active || player.dead || player.noItems || player.CCed) 
             {
                 Projectile.Kill();
             }
@@ -160,7 +160,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             if (Projectile.ai[0] == 0)
             {
                 Projectile.ai[0] = 1f;
-                Projectile.rotation -= owner.direction == 1 ? MathHelper.PiOver2 : 0f;
+                Projectile.rotation -= player.direction == 1 ? MathHelper.PiOver2 : 0f;
             }
 
             if (!SavedKnockback)
@@ -178,15 +178,15 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.timeLeft = 5;
 
                 //set the player arm and projectile rotation depending on which direction you're facing
-                if (owner.direction == 1)
+                if (player.direction == 1)
                 {
-                    owner.itemRotation = Projectile.rotation + 2.14f;
-                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 2.14f);
+                    player.itemRotation = Projectile.rotation + 2.14f;
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation + 2.14f);
                 }
                 else
                 {
-                    owner.itemRotation = Projectile.rotation + 2.14f;
-                    owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, owner.itemRotation + 2.14f);
+                    player.itemRotation = Projectile.rotation + 2.14f;
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation + 2.14f);
                 }
 
                 Projectile.ai[0]++;
@@ -204,9 +204,9 @@ namespace Spooky.Content.Projectiles.Catacomb
                     SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 100f }, Projectile.Center);
                 }
 
-                SetProjectilePosition(owner);
+                SetProjectilePosition(player);
 
-                SetOwnerAnimation(owner);
+                SetOwnerAnimation(player);
             }
 
             //when you release right click when the hammer is charged, throw it
@@ -214,7 +214,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                if (Main.myPlayer == Projectile.owner)
+                if (Projectile.owner == Main.myPlayer)
                 {
                     Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                     ShootSpeed.Normalize();

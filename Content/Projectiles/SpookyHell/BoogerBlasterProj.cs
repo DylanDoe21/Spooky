@@ -27,6 +27,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 30;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -109,20 +110,20 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
 			else 
             {
-				if (Projectile.owner == Main.myPlayer)
-				{
-                    Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+                Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 
-                    if (Projectile.timeLeft >= 29)
+                if (Projectile.timeLeft >= 29)
+                {
+                    SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
+
+                    SaveDirection = Projectile.spriteDirection;
+                    SaveRotation = Projectile.rotation;
+
+                    //set ai[2] to 1 so it cannot shoot again
+                    Projectile.ai[2] = 1;
+
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        SoundEngine.PlaySound(SoundID.Item167, Projectile.Center);
-
-                        SaveDirection = Projectile.spriteDirection;
-                        SaveRotation = Projectile.rotation;
-
-                        //set ai[2] to 1 so it cannot shoot again
-                        Projectile.ai[2] = 1;
-
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
 

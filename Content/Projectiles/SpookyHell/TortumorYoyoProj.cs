@@ -20,6 +20,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.width = 16;
             Projectile.height = 16;
             Projectile.friendly = true;
+            Projectile.netImportant = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
             Projectile.penetrate = -1;

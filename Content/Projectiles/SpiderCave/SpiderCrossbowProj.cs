@@ -24,6 +24,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 20;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -125,15 +126,15 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			}
 			else 
             {
-				if (Projectile.owner == Main.myPlayer)
-				{
-                    if (Projectile.timeLeft >= 19)
-                    {
-                        //set ai[2] to 1 so it cannot shoot again
-                        Projectile.ai[2] = 1;
-                        
-                        SoundEngine.PlaySound(SoundID.Item102, Projectile.Center);
+                if (Projectile.timeLeft >= 19)
+                {
+                    //set ai[2] to 1 so it cannot shoot again
+                    Projectile.ai[2] = 1;
+                    
+                    SoundEngine.PlaySound(SoundID.Item102, Projectile.Center);
 
+                    if (Projectile.owner == Main.myPlayer)
+				    {
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
                         ShootSpeed *= 20;
@@ -141,9 +142,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
                         ModContent.ProjectileType<SpiderCrossbowDart>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
-
-                    Projectile.frame = 3;
                 }
+
+                Projectile.frame = 3;
 			}
 
             player.heldProj = Projectile.whoAmI;

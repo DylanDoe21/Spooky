@@ -26,6 +26,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 200;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;

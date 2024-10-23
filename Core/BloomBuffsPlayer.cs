@@ -14,6 +14,7 @@ using Spooky.Content.UserInterfaces;
 using Mono.Cecil;
 using Spooky.Content.Projectiles.Sentient;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
 
 namespace Spooky.Core
 {
@@ -308,7 +309,21 @@ namespace Spooky.Core
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
         }
 
-        public override void PreUpdate()
+		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+		{
+			//reset every single slot and duration when the player dies
+			BloomBuffSlots[0] = string.Empty;
+			BloomBuffSlots[1] = string.Empty;
+			BloomBuffSlots[2] = string.Empty;
+			BloomBuffSlots[3] = string.Empty;
+
+			Duration1 = 0;
+			Duration2 = 0;
+			Duration3 = 0;
+			Duration4 = 0;
+		}
+
+		public override void PreUpdate()
         {
 			GivePlayerBloomBonus();
             HandleBloomBuffDuration();

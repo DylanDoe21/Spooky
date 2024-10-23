@@ -31,6 +31,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
         }

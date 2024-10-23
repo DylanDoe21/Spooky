@@ -29,6 +29,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.sentry = true;
+            Projectile.netImportant = true;
             Projectile.timeLeft = Projectile.SentryLifeTime;
         }
 

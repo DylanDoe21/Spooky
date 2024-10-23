@@ -29,6 +29,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 20;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -151,13 +152,13 @@ namespace Spooky.Content.Projectiles.Sentient
 			}
             else
             {
-                if (Projectile.owner == Main.myPlayer)
+                //launch massive ooze if at max shooting speed
+                if (Projectile.timeLeft >= 19)
                 {
-                    //launch massive ooze if at max shooting speed
-                    if (Projectile.timeLeft >= 19)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCHit21 with { Pitch = 0.75f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.NPCHit21 with { Pitch = 0.75f }, Projectile.Center);
 
+                    if (Projectile.owner == Main.myPlayer)
+                    {
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
                         ShootSpeed *= 20;

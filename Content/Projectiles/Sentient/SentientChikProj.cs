@@ -20,6 +20,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.friendly = true;
+            Projectile.netImportant = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
             Projectile.penetrate = -1;

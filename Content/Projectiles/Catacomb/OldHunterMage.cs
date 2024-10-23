@@ -44,7 +44,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool? CanDamage()
         {
-            //the old hunter ranger doesnt need to deal contact damage
+            //the old hunter mage doesnt need to deal contact damage
             return false;
         }
 

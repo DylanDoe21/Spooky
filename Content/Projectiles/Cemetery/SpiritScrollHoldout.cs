@@ -17,6 +17,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;

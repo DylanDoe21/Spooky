@@ -74,12 +74,12 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void AI()
         {
-            Player owner = Main.player[Projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
             Projectile.rotation += 1f * (float)Projectile.direction;
 
-            if (!owner.active || owner.dead)
+            if (!player.active || player.dead)
             {
                 Projectile.Kill();
             }
@@ -91,13 +91,13 @@ namespace Spooky.Content.Projectiles.Catacomb
                 //remove knockback here so the projectile doesnt fling enemies directly towards you when returning
                 Projectile.knockBack = 0;
 
-                Vector2 ReturnSpeed = owner.Center - Projectile.Center;
+                Vector2 ReturnSpeed = player.Center - Projectile.Center;
                 ReturnSpeed.Normalize();
                 ReturnSpeed *= 55;
 
                 Projectile.velocity = ReturnSpeed;
 
-                if (Projectile.Hitbox.Intersects(owner.Hitbox))
+                if (Projectile.Hitbox.Intersects(player.Hitbox))
                 {
                     Projectile.Kill();
                 }

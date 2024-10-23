@@ -19,6 +19,7 @@ namespace Spooky.Core
             AddMusic("Content/Sounds/Music/SpookyBiomeNight", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestNight"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeRain", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestRain"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeUnderground", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestUG"), "BananaLizard");
+            AddMusic("Content/Sounds/Music/SpookyBloodmoon", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyBloodmoon"), "BananaLizard");
             AddMusic("Content/Sounds/Music/RotGourd", Language.GetTextValue("Mods.Spooky.MusicDisplay.RotGourd"), "BananaLizard");
 
             //cemetery

@@ -27,6 +27,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -82,12 +83,12 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 if (Projectile.frame == 1)
                 {
-                    ShootTime = 30 + ItemGlobal.ActiveItem(player).useTime;
+                    ShootTime = 25 + ItemGlobal.ActiveItem(player).useTime;
                     MaxDistance = 425f;
                 }
                 if (Projectile.frame == 2) 
                 {
-                    ShootTime = 20 + ItemGlobal.ActiveItem(player).useTime;
+                    ShootTime = 10 + ItemGlobal.ActiveItem(player).useTime;
                     MaxDistance = 550f;
                 }
                 

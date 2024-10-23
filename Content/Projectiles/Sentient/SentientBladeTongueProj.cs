@@ -15,6 +15,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -76,9 +77,9 @@ namespace Spooky.Content.Projectiles.Sentient
                 {
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
-                    if (Projectile.owner == Main.myPlayer)
+                    for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
                     {
-                        for (int numProjectiles = 0; numProjectiles < 2; numProjectiles++)
+                        if (Projectile.owner == Main.myPlayer)
                         {
                             Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                             ShootSpeed.Normalize();

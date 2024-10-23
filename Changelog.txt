@@ -1,11 +1,20 @@
+New Stuff:
+
 -Added new colored gourd blocks, walls, and platforms
+-New song "Too Groovy, Very Spooky" by BananaLizard, plays in the spooky forest and swampy cemetery during blood moons
+
+
+Other Changes and Bug Fixes:
 
 -All spooky mod UI (except for little eyes quest UI) are now draggable, and the config option previously called "draggable bloom buff UI" is now just "draggable spooky mod UI" and applies to all draggable spooky mod UIs
+-All bloom buffs are now be properly removed off your player when you die
 -Lowered the volume on the flower armor flower pot concrete scraping sound that replaces your hermes boots running sound
 -Buffed spider stabber and reduced the amount of spider chitin in its crafting recipe
 -Strange spider egg now requires more spider chitin to craft
 -Happy ghosts can no longer go through blocks
 -Flesh bolster now has a proper bestiary display texture
+-Attempted to fix issues with holdout projectiles behaving incorrectly in multiplayer
+-Attempted to fix issue where projectiles in spooky mod that follow your cursor would follow other players cursors on their end in multiplayer
 -Fixed rarg not shooting fist projectiles at all in multiplayer
 -Fixed nose temple rooms sometimes respawning enemies after defeating them in multiplayer
 -Fixed puff of pollen dropping solar sunflower seeds if you have the watering gourd bloom buff

@@ -26,6 +26,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 20;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -119,47 +120,25 @@ namespace Spooky.Content.Projectiles.Catacomb
 			}
 			else 
             {
-				if (Projectile.owner == Main.myPlayer)
+                if (Projectile.timeLeft >= 19)
                 {
-                    if (Projectile.timeLeft >= 19)
+                    SaveRotation = Projectile.rotation;
+
+                    //set ai[2] to 1 so it cannot shoot again
+                    Projectile.ai[2] = 1;
+
+                    float VolumePitch = Projectile.frame == 2 ? 0f : (Projectile.frame == 1 ? 0.33f : 0.66f);
+                    SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - VolumePitch }, Projectile.Center);
+                    SoundEngine.PlaySound(FlySound, Projectile.Center);
+
+                    int MaxProjectiles = Projectile.frame == 2 ? 6 : (Projectile.frame == 1 ? 3 : 1);
+
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        SaveRotation = Projectile.rotation;
-
-                        //set ai[2] to 1 so it cannot shoot again
-                        Projectile.ai[2] = 1;
-
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
 
-                        int MaxProjectiles = 1;
-
-                        switch (Projectile.frame)
-                        {
-                            case 0:
-                            {
-                                SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - 0.66f }, Projectile.Center);
-                                SoundEngine.PlaySound(FlySound, Projectile.Center);
-                                ShootSpeed *= 10;
-
-                                break;
-                            }
-                            case 1:
-                            {
-                                SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - 0.33f }, Projectile.Center);
-                                SoundEngine.PlaySound(FlySound, Projectile.Center);
-                                MaxProjectiles = 3;
-                                ShootSpeed *= 13;
-                                break;
-                            }
-                            case 2:
-                            {
-                                SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
-                                SoundEngine.PlaySound(FlySound, Projectile.Center);
-                                MaxProjectiles = 6;
-                                ShootSpeed *= 16;
-                                break;
-                            }
-                        }
+                        ShootSpeed *= Projectile.frame == 2 ? 16 : (Projectile.frame == 1 ? 13 : 10);
 
                         for (int numProjectiles = 0; numProjectiles < MaxProjectiles; numProjectiles++)
                         {
@@ -167,12 +146,12 @@ namespace Spooky.Content.Projectiles.Catacomb
                             ShootSpeed.Y + Main.rand.Next(-5, 6), ModContent.ProjectileType<DaffodilBowFly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                     }
-
-                    Projectile.frame = 0;
-                    Projectile.rotation = SaveRotation;
-                    player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
-                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
                 }
+
+                Projectile.frame = 0;
+                Projectile.rotation = SaveRotation;
+                player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
 			}
 
             player.heldProj = Projectile.whoAmI;

@@ -2902,6 +2902,11 @@ SpookyBiomeUGBox: {
 	Tooltip: "[c/FFBF00:Spooky Spelunking] by BananaLizard"
 }
 
+SpookyBloodmoonBox: {
+	DisplayName: Music Box (Spooky Blood Moon)
+	Tooltip: "[c/B60038:Too Groovy, Very Spooky] by BananaLizard"
+}
+
 SpookyHellBox: {
 	DisplayName: Music Box (Valley of Eyes)
 	Tooltip: "[c/E64565:Eyeballs] by BananaLizard"

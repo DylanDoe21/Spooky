@@ -24,6 +24,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 70;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
@@ -112,7 +113,7 @@ namespace Spooky.Content.Projectiles.Sentient
                     }
                 }
 
-                Projectile.timeLeft = 30;
+                Projectile.timeLeft = 20;
             }
 
             if (direction.X > 0) 

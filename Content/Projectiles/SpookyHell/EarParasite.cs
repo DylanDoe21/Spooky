@@ -30,9 +30,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 		{
 			Projectile.width = 36;
             Projectile.height = 50;
-            Projectile.netImportant = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
+			Projectile.netImportant = true;
             Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
 		}

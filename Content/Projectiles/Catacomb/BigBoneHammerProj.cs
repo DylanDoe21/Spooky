@@ -62,7 +62,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void AI()
         {
-            Player owner = Main.player[Projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
             Projectile.rotation += 1f * (float)Projectile.direction;
@@ -71,13 +71,13 @@ namespace Spooky.Content.Projectiles.Catacomb
             
             if (Projectile.ai[0] >= 8)
             {
-                Vector2 ReturnSpeed = owner.Center - Projectile.Center;
+                Vector2 ReturnSpeed = player.Center - Projectile.Center;
                 ReturnSpeed.Normalize();
                 ReturnSpeed *= 45;
 
                 Projectile.velocity = ReturnSpeed;
 
-                if (Projectile.Hitbox.Intersects(owner.Hitbox))
+                if (Projectile.Hitbox.Intersects(player.Hitbox))
                 {
                     Projectile.Kill();
                 }

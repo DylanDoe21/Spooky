@@ -21,6 +21,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
+            Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
             Projectile.aiStyle = -1;

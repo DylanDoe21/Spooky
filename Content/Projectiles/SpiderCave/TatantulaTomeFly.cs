@@ -21,6 +21,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.usesLocalNPCImmunity = true;
 			Projectile.friendly = true; 
 			Projectile.tileCollide = false;
+            Projectile.netImportant = true;
 			Projectile.timeLeft = 180;
             Projectile.aiStyle = -1;
 		}

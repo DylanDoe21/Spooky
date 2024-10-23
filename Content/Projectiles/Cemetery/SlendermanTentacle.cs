@@ -22,6 +22,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
+            Projectile.netImportant = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.penetrate = -1;

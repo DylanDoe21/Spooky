@@ -20,6 +20,7 @@ namespace Spooky.Content.Projectiles
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
+            Projectile.netImportant = true;
             Projectile.ownerHitCheck = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.usesOwnerMeleeHitCD = true;

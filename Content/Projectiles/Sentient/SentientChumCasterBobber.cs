@@ -12,6 +12,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.height = 20;
             Projectile.aiStyle = ProjAIStyleID.Bobber;
             Projectile.bobber = true;
+            Projectile.netImportant = true;
             Projectile.penetrate = -1;
         }
     }

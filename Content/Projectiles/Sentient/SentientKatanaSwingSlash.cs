@@ -115,7 +115,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld.X, Main.MouseWorld.Y, 0, 0, 
+                    Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld, Vector2.Zero, 
                     ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Projectile.damage / (int)divide, Projectile.knockBack, player.whoAmI);
                 }
             }
