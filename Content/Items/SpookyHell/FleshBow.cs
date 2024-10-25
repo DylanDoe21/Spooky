@@ -15,15 +15,15 @@ namespace Spooky.Content.Items.SpookyHell
 
 		public override void SetDefaults()
 		{
-			Item.damage = 30;
+			Item.damage = 22;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = true;
 			Item.channel = true;
 			Item.width = 36;
 			Item.height = 60;
-			Item.useTime = 35;
-			Item.useAnimation = 35;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
 			Item.knockBack = 2;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 8;

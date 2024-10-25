@@ -97,11 +97,6 @@ namespace Spooky.Content.NPCs.Friendly
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.RaveyardBiome>().Type };
         }
 
-        public override bool CanChat() 
-        {
-			return true;
-		}
-
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -230,6 +225,11 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.frame.Y = 0 * frameHeight;
             }
         }
+
+        public override bool CanChat() 
+        {
+			return true;
+		}
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{

@@ -142,7 +142,7 @@ namespace Spooky.Content.NPCs.Friendly
 						SpawnItem(ItemID.BloodMoonStarter, 1);
 					}
 
-					if (Main.rand.NextBool(50))
+					if (Main.rand.NextBool(25))
 					{
 						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
 					}
@@ -200,7 +200,7 @@ namespace Spooky.Content.NPCs.Friendly
 						SpawnItem(ItemID.BloodMoonStarter, 1);
 					}
 
-					if (Main.rand.NextBool(50))
+					if (Main.rand.NextBool(25))
 					{
 						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
 					}
@@ -258,7 +258,7 @@ namespace Spooky.Content.NPCs.Friendly
 						SpawnItem(ItemID.BloodMoonStarter, 1);
 					}
 
-					if (Main.rand.NextBool(50))
+					if (Main.rand.NextBool(25))
 					{
 						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
 					}
@@ -317,7 +317,7 @@ namespace Spooky.Content.NPCs.Friendly
 						SpawnItem(ItemID.BloodMoonStarter, 1);
 					}
 
-					if (Main.rand.NextBool(50))
+					if (Main.rand.NextBool(25))
 					{
 						SpawnItem(ModContent.ItemType<SuspiciousBrownie>(), 1);
 					}

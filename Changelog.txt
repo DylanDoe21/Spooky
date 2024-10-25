@@ -1,6 +1,7 @@
 New Stuff:
 
 -Added new colored gourd blocks, walls, and platforms
+-Added multiple new pets based off of various spooky mod enemies
 -New song "Too Groovy, Very Spooky" by BananaLizard, plays in the spooky forest and swampy cemetery during blood moons
 
 
@@ -16,11 +17,17 @@ Other Changes and Bug Fixes:
 -Nerfed gore staff damage from 40 to 25
 -Nerfed tumor throw damage from 35 to 25
 -Tumor throw orbs now deal half the damage of the yoyo itself
+-Nerfed necronomicon volume II damage from 100 to 80, but buffed the heart's shoot frequency increase it gains when it gets bigger
+-Nerfed flesh mincer damage from 35 to 25
+-Nerfed seer damage from 30 to 22, and buffed its use speed
+-Nerfed retina staff damage from 22 to 15
+-Nerfed eye lasher damage from 35 to 25
 -Attempted to fix issues with holdout projectiles behaving incorrectly in multiplayer
 -Attempted to fix issue where projectiles in spooky mod that follow your cursor would follow other players cursors on their end in multiplayer
 -Fixed rarg not shooting fist projectiles at all in multiplayer
 -Fixed nose temple rooms sometimes respawning enemies after defeating them in multiplayer
 -Fixed old wood arrows hitbox being way too big
+-Fixed little eye not giving the suspicious brownie as a rare quest reward
 -Fixed puff of pollen dropping solar sunflower seeds if you have the watering gourd bloom buff
 -Fixed blooms being placeable on platforms
 -Fixed spi-ops leggings still using silk and not web blocks in their crafting recipe

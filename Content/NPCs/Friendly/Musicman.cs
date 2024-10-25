@@ -66,6 +66,11 @@ namespace Spooky.Content.NPCs.Friendly
             }
         }
 
+        public override bool CanChat() 
+        {
+			return true;
+		}
+
         public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Language.GetTextValue("LegacyInterface.28");
@@ -112,9 +117,7 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			NPC.velocity.X *= 0;
 
-			NPC.localAI[0]++;
-
-            if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<Biomes.RaveyardBiome>()))
+            if (!Flags.RaveyardHappening)
             {
                 NPC.alpha += 5;
 
