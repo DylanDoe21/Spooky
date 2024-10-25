@@ -340,7 +340,7 @@ namespace Spooky.Content.Generation
 
             int numDesertTiles = 0;
 
-            for (int i = X - 100; i < X + 100; i++)
+            for (int i = X - 200; i < X + 200; i++)
             {
                 for (int j = Y - 50; j < Y + 50; j++)
                 {

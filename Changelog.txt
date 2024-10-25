@@ -13,11 +13,17 @@ Other Changes and Bug Fixes:
 -Strange spider egg now requires more spider chitin to craft
 -Happy ghosts can no longer go through blocks
 -Flesh bolster now has a proper bestiary display texture
+-Nerfed gore staff damage from 40 to 25
+-Nerfed tumor throw damage from 35 to 25
+-Tumor throw orbs now deal half the damage of the yoyo itself
 -Attempted to fix issues with holdout projectiles behaving incorrectly in multiplayer
 -Attempted to fix issue where projectiles in spooky mod that follow your cursor would follow other players cursors on their end in multiplayer
 -Fixed rarg not shooting fist projectiles at all in multiplayer
 -Fixed nose temple rooms sometimes respawning enemies after defeating them in multiplayer
+-Fixed old wood arrows hitbox being way too big
 -Fixed puff of pollen dropping solar sunflower seeds if you have the watering gourd bloom buff
--Fixed spi-ops leggings still using silk and not web blocks from the spider grotto
+-Fixed blooms being placeable on platforms
+-Fixed spi-ops leggings still using silk and not web blocks in their crafting recipe
 -Fixed multiple spooky mod accessories with on hit effects working on critters and target dummies
+-Fixed egg incursion boss checklist texture being way too big
 -Fixed an issue where eye valley enemies could spawn inside of the nose temple if its made out of red bricks (Was caused because I forgot to add a check for the red blocks)

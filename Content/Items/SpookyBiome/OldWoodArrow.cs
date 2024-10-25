@@ -27,6 +27,7 @@ namespace Spooky.Content.Items.SpookyBiome
 			Item.value = Item.buyPrice(copper: 35);
 			Item.rare = ItemRarityID.White; 
 			Item.shoot = ModContent.ProjectileType<OldWoodArrowProj>();
+			Item.shootSpeed = 3.5f;
 		}
 
 		public override void AddRecipes()

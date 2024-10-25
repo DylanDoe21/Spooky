@@ -15,13 +15,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override void SetDefaults()
         {
             Projectile.width = 10;
-            Projectile.height = 42;
+            Projectile.height = 10;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 1200;
 			Projectile.penetrate = -1;
+            Projectile.aiStyle = 1;
+			AIType = ProjectileID.WoodenArrowFriendly;
         }
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -42,7 +44,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             }
         }
 
-        public override void AI()       
+        public override bool PreAI()       
         {
 			if (IsStickingToTarget) 
             {
@@ -66,13 +68,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     Projectile.Kill();
                 }
 			}
-			else
-			{
-                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-			    Projectile.rotation += 0f * (float)Projectile.direction;
 
-            	Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
-			}
+            return true;
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -84,11 +81,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void OnKill(int timeLeft)
 		{
-            for (int numGores = 1; numGores <= 2; numGores++)
+            if (Main.rand.NextBool(5))
             {
-                if (Main.netMode != NetmodeID.Server) 
+                for (int numGores = 1; numGores <= 2; numGores++)
                 {
-                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/OldWoodArrowGore" + numGores).Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/OldWoodArrowGore" + numGores).Type);
+                    }
                 }
             }
 
