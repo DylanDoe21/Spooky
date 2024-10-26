@@ -489,3 +489,23 @@ EggEventEnemyBuff: {
 	DisplayName: Flesh Bolster Buff
 	Description: ""
 }
+
+ZombieCultistPetBuff: {
+	DisplayName: Zombie Nose Cultist
+	Description: It probably wants its brain back
+}
+
+BeePetBuff: {
+	DisplayName: Pollinator Bee
+	Description: Its attracted to your honeycomb
+}
+
+RatPetBuff: {
+	DisplayName: Albino Rat
+	Description: Cute and probably carries disease!
+}
+
+PuttyPetBuff: {
+	DisplayName: Putty Slime Squad
+	Description: The putties are hopping along with you
+}

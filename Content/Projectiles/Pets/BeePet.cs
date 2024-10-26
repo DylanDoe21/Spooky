@@ -2,49 +2,33 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
 
 namespace Spooky.Content.Projectiles.Pets
 {
-    public class PandoraBeanPet : ModProjectile
+    public class BeePet : ModProjectile
     {
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Projectile.type] = 6;
             Main.projPet[Projectile.type] = true;
 
-            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, 1, 1)
-            .WithOffset(-10f, -12f).WithSpriteDirection(-1).WithCode(CharacterPreviewCustomization);
+            ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, 6, 1)
+            .WithOffset(-20f, -10f).WithSpriteDirection(-1).WhenNotSelected(0, 0);
         }
-
-        public static void CharacterPreviewCustomization(Projectile proj, bool walking)
-		{
-            proj.rotation += 0.2f;
-			DelegateMethods.CharacterPreview.Float(proj, walking);
-		}
 
         public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 34;
+            Projectile.width = 48;
+            Projectile.height = 40;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.netImportant = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 2;
-        }
-
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-        {
-            Player player = Main.player[Projectile.owner];
-            Vector2 center2 = Projectile.Center;
-            Vector2 vector48 = player.Center - center2;
-            float playerDistance = vector48.Length();
-            fallThrough = playerDistance > 200f;
-            return true;
         }
 
         public override void AI()
@@ -53,15 +37,24 @@ namespace Spooky.Content.Projectiles.Pets
 
 			if (player.dead)
             {
-				player.GetModPlayer<SpookyPlayer>().PandoraBeanPet = false;
+				player.GetModPlayer<SpookyPlayer>().BeePet = false;
             }
 
-			if (player.GetModPlayer<SpookyPlayer>().PandoraBeanPet)
+			if (player.GetModPlayer<SpookyPlayer>().BeePet)
             {
 				Projectile.timeLeft = 2;
             }
 
-            Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.02f * (float)Projectile.direction;
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter > 1)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+            }
+            if (Projectile.frame >= 6)
+            {
+                Projectile.frame = 0;
+            }
 
             if (Projectile.Center.X < player.Center.X)
             {
@@ -76,9 +69,9 @@ namespace Spooky.Content.Projectiles.Pets
             float horiPos = player.Center.X - Projectile.Center.X;
             float vertiPos = player.Center.Y - Projectile.Center.Y;
             vertiPos += (float)Main.rand.Next(-10, 15);
-            horiPos += (float)Main.rand.Next(-10, 15);
+            horiPos += (float)Main.rand.Next(-3, 4);
             horiPos += (float)(60 * -(float)player.direction);
-            vertiPos -= 60f;
+            vertiPos -= 45f;
 
             float playerDistance = (float)Math.Sqrt((double)(horiPos * horiPos + vertiPos * vertiPos));
 
@@ -110,8 +103,8 @@ namespace Spooky.Content.Projectiles.Pets
                 }
                 
                 playerDistance = 18f / playerDistance;
-                horiPos *= playerDistance;
-                vertiPos *= playerDistance;
+                horiPos *= playerDistance / 2;
+                vertiPos *= playerDistance / 2;
             }
 
             if (Projectile.velocity.X <= horiPos)

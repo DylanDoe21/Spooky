@@ -11,6 +11,8 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb.Misc;
+using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.Catacomb.Layer2.Projectiles;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
@@ -241,6 +243,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     NPC.ai[2] = 0;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantChunk>(), 5, 1, 2));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

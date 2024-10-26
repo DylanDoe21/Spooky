@@ -2,11 +2,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+
+using Spooky.Content.Items.Catacomb.Misc;
+using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
@@ -210,6 +214,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
                 NPC.velocity *= 0.98f;
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantChunk>(), 5, 1, 2));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

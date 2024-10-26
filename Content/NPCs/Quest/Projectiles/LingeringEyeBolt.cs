@@ -49,7 +49,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
 				if (trailLength[k] == Vector2.Zero)
 				{
-					return true;
+					return false;
 				}
 
 				Vector2 drawPos = trailLength[k] - Main.screenPosition;
@@ -72,11 +72,6 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
 			return false;
 		}
-
-        public override bool CanHitPlayer(Player target)
-        {
-            return false;
-        }
 
 		public override void AI()
         {

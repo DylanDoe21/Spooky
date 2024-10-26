@@ -41,6 +41,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			writer.Write(NPC.localAI[0]);
 			writer.Write(NPC.localAI[1]);
 			writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -53,6 +54,7 @@ namespace Spooky.Content.NPCs.NoseCult
 			NPC.localAI[0] = reader.ReadSingle();
 			NPC.localAI[1] = reader.ReadSingle();
 			NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
 		}
 
 		public override void SetDefaults()
@@ -258,34 +260,6 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.ai[2] > 70)
                     {
-                        //the minibosses idol is just an invisible spawner due to the statue in the big arena being used not only to rematch him, but spawn waves of cultists for farming
-                        //because of this, unlike the other idols, it should just immediately vanish when the miniboss is killed instead of playing an animation
-                        if (NPC.type == ModContent.NPCType<MocoIdol6>())
-                        {
-                            ActivateLightTiles();
-
-                            if (Main.netMode != NetmodeID.SinglePlayer)
-                            {
-                                ModPacket packet = Mod.GetPacket();
-                                packet.Write((byte)SpookyMessageType.MocoIdolDowned6);
-                                packet.Send();
-                            }
-                            else
-                            {
-                                Flags.downedMocoIdol6 = true;
-                            }
-
-                            NoseCultAmbushWorld.AmbushActive = false;
-
-                            if (Main.netMode == NetmodeID.Server)
-                            {
-                                NetMessage.SendData(MessageID.WorldData);
-                            }
-
-                            NPC.active = false;
-                            NPC.netUpdate = true;
-                        }
-
                         NPC.position.Y--;
 
                         NPC.ai[3] += 0.05f;
@@ -307,7 +281,7 @@ namespace Spooky.Content.NPCs.NoseCult
                             }
                         }
 
-                        if (NPC.ai[2] == 80)
+                        if (NPC.ai[2] == 72)
                         {
                             if (NPC.type == ModContent.NPCType<MocoIdol1>())
                             {
@@ -374,7 +348,23 @@ namespace Spooky.Content.NPCs.NoseCult
                                     Flags.downedMocoIdol5 = true;
                                 }
                             }
+                            if (NPC.type == ModContent.NPCType<MocoIdol6>())
+                            {
+                                if (Main.netMode != NetmodeID.SinglePlayer)
+                                {
+                                    ModPacket packet = Mod.GetPacket();
+                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned6);
+                                    packet.Send();
+                                }
+                                else
+                                {
+                                    Flags.downedMocoIdol6 = true;
+                                }
+                            }
+                        }
 
+                        if (NPC.ai[2] == 100)
+                        {
                             ActivateLightTiles();
                         }
 
@@ -669,8 +659,6 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void AI()
         {
-            NPC.alpha = 255;
-
             //spawn the cultist leader
             if (NPC.ai[0] == 0)
             {
@@ -685,6 +673,19 @@ namespace Spooky.Content.NPCs.NoseCult
             }
 
             HandleCultistAmbush();
+
+            if (NPC.ai[2] < 65)
+            {
+                //bob up and down 
+                if (NPC.localAI[0] == 0)
+                {
+                    NPC.localAI[1] = Flags.LeaderIdolPositon.Y - 62;
+                    NPC.localAI[0]++;
+                }
+
+                NPC.localAI[2]++;
+                NPC.position.Y = NPC.localAI[1] + (float)Math.Sin(NPC.localAI[2] / 100) * 10;
+            }
         }
     }
 }

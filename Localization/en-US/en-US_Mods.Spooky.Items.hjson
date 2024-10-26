@@ -1145,14 +1145,24 @@ DissolvedBone: {
 		'''
 }
 
-FuzzBatWing: {
-	DisplayName: Fuzz Bat Wing
+ExpiredCheese: {
+	DisplayName: Expired Cheese
+	Tooltip: Summons a pet albino rat
+}
+
+FuzzBall: {
+	DisplayName: Ball of Fuzz
 	Tooltip: Summons a pet fuzz bat
 }
 
 GhostPetItem: {
 	DisplayName: Spooky Ghost
 	Tooltip: Summons a little ghost to provide light
+}
+
+Honeycomb: {
+	DisplayName: Honeycomb Chunk
+	Tooltip: Summons a little pollinator bee
 }
 
 InchwormApple: {
@@ -1167,6 +1177,11 @@ MocoTissue: {
 		Summons a pet mocling
 		'The most unsanitary tissue known to mankind'
 		'''
+}
+
+OddBrain: {
+	DisplayName: Oddly Shaped Brain
+	Tooltip: Summons a zombie nose cultist
 }
 
 OldSaddle: {
@@ -1205,6 +1220,11 @@ PetscopTool2: {
 PetscopTool3: {
 	DisplayName: Pink tool
 	Tooltip: Summons Tiara
+}
+
+PuttyCup: {
+	DisplayName: Tub of Putty
+	Tooltip: Summons a squad of putty slimes
 }
 
 RottenGourd: {

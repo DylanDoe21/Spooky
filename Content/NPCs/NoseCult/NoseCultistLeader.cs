@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
@@ -200,7 +201,7 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             Player player = Main.player[NPC.target];
 
-            return !player.InModBiome(ModContent.GetInstance<Biomes.NoseTempleBiome>());
+            return !player.InModBiome(ModContent.GetInstance<NoseTempleBiome>());
         }
 
         public override void AI()
@@ -320,12 +321,12 @@ namespace Spooky.Content.NPCs.NoseCult
                         {
                             SoundEngine.PlaySound(SneezeSound, NPC.Center);
 
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y + 35) - NPC.Center;
                             ShootSpeed.Normalize();
                             ShootSpeed.X *= Main.rand.NextFloat(12f, 17f);
                             ShootSpeed.Y *= Main.rand.NextFloat(12f, 17f);
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 50),
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 35),
                             ShootSpeed, ModContent.ProjectileType<NoseCultistGruntSnot>(), NPC.damage, 4.5f);
                         }
                     }
@@ -360,7 +361,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.localAI[0] < 60)
                     {
-                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 85);
+                        Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 200);
 
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, 12);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);

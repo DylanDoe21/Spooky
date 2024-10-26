@@ -51,6 +51,11 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
+            if (Projectile.ai[0] < 120)
+            {
+                Projectile.ai[0] = 120;
+            }
+
 			Bounces++;
 			if (Bounces >= 4)
 			{
@@ -79,7 +84,11 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
         {
 			Projectile.rotation += 0.25f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 120)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
+            }
             
             if (Projectile.alpha > 0)
             {

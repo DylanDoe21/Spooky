@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.Graphics.CameraModifiers;
@@ -28,7 +29,6 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
-using Terraria.ModLoader.IO;
 
 namespace Spooky.Core
 {
@@ -98,7 +98,6 @@ namespace Spooky.Core
         public bool ColumboPet = false;
         public bool CatPet = false;
         public bool FlyPet = false;
-        public bool FuzzBatPet = false;
         public bool GhostPet = false;
         public bool InchwormPet = false;
         public bool PandoraBeanPet = false;
@@ -115,6 +114,11 @@ namespace Spooky.Core
         public bool MocoPet = false;
         public bool BigBonePet = false;
         public bool OrroboroPet = false;
+        public bool BeePet = false;
+        public bool FuzzBatPet  = false;
+        public bool PuttyPet = false;
+        public bool RatPet = false;
+        public bool ZombieCultistPet = false;
 
         //misc bools
         public bool EatenByGooSlug = false;
@@ -260,7 +264,6 @@ namespace Spooky.Core
             ColumboPet = false;
             CatPet = false;
             FlyPet = false;
-            FuzzBatPet = false;
             GhostPet = false;
             InchwormPet = false;
             PandoraBeanPet = false;
@@ -277,6 +280,11 @@ namespace Spooky.Core
             MocoPet = false;
             BigBonePet = false;
             OrroboroPet = false;
+            BeePet = false;
+            FuzzBatPet  = false;
+            PuttyPet = false;
+            RatPet = false;
+            ZombieCultistPet = false;
 
             //misc bools
             WhipSpiderAggression = false;

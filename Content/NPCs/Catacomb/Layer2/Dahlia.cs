@@ -32,12 +32,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         public override void SetDefaults()
         {
             NPC.lifeMax = 1000;
-            NPC.damage = 40;
+            NPC.damage = 35;
             NPC.defense = 0;
             NPC.width = 80;
             NPC.height = 72;
             NPC.npcSlots = 1f;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.5f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.value = Item.buyPrice(0, 0, 50, 0);

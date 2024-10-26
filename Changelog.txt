@@ -1,7 +1,7 @@
 New Stuff:
 
 -Added new colored gourd blocks, walls, and platforms
--Added multiple new pets based off of various spooky mod enemies
+-Added a few new pets
 -New song "Too Groovy, Very Spooky" by BananaLizard, plays in the spooky forest and swampy cemetery during blood moons
 
 
@@ -22,10 +22,15 @@ Other Changes and Bug Fixes:
 -Nerfed seer damage from 30 to 22, and buffed its use speed
 -Nerfed retina staff damage from 22 to 15
 -Nerfed eye lasher damage from 35 to 25
+-Nosferatu's arena now has an actual nose shrine and floating nose idol in it
+-Modified noseferatu's arena so that you cant just avoid his attacks by grappling to the ceiling
+-Noseferatu's oribiting snot balls will now launch towards the player unaffected by gravity until they either collide with a tile or 2 seconds have passed
 -Attempted to fix issues with holdout projectiles behaving incorrectly in multiplayer
 -Attempted to fix issue where projectiles in spooky mod that follow your cursor would follow other players cursors on their end in multiplayer
 -Fixed rarg not shooting fist projectiles at all in multiplayer
 -Fixed nose temple rooms sometimes respawning enemies after defeating them in multiplayer
+-Fixed bigger eye's eye rune bolts not dealing damage to the player
+-Fixed some lower catacomb enemies not dropping plant chunks
 -Fixed old wood arrows hitbox being way too big
 -Fixed little eye not giving the suspicious brownie as a rare quest reward
 -Fixed puff of pollen dropping solar sunflower seeds if you have the watering gourd bloom buff
@@ -33,4 +38,5 @@ Other Changes and Bug Fixes:
 -Fixed spi-ops leggings still using silk and not web blocks in their crafting recipe
 -Fixed multiple spooky mod accessories with on hit effects working on critters and target dummies
 -Fixed egg incursion boss checklist texture being way too big
--Fixed an issue where eye valley enemies could spawn inside of the nose temple if its made out of red bricks (Was caused because I forgot to add a check for the red blocks)
+-Fixed an issue where eye valley enemies could spawn inside of the nose temple if its made out of red bricks (Was happening because I forgot to add a check for the red blocks)
+-Fixed spooky mod causing a crash during world generation when used with remnants

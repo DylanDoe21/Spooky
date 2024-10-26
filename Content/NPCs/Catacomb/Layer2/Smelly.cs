@@ -13,6 +13,8 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.Catacomb.Misc;
+using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.Catacomb.Layer2.Projectiles;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
@@ -110,6 +112,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 			{
 				NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-75, 75), NPC.Center.Y + Main.rand.Next(-50, -10)), Vector2.Zero, ModContent.ProjectileType<SmellyFly>(), NPC.damage, 4.5f);
 			}
+        }
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantChunk>(), 1, 6, 12));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

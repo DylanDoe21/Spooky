@@ -10,7 +10,7 @@ namespace Spooky.Content.NPCs.Cemetery
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 2;
+			Main.npcFrameCount[NPC.type] = 6;
             Main.npcCatchable[NPC.type] = true;
             NPCID.Sets.CountsAsCritter[NPC.type] = true;
 
@@ -25,8 +25,8 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.lifeMax = 5;
             NPC.damage = 0;
 			NPC.defense = 0;
-			NPC.width = 18;
-			NPC.height = 12;
+			NPC.width = 38;
+			NPC.height = 20;
             NPC.npcSlots = 0.5f;
             NPC.noGravity = false;
 			NPC.HitSound = SoundID.NPCHit1;
@@ -50,15 +50,19 @@ namespace Spooky.Content.NPCs.Cemetery
             if (NPC.velocity.X != 0)
             {
                 NPC.frameCounter++;
-                if (NPC.frameCounter > 4)
+                if (NPC.frameCounter > 6)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= frameHeight * 2)
+                if (NPC.frame.Y >= frameHeight * 6)
                 {
-                    NPC.frame.Y = 0 * frameHeight;
+                    NPC.frame.Y = 1 * frameHeight;
                 }
+            }
+            else
+            {
+                NPC.frame.Y = 0 * frameHeight;
             }
 		}
 

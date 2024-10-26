@@ -56,18 +56,24 @@ namespace Spooky.Content.Projectiles.Pets
                 Projectile.frame = 0;
             }
 
-            float num16 = 0.5f;
-            Projectile.tileCollide = false;
-            Vector2 vector3 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
-            float horiPos = player.position.X + (float)(player.width / 2) - vector3.X;
-            float vertiPos = player.position.Y + (float)(player.height / 2) - vector3.Y;
-            vertiPos += (float)Main.rand.Next(-5, 8);
-            horiPos += (float)Main.rand.Next(-5, 8);
-            horiPos += (float)(45 * -(float)player.direction);
-            vertiPos -= 60f;
+            if (Projectile.Center.X < player.Center.X)
+            {
+                Projectile.spriteDirection = -1;
+            }
+            else if (Projectile.Center.X > player.Center.X)
+            {
+                Projectile.spriteDirection = 1;
+            }
+
+            float Speed = 0.5f;
+            float horiPos = player.Center.X - Projectile.Center.X;
+            float vertiPos = player.Center.Y - Projectile.Center.Y;
+            vertiPos += (float)Main.rand.Next(-10, 15);
+            horiPos += (float)Main.rand.Next(-3, 4);
+            horiPos += (float)(60 * -(float)player.direction);
+            vertiPos -= 45f;
+
             float playerDistance = (float)Math.Sqrt((double)(horiPos * horiPos + vertiPos * vertiPos));
-            float num21 = 18f;
-            float num27 = (float)Math.Sqrt((double)(horiPos * horiPos + vertiPos * vertiPos));
 
             if (playerDistance > 1200f)
             {
@@ -82,67 +88,59 @@ namespace Spooky.Content.Projectiles.Pets
                 {
                     Projectile.velocity *= 0.90f;
                 }
-                num16 = 0.02f;
+
+                Speed = 0.02f;
             }
             else
             {
-                if (playerDistance < 100f)
+                if (playerDistance < 150f)
                 {
-                    num16 = 0.35f;
+                    Speed = 0.1f;
                 }
-                if (playerDistance > 300f)
+                if (playerDistance > 400f)
                 {
-                    num16 = 1f;
+                    Speed = 0.25f;
                 }
                 
-                playerDistance = num21 / playerDistance;
-                horiPos *= playerDistance;
-                vertiPos *= playerDistance;
+                playerDistance = 18f / playerDistance;
+                horiPos *= playerDistance / 2;
+                vertiPos *= playerDistance / 2;
             }
 
             if (Projectile.velocity.X <= horiPos)
             {
-                Projectile.velocity.X = Projectile.velocity.X + num16;
-                if (num16 > 0.05f && Projectile.velocity.X < 0f)
+                Projectile.velocity.X = Projectile.velocity.X + Speed;
+                if (Speed > 0.05f && Projectile.velocity.X < 0f)
                 {
-                    Projectile.velocity.X = Projectile.velocity.X + num16;
+                    Projectile.velocity.X = Projectile.velocity.X + Speed;
                 }
             }
 
             if (Projectile.velocity.X > horiPos)
             {
-                Projectile.velocity.X = Projectile.velocity.X - num16;
-                if (num16 > 0.05f && Projectile.velocity.X > 0f)
+                Projectile.velocity.X = Projectile.velocity.X - Speed;
+                if (Speed > 0.05f && Projectile.velocity.X > 0f)
                 {
-                    Projectile.velocity.X = Projectile.velocity.X - num16;
+                    Projectile.velocity.X = Projectile.velocity.X - Speed;
                 }
             }
 
             if (Projectile.velocity.Y <= vertiPos)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + num16;
-                if (num16 > 0.05f && Projectile.velocity.Y < 0f)
+                Projectile.velocity.Y = Projectile.velocity.Y + Speed;
+                if (Speed > 0.05f && Projectile.velocity.Y < 0f)
                 {
-                    Projectile.velocity.Y = Projectile.velocity.Y + num16 * 2f;
+                    Projectile.velocity.Y = Projectile.velocity.Y + Speed * 2f;
                 }
             }
 
             if (Projectile.velocity.Y > vertiPos)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y - num16;
-                if (num16 > 0.05f && Projectile.velocity.Y > 0f)
+                Projectile.velocity.Y = Projectile.velocity.Y - Speed;
+                if (Speed > 0.05f && Projectile.velocity.Y > 0f)
                 {
-                    Projectile.velocity.Y = Projectile.velocity.Y - num16 * 2f;
+                    Projectile.velocity.Y = Projectile.velocity.Y - Speed * 2f;
                 }
-            }
-
-            if (Projectile.Center.X < player.Center.X)
-            {
-                Projectile.spriteDirection = -1;
-            }
-            else if (Projectile.Center.X > player.Center.X)
-            {
-                Projectile.spriteDirection = 1;
             }
         }
     }

@@ -68,9 +68,10 @@ namespace Spooky.Content.NPCs.Friendly
         public override void SetDefaults()
 		{
             NPC.lifeMax = 250;
-            NPC.defense = int.MaxValue;
+            NPC.defense = 9999;
             NPC.width = 42;
 			NPC.height = 56;
+            NPC.friendly = true;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.NPCHit2;
