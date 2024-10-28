@@ -694,7 +694,7 @@ namespace Spooky.Content.Generation
 					if (chestTile.TileType == ModContent.TileType<OldWoodChest>())
 					{
 						int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
-						int[] LightSources = new int[] { ItemID.OrangeTorch, ModContent.ItemType<CandleItem>() };
+						int[] LightSources = new int[] { ModContent.ItemType<SpookyBiomeTorchItem>(), ModContent.ItemType<CandleItem>() };
 						int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
 
 						//iron or lead bars

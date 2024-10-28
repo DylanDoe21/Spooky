@@ -18,27 +18,38 @@ namespace Spooky.Content.Items.SpookyHell
             Item.damage = 85;
             Item.crit = 7;
 			Item.DamageType = DamageClass.Melee;
-            Item.noMelee = true;
+            Item.noUseGraphic = true;
 			Item.autoReuse = true;
+			Item.noMelee = true;
+			Item.channel = true;
             Item.width = 90;
             Item.height = 86;
-            Item.useTime = 40;
-			Item.useAnimation = 40;
+            Item.useTime = 25;
+			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 9;
+			Item.knockBack = 5;
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(gold: 15);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
-            Item.shoot = ModContent.ProjectileType<LivingFleshAxeSlash>();
-            Item.scale = 1.2f;
+            Item.shoot = ModContent.ProjectileType<LivingFleshAxeProj>();
+            Item.shootSpeed = 12f;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool MeleePrefix() 
 		{
-			int Slash = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<LivingFleshAxeSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
-			Main.projectile[Slash].scale *= Item.scale * (player.meleeScaleGlove ? 1.1f : 1f);
-            
-            return false;
+			return true;
+		}
+
+        public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[ModContent.ProjectileType<LivingFleshAxeProj>()] <= 0;
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			Projectile.NewProjectileDirect(source, position + (velocity * 20) + (velocity.RotatedBy(-1.57f * player.direction) * 20), Vector2.Zero, type, damage, knockback, player.whoAmI, 0);
+			
+			return false;
 		}
 
         public override void AddRecipes()

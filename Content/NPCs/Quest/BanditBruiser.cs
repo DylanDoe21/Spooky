@@ -348,8 +348,6 @@ namespace Spooky.Content.NPCs.Quest
 							{
 								SoundEngine.PlaySound(SoundID.Item10, NPC.Center);
 
-								Main.NewText(NPC.ai[1], Color.White);
-
 								NPC.velocity *= 0f;
 
 								Vector2 ShootSpeed = player.Center - NPC.Center;

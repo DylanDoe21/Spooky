@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
+using Spooky.Content.Tiles.SpookyBiome.GourdBlocks;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 {
@@ -37,6 +38,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             AddMapEntry(new Color(194, 218, 9));
             DustType = 288;
             HitSound = SoundID.Dig;
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<GourdBlockLimeItem>(), Main.rand.Next(5, 11));
         }
 
         public override void MouseOver(int i, int j)
@@ -109,6 +115,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             AddMapEntry(new Color(194, 218, 9));
             DustType = 288;
             HitSound = SoundID.Dig;
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
         }
 
         public override void MouseOver(int i, int j)

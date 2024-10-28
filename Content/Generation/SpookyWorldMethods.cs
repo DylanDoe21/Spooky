@@ -158,6 +158,7 @@ namespace Spooky.Content.Generation
 		}
 
 		//this is basically a heavily modified version of vanillas tile runner code (dreadful)
+		//TODO: should be entirely redone at some point because this is really bad and old, probably once I get a better idea of what the spooky forest generation should look like
 		public static void ModifiedTileRunner(int i, int j, double strength, int steps, int tileType, int wallType, bool addTile = false, 
 		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool replaceWalls = true, bool noTiles = false)
 		{

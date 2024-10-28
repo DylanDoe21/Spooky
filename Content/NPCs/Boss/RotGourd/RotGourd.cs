@@ -340,7 +340,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						}
 						
 						//complete the slam attack
-						NPC.localAI[1] = 1; 
+						NPC.localAI[1] = 1;
 					}
 
 					//only loop attack if the jump has been completed

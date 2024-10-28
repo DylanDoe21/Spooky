@@ -7,8 +7,8 @@ SpookyConfig: {
 			'''
 			Changes the location of where the spooky forest is placed during world generation
 			Keeping this on will make it placed at your spawn, which is the default option
-			Turning this off will make the spooky forest generate away from your spawn, nearby the dungeon
-			This option is applied ONLY when making new worlds, and will have no effect on existing worlds
+			Turning this off will make the spooky forest generate away from your spawn, on the dungeon side of the world
+			This option is applied only when making new worlds, and will have no effect on existing worlds
 			Turning this off can be helpful if you are playing with other mods that add world generation at or nearby spawn
 			(Creating smaller worlds with this option off may potentially destroy or generate over other things!)
 			'''
@@ -40,7 +40,7 @@ SpookyConfig: {
 		Label: Draggable UIs
 		Tooltip:
 			'''
-			Keeping this option on will allow you to drag the UIs added by spooky mod by holding left click on them and dragging your mouse
+			Keeping this option on will allow you to left click and drag the UIs added by spooky mod to wherever you want
 			Keeping this option off will lock each spooky mod UI in place and disables you from moving them
 			Useful if you want to re-locate the UIs to a specific position and then lock them there
 			'''

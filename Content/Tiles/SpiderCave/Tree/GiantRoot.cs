@@ -2,6 +2,8 @@
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,7 +36,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             AddMapEntry(new Color(201, 175, 139), name);
             DustType = DustID.Web;
 			HitSound = SoundID.Dig;
-            RegisterItemDrop(ModContent.ItemType<RootWoodItem>());
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -176,12 +177,28 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             //kill the tree if there are no tiles above it
             if (!Framing.GetTileSafely(i, j - 1).HasTile)
             {
+                //spawn root from the trees when broken
+                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<RootWoodItem>());
+
+                if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
+                }
+
                 WorldGen.KillTile(i, j, false, false, false);
             }
 
             //kill the side roots of the root if they arent attached to the main root itself
             if (Framing.GetTileSafely(i + 1, j).TileType != ModContent.TileType<GiantRoot>() && Framing.GetTileSafely(i - 1, j).TileType != ModContent.TileType<GiantRoot>() && Framing.GetTileSafely(i, j).TileFrameX == 54)
             {
+                //spawn root from the trees when broken
+                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<RootWoodItem>());
+
+                if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
+                }
+
                 WorldGen.KillTile(i, j, false, false, false);
             }
         }

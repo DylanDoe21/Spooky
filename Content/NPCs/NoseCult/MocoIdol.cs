@@ -361,10 +361,7 @@ namespace Spooky.Content.NPCs.NoseCult
                                     Flags.downedMocoIdol6 = true;
                                 }
                             }
-                        }
 
-                        if (NPC.ai[2] == 100)
-                        {
                             ActivateLightTiles();
                         }
 

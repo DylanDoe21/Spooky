@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Pets;
+
 namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttySlime1 : ModNPC
@@ -99,6 +101,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 3));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PuttyCup>(), 30));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

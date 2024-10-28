@@ -30,14 +30,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
         public override void AI()
         {
-            Projectile.localAI[0]++;
-            if (Projectile.localAI[0] == 10)
-            {
-                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-                {
-                    Vector2 speed = new Vector2(Main.rand.NextFloat(-7f, 7f), Main.rand.NextFloat(-7f, 7f));
+            Player player = Main.player[Projectile.owner];
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, speed, ModContent.ProjectileType<TortumorYoyoChunk>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer, Projectile.whoAmI);
+            Projectile.localAI[0]++;
+            if (Projectile.localAI[0] % 180 == 0 && player.ownedProjectileCounts[ModContent.ProjectileType<TortumorYoyoChunk>()] < 3)
+            {
+                Vector2 speed = new Vector2(Main.rand.NextFloat(-7f, 7f), Main.rand.NextFloat(-7f, 7f));
+
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+			    {
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, speed, ModContent.ProjectileType<TortumorYoyoChunk>(), 
+                    Projectile.damage / 2, Projectile.knockBack, player.whoAmI, Projectile.whoAmI);
                 }
             }
         }

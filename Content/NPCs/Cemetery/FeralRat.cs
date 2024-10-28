@@ -2,10 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.NPCs.Cemetery
 {
@@ -77,6 +79,11 @@ namespace Spooky.Content.NPCs.Cemetery
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ExpiredCheese>(), 20));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

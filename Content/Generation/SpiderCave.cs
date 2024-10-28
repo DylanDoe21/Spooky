@@ -14,6 +14,7 @@ using Spooky.Core;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
+using Spooky.Content.Tiles.SpiderCave.Furniture;
 using Spooky.Content.Tiles.SpiderCave.Tree;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
@@ -954,21 +955,24 @@ namespace Spooky.Content.Generation
 						//bars
 						chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
 						chest.item[1].stack = WorldGen.genRand.Next(5, 16);
+                        //torches
+                        chest.item[2].SetDefaults(ModContent.ItemType<SpiderBiomeTorchItem>());
+						chest.item[2].stack = WorldGen.genRand.Next(3, 8);
 						//potions
-						chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
-						chest.item[2].stack = WorldGen.genRand.Next(1, 3);
-						//even more potions
-						chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions2));
+						chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions1));
 						chest.item[3].stack = WorldGen.genRand.Next(1, 3);
+						//even more potions
+						chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions2));
+						chest.item[4].stack = WorldGen.genRand.Next(1, 3);
 						//recovery potions
-						chest.item[4].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
-						chest.item[4].stack = WorldGen.genRand.Next(3, 7);
+						chest.item[5].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
+						chest.item[5].stack = WorldGen.genRand.Next(3, 7);
 						//goodie bags
-						chest.item[5].SetDefaults(ItemID.GoodieBag);
-						chest.item[5].stack = WorldGen.genRand.Next(1, 3);
-						//gold coins
-						chest.item[6].SetDefaults(ItemID.GoldCoin);
+						chest.item[6].SetDefaults(ItemID.GoodieBag);
 						chest.item[6].stack = WorldGen.genRand.Next(1, 3);
+						//gold coins
+						chest.item[7].SetDefaults(ItemID.GoldCoin);
+						chest.item[7].stack = WorldGen.genRand.Next(1, 3);
 					}
 				}
             }

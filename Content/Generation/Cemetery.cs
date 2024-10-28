@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 
 using StructureHelper;
 
@@ -412,7 +413,7 @@ namespace Spooky.Content.Generation
 						chest.item[2].SetDefaults(WorldGen.genRand.Next(Bars));
 						chest.item[2].stack = WorldGen.genRand.Next(8, 15);
 						//light sources
-						chest.item[3].SetDefaults(ItemID.GreenTorch);
+						chest.item[3].SetDefaults(ModContent.ItemType<CemeteryBiomeTorchItem>());
 						chest.item[3].stack = WorldGen.genRand.Next(3, 8);
 						//potions
 						chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions));

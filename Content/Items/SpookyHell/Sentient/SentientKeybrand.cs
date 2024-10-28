@@ -34,6 +34,11 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.shootSpeed = 12f;
         }
 
+		public override bool MeleePrefix() 
+		{
+			return true;
+		}
+
 		public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[ModContent.ProjectileType<SentientKeybrandThrown>()] <= 0;

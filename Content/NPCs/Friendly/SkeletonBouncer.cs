@@ -72,6 +72,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.width = 42;
 			NPC.height = 56;
             NPC.friendly = true;
+            NPC.lavaImmune = true;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.NPCHit2;

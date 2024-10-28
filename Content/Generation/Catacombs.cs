@@ -20,6 +20,7 @@ using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
+using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
@@ -1068,7 +1069,7 @@ namespace Spooky.Content.Generation
 							chest.item[1].stack = WorldGen.genRand.Next(2, 16);
 						}
 
-						//place stuff in pumpkin chests, do not put stuff in the trapped chest
+						//place stuff in pumpkin chests, do not put stuff in the gas trapped chests
 						if (chestTile.TileFrameX == 45 * 36 && chest.item[0].type != ItemID.GasTrap)
 						{
 							//potions
@@ -1088,8 +1089,8 @@ namespace Spooky.Content.Generation
 							//bars
 							chest.item[1].SetDefaults(Bars);
 							chest.item[1].stack = WorldGen.genRand.Next(5, 11);
-							//spike balls
-							chest.item[2].SetDefaults(ItemID.SpikyBall);
+							//torches
+							chest.item[2].SetDefaults(ModContent.ItemType<CatacombTorch1Item>());
 							chest.item[2].stack = WorldGen.genRand.Next(12, 19);
 							//potions
 							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions1));
@@ -1156,24 +1157,27 @@ namespace Spooky.Content.Generation
 							//bars
 							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
 							chest.item[1].stack = WorldGen.genRand.Next(10, 23);
+                            //torches
+							chest.item[2].SetDefaults(ModContent.ItemType<CatacombTorch2Item>());
+							chest.item[2].stack = WorldGen.genRand.Next(12, 19);
 							//potions
-							chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions1));
-							chest.item[2].stack = WorldGen.genRand.Next(1, 3);
-							//even more potions
-							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions2));
+							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions1));
 							chest.item[3].stack = WorldGen.genRand.Next(1, 3);
+							//even more potions
+							chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions2));
+							chest.item[4].stack = WorldGen.genRand.Next(1, 3);
 							//ammo
-							chest.item[4].SetDefaults(WorldGen.genRand.Next(Ammo));
-							chest.item[4].stack = WorldGen.genRand.Next(20, 41);
+							chest.item[5].SetDefaults(WorldGen.genRand.Next(Ammo));
+							chest.item[5].stack = WorldGen.genRand.Next(20, 41);
 							//recovery potions
-							chest.item[5].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
-							chest.item[5].stack = WorldGen.genRand.Next(3, 7);
+							chest.item[6].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
+							chest.item[6].stack = WorldGen.genRand.Next(3, 7);
 							//goodie bags
-							chest.item[6].SetDefaults(ItemID.GoodieBag);
-							chest.item[6].stack = WorldGen.genRand.Next(1, 3);
+							chest.item[7].SetDefaults(ItemID.GoodieBag);
+							chest.item[7].stack = WorldGen.genRand.Next(1, 3);
 							//gold coins
-							chest.item[7].SetDefaults(ItemID.GoldCoin);
-							chest.item[7].stack = WorldGen.genRand.Next(1, 6);
+							chest.item[8].SetDefaults(ItemID.GoldCoin);
+							chest.item[8].stack = WorldGen.genRand.Next(1, 6);
 						}
 
 						//place stuff in bone chests
