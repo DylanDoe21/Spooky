@@ -21,6 +21,7 @@ Misc Changes:
 -Skeleton bouncers are now immune to lava
 -Replaced big bone's greek fire spam attack with bouncing big bones
 -Goo slugs can no longer eat the player if they are falling down
+-Flesh bolster's eyes will no longer attach to an enemy to buff them, instead they now just attach a power beam to the enemy its currently buffing
 
 
 Item Changes:
