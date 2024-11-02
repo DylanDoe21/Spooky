@@ -2,36 +2,49 @@ New Stuff:
 
 -Added new colored gourd blocks, walls, and platforms
 -Added a few new pets
+-Added new bestiary backgrounds for spooky mod surface biomes for vanilla events (Like night time, raining, and blood moons)
 -New song "Too Groovy, Very Spooky" by BananaLizard, plays in the spooky forest and swampy cemetery during blood moons
 
 
 Misc Changes:
 
 -All spooky mod UI (except for little eyes quest UI) are now draggable, and the config option previously called "draggable bloom buff UI" is now just "draggable spooky mod UI" and applies to all draggable spooky mod UIs (It is also now on by default)
--All bloom buffs are now be properly removed off your player when you die
+-All bloom buffs are now properly cleared off you when you die like vanilla buffs are
 -Spooky mod biomes with chests in them now have their respective biome torches as part of their loot pools
+-Swampy cemetery generation now clears out water to prevent the biome from being flooded
 -Happy ghosts can no longer go through blocks
--Diva dahlia is no longer completely immune to knockback
+-Diva dahlia is no longer immune to knockback
 -Flesh bolster now has a proper bestiary display texture
 -Modified noseferatu's arena so that you cant just avoid his attacks by grappling to the ceiling, and added an actual nose shrine and floating nose idol in it
 -Noseferatu's oribiting snot balls will now launch towards the player unaffected by gravity until they either collide with a tile or 2 seconds have passed
+-Small fuzz bats no longer spawn in the spooky forest surface at night and are now exclusive to the underground spooky forest
 -Skeleton bouncers are now immune to lava
+-Replaced big bone's greek fire spam attack with bouncing big bones
+-Goo slugs can no longer eat the player if they are falling down
 
 
-Item/Weapon Changes:
+Item Changes:
 
 -Lowered the volume on the flower armor flower pot concrete scraping sound that replaces your hermes boots running sound
 -Buffed spider stabber and reduced the amount of spider chitin in its crafting recipe
 -Strange spider egg now requires more spider chitin to craft
 -Flesh mincer and living flesh mincer now have custom swinging animations (Their abilities are still exactly the same as before)
+-Living flesh armor whip range bonus has been nerfed from 20% to 10%, and moved it from the living flesh chest piece and made it part of the armor's set bonus
 -Nerfed necronomicon volume II damage from 100 to 80, but buffed the heart's shoot frequency increase it gains when it gets bigger
 -Nerfed seer damage from 30 to 22, and buffed its use speed
 -Nerfed retina staff damage from 22 to 15
 -Nerfed eye lasher damage from 35 to 25
 -Nerfed gore staff damage from 40 to 32
+-Buffed bubble belcher damage from 40 to 50
 -Nerfed tumor throw damage from 35 to 25
 -Tumor throw orbs now deal half the damage of the yoyo itself
 -Tumor throw now creates orbs over time instead of spawning a set amount all at once
+-Nerfed uncanine damage from 30 to 25 and it can now only fire 2 teeth per shot
+-Nerfed the amount of health and mana healed by the soul sucker
+-Lowered the overall drop chances for all of the egg incursion accessories
+-Added egg incursion accessory shimmering: Corroding chompers -> Peptobyssmal -> Two-way blood-way -> Smoker's lungs -> Stoned kidney -> Symbiotic ear -> Back to corroding chompers
+-Total organ package now requires 50 living arteries to craft along with the other accessories
+-Removed raveyard vinyl #1 since that already has a music box
 
 
 Bug Fixes:
@@ -43,13 +56,18 @@ Bug Fixes:
 -Fixed giant hanging roots only dropping one root block when broken in multiplayer
 -Fixed bigger eye's eye rune bolts not dealing damage to the player
 -Fixed some lower catacomb enemies not dropping plant chunks
+-Fixed broken emf reader being craftable
 -Fixed old wood arrows hitbox being way too big
+-Fixed skeleton bouncers taking extremely high damage when hit
 -Fixed little eye not giving the suspicious brownie as a rare quest reward
 -Fixed puff of pollen dropping solar sunflower seeds instead of an additional puff of pollen if you have the watering gourd bloom buff
 -Fixed blooms being placeable on platforms
 -Fixed spi-ops leggings still using silk and not web blocks in their crafting recipe
+-Fixed stinky slinger projectiles not creating flies on enemy hits
 -Fixed multiple spooky mod accessories with on hit effects working on critters and target dummies
 -Fixed egg incursion boss checklist texture being way too big
 -Fixed molar mauler being unable to receive melee item reforgements
+-Fixed issue where the flower shot's thorn mark wasn't properly increasing the damage of the regular projectiles
 -Fixed an issue where eye valley enemies could spawn inside of the nose temple if its made out of red bricks (Was happening because I forgot to add a check for the red blocks)
+-Fixed raveyard music box playing bananalizard's older raveyard theme and not the current up to date one
 -Fixed spooky mod causing a crash during world generation when used with remnants

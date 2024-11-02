@@ -80,7 +80,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 			target.type == ModContent.NPCType<PartySkeleton3>() || target.type == ModContent.NPCType<PartySkeleton4>() ||
 			target.type == ModContent.NPCType<PartySkeleton5>() || target.type == ModContent.NPCType<PartySkeleton6>() ||
 			target.type == ModContent.NPCType<PartySkeleton7>() || target.type == ModContent.NPCType<PartySkeleton8>() ||
-			target.type == ModContent.NPCType<SkeletonBouncer>() || target.type == ModContent.NPCType<SuspiciousSkeleton>();
+			target.type == ModContent.NPCType<SkeletonBouncer>() || target.type == ModContent.NPCType<SuspiciousSkeleton>() ||
+			target.type == ModContent.NPCType<Musicman>();
 
 			return !IsPartySkeleton;
 		}

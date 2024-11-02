@@ -8,6 +8,11 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 {
     public class StonedKidney : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GiantEar>();
+        }
+
         public override void SetDefaults()
         {
             Item.width = 62;

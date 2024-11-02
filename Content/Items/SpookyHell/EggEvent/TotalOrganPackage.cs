@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.EggEvent
@@ -44,6 +45,7 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
             .AddIngredient(ModContent.ItemType<StonedKidney>())
             .AddIngredient(ModContent.ItemType<SmokerLung>())
             .AddIngredient(ModContent.ItemType<GiantEar>())
+            .AddIngredient(ModContent.ItemType<ArteryPiece>(), 50)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

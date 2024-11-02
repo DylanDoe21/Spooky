@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -45,7 +46,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidRain"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 

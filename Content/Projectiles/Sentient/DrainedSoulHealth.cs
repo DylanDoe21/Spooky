@@ -103,7 +103,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             if (Projectile.Hitbox.Intersects(player.Hitbox))
             {
-                int LifeHealed = Main.rand.Next(2, 10);
+                int LifeHealed = Main.rand.Next(1, 3);
                 player.statLife += LifeHealed;
                 player.HealEffect(LifeHealed, true);
 

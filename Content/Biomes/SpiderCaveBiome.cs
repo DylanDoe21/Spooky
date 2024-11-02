@@ -20,7 +20,7 @@ namespace Spooky.Content.Biomes
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpiderCave");
        
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
 

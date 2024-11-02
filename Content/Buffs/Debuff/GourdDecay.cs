@@ -49,23 +49,28 @@ namespace Spooky.Content.Buffs.Debuff
 
                 npc.lifeRegen -= 5;
 
-				if (npc.buffTime[buffIndex] < (storedTime / 2) && npc.buffTime[buffIndex] > 5 && !npc.IsTechnicallyBoss())
+				if (!npc.IsTechnicallyBoss())
 				{
-					if (!initializeStats)
+					if (npc.buffTime[buffIndex] < (storedTime / 2) && npc.buffTime[buffIndex] > 5)
 					{
-						storedDamage = npc.damage;
-						storedDefense = npc.defense;
-						npc.damage = (int)(npc.damage * 0.8f);
-						npc.defense = (int)(npc.defense * 0.8f);
+						if (!initializeStats)
+						{
+							storedDamage = npc.damage;
+							storedDefense = npc.defense;
+							npc.damage = (int)(npc.damage * 0.8f);
+							npc.defense = (int)(npc.defense * 0.8f);
 
-						initializeStats = true;
+							initializeStats = true;
+						}
 					}
-				}
 
-				if (npc.buffTime[buffIndex] < 5 && !npc.IsTechnicallyBoss())
-				{
-					npc.damage = storedDamage;
-					npc.defense = storedDefense;
+					if (npc.buffTime[buffIndex] < 5)
+					{
+						npc.damage = storedDamage;
+						npc.defense = storedDefense;
+						initializeStats = false;
+						npc.buffTime[buffIndex] = 0;
+					}
 				}
 			}
 		}

@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
     {
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 25;
 			Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
 			Item.autoReuse = true;
@@ -48,7 +48,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 
             Vector2 newPosition = new Vector2(player.direction == -1 ? player.Center.X - 25 : player.Center.X + 25, player.Center.Y);
 
-            for (int numProjs = 0; numProjs <= 4; numProjs++)
+            for (int numProjs = 0; numProjs <= 2; numProjs++)
             {
                 Projectile.NewProjectile(source, newPosition.X + Main.rand.Next(-25, 25), newPosition.Y + Main.rand.Next(-25, 25), 
                 velocity.X, velocity.Y, ModContent.ProjectileType<BloodTooth>(), damage, knockback, player.whoAmI, 0f, 0f);

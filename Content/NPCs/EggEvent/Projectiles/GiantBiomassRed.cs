@@ -93,7 +93,13 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 }
             }
 
-            if (Projectile.ai[0] >= 150)
+            if (Projectile.ai[2] == 5 && Projectile.alpha <= 0)
+            {
+                Projectile.velocity.Y += 0.4f;
+                Projectile.tileCollide = true;
+            }
+
+            if (Projectile.ai[0] >= 150 && Projectile.ai[2] != 5)
             {
                 Projectile.Kill();
             }
@@ -183,6 +189,12 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 case 4:
                 {
                     NewNPC(ModContent.NPCType<HoverBrain>());
+                    break;
+                }
+
+                case 5:
+                {
+                    NewNPC(ModContent.NPCType<FleshBolster>());
                     break;
                 }
             }

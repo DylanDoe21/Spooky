@@ -24,11 +24,18 @@ namespace Spooky.Content.Buffs.Debuff
             {
                 npc.damage = (int)(npc.damage * 0.8f);
                 npc.defense = (int)(npc.defense * 0.75f);
+                storedColor = npc.color;
 
                 initializeStats = true;
             }
 
-            if (npc.buffTime[buffIndex] > 5)
+            if (npc.buffTime[buffIndex] < 5)
+            {
+                npc.color = storedColor;
+                initializeStats = false;
+				npc.buffTime[buffIndex] = 0;
+            }
+            else
             {
                 Color color = npc.GetAlpha(Color.DeepPink);
                 npc.color = color;

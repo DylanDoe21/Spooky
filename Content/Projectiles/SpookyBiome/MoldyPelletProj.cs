@@ -29,7 +29,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             }
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
+        public override void OnKill(int timeLeft)
 		{
             for (int numProjectile = 0; numProjectile < 3; numProjectile++)
             {
@@ -39,10 +39,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     Main.rand.Next(-3, -1), ModContent.ProjectileType<MoldPelletFly>(), Projectile.damage / 2, 0f, Main.myPlayer);
                 }
             }
-
-            Projectile.Kill();
-
-			return false;
 		}
     }
 }

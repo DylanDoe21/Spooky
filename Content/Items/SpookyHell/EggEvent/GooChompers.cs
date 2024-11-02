@@ -8,6 +8,11 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 {
     public class GooChompers : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PeptoStomach>();
+        }
+
         public override void SetDefaults()
         {
             Item.width = 48;

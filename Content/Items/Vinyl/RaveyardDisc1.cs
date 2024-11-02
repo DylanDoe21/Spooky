@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.Vinyl
     {
         public override void SetStaticDefaults()
         {
-            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard1"), 
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard2"), 
             ModContent.ItemType<RaveyardDisc1>(), ModContent.TileType<VinylTileThing6>());
         }
 

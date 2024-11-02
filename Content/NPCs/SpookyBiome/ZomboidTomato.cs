@@ -46,7 +46,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidTomato"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeBloodMoon_Background", Color.White)
 			});
 		}
 
@@ -113,7 +113,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidTomatoMold"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeBloodMoon_Background", Color.White)
 			});
 		}
     }

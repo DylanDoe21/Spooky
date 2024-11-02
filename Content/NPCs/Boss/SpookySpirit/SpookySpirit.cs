@@ -157,7 +157,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.SpookySpirit"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/CemeteryBiomeNight_Background", Color.White)
 			});
 		}
 

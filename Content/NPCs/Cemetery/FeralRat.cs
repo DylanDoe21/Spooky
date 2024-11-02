@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Pets;
 
@@ -47,7 +48,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FeralRat1"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/CemeteryBiomeBloodMoon_Background", Color.White)
 			});
 		}
 
@@ -109,7 +110,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FeralRat2"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/CemeteryBiomeBloodMoon_Background", Color.White)
 			});
 		}
 

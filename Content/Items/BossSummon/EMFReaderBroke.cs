@@ -16,14 +16,5 @@ namespace Spooky.Content.Items.BossSummon
             Item.width = 30;
             Item.height = 30;
         }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddRecipeGroup("SpookyMod:DemoniteBars", 5)
-            .AddRecipeGroup(RecipeGroupID.IronBar, 2)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
     }
 }

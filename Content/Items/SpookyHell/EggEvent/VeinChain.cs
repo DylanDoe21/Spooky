@@ -8,6 +8,11 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 {
     public class VeinChain : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SmokerLung>();
+        }
+
         public override void SetDefaults()
         {
             Item.width = 52;

@@ -1,11 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Spooky.Content.Tiles.SpookyBiome;
 using Terraria.Localization;
 
-namespace Spooky.Content
+using Spooky.Content.Tiles.SpookyBiome;
+
+namespace Spooky.Core
 {
     public class RecipeGlobal : ModSystem
     {

@@ -4,8 +4,10 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Cemetery
@@ -40,7 +42,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidGremlin"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/CemeteryBiomeNight_Background", Color.White)
 			});
 		}
 

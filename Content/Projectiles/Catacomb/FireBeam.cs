@@ -101,7 +101,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.localAI[0]++;
 			if (Projectile.localAI[0] == 1)
             {
-                Projectile.damage *= 5;
+                Projectile.damage *= 3;
             }
 
 			bool flag25 = false;

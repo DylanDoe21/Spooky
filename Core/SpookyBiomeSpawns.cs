@@ -160,8 +160,6 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<MonsterEye2>(), 1);
 						pool.Add(ModContent.NPCType<MonsterEye3>(), 1);
 						pool.Add(ModContent.NPCType<MonsterEye4>(), 1);
-						pool.Add(ModContent.NPCType<FluffBatSmall1>(), 1);
-                    	pool.Add(ModContent.NPCType<FluffBatSmall2>(), 1);
 						pool.Add(ModContent.NPCType<HoppingCandyBasket>(), 0.2f);
 						
 						//windy day enemies

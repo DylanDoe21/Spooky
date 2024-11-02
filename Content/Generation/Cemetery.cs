@@ -118,6 +118,8 @@ namespace Spooky.Content.Generation
                     {
                         tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
                     }
+
+					tile.LiquidAmount = 0;
                 }
 
                 //place block clusters right above the world surface to prevent the cemetery from generating too low

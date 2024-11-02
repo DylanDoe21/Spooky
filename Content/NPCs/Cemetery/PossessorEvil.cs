@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Buffs.Debuff;
 
@@ -71,7 +72,7 @@ namespace Spooky.Content.NPCs.Cemetery
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Possessor"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.CemeteryBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/CemeteryBiomeNight_Background", Color.White)
 			});
 		}
 

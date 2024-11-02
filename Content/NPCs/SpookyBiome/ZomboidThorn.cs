@@ -3,8 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -39,7 +41,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidThorn"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 

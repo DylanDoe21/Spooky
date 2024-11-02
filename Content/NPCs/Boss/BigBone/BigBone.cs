@@ -1154,43 +1154,29 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //shoot greek fire around
+                //shoot bouncy bones around
                 case 4:
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] <= 60)
-                    {
-                        GoAboveFlowerPot(300);
-                    }
+                    GoAboveFlowerPot(400);
 
-                    if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 90)
-                    {
-                        GoAboveFlowerPot(400);
-                    }
+                    int ShootFrequency = Phase2 ? 7 : 10;
 
-                    if (NPC.localAI[0] > 90)
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 240 && NPC.localAI[0] % ShootFrequency == 0)
                     {
-                        GoAboveFlowerPot(500);
-                    }
+                        NPC.velocity.Y = 4;
 
-                    if (NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
-                    {
                         SoundEngine.PlaySound(SoundID.Item42, NPC.Center);
-                        SoundEngine.PlaySound(MagicCastSound, NPC.Center);
 
-                        int NumProjectiles = Phase2 ? Main.rand.Next(15, 25) : Main.rand.Next(10, 15);
-                        for (int maxProjectiles = 0; maxProjectiles < NumProjectiles; maxProjectiles++)
-                        {
-                            float Spread = (float)Main.rand.Next(-1200, 1200) * 0.01f;
+                        Vector2 RandomPosition = new Vector2(NPC.Center.X + Main.rand.Next(-55, 56), NPC.Center.Y + Main.rand.Next(-55, -24));
 
-                            int[] Types = new int[] { ProjectileID.GreekFire1, ProjectileID.GreekFire2, ProjectileID.GreekFire3 };
+                        float Spread = (float)Main.rand.Next(-1200, 1200) * 0.01f;
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Spread, Main.rand.Next(-5, -2)), Main.rand.Next(Types), NPC.damage, 4.5f);
-                        }
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, RandomPosition, new Vector2(Spread, Main.rand.Next(-6, -2)), ModContent.ProjectileType<BouncingBone>(), NPC.damage, 4.5f);
                     }
 
-                    if (NPC.localAI[0] >= 160)
+                    if (NPC.localAI[0] >= 300)
                     {
                         if (Main.rand.NextBool(3))
                         {

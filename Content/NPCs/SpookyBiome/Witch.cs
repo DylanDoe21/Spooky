@@ -65,7 +65,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Witch"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 

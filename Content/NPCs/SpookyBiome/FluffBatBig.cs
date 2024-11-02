@@ -66,8 +66,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FuzzBall>(), 20));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VampireGummy>(), 100));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FuzzBall>(), 30));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

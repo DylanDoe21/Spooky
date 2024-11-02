@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.aiStyle = 14;
 			AIType = NPCID.GiantBat;
             AnimationType = NPCID.GiantBat;
-            SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyBiome>().Type, ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -47,7 +47,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FluffBatSmall1"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -85,7 +84,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.FluffBatSmall2"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiomeUg>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

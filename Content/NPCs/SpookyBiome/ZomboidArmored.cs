@@ -6,9 +6,9 @@ using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
-using Spooky.Core;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -21,9 +21,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 45;
-            NPC.damage = 15;
-            NPC.defense = 5;
+            NPC.lifeMax = 150;
+            NPC.damage = 22;
+            NPC.defense = 15;
             NPC.width = 44;
 			NPC.height = 46;
             NPC.npcSlots = 1f;
@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ZomboidArmored"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 

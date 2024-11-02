@@ -23,7 +23,11 @@ SpiderArmor:
 	This ability has a 2 minute cooldown before you can use it again
 	'''
 SpiritHorsemanArmor: Your own head will now fight with you!
-EyeArmor: Hitting enemies with whips will sometimes spawn eyes to deal additional damage
+EyeArmor:
+	'''
+	10% increased whip range
+	Hitting enemies with whips will sometimes spawn eyes to deal additional damage
+	'''
 FlowerArmor:
 	'''
 	Greatly increases your life regeneration

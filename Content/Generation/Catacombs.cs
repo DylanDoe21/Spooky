@@ -70,6 +70,12 @@ namespace Spooky.Content.Generation
             //235 = large worlds (6 rooms deep), 190 = medium worlds (5 rooms deep), 145 = small worlds (4 rooms deep)
             int layer1Depth = Main.maxTilesY >= 2400 ? 235 : (Main.maxTilesY >= 1800 ? 190 : 145);
 
+            placedLootRoom1 = false;
+            placedLootRoom2 = false;
+            placedLootRoom3 = false;
+            placedLootRoom4 = false;
+            placedRareSecretRoom = false;
+
             //first, place a circle of bricks where each catacomb room will be
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
             {

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.NPCs.SpookyBiome
@@ -53,7 +54,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye1"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 
@@ -205,7 +206,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye2"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 
@@ -284,7 +285,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye3"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 
@@ -363,7 +364,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.MonsterEye4"),
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
+                new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
 

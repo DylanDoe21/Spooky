@@ -28,6 +28,8 @@ namespace Spooky.Content.Buffs.Debuff
 			if (npc.buffTime[buffIndex] < 5)
             {
                 npc.defense = storedDefense;
+                initializeStats = false;
+				npc.buffTime[buffIndex] = 0;
             }
 		}
     }

@@ -23,6 +23,8 @@ namespace Spooky.Content.Buffs
 			if (npc.buffTime[buffIndex] < 5)
             {
                 npc.damage = storedDamage;
+                initializeStats = false;
+                npc.buffTime[buffIndex] = 0;
             }
 
             if (Main.rand.NextBool(10))

@@ -32,7 +32,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.whipRangeMultiplier = 1.2f;
 			player.maxMinions += 1;
 			player.maxTurrets += 1;
 		}

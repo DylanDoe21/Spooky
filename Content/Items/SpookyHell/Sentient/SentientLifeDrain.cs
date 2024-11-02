@@ -47,9 +47,12 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                 for (int target = 0; target < Main.maxNPCs; target++)
                 {
                     NPC npc = Main.npc[target];
+
                     Vector2 newPosition = new Vector2(Main.npc[target].Center.X, Main.npc[target].Center.Y);
 
-                    if (npc.Distance(Main.MouseWorld) <= 150f && npc.active && !npc.friendly && !npc.dontTakeDamage && !NPCID.Sets.CountsAsCritter[npc.type])
+                    bool lineOfSight = Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height);
+
+                    if (npc.Distance(Main.MouseWorld) <= 150f && lineOfSight && npc.active && !npc.friendly && !npc.dontTakeDamage && !npc.immortal && !NPCID.Sets.CountsAsCritter[npc.type])
                     {
                         SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, npc.Center);
 

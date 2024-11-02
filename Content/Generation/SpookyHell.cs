@@ -1023,11 +1023,6 @@ namespace Spooky.Content.Generation
                                 {
                                     GenerateNoseTempleStructure(X, NoseTemplePositionY + 45, "FireExitTunnelSegment", 4, 8);
 
-                                    if (X == ((DungeonX - 60) + (NoseTempleEntranceTunnelX + 2)) / 2)
-                                    {
-                                        GenerateNoseTempleStructure(X - 1, NoseTemplePositionY + 45, "FireExitTunnelSegmentChest", 4, 8);
-                                    }
-
                                     if (X == NoseTempleEntranceTunnelX + 2)
                                     {
                                         GenerateNoseTempleStructure(X - 1, NoseTemplePositionY + 38, "FireExitTunnelRightBarrier", 4, 8);
@@ -1042,11 +1037,6 @@ namespace Spooky.Content.Generation
                                 for (int X = DungeonX + 68; X >= NoseTempleEntranceTunnelX + 2; X--)
                                 {
                                     GenerateNoseTempleStructure(X, NoseTemplePositionY + 45, "FireExitTunnelSegment", 4, 8);
-
-                                    if (X == ((DungeonX + 68) + (NoseTempleEntranceTunnelX + 2)) / 2)
-                                    {
-                                        GenerateNoseTempleStructure(X + 1, NoseTemplePositionY + 45, "FireExitTunnelSegmentChest", 4, 8);
-                                    }
 
                                     if (X == NoseTempleEntranceTunnelX + 2)
                                     {

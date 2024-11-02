@@ -6,6 +6,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.NPCs.Boss.BigBone;
+using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.Projectiles.Blooms;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -48,10 +50,18 @@ namespace Spooky.Core
 		public override bool CanUseItem(Item item, Player player)
         {
             //dont allow placing blocks and disable the rod of discord in the catacombs
-            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()) && ((item.createTile > 0 && !TileID.Sets.Torch[item.createTile]) || item.type == ItemID.RodofDiscord))
+            if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))
             {
-                return false;
-            }
+				if (item.createTile > 0 && !TileID.Sets.Torch[item.createTile])
+				{
+					return false;
+				}
+
+				if (item.type == ItemID.RodofDiscord && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
+				{
+					return false;
+				}
+			}
 
             return base.CanUseItem(item, player);
         }

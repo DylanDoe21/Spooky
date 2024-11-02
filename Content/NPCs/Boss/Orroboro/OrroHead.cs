@@ -724,8 +724,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
-            //material
-            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
+			//material
+			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.ShouldOrroDropLoot(), ModContent.ItemType<ArteryPiece>(), 1, 12, 25));
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OrroMask>(), 7));

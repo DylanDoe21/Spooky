@@ -25,9 +25,11 @@ namespace Spooky.Content.Buffs.Debuff
                 initializeStats = true;
             }
 
-            if (npc.buffTime[buffIndex] <= 1)
+            if (npc.buffTime[buffIndex] < 5)
             {
                 npc.color = storedColor;
+                initializeStats = false;
+				npc.buffTime[buffIndex] = 0;
             }
             else
             {

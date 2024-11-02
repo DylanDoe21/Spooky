@@ -26,6 +26,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
 		int target = 0;
 
+		private static Asset<Texture2D> ChainTexture;
 		private static Asset<Texture2D> ChainTexture1;
 		private static Asset<Texture2D> ChainTexture2;
 		private static Asset<Texture2D> ChainTexture3;
@@ -107,6 +108,45 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				}
 			}
 
+			if (target != 0)
+			{
+				ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailSquare");
+
+				Vector2 TargetPosition = Main.npc[target].Center;
+
+				Rectangle? chainSourceRectangle = null;
+
+				float chainHeightAdjustment = 0f;
+
+				Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
+				Vector2 chainDrawPosition = Projectile.Center;
+				Vector2 vectorFromProjectileToPlayerArms = TargetPosition.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+				Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+				float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
+
+				if (chainSegmentLength == 0)
+				{
+					chainSegmentLength = 10;
+				}
+
+				float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+				int chainCount = 0;
+				float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
+
+				while (chainLengthRemainingToDraw > 0f)
+				{
+					Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
+
+					float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f * (float)Math.Sin(chainLengthRemainingToDraw);
+
+					Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, Color.Pink, chainRotation, chainOrigin, 3f * fade, SpriteEffects.None, 0f);
+
+					chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+					chainCount++;
+					chainLengthRemainingToDraw -= chainSegmentLength;
+				}
+			}
+
 			return true;
 		}
 
@@ -145,6 +185,20 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 			float RotateY = Parent.Center.Y - vector.Y;
 			Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
+			Vector2 home = Parent.Center + new Vector2(75, 0).RotatedBy(MathHelper.ToRadians(60) * Projectile.ai[1]);
+			Vector2 distance = home - Projectile.Center;
+			float range = distance.Length();
+			distance.Normalize();
+
+			distance /= Main.rand.Next(4, 9);
+
+			Projectile.velocity += distance;
+
+			if (range > 30f)
+			{
+				Projectile.velocity *= 0.96f;
+			}
+
 			if (target == 0)
 			{
 				for (int i = 0; i < Main.maxNPCs; i++)
@@ -159,47 +213,18 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 						}
 					}
 				}
-
-				Vector2 home = Parent.Center + new Vector2(75, 0).RotatedBy(MathHelper.ToRadians(60) * Projectile.ai[1]);
-				Vector2 distance = home - Projectile.Center;
-				float range = distance.Length();
-				distance.Normalize();
-
-				distance /= Main.rand.Next(4, 9);
-
-				Projectile.velocity += distance;
-
-				if (range > 30f)
-				{
-					Projectile.velocity *= 0.96f;
-				}
 			}
 			else
 			{
+				NPC Target = Main.npc[target];
+
+				Target.AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 10);
+
 				//stop buffing the enemy if it gets to far away from the bolster
-				if (!Main.npc[target].active || Main.npc[target].Distance(Parent.Center) > 600f)
+				if (!Target.active || Target.Distance(Parent.Center) > 600f)
 				{
-					Main.npc[target].GetGlobalNPC<NPCGlobal>().BeingBuffedByBolster = false;
-					Projectile.localAI[0] = 0;
+					Target.GetGlobalNPC<NPCGlobal>().BeingBuffedByBolster = false;
 					target = 0;
-				}
-
-				if (Projectile.Hitbox.Intersects(Main.npc[target].Hitbox) && Projectile.localAI[0] == 0)
-				{
-					Projectile.localAI[0]++;
-				}
-
-				if (Projectile.localAI[0] > 0)
-				{
-					Main.npc[target].AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 10);
-					Projectile.Center = Main.npc[target].Center;
-				}
-				else
-				{
-					Projectile.velocity = Main.npc[target].Center - Projectile.Center;
-					Projectile.velocity.Normalize();
-					Projectile.velocity *= 13f;
-					Projectile.velocity += Main.npc[target].velocity / 2f;
 				}
 			}
 		}

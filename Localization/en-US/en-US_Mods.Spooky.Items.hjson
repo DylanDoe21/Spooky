@@ -1957,11 +1957,7 @@ WarlockRobe: {
 
 EyeBody: {
 	DisplayName: Living Flesh Chestmail
-	Tooltip:
-		'''
-		20% increased whip range
-		Increases your max number of minions and sentries by 1
-		'''
+	Tooltip: Increases your max number of minions and sentries by 1
 }
 
 EyeHead: {
@@ -2599,17 +2595,12 @@ TortumorYoyo: {
 }
 
 RaveyardDisc1: {
-	DisplayName: Raveyard Vinyl #1
-	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard"
-}
-
-RaveyardDisc2: {
-	DisplayName: Raveyard Vinyl #2
+	DisplayName: Raveyard Vinyl
 	Tooltip: "[c/6FE4A5:Deathrattlin' Raving (Legacy Version)] by Luxcapacitor"
 }
 
-RaveyardDisc3: {
-	DisplayName: Raveyard Vinyl #3
+RaveyardDisc2: {
+	DisplayName: Raveyard Vinyl
 	Tooltip: "[c/6FE4A5:Graveyard Without The G (Legacy Version)] by BananaLizard & Lurak"
 }
 
@@ -3386,6 +3377,126 @@ TinyMushroomCageItem: {
 	Tooltip: ""
 }
 
+GourdBlockGreenItem: {
+	DisplayName: Green Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockGreenPlatformItem: {
+	DisplayName: Green Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockGreenWallItem: {
+	DisplayName: Green Gourd Wall
+	Tooltip: ""
+}
+
+GourdBlockLimeItem: {
+	DisplayName: Lime Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockLimePlatformItem: {
+	DisplayName: Lime Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockLimeWallItem: {
+	DisplayName: Lime Gourd Wall
+	Tooltip: ""
+}
+
+GourdBlockLimeOrangeItem: {
+	DisplayName: Lime-Orange Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockLimeOrangePlatformItem: {
+	DisplayName: Lime-Orange Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockLimeOrangeWallItem: {
+	DisplayName: Lime-Orange Gourd Wall
+	Tooltip: ""
+}
+
+GourdBlockOrangeItem: {
+	DisplayName: Orange Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockOrangePlatformItem: {
+	DisplayName: Orange Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockOrangeWallItem: {
+	DisplayName: Orange Gourd Wall
+	Tooltip: ""
+}
+
+GourdBlockRedItem: {
+	DisplayName: Red Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockRedPlatformItem: {
+	DisplayName: Red Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockRedWallItem: {
+	DisplayName: Red Gourd Wall
+	Tooltip: ""
+}
+
+GourdBlockWhiteItem: {
+	DisplayName: White Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockWhitePlatformItem: {
+	DisplayName: White Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockWhiteWallItem: {
+	DisplayName: White Gourd Wall
+	Tooltip: ""
+}
+
+GourdBlockYellowGreenItem: {
+	DisplayName: Yellow-Green Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockYellowGreenPlatformItem: {
+	DisplayName: Yellow-Green Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockYellowGreenWallItem: {
+	DisplayName: Yellow-Green Gourd Wall
+	Tooltip: ""
+}
+
+GourdBlockYellowItem: {
+	DisplayName: Yellow Gourd Block
+	Tooltip: ""
+}
+
+GourdBlockYellowPlatformItem: {
+	DisplayName: Yellow Gourd Platform
+	Tooltip: ""
+}
+
+GourdBlockYellowWallItem: {
+	DisplayName: Yellow Gourd Wall
+	Tooltip: ""
+}
+
 GourdGreenCarvedItem: {
 	DisplayName: Green Carved Gourd
 	Tooltip: ""
@@ -3795,125 +3906,5 @@ SpookyBiomeTorchItem: {
 
 SpookyHellTorchItem: {
 	DisplayName: Eye Valley Torch
-	Tooltip: ""
-}
-
-GourdBlockGreenItem: {
-	DisplayName: Green Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockGreenPlatformItem: {
-	DisplayName: Green Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockGreenWallItem: {
-	DisplayName: Green Gourd Wall
-	Tooltip: ""
-}
-
-GourdBlockLimeItem: {
-	DisplayName: Lime Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockLimePlatformItem: {
-	DisplayName: Lime Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockLimeWallItem: {
-	DisplayName: Lime Gourd Wall
-	Tooltip: ""
-}
-
-GourdBlockLimeOrangeItem: {
-	DisplayName: Lime-Orange Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockLimeOrangePlatformItem: {
-	DisplayName: Lime-Orange Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockLimeOrangeWallItem: {
-	DisplayName: Lime-Orange Gourd Wall
-	Tooltip: ""
-}
-
-GourdBlockOrangeItem: {
-	DisplayName: Orange Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockOrangePlatformItem: {
-	DisplayName: Orange Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockOrangeWallItem: {
-	DisplayName: Orange Gourd Wall
-	Tooltip: ""
-}
-
-GourdBlockRedItem: {
-	DisplayName: Red Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockRedPlatformItem: {
-	DisplayName: Red Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockRedWallItem: {
-	DisplayName: Red Gourd Wall
-	Tooltip: ""
-}
-
-GourdBlockWhiteItem: {
-	DisplayName: White Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockWhitePlatformItem: {
-	DisplayName: White Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockWhiteWallItem: {
-	DisplayName: White Gourd Wall
-	Tooltip: ""
-}
-
-GourdBlockYellowGreenItem: {
-	DisplayName: Yellow-Green Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockYellowGreenPlatformItem: {
-	DisplayName: Yellow-Green Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockYellowGreenWallItem: {
-	DisplayName: Yellow-Green Gourd Wall
-	Tooltip: ""
-}
-
-GourdBlockYellowItem: {
-	DisplayName: Yellow Gourd Block
-	Tooltip: ""
-}
-
-GourdBlockYellowPlatformItem: {
-	DisplayName: Yellow Gourd Platform
-	Tooltip: ""
-}
-
-GourdBlockYellowWallItem: {
-	DisplayName: Yellow Gourd Wall
 	Tooltip: ""
 }

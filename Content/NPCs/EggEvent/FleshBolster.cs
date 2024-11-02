@@ -21,6 +21,8 @@ namespace Spooky.Content.NPCs.EggEvent
 	{
 		bool HasSpawnedTendrils = false;
 
+		public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/BiomassExplode2", SoundType.Sound);
+
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 5;
@@ -59,7 +61,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.value = Item.buyPrice(0, 1, 0, 0);
             NPC.noGravity = false;
 			NPC.HitSound = SoundID.Item177;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.DeathSound = DeathSound;
 			NPC.aiStyle = -1;
 			SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellEventBiome>().Type };
 		}

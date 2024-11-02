@@ -151,7 +151,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.Hitbox.Intersects(player.Hitbox) && !player.GetModPlayer<SpookyPlayer>().EatenByGooSlug && player.GetModPlayer<SpookyPlayer>().GooSlugEatCooldown <= 0)
             {
-				if (NPC.localAI[0] == 0)
+				if (NPC.localAI[0] == 0 && NPC.velocity.Y <= 0)
 				{
                     SoundEngine.PlaySound(ChompSound, NPC.Center);
 
@@ -223,7 +223,7 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 5, 1, 3));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GooChompers>(), 40));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GooChompers>(), 45));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

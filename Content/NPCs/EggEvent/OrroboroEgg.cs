@@ -445,38 +445,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         if (!HasSpawnedBolster)
                         {
-                            Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
-
-                            center.X += Main.rand.Next(-500, 500);
-
-                            int numtries = 0;
-                            int x = (int)(center.X / 16);
-                            int y = (int)(center.Y / 16);
-
-                            while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
-                            {
-                                y++;
-                                center.Y = y * 16;
-                            }
-                            while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
-                            {
-                                numtries++;
-                                y--;
-                                center.Y = y * 16;
-                            }
-
-                            for (int numDusts = 0; numDusts < 25; numDusts++)
-                            {
-                                Dust dust = Dust.NewDustDirect(center, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
-                                dust.noGravity = true;
-                            }
-
-                            int Bolster = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y, ModContent.NPCType<FleshBolster>());
-
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
-                                NetMessage.SendData(MessageID.SyncNPC, number: Bolster);
-                            }
+                            SpawnEnemy(1, 5);
 
                             HasSpawnedBolster = true;
 
@@ -563,7 +532,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         if (timeLeft >= 180)
                         {
 							//chance to spawn an ear worm manually
-                            if (Main.rand.NextBool(7) && EarWormCount() < 4)
+                            if (Main.rand.NextBool(8) && EarWormCount() < 4)
                             {
 								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
 
