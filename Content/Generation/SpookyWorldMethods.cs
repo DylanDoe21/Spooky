@@ -8,7 +8,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Generation
@@ -28,6 +27,62 @@ namespace Spooky.Content.Generation
 			{
 				new Actions.ClearTile(), new Actions.PlaceTile((ushort)tileType)
 			}));
+		}
+
+		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly)
+		{
+			float scale = radiusY / (float)radius;
+			float invertScale = (float)radius / radiusY;
+			for (int x = -radius; x <= radius; x++)
+			{
+				for (float y = -radius; y <= radius; y += (invertScale * 0.85f))
+				{
+					float radialMod = WorldGen.genRand.NextFloat(2.5f, 4.5f) * thickMult;
+					if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
+					{
+						int PositionX = X + x;
+						int PositionY = Y + (int)(y * scale);
+						Tile tile = Framing.GetTileSafely(PositionX, PositionY);
+
+						if (!ReplaceOnly)
+						{
+							if (tileType > -1)
+							{
+								WorldGen.KillTile(PositionX, PositionY);
+								tile.TileType = (ushort)tileType;
+								tile.HasTile = true;
+							}
+
+							if (wallType > 0)
+							{
+								tile.WallType = (ushort)wallType;
+								tile.LiquidAmount = 0;
+							}
+						}
+						else if (ReplaceOnly && tile.HasTile)
+						{
+							if (tileType > -1)
+							{
+								tile.TileType = (ushort)tileType;
+							}
+							else
+							{
+								WorldGen.KillTile(PositionX, PositionY);
+							}
+
+							if (wallType > 0 && tile.WallType > 0)
+							{
+								tile.WallType = (ushort)wallType;
+								tile.LiquidAmount = 0;
+							}
+						}
+
+						//if (Math.Sqrt(x * x + y * y) >= radius - radialMod)
+						//{
+						//}
+					}
+				}
+			}
 		}
 			
 		public static void PlaceCircle(int X, int Y, int tileType, int wallType, int radius, bool clearTiles, bool clearWalls)
@@ -141,7 +196,7 @@ namespace Spooky.Content.Generation
             {
                 Tile tileBelow = Framing.GetTileSafely(VineX, Y + 1);
 
-                if ((!tileBelow.HasTile || tileBelow.TileType == TileID.Cobweb) && WorldGen.InWorld(VineX, Y))
+                if (!tileBelow.HasTile && WorldGen.InWorld(VineX, Y))
                 {
                     WorldGen.PlaceTile(VineX, Y, vineType);
                 }
@@ -492,6 +547,21 @@ namespace Spooky.Content.Generation
             tile.HasTile = false;
             tile.LiquidType = LiquidID.Water;
 			tile.LiquidAmount = 255;
+        }
+    }
+
+	class LavaTileRunner : TileRunner
+    {
+        public LavaTileRunner(Vector2 pos, Vector2 speed, Point16 hRange, Point16 vRange, double strength, int steps, ushort type, bool addTile, bool overRide) : base(pos, speed, hRange, vRange, strength, steps, type, addTile, overRide)
+        {
+        }
+        public override void ChangeTile(Tile tile)
+        {
+			if (!tile.HasTile)
+			{
+				tile.LiquidType = LiquidID.Lava;
+				tile.LiquidAmount = 255;
+			}
         }
     }
 }

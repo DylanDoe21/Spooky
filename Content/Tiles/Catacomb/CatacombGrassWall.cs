@@ -43,7 +43,7 @@ namespace Spooky.Content.Tiles.Catacomb
             //wall merges
             if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall1>() || Main.tile[i - 1, j].WallType == ModContent.WallType<CatacombBrickWall1>() ||
             Main.tile[i, j - 1].WallType == ModContent.WallType<CatacombBrickWall1>() || Main.tile[i + 1, j].WallType == ModContent.WallType<CatacombBrickWall1>())
-            { 
+            {
                 //down wall merge
                 if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall1>())
                 {

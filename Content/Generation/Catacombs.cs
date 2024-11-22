@@ -349,9 +349,9 @@ namespace Spooky.Content.Generation
             //this is done before generating the layer two rooms so it doesnt destroy them
             int BigBoneArenaY = (int)Main.worldSurface + layer1Depth + layer2Depth + 50;
 
-            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 5)
+            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 10)
             {
-                for (int Y = BigBoneArenaY - 35; Y <= BigBoneArenaY + 45; Y += 5)
+                for (int Y = BigBoneArenaY - 35; Y <= BigBoneArenaY + 45; Y += 10)
                 {
                     SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 10, true, true);
                 }
@@ -935,7 +935,7 @@ namespace Spooky.Content.Generation
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
-            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Remove Broken Traps"));
+            int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Stalac"));
 			if (GenIndex1 == -1)
 			{
 				return;

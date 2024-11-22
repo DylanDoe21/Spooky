@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.Audio;
+
+using Spooky.Core;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
@@ -20,45 +20,44 @@ namespace Spooky.Content.Tiles.Catacomb
 			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
-			Item.useAnimation = 14;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.maxStack = 9999;
 		}
 
         public override bool? UseItem(Player player)
 		{
+			if (Main.myPlayer != player.whoAmI)
+			{
+				return false;
+			}
+
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
-			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick1Safe>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
+			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick1Safe>() && ItemGlobal.WithinPlacementRange(player, Player.tileTargetX, Player.tileTargetY))
 			{
-				SoundEngine.PlaySound(SoundID.Dig, player.Center);
-
-				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CatacombBrick1GrassSafe>();
+				WorldGen.PlaceTile(Player.tileTargetX, Player.tileTargetY, ModContent.TileType<CatacombBrick1GrassSafe>(), forced: true);
+				player.inventory[player.selectedItem].stack--;
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
-                }
-
-				return true;
+				{
+					NetMessage.SendTileSquare(player.whoAmI, Player.tileTargetX, Player.tileTargetY);
+				}
 			}
 
-			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick2Safe>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
+			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick2Safe>() && ItemGlobal.WithinPlacementRange(player, Player.tileTargetX, Player.tileTargetY))
 			{
-				SoundEngine.PlaySound(SoundID.Dig, player.Center);
-
-				Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CatacombBrick2GrassSafe>();
+				WorldGen.PlaceTile(Player.tileTargetX, Player.tileTargetY, ModContent.TileType<CatacombBrick2GrassSafe>(), forced: true);
+				player.inventory[player.selectedItem].stack--;
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    NetMessage.SendTileSquare(-1, Player.tileTargetX, Player.tileTargetY, 1);
-                }
-
-				return true;
+				{
+					NetMessage.SendTileSquare(player.whoAmI, Player.tileTargetX, Player.tileTargetY);
+				}
 			}
 
-			return false;
+			return null;
 		}
     }
 }

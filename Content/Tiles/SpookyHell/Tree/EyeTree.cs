@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.Tiles.SpookyHell.Tree
@@ -231,13 +232,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
         }
 
-        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
-        public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-        {
-            return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
-        }
-
         public static void DrawTreeTop(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null, bool Glow = false)
         {
             Tile tile = Main.tile[i, j];
@@ -249,7 +243,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
+			TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops");
+			StemTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			Tile tile = Framing.GetTileSafely(i, j);
             Color col = Lighting.GetColor(i, j);
             float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
@@ -261,20 +258,20 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int frameSize = 16;
             int frameSizeY = 16;
 
-            Vector2 pos = TileCustomPosition(i, j);
+            Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 18)
             {
-                TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops");
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(122, 104);
+				//reminder: offset negative numbers are right and down, while positive is left and up
 
-                //draw tree tops
-                DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, false);
+				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
+				Vector2 offset = new Vector2(((TopTexture.Width() / 3) / 2) - 16, TopTexture.Height() - 10);
+
+				//draw tree tops
+				DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileGlobal.TileOffset, offset, false);
             }
-
-            StemTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTree");
 
             Vector2 treeNormalOffset = new Vector2(0, 0);
 
@@ -304,25 +301,27 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int frameSize = 16;
             int frameSizeY = 16;
 
-            Vector2 pos = TileCustomPosition(i, j);
+            Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 18)
             {
                 TopGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow");
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 treeOffset = new Vector2(122, 104);
+				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
+				Vector2 offset = new Vector2(((TopTexture.Width() / 3) / 2) - 16, TopTexture.Height() - 10);
 
-                //draw tree tops
-                DrawTreeTop(i - 1, j - 1, TopGlowTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileOffset.ToWorldCoordinates(), treeOffset, true);
+				//draw tree tops
+				DrawTreeTop(i - 1, j - 1, TopGlowTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileGlobal.TileOffset, offset, true);
             }
 
             StemGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow");
 
-            Vector2 treeNormalOffset = new Vector2(1, 0);
+            Vector2 treeNormalOffset = new Vector2(0, 0);
 
             //draw the actual tree
-            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), Color.White, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
+			Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

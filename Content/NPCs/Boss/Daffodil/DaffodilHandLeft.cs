@@ -55,6 +55,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.defense = 0;
             NPC.width = 56;
             NPC.height = 56;
+            NPC.npcSlots = 0f;
             NPC.knockBackResist = 0f;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
@@ -63,6 +64,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.noTileCollide = false;
             NPC.netAlways = true;
             NPC.behindTiles = true;
+            NPC.dontCountMe = true;
             NPC.aiStyle = -1;
         }
 

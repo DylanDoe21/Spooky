@@ -101,7 +101,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 3));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PuttyCup>(), 50));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PuttyCup>(), 100));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

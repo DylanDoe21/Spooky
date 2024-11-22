@@ -1,0 +1,7 @@
+california reaper: Minor melee damage increase, Major melee speed increase, enemies hit with melee have a chance spew out horizontal flamethrower for a bit
+ 
+grafitti eggplant: Minor ranged damage increase, ranged projectiles have a chance to shoot paint that linger on your screen position
+
+cauliflower trio: Minor summon damage increase, on hit with whips create a temporary cauliflower summon that homes in on an enemy based on how much damage you did
+
+romanesco: Minor magic damage increase, on using a magic item chance to shoot out a romanesco, when hit with a magic projectile, explodes into homing leaves

@@ -15,6 +15,7 @@ namespace Spooky.Core
             void AddMusic(string path, string name, string author) => display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, path), name, "by " + author, Language.GetTextValue("Mods.Spooky.MusicDisplay.ModName"));
 
             //spooky forest
+            AddMusic("Content/Sounds/Music/SpookyMenu", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyMenu"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeDay", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestDay"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeNight", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestNight"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeRain", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestRain"), "BananaLizard");
@@ -48,6 +49,10 @@ namespace Spooky.Core
 
             //spider cave
             AddMusic("Content/Sounds/Music/SpiderCave", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpiderCave"), "BananaLizard");
+
+            //minibiomes
+            AddMusic("Content/Sounds/Music/VegetableBiome", Language.GetTextValue("Mods.Spooky.MusicDisplay.VegetableBiome"), "BananaLizard");
+            AddMusic("Content/Sounds/Music/ChristmasDungeon", Language.GetTextValue("Mods.Spooky.MusicDisplay.ChristmasDungeon"), "BananaLizard");
         }
     }
 }

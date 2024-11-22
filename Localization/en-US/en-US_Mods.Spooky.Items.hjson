@@ -2933,6 +2933,11 @@ SpookySpiritBox: {
 	Tooltip: "[c/B6ABFF:Groovy Geist] by BananaLizard"
 }
 
+VegetableBiomeBox: {
+	DisplayName: Music Box (Fetid Farms)
+	Tooltip: "[c/52A54C:This Smells Funky] by BananaLizard"
+}
+
 CultistBathtubItem: {
 	DisplayName: Occultist Bathtub
 	Tooltip: ""
@@ -3906,5 +3911,45 @@ SpookyBiomeTorchItem: {
 
 SpookyHellTorchItem: {
 	DisplayName: Eye Valley Torch
+	Tooltip: ""
+}
+
+JungleSoilItem: {
+	DisplayName: Fertile Mud
+	Tooltip: ""
+}
+
+JungleMossItem: {
+	DisplayName: Blooming Moss
+	Tooltip: ""
+}
+
+DesertSandItem: {
+	DisplayName: Desert Sand Item
+	Tooltip: ""
+}
+
+DesertSandstoneItem: {
+	DisplayName: Desert Sandstone Item
+	Tooltip: ""
+}
+
+ChristmasCarpetItem: {
+	DisplayName: Fancy Carpet
+	Tooltip: ""
+}
+
+ChristmasWoodItem: {
+	DisplayName: Yuletide Wood
+	Tooltip: ""
+}
+
+ChristmasWoodPlanksItem: {
+	DisplayName: Yuletide Planks
+	Tooltip: ""
+}
+
+ChristmasBrickItem: {
+	DisplayName: Old Bricks
 	Tooltip: ""
 }

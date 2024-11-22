@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Tiles.Catacomb.Ambient
 {
     internal class BigFlower : ModTile
@@ -148,13 +150,6 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             }
         }
 
-        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
-        public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-        {
-            return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
-        }
-
         public static void DrawTreeTops(int i, int j, Texture2D tex, Rectangle? source, Vector2 scaleVec, Vector2? offset = null, Vector2? origin = null)
         {
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
@@ -165,7 +160,10 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
+			TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlowerTops");
+			StemTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			Tile tile = Framing.GetTileSafely(i, j);
             Color col = Lighting.GetColor(i, j);
             float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
@@ -178,24 +176,24 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
             int frameOff = 0;
             int frameSizeY = 16;
 
-            Vector2 pos = TileCustomPosition(i, j);
+            Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
-            //draw the actual tree
-            StemTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlower");
+			//draw the tree tops
+			if (Framing.GetTileSafely(i, j).TileFrameX == 16)
+			{
+				int frame = tile.TileFrameY / 18;
 
+				//reminder: offset negative numbers are right and down, while positive is left and up
+
+				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
+				Vector2 offset = new Vector2(((TopTexture.Width() / 3) / 4) + 3, TopTexture.Height() - 10);
+
+				DrawTreeTops(i - 1, j - 1, TopTexture.Value, new Rectangle(76 * frame, 0, 74, 80), default, TileGlobal.TileOffset, offset);
+			}
+
+			//draw the actual tree
             spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
-            new Color(col.R, col.G, col.B, 255), 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-
-            //draw the tree tops
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
-            {
-                TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Catacomb/Ambient/BigFlowerTops");
-                int frame = tile.TileFrameY / 18;
-
-                Vector2 treeOffset = new Vector2(30, 72);
-
-                DrawTreeTops(i - 1, j - 1, TopTexture.Value, new Rectangle(76 * frame, 0, 74, 80), default, TileOffset.ToWorldCoordinates(), treeOffset);
-            }
+            new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             return false;
         }

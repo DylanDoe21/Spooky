@@ -793,7 +793,6 @@ namespace Spooky.Content.Generation
             Vector2 biomeTop = center - biomeOffset;
             Vector2 biomeBottom = center + biomeOffset;
 
-            //first place a bunch of spider caves as a barrier around the biome
             for (int i = origin.X - biomeSize - 2; i <= origin.X + biomeSize + 2; i++)
             {
                 for (int j = (int)(origin.Y - verticalRadius * 0.4f) - 3; j <= origin.Y + verticalRadius + 3; j++)

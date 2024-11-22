@@ -78,17 +78,17 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 Projectile.ai[0]++;
 
-                int ShootTime = 40 + ItemGlobal.ActiveItem(player).useTime;
+                int ShootTime = 30 + ItemGlobal.ActiveItem(player).useTime;
                 float MaxDistance = 300f;
 
                 if (Projectile.frame == 1)
                 {
-                    ShootTime = 25 + ItemGlobal.ActiveItem(player).useTime;
+                    ShootTime = 12 + ItemGlobal.ActiveItem(player).useTime;
                     MaxDistance = 425f;
                 }
                 if (Projectile.frame == 2) 
                 {
-                    ShootTime = 10 + ItemGlobal.ActiveItem(player).useTime;
+                    ShootTime = 5 + ItemGlobal.ActiveItem(player).useTime;
                     MaxDistance = 550f;
                 }
                 

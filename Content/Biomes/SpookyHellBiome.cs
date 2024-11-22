@@ -1,13 +1,10 @@
 
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Light;
 using Microsoft.Xna.Framework;
-using System;
 
 using Spooky.Core;
-using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.Water;
 

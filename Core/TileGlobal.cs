@@ -12,7 +12,6 @@ using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
-using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Core
 {
@@ -20,7 +19,10 @@ namespace Spooky.Core
     {
         public static bool LightingEssentialsActive() => ModLoader.TryGetMod("LightingEssentials", out _);
 
-        public override void SetStaticDefaults()
+		public static Vector2 TileOffset => Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
+		public static Vector2 TileCustomPosition(int i, int j, Vector2 off = default) => (new Vector2(i, j) * 16) - Main.screenPosition - off + TileOffset;
+
+		public override void SetStaticDefaults()
         {
             //do not run any lighting essentials checking if the mod is not enabled
             if (LightingEssentialsActive())

@@ -196,6 +196,28 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         private Asset<Texture2D> GlowTexture;
 
+        public override void SetStaticDefaults()
+        {
+            Main.tileSolid[Type] = false;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
+            TileObjectData.newTile.Origin = new Point16(1, 3);
+            TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.StyleWrapLimit = 2;
+            TileObjectData.newTile.StyleMultiplier = 2;
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
+            TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
+            TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
+            TileObjectData.addAlternate(1);
+            TileObjectData.addTile(Type);
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
+            AddMapEntry(new Color(147, 33, 27));
+            DustType = 288;
+            HitSound = SoundID.Dig;
+        }
+
         public override void MouseOver(int i, int j)
 		{
             Player player = Main.LocalPlayer;

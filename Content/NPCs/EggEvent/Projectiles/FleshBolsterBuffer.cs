@@ -139,7 +139,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
 					float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f * (float)Math.Sin(chainLengthRemainingToDraw);
 
-					Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, Color.Pink, chainRotation, chainOrigin, 3f * fade, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, Color.DeepPink, chainRotation, chainOrigin, 3f * fade, SpriteEffects.None, 0f);
 
 					chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
 					chainCount++;

@@ -2,6 +2,7 @@
 using System;
 
 using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.Minibiomes;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyHell;
@@ -15,6 +16,8 @@ namespace Spooky.Core
 		public int spookyHellTiles;
 		public int glowshroomTiles;
 		public int spiderCaveTiles;
+		public int vegetableTiles;
+		public int tarPitsTiles;
 
 		public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
 		{
@@ -23,6 +26,8 @@ namespace Spooky.Core
 			spookyHellTiles = tileCounts[ModContent.TileType<SpookyMush>()] + tileCounts[ModContent.TileType<SpookyMushGrass>()] + tileCounts[ModContent.TileType<EyeBlock>()];
 			glowshroomTiles = tileCounts[ModContent.TileType<MushroomMoss>()];
 			spiderCaveTiles = tileCounts[ModContent.TileType<DampGrass>()] + tileCounts[ModContent.TileType<DampSoil>()];
+			vegetableTiles = tileCounts[ModContent.TileType<JungleMoss>()] + tileCounts[ModContent.TileType<JungleSoilGrass>()];
+			tarPitsTiles = tileCounts[ModContent.TileType<DesertSand>()] + tileCounts[ModContent.TileType<DesertSandstone>()];
 		}
 	}
 }

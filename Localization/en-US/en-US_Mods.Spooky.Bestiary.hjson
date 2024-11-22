@@ -93,7 +93,7 @@ CoughLungs: Filled with a nasty ichor gas, it can cough it up to create lingerin
 CruxBat: A strange flying brain-like creature. With constant power being pumped into it from its heart, it can use psychic power to conjure auras that weaken their foes.
 EarWorm: It is unknown if these are actually burrowing worms or if they are perpetually attached to the ground. They can attack by emitting high-frequency screams in the form of a powerful sound blast.
 ExplodingAppendix: While not exactly powerful, these sacks of flesh can explode themselves as an attack to release the harmful ichor that they store inside of them.
-FleshBolster: Using the eye tendrils attached to its main sac, it can directly inject its power into other creatures to make them immune to attacks.
+FleshBolster: Using the eye tendrils attached to its main sac, it can directly inject its power into other creatures to make them stronger and more resistant to attacks.
 GooSlug: Hungry and brainless, they will attempt to eat anything they can bite or fit in their mouth. Luckily though they are picky eaters, and will spit things out if they taste bad.
 HoppingHeart: With their squishy flesh they can easily rebound and jump off the ground. The tube on their head can be used to shoot out harmful blood with pressure from inside its body.
 HoverBrain: A large brain with psychic power that can fire out beams to mess with other creatures brains, after which they can go in close range to kill their target.
@@ -166,7 +166,7 @@ Tortumor: These weirdly non-hostile blobs of flesh have a special gas in their b
 TortumorGiant: Rarely these mutated tortumors can be spotted floating around aimlessly in the eye valley. The gas in their body is extremely volatile and will combust if the tortumor is injured enough.
 TortumorFleshy: The first known creatures created by the eye valley. Before it learned how to mimic other life forms, the eye valley could only create these disorganized clumps of flesh and bone.
 TortumorGiantFleshy: It is unknown why the eye valley continues to create these primitive creatures. The flesh they are made from allows them to easily grow smaller tortumors inside of them, which they can use to attack prey.
-ValleyFish: A small fleshy fish commonly found in the blood lake. Though small, its fast mobility can underwhelm those who aren't prepared.
+ValleyFish: A small fleshy fish commonly found in the blood lake. Though small, its fast mobility can overwhelm those who aren't prepared.
 ValleyNautilus: A powerful mutant nautilus that lurks in the blood lake. It can use blood and oxygen stored in its chambered body to float and shoot out various harmful projectiles
 ValleySquid: They can use their gas filled heads to float, and even fly out of blood. They can shoot out globs of bloody ink that slow down its prey.
 ValleyEel: Large eels covered in a thick membrane, allowing them to move quickly through both blood and air. They are fast and adept hunters, capable of confusing and outrunning almost anything.
@@ -215,6 +215,13 @@ NoseCultistBrute: Once grunt cultists, they have been blessed with divine snot m
 NoseCultistLeader: The great leader and the most powerful of the cultists. The amount of snot magic in his body allows him to erratically cast spells, but it has turned him insane. A perfect trait for the nose cult's leader.
 SnotMonster: Humanoid beings formed with magic snot by the conjurers, they serve as temporary sentries before they loose magic and explode.
 SnotSlime: The snot from the conjurers has enough magical power to live on its own, and can hop around in the form of a living blob.
+//vegetable garden
+HoppingPotato1: Hopping Potato Lore
+HoppingPotato2: Hopping Potato Lore
+HoppingPotato3: Hopping Potato Lore
+HoppingPotato4: Hopping Potato Lore
+OozeGarlic: Oozing Garlic Lore
+RollingPepper: Rolling Jalapeno Lore
 //quest minibosses
 StitchSpider: A sewing project turned chimera, this spider-like creature made out of felt and spider skin now crawls around the spider grotto after it escaped. It also has metal fangs and a mortar cannon in its body which allows it to fire off heat-seeking missiles.
 EyeWizard: Little eye's most successful experiment, a large clone of himself that possesses enchanced magic abilities, can use various spells, and can move freely without being stuck on the ground. After finding a stylish cloak and hat it left little eye's lab to hone its skills further, making little eye extremely jealous.

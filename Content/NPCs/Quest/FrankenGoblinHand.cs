@@ -48,11 +48,13 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.defense = 0;
 			NPC.width = 44;
 			NPC.height = 44;
+			NPC.npcSlots = 0f;
 			NPC.knockBackResist = 0f;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
 			NPC.noTileCollide = true;
 			NPC.noGravity = true;
+			NPC.dontCountMe = true;
 			NPC.hide = true;
 			NPC.aiStyle = -1;
 		}
@@ -183,6 +185,11 @@ namespace Spooky.Content.NPCs.Quest
 
 			return Parent.localAI[3] == 2;
 		}
+
+		public override bool CheckActive()
+        {
+            return false;
+        }
 
 		public override void AI()
 		{

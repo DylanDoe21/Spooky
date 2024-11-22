@@ -17,6 +17,7 @@ using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Quest;
 using Spooky.Content.NPCs.SpiderCave;
 using Spooky.Content.NPCs.SpookyBiome;
@@ -534,6 +535,19 @@ namespace Spooky.Core
 					}
 				}
             }
+
+			//fetid farms spawns
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<VegetableBiome>()))
+			{
+				pool.Clear();
+
+				pool.Add(ModContent.NPCType<HoppingPotato1>(), 2);
+				pool.Add(ModContent.NPCType<HoppingPotato2>(), 2);
+				pool.Add(ModContent.NPCType<HoppingPotato3>(), 2);
+				pool.Add(ModContent.NPCType<HoppingPotato4>(), 2);
+				pool.Add(ModContent.NPCType<OozeGarlic>(), 2);
+				pool.Add(ModContent.NPCType<RollingPepper>(), 2);
+			}
 
 			//dumb zomboid can spawn anywhere super rarely
 			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()) && !spawnInfo.Water)

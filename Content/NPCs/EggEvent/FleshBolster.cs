@@ -102,7 +102,7 @@ namespace Spooky.Content.NPCs.EggEvent
 				for (int i = 0; i < Main.maxProjectiles; i++)
 				{
 					Projectile projectile = Main.projectile[i];
-					if (projectile.active && projectile.type == ModContent.ProjectileType<SlendermanTentacle>() && projectile.owner == Main.myPlayer && projectile.ai[1] >= 0f && projectile.ai[1] < 4f)
+					if (projectile.active && projectile.type == ModContent.ProjectileType<FleshBolsterBuffer>() && projectile.ai[1] >= 0f && projectile.ai[1] < 4f)
 					{
 						spawnedTentacle[(int)projectile.ai[1]] = true;
 					}

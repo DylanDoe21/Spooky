@@ -51,6 +51,7 @@ SpookyBloodmoonBoxTile.MapEntry: Music Box
 SpookyHellBoxTile.MapEntry: Music Box
 SpookyMenuBoxTile.MapEntry: Music Box
 SpookySpiritBoxTile.MapEntry: Music Box
+VegetableBiomeBoxTile.MapEntry: Music Box
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
 SpiderCavePylon.MapEntry: Spider Grotto Pylon
 SpookyBiomePylon.MapEntry: Spooky Forest Pylon
@@ -128,3 +129,4 @@ TempleTrapdoor.MapEntry: Temple Trapdoor
 CatacombTrapdoor1.MapEntry: Locked Trapdoor
 CatacombTrapdoor2.MapEntry: Locked Trapdoor
 CatacombTrapdoor3.MapEntry: Locked Trapdoor
+Broccoli.MapEntry: Broccoli

@@ -36,7 +36,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-            Projectile.velocity *= 0;
+            Projectile.velocity = Vector2.Zero;
 
 			return false;
 		}

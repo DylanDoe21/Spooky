@@ -3,11 +3,12 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+
+using Spooky.Core;
 
 namespace Spooky.Content.Tiles.SpiderCave.Tree
 {
@@ -237,13 +238,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             }
         }
 
-        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
-        public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-        {
-            return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
-        }
-
         public static void DrawRootBottom(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
         {
             Tile tile = Main.tile[i, j];
@@ -255,7 +249,10 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
+			BottomTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRootBottom");
+			RootTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			Tile tile = Framing.GetTileSafely(i, j);
             Color col = Lighting.GetColor(i, j);
             float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
@@ -268,27 +265,26 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             int frameOff = 0;
             int frameSizeY = 16;
 
-            Vector2 offset = (tile.TileFrameX == 0 || tile.TileFrameX == 18) ? new Vector2((xOff * 2) - (frameOff / 2), 0) : Vector2.Zero;
-            Vector2 pos = TileCustomPosition(i, j);
+            Vector2 TileOffset = (tile.TileFrameX == 0 || tile.TileFrameX == 18) ? new Vector2((xOff * 2) - (frameOff / 2), 0) : Vector2.Zero;
+            Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
             if (tile.TileFrameX == 18)
             {
                 BottomTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRootBottom");
                 int frame = tile.TileFrameY / 18;
 
-                Vector2 RootBottomOffset = new Vector2(34, -14);
+				//reminder: offset negative numbers are right and down, while positive is left and up
 
-                //draw tree tops
-                DrawRootBottom(i - 1, j - 1, BottomTexture.Value, new Rectangle(88 * frame, 0, 86, 82), TileOffset.ToWorldCoordinates(), RootBottomOffset);
+				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
+				Vector2 offset = new Vector2(((BottomTexture.Width() / 3) / 2) - 18, -(BottomTexture.Height() / 3) + 4);
+
+				//draw tree tops
+				DrawRootBottom(i - 1, j - 1, BottomTexture.Value, new Rectangle(88 * frame, 0, 86, 82), TileGlobal.TileOffset, offset);
             }
 
-            RootTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRoot");
-
-            Vector2 treeNormalOffset = new Vector2(0, 4);
-
             //draw the actual tree
-            spriteBatch.Draw(RootTexture.Value, pos + offset, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
-            new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(RootTexture.Value, pos + TileOffset, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
+            new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             return false;
         }

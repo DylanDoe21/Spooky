@@ -25,14 +25,14 @@ namespace Spooky.Content.Generation
                     {
                         int[] GrassReplace = { ModContent.TileType<SpookyGrass>(), ModContent.TileType<SpookyGrassGreen>(), ModContent.TileType<CemeteryGrass>(), ModContent.TileType<DampGrass>() };
                         int[] DirtReplace = { ModContent.TileType<SpookyDirt>(), ModContent.TileType<CemeteryDirt>(), ModContent.TileType<DampSoil>() };
-                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>() };
+                        int[] StoneReplace = { ModContent.TileType<SpookyStone>(), ModContent.TileType<CemeteryStone>(), ModContent.TileType<MushroomMoss>() };
                         int[] GrassWallReplace = { ModContent.WallType<SpookyGrassWall>(), ModContent.WallType<CemeteryGrassWall>(), ModContent.WallType<DampGrassWall>() };
 
                         //replace spooky grasses with regular grass
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.Grass;
-                            WorldGen.SquareWallFrame(k, l);
+                            WorldGen.SquareTileFrame(k, l);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
 
@@ -52,8 +52,8 @@ namespace Spooky.Content.Generation
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
 
-                        //replace spooky grass walls with grass walls
-                        if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
+						//replace spooky grass walls with grass walls
+						if (GrassWallReplace.Contains(Main.tile[k, l].WallType))
                         {
                             Main.tile[k, l].WallType = WallID.GrassUnsafe;
                             WorldGen.SquareWallFrame(k, l);
@@ -82,8 +82,8 @@ namespace Spooky.Content.Generation
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.HallowedGrass;
-                            WorldGen.SquareWallFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
+							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
                         }
 
                         //replace spooky dirt with dirt 
@@ -132,8 +132,8 @@ namespace Spooky.Content.Generation
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.CorruptGrass;
-                            WorldGen.SquareWallFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
+							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
                         }
 
                         //replace spooky dirt with dirt 
@@ -182,8 +182,8 @@ namespace Spooky.Content.Generation
                         if (GrassReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.CrimsonGrass;
-                            WorldGen.SquareWallFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
+							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
                         }
 
                         //replace spooky dirt with dirt 
@@ -232,8 +232,8 @@ namespace Spooky.Content.Generation
                         if (SnowReplace.Contains(Main.tile[k, l].TileType))
                         {
                             Main.tile[k, l].TileType = TileID.SnowBlock;
-                            WorldGen.SquareWallFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
+							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
                         }
 
                         //replace spooky stone with ice
@@ -273,18 +273,18 @@ namespace Spooky.Content.Generation
                         //replace spooky grasses and dirt with sand
                         if (SandReplace.Contains(Main.tile[k, l].TileType))
                         {
-                            if (!Main.tile[k, l + 1].HasTile)
-                            {
-                                Main.tile[k, l].TileType = TileID.HardenedSand;
-                            }
-                            else
-                            {
-                                Main.tile[k, l].TileType = TileID.Sand;
-                            }
+							if (!Main.tile[k, l + 1].HasTile)
+							{
+								Main.tile[k, l].TileType = TileID.HardenedSand;
+							}
+							else
+							{
+								Main.tile[k, l].TileType = TileID.Sand;
+							}
 
-                            WorldGen.SquareWallFrame(k, l);
-                            NetMessage.SendTileSquare(-1, k, l, 1);
-                        }
+							WorldGen.SquareTileFrame(k, l);
+							NetMessage.SendTileSquare(-1, k, l, 1);
+						}
 
                         //replace spooky stone with sandstone
                         if (SandstoneReplace.Contains(Main.tile[k, l].TileType))
@@ -321,7 +321,7 @@ namespace Spooky.Content.Generation
                         if (GrassReplace.Contains(Main.tile[k, l].TileType)) 
                         {
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyGrass>();
-							WorldGen.SquareWallFrame(k, l);
+							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
 
@@ -331,7 +331,7 @@ namespace Spooky.Content.Generation
                         if (GreenGrassReplace.Contains(Main.tile[k, l].TileType)) 
                         {
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyGrassGreen>();
-							WorldGen.SquareWallFrame(k, l);
+							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
 
@@ -344,7 +344,7 @@ namespace Spooky.Content.Generation
 						}
 
                         //replace stone blocks with spooky stone
-						if (TileID.Sets.Conversion.Stone[Main.tile[k, l].TileType]) 
+						if (TileID.Sets.Conversion.Stone[Main.tile[k, l].TileType])
                         {
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<SpookyStone>();
 							WorldGen.SquareTileFrame(k, l);
@@ -381,7 +381,7 @@ namespace Spooky.Content.Generation
                         if (GrassReplace.Contains(Main.tile[k, l].TileType)) 
                         {
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
-							WorldGen.SquareWallFrame(k, l);
+							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
 
@@ -431,7 +431,7 @@ namespace Spooky.Content.Generation
                         if (GrassReplace.Contains(Main.tile[k, l].TileType)) 
                         {
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<DampGrass>();
-							WorldGen.SquareWallFrame(k, l);
+							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
 

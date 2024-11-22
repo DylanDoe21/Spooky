@@ -66,6 +66,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.noTileCollide = true;
             NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+            NPC.dontCountMe = true;
         }
 
         public override void FindFrame(int frameHeight)

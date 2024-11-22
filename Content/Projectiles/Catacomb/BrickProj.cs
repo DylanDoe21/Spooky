@@ -19,6 +19,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.height = 22;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
+            Projectile.netImportant = true;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 600;
         }

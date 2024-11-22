@@ -103,14 +103,28 @@ namespace Spooky.Content.NPCs.EggEvent
 			});
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        public override void FindFrame(int frameHeight)
         {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            NPC.frameCounter++;
+            if (NPC.frameCounter > 7)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0;
+            }
+            if (NPC.frame.Y >= frameHeight * 8)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
+        }
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			float stretch = 0f;
 
 			stretch = Math.Abs(stretch) - addedStretch;
-			
+
 			//limit how much it can stretch
 			if (stretch > 0.5f)
 			{
@@ -129,26 +143,12 @@ namespace Spooky.Content.NPCs.EggEvent
 			Vector2 drawOrigin = new(NPC.width * 0.5f, NPC.height * 0.5f);
 
 			//draw npc manually for stretching
-            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, SpriteEffects.None, 0f);
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, SpriteEffects.None, 0f);
 
 			return false;
 		}
 
-        public override void FindFrame(int frameHeight)
-        {
-            NPC.frameCounter++;
-            if (NPC.frameCounter > 7)
-            {
-                NPC.frame.Y = NPC.frame.Y + frameHeight;
-                NPC.frameCounter = 0;
-            }
-            if (NPC.frame.Y >= frameHeight * 8)
-            {
-                NPC.frame.Y = 0 * frameHeight;
-            }
-        }
-
-        public override void AI()
+		public override void AI()
 		{
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];

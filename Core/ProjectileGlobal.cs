@@ -45,7 +45,7 @@ namespace Spooky.Core
         public override bool PreAI(Projectile projectile)
 		{
             //convert spooky mod tiles with different clentaminator solutions
-            if (projectile.type == ProjectileID.PureSpray)
+            if (projectile.type == ProjectileID.PureSpray || projectile.type == ProjectileID.DirtSpray)
             {
                 TileConversionMethods.ConvertSpookyIntoPurity((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
             }

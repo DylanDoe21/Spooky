@@ -76,6 +76,44 @@ namespace Spooky.Core
         //UI default position
         public Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 25);
 
+        public override void SaveData(TagCompound tag)
+        {
+            tag["UITopLeft"] = UITopLeft;
+
+            tag["BloomBuffSlot1"] = BloomBuffSlots[0];
+            tag["BloomBuffSlot2"] = BloomBuffSlots[1];
+            tag["BloomBuffSlot3"] = BloomBuffSlots[2];
+            tag["BloomBuffSlot4"] = BloomBuffSlots[3];
+
+			tag["Duration1"] = Duration1;
+			tag["Duration2"] = Duration2;
+			tag["Duration3"] = Duration3;
+			tag["Duration4"] = Duration4;
+            tag["DragonfruitStacks"] = DragonfruitStacks;
+
+			if (UnlockedSlot3) tag["UnlockedSlot3"] = true;
+            if (UnlockedSlot4) tag["UnlockedSlot4"] = true;
+        }
+        
+        public override void LoadData(TagCompound tag)
+        {
+            UITopLeft = tag.Get<Vector2>("UITopLeft");
+
+            BloomBuffSlots[0] = tag.Get<string>("BloomBuffSlot1");
+			BloomBuffSlots[1] = tag.Get<string>("BloomBuffSlot2");
+			BloomBuffSlots[2] = tag.Get<string>("BloomBuffSlot3");
+			BloomBuffSlots[3] = tag.Get<string>("BloomBuffSlot4");
+
+			Duration1 = tag.Get<int>("Duration1");
+			Duration2 = tag.Get<int>("Duration2");
+			Duration3 = tag.Get<int>("Duration3");
+			Duration4 = tag.Get<int>("Duration4");
+            DragonfruitStacks = tag.Get<int>("DragonfruitStacks");
+
+			UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
+            UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
+        }
+
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
         public bool CanConsumeFruit(string BuffName)
         {
@@ -269,44 +307,6 @@ namespace Spooky.Core
 			{
 				Duration4 = 0;
 			}
-		}
-
-        //save/load the position of the players UI position so it doesnt reset when leaving the world and save/load unlocked slots so they are actually saved per player
-        public override void SaveData(TagCompound tag)
-        {
-            tag["UITopLeft"] = UITopLeft;
-
-            tag["BloomBuffSlot1"] = BloomBuffSlots[0];
-            tag["BloomBuffSlot2"] = BloomBuffSlots[1];
-            tag["BloomBuffSlot3"] = BloomBuffSlots[2];
-            tag["BloomBuffSlot4"] = BloomBuffSlots[3];
-
-			tag["Duration1"] = Duration1;
-			tag["Duration2"] = Duration2;
-			tag["Duration3"] = Duration3;
-			tag["Duration4"] = Duration4;
-            tag["DragonfruitStacks"] = DragonfruitStacks;
-
-			if (UnlockedSlot3) tag["UnlockedSlot3"] = true;
-            if (UnlockedSlot4) tag["UnlockedSlot4"] = true;
-        }
-        public override void LoadData(TagCompound tag)
-        {
-            UITopLeft = tag.Get<Vector2>("UITopLeft");
-
-            BloomBuffSlots[0] = tag.Get<string>("BloomBuffSlot1");
-			BloomBuffSlots[1] = tag.Get<string>("BloomBuffSlot2");
-			BloomBuffSlots[2] = tag.Get<string>("BloomBuffSlot3");
-			BloomBuffSlots[3] = tag.Get<string>("BloomBuffSlot4");
-
-			Duration1 = tag.Get<int>("Duration1");
-			Duration2 = tag.Get<int>("Duration2");
-			Duration3 = tag.Get<int>("Duration3");
-			Duration4 = tag.Get<int>("Duration4");
-            DragonfruitStacks = tag.Get<int>("DragonfruitStacks");
-
-			UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
-            UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
         }
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
