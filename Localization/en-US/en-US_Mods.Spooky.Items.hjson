@@ -161,6 +161,44 @@ SummerSunflower: {
 		'''
 }
 
+VegetableCauliflower: {
+	DisplayName: Cauliflower Trio
+	Tooltip:
+		'''
+		Grants a minor increase to your summon damage
+		Hitting enemies with whips can summon homing cauliflower
+		'''
+}
+
+VegetableEggplantPaint: {
+	DisplayName: Grafitti Eggplant
+	Tooltip:
+		'''
+		Grants a minor increase to your ranged damage
+		Ranged projectiles will leave behind damaging paint splatter on your screen
+		'''
+}
+
+VegetablePepper: {
+	DisplayName: California Reaper
+	Tooltip:
+		'''
+		Grants a minor increase to your melee damage and speed
+		Hitting enemies with melee weapons with inflict them with the pepper's spice
+		Enemies inflicted with this spice will spew out damaging fire around them
+		'''
+}
+
+VegetableRomanesco: {
+	DisplayName: Romanesco
+	Tooltip:
+		'''
+		Grants a minor increase to your magic damage
+		Using magic weapons can sometimes spawn a lingering romanesco 
+		Hitting it with a magic projectile will cause it to explode into homing leaves
+		'''
+}
+
 WinterBlackberry: {
 	DisplayName: Blackberry Glacier
 	Tooltip:
@@ -3925,12 +3963,12 @@ JungleMossItem: {
 }
 
 DesertSandItem: {
-	DisplayName: Desert Sand Item
+	DisplayName: Grainy Sand
 	Tooltip: ""
 }
 
 DesertSandstoneItem: {
-	DisplayName: Desert Sandstone Item
+	DisplayName: Orange Sandstone
 	Tooltip: ""
 }
 

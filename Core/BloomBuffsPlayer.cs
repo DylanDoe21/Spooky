@@ -51,10 +51,14 @@ namespace Spooky.Core
         public bool SummerOrange = false;
         public bool SummerPineapple = false;
         public bool SummerSunflower = false;
-        public bool DandelionHerd = false;
+		public bool VegetableCauliflower = false;
+		public bool VegetableEggplantPaint = false;
+		public bool VegetablePepper = false;
+		public bool VegetableRomanesco = false;
+		public bool DandelionHerd = false;
         public bool DandelionMapleSeed = false;
-        public bool DandelionTumbleweed = false;
-        public bool Dragonfruit = false;
+		public bool DandelionTumbleweed = false;
+		public bool Dragonfruit = false;
 
 		//slot unlocks
 		public bool UnlockedSlot3 = false;
@@ -243,7 +247,11 @@ namespace Spooky.Core
             SummerOrange = BloomBuffSlots.Contains("SummerOrange");
 			SummerPineapple = BloomBuffSlots.Contains("SummerPineapple");
 			SummerSunflower = BloomBuffSlots.Contains("SummerSunflower");
-            DandelionHerd = BloomBuffSlots.Contains("DandelionHerd");
+			VegetableCauliflower = BloomBuffSlots.Contains("VegetableCauliflower");
+			VegetableEggplantPaint = BloomBuffSlots.Contains("VegetableEggplantPaint");
+			VegetablePepper = BloomBuffSlots.Contains("VegetablePepper");
+			VegetableRomanesco = BloomBuffSlots.Contains("VegetableRomanesco");
+			DandelionHerd = BloomBuffSlots.Contains("DandelionHerd");
             DandelionMapleSeed = BloomBuffSlots.Contains("DandelionMapleSeed");
             DandelionTumbleweed = BloomBuffSlots.Contains("DandelionTumbleweed");
             Dragonfruit = BloomBuffSlots.Contains("Dragonfruit");

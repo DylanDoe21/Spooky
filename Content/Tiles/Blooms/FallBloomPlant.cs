@@ -40,13 +40,6 @@ namespace Spooky.Content.Tiles.Blooms
 			HitSound = SoundID.Grass;
 		}
 
-		public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
-		public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-		{
-			return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
-		}
-
 		public static void DrawPlant(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
 		{
 			Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
@@ -62,9 +55,9 @@ namespace Spooky.Content.Tiles.Blooms
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
+			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Blooms/FallBloomPlant");
+			
 			Tile tile = Framing.GetTileSafely(i, j);
-
-			Vector2 Offset = new Vector2(40, 46);
 
 			//draw the tile only on the bottom center of each tiles y-frame
 			if (tile.TileFrameY == 36 || tile.TileFrameY == 90 || tile.TileFrameY == 144 || tile.TileFrameY == 198)
@@ -72,7 +65,8 @@ namespace Spooky.Content.Tiles.Blooms
 				//also only draw the bloom tile on the middle x-frame
 				if (tile.TileFrameX == 18 || tile.TileFrameX == 72 || tile.TileFrameX == 126 || tile.TileFrameX == 180 || tile.TileFrameX == 234)
 				{
-					PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Blooms/FallBloomPlant");
+					//reminder: offset negative numbers are right and down, while positive is left and up
+					Vector2 offset = new Vector2((PlantTexture.Width() / 2) + 1, (PlantTexture.Height() / 8) - 12);
 
 					int frame = 0;
 
@@ -91,7 +85,7 @@ namespace Spooky.Content.Tiles.Blooms
 						if (tile.TileFrameY == 198) frame = 7;
 					}
 
-					DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 50 * frame, 60, 48), TileOffset.ToWorldCoordinates(), Offset);
+					DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 50 * frame, 60, 48), TileGlobal.TileOffset, offset);
 				}
 			}
 		}

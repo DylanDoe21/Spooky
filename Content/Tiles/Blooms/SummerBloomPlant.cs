@@ -62,9 +62,9 @@ namespace Spooky.Content.Tiles.Blooms
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
+			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Blooms/SummerBloomPlant");
+			
 			Tile tile = Framing.GetTileSafely(i, j);
-
-			Vector2 Offset = new Vector2(40, 74);
 
 			//draw the tile only on the bottom center of each tiles y-frame
 			if (tile.TileFrameY == 36 || tile.TileFrameY == 90 || tile.TileFrameY == 144 || tile.TileFrameY == 198)
@@ -72,7 +72,8 @@ namespace Spooky.Content.Tiles.Blooms
 				//also only draw the bloom tile on the middle x-frame
 				if (tile.TileFrameX == 18 || tile.TileFrameX == 72 || tile.TileFrameX == 126 || tile.TileFrameX == 180 || tile.TileFrameX == 234)
 				{
-					PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Blooms/SummerBloomPlant");
+					//reminder: offset negative numbers are right and down, while positive is left and up
+					Vector2 offset = new Vector2((PlantTexture.Width() / 2) - 2, (PlantTexture.Height() / 8) - 12);
 
 					int frame = 0;
 
@@ -91,7 +92,7 @@ namespace Spooky.Content.Tiles.Blooms
 						if (tile.TileFrameY == 198) frame = 7;
 					}
 
-					DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 80 * frame, 66, 78), TileOffset.ToWorldCoordinates(), Offset);
+					DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 80 * frame, 66, 78), TileGlobal.TileOffset, offset);
 				}
 			}
 		}
