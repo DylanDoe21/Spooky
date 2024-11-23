@@ -1,3 +1,9 @@
+Structure helper:
+
+-Spooky mod still uses structure helper, but as of this update structure helper is no longer a dependency and you no longer need to download or enable it to use spooky mod
+
+
+
 New Stuff:
 
 -Added the Fetid Farms, Tar Pits, and Krampus Workshop

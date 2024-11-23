@@ -40,13 +40,6 @@ namespace Spooky.Content.Tiles.Blooms
 			HitSound = SoundID.Grass;
 		}
 
-		public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
-		public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-		{
-			return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
-		}
-
 		public static void DrawPlant(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
 		{
 			Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));

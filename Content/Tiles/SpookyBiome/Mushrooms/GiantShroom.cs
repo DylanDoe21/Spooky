@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
 {
     public class GiantShroom1 : ModTile
@@ -36,13 +38,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             b = 0.25f;
         }
 
-        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
-        public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-        {
-            return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
-        }
-
         public static void DrawMushroomCap(int i, int j, Texture2D tex, Rectangle? source, Vector2 scaleVec, Vector2? offset = null, Vector2? origin = null)
         {
             float cos = Main.GlobalTimeWrappedHourly * 0.08971428571f * 16;
@@ -61,9 +56,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 0 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-                Vector2 capOffset = new Vector2(18, 10);
+				//reminder: offset negative numbers are right and down, while positive is left and up
+				Vector2 offset = new Vector2((CapTexture.Width() / 3) - 4, CapTexture.Height() - 24);
 
-                DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 52, 26), default, TileOffset.ToWorldCoordinates(), capOffset);
+				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 52, 26), default, TileGlobal.TileOffset, offset);
             }
         }
     }
@@ -94,9 +90,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 0 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-                Vector2 capOffset = new Vector2(12, 0);
+				Vector2 offset = new Vector2((CapTexture.Width() / 4) - 5, CapTexture.Height() - 27);
 
-                DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 40, 20), default, TileOffset.ToWorldCoordinates(), capOffset);
+				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 40, 20), default, TileGlobal.TileOffset, offset);
             }
         }
     }
@@ -127,9 +123,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 18 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-                Vector2 capOffset = new Vector2(30, 14);
+				Vector2 offset = new Vector2((CapTexture.Width() / 3) + 4, CapTexture.Height() - 24);
 
-                DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 62, 30), default, TileOffset.ToWorldCoordinates(), capOffset);
+				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 62, 30), default, TileGlobal.TileOffset, offset);
             }
         }
     }
@@ -160,9 +156,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 36 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-                Vector2 capOffset = new Vector2(50, 28);
+				Vector2 offset = new Vector2((CapTexture.Width() / 2), CapTexture.Height() - 18);
 
-                DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 84, 38), default, TileOffset.ToWorldCoordinates(), capOffset);
+				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 84, 38), default, TileGlobal.TileOffset, offset);
             }
         }
     }

@@ -6,30 +6,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Content\BossChecklist\**" />
-    <Compile Remove="Content\UI\**" />
-    <EmbeddedResource Remove="Content\BossChecklist\**" />
-    <EmbeddedResource Remove="Content\UI\**" />
-    <None Remove="Content\BossChecklist\**" />
-    <None Remove="Content\UI\**" />
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Items\" />
-    <Folder Include="Content\Gores\" />
-    <Folder Include="Content\Generation\" />
-    <Folder Include="Content\Backgrounds\" />
-    <Folder Include="Content\Dusts\" />
-    <Folder Include="Content\Buffs\" />
-    <Folder Include="Content\Sounds\" />
-    <Folder Include="Content\Tiles\" />
-    <Folder Include="Content\Projectiles\" />
-    <Folder Include="Content\NPCs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="StructureHelper">
-      <HintPath>StructureHelper.dll</HintPath>
+	  <Reference Include="StructureHelper">
+      <HintPath>lib\StructureHelper.dll</HintPath>
     </Reference>
-  </ItemGroup>
+	</ItemGroup>
 </Project>
