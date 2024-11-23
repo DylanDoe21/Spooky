@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Tiles.SpiderCave.Tree
 {
     internal class TallMushroom : ModTile
@@ -150,13 +152,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             }
         }
 
-        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
-        public static Vector2 TileCustomPosition(int i, int j, Vector2? off = null)
-        {
-            return ((new Vector2(i, j) + TileOffset) * 16) - Main.screenPosition - (off ?? new Vector2(0, -2));
-        }
-
         public static void DrawTreeTop(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null, bool Glow = false)
         {
             Tile tile = Main.tile[i, j];
@@ -168,7 +163,10 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            Tile tile = Framing.GetTileSafely(i, j);
+			TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/TallMushroomTops");
+			StemTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			Tile tile = Framing.GetTileSafely(i, j);
             Color col = Lighting.GetColor(i, j);
             float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
@@ -181,15 +179,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             int frameOff = 0;
             int frameSizeY = 16;
 
-            Vector2 pos = TileCustomPosition(i, j + 1);
+            Vector2 pos = TileGlobal.TileCustomPosition(i, j + 1);
 
             if (tile.TileFrameX == 18)
             {
-                TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/TallMushroomTops");
-
                 int frame = tile.TileFrameY / 18;
-
-                Vector2 TopOffset = new Vector2(2, 2);
 
                 if (tile.TileFrameY == 0 || tile.TileFrameY == 18)
                 {
@@ -208,17 +202,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                     Lighting.AddLight(new Vector2(i * 16, j * 16), new Color(74, 68, 255).ToVector3() * 0.45f);
                 }
 
-                //draw tree tops
-                DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(22 * frame, 0, 20, 16), TileOffset.ToWorldCoordinates(), TopOffset);
+				Vector2 offset = new Vector2((TopTexture.Width() / 16) - 17, TopTexture.Height() - 26);
+
+				//draw tree tops
+				DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(22 * frame, 0, 20, 16), TileGlobal.TileOffset, offset);
             }
-
-            StemTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/TallMushroom");
-
-            Vector2 treeNormalOffset = new Vector2(0, 4);
 
             //draw the actual tree
             spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
-            new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+            new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             return false;
         }

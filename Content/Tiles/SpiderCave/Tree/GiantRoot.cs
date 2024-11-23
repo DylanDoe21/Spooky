@@ -265,12 +265,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             int frameOff = 0;
             int frameSizeY = 16;
 
-            Vector2 TileOffset = (tile.TileFrameX == 0 || tile.TileFrameX == 18) ? new Vector2((xOff * 2) - (frameOff / 2), 0) : Vector2.Zero;
+            Vector2 WavyOffset = (tile.TileFrameX == 0 || tile.TileFrameX == 18) ? new Vector2((xOff * 2) - (frameOff / 2), 0) : Vector2.Zero;
             Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
             if (tile.TileFrameX == 18)
             {
-                BottomTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Tree/GiantRootBottom");
                 int frame = tile.TileFrameY / 18;
 
 				//reminder: offset negative numbers are right and down, while positive is left and up
@@ -283,7 +282,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             }
 
             //draw the actual tree
-            spriteBatch.Draw(RootTexture.Value, pos + TileOffset, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
+            spriteBatch.Draw(RootTexture.Value, pos + WavyOffset, new Rectangle(tile.TileFrameX + frameOff, tile.TileFrameY, frameSize, frameSizeY), 
             new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             return false;

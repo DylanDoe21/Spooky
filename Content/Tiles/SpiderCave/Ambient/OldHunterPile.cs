@@ -7,6 +7,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpiderCave.Misc;
 
 namespace Spooky.Content.Tiles.SpiderCave.Ambient
@@ -41,8 +42,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j) * 16f, ModContent.ItemType<OldHunterHat>());
         }
 
-        public static Vector2 TileOffset => Lighting.LegacyEngine.Mode > 1 && Main.GameZoomTarget == 1 ? Vector2.Zero : Vector2.One * 12;
-
         public static void DrawGlow(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
         {
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
@@ -54,13 +53,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
         {
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Ambient/OldHunterPileGlow");
 
-            Tile tile = Framing.GetTileSafely(i, j);
-
-            if (tile.TileFrameX == 0 && tile.TileFrameY == 0)
+            if (Framing.GetTileSafely(i, j).TileFrameX == 0 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-                Vector2 Offset = new Vector2(8, 2);
+				Vector2 offset = new Vector2((GlowTexture.Width() / 2) - 4, GlowTexture.Height() - 20);
 
-                DrawGlow(i, j - 3, GlowTexture.Value, new Rectangle(0, 0, 14, 48), TileOffset.ToWorldCoordinates(), Offset);
+				DrawGlow(i, j, GlowTexture.Value, new Rectangle(0, 0, 14, 48), TileGlobal.TileOffset, offset);
             }
 
             return true;

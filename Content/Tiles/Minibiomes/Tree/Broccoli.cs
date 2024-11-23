@@ -217,7 +217,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Tree
                 xOff = 0;
             }
 
-
             int frameSize = 16;
             int frameSizeY = 16;
 
@@ -231,13 +230,13 @@ namespace Spooky.Content.Tiles.Minibiomes.Tree
 				//left branch
 				if (Framing.GetTileSafely(i, j).TileFrameY == 0 || Framing.GetTileSafely(i, j).TileFrameY == 36)
                 {
-                    Vector2 offset = new Vector2((TopTexture.Width() / 4) - 4, -(TopTexture.Height() / 4) + 1);
+                    Vector2 offset = new Vector2((BranchTexture.Width() / 2), -(BranchTexture.Height() / 4) + 1);
                     DrawTreePiece(i - 1, j - 1, BranchTexture.Value, new Rectangle(0, 0, 18, 16), TileGlobal.TileOffset, offset);
                 }
                 //right branch
                 if (Framing.GetTileSafely(i, j).TileFrameY == 18 || Framing.GetTileSafely(i, j).TileFrameY == 36)
                 {
-					Vector2 offset = new Vector2(-(TopTexture.Width() / 2) + 2, -(TopTexture.Height() / 4) + 1);
+					Vector2 offset = new Vector2(-(BranchTexture.Width() / 2) - 14, -(BranchTexture.Height() / 4) + 1);
 					DrawTreePiece(i - 1, j - 1, BranchTexture.Value, new Rectangle(0, 18, 18, 16), TileGlobal.TileOffset, offset);
                 }
             }
