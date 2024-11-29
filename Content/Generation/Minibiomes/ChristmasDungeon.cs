@@ -19,10 +19,7 @@ namespace Spooky.Content.Generation.Minibiomes
 		public static List<int> WallTypes = new()
 		{
 			ModContent.WallType<ChristmasBrickWall>(),
-			ModContent.WallType<ChristmasWoodWall>(),
-			ModContent.WallType<ChristmasWallpaperRed>(),
-			ModContent.WallType<ChristmasWallpaperGreen>(),
-			ModContent.WallType<ChristmasWallpaperBlue>(),
+			ModContent.WallType<ChristmasWoodWall>()
 		};
 
 		private void PlaceChristmasDungeon(GenerationProgress progress, GameConfiguration configuration)

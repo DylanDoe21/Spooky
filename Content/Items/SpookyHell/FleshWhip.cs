@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell;
 
@@ -37,6 +38,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             CreateRecipe()
 			.AddRecipeGroup("SpookyMod:DemoniteBars", 10)
+			.AddIngredient(ModContent.ItemType<CreepyChunk>(), 25)
 			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 65)
             .AddTile(TileID.Anvils)
             .Register();

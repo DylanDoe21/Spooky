@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes;
-using Spooky.Content.Tiles.Minibiomes.Ambient;
+using Spooky.Content.Tiles.Minibiomes.Jungle;
 using Spooky.Content.Tiles.Minibiomes.Tree;
 
 namespace Spooky.Content.Generation.Minibiomes
@@ -24,8 +24,8 @@ namespace Spooky.Content.Generation.Minibiomes
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
-			int SizeXInt = 68;
-			int SizeYInt = 52;
+			int SizeXInt = Main.maxTilesX < 6400 ? 56 : 66;
+			int SizeYInt = Main.maxTilesY < 1800 ? 40 : 50;
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
 
@@ -56,7 +56,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					{
 						if (delayBeforeNext == 0)
 						{
-							PlaceOvalCluster(X, Y, Main.maxTilesX / WorldGen.genRand.Next(SizeXInt - 5, SizeXInt + 6), Main.maxTilesY / WorldGen.genRand.Next(SizeYInt - 5, SizeYInt + 6), Main.maxTilesX / 210, Main.maxTilesX / 160);
+							PlaceOvalCluster(X, Y, Main.maxTilesX / WorldGen.genRand.Next(SizeXInt - 5, SizeXInt + 6), Main.maxTilesY / WorldGen.genRand.Next(SizeYInt - 5, SizeYInt + 6), Main.maxTilesX / 210, Main.maxTilesX / 175);
 							DigOutCaves(X, Y, SizeX, SizeY, CaveNoiseSeed);
 							BiomePolish(X, Y, SizeX, SizeY);
 							PlaceAmbience(X, Y, SizeX, SizeY);

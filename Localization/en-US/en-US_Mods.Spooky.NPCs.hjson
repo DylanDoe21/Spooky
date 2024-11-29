@@ -382,13 +382,6 @@ NoseCultistLeaderIdle.DisplayName: ""
 NoseCultistLeader.DisplayName: Noseferatu
 SnotMonster.DisplayName: Snot Monster
 SnotSlime.DisplayName: Snot Slime
-//vegetable garden
-HoppingPotato1.DisplayName: Hopping Potato
-HoppingPotato2.DisplayName: Hopping Potato
-HoppingPotato3.DisplayName: Hopping Potato
-HoppingPotato4.DisplayName: Hopping Potato
-OozeGarlic.DisplayName: Oozing Garlic
-RollingPepper.DisplayName: Rolling Jalapeno
 //quest minibosses
 BanditBook.DisplayName: Tome of Spirits
 BanditBruiser.DisplayName: Rarg
@@ -402,3 +395,17 @@ FrankenGoblinHandFront.DisplayName: Frank's Hand
 FrankenGoblinHandBack.DisplayName: Frank's Hand
 FrankenGoblinEye.DisplayName: Monster Eye
 StitchSpider.DisplayName: Stitches
+//tar pits 
+TarSlime1.DisplayName: Tar Slime
+TarSlime2.DisplayName: Tar Slime
+TarBlobSmall.DisplayName: Tar Glob
+TarBlobSmallClub.DisplayName: Spasimosaurus Tail
+TarBlobSmallMouth.DisplayName: Regina Jaws
+Tarblimp.DisplayName: Tarblimp
+//vegetable garden
+HoppingPotato1.DisplayName: Hopping Potato
+HoppingPotato2.DisplayName: Hopping Potato
+HoppingPotato3.DisplayName: Hopping Potato
+HoppingPotato4.DisplayName: Hopping Potato
+OozeGarlic.DisplayName: Oozing Garlic
+RollingPepper.DisplayName: Rolling Jalapeno

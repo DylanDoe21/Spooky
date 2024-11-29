@@ -84,7 +84,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 		}
-			
+
 		public static void PlaceCircle(int X, int Y, int tileType, int wallType, int radius, bool clearTiles, bool clearWalls)
 		{
 			ShapeData circle = new ShapeData();

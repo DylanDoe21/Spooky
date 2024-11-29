@@ -5,9 +5,8 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Generation.Minibiomes;
-using Spooky.Content.Tiles.Minibiomes.Ambient;
+using Spooky.Content.Tiles.Minibiomes.Jungle;
 using Spooky.Content.Tiles.Minibiomes.Tree;
-using Spooky.Content.Tiles.SpookyHell.Ambient;
 
 namespace Spooky.Content.Tiles.Minibiomes
 {

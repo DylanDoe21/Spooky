@@ -17,6 +17,7 @@ using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.Minibiomes.TarPits;
 using Spooky.Content.NPCs.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Quest;
 using Spooky.Content.NPCs.SpiderCave;
@@ -535,6 +536,23 @@ namespace Spooky.Core
 					}
 				}
             }
+
+			//tar pits spawns
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<TarPitsBiome>()))
+			{
+				pool.Clear();
+
+				if (spawnInfo.Water)
+				{
+					pool.Add(ModContent.NPCType<Tarblimp>(), 2);
+				}
+				else
+				{
+					pool.Add(ModContent.NPCType<TarSlime1>(), 2);
+					pool.Add(ModContent.NPCType<TarSlime2>(), 2);
+					pool.Add(ModContent.NPCType<TarBlobSmall>(), 1);
+				}
+			}
 
 			//fetid farms spawns
 			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<VegetableBiome>()))

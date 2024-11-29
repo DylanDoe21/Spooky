@@ -183,7 +183,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             if (Projectile.ai[1] >= 100 && Projectile.ai[1] < 200)
             {
-                Projectile.velocity *= 0.82f;
+                Projectile.velocity = Vector2.Zero;
 
                 if (Projectile.ai[1] % 10 == 0)
                 {

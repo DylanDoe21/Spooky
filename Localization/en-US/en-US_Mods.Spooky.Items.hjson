@@ -3988,6 +3988,6 @@ ChristmasWoodPlanksItem: {
 }
 
 ChristmasBrickItem: {
-	DisplayName: Old Bricks
+	DisplayName: Yuletide Brick
 	Tooltip: ""
 }

@@ -15,7 +15,7 @@ namespace Spooky.Content.Biomes
     public class TarPitsBiome : ModBiome
     {
 		public override int Music => MusicID.Desert; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/VegetableBiome");
-       
+
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
 		public override ModWaterStyle WaterStyle => ModContent.GetInstance<TarWaterStyle>();
@@ -38,7 +38,8 @@ namespace Spooky.Content.Biomes
 			On_WaterfallManager.GetAlpha -= WaterfallOpacityChanger;
 		}
 
-		float WaterOpacity = 0.95f;
+		//water opacity amount used for all il edits below
+		float WaterOpacity = 0.88f;
 
 		//Huge thanks to lion8cake for making all of these il edits
 		private void WaterOpacityChanger(ILContext il)

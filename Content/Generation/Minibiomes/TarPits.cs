@@ -6,12 +6,12 @@ using Terraria.WorldBuilding;
 using Terraria.GameContent.Generation;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes;
-using Terraria.DataStructures;
 
 namespace Spooky.Content.Generation.Minibiomes
 {
@@ -23,32 +23,33 @@ namespace Spooky.Content.Generation.Minibiomes
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
-			int SizeX = Main.maxTilesX / 60;
-			int SizeY = Main.maxTilesY / 32;
+			int SizeXInt = Main.maxTilesX < 6400 ? 48 : 56;
+			int SizeYInt = Main.maxTilesY < 1800 ? 20 : 28;
+			int SizeX = Main.maxTilesX / SizeXInt;
+			int SizeY = Main.maxTilesY / SizeYInt;
 
 			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
-			int BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2, GenVars.desertHiveLow - SizeY - 50);
+			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), Main.maxTilesY / 2 - 50);
 
 			int maxBiomes = Main.maxTilesX >= 6400 && Main.maxTilesY >= 1800 ? 2 : 1;
 
-			//place tiles in the box that the biome can spawn in for debugging purposes
-			//for (int i = GenVars.desertHiveLeft + (SizeX / 2); i <= GenVars.desertHiveRight - (SizeX / 2); i++)
-			//{
-				//for (int j = Main.maxTilesY / 2; j <= GenVars.desertHiveLow - SizeY - 50; j++)
-				//{
-					//WorldGen.PlaceTile(i, j, TileID.Adamantite);
-				//}
-			//}
-
 			for (int numBiomesPlaced = 0; numBiomesPlaced < maxBiomes; numBiomesPlaced++)
 			{
-				while (!CanPlaceBiome(BiomeX, BiomeY, Main.maxTilesX / 46, Main.maxTilesY / 23))
+				while (!CanPlaceBiome(BiomeX, BiomeY, SizeX, SizeY))
 				{
-					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
-					BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2, GenVars.desertHiveLow - SizeY - 50);
+					if (numBiomesPlaced == 0)
+					{
+						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
+						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), Main.maxTilesY / 2 - 50);
+					}
+					else
+					{
+						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
+						BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2, GenVars.desertHiveLow - SizeY - (SizeY / 2));
+					}
 				}
 
-				PlaceOvalCluster(BiomeX, BiomeY, SizeX, SizeY, Main.maxTilesX / 300, Main.maxTilesX / 190);
+				PlaceOvalCluster(BiomeX, BiomeY + 5, SizeX, SizeY, Main.maxTilesX / 300, Main.maxTilesX / 190);
 				DigOutCaves(CaveNoiseSeed);
 				BiomePolish();
 			}
@@ -90,6 +91,7 @@ namespace Spooky.Content.Generation.Minibiomes
 						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
 						{
 							Main.tile[i, j].TileType = (ushort)ModContent.TileType<DesertSand>();
+							Main.tile[i, j].WallType = (ushort)ModContent.WallType<DesertSandWall>();
 						}
 					}
 
@@ -108,23 +110,6 @@ namespace Spooky.Content.Generation.Minibiomes
 						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
 						{
 							WorldGen.KillTile(i, j - 15);
-						}
-					}
-
-					//replace sandstone walls with sand walls
-					if (Main.tile[i, j].WallType == ModContent.WallType<DesertSandstoneWall>())
-					{
-						//generate perlin noise caves
-						//uses extremely high values for the X and low values for the Y to create horizontally long but vertically short caves
-						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(i / 80f, j / 80f, 5, unchecked(Seed + 1)) * 0.01f;
-						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(i / 200f, j / 100f, 5, Seed) + 0.5f + horizontalOffsetNoise;
-						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(i / 200f, j / 100f, 5, unchecked(Seed - 1)) + 0.5f;
-						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
-						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
-
-						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
-						{
-							Main.tile[i, j].WallType = (ushort)ModContent.WallType<DesertSandWall>();
 						}
 					}
 				}
@@ -181,10 +166,22 @@ namespace Spooky.Content.Generation.Minibiomes
 
 							if (XCheck == i + 2 && TileCheck <= 3)
 							{
-								SpookyWorldMethods.PlaceOval(i, j + 2, -1, 0, 4, 4, 1f, false);
+								SpookyWorldMethods.PlaceOval(i, j + 5, -1, 0, 6, 6, 1f, false);
 								break;
 							}
 						}
+					}
+				}
+			}
+
+			//place actual tar pits
+			for (int i = GenVars.desertHiveLeft; i < GenVars.desertHiveRight; i++)
+			{
+				for (int j = GenVars.desertHiveHigh; j < GenVars.desertHiveLow; j++)
+				{
+					if (CanPlaceTarPit(i, j))
+					{
+						PlaceTarPit(i, j, WorldGen.genRand.Next(8, 11), WorldGen.genRand.Next(21, 39), 0.5f);
 					}
 				}
 			}
@@ -240,14 +237,103 @@ namespace Spooky.Content.Generation.Minibiomes
 			}
 		}
 
+		//generate a semi-oval with a pool of water in the middle
+		public static void PlaceTarPit(int X, int Y, int radius, int radiusY, float thickMult)
+		{
+			List<ushort> WallTypes = new()
+			{
+				(ushort)ModContent.WallType<DesertSandWall>(),
+				(ushort)ModContent.WallType<DesertSandstoneWall>(),
+			};
+
+			float scale = radiusY / (float)radius;
+			float invertScale = (float)radius / radiusY;
+
+			for (int x = -radius; x <= radius; x++)
+			{
+				for (float y = 0; y <= radius; y += (invertScale * 0.85f))
+				{
+					float radialMod = WorldGen.genRand.NextFloat(2.5f, 4.5f) * thickMult;
+					if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
+					{
+						int PositionX = X + x;
+						int PositionY = Y + (int)(y * scale);
+						Tile tile = Framing.GetTileSafely(PositionX, PositionY);
+
+						if (!WallTypes.Contains(tile.WallType))
+						{
+							return;
+						}
+					}
+				}
+			}
+
+			for (int x = -radius; x <= radius; x++)
+			{
+				for (float y = 0; y <= radius; y += (invertScale * 0.85f))
+				{
+					float radialMod = WorldGen.genRand.NextFloat(5.5f, 6.5f) * thickMult;
+					if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
+					{
+						int PositionX = X + x;
+						int PositionY = Y + (int)(y * scale);
+						Tile tile = Framing.GetTileSafely(PositionX, PositionY);
+
+						if (tile.TileType == ModContent.TileType<DesertSand>() || tile.WallType == ModContent.WallType<DesertSandWall>())
+						{
+							WorldGen.KillTile(PositionX, PositionY);
+							WorldGen.PlaceTile(PositionX, PositionY, ModContent.TileType<DesertSand>());
+						}
+						if (tile.TileType == ModContent.TileType<DesertSandstone>() || tile.WallType == ModContent.WallType<DesertSandstoneWall>())
+						{
+							WorldGen.KillTile(PositionX, PositionY);
+							WorldGen.PlaceTile(PositionX, PositionY, ModContent.TileType<DesertSandstone>());
+						}
+
+						if (Math.Sqrt(x * x + y * y) < radius - radialMod)
+						{
+							WorldGen.KillTile(PositionX, PositionY);
+							tile.LiquidType = LiquidID.Water;
+							tile.LiquidAmount = 255;
+						}
+					}
+				}
+			}
+		}
+
+		public static bool CanPlaceTarPit(int PositionX, int PositionY)
+		{
+			for (int i = PositionX - 6; i <= PositionX + 6; i++)
+			{
+				for (int j = PositionY - 20; j <= PositionY + 30; j++)
+				{
+					if (Main.tile[i, j].LiquidAmount > 0 && Main.tile[i, j].LiquidType == LiquidID.Water)
+					{
+						return false;
+					}
+				}
+			}
+
+			for (int i = PositionX - 2; i <= PositionX + 1; i++)
+			{
+				if ((Main.tile[i, PositionY].TileType != ModContent.TileType<DesertSand>() && Main.tile[i, PositionY].TileType != ModContent.TileType<DesertSandstone>()) ||
+				Main.tile[i, PositionY - 1].HasTile || Main.tile[i, PositionY - 1].LiquidAmount > 0)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		//place the biome if there isnt already another tar pits biome nearby
 		public bool CanPlaceBiome(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
 			int numDesertTiles = 0;
 
-			for (int i = PositionX - (SizeX / 3); i < PositionX + (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
 			{
-				for (int j = PositionY - (SizeY / 2); j < PositionY + (SizeY / 2); j++)
+				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
 					//if (WorldGen.InWorld(i, j))
 						//WorldGen.PlaceTile(i, j, TileID.Adamantite);
@@ -279,8 +365,6 @@ namespace Spooky.Content.Generation.Minibiomes
 			{
 				return false;
 			}
-
-			return true;
 		}
 
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)

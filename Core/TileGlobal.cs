@@ -1,9 +1,13 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Reflection;
 
+using Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Pylon;
 using Spooky.Content.Tiles.Catacomb.Ambient;
@@ -12,6 +16,7 @@ using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Core
 {
@@ -106,6 +111,46 @@ namespace Spooky.Core
 
             return base.Slope(i, j, type);
         }
+
+		public override void DrawEffects(int i, int j, int type, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+		{
+			//create bubbles while in the tar pits biome
+			if (Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot)
+			{
+				if (Main.rand.NextBool(750) && !Main.gamePaused && Main.instance.IsActive)
+				{
+					if (Main.tile[i, j - 1] != null)
+					{
+						if (!Main.tile[i, j - 1].HasTile && !Main.tile[i, j - 2].HasTile && !Main.tile[i, j - 3].HasTile && !Main.tile[i, j - 4].HasTile)
+						{
+							int YPos = j - 1;
+							bool ShouldSpawnBubble = false;
+
+							for (int yCheck = YPos; yCheck > 0; yCheck--)
+							{
+								if (Main.tile[i, yCheck].LiquidAmount > 0 && (Main.tile[i, yCheck - 1].HasTile || Main.tile[i, yCheck - 2].HasTile))
+								{
+									break;
+								}
+
+								if (Main.tile[i, yCheck].LiquidAmount >= 255 && Main.tile[i, yCheck - 1].LiquidAmount > 0 && Main.tile[i, yCheck - 2].LiquidAmount <= 0 &&
+								!Main.tile[i - 1, yCheck].HasTile && !Main.tile[i - 1, yCheck - 1].HasTile && !Main.tile[i + 1, yCheck].HasTile && !Main.tile[i + 1, yCheck - 1].HasTile)
+								{
+									YPos = yCheck + 1;
+									ShouldSpawnBubble = true;
+									break;
+								}
+							}
+
+							if (ShouldSpawnBubble && Main.netMode != NetmodeID.MultiplayerClient)
+							{
+								Projectile.NewProjectile(new EntitySource_WorldEvent(), (float)(i * 16), (float)(YPos * 16 - 20), 0, 0, ModContent.ProjectileType<TarBubble>(), 0, 0f);
+							}
+						}
+					}
+				}
+			}
+		}
 
 		public bool IsProtected(int x, int y)
         {

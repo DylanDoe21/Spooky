@@ -3,8 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 {

@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.Minibiomes
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(89, 45, 35));
+            AddMapEntry(new Color(93, 12, 18));
             DustType = -1;
         }
     }

@@ -48,6 +48,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             NPC.width = 56;
 			NPC.height = 66;
             NPC.npcSlots = 1f;
+            NPC.knockBackResist = 0.25f;
             NPC.noGravity = true;
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
