@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.Enums;
 using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.SpiderCave.Ambient

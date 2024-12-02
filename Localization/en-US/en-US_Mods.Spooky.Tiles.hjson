@@ -30,28 +30,6 @@ CultistDresser: {
 
 SpiritAltar.MapEntry: Spirit Altar
 CemeterySapling.MapEntry: Sapling
-BigBoneBoxTile.MapEntry: Music Box
-CatacombBoxTile.MapEntry: Music Box
-CatacombBox2Tile.MapEntry: Music Box
-CemeteryBoxTile.MapEntry: Music Box
-DaffodilBoxTile.MapEntry: Music Box
-EggEventBoxTile.MapEntry: Music Box
-MocoBoxTile.MapEntry: Music Box
-NoseTempleBoxTile.MapEntry: Music Box
-PandoraEventBoxTile.MapEntry: Music Box
-RaveyardBoxTile.MapEntry: Music Box
-RotGourdBoxTile.MapEntry: Music Box
-SpiderCaveBoxTile.MapEntry: Music Box
-SpookyBiomeDayBoxTile.MapEntry: Music Box
-SpookyBiomeNightBoxTile.MapEntry: Music Box
-SpookyBiomeRainBoxTile.MapEntry: Music Box
-SpookyBiomeUGBoxTile.MapEntry: Music Box
-OrroboroBoxTile.MapEntry: Music Box
-SpookyBloodmoonBoxTile.MapEntry: Music Box
-SpookyHellBoxTile.MapEntry: Music Box
-SpookyMenuBoxTile.MapEntry: Music Box
-SpookySpiritBoxTile.MapEntry: Music Box
-VegetableBiomeBoxTile.MapEntry: Music Box
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
 SpiderCavePylon.MapEntry: Spider Grotto Pylon
 SpookyBiomePylon.MapEntry: Spooky Forest Pylon

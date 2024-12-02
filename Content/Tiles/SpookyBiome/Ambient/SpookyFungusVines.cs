@@ -1,12 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
-
-using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {
@@ -21,10 +18,22 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileBlockLight[Type] = false;
 			Main.tileLighted[Type] = false;
 			TileID.Sets.IsVine[Type] = true;
+			TileID.Sets.VineThreads[Type] = true;
+			TileID.Sets.MultiTileSway[Type] = true;
 			AddMapEntry(new Color(166, 158, 187));
 			DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
 			MineResist = 0.1f;
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			if (Main.tile[i, j].TileFrameX % 18 == 0 && Main.tile[i, j].TileFrameY % 54 == 0)
+			{
+				Main.instance.TilesRenderer.CrawlToTopOfVineAndAddSpecialPoint(j, i);
+			}
+
+			return false;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
@@ -49,7 +58,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 		public override void RandomUpdate(int i, int j)
 		{
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-			if (WorldGen.genRand.Next(12) == 0 && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
+			if (Main.rand.NextBool(12) && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
             {
 				bool PlaceVine = false;
 				int Test = j;

@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 
 using Spooky.Content.Dusts;
@@ -21,10 +21,21 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileLighted[Type] = false;
 			TileID.Sets.IsVine[Type] = true;
             TileID.Sets.VineThreads[Type] = true;
+			TileID.Sets.MultiTileSway[Type] = true;
 			AddMapEntry(new Color(138, 61, 8));
 			DustType = ModContent.DustType<SpookyGrassDust>();
 			HitSound = SoundID.Grass;
 			MineResist = 0.1f;
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			if (Main.tile[i, j].TileFrameX % 18 == 0 && Main.tile[i, j].TileFrameY % 54 == 0)
+			{
+				Main.instance.TilesRenderer.CrawlToTopOfVineAndAddSpecialPoint(j, i);
+			}
+
+			return false;
 		}
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

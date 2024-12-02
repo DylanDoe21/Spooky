@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
@@ -12,8 +11,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {
 	public class SpookyVinesGreen : ModTile
 	{
-        private Asset<Texture2D> GlowTexture;
-
         public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = false;
@@ -21,13 +18,24 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
 			Main.tileBlockLight[Type] = false;
-			Main.tileLighted[Type] = false;
+			Main.tileLighted[Type] = true;
 			TileID.Sets.IsVine[Type] = true;
             TileID.Sets.VineThreads[Type] = true;
+			TileID.Sets.MultiTileSway[Type] = true;
 			AddMapEntry(new Color(62, 95, 38));
 			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 			HitSound = SoundID.Grass;
 			MineResist = 0.1f;
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			if (Main.tile[i, j].TileFrameX % 18 == 0 && Main.tile[i, j].TileFrameY % 54 == 0)
+			{
+				Main.instance.TilesRenderer.CrawlToTopOfVineAndAddSpecialPoint(j, i);
+			}
+
+			return false;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
@@ -83,16 +91,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 					}
 				}
 			}
-		}
-
-		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
-		{
-            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/SpookyVinesGreenGlow");
-
-            Tile tile = Framing.GetTileSafely(i, j);
-			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-
-			spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.5f);
 		}
 	}
 }

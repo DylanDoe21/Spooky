@@ -24,8 +24,7 @@ namespace Spooky.Content.Tiles.MusicBox
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.newTile.StyleLineSkip = 2;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(200, 200, 200), name);
+            AddMapEntry(new Color(191, 142, 111), Lang.GetItemName(ItemID.MusicBox));
             DustType = -1;
             HitSound = SoundID.Dig;
         }

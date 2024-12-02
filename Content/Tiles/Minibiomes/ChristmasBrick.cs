@@ -19,5 +19,11 @@ namespace Spooky.Content.Tiles.Minibiomes
             DustType = 109;
 			HitSound = SoundID.Tink;
 		}
+
+		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
+        {
+            frameXOffset = i % 2 * 288; //288 is the width of each individual sheet
+			frameYOffset = j % 2 * 270; //270 is the height of each individual sheet
+        }
 	}
 }

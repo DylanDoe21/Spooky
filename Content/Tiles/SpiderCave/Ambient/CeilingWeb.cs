@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.SpiderCave.Ambient
 {
@@ -17,6 +19,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
 			Main.tileLighted[Type] = true;
+			TileID.Sets.MultiTileSway[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
@@ -26,6 +29,18 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             AddMapEntry(new Color(181, 176, 160));
 			HitSound = SoundID.NPCHit11;
 			DustType = DustID.Web;
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			Tile tile = Main.tile[i, j];
+
+			if (TileObjectData.IsTopLeft(tile))
+			{
+				Main.instance.TilesRenderer.AddSpecialPoint(i, j, TileDrawing.TileCounterType.MultiTileVine);
+			}
+
+			return false;
 		}
 	}
 

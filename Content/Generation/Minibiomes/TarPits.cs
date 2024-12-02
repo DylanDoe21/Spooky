@@ -29,7 +29,7 @@ namespace Spooky.Content.Generation.Minibiomes
 			int SizeY = Main.maxTilesY / SizeYInt;
 
 			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
-			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), Main.maxTilesY / 2 - 50);
+			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 50);
 
 			int maxBiomes = Main.maxTilesX >= 6400 && Main.maxTilesY >= 1800 ? 2 : 1;
 
@@ -40,7 +40,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					if (numBiomesPlaced == 0)
 					{
 						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
-						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), Main.maxTilesY / 2 - 50);
+						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 50);
 					}
 					else
 					{

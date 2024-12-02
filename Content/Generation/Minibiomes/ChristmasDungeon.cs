@@ -11,6 +11,8 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Minibiomes;
+using Spooky.Content.Tiles.Minibiomes.Christmas;
+using Spooky.Content.NPCs.SpookyBiome;
 
 namespace Spooky.Content.Generation.Minibiomes
 {
@@ -166,39 +168,39 @@ namespace Spooky.Content.Generation.Minibiomes
 					}
 
 					//get rid of 1x2 tiles on the ground since it looks weird
-                    if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].HasTile && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
-                    {
-                        WorldGen.KillTile(i, j);
-                        WorldGen.KillTile(i - 1, j);
-                    }
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].HasTile && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
+					{
+						WorldGen.KillTile(i, j);
+						WorldGen.KillTile(i - 1, j);
+					}
 
-                    //get rid of single tiles on the ground since it looks weird
-                    if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
-                    {
-                        WorldGen.KillTile(i, j);
-                    }
+					//get rid of single tiles on the ground since it looks weird
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
+					{
+						WorldGen.KillTile(i, j);
+					}
 
 					//get rid of 1x2 tiles on the ground since it looks weird
-                    if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
-                    {
-                        WorldGen.KillTile(i, j);
-                        WorldGen.KillTile(i - 1, j);
-                    }
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
+					{
+						WorldGen.KillTile(i, j);
+						WorldGen.KillTile(i - 1, j);
+					}
 
-					//get rid of surfaces in the dungeon that arent thick enough to place planks flooring
-                    if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>())
-                    {
+					//get rid of surfaces in the dungeon that arent thick enough for wooden planks flooring to place
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>())
+					{
 						if ((!Main.tile[i, j - 1].HasTile && !Main.tile[i, j - 2].HasTile && !Main.tile[i, j - 3].HasTile) && !CanPlacePlankFlooring(i, j))
 						{
-                        	WorldGen.KillTile(i, j);
+							WorldGen.KillTile(i, j);
 						}
-                    }
+					}
 				}
 			}
 
 			int WallpaperType = WorldGen.genRand.Next(WallTypes);
 
-			//place the colored wallpaper inside of the dungeon and clean up walls
+			//clean up walls and place yuletide wood flooring in the dungeon
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
@@ -214,22 +216,8 @@ namespace Spooky.Content.Generation.Minibiomes
 						WorldGen.KillWall(i, j);
 					}
 
-					/*
-					//place colored wallpapers
-					if ((Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>() || WallTypes.Contains(Main.tile[i, j].WallType)) && CanPlaceWallpaper(i, j))
-					{
-						for (int newX = i - 3; newX <= i + 3; newX++)
-						{
-							for (int newY = j - 4; newY <= j + 4; newY++)
-							{
-								Main.tile[newX, newY].WallType = (ushort)WallpaperType;
-							}
-						}
-					}
-					*/
-
 					//place planks along the floors and ceiling of the rooms
-					//specifically check to make sure the wall type of 2 blocks higher is a dungeon wall, this prevents the planks from being placed outside of the dungeon
+					//specifically check to make sure the wall type 2 blocks above is a dungeon wall, this prevents the planks from being placed outside of the dungeon
 					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && WallTypes.Contains(Main.tile[i, j - 2].WallType))
 					{
 						if ((!Main.tile[i, j - 1].HasTile || !Main.tile[i, j - 2].HasTile) && CanPlacePlankFlooring(i, j))
@@ -240,11 +228,11 @@ namespace Spooky.Content.Generation.Minibiomes
 				}
 			}
 
-			//finally place carpets and any last minute cleaning up
+			//finally place carpets and some last cleaning up
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
-				{	
+				{
 					//place carpets on the plank flooring
 					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() && !Main.tile[i, j - 1].HasTile && Main.tile[i - 1, j].HasTile && Main.tile[i + 1, j].HasTile &&
 					(Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() || Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() ||
@@ -271,6 +259,14 @@ namespace Spooky.Content.Generation.Minibiomes
 					}
 				}
 			}
+
+			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
+			{
+				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
+				{
+					PlaceRope(i, j);
+				}
+			}
 		}
 
 		public bool CanPlacePlankFlooring(int PositionX, int PositionY)
@@ -286,20 +282,43 @@ namespace Spooky.Content.Generation.Minibiomes
 			return true;
 		}
 
-		public bool CanPlaceWallpaper(int PositionX, int PositionY)
+		public void PlaceRope(int PositionX, int PositionY)
 		{
-			for (int i = PositionX - 5; i <= PositionX + 5; i++)
+			if (Main.tile[PositionX, PositionY].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[PositionX, PositionY + 1].HasTile)
 			{
-				for (int j = PositionY - 2; j <= PositionY + 2; j++)
+				//first, preform a downward check to make sure theres enough room to place the rope
+				//check down for 50 tiles at minimum and if theres that many tiles or more downward, allow the actual rope to be placed
+				for (int j = PositionY + 1; j <= PositionY + 50; j++)
 				{
-					if (Main.tile[i, j].HasTile)
+					if (Main.tile[PositionX, j].HasTile || Main.tile[PositionX - 1, j].HasTile || Main.tile[PositionX + 1, j].HasTile)
 					{
-						return false;
+						return;
 					}
 				}
-			}
 
-			return true;
+				//if the first loop is successful, then place the actual rope
+				//use an arbitrary maximum of 200 tiles since the rope probably wont ever go that far down
+				for (int j = PositionY + 1; j <= PositionY + 200; j++)
+				{
+					if (Main.tile[PositionX, j].HasTile)
+					{
+						return;
+					}
+
+					WorldGen.PlaceTile(PositionX, j, ModContent.TileType<ChristmasLightRope>());
+				}
+			}
+		}
+
+		//TODO: finish this later, also replace the wooden doors in the structures when the furniture is made
+		public void PlaceEntrances(int PositionX, int PositionY, int Width, int Height)
+		{
+			for (int i = PositionX - 15 - (Width / 2); i <= PositionX + 15 + (Width / 2); i++)
+			{
+				for (int j = PositionY - 15 - (Height / 2); j <= PositionY + 15 + (Height / 2); j++)
+				{
+				}
+			}
 		}
 
 		//place the biome if no important structures are nearby and theres enough snow biome blocks
@@ -491,7 +510,7 @@ namespace Spooky.Content.Generation.Minibiomes
 		private void VerticalPathway(int yStart, int yEnd, int PositionX)
 		{
 			//place additional tiles if theres no dungeon blocks where the pathway is
-			for (int y = Math.Min(yStart, yEnd) - 5; y <= Math.Max(yStart, yEnd) + 5; y++)
+			for (int y = Math.Min(yStart, yEnd) - 6; y <= Math.Max(yStart, yEnd) + 5; y++)
 			{
 				for (int i = PositionX - 10; i <= PositionX + 10; i++)
 				{
@@ -504,7 +523,7 @@ namespace Spooky.Content.Generation.Minibiomes
 				}
 			}
 
-			for (int y = Math.Min(yStart, yEnd); y <= Math.Max(yStart, yEnd); y++)
+			for (int y = Math.Min(yStart, yEnd) - 1; y <= Math.Max(yStart, yEnd); y++)
 			{
 				for (int i = PositionX - 1; i <= PositionX + 1; i++)
 				{

@@ -209,7 +209,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     
 					if (shouldSwitchToRetracting)
                     {
-                        CurrentAIState = AIState.Retracting;
+                        CurrentAIState = AIState.ForcedRetracting;
                         StateTimer = 0f;
                         Projectile.netUpdate = true;
                         Projectile.velocity *= 0.3f;

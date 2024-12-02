@@ -23,14 +23,25 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
 			Main.tileBlockLight[Type] = false;
 			Main.tileLighted[Type] = false;
 			TileID.Sets.IsVine[Type] = true;
-            TileID.Sets.VineThreads[Type] = true;
+			TileID.Sets.VineThreads[Type] = true;
+			TileID.Sets.MultiTileSway[Type] = true;
 			AddMapEntry(new Color(31, 85, 37));
 			DustType = ModContent.DustType<CemeteryGrassDust>();
 			HitSound = SoundID.Grass;
 			MineResist = 0.1f;
 		}
 
-        public override bool CanDrop(int i, int j)
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			if (Main.tile[i, j].TileFrameX % 18 == 0 && Main.tile[i, j].TileFrameY % 54 == 0)
+			{
+				Main.instance.TilesRenderer.CrawlToTopOfVineAndAddSpecialPoint(j, i);
+			}
+
+			return false;
+		}
+
+		public override bool CanDrop(int i, int j)
         {
 			return false;
         }

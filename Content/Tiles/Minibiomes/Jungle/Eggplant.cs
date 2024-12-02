@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.Minibiomes.Jungle
 {
@@ -17,6 +19,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
 			Main.tileLighted[Type] = true;
+			TileID.Sets.MultiTileSway[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
 			TileObjectData.newTile.Width = 2;
 			TileObjectData.newTile.Height = 4;
@@ -28,6 +31,18 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(113, 55, 111));
 			DustType = 288;
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			Tile tile = Main.tile[i, j];
+
+			if (TileObjectData.IsTopLeft(tile))
+			{
+				Main.instance.TilesRenderer.AddSpecialPoint(i, j, TileDrawing.TileCounterType.MultiTileVine);
+			}
+
+			return false;
 		}
 	}
 }

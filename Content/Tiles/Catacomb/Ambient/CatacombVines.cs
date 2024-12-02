@@ -22,10 +22,21 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 			Main.tileSolid[Type] = false;
 			Main.tileNoFail[Type] = true;
 			Main.tileNoAttach[Type] = true;
+			TileID.Sets.MultiTileSway[Type] = true;
 			AddMapEntry(new Color(23, 69, 29));
 			DustType = ModContent.DustType<SpookyGrassDustGreen>();
 			HitSound = SoundID.Grass;
 			MineResist = 0.1f;
+		}
+
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			if (Main.tile[i, j].TileFrameX % 18 == 0 && Main.tile[i, j].TileFrameY % 54 == 0)
+			{
+				Main.instance.TilesRenderer.CrawlToTopOfVineAndAddSpecialPoint(j, i);
+			}
+
+			return false;
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

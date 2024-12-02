@@ -22,81 +22,8 @@ namespace Spooky.Core
 {
     public class TileGlobal : GlobalTile
     {
-        public static bool LightingEssentialsActive() => ModLoader.TryGetMod("LightingEssentials", out _);
-
 		public static Vector2 TileOffset => Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
 		public static Vector2 TileCustomPosition(int i, int j, Vector2 off = default) => (new Vector2(i, j) * 16) - Main.screenPosition - off + TileOffset;
-
-		public override void SetStaticDefaults()
-        {
-            //do not run any lighting essentials checking if the mod is not enabled
-            if (LightingEssentialsActive())
-            {
-                //set tileLighted to true for all ambient grasses in spooky mod
-                //using reflection, get the lighting essentials config and make sure the "Light Environment" option is turned on
-                var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
-                bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
-
-                if (LightEnvironmentOn)
-                {
-                    Main.tileLighted[ModContent.TileType<SpookyWeedsOrange>()] = true;
-                    Main.tileLighted[ModContent.TileType<SpookyWeedsGreen>()] = true;
-                    Main.tileLighted[ModContent.TileType<CemeteryWeeds>()] = true;
-                    Main.tileLighted[ModContent.TileType<CatacombWeeds>()] = true;
-                    Main.tileLighted[ModContent.TileType<SpiderCaveWeeds>()] = true;
-                }
-            }
-        }
-
-        public override void ModifyLight(int i, int j, int type, ref float r, ref float g, ref float b)
-        {
-            //do not run any lighting essentials checking if the mod is not enabled
-            if (LightingEssentialsActive())
-            {
-                //add the actual lighting for all the ambient grasses in spooky mod
-                //like above, use reflection get the lighting essentials config and make sure the "Light Environment" option is turned on
-                var LightingEssentialsConfig = ModContent.Find<ModConfig>("LightingEssentials/Config");
-                bool LightEnvironmentOn = (bool)LightingEssentialsConfig.GetType().GetField("LightEnvironment", BindingFlags.Public | BindingFlags.Instance).GetValue(LightingEssentialsConfig);
-
-                if (LightEnvironmentOn)
-                {
-                    if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsOrange>())
-                    {
-                        r = 175f / 400f;
-                        g = 102f / 400f;
-                        b = 36f / 400f;
-                    }
-
-                    if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWeedsGreen>())
-                    {
-                        r = 78f / 400f;
-                        g = 120f / 400f;
-                        b = 48f / 400f;
-                    }
-
-                    if (Main.tile[i, j].TileType == ModContent.TileType<CemeteryWeeds>())
-                    {
-                        r = 38f / 400f;
-                        g = 77f / 400f;
-                        b = 53f / 400f;
-                    }
-
-                    if (Main.tile[i, j].TileType == ModContent.TileType<CatacombWeeds>())
-                    {
-                        r = 56f / 400f;
-                        g = 109f / 400f;
-                        b = 62f / 400f;
-                    }
-
-                    if (Main.tile[i, j].TileType == ModContent.TileType<SpiderCaveWeeds>())
-                    {
-                        r = 70f / 400f;
-                        g = 120f / 400f;
-                        b = 40f / 400f;
-                    }
-                }
-            }
-        }
 
         public override bool Slope(int i, int j, int type)
         {

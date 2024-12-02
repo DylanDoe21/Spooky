@@ -7,7 +7,6 @@ using Terraria.Localization;
 using Terraria.IO;
 using ReLogic.Utilities;
 using Microsoft.Xna.Framework;
-using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -21,10 +20,7 @@ using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
-using Spooky.Content.Tiles.Cemetery;
-using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 using StructureHelper;
 

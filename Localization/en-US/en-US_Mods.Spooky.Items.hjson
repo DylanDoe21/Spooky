@@ -2877,6 +2877,11 @@ CemeteryBox: {
 	Tooltip: "[c/6E9E3B:A Boneyard Too Far] by BananaLizard"
 }
 
+ChristmasDungeonBox: {
+	DisplayName: Music Box (Krampus' Workshop)
+	Tooltip: "[c/52BDF2:Krampus' Workshop] by BananaLizard"
+}
+
 DaffodilBox: {
 	DisplayName: Music Box (Daffodil)
 	Tooltip: "[c/A7CF17:To A Floral Demise] by BananaLizard"
@@ -3990,4 +3995,9 @@ ChristmasWoodPlanksItem: {
 ChristmasBrickItem: {
 	DisplayName: Yuletide Brick
 	Tooltip: ""
+}
+
+ChristmasLightRopeItem: {
+	DisplayName: Festive Lights Rope
+	Tooltip: Can be climbed on
 }

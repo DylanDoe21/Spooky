@@ -5,19 +5,14 @@ using Terraria.GameContent.Generation;
 using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Terraria.IO;
-using ReLogic.Utilities;
-using Microsoft.Xna.Framework;
-using System.Linq;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpiderCave.Furniture;
-using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
