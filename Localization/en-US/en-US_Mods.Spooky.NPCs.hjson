@@ -30,7 +30,7 @@ DaffodilEye: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Throw a [i:Spooky/Brick] at her to wake her up.
-		DespawnMessage: Daffodil has ended your catacomb expedition
+		DespawnMessage: All players have met their floral demise
 	}
 }
 
