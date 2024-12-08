@@ -166,33 +166,30 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			}
 			else 
             {
-				if (Projectile.owner == Main.myPlayer)
-				{
-                    Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+                Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
 
-                    //set ai[2] to 1 so it cannot shoot again
-                    Projectile.ai[2] = 1;
+                //set ai[2] to 1 so it cannot shoot again
+                Projectile.ai[2] = 1;
 
-                    //shoot code here
-                    if (Projectile.timeLeft >= 29)
+                //shoot code here
+                if (Projectile.timeLeft >= 29)
+                {
+                    SaveDirection = Projectile.spriteDirection;
+                    SaveRotation = Projectile.rotation;
+                    
+                    if (Projectile.localAI[0] >= 180)
                     {
-                        SaveDirection = Projectile.spriteDirection;
-                        SaveRotation = Projectile.rotation;
-                        
-                        if (Projectile.localAI[0] >= 180)
+                        SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+
+                        Projectile.frame = 1;
+
+                        for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
                         {
-                            SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
-
-                            Projectile.frame = 1;
-
-                            for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
+                            if (Projectile.owner == Main.myPlayer)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
-                                {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 
-                                    Main.rand.Next(9, 18) * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
-                                    ModContent.ProjectileType<OrbWeaverShieldSpike>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
-                                }
+                                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 
+                                Main.rand.Next(9, 18) * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(8) * numProjectiles),
+                                ModContent.ProjectileType<OrbWeaverShieldSpike>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
                             }
                         }
                     }

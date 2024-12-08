@@ -61,6 +61,9 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 
 		public override void RandomUpdate(int i, int j)
 		{
+			int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
+			ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
 			if (Main.rand.NextBool(5) && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
             {
@@ -73,7 +76,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
                     {
 						break;
 					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CatacombBrick1Grass>()) 
+					else if (!testTile.HasTile || !ValidTiles.Contains(testTile.TileType)) 
                     {
 						Test--;
 						continue;

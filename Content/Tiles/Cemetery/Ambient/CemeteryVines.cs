@@ -76,7 +76,7 @@ namespace Spooky.Content.Tiles.Cemetery.Ambient
                     {
 						break;
 					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CemeteryGrass>()) 
+					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<CemeteryGrass>())
                     {
 						Test--;
 						continue;

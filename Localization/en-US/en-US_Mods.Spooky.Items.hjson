@@ -852,7 +852,7 @@ AnalogHorrorTape: {
 		Moving will spawn spores that inflict debuffs, becomes stronger if you have well fed buffs
 		Spawns a floating head that decays nearby enemies above half health, rapidly draining their health
 		Summons an orbiting moon that can reflect weaker hostile projectiles and damage enemies
-		Grants you a glass pyramid that gives you high defense for 3 hits and then shatters
+		Grants you a glass pyramid that gives you high damage reduction for 3 hits and then shatters
 		You will take double damage for 10 seconds after the pyramid shatters
 		'''
 }
@@ -3977,6 +3977,31 @@ DesertSandstoneItem: {
 	Tooltip: ""
 }
 
+ChristmasLightRopeItem: {
+	DisplayName: Festive Lights Rope
+	Tooltip: Can be climbed on
+}
+
+ChristmasBrickItem: {
+	DisplayName: Red Yuletide Brick
+	Tooltip: ""
+}
+
+ChristmasBrickAltItem: {
+	DisplayName: Blue Yuletide Brick
+	Tooltip: ""
+}
+
+ChristmasBrickSlabItem: {
+	DisplayName: Blue Yuletide Slab
+	Tooltip: ""
+}
+
+ChristmasBrickSlabAltItem: {
+	DisplayName: Red Yuletide Slab
+	Tooltip: ""
+}
+
 ChristmasCarpetItem: {
 	DisplayName: Fancy Carpet
 	Tooltip: ""
@@ -3990,14 +4015,4 @@ ChristmasWoodItem: {
 ChristmasWoodPlanksItem: {
 	DisplayName: Yuletide Planks
 	Tooltip: ""
-}
-
-ChristmasBrickItem: {
-	DisplayName: Yuletide Brick
-	Tooltip: ""
-}
-
-ChristmasLightRopeItem: {
-	DisplayName: Festive Lights Rope
-	Tooltip: Can be climbed on
 }

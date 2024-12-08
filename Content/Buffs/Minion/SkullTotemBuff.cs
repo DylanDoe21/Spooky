@@ -13,7 +13,6 @@ namespace Spooky.Content.Buffs.Minion
 		public override void Update(Player player, ref int buffIndex)
 		{
 			player.GetDamage(DamageClass.Summon) += 0.12f;
-			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.12f;
 			player.whipRangeMultiplier += 0.5f;
 			player.maxMinions += 2;
 		}

@@ -20,6 +20,8 @@ using Spooky.Content.Tiles.SpookyBiome.Mushrooms;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 
 using StructureHelper;
+using Spooky.Content.Tiles.SpiderCave.Ambient;
+using Spooky.Content.Tiles.SpiderCave;
 
 namespace Spooky.Content.Generation
 {
@@ -297,8 +299,10 @@ namespace Spooky.Content.Generation
                     }
                     if (tile.TileType == ModContent.TileType<SpookyVines>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVines>());
-                    }
+						int[] ValidTiles = { ModContent.TileType<SpookyGrass>() };
+
+						SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<SpookyVines>(), ValidTiles);
+					}
 
                     //green spooky vines
                     if (tile.TileType == ModContent.TileType<SpookyGrassGreen>() && !Main.tile[X, Y + 1].HasTile)
@@ -310,8 +314,10 @@ namespace Spooky.Content.Generation
                     }
                     if (tile.TileType == ModContent.TileType<SpookyVinesGreen>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyVinesGreen>());
-                    }
+						int[] ValidTiles = { ModContent.TileType<SpookyGrassGreen>() };
+
+						SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<SpookyVinesGreen>(), ValidTiles);
+					}
 
                     //spooky fungus vines
                     if (tile.TileType == ModContent.TileType<MushroomMoss>() && !Main.tile[X, Y + 1].HasTile)
@@ -323,8 +329,10 @@ namespace Spooky.Content.Generation
                     }
                     if (tile.TileType == ModContent.TileType<SpookyFungusVines>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<SpookyFungusVines>());
-                    }
+						int[] ValidTiles = { ModContent.TileType<MushroomMoss>() };
+
+						SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<SpookyFungusVines>(), ValidTiles);
+					}
 
                     //place gourds and weeds
                     if (tile.TileType == (ushort)ModContent.TileType<SpookyGrass>())

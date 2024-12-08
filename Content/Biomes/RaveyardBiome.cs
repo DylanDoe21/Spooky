@@ -32,7 +32,7 @@ namespace Spooky.Content.Biomes
         {
             bool BiomeCondition = player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && Flags.RaveyardHappening;
 
-            bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
+            bool SurfaceCondition = player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;
         }

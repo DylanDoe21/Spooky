@@ -834,7 +834,10 @@ namespace Spooky.Content.Generation
                     }
                     if (tile.TileType == ModContent.TileType<CatacombVines>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 3), (ushort)ModContent.TileType<CatacombVines>());
+                        int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
+			            ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+
+                        SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
                     }
                 }
 
@@ -874,7 +877,10 @@ namespace Spooky.Content.Generation
                     }
                     if (tile.TileType == ModContent.TileType<CatacombVines>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 3), (ushort)ModContent.TileType<CatacombVines>());
+                        int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
+			            ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+
+                        SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
                     }
                 }
             }

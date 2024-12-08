@@ -75,7 +75,7 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int InitialSize = Main.maxTilesY >= 1800 ? 250 : 150;
+            int InitialSize = Main.maxTilesY >= 1800 ? 240 : 150;
             int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
@@ -615,7 +615,6 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = 20; Y <= Main.maxTilesY - 20; Y++)
                 {
-                    //green spooky vines
                     if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() && !Main.tile[X, Y + 1].HasTile)
                     {
                         if (WorldGen.genRand.NextBool(2))
@@ -625,7 +624,9 @@ namespace Spooky.Content.Generation
                     }
                     if (Main.tile[X, Y].TileType == ModContent.TileType<DampVines>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<DampVines>());
+                        int[] ValidTiles = { ModContent.TileType<DampGrass>() };
+
+                        SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<DampVines>(), ValidTiles);
                     }
                 }
             }
@@ -639,7 +640,7 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int InitialSize = Main.maxTilesY >= 1800 ? 260 : 130;
+            int InitialSize = Main.maxTilesY >= 1800 ? 240 : 150;
             int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
@@ -712,8 +713,13 @@ namespace Spooky.Content.Generation
             
             void getAttachedPoints(int x, int y, List<Point> points)
             {
-                Tile t = GetTile(x, y);
-                Point p = new(x, y);
+                Tile t = Main.tile[x, y];
+				Point p = new(x, y);
+
+				if (!WorldGen.InWorld(x, y))
+				{
+					t = new Tile();
+				}
                 
                 if (!blockTileTypes.Contains(t.TileType) || !t.HasTile || points.Count > 90 || points.Contains(p))
                 {
@@ -734,7 +740,7 @@ namespace Spooky.Content.Generation
             float angle = MathHelper.Pi * 0.15f;
             float otherAngle = MathHelper.PiOver2 - angle;
 
-            int InitialSize = Main.maxTilesY >= 1800 ? 250 : 150;
+            int InitialSize = Main.maxTilesY >= 1800 ? 240 : 150;
             int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);
@@ -781,7 +787,7 @@ namespace Spooky.Content.Generation
             float otherAngle = MathHelper.PiOver2 - angle;
 
             //slightly bigger size than default to account for the area of spider cave walls around the biome
-            int InitialSize = Main.maxTilesY >= 1800 ? 270 : 170;
+            int InitialSize = Main.maxTilesY >= 1800 ? 260 : 170;
             int biomeSize = InitialSize + (Main.maxTilesX / 180);
             float actualSize = biomeSize * 16f;
             float constant = actualSize * 2f / (float)Math.Sin(angle);

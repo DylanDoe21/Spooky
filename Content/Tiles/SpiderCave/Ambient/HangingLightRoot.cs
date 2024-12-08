@@ -4,7 +4,9 @@ using Terraria.ModLoader;
 using Terraria.Enums;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
 
@@ -18,6 +20,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             Main.tileSolid[Type] = false;
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
+            TileID.Sets.MultiTileSway[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
@@ -28,6 +31,18 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             DustType = DustID.Dirt;
             HitSound = SoundID.Dig;
         }
+
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			Tile tile = Main.tile[i, j];
+
+			if (TileObjectData.IsTopLeft(tile))
+			{
+				Main.instance.TilesRenderer.AddSpecialPoint(i, j, TileDrawing.TileCounterType.MultiTileVine);
+			}
+
+			return false;
+		}
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{

@@ -138,7 +138,7 @@ namespace Spooky.Content.NPCs.Quest
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 
 			//casting animation
-			if ((Parent.ai[0] != 4 && NPC.localAI[2] > 840 && NPC.localAI[2] < 1000) || (Parent.ai[0] == 4 && ((NPC.localAI[1] < 5 && NPC.localAI[0] >= 30) || (NPC.localAI[1] >= 5 && NPC.localAI[0] > 60))))
+			if ((Parent.ai[0] != 4 && NPC.localAI[2] > 1040 && NPC.localAI[2] < 1200) || (Parent.ai[0] == 4 && ((NPC.localAI[1] < 5 && NPC.localAI[0] >= 30) || (NPC.localAI[1] >= 5 && NPC.localAI[0] > 60))))
 			{
 				if (NPC.frame.Y < frameHeight * 5)
 				{

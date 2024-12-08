@@ -23,7 +23,6 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void UpdateEquip(Player player) 
 		{
 			player.GetDamage(DamageClass.Summon) += 0.06f;
-			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.06f;
 			player.moveSpeed += 0.12f;
 		}
 

@@ -18,7 +18,6 @@ RootArmor: Your ranged projectiles have a chance to heal you
 SpiderArmor:
 	'''
 	Press the Armor Bonus Hotkey to enter spider stealth for 10 seconds
-	Upon entering spider stealth you will briefly stun nearby enemies
 	While in spider stealth your damage reduction is increased by 12%
 	This ability has a 2 minute cooldown before you can use it again
 	'''

@@ -109,7 +109,7 @@ namespace Spooky.Content.Biomes
         public override bool IsBiomeActive(Player player)
         {
             bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyTiles >= 500;
-            bool SurfaceCondition = player.ZoneSkyHeight || player.ZoneOverworldHeight;
+            bool SurfaceCondition = player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;
         }

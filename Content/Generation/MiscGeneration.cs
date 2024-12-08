@@ -35,36 +35,18 @@ namespace Spooky.Content.Generation
         public static void PlaceDungeonChest(int ChestType)
         {   
             bool placedChest = false;
-            
-            for (int j = (int)Main.worldSurface + 300; j <= Main.maxTilesY - 200; j++)
-            {
-                int i = 100;
-                if (GenVars.dungeonSide == 1)
+
+            bool RightSideDungeon = GenVars.dungeonSide == 1;
+
+            int Start = RightSideDungeon ? Main.maxTilesX - 100 : 100;
+            int End = RightSideDungeon ? (Main.maxTilesX - 100) - (Main.maxTilesX / 3) : 100 + (Main.maxTilesX / 3);
+
+            int Increment = RightSideDungeon ? -1 : 1;
+
+            for (int i = Start; RightSideDungeon ? i >= End : i <= End; i += Increment)
+			{
+                for (int j = (int)Main.worldSurface + 300; j <= Main.maxTilesY - 200; j++)
                 {
-                    i = Main.maxTilesX - 100;
-                }
-
-                bool shouldContinue = true;
-
-                while (shouldContinue)
-                {
-                    if (GenVars.dungeonSide == 1)
-                    {
-                        i--;
-                        if (i < Main.maxTilesX / 2)
-                        {
-                            shouldContinue = false;
-                        }
-                    }
-                    else
-                    {
-                        i++;
-                        if (i > Main.maxTilesX / 2)
-                        {
-                            shouldContinue = false;
-                        }
-                    }
-
                     Tile tile = Main.tile[i, j];
                     Tile tileUp = Main.tile[i, j - 1];
                     Tile tileRight = Main.tile[i + 1, j - 1];

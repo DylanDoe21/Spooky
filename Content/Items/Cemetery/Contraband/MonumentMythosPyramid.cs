@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             if (!player.HasBuff(ModContent.BuffType<MonumentMythosCooldown>()))
             {
                 player.GetModPlayer<SpookyPlayer>().MonumentMythosPyramid = true;
-                player.endurance += 0.4f;
+                player.endurance += 0.35f;
             }
         }
     }

@@ -550,7 +550,9 @@ namespace Spooky.Content.Generation
                     }
                     if (Main.tile[X, Y].TileType == ModContent.TileType<EyeVine>())
                     {
-                        SpookyWorldMethods.PlaceVines(X, Y, WorldGen.genRand.Next(1, 4), (ushort)ModContent.TileType<EyeVine>());
+                        int[] ValidTiles = { ModContent.TileType<SpookyMushGrass>() };
+
+                        SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<EyeVine>(), ValidTiles);
                     }
 
                     //plants that can grow on both blocks

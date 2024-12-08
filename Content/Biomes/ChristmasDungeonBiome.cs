@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
-using Spooky.Content.Tiles.Minibiomes;
+using Spooky.Content.Tiles.Minibiomes.Christmas;
 
 namespace Spooky.Content.Biomes
 {
@@ -29,7 +29,8 @@ namespace Spooky.Content.Biomes
             int PlayerX = (int)player.Center.X / 16;
             int PlayerY = (int)player.Center.Y / 16;
 
-            int[] DungeonWalls = new int[] { ModContent.WallType<ChristmasBrickWall>(), ModContent.WallType<ChristmasWoodWall>() };
+            int[] DungeonWalls = new int[] { ModContent.WallType<ChristmasBrickWall>(), ModContent.WallType<ChristmasBrickWallAlt>(), 
+            ModContent.WallType<ChristmasWoodWall>(), ModContent.WallType<ChristmasWindow>() };
 
             bool BiomeCondition = DungeonWalls.Contains(Main.tile[PlayerX, PlayerY].WallType);
 

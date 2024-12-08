@@ -32,7 +32,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             if (!player.HasBuff(ModContent.BuffType<MonumentMythosCooldown>()))
             {
                 player.GetModPlayer<SpookyPlayer>().MonumentMythosPyramid = true;
-                player.statDefense += 40;
+                player.endurance += 0.35f;
             }
 
             //spawn orbiting moon

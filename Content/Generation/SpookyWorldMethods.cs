@@ -190,26 +190,36 @@ namespace Spooky.Content.Generation
 			return MathHelper.Lerp(smoothX, smoothY, fadeY);
         }
 
-        public static void PlaceVines(int VineX, int VineY, int numVines, ushort vineType, bool finished = false)
+        public static void PlaceVines(int X, int Y, int vineType, int[] ValidTiles)
 		{
-            for (int Y = VineY; Y <= VineY + numVines && !finished; Y++)
+			Tile tileBelow = Framing.GetTileSafely(X, Y + 1);
+			if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && tileBelow.LiquidAmount <= 0)
             {
-                Tile tileBelow = Framing.GetTileSafely(VineX, Y + 1);
-
-                if (!tileBelow.HasTile && WorldGen.InWorld(VineX, Y))
+				bool PlaceVine = false;
+				int Test = Y;
+				while (Test > Y - 10)
                 {
-                    WorldGen.PlaceTile(VineX, Y, vineType);
-                }
-                else
-                {
-                    finished = true;
+					Tile testTile = Framing.GetTileSafely(X, Test);
+					if (testTile.BottomSlope) 
+                    {
+						break;
+					}
+					else if (!testTile.HasTile || !ValidTiles.Contains(testTile.TileType)) 
+                    {
+						Test--;
+						continue;
+					}
+					PlaceVine = true;
+					break;
 				}
-                
-                if (numVines <= 1)
+				
+				if (PlaceVine) 
                 {
-                    finished = true;
-                }
-            }
+					tileBelow.TileType = (ushort)vineType;
+					tileBelow.HasTile = true;
+					WorldGen.SquareTileFrame(X, Y + 1, true);
+				}
+			}
 		}
 
 		//this is basically a heavily modified version of vanillas tile runner code (dreadful)

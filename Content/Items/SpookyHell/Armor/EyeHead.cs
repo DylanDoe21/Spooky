@@ -37,9 +37,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.whipRangeMultiplier = 1.1f;
 			player.GetDamage(DamageClass.Summon) += 0.08f;
-			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.08f;
 		}
 
 		public override void AddRecipes()

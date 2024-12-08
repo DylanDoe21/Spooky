@@ -10,9 +10,9 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Catacomb;
-using Spooky.Content.Tiles.Minibiomes;
 using Spooky.Content.Tiles.Minibiomes.Jungle;
-using Spooky.Content.Tiles.Minibiomes.Tree;
+using Spooky.Content.Tiles.Minibiomes.Jungle.Ambient;
+using Spooky.Content.Tiles.Minibiomes.Jungle.Tree;
 
 namespace Spooky.Content.Generation.Minibiomes
 {
@@ -325,7 +325,9 @@ namespace Spooky.Content.Generation.Minibiomes
 
                     if (Main.tile[i, j].TileType == ModContent.TileType<JungleVines>())
                     {
-                        SpookyWorldMethods.PlaceVines(i, j, WorldGen.genRand.Next(1, 6), (ushort)ModContent.TileType<JungleVines>());
+						int[] ValidTiles = { ModContent.TileType<JungleSoilGrass>(), ModContent.TileType<JungleMoss>() };
+
+                        SpookyWorldMethods.PlaceVines(i, j, ModContent.TileType<JungleVines>(), ValidTiles);
                     }
 				}
 			}

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Catacomb;
-using Spooky.Content.Tiles.Minibiomes;
+using Spooky.Content.Tiles.Minibiomes.Desert;
 
 namespace Spooky.Content.Generation.Minibiomes
 {

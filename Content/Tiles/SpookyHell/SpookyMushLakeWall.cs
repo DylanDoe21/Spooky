@@ -46,7 +46,9 @@ namespace Spooky.Content.Tiles.SpookyHell
                 Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
 
                 if (Main.drawToScreen)
+                {
                     zero = Vector2.Zero;
+                }
 
                 Vector2 pos = new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero;
 

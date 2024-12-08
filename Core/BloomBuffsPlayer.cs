@@ -636,8 +636,6 @@ namespace Spooky.Core
 
 				Projectile.NewProjectile(null, new Vector2(RandomPosX, RandomPosY), ShootSpeed, ModContent.ProjectileType<Tumbleweed>(), hit.Damage + 30, 0, Player.whoAmI);
 			}
-
-			base.OnHitNPC(target, hit, damageDone);
 		}
 	}
 }

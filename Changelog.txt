@@ -17,11 +17,16 @@ Changed Stuff:
 -Necronomicon volume II now shoots a bit more frequently
 -Carved gourd-o-lanterns now count as light source blocks for npc houses
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
-
+-Made the spider grotto biomes size a little bit smaller
 
 Bugs:
 
--Fixed bug where many spooky mod tiles (such as custom trees, giant glowshrooms, spider grotto old hunter piles, blooms, ect) not being in the correct positions in when using snapshot mode
+-Fixed bug where many spooky mod tiles (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
 -Fixed issue where spooky biome ambient grass and vines wouldnt be destroyed when converted by clentaminator solutions
 -Fixed brown solution not converting spooky mod biomes into a forest biome
--Fixed franks hands despawning if the player got too far away from frank
+-Fixed frank the goblin's hands despawning if the player got too far away from him
+-Fixed spooky mod vines growing longer than 10 tiles during world generation
+-Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies, this was a scrapped ability
+-Fixed gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
+-Fixed living flesh mask still giving extra whip range
+-Fixed gore mask giving 3 extra max minions instead of 2

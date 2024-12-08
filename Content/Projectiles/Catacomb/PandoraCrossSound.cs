@@ -15,11 +15,11 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Projectile.width = 96;
             Projectile.height = 96;
-            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
+            Projectile.knockBack = 0;
             Projectile.timeLeft = 600;
         }
 
@@ -43,11 +43,6 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             return false;
         }
-
-        public override bool? CanDamage()
-        {
-			return false;
-		}
 
         public override bool? CanCutTiles()
         {
