@@ -99,7 +99,7 @@ namespace Spooky.Content.Generation
 
                         if (percent > blurPercent && Main.tile[X, Y - 20].WallType != WallID.SpiderUnsafe)
                         {
-                            SpookyWorldMethods.PlaceCircle(X, Y, -1, WallID.SpiderUnsafe, WorldGen.genRand.Next(45, 75), false, false);
+                            SpookyWorldMethods.PlaceCircle(X, Y, -1, WallID.SpiderUnsafe, WorldGen.genRand.Next(45, 65), false, false);
                         }
                     }
                 }
@@ -688,16 +688,6 @@ namespace Spooky.Content.Generation
 
                 placed = true;
             }
-        }
-
-        public static Tile GetTile(int x, int y)
-        {
-            if (!WorldGen.InWorld(x, y))
-            {
-                return new Tile();
-            }
-
-            return Main.tile[x, y];
         }
 
         //method to clean up small clumps of tiles

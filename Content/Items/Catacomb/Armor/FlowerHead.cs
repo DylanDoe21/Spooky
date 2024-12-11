@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Localization;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
@@ -12,10 +11,11 @@ using Spooky.Content.Items.Catacomb.Misc;
 namespace Spooky.Content.Items.Catacomb.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class FlowerHead : ModItem, IExtendedHelmet
+	public class FlowerHead : ModItem, ISpecialHelmetDraw
 	{
-		public string ExtensionTexture => "Spooky/Content/Items/Catacomb/Armor/FlowerHead_RealHead";
-        public Vector2 ExtensionSpriteOffset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
+		public string HeadTexture => "Spooky/Content/Items/Catacomb/Armor/FlowerHead_RealHead";
+
+        public Vector2 Offset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
 
 		public override void SetDefaults() 
 		{

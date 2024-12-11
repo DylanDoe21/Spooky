@@ -41,7 +41,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
         public static void DrawMushroomCap(int i, int j, Texture2D tex, Rectangle? source, Vector2 scaleVec, Vector2? offset = null, Vector2? origin = null)
         {
             float cos = Main.GlobalTimeWrappedHourly * 0.08971428571f * 16;
-            scaleVec = new Vector2(1f, -MathF.Cos(cos));
+            scaleVec = new Vector2(1f, -MathF.Cos(-i / 8f + cos));
 
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
             Color color = Lighting.GetColor(i, j);

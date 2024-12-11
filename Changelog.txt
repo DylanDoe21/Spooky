@@ -4,29 +4,43 @@ Structure helper:
 
 
 
-New Stuff:
+~NEW STUFF~
 
--Added the Fetid Farms and Tar Pits minibiomes to the underground jungle and desert respectively, and the Krampus Workshop structure in the underground tundra
+Brand New Mini-Biomes:
+
+--TODO--
+
+
+Spooky Forest Generation Overhaul:
+
+-Changed the spooky forests shape to be a more smooth looking oval
+-Spooky forest underground now has entirely new cave generation to make exploring the biome easier and to make mining through it less annoying
+-Spooky forest underground loot cabins are now randomly placed in the underground instead of only having a certain amount in set locations
+-Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you dig underneath (or use the detonator + explosive) at the surface
 
 
 
-Changed Stuff:
+
+~CHANGES TO EXISTING CONTENT~
 
 -Buffed rot gourd max hp from 2200 to 2800
 -Lowered drop rate of the putty slime pet
 -Necronomicon volume II now shoots a bit more frequently
 -Carved gourd-o-lanterns now count as light source blocks for npc houses
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
--Made the spider grotto biomes size a little bit smaller
+-Made the spider grotto biomes size a tiny bit smaller
 
-Bugs:
 
--Fixed bug where many spooky mod tiles (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
+
+
+~BUGS AND OTHER FIXES~
+
+-Fixed bug with many spooky mod objects (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
 -Fixed issue where spooky biome ambient grass and vines wouldnt be destroyed when converted by clentaminator solutions
 -Fixed brown solution not converting spooky mod biomes into a forest biome
 -Fixed frank the goblin's hands despawning if the player got too far away from him
 -Fixed spooky mod vines growing longer than 10 tiles during world generation
--Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies, this was a scrapped ability
+-Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies as this was scrapped
 -Fixed gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
 -Fixed living flesh mask still giving extra whip range
 -Fixed gore mask giving 3 extra max minions instead of 2

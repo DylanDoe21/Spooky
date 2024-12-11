@@ -74,6 +74,8 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
+            //set isActive to also account for the underground spooky forest to use the tint in both the aboveground and underground biomes
+            isActive = player.InModBiome<SpookyBiome>() || player.InModBiome<SpookyBiomeUg>();
             player.ManageSpecialBiomeVisuals("Spooky:SpookyForestTint", isActive, player.Center);
         }
 
@@ -108,7 +110,7 @@ namespace Spooky.Content.Biomes
         //conditions to be in the biome
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyTiles >= 500;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyTiles >= 650;
             bool SurfaceCondition = player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;

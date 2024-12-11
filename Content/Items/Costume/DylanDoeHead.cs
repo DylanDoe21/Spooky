@@ -1,18 +1,15 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 
 namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class DylanDoeHead : ModItem, IExtendedHelmet
+	public class DylanDoeHead : ModItem, ISpecialHelmetDraw
 	{
-		public string ExtensionTexture => "Spooky/Content/Items/Costume/DylanDoeHead_Head_Flipped";
-        public Vector2 ExtensionSpriteOffset(PlayerDrawSet drawInfo) => new Vector2(0, 0);
+		public string HeadTexture => "Spooky/Content/Items/Costume/DylanDoeHead_Head_Flipped";
 
 		public override void SetDefaults()
 		{

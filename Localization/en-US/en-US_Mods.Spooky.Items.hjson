@@ -1828,6 +1828,11 @@ TinyMushroomItem: {
 	Tooltip: ""
 }
 
+AutumnLeaf: {
+	DisplayName: Dead Razorleaf
+	Tooltip: Melee weapons have a chance to shoot out razor leaves
+}
+
 BustlingGlowshroom: {
 	DisplayName: Bustling Glowshroom
 	Tooltip: Greatly increases life regeneration while standing still
@@ -1845,6 +1850,11 @@ CandyBag: {
 CreepyCandle: {
 	DisplayName: Creepy Candle
 	Tooltip: Magic projectiles will sometimes ignite enemies
+}
+
+EggCarton: {
+	DisplayName: Carton of Eggs
+	Tooltip: Every 6 shots, ranged weapons will shoot a high-velocity egg
 }
 
 ElGourdo: {

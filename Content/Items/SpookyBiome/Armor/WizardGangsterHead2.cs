@@ -7,17 +7,17 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpookyBiome.Misc;
-using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class WizardGangsterHead2 : ModItem, IExtendedHelmet, IHelmetGlowmask
+	public class WizardGangsterHead2 : ModItem, ISpecialHelmetDraw
 	{
-		public string ExtensionTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead2_Hat";
-        public Vector2 ExtensionSpriteOffset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
+		public string HeadTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead2_Hat";
 
-		public string GlowmaskTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Glow";
+		public string GlowTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Glow";
+
+		public Vector2 Offset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
 
 		public override void SetDefaults() 
 		{

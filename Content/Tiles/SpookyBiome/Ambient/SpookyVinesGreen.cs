@@ -40,9 +40,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-			r = 0.2f;
-			g = 0.1f;
-			b = 0.01f;
+			r = 0.35f;
+			g = 0.25f;
+			b = 0f;
         }
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

@@ -48,10 +48,12 @@ namespace Spooky.Core
         public bool SentientCap = false;
 
         //accessories
+        public bool AutumnLeaf = false;
         public bool BustlingGlowshroom = false;
         public bool CandyBag = false;
 		public bool CandyBagJustHit = false;
         public bool MagicCandle = false;
+        public bool EggCarton = false;
         public bool SkullAmulet = false;
         public bool CrossCharmShield = false;
         public bool PandoraChalice = false;

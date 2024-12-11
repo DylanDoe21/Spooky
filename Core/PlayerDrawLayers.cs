@@ -10,20 +10,20 @@ using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Core
 {
-    //helmet extension stuff
-    public interface IExtendedHelmet
-    {
-        string ExtensionTexture { get; }
+	//helmet extension stuff
+	public interface ISpecialHelmetDraw
+	{
+		string HeadTexture => string.Empty;
 
-        Vector2 ExtensionSpriteOffset(PlayerDrawSet drawInfo);
+		string GlowTexture => string.Empty;
 
-        bool PreDrawExtension(PlayerDrawSet drawInfo) => true;
+		Vector2 Offset(PlayerDrawSet drawInfo) => Vector2.Zero;
 
-        string EquipSlotName(Player drawPlayer) => "";
-    }
+		Vector2 GlowOffset(PlayerDrawSet drawInfo) => Vector2.Zero;
+	}
 
-    //helmet extension for helmets that are bigger than the player sprite sheet size
-    public class HelmetExtensionLayer : PlayerDrawLayer
+    //special drawing for helmets, such as helmets that are too long, too tall, or for glowmasks
+    public class SpecialHelmetDrawLayer : PlayerDrawLayer
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 
@@ -38,9 +38,11 @@ namespace Spooky.Core
             }
 
 			//handle textures for helmets that change with player direction
-            if (ModContent.GetModItem(headItem.type) is IExtendedHelmet ExtendedHelmetDrawer)
+			//just checks if the texture path contains "_Flipped" which may not be the best solution but it works
+            if (ModContent.GetModItem(headItem.type) is ISpecialHelmetDraw HelmetDrawer)
             {
-                if (ExtendedHelmetDrawer.ExtensionTexture.Contains("_Flipped"))
+				//if the helmet texture is a directional texture, then only draw the texture when the player is facing a certain direction
+                if (HelmetDrawer.HeadTexture.Contains("_Flipped"))
                 {
                     return (drawInfo.shadow == 0f || !drawInfo.drawPlayer.dead) && drawPlayer.direction == -1;
                 }
@@ -60,91 +62,72 @@ namespace Spooky.Core
                 headItem = drawPlayer.armor[10];
             }
 
-            if (ModContent.GetModItem(headItem.type) is IExtendedHelmet ExtendedHelmetDrawer)
+            if (ModContent.GetModItem(headItem.type) is ISpecialHelmetDraw HelmetDrawer)
             {
-                string equipSlotName = ExtendedHelmetDrawer.EquipSlotName(drawPlayer) != "" ? ExtendedHelmetDrawer.EquipSlotName(drawPlayer) : headItem.ModItem.Name;
-                int equipSlot = EquipLoader.GetEquipSlot(Mod, equipSlotName, EquipType.Head);
-
-                if (ExtendedHelmetDrawer.PreDrawExtension(drawInfo) && !drawInfo.drawPlayer.dead && equipSlot == drawPlayer.head)
-                {
-                    int dyeShader = drawPlayer.dye?[0].dye ?? 0;
-
-                    Vector2 headDrawPosition = drawInfo.Position - Main.screenPosition;
-
-                    headDrawPosition += new Vector2((drawPlayer.width - drawPlayer.bodyFrame.Width) / 2f, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f);
-
-                    headDrawPosition = new Vector2((int)headDrawPosition.X, (int)headDrawPosition.Y);
-
-                    headDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
-
-                    headDrawPosition += ExtendedHelmetDrawer.ExtensionSpriteOffset(drawInfo);
-
-                    Texture2D extraPieceTexture = ModContent.Request<Texture2D>(ExtendedHelmetDrawer.ExtensionTexture).Value;
-
-                    Rectangle frame = extraPieceTexture.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
-
-                    DrawData pieceDrawData = new DrawData(extraPieceTexture, headDrawPosition, frame, drawInfo.colorArmorHead, drawPlayer.headRotation, drawInfo.headVect, 1f, drawInfo.playerEffect, 0)
-                    {
-                        shader = dyeShader
-                    };
-
-                    drawInfo.DrawDataCache.Add(pieceDrawData);
-                }
-            }
-        }
-    }
-
-    public interface IHelmetGlowmask
-    {
-        string GlowmaskTexture { get; }
-
-        string EquipSlotName(Player drawPlayer) => "";
-
-        Color GlowMaskColor => Color.White;
-    }
-
-    public class HelmetGlowmaskLayer : PlayerDrawLayer
-    {
-        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
-
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.shadow == 0f || !drawInfo.drawPlayer.dead;
-
-        protected override void Draw(ref PlayerDrawSet drawInfo)
-        {
-            Player drawPlayer = drawInfo.drawPlayer;
-            Item headItem = drawPlayer.armor[0];
-
-            if (drawPlayer.armor[10].type > ItemID.None)
-                headItem = drawPlayer.armor[10];
-
-            if (ModContent.GetModItem(headItem.type) is IHelmetGlowmask glowmaskDrawer)
-            {
-                string equipSlotName = glowmaskDrawer.EquipSlotName(drawPlayer) != "" ? glowmaskDrawer.EquipSlotName(drawPlayer) : headItem.ModItem.Name;
+                string equipSlotName = headItem.ModItem.Name;
                 int equipSlot = EquipLoader.GetEquipSlot(Mod, equipSlotName, EquipType.Head);
 
                 if (!drawInfo.drawPlayer.dead && equipSlot == drawPlayer.head)
                 {
                     int dyeShader = drawPlayer.dye?[0].dye ?? 0;
 
-                    Vector2 headDrawPosition = drawInfo.Position - Main.screenPosition;
+					//for whatever reason being flipped with gravity and moving up/down offsets the texture by one pixel, so this is basically a lazy fix for that
+					float GravitySupportOffset = drawPlayer.velocity.Y == 0 ? 42f : 41f;
 
-                    headDrawPosition += new Vector2((drawPlayer.width - drawPlayer.bodyFrame.Width) / 2f, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f);
+					//draw the actual texture
+					if (HelmetDrawer.HeadTexture != string.Empty)
+					{
+						float ActualGravityOffset = HelmetDrawer.Offset(drawInfo).Y == 0 ? GravitySupportOffset : GravitySupportOffset + HelmetDrawer.Offset(drawInfo).Y - 4f;
 
-                    headDrawPosition = new Vector2((int)headDrawPosition.X, (int)headDrawPosition.Y);
+						Vector2 headDrawPosition = Main.ReverseGravitySupport(drawInfo.Position - Main.screenPosition, ActualGravityOffset);
 
-                    headDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
+						headDrawPosition += new Vector2((drawPlayer.width - drawPlayer.bodyFrame.Width) / 2f, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f);
 
-                    Texture2D glowmaskTexture = ModContent.Request<Texture2D>(glowmaskDrawer.GlowmaskTexture).Value;
+						headDrawPosition = new Vector2((int)headDrawPosition.X, (int)headDrawPosition.Y);
 
-                    Rectangle frame = glowmaskTexture.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
+						headDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
 
-                    DrawData pieceDrawData = new DrawData(glowmaskTexture, headDrawPosition, frame, glowmaskDrawer.GlowMaskColor, drawPlayer.headRotation, drawInfo.headVect, 1f, drawInfo.playerEffect, 0)
-                    {
-                        shader = dyeShader
-                    };
+						headDrawPosition += HelmetDrawer.Offset(drawInfo);
 
-                    drawInfo.DrawDataCache.Add(pieceDrawData);
-                }
+						Texture2D Tex = ModContent.Request<Texture2D>(HelmetDrawer.HeadTexture).Value;
+
+						Rectangle frame = Tex.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
+
+						DrawData pieceDrawData = new DrawData(Tex, headDrawPosition, frame, drawInfo.colorArmorHead, drawPlayer.headRotation, drawInfo.headVect, 1f, drawInfo.playerEffect, 0)
+						{
+							shader = dyeShader
+						};
+
+						drawInfo.DrawDataCache.Add(pieceDrawData);
+					}
+
+					//draw the glowmask texture if glowmask drawing is true
+					if (HelmetDrawer.GlowTexture != string.Empty)
+					{
+						float ActualGravityOffset = HelmetDrawer.GlowOffset(drawInfo).Y == 0 ? GravitySupportOffset : GravitySupportOffset + HelmetDrawer.GlowOffset(drawInfo).Y - 4f;
+
+						Vector2 headGlowDrawPosition = Main.ReverseGravitySupport(drawInfo.Position - Main.screenPosition, ActualGravityOffset);
+
+						headGlowDrawPosition += new Vector2((drawPlayer.width - drawPlayer.bodyFrame.Width) / 2f, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f);
+
+						headGlowDrawPosition = new Vector2((int)headGlowDrawPosition.X, (int)headGlowDrawPosition.Y);
+
+						headGlowDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
+
+						headGlowDrawPosition += HelmetDrawer.GlowOffset(drawInfo);
+
+						Texture2D Tex = ModContent.Request<Texture2D>(HelmetDrawer.GlowTexture).Value;
+
+						Rectangle frame = Tex.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
+
+						DrawData pieceDrawDataGlow = new DrawData(Tex, headGlowDrawPosition, frame, Color.White, drawPlayer.headRotation, drawInfo.headVect, 1f, drawInfo.playerEffect, 0)
+						{
+							shader = dyeShader
+						};
+
+						drawInfo.DrawDataCache.Add(pieceDrawDataGlow);
+					}
+				}
             }
         }
     }
@@ -236,7 +219,7 @@ namespace Spooky.Core
     }
 
     //biome compass drawing
-    public class BiomeCompasses : PlayerDrawLayer
+    public class BiomeCompassDraw : PlayerDrawLayer
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
 

@@ -22,6 +22,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };
+			TileObjectData.newTile.Origin = new Point16(0, 0);
 			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.AnchorBottom = default(AnchorData);
 			TileObjectData.newTile.DrawYOffset = -2;
@@ -45,8 +46,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-			r = 0.3f;
-			g = 0.2f;
+			r = 0.35f;
+			g = 0.25f;
 			b = 0f;
         }
 	}

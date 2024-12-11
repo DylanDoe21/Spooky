@@ -5,15 +5,14 @@ using Terraria.Localization;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpookyHell.Misc;
-using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell;
 
 namespace Spooky.Content.Items.SpookyHell.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class EyeHead : ModItem, IHelmetGlowmask
+	public class EyeHead : ModItem, ISpecialHelmetDraw
 	{
-		public string GlowmaskTexture => "Spooky/Content/Items/SpookyHell/Armor/EyeHead_Glow";
+		public string GlowTexture => "Spooky/Content/Items/SpookyHell/Armor/EyeHead_Glow";
 
 		public override void SetDefaults() 
 		{

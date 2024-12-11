@@ -315,9 +315,12 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 35; j < Y + 35; j++)
                 {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Cloud || Main.tile[i, j].TileType == TileID.RainCloud || Main.tile[i, j].TileType == TileID.Sunplate))
+                    if (WorldGen.InWorld(i, j))
                     {
-                        return false;
+                        if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Cloud || Main.tile[i, j].TileType == TileID.RainCloud || Main.tile[i, j].TileType == TileID.Sunplate))
+                        {
+                            return false;
+                        }
                     }
                 }
             }

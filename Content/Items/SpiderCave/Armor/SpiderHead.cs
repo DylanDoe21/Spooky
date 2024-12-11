@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpiderCave.Misc;
@@ -11,9 +10,9 @@ using Spooky.Content.Tiles.SpiderCave;
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class SpiderHead : ModItem, IHelmetGlowmask
+	public class SpiderHead : ModItem, ISpecialHelmetDraw
 	{
-		public string GlowmaskTexture => "Spooky/Content/Items/SpiderCave/Armor/SpiderHead_Glow";
+		public string GlowTexture => "Spooky/Content/Items/SpiderCave/Armor/SpiderHead_Glow";
 
 		public override void SetDefaults() 
 		{

@@ -139,82 +139,31 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-        internal static readonly List<Vector2> Directions = new List<Vector2>()
-        {
-            new Vector2(-1f, -1f),
-            new Vector2(1f, -1f),
-            new Vector2(-1f, 1f),
-            new Vector2(1f, 1f),
-            new Vector2(0f, -1f),
-            new Vector2(-1f, 0f),
-            new Vector2(0f, 1f),
-            new Vector2(1f, 0f),
-        };
-
-        public static float PerlinNoise2D(float x, float y, int octaves, int seed)
-        {
-            float SmoothFunction(float n) => 3f * n * n - 2f * n * n * n;
-            float NoiseGradient(int s, int noiseX, int noiseY, float xd, float yd)
-            {
-                int hash = s;
-                hash ^= 1619 * noiseX;
-                hash ^= 31337 * noiseY;
-
-                hash = hash * hash * hash * 60493;
-                hash = (hash >> 13) ^ hash;
-
-                Vector2 g = Directions[hash & 7];
-
-                return xd * g.X + yd * g.Y;
-            }
-
-            int frequency = (int)Math.Pow(2D, octaves);
-            x *= frequency;
-            y *= frequency;
-
-            int flooredX = (int)x;
-            int flooredY = (int)y;
-            int ceilingX = flooredX + 1;
-            int ceilingY = flooredY + 1;
-            float interpolatedX = x - flooredX;
-            float interpolatedY = y - flooredY;
-            float interpolatedX2 = interpolatedX - 1;
-            float interpolatedY2 = interpolatedY - 1;
-
-            float fadeX = SmoothFunction(interpolatedX);
-            float fadeY = SmoothFunction(interpolatedY);
-
-            float smoothX = MathHelper.Lerp(NoiseGradient(seed, flooredX, flooredY, interpolatedX, interpolatedY), NoiseGradient(seed, ceilingX, flooredY, interpolatedX2, interpolatedY), fadeX);
-            float smoothY = MathHelper.Lerp(NoiseGradient(seed, flooredX, ceilingY, interpolatedX, interpolatedY2), NoiseGradient(seed, ceilingX, ceilingY, interpolatedX2, interpolatedY2), fadeX);
-            
-			return MathHelper.Lerp(smoothX, smoothY, fadeY);
-        }
-
-        public static void PlaceVines(int X, int Y, int vineType, int[] ValidTiles)
+		public static void PlaceVines(int X, int Y, int vineType, int[] ValidTiles)
 		{
 			Tile tileBelow = Framing.GetTileSafely(X, Y + 1);
 			if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && tileBelow.LiquidAmount <= 0)
-            {
+			{
 				bool PlaceVine = false;
 				int Test = Y;
 				while (Test > Y - 10)
-                {
+				{
 					Tile testTile = Framing.GetTileSafely(X, Test);
-					if (testTile.BottomSlope) 
-                    {
+					if (testTile.BottomSlope)
+					{
 						break;
 					}
-					else if (!testTile.HasTile || !ValidTiles.Contains(testTile.TileType)) 
-                    {
+					else if (!testTile.HasTile || !ValidTiles.Contains(testTile.TileType))
+					{
 						Test--;
 						continue;
 					}
 					PlaceVine = true;
 					break;
 				}
-				
-				if (PlaceVine) 
-                {
+
+				if (PlaceVine)
+				{
 					tileBelow.TileType = (ushort)vineType;
 					tileBelow.HasTile = true;
 					WorldGen.SquareTileFrame(X, Y + 1, true);
@@ -222,9 +171,59 @@ namespace Spooky.Content.Generation
 			}
 		}
 
+		internal static readonly List<Vector2> Directions = new List<Vector2>()
+		{
+			new Vector2(-1f, -1f),
+			new Vector2(1f, -1f),
+			new Vector2(-1f, 1f),
+			new Vector2(1f, 1f),
+			new Vector2(0f, -1f),
+			new Vector2(-1f, 0f),
+			new Vector2(0f, 1f),
+			new Vector2(1f, 0f),
+		};
+
+		public static float PerlinNoise2D(float x, float y, int octaves, int seed)
+		{
+			float SmoothFunction(float n) => 3f * n * n - 2f * n * n * n;
+			float NoiseGradient(int s, int noiseX, int noiseY, float xd, float yd)
+			{
+				int hash = s;
+				hash ^= 1619 * noiseX;
+				hash ^= 31337 * noiseY;
+
+				hash = hash * hash * hash * 60493;
+				hash = (hash >> 13) ^ hash;
+
+				Vector2 g = Directions[hash & 7];
+
+				return xd * g.X + yd * g.Y;
+			}
+
+			int frequency = (int)Math.Pow(2D, octaves);
+			x *= frequency;
+			y *= frequency;
+
+			int flooredX = (int)x;
+			int flooredY = (int)y;
+			int ceilingX = flooredX + 1;
+			int ceilingY = flooredY + 1;
+			float interpolatedX = x - flooredX;
+			float interpolatedY = y - flooredY;
+			float interpolatedX2 = interpolatedX - 1;
+			float interpolatedY2 = interpolatedY - 1;
+
+			float fadeX = SmoothFunction(interpolatedX);
+			float fadeY = SmoothFunction(interpolatedY);
+
+			float smoothX = MathHelper.Lerp(NoiseGradient(seed, flooredX, flooredY, interpolatedX, interpolatedY), NoiseGradient(seed, ceilingX, flooredY, interpolatedX2, interpolatedY), fadeX);
+			float smoothY = MathHelper.Lerp(NoiseGradient(seed, flooredX, ceilingY, interpolatedX, interpolatedY2), NoiseGradient(seed, ceilingX, ceilingY, interpolatedX2, interpolatedY2), fadeX);
+
+			return MathHelper.Lerp(smoothX, smoothY, fadeY);
+		}
+
 		//this is basically a heavily modified version of vanillas tile runner code (dreadful)
-		//TODO: should be entirely redone at some point because this is really bad and old, probably once I get a better idea of what the spooky forest generation should look like
-		public static void ModifiedTileRunner(int i, int j, double strength, int steps, int tileType, int wallType, bool addTile = false, 
+		public static void ModifiedTileRunner(int i, int j, double strength, int steps, int tileType, int wallType, bool addTile = false,
 		float speedX = 0f, float speedY = 0f, bool noYChange = false, bool placeWalls = false, bool replaceWalls = true, bool noTiles = false)
 		{
 			double num = strength;
@@ -454,124 +453,4 @@ namespace Spooky.Content.Generation
 			}
 		}
 	}
-
-	public class TileRunner
-    {
-        public Vector2 pos;
-        public Vector2 speed;
-        public Point16 hRange;
-        public Point16 vRange;
-        public double strength;
-        public double str;
-        public int steps;
-        public int stepsLeft;
-        public ushort type;
-        public bool addTile;
-        public bool overRide;
-
-        public TileRunner(Vector2 pos, Vector2 speed, Point16 hRange, Point16 vRange, double strength, int steps, ushort type, bool addTile, bool overRide)
-        {
-            this.pos = pos;
-            if (speed.X == 0 && speed.Y == 0)
-            {
-                this.speed = new Vector2(WorldGen.genRand.Next(hRange.X, hRange.Y + 1) * 0.1f, WorldGen.genRand.Next(vRange.X, vRange.Y + 1) * 0.1f);
-            }
-            else
-            {
-                this.speed = speed;
-            }
-            this.hRange = hRange;
-            this.vRange = vRange;
-            this.strength = strength;
-            str = strength;
-            this.steps = steps;
-            stepsLeft = steps;
-            this.type = type;
-            this.addTile = addTile;
-            this.overRide = overRide;
-        }
-
-        public void Start()
-        {
-            while (str > 0 && stepsLeft > 0)
-            {
-                str = strength * (double)stepsLeft / steps;
-
-                int a = (int)Math.Max(pos.X - str * 0.5, 1);
-                int b = (int)Math.Min(pos.X + str * 0.5, Main.maxTilesX - 1);
-                int c = (int)Math.Max(pos.Y - str * 0.5, 1);
-                int d = (int)Math.Min(pos.Y + str * 0.5, Main.maxTilesY - 1);
-
-                for (int i = a; i < b; i++)
-                {
-                    for (int j = c; j < d; j++)
-                    {
-                        if (Math.Abs(i - pos.X) + Math.Abs(j - pos.Y) >= strength * StrengthRange())
-                        {
-                            continue;
-                        }
-                        
-                        ChangeTile(Main.tile[i, j]);
-                    }
-                }
-
-                str += 50;
-                while (str > 50)
-                {
-                    pos += speed;
-                    stepsLeft--;
-                    str -= 50;
-                    speed.X += WorldGen.genRand.Next(hRange.X, hRange.Y + 1) * 0.05f;
-                    speed.Y += WorldGen.genRand.Next(vRange.X, vRange.Y + 1) * 0.05f;
-                }
-
-                speed = Vector2.Clamp(speed, new Vector2(-1, -1), new Vector2(1, 1));
-            }
-        }
-
-        public virtual void ChangeTile(Tile tile)
-        {
-            if (!addTile)
-            {
-                tile.HasTile = false;
-            }
-            else
-            {
-                tile.TileType = type;
-            }
-        }
-
-        public virtual double StrengthRange()
-        {
-            return 0.5 + WorldGen.genRand.Next(-10, 11) * 0.0075;
-        }
-    }
-
-	class WaterTileRunner : TileRunner
-    {
-        public WaterTileRunner(Vector2 pos, Vector2 speed, Point16 hRange, Point16 vRange, double strength, int steps, ushort type, bool addTile, bool overRide) : base(pos, speed, hRange, vRange, strength, steps, type, addTile, overRide)
-        {
-        }
-        public override void ChangeTile(Tile tile)
-        {
-            tile.HasTile = false;
-            tile.LiquidType = LiquidID.Water;
-			tile.LiquidAmount = 255;
-        }
-    }
-
-	class LavaTileRunner : TileRunner
-    {
-        public LavaTileRunner(Vector2 pos, Vector2 speed, Point16 hRange, Point16 vRange, double strength, int steps, ushort type, bool addTile, bool overRide) : base(pos, speed, hRange, vRange, strength, steps, type, addTile, overRide)
-        {
-        }
-        public override void ChangeTile(Tile tile)
-        {
-			if (!tile.HasTile)
-			{
-				tile.LiquidType = LiquidID.Lava;
-				tile.LiquidAmount = 255;
-			}
-        }
-    }
 }

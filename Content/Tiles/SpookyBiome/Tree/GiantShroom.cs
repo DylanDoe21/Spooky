@@ -205,7 +205,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             if (shake)
             {
                 float sin = Main.GlobalTimeWrappedHourly * 0.08971428571f * 15;
-                scaleVec = new Vector2(1f, -MathF.Sin(sin));
+                scaleVec = new Vector2(1f, -MathF.Sin(-i / 8f + sin));
             }
 
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));

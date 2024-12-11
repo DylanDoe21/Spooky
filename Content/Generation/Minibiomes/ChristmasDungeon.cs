@@ -47,20 +47,6 @@ namespace Spooky.Content.Generation.Minibiomes
 			int MaxRoomSize = 20;
 			int MinRoomSize = 10;
 
-			/*
-			//create a box around the area of the biome for debugging
-			for (int i = PositionX - 15 - (DungeonWidth / 2); i <= PositionX + 15 + (DungeonWidth / 2); i++)
-			{
-				for (int j = PositionY - 15 - (DungeonHeight / 2); j <= PositionY + 15 + (DungeonHeight / 2); j++)
-				{
-					WorldGen.KillTile(i, j);
-					WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
-					WorldGen.KillWall(i, j);
-					WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickWall>());
-				}
-			}
-			*/
-
 			bool JungleOnLeftSide = GenVars.JungleX < (Main.maxTilesX / 2);
 
 			int Start = (Main.maxTilesX / 2);
@@ -69,9 +55,9 @@ namespace Spooky.Content.Generation.Minibiomes
 			int Increment = JungleOnLeftSide ? 20 : -20;
 
 			//find a valid position in the jungle away from other structures
-			for (int X = Start; JungleOnLeftSide ? X <= End : X >= End; X += Increment)
+			for (int Y = Main.maxTilesY - 300; Y >= Main.worldSurface + 90; Y -= 5)
 			{
-				for (int Y = Main.maxTilesY - 300; Y >= Main.worldSurface + 75; Y -= 10)
+				for (int X = Start; JungleOnLeftSide ? X <= End : X >= End; X += Increment)
 				{
 					if (CanPlaceBiome(X, Y, DungeonWidth, DungeonHeight))
 					{
@@ -89,7 +75,7 @@ namespace Spooky.Content.Generation.Minibiomes
 							}
 						}
 
-						//50% chance to change the dungeon to use its alternate colors
+						//50% chance to change the dungeon to its alternate colors
 						if (WorldGen.genRand.NextBool())
 						{
 							for (int i = X - (DungeonWidth / 2) - 50; i <= X + (DungeonWidth / 2) + 50; i++)
@@ -414,12 +400,6 @@ namespace Spooky.Content.Generation.Minibiomes
 							Generator.GenerateStructure("Content/Structures/ChristmasDungeon/ChristmasTrapdoorEntrance", EntranceOrigin.ToPoint16(), Mod);
 						}
 					}
-
-					//slope tiles
-					if (BlockTypes.Contains(Main.tile[i, j].TileType))
-					{
-						Tile.SmoothSlope(i, j);
-					}
 				}
 			}
 
@@ -446,6 +426,12 @@ namespace Spooky.Content.Generation.Minibiomes
 								}
 							}
 						}
+					}
+
+					//slope tiles
+					if (BlockTypes.Contains(Main.tile[i, j].TileType))
+					{
+						Tile.SmoothSlope(i, j);
 					}
 
 					bool NoSolidTile = Main.tile[i, j].Slope != 0;
@@ -900,7 +886,7 @@ namespace Spooky.Content.Generation.Minibiomes
 			Vector2 room1Center = new Vector2(room1.X - (room1.Width / 2), room1.Y - (room1.Height / 2));
 			Vector2 room2Center = new Vector2(room2.X - (room2.Width / 2), room2.Y - (room2.Height / 2));
 
-			if (WorldGen.genRand.NextBool(3))
+			if (WorldGen.genRand.NextBool(2))
 			{
 				HorizontalPathway((int)room1Center.X, (int)room2Center.X, (int)room1Center.Y);
 				VerticalPathway((int)room1Center.Y, (int)room2Center.Y, (int)room2Center.X);
