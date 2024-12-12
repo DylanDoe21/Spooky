@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Tiles.SpookyBiome
+namespace Spooky.Content.Tiles.Minibiomes.Christmas
 {
-    public class SpookyStoneWallItem : ModItem
+    public class ChristmasWoodWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -13,7 +13,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableWall(ModContent.WallType<SpookyStoneWallSafe>());
+            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasWoodWallSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
         public override void AddRecipes()
         {
             CreateRecipe(4)
-            .AddIngredient(ModContent.ItemType<SpookyStoneItem>(), 1)
+            .AddIngredient(ModContent.ItemType<ChristmasWoodItem>(), 1)
             .AddTile(TileID.WorkBenches)
             .Register();
         }

@@ -10,7 +10,7 @@ using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Core
 {
-	//helmet extension stuff
+	//special helmet drawing stuff
 	public interface ISpecialHelmetDraw
 	{
 		string HeadTexture => string.Empty;
@@ -71,7 +71,7 @@ namespace Spooky.Core
                 {
                     int dyeShader = drawPlayer.dye?[0].dye ?? 0;
 
-					//for whatever reason being flipped with gravity and moving up/down offsets the texture by one pixel, so this is basically a lazy fix for that
+					//for whatever reason being flipped with gravity and moving up/down offsets the texture by one pixel, so this is a lazy fix for that
 					float GravitySupportOffset = drawPlayer.velocity.Y == 0 ? 42f : 41f;
 
 					//draw the actual texture

@@ -133,7 +133,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					tile = new Tile();
 				}
 
-				if (BlockTypes.Contains(tile.TileType) || WallTypes.Contains(tile.WallType) || points.Count > 500 || points.Contains(point))
+				if (BlockTypes.Contains(tile.TileType) || WallTypes.Contains(tile.WallType) || points.Count > 1000 || points.Contains(point))
 				{
 					return;
 				}
@@ -158,7 +158,7 @@ namespace Spooky.Content.Generation.Minibiomes
 
 					getAttachedPoints(i, j, chunkPoints);
 
-					int cutoffLimit = 500;
+					int cutoffLimit = 1000;
 					if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
 					{
 						foreach (Point p in chunkPoints)

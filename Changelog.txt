@@ -14,9 +14,9 @@ Brand New Mini-Biomes:
 Spooky Forest Generation Overhaul:
 
 -Changed the spooky forests shape to be a more smooth looking oval
--Spooky forest underground now has entirely new cave generation to make exploring the biome easier and to make mining through it less annoying
--Spooky forest underground loot cabins are now randomly placed in the underground instead of only having a certain amount in set locations
--Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you dig underneath (or use the detonator + explosive) at the surface
+-Spooky forest underground now has entirely new cave generation to make exploring the biome more interesting and to make mining through it less annoying
+-Spooky forest underground loot cabins are now randomly placed instead of only having a certain amount in set locations, which means more loot overall even on smaller worlds
+-Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you use the detonator + explosive at the surface or just dig under the explosive
 
 
 
@@ -40,7 +40,7 @@ Spooky Forest Generation Overhaul:
 -Fixed brown solution not converting spooky mod biomes into a forest biome
 -Fixed frank the goblin's hands despawning if the player got too far away from him
 -Fixed spooky mod vines growing longer than 10 tiles during world generation
--Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies as this was scrapped
+-Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies as this was a scrapped idea
 -Fixed gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
 -Fixed living flesh mask still giving extra whip range
--Fixed gore mask giving 3 extra max minions instead of 2
+-Fixed gore mask giving 3 extra minion slots instead of 2

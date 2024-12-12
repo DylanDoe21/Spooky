@@ -26,7 +26,7 @@ namespace Spooky.Content.Generation
 {
     public class SpookyForest : ModSystem
     {
-        //default positions, edit based on worldsize below
+        //default positions, edit based on the config below
         static int PositionX = Main.maxTilesX / 2;
 		static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
 
@@ -80,7 +80,7 @@ namespace Spooky.Content.Generation
 			int SizeX = Main.maxTilesX / 5;
 			int SizeY = Main.maxTilesY / 3;
 
-			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY);
+			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, false);
 
 			//place mushroom minibiomes in the underground
 			int SizeXInt = 80;
@@ -266,7 +266,7 @@ namespace Spooky.Content.Generation
 				{
 					PlaceMineshaft(x, y);
 
-					Vector2 MineshaftOrigin = new Vector2(x - 26, y - 20);
+					Vector2 MineshaftOrigin = new Vector2(x - 26, y - 24);
 					Generator.GenerateStructure("Content/Structures/SpookyBiome/MineshaftEntrance", MineshaftOrigin.ToPoint16(), Mod);
 
 					PlacedMineshaft = true;
@@ -274,6 +274,8 @@ namespace Spooky.Content.Generation
 			}
 
 			CleanOutSmallClumps();
+
+			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, true);
 
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
@@ -682,17 +684,17 @@ namespace Spooky.Content.Generation
                     placed = true;
 				}
             }
-        }
+		}
 
 		public void GenerateCabins(GenerationProgress progress, GameConfiguration configuration)
         {
-			for (int X = PositionX - Main.maxTilesX / 45; X <= PositionX + Main.maxTilesX / 45; X++)
+			for (int X = PositionX - Main.maxTilesX / 55; X <= PositionX + Main.maxTilesX / 55; X++)
 			{
-				for (int Y = (int)Main.worldSurface + 35; Y <= Main.maxTilesY / 2 + 50; Y++)
+				for (int Y = (int)Main.worldSurface + 15; Y <= Main.maxTilesY / 2 + 50; Y++)
 				{
-					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() && WorldGen.genRand.NextBool(45))
 					{
-						if (CanPlaceLootCabin(X, Y) && WorldGen.genRand.NextBool(45))
+						if (CanPlaceLootCabin(X, Y))
 						{
 							Vector2 CabinOrigin = new Vector2(X - 12, Y - 6);
 							Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin" + WorldGen.genRand.Next(1, 7), CabinOrigin.ToPoint16(), Mod);
@@ -748,11 +750,24 @@ namespace Spooky.Content.Generation
 
 		public bool CanPlaceLootCabin(int PositionX, int PositionY)
 		{
-			for (int i = PositionX - 80; i < PositionX + 80; i++)
+			//dont allow loot cabins to place too close to each other
+			for (int i = PositionX - 75; i < PositionX + 75; i++)
 			{
-				for (int j = PositionY - 80; j < PositionY + 80; j++)
+				for (int j = PositionY - 50; j < PositionY + 50; j++)
 				{
 					if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWood>() || Main.tile[i, j].TileType == ModContent.TileType<OldWoodChest>() || Main.tileDungeon[Main.tile[i, j].TileType])
+					{
+						return false;
+					}
+				}
+			}
+
+			//dont allow the cabin to place if theres any vanilla underground blocks nearby to prevent loot cabins placing on the edge of the biome
+			for (int i = PositionX - 12; i < PositionX + 12; i++)
+			{
+				for (int j = PositionY - 12; j < PositionY + 12; j++)
+				{
+					if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.Dirt || Main.tile[i, j].TileType == TileID.Stone || Main.tile[i, j].TileType == TileID.Mud))
 					{
 						return false;
 					}
@@ -833,7 +848,7 @@ namespace Spooky.Content.Generation
 				}
 
 				//stop placing the tunnels once it reaches the underground layer
-				if (CurrentY > Main.worldSurface + 20)
+				if (CurrentY > Main.worldSurface + 5)
 				{
 					break;
 				}
@@ -869,8 +884,6 @@ namespace Spooky.Content.Generation
 
 		public void PlaceMineshaftBeam(int PositionX, int PositionY)
 		{
-			int AdjacentWoodCount = 0;
-			
 			bool CanPlaceBeam = false;
 
 			if (Main.tile[PositionX, PositionY].TileType == ModContent.TileType<SpookyWood>() && Main.tile[PositionX, PositionY + 1].WallType == ModContent.WallType<SpookyWoodWall>() && !Main.tile[PositionX, PositionY + 1].HasTile)
@@ -935,7 +948,7 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public static void PlaceSpookyForestEllipse(int X, int Y, int radius, int radiusY)
+		public static void PlaceSpookyForestEllipse(int X, int Y, int radius, int radiusY, bool Dithering)
 		{
 			float scale = radiusY / (float)radius;
 			float invertScale = (float)radius / radiusY;
@@ -951,20 +964,20 @@ namespace Spooky.Content.Generation
 						int PositionY = Y + (int)(y * scale);
 						Tile tile = Framing.GetTileSafely(PositionX, PositionY);
 
-						int heightLimit = (int)Main.worldSurface - (Main.maxTilesY / 10) - 20;
+						double heightLimit = Main.worldSurface * 0.35f;
 
-						if (PositionY > heightLimit)
+						if (PositionY > (int)heightLimit + 100)
 						{
 							if (PositionY <= Main.worldSurface)
 							{
-								if (Math.Sqrt(x * x + y * y) >= radius - radialMod)
+								if (Math.Sqrt(x * x + y * y) >= radius - radialMod && Dithering)
 								{
 									if (WorldGen.genRand.NextBool() && tile.HasTile)
 									{
 										tile.TileType = (ushort)ModContent.TileType<SpookyDirt>();
 									}
 								}
-								else
+								if (Math.Sqrt(x * x + y * y) < radius - radialMod && !Dithering)
 								{
 									if (tile.HasTile || tile.WallType > 0)
 									{
@@ -978,14 +991,14 @@ namespace Spooky.Content.Generation
 							}
 							else
 							{
-								if (Math.Sqrt(x * x + y * y) >= radius - radialMod)
+								if (Math.Sqrt(x * x + y * y) >= radius - radialMod && Dithering)
 								{
 									if (WorldGen.genRand.NextBool() && tile.HasTile)
 									{
 										tile.TileType = (ushort)ModContent.TileType<SpookyStone>();
 									}
 								}
-								else
+								if (Math.Sqrt(x * x + y * y) < radius - radialMod && !Dithering)
 								{
 									//add a bit of noise inbetween the underground and surface
 									for (int newY = PositionY - 8; newY <= PositionY; newY++)
@@ -1019,7 +1032,7 @@ namespace Spooky.Content.Generation
 				(ushort)ModContent.TileType<SpookyDirt>(),
 				(ushort)ModContent.TileType<SpookyDirt2>(),
 				(ushort)ModContent.TileType<SpookyWood>(),
-				(ushort)ModContent.TileType<MushroomMoss>(),
+				(ushort)ModContent.TileType<MushroomMoss>()
 			};
 
 			int MaxPoints = 250;

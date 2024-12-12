@@ -18,6 +18,9 @@ using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.Projectiles.SpiderCave;
 using Spooky.Content.Projectiles.SpookyHell;
+using Spooky.Content.Tiles.Cemetery;
+using Spooky.Content.Tiles.SpiderCave;
+using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Core
 {
@@ -97,6 +100,22 @@ namespace Spooky.Core
 				shop.Add<SpookySolution>();
 				shop.Add<CemeterySolution>();
 				shop.Add<SpookyHellSolution>();
+			}
+
+			if (shop.NpcType == NPCID.Dryad)
+			{
+				shop.Add(new Item(ModContent.ItemType<SpookyGrassWallItem>())
+				{
+					shopCustomPrice = Item.buyPrice(copper: 10),
+				});
+				shop.Add(new Item(ModContent.ItemType<CemeteryGrassWallItem>())
+				{
+					shopCustomPrice = Item.buyPrice(copper: 10),
+				});
+				shop.Add(new Item(ModContent.ItemType<DampGrassWallItem>())
+				{
+					shopCustomPrice = Item.buyPrice(copper: 10),
+				});
 			}
 		}
 

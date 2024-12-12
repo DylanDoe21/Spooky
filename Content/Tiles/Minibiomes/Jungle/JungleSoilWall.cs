@@ -14,4 +14,16 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
             DustType = DustID.Dirt;
         }
     }
+
+    public class JungleSoilWallSafe : ModWall 
+    {
+        public override string Texture => "Spooky/Content/Tiles/Minibiomes/Jungle/JungleSoilWall";
+
+        public override void SetStaticDefaults()
+        {
+            Main.wallHouse[Type] = true;
+            AddMapEntry(new Color(31, 33, 37));
+            DustType = DustID.Dirt;
+        }
+    }
 }

@@ -11,7 +11,7 @@ namespace Spooky.Content.Tiles.Catacomb
 {
     public class CatacombGrassWall1 : ModWall 
     {
-        public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombGrassWall";
+        public override string Texture => "Spooky/Content/Tiles/Cemetery/CemeteryGrassWall";
 
         private static Asset<Texture2D> MergeTexture;
         private static Asset<Texture2D> LeafTexture;
@@ -93,7 +93,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
     public class CatacombGrassWall2 : CatacombGrassWall1
     {
-        public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombGrassWall";
+        public override string Texture => "Spooky/Content/Tiles/Cemetery/CemeteryGrassWall";
 
         private static Asset<Texture2D> MergeTexture;
         private static Asset<Texture2D> LeafTexture;

@@ -1847,6 +1847,24 @@ CandyBag: {
 		'''
 }
 
+CranberryJelly: {
+	DisplayName: Cranberry Jelly
+	Tooltip:
+		'''
+		Restores 50 life
+		Will be consumed automatically if you fall below half health
+		'''
+}
+
+CranberryJuice: {
+	DisplayName: Cranberry Juice
+	Tooltip:
+		'''
+		Restores 100 life
+		Will be consumed automatically if you fall below half health
+		'''
+}
+
 CreepyCandle: {
 	DisplayName: Creepy Candle
 	Tooltip: Magic projectiles will sometimes ignite enemies
@@ -2862,8 +2880,103 @@ CemeteryGrassSeeds: {
 	Tooltip: Plants grass on Swamp Soil
 }
 
+CemeteryGrassWallItem: {
+	DisplayName: Cemetery Grass Wall
+	Tooltip: ""
+}
+
 CemeteryStoneItem: {
 	DisplayName: Swamp Rock
+	Tooltip: ""
+}
+
+ChristmasLightRopeItem: {
+	DisplayName: Festive Lights Rope
+	Tooltip: Can be climbed on
+}
+
+ChristmasBrickItem: {
+	DisplayName: Red Yuletide Brick
+	Tooltip: ""
+}
+
+ChristmasBrickAltItem: {
+	DisplayName: Blue Yuletide Brick
+	Tooltip: ""
+}
+
+ChristmasBrickSlabItem: {
+	DisplayName: Blue Yuletide Slab
+	Tooltip: ""
+}
+
+ChristmasBrickSlabAltItem: {
+	DisplayName: Red Yuletide Slab
+	Tooltip: ""
+}
+
+ChristmasBrickWallItem: {
+	DisplayName: Red Yuletide Brick Wall
+	Tooltip: ""
+}
+
+ChristmasBrickWallAltItem: {
+	DisplayName: Blue Yuletide Brick Wall
+	Tooltip: ""
+}
+
+ChristmasCarpetItem: {
+	DisplayName: Fancy Carpet
+	Tooltip: ""
+}
+
+ChristmasWindowItem: {
+	DisplayName: Festive Window
+	Tooltip: ""
+}
+
+ChristmasWoodItem: {
+	DisplayName: Yuletide Wood
+	Tooltip: ""
+}
+
+ChristmasWoodPlanksItem: {
+	DisplayName: Yuletide Planks
+	Tooltip: ""
+}
+
+ChristmasWoodWallItem: {
+	DisplayName: Yuletide Wood Wall
+	Tooltip: ""
+}
+
+DesertSandItem: {
+	DisplayName: Grainy Sand
+	Tooltip: ""
+}
+
+DesertSandstoneItem: {
+	DisplayName: Orange Sandstone
+	Tooltip: ""
+}
+
+JungleMossItem: {
+	DisplayName: Blooming Moss
+	Tooltip: ""
+}
+
+JungleMossWallItem: {
+	DisplayName: Blooming Moss Wall
+	Tooltip: ""
+}
+
+JungleSoilItem: {
+	DisplayName: Fertile Mud
+	Tooltip: ""
+}
+
+JungleSoilWallItem: {
+	DisplayName: Fertile Mud Wall
 	Tooltip: ""
 }
 
@@ -3307,6 +3420,11 @@ DampGrassSeeds: {
 	Tooltip: Plants grass on Damp Soil
 }
 
+DampGrassWallItem: {
+	DisplayName: Damp Grass Wall
+	Tooltip: ""
+}
+
 DampSoilItem: {
 	DisplayName: Damp Soil
 	Tooltip: ""
@@ -3655,6 +3773,11 @@ SpookyDirtItem: {
 	Tooltip: ""
 }
 
+SpookyGrassWallItem: {
+	DisplayName: Orange Grass Wall
+	Tooltip: ""
+}
+
 SpookySeedsGreen: {
 	DisplayName: Green Spooky Seeds
 	Tooltip: Plants green grass on Spooky Dirt
@@ -3964,65 +4087,5 @@ SpookyBiomeTorchItem: {
 
 SpookyHellTorchItem: {
 	DisplayName: Eye Valley Torch
-	Tooltip: ""
-}
-
-JungleSoilItem: {
-	DisplayName: Fertile Mud
-	Tooltip: ""
-}
-
-JungleMossItem: {
-	DisplayName: Blooming Moss
-	Tooltip: ""
-}
-
-DesertSandItem: {
-	DisplayName: Grainy Sand
-	Tooltip: ""
-}
-
-DesertSandstoneItem: {
-	DisplayName: Orange Sandstone
-	Tooltip: ""
-}
-
-ChristmasLightRopeItem: {
-	DisplayName: Festive Lights Rope
-	Tooltip: Can be climbed on
-}
-
-ChristmasBrickItem: {
-	DisplayName: Red Yuletide Brick
-	Tooltip: ""
-}
-
-ChristmasBrickAltItem: {
-	DisplayName: Blue Yuletide Brick
-	Tooltip: ""
-}
-
-ChristmasBrickSlabItem: {
-	DisplayName: Blue Yuletide Slab
-	Tooltip: ""
-}
-
-ChristmasBrickSlabAltItem: {
-	DisplayName: Red Yuletide Slab
-	Tooltip: ""
-}
-
-ChristmasCarpetItem: {
-	DisplayName: Fancy Carpet
-	Tooltip: ""
-}
-
-ChristmasWoodItem: {
-	DisplayName: Yuletide Wood
-	Tooltip: ""
-}
-
-ChristmasWoodPlanksItem: {
-	DisplayName: Yuletide Planks
 	Tooltip: ""
 }

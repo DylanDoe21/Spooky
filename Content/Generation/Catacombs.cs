@@ -808,8 +808,7 @@ namespace Spooky.Content.Generation
                     //place grass walls
                     if (!tile.HasTile && Y <= DaffodilArenaY - 40 && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
                     {
-                        SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(8, 15), 1, ModContent.TileType<CatacombBrick1>(),
-                        ModContent.WallType<CatacombGrassWall1>(), false, 0f, 0f, true, false, true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<CatacombGrassWall1>(), WorldGen.genRand.Next(4, 9), false, true);
                     }
 
                     //catacomb vines and weeds
@@ -851,8 +850,7 @@ namespace Spooky.Content.Generation
                     //place grass walls
                     if (!tile.HasTile && Y < BigBoneArenaY - 50 && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
                     {
-                        SpookyWorldMethods.ModifiedTileRunner(X, Y, WorldGen.genRand.Next(10, 25), 1, ModContent.TileType<CatacombBrick2>(), 
-                        ModContent.WallType<CatacombGrassWall2>(), false, 0f, 0f, true, false, true, true);
+                        SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<CatacombGrassWall2>(), WorldGen.genRand.Next(7, 13), false, true);
                     }
  
                     //catacomb vines and weeds

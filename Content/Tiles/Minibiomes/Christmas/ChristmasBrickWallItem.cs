@@ -4,47 +4,47 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Tiles.Minibiomes.Christmas
 {
-    public class ChristmasBrickSlabItem : ModItem
+    public class ChristmasBrickWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 100;
+            Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<ChristmasBrickSlab>());
+            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasBrickWallSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<ChristmasBrickItem>(), 2)
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<ChristmasBrickItem>(), 1)
             .AddTile(TileID.WorkBenches)
             .Register();
         }
     }
 
-    public class ChristmasBrickSlabAltItem : ModItem
+    public class ChristmasBrickWallAltItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 100;
+            Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<ChristmasBrickSlabAlt>());
+            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasBrickWallAltSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<ChristmasBrickAltItem>(), 2)
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<ChristmasBrickAltItem>(), 1)
             .AddTile(TileID.WorkBenches)
             .Register();
         }

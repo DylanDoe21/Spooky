@@ -119,14 +119,11 @@ namespace Spooky.Content.Generation
             }
 
             //place ceiling of blocks across the top of the biome
-            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X += 10)
             {
-                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 198; Y++)
+                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 198; Y += 3)
                 {
-                    if (WorldGen.genRand.NextBool(15))
-                    {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
-                    }
+                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
                 }
             }
 
@@ -275,21 +272,21 @@ namespace Spooky.Content.Generation
             //place blocks at the edge of the biome where the nose miniboss arena will generate
             if (StartPosition < (Main.maxTilesX / 2))
             {
-                for (int X = 20; X <= 180; X += 5)
+                for (int X = 20; X <= 180; X += 10)
                 {
-                    for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
+                    for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 20; Y += 10)
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, false);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(10, 12), true, false);
                     }
                 }
             }
             else
             {
-                for (int X = Main.maxTilesX - 180; X <= Main.maxTilesX - 20; X += 5)
+                for (int X = Main.maxTilesX - 180; X <= Main.maxTilesX - 20; X += 10)
                 {
-                    for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 10; Y += 5)
+                    for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 20; Y += 10)
                     {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, false);
+                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(10, 12), true, false);
                     }
                 }
             }
