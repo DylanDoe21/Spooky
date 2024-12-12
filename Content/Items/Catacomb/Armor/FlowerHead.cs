@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.Catacomb.Armor
 	{
 		public string HeadTexture => "Spooky/Content/Items/Catacomb/Armor/FlowerHead_RealHead";
 
-        public Vector2 Offset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
+        public Vector2 Offset => new Vector2(0, 4f);
 
 		public override void SetDefaults() 
 		{

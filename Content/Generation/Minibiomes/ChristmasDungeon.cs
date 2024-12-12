@@ -252,13 +252,6 @@ namespace Spooky.Content.Generation.Minibiomes
 						}
 					}
 
-					//get rid of 1x2 tiles on the ground since it looks weird
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].HasTile && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
-					{
-						WorldGen.KillTile(i, j);
-						WorldGen.KillTile(i - 1, j);
-					}
-
 					//get rid of single tiles on the ground since it looks weird
 					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
 					{
@@ -272,7 +265,7 @@ namespace Spooky.Content.Generation.Minibiomes
 						WorldGen.KillTile(i - 1, j);
 					}
 
-					//get rid of 1x2 tiles on the ground since it looks weird
+					//get rid of 1x3 tiles on the ground since it looks weird
 					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrick>() && 
 					Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 2, j].HasTile)
 					{

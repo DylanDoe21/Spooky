@@ -7,16 +7,8 @@ using Spooky.Content.Generation;
 
 namespace Spooky.Core
 {
-    public static partial class ProjectileUtil
-    {
-        public static T ModProjectile<T>(this Projectile projectile) where T : ModProjectile
-        {
-            return projectile.ModProjectile as T;
-        }
-    }
-
     public class ProjectileGlobal : GlobalProjectile
-    {	
+    {
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             //creepy candle makes magic projectiles inflict on fire
@@ -94,4 +86,12 @@ namespace Spooky.Core
             return true;
         }
     }
+
+	public static partial class ProjectileUtil
+	{
+		public static T ModProjectile<T>(this Projectile projectile) where T : ModProjectile
+		{
+			return projectile.ModProjectile as T;
+		}
+	}
 }

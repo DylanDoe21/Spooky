@@ -62,11 +62,11 @@ namespace Spooky.Content.Generation
 				//this code basically looks for snow biome blocks, and if it finds any, keep moving the biome over until it is far enough away from the snow biome
 				while (!foundValidPosition && attempts++ < 100000)
 				{
-					while (!NoSnowBiomeNearby(PositionX, PositionY))
+					while (!CanPlaceBiome(PositionX, PositionY))
 					{
 						PositionX += (PositionX > (Main.maxTilesX / 2) ? 100 : -100);
 					}
-					if (NoSnowBiomeNearby(PositionX, PositionY))
+					if (CanPlaceBiome(PositionX, PositionY))
 					{
 						foundValidPosition = true;
 					}
@@ -704,8 +704,35 @@ namespace Spooky.Content.Generation
 			}
         }
 
+		//check for a flat surface in the dungeon that also has no tiles above the entire flat space
+		//use to check for a specific width to place individual pieces of furniture, or in other cases multiple pieces of furniture (such as tables with chairs next to them)
+		public bool IsFlatSurface(int PositionX, int PositionY, int Width)
+		{
+			bool AtLeastHasOneWall = false;
+
+			for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
+			{
+				if (Main.tile[x, PositionY - 1].WallType == ModContent.WallType<SpookyWoodWall>())
+				{
+					AtLeastHasOneWall = true;
+				}
+
+				//check specifically for christmas carpet since the entire floor will be made out of that
+				if ((Main.tile[x, PositionY].TileType == ModContent.TileType<SpookyWood>() || Main.tile[x, PositionY].TileType == ModContent.TileType<OldWoodPlatform>()) && !Main.tile[x, PositionY - 1].HasTile)
+				{
+					continue;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return AtLeastHasOneWall;
+		}
+
         //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
-        public static bool NoSnowBiomeNearby(int X, int Y)
+        public static bool CanPlaceBiome(int X, int Y)
         {
             for (int i = X - 300; i < X + 300; i++)
             {
@@ -775,33 +802,6 @@ namespace Spooky.Content.Generation
 			}
 
 			return true;
-		}
-
-		//check for a flat surface in the dungeon that also has no tiles above the entire flat space
-		//use to check for a specific width to place individual pieces of furniture, or in other cases multiple pieces of furniture (such as tables with chairs next to them)
-		public bool IsFlatSurface(int PositionX, int PositionY, int Width)
-		{
-			bool AtLeastHasOneWall = false;
-
-			for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
-			{
-				if (Main.tile[x, PositionY - 1].WallType == ModContent.WallType<SpookyWoodWall>())
-				{
-					AtLeastHasOneWall = true;
-				}
-
-				//check specifically for christmas carpet since the entire floor will be made out of that
-				if ((Main.tile[x, PositionY].TileType == ModContent.TileType<SpookyWood>() || Main.tile[x, PositionY].TileType == ModContent.TileType<OldWoodPlatform>()) && !Main.tile[x, PositionY - 1].HasTile)
-				{
-					continue;
-				}
-				else
-				{
-					return false;
-				}
-			}
-
-			return AtLeastHasOneWall;
 		}
 
 		public void PlaceMineshaft(int x, int y)

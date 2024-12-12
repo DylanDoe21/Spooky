@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 
 		public string GlowTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Glow";
 
-		public Vector2 Offset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
+		public Vector2 Offset => new Vector2(0, 4f);
 
 		public override void SetDefaults() 
 		{

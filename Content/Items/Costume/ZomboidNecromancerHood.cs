@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Costume
 	{
 		public string HeadTexture => "Spooky/Content/Items/Costume/ZomboidNecromancerHood_Top";
 
-		public Vector2 Offset(PlayerDrawSet drawInfo) => new Vector2(0, -8f);
+		public Vector2 Offset => new Vector2(0, 4f);
 
 		public override void SetDefaults()
 		{

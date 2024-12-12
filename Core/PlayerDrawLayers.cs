@@ -17,9 +17,9 @@ namespace Spooky.Core
 
 		string GlowTexture => string.Empty;
 
-		Vector2 Offset(PlayerDrawSet drawInfo) => Vector2.Zero;
+		Vector2 Offset => Vector2.Zero;
 
-		Vector2 GlowOffset(PlayerDrawSet drawInfo) => Vector2.Zero;
+		Vector2 GlowOffset => Vector2.Zero;
 	}
 
     //special drawing for helmets, such as helmets that are too long, too tall, or for glowmasks
@@ -69,63 +69,44 @@ namespace Spooky.Core
 
                 if (!drawInfo.drawPlayer.dead && equipSlot == drawPlayer.head)
                 {
-                    int dyeShader = drawPlayer.dye?[0].dye ?? 0;
-
-					//for whatever reason being flipped with gravity and moving up/down offsets the texture by one pixel, so this is a lazy fix for that
-					float GravitySupportOffset = drawPlayer.velocity.Y == 0 ? 42f : 41f;
-
-					//draw the actual texture
+					//draw the actual texture if its defined
 					if (HelmetDrawer.HeadTexture != string.Empty)
 					{
-						float ActualGravityOffset = HelmetDrawer.Offset(drawInfo).Y == 0 ? GravitySupportOffset : GravitySupportOffset + HelmetDrawer.Offset(drawInfo).Y - 4f;
-
-						Vector2 headDrawPosition = Main.ReverseGravitySupport(drawInfo.Position - Main.screenPosition, ActualGravityOffset);
-
-						headDrawPosition += new Vector2((drawPlayer.width - drawPlayer.bodyFrame.Width) / 2f, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f);
-
-						headDrawPosition = new Vector2((int)headDrawPosition.X, (int)headDrawPosition.Y);
-
-						headDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
-
-						headDrawPosition += HelmetDrawer.Offset(drawInfo);
-
 						Texture2D Tex = ModContent.Request<Texture2D>(HelmetDrawer.HeadTexture).Value;
 
 						Rectangle frame = Tex.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
+						Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - frame.Width / 2, drawPlayer.height - frame.Height + 4f) + drawPlayer.headPosition;
+						drawPos = drawPos.Floor();
+						Vector2 origin = drawInfo.headVect;
+						float rotation = drawPlayer.headRotation;
 
-						DrawData pieceDrawData = new DrawData(Tex, headDrawPosition, frame, drawInfo.colorArmorHead, drawPlayer.headRotation, drawInfo.headVect, 1f, drawInfo.playerEffect, 0)
+						Vector2 GravityOffset = drawPlayer.gravDir == 1 ? HelmetDrawer.Offset : -HelmetDrawer.Offset - (HelmetDrawer.Offset.Y == 0 ? Vector2.Zero : new Vector2(0f, 4f));
+
+						DrawData drawData = new DrawData(Tex, drawPos - GravityOffset + origin, frame, drawInfo.colorArmorHead, rotation, origin, 1f, drawInfo.playerEffect, 0)
 						{
-							shader = dyeShader
+							shader = drawInfo.cHead
 						};
-
-						drawInfo.DrawDataCache.Add(pieceDrawData);
+						drawInfo.DrawDataCache.Add(drawData);
 					}
 
-					//draw the glowmask texture if glowmask drawing is true
+					//draw the glowmask texture if a glowmask texture is defined
 					if (HelmetDrawer.GlowTexture != string.Empty)
 					{
-						float ActualGravityOffset = HelmetDrawer.GlowOffset(drawInfo).Y == 0 ? GravitySupportOffset : GravitySupportOffset + HelmetDrawer.GlowOffset(drawInfo).Y - 4f;
-
-						Vector2 headGlowDrawPosition = Main.ReverseGravitySupport(drawInfo.Position - Main.screenPosition, ActualGravityOffset);
-
-						headGlowDrawPosition += new Vector2((drawPlayer.width - drawPlayer.bodyFrame.Width) / 2f, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f);
-
-						headGlowDrawPosition = new Vector2((int)headGlowDrawPosition.X, (int)headGlowDrawPosition.Y);
-
-						headGlowDrawPosition += drawPlayer.headPosition + drawInfo.headVect;
-
-						headGlowDrawPosition += HelmetDrawer.GlowOffset(drawInfo);
-
 						Texture2D Tex = ModContent.Request<Texture2D>(HelmetDrawer.GlowTexture).Value;
 
 						Rectangle frame = Tex.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
+						Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - frame.Width / 2, drawPlayer.height - frame.Height + 4f) + drawPlayer.headPosition;
+						drawPos = drawPos.Floor();
+						Vector2 origin = drawInfo.headVect;
+						float rotation = drawPlayer.headRotation;
 
-						DrawData pieceDrawDataGlow = new DrawData(Tex, headGlowDrawPosition, frame, Color.White, drawPlayer.headRotation, drawInfo.headVect, 1f, drawInfo.playerEffect, 0)
+						Vector2 GravityOffset = drawPlayer.gravDir == 1 ? HelmetDrawer.GlowOffset : -HelmetDrawer.GlowOffset - (HelmetDrawer.GlowOffset.Y == 0 ? Vector2.Zero : new Vector2(0f, 4f));
+
+						DrawData drawData = new DrawData(Tex, drawPos - GravityOffset + origin, frame, Color.White, rotation, origin, 1f, drawInfo.playerEffect, 0)
 						{
-							shader = dyeShader
+							shader = drawInfo.cHead
 						};
-
-						drawInfo.DrawDataCache.Add(pieceDrawDataGlow);
+						drawInfo.DrawDataCache.Add(drawData);
 					}
 				}
             }
