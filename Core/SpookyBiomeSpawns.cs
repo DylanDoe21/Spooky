@@ -565,6 +565,13 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<HoppingPotato4>(), 2);
 				pool.Add(ModContent.NPCType<OozeGarlic>(), 2);
 				pool.Add(ModContent.NPCType<RollingPepper>(), 2);
+
+				if (Main.hardMode)
+				{
+					pool.Add(ModContent.NPCType<CornMage1>(), 2);
+					pool.Add(ModContent.NPCType<CornMage2>(), 2);
+					pool.Add(ModContent.NPCType<GhostPepper>(), 1);
+				}
 			}
 
 			//dumb zomboid can spawn anywhere super rarely

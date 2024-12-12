@@ -38,7 +38,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = -1;
-			NPC.alpha = 255;
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

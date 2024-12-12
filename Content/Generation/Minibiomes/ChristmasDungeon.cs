@@ -23,7 +23,9 @@ namespace Spooky.Content.Generation.Minibiomes
 		public static List<ushort> BlockTypes = new()
 		{
 			(ushort)ModContent.TileType<ChristmasBrick>(),
+			(ushort)ModContent.TileType<ChristmasBrickAlt>(),
 			(ushort)ModContent.TileType<ChristmasBrickSlab>(),
+			(ushort)ModContent.TileType<ChristmasBrickSlabAlt>(),
 			(ushort)ModContent.TileType<ChristmasWoodPlanks>(),
 			(ushort)ModContent.TileType<ChristmasCarpet>()
 		};
@@ -31,6 +33,7 @@ namespace Spooky.Content.Generation.Minibiomes
 		public static List<int> WallTypes = new()
 		{
 			ModContent.WallType<ChristmasBrickWall>(),
+			ModContent.WallType<ChristmasBrickWallAlt>(),
 			ModContent.WallType<ChristmasWoodWall>(),
 			ModContent.WallType<ChristmasWindow>()
 		};

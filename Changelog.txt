@@ -35,6 +35,7 @@ Spooky Forest Generation Overhaul:
 
 ~BUGS AND OTHER FIXES~
 
+-Fixed spooky mod helmets/masks with custom drawing (such as glowmasks and extended helmets) drawing incorrectly when gravity is flipped
 -Fixed bug with many spooky mod objects (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
 -Fixed issue where spooky biome ambient grass and vines wouldnt be destroyed when converted by clentaminator solutions
 -Fixed brown solution not converting spooky mod biomes into a forest biome

@@ -127,7 +127,6 @@ namespace Spooky.Content.Generation.Minibiomes
 						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
 						{
 							WorldGen.KillWall(i, j);
-							Main.tile[i, j].LiquidAmount = 0;
 						}
 					}
 				}
@@ -171,6 +170,8 @@ namespace Spooky.Content.Generation.Minibiomes
 			{
 				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j++)
 				{
+					Main.tile[i, j].LiquidAmount = 0;
+
 					Tile tile = Main.tile[i, j];
 					Tile tileAbove = Main.tile[i, j - 1];
 					Tile tileBelow1 = Main.tile[i, j + 1];

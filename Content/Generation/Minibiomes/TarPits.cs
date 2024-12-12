@@ -58,6 +58,7 @@ namespace Spooky.Content.Generation.Minibiomes
 
 				PlaceOvalCluster(BiomeX, BiomeY + 5, SizeX, SizeY, Main.maxTilesX / 300, Main.maxTilesX / 190);
 				DigOutCaves(BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
+				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
 				BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
 			}
 		}
@@ -123,49 +124,10 @@ namespace Spooky.Content.Generation.Minibiomes
 		//method to clean up small clumps of tiles
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			void getAttachedPoints(int x, int y, List<Point> points)
-			{
-				Tile tile = Main.tile[x, y];
-				Point point = new(x, y);
-
-				if (!WorldGen.InWorld(x, y))
-				{
-					tile = new Tile();
-				}
-
-				if (!BlockTypes.Contains(tile.TileType) || !tile.HasTile || points.Count > 100 || points.Contains(point))
-				{
-					return;
-				}
-
-				points.Add(point);
-
-				getAttachedPoints(x + 1, y, points);
-				getAttachedPoints(x - 1, y, points);
-				getAttachedPoints(x, y + 1, points);
-				getAttachedPoints(x, y - 1, points);
-			}
-
-			//clean up tiles
 			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
-					List<Point> chunkPoints = new();
-					getAttachedPoints(i, j, chunkPoints);
-
-					int cutoffLimit = 100;
-					if (chunkPoints.Count <= cutoffLimit)
-					{
-						foreach (Point p in chunkPoints)
-						{
-							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
-							{
-								new Actions.ClearTile(true)
-							}));
-						}
-					}
-
 					//clean tiles that are sticking out (basically tiles only attached to one tile on one side)
 					bool OnlyRight = !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile && !Main.tile[i - 1, j].HasTile;
 					bool OnlyLeft = !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile && !Main.tile[i + 1, j].HasTile;
@@ -274,6 +236,61 @@ namespace Spooky.Content.Generation.Minibiomes
 					if (BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Tile.SmoothSlope(i, j);
+					}
+				}
+			}
+		}
+
+		//method to clean up small clumps of tiles
+		public static void CleanOutSmallClumps(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
+			List<ushort> blockTileTypes = new()
+			{
+				(ushort)ModContent.TileType<DesertSand>(),
+				(ushort)ModContent.TileType<DesertSandstone>()
+			};
+
+			int MaxPoints = 200;
+
+			void getAttachedPoints(int x, int y, List<Point> points)
+			{
+				Tile tile = Main.tile[x, y];
+				Point point = new(x, y);
+
+				if (!WorldGen.InWorld(x, y))
+				{
+					tile = new Tile();
+				}
+
+				if (!blockTileTypes.Contains(tile.TileType) || !tile.HasTile || points.Count > MaxPoints || points.Contains(point))
+				{
+					return;
+				}
+
+				points.Add(point);
+
+				getAttachedPoints(x + 1, y, points);
+				getAttachedPoints(x - 1, y, points);
+				getAttachedPoints(x, y + 1, points);
+				getAttachedPoints(x, y - 1, points);
+			}
+
+			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			{
+				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
+				{
+					List<Point> chunkPoints = new();
+					getAttachedPoints(i, j, chunkPoints);
+
+					if (chunkPoints.Count <= MaxPoints)
+					{
+						foreach (Point p in chunkPoints)
+						{
+							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+							{
+								new Actions.ClearTile(true)
+							}));
+						}
 					}
 				}
 			}

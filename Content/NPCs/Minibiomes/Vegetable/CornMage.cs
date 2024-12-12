@@ -8,6 +8,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles;
 
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 {
@@ -15,7 +16,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
     {
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 7;
+            Main.npcFrameCount[NPC.type] = 11;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -30,10 +31,10 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 300;
+            NPC.lifeMax = 400;
             NPC.damage = 55;
             NPC.defense = 10;
-            NPC.width = 36;
+            NPC.width = 40;
 			NPC.height = 76;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
@@ -58,26 +59,38 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             NPC.frameCounter++;
             if (NPC.localAI[0] <= 420)
             {
-                if (NPC.frameCounter > 10)
+                if (NPC.frameCounter > 5)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
                 if (NPC.frame.Y >= frameHeight * 6)
                 {
-                    NPC.frame.Y = 1 * frameHeight;
+                    NPC.frame.Y = 0 * frameHeight;
                 }
 
                 //jumping/falling frame
-                if (NPC.velocity.Y > 0 || NPC.velocity.Y < 0)
+                if (NPC.velocity.Y < 0)
                 {
-                    NPC.frame.Y = 0 * frameHeight;
+                    NPC.frame.Y = 3 * frameHeight;
+                }
+                if (NPC.velocity.Y > 0)
+                {
+                    NPC.frame.Y = 5 * frameHeight;
                 }
             }
             //casting animation
             if (NPC.localAI[0] > 420)
             {
-                NPC.frame.Y = 7 * frameHeight;
+                if (NPC.frameCounter > 5)
+                {
+                    NPC.frame.Y = NPC.frame.Y + frameHeight;
+                    NPC.frameCounter = 0;
+                }
+                if (NPC.frame.Y >= frameHeight * 11)
+                {
+                    NPC.frame.Y = 6 * frameHeight;
+                }
             }
         }
         
@@ -92,7 +105,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             if (NPC.localAI[0] <= 420)
             {
                 NPC.aiStyle = 3;
-                AIType = NPCID.Crab;
+                AIType = NPCID.GoblinScout;
             }
 
             if (NPC.localAI[0] > 420)
@@ -101,11 +114,14 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
                 if (NPC.localAI[0] == 480 || NPC.localAI[0] == 500 || NPC.localAI[0] == 520)
                 {
-                    SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1.2f }, NPC.Center);
 
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed *= 4.5f;
+                    ShootSpeed.X *= Main.rand.Next(-5, 6);
+                    ShootSpeed.Y *= Main.rand.Next(2, 5);
+
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<CornKernal>(), NPC.damage, 4.5f);
                 }
             }
 
@@ -128,5 +144,17 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
                 }
             }
         }
+    }
+
+    public class CornMage2 : CornMage1  
+    {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.CornMage2"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.VegetableBiome>().ModBiomeBestiaryInfoElement)
+			});
+		}
     }
 }

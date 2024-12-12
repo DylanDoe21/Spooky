@@ -18,5 +18,13 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
             Item.width = 16;
 			Item.height = 16;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<JungleSoilWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 }
