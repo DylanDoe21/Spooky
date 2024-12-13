@@ -17,7 +17,6 @@ using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Gourds;
-using Spooky.Content.Tiles.SpookyBiome.Mushrooms;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 
 using StructureHelper;

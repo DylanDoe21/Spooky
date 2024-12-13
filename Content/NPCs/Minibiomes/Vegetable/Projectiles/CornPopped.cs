@@ -53,6 +53,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles
             Projectile.frame = (int)Projectile.ai[0];
 
             Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
+
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.65f;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

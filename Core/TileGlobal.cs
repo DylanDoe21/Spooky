@@ -80,6 +80,7 @@ namespace Spooky.Core
 		}
 
 		//use for items in spooky mod that should be locked from shimmer with custom conditions, return true if it should be locked
+		//note to self so i dont forget: type refers to the item being thrown into the shimmer, not the item that results from the transformation
 		private bool CustomShimmerLockConditions(On_ShimmerTransforms.orig_IsItemTransformLocked orig, int type)
 		{
 			//dont allow catacomb brick walls to be shimmered into their unsafe variants if that respective layers boss hasnt been defeated yet
@@ -92,36 +93,8 @@ namespace Spooky.Core
 				return true;
 			}
 
+			//orig MUST be returned by default in order for vanillas own shimmer locking conditions to apply
 			return orig(type);
 		}
-
-		public bool IsProtected(int x, int y)
-        {
-            if (!Main.gameMenu || Main.dedServ)
-            {
-                Tile tile = Framing.GetTileSafely(x, y);
-
-                if (tile.WallType == ModContent.WallType<CatacombBrickWall1>() || tile.WallType == ModContent.WallType<CatacombBrickWall2>() ||
-                tile.WallType == ModContent.WallType<CatacombGrassWall1>() || tile.WallType == ModContent.WallType<CatacombGrassWall2>())
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private Vector2 DontAllowTeleportation(On_Player.orig_CheckForGoodTeleportationSpot orig, Player self, ref bool canSpawn, int teleportStartX, int teleportRangeX, int teleportStartY, int teleportRangeY, Player.RandomTeleportationAttemptSettings settings)
-        {
-            Vector2 result = orig(self, ref canSpawn, teleportStartX, teleportRangeX, teleportStartY, teleportRangeY, settings);
-
-            if (IsProtected((int)result.X, (int)result.Y))
-            {
-                settings.attemptsBeforeGivingUp--;
-                result = self.CheckForGoodTeleportationSpot(ref canSpawn, teleportStartX, teleportRangeX, teleportStartY, teleportRangeY, settings);
-            }
-
-            return result;
-        }
     }
 }

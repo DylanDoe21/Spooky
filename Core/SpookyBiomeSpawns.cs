@@ -332,10 +332,8 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-				int[] CatacombLayer1Tiles = { ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombFlooring>() };
-
-				//do not allow catacomb enemies to spawn on non catacomb tiles
-				if (CatacombLayer1Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				//do not allow catacomb enemies to spawn when not behind catacomb brick wall
+				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall1>())
 				{
 					if (Flags.CatacombKey1)
 					{
@@ -370,10 +368,8 @@ namespace Spooky.Core
 			{
                 pool.Clear();
 
-                int[] CatacombLayer2Tiles = { ModContent.TileType<CatacombBrick2>(), ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<GildedBrick>() };
-
-				//do not allow catacomb enemies to spawn on non catacomb tiles
-				if (CatacombLayer2Tiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+                //do not allow catacomb enemies to spawn when not behind catacomb brick wall
+				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall2>())
 				{
 					if (Flags.CatacombKey2)
 					{

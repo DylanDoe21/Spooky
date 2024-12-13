@@ -151,7 +151,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 //spawn ichor clouds
                 for (int i = 0; i < 3; i++)
                 {
-                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 30), new Vector2(Main.rand.Next(-4, 5), 4), ModContent.ProjectileType<CoughCloud>(), NPC.damage, 4.5f);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 30), new Vector2(Main.rand.Next(-1, 2), 12), ModContent.ProjectileType<CoughCloud>(), NPC.damage, 4.5f);
                 }
             }
 

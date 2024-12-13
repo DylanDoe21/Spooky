@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
-using Spooky.Content.Tiles.SpookyBiome.Mushrooms;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 
 namespace Spooky.Content.Tiles.SpookyBiome

@@ -139,7 +139,7 @@ namespace Spooky.Content.NPCs.EggEvent
 				int NumProjectiles = Main.rand.Next(15, 25);
 				for (int i = 0; i < NumProjectiles; i++)
 				{
-					NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-12, -5)), ModContent.ProjectileType<RedSplatter>(), 0, 0f);
+					NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-12, 13), Main.rand.Next(-12, 0)), ModContent.ProjectileType<RedSplatter>(), 0, 0f);
 				}
 			}
 		}

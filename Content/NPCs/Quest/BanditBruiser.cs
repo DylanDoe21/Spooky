@@ -479,7 +479,7 @@ namespace Spooky.Content.NPCs.Quest
 			Vector2 GoTo = new Vector2(goToX, goToY);
 
 			//slow down when close enough to the parent npc
-			if (Parent.Distance(GoTo) <= 150f)
+			if (NPC.Distance(GoTo) <= 250f)
 			{
 				NPC.velocity *= 0.92f;
 			}

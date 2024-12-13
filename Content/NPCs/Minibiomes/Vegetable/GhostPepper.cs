@@ -32,9 +32,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.value = Item.buyPrice(0, 0, 50, 0);
-            NPC.HitSound = SoundID.Grass;
-            NPC.DeathSound = SoundID.NPCDeath42 with { Pitch = 0.45f };
+            NPC.value = Item.buyPrice(0, 0, 10, 0);
+            NPC.HitSound = SoundID.NPCHit37;
+            NPC.DeathSound = SoundID.NPCDeath52;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.VegetableBiome>().Type };
         }

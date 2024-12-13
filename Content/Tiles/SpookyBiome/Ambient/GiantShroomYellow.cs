@@ -9,39 +9,48 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Items.Pets;
 
-namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
+namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 {
-    public class GiantShroom1 : ModTile
+    public class GiantShroomYellow1 : ModTile
     {
-		private Asset<Texture2D> CapTexture;
+        private Asset<Texture2D> CapTexture;
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
-            TileObjectData.newTile.Origin = new Point16(0, 1);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.Origin = new Point16(0, 0);
             TileObjectData.newTile.DrawYOffset = 6;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(196, 188, 217));
+            AddMapEntry(new Color(208, 162, 44));
             DustType = DustID.Slush;
             HitSound = SoundID.Dig;
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            r = 0.25f;
-            g = 0.15f;
-            b = 0.25f;
+            r = 0.55f;
+            g = 0.5f;
+            b = 0.0f;
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+            if (Main.rand.NextBool(20))
+            {
+			    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<YellowSpore>());
+            }
         }
 
         public static void DrawMushroomCap(int i, int j, Texture2D tex, Rectangle? source, Vector2 scaleVec, Vector2? offset = null, Vector2? origin = null)
         {
-            float cos = Main.GlobalTimeWrappedHourly * 0.08971428571f * 16;
-            scaleVec = new Vector2(1f, -MathF.Cos(-i / 8f + cos));
+            float sin = Main.GlobalTimeWrappedHourly * 0.08971428571f * 16;
+            scaleVec = new Vector2(1f, -MathF.Sin(-i / 8f + sin));
 
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
             Color color = Lighting.GetColor(i, j);
@@ -51,24 +60,23 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-			CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroom1Cap");
+            CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/GiantShroomYellow1Cap");
 
-            //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
+            //draw the mushroom cap, only draw it on the top of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 0 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-				//reminder: offset negative numbers are right and down, while positive is left and up
-				Vector2 offset = new Vector2((CapTexture.Width() / 3) - 4, CapTexture.Height() - 24);
+				Vector2 offset = new Vector2((CapTexture.Width() / 4) - 8, CapTexture.Height() - 22);
 
-				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 52, 26), default, TileGlobal.TileOffset, offset);
+				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 26, 20), default, TileGlobal.TileOffset, offset);
             }
         }
     }
 
-    public class GiantShroom2 : GiantShroom1
+    public class GiantShroomYellow2 : GiantShroomYellow1
     {
-		private Asset<Texture2D> CapTexture;
+        private Asset<Texture2D> CapTexture;
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
@@ -78,30 +86,30 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 6;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(196, 188, 217));
+            AddMapEntry(new Color(208, 162, 44));
             DustType = DustID.Slush;
             HitSound = SoundID.Dig;
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-			CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroom2Cap");
+            CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/GiantShroomYellow2Cap");
 
-            //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
+            //draw the mushroom cap, only draw it on the top of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 0 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-				Vector2 offset = new Vector2((CapTexture.Width() / 4) - 5, CapTexture.Height() - 27);
+				Vector2 offset = new Vector2((CapTexture.Width() / 3) - 6, CapTexture.Height() - 27);
 
-				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 40, 20), default, TileGlobal.TileOffset, offset);
+				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 52, 26), default, TileGlobal.TileOffset, offset);
             }
         }
     }
 
-    public class GiantShroom3 : GiantShroom1
+    public class GiantShroomYellow3 : GiantShroomYellow1
     {
-		private Asset<Texture2D> CapTexture;
+        private Asset<Texture2D> CapTexture;
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
@@ -111,54 +119,54 @@ namespace Spooky.Content.Tiles.SpookyBiome.Mushrooms
             TileObjectData.newTile.Origin = new Point16(1, 1);
             TileObjectData.newTile.DrawYOffset = 6;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(196, 188, 217));
+            AddMapEntry(new Color(208, 162, 44));
             DustType = DustID.Slush;
             HitSound = SoundID.Dig;
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-			CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroom3Cap");
+            CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/GiantShroomYellow3Cap");
 
-            //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
+            //draw the mushroom cap, only draw it on the top of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 18 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-				Vector2 offset = new Vector2((CapTexture.Width() / 3) + 4, CapTexture.Height() - 24);
+				Vector2 offset = new Vector2((CapTexture.Width() / 2) - 8, CapTexture.Height() - 27);
 
 				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 62, 30), default, TileGlobal.TileOffset, offset);
             }
         }
     }
 
-    public class GiantShroom4 : GiantShroom1
+    public class GiantShroomYellow4 : GiantShroomYellow1
     {
-		private Asset<Texture2D> CapTexture;
+        private Asset<Texture2D> CapTexture;
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-            TileObjectData.newTile.Origin = new Point16(1, 1);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
+            TileObjectData.newTile.Origin = new Point16(1, 2);
             TileObjectData.newTile.DrawYOffset = 6;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(196, 188, 217));
+            AddMapEntry(new Color(208, 162, 44));
             DustType = DustID.Slush;
             HitSound = SoundID.Dig;
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-			CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Mushrooms/GiantShroom4Cap");
+            CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Ambient/GiantShroomYellow4Cap");
 
-            //draw the mushroom cap, only draw it on the very first frame of the tile so it only draws once
+            //draw the mushroom cap, only draw it on the top of the tile so it only draws once
             if (Framing.GetTileSafely(i, j).TileFrameX == 36 && Framing.GetTileSafely(i, j).TileFrameY == 0)
             {
-				Vector2 offset = new Vector2((CapTexture.Width() / 2), CapTexture.Height() - 18);
+				Vector2 offset = new Vector2(CapTexture.Width() / 2, CapTexture.Height() - 16);
 
-				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 84, 38), default, TileGlobal.TileOffset, offset);
+				DrawMushroomCap(i - 1, j - 1, CapTexture.Value, new Rectangle(0, 0, 122, 46), default, TileGlobal.TileOffset, offset);
             }
         }
     }
