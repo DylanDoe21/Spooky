@@ -85,7 +85,7 @@ namespace Spooky.Content.Biomes
             int[] Leaves = new int[] { ModContent.GoreType<LeafGreen>(), ModContent.GoreType<LeafOrange>(), ModContent.GoreType<LeafRed>() };
 
             if (Main.rand.NextBool(40) && player.ZoneOverworldHeight)
-            { 
+            {
                 float Scale = Main.rand.NextFloat(1f, 1.2f);
                 int SpawnX = (int)Main.screenPosition.X - 100;
                 int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);

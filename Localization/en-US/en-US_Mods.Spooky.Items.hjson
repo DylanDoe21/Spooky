@@ -1793,7 +1793,7 @@ SpookyBiomeKey: {
 }
 
 SpookyGlowshroom: {
-	DisplayName: Spooky Glowshroom
+	DisplayName: Glowshroom
 	Tooltip: "'Filled with arcane energies'"
 }
 

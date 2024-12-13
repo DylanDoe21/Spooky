@@ -35,34 +35,31 @@ namespace Spooky.Core
     {
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
-			//increase spawns in the spider grotto because they are really low for some reason
-			if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
-            {
-				spawnRate /= 3;
-			}
-
-			//increase spawns in the catacombs because they are too low by default
-			if (player.InModBiome(ModContent.GetInstance<CatacombBiome>()))
+			//modify the spawn rates and max spawns in each spooky mod biome
+			if (player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || player.InModBiome(ModContent.GetInstance<SpookyBiomeUg>()) || player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
             {
 				spawnRate /= 2;
+				maxSpawns *= 2;
 			}
-			//increase spawns in the catacombs because they are too low by default
-			if (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
-            {
-				spawnRate /= 3;
-			}
-
-			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that catacomb guardians spawn immediately
-			if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
-			{
-				spawnRate /= 5;
-			}
-
-			//drastically increase spawns during the raveyard so all the funny skeletons spawn
-			if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
+			else if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
 				spawnRate /= 5;
 				maxSpawns *= 5;
+			}
+			else if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && Flags.CatacombKey2))
+            {
+				spawnRate /= 2;
+				maxSpawns *= 2;
+			}
+			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that a catacomb guardian spawns instantly
+			else if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
+			{
+				spawnRate /= 5;
+			}
+			else if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
+            {
+				spawnRate /= 3;
+				maxSpawns *= 2;
 			}
 
 			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
@@ -137,12 +134,12 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<HoppingCandyBasket>(), 0.2f);
 
 						//hardmode enemies
-                        if (Main.hardMode)
-                        {
+						if (Main.hardMode)
+						{
 							pool.Add(ModContent.NPCType<PuttyPumpkin>(), 2);
-                            pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 1);
-                        }
-                    }
+							pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 1);
+						}
+					}
 				}
 				//night time spawns
 				else
@@ -153,7 +150,7 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TinyGhostBoof>(), 0.5f);
 					pool.Add(ModContent.NPCType<TinyGhostRare>(), 0.1f);
 
-                    //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
+					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
 						pool.Add(ModContent.NPCType<ZomboidThorn>(), 4);
@@ -210,7 +207,7 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<LittleSpider>(), 3);
 				pool.Add(ModContent.NPCType<TinyMushroom>(), 2);
 
-                if (spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
+                if (ModContent.GetInstance<TileCount>().glowshroomTiles >= 250)
                 {
                     pool.Add(ModContent.NPCType<ShroomHopper>(), 3);
                 }
@@ -231,10 +228,10 @@ namespace Spooky.Core
 					}
 
                     //mushroom moss mini-biome spawns
-                    if (spawnInfo.SpawnTileType == ModContent.TileType<MushroomMoss>())
+                    if (ModContent.GetInstance<TileCount>().glowshroomTiles >= 250)
                     {
-                        pool.Add(ModContent.NPCType<Bungus>(), 2);
-                        pool.Add(ModContent.NPCType<Chungus>(), 2);
+                        pool.Add(ModContent.NPCType<Bungus>(), 3);
+                        pool.Add(ModContent.NPCType<Chungus>(), 3);
                     }
 
 					//hardmode enemies
@@ -373,7 +370,7 @@ namespace Spooky.Core
 				{
 					if (Flags.CatacombKey2)
 					{
-						pool.Add(ModContent.NPCType<CatacombCrusherSpawner>(), 12);
+						pool.Add(ModContent.NPCType<CatacombCrusherSpawner>(), 5);
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid1>(), 5);
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid2>(), 5);
 						pool.Add(ModContent.NPCType<CelebrationSkeletoid3>(), 5);

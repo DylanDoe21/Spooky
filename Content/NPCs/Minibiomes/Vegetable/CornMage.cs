@@ -118,8 +118,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed.X *= Main.rand.Next(-5, 6);
-                    ShootSpeed.Y *= Main.rand.Next(2, 5);
+                    ShootSpeed.X *= Main.rand.Next(-8, 9);
+                    ShootSpeed.Y *= Main.rand.Next(3, 7);
 
                     NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<CornKernal>(), NPC.damage, 4.5f);
                 }

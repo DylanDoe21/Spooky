@@ -82,10 +82,8 @@ namespace Spooky.Content.Generation
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, false);
 
 			//place mushroom minibiomes in the underground
-			int SizeXInt = 80;
-			int SizeYInt = 50;
-			int MushroomSizeX = Main.maxTilesX / SizeXInt;
-			int MushroomSizeY = Main.maxTilesY / SizeYInt;
+			int MushroomSizeX = Main.maxTilesX / 60;
+			int MushroomSizeY = Main.maxTilesY / 30;
 
 			SpookyWorldMethods.PlaceOval(PositionX, (int)Main.worldSurface + (Main.maxTilesY / 7), ModContent.TileType<MushroomMoss>(), 0, MushroomSizeX, MushroomSizeY, 2f, false);
 
@@ -114,7 +112,7 @@ namespace Spooky.Content.Generation
 			}
 
 			//place clumps of stone throughout the surface
-			for (int Rocks = 0; Rocks < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); Rocks++)
+			for (int Rocks = 0; Rocks < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 8E-05); Rocks++)
 			{
 				int X = WorldGen.genRand.Next(0, Main.maxTilesX);
 				int Y = WorldGen.genRand.Next(0, (int)Main.worldSurface);
@@ -140,9 +138,9 @@ namespace Spooky.Content.Generation
 					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
 					{
 						//generate perlin noise caves
-						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
-						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
-						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
+						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 250f, Y / 250f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
+						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 250f, Y / 250f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
+						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 250f, Y / 250f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
 						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
 						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
 
@@ -170,17 +168,17 @@ namespace Spooky.Content.Generation
 			{
 				for (int Y = (int)Main.worldSurface + 10; Y < Main.maxTilesY - 200; Y++)
 				{
-					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>())
 					{
 						//generate perlin noise caves
-						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 450f, Y / 300f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
-						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 450f, Y / 300f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
-						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 450f, Y / 300f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
+						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
+						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
+						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
 						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
 						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
 
 						//kill or place tiles depending on the noise map
-						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
+						if (caveNoiseMap * caveNoiseMap < caveCreationThreshold)
 						{
 							WorldGen.KillTile(X, Y);
 						}
