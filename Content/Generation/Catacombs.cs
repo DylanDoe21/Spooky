@@ -812,7 +812,7 @@ namespace Spooky.Content.Generation
                     }
 
                     //catacomb vines and weeds
-                    if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>())
+                    if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>() || tile.TileType == ModContent.TileType<CatacombBrick1GrassArena>())
                     {
                         if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
                         {
@@ -834,7 +834,8 @@ namespace Spooky.Content.Generation
                     if (tile.TileType == ModContent.TileType<CatacombVines>())
                     {
                         int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
-			            ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+			            ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>(), 
+                        ModContent.TileType<CatacombBrick1GrassArena>(), ModContent.TileType<CatacombBrick2GrassArena>() };
 
                         SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
                     }
@@ -854,7 +855,7 @@ namespace Spooky.Content.Generation
                     }
  
                     //catacomb vines and weeds
-                    if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>())
+                    if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>() || tile.TileType == ModContent.TileType<CatacombBrick2GrassArena>())
                     {
                         if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
                         {
@@ -876,7 +877,8 @@ namespace Spooky.Content.Generation
                     if (tile.TileType == ModContent.TileType<CatacombVines>())
                     {
                         int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
-			            ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+			            ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>(), 
+                        ModContent.TileType<CatacombBrick1GrassArena>(), ModContent.TileType<CatacombBrick2GrassArena>() };
 
                         SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
                     }

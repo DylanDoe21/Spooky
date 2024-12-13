@@ -19,6 +19,12 @@ Spooky Forest Generation Overhaul:
 -Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you use the detonator + explosive at the surface or just dig under the explosive
 
 
+Other Random Additions:
+
+-Added spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
+-Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks)
+
+
 
 
 ~CHANGES TO EXISTING CONTENT~
@@ -29,7 +35,12 @@ Spooky Forest Generation Overhaul:
 -Carved gourd-o-lanterns now count as light source blocks for npc houses
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
 -Made the spider grotto biomes size a tiny bit smaller
-
+-Rod of discord can now be used in the catacombs while fighting daffodil and big bone
+-Catacombs no longer prevents you from placing blocks
+-Catacomb bricks can now be broken with pickaxes once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandoras box arena are still completely indestructable. This also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
+-Changed daffodils death beam "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
+-Spooky biome dungeon keys now shimmer into their corresponding chest like vanilla biome keys
+-Spooky biome dungeon keys now correctly use the "it has been cursed by a powerful jungle creature" tooltip pre-plantera like vanilla biome keys
 
 
 
@@ -45,3 +56,4 @@ Spooky Forest Generation Overhaul:
 -Fixed gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
 -Fixed living flesh mask still giving extra whip range
 -Fixed gore mask giving 3 extra minion slots instead of 2
+-Fixed spooky mod flails dealing too much damage while in their spinning state

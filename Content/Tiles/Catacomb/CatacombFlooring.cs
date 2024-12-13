@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Tiles.Catacomb
 {
 	[LegacyName("CatacombTiles")]
@@ -17,16 +19,26 @@ namespace Spooky.Content.Tiles.Catacomb
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			AddMapEntry(new Color(101, 90, 79));
+			RegisterItemDrop(ModContent.ItemType<CatacombFlooringItem>());
 			DustType = DustID.Bone;
 			HitSound = SoundID.Tink;
-			MinPick = int.MaxValue;
 		}
 
-        public override bool CanExplode(int i, int j)
-        {
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return Flags.downedDaffodil;
+		}
+
+		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
+		{
+			return Flags.downedDaffodil;
+		}
+
+		public override bool CanExplode(int i, int j)
+		{
 			return false;
-        }
-    }
+		}
+	}
 
 	public class CatacombFlooringSafe : ModTile
 	{

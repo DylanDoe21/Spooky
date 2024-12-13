@@ -2,13 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
-using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
-using Spooky.Content.Tiles.Cemetery.Ambient;
-using Spooky.Content.Tiles.Cemetery.Furniture;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
@@ -25,16 +22,26 @@ namespace Spooky.Content.Tiles.Catacomb
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(43, 89, 49));
-            DustType = ModContent.DustType<CemeteryGrassDust>();
-		    MinPick = int.MaxValue;
+			RegisterItemDrop(ModContent.ItemType<CatacombBrick1Item>());
+			DustType = ModContent.DustType<CemeteryGrassDust>();
 		}
 
-        public override bool CanExplode(int i, int j)
-        {
-			return false;
-        }
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return Flags.downedDaffodil;
+		}
 
-        public override void RandomUpdate(int i, int j)
+		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
+		{
+			return Flags.downedDaffodil;
+		}
+
+		public override bool CanExplode(int i, int j)
+		{
+			return false;
+		}
+
+		public override void RandomUpdate(int i, int j)
         {
             Tile Tile = Framing.GetTileSafely(i, j);
 			Tile Below = Framing.GetTileSafely(i, j + 1);
@@ -68,7 +75,74 @@ namespace Spooky.Content.Tiles.Catacomb
         }
 	}
 
-    public class CatacombBrick1GrassSafe : ModTile
+	public class CatacombBrick1GrassArena : ModTile
+	{
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrick1Grass";
+
+		public override void SetStaticDefaults()
+		{
+			TileID.Sets.Grass[Type] = true;
+			TileID.Sets.NeedsGrassFraming[Type] = true;
+			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+			Main.tileBrick[Type] = true;
+			Main.tileMergeDirt[Type] = true;
+			Main.tileBlendAll[Type] = true;
+			Main.tileSolid[Type] = true;
+			Main.tileBlockLight[Type] = true;
+			AddMapEntry(new Color(43, 89, 49));
+			DustType = ModContent.DustType<CemeteryGrassDust>();
+		}
+
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return false;
+		}
+
+		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
+		{
+			return false;
+		}
+
+		public override bool CanExplode(int i, int j)
+		{
+			return false;
+		}
+
+		public override void RandomUpdate(int i, int j)
+		{
+			Tile Tile = Framing.GetTileSafely(i, j);
+			Tile Below = Framing.GetTileSafely(i, j + 1);
+			Tile Above = Framing.GetTileSafely(i, j - 1);
+
+			if (!Below.HasTile && Below.LiquidAmount <= 0 && !Tile.BottomSlope)
+			{
+				//grow vines
+				if (Main.rand.NextBool(15))
+				{
+					WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines>(), true);
+				}
+			}
+
+			if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock)
+			{
+				//grow weeds
+				if (Main.rand.NextBool(8))
+				{
+					WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<CatacombWeeds>(), true);
+					Above.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+				}
+
+				//grow mushrooms
+				if (Main.rand.NextBool(25))
+				{
+					WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SporeMushroom>(), true);
+					Above.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+				}
+			}
+		}
+	}
+
+	public class CatacombBrick1GrassSafe : ModTile
 	{
         public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrick1Grass";
 

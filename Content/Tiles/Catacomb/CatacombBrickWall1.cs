@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ReLogic.Content;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Graphics.Light;
+
+using Spooky.Core;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
@@ -15,7 +14,8 @@ namespace Spooky.Content.Tiles.Catacomb
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(29, 24, 35));
-            DustType = DustID.Stone;
+			RegisterItemDrop(ModContent.ItemType<CatacombBrickWall1Item>());
+			DustType = DustID.Stone;
         }
 
         public override bool CanExplode(int i, int j)
@@ -25,11 +25,11 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override void KillWall(int i, int j, ref bool fail)
         {
-            fail = true;
+            fail = !Flags.downedDaffodil;
         }
     }
 
-    public class CatacombBrickWall1Safe : ModWall 
+	public class CatacombBrickWall1Safe : ModWall 
     {
         public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrickWall1";
 

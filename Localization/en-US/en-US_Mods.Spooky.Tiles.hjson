@@ -48,7 +48,7 @@ OldWoodOrgan.MapEntry: Organ
 OldWoodSofa.MapEntry: Sofa
 OldWoodTable.MapEntry: Table
 OldWoodWorkBench.MapEntry: Work Bench
-GiantShroom.MapEntry: Giant Shroom
+GiantShroom.MapEntry: Giant Glowshroom
 SpookySapling.MapEntry: Sapling
 SpookySaplingGreen.MapEntry: Sapling
 Cauldron.MapEntry: Creepy Cauldron
@@ -107,4 +107,4 @@ TempleTrapdoor.MapEntry: Temple Trapdoor
 CatacombTrapdoor1.MapEntry: Locked Trapdoor
 CatacombTrapdoor2.MapEntry: Locked Trapdoor
 CatacombTrapdoor3.MapEntry: Locked Trapdoor
-Broccoli.MapEntry: Broccoli
+Broccoli.MapEntry: Giant Broccoli

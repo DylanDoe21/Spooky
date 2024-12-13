@@ -1,20 +1,15 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
+using Terraria.GameContent;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Reflection;
 
 using Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles;
 using Spooky.Content.Tiles.Catacomb;
-using Spooky.Content.Tiles.Pylon;
-using Spooky.Content.Tiles.Catacomb.Ambient;
-using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
-using Spooky.Content.Tiles.SpiderCave.Ambient;
-using Spooky.Content.Tiles.SpookyBiome.Ambient;
+using Spooky.Content.Tiles.Pylon;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.Water;
 
@@ -25,7 +20,12 @@ namespace Spooky.Core
 		public static Vector2 TileOffset => Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
 		public static Vector2 TileCustomPosition(int i, int j, Vector2 off = default) => (new Vector2(i, j) * 16) - Main.screenPosition - off + TileOffset;
 
-        public override bool Slope(int i, int j, int type)
+		public override void Load()
+		{
+			On_ShimmerTransforms.IsItemTransformLocked += CustomShimmerLockConditions;
+		}
+
+		public override bool Slope(int i, int j, int type)
         {
             Tile tileAbove = Main.tile[i, j - 1];
 
@@ -77,6 +77,22 @@ namespace Spooky.Core
 					}
 				}
 			}
+		}
+
+		//use for items in spooky mod that should be locked from shimmer with custom conditions, return true if it should be locked
+		private bool CustomShimmerLockConditions(On_ShimmerTransforms.orig_IsItemTransformLocked orig, int type)
+		{
+			//dont allow catacomb brick walls to be shimmered into their unsafe variants if that respective layers boss hasnt been defeated yet
+			if (type == ModContent.ItemType<CatacombBrickWall1Item>() && !Flags.downedDaffodil)
+			{
+				return true;
+			}
+			if (type == ModContent.ItemType<CatacombBrickWall2Item>() && !Flags.downedBigBone)
+			{
+				return true;
+			}
+
+			return orig(type);
 		}
 
 		public bool IsProtected(int x, int y)

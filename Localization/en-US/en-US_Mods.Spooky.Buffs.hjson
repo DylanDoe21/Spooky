@@ -39,7 +39,7 @@ BouncerDeathmark: {
 
 CatacombDebuff: {
 	DisplayName: Curse of the Catacombs
-	Description: A curse is reducing your vision
+	Description: A curse is heavily reducing your vision!
 }
 
 CrossCooldown: {
@@ -69,21 +69,6 @@ EnsnaredDebuff: {
 HallucinationDebuff1: {
 	DisplayName: The Man
 	Description: There is no escape
-}
-
-HallucinationDebuff2: {
-	DisplayName: The Baby
-	Description: It is crying
-}
-
-HallucinationDebuff3: {
-	DisplayName: The Horse
-	Description: The horse is here...
-}
-
-HallucinationDebuff4: {
-	DisplayName: The Flesh
-	Description: You feel worthless
 }
 
 FleshWhipCooldown: {

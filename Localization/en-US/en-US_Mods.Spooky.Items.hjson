@@ -873,11 +873,7 @@ Creepypasta: {
 
 CemeteryKey: {
 	DisplayName: Swampy Cemetery Key
-	Tooltip:
-		'''
-		Unlocks a cemetery chest in the dungeon
-		Cannot be used until plantera has been defeated
-		'''
+	Tooltip: Unlocks a cemetery chest in the dungeon
 }
 
 CemeterySolution: {
@@ -1532,11 +1528,7 @@ SpiderChitin: {
 
 SpiderKey: {
 	DisplayName: Spider Grotto Key
-	Tooltip:
-		'''
-		Unlocks a spider chest in the dungeon
-		Cannot be used until plantera has been defeated
-		'''
+	Tooltip: Unlocks a spider chest in the dungeon
 }
 
 BoneBow: {
@@ -1797,11 +1789,7 @@ ShroomHopperItem: {
 
 SpookyBiomeKey: {
 	DisplayName: Spooky Forest Key
-	Tooltip:
-		'''
-		Unlocks a spooky chest in the dungeon
-		Cannot be used until plantera has been defeated
-		'''
+	Tooltip: Unlocks a spooky chest in the dungeon
 }
 
 SpookyGlowshroom: {
@@ -2200,11 +2188,7 @@ SnotGlob: {
 
 SpookyHellKey: {
 	DisplayName: Eye Valley Key
-	Tooltip:
-		'''
-		Unlocks an eye chest in the dungeon
-		Cannot be used until plantera has been defeated
-		'''
+	Tooltip: Unlocks an eye chest in the dungeon
 }
 
 SpookyHellSolution: {
@@ -2845,9 +2829,19 @@ CatacombBrickWall1Item: {
 	Tooltip: ""
 }
 
+CatacombBrickWall1UnsafeItem: {
+	DisplayName: Evil Gray Catacomb Brick Wall
+	Tooltip: An evil segment of catacomb wall that will spawn monsters
+}
+
 CatacombBrickWall2Item: {
 	DisplayName: Brown Catacomb Brick Wall
 	Tooltip: ""
+}
+
+CatacombBrickWall2UnsafeItem: {
+	DisplayName: Evil Brown Catacomb Brick Wall
+	Tooltip: An evil segment of catacomb wall that will spawn monsters
 }
 
 CatacombFlooringItem: {

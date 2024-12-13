@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
@@ -22,10 +21,10 @@ namespace Spooky.Core
         public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
 
 		public static bool WithinPlacementRange(Player player, int x, int y) =>
-			player.position.X / 16f - Player.tileRangeX - player.inventory[player.selectedItem].tileBoost - player.blockRange <= x
-			&& (player.position.X + player.width) / 16f + Player.tileRangeX + player.inventory[player.selectedItem].tileBoost - 1f + player.blockRange >= x
-			&& player.position.Y / 16f - Player.tileRangeY - player.inventory[player.selectedItem].tileBoost - player.blockRange <= y
-			&& (player.position.Y + player.height) / 16f + Player.tileRangeY + player.inventory[player.selectedItem].tileBoost - 2f + player.blockRange >= y;
+		player.position.X / 16f - Player.tileRangeX - player.inventory[player.selectedItem].tileBoost - player.blockRange <= x
+		&& (player.position.X + player.width) / 16f + Player.tileRangeX + player.inventory[player.selectedItem].tileBoost - 1f + player.blockRange >= x
+		&& player.position.Y / 16f - Player.tileRangeY - player.inventory[player.selectedItem].tileBoost - player.blockRange <= y
+		&& (player.position.Y + player.height) / 16f + Player.tileRangeY + player.inventory[player.selectedItem].tileBoost - 2f + player.blockRange >= y;
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
@@ -58,11 +57,6 @@ namespace Spooky.Core
             //dont allow placing blocks and disable the rod of discord in the catacombs
             if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))
             {
-				if (item.createTile > 0 && !TileID.Sets.Torch[item.createTile])
-				{
-					return false;
-				}
-
 				if (item.type == ItemID.RodofDiscord && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
 				{
 					return false;

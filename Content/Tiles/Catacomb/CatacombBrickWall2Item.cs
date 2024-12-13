@@ -9,6 +9,7 @@ namespace Spooky.Content.Tiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CatacombBrickWall2UnsafeItem>();
             Item.ResearchUnlockCount = 400;
         }
 
@@ -23,7 +24,8 @@ namespace Spooky.Content.Tiles.Catacomb
         {
             CreateRecipe(4)
             .AddIngredient(ModContent.ItemType<CatacombBrick2Item>())
-            .AddTile(TileID.WorkBenches)
+			.AddDecraftCondition(Condition.DownedGolem)
+			.AddTile(TileID.WorkBenches)
             .Register();
         }
     }

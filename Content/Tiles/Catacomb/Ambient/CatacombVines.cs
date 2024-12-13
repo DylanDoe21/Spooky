@@ -49,7 +49,8 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
 			int[] ValidTiles = { ModContent.TileType<CatacombVines>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
-			ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+			ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>(),
+			ModContent.TileType<CatacombBrick1GrassArena>(), ModContent.TileType<CatacombBrick2GrassArena>() };
 
 			if (!ValidTiles.Contains(Main.tile[i, j - 1].TileType))
 			{
@@ -62,7 +63,8 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 		public override void RandomUpdate(int i, int j)
 		{
 			int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
-			ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
+			ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>(),
+			ModContent.TileType<CatacombBrick1GrassArena>(), ModContent.TileType<CatacombBrick2GrassArena>() };
 
 			Tile tileBelow = Framing.GetTileSafely(i, j + 1);
 			if (Main.rand.NextBool(5) && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)

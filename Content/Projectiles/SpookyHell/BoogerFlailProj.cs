@@ -394,12 +394,23 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) 
         {
-			modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
+			//flails do 60% of their base damage while spinning
+			if (CurrentAIState == AIState.Spinning) 
+			{
+				modifiers.SourceDamage *= 0.6f;
+			}
+			//flails do full damage when launching/retracting
+			else if (CurrentAIState == AIState.LaunchingForward || CurrentAIState == AIState.Retracting) 
+			{
+				modifiers.SourceDamage *= 1f;
+			}
 
-			if (CurrentAIState == AIState.Spinning)
-            {
+			modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X).ToDirectionInt();
+
+			if (CurrentAIState == AIState.Spinning) 
+			{
 				modifiers.Knockback *= 0.25f;
-            }
+			}
 		}
 	}
 }

@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
@@ -10,6 +9,7 @@ namespace Spooky.Content.Tiles.Catacomb
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CatacombBrickWall1UnsafeItem>();
             Item.ResearchUnlockCount = 400;
         }
 
@@ -20,11 +20,12 @@ namespace Spooky.Content.Tiles.Catacomb
 			Item.height = 16;
         }
 
-        public override void AddRecipes()
+		public override void AddRecipes()
         {
             CreateRecipe(4)
             .AddIngredient(ModContent.ItemType<CatacombBrick1Item>())
-            .AddTile(TileID.WorkBenches)
+			.AddDecraftCondition(Condition.DownedGolem)
+			.AddTile(TileID.WorkBenches)
             .Register();
         }
     }
