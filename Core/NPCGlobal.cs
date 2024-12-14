@@ -17,6 +17,7 @@ using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpiderCave;
@@ -154,7 +155,18 @@ namespace Spooky.Core
             {
                 modifiers.FinalDamage *= 1.2f;
             }
-        }
+
+			//enemies inflicted with pierced should take 2x damage and be bled for 10 seconds
+			if (npc.HasBuff(ModContent.BuffType<PiercedDebuff>()) && projectile.type != ModContent.ProjectileType<SewingNeedle>())
+			{
+				modifiers.FinalDamage *= 2f;
+
+				npc.AddBuff(ModContent.BuffType<PiercedBleedDebuff>(), 600);
+
+				int buffIndex = npc.FindBuffIndex(ModContent.BuffType<PiercedDebuff>());
+				npc.DelBuff(buffIndex);
+			}
+		}
 
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{

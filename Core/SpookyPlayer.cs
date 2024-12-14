@@ -25,7 +25,6 @@ using Spooky.Content.Projectiles.SpiderCave;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
-using Spooky.Content.Tiles.Minibiomes;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Tree;
@@ -152,21 +151,19 @@ namespace Spooky.Core
         public int CarnisSporeSpawnTimer = 0;
         public int RedMistNoteSpawnDelay = 0;
         public int RedGodzillaCartridgeSpawnDelay = 0;
-        public int GeminiMockerySpawnTimer = 0;
         public int GooSlugEatCooldown = 0;
 		public int RootHealCooldown = 0;
-		public int MagicEyeOrbHits = 0;
         public int CandyBagCooldown = 0;
 
 		//dashing stuff
-		public const int dashDown = 0;
+        public const int dashDown = 0;
 		public const int dashUp = 1;
 		public const int dashRight = 2;
 		public const int dashLeft = 3;
-		public int dashCooldown = 600;
+		public int dashCooldown = 30;
 		public int dashDuration = 15;
-		public float dashVelocityX = 15f;
-		public float dashVelocityY = 18f;
+		public float dashVelocityY = 22f;
+		public float dashVelocityX = 22f;
 		public int dashDir = -1;
 		public int dashDelay = 0;
 		public int dashTimer = 0;
@@ -299,15 +296,7 @@ namespace Spooky.Core
 			NoseBlessingBuff = false;
 
 			//dashing stuff
-			if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[dashRight] < 15)
-			{
-				dashDir = dashRight;
-			}
-			else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[dashLeft] < 15)
-			{
-				dashDir = dashLeft;
-			}
-			else if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
+            if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
 			{
 				dashDir = dashUp;
 			}
@@ -315,9 +304,20 @@ namespace Spooky.Core
 			{
 				dashDir = dashDown;
 			}
+			else if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[dashRight] < 15)
+			{
+				dashDir = dashRight;
+			}
+			else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[dashLeft] < 15)
+			{
+				dashDir = dashLeft;
+			}
 			else
 			{
-				dashDir = -1;
+                if (dashTimer <= 0)
+                {
+				    dashDir = -1;
+                }
 			}
 		}
 
@@ -488,11 +488,9 @@ namespace Spooky.Core
                 }
 
                 //spawn an orbiting note on critical hits with the clarinet
-                if (RedMistClarinet && RedMistNoteSpawnDelay <= 0 && hit.Crit && Main.rand.NextBool())
+                if (RedMistClarinet && Main.rand.NextBool() && hit.Crit && Player.ownedProjectileCounts[ModContent.ProjectileType<RedMistNote>()] < 5)
                 {
                     SoundEngine.PlaySound(ClarinetSound, Player.Center);
-
-                    RedMistNoteSpawnDelay = 120;
 
                     //dont cap the damage if the player has the combined creepypasta accessory
                     int damage = CreepyPasta ? hit.Damage : (hit.Damage >= 70 ? 70 : hit.Damage);
@@ -535,9 +533,7 @@ namespace Spooky.Core
                 //spawn goo jaws on enemies when you hit them with the goo chompers
                 if (GooChompers && Main.rand.NextBool(15) && !target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached)
                 {
-                    int Damage = ItemGlobal.ActiveItem(Player).damage > 50 ? ItemGlobal.ActiveItem(Player).damage : 50;
-
-                    Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GooChomperProj>(), Damage, 0, Player.whoAmI, target.whoAmI);
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GooChomperProj>(), hit.Damage, 0, Player.whoAmI, target.whoAmI);
                     target.GetGlobalNPC<NPCGlobal>().HasGooChompterAttached = true;
                 }
 
@@ -670,19 +666,6 @@ namespace Spooky.Core
                     }
                 }
             }
-
-			//if the player gets hit too many times with the glass eye then give the player the glass eye cooldown
-			if (MagicEyeOrb)
-			{
-				MagicEyeOrbHits++;
-
-				if (MagicEyeOrbHits == 5)
-				{
-					Player.AddBuff(ModContent.BuffType<GlassEyeCooldown>(), 1800);
-
-					MagicEyeOrbHits = 0;
-				}
-			}
         }
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -743,12 +726,6 @@ namespace Spooky.Core
             if (SlendermanPageDelay > 0)
             {
                 SlendermanPageDelay--;
-            }
-
-            //decrease red mist note spawning delay
-            if (RedMistNoteSpawnDelay > 0)
-            {
-                RedMistNoteSpawnDelay--;
             }
 
             if (RedGodzillaCartridgeSpawnDelay > 0)
@@ -913,37 +890,26 @@ namespace Spooky.Core
             //spawn nature's mockery on the ground with the lethal omen accessory
             if (GeminiEntertainmentGame && Player.ownedProjectileCounts[ModContent.ProjectileType<NaturesMockery>()] < 1)
             {
-                GeminiMockerySpawnTimer++;
-
-                if (GeminiMockerySpawnTimer >= 420)
+                Vector2 center = new Vector2(Player.Center.X, Player.Center.Y + Player.height / 4);
+                center.X += Main.rand.Next(-125, 126);
+                int numtries = 0;
+                int x = (int)(center.X / 16);
+                int y = (int)(center.Y / 16);
+                while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) &&
+                Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
                 {
-                    Vector2 center = new Vector2(Player.Center.X, Player.Center.Y + Player.height / 4);
-                    center.X += Main.rand.Next(-125, 126);
-                    int numtries = 0;
-                    int x = (int)(center.X / 16);
-                    int y = (int)(center.Y / 16);
-                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) &&
-                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
-                    {
-                        y++;
-                        center.Y = y * 16;
-                    }
-                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
-                    {
-                        numtries++;
-                        y--;
-                        center.Y = y * 16;
-                    }
-
-                    int NewProj = Projectile.NewProjectile(null, center.X, center.Y, 0, -0.3f, ModContent.ProjectileType<NaturesMockery>(), 0, 0, Main.myPlayer, 0, 0, 4);
-                    Main.projectile[NewProj].frame = AnalogHorrorTape ? 4 : Main.rand.Next(0, 4);
-
-                    GeminiMockerySpawnTimer = 0;
+                    y++;
+                    center.Y = y * 16;
                 }
-            }
-            else
-            {
-                GeminiMockerySpawnTimer = 0;
+                while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+                {
+                    numtries++;
+                    y--;
+                    center.Y = y * 16;
+                }
+
+                int NewProj = Projectile.NewProjectile(null, center.X, center.Y, 0, -0.3f, ModContent.ProjectileType<NaturesMockery>(), 0, 0, Main.myPlayer, 0, 0, 4);
+                Main.projectile[NewProj].frame = AnalogHorrorTape ? 4 : Main.rand.Next(0, 4);
             }
 
 			//spawn spores with the vita carnis flavor enhancer
@@ -980,7 +946,7 @@ namespace Spooky.Core
                         SoundEngine.PlaySound(SoundID.Item8, Player.Center);
 
                         Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
-                        Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
+                        Vector2 newVelocity = Player.velocity.Y == 0 ? new Vector2(Speed.X, Main.rand.Next(-10, -3)) : Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
 
                         //scale the damage based on the player's current speed
                         int damage = 80 + ((int)PlayerSpeed(Player) / 3);
@@ -1068,18 +1034,18 @@ namespace Spooky.Core
 
 				switch (dashDir)
 				{
+                    case dashUp when Player.velocity.Y > -dashVelocityY:
+					case dashDown when Player.velocity.Y < dashVelocityY:
+					{
+						float dashDirection = dashDir == dashDown ? 1 : -1;
+						newVelocity.Y = dashDirection * dashVelocityY;
+						break;
+					}
 					case dashLeft when Player.velocity.X > -dashVelocityX:
 					case dashRight when Player.velocity.X < dashVelocityX:
 					{
 						float dashDirection = dashDir == dashRight ? 1 : -1;
 						newVelocity.X = dashDirection * dashVelocityX;
-						break;
-					}
-					case dashUp when Player.velocity.Y > -dashVelocityY:
-					case dashDown when Player.velocity.Y < dashVelocityY:
-					{
-						float dashDirection = dashDir == dashDown ? 1 : -1;
-						newVelocity.Y = dashDirection * dashVelocityY;
 						break;
 					}
 					default:
@@ -1093,11 +1059,9 @@ namespace Spooky.Core
 				dashDelay = dashCooldown;
 				dashTimer = dashDuration;
 
-				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<StitchedCloakWeb>(), 35, 0f, Main.myPlayer);
-
-				Player.AddBuff(ModContent.BuffType<StitchedCloakCooldown>(), dashDelay);
-
 				Player.velocity = newVelocity;
+
+                Player.AddBuff(ModContent.BuffType<StitchedCloakCooldown>(), 300);
 			}
 
 			if (dashDelay > 0)
@@ -1109,6 +1073,33 @@ namespace Spooky.Core
 			{
 				dashTimer--;
 
+                Player.immune = true;
+                Player.immuneTime = 2;
+                Player.gravity = 0;
+
+                if (dashTimer == 1)
+			    {
+                    if (dashDir == dashDown || dashDir == dashUp)
+                    {
+                        Player.velocity.Y *= 0.25f;
+                    }
+                    if (dashDir == dashLeft || dashDir == dashRight)
+                    {
+                        Player.velocity.X *= 0.25f;
+                    }
+                }
+                else
+                {
+                    if (dashDir == dashDown || dashDir == dashUp)
+                    {
+                        Player.velocity.X *= 0.0001f;
+                    }
+                    if (dashDir == dashLeft || dashDir == dashRight)
+                    {
+                        Player.velocity.Y *= 0.0001f;
+                    }
+                }
+
 				int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Web, 0, 0, default, default, Main.rand.NextFloat(0.75f, 1.5f));
 				Main.dust[dust].velocity *= 0;
 			}
@@ -1117,7 +1108,7 @@ namespace Spooky.Core
 		//check if you can dash
 		private bool CanUseDash()
 		{
-			return StitchedCloak && Player.dashType == 0 && !Player.setSolar && dashDir != -1 && dashDelay == 0 && !Player.mount.Active;
+			return StitchedCloak && Player.dashType == 0 && !Player.setSolar && dashDir != -1 && dashDelay == 0 && !Player.mount.Active && !Player.HasBuff(ModContent.BuffType<StitchedCloakCooldown>());
 		}
 
 		public override void PostUpdateRunSpeeds()
@@ -1130,7 +1121,13 @@ namespace Spooky.Core
 
 			if (StitchedCloak)
 			{
-				Player.runAcceleration += 0.015f;
+				Player.runAcceleration += 0.025f;
+			}
+
+			if (BoneMask)
+			{
+				Player.maxRunSpeed += 7f;
+				Player.runAcceleration += 0.075f;
 			}
 
             if (Player.HasBuff(ModContent.BuffType<GooseberryBoostBuff>()))

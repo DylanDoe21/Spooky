@@ -14,7 +14,7 @@ namespace Spooky.Content.Biomes
 {
     public class TarPitsBiome : ModBiome
     {
-		public override int Music => MusicID.Desert; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/VegetableBiome");
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TarPits");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 

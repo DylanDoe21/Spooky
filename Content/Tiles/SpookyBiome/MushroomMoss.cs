@@ -91,7 +91,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 //grow mushroom trees very rarely
                 if (Main.rand.NextBool(35))
                 {
-                    SpookyForest.GrowGiantMushroom(i, j, ModContent.TileType<GiantShroom>(), 6, 10);
+                    SpookyForest.GrowGiantMushroom(i, j, 6, 10);
                 }
             }
 

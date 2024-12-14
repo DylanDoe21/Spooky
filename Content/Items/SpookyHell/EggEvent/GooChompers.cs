@@ -25,6 +25,7 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SpookyPlayer>().GooChompers = true;
+            player.GetCritChance(DamageClass.Generic) += 8;
 		}
 	}
 }

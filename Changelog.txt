@@ -23,25 +23,64 @@ Other Random Additions:
 
 -Added spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
 -Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks)
+-Added a couple new accessories to the underground spooky forest cabin chests, one for melee and one for ranged
+-Added cranberry cans and cranberry juice, functionally identical to healing potions but they auto consume when you fall below half hp and have slightly less potion sickness time
 
 
 
 
 ~CHANGES TO EXISTING CONTENT~
 
--Buffed rot gourd max hp from 2200 to 2800
+
+Items:
+
 -Lowered drop rate of the putty slime pet
--Necronomicon volume II now shoots a bit more frequently
--Carved gourd-o-lanterns now count as light source blocks for npc houses
--Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
--Made the spider grotto biomes size a tiny bit smaller
--Rod of discord can now be used in the catacombs while fighting daffodil and big bone
--Catacombs no longer prevents you from placing blocks
--Catacomb bricks can now be broken with pickaxes once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandoras box arena are still completely indestructable. This also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
--Changed daffodils death beam "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
 -Spooky biome dungeon keys now shimmer into their corresponding chest like vanilla biome keys
 -Spooky biome dungeon keys now correctly use the "it has been cursed by a powerful jungle creature" tooltip pre-plantera like vanilla biome keys
+-Necronomicon volume II heart projectile now shoots a bit more frequently in all size stages
+-Buffed swingable sphider damage from 30 to 35
+-Buffed spider egg cannon damage from 16 to 25
+-Buffed venomous crossbow damage from 25 to 32, and renamed it to poison crossbow
 -Nerfed bulb bomb damage from 52 to 45 and its thorns now deal half the base damage
+-Nerfed jerrys book of stinkology damage from 18 to 10
+-Nerfed spider stabber damage from 25 to 20, but it now inflicts venom instead of poison
+-Nerfed snot ball damage from 60 to 50 and the bouncing projectile no longer does double the damage of the weapon
+
+
+Accessory Rebalancing/Reworks:
+
+-Swapped the telescope and severed heads progression (severed head is now post orroboro and telescope is now post daffodil, both of their buy/sell prices and rarity colors have been adjusted accordingly)
+-Telescope's moon now grants 10% increased damage during the day and 10 defense at night along with its existing abilities
+-Apocalypse mixtape telescope moon now has no damage cap for projectiles it can reflect (This does not apply to the regular telescope accessory)
+-Arcade cabinet now gives 2% increased critical strike chance per missing swirl charge up to 10% total, and increased the amount of time it takes for one charge to regenerate to 2 seconds
+-Dreadful clarinet no longer has a cooldown for spawning notes on critical hits but you can not have more than 5 active notes at once, and increased their enemy targetting range
+-Strange video game now disables your life regeneration but it will now spawn natures mockery around you constantly, only one can exist at a time but once one dies another will immediately spawn
+-Samson's cuff no longer decreases movement speed and damage (Applies to both the regular accessory and the amalghoul)
+-Sewing thread now inflicts pierced onto any enemy it hits, pierced enemies will take 2x damage and be inflicted with a bleed damage-over-time debuff for 10 seconds the next time they are hit by any weapon that isnt the thread
+-Stitched cloak dash now allows you to dash vertically/Horizontally without falling, and you are now invincible while dashing which allows you to dash through enemies and their attacks
+-Removed the stitched cloak's spider web ability
+-Eyeball of pondering now displays the exact amount of damage increase it gives when targetting an enemy, and removed the "shattering when you get hit too many times" gimmick entirely
+-Allergy medication now provides immunity to venom and poisoned along with oozed and converts both of those debuffs into positive buffs like it does with oozed
+-Corroding chomper projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it
+-Corroding chompers now gives 8% increased critical strike chance to make the goo jaw projectile more useful
+-Ancient bone mask now massively increases your movement acceleration and maximum movement speed
+-Ancient bone mask wisps will now shoot upward if you are running on the ground to prevent them from hitting the floor and immediately dying
+
+
+Enemies and Bosses:
+
+-Buffed rot gourd max hp from 2200 to 2700
+-Changed daffodils death beam "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
+
+
+Miscellaneous:
+
+-Made the spider grotto biome size a tiny bit smaller
+-Carved gourd-o-lanterns now count as light source blocks for npc housing
+-Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
+-Catacombs curse debuff no longer prevents you from placing blocks
+-Catacomb bricks and walls can now be broken with pickaxes/hammers once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandora's box arena are still completely indestructable. This also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
+
 
 
 
@@ -58,3 +97,5 @@ Other Random Additions:
 -Fixed living flesh mask still giving extra whip range
 -Fixed gore mask giving 3 extra minion slots instead of 2
 -Fixed spooky mod flails not dealing reduced damage while in being spun around
+-Fixed dreadful clarinet note projectiles not fading out correctly
+-Fixed bluefords casting animation playing way too early before he actually shields another ghost bandit

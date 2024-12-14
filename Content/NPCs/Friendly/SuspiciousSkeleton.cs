@@ -137,8 +137,8 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<GeminiEntertainmentGame>(RotGourdDowned)
             .Add<MandelaCatalogueTV>(SpookySpiritDowned)
             .Add<CarnisFlavorEnhancer>(MocoDowned)
-            .Add<BackroomsCorpse>(DaffodilDowned)
-            .Add<Local58Telescope>(OrroboroDowned)
+            .Add<Local58Telescope>(DaffodilDowned)
+            .Add<BackroomsCorpse>(OrroboroDowned)
             .Add<MonumentMythosPyramid>(BigBoneDowned)
             //creepypasta
             .Add<PolybiusArcadeGame>(RotGourdDowned)

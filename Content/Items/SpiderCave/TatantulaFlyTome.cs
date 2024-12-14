@@ -15,6 +15,7 @@ namespace Spooky.Content.Items.SpiderCave
             Item.damage = 40;
             Item.mana = 12;
 			Item.DamageType = DamageClass.Magic;
+            Item.autoReuse = true;
             Item.noMelee = true;
             Item.width = 34;
             Item.height = 38;

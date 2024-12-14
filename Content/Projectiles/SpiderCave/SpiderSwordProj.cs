@@ -29,9 +29,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-			if (Main.rand.NextBool(4))
+			if (Main.rand.NextBool(5))
 			{
-            	target.AddBuff(BuffID.Poisoned, 300);
+            	target.AddBuff(BuffID.Venom, 180);
 			}
         }
 

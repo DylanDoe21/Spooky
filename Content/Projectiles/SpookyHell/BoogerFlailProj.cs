@@ -218,7 +218,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 						if (Main.myPlayer == Projectile.owner)
 						{
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, 
-							ModContent.ProjectileType<BoogerFlailFlung>(), Projectile.damage * 2, Projectile.knockBack, Main.myPlayer);
+							ModContent.ProjectileType<BoogerFlailFlung>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
 						}
                     }
 

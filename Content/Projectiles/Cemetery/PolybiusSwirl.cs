@@ -10,6 +10,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
 	public class PolybiusSwirl : ModProjectile
     {
+        int MissingCharges = 0;
+
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetDefaults()
@@ -40,12 +42,13 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool? CanDamage()
         {
-			return Projectile.alpha < 255;
+			return MissingCharges < 5;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.alpha += 51;
+            MissingCharges++;
+            //Projectile.alpha += 51;
             Projectile.ai[0] = 0;
         }
 
@@ -67,13 +70,17 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.Kill();
             }
 
+            player.GetCritChance(DamageClass.Generic) += 2 * MissingCharges;
+
+            Projectile.alpha = 51 * MissingCharges;
+
             if (Projectile.alpha > 0)
             {
                 Projectile.ai[0]++;
 
-                if (Projectile.ai[0] >= 85)
+                if (Projectile.ai[0] >= 120 && MissingCharges > 0)
                 {
-                    Projectile.alpha -= 51;
+                    MissingCharges--;
                     Projectile.ai[0] = 0;
                 }
             }

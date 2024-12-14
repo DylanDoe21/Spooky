@@ -14,8 +14,8 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             Item.width = 56;
             Item.height = 30;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Lime;  
-            Item.value = Item.buyPrice(gold: 50);
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.buyPrice(gold: 40);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             bool SwirlNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PolybiusSwirl>()] <= 0;
 			if (SwirlNotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(null, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<PolybiusSwirl>(), 90, 0f, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(null, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<PolybiusSwirl>(), 100, 0f, player.whoAmI);
 			}
 
             //spawn smile dog

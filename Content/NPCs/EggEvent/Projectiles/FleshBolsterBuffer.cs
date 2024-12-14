@@ -26,6 +26,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
 		int target = 0;
 
+		private static Asset<Texture2D> ProjTexture;
 		private static Asset<Texture2D> ChainTexture;
 		private static Asset<Texture2D> ChainTexture1;
 		private static Asset<Texture2D> ChainTexture2;
@@ -147,7 +148,16 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				}
 			}
 
-			return true;
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			int height = ProjTexture.Height() / Main.projFrames[Projectile.type];
+			int frameHeight = height * Projectile.frame;
+			Rectangle rectangle = new Rectangle(0, frameHeight, ProjTexture.Width(), height);
+
+			Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
+			rectangle, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2f, height / 2f), Projectile.scale, SpriteEffects.None, 0);
+
+			return false;
 		}
 
 		public override bool? CanDamage()

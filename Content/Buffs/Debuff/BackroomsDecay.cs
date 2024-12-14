@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Core;
 using Spooky.Content.Projectiles.SpookyBiome;
 
 namespace Spooky.Content.Buffs.Debuff
@@ -26,7 +27,7 @@ namespace Spooky.Content.Buffs.Debuff
 						npc.lifeRegen = 0;
 					}
 
-					npc.lifeRegen -= npc.boss ? 15 : 30;
+					npc.lifeRegen -= npc.IsTechnicallyBoss() ? 15 : 30;
 				}
 			}
 		}

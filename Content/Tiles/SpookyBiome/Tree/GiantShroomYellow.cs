@@ -13,7 +13,7 @@ using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Tree
 {
-    internal class GiantShroom : ModTile
+    internal class GiantShroomYellow : ModTile
     {
         //reminder:
         //X frame 0 = root segment
@@ -39,7 +39,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             Main.tileLighted[Type] = true;
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(196, 188, 217), name);
+            AddMapEntry(new Color(208, 162, 44), name);
             DustType = DustID.Slush;
 			HitSound = SoundID.Dig;
         }
@@ -49,9 +49,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             //create light at the top of the tree
             if (Framing.GetTileSafely(i, j).TileFrameX == 36)
 			{
-                r = 0.55f;
-                g = 0.35f;
-                b = 0.55f;
+                r = 255f / 450f;
+                g = 185f / 450f;
+                b = 0f;
             }
         }
 
@@ -105,7 +105,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             //make sure the block is valid for the tree to place on
             if ((SolidTopTile(i, j + 1) || SolidTile(i, j + 1)) && !Framing.GetTileSafely(i, j).HasTile)
             {
-                WorldGen.PlaceTile(i, j, ModContent.TileType<GiantShroom>(), true);
+                WorldGen.PlaceTile(i, j, ModContent.TileType<GiantShroomYellow>(), true);
                 Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
@@ -122,7 +122,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             for (int numSegments = 1; numSegments < height; numSegments++)
             {
                 //place tree segments
-                WorldGen.PlaceTile(i, j - numSegments, ModContent.TileType<GiantShroom>(), true);
+                WorldGen.PlaceTile(i, j - numSegments, ModContent.TileType<GiantShroomYellow>(), true);
                 Framing.GetTileSafely(i, j - numSegments).TileFrameY = (short)(WorldGen.genRand.Next(4) * 18);
 
                 //place root segment at the bottom
@@ -215,8 +215,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
         {
             if (shake)
             {
-                float cos = Main.GlobalTimeWrappedHourly * 0.08971428571f * 15;
-                scaleVec = new Vector2(1f, -MathF.Cos(-i / 8f + cos));
+                float sin = Main.GlobalTimeWrappedHourly * 0.08971428571f * 15;
+                scaleVec = new Vector2(1f, -MathF.Sin(-i / 8f + sin));
             }
 
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
@@ -227,11 +227,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
-			TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomTop");
-			CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomTopCap");
-			RootTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomRoots");
-			SideFungusTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomSides");
-			BranchTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomBranches");
+			TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomYellowTop");
+			CapTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomYellowTopCap");
+			RootTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomYellowRoots");
+			SideFungusTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomYellowSides");
+			BranchTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Tree/GiantShroomYellowBranches");
 			StemTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Tile tile = Framing.GetTileSafely(i, j);

@@ -212,20 +212,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			}
 		}
 
-		public override void OnKill(int timeLeft)
-		{
-			SoundEngine.PlaySound(SoundID.Tink with { Volume = 0.75f, Pitch = 1.25f }, Projectile.Center);
-			SoundEngine.PlaySound(SoundID.Shatter with { Volume = 0.75f, Pitch = 1.25f }, Projectile.Center);
-
-			for (int numGores = 1; numGores <= 3; numGores++)
-			{
-				if (Main.netMode != NetmodeID.Server)
-				{
-					Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/GlassEyeGore" + numGores).Type);
-				}
-			}
-		}
-
 		public void AttackingAI(NPC target)
         {
 			isAttacking = true;

@@ -20,6 +20,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<SpookyPlayer>().GeminiEntertainmentGame = true;
+			player.bleed = true;
         }
     }
 }

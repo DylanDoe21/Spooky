@@ -87,7 +87,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 2800;
+            NPC.lifeMax = 2700;
             NPC.damage = 22;
             NPC.defense = 12;
             NPC.width = 72;

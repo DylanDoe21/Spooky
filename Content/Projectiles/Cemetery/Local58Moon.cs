@@ -45,6 +45,15 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.timeLeft = 2;
             }
 
+            if (Main.dayTime)
+            {
+                player.GetDamage(DamageClass.Generic) += 0.1f;
+            }
+            else
+            {
+                player.statDefense += 10;
+            }
+
             if (!Main.dayTime && Distance < 250f)
             {
                 Distance += 5f;
@@ -65,7 +74,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             if (Main.dayTime && ParryDelay <= 0)
             {
-                int damageToActivateParry = Main.masterMode ? 120 : Main.expertMode ? 90 : 50;
+                //no damage cap if you have the analog horror tape
+                int damageToActivateParry = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? int.MaxValue : (Main.masterMode ? 120 : Main.expertMode ? 90 : 50);
 
                 for (int i = 0; i <= Main.maxProjectiles; i++)
                 {

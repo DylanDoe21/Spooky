@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 			Projectile.tileCollide = false;
             Projectile.netImportant = true;
 			Projectile.hide = true;
-            Projectile.timeLeft = 420;
+            Projectile.timeLeft = 300;
             Projectile.alpha = 255;
         }
 
@@ -85,7 +85,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 {
                     if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Main.npc[i].Hitbox.Intersects(Projectile.Hitbox))
                     {
-                        int damageDone = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? Main.rand.Next(100, 150) : Main.rand.Next(15, 22);
+                        int damageDone = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? Main.rand.Next(100, 150) : Main.rand.Next(20, 29);
                         int lifeStealDivider = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? 5 : 2;
 
                         player.ApplyDamageToNPC(Main.npc[i], damageDone, 0, 0, false, null, true);

@@ -91,7 +91,7 @@ SpringHeartFlower: {
 }
 
 SpringIris: {
-	DisplayName: Dialated Iris
+	DisplayName: Dilated Iris
 	Tooltip:
 		'''
 		Every minute, you will spawn an iris petal and a large eye on your cursor
@@ -243,6 +243,7 @@ BoneMask: {
 	DisplayName: Ancient Skull Mask
 	Tooltip:
 		'''
+		Increases your maximum movement speed and movement acceleration
 		Fire off homing skull wisps while you are flying or running
 		The rate wisps are fired and their damage scales with your current speed
 		'''
@@ -643,7 +644,6 @@ PandoraCuffs: {
 	DisplayName: Samson's Cuffs
 	Tooltip:
 		'''
-		Reduces your damage and movement speed by 10%
 		Every 15 seconds, a chain will attach itself to a nearby enemy for 5 seconds
 		Enemies attached to the chain will take 50% more damage
 		The chain will also prioritize bosses over normal enemies
@@ -733,8 +733,9 @@ GeminiEntertainmentGame: {
 	DisplayName: Strange Videogame
 	Tooltip:
 		'''
-		Spawns short-lived nature's mockery around you on the ground occassionally
-		Nature's mockery will sap the life of enemies near it to heal you
+		Completely removes your life regeneration
+		Nature's mockery will spawn on the ground around you constantly
+		They will sap the life of enemies that touch it to damage them and heal you
 		'Go on, feed the woods'
 		'''
 }
@@ -758,6 +759,7 @@ Local58Telescope: {
 		Spawns a large moon that constantly orbits around you 
 		During the day the moon will orbit close to you and reflect weak hostile projectiles
 		During the night the moon will orbit further from you and damage enemies
+		The moon grants 10% increased damage during the day and 10 defense at night
 		'His throne'
 		'''
 }
@@ -792,6 +794,7 @@ PolybiusArcadeGame: {
 		Summons a damaging blue spiral on your cursor
 		Stores 5 charges and looses a charge upon hitting an enemy
 		Constantly regenerates charges if it hasn't hit an enemy
+		For each lost charge you gain 2% increased critical strike chance
 		'Classified information not to be meddled with'
 		'''
 }
@@ -811,7 +814,7 @@ RedMistClarinet: {
 	Tooltip:
 		'''
 		Critical hits will sometimes spawn an orbiting note that will chase enemies
-		There is a 2 second cooldown before you can spawn another note
+		You can only have up to 5 notes active at once
 		'Your worst and last performance'
 		'''
 }
@@ -847,11 +850,12 @@ AnalogHorrorTape: {
 	Tooltip:
 		'''
 		Grants the effects of every analog horror accessory
-		You will sometimes spawn nature's mockery that sap life from enemies
+		You will constantly spawn nature's mockery on the ground that saps life from enemies
 		Press the Accessory Hotkey to summon an alternate that slows down nearby enemies
 		Moving will spawn spores that inflict debuffs, becomes stronger if you have well fed buffs
+		Summons an orbiting moon that can reflect hostile projectiles at day and damage enemies at night
+		The moon also grants 10% increased damage during the day and 10 defense at night
 		Spawns a floating head that decays nearby enemies above half health, rapidly draining their health
-		Summons an orbiting moon that can reflect weaker hostile projectiles and damage enemies
 		Grants you a glass pyramid that gives you high damage reduction for 3 hits and then shatters
 		You will take double damage for 10 seconds after the pyramid shatters
 		'''
@@ -863,6 +867,7 @@ Creepypasta: {
 		'''
 		Grants the effects of every creepypasta accessory
 		Summons a damaging blue spiral on your cursor with 5 charges that damages enemies
+		For each lost spiral charge you gain 2% increased critical strike chance
 		Summons a smiling puppy that will maul nearby enemies
 		Critical hits may spawn orbiting red notes that will attack enemies
 		Summons black tentacles to attack nearby enemies, enemies killed by them may drop pages that buff them
@@ -1377,8 +1382,7 @@ MagicEyeOrb: {
 	Tooltip:
 		'''
 		Summons a glass eye that looks at nearby enemies
-		Enemies being looked at will take more damage from your magic attacks
-		The eye will shatter if you get hit 5 times, and will respawn after 30 seconds
+		Enemies being looked at will take 35% more damage from your magic attacks
 		'''
 }
 
@@ -1386,8 +1390,10 @@ SewingThread: {
 	DisplayName: Sewing Thread
 	Tooltip:
 		'''
-		Using items will sometimes launch out a piercing thread
-		The thread will deal more damage the more enemies it pierces
+		Using weapons will sometimes launch out a piercing thread 
+		The thread will deal the same damage as the weapon you are using
+		The thread inflicts pierced and will deal more damage the more enemies it pierces
+		Pierced enemies will take double damage and be bled when damaged by something other than the thread
 		'''
 }
 
@@ -1396,10 +1402,9 @@ StitchedCloak: {
 	Tooltip:
 		'''
 		Increases your movement acceleration
-		Double tap Left or Right to dash horizontally
-		Double tap Up or Down to dash vertically
-		Dashing will leave behind a spider web that can trap enemies and damage them
-		You will not be able to use this dash again for a bit once used
+		Double-Tap in any direction to dash in that direction
+		While dashing you will be immune, allowing you to evade enemies and their attacks
+		You will not be able to dash again for 5 seconds
 		'''
 }
 
@@ -1626,7 +1631,7 @@ SphiderFlail: {
 }
 
 SpiderCrossbow: {
-	DisplayName: Venomous Crossbow
+	DisplayName: Poison Crossbow
 	Tooltip: Converts arrows into piercing poisonous darts
 }
 
@@ -1664,7 +1669,7 @@ SpiderSummonEgg: {
 
 SpiderSword: {
 	DisplayName: Spider Stabber
-	Tooltip: Can sometimes poison enemies
+	Tooltip: Can sometimes inflict enemies with venom
 }
 
 TarantulaHawkBow: {
@@ -2085,7 +2090,7 @@ GiantEar: {
 	Tooltip:
 		'''
 		Summons an ear companion that shoots out damaging sound blasts while you attack
-		The damage and frequency of the blasts is based on the weapon you are currently using
+		The damage and frequency of the blasts scales based on the weapon you are currently using
 		'''
 }
 
@@ -2093,8 +2098,9 @@ GooChompers: {
 	DisplayName: Corroding Chompers
 	Tooltip:
 		'''
+		Increases critical strike chance by 8%
 		Hitting enemies may attach a set of goo jaws to deal additional damage
-		The damage they deal scales with how much damage you did on that hit
+		The goo jaws damage is the same as the damage of the hit that spawned it
 		'''
 }
 
@@ -2611,8 +2617,8 @@ SnotMedication: {
 	DisplayName: Allergy Medication
 	Tooltip:
 		'''
-		Grants immunity to the oozed debuff
-		Getting inflicted with the oozed debuff will turn it into a positive buff
+		Grants immunity to poisoned, acid venom, and oozed
+		Getting inflicted with any of those debuffs will turn it into a positive buff
 		'''
 }
 

@@ -1,9 +1,10 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
@@ -70,6 +71,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			{
 				Projectile.damage = (int)(damageDone * 1.1f);
 			}
+
+			target.AddBuff(ModContent.BuffType<PiercedDebuff>(), int.MaxValue);
 		}
 
 		public override void AI() 

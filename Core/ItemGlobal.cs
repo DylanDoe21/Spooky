@@ -54,10 +54,10 @@ namespace Spooky.Core
 
 		public override bool CanUseItem(Item item, Player player)
         {
-            //dont allow placing blocks and disable the rod of discord in the catacombs
+            //disable the rod of discord in the catacombs if none of the catacombs bosses are currently being fought
             if (player.HasBuff(ModContent.BuffType<CatacombDebuff>()))
             {
-				if (item.type == ItemID.RodofDiscord && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
+				if (item.type == ItemID.RodofDiscord)
 				{
 					return false;
 				}

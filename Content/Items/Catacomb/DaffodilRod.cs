@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.damage = 42;
 			Item.mana = 15;       
 			Item.DamageType = DamageClass.Magic;
-			Item.autoReuse = false; 
+			Item.autoReuse = true; 
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.channel = true;  

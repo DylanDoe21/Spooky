@@ -450,19 +450,9 @@ GlassEyeDebuff: {
 	Description: ""
 }
 
-GlassEyeCooldown: {
-	DisplayName: Glass Eye Shattered
-	Description: Your glass eye has been shattered
-}
-
 StitchedCloakCooldown: {
 	DisplayName: Stitched Cloak Cooldown
 	Description: You cannot use your stitched cloak dash
-}
-
-StitchedCloakWebSlow: {
-	DisplayName: Stitched Cloak Web Slow
-	Description: ""
 }
 
 OrroboroPetBuff: {
@@ -493,4 +483,14 @@ RatPetBuff: {
 PuttyPetBuff: {
 	DisplayName: Putty Slime Squad
 	Description: The putties are hopping along with you
+}
+
+PiercedBleedDebuff: {
+	DisplayName: Pierced Bleed Debuff
+	Description: ""
+}
+
+PiercedDebuff: {
+	DisplayName: Pierced Debuff
+	Description: ""
 }

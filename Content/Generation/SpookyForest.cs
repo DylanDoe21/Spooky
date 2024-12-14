@@ -364,7 +364,7 @@ namespace Spooky.Content.Generation
                     {
                         if (WorldGen.genRand.NextBool(18))
                         {
-                            GrowGiantMushroom(X, Y, ModContent.TileType<GiantShroom>(), 5, 8);
+                            GrowGiantMushroom(X, Y, 5, 8);
                         }
                     }
 
@@ -372,7 +372,7 @@ namespace Spooky.Content.Generation
                     {
                         if (WorldGen.genRand.NextBool(5))
                         {
-                            GrowGiantMushroom(X, Y, ModContent.TileType<GiantShroom>(), 6, 10);
+                            GrowGiantMushroom(X, Y, 6, 10);
                         }
                     }
                 }
@@ -815,14 +815,36 @@ namespace Spooky.Content.Generation
 				CurrentX = IncrementX;
 
 				//place vertical tunnel downward
-				for (IncrementY = CurrentY; IncrementY < CurrentY + 25; IncrementY++)
+				for (IncrementY = CurrentY; IncrementY < CurrentY + 50; IncrementY += 3)
 				{
 					MineshaftCircle(CurrentX, IncrementY);
-					WorldGen.digTunnel(CurrentX, IncrementY, 0, 0, 1, 3, false);
+				}
+
+				//place ropes in the vertical tunnel
+				for (IncrementY = CurrentY; IncrementY <= CurrentY + 50; IncrementY++)
+				{
+					WorldGen.PlaceTile(CurrentX, IncrementY, TileID.Rope);
+
+					if (IncrementY == CurrentY || IncrementY == CurrentY + 50)
+					{
+						for (int ropeY = IncrementY - 3; ropeY <= IncrementY + 3; ropeY++)
+						{
+							if (!Main.tile[CurrentX, ropeY].HasTile)
+							{
+								WorldGen.PlaceTile(CurrentX, ropeY, TileID.Rope);
+							}
+						}
+					}
 				}
 
 				//save the Y-position so the next tunnel starts from the bottom of the previous one
 				CurrentY = IncrementY;
+
+				//stop placing the tunnels once it reaches the underground layer
+				if (CurrentY > Main.worldSurface + 5)
+				{
+					break;
+				}
 
 				//place horizontal tunnel that randomly decides to go left or right
 				bool Left = WorldGen.genRand.NextBool();
@@ -832,7 +854,6 @@ namespace Spooky.Content.Generation
 					for (IncrementX = CurrentX; IncrementX > CurrentX - 25; IncrementX--)
 					{
 						MineshaftCircle(IncrementX, CurrentY);
-						WorldGen.digTunnel(IncrementX, CurrentY, 0, 0, 1, 3, false);
 					}
 				}
 				else
@@ -840,26 +861,18 @@ namespace Spooky.Content.Generation
 					for (IncrementX = CurrentX; IncrementX < CurrentX + 25; IncrementX++)
 					{
 						MineshaftCircle(IncrementX, CurrentY);
-						WorldGen.digTunnel(IncrementX, CurrentY, 0, 0, 1, 3, false);
 					}
-				}
-
-				//stop placing the tunnels once it reaches the underground layer
-				if (CurrentY > Main.worldSurface + 5)
-				{
-					break;
 				}
 			}
 		}
 
 		private static void MineshaftCircle(int i, int j)
 		{
-			const int BaseRadius = 5;
-			int radius = BaseRadius;
+			int radius = 6;
 
 			for (int y = j - radius; y <= j + radius; y++)
 			{
-				for (int x = i - radius; x <= i + radius + 1; x++)
+				for (int x = i - radius; x <= i + radius; x++)
 				{
 					if ((int)Vector2.Distance(new Vector2(x, y), new Vector2(i, j)) <= radius)
 					{
@@ -870,12 +883,23 @@ namespace Spooky.Content.Generation
 
 						if (Main.tile[x, y].WallType > 0 && Main.tile[x, y].WallType != ModContent.WallType<SpookyStoneWall>())
 						{
-							Main.tile[x, y].WallType = (ushort)ModContent.WallType<SpookyWoodWall>();
+							Main.tile[x, y].WallType = WorldGen.genRand.NextBool(3) ? WallID.Cave8Unsafe : (ushort)ModContent.WallType<SpookyWoodWall>();
 						}
 					}
 				}
+			}
 
-				radius = BaseRadius - WorldGen.genRand.Next(-1, 2);
+			int DigOutRadius = (radius / 3) + WorldGen.genRand.Next(0, 2);
+
+			for (int y = j - DigOutRadius; y <= j + DigOutRadius; y++)
+			{
+				for (int x = i - DigOutRadius; x <= i + DigOutRadius; x++)
+				{
+					if ((int)Vector2.Distance(new Vector2(x, y), new Vector2(i, j)) <= DigOutRadius)
+					{
+						WorldGen.KillTile(x, y);
+					}
+				}
 			}
 		}
 
@@ -1032,7 +1056,7 @@ namespace Spooky.Content.Generation
 				(ushort)ModContent.TileType<MushroomMoss>()
 			};
 
-			int MaxPoints = 250;
+			int MaxPoints = 300;
 
 			void getAttachedPoints(int x, int y, List<Point> points)
 			{
@@ -1079,7 +1103,7 @@ namespace Spooky.Content.Generation
 		}
 
 		//grow giant glowshrooms
-		public static bool GrowGiantMushroom(int X, int Y, int tileType, int minSize, int maxSize)
+		public static bool GrowGiantMushroom(int X, int Y, int minSize, int maxSize)
 		{
 			int canPlace = 0;
 
@@ -1088,7 +1112,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = Y - 5; j < Y + 5; j++)
 				{
-					if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
+					if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<GiantShroom>() || Main.tile[i, j].TileType == ModContent.TileType<GiantShroomYellow>()))
 					{
 						canPlace++;
 						if (canPlace > 0)
@@ -1116,7 +1140,14 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			GiantShroom.Grow(X, Y - 1, minSize, maxSize, false);
+			if (WorldGen.genRand.NextBool(10))
+			{
+				GiantShroomYellow.Grow(X, Y - 1, minSize, maxSize, false);
+			}
+			else
+			{
+				GiantShroom.Grow(X, Y - 1, minSize, maxSize, false);
+			}
 
 			return true;
 		}

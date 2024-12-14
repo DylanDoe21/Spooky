@@ -21,7 +21,7 @@ namespace Spooky.Content.Items.SpookyHell
         {
             for (int i = 0; i < player.buffType.Length; i++) 
 			{ 
-				if (player.buffType[i] == BuffID.OgreSpit)
+				if (player.buffType[i] == BuffID.OgreSpit || player.buffType[i] == BuffID.Poisoned || player.buffType[i] == BuffID.Venom)
 				{
 					int[] Types = new int[] { BuffID.Regeneration, BuffID.Swiftness, BuffID.Ironskin };
 

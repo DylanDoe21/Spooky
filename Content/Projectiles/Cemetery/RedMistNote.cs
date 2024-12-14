@@ -31,7 +31,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Red);
+            Color color = new Color(Projectile.alpha - 255, Projectile.alpha - 255, Projectile.alpha - 255, 0).MultiplyRGBA(Color.Red);
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
@@ -58,9 +58,9 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.frame = (int)Projectile.ai[2];
 
-            if (Projectile.timeLeft <= 255)
+            if (Projectile.timeLeft <= 125)
             {
-                Projectile.alpha++;
+                Projectile.alpha += 2;
             }
             
             Projectile.ai[0]++;
@@ -68,7 +68,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             if (Projectile.ai[0] < 120 || (Projectile.ai[0] >= 120 && foundTarget == -1))
             {
                 Projectile.ai[1] += Projectile.frame == 0 ? -5 : 5;
-                int distance = Projectile.frame == 0 ? 55 : 75;
+                int distance = 85;
                 double rad = Projectile.ai[1] * (Math.PI / 180);
                 Projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * distance) - Projectile.width / 2;
                 Projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * distance) - Projectile.height / 2;
@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         private int HomeOnTarget()
         {
-            const float homingMaximumRangeInPixels = 300;
+            const float homingMaximumRangeInPixels = 550;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)
