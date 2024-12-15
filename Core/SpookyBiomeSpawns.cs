@@ -46,9 +46,14 @@ namespace Spooky.Core
 				spawnRate /= 5;
 				maxSpawns *= 5;
 			}
-			else if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && Flags.CatacombKey2))
+			else if (player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && Flags.CatacombKey1)
             {
 				spawnRate /= 2;
+				maxSpawns *= 2;
+			}
+			else if (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && Flags.CatacombKey2)
+			{
+				spawnRate /= 3;
 				maxSpawns *= 2;
 			}
 			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that a catacomb guardian spawns instantly
@@ -330,7 +335,7 @@ namespace Spooky.Core
                 pool.Clear();
 
 				//do not allow catacomb enemies to spawn when not behind catacomb brick wall
-				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall1>())
+				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall1>() && !TileID.Sets.Platforms[Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType])
 				{
 					if (Flags.CatacombKey1)
 					{
@@ -366,7 +371,7 @@ namespace Spooky.Core
                 pool.Clear();
 
                 //do not allow catacomb enemies to spawn when not behind catacomb brick wall
-				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall2>())
+				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall2>() && !TileID.Sets.Platforms[Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType])
 				{
 					if (Flags.CatacombKey2)
 					{

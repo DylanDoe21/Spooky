@@ -1,13 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -39,11 +36,11 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.damage = 60;
             NPC.defense = 25;
             NPC.width = 88;
-            NPC.height = 60;
+            NPC.height = 78;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
-            NPC.noTileCollide = false;
+            NPC.noTileCollide = true;
             NPC.value = Item.buyPrice(0, 0, 2, 0);
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
             NPC.alpha = 255;
@@ -64,8 +61,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
             SoundEngine.PlaySound(SoundID.DD2_OgreAttack with { Pitch = SoundID.DD2_OgreAttack.Pitch * 0.5f }, NPC.Center);
         }
-        
-        public override void AI()
+
+		public override void AI()
 		{
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
@@ -88,57 +85,93 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             }
 
             //slam down
-            if (NPC.ai[0] > 60 && !hasCollidedWithFloor)
+            if (NPC.ai[0] > 60 && !hasCollidedWithFloor && IsColliding())
             {
-                /*
-                //set tile collide to true to prevent platforms and stuff getting in the way
-                if (NPC.position.Y >= player.Center.Y - 100 || player.Distance(NPC.Center) > 200f)
+				//use screenshake with a value depending on how far away the player is
+				if (player.Distance(NPC.Center) <= 550f)
 				{
-                    NPC.noTileCollide = false;
-                }
-                else
-                {
-                    NPC.noTileCollide = true;
-                }
-                */
+					SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
+					SpookyPlayer.ScreenShakeAmount = 8;
+				}
+				if (player.Distance(NPC.Center) >= 550f && player.Distance(NPC.Center) <= 1050f)
+				{
+					SoundEngine.PlaySound(SoundID.Item70 with { Volume = 0.5f }, NPC.Center);
+					SpookyPlayer.ScreenShakeAmount = 4;
+				}
 
-                //smash the ground
-                if (NPC.velocity.Y <= 0.1f)
-                {
-                    SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
-
-                    if (player.velocity.Y == 0 && player.Distance(NPC.Center) <= 350f)
-                    {
-                        SpookyPlayer.ScreenShakeAmount = 8;
-                    }
-
-                    NPC.velocity *= 0;
-
-                    NPC.noTileCollide = false;
-                    hasCollidedWithFloor = true;
-                }
+				NPC.velocity *= 0;
+				hasCollidedWithFloor = true;
             }
 
             if (hasCollidedWithFloor)
             {
-                if (NPC.ai[1] == 0)
-                {
-                    NPC.velocity.Y = -7;
+				if (NPC.ai[1] == 0)
+				{
+					NPC.velocity.Y = -7;
 
-                    NPC.ai[1] = 1;
-                }
+					NPC.ai[1] = 1;
+				}
+				else
+				{
+					NPC.ai[1]++;
 
-                if (NPC.ai[0] > 300)
-                {
-                    hasCollidedWithFloor = false;
+					if (NPC.ai[1] > 5 && IsColliding())
+					{
+						hasCollidedWithFloor = false;
 
-                    NPC.ai[0] = 0;
-                    NPC.ai[1] = 0;
-                }
+						NPC.ai[0] = Main.rand.Next(-120, 1);
+						NPC.ai[1] = 0;
+					}
+				}
             }
         }
 
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+		public bool IsColliding()
+		{
+			int minTilePosX = (int)(NPC.position.X / 16) - 1;
+			int maxTilePosX = (int)((NPC.position.X + NPC.width) / 16) + 1;
+			int minTilePosY = (int)(NPC.position.Y / 16) - 1;
+			int maxTilePosY = (int)((NPC.position.Y + NPC.height) / 16) + 1;
+			if (minTilePosX < 0)
+			{
+				minTilePosX = 0;
+			}
+			if (maxTilePosX > Main.maxTilesX)
+			{
+				maxTilePosX = Main.maxTilesX;
+			}
+			if (minTilePosY < 0)
+			{
+				minTilePosY = 0;
+			}
+			if (maxTilePosY > Main.maxTilesY)
+			{
+				maxTilePosY = Main.maxTilesY;
+			}
+
+			for (int i = minTilePosX; i < maxTilePosX; ++i)
+			{
+				for (int j = minTilePosY; j < maxTilePosY; ++j)
+				{
+					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated &&
+					Main.tileSolid[(int)Main.tile[i, j].TileType] && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType])
+					{
+						Vector2 vector2;
+						vector2.X = (float)(i * 16);
+						vector2.Y = (float)(j * 16);
+						if (NPC.position.X + NPC.width > vector2.X && NPC.position.X < vector2.X + 16.0 &&
+						(NPC.position.Y + NPC.height > (double)vector2.Y && NPC.position.Y < vector2.Y + 16.0))
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
@@ -225,9 +258,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.lifeMax = 700;
             NPC.damage = 60;
             NPC.defense = 25;
-            NPC.width = 88;
-            NPC.height = 60;
-            NPC.npcSlots = 1f;
+			NPC.width = 88;
+			NPC.height = 78;
+			NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = false;

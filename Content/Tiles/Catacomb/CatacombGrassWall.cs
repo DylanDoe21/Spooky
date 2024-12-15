@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Spooky.Core;
 
+using Spooky.Content.Tiles.Cemetery;
+
 namespace Spooky.Content.Tiles.Catacomb
 {
     public class CatacombGrassWall1 : ModWall 
@@ -20,6 +22,7 @@ namespace Spooky.Content.Tiles.Catacomb
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(2, 42, 0));
+			RegisterItemDrop(ModContent.ItemType<CemeteryGrassWallItem>());
             DustType = DustID.Grass;
             HitSound = SoundID.Grass;
         }
@@ -31,17 +34,8 @@ namespace Spooky.Content.Tiles.Catacomb
 
         public override void KillWall(int i, int j, ref bool fail)
         {
-            fail = true;
+            fail = !Flags.downedDaffodil;
         }
-
-		public static void DrawTreePiece(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
-		{
-			Tile tile = Main.tile[i, j];
-			Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
-			Color color = Lighting.GetColor(i, j);
-
-			Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
-		}
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
@@ -97,6 +91,11 @@ namespace Spooky.Content.Tiles.Catacomb
 
         private static Asset<Texture2D> MergeTexture;
         private static Asset<Texture2D> LeafTexture;
+
+		public override void KillWall(int i, int j, ref bool fail)
+        {
+            fail = !Flags.downedBigBone;
+        }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {

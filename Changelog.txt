@@ -99,3 +99,5 @@ Miscellaneous:
 -Fixed spooky mod flails not dealing reduced damage while in being spun around
 -Fixed dreadful clarinet note projectiles not fading out correctly
 -Fixed bluefords casting animation playing way too early before he actually shields another ghost bandit
+-Fixed issue where catacomb crushers basically would never spawn due to an issue with their upward tile check when spawning on ceilings
+-Fixed catacomb crushers colliding with platforms when slamming down
