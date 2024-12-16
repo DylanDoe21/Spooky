@@ -1212,10 +1212,9 @@ namespace Spooky.Content.Generation
             }
 
             tasks.Insert(GenIndex2 + 1, new PassLegacy("Spooky Forest Cabins", GenerateCabins));
-            tasks.Insert(GenIndex2 + 2, new PassLegacy("Spooky Forest Grass Again", SpreadSpookyGrass));
-            tasks.Insert(GenIndex2 + 3, new PassLegacy("Glowshroom Cleanup", ClearStuffAroundMushroomMoss));
-            tasks.Insert(GenIndex2 + 4, new PassLegacy("Spooky Forest Trees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 5, new PassLegacy("Spooky Forest Ambient Tiles", SpookyForestAmbience));
+            tasks.Insert(GenIndex2 + 2, new PassLegacy("Glowshroom Cleanup", ClearStuffAroundMushroomMoss));
+            tasks.Insert(GenIndex2 + 3, new PassLegacy("Spooky Forest Trees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 4, new PassLegacy("Spooky Forest Objects", SpookyForestAmbience));
         }
 
         //post worldgen to place items in the spooky biome chests
@@ -1254,7 +1253,7 @@ namespace Spooky.Content.Generation
 
 						int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar, ItemID.GoldBar, ItemID.PlatinumBar };
 						int[] LightSources = new int[] { ModContent.ItemType<SpookyBiomeTorchItem>(), ModContent.ItemType<CandleItem>() };
-						int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+						int[] Potions = new int[] { ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
 
 						//main items
 						chest.item[0].SetDefaults(ActualMainItem[ItemToPutInChest]);
@@ -1266,15 +1265,18 @@ namespace Spooky.Content.Generation
 						//light sources
 						chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
 						chest.item[2].stack = WorldGen.genRand.Next(3, 8);
+						//cranberry jelly
+						chest.item[3].SetDefaults(ModContent.ItemType<CranberryJelly>());
+						chest.item[3].stack = WorldGen.genRand.Next(2, 6);
 						//potions
-						chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
-						chest.item[3].stack = WorldGen.genRand.Next(2, 3);
+						chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions));
+						chest.item[4].stack = WorldGen.genRand.Next(2, 4);
 						//goodie bags
-						chest.item[4].SetDefaults(ItemID.GoodieBag);
-						chest.item[4].stack = WorldGen.genRand.Next(1, 2);
+						chest.item[5].SetDefaults(ItemID.GoodieBag);
+						chest.item[5].stack = WorldGen.genRand.Next(1, 3);
 						//coins
-						chest.item[5].SetDefaults(ItemID.GoldCoin);
-						chest.item[5].stack = WorldGen.genRand.Next(1, 2);
+						chest.item[6].SetDefaults(ItemID.GoldCoin);
+						chest.item[6].stack = WorldGen.genRand.Next(1, 3);
 					}
 				}
             }

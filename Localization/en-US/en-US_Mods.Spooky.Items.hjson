@@ -1842,20 +1842,12 @@ CandyBag: {
 
 CranberryJelly: {
 	DisplayName: Cranberry Jelly
-	Tooltip:
-		'''
-		Restores 50 life
-		Will be consumed automatically if you fall below half health
-		'''
+	Tooltip: Will be consumed automatically if you fall below half health
 }
 
 CranberryJuice: {
 	DisplayName: Cranberry Juice
-	Tooltip:
-		'''
-		Restores 100 life
-		Will be consumed automatically if you fall below half health
-		'''
+	Tooltip: Will be consumed automatically if you fall below half health
 }
 
 CreepyCandle: {
