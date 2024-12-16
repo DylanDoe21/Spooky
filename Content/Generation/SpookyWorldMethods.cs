@@ -24,7 +24,7 @@ namespace Spooky.Content.Generation
 			}));
 		}
 
-		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly)
+		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly, bool DestroyOnly)
 		{
 			float scale = radiusY / (float)radius;
 			float invertScale = (float)radius / radiusY;
@@ -51,6 +51,12 @@ namespace Spooky.Content.Generation
 							if (wallType > 0)
 							{
 								tile.WallType = (ushort)wallType;
+								tile.LiquidAmount = 0;
+							}
+
+							if (tileType == -1 && wallType == 0 && DestroyOnly)
+							{
+								WorldGen.KillTile(PositionX, PositionY);
 								tile.LiquidAmount = 0;
 							}
 						}

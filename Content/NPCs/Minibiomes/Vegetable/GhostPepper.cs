@@ -72,7 +72,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 2;
             NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 
-            if (player.Distance(NPC.Center) >= 180f)
+            if (player.Distance(NPC.Center) >= 200f)
             {
                 if (NPC.alpha < 255)
                 {

@@ -16,7 +16,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 			Projectile.height = 22;
 			Projectile.friendly = false;
             Projectile.hostile = true;
-			Projectile.tileCollide = false;
+			Projectile.tileCollide = true;
 			Projectile.timeLeft = 500;
             Projectile.alpha = 255;
 		}
@@ -38,6 +38,11 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
             return true;
         }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return false;
+		}
 
 		public override void AI()
 		{

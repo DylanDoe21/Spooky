@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 
 			if (!NPC.wet)
 			{
-				JumpToTarget(player, 250, Main.rand.Next(60, 181), 0);
+				JumpToTarget(player, 250, Main.rand.Next(60, 181));
 
 				if (NPC.velocity.Y == 0)
 				{
@@ -84,11 +84,11 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 			}
 			else
 			{
-				JumpToTarget(player, 250, 2, 0);
+				JumpToTarget(player, 250, 2);
 			}
         }
 
-		public void JumpToTarget(Player target, int JumpHeight, int TimeBeforeNextJump, int DelayBeforeNextJump)
+		public void JumpToTarget(Player target, int JumpHeight, int TimeBeforeNextJump)
 		{
 			NPC.ai[0]++;
 
@@ -132,11 +132,11 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 			}
 
 			//loop ai
-			if (NPC.ai[0] >= TimeBeforeNextJump + 100)
+			if (NPC.ai[0] >= TimeBeforeNextJump + 150)
 			{
 				HasJumped = false;
 
-				NPC.ai[0] = DelayBeforeNextJump;
+				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;
 			}
 		}

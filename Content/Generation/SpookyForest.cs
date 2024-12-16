@@ -85,7 +85,7 @@ namespace Spooky.Content.Generation
 			int MushroomSizeX = Main.maxTilesX / 60;
 			int MushroomSizeY = Main.maxTilesY / 30;
 
-			SpookyWorldMethods.PlaceOval(PositionX, (int)Main.worldSurface + (Main.maxTilesY / 7), ModContent.TileType<MushroomMoss>(), 0, MushroomSizeX, MushroomSizeY, 2f, false);
+			SpookyWorldMethods.PlaceOval(PositionX, (int)Main.worldSurface + (Main.maxTilesY / 7), ModContent.TileType<MushroomMoss>(), 0, MushroomSizeX, MushroomSizeY, 2f, false, false);
 
 			//place clumps of green grass using a temporary dirt tile clone that will be replaced later in generation
 			for (int moss = 0; moss < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); moss++)
@@ -815,7 +815,7 @@ namespace Spooky.Content.Generation
 				CurrentX = IncrementX;
 
 				//place vertical tunnel downward
-				for (IncrementY = CurrentY; IncrementY < CurrentY + 50; IncrementY += 3)
+				for (IncrementY = CurrentY; IncrementY < CurrentY + 50; IncrementY += 5)
 				{
 					MineshaftCircle(CurrentX, IncrementY);
 				}
@@ -1140,7 +1140,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			if (WorldGen.genRand.NextBool(10))
+			if (WorldGen.genRand.NextBool(8))
 			{
 				GiantShroomYellow.Grow(X, Y - 1, minSize, maxSize, false);
 			}

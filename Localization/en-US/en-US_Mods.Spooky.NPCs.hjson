@@ -396,12 +396,13 @@ FrankenGoblinHandBack.DisplayName: Frank's Hand
 FrankenGoblinEye.DisplayName: Monster Eye
 StitchSpider.DisplayName: Stitches
 //tar pits
-TarSlime1.DisplayName: Tar Slime
-TarSlime2.DisplayName: Tar Slime
+Hydroraptor.DisplayName: Hydroraptor
+Tarblimp.DisplayName: Tarblimp
 TarBlobSmall.DisplayName: Tar Glob
 TarBlobSmallClub.DisplayName: Spasimosaurus Tail
 TarBlobSmallMouth.DisplayName: Regina Jaws
-Tarblimp.DisplayName: Tarblimp
+TarSlime1.DisplayName: Tar Slime
+TarSlime2.DisplayName: Tar Slime
 //vegetable garden
 CornMage1.DisplayName: Corn Caster
 CornMage2.DisplayName: Corn Caster

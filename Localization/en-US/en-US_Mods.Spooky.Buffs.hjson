@@ -242,7 +242,7 @@ PetscopMarvinBuff: {
 }
 
 PetscopTiaraBuff: {
-	DisplayName: Petscop Tiara Buff
+	DisplayName: Tiara
 	Description: Tiara plays bad music too
 }
 

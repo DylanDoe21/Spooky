@@ -109,6 +109,11 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 
             if (!Parent.active || Parent.type != ModContent.NPCType<TarBlobSmall>())
             {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TarBlobSmallClubGore").Type);
+                }
+
                 NPC.active = false;
             }
 

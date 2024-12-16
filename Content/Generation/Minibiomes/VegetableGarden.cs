@@ -83,7 +83,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					int randomPositionX = WorldGen.genRand.Next(-SizeForRandom, SizeForRandom);
 					int randomPositionY = WorldGen.genRand.Next(-SizeForRandom, SizeForRandom);
 
-					SpookyWorldMethods.PlaceOval(i + randomPositionX, j + 5 + (randomPositionY / 2), ModContent.TileType<JungleSoil>(), ModContent.WallType<JungleSoilWall>(), SizeX / 2, SizeY / 2, 1f, false);
+					SpookyWorldMethods.PlaceOval(i + randomPositionX, j + 5 + (randomPositionY / 2), ModContent.TileType<JungleSoil>(), ModContent.WallType<JungleSoilWall>(), SizeX / 2, SizeY / 2, 1f, false, false);
 				}
 			}
 		}
@@ -183,8 +183,8 @@ namespace Spooky.Content.Generation.Minibiomes
 					if (!tileAbove.HasTile && tile.TileType == ModContent.TileType<JungleSoil>() && tileBelow1.TileType == ModContent.TileType<JungleSoil>() && tileBelow2.TileType == ModContent.TileType<JungleSoil>() &&
 					tileBelow3.TileType == ModContent.TileType<JungleSoil>() && tileBelow4.TileType == ModContent.TileType<JungleSoil>() && tileBelow5.TileType == ModContent.TileType<JungleSoil>())
 					{
-						SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<JungleMoss>(), 0, 4, 4, 1f, true);
-						SpookyWorldMethods.PlaceOval(i, j, -1, ModContent.WallType<JungleMossWall>(), 6, 5, 1f, false);
+						SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<JungleMoss>(), 0, 4, 4, 1f, true, false);
+						SpookyWorldMethods.PlaceOval(i, j, -1, ModContent.WallType<JungleMossWall>(), 6, 5, 1f, false, false);
 					}
 				}
 			}

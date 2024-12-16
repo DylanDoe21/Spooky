@@ -133,6 +133,12 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             }
             else
             {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TarBlobSmallMouthGore1").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TarBlobSmallMouthGore2").Type);
+                }
+
                 NPC.active = false;
             }
         }

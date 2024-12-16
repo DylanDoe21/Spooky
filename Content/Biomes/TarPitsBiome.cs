@@ -123,7 +123,7 @@ namespace Spooky.Content.Biomes
 		}
 
 		//bestiary stuff
-		//public override string BestiaryIcon => "Spooky/Content/Biomes/VegetableBiomeIcon";
+		public override string BestiaryIcon => "Spooky/Content/Biomes/TarPitsBiomeIcon";
 		public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;

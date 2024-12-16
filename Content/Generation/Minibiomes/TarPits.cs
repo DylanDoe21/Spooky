@@ -58,8 +58,8 @@ namespace Spooky.Content.Generation.Minibiomes
 
 				PlaceOvalCluster(BiomeX, BiomeY + 5, SizeX, SizeY, Main.maxTilesX / 300, Main.maxTilesX / 190);
 				DigOutCaves(BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
-				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
 				BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
+				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
 			}
 		}
 
@@ -73,7 +73,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					int randomPositionX = WorldGen.genRand.Next(-SizeForRandom / 2, SizeForRandom / 2);
 					int randomPositionY = WorldGen.genRand.Next(-SizeForRandom, SizeForRandom);
 
-					SpookyWorldMethods.PlaceOval(i + randomPositionX, j + randomPositionY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 5, SizeY / 2, 2f, false);
+					SpookyWorldMethods.PlaceOval(i + randomPositionX, j + randomPositionY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 5, SizeY / 2, 2f, false, false);
 				}
 			}
 		}
@@ -85,8 +85,34 @@ namespace Spooky.Content.Generation.Minibiomes
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
+					//generate caves by using noise
+					if (Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSand>())
+					{
+						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(i / 80f, j / 80f, 5, unchecked(Seed + 1)) * 0.01f;
+						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(i / 1000f, j / 300f, 5, Seed) + 0.5f + horizontalOffsetNoise;
+						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(i / 1000f, j / 300f, 5, unchecked(Seed - 1)) + 0.5f;
+						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
+						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
+
+						//remove tiles based on the noise variables to create caves
+						//place the caves 15 blocks up so that the bottom of the biome has a bowl shape so that water can be placed there later
+						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
+						{
+							if (Main.tile[i, j - 15].WallType == ModContent.WallType<DesertSandstoneWall>() && Main.tile[i, j - 16].WallType == ModContent.WallType<DesertSandstoneWall>())
+							{
+								WorldGen.KillTile(i, j - 15);
+							}
+						}
+					}
+				}
+			}
+
+			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			{
+				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
+				{
 					//replace sandstone with sand using noise
-					if (Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>())
+					if (Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>() || Main.tile[i, j].WallType == ModContent.WallType<DesertSandstoneWall>())
 					{
 						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(i / 80f, j / 80f, 5, unchecked(Seed + 1)) * 0.01f;
 						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(i / 200f, j / 100f, 5, Seed) + 0.5f + horizontalOffsetNoise;
@@ -98,23 +124,6 @@ namespace Spooky.Content.Generation.Minibiomes
 						{
 							Main.tile[i, j].TileType = (ushort)ModContent.TileType<DesertSand>();
 							Main.tile[i, j].WallType = (ushort)ModContent.WallType<DesertSandWall>();
-						}
-					}
-
-					//generate caves by using noise
-					if (Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSand>())
-					{
-						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(i / 300f, j / 300f, 5, unchecked(Seed + 1)) * 0.01f;
-						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(i / 300f, j / 300f, 5, Seed) + 0.5f + horizontalOffsetNoise;
-						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(i / 300f, j / 300f, 5, unchecked(Seed - 1)) + 0.5f;
-						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
-						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
-
-						//remove tiles based on the noise variables to create caves
-						//place the caves 15 blocks up so that the bottom of the biome has a bowl shape so that water can be placed there later
-						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
-						{
-							WorldGen.KillTile(i, j - 15);
 						}
 					}
 				}
@@ -224,7 +233,12 @@ namespace Spooky.Content.Generation.Minibiomes
 				{
 					if (CanPlaceTarPit(i, j))
 					{
-						PlaceTarPit(i, j, WorldGen.genRand.Next(8, 11), WorldGen.genRand.Next(21, 39), 0.5f);
+						PlaceTarPit(i, j, WorldGen.genRand.Next(10, 16), WorldGen.genRand.Next(21, 39), 0.5f);
+
+						if (Main.tile[i, j].LiquidAmount > 0)
+						{
+							SpookyWorldMethods.PlaceOval(i, j, -1, 0, 18, 6, 1f, false, true);
+						}
 					}
 				}
 			}
@@ -362,7 +376,7 @@ namespace Spooky.Content.Generation.Minibiomes
 
 		public static bool CanPlaceTarPit(int PositionX, int PositionY)
 		{
-			for (int i = PositionX - 20; i <= PositionX + 20; i++)
+			for (int i = PositionX - 40; i <= PositionX + 40; i++)
 			{
 				for (int j = PositionY - 20; j <= PositionY + 30; j++)
 				{

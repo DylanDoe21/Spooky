@@ -1,4 +1,4 @@
-using Terraria.ID;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Tiles.Cemetery.Furniture
@@ -7,16 +7,10 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 	{
 		public override void SetDefaults() 
 		{
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.consumable = true;
+			Item.DefaultToPlaceableTile(ModContent.TileType<CemeteryBiomeChest>());
             Item.width = 16;
 			Item.height = 16;
-			Item.useTime = 10;
-			Item.useAnimation = 14;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.maxStack = 9999;
-			Item.createTile = ModContent.TileType<CemeteryBiomeChest>();
+			Item.value = Item.buyPrice(silver: 5);
 		}
 	}
 }

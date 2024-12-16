@@ -549,6 +549,7 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TarSlime1>(), 2);
 					pool.Add(ModContent.NPCType<TarSlime2>(), 2);
 					pool.Add(ModContent.NPCType<TarBlobSmall>(), 1);
+					pool.Add(ModContent.NPCType<Hydroraptor>(), 2);
 				}
 			}
 
