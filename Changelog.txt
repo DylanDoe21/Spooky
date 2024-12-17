@@ -80,6 +80,7 @@ Miscellaneous:
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
 -Catacombs curse debuff no longer prevents you from placing blocks
 -Catacomb bricks and walls can now be broken with pickaxes/hammers once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandora's box arena are still completely indestructable. This also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
+-Removed catacomb grass seeds, cemetery grass seeds now serve the same purpose of placing moss on catacomb bricks along with placing cemetery grass
 
 
 

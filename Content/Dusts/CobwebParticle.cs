@@ -21,7 +21,7 @@ namespace Spooky.Content.Dusts
 
         public override bool Update(Dust dust)
         {
-            if (Main.rand.NextBool(20))
+            if (Main.rand.NextBool(10))
             {
                 dust.alpha += 5;
             }

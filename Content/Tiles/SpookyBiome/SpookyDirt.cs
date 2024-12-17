@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(114, 78, 53));
+            AddMapEntry(new Color(112, 79, 56));
             DustType = DustID.Dirt;
 			MineResist = 0.65f;
 		}
@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(114, 78, 53));
+            AddMapEntry(new Color(112, 79, 56));
             DustType = DustID.Dirt;
 			MineResist = 0.65f;
 		}

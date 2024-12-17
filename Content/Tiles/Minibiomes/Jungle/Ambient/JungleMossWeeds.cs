@@ -42,7 +42,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Ambient
             }
         }
 
-        /*
         public override IEnumerable<Item> GetItemDrops(int i, int j)
         {
             Vector2 worldPosition = new Vector2(i, j).ToWorldCoordinates();
@@ -56,10 +55,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Ambient
                 
                 if (Main.rand.NextBool(20))
 				{
-                    yield return new Item(ModContent.ItemType<DampGrassSeeds>());
+                    yield return new Item(ModContent.ItemType<JungleSoilGrassSeeds>());
 				}
             }
         }
-        */
     }
 }

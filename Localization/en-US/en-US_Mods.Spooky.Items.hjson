@@ -2847,11 +2847,6 @@ CatacombFlooringItem: {
 	Tooltip: ""
 }
 
-CatacombGrassSeeds: {
-	DisplayName: Catacomb Moss Seeds
-	Tooltip: Plats moss on gray and brown catacomb bricks
-}
-
 GildedBrickItem: {
 	DisplayName: Gilded Brick
 	Tooltip: ""
@@ -2869,7 +2864,11 @@ CemeteryDirtItem: {
 
 CemeteryGrassSeeds: {
 	DisplayName: Cemetery Grass Seeds
-	Tooltip: Plants grass on Swamp Soil
+	Tooltip:
+		'''
+		Plants grass on Swamp Soil
+		Plants moss on Catacomb Bricks
+		'''
 }
 
 CemeteryGrassWallItem: {
@@ -2960,6 +2959,11 @@ JungleMossItem: {
 JungleMossWallItem: {
 	DisplayName: Blooming Moss Wall
 	Tooltip: ""
+}
+
+JungleSoilGrassSeeds: {
+	DisplayName: Farms Grass Seeds
+	Tooltip: Plants grass on Fertile Mud
 }
 
 JungleSoilItem: {

@@ -4,9 +4,9 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Tiles.Catacomb
+namespace Spooky.Content.Tiles.Minibiomes.Jungle
 {
-    public class CatacombGrassSeeds : ModItem
+    public class JungleSoilGrassSeeds : ModItem
 	{
         public override void SetStaticDefaults()
 		{
@@ -35,20 +35,9 @@ namespace Spooky.Content.Tiles.Catacomb
 
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
-			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick1Safe>() && ItemGlobal.WithinPlacementRange(player, Player.tileTargetX, Player.tileTargetY))
+			if (tile.HasTile && tile.TileType == ModContent.TileType<JungleSoil>() && ItemGlobal.WithinPlacementRange(player, Player.tileTargetX, Player.tileTargetY))
 			{
-				WorldGen.PlaceTile(Player.tileTargetX, Player.tileTargetY, ModContent.TileType<CatacombBrick1GrassSafe>(), forced: true);
-				player.inventory[player.selectedItem].stack--;
-
-				if (Main.netMode != NetmodeID.SinglePlayer)
-				{
-					NetMessage.SendTileSquare(player.whoAmI, Player.tileTargetX, Player.tileTargetY);
-				}
-			}
-
-			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick2Safe>() && ItemGlobal.WithinPlacementRange(player, Player.tileTargetX, Player.tileTargetY))
-			{
-				WorldGen.PlaceTile(Player.tileTargetX, Player.tileTargetY, ModContent.TileType<CatacombBrick2GrassSafe>(), forced: true);
+				WorldGen.PlaceTile(Player.tileTargetX, Player.tileTargetY, ModContent.TileType<JungleSoilGrass>(), forced: true);
 				player.inventory[player.selectedItem].stack--;
 
 				if (Main.netMode != NetmodeID.SinglePlayer)

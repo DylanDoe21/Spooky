@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.Catacomb
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(43, 89, 49));
+            AddMapEntry(new Color(52, 102, 46));
 			RegisterItemDrop(ModContent.ItemType<CatacombBrick1Item>());
 			DustType = ModContent.DustType<CemeteryGrassDust>();
 		}
@@ -33,7 +33,16 @@ namespace Spooky.Content.Tiles.Catacomb
 
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
 		{
-			return Flags.downedDaffodil;
+			if (!Flags.downedDaffodil)
+			{
+				MinPick = int.MaxValue;
+			}
+			else
+			{
+				MinPick = 0;
+			}
+
+			return true;
 		}
 
 		public override bool CanExplode(int i, int j)
@@ -89,7 +98,7 @@ namespace Spooky.Content.Tiles.Catacomb
 			Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(new Color(43, 89, 49));
+			AddMapEntry(new Color(52, 102, 46));
 			DustType = ModContent.DustType<CemeteryGrassDust>();
 		}
 
@@ -156,7 +165,7 @@ namespace Spooky.Content.Tiles.Catacomb
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(43, 89, 49));
+            AddMapEntry(new Color(52, 102, 46));
             RegisterItemDrop(ModContent.ItemType<CatacombBrick1Item>());
             DustType = ModContent.DustType<CemeteryGrassDust>();
 		}

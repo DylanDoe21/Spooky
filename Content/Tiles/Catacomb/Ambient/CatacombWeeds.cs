@@ -57,7 +57,7 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
                 
                 if (Main.rand.NextBool(20))
 				{
-                    yield return new Item(ModContent.ItemType<CatacombGrassSeeds>());
+                    yield return new Item(ModContent.ItemType<CemeteryGrassSeeds>());
 				}
             }
         }
