@@ -88,6 +88,7 @@ Enemies and Bosses:
 
 Miscellaneous:
 
+-Bloom buffs UI now displays that you can remove buffs with right click
 -Made the spider grotto biome size a tiny bit smaller
 -Carved gourd-o-lanterns now count as light source blocks for npc housing
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that

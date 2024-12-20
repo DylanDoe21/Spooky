@@ -204,13 +204,13 @@ namespace Spooky.Content.UserInterfaces
             if (!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3 && SlotToCheckFor == 2)
             {
                 IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value; 
-                BuffDisplayName = Language.GetTextValue("Mods.Spooky.UI.BloomSlotLocked");
+                BuffDisplayName = Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.BloomSlotLocked");
             }
 
             if (!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4 && SlotToCheckFor == 3)
             {
                 IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value; 
-                BuffDisplayName = Language.GetTextValue("Mods.Spooky.UI.BloomSlotLocked");
+                BuffDisplayName = Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.BloomSlotLocked");
             }
 
             if (IconTexture != null)
@@ -229,11 +229,16 @@ namespace Spooky.Content.UserInterfaces
                         //if the player has the dragon fruit buff, then also display the dragon fruit buff stacks as part of the description
                         if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DragonfruitIcon").Value)
                         {
-                            Main.instance.MouseText(BuffDisplayName + "\n" + actualTime + "\nStacks: " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10");
+                            Main.instance.MouseText(BuffDisplayName + "\n" + 
+                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick") + "\n" +
+                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10" + "\n" + 
+                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.Duration") + " " + actualTime);
                         }
                         else
                         {
-						    Main.instance.MouseText(BuffDisplayName + "\n" + actualTime);
+						    Main.instance.MouseText(BuffDisplayName + "\n" + 
+                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick") + "\n" + 
+                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.Duration") + " " + actualTime);
                         }
 
 						//remove the buff if the player right clicks the icon on the ui

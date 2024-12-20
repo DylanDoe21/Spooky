@@ -1,4 +1,9 @@
-BloomSlotLocked: This slot is currently locked!
+BloomBuffs: {
+	BloomSlotLocked: This slot is currently locked!
+	Duration: Duration:
+	DivaStacks: Stacks:
+	RightClick: (Right click to remove)
+}
 
 LittleEyeBounties: {
 	Bounty1: I tried to make a wacky monster a while back to defend my lab from intruders and those other pesky creatures that live down here. But, after a few mishaps, it escaped my lab and ran off to who knows where. You should go and hunt it down... oh and bring a piece of it back for me as well!
