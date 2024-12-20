@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 NetMessage.SendData(MessageID.SyncNPC, number: Orchid);
 
                 //increase the y position so the stem looks like its coming from the ground
-                NPC.position.Y += 40;
+                NPC.position.Y += 10;
 
                 NPC.ai[0] = 1;
 

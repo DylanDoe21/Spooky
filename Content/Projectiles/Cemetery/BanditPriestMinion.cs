@@ -131,7 +131,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             }
 
             //idle animation
-            if (Projectile.ai[1] < 840)
+            if (Projectile.ai[1] < 1340)
             {
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 6)
@@ -177,7 +177,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.ai[1]++;
 
-            if (Projectile.ai[1] > 900 && Projectile.ai[1] < 1000)
+            if (Projectile.ai[1] > 1400 && Projectile.ai[1] < 1500)
             {
                 if (Projectile.ai[1] % 10 == 0)
                 {
@@ -189,7 +189,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 }
             }
 
-            if (Projectile.ai[1] >= 1000)
+            if (Projectile.ai[1] >= 1500)
             {
                 Projectile.ai[1] = 0;
             }

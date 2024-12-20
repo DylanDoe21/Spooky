@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes.Desert;
-using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Tiles.Minibiomes.Desert.Ambient;
 
 namespace Spooky.Content.Generation.Minibiomes
 {
@@ -60,6 +60,7 @@ namespace Spooky.Content.Generation.Minibiomes
 				DigOutCaves(BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
 				BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
 				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
+				BiomeAmbience(BiomeX, BiomeY, SizeX, SizeY);
 			}
 		}
 
@@ -130,7 +131,6 @@ namespace Spooky.Content.Generation.Minibiomes
 			}
 		}
 
-		//method to clean up small clumps of tiles
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
 			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
@@ -237,7 +237,7 @@ namespace Spooky.Content.Generation.Minibiomes
 
 						if (Main.tile[i, j].LiquidAmount > 0)
 						{
-							SpookyWorldMethods.PlaceOval(i, j, -1, 0, 18, 6, 1f, false, true);
+							SpookyWorldMethods.PlaceOval(i, j, -1, 0, 19, 6, 1f, false, true);
 						}
 					}
 				}
@@ -250,6 +250,26 @@ namespace Spooky.Content.Generation.Minibiomes
 					if (BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Tile.SmoothSlope(i, j);
+					}
+				}
+			}
+		}
+
+		public void BiomeAmbience(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
+			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			{
+				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
+				{
+					if (Main.tile[i, j].WallType == ModContent.WallType<DesertSandWall>() || Main.tile[i, j].WallType == ModContent.WallType<DesertSandWall>())
+					{
+						//floor fossils
+						if (WorldGen.genRand.NextBool(5))
+						{
+							ushort[] Fossils = new ushort[] { (ushort)ModContent.TileType<MouthFossil1>(), (ushort)ModContent.TileType<MouthFossil2>(), (ushort)ModContent.TileType<TailFossil>() };
+
+							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Fossils));
+						}
 					}
 				}
 			}

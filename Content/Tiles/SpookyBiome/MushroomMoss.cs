@@ -2,13 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
-using Spooky.Content.Tiles.SpookyBiome.Tree;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -30,7 +27,21 @@ namespace Spooky.Content.Tiles.SpookyBiome
             RegisterItemDrop(ModContent.ItemType<SpookyStoneItem>());
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
-            MineResist = 0.8f;
+            MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<SpookyStone>();
+			}
+		}
+
+        public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return tileTypeBeingPlaced != ModContent.TileType<SpookyStone>();
 		}
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

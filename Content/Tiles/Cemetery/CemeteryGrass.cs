@@ -5,8 +5,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.Tiles.Catacomb;
-using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.Cemetery.Furniture;
 
@@ -30,7 +28,21 @@ namespace Spooky.Content.Tiles.Cemetery
             AddMapEntry(new Color(52, 102, 46));
 			RegisterItemDrop(ModContent.ItemType<CemeteryDirtItem>());
             DustType = ModContent.DustType<CemeteryGrassDust>();
-            MineResist = 0.7f;
+            MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+			}
+		}
+
+        public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return tileTypeBeingPlaced != ModContent.TileType<CemeteryDirt>();
 		}
 
         public override void RandomUpdate(int i, int j)

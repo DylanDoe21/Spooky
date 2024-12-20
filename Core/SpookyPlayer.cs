@@ -21,7 +21,6 @@ using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
-using Spooky.Content.Projectiles.SpiderCave;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
@@ -154,6 +153,7 @@ namespace Spooky.Core
         public int GooSlugEatCooldown = 0;
 		public int RootHealCooldown = 0;
         public int CandyBagCooldown = 0;
+        public int DaffodilHairpinTimer = 0;
 
 		//dashing stuff
         public const int dashDown = 0;
@@ -469,7 +469,7 @@ namespace Spooky.Core
                 }
 
                 //drop booger charge item when hitting an enemy while wearing the snotty schnoz
-                if (MocoNose && MocoBoogerCharge < 15 && !Player.HasBuff(ModContent.BuffType<SnottySchnozCooldown>()) && Main.rand.NextBool(12))
+                if (MocoNose && MocoBoogerCharge < 15 && Main.rand.NextBool(12))
                 {
                     int itemType = ModContent.ItemType<MocoNoseBooger>();
                     int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
@@ -558,15 +558,6 @@ namespace Spooky.Core
                 { 
                     CandyBagJustHit = true;
                 }
-            }
-        }
-
-        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
-        {
-            //give daffodil hairpin cooldown when you get hit with the petal barrier
-            if (DaffodilHairpin)
-            {
-                Player.AddBuff(ModContent.BuffType<DaffodilHairpinCooldown>(), 3600);
             }
         }
 
@@ -660,13 +651,26 @@ namespace Spooky.Core
 
                 for (int i = 0; i <= Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].type == ModContent.ProjectileType<PandoraRosaryHand>())
+                    if (Main.projectile[i].type == ModContent.ProjectileType<PandoraRosaryHand>() && Main.projectile[i].owner == Player.whoAmI)
                     {
                         Main.projectile[i].ai[0] = 1;
                     }
                 }
             }
-        }
+
+			//activate pandora rosary hands healing AI
+			if (DaffodilHairpin)
+			{
+				for (int i = 0; i <= Main.maxProjectiles; i++)
+				{
+					if (Main.projectile[i].type == ModContent.ProjectileType<DaffodilHairpinPetal>() && Main.projectile[i].owner == Player.whoAmI)
+					{
+						Main.projectile[i].damage = info.Damage < 40 ? 40 : info.Damage;
+						Main.projectile[i].ai[1] = 1;
+					}
+				}
+			}
+		}
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
 		{
@@ -716,21 +720,30 @@ namespace Spooky.Core
 
         public override void PreUpdate()
         {
-            //decrease spider armor speed boost time
+            //cooldowns and delays
             if (SpiderSpeedTimer > 0)
             {
                 SpiderSpeedTimer--;
             }
-
-            //decrease slenderman page delay
             if (SlendermanPageDelay > 0)
             {
                 SlendermanPageDelay--;
             }
-
             if (RedGodzillaCartridgeSpawnDelay > 0)
             {
                 RedGodzillaCartridgeSpawnDelay--;
+            }
+            if (RootHealCooldown > 0)
+            {
+                RootHealCooldown--;
+            }
+            if (GooSlugEatCooldown > 0)
+            {
+                GooSlugEatCooldown--;
+            }
+            if (CandyBagCooldown > 0)
+            {
+                CandyBagCooldown--;
             }
 
             //set skeleton bouncer hositility to false if no raveyard is happening
@@ -738,6 +751,12 @@ namespace Spooky.Core
             {
                 RaveyardGuardsHostile = false;
             }
+
+			//set candy bag hit to false if you dont have the candy bag
+			if (!CandyBag)
+			{
+				CandyBagJustHit = false;
+			}
 
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
             //because spooky mod biomes take higher priority that vanilla ones, this should not cause any issues
@@ -979,6 +998,23 @@ namespace Spooky.Core
 				StonedKidneyCharge = 0;
 			}
 
+            if (DaffodilHairpin)
+            {
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<DaffodilHairpinPetal>()] < 6)
+                {
+                    DaffodilHairpinTimer++;
+                    if (DaffodilHairpinTimer % 17 == 0)
+                    {
+						SoundEngine.PlaySound(SoundID.Grass with { Volume = 0.2f }, Player.Center);
+                        Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<DaffodilHairpinPetal>(), 0, 3f, Player.whoAmI);
+                    }
+                }
+            }
+            else
+            {
+                DaffodilHairpinTimer = 0;
+            }
+
             //sentient cap random dialogue
             if (SentientCap && Main.rand.NextBool(1000))
             {
@@ -1003,26 +1039,6 @@ namespace Spooky.Core
 
                 CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
             }
-
-			//handle cooldowns
-            if (RootHealCooldown > 0)
-            {
-                RootHealCooldown--;
-            }
-            if (GooSlugEatCooldown > 0)
-            {
-                GooSlugEatCooldown--;
-            }
-            if (CandyBagCooldown > 0)
-            {
-                CandyBagCooldown--;
-            }
-
-			//set candy bag hit to false if you dont have the candy bag
-			if (!CandyBag)
-			{
-				CandyBagJustHit = false;
-			}
         }
 
 		public override void PreUpdateMovement()

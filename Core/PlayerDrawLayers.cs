@@ -141,35 +141,6 @@ namespace Spooky.Core
         }
     }
 
-    //daffodil hairpin ring drawing
-    public class DaffodilHairpinDraw : PlayerDrawLayer
-    {
-        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WebbedDebuffBack);
-
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-        {
-            return drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().DaffodilHairpin;
-        }
-
-        protected override void Draw(ref PlayerDrawSet drawInfo)
-        {
-            if (drawInfo.drawPlayer.dead)
-            {
-                return;
-            }
-
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
-
-            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Items/BossBags/Accessory/DaffodilHairpinDraw").Value;
-            Color color = Lighting.GetColor((int)drawInfo.drawPlayer.MountedCenter.X / 16, (int)(drawInfo.drawPlayer.MountedCenter.Y / 16f));
-
-            Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
-            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y, MidpointRounding.AwayFromZero));
-
-            drawInfo.DrawDataCache.Add(new DrawData(tex, roundedPos - Main.screenPosition, null, color, 0, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0));
-        }
-    }
-
     //monument mythos pyramid drawing
     public class MonumentMythosPyramidDraw : PlayerDrawLayer
     {

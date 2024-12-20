@@ -21,7 +21,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 12;
+            Projectile.width = 20;
             Projectile.height = 20;
             Projectile.friendly = false;
             Projectile.hostile = true;
@@ -29,6 +29,25 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles
             Projectile.tileCollide = true;
             Projectile.timeLeft = 1800;
 			Projectile.penetrate = -1;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+
+            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
+            {
+                Vector2 trailDrawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Color.Gray * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Main.spriteBatch.Draw(ProjTexture.Value, trailDrawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, SpriteEffects.None, 0f);
+            }
+
+            Main.EntitySpriteDraw(ProjTexture.Value, drawPos, null, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+
+            return false;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -44,31 +63,16 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles
             Projectile.velocity.Y = Projectile.velocity.Y + 0.05f;
         }
 
-        public override bool PreDraw(ref Color lightColor)
-        {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-
-            Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Gray * 0.5f);
-
-            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
-
-            float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
-
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale + (fade / 2), effects, 0);
-            }
-
-            return true;
-        }
-
 		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item126, Projectile.Center);
+
+            for (int numDusts = 0; numDusts < 10; numDusts++)
+			{                                                                                  
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Asphalt, 0f, -2f, 0, default, 0.85f);
+				Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+			}
 		}
     }
 }

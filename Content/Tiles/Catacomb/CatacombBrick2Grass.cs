@@ -26,11 +26,21 @@ namespace Spooky.Content.Tiles.Catacomb
             AddMapEntry(new Color(52, 102, 46));
 			RegisterItemDrop(ModContent.ItemType<CatacombBrick2Item>());
 			DustType = ModContent.DustType<CemeteryGrassDust>();
+			MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<CatacombBrick2>();
+			}
 		}
 
 		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
 		{
-			return Flags.downedBigBone;
+			return Flags.downedBigBone && tileTypeBeingPlaced != ModContent.TileType<CatacombBrick2Safe>();
 		}
 
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
@@ -184,9 +194,19 @@ namespace Spooky.Content.Tiles.Catacomb
             AddMapEntry(new Color(52, 102, 46));
             RegisterItemDrop(ModContent.ItemType<CatacombBrick2Item>());
             DustType = ModContent.DustType<CemeteryGrassDust>();
+			MineResist = 0.1f;
 		}
 
-        public override void RandomUpdate(int i, int j)
+		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<CatacombBrick2Safe>();
+			}
+		}
+
+		public override void RandomUpdate(int i, int j)
         {
             Tile Tile = Framing.GetTileSafely(i, j);
 			Tile Below = Framing.GetTileSafely(i, j + 1);

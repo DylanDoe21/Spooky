@@ -31,7 +31,7 @@ namespace Spooky.Content.Tiles.Catacomb
 
 		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
 		{
-			return Flags.downedDaffodil;
+			return Flags.downedDaffodil && tileTypeBeingPlaced != ModContent.TileType<CatacombBrick1Safe>();
 		}
 
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged)

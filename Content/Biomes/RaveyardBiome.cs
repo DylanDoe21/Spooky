@@ -11,7 +11,7 @@ namespace Spooky.Content.Biomes
 {
     public class RaveyardBiome : ModBiome
     {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard1");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 

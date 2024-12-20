@@ -105,7 +105,10 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 
             NPC.spriteDirection = NPC.direction;
 
-            NPC.localAI[0]++;
+            if (NPC.velocity.Y == 0)
+            {
+                NPC.localAI[0]++;
+            }
 
             if (NPC.localAI[0] <= 420)
             {
@@ -117,14 +120,15 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             {
                 NPC.aiStyle = 0;
 
+				NPC.velocity.Y = 0;
+
                 if (NPC.localAI[0] == 460)
                 {
                     SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1.2f }, NPC.Center);
 
-                    Vector2 ShootSpeed = player.Center - NPC.Center;
+                    Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y - 30) - NPC.Center;
                     ShootSpeed.Normalize();
-                    ShootSpeed.X *= 10;
-                    ShootSpeed.Y *= 0;
+                    ShootSpeed *= 10;
 
                     NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<HydroraptorSpit>(), NPC.damage, 4.5f);
                 }
@@ -140,6 +144,13 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
         {
             if (NPC.life <= 0) 
             {
+                for (int numDusts = 0; numDusts < 25; numDusts++)
+                {                                                                                  
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Asphalt, 0f, -2f, 0, default, 1f);
+                    Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+                    Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+                }
+
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

@@ -104,9 +104,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
 			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
 
-			//draw aura
-			Vector2 drawOrigin = new(NPC.width * 0.5f, NPC.height * 0.5f);
-
 			//draw npc manually for stretching
 			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, SpriteEffects.None, 0f);
 
@@ -134,12 +131,12 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
 			bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
 
-			if ((player.Distance(NPC.Center) <= 450f && HasLineOfSight) || NPC.localAI[0] >= 320)
+			if ((player.Distance(NPC.Center) <= 450f && HasLineOfSight) || NPC.localAI[0] >= 200)
             {
 			    NPC.localAI[0]++;
             }
 
-            if (NPC.localAI[0] > 320)
+            if (NPC.localAI[0] > 200)
             {
                 NPC.aiStyle = -1;
                 NPC.velocity *= 0.9f;
@@ -150,7 +147,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 			    AIType = NPCID.Wraith;
             }
 
-            if (NPC.localAI[0] >= 380)
+            if (NPC.localAI[0] >= 240)
             {
                 if (NPC.localAI[0] % 20 == 0)
                 {
@@ -161,11 +158,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 					SoundEngine.PlaySound(SoundID.NPCDeath13 with { Pitch = -1.2f }, NPC.Center);
 
 					//spawn ooze
-					NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 30), new Vector2(Main.rand.Next(-1, 2), 3), ModContent.ProjectileType<GarlicOoze>(), NPC.damage, 4.5f);
+					NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 30), new Vector2(Main.rand.Next(-3, 4), 2), ModContent.ProjectileType<RottenOoze>(), NPC.damage, 4.5f);
                 }
             }
 
-            if (NPC.localAI[0] >= 420)
+            if (NPC.localAI[0] >= 280)
             {
                 NPC.localAI[0] = 0;
 
@@ -177,11 +174,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         {
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 5; numGores++)
+                for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CoughLungGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/OozeGarlicGore" + numGores).Type);
                     }
                 }
             }

@@ -26,7 +26,21 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
             AddMapEntry(new Color(82, 165, 76));
             RegisterItemDrop(ModContent.ItemType<JungleSoilItem>());
             DustType = DustID.Grass;
-            MineResist = 0.7f;
+            MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<JungleSoil>();
+			}
+		}
+
+        public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return tileTypeBeingPlaced != ModContent.TileType<JungleSoil>();
 		}
 
         public override void RandomUpdate(int i, int j)

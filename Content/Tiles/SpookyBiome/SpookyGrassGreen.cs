@@ -27,7 +27,21 @@ namespace Spooky.Content.Tiles.SpookyBiome
             AddMapEntry(new Color(78, 120, 48));
             RegisterItemDrop(ModContent.ItemType<SpookyDirtItem>());
             DustType = ModContent.DustType<SpookyGrassDustGreen>();
-            MineResist = 0.7f;
+            MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<SpookyDirt>();
+			}
+		}
+
+        public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return tileTypeBeingPlaced != ModContent.TileType<SpookyDirt>();
 		}
 
         public override void RandomUpdate(int i, int j)

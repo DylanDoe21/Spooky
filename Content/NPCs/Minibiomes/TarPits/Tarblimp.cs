@@ -69,6 +69,13 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
         {
             if (NPC.life <= 0) 
             {
+                for (int numDusts = 0; numDusts < 25; numDusts++)
+                {                                                                                  
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Asphalt, 0f, -2f, 0, default, 1f);
+                    Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+                    Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+                }
+
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

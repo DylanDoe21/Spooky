@@ -25,10 +25,11 @@ namespace Spooky.Core
 
             //cemetery
             AddMusic("Content/Sounds/Music/Cemetery", Language.GetTextValue("Mods.Spooky.MusicDisplay.SwampyCemetery"), "BananaLizard");
-            AddMusic("Content/Sounds/Music/Raveyard", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard"), "BannanaLizard, Lurak, and LuxCapacitor");
+            AddMusic("Content/Sounds/Music/Raveyard", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard"), "BannanaLizard");
             AddMusic("Content/Sounds/Music/Raveyard1", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard1"), "BannanaLizard");
-            AddMusic("Content/Sounds/Music/Raveyard2", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard2"), "LuxCapacitor");
+            AddMusic("Content/Sounds/Music/Raveyard2", Language.GetTextValue("Mods.Spooky.MusicDisplay.Raveyard2"), "BannanaLizard");
             AddMusic("Content/Sounds/Music/RaveyardLegacy", Language.GetTextValue("Mods.Spooky.MusicDisplay.RaveyardLegacy"), "BannanaLizard & Lurak");
+            AddMusic("Content/Sounds/Music/RaveyardLegacy2", Language.GetTextValue("Mods.Spooky.MusicDisplay.RaveyardLegacy2"), "LuxCapacitor");
             AddMusic("Content/Sounds/Music/SpookySpirit", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookySpirit"), "BananaLizard");
 
             //catacombs
@@ -51,6 +52,7 @@ namespace Spooky.Core
             AddMusic("Content/Sounds/Music/SpiderCave", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpiderCave"), "BananaLizard");
 
             //minibiomes
+            AddMusic("Content/Sounds/Music/TarPits", Language.GetTextValue("Mods.Spooky.MusicDisplay.TarPits"), "BananaLizard");
             AddMusic("Content/Sounds/Music/VegetableBiome", Language.GetTextValue("Mods.Spooky.MusicDisplay.VegetableBiome"), "BananaLizard");
             AddMusic("Content/Sounds/Music/ChristmasDungeon", Language.GetTextValue("Mods.Spooky.MusicDisplay.ChristmasDungeon"), "BananaLizard");
         }

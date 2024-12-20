@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.Vinyl
     {
         public override void SetStaticDefaults()
         {
-            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard2"), 
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard1"), 
             ModContent.ItemType<RaveyardDisc1>(), ModContent.TileType<VinylTileThing6>());
         }
 
@@ -22,6 +22,33 @@ namespace Spooky.Content.Items.Vinyl
             Item.height = 22;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 25);
+        }
+    }
+
+    public class RaveyardDisc2 : RaveyardDisc1
+    {
+        public override void SetStaticDefaults()
+        {
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Raveyard2"), 
+            ModContent.ItemType<RaveyardDisc2>(), ModContent.TileType<VinylTileThing7>());
+        }
+    }
+
+    public class RaveyardDisc3 : RaveyardDisc1
+    {
+        public override void SetStaticDefaults()
+        {
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/RaveyardLegacy"), 
+            ModContent.ItemType<RaveyardDisc3>(), ModContent.TileType<VinylTileThing8>());
+        }
+    }
+
+    public class RaveyardDisc4 : RaveyardDisc1
+    {
+        public override void SetStaticDefaults()
+        {
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/RaveyardLegacy2"), 
+            ModContent.ItemType<RaveyardDisc4>(), ModContent.TileType<VinylTileThing9>());
         }
     }
 }

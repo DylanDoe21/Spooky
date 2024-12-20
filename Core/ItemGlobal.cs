@@ -68,6 +68,7 @@ namespace Spooky.Core
 
 		public override void UseAnimation(Item item, Player player)
 		{
+			//check for items that arent tools so that effects meant for weapons dont apply to tools or items that arent weapons
 			if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
 			{
 				//make items shoot boogers when the snotty schnoz is at full charge
@@ -89,10 +90,10 @@ namespace Spooky.Core
 					for (int numProjectiles = 0; numProjectiles <= 12; numProjectiles++)
 					{
 						Projectile.NewProjectile(null, player.Center, Velocity + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)),
-						ModContent.ProjectileType<MocoNoseSnot>(), item.damage + 20, item.knockBack, player.whoAmI);
+						ModContent.ProjectileType<MocoNoseSnot>(), item.damage, item.knockBack, player.whoAmI);
 					}
 
-					player.AddBuff(ModContent.BuffType<SnottySchnozCooldown>(), 1800);
+					player.GetModPlayer<SpookyPlayer>().MocoBoogerCharge = 0;
 				}
 
 				//items shoot out 3 monkey orchid shurikens if you have the monkey shruiken bloom buff
@@ -162,7 +163,7 @@ namespace Spooky.Core
 					for (int numProjectiles = 0; numProjectiles <= 5; numProjectiles++)
 					{
 						Projectile.NewProjectile(null, player.Center, Velocity + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)),
-						ModContent.ProjectileType<KidneyRock>(), 150, item.knockBack, player.whoAmI);
+						ModContent.ProjectileType<KidneyRock>(), 100 + (item.damage / 2), item.knockBack, player.whoAmI);
 					}
 
 					player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge = 0f;

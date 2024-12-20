@@ -16,7 +16,7 @@ namespace Spooky.Content.Biomes
     {
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TarPits");
 
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
 		public override ModWaterStyle WaterStyle => ModContent.GetInstance<TarWaterStyle>();
 
@@ -131,6 +131,9 @@ namespace Spooky.Content.Biomes
         public override void OnInBiome(Player player)
         {
             player.ZoneDesert = false;
+			player.ZoneCrimson = false;
+			player.ZoneCorrupt = false;
+			player.ZoneHallow = false;
 
 			if (player.wet)
 			{

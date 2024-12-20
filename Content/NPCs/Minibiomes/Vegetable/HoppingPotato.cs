@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             NPC.width = 26;
 			NPC.height = 44;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.25f;
+			NPC.knockBackResist = 0.75f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.NPCHit11;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -58,12 +58,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
+                if (Main.netMode != NetmodeID.Server) 
                 {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/DaddyLongLegsGore" + numGores).Type);
-                    }
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/HoppingPotato1Gore").Type);
                 }
             }
         }
@@ -79,12 +76,32 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             NPC.width = 26;
 			NPC.height = 26;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.25f;
+			NPC.knockBackResist = 0.75f;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.NPCHit11;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 26;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.VegetableBiome>().Type };
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.HoppingPotato2"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.VegetableBiome>().ModBiomeBestiaryInfoElement)
+			});
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/HoppingPotato2Gore").Type);
+                }
+            }
         }
     }
 
@@ -98,12 +115,32 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             NPC.width = 30;
 			NPC.height = 34;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.25f;
+			NPC.knockBackResist = 0.75f;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.NPCHit11;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 26;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.VegetableBiome>().Type };
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.HoppingPotato3"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.VegetableBiome>().ModBiomeBestiaryInfoElement)
+			});
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/HoppingPotato3Gore").Type);
+                }
+            }
         }
     }
 
@@ -117,12 +154,32 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             NPC.width = 32;
 			NPC.height = 30;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.25f;
+			NPC.knockBackResist = 0.75f;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.NPCHit11;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 26;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.VegetableBiome>().Type };
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.HoppingPotato4"),
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.VegetableBiome>().ModBiomeBestiaryInfoElement)
+			});
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/HoppingPotato4Gore").Type);
+                }
+            }
         }
     }
 }

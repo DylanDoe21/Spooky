@@ -36,7 +36,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 			NPC.knockBackResist = 0f;
 			NPC.noTileCollide = false;
 			NPC.noGravity = false;
-            NPC.hide = true;
+            NPC.behindTiles = true;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -78,11 +78,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, Color.Red * NPC.ai[2], NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 
 			return false;
-        }
-
-        public override void DrawBehind(int index)
-		{
-			Main.instance.DrawCacheNPCsBehindNonSolidTiles.Add(index);
         }
 
 		public override void AI()
@@ -161,11 +156,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         {
             if (NPC.life <= 0)
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
+                for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/DaddyLongLegsGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingPepperGore" + numGores).Type);
                     }
                 }
             }

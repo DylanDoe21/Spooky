@@ -1,18 +1,15 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Gourds;
-using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -34,7 +31,21 @@ namespace Spooky.Content.Tiles.SpookyBiome
             AddMapEntry(new Color(226, 116, 17));
             RegisterItemDrop(ModContent.ItemType<SpookyDirtItem>());
             DustType = ModContent.DustType<SpookyGrassDust>();
-            MineResist = 0.7f;
+            MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<SpookyDirt>();
+			}
+		}
+
+        public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return tileTypeBeingPlaced != ModContent.TileType<SpookyDirt>();
 		}
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

@@ -19,12 +19,21 @@ Spooky Forest Generation Overhaul:
 -Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you use the detonator + explosive at the surface or just dig under the explosive
 
 
+New Music:
+
+"T-Funk" by Bananlizard, plays in the new tar pits minibiome
+"Something Smells Funky" by Bananlizard, plays in the new fetid farms minibiome
+"Tapioca Motel" by Bananlizard, plays in the new krampus' workshop structure
+"Neo Alkahouse" by Bananlizard, new alternate theme that plays during the raveyard
+
+
 Other Random Additions:
 
 -Added spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
 -Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks)
 -Added a couple new accessories to the underground spooky forest cabin chests, one for melee and one for ranged
 -Added cranberry cans and cranberry juice, functionally identical to healing potions but they auto consume when you fall below half hp and have slightly less potion sickness time
+-Added new raveyard vinyls for the individual tracks Graveyard without the G and Neo Alkahouse
 
 
 
@@ -57,20 +66,24 @@ Accessory Rebalancing/Reworks:
 -Strange video game now disables your life regeneration but it will now spawn natures mockery around you constantly, only one can exist at a time but once one dies another will immediately spawn
 -Samson's cuff no longer decreases movement speed and damage (Applies to both the regular accessory and the amalghoul)
 -Sewing thread now inflicts pierced onto any enemy it hits, pierced enemies will take 2x damage and be inflicted with a bleed damage-over-time debuff for 10 seconds the next time they are hit by any weapon that isnt the thread
--Stitched cloak dash now allows you to dash vertically/Horizontally without falling, and you are now invincible while dashing which allows you to dash through enemies and their attacks
+-Stitched cloak dash now allows you to dash vertically/horizontally in a straight direction, and you are now invincible while dashing which allows you to dash through enemies and their attacks
 -Removed the stitched cloak's spider web ability
 -Eyeball of pondering now displays the exact amount of damage increase it gives when targetting an enemy, and removed the "shattering when you get hit too many times" gimmick entirely
+-Tome of spirits now gives stats based on the eye color: 12% more melee/ranged damage and knockback when red, 12% increased magic/summon damage and 15% less mana usage when green, 10 defense and extra life regen when blue
 -Allergy medication now provides immunity to venom and poisoned along with oozed and converts both of those debuffs into positive buffs like it does with oozed
--Corroding chomper projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it
--Corroding chompers now gives 8% increased critical strike chance to make the goo jaw projectile more useful
--Ancient bone mask now massively increases your movement acceleration and maximum movement speed
--Ancient bone mask wisps will now shoot upward if you are running on the ground to prevent them from hitting the floor and immediately dying
+-Corroding chompers projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it
+-Corroding chompers now gives 8% increased critical strike chance to make it more useful overall
+-Stoned kidney now gives 15% increased damage while at full charge
+-Snotty schnoz no longer has a cooldown period after shooting a spread of snot, however the snot projectiles are no longer homing
+-Reworked flower hairpin, it now summons offensive orbiting petals that will chase enemies and deal damage equal to the damage you took when you got hit with a minimum of 40, petals also constantly spawn if you have less than 6 at once
+-Ancient bone mask now massively increases your movement acceleration and maximum movement speed, and the wisps now shoot upward if you are running on the ground to prevent them from hitting the floor and immediately dying
 
 
 Enemies and Bosses:
 
 -Buffed rot gourd max hp from 2200 to 2700
--Changed daffodils death beam "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
+-Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
+-Observing orchids will now only attack if they have light of sight with the player
 
 
 Miscellaneous:
@@ -78,9 +91,12 @@ Miscellaneous:
 -Made the spider grotto biome size a tiny bit smaller
 -Carved gourd-o-lanterns now count as light source blocks for npc housing
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
+-Spooky mod grasses now immediately turn into their corresponding dirt block when broken like terraria grasses do
+-New resprites for all spooky mod grasses and most spooky mod dirt blocks to make them look more terraria styled
 -Catacombs curse debuff no longer prevents you from placing blocks
 -Catacomb bricks and walls can now be broken with pickaxes/hammers once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandora's box arena are still completely indestructable. This also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
 -Removed catacomb grass seeds, cemetery grass seeds now serve the same purpose of placing moss on catacomb bricks along with placing cemetery grass
+-Removed all cooldown debuffs for accessories that have had their cooldowns removed
 
 
 
@@ -102,4 +118,4 @@ Miscellaneous:
 -Fixed bluefords casting animation playing way too early before he actually shields another ghost bandit
 -Fixed issue where ancient crushers basically would never spawn due to an issue with their upward tile check when spawning on ceilings
 -Fixed ancient crushers colliding with platforms when slamming down
--Fixed cemetery biome dungeon chest not having a sell price
+-Fixed cemetery biome dungeon chest item not having a sell price

@@ -3,8 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Tiles.SpookyBiome.Ambient;
-
 namespace Spooky.Content.Tiles.SpookyBiome
 {
 	public class SpookyStone : ModTile

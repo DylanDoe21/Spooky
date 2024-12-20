@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Items.BossBags.Accessory
 {
@@ -21,12 +20,8 @@ namespace Spooky.Content.Items.BossBags.Accessory
         }
        
         public override void UpdateAccessory(Player player, bool hideVisual)
-        { 
-            if (!player.HasBuff(ModContent.BuffType<DaffodilHairpinCooldown>()))
-            {
-                player.GetModPlayer<SpookyPlayer>().DaffodilHairpin = true;
-                player.thorns += 15f;
-            }
+        {
+            player.GetModPlayer<SpookyPlayer>().DaffodilHairpin = true;
         }
     }
 }

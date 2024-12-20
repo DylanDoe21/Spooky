@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 1000;
+            NPC.lifeMax = 550;
             NPC.damage = 60;
             NPC.defense = 12;
             NPC.width = 62;
@@ -92,9 +92,10 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         {
 			if (NPC.life <= 0) 
             {
-                for (int numDusts = 0; numDusts < 12; numDusts++)
+                for (int numDusts = 0; numDusts < 25; numDusts++)
                 {                                                                                  
                     int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, 192, 0f, -2f, 0, default, 1.5f);
+                    Main.dust[DustGore].noGravity = true;
                     Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                     Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
                 }

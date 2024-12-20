@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
 
 namespace Spooky.Content.Tiles.SpookyHell
@@ -25,8 +24,22 @@ namespace Spooky.Content.Tiles.SpookyHell
             RegisterItemDrop(ModContent.ItemType<SpookyMushItem>());
             DustType = DustID.Blood;
             HitSound = SoundID.Dig;
-            MineResist = 0.7f;
-        }
+            MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<SpookyMush>();
+			}
+		}
+
+        public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return tileTypeBeingPlaced != ModContent.TileType<SpookyMush>();
+		}
 
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {

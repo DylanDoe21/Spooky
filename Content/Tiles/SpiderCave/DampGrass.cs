@@ -26,7 +26,21 @@ namespace Spooky.Content.Tiles.SpiderCave
             AddMapEntry(new Color(134, 116, 55));
             RegisterItemDrop(ModContent.ItemType<DampSoilItem>());
             DustType = ModContent.DustType<DampGrassDust>();
-			MineResist = 0.65f;
+			MineResist = 0.1f;
+		}
+
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!fail && !WorldGen.gen)
+			{
+				fail = true;
+				Framing.GetTileSafely(i, j).TileType = (ushort)ModContent.TileType<DampSoil>();
+			}
+		}
+
+        public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return tileTypeBeingPlaced != ModContent.TileType<DampSoil>();
 		}
 
 		public override void RandomUpdate(int i, int j)

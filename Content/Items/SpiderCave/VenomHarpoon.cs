@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.SpiderCave
             Item.damage = 118;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.autoReuse = false;
+			Item.autoReuse = true;
 			Item.noUseGraphic = true;
             Item.width = 110;
             Item.height = 44;

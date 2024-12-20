@@ -253,8 +253,10 @@ DaffodilHairpin: {
 	DisplayName: Flower Hairpin
 	Tooltip:
 		'''
-		Grants you a petal ring that deals massive damage to enemies when they touch you
-		The ring goes away when an enemy hits you, and grows back after one minute
+		Constantly generate flower petals that orbit around you, up to 6 total
+		Taking damage will cause all existing petals home in on nearby enemies
+		The petals will deal damage equal to how much damage you took if it was over 40
+		The petal's damage will not go below 40 if you take less than 40 damage
 		'''
 }
 
@@ -274,9 +276,8 @@ MocoNose: {
 		'''
 		Gives you a snot bar that will fill up as you pick up snot globs
 		Snot globs will occassionaly drop when you damage enemies
-		Once the bar is full, using a weapon will fire out a giant spread of homing snot
-		Enemies will stop dropping snot for 30 seconds after this effect is triggered
-		The damage and speed of the homing snot depends on the weapon you use when shooting them
+		Once the bar is full, using any weapon will fire out a giant spread of snot
+		The damage and speed of the homing snot scales based on the weapon you use when shooting them
 		'''
 }
 
@@ -1373,6 +1374,10 @@ GhostBook: {
 		'''
 		Summons one of the grave-robber's spirits to fight with and protect you
 		The spirit summoned depends on the color of the book's eye
+		Also grants different stat bonuses depending on the eye color
+		Red eye will grant you 12% increased melee and ranged damage and knockback
+		Green eye will grant 12% increased magic and summon damage and 15% reduced mana usage
+		Blue eye will grant you 10 defense and increased life regeneraton
 		Use to switch the type of spirit this book summons
 		'''
 }
@@ -2122,6 +2127,7 @@ StonedKidney: {
 		'''
 		While not using weapons you will charge up the stoned kidney
 		At full charge, attacking will launch a spread of high damage kidney rocks
+		You will also gain 15% increased damage while at full charge
 		'''
 }
 
@@ -2644,12 +2650,22 @@ TortumorYoyo: {
 
 RaveyardDisc1: {
 	DisplayName: Raveyard Vinyl
-	Tooltip: "[c/6FE4A5:Deathrattlin' Raving (Legacy Version)] by Luxcapacitor"
+	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard"
 }
 
 RaveyardDisc2: {
 	DisplayName: Raveyard Vinyl
+	Tooltip: "[c/6FE4A5:Neo Alkahouse] by BananaLizard"
+}
+
+RaveyardDisc3: {
+	DisplayName: Raveyard Vinyl
 	Tooltip: "[c/6FE4A5:Graveyard Without The G (Legacy Version)] by BananaLizard & Lurak"
+}
+
+RaveyardDisc4: {
+	DisplayName: Raveyard Vinyl
+	Tooltip: "[c/6FE4A5:Deathrattlin' Raving (Legacy Version)] by Luxcapacitor"
 }
 
 VinylAlley: {
@@ -2724,6 +2740,15 @@ SummerSeed: {
 	Tooltip:
 		'''
 		Places a plant that grows various tropical blooms
+		Requires a flat ground of Bloom Soil to be planted on
+		'''
+}
+
+VegetableSeed: {
+	DisplayName: Radioactive Seeds
+	Tooltip:
+		'''
+		Places a plant that grows various strange vegetable blooms
 		Requires a flat ground of Bloom Soil to be planted on
 		'''
 }
@@ -2998,7 +3023,7 @@ CemeteryBox: {
 
 ChristmasDungeonBox: {
 	DisplayName: Music Box (Krampus' Workshop)
-	Tooltip: "[c/52BDF2:Krampus' Workshop] by BananaLizard"
+	Tooltip: "[c/52BDF2:Tapioca Motel] by BananaLizard"
 }
 
 DaffodilBox: {
@@ -3036,7 +3061,7 @@ RaveyardBox: {
 	Tooltip:
 		'''
 		Placeable on ceilings and provides rainbow party light when turned on
-		[c/6FE4A5:Graveyard Without The G] by BananaLizard
+		[c/6FE4A5:Raveyard Medley] by BananaLizard
 		'''
 }
 
@@ -3095,9 +3120,14 @@ SpookySpiritBox: {
 	Tooltip: "[c/B6ABFF:Groovy Geist] by BananaLizard"
 }
 
+TarPitsBox: {
+	DisplayName: Music Box (Tar Pits)
+	Tooltip: "[c/6A66B3:T-Funk] by BananaLizard"
+}
+
 VegetableBiomeBox: {
 	DisplayName: Music Box (Fetid Farms)
-	Tooltip: "[c/52A54C:This Smells Funky] by BananaLizard"
+	Tooltip: "[c/52A54C:Something Smells Funky] by BananaLizard"
 }
 
 CultistBathtubItem: {

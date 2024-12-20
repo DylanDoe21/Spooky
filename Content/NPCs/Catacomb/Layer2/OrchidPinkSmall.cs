@@ -142,8 +142,10 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
         public void ChasePlayer(Player player, NPC Parent, int MaxSpeed, float Acceleration)
         {
+            bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+
             //fly towards the player
-            if (player.Distance(Parent.Center) <= 360f && !player.dead)
+            if (player.Distance(Parent.Center) <= 360f && !player.dead && HasLineOfSight)
             {
                 //rotation
                 Vector2 vector = new(NPC.Center.X, NPC.Center.Y);
@@ -151,31 +153,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                 float RotateY = player.Center.Y - vector.Y;
                 NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-                //flies to players X position
-                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed) 
-                {
-                    MoveSpeedX--;
-                }
-                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed)
-                {
-                    MoveSpeedX++;
-                }
-
-                NPC.velocity.X += MoveSpeedX * Acceleration;
-                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
-                
-                //flies to players Y position
-                if (NPC.Center.Y >= player.Center.Y && MoveSpeedY >= -MaxSpeed)
-                {
-                    MoveSpeedY--;
-                }
-                else if (NPC.Center.Y <= player.Center.Y && MoveSpeedY <= MaxSpeed)
-                {
-                    MoveSpeedY++;
-                }
-
-                NPC.velocity.Y += MoveSpeedY * Acceleration;
-                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
+                Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 3;
+                NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
             }
             //if too far away, move back to the parent stem
             else

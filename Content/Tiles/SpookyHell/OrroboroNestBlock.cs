@@ -20,6 +20,11 @@ namespace Spooky.Content.Tiles.SpookyHell
 			MinPick = int.MaxValue;
 		}
 
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
+		{
+			return false;
+		}
+
 		public override bool CanExplode(int i, int j)
         {
 			return false;

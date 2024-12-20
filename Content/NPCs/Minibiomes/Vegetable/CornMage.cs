@@ -135,11 +135,16 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 5; numGores++)
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CornHeadGore1").Type);
+                }
+
+                for (int numGores = 1; numGores <= 6; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidWarlockGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CornGore" + numGores).Type);
                     }
                 }
             }
@@ -156,5 +161,24 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.VegetableBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CornHeadGore2").Type);
+                }
+
+                for (int numGores = 1; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CornGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

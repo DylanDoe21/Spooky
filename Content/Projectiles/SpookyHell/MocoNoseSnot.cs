@@ -72,36 +72,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Projectile.alpha -= 12;
             }
-
-            int foundTarget = HomeOnTarget();
-            if (foundTarget != -1)
-            {
-                NPC target = Main.npc[foundTarget];
-                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 22;
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
-            }
 		}
-
-        private int HomeOnTarget()
-        {
-            const float homingMaximumRangeInPixels = 300;
-
-            int selectedTarget = -1;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC target = Main.npc[i];
-                if (target.CanBeChasedBy(Projectile))
-                {
-                    float distance = Projectile.Distance(target.Center);
-                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
-                    {
-                        selectedTarget = i;
-                    }
-                }
-            }
-
-            return selectedTarget;
-        }
 
 		public override void OnKill(int timeLeft)
 		{

@@ -3,11 +3,6 @@ BustlingGlowshroomHeal: {
 	Description: Your life regeneration is greatly increased
 }
 
-DaffodilHairpinCooldown: {
-	DisplayName: Thorn Petal Cooldown
-	Description: Your petal ring is regrowing
-}
-
 EmbryoRevival: {
 	DisplayName: Embryotic Revival
 	Description:
@@ -25,11 +20,6 @@ FlyBuff: {
 SkullFrenzyBuff: {
 	DisplayName: Necromantic Frenzy
 	Description: Increased damage, critical strike chance, knockback, and movement speed
-}
-
-SnottySchnozCooldown: {
-	DisplayName: Snotty Schnoz Cooldown
-	Description: Your booger frenzy is recharging
 }
 
 BouncerDeathmark: {

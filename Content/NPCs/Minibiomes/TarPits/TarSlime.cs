@@ -32,7 +32,8 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 			NPC.noTileCollide = false;
 			NPC.HitSound = SoundID.Item95 with { Volume = 0.8f, Pitch = 1.3f };
 			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = -1;
+			NPC.aiStyle = 1;
+			AIType = NPCID.GreenSlime;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.TarPitsBiome>().Type };
         }
 
@@ -72,22 +73,9 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             Player player = Main.player[NPC.target];
 
 			NPC.spriteDirection = NPC.direction;
-
-			if (!NPC.wet)
-			{
-				JumpToTarget(player, 250, Main.rand.Next(60, 181));
-
-				if (NPC.velocity.Y == 0)
-				{
-					NPC.velocity.X = 0;
-				}
-			}
-			else
-			{
-				JumpToTarget(player, 250, 2);
-			}
         }
 
+		/*
 		public void JumpToTarget(Player target, int JumpHeight, int TimeBeforeNextJump)
 		{
 			NPC.ai[0]++;
@@ -125,7 +113,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 					}
 				}
 
-				if (NPC.ai[1] < 15 && HasJumped)
+				if (NPC.ai[1] < 12 && HasJumped)
 				{
 					NPC.velocity = velocity * speed;
 				}
@@ -140,17 +128,17 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 				NPC.ai[1] = 0;
 			}
 		}
+		*/
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
-                {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/DaddyLongLegsGore" + numGores).Type);
-                    }
+				for (int numDusts = 0; numDusts < 25; numDusts++)
+                {                                                                                  
+                    int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Asphalt, 0f, -2f, 0, default, 1f);
+                    Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+                    Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
                 }
             }
         }
