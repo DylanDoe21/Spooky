@@ -25,8 +25,9 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/TarBlobSmallClubBestiary",
-                Position = new Vector2(0f, 10f),
-                PortraitPositionYOverride = 10f
+                Position = new Vector2(-25f, 25f),
+                PortraitPositionXOverride = 12f,
+                PortraitPositionYOverride = 13.5f
             };
         }
 

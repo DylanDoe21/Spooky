@@ -545,7 +545,24 @@ namespace Spooky.Core
 			{
 				Player.GetDamage(DamageClass.Generic) += 0.15f;
 			}
-        }
+
+			if (VegetablePepper)
+			{
+				Player.GetDamage(DamageClass.Melee) += 0.1f;
+			}
+			if (VegetableEggplantPaint)
+			{
+				Player.GetDamage(DamageClass.Ranged) += 0.1f;
+			}
+			if (VegetableRomanesco)
+			{
+				Player.GetDamage(DamageClass.Magic) += 0.1f;
+			}
+			if (VegetableCauliflower)
+			{
+				Player.GetDamage(DamageClass.Summon) += 0.1f;
+			}
+		}
 
 		public override void UpdateLifeRegen()
 		{

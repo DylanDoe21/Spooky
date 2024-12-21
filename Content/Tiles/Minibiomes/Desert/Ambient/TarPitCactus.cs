@@ -2,31 +2,28 @@
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
-using Spooky.Content.Items.Food;
 
-namespace Spooky.Content.Tiles.SpookyHell.Tree
+namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 {
-    public class EyeTree : ModTile
+    public class TarPitCactus : ModTile
     {
         //reminder:
-        //X frame 0 = normal tree segment
-        //X frame 16 = tree top draw segment
-        //X frame 36 = stubby top segment
+        //X frame 0 = segment
+        //X frame 16 = left branch segment
+        //X frame 36 = right branch segment
+        //X frame 54 = top segment
 
-        private static Asset<Texture2D> TopTexture;
-        private static Asset<Texture2D> StemTexture;
-        private static Asset<Texture2D> TopGlowTexture;
-        private static Asset<Texture2D> StemGlowTexture;
+        private static Asset<Texture2D> BranchLeftTexture;
+		private static Asset<Texture2D> BranchRightTexture;
+		private static Asset<Texture2D> TileTexture;
 
-        public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
         {
             TileID.Sets.IsATreeTrunk[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -37,8 +34,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(168, 58, 96), name);
-            DustType = DustID.Blood;
-			HitSound = SoundID.NPCHit13;
+            DustType = DustID.Grass;
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -55,8 +51,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
         public static bool SolidTopTile(int i, int j) 
         {
-            return Framing.GetTileSafely(i, j).HasTile && (Main.tileSolidTop[Framing.GetTileSafely(i, j).TileType] || 
-            Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
+            return Framing.GetTileSafely(i, j).HasTile && (Main.tileSolidTop[Framing.GetTileSafely(i, j).TileType] || Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
         }
 
         public static bool Grow(int i, int j, int minSize, int maxSize, bool saplingExists = false)
@@ -90,7 +85,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             //make sure the block is valid for the tree to place on
             if ((SolidTopTile(i, j + 1) || SolidTile(i, j + 1)) && !Framing.GetTileSafely(i, j).HasTile)
             {
-                WorldGen.PlaceTile(i, j, ModContent.TileType<EyeTree>(), true);
+                WorldGen.PlaceTile(i, j, ModContent.TileType<TarPitCactus>(), true);
                 Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
@@ -106,13 +101,33 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             for (int numSegments = 1; numSegments < height; numSegments++)
             {
-                WorldGen.PlaceTile(i, j - numSegments, ModContent.TileType<EyeTree>(), true);
-                Framing.GetTileSafely(i, j - numSegments).TileFrameX = 0;
+				if (Main.tile[i, j - numSegments - 1].HasTile)
+				{
+					return false;
+				}
+
+                WorldGen.PlaceTile(i, j - numSegments, ModContent.TileType<TarPitCactus>(), true);
                 Framing.GetTileSafely(i, j - numSegments).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
+
+				if (WorldGen.genRand.NextBool())
+				{
+					if (WorldGen.genRand.NextBool())
+					{
+						Framing.GetTileSafely(i, j - numSegments).TileFrameX = 18;
+					}
+					else
+					{
+						Framing.GetTileSafely(i, j - numSegments).TileFrameX = 36;
+					}
+				}
+				else
+				{
+					Framing.GetTileSafely(i, j - numSegments).TileFrameX = 0;
+				}
 
                 if (numSegments == height - 1)
                 {
-                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 18;
+                    Framing.GetTileSafely(i, j - numSegments).TileFrameX = 54;
                 }
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
@@ -129,12 +144,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             //kill the tree if there are no tiles below it
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
+                /*
                 int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<LivingFleshItem>());
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
                 {
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
                 }
+                */
 
                 WorldGen.KillTile(i, j, false, false, false);
             }
@@ -149,6 +166,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
             y++;
 
+            /*
             if (Main.tile[x, y].TileFrameX == 18)
             {
                 //spawn a fruit from the tree
@@ -163,6 +181,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 					}
                 }
             }
+            */
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -187,11 +206,12 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int belowFrame = Framing.GetTileSafely(i, j + 1).TileFrameX;
 
             //if theres any remaining segments below, turn it into a stub top segment
-            if (belowFrame == 0 || belowFrame == 18)
+            if (belowFrame < 54)
             {
-                Framing.GetTileSafely(i, j + 1).TileFrameX = 36;
+                Framing.GetTileSafely(i, j + 1).TileFrameX = 54;
             }
 
+            /*
             if (tile.TileFrameX == 16 || tile.TileFrameX == 18)
             {
                 //play squishy sound
@@ -230,98 +250,69 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                     new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore3").Type);
                 }
             }
+            */
         }
 
-        public static void DrawTreeTop(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null, bool Glow = false)
+        public static void DrawBranch(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
             Color color = Lighting.GetColor(i, j);
 
-            Main.spriteBatch.Draw(tex, drawPos, source, Glow ? Color.White : color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
         }
 
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-			TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTops");
-			StemTexture ??= ModContent.Request<Texture2D>(Texture);
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			BranchLeftTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Desert/Ambient/TarPitCactusBranchLeft");
+			BranchRightTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Desert/Ambient/TarPitCactusBranchRight");
+			TileTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
+			Color col = Lighting.GetColor(i, j);
+			float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
+			if (xOff == 1 && (j / 4f) == 0)
+			{
+				xOff = 0;
+			}
 
-            int frameSize = 16;
-            int frameSizeY = 16;
+			int frameSize = 16;
+			int frameSizeY = 16;
 
-            Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+			Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
-            if (Framing.GetTileSafely(i, j).TileFrameX == 18)
-            {
-                int frame = tile.TileFrameY / 18;
+			if (Framing.GetTileSafely(i, j).TileFrameX == 18)
+			{
+				int frame = tile.TileFrameY / 18;
 
 				//reminder: offset negative numbers are right and down, while positive is left and up
 
 				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
-				Vector2 offset = new Vector2(((TopTexture.Width() / 3) / 2) - 16, TopTexture.Height() - 10);
+				Vector2 offset = new Vector2((BranchLeftTexture.Width() / 2) - 1, (BranchLeftTexture.Height() / 3) - 26);
 
 				//draw tree tops
-				DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileGlobal.TileOffset, offset, false);
-            }
+				DrawBranch(i - 1, j - 1, BranchLeftTexture.Value, new Rectangle(0, 18 * frame, 16, 16), TileGlobal.TileOffset, offset);
+			}
+			if (Framing.GetTileSafely(i, j).TileFrameX == 36)
+			{
+				int frame = tile.TileFrameY / 18;
 
-            Vector2 treeNormalOffset = new Vector2(0, 0);
-
-            //draw the actual tree
-            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
-            new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
-
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
-            {
-                Framing.GetTileSafely(i, j).TileFrameX = 18;
-            }
-
-            return false;
-        }
-
-        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
-
-            int frameSize = 16;
-            int frameSizeY = 16;
-
-            Vector2 pos = TileGlobal.TileCustomPosition(i, j);
-
-            if (Framing.GetTileSafely(i, j).TileFrameX == 18)
-            {
-                TopGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeTopsGlow");
-                int frame = tile.TileFrameY / 18;
-
+				//reminder: offset negative numbers are right and down, while positive is left and up
 				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
-				Vector2 offset = new Vector2(((TopTexture.Width() / 3) / 2) - 16, TopTexture.Height() - 10);
+				Vector2 offset = new Vector2((BranchRightTexture.Width() / 2) - 33, (BranchRightTexture.Height() / 3) - 26);
 
 				//draw tree tops
-				DrawTreeTop(i - 1, j - 1, TopGlowTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileGlobal.TileOffset, offset, true);
-            }
+				DrawBranch(i - 1, j - 1, BranchRightTexture.Value, new Rectangle(0, 18 * frame, 16, 16), TileGlobal.TileOffset, offset);
+			}
 
-            StemGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow");
+			Vector2 treeNormalOffset = new Vector2(0, 0);
 
-            Vector2 treeNormalOffset = new Vector2(0, 0);
+			//draw the actual tree
+			spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY),
+			new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
 
-            //draw the actual tree
-            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
-			Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-        }
+			return false;
+		}
     }
 }

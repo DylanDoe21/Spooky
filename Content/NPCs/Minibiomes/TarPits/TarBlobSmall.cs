@@ -39,12 +39,10 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
         {
             if (NPC.ai[0] == 0)
             {
-                float rotateSpeed = Main.rand.NextBool() ? -Main.rand.NextFloat(2f, 5f) : Main.rand.NextFloat(2f, 5f);
-
-                int Type = Main.rand.NextBool() ? ModContent.NPCType<TarBlobSmallClub>() : ModContent.NPCType<TarBlobSmallMouth>();
-
-                if (Type == ModContent.NPCType<TarBlobSmallClub>())
+                if (Main.rand.NextBool())
                 {
+                    float rotateSpeed = Main.rand.NextBool() ? -Main.rand.NextFloat(2f, 5f) : Main.rand.NextFloat(2f, 5f);
+                    
                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<TarBlobSmallClub>(), ai0: NPC.whoAmI, ai1: rotateSpeed, ai2: Main.rand.Next(100, 166));
                     NPC.ai[1] = 0;
                 }

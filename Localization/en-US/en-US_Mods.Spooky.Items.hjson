@@ -165,7 +165,7 @@ VegetableCauliflower: {
 	DisplayName: Cauliflower Trio
 	Tooltip:
 		'''
-		Grants a minor increase to your summon damage
+		Grants a 10% increase to your summon damage
 		Hitting enemies with whips can summon homing cauliflower
 		'''
 }
@@ -174,7 +174,7 @@ VegetableEggplantPaint: {
 	DisplayName: Grafitti Eggplant
 	Tooltip:
 		'''
-		Grants a minor increase to your ranged damage
+		Grants a 10% increase to your ranged damage
 		Ranged projectiles will leave behind damaging paint splatter on your screen
 		'''
 }
@@ -183,7 +183,7 @@ VegetablePepper: {
 	DisplayName: California Reaper
 	Tooltip:
 		'''
-		Grants a minor increase to your melee damage and speed
+		Grants a 10% increase to your melee damage and speed
 		Hitting enemies with melee weapons with inflict them with the pepper's spice
 		Enemies inflicted with this spice will spew out damaging fire around them
 		'''
@@ -193,7 +193,7 @@ VegetableRomanesco: {
 	DisplayName: Romanesco
 	Tooltip:
 		'''
-		Grants a minor increase to your magic damage
+		Grants a 10% increase to your magic damage
 		Using magic weapons can sometimes spawn a lingering romanesco 
 		Hitting it with a magic projectile will cause it to explode into homing leaves
 		'''
@@ -825,8 +825,8 @@ SlendermanPage: {
 	Tooltip:
 		'''
 		Spawns some black tentacles attached to you that will attack nearby enemies
-		Enemies killed by the tentacles will sometimes drop pages you can pick up
-		Picking up these pages will temporarily buff your tentacles
+		Pages that you can pick up will rarely drop when the tentacles critically hit an enemy
+		Picking up these pages will temporarily buff the tentacles
 		'Don't look'
 		'''
 }
@@ -4113,5 +4113,10 @@ SpookyBiomeTorchItem: {
 
 SpookyHellTorchItem: {
 	DisplayName: Eye Valley Torch
+	Tooltip: ""
+}
+
+DesertMossItem: {
+	DisplayName: Desert Moss Item
 	Tooltip: ""
 }

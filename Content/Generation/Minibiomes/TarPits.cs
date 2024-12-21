@@ -271,6 +271,16 @@ namespace Spooky.Content.Generation.Minibiomes
 							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Fossils));
 						}
 					}
+
+					if ((Main.tile[i, j].TileType == ModContent.TileType<DesertSand>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>()) && 
+					!Main.tile[i, j - 1].HasTile && Main.tile[i, j - 1].LiquidAmount <= 0)
+					{
+						//grow cactuses
+						if (WorldGen.genRand.NextBool(3) && CanPlaceCactus(i, j) && !Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+						{
+							TarPitCactus.Grow(i, j - 1, 5, 12);
+						}
+					}
 				}
 			}
 		}
@@ -392,6 +402,23 @@ namespace Spooky.Content.Generation.Minibiomes
 					}
 				}
 			}
+		}
+
+		//dont allow cactuses to naturally grow too close to each other
+		public static bool CanPlaceCactus(int X, int Y)
+		{
+			for (int i = X - 4; i < X + 4; i++)
+			{
+				for (int j = Y - 4; j < Y + 4; j++)
+				{
+					if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<TarPitCactus>())
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
 		}
 
 		public static bool CanPlaceTarPit(int PositionX, int PositionY)

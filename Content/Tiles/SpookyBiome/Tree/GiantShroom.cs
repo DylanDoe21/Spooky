@@ -13,7 +13,7 @@ using Spooky.Content.Items.SpookyBiome.Misc;
 
 namespace Spooky.Content.Tiles.SpookyBiome.Tree
 {
-    internal class GiantShroom : ModTile
+    public class GiantShroom : ModTile
     {
         //reminder:
         //X frame 0 = root segment

@@ -163,14 +163,11 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (target.life <= 0)
+            if (Main.rand.NextBool(20) && hit.Crit && Main.player[Projectile.owner].GetModPlayer<SpookyPlayer>().SlendermanPageDelay <= 0)
             {
-                if (Main.rand.NextBool(10) && Main.player[Projectile.owner].GetModPlayer<SpookyPlayer>().SlendermanPageDelay <= 0)
-                {
-                    int itemType = ModContent.ItemType<SlendermanBuffPage>();
-                    int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
-                    Main.item[newItem].noGrabDelay = 0;
-                }
+                int itemType = ModContent.ItemType<SlendermanBuffPage>();
+                int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);
+                Main.item[newItem].noGrabDelay = 0;
             }
         }
 

@@ -30,7 +30,8 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/TarBlobSmallMouthBestiary",
-                Position = new Vector2(0f, 10f),
+                Position = new Vector2(-25f, 25f),
+                PortraitPositionXOverride = 10f,
                 PortraitPositionYOverride = 10f
             };
         }
