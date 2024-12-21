@@ -392,6 +392,11 @@ namespace Spooky.Content.Generation
 					Tile tileLeft = Main.tile[X - 1, Y];
 					Tile tileRight = Main.tile[X + 1, Y];
 
+					if (tile.WallType == ModContent.WallType<SpookyDirtWall>() && (!tileAbove.HasTile || !tileBelow.HasTile || !tileLeft.HasTile || !tileRight.HasTile))
+					{
+						tile.WallType = (ushort)ModContent.WallType<SpookyGrassWall>();
+					}
+
 					//kill any single floating tiles so things dont look ugly
 					if (tile.TileType == ModContent.TileType<SpookyGrass>() || tile.TileType == ModContent.TileType<SpookyGrassGreen>() || tile.TileType == ModContent.TileType<SpookyStone>())
 					{
@@ -1005,7 +1010,7 @@ namespace Spooky.Content.Generation
 										WorldGen.KillTile(PositionX, PositionY);
 										tile.TileType = (ushort)ModContent.TileType<SpookyDirt>();
 										tile.HasTile = true;
-										Main.tile[PositionX, PositionY + 2].WallType = (ushort)ModContent.WallType<SpookyGrassWall>();
+										Main.tile[PositionX, PositionY + 2].WallType = (ushort)ModContent.WallType<SpookyDirtWall>();
 										tile.LiquidAmount = 0;
 									}
 								}

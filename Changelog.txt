@@ -30,6 +30,7 @@ New Music:
 Other Random Additions:
 
 -Added spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
+-Added spooky dirt walls, swampy mud walls, and damp soil walls, these walls now generate in their respective biome and have safe versions you can craft and build with
 -Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks)
 -Added a couple new accessories to the underground spooky forest cabin chests, one for melee and one for ranged
 -Added cranberry cans and cranberry juice, functionally identical to healing potions but they auto consume when you fall below half hp and have slightly less potion sickness time

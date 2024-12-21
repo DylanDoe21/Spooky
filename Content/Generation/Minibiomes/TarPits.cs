@@ -276,7 +276,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					!Main.tile[i, j - 1].HasTile && Main.tile[i, j - 1].LiquidAmount <= 0)
 					{
 						//grow cactuses
-						if (WorldGen.genRand.NextBool(3) && CanPlaceCactus(i, j) && !Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+						if (WorldGen.genRand.NextBool() && CanPlaceCactus(i, j) && !Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
 						{
 							TarPitCactus.Grow(i, j - 1, 5, 12);
 						}

@@ -116,7 +116,7 @@ namespace Spooky.Content.Generation
                     //reaplce walls with cemetery grass walls
                     if (tile.WallType > 0)
                     {
-                        tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
+                        tile.WallType = (ushort)ModContent.WallType<CemeteryDirtWall>();
                     }
 
 					tile.LiquidAmount = 0;
@@ -138,6 +138,29 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //place dirt walls and replace open dirt walls with grass walls
+            for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
+            {
+                for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
+                {
+                    Tile tile = Main.tile[X, Y];
+                    Tile tileAbove = Main.tile[X, Y - 1];
+                    Tile tileBelow = Main.tile[X, Y + 1];
+                    Tile tileLeft = Main.tile[X - 1, Y];
+                    Tile tileRight = Main.tile[X + 1, Y];
+
+                    if (CanPlaceWall(X, Y) && tile.WallType == 0)
+                    {
+                        WorldGen.PlaceWall(X, Y, ModContent.WallType<CemeteryDirtWall>());
+                    }
+
+                    if (tile.WallType == ModContent.WallType<CemeteryDirtWall>() && (!tileAbove.HasTile || !tileBelow.HasTile || !tileLeft.HasTile || !tileRight.HasTile))
+                    {
+                        tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
+                    }
+                }
+            }
+
             //add tile dithering on the edges of the biome
             for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
             {
@@ -154,9 +177,9 @@ namespace Spooky.Content.Generation
                         }
 
                         //reaplce walls with cemetery grass walls
-                        if (tile.WallType > 0)
+                        if (tile.WallType > 0 && tile.WallType != ModContent.WallType<CemeteryGrassWall>())
                         {
-                            tile.WallType = (ushort)ModContent.WallType<CemeteryGrassWall>();
+                            tile.WallType = (ushort)ModContent.WallType<CemeteryDirtWall>();
                         }
                     }
                 }
@@ -176,6 +199,22 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+        }
+
+        public bool CanPlaceWall(int X, int Y)
+        {
+            for (int i = X - 1; i <= X + 1; i++)
+            {
+                for (int j = Y - 1; j <= Y + 1; j++)
+                {
+                    if (Main.tile[i, j].TileType != ModContent.TileType<CemeteryDirt>() && Main.tile[i, j].TileType != ModContent.TileType<CemeteryStone>())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void CemeteryGrassAndTrees(GenerationProgress progress, GameConfiguration configuration)

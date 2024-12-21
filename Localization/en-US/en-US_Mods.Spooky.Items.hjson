@@ -2883,7 +2883,7 @@ CemeteryBiomeChestItem: {
 }
 
 CemeteryDirtItem: {
-	DisplayName: Swamp Soil
+	DisplayName: Swampy Mud
 	Tooltip: ""
 }
 
@@ -4118,5 +4118,20 @@ SpookyHellTorchItem: {
 
 DesertMossItem: {
 	DisplayName: Desert Moss Item
+	Tooltip: ""
+}
+
+SpookyDirtWallItem: {
+	DisplayName: Spooky Dirt Wall
+	Tooltip: ""
+}
+
+DampSoilWallItem: {
+	DisplayName: Damp Soil Wall
+	Tooltip: ""
+}
+
+CemeteryDirtWallItem: {
+	DisplayName: Swampy Mud Wall
 	Tooltip: ""
 }

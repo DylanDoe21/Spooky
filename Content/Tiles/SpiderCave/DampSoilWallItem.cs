@@ -2,28 +2,26 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Tiles.SpookyBiome.Furniture;
-
-namespace Spooky.Content.Tiles.SpookyBiome
+namespace Spooky.Content.Tiles.SpiderCave
 {
-    public class SpookyDirtItem : ModItem
+    public class DampSoilWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 100;
+            Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<SpookyDirt>());
+            Item.DefaultToPlaceableWall(ModContent.WallType<DampSoilWallSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyDirtWallItem>(), 4)
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<DampSoilItem>())
             .AddTile(TileID.WorkBenches)
             .Register();
         }

@@ -104,7 +104,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 			//shrink the npcs bounding box if its not attacking since its much smaller
 			if (NPC.ai[0] == 0)
 			{
-				boundingBox = new Rectangle((int)NPC.position.X, (int)NPC.position.Y + NPC.height - HeightOffset, NPC.width, -NPC.height / 3);
+				boundingBox = new Rectangle((int)NPC.position.X, (int)NPC.position.Y + NPC.height - HeightOffset - NPC.height / 3, NPC.width, NPC.height / 3);
 			}
 			else
 			{
@@ -129,6 +129,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 			int CurrentTarget = NPC.target;
 
 			NPC.TargetClosest();
+			Player player = Main.player[NPC.target];
 
 			//make npc face the player if attacking, otherwise face in the direction its moving
 			if (NPC.ai[0] == 0)
@@ -153,7 +154,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 				}
 				else
 				{
-					float DirectionToPlayer = Main.player[NPC.target].Center.X < NPC.Center.X ? -1 : 1;
+					float DirectionToPlayer = player.Center.X < NPC.Center.X ? -1 : 1;
 					NPC.velocity.X = (NPC.velocity.X * 19f + MovementSpeed * DirectionToPlayer) / 20f;
 				}
 
@@ -260,7 +261,10 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 				return;
 			}
 
-			if (new Rectangle((int)NPC.position.X - 120, (int)NPC.position.Y - 120, NPC.width + 240, NPC.height + 240).Intersects(Main.player[NPC.target].Hitbox))
+			Rectangle DetectionBox = new Rectangle((int)NPC.position.X - 120, (int)NPC.position.Y - 120, NPC.width + 240, NPC.height + 240);
+			bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, new Vector2(NPC.position.X, NPC.position.Y - HeightOffset), NPC.width, NPC.height);
+
+			if (DetectionBox.Intersects(player.Hitbox) && HasLineOfSight)
 			{
 				NPC.ai[0] = 1;
 			}
@@ -292,6 +296,12 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
                     }
                 }
             }
+        }
+
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+			position = new Vector2(NPC.Center.X, NPC.Center.Y + 22);
+            return true;
         }
 	}
 }

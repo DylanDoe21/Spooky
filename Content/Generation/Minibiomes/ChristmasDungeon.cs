@@ -501,6 +501,11 @@ namespace Spooky.Content.Generation.Minibiomes
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasLightRope>() && !Main.tile[i, j - 1].HasTile)
+					{
+						WorldGen.KillTile(i, j);
+					}
+
 					//tables and chairs
 					if (WorldGen.genRand.NextBool(30) && IsFlatSurface(i, j, 5))
 					{

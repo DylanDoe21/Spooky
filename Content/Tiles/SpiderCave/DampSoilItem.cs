@@ -19,5 +19,13 @@ namespace Spooky.Content.Tiles.SpiderCave
             Item.width = 16;
 			Item.height = 16;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<DampSoilWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 }

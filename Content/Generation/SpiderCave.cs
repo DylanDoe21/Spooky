@@ -126,7 +126,7 @@ namespace Spooky.Content.Generation
 
                                 if (Main.tile[X, Y].WallType > 0)
                                 {
-                                    Main.tile[X, Y].WallType = (ushort)ModContent.WallType<DampGrassWall>();
+                                    Main.tile[X, Y].WallType = (ushort)ModContent.WallType<DampSoilWall>();
                                 }
                             }
                         }
@@ -156,7 +156,7 @@ namespace Spooky.Content.Generation
                             //place a layer of grass walls around blocks
                             if (caveNoiseMap * caveNoiseMap <= caveCreationWallThreshold)
                             {
-                                WorldGen.PlaceWall(X, Y, ModContent.WallType<DampGrassWall>());
+                                WorldGen.PlaceWall(X, Y, ModContent.WallType<DampSoilWall>());
                             }
                         }
                     }
@@ -490,6 +490,17 @@ namespace Spooky.Content.Generation
                 {
                     if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
+                        Tile tile = Main.tile[X, Y];
+                        Tile tileAbove = Main.tile[X, Y - 1];
+                        Tile tileBelow = Main.tile[X, Y + 1];
+                        Tile tileLeft = Main.tile[X - 1, Y];
+                        Tile tileRight = Main.tile[X + 1, Y];
+
+                        if (tile.WallType == ModContent.WallType<DampSoilWall>() && (!tileAbove.HasTile || !tileBelow.HasTile || !tileLeft.HasTile || !tileRight.HasTile))
+                        {
+                            tile.WallType = (ushort)ModContent.WallType<DampGrassWall>();
+                        }
+
                         //spread grass onto the dirt blocks throughout the biome
                         WorldGen.SpreadGrass(X, Y, ModContent.TileType<DampSoil>(), ModContent.TileType<DampGrass>(), false);
                     }
@@ -600,7 +611,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //place spider webs on walls
-                        if (WorldGen.genRand.NextBool(120) && Main.tile[X, Y].WallType == ModContent.WallType<DampGrassWall>() && !Main.tile[X, Y].HasTile)
+                        if (WorldGen.genRand.NextBool(120) && Main.tile[X, Y].WallType == ModContent.WallType<DampSoilWall>() && !Main.tile[X, Y].HasTile)
                         {
                             ushort[] WallWebs = new ushort[] { (ushort)ModContent.TileType<WallWeb1>(), (ushort)ModContent.TileType<WallWeb2>() };
 

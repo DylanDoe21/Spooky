@@ -33,7 +33,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             Main.tileLighted[Type] = false;
             Main.tileBlockLight[Type] = false;
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(168, 58, 96), name);
+            AddMapEntry(new Color(59, 100, 52), name);
             DustType = DustID.Grass;
         }
 
@@ -82,6 +82,14 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
                 return false;
             }
 
+            for (int numSegments = 0; numSegments < height; numSegments++)
+            {
+				if (Main.tile[i - 1, j - numSegments].HasTile || Main.tile[i, j - numSegments].HasTile || Main.tile[i + 1, j - numSegments].HasTile)
+				{
+					return false;
+				}
+            }
+
             //make sure the block is valid for the tree to place on
             if ((SolidTopTile(i, j + 1) || SolidTile(i, j + 1)) && !Framing.GetTileSafely(i, j).HasTile)
             {
@@ -101,11 +109,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 
             for (int numSegments = 1; numSegments < height; numSegments++)
             {
-				if (Main.tile[i, j - numSegments - 1].HasTile)
-				{
-					return false;
-				}
-
                 WorldGen.PlaceTile(i, j - numSegments, ModContent.TileType<TarPitCactus>(), true);
                 Framing.GetTileSafely(i, j - numSegments).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
 
