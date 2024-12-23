@@ -57,7 +57,8 @@ FallSoulPumpkin: {
 	DisplayName: Pumptergeist
 	Tooltip:
 		'''
-		You will sometimes spawn a ghastly pumpkin that slowly chases nearby enemies
+		Occassionally spawn a homing ghastly pumpkin while holding a weapon
+		The damage of the pumpkins scales based on the weapon you are using
 		The ghastly pumpkins will ignite enemies for a short time
 		4 minute duration
 		'''
@@ -77,6 +78,7 @@ FallZucchini: {
 	Tooltip:
 		'''
 		Occassionally zap nearby enemies with zucchini electricity for a few seconds
+		Electricity will deal 8% of the targetted enemies maximum health as damage
 		2 minute duration
 		'''
 }
@@ -175,7 +177,7 @@ VegetableEggplantPaint: {
 	Tooltip:
 		'''
 		Grants a 10% increase to your ranged damage
-		Ranged projectiles will leave behind damaging paint splatter on your screen
+		Ranged projectiles will leave behind damaging paint splatter
 		'''
 }
 

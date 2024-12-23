@@ -11,7 +11,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(112, 74, 41));
-            DustType = DustID.Dirt;
+            DustType = DustID.Sand;
         }
     }
 }

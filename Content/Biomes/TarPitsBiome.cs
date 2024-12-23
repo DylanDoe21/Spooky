@@ -8,12 +8,15 @@ using System.Reflection;
 using MonoMod.Cil;
 
 using Spooky.Core;
+using Spooky.Content.Backgrounds.TarPits;
 using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
     public class TarPitsBiome : ModBiome
     {
+		public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TarPitsUndergroundBG>();
+
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TarPits");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
@@ -143,7 +146,7 @@ namespace Spooky.Content.Biomes
 
 		public override bool IsBiomeActive(Player player)
         {
-			bool BiomeCondition = ModContent.GetInstance<TileCount>().tarPitsTiles >= 1000;
+			bool BiomeCondition = ModContent.GetInstance<TileCount>().tarPitsTiles >= 1000 && Main.SceneMetrics.SandTileCount < 9000;
 			bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;

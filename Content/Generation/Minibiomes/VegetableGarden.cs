@@ -134,7 +134,7 @@ namespace Spooky.Content.Generation.Minibiomes
 		}
 
 		//method to clean up small clumps of tiles
-        public static void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
+        public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
         {
             List<ushort> BlockTypes = new()
             {
@@ -243,7 +243,7 @@ namespace Spooky.Content.Generation.Minibiomes
 			}
         }
 
-		public static void PlaceAmbience(int PositionX, int PositionY, int SizeX, int SizeY)
+		public void PlaceAmbience(int PositionX, int PositionY, int SizeX, int SizeY)
         {
 			for (int i = PositionX - SizeX * 2; i < PositionX + SizeX * 2; i++)
 			{

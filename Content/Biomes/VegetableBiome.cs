@@ -1,12 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Light;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Backgrounds.SpiderCave;
-using Spooky.Content.Tiles.SpiderCave.Furniture;
 
 namespace Spooky.Content.Biomes
 {
@@ -26,7 +23,7 @@ namespace Spooky.Content.Biomes
 
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().vegetableTiles >= 600;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().vegetableTiles >= 1000 && Main.SceneMetrics.JungleTileCount < 4200;
             bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;

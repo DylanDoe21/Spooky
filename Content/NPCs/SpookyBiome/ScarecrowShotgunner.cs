@@ -187,7 +187,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                         Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(10));
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, positonToShootFrom, newVelocity, ProjectileID.BulletSnowman, NPC.damage, 4.5f);
+                        bool lineOfSight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, positonToShootFrom - new Vector2(NPC.width / 2, NPC.height / 2), NPC.width, NPC.height);
+
+                        if (lineOfSight)
+                        {
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, positonToShootFrom, newVelocity, ProjectileID.BulletSnowman, NPC.damage, 4.5f);
+                        }
                     }
                 }
                 

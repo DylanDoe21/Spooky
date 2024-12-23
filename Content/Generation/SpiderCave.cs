@@ -115,22 +115,7 @@ namespace Spooky.Content.Generation
                         float percent = dist / constant;
                         float blurPercent = 0.99f;
 
-                        if (percent >= blurPercent)
-                        {
-                            if (WorldGen.genRand.NextBool())
-                            {
-                                if (Main.tile[X, Y].HasTile)
-                                {
-                                    Main.tile[X, Y].TileType = (ushort)ModContent.TileType<DampSoil>();
-                                }
-
-                                if (Main.tile[X, Y].WallType > 0)
-                                {
-                                    Main.tile[X, Y].WallType = (ushort)ModContent.WallType<DampSoilWall>();
-                                }
-                            }
-                        }
-                        else
+                        if (percent < blurPercent)
                         {
                             //clear absolutely everything before generating the caverns
                             Main.tile[X, Y].ClearEverything();
@@ -157,6 +142,38 @@ namespace Spooky.Content.Generation
                             if (caveNoiseMap * caveNoiseMap <= caveCreationWallThreshold)
                             {
                                 WorldGen.PlaceWall(X, Y, ModContent.WallType<DampSoilWall>());
+                            }
+                        }
+                    }
+                }
+            }
+
+            //clean out small floating chunks of blocks
+            CleanOutSmallClumps();
+
+            //place dithering around the edge of the biome
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+            {
+                for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+                    {
+                        float percent = dist / constant;
+                        float blurPercent = 0.99f;
+
+                        if (percent >= blurPercent)
+                        {
+                            if (WorldGen.genRand.NextBool())
+                            {
+                                if (Main.tile[X, Y].HasTile)
+                                {
+                                    Main.tile[X, Y].TileType = (ushort)ModContent.TileType<DampSoil>();
+                                }
+
+                                if (Main.tile[X, Y].WallType > 0)
+                                {
+                                    Main.tile[X, Y].WallType = (ushort)ModContent.WallType<DampSoilWall>();
+                                }
                             }
                         }
                     }
@@ -272,9 +289,6 @@ namespace Spooky.Content.Generation
 					}
                 }
             }
-
-            //clean out small floating chunks of blocks
-            CleanOutSmallClumps();
 
             //place clumps of vanilla ores
             

@@ -17,7 +17,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(105, 48, 10));
-            DustType = DustID.Dirt;
+            DustType = DustID.YellowStarfish;
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

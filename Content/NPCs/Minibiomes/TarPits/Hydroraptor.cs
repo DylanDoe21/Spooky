@@ -112,8 +112,16 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 
             if (NPC.localAI[0] <= 420)
             {
-                NPC.aiStyle = 3;
-                AIType = NPCID.GoblinScout;
+                if (NPC.wet)
+                {
+                    NPC.aiStyle = 1;
+                    AIType = NPCID.GoblinScout;
+                }
+                else
+                {
+                    NPC.aiStyle = 3;
+                    AIType = NPCID.GoblinScout;
+                }
             }
             
             if (NPC.localAI[0] > 420)

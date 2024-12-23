@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -84,7 +85,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 
             for (int numSegments = 0; numSegments < height; numSegments++)
             {
-				if (Main.tile[i - 1, j - numSegments].HasTile || Main.tile[i, j - numSegments].HasTile || Main.tile[i + 1, j - numSegments].HasTile)
+				if (Main.tile[i - 1, j - numSegments].HasTile || Main.tile[i, j - numSegments].HasTile || Main.tile[i + 1, j - numSegments].HasTile || Main.tile[i, j - numSegments].LiquidAmount > 0)
 				{
 					return false;
 				}
@@ -147,14 +148,12 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             //kill the tree if there are no tiles below it
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
-                /*
-                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<LivingFleshItem>());
+                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ItemID.Cactus);
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
                 {
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
                 }
-                */
 
                 WorldGen.KillTile(i, j, false, false, false);
             }
@@ -168,23 +167,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 			}
 
             y++;
-
-            /*
-            if (Main.tile[x, y].TileFrameX == 18)
-            {
-                //spawn a fruit from the tree
-                if (Main.rand.NextBool(30))
-                {
-                    int NewItem = Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, x, y), (new Vector2(x, y) * 16) + new Vector2(Main.rand.Next(-56, 56), 
-					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeFruit>(), Main.rand.Next(1, 4));
-
-                    if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
-					{
-						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
-					}
-                }
-            }
-            */
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -213,47 +195,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             {
                 Framing.GetTileSafely(i, j + 1).TileFrameX = 54;
             }
-
-            /*
-            if (tile.TileFrameX == 16 || tile.TileFrameX == 18)
-            {
-                //play squishy sound
-                SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
-
-                //spawn a seed from the tree
-                if (Main.rand.NextBool())
-                {
-                    int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-56, 56), 
-					Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeSeed>(), Main.rand.Next(1, 4));
-
-                    if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
-					{
-						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
-					}
-                }
-
-                //spawn gores out of the tree
-                for (int numGores = 0; numGores <= Main.rand.Next(8, 15); numGores++)
-                {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i, j - 2) * 16),
-                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
-                    }
-                }
-            }
-
-            if (tile.TileFrameX == 36)
-            {
-                SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
-
-                if (Main.netMode != NetmodeID.Server) 
-                {
-                    Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i, j - 2) * 16),
-                    new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore3").Type);
-                }
-            }
-            */
         }
 
         public static void DrawBranch(int i, int j, Texture2D tex, Rectangle? source, Vector2? offset = null, Vector2? origin = null)
@@ -289,8 +230,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 			{
 				int frame = tile.TileFrameY / 18;
 
-				//reminder: offset negative numbers are right and down, while positive is left and up
-
 				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
 				Vector2 offset = new Vector2((BranchLeftTexture.Width() / 2) - 1, (BranchLeftTexture.Height() / 3) - 26);
 
@@ -301,7 +240,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 			{
 				int frame = tile.TileFrameY / 18;
 
-				//reminder: offset negative numbers are right and down, while positive is left and up
 				//divide the top width by 3 first since there are 3 horizontal frames, then divide it further after that
 				Vector2 offset = new Vector2((BranchRightTexture.Width() / 2) - 33, (BranchRightTexture.Height() / 3) - 26);
 
@@ -309,11 +247,18 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 				DrawBranch(i - 1, j - 1, BranchRightTexture.Value, new Rectangle(0, 18 * frame, 16, 16), TileGlobal.TileOffset, offset);
 			}
 
-			Vector2 treeNormalOffset = new Vector2(0, 0);
+			Vector2 treeNormalOffset = new Vector2(0, -6);
+
+            //draw extra tile below so it looks attached to the ground
+            if (Main.tile[i, j + 1].TileType != Type)
+            {
+                spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY),
+			    new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+            }
 
 			//draw the actual tree
 			spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY),
-			new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+			new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			return false;
 		}

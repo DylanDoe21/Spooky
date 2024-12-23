@@ -380,10 +380,16 @@ namespace Spooky.Core
             {
                 FallSoulPumpkinTimer++;
 
-                if (FallSoulPumpkinTimer > 360 && Main.rand.NextBool(25))
+				bool HoldingWeapon = ItemGlobal.ActiveItem(Player).damage > 0 && ItemGlobal.ActiveItem(Player).pick <= 0 && ItemGlobal.ActiveItem(Player).hammer <= 0 &&
+				ItemGlobal.ActiveItem(Player).axe <= 0 && ItemGlobal.ActiveItem(Player).mountType <= 0;
+
+                if (Main.rand.NextBool(25) && FallSoulPumpkinTimer > 300 && HoldingWeapon)
                 {
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X + Main.rand.Next(-30, 30), Player.Center.Y + Main.rand.Next(-50, -30)), 
-                    Vector2.Zero, ModContent.ProjectileType<GhastlyPumpkin>(), 30, 0, Player.whoAmI);
+					//minimum of 30 damage, otherwise scale with the weapon the player is holding
+					int Damage = ItemGlobal.ActiveItem(Player).damage >= 30 ? ItemGlobal.ActiveItem(Player).damage : 30;
+
+					Projectile.NewProjectile(null, new Vector2(Player.Center.X + Main.rand.Next(-30, 30), Player.Center.Y + Main.rand.Next(-50, -30)), 
+                    Vector2.Zero, ModContent.ProjectileType<GhastlyPumpkin>(), Damage, 0, Player.whoAmI);
 
 					FallSoulPumpkinTimer = 0;
                 }
@@ -410,7 +416,9 @@ namespace Spooky.Core
                             ShootSpeed.Normalize();
                             ShootSpeed *= 8;
 
-                            Projectile.NewProjectile(null, Player.Center, ShootSpeed, ModContent.ProjectileType<ZucchiniLightning>(), 20, 3, Player.whoAmI, ShootSpeed.ToRotation());
+							int Damage = (int)(NPC.lifeMax * 0.08f);
+
+							Projectile.NewProjectile(null, Player.Center, ShootSpeed, ModContent.ProjectileType<ZucchiniLightning>(), Damage, 3, Player.whoAmI, ShootSpeed.ToRotation());
                         }
 
                         if (FallZucchiniTimer >= 360)

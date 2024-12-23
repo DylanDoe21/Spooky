@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 100;
+            NPC.lifeMax = 90;
             NPC.damage = 25;
             NPC.defense = 5;
             NPC.width = 46;

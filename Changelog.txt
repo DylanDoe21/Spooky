@@ -55,6 +55,8 @@ Items:
 -Nerfed jerrys book of stinkology damage from 18 to 10
 -Nerfed spider stabber damage from 25 to 20, but it now inflicts venom instead of poison
 -Nerfed snot ball damage from 60 to 50 and the bouncing projectile no longer does double the damage of the weapon
+-Pumptergiest projectiles now only spawn if you are holding a weapon, their damage now scales with the damage of that weapon (with a minimum of 30 damage), and reduced the minimum time for a pumpkin to spawn from 6 to 5 seconds
+-Zappy Zucchini lightning now does damage equal to 8% of an enemies maximum health instead of having a flat damage value of 20
 
 
 Accessory Rebalancing/Reworks:
@@ -121,3 +123,4 @@ Miscellaneous:
 -Fixed issue where ancient crushers basically would never spawn due to an issue with their upward tile check when spawning on ceilings
 -Fixed ancient crushers colliding with platforms when slamming down
 -Fixed cemetery biome dungeon chest item not having a sell price
+-Fixed possessed scarecrows shooting through blocks

@@ -300,7 +300,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-			position = new Vector2(NPC.Center.X, NPC.Center.Y + 22);
+			position = new Vector2(NPC.Center.X, NPC.Center.Y + 32);
             return true;
         }
 	}

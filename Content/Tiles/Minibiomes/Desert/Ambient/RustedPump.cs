@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 {
-    public class MouthFossil1 : ModTile
+    public class RustedPump1 : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -19,20 +19,16 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-			TileObjectData.newTile.Origin = new Point16(1, 1);
+			TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(164, 159, 101));
-            DustType = DustID.Bone;
-            HitSound = SoundID.Dig;
+            AddMapEntry(new Color(90, 95, 113));
+            DustType = DustID.Stone;
+            HitSound = SoundID.Tink;
         }
     }
 
-    public class MouthFossil2 : MouthFossil1
-    {
-    }
-
-    public class TailFossil : MouthFossil1
+    public class RustedPump2 : RustedPump1
     {
     }
 }

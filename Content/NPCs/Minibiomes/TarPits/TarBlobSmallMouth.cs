@@ -38,7 +38,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
         
         public override void SetDefaults()
         {
-            NPC.lifeMax = 100;
+            NPC.lifeMax = 90;
             NPC.damage = 25;
             NPC.defense = 5;
             NPC.width = 50;
@@ -152,8 +152,10 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             float RotateY = player.Center.Y - vector.Y;
             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
+            bool lineOfSight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
+
             //fly towards the player
-            if (player.Distance(Parent.Center) <= 230f && !player.dead)
+            if (player.Distance(Parent.Center) <= 230f && lineOfSight && !player.dead)
             {
                 Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 5;
                 NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
