@@ -53,6 +53,15 @@ BigBone: {
 	}
 }
 
+SpookFishron: {
+	DisplayName: Spook Fishron
+
+	BossChecklistIntegration: {
+		SpawnInfo: Fish in the ocean at night during a pumpkin moon while using [i:Spooky/SinisterSnailItem] as bait
+		DespawnMessage: All players have been killed! //placeholder
+	}
+}
+
 //boss stuff
 BigFlowerPot.DisplayName: Giant Flower Pot
 BigFlower.DisplayName: Solar Flower
@@ -85,6 +94,7 @@ OrroTail.DisplayName: Orro
 BoroTongue.DisplayName: Boro's Tongue
 PhantomSkull.DisplayName: Phantom Skull
 OrbitingBooger.DisplayName: Booger Ball
+SpookSharkron.DisplayName: Spooky Sharkron
 //hallucinations
 TheMan.DisplayName: The Man
 //catacombs layer 1
@@ -276,6 +286,7 @@ PuttySlime2.DisplayName: Putty Slime
 PuttySlime3.DisplayName: Putty Slime
 ScarecrowShotgunner.DisplayName: Possessed Scarecrow
 ShroomHopper.DisplayName: Shroom Hopper
+SinisterSnail.DisplayName: Sinister Snail
 SpookyDance.DisplayName: Spooky Dance Ghost
 TinyGhost1.DisplayName: Tiny Ghost
 TinyGhost2.DisplayName: Tiny Ghost

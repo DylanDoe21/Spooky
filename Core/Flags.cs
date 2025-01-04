@@ -33,6 +33,7 @@ namespace Spooky.Core
         public static bool downedEggEvent = false;
         public static bool downedOrroboro = false;
         public static bool downedBigBone = false;
+        public static bool downedSpookFishron = false;
 
         public static bool downedMocoIdol1 = false;
         public static bool downedMocoIdol2 = false;
@@ -74,6 +75,7 @@ namespace Spooky.Core
             downedEggEvent = false;
             downedOrroboro = false;
             downedBigBone = false;
+            downedSpookFishron = false;
 
             downedMocoIdol1 = false;
             downedMocoIdol2 = false;
@@ -130,6 +132,7 @@ namespace Spooky.Core
             if (downedEggEvent) tag["downedEggEvent"] = true;
             if (downedOrroboro) tag["downedOrroboro"] = true;
             if (downedBigBone) tag["downedBigBone"] = true;
+            if (downedSpookFishron) tag["downedSpookFishron"] = true;
 
             if (downedMocoIdol1) tag["downedMocoIdol1"] = true;
             if (downedMocoIdol2) tag["downedMocoIdol2"] = true;
@@ -186,6 +189,7 @@ namespace Spooky.Core
             downedEggEvent = tag.ContainsKey("downedEggEvent");
             downedOrroboro = tag.ContainsKey("downedOrroboro");
             downedBigBone = tag.ContainsKey("downedBigBone");
+            downedSpookFishron = tag.ContainsKey("downedSpookFishron");
 
             downedMocoIdol1 = tag.ContainsKey("downedMocoIdol1");
             downedMocoIdol2 = tag.ContainsKey("downedMocoIdol2");
@@ -239,11 +243,15 @@ namespace Spooky.Core
             downedFlags[1] = downedSpookySpirit;
             downedFlags[2] = downedMoco;
             downedFlags[3] = downedDaffodil;
-            downedFlags[4] = downedPandoraBox;
-            downedFlags[5] = downedEggEvent;
-            downedFlags[6] = downedOrroboro;
-            downedFlags[7] = downedBigBone;
+            downedFlags[4] = downedOrroboro;
+            downedFlags[5] = downedBigBone;
+            downedFlags[6] = downedSpookFishron;
             writer.Write(downedFlags);
+
+            var downedEventFlags = new BitsByte();
+            downedEventFlags[0] = downedPandoraBox;
+            downedEventFlags[1] = downedEggEvent;
+            writer.Write(downedEventFlags);
 
             var noseDungeonFlags = new BitsByte();
             noseDungeonFlags[0] = downedMocoIdol1;
@@ -307,10 +315,13 @@ namespace Spooky.Core
             downedSpookySpirit = downedFlags[1];
             downedMoco = downedFlags[2];
             downedDaffodil = downedFlags[3];
-            downedPandoraBox = downedFlags[4];
-            downedEggEvent = downedFlags[5];
-            downedOrroboro = downedFlags[6];
-            downedBigBone = downedFlags[7];
+            downedOrroboro = downedFlags[4];
+            downedBigBone = downedFlags[5];
+            downedSpookFishron = downedFlags[6];
+
+            BitsByte downedEventFlags = reader.ReadByte();
+            downedPandoraBox = downedEventFlags[0];
+            downedEggEvent = downedEventFlags[1];
 
             BitsByte noseDungeonFlags = reader.ReadByte();
             downedMocoIdol1 = noseDungeonFlags[0];

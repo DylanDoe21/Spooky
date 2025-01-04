@@ -605,7 +605,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
                         NPC.frame.Y = 0;
                         CurrentFrameX = 1;
 
-                        NPC.velocity *= 0f;
+                        NPC.velocity = Vector2.Zero;
 
                         Vector2 ShootSpeed = player.Center - new Vector2(NPC.Center.X, NPC.Center.Y + 35);
                         ShootSpeed.Normalize();
@@ -660,7 +660,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         CurrentFrameX = 0;
 
-                        NPC.velocity *= 0;
+                        NPC.velocity = Vector2.Zero;
 
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
@@ -728,7 +728,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 						NPC.frame.Y = 0;
 					}
 
-                    //fire out nose globs that land on the ground and add upward recoil when each one is shot
+                    //rapid fire boogers
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300 && NPC.localAI[0] % 10 == 0)
                     {
                         SoundEngine.PlaySound(SneezeSound1, NPC.Center);
@@ -887,7 +887,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
                         CurrentFrameX = 3;
 
-                        NPC.velocity *= 0;
+                        NPC.velocity = Vector2.Zero;
 
                         for (int numProjectiles = -1; numProjectiles <= 1; numProjectiles += 2)
                         {

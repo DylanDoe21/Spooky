@@ -512,10 +512,6 @@ namespace Spooky.Content.NPCs.SpookyHell
                         {
                             SoundEngine.PlaySound(SoundID.Item95, NPC.Center);
 
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                            ShootSpeed *= 5;
-
                             int[] Types = new int[] { ModContent.ProjectileType<NautilusBubble1>(), ModContent.ProjectileType<NautilusBubble2>() };
 
                             NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-20, 20)), Main.rand.Next(Types), NPC.damage, 0f);

@@ -1,7 +1,9 @@
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
+
+using Spooky.Core;
 
 namespace Spooky.Content.Items.SpookyBiome
 {
@@ -14,13 +16,13 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void SetDefaults()
         {
-            Item.width = 26;
-            Item.height = 40;
-            Item.consumable = true;
 			Item.healLife = 50;
+			Item.width = 26;
+            Item.height = 40;
 			Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.rare = ItemRarityID.Blue;
+			Item.consumable = true;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item3;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.maxStack = 9999;
@@ -34,28 +36,21 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override bool? UseItem(Player player)
 		{
-			player.AddBuff(BuffID.PotionSickness, 1800);
+			int Duration = player.pStone ? 1350 : 1800;
+			player.AddBuff(BuffID.PotionSickness, Duration);
 			return true;
 		}
 
 		public override void UpdateInventory(Player player)
 		{
-			if (player.controlQuickHeal && !player.HasBuff(BuffID.PotionSickness))
+			if ((player.statLife < (player.statLifeMax2 / 2) || player.controlQuickHeal) && !player.HasBuff(BuffID.PotionSickness))
 			{
 				SoundEngine.PlaySound(Item.UseSound, player.Center);
 
 				player.ConsumeItem(Type, false, false);
-				player.Heal(50);
-				player.AddBuff(BuffID.PotionSickness, 1800);
-			}
+				player.Heal(Item.healLife);
 
-			if (player.statLife < (player.statLifeMax2 / 2) && !player.HasBuff(BuffID.PotionSickness))
-			{
-				SoundEngine.PlaySound(Item.UseSound, player.Center);
-
-				player.ConsumeItem(Type, false, false);
-				player.Heal(50);
-				player.AddBuff(BuffID.PotionSickness, 1800);
+				player.GetModPlayer<SpookyPlayer>().PotionSicknessCranberryTimer = 2;
 			}
 		}
 	}

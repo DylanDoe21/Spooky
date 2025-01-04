@@ -257,8 +257,7 @@ DaffodilHairpin: {
 		'''
 		Constantly generate flower petals that orbit around you, up to 6 total
 		Taking damage will cause all existing petals home in on nearby enemies
-		The petals will deal damage equal to how much damage you took if it was over 40
-		The petal's damage will not go below 40 if you take less than 40 damage
+		The petals will deal damage equal to how much damage you took with a minimum of 40
 		'''
 }
 
@@ -298,6 +297,15 @@ OrroboroEmbryo: {
 		'''
 }
 
+PumpkinSpiceLatte: {
+	DisplayName: Pumpkin Spice Latte
+	Tooltip:
+		'''
+		Not consumable
+		Grants a 12% increase to various stats for 10 seconds
+		'''
+}
+
 SpiritAmulet: {
 	DisplayName: Spirit Amulet
 	Tooltip:
@@ -329,6 +337,11 @@ BossBagOrroboro: {
 
 BossBagRotGourd: {
 	DisplayName: Treasure Bag (Rot Gourd)
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+BossBagSpookFishron: {
+	DisplayName: Treasure Bag (Spook Fishron)
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
@@ -1040,6 +1053,11 @@ SirenHead: {
 	Tooltip: "'Actual siren sounds not included'"
 }
 
+SpookFishronMask: {
+	DisplayName: Spook Fishron Mask
+	Tooltip: ""
+}
+
 SpookySpiritMask: {
 	DisplayName: Spooky Spirit Mask
 	Tooltip: ""
@@ -1276,6 +1294,11 @@ RottenGourd: {
 		Summons a squishy little gourd to follow you
 		'Its small, but smells awful'
 		'''
+}
+
+SinisterShell: {
+	DisplayName: Sinister Shell
+	Tooltip: Summons a giant sinister snail
 }
 
 SkullKey: {
@@ -1799,6 +1822,11 @@ ShroomHopperItem: {
 	Tooltip: ""
 }
 
+SinisterSnailItem: {
+	DisplayName: Sinister Snail
+	Tooltip: ""
+}
+
 SpookyBiomeKey: {
 	DisplayName: Spooky Forest Key
 	Tooltip: Unlocks a spooky chest in the dungeon
@@ -1992,6 +2020,48 @@ SkullWispStaff: {
 		'''
 		Summons skull wisps to fight with you
 		'Did you really need to take its arm off too?'
+		'''
+}
+
+SpookFishronBow: {
+	DisplayName: Firestorm Monsoon
+	Tooltip: Fires out a spread of greek fire bolts
+}
+
+SpookFishronFlail: {
+	DisplayName: Flaming Flairon
+	Tooltip:
+		'''
+		Fires lingering bubbles at nearby enemies and a spread of them when launched
+		The longer it is swung, the further it launches and the more bubbles it shoots
+		'''
+}
+
+SpookFishronGun: {
+	DisplayName: Pumpkin Spicer
+	Tooltip: Shoots out a stream of pumpkin spice fire
+}
+
+SpookFishronStaff: {
+	DisplayName: Wand of the Spookron
+	Tooltip:
+		'''
+		Summons an extremely powerful spooky pigron to fight with you
+		Only one can exist, and it requires 2 minion slots to summon
+		'''
+}
+
+SpookFishronTome: {
+	DisplayName: Spooknado Spell
+	Tooltip: Cast giant slow-moving greek fire tornados
+}
+
+SpookFishronWings: {
+	DisplayName: Spook Fishron Wings
+	Tooltip:
+		'''
+		Allows flight and slow fall
+		Allows quick travel in water 
 		'''
 }
 
@@ -2889,6 +2959,11 @@ CemeteryDirtItem: {
 	Tooltip: ""
 }
 
+CemeteryDirtWallItem: {
+	DisplayName: Swampy Mud Wall
+	Tooltip: ""
+}
+
 CemeteryGrassSeeds: {
 	DisplayName: Cemetery Grass Seeds
 	Tooltip:
@@ -3075,6 +3150,11 @@ RotGourdBox: {
 SpiderCaveBox: {
 	DisplayName: Music Box (Spider Grotto)
 	Tooltip: "[c/A88554:It's Just Spider Stuff] by BananaLizard"
+}
+
+SpookFishronBox: {
+	DisplayName: Music Box (Spook Fishron)
+	Tooltip: "[c/F7CC62:Spook Fishron] by BananaLizard"
 }
 
 SpookyBiomeDayBox: {
@@ -3428,6 +3508,11 @@ RotGourdRelicItem: {
 	Tooltip: ""
 }
 
+SpookFishronRelicItem: {
+	DisplayName: Spook Fishron Relic
+	Tooltip: ""
+}
+
 SpookySpiritRelicItem: {
 	DisplayName: Spooky Spirit Relic
 	Tooltip: ""
@@ -3455,6 +3540,11 @@ DampGrassWallItem: {
 
 DampSoilItem: {
 	DisplayName: Damp Soil
+	Tooltip: ""
+}
+
+DampSoilWallItem: {
+	DisplayName: Damp Soil Wall
 	Tooltip: ""
 }
 
@@ -3801,6 +3891,11 @@ SpookyDirtItem: {
 	Tooltip: ""
 }
 
+SpookyDirtWallItem: {
+	DisplayName: Spooky Dirt Wall
+	Tooltip: ""
+}
+
 SpookyGrassWallItem: {
 	DisplayName: Orange Grass Wall
 	Tooltip: ""
@@ -4056,6 +4151,11 @@ RotGourdTrophyItem: {
 	Tooltip: ""
 }
 
+SpookFishronTrophyItem: {
+	DisplayName: Spook Fishron Trophy
+	Tooltip: ""
+}
+
 SpookySpiritTrophyItem: {
 	DisplayName: Spooky Spirit Trophy
 	Tooltip: ""
@@ -4115,25 +4215,5 @@ SpookyBiomeTorchItem: {
 
 SpookyHellTorchItem: {
 	DisplayName: Eye Valley Torch
-	Tooltip: ""
-}
-
-DesertMossItem: {
-	DisplayName: Desert Moss Item
-	Tooltip: ""
-}
-
-SpookyDirtWallItem: {
-	DisplayName: Spooky Dirt Wall
-	Tooltip: ""
-}
-
-DampSoilWallItem: {
-	DisplayName: Damp Soil Wall
-	Tooltip: ""
-}
-
-CemeteryDirtWallItem: {
-	DisplayName: Swampy Mud Wall
 	Tooltip: ""
 }

@@ -187,6 +187,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                 }
 
                 WorldGen.KillTile(i, j, false, false, false);
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j);
+                }
             }
 
             //kill the side roots of the root if they arent attached to the main root itself
@@ -201,6 +206,11 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
                 }
 
                 WorldGen.KillTile(i, j, false, false, false);
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j);
+                }
             }
         }
 

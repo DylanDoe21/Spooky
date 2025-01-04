@@ -156,6 +156,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
                 }
 
                 WorldGen.KillTile(i, j, false, false, false);
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j);
+                }
             }
         }
 

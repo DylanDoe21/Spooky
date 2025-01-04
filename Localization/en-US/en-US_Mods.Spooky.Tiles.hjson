@@ -72,13 +72,6 @@ EyeTable.MapEntry: Table
 EyeWorkBench.MapEntry: Work Bench
 EyeSapling.MapEntry: Stalk Sapling
 EyeTree.MapEntry: Eye Stalk
-BigBoneTrophy.MapEntry: Trophy
-BoroTrophy.MapEntry: Trophy
-DaffodilTrophy.MapEntry: Trophy
-MocoTrophy.MapEntry: Trophy
-OrroTrophy.MapEntry: Trophy
-RotGourdTrophy.MapEntry: Trophy
-SpookySpiritTrophy.MapEntry: Trophy
 BigFlower.MapEntry: Big Flower
 MysteriousTombstone.MapEntry: Mysterious Tombstone
 GiantRoot.MapEntry: Giant Root

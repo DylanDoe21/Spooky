@@ -17,8 +17,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.width = 96;
             Projectile.height = 96;
             Projectile.DamageType = DamageClass.Generic;
-            Projectile.friendly = false;
-            Projectile.hostile = true;
+            Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 600;

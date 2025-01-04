@@ -20,8 +20,7 @@ namespace Spooky.Content.Tiles.Trophy
 			TileObjectData.newTile.StyleWrapLimit = 36;
 			TileObjectData.addTile(Type);
 			DustType = DustID.WoodFurniture;
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(120, 85, 60), name);
+			AddMapEntry(new Color(120, 85, 60), Language.GetText("MapObject.Trophy"));
 		}
 	}
 }

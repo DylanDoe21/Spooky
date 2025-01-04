@@ -133,16 +133,12 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Tree
             //kill the tree if there are no tiles below it
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
-                /*
-                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<LivingFleshItem>());
-
-                if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
-                {
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
-                }
-                */
-
                 WorldGen.KillTile(i, j, false, false, false);
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j);
+                }
             }
         }
 

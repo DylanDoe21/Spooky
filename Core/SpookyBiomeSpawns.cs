@@ -12,6 +12,7 @@ using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
+using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
@@ -68,8 +69,8 @@ namespace Spooky.Core
 			}
 
 			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
-			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<Moco>()) || NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
+			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || 
+			NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<SpookFishron>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
             NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) ||
 			NPC.AnyNPCs(ModContent.NPCType<BanditBook>()) || NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()) || NPC.AnyNPCs(ModContent.NPCType<FrankenGoblin>()) || NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
             {
@@ -243,6 +244,11 @@ namespace Spooky.Core
 					if (Main.hardMode)
 					{
 						pool.Add(ModContent.NPCType<CandleMonster>(), 2);
+
+						if (!NPC.AnyNPCs(ModContent.NPCType<SinisterSnail>()))
+						{	
+							pool.Add(ModContent.NPCType<SinisterSnail>(), 0.5f);
+						}
 					}
                 }
 			}

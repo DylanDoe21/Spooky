@@ -17,7 +17,9 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Sentient;
+using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
@@ -115,6 +117,7 @@ namespace Spooky.Core
         public bool MocoPet = false;
         public bool BigBonePet = false;
         public bool OrroboroPet = false;
+        public bool SinisterSnailPet = false;
         public bool BeePet = false;
         public bool FuzzBatPet  = false;
         public bool PuttyPet = false;
@@ -154,9 +157,11 @@ namespace Spooky.Core
 		public int RootHealCooldown = 0;
         public int CandyBagCooldown = 0;
         public int DaffodilHairpinTimer = 0;
+		public int PotionSicknessCranberryTimer = 0;
+		public int PotionSicknessLatteTimer = 0;
 
 		//dashing stuff
-        public const int dashDown = 0;
+		public const int dashDown = 0;
 		public const int dashUp = 1;
 		public const int dashRight = 2;
 		public const int dashLeft = 3;
@@ -280,6 +285,7 @@ namespace Spooky.Core
             MocoPet = false;
             BigBonePet = false;
             OrroboroPet = false;
+            SinisterSnailPet = false;
             BeePet = false;
             FuzzBatPet  = false;
             PuttyPet = false;
@@ -1041,6 +1047,29 @@ namespace Spooky.Core
             }
         }
 
+		public override void PostUpdateMiscEffects()
+		{
+			if (PotionSicknessCranberryTimer > 0)
+			{
+				PotionSicknessCranberryTimer--;
+			}
+			if (PotionSicknessCranberryTimer == 1)
+			{
+				int Duration = Player.pStone ? (int)(1800 * 0.75) : 1800;
+				Player.AddBuff(BuffID.PotionSickness, Duration);
+			}
+
+			if (PotionSicknessLatteTimer > 0)
+			{
+				PotionSicknessLatteTimer--;
+			}
+			if (PotionSicknessLatteTimer == 1)
+			{
+				int Duration = Player.pStone ? (int)(3600 * 0.75) : 3600;
+				Player.AddBuff(BuffID.PotionSickness, Duration);
+			}
+		}
+
 		public override void PreUpdateMovement()
 		{
 			// If the player can use our dash and has double tapped in a direction, then apply the dash
@@ -1217,6 +1246,13 @@ namespace Spooky.Core
         {
             if (!attempt.inLava && !attempt.inHoney)
             {
+				int bait = attempt.playerFishingConditions.BaitItemType;
+				if (Player.ZoneBeach && Main.pumpkinMoon && bait == ModContent.ItemType<SinisterSnailItem>())
+				{
+					npcSpawn = ModContent.NPCType<SpookFishron>();
+					return;
+				}
+
                 //spooky forest catches
                 if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
                 {

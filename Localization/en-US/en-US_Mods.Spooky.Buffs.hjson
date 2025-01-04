@@ -484,3 +484,8 @@ PiercedDebuff: {
 	DisplayName: Pierced Debuff
 	Description: ""
 }
+
+SinisterSnailBuff: {
+	DisplayName: Sinister Snail
+	Description: Its all grown up!
+}
