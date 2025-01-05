@@ -51,6 +51,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             return false;
         }
 
+		public override bool? CanDamage()
+		{
+			return Projectile.alpha <= 0;
+		}
+
         public override void AI()
         {
             int TornadoHeight1 = 25;
@@ -86,7 +91,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 			if (Projectile.timeLeft > 60 && Projectile.alpha > 0)
 			{
-				Projectile.alpha -= 15;
+				Projectile.alpha -= 5;
 			}
 			if (Projectile.timeLeft < 60)
 			{
@@ -103,7 +108,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Projectile.ai[0]--;
 			}
 			
-			if (Projectile.ai[0] == 1f && Projectile.ai[1] > 0f && Projectile.owner == Main.myPlayer)
+			if (Projectile.ai[0] == 1f && Projectile.ai[1] > 0f && Projectile.alpha <= 0 && Projectile.owner == Main.myPlayer)
 			{
 				Projectile.netUpdate = true;
 				Vector2 center4 = Projectile.Center;

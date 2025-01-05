@@ -18,8 +18,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Retracting,
 			UnusedState,
 			ForcedRetracting,
-			Ricochet,
-			Dropping
+			Ricochet
 		}
 
 		private AIState CurrentAIState 
@@ -223,16 +222,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 					for (int i = 0; i < Main.maxNPCs; i++)
             		{
 						NPC NPC = Main.npc[i];
-						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 370f)
+						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 450f)
 						{
-							if (SpinningStateTimer % 10 == 0)
+							if (SpinningStateTimer % 8 == 0)
 							{
 								Vector2 ShootSpeed = NPC.Center - Projectile.Center;
 								ShootSpeed.Normalize();
 								ShootSpeed *= 15f;
 
 								Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, 
-								ModContent.ProjectileType<SpookFishronFlailBubble>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
+								ModContent.ProjectileType<SpookFishronFlailBubble>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
 							}
 
 							break;
@@ -277,16 +276,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
                     bool shouldSwitchToRetracting = StateTimer++ >= launchTimeLimit;
                     shouldSwitchToRetracting |= Projectile.Distance(mountedCenter) >= maxLaunchLength;
-                    
-                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
-                    {
-                        CurrentAIState = AIState.Dropping;
-                        StateTimer = 0f;
-                        Projectile.netUpdate = true;
-                        Projectile.velocity *= 0.2f;
-
-                        break;
-                    }
 
                     if (shouldSwitchToRetracting)
                     {
@@ -315,19 +304,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         Projectile.Kill(); // Kill the projectile once it is close enough to the player
                         return;
                     }
-                    if (player.controlUseItem) // If the player clicks, transition to the Dropping state
-                    {
-                        CurrentAIState = AIState.Dropping;
-                        StateTimer = 0f;
-                        Projectile.netUpdate = true;
-                        Projectile.velocity *= 0.2f;
-                    }
-                    else 
-                    {
-                        Projectile.velocity *= 0.98f;
-                        Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
-                        player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-                    }
+					
+                    Projectile.velocity *= 0.98f;
+					Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
+					player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
+
                     break;
                 }
 				case AIState.UnusedState: // Projectile.ai[0] == 3; This case is actually unused, but maybe a Terraria update will add it back in, or maybe it is useless, so I left it here.
@@ -407,35 +388,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
 				case AIState.Ricochet:
                 {
-					if (StateTimer++ >= ricochetTimeLimit) 
-                    {
-						CurrentAIState = AIState.Dropping;
-						StateTimer = 0f;
-						Projectile.netUpdate = true;
-					}
-					else 
-                    {
-						Projectile.localNPCHitCooldown = movingHitCooldown;
-						Projectile.velocity.Y += 0.6f;
-						Projectile.velocity.X *= 0.95f;
-						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-					}
-					break;
-                }
-				case AIState.Dropping:
-                {
-					if (!player.controlUseItem || Projectile.Distance(mountedCenter) > maxDroppedRange) 
-                    {
-						CurrentAIState = AIState.ForcedRetracting;
-						StateTimer = 0f;
-						Projectile.netUpdate = true;
-					}
-					else 
-                    {
-						Projectile.velocity.Y += 0.8f;
-						Projectile.velocity.X *= 0.95f;
-						player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-					}
+					Projectile.localNPCHitCooldown = movingHitCooldown;
+					Projectile.velocity.Y += 0.6f;
+					Projectile.velocity.X *= 0.95f;
+					player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
 
 					break;
                 }
@@ -473,11 +429,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				bounceFactor = 0.4f;
             }
 
-			if (CurrentAIState == AIState.Dropping)
-            {
-				bounceFactor = 0f;
-            }
-
 			if (oldVelocity.X != Projectile.velocity.X) 
             {
 				if (Math.Abs(oldVelocity.X) > 4f)
@@ -513,7 +464,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			}
 
 			// Force retraction if stuck on tiles while retracting
-			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CurrentAIState != AIState.Ricochet && CurrentAIState != AIState.Dropping && CollisionCounter >= 10f) 
+			if (CurrentAIState != AIState.UnusedState && CurrentAIState != AIState.Spinning && CurrentAIState != AIState.Ricochet && CollisionCounter >= 10f)
             {
 				CurrentAIState = AIState.ForcedRetracting;
 				Projectile.netUpdate = true;
@@ -566,10 +517,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			if (CurrentAIState == AIState.Spinning) 
 			{
 				modifiers.Knockback *= 0.25f;
-			}
-			else if (CurrentAIState == AIState.Dropping) 
-			{
-				modifiers.Knockback *= 0.5f;
 			}
 		}
 	}

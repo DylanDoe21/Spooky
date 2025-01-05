@@ -992,7 +992,7 @@ namespace Spooky.Content.Generation
 
 						double heightLimit = Main.worldSurface * 0.35f;
 
-						if (PositionY > (int)heightLimit + 100)
+						if (PositionY > (int)heightLimit + 80)
 						{
 							if (PositionY <= Main.worldSurface)
 							{

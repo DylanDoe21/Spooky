@@ -42,10 +42,10 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, lightColor, Projectile.oldRot[oldPos], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, Projectile.GetAlpha(Color.White), Projectile.oldRot[oldPos], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
 			
-			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return false;
         }

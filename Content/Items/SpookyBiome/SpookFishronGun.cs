@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetDefaults()
         {
-            Item.damage = 115;
+            Item.damage = 85;
 			Item.mana = 5;
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;

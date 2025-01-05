@@ -5,6 +5,7 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 using Spooky.Content.Dusts;
 
@@ -26,7 +27,27 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
-        public override void SetDefaults()
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			//ints
+			writer.Write(ScaleTimerLimit);
+
+			//floats
+			writer.Write(RotateSpeed);
+			writer.Write(ScaleAmount);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			//ints
+			ScaleTimerLimit = reader.ReadInt32();
+
+			//floats
+			RotateSpeed = reader.ReadSingle();
+			ScaleAmount = reader.ReadSingle();
+		}
+
+		public override void SetDefaults()
         {
             Projectile.width = 78;
             Projectile.height = 70;
@@ -95,19 +116,23 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Projectile.ai[0] >= 150)
             {
+				Projectile.netUpdate = true;
                 Projectile.Kill();
             }
         }
 
         public void NewNPC(int Type)
         {
-            int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + Projectile.height / 2, Type);
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				int NewEnemy = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y + Projectile.height / 2, Type);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
-            }
-        }
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.SyncNPC, number: NewEnemy);
+				}
+			}
+		}
 
         public override void OnKill(int timeLeft)
 		{

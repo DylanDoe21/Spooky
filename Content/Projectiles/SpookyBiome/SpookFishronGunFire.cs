@@ -24,17 +24,19 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.width = 10;
 			Projectile.height = 10;
 			Projectile.DamageType = DamageClass.Magic;
+			Projectile.localNPCHitCooldown = 45;
+            Projectile.usesLocalNPCImmunity = true;
 			Projectile.friendly = true;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
-			Projectile.penetrate = 7;
+			Projectile.penetrate = -1;
 			Projectile.MaxUpdates = 4;
 			Projectile.timeLeft = 96;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
-			Projectile.damage = (int)(damageDone * 0.8f);
+			Projectile.damage = (int)(damageDone * 0.75f);
 		}
 
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)

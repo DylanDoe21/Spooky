@@ -126,7 +126,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		{
 			NPC.lifeMax = 65000;
 			NPC.damage = 72;
-			NPC.defense = 50;
+			NPC.defense = 65;
 			NPC.width = 150;
 			NPC.height = 150;
 			NPC.knockBackResist = 0f;
@@ -144,7 +144,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance * bossAdjustment);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -262,6 +262,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			//expert mode phase transition
 			if (Main.expertMode && NPC.life < (NPC.lifeMax / 10) && !Phase3 && !Transition)
 			{
+				NPC.rotation = 0;
+				DontFacePlayer = false;
 				Charging = false;
 				OpenMouth = false;
 				NPC.localAI[0] = 0;
@@ -903,7 +905,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 									NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 								}
 
-								if (NPC.localAI[0] > 375)
+								if (NPC.localAI[0] > 320)
 								{
 									NPC.localAI[0] = 238;
 									NPC.localAI[1] = 0;

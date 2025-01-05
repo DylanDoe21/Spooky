@@ -119,6 +119,8 @@ namespace Spooky.Content.NPCs.NoseCult
 			return Language.GetTextValue("Mods.Spooky.Dialogue.NoseLeader.Dialogue" + Main.rand.Next(1, 7));
 		}
 
+		
+
 		public override void AI()
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
@@ -141,12 +143,15 @@ namespace Spooky.Content.NPCs.NoseCult
 
 				if (NPC.ai[1] >= 60)
 				{
-					int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<NoseCultistLeader>(), ai3: NPC.ai[0]);
-					Main.npc[SpawnedNPC].alpha = 255;
-
-					if (Main.netMode == NetmodeID.Server)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+						int SpawnedNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<NoseCultistLeader>(), ai3: NPC.ai[0]);
+						Main.npc[SpawnedNPC].alpha = 255;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: SpawnedNPC);
+						}
 					}
 
 					NPC.active = false;

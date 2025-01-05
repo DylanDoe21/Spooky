@@ -205,45 +205,16 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.EggIncursionStart:
+                {
+                    EggEventWorld.EventTimeLeftUI = 21600;
+                    EggEventWorld.EggEventActive = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 case SpookyMessageType.EggIncursionDowned:
                 {
                     Flags.downedEggEvent = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.MocoIdolDowned1:
-                {
-                    Flags.downedMocoIdol1 = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.MocoIdolDowned2:
-                {
-                    Flags.downedMocoIdol2 = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.MocoIdolDowned3:
-                {
-                    Flags.downedMocoIdol3 = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.MocoIdolDowned4:
-                {
-                    Flags.downedMocoIdol4 = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.MocoIdolDowned5:
-                {
-                    Flags.downedMocoIdol5 = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.MocoIdolDowned6:
-                {
-                    Flags.downedMocoIdol6 = true;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
@@ -326,13 +297,8 @@ namespace Spooky
         OldHunterTorso,
         OldHunterLegs,
         OldHunterAssembled,
+        EggIncursionStart,
         EggIncursionDowned,
-        MocoIdolDowned1,
-        MocoIdolDowned2,
-        MocoIdolDowned3,
-        MocoIdolDowned4,
-        MocoIdolDowned5,
-        MocoIdolDowned6,
         CatacombKey1,
         CatacombKey2,
         CatacombKey3,

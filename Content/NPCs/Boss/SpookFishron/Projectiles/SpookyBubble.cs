@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             Projectile.height = 48;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 600;
             Projectile.penetrate = -1;
@@ -90,21 +90,5 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
                 }
             }
         }
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            if (Projectile.velocity.X != oldVelocity.X)
-            {
-                Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                Projectile.velocity.X = -oldVelocity.X;
-            }
-            if (Projectile.velocity.Y != oldVelocity.Y)
-            {
-                Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                Projectile.velocity.Y = -oldVelocity.Y;
-            }
-
-			return false;
-		}
     }
 }

@@ -5,6 +5,7 @@ using Terraria.Localization;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -21,6 +22,23 @@ namespace Spooky.Content.NPCs.PandoraBox
 		{
 			Wave = 0;
 			PandoraEventActive = false;
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(Wave);
+
+			var EventFlags = new BitsByte();
+			EventFlags[0] = PandoraEventActive;
+			writer.Write(EventFlags);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			Wave = reader.ReadInt32();
+
+			BitsByte EventFlags = reader.ReadByte();
+			PandoraEventActive = EventFlags[0];
 		}
 
         public override void PostUpdateEverything()

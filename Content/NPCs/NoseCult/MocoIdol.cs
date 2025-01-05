@@ -190,15 +190,13 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public bool AnyPlayersInBiome()
         {
-            for (int i = 0; i < Main.maxPlayers; i++)
+            foreach (Player player in Main.ActivePlayers)
             {
-                Player player = Main.player[i];
-
                 int playerInBiomeCount = 0;
 
                 //for this player count specifically, do not check if the players are dead
                 //this is so the nose temple rooms and event dont actually reset and respawn the idle enemies until the player actually respawns
-                if (player.active && player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
+                if (player.InModBiome(ModContent.GetInstance<NoseTempleBiome>()))
                 {
                     playerInBiomeCount++;
                 }
@@ -270,6 +268,7 @@ namespace Spooky.Content.NPCs.NoseCult
                             if (NPC.rotation > 0.5f)
                             {
                                 Shake = false;
+                                NPC.netUpdate = true;
                             }
                         }
                         else
@@ -278,6 +277,7 @@ namespace Spooky.Content.NPCs.NoseCult
                             if (NPC.rotation < -0.5f)
                             {
                                 Shake = true;
+                                NPC.netUpdate = true;
                             }
                         }
 
@@ -285,84 +285,37 @@ namespace Spooky.Content.NPCs.NoseCult
                         {
                             if (NPC.type == ModContent.NPCType<MocoIdol1>())
                             {
-                                if (Main.netMode != NetmodeID.SinglePlayer)
-                                {
-                                    ModPacket packet = Mod.GetPacket();
-                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned1);
-                                    packet.Send();
-                                }
-                                else
-                                {
-                                    Flags.downedMocoIdol1 = true;
-                                }
+                                Flags.downedMocoIdol1 = true;
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol2>())
                             {
-                                if (Main.netMode != NetmodeID.SinglePlayer)
-                                {
-                                    ModPacket packet = Mod.GetPacket();
-                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned2);
-                                    packet.Send();
-                                }
-                                else
-                                {
-                                    Flags.downedMocoIdol2 = true;
-                                }
+                                Flags.downedMocoIdol2 = true;
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol3>())
                             {
-                                if (Main.netMode != NetmodeID.SinglePlayer)
-                                {
-                                    ModPacket packet = Mod.GetPacket();
-                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned3);
-                                    packet.Send();
-                                }
-                                else
-                                {
-                                    Flags.downedMocoIdol3 = true;
-                                }
+                                Flags.downedMocoIdol3 = true;
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol4>())
                             {
-                                if (Main.netMode != NetmodeID.SinglePlayer)
-                                {
-                                    ModPacket packet = Mod.GetPacket();
-                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned4);
-                                    packet.Send();
-                                }
-                                else
-                                {
-                                    Flags.downedMocoIdol4 = true;
-                                }
+                                Flags.downedMocoIdol4 = true;
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol5>())
                             {
-                                if (Main.netMode != NetmodeID.SinglePlayer)
-                                {
-                                    ModPacket packet = Mod.GetPacket();
-                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned5);
-                                    packet.Send();
-                                }
-                                else
-                                {
-                                    Flags.downedMocoIdol5 = true;
-                                }
+                                Flags.downedMocoIdol5 = true;
                             }
                             if (NPC.type == ModContent.NPCType<MocoIdol6>())
                             {
-                                if (Main.netMode != NetmodeID.SinglePlayer)
-                                {
-                                    ModPacket packet = Mod.GetPacket();
-                                    packet.Write((byte)SpookyMessageType.MocoIdolDowned6);
-                                    packet.Send();
-                                }
-                                else
-                                {
-                                    Flags.downedMocoIdol6 = true;
-                                }
+                                Flags.downedMocoIdol6 = true;
+                            }
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.WorldData);
                             }
 
                             ActivateLightTiles();
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.ai[2] >= 245)
@@ -380,17 +333,25 @@ namespace Spooky.Content.NPCs.NoseCult
         //spawn enemies method for easy spawning and easily setting each cultists parent to this altar
         public void SpawnCultist(int Type, int X, int Y, int Parent)
         {
-            int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), X, Y, Type, ai0: Parent);
-
-            if (Main.netMode == NetmodeID.Server)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+                int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), X, Y, Type, ai0: Parent);
+
+                if (Main.netMode == NetmodeID.Server)
+				{
+                    NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+                }
             }
         }
 
-        public override bool CheckActive()
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			return false;
+		}
+
+		public override bool CheckActive()
         {
-            return NPC.ai[2] > 0;
+            return false;
         }
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)

@@ -79,7 +79,13 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				ShootSpeed.Normalize();
 				ShootSpeed *= 55f;
 
-				Vector2 position = new Vector2(Parent.Center.X, Parent.Center.Y + 15);
+				Vector2 Offset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 62f;
+				Vector2 position = new Vector2(Projectile.Center.X, Projectile.Center.Y);
+
+				if (Collision.CanHit(position, 0, 0, position + Offset, 0, 0))
+				{
+					position += Offset;
+				}
 
 				Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<Stake>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
 			}

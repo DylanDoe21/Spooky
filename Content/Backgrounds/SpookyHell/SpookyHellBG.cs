@@ -2,10 +2,10 @@
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 using Spooky.Core;
 using Spooky.Content.NPCs.EggEvent;
-using System;
 
 namespace Spooky.Content.Backgrounds.SpookyHell
 {

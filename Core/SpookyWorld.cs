@@ -51,7 +51,7 @@ namespace Spooky.Core
             return false;
         }
 
-        public override void PostUpdateTime()
+        public override void PostUpdateEverything()
         {
             if (!IsInSubworld())
             {
@@ -132,41 +132,97 @@ namespace Spooky.Core
                 //spawn giant egg
                 if (!NPC.AnyNPCs(ModContent.NPCType<OrroboroEgg>()) && Flags.EggPosition != Vector2.Zero)
                 {
-                    int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
-                    Main.npc[Egg].position.X += 1;
-                    Main.npc[Egg].position.Y -= 32;
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int Egg = NPC.NewNPC(null, (int)Flags.EggPosition.X, (int)Flags.EggPosition.Y, ModContent.NPCType<OrroboroEgg>());
+						Main.npc[Egg].position.X += 1;
+						Main.npc[Egg].position.Y -= 32;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Egg);
+                        }
+					}
                 }
                 
                 //spawn moco idols in each ambush room
                 if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol1>()) && Flags.MocoIdolPosition1 != Vector2.Zero && !Flags.downedMocoIdol1)
                 {
-                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition1.X, (int)Flags.MocoIdolPosition1.Y, ModContent.NPCType<MocoIdol1>());
-                    Main.npc[Idol].position.X += 8;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition1.X, (int)Flags.MocoIdolPosition1.Y, ModContent.NPCType<MocoIdol1>());
+                        Main.npc[Idol].position.X += 8;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Idol);
+                        }
+                    }
                 }
                 if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol2>()) && Flags.MocoIdolPosition2 != Vector2.Zero && !Flags.downedMocoIdol2)
                 {
-                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition2.X, (int)Flags.MocoIdolPosition2.Y, ModContent.NPCType<MocoIdol2>());
-                    Main.npc[Idol].position.X += 8;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition2.X, (int)Flags.MocoIdolPosition2.Y, ModContent.NPCType<MocoIdol2>());
+                        Main.npc[Idol].position.X += 8;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Idol);
+                        }
+                    }
                 }
                 if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol3>()) && Flags.MocoIdolPosition3 != Vector2.Zero && !Flags.downedMocoIdol3)
                 {
-                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition3.X, (int)Flags.MocoIdolPosition3.Y, ModContent.NPCType<MocoIdol3>());
-                    Main.npc[Idol].position.X += 8;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition3.X, (int)Flags.MocoIdolPosition3.Y, ModContent.NPCType<MocoIdol3>());
+                        Main.npc[Idol].position.X += 8;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Idol);
+                        }
+                    }
                 }
                 if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol4>()) && Flags.MocoIdolPosition4 != Vector2.Zero && !Flags.downedMocoIdol4)
                 {
-                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition4.X, (int)Flags.MocoIdolPosition4.Y, ModContent.NPCType<MocoIdol4>());
-                    Main.npc[Idol].position.X += 8;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition4.X, (int)Flags.MocoIdolPosition4.Y, ModContent.NPCType<MocoIdol4>());
+                        Main.npc[Idol].position.X += 8;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Idol);
+                        }
+                    }
                 }
                 if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol5>()) && Flags.MocoIdolPosition5 != Vector2.Zero && !Flags.downedMocoIdol5)
                 {
-                    int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition5.X, (int)Flags.MocoIdolPosition5.Y, ModContent.NPCType<MocoIdol5>());
-                    Main.npc[Idol].position.X += 8;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int Idol = NPC.NewNPC(null, (int)Flags.MocoIdolPosition5.X, (int)Flags.MocoIdolPosition5.Y, ModContent.NPCType<MocoIdol5>());
+                        Main.npc[Idol].position.X += 8;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Idol);
+                        }
+                    }
                 }
                 if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol6>()) && Flags.LeaderIdolPositon != Vector2.Zero && !Flags.downedMocoIdol6)
                 {
-                    int Idol = NPC.NewNPC(null, (int)Flags.LeaderIdolPositon.X, (int)Flags.LeaderIdolPositon.Y, ModContent.NPCType<MocoIdol6>());
-                    Main.npc[Idol].position.X += 8;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int Idol = NPC.NewNPC(null, (int)Flags.LeaderIdolPositon.X, (int)Flags.LeaderIdolPositon.Y, ModContent.NPCType<MocoIdol6>());
+                        Main.npc[Idol].position.X += 8;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Idol);
+                        }
+                    }
                 }
 
                 //chance to activate raveyard each night
@@ -244,7 +300,12 @@ namespace Spooky.Core
                 }
 
                 Flags.KillWeb = false;
-            }
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
 
             //store whatever vanilla halloween is set to before setting it based on the config
             if (!initializeHalloween)

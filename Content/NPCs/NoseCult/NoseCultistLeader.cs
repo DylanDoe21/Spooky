@@ -41,7 +41,6 @@ namespace Spooky.Content.NPCs.NoseCult
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 9;
-            NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
@@ -318,7 +317,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                         NPC.velocity = Vector2.Zero;
 
-                        if (NPC.frame.Y >= 3 * NPC.height && NPC.localAI[0] % 10 == 0)
+                        if (NPC.localAI[0] % 10 == 0)
                         {
                             SoundEngine.PlaySound(SneezeSound, NPC.Center);
 

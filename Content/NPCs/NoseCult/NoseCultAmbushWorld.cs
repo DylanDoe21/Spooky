@@ -1,16 +1,16 @@
+using Terraria;
 using Terraria.ModLoader;
+using System.IO;
 
 namespace Spooky.Content.NPCs.NoseCult
 {
 	public class NoseCultAmbushWorld : ModSystem
 	{
 		public static bool AmbushActive;
-		public static bool CanDisableAmbush;
 
 		public override void OnWorldLoad()
 		{
 			AmbushActive = false;
-			CanDisableAmbush = false;
 		}
 
         public override void PostUpdateEverything()
@@ -19,8 +19,20 @@ namespace Spooky.Content.NPCs.NoseCult
 			if (!ModContent.GetInstance<MocoIdol1>().AnyPlayersInBiome())
 			{
 				AmbushActive = false;
-				CanDisableAmbush = false;
 			}
+		}
+
+		public override void NetSend(BinaryWriter writer)
+        {
+			var EventFlags = new BitsByte();
+            EventFlags[0] = AmbushActive;
+            writer.Write(EventFlags);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+        {
+			BitsByte EventFlags = reader.ReadByte();
+            AmbushActive = EventFlags[0];
 		}
 	}
 }

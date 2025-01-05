@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.Localization;
@@ -6,9 +7,13 @@ using Terraria.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
@@ -16,7 +21,35 @@ namespace Spooky.Content.NPCs.EggEvent
 	{
 		public static int EventTimeLeft = 0;
 		public static int EventTimeLeftUI = 0;
-		public static bool EggEventActive;
+		public static int EnemySpawnTimer = 0;
+		public static bool EggEventActive = false;
+		public static bool HasSpawnedBiojetter = false;
+		public static bool HasSpawnedBolster = false;
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(EventTimeLeft);
+			writer.Write(EventTimeLeftUI);
+			writer.Write(EnemySpawnTimer);
+
+			var EventFlags = new BitsByte();
+			EventFlags[0] = EggEventActive;
+			EventFlags[1] = HasSpawnedBiojetter;
+			EventFlags[2] = HasSpawnedBolster;
+			writer.Write(EventFlags);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			EventTimeLeft = reader.ReadInt32();
+			EventTimeLeftUI = reader.ReadInt32();
+			EnemySpawnTimer = reader.ReadInt32();
+
+			BitsByte EventFlags = reader.ReadByte();
+			EggEventActive = EventFlags[0];
+			HasSpawnedBiojetter = EventFlags[1];
+			HasSpawnedBolster = EventFlags[2];
+		}
 
 		public override void OnWorldLoad()
 		{
@@ -25,15 +58,254 @@ namespace Spooky.Content.NPCs.EggEvent
 			EggEventActive = false;
 		}
 
+		public override void PostUpdateEverything()
+		{
+			if (!EggEventActive)
+			{
+				EventTimeLeft = 0;
+				EventTimeLeftUI = 0;
+			}
+
+			if (EggEventActive)
+			{
+				//end the event and reset everything if you die, or if you leave the valley of eyes
+				if (!AnyPlayersInBiome())
+				{
+					EventTimeLeft = 0;
+					EventTimeLeftUI = 0;
+					EggEventActive = false;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+
+				//increment both timers
+				if (EventTimeLeft < 21600)
+				{
+					EventTimeLeft++;
+					EventTimeLeftUI--;
+
+					//converts the timeleft to actual seconds, goes up to 360 seconds (or 6 minutes)
+					//60 = 1 minute
+					//120 = 2 minutes
+					//180 = 3 minutes
+					//240 = 4 minutes
+					//300 = 5 minutes
+					//360 = 6 minutes
+					float timeLeft = EventTimeLeft / 60;
+
+					int ChanceToSpawnEnemy = 300;
+
+					if (timeLeft >= 60) ChanceToSpawnEnemy = 300;
+					if (timeLeft >= 120) ChanceToSpawnEnemy = 250;
+					if (timeLeft >= 180) ChanceToSpawnEnemy = 200;
+					if (timeLeft >= 240) ChanceToSpawnEnemy = 150;
+
+					//spawn a biojetter a little before 3 minutes and a little after 4 minutes
+					if (timeLeft == 149 || timeLeft == 279)
+					{
+						HasSpawnedBiojetter = false;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.WorldData);
+						}
+					}
+					if (timeLeft == 150 || timeLeft == 280)
+					{
+						if (!HasSpawnedBiojetter)
+						{
+							Player player = GetRandomPlayerInEvent();
+
+							SpawnEnemy(0, 2, player);
+
+							HasSpawnedBiojetter = true;
+
+							if (Main.netMode == NetmodeID.Server)
+							{
+								NetMessage.SendData(MessageID.WorldData);
+							}
+						}
+					}
+
+					//spawn a bolster a little before 3 minutes and a little after 4 minutes
+					if (timeLeft == 179 || timeLeft == 239 || timeLeft == 299)
+					{
+						HasSpawnedBolster = false;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.WorldData);
+						}
+					}
+					if (timeLeft == 180 || timeLeft == 240 || timeLeft == 300)
+					{
+						if (!HasSpawnedBolster)
+						{
+							Player player = GetRandomPlayerInEvent();
+
+							SpawnEnemy(1, 5, player);
+
+							HasSpawnedBolster = true;
+
+							if (Main.netMode == NetmodeID.Server)
+							{
+								NetMessage.SendData(MessageID.WorldData);
+							}
+						}
+					}
+
+					//if theres no enemies for too long, then manually spawn a bunch of them
+					if (EventActiveNPCCount() <= 1)
+					{
+						EnemySpawnTimer++;
+
+						if (EnemySpawnTimer >= 240)
+						{
+							for (int numEnemies = 0; numEnemies <= 5; numEnemies++)
+							{
+								Player player = GetRandomPlayerInEvent();
+
+								if (timeLeft < 60)
+								{
+									int BiomassType = Main.rand.Next(0, 2);
+									SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2), player);
+								}
+								if (timeLeft >= 60 && timeLeft < 180)
+								{
+									int BiomassType = Main.rand.Next(0, 2);
+									SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 3), player);
+								}
+								if (timeLeft >= 180)
+								{
+									//chance to spawn an ear worm manually
+									if (Main.rand.NextBool(7) && EarWormCount() < 4)
+									{
+										Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+
+										center.X += Main.rand.Next(-500, 500);
+
+										int numtries = 0;
+										int x = (int)(center.X / 16);
+										int y = (int)(center.Y / 16);
+
+										while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
+										{
+											y++;
+											center.Y = y * 16;
+										}
+										while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+										{
+											numtries++;
+											y--;
+											center.Y = y * 16;
+										}
+
+										//int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
+										//Main.npc[EarWorm].netUpdate = true;
+
+										if (Main.netMode != NetmodeID.MultiplayerClient)
+										{
+											int EarWorm = NPC.NewNPC(null, (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
+											Main.npc[EarWorm].netUpdate = true;
+											NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+										}
+									}
+									else
+									{
+										int BiomassType = Main.rand.Next(0, 2);
+										SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5), player);
+									}
+								}
+							}
+
+							EnemySpawnTimer = -60;
+						}
+					}
+
+					//randomly spawn enemies throughout the event
+					if (EventActiveNPCCount() < 20 && Main.rand.NextBool(ChanceToSpawnEnemy))
+					{
+						Player player = GetRandomPlayerInEvent();
+
+						if (timeLeft < 60)
+						{
+							int BiomassType = Main.rand.Next(0, 2);
+							SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2), player);
+						}
+						if (timeLeft >= 60 && timeLeft < 180)
+						{
+							int BiomassType = Main.rand.Next(0, 2);
+							SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 3), player);
+						}
+						if (timeLeft >= 180)
+						{
+							//chance to spawn an ear worm manually
+							if (Main.rand.NextBool(8) && EarWormCount() < 4)
+							{
+								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+
+								center.X += Main.rand.Next(-500, 500);
+
+								int numtries = 0;
+								int x = (int)(center.X / 16);
+								int y = (int)(center.Y / 16);
+
+								while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
+								{
+									y++;
+									center.Y = y * 16;
+								}
+								while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+								{
+									numtries++;
+									y--;
+									center.Y = y * 16;
+								}
+
+								int EarWorm = NPC.NewNPC(null, (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
+
+								if (Main.netMode != NetmodeID.MultiplayerClient)
+								{
+									NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+								}
+							}
+							else
+							{
+								int BiomassType = Main.rand.Next(0, 2);
+								SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5), player);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//select a random player in the event if they are in the eye valley and arent dead/inactive
+		public static Player GetRandomPlayerInEvent()
+		{
+			Player[] list = new Player[] {};
+
+			foreach (Player player in Main.ActivePlayers)
+			{
+				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+				{
+					list = list.Append(player).ToArray();
+				}
+			}
+
+			return list[Main.rand.Next(0, list.Length)];
+		}
+
 		public bool AnyPlayersInBiome()
 		{
-			for (int i = 0; i < Main.maxPlayers; i++)
+			foreach (Player player in Main.ActivePlayers)
 			{
-				Player player = Main.player[i];
-
 				int playerInBiomeCount = 0;
 
-				if (player.active && !player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 				{
 					playerInBiomeCount++;
 				}
@@ -47,26 +319,107 @@ namespace Spooky.Content.NPCs.EggEvent
 			return false;
 		}
 
-		public override void PostUpdateEverything()
+		//spawn an enemy based on the type inputted
+		public static void SpawnEnemy(int BiomassType, int Type, Player player)
 		{
-			//end the event and reset everything if you die, or if you leave the valley of eyes
-			if (!AnyPlayersInBiome())
+			switch (BiomassType)
 			{
-				EventTimeLeft = 0;
-				EventTimeLeftUI = 0;
-				EggEventActive = false;
+				case 0:
+				{
+					//Types:
+					//0 = GooSlug
+					//1 = CruxBat
+					//2 = Biojetter
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
+						Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, player.whoAmI, 0, 0, Type);
+						Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
+						}
+					}
+
+					break;
+				}
+
+				case 1:
+				{
+					//Types:
+					//0 = HoppingHeart
+					//1 = TongueBiter
+					//2 = ExplodingAppendix
+					//3 = CoughLungs
+					//4 = HoverBrain
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
+						Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassRed>(), 0, 0, player.whoAmI, 0, 0, Type);
+						Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
+						}
+					}
+
+					break;
+				}
+			}
+		}
+
+		//get the total number of active egg incursion enemies
+		public int EventActiveNPCCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC Enemy = Main.npc[i];
+
+				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
+				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
+
+				if (Enemy.active && EventNPCs.Contains(Enemy.type))
+				{
+					NpcCount++;
+				}
+				else
+				{
+					continue;
+				}
 			}
 
-			if (!EggEventActive)
+			return NpcCount;
+		}
+
+		//get the total number of active ear worms since they are spawned in manuallys
+		public int EarWormCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
 			{
-				EventTimeLeft = 0;
-				EventTimeLeftUI = 0;
+				NPC Enemy = Main.npc[i];
+
+				if (Enemy.active && Enemy.type == ModContent.NPCType<EarWorm>())
+				{
+					NpcCount++;
+				}
+				else
+				{
+					continue;
+				}
 			}
+
+			return NpcCount;
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
-			if (EggEventActive && Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
 				int EventIndex = layers.FindIndex(layer => layer is not null && layer.Name.Equals("Vanilla: Inventory"));
 				LegacyGameInterfaceLayer NewLayer = new LegacyGameInterfaceLayer("Spooky: Egg Event UI",
@@ -83,7 +436,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
 		public void DrawEventUI(SpriteBatch spriteBatch)
 		{
-			if (EggEventActive && Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+			if (EggEventActive && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 			{
 				const float Scale = 0.875f;
 				const float Alpha = 0.65f;

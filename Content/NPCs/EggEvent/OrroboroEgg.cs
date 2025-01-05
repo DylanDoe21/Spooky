@@ -14,19 +14,11 @@ using System.IO;
 using System.Linq;
 
 using Spooky.Core;
-using Spooky.Effects;
-using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.NPCs.EggEvent.Projectiles;
-using Spooky.Content.NPCs.Quest.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
-    //TODO:
-    //make sure that the egg event being downed is actually set and saved properly in multiplayer
-    //implement SendExtraAI/ReceiveExtraAI for all custom variables in this egg npc
-    //add a new projectile visual that goes from killed enemies and flies towards the egg before dying (like the lunar pillar enemies)
     public class OrroboroEgg : ModNPC
     {
         float ShieldScale = 0.5f;
@@ -35,8 +27,6 @@ namespace Spooky.Content.NPCs.EggEvent
         float addedStretch = 0f;
 		float stretchRecoil = 0f;
 
-        bool HasSpawnedBiojetter = false;
-        bool HasSpawnedBolster = false;
         bool OrroboroDoesNotExist;
 
         private static Asset<Texture2D> NPCTexture;
@@ -56,16 +46,12 @@ namespace Spooky.Content.NPCs.EggEvent
         public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(HasSpawnedBiojetter);
-            writer.Write(HasSpawnedBolster);
             writer.Write(OrroboroDoesNotExist);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            HasSpawnedBiojetter = reader.ReadBoolean();
-            HasSpawnedBolster = reader.ReadBoolean();
             OrroboroDoesNotExist = reader.ReadBoolean();
         }
 
@@ -145,111 +131,29 @@ namespace Spooky.Content.NPCs.EggEvent
             }
         }
 
-        public override void FindFrame(int frameHeight)
-        {
-            if (NPC.ai[0] == 0)
-            {
-                if (OrroboroDoesNotExist)
-                {
-                    NPC.frame.Y = 0 * frameHeight;
-                }
-                else
-                {
-                    NPC.frame.Y = 5 * frameHeight;
-                }
-            }
-            else
-            {
-                NPC.frame.Y = (int)NPC.ai[1] * frameHeight;
-            }
-        }
+		public override void FindFrame(int frameHeight)
+		{
+			if (NPC.ai[0] == 0)
+			{
+				if (OrroboroDoesNotExist)
+				{
+					NPC.frame.Y = 0 * frameHeight;
+				}
+				else
+				{
+					NPC.frame.Y = 5 * frameHeight;
+				}
+			}
+			else
+			{
+				NPC.frame.Y = (int)NPC.ai[1] * frameHeight;
+			}
+		}
 
         public override bool CheckActive()
-		{
-			return false;
-		}
-
-        //spawn an enemy based on the type inputted
-        public void SpawnEnemy(int BiomassType, int Type)
         {
-            switch (BiomassType)
-            {
-                case 0:
-                {
-                    //Types:
-                    //0 = GooSlug
-                    //1 = CruxBat
-                    //2 = Biojetter
-                    int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), (int)(Main.LocalPlayer.Center.X + Main.rand.Next(-900, 900)), (int)(NPC.Center.Y + Main.rand.Next(100, 150)), 
-                    Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, 0, 0, 0, Type);
-                    Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
-
-                    break;
-                }
-
-                case 1:
-                {
-                    //Types:
-                    //0 = HoppingHeart
-                    //1 = TongueBiter
-                    //2 = ExplodingAppendix
-                    //3 = CoughLungs
-                    //4 = HoverBrain
-                    int Spawner = Projectile.NewProjectile(NPC.GetSource_FromAI(), (int)(Main.LocalPlayer.Center.X + Main.rand.Next(-900, 900)), (int)(NPC.Center.Y + Main.rand.Next(100, 150)), 
-                    Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassRed>(), 0, 0, 0, 0, 0, Type);
-                    Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
-
-                    break;
-                }
-            }
+            return false;
         }
-
-        //get the total number of active egg incursion enemies
-        public int EventActiveNPCCount()
-		{
-			int NpcCount = 0;
-
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC Enemy = Main.npc[i];
-
-				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
-				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
-
-				if (Enemy.active && EventNPCs.Contains(Enemy.type))
-				{
-					NpcCount++;
-				}
-                else
-                {
-                    continue;
-                }
-			}
-
-			return NpcCount;
-		}
-
-        //get the total number of active ear worms since they are spawned in manuallys
-        public int EarWormCount()
-		{
-			int NpcCount = 0;
-
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC Enemy = Main.npc[i];
-
-				if (Enemy.active && Enemy.type == ModContent.NPCType<EarWorm>())
-				{
-					NpcCount++;
-				}
-                else
-                {
-                    continue;
-                }
-			}
-
-			return NpcCount;
-		}
 
         public override void AI()
         {
@@ -260,7 +164,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             OrroboroDoesNotExist = !NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
 
-            if (!Flags.downedEggEvent || EggEventWorld.EggEventActive) 
+            if (EggEventWorld.EggEventActive) 
             {
                 Lighting.AddLight(NPC.Center, Color.Indigo.ToVector3());
             }
@@ -285,12 +189,14 @@ namespace Spooky.Content.NPCs.EggEvent
                     Main.mouseRightRelease = false;
 
                     //summon orroboro if the egg incursion has been completed
-                    if ((player.HasItem(ModContent.ItemType<Concoction>()) && Flags.downedEggEvent))
+                    if (player.HasItem(ModContent.ItemType<Concoction>()) && Flags.downedEggEvent)
                     {
                         SoundEngine.PlaySound(EggDecaySound, NPC.Center);
 
                         NPC.ai[0] = 1;
-                    }
+
+						NPC.netUpdate = true;
+					}
                     //if the player hasnt completed the egg incursion or has a strange cyst, start the egg incursion
                     else if ((player.HasItem(ModContent.ItemType<Concoction>()) && !Flags.downedEggEvent) || player.ConsumeItem(ModContent.ItemType<StrangeCyst>()))
                     {
@@ -309,18 +215,16 @@ namespace Spooky.Content.NPCs.EggEvent
 
                         SpookyPlayer.ScreenShakeAmount = 8;
 
-                        EggEventWorld.EventTimeLeftUI = 21600;
-                        EggEventWorld.EggEventActive = true;
-
-                        for (int numEnemies = 0; numEnemies <= 6; numEnemies++)
+                        if (Main.netMode != NetmodeID.SinglePlayer)
                         {
-                            int BiomassType = Main.rand.Next(0, 2);
-                            SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2));
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)SpookyMessageType.EggIncursionStart);
+                            packet.Send();
                         }
-
-                        if (Main.netMode == NetmodeID.Server)
+                        else
                         {
-                            NetMessage.SendData(MessageID.WorldData);
+                            EggEventWorld.EventTimeLeftUI = 21600;
+                            EggEventWorld.EggEventActive = true;
                         }
 
                         NPC.netUpdate = true;
@@ -365,7 +269,7 @@ namespace Spooky.Content.NPCs.EggEvent
                             ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                         }
 
-                        if (Main.netMode != NetmodeID.SinglePlayer) 
+                        if (Main.netMode != NetmodeID.SinglePlayer)
                         {
                             ModPacket packet = Mod.GetPacket();
                             packet.Write((byte)SpookyMessageType.SpawnOrroboro);
@@ -373,8 +277,6 @@ namespace Spooky.Content.NPCs.EggEvent
                         }
                         else
                         {
-                            
-
                             NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHeadP1>(), 0, -1);
                         }
                     }
@@ -390,187 +292,16 @@ namespace Spooky.Content.NPCs.EggEvent
 
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;
+
+					NPC.netUpdate = true;
                 }
             }
 
             //egg event handling
             if (EggEventWorld.EggEventActive)
             {
-                //converts the timeleft to actual seconds, goes up to 360 seconds (or 6 minutes)
-                //notes: 
-                //60 = 1 minute
-                //120 = 2 minutes
-                //180 = 3 minutes
-                //240 = 4 minutes
-                //300 = 5 minutes
-                //360 = 6 minutes
-                float timeLeft = EggEventWorld.EventTimeLeft / 60;
-
                 //increment both timers
-                if (EggEventWorld.EventTimeLeft < 21600)
-                {
-                    EggEventWorld.EventTimeLeft++;
-                    EggEventWorld.EventTimeLeftUI--;
-
-                    int ChanceToSpawnEnemy = 300;
-
-                    if (timeLeft >= 60) ChanceToSpawnEnemy = 300;
-                    if (timeLeft >= 120) ChanceToSpawnEnemy = 250;
-                    if (timeLeft >= 180) ChanceToSpawnEnemy = 200;
-                    if (timeLeft >= 240) ChanceToSpawnEnemy = 150;
-
-                    //spawn a biojetter a little before 3 minutes and a little after 4 minutes
-                    if (timeLeft == 149 || timeLeft == 279)
-                    {
-                        HasSpawnedBiojetter = false;
-                    }
-                    if (timeLeft == 150 || timeLeft == 280)
-                    {
-                        if (!HasSpawnedBiojetter)
-                        {
-                            SpawnEnemy(0, 2);
-
-                            HasSpawnedBiojetter = true;
-
-                            NPC.netUpdate = true;
-                        }
-                    }
-
-                    //spawn a bolster a little before 3 minutes and a little after 4 minutes
-                    if (timeLeft == 179 || timeLeft == 239 || timeLeft == 299)
-                    {
-                        HasSpawnedBolster = false;
-                    }
-                    if (timeLeft == 180 || timeLeft == 240 || timeLeft == 300)
-                    {
-                        if (!HasSpawnedBolster)
-                        {
-                            SpawnEnemy(1, 5);
-
-                            HasSpawnedBolster = true;
-
-                            NPC.netUpdate = true;
-                        }
-                    }
-
-                    //if theres no enemies for too long, then manually spawn a bunch of them
-                    if (EventActiveNPCCount() <= 1)
-                    {
-                        NPC.ai[2]++;
-
-                        if (NPC.ai[2] >= 240)
-                        {
-                            for (int numEnemies = 0; numEnemies <= 5; numEnemies++)
-                            {
-                                if (timeLeft < 60)
-                                {
-                                    int BiomassType = Main.rand.Next(0, 2);
-                                    SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2));
-                                }
-                                if (timeLeft >= 60 && timeLeft < 180)
-                                {
-                                    int BiomassType = Main.rand.Next(0, 2);
-                                    SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 3));
-                                }
-                                if (timeLeft >= 180)
-                                {
-                                    //chance to spawn an ear worm manually
-                                    if (Main.rand.NextBool(7) && EarWormCount() < 4)
-                                    {
-                                        Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
-
-                                        center.X += Main.rand.Next(-500, 500);
-
-                                        int numtries = 0;
-                                        int x = (int)(center.X / 16);
-                                        int y = (int)(center.Y / 16);
-
-                                        while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
-                                        {
-                                            y++;
-                                            center.Y = y * 16;
-                                        }
-                                        while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
-                                        {
-                                            numtries++;
-                                            y--;
-                                            center.Y = y * 16;
-                                        }
-
-                                        int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
-
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                                        {
-                                            NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        int BiomassType = Main.rand.Next(0, 2);
-                                        SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5));
-                                    }
-                                }
-                            }
-
-                            NPC.ai[2] = -60;
-                        }
-                    }
-
-                    //randomly spawn enemies throughout the event
-                    if (EventActiveNPCCount() < 20 && Main.rand.NextBool(ChanceToSpawnEnemy))
-                    {
-						if (timeLeft < 60)
-                        {
-                            int BiomassType = Main.rand.Next(0, 2);
-                            SpawnEnemy(BiomassType, BiomassType == 0 ? 0 : Main.rand.Next(0, 2));
-                        }
-                        if (timeLeft >= 60 && timeLeft < 180)
-                        {
-                            int BiomassType = Main.rand.Next(0, 2);
-                            SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 3));
-                        }
-                        if (timeLeft >= 180)
-                        {
-							//chance to spawn an ear worm manually
-                            if (Main.rand.NextBool(8) && EarWormCount() < 4)
-                            {
-								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
-
-								center.X += Main.rand.Next(-500, 500);
-
-								int numtries = 0;
-								int x = (int)(center.X / 16);
-								int y = (int)(center.Y / 16);
-
-								while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
-								{
-									y++;
-									center.Y = y * 16;
-								}
-								while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
-								{
-									numtries++;
-									y--;
-									center.Y = y * 16;
-								}
-
-								int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
-
-								if (Main.netMode != NetmodeID.MultiplayerClient)
-								{
-									NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
-								}
-							}
-                            else
-                            {
-                                int BiomassType = Main.rand.Next(0, 2);
-                                SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5));
-                            }
-                        }
-                    }
-                }
-                //egg incursion ending animation
-                else
+                if (EggEventWorld.EventTimeLeft >= 21600)
                 {
                     NPC.ai[3]++;
 
@@ -607,11 +338,11 @@ namespace Spooky.Content.NPCs.EggEvent
                         {
                             //event end message
                             string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
-                            if (Main.netMode != NetmodeID.Server)
+                            if (Main.netMode == NetmodeID.SinglePlayer)
                             {
                                 Main.NewText(text, 171, 64, 255);
                             }
-                            else
+                            if (Main.netMode == NetmodeID.Server)
                             {
                                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                             }
