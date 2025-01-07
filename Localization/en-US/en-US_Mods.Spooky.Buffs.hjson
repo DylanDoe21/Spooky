@@ -489,3 +489,8 @@ SinisterSnailBuff: {
 	DisplayName: Sinister Snail
 	Description: Its all grown up!
 }
+
+SpookFishronMinionBuff: {
+	DisplayName: Spooky Pigron
+	Description: The pigron will protect you
+}

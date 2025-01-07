@@ -463,6 +463,7 @@ CornPopped.DisplayName: Popcorn
 HydroraptorSpit.DisplayName: Tar Spit
 DaffodilHairpinPetal.DisplayName: Flower Petal
 EgplantPaint.DisplayName: Egplant Paint
+AutumnLeafProj.DisplayName: Dead Razorleaf
 SpookyBubble.DisplayName: Spicy Bubble
 SpookyFlames.DisplayName: Spooky Flames
 SpookySword.DisplayName: The Horseman's Blade
@@ -477,3 +478,8 @@ SpookFishronGunFire.DisplayName: Spooky Flames
 SpookFishronFlailProj.DisplayName: Spicy Flairon
 SpookFishronFlailBubble.DisplayName: Spicy Bubble
 SinisterSnailPet.DisplayName: Sinister Snail
+SpookFishronMinion.DisplayName: Spooky Pigron
+SpookFishronMinionBubble.DisplayName: Spicy Bubble
+SpookFishronBowProj.DisplayName: Firestorm Monsoon
+SpookFishronBowBolt.DisplayName: Firebolt
+SpookFishronTornado.DisplayName: Spooknado

@@ -72,8 +72,8 @@ namespace Spooky
             AccessoryHotkey = KeybindLoader.RegisterKeybind(this, "AccessoryHotkey", "E");
             ArmorBonusHotkey = KeybindLoader.RegisterKeybind(this, "ArmorBonusHotkey", "F");
 
-            if (!Main.dedServ)
-            {
+            if (Main.netMode != NetmodeID.Server)
+			{
                 Filters.Scene["Spooky:CemeterySky"] = new Filter(new SpookyScreenShader("FilterMiniTower").UseColor(0f, 135f, 35f).UseOpacity(0.001f), EffectPriority.VeryHigh);
                 SkyManager.Instance["Spooky:CemeterySky"] = new CemeterySky();
 
@@ -86,10 +86,7 @@ namespace Spooky
 
                 Filters.Scene["Spooky:SpookFishron"] = new Filter(new FishronScreenShaderData("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryHigh);
                 SkyManager.Instance["Spooky:SpookFishron"] = new FishronSky();
-            }
 
-            if (Main.netMode != NetmodeID.Server)
-			{
 				vignetteEffect = ModContent.Request<Effect>("Spooky/Effects/Vignette", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				vignetteShader = new Vignette(vignetteEffect, "MainPS");
 				Filters.Scene["Spooky:Vignette"] = new Filter(vignetteShader, (EffectPriority)100);

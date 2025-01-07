@@ -15,7 +15,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
         public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 4;
+			Main.projFrames[Projectile.type] = 5;
 		}
 
         public override void SetDefaults()

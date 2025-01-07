@@ -48,7 +48,6 @@ namespace Spooky.Core
         public bool SentientCap = false;
 
         //accessories
-        public bool AutumnLeaf = false;
         public bool BustlingGlowshroom = false;
         public bool CandyBag = false;
 		public bool CandyBagJustHit = false;
@@ -88,6 +87,7 @@ namespace Spooky.Core
 		public bool MagicEyeOrb = false;
 		public bool SewingThread = false;
 		public bool StitchedCloak = false;
+        public bool AutumnLeaf = false;
 
 		//expert accessories
 		public bool FlyAmulet = false;
@@ -256,6 +256,7 @@ namespace Spooky.Core
 			MagicEyeOrb = false;
 			SewingThread = false;
 			StitchedCloak = false;
+            AutumnLeaf = false;
 
 			//expert accessories
 			FlyAmulet = false;
@@ -942,7 +943,7 @@ namespace Spooky.Core
             {
                 CarnisSporeSpawnTimer++;
 
-                if (PlayerSpeed(Player) >= 10)
+                if (PlayerSpeedToMPH(Player) >= 10)
                 {
                     CarnisSporeSpawnTimer++;
 
@@ -962,11 +963,11 @@ namespace Spooky.Core
             if (BoneMask)
             {
                 //do not shoot skulls under 20mph (basically if you are not moving fast enough)
-                if (PlayerSpeed(Player) >= 20)
+                if (PlayerSpeedToMPH(Player) >= 20)
                 {
                     BoneWispTimer++;
 
-                    if (BoneWispTimer >= 180 / (PlayerSpeed(Player) / 10))
+                    if (BoneWispTimer >= 180 / (PlayerSpeedToMPH(Player) / 10))
                     {
                         SoundEngine.PlaySound(SoundID.Item8, Player.Center);
 
@@ -974,7 +975,7 @@ namespace Spooky.Core
                         Vector2 newVelocity = Player.velocity.Y == 0 ? new Vector2(Speed.X, Main.rand.Next(-10, -3)) : Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
 
                         //scale the damage based on the player's current speed
-                        int damage = 80 + ((int)PlayerSpeed(Player) / 3);
+                        int damage = 80 + ((int)PlayerSpeedToMPH(Player) / 3);
 
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
                         ModContent.ProjectileType<BoneMaskWisp>(), damage, 0f, Main.myPlayer);
@@ -1246,8 +1247,7 @@ namespace Spooky.Core
         {
             if (!attempt.inLava && !attempt.inHoney)
             {
-				int bait = attempt.playerFishingConditions.BaitItemType;
-				if (Player.ZoneBeach && Main.pumpkinMoon && bait == ModContent.ItemType<SinisterSnailItem>())
+				if (Player.ZoneBeach && Main.pumpkinMoon && attempt.playerFishingConditions.BaitItemType == ModContent.ItemType<SinisterSnailItem>())
 				{
 					npcSpawn = ModContent.NPCType<SpookFishron>();
 					return;
@@ -1385,10 +1385,9 @@ namespace Spooky.Core
             }
         }
 
-        public static float PlayerSpeed(Player Player)
+        //converts the players speed to miles per hour, uses vanillas own calculations for the stopwatch
+        public static float PlayerSpeedToMPH(Player Player)
         {
-            //all of these calculations are just copied from vanilla's stopwatch
-            //too lazy to change all the num things tbh
             Vector2 SpeedVector = Player.velocity + Player.instantMovementAccumulatedThisFrame;
 
             if (Player.mount.Active && Player.mount.IsConsideredASlimeMount && Player.velocity != Vector2.Zero && !Player.SlimeDontHyperJump)

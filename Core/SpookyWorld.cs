@@ -58,74 +58,92 @@ namespace Spooky.Core
                 //spawn daffodil
                 if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()) && Flags.DaffodilPosition != Vector2.Zero)
                 {
-                    int Daffodil = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
-                    Main.npc[Daffodil].position.X -= 9;
-                    Main.npc[Daffodil].position.Y += 10;
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
+					{
+                        int Daffodil = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilBody>());
+                        Main.npc[Daffodil].position.X -= 9;
+                        Main.npc[Daffodil].position.Y += 10;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
+                        }
                     }
                 }
                 //spawn daffodil background handler
                 if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilArenaBG>()) && Flags.DaffodilPosition != Vector2.Zero)
                 {
-                    int DaffodilBG = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilArenaBG>());
-                    Main.npc[DaffodilBG].position.X -= 8;
-                    Main.npc[DaffodilBG].position.Y += 25;
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: DaffodilBG);
+					{
+                        int DaffodilBG = NPC.NewNPC(null, (int)Flags.DaffodilPosition.X, (int)Flags.DaffodilPosition.Y, ModContent.NPCType<DaffodilArenaBG>());
+                        Main.npc[DaffodilBG].position.X -= 8;
+                        Main.npc[DaffodilBG].position.Y += 25;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: DaffodilBG);
+                        }
                     }
                 }
 
                 //spawn pandoras box
                 if (!NPC.AnyNPCs(ModContent.NPCType<PandoraBox>()) && Flags.PandoraPosition != Vector2.Zero)
                 {
-                    int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
-                    Main.npc[PandoraBox].position.X -= 8;
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
+					{
+                        int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
+                        Main.npc[PandoraBox].position.X -= 8;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: PandoraBox);
+                        }
                     }
                 }
 
                 //spawn big bone pot
                 if (!NPC.AnyNPCs(ModContent.NPCType<BigFlowerPot>()) && Flags.FlowerPotPosition != Vector2.Zero)
                 {
-                    int FlowerPot = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
-                    Main.npc[FlowerPot].position.X -= 6;
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+					{
+                        int FlowerPot = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
+                        Main.npc[FlowerPot].position.X -= 6;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: FlowerPot);
+                        }
                     }
                 }
                 //spawn big bone background handler
                 if (!NPC.AnyNPCs(ModContent.NPCType<BigBoneArenaBG>()) && Flags.FlowerPotPosition != Vector2.Zero)
                 {
-                    int BigBoneBG = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigBoneArenaBG>());
-                    Main.npc[BigBoneBG].position.X -= 15;
-                    Main.npc[BigBoneBG].position.Y += 22;
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: BigBoneBG);
+					{
+                        int BigBoneBG = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigBoneArenaBG>());
+                        Main.npc[BigBoneBG].position.X -= 15;
+                        Main.npc[BigBoneBG].position.Y += 22;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: BigBoneBG);
+                        }
                     }
                 }
 
                 //spawn giant cobweb, only if you have not assembled the old hunter npc
                 if (!NPC.AnyNPCs(ModContent.NPCType<GiantWeb>()) && !NPC.AnyNPCs(ModContent.NPCType<GiantWebAnimationBase>()) && Flags.SpiderWebPosition != Vector2.Zero && !Flags.OldHunterAssembled)
                 {
-                    int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
-                    Main.npc[GiantWeb].position.X += 18;
-                    Main.npc[GiantWeb].position.Y += 1518;
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
+					{
+                        int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
+                        Main.npc[GiantWeb].position.X += 18;
+                        Main.npc[GiantWeb].position.Y += 1518;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
+                        }
                     }
                 }
 

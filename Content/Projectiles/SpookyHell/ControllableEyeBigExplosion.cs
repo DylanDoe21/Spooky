@@ -14,6 +14,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             Projectile.width = 98;
             Projectile.height = 98;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;

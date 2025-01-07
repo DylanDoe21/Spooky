@@ -2046,8 +2046,8 @@ SpookFishronStaff: {
 	DisplayName: Wand of the Spookron
 	Tooltip:
 		'''
-		Summons an extremely powerful spooky pigron to fight with you
-		Only one can exist, and it requires 2 minion slots to summon
+		Summons powerful spooky pigrons to fight with you
+		Each pigron costs 2 minion slots
 		'''
 }
 

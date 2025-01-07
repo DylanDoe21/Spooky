@@ -126,7 +126,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		{
 			NPC.lifeMax = 65000;
 			NPC.damage = 72;
-			NPC.defense = 65;
+			NPC.defense = 70;
 			NPC.width = 150;
 			NPC.height = 150;
 			NPC.knockBackResist = 0f;

@@ -33,9 +33,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.aiStyle = -1;
         }
 
-        public override bool NeedSaving()
+        public override bool CheckActive()
         {
-            return true;
+            return false;
         }
 
         public override void AI()

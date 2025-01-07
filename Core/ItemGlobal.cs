@@ -5,8 +5,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.NPCs.Boss.BigBone;
-using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.Projectiles.Blooms;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -68,6 +66,11 @@ namespace Spooky.Core
 
 		public override void UseAnimation(Item item, Player player)
 		{
+			if (Main.myPlayer != player.whoAmI)
+			{
+				return;
+			}
+
 			//check for items that arent tools so that effects meant for weapons dont apply to tools or items that arent weapons
 			if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
 			{
@@ -182,6 +185,22 @@ namespace Spooky.Core
 						Velocity *= 22;
 
 						Projectile.NewProjectile(null, player.Center, Velocity, ModContent.ProjectileType<SewingNeedle>(), item.damage, item.knockBack, player.whoAmI);
+					}
+				}
+
+				//shoot out razor leaf with the autumn leaf
+				if (player.GetModPlayer<SpookyPlayer>().AutumnLeaf && item.DamageType == DamageClass.Melee)
+				{
+					if (Main.rand.NextBool(8))
+					{
+						float mouseXDist = Main.mouseX + Main.screenPosition.X;
+						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
+
+						Vector2 Velocity = new Vector2(mouseXDist, mouseYDist) - player.Center;
+						Velocity.Normalize();
+						Velocity *= 12;
+
+						Projectile.NewProjectile(null, player.Center, Velocity, ModContent.ProjectileType<AutumnLeafProj>(), item.damage, item.knockBack, player.whoAmI);
 					}
 				}
 			}

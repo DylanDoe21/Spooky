@@ -57,7 +57,7 @@ namespace Spooky.Content.Projectiles.Blooms
 		{
 			Player player = Main.player[Projectile.owner];
 
-			float MovementScale = SpookyPlayer.PlayerSpeed(player);
+			float MovementScale = SpookyPlayer.PlayerSpeedToMPH(player);
 
 			modifiers.FinalDamage *= MovementScale / 12;
 		}
@@ -80,7 +80,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
             Projectile.timeLeft = 2;
 
-            float MovementScale = SpookyPlayer.PlayerSpeed(player);
+            float MovementScale = SpookyPlayer.PlayerSpeedToMPH(player);
 
 			Projectile.rotation += 0.05f * MovementScale / 15;
 

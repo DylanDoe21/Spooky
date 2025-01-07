@@ -224,7 +224,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 						NPC NPC = Main.npc[i];
 						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 450f)
 						{
-							if (SpinningStateTimer % 8 == 0)
+							bool lineOfSight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, Projectile.position, Projectile.width, Projectile.height);
+
+							if (lineOfSight && SpinningStateTimer % 8 == 0)
 							{
 								Vector2 ShootSpeed = NPC.Center - Projectile.Center;
 								ShootSpeed.Normalize();

@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.Friendly
             Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.1f);
             NPC.velocity *= 0;
 
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.LocalPlayer;
 
             bool PlayerHasSkeletonPiece = player.HasItem(ModContent.ItemType<OldHunterHat>()) || player.HasItem(ModContent.ItemType<OldHunterSkull>()) || player.HasItem(ModContent.ItemType<OldHunterTorso>()) || player.HasItem(ModContent.ItemType<OldHunterLegs>());
 

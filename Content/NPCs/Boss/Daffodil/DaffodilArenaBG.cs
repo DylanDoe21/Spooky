@@ -35,9 +35,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.alpha = 255;
 		}
 
-        public override bool NeedSaving()
+        public override bool CheckActive()
         {
-            return true;
+            return false;
         }
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)

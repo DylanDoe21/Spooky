@@ -5,10 +5,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
+namespace Spooky.Content.Projectiles.SpookyBiome
 {
-    public class SpookyTornado : ModProjectile
+    public class SpookFishronTornado : ModProjectile
     {
+		public override string Texture => "Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/SpookyTornado";
+
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
@@ -20,12 +22,13 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
         {
             Projectile.width = 162;
             Projectile.height = 42;
-            Projectile.hostile = true;
-            Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Magic;
+            Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.alpha = 255;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 300;
+			Projectile.penetrate = -1;
+			Projectile.alpha = 255;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -51,15 +54,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             return false;
         }
 
-		public override bool? CanDamage()
-		{
-			return Projectile.alpha <= 0;
-		}
-
         public override void AI()
         {
-            int TornadoHeight1 = 25;
-			int TornadoHeight2 = 25;
+			Player player = Main.player[Projectile.owner];
+
+            int TornadoHeight1 = 8;
+			int TornadoHeight2 = 8;
 			float ScaleAmount = 1.5f;
 			int BaseWidth = 162;
 			int BaseHeight = 42;
@@ -77,6 +77,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			
 			if (Projectile.localAI[0] == 0f && Main.myPlayer == Projectile.owner)
 			{
+				Projectile.localAI[0] = 1f;
 				Projectile.position.X += Projectile.width / 2;
 				Projectile.position.Y += Projectile.height / 2;
 				Projectile.scale = ((float)(TornadoHeight1 + TornadoHeight2) - Projectile.ai[1]) * ScaleAmount / (float)(TornadoHeight2 + TornadoHeight1);
@@ -85,13 +86,19 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Projectile.position.X -= Projectile.width / 2;
 				Projectile.position.Y -= Projectile.height / 2;
 				Projectile.width = (int)((float)BaseWidth * Projectile.scale);
-				Projectile.localAI[0] = 1f;
 				Projectile.netUpdate = true;
 			}
 
+			if (Projectile.ai[1] != -1f)
+            {
+                Projectile.scale = (TornadoHeight1 + TornadoHeight2 - Projectile.ai[1]) * ScaleAmount / (TornadoHeight2 + TornadoHeight1);
+                Projectile.width = (int)(BaseWidth * Projectile.scale);
+                Projectile.height = (int)(BaseHeight * Projectile.scale);
+            }
+
 			if (Projectile.timeLeft > 60 && Projectile.alpha > 0)
 			{
-				Projectile.alpha -= 10;
+				Projectile.alpha -= 35;
 			}
 			if (Projectile.timeLeft < 60)
 			{
@@ -111,35 +118,31 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			if (Projectile.ai[0] == 1f && Projectile.ai[1] > 0f && Projectile.owner == Main.myPlayer)
 			{
 				Projectile.netUpdate = true;
-				Vector2 center4 = Projectile.Center;
-				center4.Y -= (float)BaseHeight * Projectile.scale / 2f;
+				Vector2 ProjCenter = Projectile.Center;
+				ProjCenter.Y -= (float)BaseHeight * Projectile.scale / 2f;
 				float num540 = ((float)(TornadoHeight1 + TornadoHeight2) - Projectile.ai[1] + 1f) * ScaleAmount / (float)(TornadoHeight2 + TornadoHeight1);
-				center4.Y -= (float)BaseHeight * num540 / 2f;
-				center4.Y += 2f;
+				ProjCenter.Y -= (float)BaseHeight * num540 / 2f;
+				ProjCenter.Y += 6f;
 
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), center4.X, center4.Y, Projectile.velocity.X, Projectile.velocity.Y, 
-				Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), ProjCenter.X, ProjCenter.Y, Projectile.velocity.X, Projectile.velocity.Y, 
+				Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f, Projectile.whoAmI);
+			}
 
-				if ((int)Projectile.ai[1] % 3 == 0 && Projectile.ai[1] != 0f)
-				{
-					//spawn a sharkron
-					int Sharkron = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)center4.X + 20, (int)center4.Y + 20, ModContent.NPCType<SpookSharkron>());
-					Main.npc[Sharkron].velocity = Projectile.velocity;
-					Main.npc[Sharkron].netUpdate = true;
-					Main.npc[Sharkron].alpha = 255;
-					Main.npc[Sharkron].ai[2] = Projectile.width;
-				}
+			//only segments above the bottom should follow the bottom segments velocity
+			if (Projectile.ai[1] < 7f)
+			{
+				Projectile.velocity = Main.projectile[(int)Projectile.ai[2]].velocity;
 			}
 
 			if (Projectile.ai[0] <= 0f)
 			{
 				float num544 = (float)Math.PI / 30f;
-				float num545 = (float)Projectile.width / 5f;
-				float num546 = (float)(Math.Cos(num544 * (0f - Projectile.ai[0])) - 0.5) * num545;
-				Projectile.position.X -= num546 * (float)(-Projectile.direction);
+				float Intensity = (float)Projectile.width / 5f;
+				float PositionShift = (float)(Math.Cos(num544 * (0f - Projectile.ai[0])) - 0.5) * Intensity;
+				Projectile.position.X -= PositionShift;
 				Projectile.ai[0]--;
-				num546 = (float)(Math.Cos(num544 * (0f - Projectile.ai[0])) - 0.5) * num545;
-				Projectile.position.X += num546 * (float)(-Projectile.direction);
+				PositionShift = (float)(Math.Cos(num544 * (0f - Projectile.ai[0])) - 0.5) * Intensity;
+				Projectile.position.X += PositionShift;
 			}
         }
     }
