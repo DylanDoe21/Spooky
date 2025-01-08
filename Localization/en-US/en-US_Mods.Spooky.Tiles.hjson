@@ -28,6 +28,11 @@ CultistDresser: {
 	MapEntry: Dresser
 }
 
+ChristmasDresser: {
+	ContainerName: Yuletide Wood Dresser
+	MapEntry: Dresser
+}
+
 SpiritAltar.MapEntry: Spirit Altar
 CemeterySapling.MapEntry: Sapling
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
@@ -103,3 +108,16 @@ CatacombTrapdoor3.MapEntry: Locked Trapdoor
 Broccoli.MapEntry: Giant Broccoli
 GiantShroomYellow.MapEntry: Giant Glowshroom
 TarPitCactus.MapEntry: Cactus
+ChristmasBed.MapEntry: Bed
+ChristmasCandelabra.MapEntry: Candelabra
+ChristmasCandle.MapEntry: Candle
+ChristmasChair.MapEntry: Chair
+ChristmasChandelier.MapEntry: Chandelier
+ChristmasChest.MapEntry: Yuletide Chest
+ChristmasDoorClosed.MapEntry: Door
+ChristmasDoorOpen.MapEntry: Door
+ChristmasLamp.MapEntry: Lamp
+ChristmasLantern.MapEntry: Lantern
+ChristmasSofa.MapEntry: Sofa
+ChristmasTable.MapEntry: Table
+ChristmasWorkBench.MapEntry: Work Bench

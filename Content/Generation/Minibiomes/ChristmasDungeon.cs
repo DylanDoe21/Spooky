@@ -12,7 +12,6 @@ using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
-using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 using StructureHelper;
 
@@ -37,6 +36,23 @@ namespace Spooky.Content.Generation.Minibiomes
 			ModContent.WallType<ChristmasWoodWall>(),
 			ModContent.WallType<ChristmasWindow>()
 		};
+
+		public static List<int> FurnitureTypes = new()
+		{
+			ModContent.TileType<ChristmasChandelier>(),
+			ModContent.TileType<ChristmasLantern>(),
+			ModContent.TileType<ChristmasLamp>(),
+			ModContent.TileType<ChristmasWorkBench>(),
+			ModContent.TileType<ChristmasDresser>(),
+			ModContent.TileType<ChristmasBed>(),
+			ModContent.TileType<ChristmasSofa>(),
+			ModContent.TileType<ChristmasChair>(),
+			ModContent.TileType<ChristmasCandelabra>(),
+			ModContent.TileType<ChristmasCandle>(),
+			ModContent.TileType<ChristmasTable>()
+		};
+
+		public static Vector2[] SecretRoomChests = new Vector2[] {};
 
 		private void PlaceChristmasDungeon(GenerationProgress progress, GameConfiguration configuration)
 		{
@@ -307,7 +323,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					if (CanPlaceHiddenRoom(i, j))
 					{
 						//dig out square
-						for (int x = i - 4; x <= i + 4; x++)
+						for (int x = i - 4; x <= i + 5; x++)
 						{
 							for (int y = j - 4; y <= j + 4; y++)
 							{
@@ -318,6 +334,8 @@ namespace Spooky.Content.Generation.Minibiomes
 								WorldGen.KillTile(x, y + 1);
 							}
 						}
+
+						SecretRoomChests = SecretRoomChests.Append(new Vector2(i + WorldGen.genRand.Next(-3, 5), j + 5)).ToArray();
 					}
 				}
 			}
@@ -346,7 +364,7 @@ namespace Spooky.Content.Generation.Minibiomes
 
 						if (CanPlace)
 						{
-							Vector2 EntranceOrigin = new Vector2(i - 2, j - 4);
+							Vector2 EntranceOrigin = new Vector2(i - 2, j - 3);
 							Generator.GenerateStructure("Content/Structures/ChristmasDungeon/ChristmasEntranceLeft", EntranceOrigin.ToPoint16(), Mod);
 						}
 					}
@@ -368,7 +386,7 @@ namespace Spooky.Content.Generation.Minibiomes
 
 						if (CanPlace)
 						{
-							Vector2 EntranceOrigin = new Vector2(i - 6, j - 4);
+							Vector2 EntranceOrigin = new Vector2(i - 6, j - 3);
                     		Generator.GenerateStructure("Content/Structures/ChristmasDungeon/ChristmasEntranceRight", EntranceOrigin.ToPoint16(), Mod);
 						}
 					}
@@ -406,6 +424,7 @@ namespace Spooky.Content.Generation.Minibiomes
 				{
 					//place slab bricks around open surfaces inside of the dungeon
 					bool AnySurroundingAir = !Main.tile[i - 1, j].HasTile || !Main.tile[i + 1, j].HasTile || !Main.tile[i, j - 1].HasTile || !Main.tile[i, j + 1].HasTile;
+					
 					bool NoWallsAround = WallTypes.Contains(Main.tile[i - 1, j].TileType) || WallTypes.Contains(Main.tile[i + 1, j].TileType) || 
 					WallTypes.Contains(Main.tile[i, j - 1].TileType) || WallTypes.Contains(Main.tile[i, j + 1].TileType);
 
@@ -464,10 +483,10 @@ namespace Spooky.Content.Generation.Minibiomes
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
 					//place christmas light ropes
-					PlaceLightsRope(i, j);
+					PlaceChainRope(i, j);
 
 					//place carpets on the plank flooring
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() && (!Main.tile[i, j - 1].HasTile || Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasLightRope>()) && 
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() && (!Main.tile[i, j - 1].HasTile || Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasChain>()) && 
 					Main.tile[i - 1, j].HasTile && Main.tile[i + 1, j].HasTile && (Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() || Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() ||
 					Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasCarpet>() || Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasCarpet>()))
 					{
@@ -496,41 +515,88 @@ namespace Spooky.Content.Generation.Minibiomes
 				}
 			}
 
+			foreach (Vector2 pos in SecretRoomChests)
+			{
+				WorldGen.PlaceChest((int)pos.X, (int)pos.Y, (ushort)ModContent.TileType<ChristmasChest>());
+			}
+
 			//place furniture randomly in the dungeon
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasLightRope>() && !Main.tile[i, j - 1].HasTile)
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasChain>() && !Main.tile[i, j - 1].HasTile)
 					{
 						WorldGen.KillTile(i, j);
 					}
 
 					//tables and chairs
-					if (WorldGen.genRand.NextBool(30) && IsFlatSurface(i, j, 5))
+					if (WorldGen.genRand.NextBool(15) && IsFlatSurface(i, j, 7))
 					{
-						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<OldWoodTable>());
-						WorldGen.PlaceObject(i, j - 3, ModContent.TileType<OldWoodCandle>());
-						WorldGen.PlaceObject(i - 2, j - 1, ModContent.TileType<OldWoodChair>(), direction: 1);
-						WorldGen.PlaceObject(i + 2, j - 1, ModContent.TileType<OldWoodChair>(), direction: -1);
-					}
+						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasTable>());
 
-					//bookcases
-					if (WorldGen.genRand.NextBool(25) && IsFlatSurface(i, j, 3))
-					{
-						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<OldWoodBookcase>());
+						if (WorldGen.genRand.NextBool())
+						{
+							int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<ChristmasCandelabra>() : ModContent.TileType<ChristmasCandle>();
+							WorldGen.PlaceObject(i, j - 3, Type);
+						}
+
+						if (WorldGen.genRand.NextBool())
+						{
+							WorldGen.PlaceObject(i - 2, j - 1, ModContent.TileType<ChristmasChair>(), direction: 1);
+						}
+						if (WorldGen.genRand.NextBool())
+						{
+							WorldGen.PlaceObject(i + 2, j - 1, ModContent.TileType<ChristmasChair>(), direction: -1);
+						}
 					}
 
 					//sofas
-					if (WorldGen.genRand.NextBool(25) && IsFlatSurface(i, j, 3))
+					if (WorldGen.genRand.NextBool(22) && IsFlatSurface(i, j, 4))
 					{
-						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<OldWoodSofa>());
+						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasSofa>());
 					}
 
 					//beds
+					if (WorldGen.genRand.NextBool(35) && IsFlatSurface(i, j, 6))
+					{
+						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasBed>(), direction: WorldGen.genRand.NextBool() ? -1 : 1);
+					}
+
+					//dressers
 					if (WorldGen.genRand.NextBool(25) && IsFlatSurface(i, j, 4))
 					{
-						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<OldWoodBed>(), direction: WorldGen.genRand.NextBool() ? -1 : 1);
+						WorldGen.PlaceChest(i, j - 1, (ushort)ModContent.TileType<ChristmasDresser>());
+
+						if (WorldGen.genRand.NextBool())
+						{
+							int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<ChristmasCandelabra>() : ModContent.TileType<ChristmasCandle>();
+							WorldGen.PlaceObject(i, j - 3, Type);
+						}
+					}
+
+					//work benches
+					if (WorldGen.genRand.NextBool(18) && IsFlatSurface(i, j, 4))
+					{
+						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasWorkBench>());
+					}
+
+					//lamps
+					if (WorldGen.genRand.NextBool(25) && IsFlatSurface(i, j, 2))
+					{
+						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasLamp>());
+					}
+
+					//lanterns
+					if (WorldGen.genRand.NextBool(18) && IsFlatCeiling(i, j, 2))
+					{
+						WorldGen.PlaceObject(i, j + 1, ModContent.TileType<ChristmasLantern>());
+					}
+
+					//chandeliers
+					if (WorldGen.genRand.NextBool(25) && IsFlatCeiling(i, j, 4))
+					{
+						WorldGen.PlaceObject(i, j + 1, ModContent.TileType<ChristmasChandelier>());
 					}
 				}
 			}
@@ -543,7 +609,26 @@ namespace Spooky.Content.Generation.Minibiomes
 			for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
 			{
 				//check specifically for christmas carpet since the entire floor will be made out of that
-				if (Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasCarpet>() && !Main.tile[x, PositionY - 1].HasTile)
+				if (Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasCarpet>() && !Main.tile[x, PositionY - 1].HasTile && !FurnitureTypes.Contains(Main.tile[x, PositionY - 1].TileType))
+				{
+					continue;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		//same as above but for ceilings instead of the floor for hanging lights
+		public bool IsFlatCeiling(int PositionX, int PositionY, int Width)
+		{
+			for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
+			{
+				if ((Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasBrickSlab>() || Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasBrickSlabAlt>()) && !FurnitureTypes.Contains(Main.tile[x, PositionY + 1].TileType) &&
+				!Main.tile[x, PositionY + 1].HasTile && !Main.tile[x, PositionY + 2].HasTile && !Main.tile[x, PositionY + 3].HasTile && !Main.tile[x, PositionY + 4].HasTile && !Main.tile[x, PositionY + 5].HasTile)
 				{
 					continue;
 				}
@@ -700,7 +785,7 @@ namespace Spooky.Content.Generation.Minibiomes
 			}
 		}
 
-		public void PlaceLightsRope(int PositionX, int PositionY)
+		public void PlaceChainRope(int PositionX, int PositionY)
 		{
 			if (BlockTypes.Contains(Main.tile[PositionX, PositionY].TileType) && WallTypes.Contains(Main.tile[PositionX, PositionY].WallType) && !Main.tile[PositionX, PositionY + 1].HasTile)
 			{
@@ -718,7 +803,7 @@ namespace Spooky.Content.Generation.Minibiomes
 					//if another rope is too close, dont allow a new rope to place
 					for (int i = PositionX - 5; i <= PositionX + 5; i++)
 					{
-						if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasLightRope>())
+						if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasChain>())
 						{
 							return;
 						}
@@ -735,7 +820,7 @@ namespace Spooky.Content.Generation.Minibiomes
 						return;
 					}
 
-					WorldGen.PlaceTile(PositionX, j, ModContent.TileType<ChristmasLightRope>());
+					WorldGen.PlaceTile(PositionX, j, ModContent.TileType<ChristmasChain>());
 				}
 			}
 		}
@@ -787,6 +872,32 @@ namespace Spooky.Content.Generation.Minibiomes
 
 			tasks.Insert(GenIndex1 + 1, new PassLegacy("Christmas Mansion", PlaceChristmasDungeon));
 		}
+
+		//post worldgen to place items in the spooky biome chests
+        public override void PostWorldGen()
+		{
+			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
+            {
+				Chest chest = Main.chest[chestIndex];
+
+				if (chest == null) 
+                {
+					continue;
+				}
+
+				if (WorldGen.InWorld(chest.x, chest.y))
+				{
+					Tile chestTile = Main.tile[chest.x, chest.y];
+
+					if (chestTile.TileType == ModContent.TileType<ChristmasChest>())
+					{
+						//goodie bags
+						chest.item[0].SetDefaults(ItemID.GoodieBag);
+						chest.item[0].stack = WorldGen.genRand.Next(1, 3);
+					}
+				}
+            }
+        }
 	}
 
 	//code referenced/modified from: https://github.com/Fixtone/DungeonCarver/blob/master/Assets/Scripts/Maps/MapGenerators/BSPTreeMapGenerator.cs
@@ -880,6 +991,8 @@ namespace Spooky.Content.Generation.Minibiomes
 					WorldGen.KillTile(i, j + 1);
 				}
 			}
+
+			ChristmasDungeon.SecretRoomChests = ChristmasDungeon.SecretRoomChests.Append(new Vector2(room.X + WorldGen.genRand.Next(-8, 9), room.Y + (room.Height / 2) + 1)).ToArray();
 		}
 
 		public void CreatePathways(Rectangle room1, Rectangle room2)

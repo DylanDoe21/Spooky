@@ -124,3 +124,9 @@ Miscellaneous:
 -Fixed ancient crushers colliding with platforms when slamming down
 -Fixed cemetery biome dungeon chest item not having a sell price
 -Fixed possessed scarecrows shooting through blocks
+
+
+Multiplayer:
+
+-Attempted to fix issue with temple of moco idols not completing the event properly
+-Attempted to fix the egg incursion visuals and music not showing up for some players in multiplayer

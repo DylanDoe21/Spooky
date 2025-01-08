@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Light;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;

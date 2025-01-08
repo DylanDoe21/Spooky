@@ -301,8 +301,8 @@ PumpkinSpiceLatte: {
 	DisplayName: Pumpkin Spice Latte
 	Tooltip:
 		'''
-		Not consumable
 		Grants a 12% increase to various stats for 10 seconds
+		Not consumable
 		'''
 }
 
@@ -1191,6 +1191,20 @@ VampireGummy: {
 		'''
 }
 
+CornStaff: {
+	DisplayName: Pop Rod
+	Tooltip:
+		'''
+		Spawns ears of corn to hover above you for a few seconds
+		Corn will pop into popcorn at enemies if theres any nearby
+		'''
+}
+
+EggplantWhip: {
+	DisplayName: Eggplant Smacker
+	Tooltip: ""
+}
+
 CatEyes: {
 	DisplayName: Evil Eyes
 	Tooltip: Summons a pet black kitten
@@ -1877,12 +1891,20 @@ CandyBag: {
 
 CranberryJelly: {
 	DisplayName: Cranberry Jelly
-	Tooltip: Will be consumed automatically if you fall below half health
+	Tooltip:
+		'''
+		Will be consumed automatically if you fall below half health
+		Has less potion sickness duration than regular healing potions
+		'''
 }
 
 CranberryJuice: {
 	DisplayName: Cranberry Juice
-	Tooltip: Will be consumed automatically if you fall below half health
+	Tooltip:
+		'''
+		Will be consumed automatically if you fall below half health
+		Has less potion sickness duration than regular healing potions
+		'''
 }
 
 CreepyCandle: {
@@ -2025,7 +2047,7 @@ SkullWispStaff: {
 
 SpookFishronBow: {
 	DisplayName: Firestorm Monsoon
-	Tooltip: Fires out a spread of greek fire bolts
+	Tooltip: Fires out a barrage of homing greek fire bolts
 }
 
 SpookFishronFlail: {
@@ -2983,9 +3005,74 @@ CemeteryStoneItem: {
 	Tooltip: ""
 }
 
-ChristmasLightRopeItem: {
-	DisplayName: Festive Lights Rope
+ChristmasBedItem: {
+	DisplayName: Yuletide Wood Bed
+	Tooltip: ""
+}
+
+ChristmasCandelabraItem: {
+	DisplayName: Yuletide Ice Candelabra
+	Tooltip: ""
+}
+
+ChristmasCandleItem: {
+	DisplayName: Yuletide Ice Candle
+	Tooltip: ""
+}
+
+ChristmasChainItem: {
+	DisplayName: Frozen Chain
 	Tooltip: Can be climbed on
+}
+
+ChristmasChairItem: {
+	DisplayName: Yuletide Wood Chair
+	Tooltip: ""
+}
+
+ChristmasChandelierItem: {
+	DisplayName: Yuletide Ice Chandelier
+	Tooltip: ""
+}
+
+ChristmasChestItem: {
+	DisplayName: Yuletide Chest
+	Tooltip: ""
+}
+
+ChristmasDoorItem: {
+	DisplayName: Yuletide Wood Door
+	Tooltip: ""
+}
+
+ChristmasDresserItem: {
+	DisplayName: Yuletide Wood Dresser
+	Tooltip: ""
+}
+
+ChristmasLampItem: {
+	DisplayName: Yuletide Ice Lamp
+	Tooltip: ""
+}
+
+ChristmasLanternItem: {
+	DisplayName: Yuletide Ice Lantern
+	Tooltip: ""
+}
+
+ChristmasSofaItem: {
+	DisplayName: Yuletide Wood Sofa
+	Tooltip: ""
+}
+
+ChristmasTableItem: {
+	DisplayName: Yuletide Wood Table
+	Tooltip: ""
+}
+
+ChristmasWorkBenchItem: {
+	DisplayName: Yuletide Wood Work Bench
+	Tooltip: ""
 }
 
 ChristmasBrickItem: {
@@ -3154,7 +3241,7 @@ SpiderCaveBox: {
 
 SpookFishronBox: {
 	DisplayName: Music Box (Spook Fishron)
-	Tooltip: "[c/F7CC62:Bad Sushi] by BananaLizard"
+	Tooltip: "[c/DE8533:Bad Sushi] by BananaLizard"
 }
 
 SpookyBiomeDayBox: {

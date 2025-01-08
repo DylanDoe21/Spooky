@@ -2,12 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles;
 
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable
@@ -129,6 +131,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             {
                 NPC.localAI[0] = 0;
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CornStaff>(), 30));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

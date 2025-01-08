@@ -191,7 +191,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 								float SpreadY = Main.rand.NextFloat(-1.5f, 1.5f);
 
 								Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Projectile.velocity.X + SpreadX, Projectile.velocity.Y + SpreadY), 
-								ModContent.ProjectileType<SpookFishronFlailBubble>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+								ModContent.ProjectileType<SpookFishronFlailBubble>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 							}
 
                             break;
@@ -222,7 +222,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 					for (int i = 0; i < Main.maxNPCs; i++)
             		{
 						NPC NPC = Main.npc[i];
-						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 450f)
+						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 550f)
 						{
 							bool lineOfSight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, Projectile.position, Projectile.width, Projectile.height);
 

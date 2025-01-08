@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 {
-    public class ChristmasLightRopeItem : ModItem
+    public class ChristmasChainItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<ChristmasLightRope>());
+            Item.DefaultToPlaceableTile(ModContent.TileType<ChristmasChain>());
             Item.width = 16;
 			Item.height = 16;
         }

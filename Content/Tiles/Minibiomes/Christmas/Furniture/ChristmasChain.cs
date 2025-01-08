@@ -10,11 +10,12 @@ using ReLogic.Content;
 
 namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 {
-	public class ChristmasLightRope : ModTile
+	[LegacyName("ChristmasLightRope")]
+	public class ChristmasChain : ModTile
 	{
-		private static Asset<Texture2D> GlowTexture1;
-		private static Asset<Texture2D> GlowTexture2;
-		private static Asset<Texture2D> GlowTexture3;
+		//private static Asset<Texture2D> GlowTexture1;
+		//private static Asset<Texture2D> GlowTexture2;
+		//private static Asset<Texture2D> GlowTexture3;
 
 		public override void SetStaticDefaults()
 		{
@@ -23,10 +24,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			Main.tileSolid[Type] = false;
 			Main.tileBlockLight[Type] = false;
 			Main.tileLighted[Type] = true;
-			AddMapEntry(new Color(9, 116, 9));
+			AddMapEntry(new Color(93, 101, 101));
             DustType = DustID.Grass;
 		}
 
+		/*
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			GlowTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Christmas/Furniture/ChristmasLightRopeGlow1");
@@ -138,5 +140,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 				b = 37f / 500f * intensity3;
 			}
 		}
+		*/
 	}
 }
