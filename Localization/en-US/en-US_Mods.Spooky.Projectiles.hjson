@@ -117,7 +117,6 @@ BrainJarProj.DisplayName: Brainy Jar
 CauldronDummy.DisplayName: Cauldron
 SentientKatanaSlash.DisplayName: Conscious Slash
 SentientKatanaSlashSpawner.DisplayName: Conscious Slash
-CursedFlamePillar.DisplayName: Cursed Pillar
 SentientChikProj.DisplayName: Pendeloque
 SentientChikTear.DisplayName: Crystal Tear
 ToxicBubble.DisplayName: Toxic Bubble
@@ -486,3 +485,6 @@ SpookFishronTornado.DisplayName: Spooknado
 EggplantWhipProj.DisplayName: Eggplant Smacker
 HoverCorn.DisplayName: Hovering Corn
 HoverCornPopped.DisplayName: Popcorn
+CursedExplosion.DisplayName: Cursed Inferno Explosion
+CursedExplosionSmall.DisplayName: Cursed Inferno Explosion
+CursedExplosionBall.DisplayName: Cursed Fireball

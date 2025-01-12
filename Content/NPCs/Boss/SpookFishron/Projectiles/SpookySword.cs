@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 					
 					Vector2 SparkleOffset = new Vector2(152, 0).RotatedBy(Parent.rotation + MathHelper.PiOver2);
 
-					Vector2 SparklePos = SparkleOffset + Parent.Center + circular + new Vector2(0, 25) - Main.screenPosition;
+					Vector2 SparklePos = SparkleOffset + Parent.Center + circular - Main.screenPosition;
 					float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 					DrawPrettyStarSparkle(Projectile.Opacity, SpriteEffects.None, SparklePos, Color.White, color, 0.5f, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(5f * time, 5f * time), new Vector2(5, 5));
 				}
@@ -99,7 +99,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			Projectile.timeLeft = 5;
 
 			Vector2 pos = new Vector2(125, 0).RotatedBy(Parent.rotation + MathHelper.PiOver2);
-			Projectile.Center = pos + new Vector2(Parent.Center.X, Parent.Center.Y + 25);
+			Projectile.Center = pos + new Vector2(Parent.Center.X, Parent.Center.Y);
 			Projectile.rotation = Parent.rotation;
 
 			//shoot out pumpkins when spook fishron is dashing

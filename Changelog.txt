@@ -59,6 +59,14 @@ Items:
 -Zappy Zucchini lightning now does damage equal to 8% of an enemies maximum health instead of having a flat damage value of 20
 
 
+Magic Weapon Rebalancing/Reworks:
+
+-Snot nosed tome no longer flies to your cursor, it now summons the channeled nose above you, and shoots boogers at your cursor
+-Changed moocher staff projectile to be a giant cursed fire explosion that launches some cursed fireballs upward, it now does more damage, is more useful against flying targets, and visually looks better
+-Arachnid leg wand reworked, it now rapidly fires out short range and short lived spider leg apparitions that can go through blocks, nerfed its damage as a result of this rework
+-Jerry's book of stinkology projectile now has damage falloff when it pierces an enemy
+
+
 Accessory Rebalancing/Reworks:
 
 -Swapped the telescope and severed heads progression (severed head is now post orroboro and telescope is now post daffodil, both of their buy/sell prices and rarity colors have been adjusted accordingly)
@@ -86,17 +94,17 @@ Enemies and Bosses:
 
 -Buffed rot gourd max hp from 2200 to 2700
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
--Observing orchids will now only attack if they have light of sight with the player
+-Observing orchids will now only chase you if they have light of sight with you
 
 
 Miscellaneous:
 
--Bloom buffs UI now displays that you can remove buffs with right click
+-Bloom buffs UI now displays that you can remove buffs with right click when hovering over any icon
 -Made the spider grotto biome size a tiny bit smaller
 -Carved gourd-o-lanterns now count as light source blocks for npc housing
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
 -Spooky mod grasses now immediately turn into their corresponding dirt block when broken like terraria grasses do
--New resprites for all spooky mod grasses and most spooky mod dirt blocks to make them look more terraria styled
+-New resprites for all spooky mod grasses and most spooky mod dirt blocks to make them look more fitting with terraria's grass blocks
 -Catacombs curse debuff no longer prevents you from placing blocks
 -Catacomb bricks and walls can now be broken with pickaxes/hammers once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandora's box arena are still completely indestructable. This also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
 -Removed catacomb grass seeds, cemetery grass seeds now serve the same purpose of placing moss on catacomb bricks along with placing cemetery grass
@@ -117,10 +125,10 @@ Miscellaneous:
 -Fixed gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
 -Fixed living flesh mask still giving extra whip range
 -Fixed gore mask giving 3 extra minion slots instead of 2
--Fixed spooky mod flails not dealing reduced damage while in being spun around
+-Fixed spooky mod flails not dealing reduced damage while being spun around
 -Fixed dreadful clarinet note projectiles not fading out correctly
--Fixed bluefords casting animation playing way too early before he actually shields another ghost bandit
--Fixed issue where ancient crushers basically would never spawn due to an issue with their upward tile check when spawning on ceilings
+-Fixed blueford's casting animation playing way too early before he actually shields another ghost bandit
+-Fixed issue where ancient crushers basically would never spawn due to a problem with their upward tile check when spawning on ceilings
 -Fixed ancient crushers colliding with platforms when slamming down
 -Fixed cemetery biome dungeon chest item not having a sell price
 -Fixed possessed scarecrows shooting through blocks

@@ -229,31 +229,20 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					NPC.rotation += (float)Math.PI;
 				}
 			}
+		}
 
-			/*
-			public override void HitEffect(NPC.HitInfo hit) 
+		public override void HitEffect(NPC.HitInfo hit) 
+		{
+			if (NPC.life <= 0) 
 			{
-				if (NPC.life <= 0) 
+				for (int numGores = 1; numGores <= 3; numGores++)
 				{
-					if (Main.netMode != NetmodeID.MultiplayerClient)
+					if (Main.netMode != NetmodeID.Server) 
 					{
-						//spawn splatter
-						for (int i = 0; i < 8; i++)
-						{
-							NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-4, 5), Main.rand.Next(-4, -1)), ModContent.ProjectileType<RedSplatter>(), 0, 0f);
-						}
-					}
-
-					for (int numGores = 1; numGores <= 6; numGores++)
-					{
-						if (Main.netMode != NetmodeID.Server) 
-						{
-							Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TongueBiterGore" + numGores).Type);
-						}
+						Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y - 15), NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookSharkronGore" + numGores).Type);
 					}
 				}
 			}
-			*/
 		}
 	}
 }

@@ -67,30 +67,50 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				Projectile.Kill();
 			}
 
+            if (Projectile.owner == Main.myPlayer)
+            {
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
+                ProjDirection.Normalize();
+                Projectile.ai[0] = ProjDirection.X;
+				Projectile.ai[1] = ProjDirection.Y;
+            }
+
+            Vector2 direction = new Vector2(Projectile.ai[0], Projectile.ai[1]);
+
+            Projectile.direction = Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
+            
+            if (Projectile.direction >= 0)
+            {
+                Projectile.rotation = direction.ToRotation() - 1.57f * (float)Projectile.direction;
+            }
+            else
+            {
+                Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
+            }
+
             if (player.channel)
             {
                 Projectile.timeLeft = 2;
 
-                if (Projectile.owner == Main.myPlayer)
-                {
-                    Vector2 GoTo = Main.MouseWorld;
+                Projectile.Center = new Vector2(player.Center.X, player.Center.Y - 60);
 
-                    float vel = MathHelper.Clamp(Projectile.Distance(GoTo) / 12, 10, 20);
-                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(GoTo) * vel, 0.08f);
-                }
-
-                Projectile.ai[0]++;
-
-                if (Projectile.ai[0] >= ItemGlobal.ActiveItem(player).useTime && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+                Projectile.ai[2]++;
+                if (Projectile.ai[2] >= ItemGlobal.ActiveItem(player).useTime && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
                 {
                     SoundEngine.PlaySound(SoundID.Item171, Projectile.Center);
 
                     player.statMana -= ItemGlobal.ActiveItem(player).mana;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y + 20, Main.rand.Next(-1, 2), 
-                    Main.rand.Next(15, 22), ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 25;
 
-                    Projectile.ai[0] = 0;
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    }
+
+                    Projectile.ai[2] = 0;
                 }
 
                 player.heldProj = Projectile.whoAmI;

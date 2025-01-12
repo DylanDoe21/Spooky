@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Content.Projectiles.Minibiomes;
+using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 
 namespace Spooky.Content.Items.Minibiomes.Vegetable
 {

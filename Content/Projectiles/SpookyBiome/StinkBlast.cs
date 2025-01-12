@@ -28,6 +28,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
             target.AddBuff(BuffID.Stinky, 600);
+            Projectile.damage = (int)(damageDone * 0.75f);
         }
         
         public override void AI()

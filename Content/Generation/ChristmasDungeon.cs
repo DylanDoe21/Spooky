@@ -15,7 +15,7 @@ using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
 
 using StructureHelper;
 
-namespace Spooky.Content.Generation.Minibiomes
+namespace Spooky.Content.Generation
 {
 	public class ChristmasDungeon : ModSystem
 	{

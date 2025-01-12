@@ -9,6 +9,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     public class ZombiePart1 : ModProjectile
     {
 		int Bounces = 0;
+		int foundTarget = 0;
 
         public override void SetDefaults()
         {
@@ -32,12 +33,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;  
                 Projectile.velocity.X = Projectile.velocity.X * 0.99f;   
             }
+
+			foundTarget = FindTarget();
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Bounces++;
-			if (Bounces >= 3)
+			if (Bounces >= 5)
 			{
 				Projectile.Kill();
 			}
@@ -47,36 +50,64 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 				
 				SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
 
-				if (Projectile.velocity.X != oldVelocity.X)
-                {
-                    Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
-                }
+				if (foundTarget != -1)
+				{
+					NPC target = Main.npc[foundTarget];
+					Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+
+					Vector2 BounceToward = target.Center - Projectile.Center;
+					BounceToward.Normalize();
+					BounceToward *= 10;
+
+					Projectile.velocity.X = BounceToward.X;
+				}
+				else
+				{
+					if (Projectile.velocity.X != oldVelocity.X)
+					{
+						Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+						Projectile.velocity.X = -oldVelocity.X * 0.85f;
+					}
+				}
+
                 if (Projectile.velocity.Y != oldVelocity.Y)
                 {
                     Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+                    Projectile.velocity.Y = -oldVelocity.Y * 0.85f;
                 }
 			}
 
 			return false;
 		}
 
+		private int FindTarget()
+        {
+            const float homingMaximumRangeInPixels = 300;
+
+            int selectedTarget = -1;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC target = Main.npc[i];
+                if (target.CanBeChasedBy(Projectile))
+                {
+                    float distance = Projectile.Distance(target.Center);
+                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
+                    {
+                        selectedTarget = i;
+                    }
+                }
+            }
+
+            return selectedTarget;
+        }
+
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			Bounces++;
-			if (Bounces >= 3)
-			{
-				Projectile.Kill();
-			}
-			else
-			{
-				Projectile.ai[0] = 30;
+			Projectile.ai[0] = 30;
 
-				SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
 
-				Projectile.velocity = -Projectile.velocity * 1.1f;
-			}
+			Projectile.velocity.Y = -Projectile.velocity.Y * 1.1f;
 		}
 
 		public override void OnKill(int timeLeft)

@@ -16,8 +16,8 @@ namespace Spooky.Content.Items.SpiderCave
     {
         public override void SetDefaults()
         {
-            Item.damage = 18;
-            Item.mana = 15;
+            Item.damage = 12;
+            Item.mana = 5;
             Item.DamageType = DamageClass.Magic;
             Item.autoReuse = true;
             Item.noMelee = true;
@@ -25,13 +25,13 @@ namespace Spooky.Content.Items.SpiderCave
             Item.channel = true;
             Item.width = 54;
             Item.height = 60;
-            Item.useTime = 35;
-			Item.useAnimation = 35;
+            Item.useTime = 12;
+			Item.useAnimation = 12;
 			Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
-            Item.UseSound = SoundID.Item83;
+            Item.UseSound = SoundID.NPCHit23 with { Volume = 0.2f, Pitch = 1f };
             Item.shoot = ModContent.ProjectileType<SpiderLegStaffProj>();
             Item.shootSpeed = 5f;
         }

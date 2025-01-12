@@ -832,7 +832,7 @@ namespace Spooky.Content.Generation
 
 					if (IncrementY == CurrentY || IncrementY == CurrentY + 50)
 					{
-						for (int ropeY = IncrementY - 3; ropeY <= IncrementY + 3; ropeY++)
+						for (int ropeY = IncrementY - 3; ropeY <= IncrementY; ropeY++)
 						{
 							if (!Main.tile[CurrentX, ropeY].HasTile)
 							{
@@ -992,7 +992,7 @@ namespace Spooky.Content.Generation
 
 						double heightLimit = Main.worldSurface * 0.35f;
 
-						if (PositionY > (int)heightLimit + 80)
+						if (PositionY > (int)heightLimit + 150 || (PositionY > (int)heightLimit + 80 && PositionY < (int)heightLimit + 150 && Cemetery.NoFloatingIsland(PositionX, PositionY)))
 						{
 							if (PositionY <= Main.worldSurface)
 							{

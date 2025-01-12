@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,73 +13,51 @@ namespace Spooky.Content.Projectiles.SpiderCave
     {
         public bool IsStickingToTarget = false;
 
+        private static Asset<Texture2D> ProjTexture;
+
         public override void SetDefaults()
         {
             Projectile.width = 26;
             Projectile.height = 26;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.alpha = 255;
-            Projectile.timeLeft = 1800;
+            Projectile.timeLeft = 120;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override bool PreDraw(ref Color lightColor)
         {
-            if (!IsStickingToTarget)
-            {
-                Projectile.timeLeft = 60;
-                Projectile.ai[1] = target.whoAmI;
-                Projectile.velocity = (target.Center - Projectile.Center) * 0.75f;
-                IsStickingToTarget = true;
-                Projectile.netUpdate = true;
-            }
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+
+            Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+
+            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Orange);
+
+            Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+            var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
+
+            return false;
         }
 
         public override void AI()       
         {
-            if (Projectile.alpha > 0)
-            {
-                Projectile.alpha -= 10;
-            }
-
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
-            if (IsStickingToTarget) 
-            {
-				Projectile.ignoreWater = true;
-                Projectile.tileCollide = false;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			Projectile.rotation += 0f * (float)Projectile.direction;
 
-                int npcTarget = (int)Projectile.ai[1];
-                if (npcTarget < 0 || npcTarget >= 200) 
-                {
-                    Projectile.Kill();
-                }
-                else if (Main.npc[npcTarget].active && !Main.npc[npcTarget].dontTakeDamage) 
-                {
-                    Projectile.Center = Main.npc[npcTarget].Center - Projectile.velocity * 2f;
-                    Projectile.gfxOffY = Main.npc[npcTarget].gfxOffY;
-                }
-                else 
-                {
-                    Projectile.Kill();
-                }
-			}
-            else
+            if (Projectile.timeLeft <= 30)
             {
-                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-                Projectile.rotation += 0f * (float)Projectile.direction;
-
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.4f;
+                Projectile.alpha += 5;
             }
+
+            Projectile.velocity *= 0.75f;
         }
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
-
-			return true;
-		}
     }
 }

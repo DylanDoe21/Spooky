@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Spooky.Content.Projectiles.Minibiomes
+namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 {
     public class HoverCornPopped : ModProjectile
     {

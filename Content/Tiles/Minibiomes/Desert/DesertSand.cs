@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Generation.Minibiomes;
+using Spooky.Content.Generation;
 using Spooky.Content.Tiles.Minibiomes.Desert.Ambient;
 
 namespace Spooky.Content.Tiles.Minibiomes.Desert

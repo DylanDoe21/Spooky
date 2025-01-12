@@ -14,7 +14,9 @@ using Spooky.Content.Tiles.Minibiomes.Jungle;
 using Spooky.Content.Tiles.Minibiomes.Jungle.Ambient;
 using Spooky.Content.Tiles.Minibiomes.Jungle.Tree;
 
-namespace Spooky.Content.Generation.Minibiomes
+using StructureHelper;
+
+namespace Spooky.Content.Generation
 {
 	public class VegetableGarden : ModSystem
 	{
@@ -141,6 +143,7 @@ namespace Spooky.Content.Generation.Minibiomes
                 (ushort)ModContent.TileType<JungleSoil>(),
 				(ushort)ModContent.TileType<JungleSoilGrass>(),
                 (ushort)ModContent.TileType<JungleMoss>(),
+				TileID.Mudstone
             };
             
             void getAttachedPoints(int x, int y, List<Point> points)
@@ -185,6 +188,18 @@ namespace Spooky.Content.Generation.Minibiomes
 					{
 						SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<JungleMoss>(), 0, 4, 4, 1f, true, false);
 						SpookyWorldMethods.PlaceOval(i, j, -1, ModContent.WallType<JungleMossWall>(), 6, 5, 1f, false, false);
+					}
+				}
+			}
+
+			for (int i = PositionX - SizeX * 2; i < PositionX + SizeX * 2; i++)
+			{
+				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j++)
+				{
+					if (CanPlaceGreenhouse(i, j, 20))
+					{
+						Vector2 GreenhouseOrigin = new Vector2(i - 14, j - 14);
+						Generator.GenerateStructure("Content/Structures/VegetableGarden/Greenhouse-1", GreenhouseOrigin.ToPoint16(), Mod);
 					}
 				}
 			}
@@ -332,6 +347,36 @@ namespace Spooky.Content.Generation.Minibiomes
                     }
 				}
 			}
+		}
+
+		//check for a flat surface when placing structures
+		public bool CanPlaceGreenhouse(int PositionX, int PositionY, int Size)
+		{
+			for (int x = PositionX - Size; x <= PositionX + Size; x++)
+			{
+				for (int y = PositionY - Size; y <= PositionY + Size; y++)
+				{
+					if (Main.tile[x, y].TileType == TileID.TinPlating || Main.tile[x, y].TileType == TileID.Mudstone)
+					{
+						return false;
+					}
+				}
+			}
+
+			for (int x = PositionX - (Size / 2); x <= PositionX + (Size / 2); x++)
+			{
+				//check specifically for christmas carpet since the entire floor will be made out of that
+				if (Main.tile[x, PositionY].TileType == ModContent.TileType<JungleMoss>() && !Main.tile[x, PositionY - 1].HasTile && !Main.tile[x, PositionY - 2].HasTile && !Main.tile[x, PositionY - 3].HasTile && !Main.tile[x, PositionY - 4].HasTile)
+				{
+					continue;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		//dont allow broccoli trees to naturally grow too close to each other

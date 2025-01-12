@@ -5,7 +5,7 @@ using System;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Projectiles.Minibiomes
+namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 {
     public class HoverCorn : ModProjectile
     {

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Spooky.Content.Projectiles.Minibiomes;
+using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 
 namespace Spooky.Content.Items.Minibiomes.Vegetable
 {

@@ -1690,7 +1690,7 @@ SpiderEggCannon: {
 
 SpiderLegStaff: {
 	DisplayName: Arachnid Leg Wand
-	Tooltip: Casts out giant spider legs that can embed themselves in enemies
+	Tooltip: Rapidly cast out short-lived magic spider legs
 }
 
 SpiderSlingshot: {
@@ -2349,7 +2349,7 @@ SentientClingerStaff: {
 	DisplayName: Moocher Staff
 	Tooltip:
 		'''
-		Summons short-lived cursed flame pillars on the ground that rapidly damage enemies
+		Creates a massive cursed inferno explosion on the ground that creates fireballs
 		'Funny noises come from its flames'
 		'''
 }
@@ -2533,7 +2533,7 @@ BoogerBlaster: {
 
 BoogerBook: {
 	DisplayName: Snot-Nosed Tome
-	Tooltip: Casts a controllable nose that constantly sneezes boogers below it
+	Tooltip: Summons a flying nose above you that constantly shoots out boogers
 }
 
 BoogerFlail: {

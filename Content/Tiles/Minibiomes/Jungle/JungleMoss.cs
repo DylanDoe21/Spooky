@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-using Spooky.Content.Generation.Minibiomes;
+using Spooky.Content.Generation;
 using Spooky.Content.Tiles.Minibiomes.Jungle.Ambient;
 using Spooky.Content.Tiles.Minibiomes.Jungle.Tree;
 

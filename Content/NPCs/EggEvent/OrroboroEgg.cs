@@ -346,17 +346,6 @@ namespace Spooky.Content.NPCs.EggEvent
                             {
                                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                             }
-
-                            if (Main.netMode != NetmodeID.SinglePlayer)
-                            {
-                                ModPacket packet = Mod.GetPacket();
-                                packet.Write((byte)SpookyMessageType.EggIncursionDowned);
-                                packet.Send();
-                            }
-                            else
-                            {
-                                Flags.downedEggEvent = true;
-                            }
                         }
                         else
                         {
@@ -372,6 +361,20 @@ namespace Spooky.Content.NPCs.EggEvent
                             }
                         }
 
+                        if (!Flags.downedEggEvent)
+                        {
+                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            {
+                                ModPacket packet = Mod.GetPacket();
+                                packet.Write((byte)SpookyMessageType.EggIncursionDowned);
+                                packet.Send();
+                            }
+                            else
+                            {
+                                Flags.downedEggEvent = true;
+                            }
+                        }
+                        
                         EggEventWorld.EggEventActive = false;
 
                         if (Main.netMode == NetmodeID.Server)

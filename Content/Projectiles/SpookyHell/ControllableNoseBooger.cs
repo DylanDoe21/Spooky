@@ -26,9 +26,10 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.height = 26;
             Projectile.DamageType = DamageClass.Magic;          
 			Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.timeLeft = 180;
+            Projectile.penetrate = 2;
+            Projectile.timeLeft = 25;
             Projectile.alpha = 255;
 		}
 
@@ -72,7 +73,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= 20;
+                Projectile.alpha -= 35;
             }
 		}
 

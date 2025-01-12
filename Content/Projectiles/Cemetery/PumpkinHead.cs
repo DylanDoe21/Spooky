@@ -11,8 +11,9 @@ using Spooky.Content.Buffs.Minion;
 namespace Spooky.Content.Projectiles.Cemetery
 {
     public class PumpkinHead : ModProjectile
-    {   
-        int shootTimer = 50;
+    {
+        bool isAttacking = false;
+        bool Shake = false;
 
         public override void SetStaticDefaults()
         {
@@ -82,27 +83,90 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Lighting.AddLight(Projectile.Center, 0.6f, 0.3f, 0f);
 
-            //targetting and shooting
-            for (int i = 0; i < 200; i++)
+            //target an enemy
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
-				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-                if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 450f)
+                NPC Target = Projectile.OwnerMinionAttackTargetNPC;
+                if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 600f)
                 {
-					Shoot(Target);
+                    Shoot(Target);
 
-					break;
-				}
-
-				NPC NPC = Main.npc[i];
-                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 450f)
+                    break;
+                }
+                else
                 {
-					Shoot(NPC);
+                    isAttacking = false;
+                }
 
-					break;
-				}
+                NPC NPC = Main.npc[i];
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(player.Center, NPC.Center) <= 600f)
+                {
+                    Shoot(NPC);
+
+                    break;
+                }
+                else
+                {
+                    isAttacking = false;
+                }
             }
 
-            //movement
+            if (!isAttacking)
+            {
+                IdleAI(player);
+            }
+        }
+
+        public void Shoot(NPC target)
+		{
+            isAttacking = true;
+
+            Projectile.velocity *= 0.985f;
+
+            if (Shake)
+            {
+                Projectile.rotation += 0.01f;
+                if (Projectile.rotation > 0.12f)
+                {
+                    Shake = false;
+                }
+            }
+            else
+            {
+                Projectile.rotation -= 0.01f;
+                if (Projectile.rotation < -0.12f)
+                {
+                    Shake = true;
+                }
+            }
+
+			Projectile.ai[2]++;
+
+			if (Projectile.ai[2] == 40 || Projectile.ai[2] == 60 || Projectile.ai[2] == 80)
+			{
+				SoundEngine.PlaySound(SoundID.DD2_FlameburstTowerShot with { Volume = 0.5f }, Projectile.Center);
+
+				float Speed = 20f;
+				Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
+				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
+				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
+
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y,
+				perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<PumpkinHeadBolt>(), 35, 0f, Main.myPlayer, 0f, 0f);
+			}
+
+            if (Projectile.ai[2] >= 100)
+            {
+                Projectile.ai[2] = 0;
+            }
+		}
+
+        public void IdleAI(Player player)
+		{
+            Projectile.rotation = Projectile.velocity.X * 0.05f;
+
+            Projectile.ai[2] = 0;
+
             if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
             {
                 Projectile.ai[0] = 1f;
@@ -155,34 +219,12 @@ namespace Spooky.Content.Projectiles.Cemetery
                 Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
             }
 
-            Projectile.rotation = Projectile.velocity.X * 0.05f;
-
             if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
             {
                 Projectile.spriteDirection = -Projectile.direction;
                 return;
             }
         }
-
-        public void Shoot(NPC target)
-		{
-			shootTimer++;
-
-			if (shootTimer >= 40)
-			{
-				SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
-
-				float Speed = 20f;
-				Vector2 vector = new(Projectile.position.X + (Projectile.width / 2), Projectile.position.Y + (Projectile.height / 2));
-				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
-				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
-
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y,
-				perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<PumpkinHeadBolt>(), 30, 0f, Main.myPlayer, 0f, 0f);
-
-                shootTimer = 0;
-			}
-		}
 
         public override void OnKill(int timeLeft)
 		{

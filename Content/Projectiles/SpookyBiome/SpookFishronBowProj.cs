@@ -112,8 +112,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             {
                 Projectile.timeLeft = 30;
 
-				player.velocity.X *= 0.98f;
-
                 Projectile.localAI[0]++;
 
                 if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3)
@@ -132,9 +130,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
                     if (Projectile.owner == Main.myPlayer && Projectile.timeLeft % 5 == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 0.25f }, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item42 with { Volume = 0.35f }, Projectile.Center);
 
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y);
+                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
                         ShootSpeed *= 18;
 

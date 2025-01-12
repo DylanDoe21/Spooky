@@ -57,7 +57,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 45f;
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), playerRelativePoint + Projectile.velocity / 2 + muzzleOffset,
-                    Projectile.velocity * 3f, ModContent.ProjectileType<SpiderLeg>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.velocity * 10f, ModContent.ProjectileType<SpiderLeg>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
 

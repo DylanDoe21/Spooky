@@ -1,15 +1,16 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
-using System;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
@@ -26,10 +27,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 	[AutoloadBossHead]
 	public class SpookFishron : ModNPC
 	{
-		Vector2 SavePosition;
-		Vector2 SavePlayerPosition;
-		Vector2 SavePlayerPosition2;
-
+		int CurrentFrameX = 0; //0 = flying animation  1 = open mouth  2 = using weapon
 		public int SaveDirection;
 
 		public float SaveRotation;
@@ -39,8 +37,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		public bool Phase2 = false;
 		public bool Phase3 = false;
 		public bool Charging = false;
-		public bool OpenMouth = false;
 		public bool DontFacePlayer = false;
+		
+		Vector2 SavePosition;
+		Vector2 SavePlayerPosition;
+		Vector2 SavePlayerPosition2;
 
 		private static Asset<Texture2D> NPCTexture;
 		private static Asset<Texture2D> GlowTexture;
@@ -49,7 +50,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 10;
+			Main.npcFrameCount[NPC.type] = 8;
 			NPCID.Sets.TrailCacheLength[NPC.type] = 10;
 			NPCID.Sets.TrailingMode[NPC.type] = 0;
 
@@ -83,7 +84,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			writer.Write(Phase2);
 			writer.Write(Phase3);
 			writer.Write(Charging);
-			writer.Write(OpenMouth);
 			writer.Write(DontFacePlayer);
 
 			//floats
@@ -110,7 +110,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			Phase2 = reader.ReadBoolean();
 			Phase3 = reader.ReadBoolean();
 			Charging = reader.ReadBoolean();
-			OpenMouth = reader.ReadBoolean();
 			DontFacePlayer = reader.ReadBoolean();
 
 			//floats
@@ -190,28 +189,17 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 		public override void FindFrame(int frameHeight)
 		{
+			if (Main.netMode != NetmodeID.Server)
+            {
+                NPC.frame.Width = TextureAssets.Npc[NPC.type].Width() / 3;
+            }
+
+            NPC.frame.X = (int)(NPC.frame.Width * CurrentFrameX);
+
 			//regular flying animation
-			if (Charging && !OpenMouth)
+			if (Charging)
 			{
 				NPC.frame.Y = frameHeight * 2;
-			}
-			else if (OpenMouth && !Charging)
-			{
-				if (NPC.frame.Y < frameHeight * 9)
-				{
-					NPC.frame.Y = frameHeight * 8;
-				}
-
-				NPC.frameCounter++;
-				if (NPC.frameCounter > 5)
-				{
-					NPC.frame.Y = NPC.frame.Y + frameHeight;
-					NPC.frameCounter = 0;
-				}
-				if (NPC.frame.Y >= frameHeight * 10)
-				{
-					NPC.frame.Y = frameHeight * 9;
-				}
 			}
 			else
 			{
@@ -247,10 +235,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			//set to phase transition if it drops below half health
 			if (NPC.life < (NPC.lifeMax / 2) && !Phase2 && !Transition)
 			{
-				NPC.rotation = 0;
 				DontFacePlayer = false;
 				Charging = false;
-				OpenMouth = false;
+				CurrentFrameX = 0;
+				SpinMultiplier = 0;
+				NPC.rotation = 0;
 				NPC.localAI[0] = 0;
 				NPC.localAI[1] = 0;
 				NPC.localAI[2] = 0;
@@ -262,10 +251,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			//expert mode phase transition
 			if (Main.expertMode && NPC.life < (NPC.lifeMax / 10) && !Phase3 && !Transition)
 			{
-				NPC.rotation = 0;
 				DontFacePlayer = false;
 				Charging = false;
-				OpenMouth = false;
+				CurrentFrameX = 0;
+				SpinMultiplier = 0;
+				NPC.rotation = 0;
 				NPC.localAI[0] = 0;
 				NPC.localAI[1] = 0;
 				NPC.localAI[2] = 0;
@@ -329,7 +319,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
-						OpenMouth = true;
+						CurrentFrameX = 1;
 						Phase3 = true;
 
 						SpookyPlayer.ScreenShakeAmount = 18;
@@ -363,7 +353,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] == 200)
 					{
-						OpenMouth = false;
+						CurrentFrameX = 0;
 					}
 
 					if (NPC.localAI[0] >= 250)
@@ -400,7 +390,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
-						OpenMouth = true;
+						CurrentFrameX = 1;
 						Phase2 = true;
 
 						SpookyPlayer.ScreenShakeAmount = 18;
@@ -429,7 +419,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] == 200)
 					{
-						OpenMouth = false;
+						CurrentFrameX = 0;
 					}
 
 					if (NPC.localAI[0] >= 250)
@@ -473,12 +463,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
 						SpookyPlayer.ScreenShakeAmount = 18;
-						OpenMouth = true;
+						CurrentFrameX = 1;
 					}
 
 					if (NPC.localAI[0] >= 140)
 					{
-						OpenMouth = false;
+						CurrentFrameX = 0;
 
 						NPC.localAI[0] = 0;
 						NPC.ai[0]++;
@@ -513,7 +503,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 						if (NPC.localAI[0] > 60 && NPC.localAI[0] < 140)
 						{
-							OpenMouth = true;
+							CurrentFrameX = 1;
 
 							int Frequency = Phase2 ? 10 : 15;
 
@@ -544,7 +534,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						{
 							SavePlayerPosition = player.Center;
 
-							OpenMouth = false;
+							CurrentFrameX = 0;
 						}
 
 						if (NPC.localAI[0] == 150)
@@ -677,7 +667,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 240)
 					{
-						OpenMouth = true;
+						CurrentFrameX = 1;
 
 						Vector2 ShootSpeed = Phase2 ? player.oldPosition - NPC.Center : SavePlayerPosition - NPC.Center;
 						ShootSpeed.Normalize();
@@ -710,7 +700,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] > 240)
 					{
-						OpenMouth = false;
+						CurrentFrameX = 0;
 					}   
 
 					if (NPC.localAI[0] >= 300)
@@ -761,12 +751,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
 						SpookyPlayer.ScreenShakeAmount = 18;
-						OpenMouth = true;
+						CurrentFrameX = 1;
 					}
 
 					if (NPC.localAI[0] == 120)
 					{
-						OpenMouth = false;
+						CurrentFrameX = 0;
 
 						Vector2 ShootSpeed = player.Center - NPC.Center;
 						ShootSpeed.Normalize();
@@ -835,7 +825,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
 						SpookyPlayer.ScreenShakeAmount = 12;
-						OpenMouth = true;
+						CurrentFrameX = 1;
 					}
 
 					if (NPC.localAI[0] >= 60 && NPC.localAI[0] < 175)
@@ -849,7 +839,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						//spawn stake launcher
 						if (NPC.localAI[0] == 120)
 						{
-							OpenMouth = false;
+							CurrentFrameX = 0;
 
 							Vector2 pos = new Vector2(1000, 0).RotatedBy(NPC.rotation + MathHelper.PiOver2);
 							NPCGlobalHelper.ShootHostileProjectile(NPC, pos + player.Center, Vector2.Zero, ModContent.ProjectileType<StakeLauncherSpin>(), NPC.damage, 4.5f, 0, NPC.whoAmI);
@@ -861,11 +851,10 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							//charge and use the stake launcher, 3 times
 							if (NPC.ai[1] <= 4)
 							{
-								Vector2 VelocityPredictCenter = player.Center + player.velocity * 20f;
-
 								//go to position around the player
 								if (NPC.localAI[0] == 240)
 								{
+									CurrentFrameX = 2;
 									NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
 									NPC.localAI[2] = Main.rand.Next(-350, 0);
 								}
@@ -873,8 +862,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 								{
 									//rotate towards predicted position
 									Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-									float RotateX = VelocityPredictCenter.X - vector.X;
-									float RotateY = VelocityPredictCenter.Y - vector.Y;
+									float RotateX = player.Center.X - vector.X;
+									float RotateY = player.Center.Y - vector.Y;
 									NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
 									Vector2 GoTo = player.Center;
@@ -887,7 +876,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 								if (NPC.localAI[0] == 300)
 								{
-									SavePlayerPosition = VelocityPredictCenter;
+									SavePlayerPosition = player.Center;
 									SaveDirection = NPC.spriteDirection;
 								}
 
@@ -947,6 +936,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 								if (NPC.localAI[0] >= 450)
 								{
+									CurrentFrameX = 0;
+
 									NPC.rotation += (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y)) * 0.01f * SaveDirection;
 
 									NPC.direction = SaveDirection;
@@ -1000,7 +991,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						//spawn sword
 						if (NPC.localAI[0] == 120)
 						{
-							OpenMouth = false;
+							CurrentFrameX = 0;
 
 							Vector2 pos = new Vector2(1000, 0).RotatedBy(NPC.rotation + MathHelper.PiOver2);
 							NPCGlobalHelper.ShootHostileProjectile(NPC, pos + player.Center, Vector2.Zero, ModContent.ProjectileType<SpookySwordSpin>(), NPC.damage, 4.5f, 0, NPC.whoAmI);
@@ -1020,6 +1011,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 								if (NPC.localAI[0] == 240)
 								{
+									CurrentFrameX = 2;
 									NPC.localAI[1] = player.Center.X > NPC.Center.X ? -600 : 600;
 								}
 
@@ -1121,6 +1113,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 								if (NPC.localAI[0] >= 450)
 								{
+									CurrentFrameX = 0;
+
 									NPC.rotation += (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y)) * 0.01f * SaveDirection;
 
 									NPC.direction = SaveDirection;
@@ -1371,12 +1365,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
 							SpookyPlayer.ScreenShakeAmount = 18;
-							OpenMouth = true;
+							CurrentFrameX = 1;
 						}
 
 						if (NPC.localAI[0] == 120)
 						{
-							OpenMouth = false;
+							CurrentFrameX = 0;
 
 							Vector2 ShootSpeed = player.Center - NPC.Center;
 							ShootSpeed.Normalize();

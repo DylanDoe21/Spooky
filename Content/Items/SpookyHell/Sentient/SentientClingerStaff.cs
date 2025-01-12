@@ -16,20 +16,20 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
         public override void SetDefaults()
         {
             Item.damage = 55;
-            Item.mana = 10;
+            Item.mana = 15;
 			Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;
 			Item.autoReuse = true;
             Item.width = 52;
             Item.height = 52;
-            Item.useTime = 20;
-			Item.useAnimation = 20;
+            Item.useTime = 50;
+			Item.useAnimation = 50;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 0;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 50);
-            Item.UseSound = SoundID.Item103;
-            Item.shoot = ModContent.ProjectileType<CursedFlamePillar>();
+            Item.UseSound = SoundID.Item20;
+            Item.shoot = ModContent.ProjectileType<CursedExplosion>();
         }
 
         public override bool CanUseItem(Player player)
@@ -88,11 +88,7 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
                     }
                 }
 
-                Vector2 direction9 = mouse - position;
-                direction9.Normalize();
-                direction9 *= Item.shootSpeed;
-                velocity = direction9;
-                SoundEngine.PlaySound(SoundID.Item103, position);
+                position.Y -= 25;
             }
         }
     }

@@ -14,7 +14,7 @@ using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes.Desert;
 using Spooky.Content.Tiles.Minibiomes.Desert.Ambient;
 
-namespace Spooky.Content.Generation.Minibiomes
+namespace Spooky.Content.Generation
 {
 	public class TarPits : ModSystem
 	{

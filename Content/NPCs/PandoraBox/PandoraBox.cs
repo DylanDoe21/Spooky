@@ -44,6 +44,9 @@ namespace Spooky.Content.NPCs.PandoraBox
             writer.Write(PlayAnimation);
             writer.Write(EndingAnimation);
             writer.Write(Shake);
+
+            //floats
+            writer.Write(NPC.localAI[0]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -55,6 +58,9 @@ namespace Spooky.Content.NPCs.PandoraBox
             PlayAnimation = reader.ReadBoolean();
             EndingAnimation = reader.ReadBoolean();
             Shake = reader.ReadBoolean();
+
+            //floats
+            NPC.localAI[0] = reader.ReadSingle();
         }
 
         public override void SetDefaults()
@@ -151,18 +157,18 @@ namespace Spooky.Content.NPCs.PandoraBox
                     NPC.netUpdate = true;
 
 					PandoraBoxWorld.Wave++;
-
-					if (Main.netMode == NetmodeID.Server)
-                    {
-                        NetMessage.SendData(MessageID.WorldData);
-                    }
                 }
                 else
                 {
                     EndingAnimation = true;
-
-                    NPC.netUpdate = true;
                 }
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+                
+                NPC.netUpdate = true;
             }
         }
 
@@ -290,7 +296,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                     {
                         PlayAnimation = true;
 
-                        if (NPC.frame.Y == 3 * 36)
+                        if (NPC.localAI[0] == 10)
                         {
                             SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
                             SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
@@ -317,7 +323,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                     {
                         PlayAnimation = true;
 
-                        if (NPC.frame.Y == 3 * 36)
+                        if (NPC.localAI[0] == 10)
                         {
                             SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
                             SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
@@ -346,7 +352,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                     {
                         PlayAnimation = true;
 
-                        if (NPC.frame.Y == 3 * 36)
+                        if (NPC.localAI[0] == 10)
                         {
                             SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
                             SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
@@ -372,7 +378,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                     {
                         PlayAnimation = true;
 
-                        if (NPC.frame.Y == 3 * 36)
+                        if (NPC.localAI[0] == 10)
                         {
                             SoundEngine.PlaySound(SoundID.AbigailUpgrade, NPC.Center);
                             SoundEngine.PlaySound(SoundID.NPCDeath33, NPC.Center);
@@ -451,10 +457,11 @@ namespace Spooky.Content.NPCs.PandoraBox
 
             if (PlayAnimation)
             {
-                if (NPC.frame.Y >= NPC.height * 4)
+                NPC.localAI[0]++;
+                if (NPC.localAI[0] >= 20)
                 {
                     PlayAnimation = false;
-
+                    NPC.localAI[0] = 0;
                     NPC.netUpdate = true;
                 }
             }
@@ -500,77 +507,86 @@ namespace Spooky.Content.NPCs.PandoraBox
                     SwitchToNextWave();
                     SpawnEnemies();
                 }
+            }
+            else
+            {
+                SpawnedEnemies = false;
+                HasDoneSpawnAnimation = false;
+                PlayAnimation = false;
+            }
 
-                //when the event is completed, spawn projectile that drops the items
-                if (EndingAnimation)
+            //when the event is completed, drop the item loot
+            if (EndingAnimation)
+            {
+                NPC.ai[1]++;
+
+                if (NPC.ai[1] < 90)
                 {
-                    NPC.ai[1]++;
-
-                    if (NPC.ai[1] < 90)
+                    if (Shake)
                     {
-                        if (Shake)
+                        NPC.rotation += 0.1f;
+                        if (NPC.rotation > 0.2f)
                         {
-                            NPC.rotation += 0.1f;
-                            if (NPC.rotation > 0.2f)
-                            {
-                                Shake = false;
-                            }
+                            Shake = false;
                         }
-                        else
+                    }
+                    else
+                    {
+                        NPC.rotation -= 0.1f;
+                        if (NPC.rotation < -0.2f)
                         {
-                            NPC.rotation -= 0.1f;
-                            if (NPC.rotation < -0.2f)
-                            {
-                                Shake = true;
-                            }
-                        }
-
-                        int MaxDusts = Main.rand.Next(5, 15);
-                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
-                        {
-                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 2f, (float)NPC.height / 2f) * Main.rand.NextFloat(1.5f, 2f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
-                            Vector2 velocity = dustPos - NPC.Center;
-                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
-                            Main.dust[dustEffect].color = Color.Cyan;
-                            Main.dust[dustEffect].noGravity = true;
-                            Main.dust[dustEffect].noLight = false;
-                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
-                            Main.dust[dustEffect].fadeIn = 1.3f;
+                            Shake = true;
                         }
                     }
 
-                    if (NPC.ai[1] >= 90)
+                    int MaxDusts = Main.rand.Next(5, 15);
+                    for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                     {
-                        NPC.rotation = 0;
+                        Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 2f, (float)NPC.height / 2f) * Main.rand.NextFloat(1.5f, 2f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                        Vector2 velocity = dustPos - NPC.Center;
+                        int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
+                        Main.dust[dustEffect].color = Color.Cyan;
+                        Main.dust[dustEffect].noGravity = true;
+                        Main.dust[dustEffect].noLight = false;
+                        Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-5f, -2f);
+                        Main.dust[dustEffect].fadeIn = 1.3f;
+                    }
+                }
 
-                        SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, NPC.Center);
+                if (NPC.ai[1] >= 90)
+                {
+                    NPC.rotation = 0;
 
-                        PlayAnimation = true;
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, NPC.Center);
 
-                        if (NPC.ai[1] >= 115)
+                    PlayAnimation = true;
+
+                    if (NPC.ai[1] >= 115)
+                    {
+                        //drop one of the pandora accessories
+                        int[] Accessories = new int[] { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(), 
+                        ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>() };
+
+                        int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, Main.rand.Next(Accessories));
+
+                        if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
                         {
-                            //drop one of the pandora accessories
-                            int[] Accessories = new int[] { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(), 
-                            ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>() };
+                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                        }
 
-                            int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, Main.rand.Next(Accessories));
+                        //chance to drop the funny bean
+                        if (Main.rand.NextBool(20))
+                        {
+                            int FunnyBean = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<PandoraBean>());
 
-                            if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                            if (Main.netMode == NetmodeID.MultiplayerClient && FunnyBean >= 0)
                             {
-                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, FunnyBean, 1f);
                             }
+                        }
 
-                            //chance to drop the funny bean
-                            if (Main.rand.NextBool(20))
-                            {
-                                int FunnyBean = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<PandoraBean>());
-
-                                if (Main.netMode == NetmodeID.MultiplayerClient && FunnyBean >= 0)
-                                {
-                                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, FunnyBean, 1f);
-                                }
-                            }
-
+                        if (!Flags.downedPandoraBox)
+                        {
                             if (Main.netMode != NetmodeID.SinglePlayer)
                             {
                                 ModPacket packet = Mod.GetPacket();
@@ -581,27 +597,22 @@ namespace Spooky.Content.NPCs.PandoraBox
                             {
                                 Flags.downedPandoraBox = true;
                             }
-                            
-                            PandoraBoxWorld.PandoraEventActive = false;
-
-                            if (Main.netMode == NetmodeID.Server)
-                            {
-                                NetMessage.SendData(MessageID.WorldData);
-                            }
-
-                            NPC.ai[1] = 0;
-
-                            NPC.netUpdate = true;
                         }
+
+                        PandoraBoxWorld.PandoraEventActive = false;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+
+                        NPC.ai[1] = 0;
+
+                        EndingAnimation = false;
+
+                        NPC.netUpdate = true;
                     }
                 }
-            }
-            else
-            {
-                SpawnedEnemies = false;
-                HasDoneSpawnAnimation = false;
-                PlayAnimation = false;
-                EndingAnimation = false;
             }
         }
     }

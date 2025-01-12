@@ -81,23 +81,23 @@ namespace Spooky.Content.NPCs.EggEvent
 					}
 				}
 
-				//increment both timers
 				if (EventTimeLeft < 21600)
 				{
+					//increment both timers
+					//the timer for the UI gets decreased so that the actual time displayed on the UI bar is counting down and not up
 					EventTimeLeft++;
 					EventTimeLeftUI--;
 
-					//converts the timeleft to actual seconds, goes up to 360 seconds (or 6 minutes)
-					//60 = 1 minute
-					//120 = 2 minutes
-					//180 = 3 minutes
-					//240 = 4 minutes
-					//300 = 5 minutes
-					//360 = 6 minutes
+					//converts the time left to actual seconds, goes up to 360 seconds (or 6 minutes)
+					//60 = 1 minute in
+					//120 = 2 minutes in
+					//180 = 3 minutes in
+					//240 = 4 minutes in
+					//300 = 5 minutes in
+					//360 = 6 minutes in
 					float timeLeft = EventTimeLeft / 60;
 
 					int ChanceToSpawnEnemy = 300;
-
 					if (timeLeft >= 60) ChanceToSpawnEnemy = 300;
 					if (timeLeft >= 120) ChanceToSpawnEnemy = 250;
 					if (timeLeft >= 180) ChanceToSpawnEnemy = 200;

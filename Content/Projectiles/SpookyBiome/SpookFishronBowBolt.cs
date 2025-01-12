@@ -69,7 +69,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (Projectile.ai[0] > 20)
             {
-                int foundTarget = HomeOnTarget();
+                int foundTarget = FindTarget();
                 if (foundTarget != -1)
                 {
                     NPC target = Main.npc[foundTarget];
@@ -85,7 +85,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             }
         }
 
-        private int HomeOnTarget()
+        private int FindTarget()
         {
             const float homingMaximumRangeInPixels = 750;
 

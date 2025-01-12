@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.Localization;
@@ -48,27 +49,36 @@ namespace Spooky.Content.NPCs.PandoraBox
 				Wave = 0;
 			}
 
-			//end the event and reset everything if you die
-			if (PandoraEventActive && Main.player[Main.myPlayer].dead)
+			if (PandoraEventActive && !AnyPlayersInBiome())
 			{
 				Wave = 0;
 				PandoraEventActive = false;
-			}
 
-			if (!Main.player[Main.myPlayer].InModBiome(ModContent.GetInstance<CatacombBiome2>()))
-			{
-				PandoraEventActive = false;
-			}
-
-			//end the event, reset everything, and set it to downed when completed
-			if (Wave > 4)
-			{
-				if (!Flags.downedPandoraBox)
+				if (Main.netMode == NetmodeID.Server)
 				{
-					//event end message
-					NPC.SetEventFlagCleared(ref Flags.downedPandoraBox, -1);
+					NetMessage.SendData(MessageID.WorldData);
 				}
 			}
+		}
+
+		public bool AnyPlayersInBiome()
+		{
+			foreach (Player player in Main.ActivePlayers)
+			{
+				int playerInBiomeCount = 0;
+
+				if (!player.dead && player.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
+				{
+					playerInBiomeCount++;
+				}
+
+				if (playerInBiomeCount >= 1)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

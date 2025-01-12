@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Spooky.Content.Projectiles.Minibiomes
+namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 {
 	public class EggplantWhipProj : ModProjectile
 	{

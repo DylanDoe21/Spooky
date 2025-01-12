@@ -12,7 +12,7 @@ namespace Spooky.Content.Tiles.NoseTemple
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        private Asset<Texture2D> BackgroundTexture;
+        private static Asset<Texture2D> BackgroundTexture;
 
         public override void SetStaticDefaults()
         {
@@ -51,7 +51,7 @@ namespace Spooky.Content.Tiles.NoseTemple
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        private Asset<Texture2D> BackgroundTexture;
+        private static Asset<Texture2D> BackgroundTexture;
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
@@ -73,7 +73,7 @@ namespace Spooky.Content.Tiles.NoseTemple
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        private Asset<Texture2D> BackgroundTexture;
+        private static Asset<Texture2D> BackgroundTexture;
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
@@ -95,7 +95,7 @@ namespace Spooky.Content.Tiles.NoseTemple
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
-        private Asset<Texture2D> BackgroundTexture;
+        private static Asset<Texture2D> BackgroundTexture;
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {

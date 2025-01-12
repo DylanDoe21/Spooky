@@ -67,7 +67,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			Projectile.spriteDirection = player.Center.X < Projectile.Center.X ? -1 : 1;
 
 			Vector2 pos = new Vector2(125, 0).RotatedBy(Parent.rotation + MathHelper.PiOver2);
-			Projectile.Center = pos + new Vector2(Parent.Center.X, Parent.Center.Y + 15);
+			Projectile.Center = pos + new Vector2(Parent.Center.X, Parent.Center.Y - 5);
 			Projectile.rotation = Parent.rotation;
 
 			//shoot out stake
@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			{
 				SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
-				Vector2 ShootSpeed = (player.Center + player.velocity * 20f) - Projectile.Center;
+				Vector2 ShootSpeed = player.Center - Projectile.Center;
 				ShootSpeed.Normalize();
 				ShootSpeed *= 55f;
 

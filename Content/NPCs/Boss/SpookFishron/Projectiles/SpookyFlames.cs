@@ -49,8 +49,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Color color1 = new Color(116, 76, 136, 200);
-			Color color2 = new Color(237, 120, 0, 70);
-			Color color3 = color2;
+			Color color2 = color1;
+			Color color3 = new Color(237, 120, 0, 70);
 			Color color4 = new Color(160, 82, 35, 100);
 			float length = (Projectile.ai[0] > Fadetime - 10f) ? 0.1f : 0.15f;
 			float vOffset = Math.Min(Projectile.ai[0], 20f);
