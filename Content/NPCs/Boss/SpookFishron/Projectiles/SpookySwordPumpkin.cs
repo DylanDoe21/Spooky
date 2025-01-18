@@ -18,7 +18,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 		Vector2[] trailLength = new Vector2[10];
 
-		private static Asset<Texture2D> TrailTexture;
+		private static Asset<Texture2D> ProjTexture;
 
 		public override void SetStaticDefaults()
         {
@@ -39,21 +39,27 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 		}
 
         public override bool PreDraw(ref Color lightColor)
-		{   
+		{
 			if (runOnce)
 			{
 				return false;
 			}
 
-			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailCircle");
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			Vector2 drawTrailOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 			Vector2 previousPosition = Projectile.Center;
+
+			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+			var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			for (int k = 0; k < trailLength.Length; k++)
 			{
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
+
+				Color color = Color.Lerp(Color.Red, Color.Yellow, scale);
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -64,13 +70,17 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Vector2 currentPos = trailLength[k];
 				Vector2 betweenPositions = previousPosition - currentPos;
 
-				float max = betweenPositions.Length() / (4 * scale);
+				float max = betweenPositions.Length() / (7 * scale);
 
 				for (int i = 0; i < max; i++)
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, Projectile.GetAlpha(Color.OrangeRed * 0.5f), Projectile.rotation, drawTrailOrigin, scale * 0.65f, SpriteEffects.None, 0f);
+					//gives the projectile after images a shaking effect
+					float x = Main.rand.Next(-5, 6) * scale;
+					float y = Main.rand.Next(-5, 6) * scale;
+
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), rectangle, Projectile.GetAlpha(color), Projectile.rotation, drawOrigin, scale * 0.65f, effects, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -120,7 +130,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			
 			if (Projectile.ai[1] > 60)
 			{
-				Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 12;
+				Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 14;
 				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 			}
 		}

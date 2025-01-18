@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.WhipDebuff;
+
 namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 {
 	public class EggplantWhipProj : ModProjectile
@@ -22,7 +24,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 			Projectile.DefaultToWhip();
 
 			Projectile.WhipSettings.Segments = 30;
-			Projectile.WhipSettings.RangeMultiplier = 0.75f;
+			Projectile.WhipSettings.RangeMultiplier = 0.85f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
@@ -31,6 +33,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 
 			owner.MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
+
+			target.AddBuff(ModContent.BuffType<EggplantWhipDebuff>(), 240);
         }
 
         public override bool PreDraw(ref Color lightColor) 
@@ -56,17 +60,17 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 					frame.Y = 44;
 					frame.Height = 22;
 				}
-				else if (i == list.Count - 3 || i == list.Count - 4) 
+				else if (i <= list.Count - 3 && i >= list.Count - 7)
 				{
 					frame.Y = 36;
 					frame.Height = 6;
 				}
-				else if (i == list.Count - 5 || i == list.Count - 6) 
+				else if (i < list.Count - 7 && i >= list.Count - 12)
 				{
 					frame.Y = 28;
 					frame.Height = 6;
 				}
-				else if (i == list.Count - 7 || i == list.Count - 8)
+				else if (i < list.Count - 12 && i >= list.Count - 16)
 				{
 					frame.Y = 20;
 					frame.Height = 6;

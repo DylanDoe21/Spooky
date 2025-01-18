@@ -147,9 +147,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
             //despawn if the player dies or leaves the biome
-            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
+            if (player.dead || !player.active || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
-                NPC.ai[0] = -3;
+                NPC.velocity.Y += 0.25f;
+				NPC.EncourageDespawn(60);
+				return;
             }
 
             //Create the worm itself
@@ -210,26 +212,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //attacks
             switch ((int)NPC.ai[0])
             {
-                //despawning
-                case -3:
-                {
-                    Chomp = false;
-                    OpenMouth = false;
-
-                    NPC.localAI[3]++;
-                    if (NPC.localAI[3] >= 45)
-                    {
-                        NPC.velocity.Y = 35;
-                    }
-
-                    if (NPC.localAI[3] >= 120)
-                    {
-                        NPC.active = false;
-                    }
-
-                    break;
-                }
-
                 //phase 2 transition
                 case -2:
                 {

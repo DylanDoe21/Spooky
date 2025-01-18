@@ -302,9 +302,20 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             int Damage = Main.masterMode ? 60 / 3 : Main.expertMode ? 40 / 2 : 30;
 
             //despawn if the player dies or leaves the biome
-            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
+            if (player.dead || !player.active || !player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome>()))
             {
-                NPC.ai[0] = -5;
+                NPC.localAI[1]++;
+                    
+                if (NPC.localAI[1] >= 120)
+                {
+                    NPC.active = false;
+                }
+
+                return;
+            }
+            else
+            {
+                NPC.localAI[1] = 0;
             }
 
             if (!SpawnedHands)
@@ -338,22 +349,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
             switch ((int)NPC.ai[0])
             {
-                //despawning
-                case -5:
-                {
-                    NPC.localAI[1]++;
-                    
-                    if (NPC.localAI[1] == 120)
-                    {
-                        NPC.active = false;
-                    }
-
-                    break;
-                }
-
                 //go back to sleep
                 case -4:
-                {   
+                {
                     NPC.localAI[0]++;
 
                     if (NPC.localAI[0] == 1)
@@ -979,8 +977,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         }
 
         public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.GreaterHealingPotion;
-        }
+		{
+			potionType = ModContent.ItemType<CranberryJuice>();
+		}
     }
 }

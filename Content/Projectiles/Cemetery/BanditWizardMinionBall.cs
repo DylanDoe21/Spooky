@@ -29,6 +29,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             Projectile.width = 36;
             Projectile.height = 36;
+			Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 25;

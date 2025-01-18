@@ -11,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.SpookyBiome;
@@ -888,7 +889,7 @@ namespace Spooky.Content.Generation
 
 						if (Main.tile[x, y].WallType > 0 && Main.tile[x, y].WallType != ModContent.WallType<SpookyStoneWall>())
 						{
-							Main.tile[x, y].WallType = WorldGen.genRand.NextBool(3) ? WallID.Cave8Unsafe : (ushort)ModContent.WallType<SpookyWoodWall>();
+							Main.tile[x, y].WallType = WorldGen.genRand.NextBool(3) ? (ushort)ModContent.WallType<SpookyStoneWall>() : (ushort)ModContent.WallType<SpookyWoodWall>();
 						}
 					}
 				}

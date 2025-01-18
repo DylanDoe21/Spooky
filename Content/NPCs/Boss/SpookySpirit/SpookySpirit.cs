@@ -260,24 +260,16 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             Phase2 = NPC.life <= (NPC.lifeMax / 2);
 
             //despawn if the player dies or its day time
-            if (player.dead || Main.dayTime)
+            if (player.dead || !player.active || Main.dayTime)
             {
-                NPC.ai[0] = -1;
+                NPC.velocity.Y -= 0.4f;
+				NPC.EncourageDespawn(60);
+				return;
 			}
 
             //attacks
             switch ((int)NPC.ai[0])
             {
-                //despawning
-                case -1:
-                {
-                    NPC.velocity.X *= 0;
-                    NPC.velocity.Y = -12;
-                    NPC.EncourageDespawn(10);
-
-                    break;
-                }
-
                 //fly at the player for a bit
                 case 0:
                 {
@@ -951,7 +943,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
         public override void BossLoot(ref string name, ref int potionType)
 		{
-			potionType = ItemID.LesserHealingPotion;
+			potionType = ModContent.ItemType<CranberryJelly>();
 		}
     }
 }

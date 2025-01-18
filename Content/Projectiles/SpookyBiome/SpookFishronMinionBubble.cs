@@ -19,6 +19,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         private static Asset<Texture2D> ProjTexture;
         private static Asset<Texture2D> GlowTexture;
 
+        public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+		}
+
         public override void SetDefaults()
         {
             Projectile.width = 20;

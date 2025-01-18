@@ -37,7 +37,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         {
             NPC.lifeMax = 120;
             NPC.damage = 30;
-            NPC.defense = 15;
+            NPC.defense = 10;
             NPC.width = 36;
             NPC.height = 86;
             NPC.npcSlots = 1f;

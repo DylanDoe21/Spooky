@@ -17,6 +17,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Main.projFrames[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
         public override void SetDefaults()

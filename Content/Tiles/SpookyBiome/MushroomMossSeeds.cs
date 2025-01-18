@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Spooky.Core;
+using Terraria.DataStructures;
+using Terraria.Audio;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -27,26 +27,19 @@ namespace Spooky.Content.Tiles.SpookyBiome
 		}
 
         public override bool? UseItem(Player player)
-		{
-			if (Main.myPlayer != player.whoAmI)
-			{
-				return false;
-			}
+        {
+            Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
-			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
+            if (tile.HasTile && tile.TileType == ModContent.TileType<SpookyStone>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
+            {
+                Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<MushroomMoss>();
 
-			if (tile.HasTile && tile.TileType == ModContent.TileType<SpookyStone>() && ItemGlobal.WithinPlacementRange(player, Player.tileTargetX, Player.tileTargetY))
-			{
-				WorldGen.PlaceTile(Player.tileTargetX, Player.tileTargetY, ModContent.TileType<MushroomMoss>(), forced: true);
-				player.inventory[player.selectedItem].stack--;
+                SoundEngine.PlaySound(SoundID.Dig, player.Center);
 
-				if (Main.netMode != NetmodeID.SinglePlayer)
-				{
-					NetMessage.SendTileSquare(player.whoAmI, Player.tileTargetX, Player.tileTargetY);
-				}
-			}
+                return true;
+            }
 
-			return null;
-		}
+            return false;
+        }
     }
 }

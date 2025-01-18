@@ -18,11 +18,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 		
         public override void SetDefaults()
         {
-            Projectile.width = 26;                  			 
+            Projectile.width = 26;
             Projectile.height = 26;
             Projectile.DamageType = DamageClass.Summon;          
 			Projectile.friendly = true;              			  		

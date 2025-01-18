@@ -20,8 +20,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 {
     public class ManHoleFleshy : ModNPC  
     {
-        public float destinationX = 0f;
-		public float destinationY = 0f;
+        public ushort destinationX = 0;
+		public ushort destinationY = 0;
 
         bool FoundPosition = false;
 
@@ -38,8 +38,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 			writer.Write(FoundPosition);
 
             //floats
-            writer.Write(destinationX);
-            writer.Write(destinationY);
+            writer.Write((ushort)destinationX);
+            writer.Write((ushort)destinationY);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -48,8 +48,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 			FoundPosition = reader.ReadBoolean();
 
             //floats
-            destinationX = reader.ReadSingle();
-            destinationY = reader.ReadSingle();
+            destinationX = reader.ReadUInt16();
+            destinationY = reader.ReadUInt16();
         }
 
         public override void SetDefaults()
@@ -134,67 +134,45 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             if (NPC.ai[0] >= 300)
             {
-                if (!FoundPosition && destinationX == 0f && destinationY == 0f)
+                //Teleport has to be before finding spot so that it syncs the necessary info before it happens
+				if (destinationX != 0 && destinationY != 0)
 				{
-					Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+                    NPC.ai[1]++;
 
-					center.X += Main.rand.Next(-500, 500);
+                    if (NPC.ai[1] <= 60)
+                    {
+                        for (int k = 0; k < 30; k++)
+                        {
+                            Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 14), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, Color.White, 1.5f);
+                            dust.noGravity = true;
+                        }
+                    }
+                    else
+                    {
+                        SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
 
-					int numtries = 0;
-					int x = (int)(center.X / 16);
-					int y = (int)(center.Y / 16);
+                        NPC.position.X = destinationX * 16f - (float)(NPC.width / 2) + 8f;
+                        NPC.position.Y = destinationY * 16f - (float)NPC.height;
+                        NPC.velocity.X = 0f;
+                        NPC.velocity.Y = 0f;
+                        NPC.netOffset *= 0f;
+                        destinationX = 0;
+                        destinationY = 0;
 
-					while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
-					{
-						y++;
-						center.Y = y * 16;
-					}
-					while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
-					{
-						numtries++;
-						y--;
-						center.Y = y * 16;
-					}
-
-					destinationX = center.X;
-					destinationY = center.Y;
-
-					FoundPosition = true;
+                        NPC.ai[0] = 0;
+                        NPC.ai[1] = 0;
+                        NPC.netUpdate = true;
+                    }
 				}
-				else
+
+				if (NPC.ai[0] >= 360 && destinationX == 0 && destinationY == 0 && Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					NPC.ai[1]++;
-
-					if (NPC.ai[1] >= 30 && NPC.ai[1] <= 90)
+					Point point = Main.player[NPC.target].Center.ToTileCoordinates();
+					Vector2 chosenTile = Vector2.Zero;
+					if (NPC.AI_AttemptToFindTeleportSpot(ref chosenTile, point.X, point.Y, 20, 5, 1, solidTileCheckCentered: false, teleportInAir: false))
 					{
-						float PositionX = destinationX - (float)(NPC.width / 2);
-                        float PositionY = destinationY - (float)NPC.height;
-
-                        Dust dust = Dust.NewDustDirect(new Vector2(PositionX, PositionY + 32), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
-                        dust.noGravity = true;
-					}
-
-					if (NPC.ai[1] > 120 && destinationX != 0f && destinationY != 0f)
-					{
-						NPC.position.X = destinationX - (float)(NPC.width / 2);
-						NPC.position.Y = destinationY - (float)(NPC.height / 2) - 12;
-						destinationX = 0f;
-						destinationY = 0f;
-
-						SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
-
-						for (int numDusts = 0; numDusts < 15; numDusts++)
-						{
-							Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
-							dust.noGravity = true;
-						}
-						
-						NPC.ai[0] = 0;
-						NPC.ai[1] = 0;
-
-						FoundPosition = false;
-
-						NPC.netUpdate = true;
+						destinationX = (ushort)chosenTile.X;
+						destinationY = (ushort)chosenTile.Y;
 					}
 				}
             }

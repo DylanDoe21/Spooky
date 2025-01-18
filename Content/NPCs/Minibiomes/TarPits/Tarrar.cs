@@ -158,13 +158,13 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 					NPC.velocity.X = (NPC.velocity.X * 19f + MovementSpeed * DirectionToPlayer) / 20f;
 				}
 
-				int NPCPositionX = (int)(NPC.Center.X + (float)((NPC.width / 2 + 8) * NPC.direction)) / 16;
+				int NPCCenterX = (int)(NPC.Center.X + (float)((NPC.width / 2 + 8) * NPC.direction)) / 16;
 				int NPCPositionY = (int)((NPC.position.Y + (float)NPC.height) / 16f);
 				int NPCCenterY = (int)(NPC.Center.Y / 16f);
 				int TileYPos = (int)(NPC.position.Y / 16f);
 
-				Tile tile1 = Main.tile[NPCPositionX, NPCCenterY];
-				Tile tile2 = Main.tile[NPCPositionX, NPCPositionY];
+				Tile tile1 = Main.tile[NPCCenterX, NPCCenterY];
+				Tile tile2 = Main.tile[NPCCenterX, NPCPositionY];
 
 				if (tile1 == null)
 				{
@@ -174,7 +174,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 				{
 					tile2 = new Tile();
 				}
-				if (NPCPositionX < 5 || NPCPositionX > Main.maxTilesX - 5 || WorldGen.SolidTile(NPCPositionX, NPCCenterY) || WorldGen.SolidTile(NPCPositionX, TileYPos) || WorldGen.SolidTile(NPCPositionX, NPCCenterY) || tile2.LiquidAmount == 0)
+				if (NPCCenterX < 5 || NPCCenterX > Main.maxTilesX - 5 || WorldGen.SolidTile(NPCCenterX, NPCCenterY) || WorldGen.SolidTile(NPCCenterX, TileYPos) || WorldGen.SolidTile(NPCCenterX, NPCCenterY) || tile2.LiquidAmount == 0)
 				{
 					if (NPC.ai[0] == 0)
 					{
@@ -193,13 +193,13 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 					NPC.velocity.Y *= 0.5f;
 				}
 
-				NPCPositionX = (int)(NPC.Center.X / 16f);
+				NPCCenterX = (int)(NPC.Center.X / 16f);
 				NPCCenterY = (int)(NPC.Center.Y / 16f);
 				float NPCBottom = NPC.position.Y + (float)NPC.height;
 
-				Tile tile3 = Main.tile[NPCPositionX, NPCCenterY - 1];
-				Tile tile4 = Main.tile[NPCPositionX, NPCCenterY];
-				Tile tile5 = Main.tile[NPCPositionX, NPCCenterY + 1];
+				Tile tile3 = Main.tile[NPCCenterX, NPCCenterY - 1];
+				Tile tile4 = Main.tile[NPCCenterX, NPCCenterY];
+				Tile tile5 = Main.tile[NPCCenterX, NPCCenterY + 1];
 
 				if (tile3 == null)
 				{

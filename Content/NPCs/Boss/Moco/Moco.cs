@@ -247,9 +247,11 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.spriteDirection = NPC.direction;
 
             //despawn if the player dies or leaves the biome
-            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
+            if (player.dead || !player.active || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
-                NPC.ai[0] = -2;
+                NPC.velocity.Y -= 0.4f;
+				NPC.EncourageDespawn(60);
+				return;
             }
 
             //set to transition
@@ -267,16 +269,6 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
 			switch ((int)NPC.ai[0])
 			{
-				//despawning
-				case -2:
-				{
-					AfterImages = true;
-					NPC.velocity.Y = -25;
-					NPC.EncourageDespawn(10);
-
-					break;
-				}
-
 				//phase transition
 				case -1:
 				{
@@ -1399,8 +1391,8 @@ namespace Spooky.Content.NPCs.Boss.Moco
         }
 
         public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.HealingPotion;
-        }
+		{
+			potionType = ModContent.ItemType<CranberryJelly>();
+		}
     }
 }

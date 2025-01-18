@@ -64,10 +64,9 @@ namespace Spooky.Core
                 TileConversionMethods.ConvertSpookyIntoDesert((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
             }
 
-			if (Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().VegetableEggplantPaint && projectile.velocity != Vector2.Zero &&
-			projectile.DamageType == DamageClass.Ranged && Main.GameUpdateCount % 10 == 0)
+			if (Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().VegetableEggplantPaint && projectile.velocity != Vector2.Zero && projectile.DamageType == DamageClass.Ranged && Main.GameUpdateCount % 10 == 0)
 			{
-				Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<EgplantPaint>(), projectile.damage / 2, 0f, Main.LocalPlayer.whoAmI, Main.rand.Next(0, 5));
+				Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<EgplantPaint>(), projectile.damage / 3, 0f, Main.LocalPlayer.whoAmI, Main.rand.Next(0, 5));
 			}
 
 			return base.PreAI(projectile);

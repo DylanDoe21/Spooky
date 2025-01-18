@@ -123,7 +123,7 @@ PhantomSkeletoid.DisplayName: Phantom
 ZomboidPyromancer.DisplayName: Zomboid Pyromancer
 ZomboidSuspiciomancer.DisplayName: Zomboid Suspiciomancer
 //catacombs layer 2
-CatacombCrusherSpawner.DisplayName: Ancient Crusher Spawner
+CatacombCrusherSpawner.DisplayName: ""
 CatacombCrusher1.DisplayName: Ancient Crusher
 CatacombCrusher2.DisplayName: Ancient Crusher
 CatacombCrusher3.DisplayName: Ancient Crusher
@@ -416,8 +416,11 @@ Tarrar.DisplayName: Tarrar
 TarSlime1.DisplayName: Tar Slime
 TarSlime2.DisplayName: Tar Slime
 //vegetable garden
-CornMage1.DisplayName: Corn Caster
-CornMage2.DisplayName: Corn Caster
+CornMage1.DisplayName: Pop Corner
+CornMage2.DisplayName: Pop Corner
+EggplantSpawner.DisplayName: ""
+Eggplant.DisplayName: Eggplant
+EggplantBase.DisplayName: Eggplant
 GhostPepper.DisplayName: Ghost Pepper
 HoppingPotato1.DisplayName: Hopping Potato
 HoppingPotato2.DisplayName: Hopping Potato

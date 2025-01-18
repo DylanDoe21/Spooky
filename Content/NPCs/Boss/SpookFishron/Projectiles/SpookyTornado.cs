@@ -58,8 +58,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
         public override void AI()
         {
-            int TornadoHeight1 = 25;
-			int TornadoHeight2 = 25;
+			int TornadoHeight1 = (int)Projectile.ai[2];
+			int TornadoHeight2 = (int)Projectile.ai[2];
 			float ScaleAmount = 1.5f;
 			int BaseWidth = 162;
 			int BaseHeight = 42;
@@ -118,7 +118,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				center4.Y += 2f;
 
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), center4.X, center4.Y, Projectile.velocity.X, Projectile.velocity.Y, 
-				Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f);
+				Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f, Projectile.ai[2]);
 
 				if ((int)Projectile.ai[1] % 3 == 0 && Projectile.ai[1] != 0f)
 				{

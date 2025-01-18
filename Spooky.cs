@@ -53,7 +53,6 @@ namespace Spooky
         public static Vignette vignetteShader;
 
         public static ModKeybind AccessoryHotkey { get; private set; }
-        public static ModKeybind ArmorBonusHotkey { get; private set; }
 
         internal static Spooky mod;
 
@@ -70,7 +69,6 @@ namespace Spooky
             ModLoader.TryGetMod("Remnants", out remnants);
 
             AccessoryHotkey = KeybindLoader.RegisterKeybind(this, "AccessoryHotkey", "E");
-            ArmorBonusHotkey = KeybindLoader.RegisterKeybind(this, "ArmorBonusHotkey", "F");
 
             if (Main.netMode != NetmodeID.Server)
 			{
@@ -102,7 +100,6 @@ namespace Spooky
             remnants = null;
 
             AccessoryHotkey = null;
-            ArmorBonusHotkey = null;
 
 			mod = null;
 		}

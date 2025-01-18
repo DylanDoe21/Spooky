@@ -44,7 +44,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 		{
             NPC.lifeMax = 80;
             NPC.damage = 20;
-            NPC.defense = 0;
+            NPC.defense = 5;
             NPC.width = 56;
 			NPC.height = 66;
             NPC.npcSlots = 1f;
@@ -155,7 +155,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
 					stretchRecoil = Main.rand.NextFloat(0.2f, 0.5f);
 
-					SoundEngine.PlaySound(SoundID.NPCDeath13 with { Pitch = -1.2f }, NPC.Center);
+					SoundEngine.PlaySound(SoundID.NPCDeath13 with { Volume = 0.5f, Pitch = -1.2f }, NPC.Center);
 
 					//spawn ooze
 					NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 30), new Vector2(Main.rand.Next(-3, 4), 2), ModContent.ProjectileType<RottenOoze>(), NPC.damage, 4.5f);

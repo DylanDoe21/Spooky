@@ -1,8 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 
-using Spooky.Content.Dusts;
-
 namespace Spooky.Content.Buffs
 {
 	public class SkullFrenzyBuff : ModBuff
@@ -14,10 +12,14 @@ namespace Spooky.Content.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetDamage(DamageClass.Generic) += 0.15f;
-			player.GetCritChance(DamageClass.Generic) += 15;
-            player.GetKnockback(DamageClass.Generic) += 1.5f;
-            player.moveSpeed += 0.15f;
+			//full skull frenzy charge grants 20% increased damage
+			//must be given here since the skull frenzy charge is reset in the modplayer once its full
+			player.GetDamage(DamageClass.Generic) += 0.2f;
+
+			player.GetAttackSpeed(DamageClass.Melee) += 0.75f;
+			player.GetAttackSpeed(DamageClass.Ranged) += 0.75f;
+			player.GetAttackSpeed(DamageClass.Magic) += 0.75f;
+			player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.75f;
 		}
 	}
 }

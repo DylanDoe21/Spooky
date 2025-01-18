@@ -350,6 +350,24 @@ BossBagSpookySpirit: {
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
+CranberryJelly: {
+	DisplayName: Cranberry Jelly
+	Tooltip:
+		'''
+		Will be consumed automatically if you fall below half health
+		Has less potion sickness duration than regular healing potions
+		'''
+}
+
+CranberryJuice: {
+	DisplayName: Cranberry Juice
+	Tooltip:
+		'''
+		Will be consumed automatically if you fall below half health
+		Has less potion sickness duration than regular healing potions
+		'''
+}
+
 Brick: {
 	DisplayName: Heavy Brick
 	Tooltip:
@@ -693,8 +711,9 @@ SkullAmulet: {
 	Tooltip:
 		'''
 		Allows you to absorb the souls of enemies you kill 
-		After 10 souls are absorbed, you will enter a frenzy for 10 seconds
-		During this frenzy you gain increases to various stats
+		Each absorbed soul grants 2% increased damage
+		After 10 souls are absorbed you will enter a frenzy for 10 seconds
+		This frenzy gives you a massive boost to your attack speed
 		'''
 }
 
@@ -1191,8 +1210,28 @@ VampireGummy: {
 		'''
 }
 
+BroccoliBody: {
+	DisplayName: Broccoli Chestplate
+	Tooltip: 10% increased summon damage
+}
+
+BroccoliHead: {
+	DisplayName: Broccoli Helmet
+	Tooltip: Increases your max minions by 1
+}
+
+BroccoliLegs: {
+	DisplayName: Broccoli Leggings
+	Tooltip: Increases your life regeneration
+}
+
+CeleryGun: {
+	DisplayName: Celery Blaster
+	Tooltip: Converts bullets into celery
+}
+
 CornStaff: {
-	DisplayName: Pop Rod
+	DisplayName: Cornering Corn Staff
 	Tooltip:
 		'''
 		Spawns ears of corn to hover above you for a few seconds
@@ -1201,8 +1240,22 @@ CornStaff: {
 }
 
 EggplantWhip: {
-	DisplayName: Eggplant Smacker
-	Tooltip: ""
+	DisplayName: Eggplant Slammer
+	Tooltip: 10% summon tag critical strike chance
+}
+
+GhostPepperStaff: {
+	DisplayName: Ghoul Pepper Scepter
+	Tooltip: Summons ghost pepper minions that will cloak to sneak up on enemies
+}
+
+JalapenoStaff: {
+	DisplayName: Staff of Spice
+	Tooltip:
+		'''
+		Summons small jalapenos that will swarm and rapidly damage enemies
+		Each jalapeno only costs half of a minion slot
+		'''
 }
 
 CatEyes: {
@@ -1889,24 +1942,6 @@ CandyBag: {
 		'''
 }
 
-CranberryJelly: {
-	DisplayName: Cranberry Jelly
-	Tooltip:
-		'''
-		Will be consumed automatically if you fall below half health
-		Has less potion sickness duration than regular healing potions
-		'''
-}
-
-CranberryJuice: {
-	DisplayName: Cranberry Juice
-	Tooltip:
-		'''
-		Will be consumed automatically if you fall below half health
-		Has less potion sickness duration than regular healing potions
-		'''
-}
-
 CreepyCandle: {
 	DisplayName: Creepy Candle
 	Tooltip: Magic projectiles will sometimes ignite enemies
@@ -2054,8 +2089,8 @@ SpookFishronFlail: {
 	DisplayName: Flaming Flairon
 	Tooltip:
 		'''
-		Fires lingering bubbles at nearby enemies and a spread of them when launched
-		The longer it is swung, the further it launches and the more bubbles it shoots
+		Fires lingering bubbles at nearby enemies
+		The longer it is swung, the more bubbles it shoots when launched
 		'''
 }
 
@@ -3669,6 +3704,196 @@ FlySmallJarItem: {
 	Tooltip: ""
 }
 
+GlowshroomBathtubItem: {
+	DisplayName: Glowshroom Bathtub
+	Tooltip: ""
+}
+
+GlowshroomBedItem: {
+	DisplayName: Glowshroom Bed
+	Tooltip: ""
+}
+
+GlowshroomBenchItem: {
+	DisplayName: Glowshroom Bench
+	Tooltip: ""
+}
+
+GlowshroomBookcaseItem: {
+	DisplayName: Glowshroom Bookcase
+	Tooltip: ""
+}
+
+GlowshroomCandelabraItem: {
+	DisplayName: Glowshroom Candelabra
+	Tooltip: ""
+}
+
+GlowshroomCandleItem: {
+	DisplayName: Glowshroom Candle
+	Tooltip: ""
+}
+
+GlowshroomChairItem: {
+	DisplayName: Glowshroom Chair
+	Tooltip: ""
+}
+
+GlowshroomChandelierItem: {
+	DisplayName: Glowshroom Chandelier
+	Tooltip: ""
+}
+
+GlowshroomChestItem: {
+	DisplayName: Glowshroom Chest
+	Tooltip: ""
+}
+
+GlowshroomClockItem: {
+	DisplayName: Glowshroom Clock
+	Tooltip: ""
+}
+
+GlowshroomDoorItem: {
+	DisplayName: Glowshroom Door
+	Tooltip: ""
+}
+
+GlowshroomDresserItem: {
+	DisplayName: Glowshroom Dresser
+	Tooltip: ""
+}
+
+GlowshroomLampItem: {
+	DisplayName: Glowshroom Lamp
+	Tooltip: ""
+}
+
+GlowshroomLanternItem: {
+	DisplayName: Glowshroom Lantern
+	Tooltip: ""
+}
+
+GlowshroomPianoItem: {
+	DisplayName: Glowshroom Piano
+	Tooltip: ""
+}
+
+GlowshroomPlatformItem: {
+	DisplayName: Glowshroom Platform
+	Tooltip: ""
+}
+
+GlowshroomSinkItem: {
+	DisplayName: Glowshroom Sink
+	Tooltip: ""
+}
+
+GlowshroomTableItem: {
+	DisplayName: Glowshroom Table
+	Tooltip: ""
+}
+
+GlowshroomWorkBenchItem: {
+	DisplayName: Glowshroom Work Bench
+	Tooltip: ""
+}
+
+GlowshroomYellowBathtubItem: {
+	DisplayName: Yellow Glowshroom Bathtub
+	Tooltip: ""
+}
+
+GlowshroomYellowBedItem: {
+	DisplayName: Yellow Glowshroom Bed
+	Tooltip: ""
+}
+
+GlowshroomYellowBenchItem: {
+	DisplayName: Yellow Glowshroom Bench
+	Tooltip: ""
+}
+
+GlowshroomYellowBookcaseItem: {
+	DisplayName: Yellow Glowshroom Bookcase
+	Tooltip: ""
+}
+
+GlowshroomYellowCandelabraItem: {
+	DisplayName: Yellow Glowshroom Candelabra
+	Tooltip: ""
+}
+
+GlowshroomYellowCandleItem: {
+	DisplayName: Yellow Glowshroom Candle
+	Tooltip: ""
+}
+
+GlowshroomYellowChairItem: {
+	DisplayName: Yellow Glowshroom Chair
+	Tooltip: ""
+}
+
+GlowshroomYellowChandelierItem: {
+	DisplayName: Yellow Glowshroom Chandelier
+	Tooltip: ""
+}
+
+GlowshroomYellowChestItem: {
+	DisplayName: Yellow Glowshroom Chest
+	Tooltip: ""
+}
+
+GlowshroomYellowClockItem: {
+	DisplayName: Yellow Glowshroom Clock
+	Tooltip: ""
+}
+
+GlowshroomYellowDoorItem: {
+	DisplayName: Yellow Glowshroom Door
+	Tooltip: ""
+}
+
+GlowshroomYellowDresserItem: {
+	DisplayName: Yellow Glowshroom Dresser
+	Tooltip: ""
+}
+
+GlowshroomYellowLampItem: {
+	DisplayName: Yellow Glowshroom Lamp
+	Tooltip: ""
+}
+
+GlowshroomYellowLanternItem: {
+	DisplayName: Yellow Glowshroom Lantern
+	Tooltip: ""
+}
+
+GlowshroomYellowPianoItem: {
+	DisplayName: Yellow Glowshroom Piano
+	Tooltip: ""
+}
+
+GlowshroomYellowPlatformItem: {
+	DisplayName: Yellow Glowshroom Platform
+	Tooltip: ""
+}
+
+GlowshroomYellowSinkItem: {
+	DisplayName: Yellow Glowshroom Sink
+	Tooltip: ""
+}
+
+GlowshroomYellowTableItem: {
+	DisplayName: Yellow Glowshroom Table
+	Tooltip: ""
+}
+
+GlowshroomYellowWorkBenchItem: {
+	DisplayName: Yellow Glowshroom Work Bench
+	Tooltip: ""
+}
+
 OldWoodBathtubItem: {
 	DisplayName: Old Wood Bathtub
 	Tooltip: ""
@@ -3730,6 +3955,11 @@ OldWoodTableItem: {
 
 OldWoodWorkBenchItem: {
 	DisplayName: Old Wood Work Bench
+	Tooltip: ""
+}
+
+SinisterSnailCageItem: {
+	DisplayName: Sinister Snail Cage
 	Tooltip: ""
 }
 
@@ -3965,6 +4195,26 @@ GourdYellowGreenCarvedItem: {
 
 GourdYellowGreenCarvedLitItem: {
 	DisplayName: Yellow-Green Gourd 'O Lantern
+	Tooltip: ""
+}
+
+GlowshroomBlockItem: {
+	DisplayName: Glowshroom Block
+	Tooltip: ""
+}
+
+GlowshroomWallItem: {
+	DisplayName: Glowshroom Wall
+	Tooltip: ""
+}
+
+GlowshroomYellowBlockItem: {
+	DisplayName: Yellow Glowshroom Block
+	Tooltip: ""
+}
+
+GlowshroomYellowWallItem: {
+	DisplayName: Yellow Glowshroom Wall
 	Tooltip: ""
 }
 
@@ -4248,33 +4498,6 @@ SpookySpiritTrophyItem: {
 	Tooltip: ""
 }
 
-RaveStarter: {
-	DisplayName: Rave Starter
-	Tooltip:
-		'''
-		Starts the raveyard event when used at night
-		Testing Item
-		'''
-}
-
-CatacombWeedKiller: {
-	DisplayName: Catacomb Weed Killer
-	Tooltip:
-		'''
-		Deletes all catacomb ambient weed tiles
-		Testing Item
-		'''
-}
-
-Bestiary: {
-	DisplayName: Bestiary Completer
-	Tooltip:
-		'''
-		Completes the bestiary
-		Testing Item
-		'''
-}
-
 CatacombTorch1Item: {
 	DisplayName: Creepy Catacombs Torch
 	Tooltip: ""
@@ -4303,4 +4526,31 @@ SpookyBiomeTorchItem: {
 SpookyHellTorchItem: {
 	DisplayName: Eye Valley Torch
 	Tooltip: ""
+}
+
+RaveStarter: {
+	DisplayName: Rave Starter
+	Tooltip:
+		'''
+		Starts the raveyard event when used at night
+		Testing Item
+		'''
+}
+
+CatacombWeedKiller: {
+	DisplayName: Catacomb Weed Killer
+	Tooltip:
+		'''
+		Deletes all catacomb ambient weed tiles
+		Testing Item
+		'''
+}
+
+Bestiary: {
+	DisplayName: Bestiary Completer
+	Tooltip:
+		'''
+		Completes the bestiary
+		Testing Item
+		'''
 }

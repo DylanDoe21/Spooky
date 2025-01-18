@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Buffs.WhipDebuff;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {

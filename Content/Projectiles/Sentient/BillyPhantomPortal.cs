@@ -12,6 +12,11 @@ namespace Spooky.Content.Projectiles.Sentient
     public class BillyPhantomPortal : ModProjectile
     {
 		private static Asset<Texture2D> ProjTexture;
+
+        public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+		}
 		
         public override void SetDefaults()
         {

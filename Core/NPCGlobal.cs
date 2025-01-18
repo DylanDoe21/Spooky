@@ -9,6 +9,7 @@ using System.Linq;
 
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Buffs.WhipDebuff;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Cemetery.Misc;
 using Spooky.Content.Items.SpiderCave.Misc;
@@ -16,6 +17,7 @@ using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Catacomb.Layer1;
+using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpiderCave;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
@@ -122,8 +124,18 @@ namespace Spooky.Core
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            //list of every orro & boro segment
-            int[] OrroBoroSegments = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
+			//whip debuff stuff
+			if (!projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
+			{
+				//eggplant whip gives minions 10% chance to critically hit
+				if (npc.HasBuff<EggplantWhipDebuff>() && Main.rand.NextBool(10))
+				{
+					modifiers.SetCrit();
+				}
+			}
+
+			//list of every orro & boro segment
+			int[] OrroBoroSegments = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
 			ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
 			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>(),
 			ModContent.NPCType<OrroBodyWings>(), ModContent.NPCType<BoroBodyWings>(), ModContent.NPCType<OrroBodyWingsP1>(), ModContent.NPCType<BoroBodyWingsP1>() };
@@ -209,6 +221,12 @@ namespace Spooky.Core
 					Projectile.NewProjectile(npc.GetSource_Death(), npc.Center.X, npc.Center.Y, Main.rand.NextFloat(-12f, 12f),
 					Main.rand.NextFloat(-2f, 0f), ModContent.ProjectileType<PeptoBubble>(), npc.damage, 0, Main.myPlayer);
 				}
+			}
+
+			//spawn souls when you kill an enemy while wearing the skull amulet
+			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().SkullAmulet && !npc.friendly)
+			{
+				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Main.LocalPlayer.whoAmI);
 			}
 
 			base.OnKill(npc);

@@ -88,12 +88,12 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 			//dont charge at the player if this npc doesnt have line of sight
 			bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
 
-			if (HasLineOfSight || NPC.ai[0] > 120)
+			if (HasLineOfSight || NPC.ai[0] > 10)
 			{
 				NPC.ai[0]++;
 			}
 
-			if (Collision.SolidTiles(NPC.position, NPC.width, NPC.height) && NPC.ai[0] < 300)
+			if (Collision.SolidTiles(NPC.position, NPC.width, NPC.height) && NPC.ai[0] < 130)
 			{
 				NPC.noGravity = true;
 			}
@@ -102,7 +102,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 				NPC.noGravity = false;
 			}
 
-			if (NPC.ai[0] < 120)
+			if (NPC.ai[0] < 10)
 			{
 				NPC.ai[2] = 0;
 
@@ -112,7 +112,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 				}
 			}
 
-			if (NPC.ai[0] > 120)
+			if (NPC.ai[0] > 10)
 			{
 				NPC.ai[1] += 0.005f;
 
@@ -124,7 +124,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 				NPC.rotation += NPC.ai[1] * (float)NPC.direction;
 			}
 
-			if (NPC.ai[0] == 300)
+			if (NPC.ai[0] == 130)
 			{
 				NPC.knockBackResist = 0.25f;
 
@@ -136,10 +136,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 				NPC.velocity = ChargeDirection;
 			}
 
-			if (NPC.ai[0] > 300)
+			if (NPC.ai[0] > 130)
 			{
-				NPC.knockBackResist = 0.25f;
-
 				if (Collision.SolidTiles(NPC.position, NPC.width, NPC.height))
 				{
 					NPC.knockBackResist = 0f;

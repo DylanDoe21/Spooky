@@ -232,8 +232,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 								ShootSpeed.Normalize();
 								ShootSpeed *= 15f;
 
-								Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, 
-								ModContent.ProjectileType<SpookFishronFlailBubble>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+								Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<SpookFishronFlailBubble>(), Projectile.damage / 2, 0f, Projectile.owner);
 							}
 
 							break;
@@ -271,11 +270,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
 				case AIState.LaunchingForward: 
                 {
-					launchTimeLimit += (ChargeTimer / 20);
-					launchSpeed *= (ChargeTimer / 60);
-					retractAcceleration += (ChargeTimer / 60);
-					maxRetractSpeed += (ChargeTimer * 30);
-
                     bool shouldSwitchToRetracting = StateTimer++ >= launchTimeLimit;
                     shouldSwitchToRetracting |= Projectile.Distance(mountedCenter) >= maxLaunchLength;
 
@@ -289,11 +283,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     }
                     player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
                     Projectile.localNPCHitCooldown = movingHitCooldown;
-
-					if (player.ownedProjectileCounts[ModContent.ProjectileType<GourdFlailFly>()] > 0)
-					{
-						SoundEngine.PlaySound(FlySound, Projectile.Center);
-					}
 
                     break;
                 }

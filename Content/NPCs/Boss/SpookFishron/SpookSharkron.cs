@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Boss.SpookFishron.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.SpookFishron
 {
@@ -34,9 +35,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 		public override void SetDefaults()
 		{
-			NPC.lifeMax = 100;
+			NPC.lifeMax = 450;
 			NPC.damage = 100;
-			NPC.defense = 100;
+			NPC.defense = 0;
 			NPC.width = 118;
 			NPC.height = 46;
 			NPC.npcSlots = 1f;
@@ -104,9 +105,13 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			}
 		}
 
+		public override bool CheckActive()
+        {
+            return false;
+        }
+
 		public override void AI()
 		{
-			NPC.noTileCollide = true;
 			int num1063 = 90;
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{
@@ -117,7 +122,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			if (NPC.ai[0] == 0f)
 			{
 				NPC.ai[1]++;
-				NPC.noGravity = true;
 				NPC.dontTakeDamage = true;
 
 				float num1064 = (float)Math.PI / 30f;
@@ -161,9 +165,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					SoundEngine.PlaySound(SoundID.DD2_FlameburstTowerShot with { Volume = 0.5f }, NPC.Center);
 					NPC.TargetClosest();
 					NPC.spriteDirection = NPC.direction;
-					Vector2 vector136 = (Main.player[NPC.target].Center + Main.player[NPC.target].velocity * 30f) - NPC.Center;
-					vector136.Normalize();
-					NPC.velocity = vector136 * 16f;
+
+					Vector2 ChargeSpeed = (Main.player[NPC.target].Center + Main.player[NPC.target].velocity * 30f) - NPC.Center;
+					ChargeSpeed.Normalize();
+					NPC.velocity = ChargeSpeed * 20f;
+
 					NPC.rotation = NPC.velocity.ToRotation();
 
 					if (NPC.direction == -1)
@@ -180,7 +186,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 				{
 					return;
 				}
-				NPC.noGravity = true;
+
 				if (!Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
 				{
 					if (NPC.ai[1] < 1f)
@@ -196,6 +202,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						NPC.alpha = 150;
 					}
 				}
+
 				if (NPC.ai[1] >= 1f)
 				{
 					NPC.alpha -= 60;
@@ -203,23 +210,33 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						NPC.alpha = 0;
 					}
+
 					NPC.dontTakeDamage = false;
 					NPC.ai[1]++;
-					if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
+
+					int NPCCenterX = (int)(NPC.Center.X / 16f);
+					int NPCCenterY = (int)(NPC.Center.Y / 16f);
+					Tile tile = Main.tile[NPCCenterX, NPCCenterY];
+
+					if (tile == null || !WorldGen.InWorld(NPCCenterX, NPCCenterY))
 					{
-						if (NPC.DeathSound != null)
-						{
-							SoundEngine.PlaySound(NPC.DeathSound, NPC.position);
-						}
+						tile = new Tile();
+					}
+
+					//kill the npc if it touches water or collides with a solid tile
+					if (Collision.SolidCollision(NPC.position, NPC.width, NPC.height) || tile.LiquidAmount > 0)
+					{
 						NPC.life = 0;
 						NPC.HitEffect();
 						NPC.active = false;
+
 						return;
 					}
 				}
-				if (NPC.ai[1] >= 60f)
+				
+				if (NPC.ai[1] >= 60f && NPC.velocity.Y < 15f)
 				{
-					NPC.noGravity = false;
+					NPC.velocity.Y = NPC.velocity.Y + 0.25f;
 				}
 
 				NPC.rotation = NPC.velocity.ToRotation();
@@ -235,6 +252,15 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		{
 			if (NPC.life <= 0) 
 			{
+				SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, NPC.Center);
+
+				NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<SharkronExplosion>(), NPC.damage, 4.5f, 1);
+
+				for (int numProjs = 0; numProjs < 3; numProjs++)
+				{
+					NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-25, -12)), ModContent.ProjectileType<SharkronFireball>(), NPC.damage / 2, 4.5f, 1);
+				}
+
 				for (int numGores = 1; numGores <= 3; numGores++)
 				{
 					if (Main.netMode != NetmodeID.Server) 

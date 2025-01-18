@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Spooky.Core;
+using Terraria.DataStructures;
+using Terraria.Audio;
 
 namespace Spooky.Content.Tiles.SpookyBiome
 {
@@ -27,27 +27,19 @@ namespace Spooky.Content.Tiles.SpookyBiome
 		}
 
         public override bool? UseItem(Player player)
-		{
-			if (Main.myPlayer != player.whoAmI)
-			{
-				return false;
-			}
+        {
+            Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
-			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
-			
-			if ((tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>() || tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt2>()) &&
-			ItemGlobal.WithinPlacementRange(player, Player.tileTargetX, Player.tileTargetY))
-			{
-				WorldGen.PlaceTile(Player.tileTargetX, Player.tileTargetY, ModContent.TileType<SpookyGrass>(), forced: true);
-				player.inventory[player.selectedItem].stack--;
+            if (tile.HasTile && tile.TileType == ModContent.TileType<SpookyDirt>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
+            {
+                Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<SpookyGrass>();
 
-				if (Main.netMode != NetmodeID.SinglePlayer)
-				{
-					NetMessage.SendTileSquare(player.whoAmI, Player.tileTargetX, Player.tileTargetY);
-				}
-			}
+                SoundEngine.PlaySound(SoundID.Dig, player.Center);
 
-			return null;
-		}
+                return true;
+            }
+
+            return false;
+        }
     }
 }

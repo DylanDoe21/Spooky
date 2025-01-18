@@ -80,7 +80,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
 						Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
 
-						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 0, 0,
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero,
 						ModContent.ProjectileType<ThornBallSpike>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
 					}
 

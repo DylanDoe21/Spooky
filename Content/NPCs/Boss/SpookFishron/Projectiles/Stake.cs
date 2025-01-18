@@ -17,7 +17,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 		public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
 		public override void SetDefaults()
@@ -29,6 +29,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			Projectile.ignoreWater = false;
             Projectile.penetrate = -1;                  					
             Projectile.timeLeft = 240;
+            Projectile.aiStyle = -1;
 		}
 
         public override bool PreDraw(ref Color lightColor)
@@ -42,7 +43,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, Projectile.GetAlpha(Color.White), Projectile.oldRot[oldPos], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
 			
 			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);

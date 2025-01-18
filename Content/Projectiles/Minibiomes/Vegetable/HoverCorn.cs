@@ -1,5 +1,7 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -54,23 +56,23 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 
 			if (Shake)
 			{
-				Projectile.rotation += 0.01f;
-				if (Projectile.rotation > 0.12f)
+				Projectile.rotation += 0.025f;
+				if (Projectile.rotation > 0.25f)
 				{
 					Shake = false;
 				}
 			}
 			else
 			{
-				Projectile.rotation -= 0.01f;
-				if (Projectile.rotation < -0.12f)
+				Projectile.rotation -= 0.025f;
+				if (Projectile.rotation < -0.25f)
 				{
 					Shake = true;
 				}
 			}
 
 			Projectile.Center = new Vector2(player.Center.X, player.Center.Y - 50) + Projectile.ai[0].ToRotationVector2() * 15f;
-			Projectile.ai[0] -= MathHelper.ToRadians(3.5f);
+			Projectile.ai[0] -= MathHelper.ToRadians(5f);
 			
 			Projectile.ai[1]++;
 
@@ -79,6 +81,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 				int foundTarget = FindTarget();
 				if (foundTarget != -1)
 				{
+					SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1.2f }, Projectile.Center);
+
 					NPC target = Main.npc[foundTarget];
 
 					Vector2 ShootSpeed = target.Center - Projectile.Center;

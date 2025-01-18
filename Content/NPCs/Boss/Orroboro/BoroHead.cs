@@ -180,9 +180,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             Enraged = !NPC.AnyNPCs(ModContent.NPCType<OrroHead>());
 
             //despawn if the player dies or leaves the biome
-            if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
+            if (player.dead || !player.active || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
             {
-                NPC.ai[0] = -1;
+                NPC.velocity.Y += 0.25f;
+				NPC.EncourageDespawn(60);
+				return;
             }
 
             //Make the worm itself
@@ -219,23 +221,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //attacks
             switch ((int)NPC.ai[0])
             {
-                //despawning
-                case -1:
-                {
-                    NPC.localAI[3]++;
-                    if (NPC.localAI[3] >= 45)
-                    {
-                        NPC.velocity.Y = 35;
-                    }
-
-                    if (NPC.localAI[3] >= 120)
-                    {
-                        NPC.active = false;
-                    }
-
-                    break;
-                }
-
                 //charge from the sides while orro chases
                 case 0:
                 {
@@ -778,9 +763,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         }
 
         public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.GreaterHealingPotion;
-        }
+		{
+			potionType = ModContent.ItemType<CranberryJuice>();
+		}
 
         public override bool CheckActive()
         {

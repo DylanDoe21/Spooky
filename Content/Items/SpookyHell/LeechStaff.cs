@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.mana = 10;
             Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
-			Item.autoReuse = true;                  
+			Item.autoReuse = true;
             Item.width = 58;
             Item.height = 48;
             Item.useTime = 25;

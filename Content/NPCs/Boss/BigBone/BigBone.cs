@@ -426,6 +426,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
             NPC.spriteDirection = NPC.direction;
 
             //EoC rotation
@@ -437,7 +439,31 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             //despawn if all players are dead
             if (player.dead || !player.InModBiome(ModContent.GetInstance<Biomes.CatacombBiome2>()))
             {
-                NPC.ai[0] = -3;
+                GoAboveFlowerPot(100);
+                NPC.EncourageDespawn(10);
+
+                if (NPC.Hitbox.Intersects(Parent.Hitbox))
+                {
+                    NPC.active = false;
+                }
+
+                for (int k = 0; k < Main.projectile.Length; k++)
+                {
+                    if (Main.projectile[k].active && Main.projectile[k].hostile) 
+                    {
+                        Main.projectile[k].Kill();
+                    }
+                }
+
+                for (int k = 0; k < Main.maxNPCs; k++)
+                {
+                    if (Main.npc[k].type == ModContent.NPCType<HealingFlower>() || Main.npc[k].type == ModContent.NPCType<DefensiveFlower>() || Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
+                    {
+                        Main.npc[k].active = false;
+                    }
+                }
+
+                return;
             }
             else
             {
@@ -515,38 +541,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             switch ((int)NPC.ai[0])
             {
-                //despawning
-                case -3:
-                {
-                    NPC Parent = Main.npc[(int)NPC.ai[3]];
-
-                    GoAboveFlowerPot(100);
-                    NPC.EncourageDespawn(10);
-
-                    if (NPC.Hitbox.Intersects(Parent.Hitbox))
-                    {
-                        NPC.active = false;
-                    }
-
-                    for (int k = 0; k < Main.projectile.Length; k++)
-                    {
-                        if (Main.projectile[k].active && Main.projectile[k].hostile) 
-                        {
-                            Main.projectile[k].Kill();
-                        }
-                    }
-
-                    for (int k = 0; k < Main.maxNPCs; k++)
-                    {
-                        if (Main.npc[k].type == ModContent.NPCType<HealingFlower>() || Main.npc[k].type == ModContent.NPCType<DefensiveFlower>() || Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
-                        {
-                            Main.npc[k].active = false;
-                        }
-                    }
-
-                    break;
-                }
-
                 //death animation
                 case -2:
                 {
@@ -1626,8 +1620,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         }
 
         public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.GreaterHealingPotion;
-        }
+		{
+			potionType = ModContent.ItemType<CranberryJuice>();
+		}
     }
 }

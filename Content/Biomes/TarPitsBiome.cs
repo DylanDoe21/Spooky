@@ -84,7 +84,7 @@ namespace Spooky.Content.Biomes
 				Tile tile = Main.tile[i, j]; //use x and y to get the tile position
 				float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f
 				bool opacityCondition = tile.LiquidType == LiquidID.Water && Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot; //the condition for when our opacity should be applied
-																																				//This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
+				//This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
 				num9 = opacityCondition ? LiquidOpacity : num9; //we get the opacity and using the condition deciide whether to use the normal opacity or use our opacity
 			});
 		}
@@ -101,7 +101,7 @@ namespace Spooky.Content.Biomes
 				Tile tile = Main.tile[tileX, tileY]; //use x and y to get the tile position
 				float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f
 				bool opacityCondition = tile.LiquidType == LiquidID.Water && Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot; //the condition for when our opacity should be applied
-																																				//This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
+				//This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
 				num6 = opacityCondition ? LiquidOpacity : num6; //we get the opacity and using the condition deciide whether to use the normal opacity or use our opacity
 			});
 		}
@@ -146,7 +146,8 @@ namespace Spooky.Content.Biomes
 
 		public override bool IsBiomeActive(Player player)
         {
-			bool BiomeCondition = ModContent.GetInstance<TileCount>().tarPitsTiles >= 500 && Main.SceneMetrics.SandTileCount < 9000;
+			//part of the biome condition makes it so that there must be more tar pits tiles than sand tiles so the biome zone doesnt overreach in game
+			bool BiomeCondition = ModContent.GetInstance<TileCount>().tarPitsTiles >= 500 && (ModContent.GetInstance<TileCount>().tarPitsTiles > Main.SceneMetrics.SandTileCount / 3);
 			bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;

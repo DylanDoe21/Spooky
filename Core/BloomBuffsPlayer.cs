@@ -554,6 +554,7 @@ namespace Spooky.Core
 				Player.GetDamage(DamageClass.Generic) += 0.15f;
 			}
 
+			//vegetable class specific damage increases
 			if (VegetablePepper)
 			{
 				Player.GetDamage(DamageClass.Melee) += 0.1f;

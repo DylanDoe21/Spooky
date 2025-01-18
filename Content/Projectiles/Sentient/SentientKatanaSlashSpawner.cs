@@ -28,7 +28,7 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             if (Projectile.timeLeft <= 1)
             {
-                Vector2 ProjectilePosition = Projectile.Center + new Vector2(0, 65).RotatedByRandom(360);
+                Vector2 ProjectilePosition = Projectile.Center + new Vector2(65, 0).RotatedByRandom(360);
                 Vector2 Velocity = Projectile.Center - ProjectilePosition;
                 Velocity.Normalize();
                 Velocity *= 45f;

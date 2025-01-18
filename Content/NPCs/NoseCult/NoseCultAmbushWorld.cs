@@ -1,5 +1,5 @@
-using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using System.IO;
 
 namespace Spooky.Content.NPCs.NoseCult
@@ -24,15 +24,12 @@ namespace Spooky.Content.NPCs.NoseCult
 
 		public override void NetSend(BinaryWriter writer)
         {
-			var EventFlags = new BitsByte();
-            EventFlags[0] = AmbushActive;
-            writer.Write(EventFlags);
+			writer.WriteFlags(AmbushActive);
 		}
 
 		public override void NetReceive(BinaryReader reader)
         {
-			BitsByte EventFlags = reader.ReadByte();
-            AmbushActive = EventFlags[0];
+			reader.ReadFlags(out AmbushActive);
 		}
 	}
 }

@@ -28,6 +28,9 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 			player.GetModPlayer<SpookyPlayer>().SmokerLung = true;
 			player.GetModPlayer<SpookyPlayer>().GiantEar = true;
 
+            //8% crit from goo chompers
+            player.GetCritChance(DamageClass.Generic) += 8;
+
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<EarParasite>()] <= 0;
 			if (NotSpawned && player.whoAmI == Main.myPlayer)
 			{

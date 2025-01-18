@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.GameContent;
 using Terraria.Localization;
 using Terraria.UI;
@@ -32,11 +33,7 @@ namespace Spooky.Content.NPCs.EggEvent
 			writer.Write(EventTimeLeftUI);
 			writer.Write(EnemySpawnTimer);
 
-			var EventFlags = new BitsByte();
-			EventFlags[0] = EggEventActive;
-			EventFlags[1] = HasSpawnedBiojetter;
-			EventFlags[2] = HasSpawnedBolster;
-			writer.Write(EventFlags);
+			writer.WriteFlags(EggEventActive, HasSpawnedBiojetter, HasSpawnedBolster);
 		}
 
 		public override void NetReceive(BinaryReader reader)
@@ -45,10 +42,7 @@ namespace Spooky.Content.NPCs.EggEvent
 			EventTimeLeftUI = reader.ReadInt32();
 			EnemySpawnTimer = reader.ReadInt32();
 
-			BitsByte EventFlags = reader.ReadByte();
-			EggEventActive = EventFlags[0];
-			HasSpawnedBiojetter = EventFlags[1];
-			HasSpawnedBolster = EventFlags[2];
+			reader.ReadFlags(out EggEventActive, out HasSpawnedBiojetter, out HasSpawnedBolster);
 		}
 
 		public override void OnWorldLoad()

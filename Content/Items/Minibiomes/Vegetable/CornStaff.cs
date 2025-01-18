@@ -33,7 +33,7 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
             Item.knockBack = 2;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 15);
-            Item.UseSound = SoundID.Item64;
+            Item.UseSound = SoundID.Item8;
             Item.shoot = ModContent.ProjectileType<HoverCorn>();
             Item.shootSpeed = 0f;
         }

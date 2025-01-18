@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -17,6 +18,11 @@ namespace Spooky.Content.Projectiles.Sentient
 		Vector2[] trailLength = new Vector2[5];
 
 		private static Asset<Texture2D> ProjTexture;
+
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+		}
 		
         public override void SetDefaults()
         {

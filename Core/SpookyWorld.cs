@@ -303,7 +303,7 @@ namespace Spooky.Core
                     {
                         int Animation = NPC.NewNPC(Main.npc[i].GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (Main.netMode == NetmodeID.Server)
                         {   
                             NetMessage.SendData(MessageID.SyncNPC, number: Animation);
                         }

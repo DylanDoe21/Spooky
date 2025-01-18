@@ -565,13 +565,14 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				pool.Add(ModContent.NPCType<HoppingPotato1>(), 2);
-				pool.Add(ModContent.NPCType<HoppingPotato2>(), 2);
-				pool.Add(ModContent.NPCType<HoppingPotato3>(), 2);
-				pool.Add(ModContent.NPCType<HoppingPotato4>(), 2);
+				pool.Add(ModContent.NPCType<HoppingPotato1>(), 1);
+				pool.Add(ModContent.NPCType<HoppingPotato2>(), 1);
+				pool.Add(ModContent.NPCType<HoppingPotato3>(), 1);
+				pool.Add(ModContent.NPCType<HoppingPotato4>(), 1);
 				pool.Add(ModContent.NPCType<OozeGarlic>(), 2);
 				pool.Add(ModContent.NPCType<RollingPepper>(), 2);
 				pool.Add(ModContent.NPCType<RottenCarrot>(), 2);
+				pool.Add(ModContent.NPCType<EggplantSpawner>(), 2);
 
 				if (Main.hardMode)
 				{

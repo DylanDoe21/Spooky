@@ -9,6 +9,7 @@ WizardGangsterArmor2:
 	Grants 2% decreased mana usage for each gold coin you have
 	This stops scaling after you have more than 10 gold coins
 	'''
+BroccoliArmor: Minions will sometimes plant damaging broccoli on enemies
 GourdArmor:
 	'''
 	Melee weapons may inflict decay, which damages enemies over time
@@ -17,7 +18,7 @@ GourdArmor:
 RootArmor: Your ranged projectiles have a chance to heal you
 SpiderArmor:
 	'''
-	Press the Armor Bonus Hotkey to enter spider stealth for 10 seconds
+	Double tap Down to enter spider stealth for 10 seconds
 	While in spider stealth your damage reduction is increased by 12%
 	This ability has a 2 minute cooldown before you can use it again
 	'''
@@ -30,7 +31,7 @@ EyeArmor:
 FlowerArmor:
 	'''
 	Greatly increases your life regeneration
-	Press the Armor Bonus Hotkey to summon clumps of pollen to attack your enemies
+	Double tap Down to summon clumps of pollen to attack your enemies
 	This ability has a 30 second cooldown before it can be used again
 	'''
 GoreArmorOrro: Summons a baby orro to fight with you!

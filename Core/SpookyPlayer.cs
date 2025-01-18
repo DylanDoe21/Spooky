@@ -23,6 +23,7 @@ using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
+using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
@@ -40,7 +41,8 @@ namespace Spooky.Core
         public bool RootSet = false;
         public bool SpiderSet = false;
         public bool SpiderSpeed = false;
-        public bool HorsemanSet = false;
+		public bool BroccoliSet = false;
+		public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
         public bool GoreArmorEye = false;
@@ -212,7 +214,8 @@ namespace Spooky.Core
             RootSet = false;
             SpiderSet = false;
             SpiderSpeed = false;
-            HorsemanSet = false;
+			BroccoliSet = false;
+			HorsemanSet = false;
             EyeArmorSet = false;
             FlowerArmorSet = false;
             GoreArmorEye = false;
@@ -352,7 +355,31 @@ namespace Spooky.Core
             }
         }
 
-        public override void ProcessTriggers(TriggersSet triggersSet)
+		public override void ArmorSetBonusActivated()
+		{
+			//flower armor setbonus
+			if (FlowerArmorSet && !Player.HasBuff(ModContent.BuffType<FlowerArmorCooldown>()))
+			{
+				SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, Player.Center);
+
+				for (int numProjectiles = 0; numProjectiles < 12; numProjectiles++)
+				{
+					Projectile.NewProjectile(null, Player.Center.X + Main.rand.Next(-30, 30),
+					Player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 55, 2f, Player.whoAmI);
+				}
+
+				Player.AddBuff(ModContent.BuffType<FlowerArmorCooldown>(), 1800);
+			}
+
+			//spider stealth
+			if (SpiderSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
+			{
+				Player.AddBuff(ModContent.BuffType<SpiderArmorStealth>(), 600);
+				Player.AddBuff(ModContent.BuffType<SpiderStealthCooldown>(), 7200);
+			}
+		}
+
+		public override void ProcessTriggers(TriggersSet triggersSet)
         {
             //do not allow hotkeys to do anything if you are dead
             if (Player.dead)
@@ -409,31 +436,6 @@ namespace Spooky.Core
 					Player.AddBuff(ModContent.BuffType<SmokerLungCooldown>(), 3600);
 				}
             }
-
-            //handle everything when they armor bonus hotkey is pressed
-            if (Spooky.ArmorBonusHotkey.JustPressed && Main.myPlayer == Player.whoAmI)
-            {
-                //flower armor setbonus
-                if (FlowerArmorSet && !Player.HasBuff(ModContent.BuffType<FlowerArmorCooldown>()))
-                {
-                    SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, Player.Center);
-
-                    for (int numProjectiles = 0; numProjectiles < 12; numProjectiles++)
-                    {
-                        Projectile.NewProjectile(null, Player.Center.X + Main.rand.Next(-30, 30), 
-                        Player.Center.Y + Main.rand.Next(-30, 30), 0, 0, ModContent.ProjectileType<FlowerArmorPollen>(), 55, 2f, Player.whoAmI);
-                    }
-
-                    Player.AddBuff(ModContent.BuffType<FlowerArmorCooldown>(), 1800);
-                }
-
-                //spider stealth
-                if (SpiderSet && !Player.HasBuff(ModContent.BuffType<SpiderStealthCooldown>()))
-                {
-                    Player.AddBuff(ModContent.BuffType<SpiderArmorStealth>(), 600);
-                    Player.AddBuff(ModContent.BuffType<SpiderStealthCooldown>(), 7200);
-                }
-            }
         }
 
         public override void GetHealMana(Item item, bool quickHeal, ref int healValue)
@@ -445,7 +447,7 @@ namespace Spooky.Core
             }
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type])
             {
@@ -486,12 +488,6 @@ namespace Spooky.Core
                     {
                         NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                     }
-                }
-
-                //spawn souls when you kill an enemy while wearing the skull amulet
-                if (SkullAmulet && target.life <= 0 && !target.friendly)
-                {
-                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Player.whoAmI);
                 }
 
                 //spawn an orbiting note on critical hits with the clarinet
@@ -568,7 +564,24 @@ namespace Spooky.Core
             }
         }
 
-        public override void OnHurt(Player.HurtInfo info)
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+            //broccoli armor spawns broccolis on enemies when hit by summons
+			if (BroccoliSet && !proj.npcProj && !proj.trap && (proj.minion || ProjectileID.Sets.MinionShot[proj.type]) && proj.type != ModContent.ProjectileType<GrowingBroccoli>() && Main.rand.NextBool(5))
+			{
+				Vector2 projPos = target.Center + new Vector2(1, 0).RotatedByRandom(360);
+
+				Vector2 Direction = target.Center - projPos;
+				Direction.Normalize();
+
+				Vector2 lineDirection = new Vector2(Direction.X, Direction.Y);
+
+				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Vector2.Zero,
+				ModContent.ProjectileType<GrowingBroccoli>(), damageDone, 0, Player.whoAmI, ai0: lineDirection.ToRotation() + MathHelper.Pi, ai2: target.whoAmI);
+			}
+		}
+
+		public override void OnHurt(Player.HurtInfo info)
         {
             //set maximum damage cap based on difficulties due to damage scaling
             int damageToActivateSpeedBoost1 = Main.masterMode ? 100 : Main.expertMode ? 70 : 40;
@@ -764,6 +777,12 @@ namespace Spooky.Core
 			{
 				CandyBagJustHit = false;
 			}
+
+            //reset skull amulet charge if the amulet isnt equipped
+            if (!SkullAmulet)
+            {
+                SkullFrenzyCharge = 0;
+            }
 
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
             //because spooky mod biomes take higher priority that vanilla ones, this should not cause any issues
@@ -1047,6 +1066,14 @@ namespace Spooky.Core
                 CombatText.NewText(Player.getRect(), Color.DarkOrchid, Language.GetTextValue("Mods.Spooky.Dialogue.SentientCap.Dialogue" + Main.rand.Next(1, 7).ToString()), true);
             }
         }
+
+		public override void PostUpdate()
+		{
+			if (SkullFrenzyCharge > 0)
+			{
+				Player.GetDamage(DamageClass.Generic) += (0.02f * SkullFrenzyCharge);
+			}
+		}
 
 		public override void PostUpdateMiscEffects()
 		{

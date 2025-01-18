@@ -10,14 +10,14 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
     {
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 20;
 			Item.DamageType = DamageClass.SummonMeleeSpeed;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.width = 32;
             Item.height = 48;
-			Item.useTime = 50;
-			Item.useAnimation = 50;
+			Item.useTime = 42;
+			Item.useAnimation = 42;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 10;
 			Item.rare = ItemRarityID.Blue;

@@ -33,6 +33,16 @@ ChristmasDresser: {
 	MapEntry: Dresser
 }
 
+GlowshroomDresser: {
+	ContainerName: Glowshroom Dresser
+	MapEntry: Dresser
+}
+
+GlowshroomYellowDresser: {
+	ContainerName: Yellow Glowshroom Dresser
+	MapEntry: Dresser
+}
+
 SpiritAltar.MapEntry: Spirit Altar
 CemeterySapling.MapEntry: Sapling
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
@@ -121,3 +131,40 @@ ChristmasLantern.MapEntry: Lantern
 ChristmasSofa.MapEntry: Sofa
 ChristmasTable.MapEntry: Table
 ChristmasWorkBench.MapEntry: Work Bench
+GlowshroomBathtub.MapEntry: Bathtub
+GlowshroomBed.MapEntry: Bed
+GlowshroomBench.MapEntry: Bench
+GlowshroomBookcase.MapEntry: Bookcase
+GlowshroomCandelabra.MapEntry: Candelabra
+GlowshroomCandle.MapEntry: Candle
+GlowshroomChair.MapEntry: Chair
+GlowshroomChandelier.MapEntry: Chandelier
+GlowshroomChest.MapEntry: Chest
+GlowshroomClock.MapEntry: Clock
+GlowshroomDoorClosed.MapEntry: Door
+GlowshroomDoorOpen.MapEntry: Door
+GlowshroomLamp.MapEntry: Lamp
+GlowshroomLantern.MapEntry: Lantern
+GlowshroomPiano.MapEntry: Piano
+GlowshroomSink.MapEntry: Sink
+GlowshroomTable.MapEntry: Table
+GlowshroomWorkBench.MapEntry: Work Bench
+GlowshroomYellowBathtub.MapEntry: Bathtub
+GlowshroomYellowBench.MapEntry: Bench
+GlowshroomYellowBed.MapEntry: Bed
+GlowshroomYellowBookcase.MapEntry: Bookcase
+GlowshroomYellowCandelabra.MapEntry: Candelabra
+GlowshroomYellowCandle.MapEntry: Candle
+GlowshroomYellowChair.MapEntry: Chair
+GlowshroomYellowChandelier.MapEntry: Chandelier
+GlowshroomYellowChest.MapEntry: Chest
+GlowshroomYellowClock.MapEntry: Clock
+GlowshroomYellowDoorClosed.MapEntry: Door
+GlowshroomYellowDoorOpen.MapEntry: Door
+GlowshroomYellowLamp.MapEntry: Lamp
+GlowshroomYellowLantern.MapEntry: Lantern
+GlowshroomYellowPiano.MapEntry: Piano
+GlowshroomYellowSink.MapEntry: Sink
+GlowshroomYellowTable.MapEntry: Table
+GlowshroomYellowWorkBench.MapEntry: Work Bench
+SinisterSnailCage.MapEntry: Sinister Snail Cage

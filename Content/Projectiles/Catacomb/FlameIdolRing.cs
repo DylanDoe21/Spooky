@@ -94,7 +94,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (npc.Distance(Projectile.Center) <= Projectile.ai[0] && npc.active && !npc.friendly && !npc.dontTakeDamage && !NPCID.Sets.CountsAsCritter[npc.type])
                 {
                     //damage enemies
-                    player.ApplyDamageToNPC(npc, Projectile.damage * 2, 0, 0, false, null, true);
+                    player.ApplyDamageToNPC(npc, Projectile.damage, 0, 0, false, null, true);
 
                     npc.AddBuff(BuffID.OnFire3, 300);
                 }

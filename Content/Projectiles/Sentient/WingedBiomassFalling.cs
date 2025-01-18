@@ -18,6 +18,11 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public static readonly SoundStyle SplatSound = new("Spooky/Content/Sounds/Splat", SoundType.Sound) { Volume = 0.5f, Pitch = 0.75f };
 
+        public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+		}
+
         public override void SetDefaults()
         {
             Projectile.width = 42;

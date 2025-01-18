@@ -16,6 +16,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
 
         public override void SetDefaults()

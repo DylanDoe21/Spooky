@@ -91,7 +91,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 7);
 			}
 
-			if (Projectile.wet || Projectile.Hitbox.Intersects(player.Hitbox))
+			if ((Projectile.wet && Projectile.ai[0] == 0) || Projectile.Hitbox.Intersects(player.Hitbox))
 			{
 				Projectile.Kill();
 			}
@@ -124,7 +124,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				currentAmount++;
 			}
 
-			Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpookyTornado>(), Projectile.damage, 2f, Main.myPlayer, 25f, 24f);
+			int TornadoSize = Projectile.ai[0] > 0 ? 50 : 25;
+
+			Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpookyTornado>(), Projectile.damage, 2f, Main.myPlayer, TornadoSize, TornadoSize - 1, TornadoSize);
 		}
 	}
 }

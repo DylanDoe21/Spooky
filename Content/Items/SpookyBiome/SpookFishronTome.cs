@@ -12,15 +12,15 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetDefaults()
         {
-            Item.damage = 125;
+            Item.damage = 120;
             Item.mana = 60;
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;
             Item.noMelee = true;
             Item.width = 34;
             Item.height = 40;
-            Item.useTime = 80;
-			Item.useAnimation = 80;
+            Item.useTime = 75;
+			Item.useAnimation = 75;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 10;
             Item.rare = ItemRarityID.Yellow;

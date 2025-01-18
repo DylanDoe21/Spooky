@@ -7,6 +7,11 @@ namespace Spooky.Content.Projectiles.Sentient
 {
     public class GrugFireball : ModProjectile
     {
+        public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+		}
+
         public override void SetDefaults()
         {
             Projectile.width = 16;

@@ -19,7 +19,7 @@ FlyBuff: {
 
 SkullFrenzyBuff: {
 	DisplayName: Necromantic Frenzy
-	Description: Increased damage, critical strike chance, knockback, and movement speed
+	Description: Massive buff to your attack speed
 }
 
 BouncerDeathmark: {
@@ -493,4 +493,14 @@ SinisterSnailBuff: {
 SpookFishronMinionBuff: {
 	DisplayName: Spooky Pigron
 	Description: The pigron will protect you
+}
+
+PepperMinionBuff: {
+	DisplayName: Small Jalapeno
+	Description: The jalapenos will swarm your foes
+}
+
+EggplantWhipDebuff: {
+	DisplayName: Eggplant Whip Debuff
+	Description: ""
 }

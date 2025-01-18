@@ -17,10 +17,16 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		private static Asset<Texture2D> ProjTexture;
 
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+		}
+
 		public override void SetDefaults()
 		{
 			Projectile.width = 10;                   			 
             Projectile.height = 10;  
+			Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;       
 			Projectile.hostile = false;                                 			  		
             Projectile.tileCollide = false;

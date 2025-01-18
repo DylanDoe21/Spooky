@@ -266,9 +266,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			}
 
 			//despawn if the player dies or its day time
-			if (player.dead || Main.dayTime || NPC.Distance(player.Center) > 5600f)
+			if (player.dead || !player.active || Main.dayTime || NPC.Distance(player.Center) > 5600f)
 			{
-				NPC.ai[0] = -3;
+				NPC.velocity.Y -= 0.4f;
+				NPC.EncourageDespawn(60);
+				return;
 			}
 
 			//TODO: make fishron either immortal or enrage if you leave the ocean
@@ -293,15 +295,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			//attacks
 			switch ((int)NPC.ai[0])
 			{
-				//despawning
-				case -3:
-				{
-					NPC.velocity.Y -= 0.4f;
-					NPC.EncourageDespawn(10);
-
-					break;
-				}
-
 				//expert phase 3 transition
 				case -2:
 				{
@@ -547,7 +540,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 							Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
 							ChargeDirection.Normalize();
-							ChargeDirection *= Phase2 ? 40f : 30f;
+							ChargeDirection *= Phase2 ? 50f : 40f; //40f : 30f
 							NPC.velocity = ChargeDirection;
 						}
 
@@ -566,7 +559,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						}
 
 						//attempt to spin around the player
-						if (NPC.localAI[0] > 165)
+						if (NPC.localAI[0] > 161)
 						{
 							double angle = NPC.DirectionTo(SavePlayerPosition2).ToRotation() - NPC.velocity.ToRotation();
 							while (angle > Math.PI)
@@ -934,6 +927,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 									NPC.rotation += (1f * SpinMultiplier) * (float)SaveDirection;
 								}
 
+								if (NPC.localAI[0] == 400)
+								{
+									SoundEngine.PlaySound(SoundID.Zombie20, NPC.Center);
+								}
+
 								if (NPC.localAI[0] >= 450)
 								{
 									CurrentFrameX = 0;
@@ -1111,6 +1109,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 									NPC.rotation += (1f * SpinMultiplier) * (float)SaveDirection;
 								}
 
+								if (NPC.localAI[0] == 400)
+								{
+									SoundEngine.PlaySound(SoundID.Zombie20, NPC.Center);
+								}
+
 								if (NPC.localAI[0] >= 450)
 								{
 									CurrentFrameX = 0;
@@ -1178,16 +1181,18 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						if (NPC.localAI[0] == 2)
 						{
-							NPC.localAI[1] = Main.rand.NextBool() ? -450 : 450;
-							NPC.localAI[2] = Main.rand.Next(0, 2);
+							Vector2 NPCNewPosition = new Vector2(450, 0).RotatedByRandom(360);
+
+							NPC.localAI[1] = NPCNewPosition.X;
+							NPC.localAI[2] = NPCNewPosition.Y;
 						}
 
 						if (NPC.localAI[0] == 30)
 						{
 							Charging = false;
 
-							float GoToX = NPC.localAI[2] == 0 ? NPC.localAI[1] : 0;
-							float GoToY = NPC.localAI[2] == 0 ? 0 : NPC.localAI[1];
+							float GoToX = NPC.localAI[1];
+							float GoToY = NPC.localAI[2];
 
 							NPC.position = player.Center + new Vector2(GoToX, GoToY) - (NPC.frame.Size() / 2);
 							NPC.velocity = Vector2.Zero;
@@ -1214,8 +1219,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						if (NPC.localAI[0] > 30 && NPC.localAI[0] < 75)
 						{
 							Vector2 GoTo = player.Center;
-							GoTo.X += NPC.localAI[2] == 0 ? NPC.localAI[1] : 0;
-							GoTo.Y += NPC.localAI[2] == 0 ? 0 : NPC.localAI[1];
+							GoTo.X += NPC.localAI[1];
+							GoTo.Y += NPC.localAI[2];
 
 							float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
 							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
@@ -1263,16 +1268,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							NPC.rotation += 0f * (float)NPC.direction;
 						}
 
-						//fade out
-						if (NPC.localAI[0] > 90)
-						{
-							if (NPC.alpha < 255)
-							{
-								NPC.alpha += 20;
-							}
-						}
-
-						if (NPC.localAI[0] > 90)
+						if (NPC.localAI[0] > 86)
 						{
 							double angle = NPC.DirectionTo(SavePlayerPosition2).ToRotation() - NPC.velocity.ToRotation();
 							while (angle > Math.PI)
@@ -1288,6 +1284,15 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							NPC.velocity = Vector2.Normalize(NPC.velocity) * 38;
 
 							NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4.5f) * Angle);
+						}
+
+						//fade out
+						if (NPC.localAI[0] > 90)
+						{
+							if (NPC.alpha < 255)
+							{
+								NPC.alpha += 20;
+							}
 						}
 
 						if (NPC.localAI[0] >= 115)
@@ -1433,6 +1438,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 			notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
 
+			//drop wings at a lower rate than expert mode
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookFishronWings>(), 15));
+
 			//drop boss mask
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookFishronMask>(), 7));
 
@@ -1459,7 +1467,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 		public override void BossLoot(ref string name, ref int potionType)
 		{
-			potionType = ItemID.GreaterHealingPotion;
+			potionType = ModContent.ItemType<CranberryJuice>();
 		}
 	}
 }

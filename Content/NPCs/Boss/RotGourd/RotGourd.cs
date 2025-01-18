@@ -249,10 +249,30 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             }
 
 			//despawn if all players are dead
-            if (player.dead)
+            if (player.dead || !player.active)
             {
-                NPC.ai[0] = -2;
+                NPC.ai[2]++;
+
+				//play sound
+				if (NPC.ai[2] == 60)
+				{
+					NPC.noTileCollide = false;
+					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+				}
+
+				//jump up super high, then despawn
+				if (NPC.ai[2] >= 60)
+				{
+					NPC.velocity.Y = -40;
+					NPC.EncourageDespawn(60);
+				}
+
+				return;
             }
+			else
+			{
+				NPC.ai[2] = 0;
+			}
 
 			//attacks
 			switch ((int)NPC.ai[0])
@@ -1152,8 +1172,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
         }
 
         public override void BossLoot(ref string name, ref int potionType)
-        {
-            potionType = ItemID.LesserHealingPotion;
-        }
+		{
+			potionType = ModContent.ItemType<CranberryJelly>();
+		}
     }
 }
