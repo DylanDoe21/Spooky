@@ -321,7 +321,7 @@ namespace Spooky.Content.Generation
 						if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
 						{
 							WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<JungleMossWeeds>(), true);
-							tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(14) * 18);
+							tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(11) * 18);
 						}
 					}
 

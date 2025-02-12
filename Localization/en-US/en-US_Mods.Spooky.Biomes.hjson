@@ -77,3 +77,8 @@ TarPitsBiome: {
 	DisplayName: Tar Pits
 	TownNPCDialogueName: Tar Pits
 }
+
+ZombieOceanBiome: {
+	DisplayName: Rotten Depths
+	TownNPCDialogueName: Rotten Depths
+}

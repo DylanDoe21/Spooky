@@ -30,15 +30,30 @@ namespace Spooky.Content.Generation
         static int NoseTemplePositionY;
         static int NoseTempleEntranceTunnelX;
 
-        static int StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
-        static int BiomeEdge = StartPosition + (Main.maxTilesX / 6);
+        static int StartPosition;
+        static int BiomeEdge;
 
-        private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
+		private void GenerateSpookyHell(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.EyeValley").Value;
 
-            //set these to their intended values again just to be safe
-            StartPosition = (GenVars.JungleX < Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
+			//random worldside (default option)
+			if (ModContent.GetInstance<SpookyWorldgenConfig>().EyeValleyWorldSide == EyeValleyPosEnum.Random)
+			{
+                bool Bool = WorldGen.genRand.NextBool();
+				StartPosition = Bool ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
+			}
+			//jungle side position
+			if (ModContent.GetInstance<SpookyWorldgenConfig>().EyeValleyWorldSide == EyeValleyPosEnum.JungleSide)
+			{
+				StartPosition = GenVars.JungleX < (Main.maxTilesX / 2) ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
+			}
+			//dungeon side position
+			if (ModContent.GetInstance<SpookyWorldgenConfig>().EyeValleyWorldSide == EyeValleyPosEnum.DungeonSide)
+			{
+				StartPosition = GenVars.dungeonSide < 0 ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
+			}
+
             BiomeEdge = StartPosition + (Main.maxTilesX / 6);
 
             //extra clear width depending on the side of the world its on
@@ -327,8 +342,7 @@ namespace Spooky.Content.Generation
 			//define the center of the biome
 			int XMiddle = (StartPosition + BiomeEdge) / 2;
 
-			///place little eye's house
-			int LakeX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
+			int LakeX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
 
 			Point origin = new Point(LakeX, Main.maxTilesY - 80);
 			Vector2 center = origin.ToVector2() * 16f + new Vector2(8f);
@@ -728,7 +742,7 @@ namespace Spooky.Content.Generation
             int StartPosY = Main.maxTilesY - 150;
 
             ///place little eye's house
-            int HouseX = (GenVars.JungleX > Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
+            int HouseX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
 
             //place orroboro nest
@@ -889,8 +903,8 @@ namespace Spooky.Content.Generation
 
         public void GenerateNoseTemple(GenerationProgress progress, GameConfiguration configuration)
         {
-            int DungeonX = (StartPosition < Main.maxTilesX / 2 ? 250 : Main.maxTilesX - 250);
-            int ArenaX = (StartPosition < Main.maxTilesX / 2 ? 250 : Main.maxTilesX - 250);
+            int DungeonX = StartPosition < (Main.maxTilesX / 2) ? 250 : Main.maxTilesX - 250;
+            int ArenaX = StartPosition < (Main.maxTilesX / 2) ? 250 : Main.maxTilesX - 250;
 
             int StartPosY = Main.maxTilesY - 130;
 

@@ -1,26 +1,13 @@
 SpookyConfig: {
 	DisplayName: Spooky Mod Client Config
 
-	SpookyForestSpawn: {
-		Label: Spooky Forest at Spawn
-		Tooltip:
-			'''
-			Changes the location of where the spooky forest is placed during world generation
-			Keeping this on will make it placed at your spawn, which is the default option
-			Turning this off will make the spooky forest generate away from your spawn, on the dungeon side of the world
-			This option is applied only when making new worlds, and will have no effect on existing worlds
-			Turning this off can be helpful if you are playing with other mods that add world generation at or nearby spawn
-			(Creating smaller worlds with this option off may potentially destroy or generate over other things!)
-			'''
-	}
-
 	OldHunterDramaticLight: {
 		Label: Old Hunter Dramatic Light
 		Tooltip:
 			'''
 			When the old hunter is assembled, his spawn animation causes the screen to constantly get brighter before he spawns
 			Turn this option off to disable the screen brightness during his spawn animation
-			Especially important to turn this off if you are sensative to bright light
+			Especially important to turn this off if you are sensitive to bright light
 			'''
 	}
 
@@ -60,4 +47,63 @@ SpookyServerConfig: {
 			(Like during the month of October, or when you make it to wave 15 of the pumpkin moon before daytime)
 			'''
 	}
+}
+
+SpookyWorldgenConfig: {
+	DisplayName: Spooky World Generation Config
+
+	SpookyForestSpawn: {
+		Label: Spooky Forest Spawnpoint
+		Tooltip:
+			'''
+			Changes the location of where the spooky forest is placed during world generation
+			Keeping this on will make it placed at your spawn, which is the default option
+			Turning this off will make the spooky forest generate away from your spawn, on the dungeon side of the world
+			Turning this off can be helpful if you are using other mods that add world generation at or nearby spawn
+			(This option is only applied when making new worlds, and will have no effect on existing worlds)
+			'''
+	}
+
+	EyeValleyWorldSide: {
+		Label: Eye Valley World Side
+		Tooltip:
+			'''
+			Allows you to determine which side of the world the eye valley will generate on
+			Random (The default option) will randomize it being on the left or right edge of the world
+			Jungle side will make the eye valley always generate on the same side of the world that the jungle is on
+			Dungeon side will make the eye valley always generate on the same side of the world that the dungeon is on
+			Can be helpful if you are using other mods that add world generation in the underworld
+			(This option is only applied when making new worlds, and will have no effect on existing worlds)
+			'''
+	}
+
+	ZombieBiomeWorldside: {
+		Label: Rotten Depths World Side
+		Tooltip:
+			'''
+			Allows you to determine which side of the world the rotten depths will generate on
+			Random (The default option) will randomize it being on the left or right ocean in the world
+			Jungle side will make the rotten depths always generate on the same side of the world that the jungle is on
+			Dungeon side will make the rotten depths always generate on the same side of the world that the dungeon is on
+			Can be helpful if you are using other mods that add in biomes under the oceans
+			Some useful information:
+			Calamities abyss will always be on the dungeon side of the world
+			Thorium's aquatic depths will always be on the jungle side of the world
+			(This option is only applied when making new worlds, and will have no effect on existing worlds)
+			'''
+	}
+}
+
+EyeValleyPosEnum: {
+	Random.Label: Random
+	JungleSide.Label: Jungle Side
+	DungeonSide.Label: Dungeon Side
+	Tooltip: ""
+}
+
+ZombieBiomePosEnum: {
+	Random.Label: Random
+	JungleSide.Label: Jungle Side
+	DungeonSide.Label: Dungeon Side
+	Tooltip: ""
 }

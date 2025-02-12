@@ -43,6 +43,8 @@ namespace Spooky.Content.Generation
 
 			bool IsSmallWorld = Main.maxTilesX < 6400 && Main.maxTilesY < 1800;
 
+			//TODO: tar pits needs to be a bit wider on small worlds, and needs to generate much lower in the desert since theres only one
+
 			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
 			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY / 2), Main.maxTilesY / 2);
 
@@ -450,7 +452,7 @@ namespace Spooky.Content.Generation
 			}
 
 			return true;
-		} 
+		}
 
 		//dont allow cactuses to naturally grow too close to each other
 		public static bool CanPlaceCactus(int X, int Y)

@@ -135,6 +135,7 @@ namespace Spooky.Core
         public bool NoseCultistDisguise1 = false;
 		public bool NoseCultistDisguise2 = false;
 		public bool NoseBlessingBuff = false;
+        public bool DivingSuit = false;
 
 		//misc timers
 		public static float ScreenShakeAmount = 0;
@@ -304,6 +305,7 @@ namespace Spooky.Core
             NoseCultistDisguise1 = false;
 			NoseCultistDisguise2 = false;
 			NoseBlessingBuff = false;
+            DivingSuit = false;
 
 			//dashing stuff
             if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
@@ -353,7 +355,7 @@ namespace Spooky.Core
             {
                 ScreenShakeAmount = 0;
             }
-        }
+		}
 
 		public override void ArmorSetBonusActivated()
 		{
@@ -1208,9 +1210,17 @@ namespace Spooky.Core
                 Player.maxRunSpeed += 3f;
                 Player.runAcceleration += 0.015f;
             }
-        }
 
-        public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+			/*
+			if (Player.HasBuff(ModContent.BuffType<DivingSuitBuff>()) && Player.wet)
+			{
+				Player.maxRunSpeed += 5f;
+				Player.runAcceleration += 0.075f;
+			}
+			*/
+		}
+
+		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
             if (Player.HasBuff(ModContent.BuffType<SpiderArmorStealth>()))
             {
@@ -1233,6 +1243,16 @@ namespace Spooky.Core
                 g *= 1f - (SpiderStealthAlpha * 0.5f);
                 b *= 1f - (SpiderStealthAlpha * 0.75f);
                 a *= 1f - (SpiderStealthAlpha * 0.5f);
+            }
+        }
+
+        public override void FrameEffects()
+        {
+            if (DivingSuit)
+            {
+                Player.legs = EquipLoader.GetEquipSlot(Mod, "DivingSuit", EquipType.Legs);
+                Player.body = EquipLoader.GetEquipSlot(Mod, "DivingSuit", EquipType.Body);
+                Player.head = EquipLoader.GetEquipSlot(Mod, "DivingSuit", EquipType.Head);
             }
         }
 

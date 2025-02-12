@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Spooky.Core
 {
@@ -25,8 +27,11 @@ namespace Spooky.Core
         public static Vector2 SpiderGrottoCenter = Vector2.Zero;
         public static Vector2 EyeValleyCenter = Vector2.Zero;
 
+		//list of eel biome nodes
+		public static List<Vector2> ZombieBiomePositions = new List<Vector2>();
+
 		//bosses
-        public static bool downedRotGourd = false;
+		public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
         public static bool downedMoco = false;
         public static bool downedDaffodil = false;
@@ -126,6 +131,9 @@ namespace Spooky.Core
             tag[nameof(SpiderGrottoCenter)] = SpiderGrottoCenter;
             tag[nameof(EyeValleyCenter)] = EyeValleyCenter;
 
+			//list of eel biome nodes
+			tag["Spooky:ZombieBiomePositions"] = ZombieBiomePositions;
+
 			//bosses
 			tag[nameof(downedRotGourd)] = downedRotGourd;
 			tag[nameof(downedSpookySpirit)] = downedSpookySpirit;
@@ -184,6 +192,12 @@ namespace Spooky.Core
 			//world positions for compasses
 			SpiderGrottoCenter = tag.Get<Vector2>(nameof(SpiderGrottoCenter));
 			EyeValleyCenter = tag.Get<Vector2>(nameof(EyeValleyCenter));
+
+			//eel biome positions
+			if (tag.ContainsKey("Spooky:ZombieBiomePositions"))
+			{
+				ZombieBiomePositions = tag.Get<List<Vector2>>("Spooky:ZombieBiomePositions");
+			}
 
 			//bosses
 			downedRotGourd = tag.GetBool(nameof(downedRotGourd));

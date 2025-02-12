@@ -45,7 +45,7 @@ namespace Spooky.Content.Generation
 			}
 
 			//if config is enabled, place it at spawn
-			if (ModContent.GetInstance<SpookyConfig>().SpookyForestSpawn)
+			if (ModContent.GetInstance<SpookyWorldgenConfig>().SpookyForestSpawn)
 			{
 				PositionX = Main.maxTilesX / 2;
 			}
@@ -993,7 +993,7 @@ namespace Spooky.Content.Generation
 
 						double heightLimit = Main.worldSurface * 0.35f;
 
-						if (PositionY > (int)heightLimit + 150 || (PositionY > (int)heightLimit + 80 && PositionY < (int)heightLimit + 150 && Cemetery.NoFloatingIsland(PositionX, PositionY)))
+						if (PositionY >= (int)heightLimit + 150 || (PositionY > (int)heightLimit + 80 && PositionY < (int)heightLimit + 150 && Cemetery.NoFloatingIsland(PositionX, PositionY)))
 						{
 							if (PositionY <= Main.worldSurface)
 							{

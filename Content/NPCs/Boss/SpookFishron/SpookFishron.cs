@@ -216,6 +216,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			}
 		}
 
+		//unique AI????!?!??!?
 		public override void AI()
 		{
 			NPC.TargetClosest(true);

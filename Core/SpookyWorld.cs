@@ -13,6 +13,7 @@ using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.NoseCult;
 using Spooky.Content.NPCs.PandoraBox;
+using System.Threading;
 
 namespace Spooky.Core
 {

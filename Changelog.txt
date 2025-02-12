@@ -8,15 +8,19 @@ Structure helper:
 
 Brand New Mini-Biomes:
 
---TODO--
+-Fetid farms, a nasty rotting vegetable garden found in the underground jungle (only 1 on small worlds, 2 on medium and large)
+-Tar pits, a rocky desert cave with fossils and tar found in the underground desert (only 1 on small worlds, 2 on medium and large)
+-Krampus' workshop, a strange dungeon structure found in the underground ice biome (only 1 per world)
+-Rotten depths, an underwater cavern with old labs where an experiment has gone wrong under the ocean (only 1 per world)
 
 
 Spooky Forest Generation Overhaul:
 
--Changed the spooky forests shape to be a more smooth looking oval
+-Changed the spooky forests generation completely to be more natural looking and to make it more fun to explore overall
 -Spooky forest underground now has entirely new cave generation to make exploring the biome more interesting and to make mining through it less annoying
 -Spooky forest underground loot cabins are now randomly placed instead of only having a certain amount in set locations, which means more loot overall even on smaller worlds
 -Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you use the detonator + explosive at the surface or just dig under the explosive
+-Completely new glowshroom minibiome generation because the previous one was just copy pasted glowing mushroom biome generation
 
 
 New Music:
@@ -65,7 +69,7 @@ Magic Weapon Rebalancing/Reworks:
 -Snot nosed tome no longer flies to your cursor, it now summons the channeled nose above you, and shoots boogers at your cursor
 -Changed moocher staff projectile to be a giant cursed fire explosion that launches some cursed fireballs upward, it now does more damage, is more useful against flying targets, and visually looks better
 -Arachnid leg wand reworked, it now rapidly fires out short range and short lived spider leg apparitions that can go through blocks, nerfed its damage as a result of this rework
--Jerry's book of stinkology projectile now has damage falloff when it pierces an enemy
+-Jerry's book of stinkology projectile now has damage falloff each time it pierces an enemy
 
 
 Accessory Rebalancing/Reworks:
@@ -124,7 +128,7 @@ Miscellaneous:
 -Fixed brown solution not converting spooky mod biomes into a forest biome
 -Fixed frank the goblin's hands despawning if the player gets too far away from him
 -Fixed spooky mod vines growing longer than 10 tiles during world generation
--Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies as this was a scrapped idea
+-Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies as this was scrapped
 -Fixed gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
 -Fixed living flesh mask still giving extra whip range
 -Fixed gore mask giving 3 extra minion slots instead of 2
@@ -135,7 +139,7 @@ Miscellaneous:
 -Fixed ancient crushers colliding with platforms when slamming down
 -Fixed cemetery biome dungeon chest item not having a sell price
 -Fixed possessed scarecrows shooting through blocks
--Fixed total organ package not giving 8% increased crit chance
+-Fixed total organ package not giving 8% increased crit chance inhereted from the corroding chompers
 
 
 Multiplayer:

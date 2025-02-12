@@ -217,7 +217,7 @@ namespace Spooky.Content.Generation
                             //place mounds of web blocks on the floor
                             if (WorldGen.genRand.NextBool(20) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y - 1].HasTile)
                             {
-                                SpookyWorldMethods.PlaceMound(X, Y + 3, ModContent.TileType<WebBlock>(), WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(6, 10));
+                                SpookyWorldMethods.PlaceMound(X, Y + 3, ModContent.TileType<WebBlock>(), WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(6, 10), false);
                             }
 
                             //place smaller chunks of web blocks on the ceiling

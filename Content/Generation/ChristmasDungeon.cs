@@ -177,7 +177,7 @@ namespace Spooky.Content.Generation
 
 					getAttachedPoints(i, j, chunkPoints);
 
-					int cutoffLimit = 1000;
+					int cutoffLimit = 2500;
 					if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
 					{
 						foreach (Point p in chunkPoints)

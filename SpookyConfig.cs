@@ -10,10 +10,6 @@ namespace Spooky
 
         [BackgroundColor(250, 175, 0, 125)]
         [DefaultValue(true)]
-        public bool SpookyForestSpawn { get; set; }
-
-        [BackgroundColor(250, 175, 0, 125)]
-        [DefaultValue(true)]
         public bool OldHunterDramaticLight { get; set; }
 
         [BackgroundColor(250, 175, 0, 125)]
@@ -26,9 +22,29 @@ namespace Spooky
         [DefaultValue(1f)]
         [Slider]
 		public float ScreenShakeIntensity;
-    }
+	}
 
-    [BackgroundColor(80, 12, 0, 150)]
+	[BackgroundColor(80, 12, 0, 150)]
+	public class SpookyWorldgenConfig : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ClientSide;
+
+		[BackgroundColor(250, 175, 0, 125)]
+		[DefaultValue(true)]
+		public bool SpookyForestSpawn { get; set; }
+
+		[BackgroundColor(250, 175, 0, 125)]
+		[DefaultValue(EyeValleyPosEnum.Random)]
+		[DrawTicks]
+		public EyeValleyPosEnum EyeValleyWorldSide;
+
+		[BackgroundColor(250, 175, 0, 125)]
+		[DefaultValue(ZombieBiomePosEnum.Random)]
+		[DrawTicks]
+		public ZombieBiomePosEnum ZombieBiomeWorldside;
+	}
+
+	[BackgroundColor(80, 12, 0, 150)]
     public class SpookyServerConfig : ModConfig
 	{
         public override ConfigScope Mode => ConfigScope.ServerSide;
@@ -37,4 +53,17 @@ namespace Spooky
         [DefaultValue(true)]
         public bool HalloweenEnabled { get; set; }
     }
+
+	public enum EyeValleyPosEnum
+	{
+		Random,
+		JungleSide,
+		DungeonSide
+	}
+	public enum ZombieBiomePosEnum
+	{
+		Random,
+		JungleSide,
+		DungeonSide
+	}
 }

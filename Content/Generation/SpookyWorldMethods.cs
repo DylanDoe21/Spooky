@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using System;
@@ -9,7 +10,7 @@ namespace Spooky.Content.Generation
 {
 	public class SpookyWorldMethods
 	{
-		public static void PlaceMound(int X, int Y, int tileType, int halfWidth, int height)
+		public static void PlaceMound(int X, int Y, int tileType, int halfWidth, int height, bool DestroyOnly)
 		{
 			ShapeData mound = new ShapeData();
 			GenAction blotchMod = new Modifiers.Blotches(2, 0.4);
@@ -18,10 +19,20 @@ namespace Spooky.Content.Generation
 				blotchMod.Output(mound)
 			}));
 
-			WorldUtils.Gen(new Point(X, Y), new ModShapes.All(mound), Actions.Chain(new GenAction[]
+			if (!DestroyOnly)
 			{
-				new Actions.ClearTile(), new Actions.PlaceTile((ushort)tileType)
-			}));
+				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(mound), Actions.Chain(new GenAction[]
+				{
+					new Actions.ClearTile(), new Actions.PlaceTile((ushort)tileType)
+				}));
+			}
+			else
+			{
+				WorldUtils.Gen(new Point(X, Y), new ModShapes.All(mound), Actions.Chain(new GenAction[]
+				{
+					new Actions.ClearTile()
+				}));
+			}
 		}
 
 		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly, bool DestroyOnly)
@@ -143,7 +154,7 @@ namespace Spooky.Content.Generation
 		public static void PlaceVines(int X, int Y, int vineType, int[] ValidTiles)
 		{
 			Tile tileBelow = Framing.GetTileSafely(X, Y + 1);
-			if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && tileBelow.LiquidAmount <= 0)
+			if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
 			{
 				bool PlaceVine = false;
 				int Test = Y;
@@ -165,6 +176,7 @@ namespace Spooky.Content.Generation
 
 				if (PlaceVine)
 				{
+					WorldGen.PlaceTile(X, Y + 1, vineType);
 					tileBelow.TileType = (ushort)vineType;
 					tileBelow.HasTile = true;
 					WorldGen.SquareTileFrame(X, Y + 1, true);

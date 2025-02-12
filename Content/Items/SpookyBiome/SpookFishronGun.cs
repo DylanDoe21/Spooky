@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.SpookyBiome
             Item.value = Item.buyPrice(gold: 25);
             Item.UseSound = SoundID.Item34;
 			Item.shoot = ModContent.ProjectileType<SpookFishronGunFire>();
-			Item.shootSpeed = 8f;
+			Item.shootSpeed = 5f;
         }
 
         public override Vector2? HoldoutOffset()

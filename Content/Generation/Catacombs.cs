@@ -987,12 +987,12 @@ namespace Spooky.Content.Generation
                 tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
                 {
                     //copy-pasted and slightly modified shimmer generation code from terraria itself
-                    int RandomY1 = (int)(Main.worldSurface + Main.rockLayer) / 2 + 100;
+                    int RandomY1 = (int)Main.rockLayer + 200;
                     int RandomY2 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
 
-                    if (RandomY2 > Main.maxTilesY - 200)
+                    if (RandomY2 > Main.maxTilesY - 250)
                     {
-                        RandomY2 = Main.maxTilesY - 200;
+                        RandomY2 = Main.maxTilesY - 250;
                     }
                     if (RandomY2 <= RandomY1)
                     {

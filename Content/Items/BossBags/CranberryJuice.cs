@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.BossBags
 
 		public override void SetDefaults()
 		{
-			Item.healLife = 100;
+			Item.healLife = 90;
 			Item.width = 28;
 			Item.height = 50;
 			Item.useTime = 15;

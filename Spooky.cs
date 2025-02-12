@@ -16,7 +16,6 @@ using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.PandoraBox;
-using Spooky.Content.NPCs.NoseCult;
 
 namespace Spooky
 {
@@ -27,7 +26,7 @@ namespace Spooky
         internal Mod subworldLibrary = null;
         internal Mod remnants = null;
 
-        public static int MistGhostSpawnX;
+		public static int MistGhostSpawnX;
         public static int MistGhostSpawnY;
 
         public static int SpookySpiritSpawnX;

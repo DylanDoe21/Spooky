@@ -32,7 +32,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 120;
             Projectile.penetrate = -1;
         }
 
