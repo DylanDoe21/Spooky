@@ -46,7 +46,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPCID.Sets.TrailCacheLength[NPC.type] = 12;
 			NPCID.Sets.TrailingMode[NPC.type] = 3;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
-			NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
 
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
@@ -621,7 +620,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 	{
 		private int DunkNPC = -1;
 
-		public override int Music => MusicID.OtherworldlyNight; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookFishron");
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigDunkChase");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
 

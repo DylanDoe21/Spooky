@@ -74,24 +74,24 @@ Magic Weapon Rebalancing/Reworks:
 
 Accessory Rebalancing/Reworks:
 
--Swapped the telescope and severed heads progression (severed head is now post orroboro and telescope is now post daffodil, both of their buy/sell prices and rarity colors have been adjusted accordingly)
+-Swapped the telescope and severed heads progression (telescope is now post daffodil and severed head is now post orroboro, both of their buy/sell prices and rarity colors have been adjusted accordingly)
 -Telescope's moon now grants 10% increased damage during the day and 10 defense at night along with its existing abilities
 -Apocalypse mixtape telescope moon now has no damage cap for projectiles it can reflect (This does not apply to the regular telescope accessory)
 -Arcade cabinet now gives 2% increased critical strike chance per missing swirl charge up to 10% total, and increased the amount of time it takes for one charge to regenerate to 2 seconds
--Dreadful clarinet no longer has a cooldown for spawning notes on critical hits, but you cannot have more than 5 active notes at once, and increased their enemy targetting range
+-Dreadful clarinet no longer has a cooldown for spawning notes on critical hits but you cannot have more than 5 active notes at once, and increased their enemy targetting range
 -Strange video game now disables your life regeneration but it will now spawn natures mockery around you constantly, only one can exist at a time but once one dies another will immediately spawn
 -Samson's cuff no longer decreases movement speed and damage (Applies to both the regular accessory and the amalghoul)
--Sewing thread now inflicts pierced onto any enemy it hits, pierced enemies will take 2x damage and be inflicted with a bleed damage-over-time debuff for 10 seconds the next time they are hit by any weapon that isnt the thread
+-Sewing thread now inflicts pierced onto any enemy it hits, pierced enemies will take 2x damage and be inflicted with a damage-over-time debuff for 10 seconds the next time they are hit by any weapon that isnt the thread
 -Stitched cloak dash now allows you to dash vertically/horizontally in a straight direction, and you are now invincible while dashing which allows you to dash through enemies and their attacks
 -Removed the stitched cloak's spider web ability
 -Eyeball of pondering now displays the exact amount of damage increase it gives when targetting an enemy, and removed the "shattering when you get hit too many times" gimmick entirely
--Tome of spirits now gives stats based on the eye color: 12% more melee/ranged damage and knockback when red, 12% increased magic/summon damage and 15% less mana usage when green, 10 defense and extra life regen when blue
+-Tome of spirits now gives stats based on the eye color: 12% more melee/ranged damage and knockback when red, 12% increased magic/summon damage and 15% less mana usage when green, and 10 defense and extra life regen when blue
 -Allergy medication now provides immunity to venom and poisoned along with oozed and converts both of those debuffs into positive buffs like it does with oozed
 -Corroding chompers projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it
 -Corroding chompers now gives 8% increased critical strike chance to make it more useful overall
 -Stoned kidney now gives 15% increased damage while at full charge
--Skull amulet now grants 2% increased damage for each enemy soul you absorb for a maximum of 20%, and reworked the frenzy buff to give you a massive attack speed boost along with the soul damage bonus instead of generic stat boosts
--Snotty schnoz no longer has a cooldown period after shooting a spread of snot, and the snot projectiles are no longer homing
+-Skull amulet now grants 2% increased damage for each enemy soul you absorb for a maximum of 20%, and reworked the frenzy buff to give you a massive attack speed boost along with the 20% damage increase instead of generic stat boosts
+-Snotty schnoz no longer has a cooldown period after shooting a spread of snot, but the snot projectiles are no longer homing
 -Reworked flower hairpin, it now summons offensive orbiting petals that will chase enemies and deal damage equal to the damage you took when you got hit with a minimum of 40, petals also constantly spawn if you have less than 6 at once
 -Ancient bone mask now massively increases your movement acceleration and maximum movement speed, and the wisps now shoot upward if you are running on the ground to prevent them from hitting the floor and immediately dying
 
@@ -112,10 +112,10 @@ Miscellaneous:
 -Spooky mod grasses now immediately turn into their corresponding dirt block when broken like terraria grasses do
 -New resprites for all spooky mod grasses and most spooky mod dirt blocks to make them look more fitting with terraria's grass blocks
 -Catacombs curse debuff no longer prevents you from placing blocks
--Catacomb bricks and walls can now be broken with pickaxes/hammers once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandora's box arena are still completely indestructable. This also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
+-Catacomb bricks and walls can now be broken with pickaxes/hammers once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandora's box arena are still completely indestructable. The indestructable arenas also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
 -Removed catacomb grass seeds, cemetery grass seeds now serve the same purpose of placing moss on catacomb bricks along with placing cemetery grass
 -Removed all cooldown debuffs for accessories that have had their cooldowns removed
--Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey now use "double tap down" like vanilla special armor set bonuses
+-Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey previously now use "double tap down" like terraria's special armor set bonuses
 
 
 

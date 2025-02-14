@@ -18,6 +18,7 @@ using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.Minibiomes.Ocean;
 using Spooky.Content.NPCs.Minibiomes.TarPits;
 using Spooky.Content.NPCs.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Quest;
@@ -583,6 +584,20 @@ namespace Spooky.Core
 					{
 						pool.Add(ModContent.NPCType<GhostPepper>(), 1);
 					}
+				}
+			}
+
+			//fetid farms spawns
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<ZombieOceanBiome>()))
+			{
+				pool.Clear();
+
+				if (spawnInfo.Water)
+				{
+					pool.Add(ModContent.NPCType<SkeletonFish>(), 2);
+					pool.Add(ModContent.NPCType<SkeletonGar>(), 2);
+					pool.Add(ModContent.NPCType<SkeletonPiranha>(), 2);
+					pool.Add(ModContent.NPCType<SkeletonSunfish>(), 1);
 				}
 			}
 

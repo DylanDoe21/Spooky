@@ -14,7 +14,7 @@ namespace Spooky.Content.Biomes
     {
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<ZombieOceanUG>();
 
-        public override int Music => MusicID.Eerie; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/ChristmasDungeon");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/ZombieOcean");
        
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
