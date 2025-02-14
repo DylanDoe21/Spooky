@@ -45,7 +45,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//draw aura
 			Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
 
-            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            var effects = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             //draw aura
             for (int i = 0; i < 360; i += 30)
@@ -96,19 +96,18 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
                 Vector2 vel = NPC.DirectionFrom(Main.npc[BigDunk].Center);
                 vel.Normalize();
-                vel *= 5f;
+                vel *= 6f;
                 NPC.velocity = vel;
-                NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.05f : -0.05f);
                 if (Main.npc[BigDunk].position.X > NPC.position.X)
                 {
-                    NPC.spriteDirection = 1;
-                    NPC.direction = 1;
+                    NPC.spriteDirection = -1;
+                    NPC.direction = -1;
                     NPC.netUpdate = true;
                 }
                 else if (Main.npc[BigDunk].position.X < NPC.position.X)
                 {
-                    NPC.spriteDirection = -1;
-                    NPC.direction = -1;
+                    NPC.spriteDirection = 1;
+                    NPC.direction = 1;
                     NPC.netUpdate = true;
                 }
             }

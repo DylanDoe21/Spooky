@@ -39,6 +39,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		private static Asset<Texture2D> BodyTexture2;
 
 		public static readonly SoundStyle RoarSound = new("Spooky/Content/Sounds/DunkleosteusRoar", SoundType.Sound) { PitchVariance = 0.6f };
+		public static readonly SoundStyle StingSound = new("Spooky/Content/Sounds/DunkleosteusSting", SoundType.Sound) { Volume = 2f };
 
 		public override void SetStaticDefaults()
 		{
@@ -337,6 +338,15 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 				NPC.ai[1]++;
 
+				if (NPC.ai[1] == 2)
+				{
+					SoundEngine.PlaySound(StingSound, NPC.Center);
+
+					Dust.NewDustPerfect(new Vector2(NPC.Center.X, NPC.Center.Y - NPC.height), ModContent.DustType<CultistExclamation>(), Vector2.Zero, 0, default, 2f);
+					Dust.NewDustPerfect(new Vector2(NPC.Center.X - 50, NPC.Center.Y - NPC.height), ModContent.DustType<CultistExclamation>(), Vector2.Zero, 0, default, 2f);
+					Dust.NewDustPerfect(new Vector2(NPC.Center.X + 50, NPC.Center.Y - NPC.height), ModContent.DustType<CultistExclamation>(), Vector2.Zero, 0, default, 2f);
+				}
+
 				if (NPC.ai[1] == 30)
 				{
 					NPC.ai[2] = 1;
@@ -344,10 +354,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					SoundEngine.PlaySound(RoarSound, NPC.Center);
 
 					SpookyPlayer.ScreenShakeAmount = 12;
-
-					Dust.NewDustPerfect(new Vector2(NPC.Center.X, NPC.Center.Y - NPC.height), ModContent.DustType<CultistExclamation>(), Vector2.Zero, 0, default, 2f);
-					Dust.NewDustPerfect(new Vector2(NPC.Center.X - 50, NPC.Center.Y - NPC.height), ModContent.DustType<CultistExclamation>(), Vector2.Zero, 0, default, 2f);
-					Dust.NewDustPerfect(new Vector2(NPC.Center.X + 50, NPC.Center.Y - NPC.height), ModContent.DustType<CultistExclamation>(), Vector2.Zero, 0, default, 2f);
 				}
 
 				if (NPC.ai[1] >= 85)
