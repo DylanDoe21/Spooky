@@ -21,6 +21,7 @@ using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 
 using StructureHelper;
+using Terraria.DataStructures;
 
 namespace Spooky.Content.Generation
 {
@@ -879,7 +880,12 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 25; j < Y + 25; j++)
                 {
-                    if (WorldGen.InWorld(i, j) && InvalidTiles.Contains(Main.tile[i, j].TileType))
+					if (!WorldGen.InWorld(i, j, 20))
+					{
+						return false;
+					}
+					
+					if (InvalidTiles.Contains(Main.tile[i, j].TileType))
                     {
                         return false;
                     }
