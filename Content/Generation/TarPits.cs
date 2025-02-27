@@ -14,6 +14,8 @@ using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes.Desert;
 using Spooky.Content.Tiles.Minibiomes.Desert.Ambient;
 
+using StructureHelper;
+
 namespace Spooky.Content.Generation
 {
 	public class TarPits : ModSystem
@@ -30,20 +32,20 @@ namespace Spooky.Content.Generation
 			(ushort)ModContent.WallType<DesertSandstoneWall>()
 		};
 
+		List<Vector2> StructurePoints = new List<Vector2>();
+
 		private void PlaceTarPits(GenerationProgress progress, GameConfiguration configuration)
 		{
 			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.TarPits").Value;
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
-			int SizeXInt = Main.maxTilesX < 6400 ? 45 : 53;
-			int SizeYInt = Main.maxTilesY < 1800 ? 14 : 22;
+			int SizeXInt = Main.maxTilesX < 6400 ? 37 : 53;
+			int SizeYInt = Main.maxTilesY < 1800 ? 15 : 22;
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
 
 			bool IsSmallWorld = Main.maxTilesX < 6400 && Main.maxTilesY < 1800;
-
-			//TODO: tar pits needs to be a bit wider on small worlds, and needs to generate much lower in the desert since theres only one
 
 			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
 			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY / 2), Main.maxTilesY / 2);
@@ -51,6 +53,10 @@ namespace Spooky.Content.Generation
 			if (!IsSmallWorld)
 			{
 				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 50);
+			}
+			else
+			{
+				BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY / 2 + 100);
 			}
 
 			int maxBiomes = !IsSmallWorld ? 2 : 1;
@@ -62,11 +68,14 @@ namespace Spooky.Content.Generation
 					if (numBiomesPlaced == 0)
 					{
 						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
-						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY / 2), Main.maxTilesY / 2);
 
 						if (!IsSmallWorld)
 						{
-							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 100);
+							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 50);
+						}
+						else
+						{
+							BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY / 2 + 100);
 						}
 					}
 					else
@@ -80,6 +89,7 @@ namespace Spooky.Content.Generation
 				DigOutCaves(BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
 				BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
 				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
+				PlaceStructures(BiomeX, BiomeY, SizeX, SizeY);
 				BiomeAmbience(BiomeX, BiomeY, SizeX, SizeY);
 			}
 		}
@@ -337,6 +347,161 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+		}
+
+		public void PlaceStructures(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
+			bool PlacedMinecartEntrance = false;
+
+			//place only one mineshaft entrance at the edge of the biome
+			for (int j = PositionY - 35; j < PositionY + 35; j++)
+			{
+				for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+				{
+					if (BlockTypes.Contains(Main.tile[i, j].TileType) && CanPlaceMinecartEntrance(i, j) && !PlacedMinecartEntrance)
+					{
+						WorldGen.digTunnel(i, j - 5, default, default, WorldGen.genRand.Next(1, 4), 5, false);
+						WorldGen.digTunnel(i - 11, j - 5, default, default, WorldGen.genRand.Next(1, 4), 5, false);
+						WorldGen.digTunnel(i + 11, j - 5, default, default, WorldGen.genRand.Next(1, 4), 5, false);
+
+						if (WorldGen.genRand.NextBool())
+						{
+							Vector2 Origin = new Vector2(i - 11, j - 10);
+							Generator.GenerateStructure("Content/Structures/TarPits/MinecartEntrance-1", Origin.ToPoint16(), Mod);
+						}
+						else
+						{
+							Vector2 Origin = new Vector2(i - 16, j - 10);
+							Generator.GenerateStructure("Content/Structures/TarPits/MinecartEntrance-2", Origin.ToPoint16(), Mod);
+						}
+
+						StructurePoints.Add(new Vector2(i, j));
+
+						PlacedMinecartEntrance = true;
+					}
+				}
+			}
+
+			//place other random structures
+			for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
+			{
+				for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+				{
+					if (WorldGen.genRand.NextBool(10) && CanPlaceStructure(i, j, 20) && BlockTypes.Contains(Main.tile[i, j].TileType))
+					{
+						Vector2 Origin = new Vector2(i - 8, j - 15);
+						Generator.GenerateStructure("Content/Structures/TarPits/TarWell", Origin.ToPoint16(), Mod);
+						StructurePoints.Add(new Vector2(i, j));
+					}
+
+					if (WorldGen.genRand.NextBool(10) && CanPlaceStructure(i, j, 30) && BlockTypes.Contains(Main.tile[i, j].TileType))
+					{
+						Vector2 Origin = new Vector2(i - 14, j - 19);
+						Generator.GenerateStructure("Content/Structures/TarPits/Crane-" + WorldGen.genRand.Next(1, 3), Origin.ToPoint16(), Mod);
+						StructurePoints.Add(new Vector2(i, j));
+					}
+
+					if (WorldGen.genRand.NextBool(8) && CanPlaceStructure(i, j, 10) && BlockTypes.Contains(Main.tile[i, j].TileType))
+					{
+						Vector2 Origin = new Vector2(i - 6, j - 6);
+						Generator.GenerateStructure("Content/Structures/TarPits/Minecart-" + WorldGen.genRand.Next(1, 6), Origin.ToPoint16(), Mod);
+						StructurePoints.Add(new Vector2(i, j));
+					}
+
+					if (WorldGen.genRand.NextBool(5) && CanPlaceStructure(i, j, 10) && BlockTypes.Contains(Main.tile[i, j].TileType))
+					{
+						Vector2 Origin = new Vector2(i - 6, j - 4);
+						Generator.GenerateStructure("Content/Structures/TarPits/BonePile", Origin.ToPoint16(), Mod);
+						StructurePoints.Add(new Vector2(i, j));
+					}
+
+					if (WorldGen.genRand.NextBool(5) && CanPlaceStructure(i, j, 15) && BlockTypes.Contains(Main.tile[i, j].TileType))
+					{
+						Vector2 Origin = new Vector2(i - 7, j - 10);
+						Generator.GenerateStructure("Content/Structures/TarPits/SmallHut", Origin.ToPoint16(), Mod);
+						StructurePoints.Add(new Vector2(i, j));
+					}
+				}
+			}
+		}
+
+		public bool CanPlaceMinecartEntrance(int PositionX, int PositionY)
+		{
+			int numOutsideTiles = 0;
+
+			for (int x = PositionX - 4; x <= PositionX + 4; x++)
+			{
+				for (int y = PositionY - 4; y <= PositionY + 4; y++)
+				{
+					if (!BlockTypes.Contains(Main.tile[x, y].TileType) && Main.tile[x, y].HasTile)
+					{
+						numOutsideTiles++;
+					}
+				}
+			}
+
+			for (int x = PositionX - 15; x <= PositionX + 15; x++)
+			{
+				for (int y = PositionY - 15; y <= PositionY + 15; y++)
+				{
+					if (Main.tile[x, y].LiquidAmount > 0)
+					{
+						return false;
+					}
+				}
+			}
+
+			return numOutsideTiles > 5;
+		}
+
+		public bool CanPlaceStructure(int PositionX, int PositionY, int UpCheckDist)
+		{
+			int numTiles = 0;
+
+			//only place structures on biome blocks
+			for (int x = PositionX - 1; x <= PositionX + 1; x++)
+			{
+				for (int y = PositionY; y <= PositionY + 3; y++)
+				{
+					if (BlockTypes.Contains(Main.tile[x, y].TileType) && Main.tile[x, y].HasTile)
+					{
+						numTiles++;
+					}
+				}
+			}
+
+			//dont allow them to place too close to liquids
+			for (int x = PositionX - 6; x <= PositionX + 6; x++)
+			{
+				for (int y = PositionY - UpCheckDist; y <= PositionY + 5; y++)
+				{
+					if (Main.tile[x, y].LiquidAmount > 0)
+					{
+						return false;
+					}
+				}
+			}
+
+			//preform upward check to make sure theres enough room
+			for (int y = PositionY - 6; y <= PositionY - 1; y++)
+			{
+				if (Main.tile[PositionX, y].HasTile)
+				{
+					return false;
+				}
+			}
+
+			//dont let structures place too close to each other
+			foreach (Vector2 pos in StructurePoints)
+			{
+				float Dist = Vector2.Distance(pos, new Vector2(PositionX, PositionY));
+				if (Dist < 45)
+				{
+					return false;
+				}
+			}
+
+			return numTiles > 8;
 		}
 
 		//generate a semi-oval with a pool of water in the middle

@@ -177,7 +177,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (distanceFromOwner >= 200f)
             {
-                hoverAcceleration = 0.2f;
+                Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 7;
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
             if (distanceFromOwner < 200f)
             {
@@ -426,7 +427,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (distanceFromOwner >= 200f)
             {
-                hoverAcceleration = 0.2f;
+                Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 7;
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
             if (distanceFromOwner < 200f)
             {

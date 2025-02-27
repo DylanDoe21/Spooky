@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Graphics.Light;
 using Microsoft.Xna.Framework;
+using System;
+using MonoMod.Cil;
 
 using Spooky.Core;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
@@ -23,7 +25,28 @@ namespace Spooky.Content.Biomes
         public override void Load()
         {
             On_TileLightScanner.ApplyHellLight += SpookyHellCustomLighting;
-        }
+			IL_Player.UpdateBiomes += HeatRemoval;
+		}
+
+		public override void Unload()
+		{
+			On_TileLightScanner.ApplyHellLight -= SpookyHellCustomLighting;
+			IL_Player.UpdateBiomes -= HeatRemoval;
+		}
+
+		private void HeatRemoval(ILContext il)
+		{
+			ILCursor c = new ILCursor(il); //Make a cursor
+			c.GotoNext(MoveType.After, 
+				i => i.MatchLdloc0(), 
+				i => i.MatchLdfld<Point>("Y"), 
+				i => i.MatchLdsfld<Main>("maxTilesY"), 
+				i => i.MatchLdcI4(320), 
+				i => i.MatchSub(), 
+				i => i.MatchCgt());
+			//Finds the Flag7 Bool that controles the heat Y level
+			c.EmitDelegate<Func<bool, bool>>(currentBool => currentBool && !Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>())); //Adds ontop of the bool with our own
+		}
 
         //modified vanilla hell lighting code, just makes the vanilla hell lighting a different color because the default hell lighting is ugly in the biome
         private void SpookyHellCustomLighting(On_TileLightScanner.orig_ApplyHellLight orig, TileLightScanner self, Tile tile, int x, int y, ref Vector3 lightColor)

@@ -56,6 +56,7 @@ namespace Spooky.Core
             AddMusic("Content/Sounds/Music/TarPits", Language.GetTextValue("Mods.Spooky.MusicDisplay.TarPits"), "BananaLizard");
             AddMusic("Content/Sounds/Music/VegetableBiome", Language.GetTextValue("Mods.Spooky.MusicDisplay.VegetableBiome"), "BananaLizard");
             AddMusic("Content/Sounds/Music/ChristmasDungeon", Language.GetTextValue("Mods.Spooky.MusicDisplay.ChristmasDungeon"), "BananaLizard");
+            AddMusic("Content/Sounds/Music/ZombieOcean", Language.GetTextValue("Mods.Spooky.MusicDisplay.ZombieOcean"), "BananaLizard");
         }
     }
 }

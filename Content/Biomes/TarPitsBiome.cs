@@ -147,7 +147,7 @@ namespace Spooky.Content.Biomes
 		public override bool IsBiomeActive(Player player)
         {
 			//part of the biome condition makes it so that there must be more tar pits tiles than sand tiles so the biome zone doesnt overreach in game
-			bool BiomeCondition = ModContent.GetInstance<TileCount>().tarPitsTiles >= 500 && (ModContent.GetInstance<TileCount>().tarPitsTiles > Main.SceneMetrics.SandTileCount / 4);
+			bool BiomeCondition = ModContent.GetInstance<TileCount>().tarPitsTiles >= 500 && (ModContent.GetInstance<TileCount>().tarPitsTiles > Main.SceneMetrics.SandTileCount / 5);
 			bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;

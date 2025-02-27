@@ -30,6 +30,8 @@ namespace Spooky.Content.NPCs.EggEvent
         bool OrroboroDoesNotExist;
 
         private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> AuraTexture1;
+        private static Asset<Texture2D> AuraTexture2;
 
         public static readonly SoundStyle EventEndSound = new("Spooky/Content/Sounds/EggEvent/EggEventEnd", SoundType.Sound) { Volume = 2f };
         public static readonly SoundStyle EggDecaySound = new("Spooky/Content/Sounds/Orroboro/EggDecay", SoundType.Sound);
@@ -70,6 +72,8 @@ namespace Spooky.Content.NPCs.EggEvent
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            AuraTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/OrroboroEggGlow1");
+            AuraTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/OrroboroEggGlow2");
 
 			float stretch = 0f;
 
@@ -92,6 +96,15 @@ namespace Spooky.Content.NPCs.EggEvent
             Vector2 DrawPos = NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY + 4) - Main.screenPosition;
 
             spriteBatch.Draw(NPCTexture.Value, DrawPos, NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, SpriteEffects.None, 0f);
+
+            if (EggEventWorld.EggEventActive)
+            {
+                float fade1 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
+                float fade2 = (float)Math.Sin((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 6f)) / 2f + 0.5f;
+
+                spriteBatch.Draw(AuraTexture1.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, NPC.GetAlpha(Color.Red) * fade1, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(AuraTexture2.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, NPC.GetAlpha(Color.Red) * fade2, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            }
 
             return false;
         }
@@ -164,7 +177,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             OrroboroDoesNotExist = !NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
 
-            if (EggEventWorld.EggEventActive) 
+            if (EggEventWorld.EggEventActive || !Flags.downedEggEvent) 
             {
                 Lighting.AddLight(NPC.Center, Color.Indigo.ToVector3());
             }

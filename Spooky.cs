@@ -24,7 +24,6 @@ namespace Spooky
         internal static Spooky Instance;
         
         internal Mod subworldLibrary = null;
-        internal Mod remnants = null;
 
 		public static int MistGhostSpawnX;
         public static int MistGhostSpawnY;
@@ -65,7 +64,6 @@ namespace Spooky
             Instance = this;
             
             ModLoader.TryGetMod("SubworldLibrary", out subworldLibrary);
-            ModLoader.TryGetMod("Remnants", out remnants);
 
             AccessoryHotkey = KeybindLoader.RegisterKeybind(this, "AccessoryHotkey", "E");
 
@@ -96,7 +94,6 @@ namespace Spooky
         public override void Unload()
         {
             subworldLibrary = null;
-            remnants = null;
 
             AccessoryHotkey = null;
 

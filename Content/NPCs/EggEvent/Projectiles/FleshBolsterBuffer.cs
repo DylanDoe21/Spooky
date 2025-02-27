@@ -154,8 +154,10 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 			int frameHeight = height * Projectile.frame;
 			Rectangle rectangle = new Rectangle(0, frameHeight, ProjTexture.Width(), height);
 
+			Color color = Lighting.GetColor((int)Projectile.Center.X / 16, (int)(Projectile.Center.Y / 16));
+
 			Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
-			rectangle, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2f, height / 2f), Projectile.scale, SpriteEffects.None, 0);
+			rectangle, color, Projectile.rotation, new Vector2(ProjTexture.Width() / 2f, height / 2f), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
 		}

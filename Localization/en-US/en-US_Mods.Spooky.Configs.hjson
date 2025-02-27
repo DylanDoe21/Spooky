@@ -69,7 +69,7 @@ SpookyWorldgenConfig: {
 		Tooltip:
 			'''
 			Allows you to determine which side of the world the eye valley will generate on
-			Random (The default option) will randomize it being on the left or right edge of the world
+			Random will randomize it being on the left or right edge of the world
 			Jungle side will make the eye valley always generate on the same side of the world that the jungle is on
 			Dungeon side will make the eye valley always generate on the same side of the world that the dungeon is on
 			Can be helpful if you are using other mods that add world generation in the underworld
@@ -82,7 +82,7 @@ SpookyWorldgenConfig: {
 		Tooltip:
 			'''
 			Allows you to determine which side of the world the rotten depths will generate on
-			Random (The default option) will randomize it being on the left or right ocean in the world
+			Random will randomize it being on the left or right ocean in the world
 			Jungle side will make the rotten depths always generate on the same side of the world that the jungle is on
 			Dungeon side will make the rotten depths always generate on the same side of the world that the dungeon is on
 			Can be helpful if you are using other mods that add in biomes under the oceans

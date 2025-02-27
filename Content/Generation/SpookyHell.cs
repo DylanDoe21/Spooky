@@ -40,8 +40,7 @@ namespace Spooky.Content.Generation
 			//random worldside (default option)
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().EyeValleyWorldSide == EyeValleyPosEnum.Random)
 			{
-                bool Bool = WorldGen.genRand.NextBool();
-				StartPosition = Bool ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
+				StartPosition = WorldGen.genRand.NextBool() ? 70 : Main.maxTilesX - (Main.maxTilesX / 6) - 80;
 			}
 			//jungle side position
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().EyeValleyWorldSide == EyeValleyPosEnum.JungleSide)

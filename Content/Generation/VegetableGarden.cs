@@ -365,7 +365,6 @@ namespace Spooky.Content.Generation
 
 			for (int x = PositionX - (Size / 2); x <= PositionX + (Size / 2); x++)
 			{
-				//check specifically for christmas carpet since the entire floor will be made out of that
 				if (Main.tile[x, PositionY].TileType == ModContent.TileType<JungleMoss>() && !Main.tile[x, PositionY - 1].HasTile && !Main.tile[x, PositionY - 2].HasTile && !Main.tile[x, PositionY - 3].HasTile && !Main.tile[x, PositionY - 4].HasTile)
 				{
 					continue;

@@ -16,8 +16,8 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(55, 98, 58));
-            DustType = DustID.Grass;
-			HitSound = SoundID.Grass;
+            DustType = DustID.Blood;
+			HitSound = SoundID.NPCDeath1;
 		}
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)

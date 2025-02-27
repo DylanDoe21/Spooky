@@ -34,12 +34,12 @@ namespace Spooky
 		public bool SpookyForestSpawn { get; set; }
 
 		[BackgroundColor(250, 175, 0, 125)]
-		[DefaultValue(EyeValleyPosEnum.Random)]
+		[DefaultValue(EyeValleyPosEnum.JungleSide)]
 		[DrawTicks]
 		public EyeValleyPosEnum EyeValleyWorldSide;
 
 		[BackgroundColor(250, 175, 0, 125)]
-		[DefaultValue(ZombieBiomePosEnum.Random)]
+		[DefaultValue(ZombieBiomePosEnum.DungeonSide)]
 		[DrawTicks]
 		public ZombieBiomePosEnum ZombieBiomeWorldside;
 	}

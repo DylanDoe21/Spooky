@@ -14,9 +14,8 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
-using Spooky.Content.NPCs.Boss.SpookFishron;
-using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
@@ -29,17 +28,19 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		int BodyFrameCounter = 0;
 		int Aggression = 0;
 
-		public bool BiteAnimation = false;
-		public int BiteAnimationTimer = 0;
+		bool BiteAnimation = false;
+		int BiteAnimationTimer = 0;
 
 		Vector2 PositionGoTo = Vector2.Zero;
+	 	List<int> BiomePositionDistances = new List<int>();
 
 		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> BodyTexture;
 		private static Asset<Texture2D> BodyTexture2;
 
 		public static readonly SoundStyle RoarSound = new("Spooky/Content/Sounds/DunkleosteusRoar", SoundType.Sound) { PitchVariance = 0.6f };
-		public static readonly SoundStyle StingSound = new("Spooky/Content/Sounds/DunkleosteusSting", SoundType.Sound) { Volume = 2f };
+		public static readonly SoundStyle StingSound = new("Spooky/Content/Sounds/DunkleosteusSting", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{
@@ -72,6 +73,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.noTileCollide = true;
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
+			NPC.immortal = true;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -96,6 +98,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/DunkleosteusGlow");
 			BodyTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/DunkleosteusBody");
 			BodyTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/DunkleosteusBodyExtra");
 
@@ -113,6 +116,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			//draw head
 			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, Aggression > 0 ? Color.Crimson : Color.White, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 
 			return false;
         }
@@ -172,11 +176,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			}
         }
 
-		public override bool CheckActive()
-        {
-            return !AnyPlayersInBiome();
-        }
-
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
 			if (NPC.ai[1] < 1 && Aggression <= 0)
@@ -202,14 +201,17 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			}
 		}
 
+		public override bool CheckActive()
+        {
+            return !AnyPlayersInBiome();
+        }
+
 		public bool AnyPlayersInBiome()
         {
             foreach (Player player in Main.ActivePlayers)
             {
                 int playerInBiomeCount = 0;
 
-                //for this player count specifically, do not check if the players are dead
-                //this is so the nose temple rooms and event dont actually reset and respawn the idle enemies until the player actually respawns
                 if (!player.dead && player.InModBiome(ModContent.GetInstance<ZombieOceanBiome>()))
                 {
                     playerInBiomeCount++;
@@ -310,11 +312,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				NPC.rotation = RotateDirection;
 			}
 
+			Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
+
 			//position infront of dunk where dunks "sight" is
 			Vector2 InfrontOfDunk = new Vector2(125, 0).RotatedBy(NPC.rotation + MathHelper.TwoPi) + NPC.Center;
 			
 			bool PlayerLineOfSight = Collision.CanHitLine(FollowPlayer.position, FollowPlayer.width, FollowPlayer.height, NPC.position, NPC.width, NPC.height);
-			bool ShouldBecomeAggressive = PlayerLineOfSight && FollowPlayer.Distance(InfrontOfDunk) <= 150;
+			bool ShouldBecomeAggressive = PlayerLineOfSight && FollowPlayer.Distance(InfrontOfDunk) <= 200;
 
 			/*
 			//create dust ring for debugging
@@ -377,14 +381,16 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				return;
 			}
 
-			int[] BlockTypes = new int[]
+			int[] InvalidBlockTypes = new int[]
 			{
 				ModContent.TileType<OceanSand>(),
 				ModContent.TileType<OceanBiomass>(),
-				ModContent.TileType<OceanMeat>()
+				ModContent.TileType<OceanMeat>(),
+				ModContent.TileType<LabMetalPipe>(),
+				ModContent.TileType<LabMetalPlate>()
 			};
 
-			SolidCollisionDestroyTiles(NPC.position, NPC.width, NPC.height, BlockTypes);
+			SolidCollisionDestroyTiles(NPC.position, NPC.width, NPC.height, InvalidBlockTypes);
 
 			//passive roaming pathfinding movement
 			if (Aggression <= 0)
@@ -409,7 +415,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						//only use pathfinding if it doesnt have line of sight to the position
 						if (!HasLineOfSight)
 						{
-							PathfindingMovement(PositionGoTo, 2.5f, 20, 8000);
+							PathfindingMovement(PositionGoTo, 2.5f, 20, 7000, false);
 						}
 						else
 						{
@@ -448,7 +454,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						NPC.noTileCollide = true;
 
-						PathfindingMovement(FollowPlayer.Center, Speed, 65, 4000);
+						PathfindingMovement(FollowPlayer.Center, Speed, 65, 7000, true);
 
 						//decrease aggression timer
 						Aggression--;
@@ -536,7 +542,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			return PathFinding.SolidCollisionWithSpecificTiles(Center - new Vector2(Width / 2, Height / 2), Width, Height, BlockTypes);
 		}
 
-		private void PathfindingMovement(Vector2 position, float Speed, int DistanceCheck, int Iterations)
+		private void PathfindingMovement(Vector2 position, float Speed, int DistanceCheck, int Iterations, bool FollowingPlayer)
 		{
 			// Once every few seconds, sync the npc - bandaid on pathfinder in mp
 			if (++syncTimer > 60)
@@ -545,8 +551,10 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				syncTimer = 0;
 			}
 
+			bool FindClosestNode = false;
+
 			//go to positions around the player, and if they arent valid try offsetting the position to allow dunk to find the location it needs to go to
-			//this is done by just doing an additional solid collission check around every compass direction and every diagonal position from the position it needs to go to
+			//this is done by just doing an additional solid collision check around every compass direction and every diagonal position from the position it needs to go to
 			Vector2 RealPosition = (position + new Vector2(0, DistanceCheck)); 
 			if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
 			{
@@ -571,7 +579,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 										RealPosition = (position + new Vector2(-DistanceCheck, -DistanceCheck));
 										if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
 										{
-											Aggression = 0;
+											if (FollowingPlayer)
+											{
+												FindClosestNode = true;
+												BiomePositionDistances.Clear();
+											}
 										}
 									}
 								}
@@ -579,6 +591,21 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						}
 					}
 				}
+			}
+
+			//if for whatever reason the player is not reachable after the above position checks, then attempt to pathfind to the closest "node" position in the biome
+			if (FindClosestNode)
+			{
+				//get the distance between the player and every position in the zombie biome and add them to the position distances list
+				foreach (Vector2 pos in Flags.ZombieBiomePositions)
+				{
+					int Dist = (int)position.Distance(pos * 16);
+					BiomePositionDistances.Add(Dist);
+				}
+
+				//find the minimum distance values index and set the position to pathfind to
+				int minimumValueIndex = BiomePositionDistances.IndexOf(BiomePositionDistances.Min());
+				RealPosition = Flags.ZombieBiomePositions[minimumValueIndex] * 16;
 			}
 
 			//find path based on the offset position decided above
@@ -626,7 +653,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 	{
 		private int DunkNPC = -1;
 
-		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigDunkChase");
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DunkleosteusChase");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
 

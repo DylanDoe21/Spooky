@@ -7,11 +7,14 @@ using Terraria.GameContent.Generation;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Ambient;
+
+using StructureHelper;
 
 namespace Spooky.Content.Generation
 {
@@ -30,6 +33,8 @@ namespace Spooky.Content.Generation
 			(ushort)ModContent.WallType<OceanBiomassWall>()
 		};
 
+		List<int> BiomePositionDistances = new List<int>();
+
 		static int StartPositionX;
 		static int StartPositionY;
 
@@ -40,8 +45,7 @@ namespace Spooky.Content.Generation
 			//random worldside (default option)
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.Random)
 			{
-				bool Bool = WorldGen.genRand.NextBool();
-				StartPositionX = Bool ? 185 : Main.maxTilesX - 175;
+				StartPositionX = !WorldGen.genRand.NextBool() ? 185 : Main.maxTilesX - 175;
 			}
 			//jungle side position
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.JungleSide)
@@ -188,7 +192,7 @@ namespace Spooky.Content.Generation
 		//place clumps of zombie biomass and flesh
 		public void PlaceBiomassClumps(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
+			for (int j = (int)Main.worldSurface; j < PositionY + SizeY * 4; j++)
 			{
 				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
 				{
@@ -220,8 +224,8 @@ namespace Spooky.Content.Generation
 			{
 				for (int i = StartX; PositionX > (Main.maxTilesX / 2) ? i < EndX : i > EndX; i += Increment)
 				{
-					float RandomCaveDistance = WorldGen.genRand.Next(55, 81);
-					int Distance = 32;
+					float RandomCaveDistance = WorldGen.genRand.Next(50, 75);
+					int Distance = 30;
 
 					if (WorldGen.InWorld(i, j, 10))
 					{
@@ -277,7 +281,7 @@ namespace Spooky.Content.Generation
 							int OvalSizeX = WorldGen.genRand.Next(12, 19);
 							int OvalSizeY = WorldGen.genRand.Next(8, 16);
 
-							int YOffset = WorldGen.genRand.Next(-10, 21);
+							int YOffset = WorldGen.genRand.Next(-15, 16);
 
 							SpookyWorldMethods.PlaceOval(i, j + YOffset, -1, 0, OvalSizeX, OvalSizeY, 1f, true, false);
 
@@ -291,7 +295,17 @@ namespace Spooky.Content.Generation
 			{
 				if (i < Flags.ZombieBiomePositions.Count - 1)
 				{
-					ConnectCavePoints(Flags.ZombieBiomePositions[i], Flags.ZombieBiomePositions[i + 1], false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i], Flags.ZombieBiomePositions[i + 1], 5, false);
+				}
+			}
+
+			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
+			{
+				if (WorldGen.genRand.NextBool(3))
+				{
+					int MinDistanceIndex = GetClosestNodeIndex(Flags.ZombieBiomePositions[i]);
+
+					ConnectCavePoints(Flags.ZombieBiomePositions[i], Flags.ZombieBiomePositions[MinDistanceIndex], 5, false);
 				}
 			}
 
@@ -309,14 +323,37 @@ namespace Spooky.Content.Generation
 				if (WorldGen.SolidTile(OceanTopX, OceanTopY))
 				{
 					OceanTopY += 3;
-					ConnectCavePoints(Flags.ZombieBiomePositions[1], new Vector2(OceanTopX, OceanTopY), true);
+					ConnectCavePoints(Flags.ZombieBiomePositions[1], new Vector2(OceanTopX, OceanTopY), 5, true);
 
 					placed = true;
 				}
 			}
 		}
 
-		public void ConnectCavePoints(Vector2 Start, Vector2 End, bool GoingToSurface)
+		public int GetClosestNodeIndex(Vector2 Position)
+		{
+			BiomePositionDistances.Clear();
+
+			//get the distance between the player and every position in the zombie biome and add them to the position distances list
+			foreach (Vector2 pos in Flags.ZombieBiomePositions)
+			{
+				float Dist = Vector2.Distance(pos, Position);
+
+				if (Collision.CanHitLine(pos * 16 - new Vector2(10, 10), 20, 20, Position * 16 - new Vector2(10, 10), 20, 20))
+				{
+					Dist = 0;
+				}
+
+				BiomePositionDistances.Add((int)Dist);
+			}
+
+			//get the index of the minimum value in the array that isnt zero
+			int minimumValueIndex = BiomePositionDistances.IndexOf(BiomePositionDistances.Where(x => x > 0 && x < 1000).Min());
+
+			return minimumValueIndex;
+		}
+
+		public void ConnectCavePoints(Vector2 Start, Vector2 End, int Size, bool GoingToSurface)
 		{
 			int segments = 200;
 
@@ -326,49 +363,37 @@ namespace Spooky.Content.Generation
 			Vector2 p2 = myCenter;
 			Vector2 p3 = myCenter;
 
-			if (GoingToSurface)
+			if (!Collision.CanHitLine(End * 16 - new Vector2(10, 10), 20, 20, Start * 16 - new Vector2(10, 10), 20, 20))
 			{
+				if (GoingToSurface)
+				{
+					for (int i = 0; i < segments; i++)
+					{
+						float t = i / (float)segments;
+						Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+						t = (i + 1) / (float)segments;
+
+						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile)
+						{
+							PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, false, true);
+						}
+					}
+				}
+
 				for (int i = 0; i < segments; i++)
 				{
 					float t = i / (float)segments;
 					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 					t = (i + 1) / (float)segments;
 
-					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile)
-					{
-						PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, false, true);
-					}
+					WorldGen.digTunnel((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), default, default, WorldGen.genRand.Next(1, 4), Size, true);
 				}
-			}
-
-			for (int i = 0; i < segments; i++)
-			{
-				float t = i / (float)segments;
-				Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
-				t = (i + 1) / (float)segments;
-
-				WorldGen.digTunnel((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), default, default, WorldGen.genRand.Next(1, 4), 5, true);
 			}
 		}
 
 		public void CleanOutClumps(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
-			{
-				for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
-				{
-					//get rid of surfaces in the biome that arent thick enough
-					if (WorldGen.InWorld(i, j, 10) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
-					{
-						if ((!Main.tile[i, j - 1].HasTile && !Main.tile[i, j - 2].HasTile && !Main.tile[i, j - 3].HasTile) && !IsFloorThickEnough(i, j))
-						{
-							WorldGen.KillTile(i, j);
-						}
-					}
-				}
-			}
-
-			int cutoffLimit = 140;
+			int cutoffLimit = 65;
 
 			void getAttachedPoints(int x, int y, List<Point> points)
 			{
@@ -430,10 +455,10 @@ namespace Spooky.Content.Generation
 						//place skulls on any tiles
 						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
 						{
-							if (WorldGen.genRand.NextBool(22))
+							if (WorldGen.genRand.NextBool(12))
 							{
-								ushort[] Skulls = new ushort[] { (ushort)ModContent.TileType<Skull1>(), (ushort)ModContent.TileType<Skull2>(), 
-								(ushort)ModContent.TileType<Skull3>(), (ushort)ModContent.TileType<Skull4>(), (ushort)ModContent.TileType<Skull5>() };
+								ushort[] Skulls = new ushort[] { (ushort)ModContent.TileType<FishFossil1>(), (ushort)ModContent.TileType<FishFossil2>(), 
+								(ushort)ModContent.TileType<FishFossil3>(), (ushort)ModContent.TileType<FishFossil4>(), (ushort)ModContent.TileType<FishFossil5>() };
 
 								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Skulls));
 							}
@@ -535,13 +560,30 @@ namespace Spooky.Content.Generation
 
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
+			/*
+			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+			{
+				for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
+				{
+					//get rid of surfaces in the biome that arent thick enough
+					if (WorldGen.InWorld(i, j, 10) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
+					{
+						if ((!Main.tile[i, j - 1].HasTile && !Main.tile[i, j - 2].HasTile && !Main.tile[i, j - 3].HasTile) && !IsFloorThickEnough(i, j))
+						{
+							WorldGen.KillTile(i, j);
+						}
+					}
+				}
+			}
+			*/
+
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
 			{
 				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (BlockTypes.Contains(Main.tile[i, j].TileType))
+						if (WorldGen.genRand.NextBool() && BlockTypes.Contains(Main.tile[i, j].TileType))
 						{
 							Tile.SmoothSlope(i, j);
 						}
@@ -613,6 +655,54 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+		}
+
+		public void PlaceStructures(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
+			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+			{
+				for (int j = (int)Main.worldSurface; j < PositionY + SizeY * 4; j++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i, j -1].HasTile && Main.tile[i, j - 1].LiquidAmount > 0 && CanPlaceLab(i, j))
+						{
+							Vector2 LabOrigin = new Vector2(i - 11, j - 3);
+							Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-1", LabOrigin.ToPoint16(), Mod);
+						}
+					}
+				}
+			}
+		}
+
+		public bool CanPlaceLab(int PositionX, int PositionY)
+		{
+			for (int y = PositionY; y <= PositionY + 15; y++)
+			{
+				if (WorldGen.InWorld(PositionX, y, 10))
+				{
+					if (!Main.tile[PositionX, y].HasTile)
+					{
+						return false;
+					}
+				}
+			}
+
+			for (int i = PositionX - 60; i < PositionX + 60; i++)
+			{
+				for (int j = PositionY - 60; j < PositionY + 60; j++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						if (Main.tile[i, j].TileType == ModContent.TileType<LabMetalPlate>())
+						{
+							return false;
+						}
+					}
+				}
+			}
+
+			return true;
 		}
 
 		public bool IsFloorThickEnough(int PositionX, int PositionY)

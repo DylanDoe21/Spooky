@@ -2275,8 +2275,8 @@ TotalOrganPackage: {
 	Tooltip:
 		'''
 		Grants the abilities of all organ accessories
-		Chance on hitting nearby enemies to attach a life-stealing vein that damages them and heals you
 		Hitting enemies may attach a set of goo jaws to them to deal additional damage
+		Chance on hitting nearby enemies to attach a life-stealing vein that damages them and heals you
 		Hitting enemies will sometimes give them a stomach ache, on death they will explode pink bubbles
 		While not using items you will charge up a kidney rock, at full charge attacking will launch the stone
 		Press the Accessory Hotkey to cough up a lingering cloud of smoke
@@ -3200,6 +3200,36 @@ JungleSoilWallItem: {
 	Tooltip: ""
 }
 
+LabMetalPipeItem: {
+	DisplayName: Rusted Pipe
+	Tooltip: ""
+}
+
+LabMetalPlateItem: {
+	DisplayName: Rusted Plating
+	Tooltip: ""
+}
+
+LabMetalPlateWallItem: {
+	DisplayName: Rusted Plating Wall
+	Tooltip: ""
+}
+
+OceanBiomassItem: {
+	DisplayName: Zomboid Biomass
+	Tooltip: ""
+}
+
+OceanMeatItem: {
+	DisplayName: Rotten Meat Block
+	Tooltip: ""
+}
+
+OceanSandItem: {
+	DisplayName: Deep Sea Sand
+	Tooltip: ""
+}
+
 BigBoneBox: {
 	DisplayName: Music Box (Big Bone)
 	Tooltip: "[c/D7D000:Doom Abloom] by BananaLizard"
@@ -3332,6 +3362,11 @@ TarPitsBox: {
 VegetableBiomeBox: {
 	DisplayName: Music Box (Fetid Farms)
 	Tooltip: "[c/52A54C:Something Smells Funky] by BananaLizard"
+}
+
+ZombieOceanBox: {
+	DisplayName: Music Box (Rotten Depths)
+	Tooltip: "[c/DEC066:Where Divers Don't Dare] by BananaLizard"
 }
 
 CultistBathtubItem: {

@@ -1,9 +1,3 @@
-Structure helper:
-
--Spooky mod still uses structure helper, but as of this update structure helper is no longer a direct dependency and you no longer need to download and enable it to use spooky mod
-
-
-
 ~NEW STUFF~
 
 Brand New Mini-Biomes:
@@ -11,7 +5,7 @@ Brand New Mini-Biomes:
 -Fetid farms, a nasty rotting vegetable garden found in the underground jungle (only 1 on small worlds, 2 on medium and large)
 -Tar pits, a rocky desert cave with fossils and tar found in the underground desert (only 1 on small worlds, 2 on medium and large)
 -Krampus' workshop, a strange dungeon structure found in the underground ice biome (only 1 per world)
--Rotten depths, an underwater cavern with old labs where an experiment has gone wrong under the ocean (only 1 per world)
+-Rotten depths, an underwater cave system with old labs where an experiment has gone wrong under the ocean (only 1 per world)
 
 
 Spooky Forest Generation Overhaul:
@@ -23,19 +17,34 @@ Spooky Forest Generation Overhaul:
 -Completely new glowshroom minibiome generation because the previous one was just copy pasted glowing mushroom biome generation
 
 
+New Config Stuff:
+
+-Added new config category "Spooky World Generatiom Config" containing various options for world generation
+-Moved the "Spooky Forest Spawnpoint" config option to this new spooky worldgen config category
+-Added new config option "Eye Valley World Side" which uses a slider, allows you to determine what side of the world the eye valley will generate on. Options consist of: Random, Jungle Side (default), and Dungeon Side
+-Added new config option "Rotten Depths World Side" which uses a slider, allows you to determine what side of the world the new rotten depths biome will generate on. Options consist of: Random, Jungle Side, and Dungeon Side (default)
+
+
 New Music:
 
 "T-Funk" by Bananlizard, plays in the new tar pits minibiome
 "Something Smells Funky" by Bananlizard, plays in the new fetid farms minibiome
 "Tapioca Motel" by Bananlizard, plays in the new krampus' workshop structure
+"Where Divers Don't Dare" by Bananalizard, plays in the new rotten depths minibiome
 "Neo Alkahouse" by Bananlizard, new alternate theme that plays during the raveyard
+
+
+Config Additions:
+
+-Added new spooky mod worldgen config, the existing spooky forest at spawn option has been moved to this config
+-Along with the addition of the spooky mod worldgen config 2 new options have been added to it, "Eye Valley World Side" and "Rotten Depths World Side". Both of these configs are sliders allowing you to determine which side of the world these respective biomes spawn on. Each allows you to select between "Random" which randomizes the world side, "Jungle Side" which makes that respective biome always spawn on the jungle side, and "Dungeon Side" which makes that respective biome always spawn on the dungeon side of the world. Both of these configs can be edited at anytime if you have a specific preference for where they spawn, or if you are playing with other mods that add biomes in similar locations to prevent conflictions
 
 
 Other Random Additions:
 
--Added spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
--Added spooky dirt walls, swampy mud walls, and damp soil walls, these walls now generate in their respective biome and have safe versions you can craft and build with
--Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks)
+-Added placeable spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
+-Added spooky dirt walls, swampy mud walls, and damp soil walls. These walls now generate in their respective biomes, and have safe versions you can craft and build with
+-Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (IMPORTANT NOTE: if you place these unsafe walls in a world where daffodil (For layer 1 walls) and big bone (For layer 2 walls) haven't been defeated, then you will NOT be able to break them until you defeat that respective boss)
 -Added a couple new accessories to the underground spooky forest cabin chests, one for melee and one for ranged
 -Added new raveyard vinyls for the individual tracks "Graveyard without the G" and "Neo Alkahouse"
 -Added cranberry jelly and cranberry juice, functionally identical to healing potions except they auto consume when you fall below half hp and have halved potion sickness time, but heal less health
@@ -45,6 +54,10 @@ Other Random Additions:
 
 
 ~CHANGES TO EXISTING CONTENT~
+
+Structure helper dependency:
+
+-Spooky mod still uses structure helper, but as of this update structure helper is no longer a direct dependency, meaning you no longer need to have it downloaded and enabled to use spooky mod
 
 
 Items:
@@ -116,6 +129,7 @@ Miscellaneous:
 -Removed catacomb grass seeds, cemetery grass seeds now serve the same purpose of placing moss on catacomb bricks along with placing cemetery grass
 -Removed all cooldown debuffs for accessories that have had their cooldowns removed
 -Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey previously now use "double tap down" like terraria's special armor set bonuses
+-Being in the valley of eyes now disables the heat distortion caused by being in the underworld
 
 
 
@@ -140,6 +154,7 @@ Miscellaneous:
 -Fixed cemetery biome dungeon chest item not having a sell price
 -Fixed possessed scarecrows shooting through blocks
 -Fixed total organ package not giving 8% increased crit chance inhereted from the corroding chompers
+-Fixed mini orro and boro minions from the gore armor flying around wildly when trying to follow the player
 
 
 Multiplayer:

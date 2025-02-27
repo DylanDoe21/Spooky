@@ -24,7 +24,7 @@ namespace Spooky.Content.Biomes
         public override bool IsBiomeActive(Player player)
         {
             //part of the biome condition makes it so that there must be more garden tiles than jungle tiles so the biome zone doesnt overreach in game
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().vegetableTiles >= 200 && (ModContent.GetInstance<TileCount>().vegetableTiles > Main.SceneMetrics.JungleTileCount / 3);
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().vegetableTiles >= 200 && (ModContent.GetInstance<TileCount>().vegetableTiles > Main.SceneMetrics.JungleTileCount / 4);
             bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return BiomeCondition && UndergroundCondition;
