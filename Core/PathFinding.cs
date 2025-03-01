@@ -170,7 +170,9 @@ namespace Spooky.Core
 			{
 				ModContent.TileType<OceanSand>(),
 				ModContent.TileType<OceanBiomass>(),
-				ModContent.TileType<OceanMeat>()
+				ModContent.TileType<OceanMeat>(),
+				ModContent.TileType<LabMetalPipe>(),
+				ModContent.TileType<LabMetalPlate>()
 			};
 
 			return SolidCollisionWithSpecificTiles(pos, (int)(objectSize.X * 16), (int)(objectSize.Y * 16), BlockTypes);

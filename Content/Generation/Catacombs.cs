@@ -48,54 +48,6 @@ namespace Spooky.Content.Generation
         Vector2[] Layer2LootRooms = new Vector2[3];
 		Vector2 PandoraRoomPosition;
 
-        public override void Load() 
-        {
-            On_WorldGen.ShimmerMakeBiome += ShimmerPositionClamping;
-			On_WorldGen.makeTemple += RelocateJungleTemple;
-        }
-
-		private static bool ShimmerPositionClamping(On_WorldGen.orig_ShimmerMakeBiome orig, int X, int Y) 
-        {
-			if (X < Main.maxTilesX / 2)
-			{
-				X = Math.Clamp(X, (int)(Main.maxTilesX * 0.05f), (int)(Main.maxTilesX * 0.06f));
-			}
-			else
-			{
-				X = Math.Clamp(X, (int)(Main.maxTilesX * 0.95f), (int)(Main.maxTilesX * 0.96f));
-			}
-
-            return orig(X, Y);
-        }
-
-		private void RelocateJungleTemple(On_WorldGen.orig_makeTemple orig, int x, int y)
-		{
-			//middle of the where the cemetery/catacombs is
-			int XMiddle = PositionX;
-
-			//attempt to find a valid position for the jungle temple to place in, just in case it generates far away from the jungle
-			bool foundValidPosition = false;
-			int attempts = 0;
-
-			//keep moving towards the center of the world until a valid position in the jungle is found
-			while (!foundValidPosition && attempts++ < 100000)
-			{
-				while (NoJungleNearby(XMiddle, y))
-				{
-					XMiddle += (XMiddle > (Main.maxTilesX / 2) ? -100 : 100);
-				}
-				if (!NoJungleNearby(XMiddle, y))
-				{
-					foundValidPosition = true;
-				}
-			}
-
-			//define the x-position and then place the temple after finding a valid position
-			x = XMiddle < (Main.maxTilesX / 2) ? XMiddle + 400 : XMiddle - 400;
-
-			orig(x, y);
-		}
-
 		private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs").Value;
@@ -993,7 +945,92 @@ namespace Spooky.Content.Generation
 			}
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Creepy Catacombs", PlaceCatacomb));
-        }
+
+			//re-locate the jungle temple deeper underground and further horizontally so it never gets generated over by the catacombs
+			int JungleTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Temple"));
+			tasks[JungleTempleIndex] = new PassLegacy("Jungle Temple", (progress, config) =>
+			{
+				int MinimumY = (int)Main.rockLayer;
+				int MaximumY = Main.maxTilesY - 500;
+				if (MinimumY > MaximumY - 1)
+				{
+					MinimumY = MaximumY - 1;
+				}
+				int newTempleY = WorldGen.genRand.Next(MinimumY, MaximumY);
+
+				//middle of the where the cemetery/catacombs is
+				int XStart = PositionX - (Cemetery.BiomeWidth / 2);
+				int XMiddle = PositionX;
+
+				//attempt to find a valid position for the jungle temple to place in, just in case it generates far away from the jungle
+				bool foundValidPosition = false;
+				int attempts = 0;
+
+				//keep moving towards the center of the world until a valid position in the jungle is found
+				while (!foundValidPosition && attempts++ < 100000)
+				{
+					while (NoJungleNearby(XMiddle, newTempleY))
+					{
+						XMiddle += (XMiddle > (Main.maxTilesX / 2) ? -100 : 100);
+					}
+					if (!NoJungleNearby(XMiddle, newTempleY))
+					{
+						foundValidPosition = true;
+					}
+				}
+
+				//define the x-position and then place the temple after finding a valid position
+				int newTempleX = XMiddle < (Main.maxTilesX / 2) ? XMiddle + 400 : XMiddle - 400;
+
+				WorldGen.makeTemple(newTempleX, newTempleY);
+			});
+
+			//re-locate the shimmer to be closer to the edge of the world so it also never gets generated over by the catacombs
+			int shimmerIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shimmer"));
+			tasks[shimmerIndex] = new PassLegacy("Shimmer", (progress, config) =>
+			{
+				//copy-pasted and slightly modified shimmer generation code from terraria itself
+				int RandomY1 = (int)(Main.worldSurface + Main.rockLayer) / 2 + 100;
+				int RandomY2 = (int)((double)((Main.maxTilesY - 250) * 2) + Main.rockLayer) / 3;
+
+				if (RandomY2 > Main.maxTilesY - 200)
+				{
+					RandomY2 = Main.maxTilesY - 200;
+				}
+				if (RandomY2 <= RandomY1)
+				{
+					RandomY2 = RandomY1 + 50;
+				}
+
+				int ShimmerX = GenVars.dungeonSide < 0 ? Main.maxTilesX - 100 : 100;
+				int ShimmerY = WorldGen.genRand.Next(RandomY1, RandomY2);
+
+				int ShimmerXAnniversary = (int)Main.worldSurface + 150;
+				int ShimmerYAnniversary = (int)(Main.rockLayer + Main.worldSurface + 200) / 2;
+
+				if (ShimmerYAnniversary <= ShimmerXAnniversary)
+				{
+					ShimmerYAnniversary = ShimmerXAnniversary + 50;
+				}
+
+				if (WorldGen.tenthAnniversaryWorldGen)
+				{
+					ShimmerY = WorldGen.genRand.Next(ShimmerXAnniversary, ShimmerYAnniversary);
+				}
+
+				while (!WorldGen.ShimmerMakeBiome(ShimmerX, ShimmerY))
+				{
+					//this changes the shimmer position to be closer to the edge of the world
+					ShimmerX = (GenVars.dungeonSide < 0) ? (int)(Main.maxTilesX * 0.95f) : (int)(Main.maxTilesX * 0.05f);
+					ShimmerY = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2 + 22, RandomY2);
+				}
+
+				GenVars.shimmerPosition = new Vector2D((double)ShimmerX, (double)ShimmerY);
+
+				//add the shimmer as a protected structure so nothing attempts to generate over it
+				GenVars.structures.AddProtectedStructure(new Rectangle(ShimmerX - 200 / 2, ShimmerY - 200 / 2, 200, 200));
+			});
+		}
 
 		//place items in chests
 		public override void PostWorldGen()

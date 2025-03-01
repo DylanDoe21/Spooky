@@ -312,6 +312,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				NPC.rotation = RotateDirection;
 			}
 
+			//constantly call stepup collision so it doesnt get stuck on blocks
 			Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
 
 			//position infront of dunk where dunks "sight" is

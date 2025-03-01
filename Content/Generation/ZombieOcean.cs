@@ -122,9 +122,10 @@ namespace Spooky.Content.Generation
 			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 4) * 4, (SizeYInt + 4) * 2, 1f, false, false);
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 4, SizeYInt * 2, 1f, true, false);
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
-			CleanOutClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
+			CleanOutClumps(StartPositionX, StartPositionY, SizeX, SizeY);
+			PlaceStructures(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceAmbience(StartPositionX, StartPositionY, SizeX, SizeY);
 		}
 
@@ -224,8 +225,8 @@ namespace Spooky.Content.Generation
 			{
 				for (int i = StartX; PositionX > (Main.maxTilesX / 2) ? i < EndX : i > EndX; i += Increment)
 				{
-					float RandomCaveDistance = WorldGen.genRand.Next(50, 75);
-					int Distance = 30;
+					float RandomCaveDistance = 50; //WorldGen.genRand.Next(50, 75);
+					int Distance = 25;
 
 					if (WorldGen.InWorld(i, j, 10))
 					{
@@ -583,7 +584,7 @@ namespace Spooky.Content.Generation
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (WorldGen.genRand.NextBool() && BlockTypes.Contains(Main.tile[i, j].TileType))
+						if (BlockTypes.Contains(Main.tile[i, j].TileType))
 						{
 							Tile.SmoothSlope(i, j);
 						}
@@ -657,6 +658,7 @@ namespace Spooky.Content.Generation
 			}
 		}
 
+		//TODO: potentially replace this to have the labs generate at nodes instead of being random
 		public void PlaceStructures(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
 			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
@@ -665,10 +667,10 @@ namespace Spooky.Content.Generation
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i, j -1].HasTile && Main.tile[i, j - 1].LiquidAmount > 0 && CanPlaceLab(i, j))
+						if (CanPlaceLab(i, j) && BlockTypes.Contains(Main.tile[i, j].TileType))
 						{
-							Vector2 LabOrigin = new Vector2(i - 11, j - 3);
-							Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-1", LabOrigin.ToPoint16(), Mod);
+							Vector2 LabOrigin = new Vector2(i - 11, j - 4);
+							Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7), LabOrigin.ToPoint16(), Mod);
 						}
 					}
 				}
@@ -677,6 +679,7 @@ namespace Spooky.Content.Generation
 
 		public bool CanPlaceLab(int PositionX, int PositionY)
 		{
+			//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
 			for (int y = PositionY; y <= PositionY + 15; y++)
 			{
 				if (WorldGen.InWorld(PositionX, y, 10))
@@ -688,9 +691,22 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = PositionX - 60; i < PositionX + 60; i++)
+			//upward check to make sure theres enough room
+			for (int y = PositionY - 6; y < PositionY; y++)
 			{
-				for (int j = PositionY - 60; j < PositionY + 60; j++)
+				if (WorldGen.InWorld(PositionX, y, 10))
+				{
+					if (Main.tile[PositionX, y].HasTile)
+					{
+						return false;
+					}
+				}
+			}
+
+			//dont allow labs to place too close to each other
+			for (int i = PositionX - 55; i < PositionX + 55; i++)
+			{
+				for (int j = PositionY - 55; j < PositionY + 55; j++)
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{

@@ -11,11 +11,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 	{
 		public override void SetStaticDefaults()
 		{
-            TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
             Main.tileSolid[Type] = true;
 			Main.tileBrick[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			TileID.Sets.ForcedDirtMerging[Type] = true;
             AddMapEntry(new Color(119, 124, 149));
             DustType = -1;
             HitSound = SoundID.Item52;
