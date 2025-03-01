@@ -116,7 +116,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			//draw head
 			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
-			spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, Aggression > 0 ? Color.Crimson : Color.White, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 
 			return false;
         }
@@ -537,7 +537,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			{
 				ModContent.TileType<OceanSand>(),
 				ModContent.TileType<OceanBiomass>(),
-				ModContent.TileType<OceanMeat>()
+				ModContent.TileType<OceanMeat>(),
+				ModContent.TileType<LabMetalPipe>(),
+				ModContent.TileType<LabMetalPlate>()
 			};
 
 			return PathFinding.SolidCollisionWithSpecificTiles(Center - new Vector2(Width / 2, Height / 2), Width, Height, BlockTypes);

@@ -667,7 +667,7 @@ namespace Spooky.Content.Generation
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (CanPlaceLab(i, j) && BlockTypes.Contains(Main.tile[i, j].TileType))
+						if (BlockTypes.Contains(Main.tile[i, j].TileType) && CanPlaceLab(i, j))
 						{
 							Vector2 LabOrigin = new Vector2(i - 11, j - 4);
 							Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7), LabOrigin.ToPoint16(), Mod);
@@ -679,8 +679,10 @@ namespace Spooky.Content.Generation
 
 		public bool CanPlaceLab(int PositionX, int PositionY)
 		{
+			int numOpenSpace = 0;
+
 			//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
-			for (int y = PositionY; y <= PositionY + 15; y++)
+			for (int y = PositionY; y <= PositionY + 12; y++)
 			{
 				if (WorldGen.InWorld(PositionX, y, 10))
 				{
@@ -692,21 +694,24 @@ namespace Spooky.Content.Generation
 			}
 
 			//upward check to make sure theres enough room
-			for (int y = PositionY - 6; y < PositionY; y++)
+			for (int x = PositionX - 12; x < PositionX + 12; x++)
 			{
-				if (WorldGen.InWorld(PositionX, y, 10))
+				for (int y = PositionY - 6; y < PositionY; y++)
 				{
-					if (Main.tile[PositionX, y].HasTile)
+					if (WorldGen.InWorld(x, y, 10))
 					{
-						return false;
+						if (!Main.tile[x, y].HasTile)
+						{
+							numOpenSpace++;
+						}
 					}
 				}
 			}
 
 			//dont allow labs to place too close to each other
-			for (int i = PositionX - 55; i < PositionX + 55; i++)
+			for (int i = PositionX - 45; i < PositionX + 45; i++)
 			{
-				for (int j = PositionY - 55; j < PositionY + 55; j++)
+				for (int j = PositionY - 45; j < PositionY + 45; j++)
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
@@ -718,7 +723,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			return true;
+			return numOpenSpace >= 115;
 		}
 
 		public bool IsFloorThickEnough(int PositionX, int PositionY)

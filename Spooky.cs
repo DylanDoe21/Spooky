@@ -57,7 +57,7 @@ namespace Spooky
         public Spooky()
 		{
 			mod = this;
-            MusicSkipsVolumeRemap = true;
+            //MusicSkipsVolumeRemap = true; //disabled for now because it makes music TOO loud
 		}
 
         public override void Load()
