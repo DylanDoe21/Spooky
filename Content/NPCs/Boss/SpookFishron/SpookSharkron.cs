@@ -51,6 +51,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
+			int associatedNPCType = ModContent.NPCType<SpookFishron>();
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.SpookSharkron"),

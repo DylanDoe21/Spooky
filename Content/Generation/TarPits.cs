@@ -662,7 +662,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			int AmountOfTilesNeeded = (SizeX * SizeY) / 3;
+			int AmountOfTilesNeeded = (SizeX * SizeY) / 4;
 
 			if (numDesertTiles > AmountOfTilesNeeded)
 			{

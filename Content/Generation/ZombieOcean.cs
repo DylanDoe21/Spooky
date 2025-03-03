@@ -24,7 +24,8 @@ namespace Spooky.Content.Generation
 		{
 			(ushort)ModContent.TileType<OceanSand>(),
 			(ushort)ModContent.TileType<OceanBiomass>(),
-			(ushort)ModContent.TileType<OceanMeat>()
+			(ushort)ModContent.TileType<OceanMeat>(),
+			(ushort)ModContent.TileType<LabMetalPlate>()
 		};
 
 		public static List<ushort> WallTypes = new()
@@ -124,8 +125,8 @@ namespace Spooky.Content.Generation
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
-			CleanOutClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceStructures(StartPositionX, StartPositionY, SizeX, SizeY);
+			TileSloping(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceAmbience(StartPositionX, StartPositionY, SizeX, SizeY);
 		}
 
@@ -226,7 +227,7 @@ namespace Spooky.Content.Generation
 				for (int i = StartX; PositionX > (Main.maxTilesX / 2) ? i < EndX : i > EndX; i += Increment)
 				{
 					float RandomCaveDistance = 50; //WorldGen.genRand.Next(50, 75);
-					int Distance = 25;
+					int Distance = 27;
 
 					if (WorldGen.InWorld(i, j, 10))
 					{
@@ -392,55 +393,6 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public void CleanOutClumps(int PositionX, int PositionY, int SizeX, int SizeY)
-		{
-			int cutoffLimit = 65;
-
-			void getAttachedPoints(int x, int y, List<Point> points)
-			{
-				if (!WorldGen.InWorld(x, y, 10))
-				{
-					return;
-				}
-
-				Tile tile = Main.tile[x, y];
-				Point point = new(x, y);
-
-				if (!BlockTypes.Contains(tile.TileType) || !tile.HasTile || points.Count > cutoffLimit || points.Contains(point))
-				{
-					return;
-				}
-
-				points.Add(point);
-
-				getAttachedPoints(x + 1, y, points);
-				getAttachedPoints(x - 1, y, points);
-				getAttachedPoints(x, y + 1, points);
-				getAttachedPoints(x, y - 1, points);
-			}
-
-			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
-			{
-				for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
-				{
-					//clean up floating clumps of tiles in the dungeon
-					List<Point> chunkPoints = new();
-					getAttachedPoints(i, j, chunkPoints);
-
-					if (WorldGen.InWorld(i, j, 10) && chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
-					{
-						foreach (Point p in chunkPoints)
-						{
-							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
-							{
-								new Actions.ClearTile(true)
-							}));
-						}
-					}
-				}
-			}
-		}
-
 		public void PlaceAmbience(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
@@ -561,37 +513,6 @@ namespace Spooky.Content.Generation
 
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			/*
-			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
-			{
-				for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
-				{
-					//get rid of surfaces in the biome that arent thick enough
-					if (WorldGen.InWorld(i, j, 10) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
-					{
-						if ((!Main.tile[i, j - 1].HasTile && !Main.tile[i, j - 2].HasTile && !Main.tile[i, j - 3].HasTile) && !IsFloorThickEnough(i, j))
-						{
-							WorldGen.KillTile(i, j);
-						}
-					}
-				}
-			}
-			*/
-
-			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
-			{
-				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
-				{
-					if (WorldGen.InWorld(i, j, 10))
-					{
-						if (BlockTypes.Contains(Main.tile[i, j].TileType))
-						{
-							Tile.SmoothSlope(i, j);
-						}
-					}
-				}
-			}
-
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
 			{
 				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
@@ -656,9 +577,71 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+
+			int cutoffLimit = 65;
+
+			void getAttachedPoints(int x, int y, List<Point> points)
+			{
+				if (!WorldGen.InWorld(x, y, 10))
+				{
+					return;
+				}
+
+				Tile tile = Main.tile[x, y];
+				Point point = new(x, y);
+
+				if (!BlockTypes.Contains(tile.TileType) || !tile.HasTile || points.Count > cutoffLimit || points.Contains(point))
+				{
+					return;
+				}
+
+				points.Add(point);
+
+				getAttachedPoints(x + 1, y, points);
+				getAttachedPoints(x - 1, y, points);
+				getAttachedPoints(x, y + 1, points);
+				getAttachedPoints(x, y - 1, points);
+			}
+
+			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+			{
+				for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
+				{
+					//clean up floating clumps of tiles in the dungeon
+					List<Point> chunkPoints = new();
+					getAttachedPoints(i, j, chunkPoints);
+
+					if (WorldGen.InWorld(i, j, 10) && chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
+					{
+						foreach (Point p in chunkPoints)
+						{
+							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+							{
+								new Actions.ClearTile(true)
+							}));
+						}
+					}
+				}
+			}
 		}
 
-		//TODO: potentially replace this to have the labs generate at nodes instead of being random
+		public void TileSloping(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
+			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
+			{
+				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						if (BlockTypes.Contains(Main.tile[i, j].TileType))
+						{
+							Tile.SmoothSlope(i, j);
+						}
+					}
+				}
+			}
+		}
+
 		public void PlaceStructures(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
 			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
@@ -669,7 +652,9 @@ namespace Spooky.Content.Generation
 					{
 						if (BlockTypes.Contains(Main.tile[i, j].TileType) && CanPlaceLab(i, j))
 						{
-							Vector2 LabOrigin = new Vector2(i - 11, j - 4);
+							PlaceDepthsOval(i, j + 11, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 13, 7, 1f, true, false);
+
+							Vector2 LabOrigin = new Vector2(i - 11, j - 5);
 							Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7), LabOrigin.ToPoint16(), Mod);
 						}
 					}
@@ -682,7 +667,7 @@ namespace Spooky.Content.Generation
 			int numOpenSpace = 0;
 
 			//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
-			for (int y = PositionY; y <= PositionY + 12; y++)
+			for (int y = PositionY; y <= PositionY + 10; y++)
 			{
 				if (WorldGen.InWorld(PositionX, y, 10))
 				{
@@ -694,15 +679,15 @@ namespace Spooky.Content.Generation
 			}
 
 			//upward check to make sure theres enough room
-			for (int x = PositionX - 12; x < PositionX + 12; x++)
+			for (int x = PositionX - 5; x < PositionX + 5; x++)
 			{
-				for (int y = PositionY - 6; y < PositionY; y++)
+				for (int y = PositionY - 25; y < PositionY - 2; y++)
 				{
 					if (WorldGen.InWorld(x, y, 10))
 					{
-						if (!Main.tile[x, y].HasTile)
+						if (Main.tile[x, y].HasTile)
 						{
-							numOpenSpace++;
+							return false;
 						}
 					}
 				}
@@ -723,22 +708,6 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			return numOpenSpace >= 115;
-		}
-
-		public bool IsFloorThickEnough(int PositionX, int PositionY)
-		{
-			for (int y = PositionY; y <= PositionY + 2; y++)
-			{
-				if (WorldGen.InWorld(PositionX, y, 10))
-				{
-					if (!Main.tile[PositionX, y].HasTile)
-					{
-						return false;
-					}
-				}
-			}
-
 			return true;
 		}
 
@@ -751,26 +720,6 @@ namespace Spooky.Content.Generation
 					if (WorldGen.InWorld(i, j, 10))
 					{
 						if (!Main.tile[i, j].HasTile || Main.tileDungeon[Main.tile[i, j].TileType] || Main.wallDungeon[Main.tile[i, j].WallType])
-						{
-							return false;
-						}
-					}
-				}
-			}
-
-			return true;
-		}
-
-		//dont allow caves to be dug on blocks on the edge of the biome
-		public bool CanDigCaveOnBlock(int PositionX, int PositionY)
-		{
-			for (int i = PositionX - 3; i <= PositionX + 3; i++)
-			{
-				for (int j = PositionY - 3; j <= PositionY + 3; j++)
-				{
-					if (WorldGen.InWorld(i, j, 10))
-					{
-						if (!BlockTypes.Contains(Main.tile[i, j].TileType) || Main.tileDungeon[Main.tile[i, j].TileType] || Main.wallDungeon[Main.tile[i, j].WallType])
 						{
 							return false;
 						}

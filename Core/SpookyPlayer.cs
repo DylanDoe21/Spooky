@@ -1218,7 +1218,7 @@ namespace Spooky.Core
 				Player.runAcceleration += 0.075f;
 			}
 			*/
-		}
+			}
 
 		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {

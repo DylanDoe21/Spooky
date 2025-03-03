@@ -48,9 +48,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
             var effects = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             //draw aura
-            for (int i = 0; i < 360; i += 90)
+            for (int i = 0; i < 360; i += 30)
             {
-                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.Lime, Color.Green, i / 30));
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lime);
 
                 Vector2 circular = new Vector2(2.5f, 0).RotatedBy(MathHelper.ToRadians(i));
 
@@ -136,5 +136,19 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
                 }
             }
 		}
+
+		public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SkeletonFishGore" + numGores).Type);
+                    }
+                }
+            }
+        }
 	}
 }

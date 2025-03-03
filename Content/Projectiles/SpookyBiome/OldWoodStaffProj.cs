@@ -43,17 +43,15 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             player.heldProj = Projectile.whoAmI;
             Projectile.Center = playerRelativePoint;
 
-            if (!player.active || player.dead || player.noItems || player.CCed) 
+            if (!player.active || player.dead || player.noItems || player.CCed)
             {
                 Projectile.Kill();
             }
 
             if (player.itemAnimation < player.itemAnimationMax / 3)
             {
-                if (Projectile.ai[1] == 0 && Main.myPlayer == Projectile.owner)
+                if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.ai[1] = 1;
-
                     Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 45f;
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), playerRelativePoint + Projectile.velocity * 0.8f + muzzleOffset,

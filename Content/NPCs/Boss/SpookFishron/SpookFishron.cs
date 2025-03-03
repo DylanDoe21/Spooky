@@ -1227,11 +1227,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 						}
 
-						if (NPC.localAI[0] == 65)
-						{
-							SavePlayerPosition = player.Center;
-						}
-
 						//fade in
 						if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 75)
 						{
@@ -1239,6 +1234,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							{
 								NPC.alpha -= 50;
 							}
+						}
+
+						if (NPC.localAI[0] == 70)
+						{
+							SavePlayerPosition = player.Center;
 						}
 
 						if (NPC.localAI[0] == 75)
@@ -1412,6 +1412,20 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					break;
 				}
+			}
+		}
+
+		public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 8; numGores++)
+                {
+					if (Main.netMode != NetmodeID.Server) 
+                    {
+                    	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SpookFishronGore" + numGores).Type);
+					}
+                }
 			}
 		}
 

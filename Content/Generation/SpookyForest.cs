@@ -741,7 +741,7 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y; j < Y + 300; j++)
                 {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock))
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == TileID.SnowBlock || Main.tile[i, j].TileType == TileID.IceBlock || Main.tile[i, j].TileType == TileID.Sandstone))
                     {
                         return false;
                     }
