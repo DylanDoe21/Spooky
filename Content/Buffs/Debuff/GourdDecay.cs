@@ -26,6 +26,7 @@ namespace Spooky.Content.Buffs.Debuff
         {
 			if (!npc.friendly)
             {
+				//save buff time so it can check for when it reaches half duration
 				if (!initializeTime)
 				{
 					storedTime = npc.buffTime[buffIndex];
@@ -33,6 +34,7 @@ namespace Spooky.Content.Buffs.Debuff
 					initializeTime = true;
 				}
 
+				//fly visuals
 				if (Main.rand.NextBool(50))
 				{
 					if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -42,6 +44,7 @@ namespace Spooky.Content.Buffs.Debuff
 					}
 				}
 
+				//damage over time
                 if (npc.lifeRegen > 0)
                 {
                     npc.lifeRegen = 0;
@@ -49,9 +52,10 @@ namespace Spooky.Content.Buffs.Debuff
 
                 npc.lifeRegen -= 5;
 
+				//actual stat decreases when buff is below half duration
 				if (!npc.IsTechnicallyBoss())
 				{
-					if (npc.buffTime[buffIndex] < (storedTime / 2) && npc.buffTime[buffIndex] > 5)
+					if (npc.buffTime[buffIndex] < (storedTime / 2) && npc.buffTime[buffIndex] >= 5)
 					{
 						if (!initializeStats)
 						{
@@ -69,7 +73,6 @@ namespace Spooky.Content.Buffs.Debuff
 						npc.damage = storedDamage;
 						npc.defense = storedDefense;
 						initializeStats = false;
-						npc.buffTime[buffIndex] = 0;
 					}
 				}
 			}

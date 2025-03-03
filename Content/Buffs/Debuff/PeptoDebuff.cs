@@ -20,7 +20,7 @@ namespace Spooky.Content.Buffs.Debuff
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!initializeStats)
+            if (!initializeStats && npc.buffTime[buffIndex] >= 5)
             {
                 npc.damage = (int)(npc.damage * 0.8f);
                 npc.defense = (int)(npc.defense * 0.75f);

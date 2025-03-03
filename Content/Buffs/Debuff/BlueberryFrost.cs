@@ -33,7 +33,7 @@ namespace Spooky.Content.Buffs.Debuff
 				Main.dust[dust].noGravity = true;
             }
 
-			if (!initializeStats)
+			if (!initializeStats && npc.buffTime[buffIndex] >= 5)
             {
                 storedColor = npc.color;
 
@@ -44,7 +44,6 @@ namespace Spooky.Content.Buffs.Debuff
             {
                 npc.color = storedColor;
                 initializeStats = false;
-				npc.buffTime[buffIndex] = 0;
             }
             else
             {

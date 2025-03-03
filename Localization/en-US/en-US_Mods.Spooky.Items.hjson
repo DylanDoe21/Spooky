@@ -2066,6 +2066,7 @@ ShroomWhip: {
 	DisplayName: Spore Smacker
 	Tooltip:
 		'''
+		3 summon tag damage
 		Your summons will focus stuck enemies
 		Hitting enemies will sometimes create lingering spores
 		'''
@@ -2443,6 +2444,7 @@ SentientLeatherWhip: {
 	DisplayName: Licker
 	Tooltip:
 		'''
+		7 summon tag damage
 		Your summons will focus struck enemies
 		Hold down to charge the whip up, giving it longer range and higher damage
 		'It tastes everything it hits'
@@ -2604,6 +2606,7 @@ LeechWhip: {
 	DisplayName: Leecher
 	Tooltip:
 		'''
+		10 summon tag damage
 		Your summons will focus struck enemies
 		Hitting enemies will sometimes rip meat chunks off of them
 		Picking up these meat chunks will heal a small amount of your health

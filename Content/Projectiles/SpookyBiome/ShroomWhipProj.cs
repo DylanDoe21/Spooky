@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.WhipDebuff;
+
 namespace Spooky.Content.Projectiles.SpookyBiome
 {
 	public class ShroomWhipProj : ModProjectile
@@ -31,6 +33,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			owner.MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
+
+			target.AddBuff(ModContent.BuffType<ShroomWhipDebuff>(), 240);
 
             if (owner.ownedProjectileCounts[ModContent.ProjectileType<ShroomWhipSpore>()] < 5 && Main.rand.NextBool(5))
             {

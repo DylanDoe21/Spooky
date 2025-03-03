@@ -73,8 +73,18 @@ Items:
 -Nerfed jerrys book of stinkology damage from 18 to 15
 -Nerfed spider stabber damage from 25 to 20, but it now inflicts venom instead of poison
 -Nerfed snot ball damage from 60 to 50 and the bouncing projectile no longer does double the damage of the weapon
+-Buffed spooky scroll damage from 15 to 20
 -Pumptergiest projectiles now only spawn if you are holding a weapon, their damage now scales with the damage of that weapon (with a minimum of 30 damage), and reduced the minimum time for a pumpkin to spawn from 6 to 5 seconds
 -Zappy Zucchini lightning now does damage equal to 8% of an enemies maximum health instead of having a flat damage value of 20
+
+
+Whip Changes:
+
+-Spore smacker damage nerfed from 15 to 8 and it now has 3 summon tag damage
+-Licker now has 7 summon tag damage
+-Exposed nerve damage buffed from 42 to 45
+-Leecher now has 10 summon tag damage
+-Living eye lasher damage buffed from 75 to 82
 
 
 Magic Weapon Rebalancing/Reworks:
@@ -113,6 +123,7 @@ Enemies and Bosses:
 
 -Buffed rot gourd max hp from 2200 to 2700
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
+-All of orro-boro's non head segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
 -Observing orchids will now only chase you if they have light of sight to you
 
 

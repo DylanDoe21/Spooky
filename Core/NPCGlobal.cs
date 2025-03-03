@@ -132,6 +132,20 @@ namespace Spooky.Core
 				{
 					modifiers.SetCrit();
 				}
+
+				//generic whip tag damage
+				if (npc.HasBuff<ShroomWhipDebuff>())
+				{
+					modifiers.FlatBonusDamage += ShroomWhipDebuff.tagDamage;
+				}
+				if (npc.HasBuff<LeechWhipDebuff>())
+				{
+					modifiers.FlatBonusDamage += LeechWhipDebuff.tagDamage;
+				}
+				if (npc.HasBuff<SentientLeatherWhipDebuff>())
+				{
+					modifiers.FlatBonusDamage += SentientLeatherWhipDebuff.tagDamage;
+				}
 			}
 
 			//list of every orro & boro segment

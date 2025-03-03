@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.WhipDebuff;
+
 namespace Spooky.Content.Projectiles.Sentient
 {
 	public class SentientLeatherWhipProj : ModProjectile
@@ -102,6 +104,8 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(Projectile.damage * 0.85f);
+
+			target.AddBuff(ModContent.BuffType<SentientLeatherWhipDebuff>(), 240);
 		}
 
 		public override bool PreDraw(ref Color lightColor) 

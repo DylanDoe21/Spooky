@@ -16,7 +16,7 @@ namespace Spooky.Content.Buffs
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!initializeStats)
+            if (!initializeStats && npc.buffTime[buffIndex] >= 5)
             {
                 storedDefense = npc.defense;
 				npc.defense = storedDefense * 10;
@@ -32,7 +32,6 @@ namespace Spooky.Content.Buffs
                 npc.defense = storedDefense;
                 npc.damage = storedDamage;
                 initializeStats = false;
-                npc.buffTime[buffIndex] = 0;
             }
 		}
     }

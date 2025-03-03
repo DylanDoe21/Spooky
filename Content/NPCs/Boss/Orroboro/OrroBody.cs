@@ -20,13 +20,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Ichor] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.ShadowFlame] = true;
+            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
         }
 
         public override void SetDefaults()
