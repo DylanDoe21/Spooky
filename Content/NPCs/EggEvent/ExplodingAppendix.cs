@@ -185,7 +185,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                     if (player.Distance(NPC.Center) <= 250f)
                     {
-                        SpookyPlayer.ScreenShakeAmount = 4f;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 4f, 250f);
                     }
 
                     //lingering ichor cloud

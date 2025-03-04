@@ -712,7 +712,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         if (Main.rand.NextBool(17))
                         {
                             //shake the screen for funny rumbling effect
-                            SpookyPlayer.ScreenShakeAmount = 3;
+                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 3f, 350f);
 
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
@@ -724,7 +724,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         if (Main.rand.NextBool(17))
                         {
                             //shake the screen for funny rumbling effect
-                            SpookyPlayer.ScreenShakeAmount = 3;
+                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 3f, 350f);
 
                             SoundEngine.PlaySound(FlySound, NPC.Center);
 
@@ -771,7 +771,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
                     {
                         //shake the screen for rumbling effect
-                        SpookyPlayer.ScreenShakeAmount = 3;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 3f, 350f);
 
                         if (NPC.localAI[0] % 10 == 2)
                         {
@@ -821,7 +821,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] == 160)
                     {
-                        SpookyPlayer.ScreenShakeAmount = 12;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 12f, 350f);
                                     
                         SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
 
@@ -884,7 +884,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] == 90)
                     {
-                        SpookyPlayer.ScreenShakeAmount = 12;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 12f, 350f);
                                     
                         SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
 

@@ -138,7 +138,6 @@ namespace Spooky.Core
         public bool DivingSuit = false;
 
 		//misc timers
-		public static float ScreenShakeAmount = 0;
         public float SpiderStealthAlpha = 0f;
 		public float StonedKidneyCharge = 0f;
 		public int SpiderSpeedTimer = 0;
@@ -333,30 +332,6 @@ namespace Spooky.Core
 			}
 		}
 
-        public override void ModifyScreenPosition()
-        {
-            float ExtraMultiplier = ModContent.GetInstance<SpookyConfig>().ScreenShakeIntensity;
-
-            if (!Main.gameMenu && ExtraMultiplier > 0)
-            {
-                PunchCameraModifier modifier = new PunchCameraModifier(Player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), ScreenShakeAmount * ExtraMultiplier, 1f, 1, 550f, null);
-				Main.instance.CameraModifiers.Add(modifier);
-
-                if (ScreenShakeAmount * ExtraMultiplier >= 0)
-                {
-                    ScreenShakeAmount -= 0.2f;
-                }
-                if (ScreenShakeAmount * ExtraMultiplier < 0)
-                {
-                    ScreenShakeAmount = 0;
-                }
-            }
-            else
-            {
-                ScreenShakeAmount = 0;
-            }
-		}
-
 		public override void ArmorSetBonusActivated()
 		{
 			//flower armor setbonus
@@ -413,9 +388,9 @@ namespace Spooky.Core
                 {
                     SoundEngine.PlaySound(SoundID.Thunder with { Pitch = -0.5f }, Player.Center);
 
-                    SpookyPlayer.ScreenShakeAmount = 10;
+					Screenshake.ShakeScreenWithIntensity(Player.Center, 10f, 100f);
 
-                    Vector2 ShootSpeed = new Vector2(Player.Center.X, Player.Center.Y - Main.screenHeight) - Main.MouseWorld;
+					Vector2 ShootSpeed = new Vector2(Player.Center.X, Player.Center.Y - Main.screenHeight) - Main.MouseWorld;
                     ShootSpeed.Normalize();
                     ShootSpeed *= -100f;
 

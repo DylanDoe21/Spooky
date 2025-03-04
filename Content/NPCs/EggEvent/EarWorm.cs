@@ -283,7 +283,7 @@ namespace Spooky.Content.NPCs.EggEvent
 				{
 					SoundEngine.PlaySound(ScreechSound, NPC.Center);
 
-					SpookyPlayer.ScreenShakeAmount = 5;
+					Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 400f);
 
 					Vector2 ShootSpeed = player.Center - NPC.Center;
 					ShootSpeed.Normalize();

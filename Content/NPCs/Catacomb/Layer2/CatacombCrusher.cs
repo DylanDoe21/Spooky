@@ -87,19 +87,18 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             //slam down
             if (NPC.ai[0] > 60 && !hasCollidedWithFloor && IsColliding())
             {
-				//use screenshake with a value depending on how far away the player is
+                Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 350f);
+
 				if (player.Distance(NPC.Center) <= 550f)
 				{
 					SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
-					SpookyPlayer.ScreenShakeAmount = 8;
 				}
 				if (player.Distance(NPC.Center) >= 550f && player.Distance(NPC.Center) <= 1050f)
 				{
 					SoundEngine.PlaySound(SoundID.Item70 with { Volume = 0.5f }, NPC.Center);
-					SpookyPlayer.ScreenShakeAmount = 4;
 				}
 
-				NPC.velocity *= 0;
+				NPC.velocity = Vector2.Zero;
 				hasCollidedWithFloor = true;
             }
 

@@ -103,7 +103,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
                 SoundEngine.PlaySound(SoundID.Item178, target.Center);
 
-                SpookyPlayer.ScreenShakeAmount = 3;
+                Screenshake.ShakeScreenWithIntensity(target.Center, 3f, 150f);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<GraveDiggerShovelBonk>(), 0, 0f, Main.myPlayer);
             }

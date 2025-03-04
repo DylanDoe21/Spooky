@@ -339,9 +339,9 @@ namespace Spooky.Content.NPCs.SpookyHell
                         {
                             NPC.noGravity = false;
 
-                            NPC.velocity *= 0;
+                            NPC.velocity = Vector2.Zero;
 
-                            SpookyPlayer.ScreenShakeAmount = 8;
+                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 350f);
 
                             SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 

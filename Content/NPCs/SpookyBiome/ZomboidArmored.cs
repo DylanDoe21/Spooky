@@ -123,7 +123,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 					if (NPC.localAI[0] == 480)
 					{
-						SpookyPlayer.ScreenShakeAmount = 10;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 10f, 400f);
 
 						Vector2 LightingPostion = new Vector2(NPC.Center.X, NPC.Center.Y - 1000);
 

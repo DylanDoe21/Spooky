@@ -236,7 +236,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			{
 				Projectile.scale = 1;
 
-				SpookyPlayer.ScreenShakeAmount = 8;
+				Screenshake.ShakeScreenWithIntensity(Projectile.Center, 8f, 250f);
 
 				SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton, Projectile.Center);
 

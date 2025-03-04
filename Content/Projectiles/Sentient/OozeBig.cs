@@ -78,7 +78,7 @@ namespace Spooky.Content.Projectiles.Sentient
             SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, Projectile.Center);
             SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryShot, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 3;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 3f, 500f);
 
             for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
             {

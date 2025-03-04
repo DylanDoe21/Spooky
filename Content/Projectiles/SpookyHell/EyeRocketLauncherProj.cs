@@ -93,7 +93,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 //shoot rocket
                 if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 5 && Projectile.frame >= 4)
                 {
-                    SpookyPlayer.ScreenShakeAmount = 3;
+                    Screenshake.ShakeScreenWithIntensity(Projectile.Center, 3f, 250f);
 
                     SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

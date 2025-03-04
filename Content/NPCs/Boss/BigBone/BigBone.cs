@@ -548,7 +548,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(350);
 
-                    SpookyPlayer.ScreenShakeAmount = NPC.localAI[0] / 10;
+                    Screenshake.ShakeScreenWithIntensity(NPC.Center, NPC.localAI[0] / 10, 300f);
 
                     //kill every single hostile projectile to prevent unfair hits or deaths during the death animation
                     if (NPC.localAI[0] <= 5)
@@ -626,7 +626,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
 
-                        SpookyPlayer.ScreenShakeAmount = 0;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 3f, 300f);
 
                         //spawn gores
                         for (int numGores = 1; numGores <= 7; numGores++)
@@ -1448,7 +1448,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
                             
-                            SpookyPlayer.ScreenShakeAmount = 25;
+                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 25f, 300f);
 
                             NPC.velocity *= 0;
 

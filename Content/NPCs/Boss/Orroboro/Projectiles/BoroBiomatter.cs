@@ -136,7 +136,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
         {
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 5;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 5f, 250f);
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 

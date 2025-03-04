@@ -219,7 +219,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (Parent.localAI[0] > 180 && Parent.localAI[0] <= 300)
                     {
-                        SpookyPlayer.ScreenShakeAmount = 5;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 250f);
 
                         int MaxDusts = Main.rand.Next(5, 15);
                         for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
@@ -367,7 +367,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                         {
                             SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
                             
-                            SpookyPlayer.ScreenShakeAmount = 8;
+                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 250f);
 
                             HasHitSurface = true;
 

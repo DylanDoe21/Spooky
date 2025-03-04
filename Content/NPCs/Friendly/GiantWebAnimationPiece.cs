@@ -176,7 +176,7 @@ namespace Spooky.Content.NPCs.Friendly
 
             NPC.ai[1] += 0.5f;
 
-            SpookyPlayer.ScreenShakeAmount = NPC.ai[1] / 30f;
+            Screenshake.ShakeScreenWithIntensity(NPC.Center, NPC.ai[1] / 30f, 400f);
 
             if (NPC.ai[1] < 180)
             {
@@ -220,7 +220,7 @@ namespace Spooky.Content.NPCs.Friendly
                 }
                 
                 //immediately stop screen shake when the animation is done
-                SpookyPlayer.ScreenShakeAmount = 0;
+                Screenshake.ShakeScreenWithIntensity(NPC.Center, 0f, 0f);
 
                 parent.active = false;
                 NPC.active = false;

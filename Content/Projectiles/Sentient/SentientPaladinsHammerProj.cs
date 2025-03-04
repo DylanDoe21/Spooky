@@ -68,7 +68,7 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             SoundEngine.PlaySound(HitSound, target.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 4;
+            Screenshake.ShakeScreenWithIntensity(target.Center, 4f, 500f);
 
             for (int numDusts = 0; numDusts < 10; numDusts++)
 			{                                                                   
@@ -146,8 +146,10 @@ namespace Spooky.Content.Projectiles.Sentient
                     Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 150;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 
+                    Rectangle realHitBox = new Rectangle((int)Projectile.Center.X - 250, (int)Projectile.Center.Y - 250, 500, 500);
+
                     //once the projectile reaches the target, begin charging at it
-                    if (Projectile.Hitbox.Intersects(target.Hitbox))
+                    if (realHitBox.Intersects(target.Hitbox))
                     {
                         Projectile.ai[0]++;
                     }

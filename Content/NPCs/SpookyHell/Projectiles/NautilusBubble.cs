@@ -106,7 +106,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
         {
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 2;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 2f, 450f);
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
@@ -174,7 +174,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
             SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 2;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 2f, 450f);
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 

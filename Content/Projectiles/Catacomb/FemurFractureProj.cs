@@ -55,7 +55,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SpookyPlayer.ScreenShakeAmount = 3;
+            Screenshake.ShakeScreenWithIntensity(target.Center, 3f, 250f);
 
             target.immune[Projectile.owner] = 8;
 

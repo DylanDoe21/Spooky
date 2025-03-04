@@ -358,7 +358,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 					SoundEngine.PlaySound(RoarSound, NPC.Center);
 
-					SpookyPlayer.ScreenShakeAmount = 12;
+					Screenshake.ShakeScreenWithIntensity(NPC.Center, 12f, 400f);
 				}
 
 				if (NPC.ai[1] >= 85)

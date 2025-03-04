@@ -226,7 +226,7 @@ namespace Spooky.Content.NPCs.EggEvent
                             ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                         }
 
-                        SpookyPlayer.ScreenShakeAmount = 8;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 450f);
 
                         if (Main.netMode != NetmodeID.SinglePlayer)
                         {
@@ -331,7 +331,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
                     if (NPC.ai[3] >= 120 && ShieldAlpha <= 0f)
                     {
-                        SpookyPlayer.ScreenShakeAmount = 8f;
+                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 450f);
 
                         //kill all existing egg incursion enemies
                         for (int i = 0; i < Main.maxNPCs; i++)

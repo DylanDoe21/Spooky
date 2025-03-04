@@ -474,7 +474,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                             CurrentFrameX = 2;
 
-                            SpookyPlayer.ScreenShakeAmount = 8;
+                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 200f);
 
                             NPC.velocity = Vector2.Zero;
 

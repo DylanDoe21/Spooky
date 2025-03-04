@@ -50,7 +50,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             }
             if (Projectile.ai[0] >= 80)
             {
-                SpookyPlayer.ScreenShakeAmount = 3;
+                Screenshake.ShakeScreenWithIntensity(Projectile.Center, 3f, 300f);
 
                 SoundEngine.PlaySound(BoneSnap, Projectile.position);
 

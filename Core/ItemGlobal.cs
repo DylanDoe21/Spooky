@@ -81,7 +81,7 @@ namespace Spooky.Core
 
 					SoundEngine.PlaySound(SneezeSound, player.Center);
 
-					SpookyPlayer.ScreenShakeAmount = 8;
+					Screenshake.ShakeScreenWithIntensity(player.Center, 8f, 100f);
 
 					float mouseXDist = Main.mouseX + Main.screenPosition.X;
 					float mouseYDist = Main.mouseY + Main.screenPosition.Y;

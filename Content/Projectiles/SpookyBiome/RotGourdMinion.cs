@@ -200,7 +200,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
                     Projectile.velocity.X *= 0;
 
-                    SpookyPlayer.ScreenShakeAmount = 2;
+                    Screenshake.ShakeScreenWithIntensity(Projectile.Center, 2f, 250f);
 
                     Projectile.ai[1] = 0;
                     Projectile.ai[0] = -40;

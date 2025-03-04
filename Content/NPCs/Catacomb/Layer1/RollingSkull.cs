@@ -68,7 +68,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 {
                     hasCollidedWithWall = false;
 
-                    SpookyPlayer.ScreenShakeAmount = 2;
+                    Screenshake.ShakeScreenWithIntensity(NPC.Center, 2f, 350f);
                 }
 
                 //collide with walls and play a sound
@@ -76,7 +76,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath43 with { Volume = SoundID.NPCDeath43.Volume * 0.35f }, NPC.Center);
 
-                    SpookyPlayer.ScreenShakeAmount = 8;
+                    Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 350f);
 
                     //set timer to slow down the npc after hitting a wall
                     NPC.localAI[0] = 60;

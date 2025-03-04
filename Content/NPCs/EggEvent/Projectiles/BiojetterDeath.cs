@@ -143,7 +143,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             SoundEngine.PlaySound(ExplosionSound, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 15;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 15f, 650f);
 
             float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 

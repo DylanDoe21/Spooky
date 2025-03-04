@@ -186,7 +186,7 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, Projectile.Center);
                 SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryShot, Projectile.Center);
 
-                SpookyPlayer.ScreenShakeAmount = 8;
+                Screenshake.ShakeScreenWithIntensity(Projectile.Center, 7f, 350f);
 
                 for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
 			    {

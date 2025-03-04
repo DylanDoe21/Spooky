@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2.Projectiles
         {
             SoundEngine.PlaySound(SoundID.NPCDeath43, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 5;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 5f, 350f);
 
             //spawn crusher gores
             for (int numGores = 1; numGores <= 4; numGores++)
@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2.Projectiles
         {
             SoundEngine.PlaySound(SoundID.NPCDeath43, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 5;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 5f, 350f);
 
             //spawn crusher gores
             for (int numGores = 1; numGores <= 4; numGores++)
@@ -124,7 +124,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2.Projectiles
         {
             SoundEngine.PlaySound(SoundID.NPCDeath43, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 5;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 5f, 350f);
 
             //spawn crusher gores
             for (int numGores = 1; numGores <= 4; numGores++)
@@ -159,7 +159,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2.Projectiles
         {
             SoundEngine.PlaySound(SoundID.NPCDeath43, Projectile.Center);
 
-            SpookyPlayer.ScreenShakeAmount = 5;
+            Screenshake.ShakeScreenWithIntensity(Projectile.Center, 5f, 350f);
 
             //spawn crusher gores
             for (int numGores = 1; numGores <= 7; numGores++)

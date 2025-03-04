@@ -292,7 +292,7 @@ namespace Spooky.Content.NPCs.Quest
 					{
 						SoundEngine.PlaySound(SoundID.DeerclopsScream with { Pitch = -1.2f, Volume = 0.85f }, NPC.Center);
 
-						SpookyPlayer.ScreenShakeAmount = 15;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 15f, 500f);
 					}
 
 					if (NPC.localAI[0] == 120 && NPC.velocity.Y == 0)
@@ -436,9 +436,9 @@ namespace Spooky.Content.NPCs.Quest
 
 							NPC.noGravity = false;
 
-							NPC.velocity.X *= 0;
+							NPC.velocity.X = 0;
 
-							SpookyPlayer.ScreenShakeAmount = 5;
+							Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 250f);
 
 							SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound with { Pitch = 1.2f }, NPC.Center);
 

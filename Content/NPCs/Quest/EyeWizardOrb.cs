@@ -93,7 +93,7 @@ namespace Spooky.Content.NPCs.Quest
 			//spawn gores here
             if (NPC.life <= 0) 
             {
-				SpookyPlayer.ScreenShakeAmount = 5;
+				Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 200f);
 
 				NPC Parent = Main.npc[(int)NPC.ai[0]];
 

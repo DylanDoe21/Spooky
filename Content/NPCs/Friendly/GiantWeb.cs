@@ -128,7 +128,7 @@ namespace Spooky.Content.NPCs.Friendly
             {
                 SoundEngine.PlaySound(SoundID.DeerclopsRubbleAttack, NPC.Center);
 
-                SpookyPlayer.ScreenShakeAmount = 5;
+                Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 400f);
 
                 if (player.ConsumeItem(ModContent.ItemType<OldHunterHat>()) && !Flags.OldHunterHat)
                 {

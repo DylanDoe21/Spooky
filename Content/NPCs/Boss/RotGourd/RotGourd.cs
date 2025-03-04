@@ -331,7 +331,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 						NPC.velocity.X *= 0;
 
-						SpookyPlayer.ScreenShakeAmount = 7;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 7f, 350f);
 
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
@@ -442,7 +442,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 							NPC.velocity.X *= 0;
 
-							SpookyPlayer.ScreenShakeAmount = 5;
+							Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 350f);
 
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
@@ -592,7 +592,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					{
 						NPC.noGravity = false;
 
-						SpookyPlayer.ScreenShakeAmount = 10;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 10f, 350f);
 
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
@@ -762,7 +762,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						{
 							NPC.noGravity = false;
 
-							SpookyPlayer.ScreenShakeAmount = 10;
+							Screenshake.ShakeScreenWithIntensity(NPC.Center, 10f, 350f);
 
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
@@ -879,7 +879,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 							NPC.velocity.X *= 0;
 
-							SpookyPlayer.ScreenShakeAmount = 5;
+							Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 350f);
 
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 
@@ -1021,7 +1021,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 							NPC.velocity.X *= 0;
 
-							SpookyPlayer.ScreenShakeAmount = 5;
+							Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 350f);
 
 							SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
 

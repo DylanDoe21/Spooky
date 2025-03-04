@@ -316,7 +316,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						CurrentFrameX = 1;
 						Phase3 = true;
 
-						SpookyPlayer.ScreenShakeAmount = 18;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 
 						for (float i = 5f; i <= 15f; i += 5f)
 						{
@@ -387,7 +387,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						CurrentFrameX = 1;
 						Phase2 = true;
 
-						SpookyPlayer.ScreenShakeAmount = 18;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 
 						for (float i = 5f; i <= 10f; i += 5f)
 						{
@@ -456,7 +456,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
-						SpookyPlayer.ScreenShakeAmount = 18;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 						CurrentFrameX = 1;
 					}
 
@@ -744,7 +744,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
-						SpookyPlayer.ScreenShakeAmount = 18;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 						CurrentFrameX = 1;
 					}
 
@@ -818,7 +818,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
-						SpookyPlayer.ScreenShakeAmount = 12;
+						Screenshake.ShakeScreenWithIntensity(NPC.Center, 12f, 500f);
 						CurrentFrameX = 1;
 					}
 
@@ -1370,7 +1370,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						{
 							SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
 
-							SpookyPlayer.ScreenShakeAmount = 18;
+							Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 							CurrentFrameX = 1;
 						}
 

@@ -79,7 +79,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 }
                 if (NPC.frame.Y == frameHeight * 8)
                 {
-                    SpookyPlayer.ScreenShakeAmount = 4;
+                    Screenshake.ShakeScreenWithIntensity(NPC.Center, 4f, 200f);
                     SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
                 }
                 if (NPC.frame.Y >= frameHeight * 9)

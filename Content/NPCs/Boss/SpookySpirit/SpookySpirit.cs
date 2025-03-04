@@ -603,7 +603,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
 
                             if (NPC.localAI[0] == 200)
                             {
-                                SpookyPlayer.ScreenShakeAmount = 12;
+                                Screenshake.ShakeScreenWithIntensity(NPC.Center, 12f, 400f);
                                 
                                 SoundEngine.PlaySound(SoundID.Zombie104, NPC.Center);
                             }
