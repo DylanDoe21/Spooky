@@ -3,7 +3,7 @@ RotGourd: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Use a [i:Spooky/RottenSeed] in the spooky forest, It is dropped by breaking the large moldy gourds in the biome.
-		DespawnMessage: Rot Gourd hops into the distance
+		DespawnMessage: All players have been crushed by the funky pumpkin
 	}
 }
 
@@ -12,7 +12,7 @@ SpookySpirit: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Right click the cursed statue in the swampy cemetery at night while you have an [i:Spooky/EMFReader] in your inventory.
-		DespawnMessage: Spooky Spirit has haunted all players
+		DespawnMessage: All players have been haunted by the groovy geist
 	}
 }
 
@@ -21,7 +21,7 @@ Moco: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Right click the nose shrine in the valley of eyes while you have a [i:Spooky/CottonSwab] in your inventory.
-		DespawnMessage: Moco has sneezed on all players
+		DespawnMessage: And yet, the snot-nosed bug does not remain
 	}
 }
 
@@ -30,7 +30,7 @@ DaffodilEye: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Throw a [i:Spooky/Brick] at her to wake her up.
-		DespawnMessage: All players have met their floral demise
+		DespawnMessage: Everyone has met their floral demise by daffodil
 	}
 }
 
@@ -40,7 +40,7 @@ OrroHead: {
 	BossChecklistIntegration: {
 		EntryName: Orro & Boro
 		SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event.
-		DespawnMessage: Orro & Boro have protected their egg
+		DespawnMessage: All players were made not one by Orro & Boro
 	}
 }
 
@@ -49,7 +49,7 @@ BigBone: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Use [i:Spooky/Fertilizer] while standing nearby the giant flower pot in the catacombs.
-		DespawnMessage: All players have succumbed to big bone's wrath
+		DespawnMessage: Everyone has met their blooming doom by big bone
 	}
 }
 
@@ -58,7 +58,7 @@ SpookFishron: {
 
 	BossChecklistIntegration: {
 		SpawnInfo: Fish in the ocean at night during a pumpkin moon while using [i:Spooky/SinisterSnailItem] as bait
-		DespawnMessage: All players have been killed! //placeholder
+		DespawnMessage: Every player has been turned into bad sushi
 	}
 }
 
