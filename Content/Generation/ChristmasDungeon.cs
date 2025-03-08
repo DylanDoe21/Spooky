@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
 
@@ -52,7 +53,7 @@ namespace Spooky.Content.Generation
 			ModContent.TileType<ChristmasTable>()
 		};
 
-		public static Vector2[] SecretRoomChests = new Vector2[] {};
+		public static Vector2[] RoomChestList = new Vector2[] {};
 
 		private void PlaceChristmasDungeon(GenerationProgress progress, GameConfiguration configuration)
 		{
@@ -83,7 +84,9 @@ namespace Spooky.Content.Generation
 						ProceduralRoomsGenerator Generator = new ProceduralRoomsGenerator(X, Y, DungeonWidth, DungeonHeight, maxDungeonSegmentSize, minDungeonSegmentSize, MaxRoomSize, MinRoomSize);
 						Generator.GenerateDungeon();
 						FillEmptySpaceInbetweenRooms(X, Y, DungeonWidth, DungeonHeight);
-						DungeonAmbienceAndCleanup(X, Y, DungeonWidth, DungeonHeight);
+						PlaceKrampusRoom(X, Y, 35, 22);
+						DungeonCleanup(X, Y, DungeonWidth, DungeonHeight);
+						DungeonAmbienceAndDetails(X, Y, DungeonWidth, DungeonHeight);
 
 						//get rid of annoying liquid inside the dungeon
 						for (int i = X - (DungeonWidth / 2) - 15; i <= X + (DungeonWidth / 2) + 15; i++)
@@ -194,7 +197,50 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public void DungeonAmbienceAndCleanup(int PositionX, int PositionY, int Width, int Height)
+		public void PlaceKrampusRoom(int PositionX, int PositionY, int Width, int Height)
+		{
+			//places the floor without any tile check so that krampus always has a solid floor he can spawn on
+			for (int i = PositionX - (Width / 2) - 8; i <= PositionX + (Width / 2) + 8; i++)
+			{
+				for (int j = PositionY + (Height / 2) + 1; j <= PositionY + (Height / 2) + 8; j++)
+				{
+					Main.tile[i, j].ClearEverything();
+					WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
+					WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickWall>());
+				}
+			}
+
+			//place the rest of the room so that it doesnt fill in air
+			for (int i = PositionX - (Width / 2) - 8; i <= PositionX + (Width / 2) + 8; i++)
+			{
+				for (int j = PositionY - (Height / 2) - 8; j <= PositionY + (Height / 2); j++)
+				{
+					if (Main.tile[i, j].TileType != ModContent.TileType<ChristmasBrick>() && Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickWall>())
+					{
+						Main.tile[i, j].ClearEverything();
+						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
+						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickWall>());
+					}
+				}
+			}
+
+			//dig out smaller box inside the main one
+			for (int i = PositionX - (Width / 2); i <= PositionX + (Width / 2); i++)
+			{
+				for (int j = PositionY - (Height / 2); j <= PositionY + (Height / 2); j++)
+				{
+					WorldGen.KillTile(i, j);
+					WorldGen.KillTile(i - 1, j);
+					WorldGen.KillTile(i + 1, j);
+					WorldGen.KillTile(i, j - 1);
+					WorldGen.KillTile(i, j + 1);
+				}
+			}
+
+			NPC.NewNPC(null, PositionX * 16, (PositionY + 12) * 16, ModContent.NPCType<Krampus>());
+		}
+
+		public void DungeonCleanup(int PositionX, int PositionY, int Width, int Height)
 		{
 			void getAttachedPoints(int x, int y, List<Point> points)
 			{
@@ -335,17 +381,23 @@ namespace Spooky.Content.Generation
 							}
 						}
 
-						SecretRoomChests = SecretRoomChests.Append(new Vector2(i + WorldGen.genRand.Next(-3, 5), j + 5)).ToArray();
+						RoomChestList = RoomChestList.Append(new Vector2(i + WorldGen.genRand.Next(-3, 5), j + 5)).ToArray();
 					}
 				}
-			}
+			}	
+		}
 
+		public void DungeonAmbienceAndDetails(int PositionX, int PositionY, int Width, int Height)
+		{
 			//place entrances
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
-					PlaceWindow(i, j, WorldGen.genRand.Next(8, 16), WorldGen.genRand.Next(8, 16));
+					if (WorldGen.genRand.NextBool(5) && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
+					{
+						PlaceWindow(i, j, WorldGen.genRand.Next(8, 16), WorldGen.genRand.Next(8, 16));
+					}
 
 					//left side door entrance
 					if (CanPlaceEntrance(i, j, false, false) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 1, j].HasTile && Main.tile[i, j].WallType == 0)
@@ -425,11 +477,11 @@ namespace Spooky.Content.Generation
 					//place slab bricks around open surfaces inside of the dungeon
 					bool AnySurroundingAir = !Main.tile[i - 1, j].HasTile || !Main.tile[i + 1, j].HasTile || !Main.tile[i, j - 1].HasTile || !Main.tile[i, j + 1].HasTile;
 					
-					bool NoWallsAround = WallTypes.Contains(Main.tile[i - 1, j].TileType) || WallTypes.Contains(Main.tile[i + 1, j].TileType) || 
-					WallTypes.Contains(Main.tile[i, j - 1].TileType) || WallTypes.Contains(Main.tile[i, j + 1].TileType);
+					bool NoWallsAround = WallTypes.Contains(Main.tile[i - 1, j].WallType) || WallTypes.Contains(Main.tile[i + 1, j].WallType) || 
+					WallTypes.Contains(Main.tile[i, j - 1].WallType) || WallTypes.Contains(Main.tile[i, j + 1].WallType);
 
 					if ((Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() || Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickSlab>()) && 
-					WallTypes.Contains(Main.tile[i, j].WallType) && AnySurroundingAir && !NoWallsAround)
+					WallTypes.Contains(Main.tile[i, j].WallType) && AnySurroundingAir) //&& !NoWallsAround)
 					{
 						for (int x = i - 1; x <= i + 1; x++)
 						{
@@ -477,13 +529,16 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			//place christmas light ropes and christmas carpet on the floor
+			//place ropes and christmas carpet on the floor
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
-					//place christmas light ropes
-					PlaceChainRope(i, j);
+					//place ropes
+					if (BlockTypes.Contains(Main.tile[i, j].TileType) && WallTypes.Contains(Main.tile[i, j].WallType) && !Main.tile[i, j + 1].HasTile)
+					{
+						PlaceChainRope(i, j);
+					}
 
 					//place carpets on the plank flooring
 					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() && (!Main.tile[i, j - 1].HasTile || Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasChain>()) && 
@@ -492,30 +547,10 @@ namespace Spooky.Content.Generation
 					{
 						Main.tile[i, j].TileType = (ushort)ModContent.TileType<ChristmasCarpet>();
 					}
-
-					//check christmas bricks surrounded by other blocks and if one is a wood plank, turn it into a christmas brick slab
-					//this creates a neat effect where wood flooring is outlined by slab bricks which makes the slab brick look better in the dungeon
-					bool SurroundedByTiles = Main.tile[i - 1, j].HasTile && Main.tile[i + 1, j].HasTile && Main.tile[i, j - 1].HasTile && Main.tile[i, j + 1].HasTile;
-					bool AnyAdjacentWood = Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() || Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() || 
-					Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasWoodPlanks>() || Main.tile[i, j + 1].TileType == ModContent.TileType<ChristmasWoodPlanks>();
-
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && SurroundedByTiles && AnyAdjacentWood)
-					{
-						for (int x = i - 1; x <= i + 1; x++)
-						{
-							for (int y = j - 1; y <= j + 1; y++)
-							{
-								if (Main.tile[x, y].TileType == ModContent.TileType<ChristmasBrick>() && WallTypes.Contains(Main.tile[x, y].WallType))
-								{
-									Main.tile[x, y].TileType = (ushort)ModContent.TileType<ChristmasBrickSlab>();
-								}
-							}
-						}
-					}
 				}
 			}
 
-			foreach (Vector2 pos in SecretRoomChests)
+			foreach (Vector2 pos in RoomChestList)
 			{
 				WorldGen.PlaceChest((int)pos.X, (int)pos.Y, (ushort)ModContent.TileType<ChristmasChest>());
 			}
@@ -648,7 +683,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int y = PositionY - 20; y <= PositionY + 20; y++)
 				{
-					if (Main.tile[x, y].TileType == 10 || Main.tile[x, y].TileType == 387)
+					if (Main.tile[x, y].TileType == ModContent.TileType<ChristmasDoorClosed>() || Main.tile[x, y].TileType == 387)
 					{
 						return false;
 					}
@@ -787,41 +822,38 @@ namespace Spooky.Content.Generation
 
 		public void PlaceChainRope(int PositionX, int PositionY)
 		{
-			if (BlockTypes.Contains(Main.tile[PositionX, PositionY].TileType) && WallTypes.Contains(Main.tile[PositionX, PositionY].WallType) && !Main.tile[PositionX, PositionY + 1].HasTile)
+			//first preform a downward check to make sure theres enough vertical room to place the rope
+			//check down for 55 tiles at minimum and if theres that many tiles or more downward, allow the actual rope to be placed
+			for (int j = PositionY + 2; j <= PositionY + 55; j++)
 			{
-				//first preform a downward check to make sure theres enough vertical room to place the rope
-				//check down for 55 tiles at minimum and if theres that many tiles or more downward, allow the actual rope to be placed
-				for (int j = PositionY + 2; j <= PositionY + 55; j++)
+				//if theres a tile too close to where the rope will place, dont allow it to place
+				if (Main.tile[PositionX, j].HasTile || Main.tile[PositionX - 1, j].HasTile || Main.tile[PositionX + 1, j].HasTile)
 				{
-					//if theres a tile too close to where the rope will place, dont allow it to place
-					if (Main.tile[PositionX, j].HasTile || Main.tile[PositionX - 1, j].HasTile || Main.tile[PositionX + 1, j].HasTile)
+					return;
+				}
+
+				//check 5 tiles left and right around where the rope will place
+				//if another rope is too close, dont allow a new rope to place
+				for (int i = PositionX - 8; i <= PositionX + 8; i++)
+				{
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasChain>())
 					{
 						return;
 					}
-
-					//check 5 tiles left and right around where the rope will place
-					//if another rope is too close, dont allow a new rope to place
-					for (int i = PositionX - 5; i <= PositionX + 5; i++)
-					{
-						if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasChain>())
-						{
-							return;
-						}
-					}
 				}
+			}
 
-				//if the above checking loop is successful, then place the actual rope
-				//use an arbitrary maximum of 300 tiles since the rope (probably) wont ever go that far down
-				for (int j = PositionY + 1; j <= PositionY + 300; j++)
+			//if the above checking loop is successful, then place the actual rope
+			//use an arbitrary maximum of 300 tiles since the rope (probably) wont ever go that far down
+			for (int j = PositionY + 1; j <= PositionY + 300; j++)
+			{
+				//stop placing the rope if theres a tile on floor below it
+				if (Main.tile[PositionX, j].HasTile)
 				{
-					//stop placing the rope if theres a tile on floor below it
-					if (Main.tile[PositionX, j].HasTile)
-					{
-						return;
-					}
-
-					WorldGen.PlaceTile(PositionX, j, ModContent.TileType<ChristmasChain>());
+					return;
 				}
+
+				WorldGen.PlaceTile(PositionX, j, ModContent.TileType<ChristmasChain>());
 			}
 		}
 
@@ -992,7 +1024,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			ChristmasDungeon.SecretRoomChests = ChristmasDungeon.SecretRoomChests.Append(new Vector2(room.X + WorldGen.genRand.Next(-8, 9), room.Y + (room.Height / 2) + 1)).ToArray();
+			ChristmasDungeon.RoomChestList = ChristmasDungeon.RoomChestList.Append(new Vector2(room.X + WorldGen.genRand.Next(-8, 9), room.Y + (room.Height / 2) + 1)).ToArray();
 		}
 
 		public void CreatePathways(Rectangle room1, Rectangle room2)

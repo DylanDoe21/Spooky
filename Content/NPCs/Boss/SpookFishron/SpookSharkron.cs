@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 				Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.75f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.05f, effects, 0);
 			}
 
-			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NPC.GetAlpha(Color.White)), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 
 			return false;
 		}

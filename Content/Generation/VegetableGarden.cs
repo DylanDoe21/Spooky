@@ -196,7 +196,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j++)
 				{
-					if (CanPlaceGreenhouse(i, j, 20))
+					if (CanPlaceGreenhouse(i, j))
 					{
 						Vector2 GreenhouseOrigin = new Vector2(i - 14, j - 14);
 						Generator.GenerateStructure("Content/Structures/VegetableGarden/Greenhouse-" + WorldGen.genRand.Next(1, 5), GreenhouseOrigin.ToPoint16(), Mod);
@@ -350,11 +350,11 @@ namespace Spooky.Content.Generation
 		}
 
 		//check for a flat surface when placing structures
-		public bool CanPlaceGreenhouse(int PositionX, int PositionY, int Size)
+		public bool CanPlaceGreenhouse(int PositionX, int PositionY)
 		{
-			for (int x = PositionX - Size; x <= PositionX + Size; x++)
+			for (int x = PositionX - 45; x <= PositionX + 45; x++)
 			{
-				for (int y = PositionY - Size; y <= PositionY + Size; y++)
+				for (int y = PositionY - 45; y <= PositionY + 45; y++)
 				{
 					if (Main.tile[x, y].TileType == TileID.TinPlating || Main.tile[x, y].TileType == TileID.Mudstone)
 					{
@@ -363,7 +363,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int x = PositionX - (Size / 2); x <= PositionX + (Size / 2); x++)
+			for (int x = PositionX - 5; x <= PositionX + 5; x++)
 			{
 				if (Main.tile[x, PositionY].TileType == ModContent.TileType<JungleMoss>() && !Main.tile[x, PositionY - 1].HasTile && !Main.tile[x, PositionY - 2].HasTile && !Main.tile[x, PositionY - 3].HasTile && !Main.tile[x, PositionY - 4].HasTile)
 				{

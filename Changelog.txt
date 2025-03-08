@@ -110,8 +110,7 @@ Accessory Rebalancing/Reworks:
 -Eyeball of pondering now displays the exact amount of damage increase it gives when targetting an enemy, and removed the "shattering when you get hit too many times" gimmick entirely
 -Tome of spirits now gives stats based on the eye color: 12% more melee/ranged damage and knockback when red, 12% increased magic/summon damage and 15% less mana usage when green, and 10 defense and extra life regen when blue
 -Allergy medication now provides immunity to venom and poisoned along with oozed and converts both of those debuffs into positive buffs like it does with oozed
--Corroding chompers projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it
--Corroding chompers now gives 8% increased critical strike chance to make it more useful overall
+-Corroding chompers projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it, and now gives 8% increased critical strike chance to make it more useful overall
 -Stoned kidney now gives 15% increased damage while at full charge
 -Skull amulet now grants 2% increased damage for each enemy soul you absorb for a maximum of 20%, and reworked the frenzy buff to give you a massive attack speed boost along with the 20% damage increase instead of generic stat boosts
 -Snotty schnoz no longer has a cooldown period after shooting a spread of snot, but the snot projectiles are no longer homing

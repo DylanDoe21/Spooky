@@ -667,7 +667,7 @@ namespace Spooky.Content.Generation
 			int numOpenSpace = 0;
 
 			//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
-			for (int y = PositionY; y <= PositionY + 10; y++)
+			for (int y = PositionY; y <= PositionY + 15; y++)
 			{
 				if (WorldGen.InWorld(PositionX, y, 10))
 				{
@@ -679,9 +679,9 @@ namespace Spooky.Content.Generation
 			}
 
 			//upward check to make sure theres enough room
-			for (int x = PositionX - 5; x < PositionX + 5; x++)
+			for (int x = PositionX - 10; x < PositionX + 10; x++)
 			{
-				for (int y = PositionY - 25; y < PositionY - 2; y++)
+				for (int y = PositionY - 25; y < PositionY - 3; y++)
 				{
 					if (WorldGen.InWorld(x, y, 10))
 					{

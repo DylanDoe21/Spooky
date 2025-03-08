@@ -29,6 +29,7 @@ namespace Spooky.Content.Generation
         static int startPosX;
         static int startPosY;
 
+		/*
         private void PlaceSpiderCave(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpiderCave").Value;
@@ -940,6 +941,7 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex2 + 1, new PassLegacy("Spider Grotto Trap Removal", DeleteAnnoyingTraps));
         }
+		*/
 
         public override void PostWorldGen()
 		{

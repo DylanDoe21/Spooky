@@ -217,6 +217,7 @@ OrroboroEgg.DisplayName: ""
 DumbZomboid.DisplayName: Dumb Zomboid
 GiantWebAnimationBase.DisplayName: ""
 GiantWebAnimationPiece.DisplayName: ""
+Krampus.DisplayName: Krampus
 LittleBone.DisplayName: Little Bone
 LittleBonePotTransform.DisplayName: Little Bone
 LittleBoneSleeping.DisplayName: Sleeping Plant
@@ -432,6 +433,6 @@ RottenCarrot.DisplayName: Rotten Carrot
 //rotten depths
 Dunkleosteus.DisplayName: Big Dunk
 SkeletonFish.DisplayName: Skeletoid Fish
-SkeletonPiranha.DisplayName: Skeletoid Piranha
-SkeletonGar.DisplayName: Skeletoid Gar
-SkeletonSunfish.DisplayName: Skeletoid Sunfish
+SkeletonPiranha.DisplayName: Skeletoid Fish
+SkeletonGar.DisplayName: Skeletoid Fish
+SkeletonSunfish.DisplayName: Skeletoid Fish

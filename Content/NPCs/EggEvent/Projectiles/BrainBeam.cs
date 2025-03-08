@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         {
             Projectile.rotation += 0.5f * (float)Projectile.direction;
 
-			int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<BrainConfusionDust>(), 0f, 0f, 100, Color.White * 0.75f, 1f);
+			int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<BrainConfusionDust>(), 0f, 0f, 100, Color.White, 1f);
 			Main.dust[DustEffect].velocity *= 0;
 		}
     }

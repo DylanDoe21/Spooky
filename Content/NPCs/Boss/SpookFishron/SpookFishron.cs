@@ -176,9 +176,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 			Color NpcColor = Phase2 ? NPC.GetAlpha(Color.Purple) : NPC.GetAlpha(Color.White);
 
-			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NpcColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NpcColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 
-			//draw aura
+			//draw glowmask
 			if (Phase2)
 			{
 				Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);

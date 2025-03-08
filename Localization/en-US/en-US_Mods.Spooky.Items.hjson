@@ -278,7 +278,7 @@ MocoNose: {
 		Gives you a snot bar that will fill up as you pick up snot globs
 		Snot globs will occassionaly drop when you damage enemies
 		Once the bar is full, using any weapon will fire out a giant spread of snot
-		The damage and speed of the homing snot scales based on the weapon you use when shooting them
+		The damage and speed of the snot scales based on the weapon you use when shooting them
 		'''
 }
 

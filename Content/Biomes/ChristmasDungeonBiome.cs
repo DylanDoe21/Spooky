@@ -18,7 +18,7 @@ namespace Spooky.Content.Biomes
         public override int BiomeTorchItemType => ItemID.IceTorch;
 
         //bestiary stuff
-        //public override string BestiaryIcon => "Spooky/Content/Biomes/VegetableBiomeIcon";
+        public override string BestiaryIcon => "Spooky/Content/Biomes/ChristmasDungeonBiomeIcon";
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
