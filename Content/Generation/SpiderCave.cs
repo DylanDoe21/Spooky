@@ -122,8 +122,8 @@ namespace Spooky.Content.Generation
 
                             //generate perlin noise caves
                             float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 80f, Y / 80f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
-                            float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 1350f, Y / 900f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
-                            float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 1350f, Y / 900f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
+                            float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 1450f, Y / 800f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
+                            float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 1450f, Y / 800f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
                             float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
                             float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
                             float caveCreationWallThreshold = horizontalOffsetNoise * 3.5f + 0.335f;
