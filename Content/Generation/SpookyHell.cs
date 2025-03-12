@@ -753,25 +753,25 @@ namespace Spooky.Content.Generation
                                 case 0:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 6, Y - 11);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorTendril" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/FloorTendril" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 1:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 6, Y - 10);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorSkull" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/FloorSkull" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 2:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorEye" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/FloorEye" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 3:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 11, Y - 6);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/FloorRibs", structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/FloorRibs.shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                             }
@@ -789,37 +789,37 @@ namespace Spooky.Content.Generation
                                 case 0:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 6, Y - 5);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEye" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEye" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 1:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyePair" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyePair" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 2:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 6, Y - 3);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeForward", structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeForward.shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 3:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 5, Y - 5);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeStalk" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeStalk" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 4:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 5, Y - 5);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeStalkLong", structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeStalkLong.shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                                 case 5:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 8, Y - 6);
-                                    Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingMouth" + WorldGen.genRand.Next(1, 3), structureOrigin.ToPoint16(), Mod);
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingMouth" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);
                                     break;
                                 }
                             }
@@ -846,7 +846,7 @@ namespace Spooky.Content.Generation
                 }
 
                 Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
-                Generator.GenerateStructure("Content/Structures/SpookyHell/" + StructureFile, origin.ToPoint16(), Mod);
+				StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/" + StructureFile + ".shstruct", origin.ToPoint16(), Mod);
 
                 if (StructureFile == "LittleEyeHouse")
                 {
@@ -1247,7 +1247,7 @@ namespace Spooky.Content.Generation
                 }
 
                 Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
-                Generator.GenerateStructure("Content/Structures/NoseTemple/" + StructureFile, origin.ToPoint16(), Mod);
+				StructureHelper.API.Generator.GenerateStructure("Content/Structures/NoseTemple/" + StructureFile + ".shstruct", origin.ToPoint16(), Mod);
 
                 placed = true;
             }

@@ -498,8 +498,8 @@ namespace Spooky.Content.Generation
                         }
                     }
 
-                    //place starter house
-                    Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestHouse", origin.ToPoint16(), Mod);
+					//place starter house
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestHouse.shstruct", origin.ToPoint16(), Mod);
 
                     //place little bone in the house
                     NPC.NewNPC(null, (x + 1) * 16, (y - 9) * 16, ModContent.NPCType<LittleBoneSleeping>());
@@ -527,27 +527,27 @@ namespace Spooky.Content.Generation
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin1 = new Vector2((x - (ChestDistance * 2)) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-1", origin1.ToPoint16(), Mod);
+			StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-1.shstruct", origin1.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin2 = new Vector2(((x - ChestDistance) - 8) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-2", origin2.ToPoint16(), Mod);
+			StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-2.shstruct", origin2.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin3 = new Vector2(x - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-3", origin3.ToPoint16(), Mod);
+			StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-3.shstruct", origin3.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin4 = new Vector2((x + ChestDistance) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-4", origin4.ToPoint16(), Mod);
+			StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-4.shstruct", origin4.ToPoint16(), Mod);
 
             //reset y each time so each room is at a different position
             y = InitialDepth + WorldGen.genRand.Next(-ChestDepth, ChestDepth + extraChestDepth);
             Vector2 origin5 = new Vector2((x + (ChestDistance * 2)) - 10, y - 6);
-            Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-5", origin5.ToPoint16(), Mod);
+			StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin-5.shstruct", origin5.ToPoint16(), Mod);
         }
 
         public static bool GrowGiantMushroom(int X, int Y, int tileType, int minSize, int maxSize)

@@ -13,8 +13,6 @@ using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.Cemetery.Furniture;
 
-using StructureHelper;
-
 namespace Spooky.Content.Generation
 {
     public class Cemetery : ModSystem
@@ -278,7 +276,7 @@ namespace Spooky.Content.Generation
                 if (IsCemeteryTile(startX, startY) && NoFloatingIsland(startX, startY))
                 {
                     Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
-                    Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile, origin.ToPoint16(), Mod);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/Cemetery/" + StructureFile + ".shstruct", origin.ToPoint16(), Mod);
 
                     //when the cemetery catacomb crypt is placed, save the position for the catacomb entrance
                     if (StructureFile == "CemeteryEntrance")

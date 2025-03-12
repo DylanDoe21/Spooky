@@ -1,10 +1,8 @@
 displayName = [c/FFA01C:Spooky Mod]
 author = The Spooky Mod Team
-version = 1.2.6
-buildIgnore = *.csproj, *.user, obj\*, bin\*, lib\*, .vs\*, *.gif, Unused\*
+version = 1.2.7
+modReferences = StructureHelper
 hideCode = true
 hideResources = true
 includeSource = false
 includePDB = true
-
-modReferences = StructureHelper
