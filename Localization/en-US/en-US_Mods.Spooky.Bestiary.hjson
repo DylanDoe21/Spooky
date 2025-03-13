@@ -102,7 +102,7 @@ HoverBrain: A large brain with psychic power that can fire out beams to mess wit
 TongueBiter: A mutated tongue with a large mouth for clamping down on prey. It can use the many tubes coming off of its back as boosters to propel itself through the air.
 //friendly town npcs
 DumbZomboid: A zomboid that got lost. It does not know how to read. Or think.
-Krampus: The one and only krampus, a lazy yet incomprehensibly powerful demon who created an abstract workshop deep in the underground tundra. Rather than using his powers directly, he creates diabolical weapons disguised as childrens toys and prefers to inflict comical misdeeds on innocent people.
+Krampus: The real krampus. A lazy yet incomprehensibly powerful demon who created a labyrinth-like workshop deep in the underground tundra. Though he could use his powers to cause wide-spread misfortune, he prefers to create diabolical weapons disguised as childrens toys and plays cruel pranks on innocent people for his own entertainment.
 LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
 LittleEye: A strange sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 Musicman: Alien scientist gone rogue, Musicman has become your personal DJ. He looks like he's trying to communicate...
@@ -246,3 +246,7 @@ RollingPepper: Rolling jalapenos grow in the ground, where they lie in wait for 
 RottenCarrot: Hiding in the ground, unsuspecting explorers will be covered in the nasty goo they spit out if they dare to get too close!
 //rotten depths
 Dunkleosteus: An ancient prehistoric fish brought back to life by strange scientists. After breaking containment and destroying everything in its path, the once fruitful study area in the depths is now rotten and infected after a strange zombie plague was released during the destruction.
+SkeletonFish: The remains of a collection of many different species of fish, forced to "live" in fear until the end of time.
+SkeletonGar: A gar that was torn to shreds by an unnatural predator. Despite this, its remains stay tied to each other through a sheer will to survive despite the futility.
+SkeletonPiranha: Piranhas tend to travel in schools, in some cases, the more courageous venture alone and grow to unnatural sizes. Unfortunately for them, there are always bigger fish in the sea.
+SkeletonSunfish: An incredibly large and docile creature, the Sunfish, does not pose a threat to many. Occasionally, they stray far out of their depth, in more ways then one.

@@ -40,7 +40,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(93, 62, 39), name);
 			RegisterItemDrop(ModContent.ItemType<ChristmasChestItem>());
-			DustType = DustID.Blood;
+			DustType = -1;
 			AdjTiles = new int[] { TileID.Containers };
 		}
 

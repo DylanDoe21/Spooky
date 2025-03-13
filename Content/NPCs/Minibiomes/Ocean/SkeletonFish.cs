@@ -6,6 +6,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
@@ -36,6 +37,16 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.DeathSound = SoundID.DD2_SkeletonHurt;
             NPC.aiStyle = 16;
 			AIType = NPCID.Goldfish;
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ZombieOceanBiome>().Type };
+		}
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.SkeletonFish"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ZombieOceanBiome>().ModBiomeBestiaryInfoElement)
+			});
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

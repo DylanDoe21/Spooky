@@ -363,8 +363,8 @@ namespace Spooky.Core
 
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
         {
-            //spooky forest ambient lighting
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()))
+			//spooky forest ambient lighting
+			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()))
             {
                 float Intensity = ModContent.GetInstance<TileCount>().spookyTiles / 200f;
                 Intensity = Math.Min(Intensity, 1f);

@@ -63,14 +63,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 BGRootTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/BigBoneArenaRoots");
                 BGRootGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Catacomb/BigBoneArenaRootsGlow");
 
-                float XParallax = (Main.LocalPlayer.Center.X - NPC.Center.X) * 0.02f;
+                float XParallax = (Main.LocalPlayer.Center.X - NPC.Center.X) * 0.022f;
 
                 Vector2 DrawPosition = (NPC.Center - new Vector2((1680 / 2), (1102 / 2))) - screenPos;
                 Vector2 DrawPositionParallax = (NPC.Center - new Vector2((1680 / 2) + XParallax, (1102 / 2))) - screenPos;
                 
                 spriteBatch.Draw(BGTexture.Value, DrawPosition, new Rectangle(0, 0, 1680, 1102), new Color(70, 45, 45));
                 spriteBatch.Draw(BGTexture.Value, DrawPositionParallax, new Rectangle(0, 0, 1680, 1102), new Color(70, 45, 45));
-                spriteBatch.Draw(BGRootTexture.Value, DrawPositionParallax, new Rectangle(0, 0, 1680, 1102), new Color(75, 50, 50));
+                spriteBatch.Draw(BGRootTexture.Value, DrawPosition, new Rectangle(0, 0, 1680, 1102), new Color(75, 50, 50));
 
                 if (NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
                 {
@@ -78,7 +78,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     Color color = Color.Lerp(Color.Transparent, Color.Gold * 0.15f, time);
 
-                    spriteBatch.Draw(BGRootGlowTexture.Value, DrawPositionParallax, new Rectangle(0, 0, 1680, 1102), color);
+                    spriteBatch.Draw(BGRootGlowTexture.Value, DrawPosition, new Rectangle(0, 0, 1680, 1102), color);
                 }
 
 				int Increment = 20;

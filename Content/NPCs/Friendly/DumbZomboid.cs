@@ -3,12 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.Localization;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria.GameContent.UI;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+
+using Spooky.Core;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -46,7 +45,7 @@ namespace Spooky.Content.NPCs.Friendly
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.DumbZomboid"),
-                new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
+                new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiome_Background", Color.White)
 			});
 		}
 

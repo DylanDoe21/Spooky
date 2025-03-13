@@ -1717,8 +1717,8 @@ PheromoneWhip: {
 	Tooltip:
 		'''
 		Your summons will focus struck enemies
-		Hitting enemies will spread pheromones onto them
-		Enemies inflicted with pheromones take more damage from all spider-related minions
+		Hitting enemies will inflict them with the spider pheromones debuff
+		This makes them take 20% more damage and 10% critical strike chance from spider minions
 		'''
 }
 

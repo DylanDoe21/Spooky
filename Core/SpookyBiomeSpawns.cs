@@ -18,6 +18,7 @@ using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.NPCs.Minibiomes.Christmas;
 using Spooky.Content.NPCs.Minibiomes.Ocean;
 using Spooky.Content.NPCs.Minibiomes.TarPits;
 using Spooky.Content.NPCs.Minibiomes.Vegetable;
@@ -587,7 +588,7 @@ namespace Spooky.Core
 				}
 			}
 
-			//fetid farms spawns
+			//rotten depths spawns
 			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<ZombieOceanBiome>()))
 			{
 				pool.Clear();
@@ -599,6 +600,17 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<SkeletonPiranha>(), 2);
 					pool.Add(ModContent.NPCType<SkeletonSunfish>(), 1);
 				}
+			}
+
+			//krampus workshop spawns
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<ChristmasDungeonBiome>()))
+			{
+				pool.Clear();
+
+				pool.Add(ModContent.NPCType<TeddyBear1>(), 1);
+				pool.Add(ModContent.NPCType<TeddyBear2>(), 1);
+				pool.Add(ModContent.NPCType<TeddyBear3>(), 1);
+				pool.Add(ModContent.NPCType<ToyRobot>(), 1);
 			}
 
 			//dumb zomboid can spawn anywhere super rarely

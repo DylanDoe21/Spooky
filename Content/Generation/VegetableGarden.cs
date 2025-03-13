@@ -199,7 +199,7 @@ namespace Spooky.Content.Generation
 					if (CanPlaceGreenhouse(i, j))
 					{
 						Vector2 GreenhouseOrigin = new Vector2(i - 14, j - 14);
-						Generator.GenerateStructure("Content/Structures/VegetableGarden/Greenhouse-" + WorldGen.genRand.Next(1, 5), GreenhouseOrigin.ToPoint16(), Mod);
+						StructureHelper.API.Generator.GenerateStructure("Content/Structures/VegetableGarden/Greenhouse-" + WorldGen.genRand.Next(1, 5) + ".shstruct", GreenhouseOrigin.ToPoint16(), Mod);
 					}
 				}
 			}

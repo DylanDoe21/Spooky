@@ -112,6 +112,10 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 				Player player = Main.LocalPlayer;
 				int style = Main.tile[i, j].TileFrameX / 18;
 				int type = 0;
+				int type2 = 0;
+				int type3 = 0;
+				int type4 = 0;
+				int type5 = 0;
 				switch (style)
 				{
 					case 0:
@@ -171,6 +175,8 @@ namespace Spooky.Content.Tiles.Banner.SpookyForest
 					default:
 						return;
 				}
+
+				/TODO: implement separate variables for multiple npc types
 
 				Main.SceneMetrics.NPCBannerBuff[type] = true;
 				Main.SceneMetrics.hasBanner = true;

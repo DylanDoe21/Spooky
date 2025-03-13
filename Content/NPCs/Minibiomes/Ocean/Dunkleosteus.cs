@@ -52,9 +52,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/DunkleosteusBestiary",
-                Position = new Vector2(-100f, 25f),
+                Position = new Vector2(-110f, 15f),
                 PortraitPositionXOverride = -70f,
-                PortraitPositionYOverride = 0f
+                PortraitPositionYOverride = 10f
             };
 
 			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
@@ -78,6 +78,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = -1;
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ZombieOceanBiome>().Type };
 		}
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -91,7 +92,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Dunkleosteus"),
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement()
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ZombieOceanBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 

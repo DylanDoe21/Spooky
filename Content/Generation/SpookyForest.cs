@@ -20,8 +20,6 @@ using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Gourds;
 using Spooky.Content.Tiles.SpookyBiome.Tree;
 
-using StructureHelper;
-
 namespace Spooky.Content.Generation
 {
     public class SpookyForest : ModSystem
@@ -35,14 +33,7 @@ namespace Spooky.Content.Generation
 			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest").Value;
 
 			//decide whether or not to use the alt background
-			if (WorldGen.genRand.NextBool(2))
-			{
-				Flags.SpookyBackgroundAlt = true;
-			}
-			else
-			{
-				Flags.SpookyBackgroundAlt = false;
-			}
+			Flags.SpookyBackgroundAlt = WorldGen.genRand.NextBool();
 
 			//if config is enabled, place it at spawn
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().SpookyForestSpawn)
@@ -265,7 +256,7 @@ namespace Spooky.Content.Generation
 					PlaceMineshaft(x, y);
 
 					Vector2 MineshaftOrigin = new Vector2(x - 26, y - 24);
-					Generator.GenerateStructure("Content/Structures/SpookyBiome/MineshaftEntrance", MineshaftOrigin.ToPoint16(), Mod);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/MineshaftEntrance.shstruct", MineshaftOrigin.ToPoint16(), Mod);
 
 					PlacedMineshaft = true;
 				}
@@ -678,8 +669,8 @@ namespace Spooky.Content.Generation
                         }
                     }
 
-                    //place starter house
-                    Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestHouse", origin.ToPoint16(), Mod);
+					//place starter house
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestHouse.shstruct", origin.ToPoint16(), Mod);
 
                     //place little bone in the house
                     NPC.NewNPC(null, (x + 1) * 16, (y - 9) * 16, ModContent.NPCType<LittleBoneSleeping>());
@@ -700,7 +691,7 @@ namespace Spooky.Content.Generation
 						if (CanPlaceLootCabin(X, Y))
 						{
 							Vector2 CabinOrigin = new Vector2(X - 12, Y - 6);
-							Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin" + WorldGen.genRand.Next(1, 7), CabinOrigin.ToPoint16(), Mod);
+							StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin" + WorldGen.genRand.Next(1, 7) + ".shstruct", CabinOrigin.ToPoint16(), Mod);
 						}
 					}
 				}
@@ -785,7 +776,8 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - 50; j < PositionY + 50; j++)
 				{
-					if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWood>() || Main.tile[i, j].TileType == ModContent.TileType<OldWoodChest>() || Main.tileDungeon[Main.tile[i, j].TileType])
+					if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWood>() || Main.tile[i, j].TileType == ModContent.TileType<OldWoodChest>() ||
+					Main.tile[i, j].TileType == ModContent.TileType<MushroomMoss>() || Main.tileDungeon[Main.tile[i, j].TileType])
 					{
 						return false;
 					}

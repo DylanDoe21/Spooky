@@ -14,10 +14,11 @@ using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
 
-using StructureHelper;
-
 namespace Spooky.Content.Generation
 {
+	//TODO:
+	//make krampus mansion block filling in gaps better
+	//make pathways that are too short filled with blocks so that krampus' own room doesnt create pathways that are only 2 blocks tall
 	public class ChristmasDungeon : ModSystem
 	{
 		public static List<ushort> BlockTypes = new()
@@ -74,7 +75,7 @@ namespace Spooky.Content.Generation
 
 			int Increment = JungleOnLeftSide ? 20 : -20;
 
-			//find a valid position in the jungle away from other structures
+			//find a valid position in the underground snow biome
 			for (int Y = Main.maxTilesY - 300; Y >= Main.worldSurface + 90; Y -= 5)
 			{
 				for (int X = Start; JungleOnLeftSide ? X <= End : X >= End; X += Increment)
@@ -131,9 +132,9 @@ namespace Spooky.Content.Generation
 		public void FillEmptySpaceInbetweenRooms(int PositionX, int PositionY, int Width, int Height)
 		{
 			//first, fill in general space toward the center of the dungeon
-			for (int i = PositionX - (Width / 2) + 25; i <= PositionX + (Width / 2) - 25; i++)
+			for (int i = PositionX - (Width / 2) + 15; i <= PositionX + (Width / 2) - 15; i++)
 			{
-				for (int j = PositionY - (Height / 2) + 25; j <= PositionY + (Height / 2) - 25; j++)
+				for (int j = PositionY - (Height / 2) + 15; j <= PositionY + (Height / 2) - 15; j++)
 				{
 					if (!BlockTypes.Contains(Main.tile[i, j].TileType) && !WallTypes.Contains(Main.tile[i, j].WallType))
 					{
@@ -145,6 +146,8 @@ namespace Spooky.Content.Generation
 			}
 
 			//afterward fill in smaller leftover clusters surrounded by the dungeon to prevent ugly areas of snow/ice/caves just existing inbetween the dungeon rooms/halls
+			int MaxPoints = 1000;
+
 			void getAttachedPoints(int x, int y, List<Point> points)
 			{
 				Tile tile = Main.tile[x, y];
@@ -155,7 +158,7 @@ namespace Spooky.Content.Generation
 					tile = new Tile();
 				}
 
-				if (BlockTypes.Contains(tile.TileType) || WallTypes.Contains(tile.WallType) || points.Count > 1000 || points.Contains(point))
+				if (BlockTypes.Contains(tile.TileType) || WallTypes.Contains(tile.WallType) || points.Count > MaxPoints || points.Contains(point))
 				{
 					return;
 				}
@@ -172,16 +175,15 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = PositionX - (Width / 2); i <= PositionX + (Width / 2); i++)
+			for (int i = PositionX - (Width / 2) - 15; i <= PositionX + (Width / 2) + 15; i++)
 			{
-				for (int j = PositionY - (Height / 2); j <= PositionY + (Height / 2); j++)
+				for (int j = PositionY - (Height / 2) - 15; j <= PositionY + (Height / 2) + 15; j++)
 				{
 					List<Point> chunkPoints = new();
 
 					getAttachedPoints(i, j, chunkPoints);
 
-					int cutoffLimit = 2500;
-					if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
+					if (chunkPoints.Count >= 1 && chunkPoints.Count < MaxPoints)
 					{
 						foreach (Point p in chunkPoints)
 						{
@@ -265,9 +267,9 @@ namespace Spooky.Content.Generation
 				getAttachedPoints(x, y - 1, points);
 			}
 
-			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
+			for (int i = PositionX - (Width / 2) - 25; i <= PositionX + (Width / 2) + 25; i++)
 			{
-				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
+				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
 					//clean up floating clumps of tiles in the dungeon
 					List<Point> chunkPoints = new();
@@ -390,9 +392,9 @@ namespace Spooky.Content.Generation
 		public void DungeonAmbienceAndDetails(int PositionX, int PositionY, int Width, int Height)
 		{
 			//place entrances
-			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
+			for (int i = PositionX - (Width / 2) - 25; i <= PositionX + (Width / 2) + 25; i++)
 			{
-				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
+				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
 					if (WorldGen.genRand.NextBool(5) && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
 					{
@@ -417,7 +419,7 @@ namespace Spooky.Content.Generation
 						if (CanPlace)
 						{
 							Vector2 EntranceOrigin = new Vector2(i - 2, j - 3);
-							Generator.GenerateStructure("Content/Structures/ChristmasDungeon/ChristmasEntranceLeft", EntranceOrigin.ToPoint16(), Mod);
+							StructureHelper.API.Generator.GenerateStructure("Content/Structures/ChristmasDungeon/EntranceLeft.shstruct", EntranceOrigin.ToPoint16(), Mod);
 						}
 					}
 
@@ -439,7 +441,7 @@ namespace Spooky.Content.Generation
 						if (CanPlace)
 						{
 							Vector2 EntranceOrigin = new Vector2(i - 6, j - 3);
-                    		Generator.GenerateStructure("Content/Structures/ChristmasDungeon/ChristmasEntranceRight", EntranceOrigin.ToPoint16(), Mod);
+							StructureHelper.API.Generator.GenerateStructure("Content/Structures/ChristmasDungeon/EntranceRight.shstruct", EntranceOrigin.ToPoint16(), Mod);
 						}
 					}
 
@@ -463,7 +465,7 @@ namespace Spooky.Content.Generation
 						if (CanPlace)
 						{
 							Vector2 EntranceOrigin = new Vector2(i - 3, j);
-							Generator.GenerateStructure("Content/Structures/ChristmasDungeon/ChristmasTrapdoorEntrance", EntranceOrigin.ToPoint16(), Mod);
+							StructureHelper.API.Generator.GenerateStructure("Content/Structures/ChristmasDungeon/EntranceTop.shstruct", EntranceOrigin.ToPoint16(), Mod);
 						}
 					}
 				}

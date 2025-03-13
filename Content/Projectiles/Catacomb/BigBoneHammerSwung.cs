@@ -117,10 +117,10 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Player owner = Main.player[Projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             //since this projectile is weird and only knocks enemies back in one direction, manually handle knockback here
-            Vector2 Knockback = owner.Center - target.Center;
+            Vector2 Knockback = player.Center - target.Center;
             Knockback.Normalize();
             Knockback *= SaveKnockback * 2;
 

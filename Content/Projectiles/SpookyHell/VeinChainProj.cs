@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			NPC Parent = Main.npc[(int)Projectile.ai[2]];
 
-			if (player.Distance(Parent.Center) >= 650f)
+			if (player.Distance(Parent.Center) >= 650f || !Parent.active)
 			{
 				Projectile.ai[0] = 1;
 			}

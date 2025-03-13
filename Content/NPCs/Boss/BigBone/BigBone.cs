@@ -1436,21 +1436,21 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         if (NPC.velocity.X <= 0.1f && NPC.velocity.X >= -0.1f)
                         {
-                            NPC.velocity *= 0;
+                            NPC.velocity = Vector2.Zero;
                         }
 
                         if (NPC.velocity.Y <= 0.1f && NPC.velocity.Y >= -0.1f)
                         {
-                            NPC.velocity *= 0;
+                            NPC.velocity = Vector2.Zero;
                         }
 
                         if (NPC.velocity == Vector2.Zero)
                         {
                             SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
                             
-                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 25f, 300f);
+                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 25f, 1000f);
 
-                            NPC.velocity *= 0;
+                            NPC.velocity = Vector2.Zero;
 
                             NPC.localAI[1] = 1;
                         }

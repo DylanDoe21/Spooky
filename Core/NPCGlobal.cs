@@ -133,6 +133,24 @@ namespace Spooky.Core
 					modifiers.SetCrit();
 				}
 
+				//enemies inflicted with the pheromone stinger debuff take increased damage from all spider related minions
+				if (npc.HasBuff(ModContent.BuffType<PheromoneWhipDebuff>()))
+				{
+					int[] SpiderMinionProjectiles = { ProjectileID.SpiderHiver, ProjectileID.BabySpider, ProjectileID.VenomSpider, ProjectileID.JumperSpider, ProjectileID.DangerousSpider,
+					ModContent.ProjectileType<SpiderBabyGreen>(), ModContent.ProjectileType<SpiderBabyPurple>(), ModContent.ProjectileType<SpiderBabyRed>(),
+					ModContent.ProjectileType<OrbWeaverSentrySmallSpike>(), ModContent.ProjectileType<OrbWeaverSentryBigSpike>() };
+
+					if (SpiderMinionProjectiles.Contains(projectile.type))
+					{
+						modifiers.FinalDamage *= 1.2f;
+
+						if (Main.rand.NextBool(10))
+						{
+							modifiers.SetCrit();
+						}
+					}
+				}
+
 				//generic whip tag damage
 				if (npc.HasBuff<ShroomWhipDebuff>())
 				{
@@ -160,19 +178,6 @@ namespace Spooky.Core
                 if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
                 {
                     modifiers.FinalDamage /= 1.8f;
-                }
-            }
-
-            //enemies inflicted with the pheromone stinger debuff take increased damage from all spider related minions
-            if (npc.HasBuff(ModContent.BuffType<PheromoneWhipDebuff>()))
-            {
-                int[] SpiderMinionProjectiles = { ProjectileID.SpiderHiver, ProjectileID.BabySpider, ProjectileID.VenomSpider, ProjectileID.JumperSpider, ProjectileID.DangerousSpider,
-                ModContent.ProjectileType<SpiderBabyGreen>(), ModContent.ProjectileType<SpiderBabyPurple>(), ModContent.ProjectileType<SpiderBabyRed>(),
-                ModContent.ProjectileType<OrbWeaverSentrySmallSpike>(), ModContent.ProjectileType<OrbWeaverSentryBigSpike>() };
-
-                if (SpiderMinionProjectiles.Contains(projectile.type))
-                {
-                    modifiers.FinalDamage *= 1.4f;
                 }
             }
 

@@ -83,6 +83,7 @@ Whip Changes:
 -Spore smacker damage nerfed from 15 to 8 and it now has 3 summon tag damage
 -Licker now has 7 summon tag damage
 -Exposed nerve damage buffed from 42 to 45
+-Pheromone stinger extra spider minion damage nerfed from 40% to 20%, but it now gives 10% summon tag critical strike chance for spider minions along with the damage bonus
 -Leecher now has 10 summon tag damage
 -Living eye lasher damage buffed from 75 to 82
 
@@ -101,7 +102,7 @@ Accessory Rebalancing/Reworks:
 -Telescope's moon now grants 10% increased damage during the day and 10 defense at night along with its existing abilities
 -Apocalypse mixtape telescope moon now has no damage cap for projectiles it can reflect (This does not apply to the regular telescope accessory)
 -Arcade cabinet now gives 2% increased critical strike chance per missing swirl charge up to 10% total, and increased the amount of time it takes for one charge to regenerate to 2 seconds
--Dreadful clarinet no longer has a cooldown for spawning notes on critical hits but you cannot have more than 5 active notes at once, and increased their enemy targetting range
+-Dreadful clarinet no longer has a cooldown for spawning notes on critical hits but you cannot have more than 5 notes at once, also increased their enemy targetting range
 -Strange video game now disables your life regeneration but it will now spawn natures mockery around you constantly, only one can exist at a time but once one dies another will immediately spawn
 -Samson's cuff no longer decreases movement speed and damage (Applies to both the regular accessory and the amalghoul)
 -Sewing thread now inflicts pierced onto any enemy it hits, pierced enemies will take 2x damage and be inflicted with a damage-over-time debuff for 10 seconds the next time they are hit by any weapon that isnt the thread
@@ -130,6 +131,8 @@ Miscellaneous:
 
 -Bloom buffs UI now displays that you can remove buffs with right click when hovering over any icon
 -Made the spider grotto biome size a tiny bit smaller
+-Spider grotto caves are now a bit longer horizontally and a bit shorter vertically
+-Swampy cemetery terrain now generates a bit flatter so structures dont generate weirdly and to make it feel like an actual cemetery a bit more
 -Carved gourd-o-lanterns now count as light source blocks for npc housing
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
 -Spooky mod grasses now immediately turn into their corresponding dirt block when broken like terraria grasses do
@@ -140,6 +143,7 @@ Miscellaneous:
 -Removed all cooldown debuffs for accessories that have had their cooldowns removed
 -Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey previously now use "double tap down" like terraria's special armor set bonuses
 -Being in the valley of eyes now disables the heat distortion caused by being in the underworld
+-Dumb zomboid bestiary entry now uses the spooky forest background instead of a blank black background
 
 
 

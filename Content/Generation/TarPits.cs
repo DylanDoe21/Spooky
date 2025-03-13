@@ -14,8 +14,6 @@ using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes.Desert;
 using Spooky.Content.Tiles.Minibiomes.Desert.Ambient;
 
-using StructureHelper;
-
 namespace Spooky.Content.Generation
 {
 	public class TarPits : ModSystem
@@ -52,7 +50,7 @@ namespace Spooky.Content.Generation
 
 			if (!IsSmallWorld)
 			{
-				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 50);
+				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 75);
 			}
 			else
 			{
@@ -71,7 +69,7 @@ namespace Spooky.Content.Generation
 
 						if (!IsSmallWorld)
 						{
-							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 50);
+							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 75);
 						}
 						else
 						{
@@ -367,12 +365,12 @@ namespace Spooky.Content.Generation
 						if (WorldGen.genRand.NextBool())
 						{
 							Vector2 Origin = new Vector2(i - 11, j - 10);
-							Generator.GenerateStructure("Content/Structures/TarPits/MinecartEntrance-1", Origin.ToPoint16(), Mod);
+							StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/MinecartEntrance-1.shstruct", Origin.ToPoint16(), Mod);
 						}
 						else
 						{
 							Vector2 Origin = new Vector2(i - 16, j - 10);
-							Generator.GenerateStructure("Content/Structures/TarPits/MinecartEntrance-2", Origin.ToPoint16(), Mod);
+							StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/MinecartEntrance-2.shstruct", Origin.ToPoint16(), Mod);
 						}
 
 						StructurePoints.Add(new Vector2(i, j));
@@ -390,35 +388,35 @@ namespace Spooky.Content.Generation
 					if (WorldGen.genRand.NextBool(10) && CanPlaceStructure(i, j, 20) && BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Vector2 Origin = new Vector2(i - 8, j - 15);
-						Generator.GenerateStructure("Content/Structures/TarPits/TarWell", Origin.ToPoint16(), Mod);
+						StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/TarWell.shstruct", Origin.ToPoint16(), Mod);
 						StructurePoints.Add(new Vector2(i, j));
 					}
 
 					if (WorldGen.genRand.NextBool(10) && CanPlaceStructure(i, j, 30) && BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Vector2 Origin = new Vector2(i - 14, j - 19);
-						Generator.GenerateStructure("Content/Structures/TarPits/Crane-" + WorldGen.genRand.Next(1, 3), Origin.ToPoint16(), Mod);
+						StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/Crane-" + WorldGen.genRand.Next(1, 3) + ".shstruct", Origin.ToPoint16(), Mod);
 						StructurePoints.Add(new Vector2(i, j));
 					}
 
 					if (WorldGen.genRand.NextBool(8) && CanPlaceStructure(i, j, 10) && BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Vector2 Origin = new Vector2(i - 6, j - 6);
-						Generator.GenerateStructure("Content/Structures/TarPits/Minecart-" + WorldGen.genRand.Next(1, 6), Origin.ToPoint16(), Mod);
+						StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/Minecart-" + WorldGen.genRand.Next(1, 6) + ".shstruct", Origin.ToPoint16(), Mod);
 						StructurePoints.Add(new Vector2(i, j));
 					}
 
 					if (WorldGen.genRand.NextBool(5) && CanPlaceStructure(i, j, 10) && BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Vector2 Origin = new Vector2(i - 6, j - 4);
-						Generator.GenerateStructure("Content/Structures/TarPits/BonePile", Origin.ToPoint16(), Mod);
+						StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/BonePile.shstruct", Origin.ToPoint16(), Mod);
 						StructurePoints.Add(new Vector2(i, j));
 					}
 
 					if (WorldGen.genRand.NextBool(5) && CanPlaceStructure(i, j, 15) && BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Vector2 Origin = new Vector2(i - 7, j - 10);
-						Generator.GenerateStructure("Content/Structures/TarPits/SmallHut", Origin.ToPoint16(), Mod);
+						StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/SmallHut.shstruct", Origin.ToPoint16(), Mod);
 						StructurePoints.Add(new Vector2(i, j));
 					}
 				}

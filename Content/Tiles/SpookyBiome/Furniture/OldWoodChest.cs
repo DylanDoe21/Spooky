@@ -48,7 +48,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(93, 62, 39), name);
 			RegisterItemDrop(ModContent.ItemType<OldWoodChestItem>());
-			DustType = DustID.Blood;
+			DustType = DustID.WoodFurniture;
 			AdjTiles = new int[] { TileID.Containers };
 		}
 

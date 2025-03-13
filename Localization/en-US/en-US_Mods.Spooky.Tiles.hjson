@@ -14,8 +14,8 @@ SpookyBiomeChest: {
 }
 
 SpookyHellChest: {
-	MapEntry0: Eye Chest
-	MapEntry1: Locked Eye Chest
+	MapEntry0: Eye Valley Chest
+	MapEntry1: Locked Eye Valley Chest
 }
 
 EyeDresser: {
@@ -101,7 +101,7 @@ CultistCandelabra.MapEntry: Candelabra
 CultistCandle.MapEntry: Candle
 CultistChair.MapEntry: Chair
 CultistChandelier.MapEntry: Chandelier
-CultistChest.MapEntry: Chest
+CultistChest.MapEntry: Occultist Chest
 CultistClock.MapEntry: Clock
 CultistDoorClosed.MapEntry: Door
 CultistDoorOpen.MapEntry: Door
@@ -139,7 +139,7 @@ GlowshroomCandelabra.MapEntry: Candelabra
 GlowshroomCandle.MapEntry: Candle
 GlowshroomChair.MapEntry: Chair
 GlowshroomChandelier.MapEntry: Chandelier
-GlowshroomChest.MapEntry: Chest
+GlowshroomChest.MapEntry: Glowshroom Chest
 GlowshroomClock.MapEntry: Clock
 GlowshroomDoorClosed.MapEntry: Door
 GlowshroomDoorOpen.MapEntry: Door
@@ -157,7 +157,7 @@ GlowshroomYellowCandelabra.MapEntry: Candelabra
 GlowshroomYellowCandle.MapEntry: Candle
 GlowshroomYellowChair.MapEntry: Chair
 GlowshroomYellowChandelier.MapEntry: Chandelier
-GlowshroomYellowChest.MapEntry: Chest
+GlowshroomYellowChest.MapEntry: Glowshroom Chest
 GlowshroomYellowClock.MapEntry: Clock
 GlowshroomYellowDoorClosed.MapEntry: Door
 GlowshroomYellowDoorOpen.MapEntry: Door

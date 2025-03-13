@@ -14,8 +14,6 @@ using Spooky.Core;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Ambient;
 
-using StructureHelper;
-
 namespace Spooky.Content.Generation
 {
 	public class ZombieOcean : ModSystem
@@ -315,7 +313,7 @@ namespace Spooky.Content.Generation
             int attempts = 0;
             while (!placed && attempts++ < 100000)
             {
-				int OceanTopX = StartPositionX;
+				int OceanTopX = StartPositionX + (StartPositionX < (Main.maxTilesX / 2) ? -45 : 45);
 				int OceanTopY = 10;
 
 				while (!WorldGen.SolidTile(OceanTopX, OceanTopY) && OceanTopY <= Main.worldSurface)
@@ -655,7 +653,7 @@ namespace Spooky.Content.Generation
 							PlaceDepthsOval(i, j + 11, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 13, 7, 1f, true, false);
 
 							Vector2 LabOrigin = new Vector2(i - 11, j - 5);
-							Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7), LabOrigin.ToPoint16(), Mod);
+							StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7) + ".shstruct", LabOrigin.ToPoint16(), Mod);
 						}
 					}
 				}
@@ -664,8 +662,6 @@ namespace Spooky.Content.Generation
 
 		public bool CanPlaceLab(int PositionX, int PositionY)
 		{
-			int numOpenSpace = 0;
-
 			//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
 			for (int y = PositionY; y <= PositionY + 15; y++)
 			{

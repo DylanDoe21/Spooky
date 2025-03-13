@@ -44,16 +44,12 @@ namespace Spooky.Content.Tiles.Catacomb
 
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
 		{
-			if (!Flags.downedBigBone)
-			{
-				MinPick = int.MaxValue;
-			}
-			else
-			{
-				MinPick = 0;
-			}
-
 			return true;
+		}
+
+		public override void NearbyEffects(int i, int j, bool closer)
+		{
+			MinPick = Flags.downedBigBone ? 0 : int.MaxValue;
 		}
 
 		public override bool CanExplode(int i, int j)
