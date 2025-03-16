@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 {
-    public class SpookySwordSpin : ModProjectile
+    public class SpookmasSwordSpin : ModProjectile
     {
-        public override string Texture => "Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/SpookySword";
+        public override string Texture => "Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/SpookmasSword";
 
         private static Asset<Texture2D> ProjTexture;
 
@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             {
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + new Vector2(23, 23) + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Orange) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length) * 0.65f;
+                Color color = Projectile.GetAlpha(Color.Green) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length) * 0.65f;
                 Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 			
@@ -86,10 +86,10 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
                 if (Projectile.Hitbox.Intersects(collision))
                 {
-                    Parent.localAI[0] = 236; //set parent ai to immediately start charging once the sword reaches it
+                    Parent.localAI[0] = 236; //set parent ai to immediately start attacking with the sword
 
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Parent.Center, Vector2.Zero,
-                    ModContent.ProjectileType<SpookySword>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[1]);
+                    ModContent.ProjectileType<SpookmasSword>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[1]);
 
                     Projectile.Kill();
                 }

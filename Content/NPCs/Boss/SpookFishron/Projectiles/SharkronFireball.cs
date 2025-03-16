@@ -26,7 +26,14 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            if (Main.snowMoon)
+            {
+                ProjTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/FrostMoonTextures/SharkronFireball");
+            }
+            else
+            {
+                ProjTexture = ModContent.Request<Texture2D>(Texture);
+            }
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
@@ -48,7 +55,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			{
                 Vector2 dustPosition = Projectile.Center;
                 dustPosition -= Projectile.velocity * ((float)numDust * 0.25f);
-                int dust = Dust.NewDust(dustPosition, 1, 1, DustID.Torch, 0f, 0f, 0, default, 2f);
+                int dustType = Main.snowMoon ? DustID.IceTorch : DustID.Torch;
+                int dust = Dust.NewDust(dustPosition, 1, 1, dustType, 0f, 0f, 0, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].position = dustPosition;
                 Main.dust[dust].velocity *= 0.2f;
@@ -58,8 +66,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
         public override void OnKill(int timeLeft)
 		{
             for (int numDust = 0; numDust < 35; numDust++)
-			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, -2f, 0, default, 1.5f);
+			{                      
+                int dustType = Main.snowMoon ? DustID.IceTorch : DustID.Torch;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0f, -2f, 0, default, 1.5f);
                 Main.dust[dust].noGravity = true;
 				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
 				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;

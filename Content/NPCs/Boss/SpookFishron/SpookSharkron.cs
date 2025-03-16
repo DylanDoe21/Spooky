@@ -16,7 +16,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 {
 	public class SpookSharkron : ModNPC
 	{
+		public bool SpawnedDuringFrostMoon = false;
+
 		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> AuraTexture;
+		private static Asset<Texture2D> IceOverlayTexture;
 
 		public override void SetStaticDefaults()
 		{
@@ -66,6 +70,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+			AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/SpookSharkronAura");
+			IceOverlayTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/SpookSharkronIceOverlay");
 
 			Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
 
@@ -75,21 +81,35 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
 			{
 				Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
-				Color color = NPC.GetAlpha(Color.OrangeRed) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-				spriteBatch.Draw(NPCTexture.Value, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+				Color color = NPC.GetAlpha(SpawnedDuringFrostMoon ? Color.LightBlue : Color.OrangeRed) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+				spriteBatch.Draw(AuraTexture.Value, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
 			}
 
 			//draw aura
 			for (int i = 0; i < 360; i += 30)
 			{
-				Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.OrangeRed, Color.Orange, i / 30));
+				Color color1 = Color.OrangeRed;
+				Color color2 = Color.Orange;
+
+				if (SpawnedDuringFrostMoon)
+				{
+					color1 = Color.Cyan;
+				 	color2 = Color.LightBlue;
+				}
+
+				Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(color1, color2, i / 30));
 
 				Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5f), 0).RotatedBy(MathHelper.ToRadians(i));
 
-				Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.75f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.05f, effects, 0);
+				Main.EntitySpriteDraw(AuraTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.75f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.05f, effects, 0);
 			}
 
 			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NPC.GetAlpha(Color.White)), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+
+			if (SpawnedDuringFrostMoon)
+			{
+				Main.EntitySpriteDraw(IceOverlayTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NPC.GetAlpha(Color.White)), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			}
 
 			return false;
 		}
@@ -115,6 +135,16 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 		public override void AI()
 		{
+			NPC.damage = SpawnedDuringFrostMoon ? 9999 : NPC.defDamage;
+
+			if (Main.snowMoon && NPC.ai[3] == 0)
+			{
+				SpawnedDuringFrostMoon = true;
+				NPC.ai[3]++;
+
+				NPC.netUpdate = true;
+			}
+
 			int num1063 = 90;
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead)
 			{

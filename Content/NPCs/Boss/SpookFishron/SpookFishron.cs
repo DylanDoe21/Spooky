@@ -38,13 +38,16 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		public bool Phase3 = false;
 		public bool Charging = false;
 		public bool DontFacePlayer = false;
+		public bool SpawnedDuringFrostMoon = false;
 		
 		Vector2 SavePosition;
 		Vector2 SavePlayerPosition;
 		Vector2 SavePlayerPosition2;
 
 		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> AuraTexture;
 		private static Asset<Texture2D> GlowTexture;
+		private static Asset<Texture2D> IceOverlayTexture;
 
 		public static readonly SoundStyle StunnedSound = new("Spooky/Content/Sounds/SpookFishron/FishronStunned", SoundType.Sound);
 		
@@ -85,6 +88,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			writer.Write(Phase3);
 			writer.Write(Charging);
 			writer.Write(DontFacePlayer);
+			writer.Write(SpawnedDuringFrostMoon);
 
 			//floats
 			writer.Write(SaveRotation);
@@ -111,6 +115,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			Phase3 = reader.ReadBoolean();
 			Charging = reader.ReadBoolean();
 			DontFacePlayer = reader.ReadBoolean();
+			SpawnedDuringFrostMoon = reader.ReadBoolean();
 
 			//floats
 			SaveRotation = reader.ReadSingle();
@@ -160,23 +165,47 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/SpookFishronGlow");
+			AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/SpookFishronAura");
+			IceOverlayTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/SpookFishronIceOverlay");
+
+			if (SpawnedDuringFrostMoon)
+			{
+				GlowTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/SpookFishronIceGlow");
+			}
+			else
+			{
+				GlowTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/SpookFishronGlow");
+			}
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			//draw aura
             for (int i = 0; i < 360; i += 30)
             {
-                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(Color.OrangeRed, Color.Orange, i / 30));
+				Color color1 = Color.OrangeRed;
+				Color color2 = Color.Orange;
+
+				if (SpawnedDuringFrostMoon)
+				{
+					color1 = Color.Cyan;
+				 	color2 = Color.LightBlue;
+				}
+
+                Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Lerp(color1, color2, i / 30));
 
                 Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5f), 0).RotatedBy(MathHelper.ToRadians(i));
 
-				Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.75f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.05f, effects, 0);
+				Main.EntitySpriteDraw(AuraTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.75f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.05f, effects, 0);
             }
 
-			Color NpcColor = Phase2 ? NPC.GetAlpha(Color.Purple) : NPC.GetAlpha(Color.White);
+			Color NpcColor = Phase2 ? (SpawnedDuringFrostMoon ? NPC.GetAlpha(Color.SteelBlue) : NPC.GetAlpha(Color.Purple)) : NPC.GetAlpha(Color.White);
 
 			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NpcColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+
+			if (SpawnedDuringFrostMoon)
+			{
+				Main.EntitySpriteDraw(IceOverlayTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NpcColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			}
 
 			//draw glowmask
 			if (Phase2)
@@ -216,11 +245,128 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			}
 		}
 
+		// Copied from Main.snowing()
+		public void Snowing()
+		{
+			if (Main.remixWorld)
+			{
+				return;
+			}
+
+			Vector2 scaledSize = Main.Camera.ScaledSize;
+			Vector2 scaledPosition = Main.Camera.ScaledPosition;
+			if (Main.gamePaused /* || Main.SceneMetrics.SnowTileCount <= 0 */ || (!((double)Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16.0) && (!Main.remixWorld || !((double)Main.player[Main.myPlayer].position.Y > Main.worldSurface * 16.0))))
+			{
+				return;
+			}
+
+			float SnowBiomePercentage = 1f;
+			float cameraX = Main.Camera.ScaledSize.X / (float)Main.maxScreenW;
+			int cameraDustAmount = (int)(500f * cameraX);
+			cameraDustAmount *= (int)(1f + 2f * Main.cloudAlpha);
+			float rainAmoutish = 1f + 50f * Main.cloudAlpha;
+			rainAmoutish = MathHelper.Clamp(rainAmoutish, 3f, 10f); // Clamp so that it is more snowy when not raining and not a blizzard while raining.
+
+			for (int i = 0; i < rainAmoutish; i++)
+			{
+				try
+				{
+					if (!(Main.snowDust < cameraDustAmount * (Main.gfxQuality / 2f + 0.5f) + cameraDustAmount * 0.1f))
+					{
+						break;
+					}
+
+					if (!(Main.rand.NextFloat() < SnowBiomePercentage))
+					{
+						continue;
+					}
+
+					int dustPosX = Main.rand.Next((int)scaledSize.X + 1500) - 750;
+					int dustPosY = (int)scaledPosition.Y - Main.rand.Next(50);
+					if (Main.player[Main.myPlayer].velocity.Y > 0f)
+					{
+						dustPosY -= (int)Main.player[Main.myPlayer].velocity.Y;
+					}
+					if (Main.rand.NextBool(5))
+					{
+						dustPosX = Main.rand.Next(500) - 500;
+					}
+					else if (Main.rand.NextBool(5))
+					{
+						dustPosX = Main.rand.Next(500) + (int)scaledSize.X;
+					}
+					if (dustPosX < 0 || dustPosX > scaledSize.X)
+					{
+						dustPosY += Main.rand.Next((int)(scaledSize.Y * 0.8)) + (int)(scaledSize.Y * 0.1);
+					}
+					dustPosX += (int)scaledPosition.X;
+					int dustPosXWorld = dustPosX / 16;
+					int dustPosYWorld = dustPosY / 16;
+					if (WorldGen.InWorld(dustPosXWorld, dustPosYWorld) && Main.tile[dustPosXWorld, dustPosYWorld] != null && !Main.tile[dustPosXWorld, dustPosYWorld].HasUnactuatedTile && Main.tile[dustPosXWorld, dustPosYWorld].WallType == 0)
+					{
+						int dustIndex = Dust.NewDust(new Vector2(dustPosX, dustPosY), 10, 10, DustID.Snow);
+						Main.dust[dustIndex].color = Color.White;
+						Main.dust[dustIndex].scale += Main.cloudAlpha * 0.2f;
+						Main.dust[dustIndex].velocity.Y = 3f + Main.rand.Next(30) * 0.1f;
+						Main.dust[dustIndex].velocity.Y *= Main.dust[dustIndex].scale;
+						if (!Main.raining)
+						{
+							Main.dust[dustIndex].velocity.X = Main.windSpeedCurrent + Main.rand.Next(-10, 10) * 0.1f;
+							Main.dust[dustIndex].velocity.X += Main.windSpeedCurrent * 15f;
+						}
+						else
+						{
+							Main.dust[dustIndex].velocity.X = (float)Math.Sqrt(Math.Abs(Main.windSpeedCurrent)) * Math.Sign(Main.windSpeedCurrent) * (Main.cloudAlpha + 0.5f) * 10f + Main.rand.NextFloat() * 0.2f - 0.1f;
+							Main.dust[dustIndex].velocity.Y *= 0.5f;
+						}
+
+						Main.dust[dustIndex].velocity.Y *= 1f + 0.3f * Main.cloudAlpha;
+						Main.dust[dustIndex].scale += Main.cloudAlpha * 0.2f;
+
+						Main.dust[dustIndex].velocity *= 1f + Main.cloudAlpha * 0.5f;
+					}
+
+					continue;
+				}
+				catch
+				{
+				}
+			}
+		}
+
 		//unique AI????!?!??!?
 		public override void AI()
 		{
 			NPC.TargetClosest(true);
 			Player player = Main.player[NPC.target];
+
+			if (Main.snowMoon && NPC.localAI[3] == 0)
+			{
+				SpawnedDuringFrostMoon = true;
+				NPC.localAI[3]++;
+
+				NPC.netUpdate = true;
+			}
+
+			if (SpawnedDuringFrostMoon)
+			{
+				if (Main.netMode != NetmodeID.Server)
+				{
+					try
+					{
+						Snowing();
+					}
+					catch
+					{
+						if (!Main.ignoreErrors)
+							throw;
+					}
+				}
+			}
+			
+			NPC.damage = SpawnedDuringFrostMoon ? 9999 : NPC.defDamage;
+
+			int dustType = SpawnedDuringFrostMoon ? DustID.IceTorch : DustID.OrangeTorch;
 
 			if (!DontFacePlayer)
 			{
@@ -244,7 +390,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 				NPC.localAI[0] = 0;
 				NPC.localAI[1] = 0;
 				NPC.localAI[2] = 0;
-				NPC.localAI[3] = 0;
 				NPC.ai[1] = 0;
 				NPC.ai[0] = -1;
 				Transition = true;
@@ -260,14 +405,13 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 				NPC.localAI[0] = 0;
 				NPC.localAI[1] = 0;
 				NPC.localAI[2] = 0;
-				NPC.localAI[3] = 0;
 				NPC.ai[1] = 0;
 				NPC.ai[0] = -2;
 				Transition = true;
 			}
 
 			//despawn if the player dies or its day time
-			if (player.dead || !player.active || Main.dayTime || NPC.Distance(player.Center) > 5600f)
+			if (player.dead || !player.active || Main.dayTime || NPC.Distance(player.Center) > 5600f || (SpawnedDuringFrostMoon && !Main.snowMoon) || (!SpawnedDuringFrostMoon && !Main.pumpkinMoon))
 			{
 				NPC.velocity.Y -= 0.4f;
 				NPC.EncourageDespawn(60);
@@ -275,7 +419,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			}
 
 			//TODO: make fishron either immortal or enrage if you leave the ocean
-			//also implement frost moon "EoL no hit" AI except it drops no unique rewards
 
 			//while charging spawn dust the same way duke fishron does
 			if (Charging)
@@ -285,9 +428,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 				{
 					Vector2 vector4 = (Vector2.Normalize(NPC.velocity) * new Vector2((float)(NPC.width + 50) / 2f, NPC.height) * 0.75f).RotatedBy((double)(j - (MaxDusts / 2 - 1)) * Math.PI / (double)(float)MaxDusts) + NPC.Center;
 					Vector2 vector5 = ((float)(Main.rand.NextDouble() * 3.14) - (float)Math.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
-					int num29 = Dust.NewDust(vector4 + vector5, 0, 0, 55, vector5.X * 2f, vector5.Y * 2f, 100, Color.Orange, 1f);
+					int num29 = Dust.NewDust(vector4 + vector5, 0, 0, dustType, vector5.X * 2f, vector5.Y * 2f, 100, Color.White, 1f);
 					Main.dust[num29].noGravity = true;
-					Main.dust[num29].noLight = true;
 					Main.dust[num29].velocity /= 4f;
 					Main.dust[num29].velocity -= NPC.velocity;
 				}
@@ -331,7 +473,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 								Vector2 vector12 = Vector2.UnitX * 0f;
 								vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 								vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-								int num104 = Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 100, default, 3f);
+								int num104 = Dust.NewDust(NPC.Center, 0, 0, dustType, 0f, 0f, 100, default, 3f);
 								Main.dust[num104].noGravity = true;
 								Main.dust[num104].position = NPC.Center + vector12;
 								Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
@@ -402,7 +544,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 								Vector2 vector12 = Vector2.UnitX * 0f;
 								vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 								vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-								int num104 = Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 100, default, 3f);
+								int num104 = Dust.NewDust(NPC.Center, 0, 0, dustType, 0f, 0f, 100, default, 3f);
 								Main.dust[num104].noGravity = true;
 								Main.dust[num104].position = NPC.Center + vector12;
 								Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
@@ -781,7 +923,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						NPC.localAI[0] = 0;
 						NPC.localAI[1] = 0;
 						NPC.localAI[2] = 0;
-						NPC.localAI[3] = 0;
 						NPC.ai[0]++;
 						NPC.netUpdate = true;
 					}
@@ -827,76 +968,111 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						NPC.velocity *= 0.95f;
 					}
 
-					//stake launcher
+					//stake launcher attack
 					if (!Phase2)
 					{
-						//spawn stake launcher
+						//spawn weapon
 						if (NPC.localAI[0] == 120)
 						{
 							CurrentFrameX = 0;
 
+							int WeaponType = SpawnedDuringFrostMoon ? ModContent.ProjectileType<SpooklizzardStaffSpin>() : ModContent.ProjectileType<StakeLauncherSpin>();
+
 							Vector2 pos = new Vector2(1000, 0).RotatedBy(NPC.rotation + MathHelper.PiOver2);
-							NPCGlobalHelper.ShootHostileProjectile(NPC, pos + player.Center, Vector2.Zero, ModContent.ProjectileType<StakeLauncherSpin>(), NPC.damage, 4.5f, 0, NPC.whoAmI);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, pos + player.Center, Vector2.Zero, WeaponType, NPC.damage, 4.5f, 0, NPC.whoAmI);
 						}
 
-						//repeat stake launcher attack 4 times
-						if (NPC.ai[1] < 6)
+						int AttackLoops = SpawnedDuringFrostMoon ? 3 : 5;
+
+						if (NPC.ai[1] <= AttackLoops)
 						{
-							//charge and use the stake launcher, 3 times
-							if (NPC.ai[1] <= 4)
+							//repeat weapon attack 5 times
+							if (NPC.ai[1] <= AttackLoops - 1)
 							{
-								//go to position around the player
-								if (NPC.localAI[0] == 240)
+								//while using stake launcher, repeat the attack 5 times
+								if (!SpawnedDuringFrostMoon)
 								{
-									CurrentFrameX = 2;
-									NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
-									NPC.localAI[2] = Main.rand.Next(-350, 0);
+									//go to position around the player
+									if (NPC.localAI[0] == 240)
+									{
+										CurrentFrameX = 2;
+										NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
+										NPC.localAI[2] = Main.rand.Next(-350, 0);
+									}
+									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
+									{
+										//rotate towards predicted position
+										Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+										float RotateX = player.Center.X - vector.X;
+										float RotateY = player.Center.Y - vector.Y;
+										NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+
+										Vector2 GoTo = player.Center;
+										GoTo.X += NPC.localAI[1];
+										GoTo.Y += NPC.localAI[2];
+
+										float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
+										NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+									}
+
+									if (NPC.localAI[0] == 300)
+									{
+										SavePlayerPosition = player.Center;
+										SaveDirection = NPC.spriteDirection;
+									}
+
+									if (NPC.localAI[0] >= 300)
+									{
+										NPC.velocity = Vector2.Zero;
+
+										NPC.direction = SaveDirection;
+										NPC.spriteDirection = SaveDirection;
+
+										//rotate towards the saved predicted position until the attack loops
+										Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+										float RotateX = SavePlayerPosition.X - vector.X;
+										float RotateY = SavePlayerPosition.Y - vector.Y;
+										NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+									}
+
+									if (NPC.localAI[0] > 320)
+									{
+										NPC.localAI[0] = 238;
+										NPC.localAI[1] = 0;
+										NPC.ai[1]++;
+										NPC.netUpdate = true;
+									}
 								}
-								if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
+								//while using the blizzard staff, just go to a constant position and rain down icicles
+								else
 								{
-									//rotate towards predicted position
-									Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-									float RotateX = player.Center.X - vector.X;
-									float RotateY = player.Center.Y - vector.Y;
-									NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+									//go to position around the player
+									if (NPC.localAI[0] == 240)
+									{
+										CurrentFrameX = 2;
+										NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
+										NPC.localAI[2] = Main.rand.Next(-350, 0);
+									}
+									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 360)
+									{
+										Vector2 GoTo = player.Center;
+										GoTo.X += NPC.localAI[1];
+										GoTo.Y += NPC.localAI[2];
 
-									Vector2 GoTo = player.Center;
-									GoTo.X += NPC.localAI[1];
-									GoTo.Y += NPC.localAI[2];
+										float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
+										NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+									}
 
-									float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
-									NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-								}
-
-								if (NPC.localAI[0] == 300)
-								{
-									SavePlayerPosition = player.Center;
-									SaveDirection = NPC.spriteDirection;
-								}
-
-								if (NPC.localAI[0] >= 300)
-								{
-									NPC.velocity = Vector2.Zero;
-
-									NPC.direction = SaveDirection;
-									NPC.spriteDirection = SaveDirection;
-
-									//rotate towards the saved predicted position until the attack loops
-									Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-									float RotateX = SavePlayerPosition.X - vector.X;
-									float RotateY = SavePlayerPosition.Y - vector.Y;
-									NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
-								}
-
-								if (NPC.localAI[0] > 320)
-								{
-									NPC.localAI[0] = 238;
-									NPC.localAI[1] = 0;
-									NPC.ai[1]++;
-									NPC.netUpdate = true;
+									if (NPC.localAI[0] > 360)
+									{
+										NPC.localAI[0] = 238;
+										NPC.localAI[1] = 0;
+										NPC.ai[1]++;
+										NPC.netUpdate = true;
+									}
 								}
 							}
-							//spin and launch the stake launcher on the 6th attack
+							//spin and launch the weapon on the final attack
 							else
 							{
 								if (NPC.localAI[0] == 240)
@@ -992,95 +1168,126 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						{
 							CurrentFrameX = 0;
 
+							int WeaponType = SpawnedDuringFrostMoon ? ModContent.ProjectileType<SpookmasSwordSpin>() : ModContent.ProjectileType<SpookySwordSpin>();
+
 							Vector2 pos = new Vector2(1000, 0).RotatedBy(NPC.rotation + MathHelper.PiOver2);
-							NPCGlobalHelper.ShootHostileProjectile(NPC, pos + player.Center, Vector2.Zero, ModContent.ProjectileType<SpookySwordSpin>(), NPC.damage, 4.5f, 0, NPC.whoAmI);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, pos + player.Center, Vector2.Zero, WeaponType, NPC.damage, 4.5f, 0, NPC.whoAmI);
 						}
 
 						//repeat sword attack 4 times
-						if (NPC.ai[1] < 4)
+						if (NPC.ai[1] <= 3)
 						{
 							//charge and use the sword to shoot out pumpkin heads, 3 times
 							if (NPC.ai[1] <= 2)
 							{
-								//manually set rotation to just be left and right
-								if (NPC.localAI[0] >= 238)
+								if (!SpawnedDuringFrostMoon)
 								{
-									NPC.rotation = NPC.spriteDirection == -1 ? MathHelper.PiOver2 : -MathHelper.PiOver2;
+									//manually set rotation to just be left and right
+									if (NPC.localAI[0] >= 238)
+									{
+										NPC.rotation = NPC.spriteDirection == -1 ? MathHelper.PiOver2 : -MathHelper.PiOver2;
+									}
+
+									if (NPC.localAI[0] == 240)
+									{
+										CurrentFrameX = 2;
+										NPC.localAI[1] = player.Center.X > NPC.Center.X ? -600 : 600;
+									}
+
+									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
+									{
+										Vector2 GoTo = player.Center;
+										GoTo.X += NPC.localAI[1];
+
+										float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
+										NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+									}
+
+									if (NPC.localAI[0] == 300)
+									{
+										SavePlayerPosition = player.Center;
+									}
+
+									if (NPC.localAI[0] > 300 && NPC.localAI[0] < 310)
+									{
+										NPC.velocity *= 0.95f;
+									}
+
+									if (NPC.localAI[0] == 310)
+									{
+										SoundEngine.PlaySound(SoundID.Zombie9, NPC.Center);
+
+										Charging = true;
+
+										SaveDirection = NPC.spriteDirection;
+
+										Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+										ChargeDirection.Normalize();
+										ChargeDirection.X *= 55f;
+										ChargeDirection.Y *= 0f;
+										NPC.velocity = ChargeDirection;
+									}
+
+									if (NPC.localAI[0] > 310)
+									{
+										NPC.direction = SaveDirection;
+										NPC.spriteDirection = SaveDirection;
+
+										NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
+										NPC.rotation += 0f * (float)NPC.direction;
+									}
+
+									if (NPC.localAI[0] > 325)
+									{
+										Charging = false;
+
+										NPC.velocity *= 0.85f;
+									}
+
+									if (NPC.localAI[0] > 375)
+									{
+										NPC.localAI[0] = 238;
+										NPC.localAI[1] = 0;
+										NPC.ai[1]++;
+										NPC.netUpdate = true;
+									}
 								}
-
-								if (NPC.localAI[0] == 240)
+								else
 								{
-									CurrentFrameX = 2;
-									NPC.localAI[1] = player.Center.X > NPC.Center.X ? -600 : 600;
-								}
+									//go to position around the player
+									if (NPC.localAI[0] == 240)
+									{
+										CurrentFrameX = 2;
+										NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
+										NPC.localAI[2] = Main.rand.Next(-350, 0);
+									}
+									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
+									{
+										Vector2 GoTo = player.Center;
+										GoTo.X += NPC.localAI[1];
+										GoTo.Y += NPC.localAI[2];
 
-								if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
-								{
-									Vector2 GoTo = player.Center;
-									GoTo.X += NPC.localAI[1];
+										float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
+										NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+									}
 
-									float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
-									NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-								}
+									if (NPC.localAI[0] > 300)
+									{
+										NPC.velocity *= 0.95f;
+									}
 
-								if (NPC.localAI[0] == 300)
-								{
-									SavePlayerPosition = player.Center;
-								}
-
-								if (NPC.localAI[0] > 300 && NPC.localAI[0] < 310)
-								{
-									NPC.velocity *= 0.95f;
-								}
-
-								if (NPC.localAI[0] == 310)
-								{
-									SoundEngine.PlaySound(SoundID.Zombie9, NPC.Center);
-
-									Charging = true;
-
-									SaveDirection = NPC.spriteDirection;
-
-									Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
-									ChargeDirection.Normalize();
-									ChargeDirection.X *= 55f;
-									ChargeDirection.Y *= 0f;
-									NPC.velocity = ChargeDirection;
-								}
-
-								if (NPC.localAI[0] > 310)
-								{
-									NPC.direction = SaveDirection;
-									NPC.spriteDirection = SaveDirection;
-
-									NPC.rotation = NPC.velocity.ToRotation() - MathHelper.PiOver2;
-									NPC.rotation += 0f * (float)NPC.direction;
-								}
-
-								if (NPC.localAI[0] > 325)
-								{
-									Charging = false;
-
-									NPC.velocity *= 0.85f;
-								}
-
-								if (NPC.localAI[0] > 375)
-								{
-									NPC.localAI[0] = 238;
-									NPC.localAI[1] = 0;
-									NPC.ai[1]++;
-									NPC.netUpdate = true;
+									if (NPC.localAI[0] > 420)
+									{
+										NPC.localAI[0] = 238;
+										NPC.localAI[1] = 0;
+										NPC.ai[1]++;
+										NPC.netUpdate = true;
+									}
 								}
 							}
 							//spin and launch the sword on the 4th attack
 							else
 							{
-								//manually set rotation to just be left and right
-								if (NPC.localAI[0] >= 238 && NPC.localAI[0] < 300)
-								{
-									NPC.rotation = NPC.spriteDirection == -1 ? MathHelper.PiOver2 : -MathHelper.PiOver2;
-								}
-
 								if (NPC.localAI[0] == 240)
 								{
 									NPC.localAI[1] = player.Center.X > NPC.Center.X ? -660 : 660;
@@ -1209,7 +1416,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 								Vector2 vector12 = Vector2.UnitX * 0f;
 								vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 								vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-								int num104 = Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 100, default, 3f);
+								int num104 = Dust.NewDust(NPC.Center, 0, 0, dustType, 0f, 0f, 100, default, 3f);
 								Main.dust[num104].noGravity = true;
 								Main.dust[num104].position = NPC.Center + vector12;
 								Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
@@ -1333,7 +1540,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 									Vector2 vector12 = Vector2.UnitX * 0f;
 									vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 									vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-									int num104 = Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 100, default, 3f);
+									int num104 = Dust.NewDust(NPC.Center, 0, 0, dustType, 0f, 0f, 100, default, 3f);
 									Main.dust[num104].noGravity = true;
 									Main.dust[num104].position = NPC.Center + vector12;
 									Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;

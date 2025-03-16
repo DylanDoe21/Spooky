@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 {
-    public class SpookySwordSpin : ModProjectile
+    public class SpooklizzardStaffSpin : ModProjectile
     {
-        public override string Texture => "Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/SpookySword";
+        public override string Texture => "Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/SpooklizzardStaff";
 
         private static Asset<Texture2D> ProjTexture;
 
@@ -36,18 +36,20 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
-			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+			Vector2 vector = Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
 			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+            var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + new Vector2(23, 23) + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Orange) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length) * 0.65f;
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
+                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + new Vector2(23, 23) + new Vector2(0, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Cyan) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length) * 0.65f;
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, effects, 0);
             }
 			
-			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
 
             return false;
         }
@@ -86,10 +88,10 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
                 if (Projectile.Hitbox.Intersects(collision))
                 {
-                    Parent.localAI[0] = 236; //set parent ai to immediately start charging once the sword reaches it
+                    Parent.localAI[0] = 236; //set parent ai to immediately start attacking
 
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Parent.Center, Vector2.Zero,
-                    ModContent.ProjectileType<SpookySword>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[1]);
+                    ModContent.ProjectileType<SpooklizzardStaff>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[1]);
 
                     Projectile.Kill();
                 }

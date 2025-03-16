@@ -34,8 +34,16 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/SpookyBubbleGlow");
+            if (Main.snowMoon)
+            {
+                ProjTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/FrostMoonTextures/SpookyBubble");
+                GlowTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/FrostMoonTextures/SpookyBubbleGlow");
+            }
+            else
+            {
+                ProjTexture = ModContent.Request<Texture2D>(Texture);
+                GlowTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/SpookyBubbleGlow");
+            }
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
 			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
@@ -46,7 +54,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             //draw spinning fireballs inside the bubble
             var spriteEffects = Projectile.velocity.X < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Orange);
+            Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Main.snowMoon ? Color.White : Color.Orange);
 
             for (int i = 0; i < 360; i += 60)
             {

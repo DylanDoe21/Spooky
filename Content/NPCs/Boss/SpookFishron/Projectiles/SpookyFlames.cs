@@ -52,6 +52,15 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			Color color2 = color1;
 			Color color3 = new Color(237, 120, 0, 70);
 			Color color4 = new Color(160, 82, 35, 100);
+
+			if (Main.snowMoon)
+            {
+				color1 = new Color(56, 69, 93, 200);
+				color2 = color1;
+				color3 = new Color(98, 154, 179, 70);
+				color4 = new Color(175, 216, 218, 100);
+			}
+			
 			float length = (Projectile.ai[0] > Fadetime - 10f) ? 0.1f : 0.15f;
 			float vOffset = Math.Min(Projectile.ai[0], 20f);
 			float timeRatio = Utils.GetLerpValue(0f, Lifetime, Projectile.ai[0]);
@@ -80,9 +89,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
 				Vector2 trailOffset = Projectile.velocity * vOffset * length * 0.5f;
-				Main.EntitySpriteDraw(ProjTexture.Value, firePos - trailOffset, rectangle, fireColor * 0.25f, trailRot, drawOrigin, fireSize, SpriteEffects.None);
+				Main.EntitySpriteDraw(ProjTexture.Value, firePos - trailOffset, rectangle, Projectile.GetAlpha(fireColor * 0.25f), trailRot, drawOrigin, fireSize, SpriteEffects.None);
 
-				Main.EntitySpriteDraw(ProjTexture.Value, firePos, rectangle, fireColor, mainRot, drawOrigin, fireSize, SpriteEffects.None);
+				Main.EntitySpriteDraw(ProjTexture.Value, firePos, rectangle, Projectile.GetAlpha(fireColor), mainRot, drawOrigin, fireSize, SpriteEffects.None);
 			}
 
 			return false;
@@ -106,6 +115,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			if (Projectile.ai[0] > Fadetime)
 			{
 				Projectile.velocity *= 0.95f;
+			}
+
+			if (Projectile.timeLeft < 20)
+			{
+				Projectile.alpha += 20;
 			}
 		}
 	}

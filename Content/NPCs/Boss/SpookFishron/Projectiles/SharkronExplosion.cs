@@ -31,7 +31,14 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            if (Main.snowMoon)
+            {
+                ProjTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/FrostMoonTextures/SharkronExplosion");
+            }
+            else
+            {
+                ProjTexture = ModContent.Request<Texture2D>(Texture);
+            }
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 

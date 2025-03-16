@@ -34,7 +34,14 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
         {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            if (Main.snowMoon)
+            {
+                ProjTexture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/SpookFishron/Projectiles/FrostMoonTextures/SpookyTornadoSpawner");
+            }
+            else
+            {
+                ProjTexture = ModContent.Request<Texture2D>(Texture);
+            }
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 			Vector2 vector = new Vector2(Projectile.Center.X - Projectile.scale * 0.5f, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
@@ -44,6 +51,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             {
 				Color color1 = new Color(222, 133, 51, 0);
 				Color color2 = new Color(206, 96, 40, 0);
+
+				if (Main.snowMoon)
+            	{
+					color1 = new Color(119, 187, 217, 0);
+					color2 = new Color(98, 154, 179, 0);
+				}
 
 				Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Lerp(color2, color1, i));
 
@@ -117,7 +130,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Vector2 vector12 = Vector2.UnitX * 0f;
 				vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 				vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Torch, 0f, 0f, 100, default, 3f);
+				int dustType = Main.snowMoon ? DustID.IceTorch : DustID.Torch;
+				int num104 = Dust.NewDust(Projectile.Center, 0, 0, dustType, 0f, 0f, 100, default, 3f);
 				Main.dust[num104].noGravity = true;
 				Main.dust[num104].position = Projectile.Center + vector12;
 				Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;

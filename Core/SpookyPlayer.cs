@@ -1269,7 +1269,7 @@ namespace Spooky.Core
         {
             if (!attempt.inLava && !attempt.inHoney)
             {
-				if (Player.ZoneBeach && Main.pumpkinMoon && attempt.playerFishingConditions.BaitItemType == ModContent.ItemType<SinisterSnailItem>())
+				if (Player.ZoneBeach && (Main.pumpkinMoon || Main.snowMoon) && attempt.playerFishingConditions.BaitItemType == ModContent.ItemType<SinisterSnailItem>())
 				{
 					npcSpawn = ModContent.NPCType<SpookFishron>();
 					return;
