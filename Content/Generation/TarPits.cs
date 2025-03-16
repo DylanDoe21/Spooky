@@ -54,7 +54,7 @@ namespace Spooky.Content.Generation
 			}
 			else
 			{
-				BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY / 2 + 100);
+				BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY - 300);
 			}
 
 			int maxBiomes = !IsSmallWorld ? 2 : 1;
@@ -73,7 +73,7 @@ namespace Spooky.Content.Generation
 						}
 						else
 						{
-							BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY / 2 + 100);
+							BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY - 300);
 						}
 					}
 					else
@@ -644,8 +644,9 @@ namespace Spooky.Content.Generation
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
 					int[] ValidTiles = { TileID.Sand, TileID.Sandstone, TileID.HardenedSand };
+					int[] ValidWalls = { WallID.Sandstone, WallID.HardenedSand };
 
-					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && ValidTiles.Contains(Main.tile[i, j].TileType))
+					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && (ValidTiles.Contains(Main.tile[i, j].TileType) || ValidWalls.Contains(Main.tile[i, j].WallType)))
 					{
 						numDesertTiles++;
 					}

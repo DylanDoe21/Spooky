@@ -19,9 +19,13 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
+	//TODO: 
+	//implement behavior for big dunk to roar and stop chasing the player when the player cant be pathfinded to instead of going to the closest node
+	//implement behavior for big dunk getting distracted with bait, should make him pathfind to an existing bait if hes close enough to it
+	//big dunk could pathfind to the player if they try and dig through the biome, or at least go to the closest node? or potentially come up with another way to discourage breaking blocks
 	public class Dunkleosteus : ModNPC
 	{
-		private readonly PathFinding pathfinder = new(10);
+		private readonly PathFinding pathfinder = new PathFinding(20);
 
 		int syncTimer = 0;
 		int BodyFrame = 0;
@@ -456,7 +460,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						NPC.noTileCollide = true;
 
-						PathfindingMovement(FollowPlayer.Center, Speed, 65, 7000, true);
+						PathfindingMovement(FollowPlayer.Center, Speed, 50, 7000, true);
 
 						//decrease aggression timer
 						Aggression--;

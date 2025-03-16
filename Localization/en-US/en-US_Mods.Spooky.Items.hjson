@@ -3113,6 +3113,26 @@ ChristmasWorkBenchItem: {
 	Tooltip: ""
 }
 
+GrannyPaintingItem: {
+	DisplayName: Granny
+	Tooltip: "'Kekroc'"
+}
+
+GrandpaPaintingItem: {
+	DisplayName: Grandpa
+	Tooltip: "'Kekroc'"
+}
+
+GrandpaMLGPaintingItem: {
+	DisplayName: MLG Grandpa
+	Tooltip: "'Kekroc'"
+}
+
+SlendrinaPaintingItem: {
+	DisplayName: Slendrina
+	Tooltip: "'Kekroc'"
+}
+
 ChristmasBrickItem: {
 	DisplayName: Red Yuletide Brick
 	Tooltip: ""
@@ -4591,9 +4611,4 @@ Bestiary: {
 		Completes the bestiary
 		Testing Item
 		'''
-}
-
-DivingSuit: {
-	DisplayName: Diving Suit
-	Tooltip: ""
 }

@@ -122,7 +122,7 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = (int)heightLimit; Y <= Main.worldSurface; Y++)
                 {
-                    if (Y >= (int)heightLimit + 70 || (Y < (int)heightLimit + 70 && NoFloatingIsland(X, Y)))
+                    if (Y >= (int)heightLimit + 150 || (Y < (int)heightLimit + 150 && NoFloatingIsland(X, Y)))
                     {
                         Tile tile = Main.tile[X, Y];
                         Tile tileAbove = Main.tile[X, Y - 1];

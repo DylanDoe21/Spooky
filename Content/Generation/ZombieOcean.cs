@@ -57,7 +57,7 @@ namespace Spooky.Content.Generation
 				StartPositionX = GenVars.dungeonSide < 0 ? 185 : Main.maxTilesX - 175;
 			}
 
-			StartPositionY = (int)Main.worldSurface + 75;
+			StartPositionY = (int)Main.worldSurface + 100;
 
 			Flags.ZombieBiomePositions.Clear();
 
@@ -118,12 +118,17 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 4) * 4, (SizeYInt + 4) * 2, 1f, false, false);
-			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 4, SizeYInt * 2, 1f, true, false);
+			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 4) * 5, (SizeYInt + 4) * 3, 1f, false, false);
+			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
-			PlaceStructures(StartPositionX, StartPositionY, SizeX, SizeY);
+
+			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
+			{
+				PlaceLabs((int)Flags.ZombieBiomePositions[i].X, (int)Flags.ZombieBiomePositions[i].Y);
+			}
+
 			TileSloping(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceAmbience(StartPositionX, StartPositionY, SizeX, SizeY);
 		}
@@ -220,14 +225,14 @@ namespace Spooky.Content.Generation
 			int EndX = PositionX > (Main.maxTilesX / 2) ? PositionX + SizeX * 4 : PositionX - SizeX * 4;
 			int Increment = PositionX > (Main.maxTilesX / 2) ? 1 : -1;
 
+			float RandomCaveDistance = 50; //WorldGen.genRand.Next(50, 75);
+			int Distance = 28;
+
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j += 10)
 			{
 				for (int i = StartX; PositionX > (Main.maxTilesX / 2) ? i < EndX : i > EndX; i += Increment)
 				{
-					float RandomCaveDistance = 50; //WorldGen.genRand.Next(50, 75);
-					int Distance = 27;
-
-					if (WorldGen.InWorld(i, j, 10))
+					if (WorldGen.InWorld(i, j, 40))
 					{
 						Tile tile = Framing.GetTileSafely(i, j);
 
@@ -281,7 +286,7 @@ namespace Spooky.Content.Generation
 							int OvalSizeX = WorldGen.genRand.Next(12, 19);
 							int OvalSizeY = WorldGen.genRand.Next(8, 16);
 
-							int YOffset = WorldGen.genRand.Next(-15, 16);
+							int YOffset = WorldGen.genRand.Next(8, 19);
 
 							SpookyWorldMethods.PlaceOval(i, j + YOffset, -1, 0, OvalSizeX, OvalSizeY, 1f, true, false);
 
@@ -295,17 +300,17 @@ namespace Spooky.Content.Generation
 			{
 				if (i < Flags.ZombieBiomePositions.Count - 1)
 				{
-					ConnectCavePoints(Flags.ZombieBiomePositions[i], Flags.ZombieBiomePositions[i + 1], 5, false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[i + 1] - new Vector2(0, 5), 5, false);
 				}
 			}
 
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
-				if (WorldGen.genRand.NextBool(3))
+				if (WorldGen.genRand.NextBool())
 				{
 					int MinDistanceIndex = GetClosestNodeIndex(Flags.ZombieBiomePositions[i]);
 
-					ConnectCavePoints(Flags.ZombieBiomePositions[i], Flags.ZombieBiomePositions[MinDistanceIndex], 5, false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[MinDistanceIndex] - new Vector2(0, 5), 5, false);
 				}
 			}
 
@@ -334,7 +339,6 @@ namespace Spooky.Content.Generation
 		{
 			BiomePositionDistances.Clear();
 
-			//get the distance between the player and every position in the zombie biome and add them to the position distances list
 			foreach (Vector2 pos in Flags.ZombieBiomePositions)
 			{
 				float Dist = Vector2.Distance(pos, Position);
@@ -576,7 +580,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			int cutoffLimit = 65;
+			int cutoffLimit = 150;
 
 			void getAttachedPoints(int x, int y, List<Point> points)
 			{
@@ -640,30 +644,71 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public void PlaceStructures(int PositionX, int PositionY, int SizeX, int SizeY)
+		public void PlaceLabs(int PositionX, int PositionY)
 		{
-			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+			if (WorldGen.InWorld(PositionX, PositionY, 10))
 			{
-				for (int j = (int)Main.worldSurface; j < PositionY + SizeY * 4; j++)
+				bool foundSpot = false;
+				int attempts = 0;
+				while (!foundSpot && attempts++ < 100000)
 				{
-					if (WorldGen.InWorld(i, j, 10))
+					while (!WorldGen.SolidTile(PositionX, PositionY) && PositionY <= (Main.maxTilesY / 2))
 					{
-						if (BlockTypes.Contains(Main.tile[i, j].TileType) && CanPlaceLab(i, j))
-						{
-							PlaceDepthsOval(i, j + 11, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 13, 7, 1f, true, false);
-
-							Vector2 LabOrigin = new Vector2(i - 11, j - 5);
-							StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7) + ".shstruct", LabOrigin.ToPoint16(), Mod);
-						}
+						PositionY++;
 					}
+					if (WorldGen.SolidTile(PositionX, PositionY))
+					{
+						foundSpot = true;
+					}
+				}
+				
+				if (CanPlaceLab(PositionX, PositionY))
+				{
+					PlaceDepthsOval(PositionX, PositionY + 11, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 13, 7, 1f, true, false);
+
+					Vector2 LabOrigin = new Vector2(PositionX - 11, PositionY - 5);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7) + ".shstruct", LabOrigin.ToPoint16(), Mod);
 				}
 			}
 		}
 
 		public bool CanPlaceLab(int PositionX, int PositionY)
 		{
+			int numAboveTiles = 0;
+			int numTiles = 0;
+
+			//upward check to make sure theres enough room
+			for (int x = PositionX - 12; x < PositionX + 12; x++)
+			{
+				for (int y = PositionY - 12; y < PositionY - 4; y++)
+				{
+					if (WorldGen.InWorld(x, y, 10))
+					{
+						if (Main.tile[x, y].HasTile)
+						{
+							numAboveTiles++;
+						}
+					}
+				}
+			}
+
+			//downward box check to make sure theres enough solid floor
+			for (int x = PositionX - 10; x < PositionX + 10; x++)
+			{
+				for (int y = PositionY; y < PositionY + 8; y++)
+				{
+					if (WorldGen.InWorld(x, y, 10))
+					{
+						if (Main.tile[x, y].HasTile)
+						{
+							numTiles++;
+						}
+					}
+				}
+			}
+
 			//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
-			for (int y = PositionY; y <= PositionY + 15; y++)
+			for (int y = PositionY; y <= PositionY + 18; y++)
 			{
 				if (WorldGen.InWorld(PositionX, y, 10))
 				{
@@ -674,25 +719,10 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			//upward check to make sure theres enough room
-			for (int x = PositionX - 10; x < PositionX + 10; x++)
-			{
-				for (int y = PositionY - 25; y < PositionY - 3; y++)
-				{
-					if (WorldGen.InWorld(x, y, 10))
-					{
-						if (Main.tile[x, y].HasTile)
-						{
-							return false;
-						}
-					}
-				}
-			}
-
 			//dont allow labs to place too close to each other
-			for (int i = PositionX - 45; i < PositionX + 45; i++)
+			for (int i = PositionX - 35; i < PositionX + 35; i++)
 			{
-				for (int j = PositionY - 45; j < PositionY + 45; j++)
+				for (int j = PositionY - 35; j < PositionY + 35; j++)
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
@@ -704,7 +734,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			return true;
+			return numAboveTiles < 10 && numTiles >= 120;
 		}
 
 		public bool CanPlaceBiomass(int PositionX, int PositionY, int Distance)
