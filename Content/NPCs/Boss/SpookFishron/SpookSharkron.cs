@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		public override void SetDefaults()
 		{
 			NPC.lifeMax = 450;
-			NPC.damage = 100;
+			NPC.damage = 75;
 			NPC.defense = 0;
 			NPC.width = 118;
 			NPC.height = 46;

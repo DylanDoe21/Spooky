@@ -124,10 +124,12 @@ namespace Spooky.Content.Generation
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
 
+			/*
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
 				PlaceLabs((int)Flags.ZombieBiomePositions[i].X, (int)Flags.ZombieBiomePositions[i].Y);
 			}
+			*/
 
 			TileSloping(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceAmbience(StartPositionX, StartPositionY, SizeX, SizeY);

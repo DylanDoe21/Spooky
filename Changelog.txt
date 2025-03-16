@@ -1,6 +1,6 @@
 ~NEW STUFF~
 
-Brand New Mini-Biomes:
+Brand New Biomes:
 
 -Fetid farms, a nasty rotting vegetable garden found in the underground jungle (only 1 on small worlds, 2 on medium and large)
 -Tar pits, a rocky desert cave with fossils and tar found in the underground desert (only 1 on small worlds, 2 on medium and large)
