@@ -24,8 +24,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.aiStyle = -1;
         }
 
-        public override bool CanHitPlayer(Player target)
-        {
+        public override bool? CanDamage()
+		{
             return false;
         }
 

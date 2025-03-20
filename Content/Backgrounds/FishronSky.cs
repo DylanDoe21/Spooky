@@ -25,7 +25,9 @@ namespace Spooky.Content.Backgrounds
 			{
 				FindActiveFishron();
 				if (FishronNPC == -1)
+				{
 					isActive = false;
+				}
 			}
 
 			if (isActive && intensity < 1f)
@@ -44,7 +46,7 @@ namespace Spooky.Content.Backgrounds
 			{
 				//change the color to dark purple if spook fishron is in his expert mode exclusive phase
                 bool ExpertPhase = (Main.npc[FishronNPC].ai[0] == -2 && Main.npc[FishronNPC].localAI[0] >= 120) || Main.npc[FishronNPC].ai[0] == 7;
-				Color TintColor = ExpertPhase ? (Main.snowMoon ? new Color(25, 32, 46) : new Color(15, 0, 17)) * 0.95f : (Main.snowMoon ? Color.LightBlue : Color.OrangeRed) * 0.12f;
+				Color TintColor = ExpertPhase ? (Main.snowMoon ? new Color(25, 32, 46) : new Color(32, 13, 42)) * 0.95f : (Main.snowMoon ? Color.LightBlue : Color.OrangeRed) * 0.12f;
 
 				if (maxDepth >= 0 && minDepth < 0)
 				{

@@ -106,21 +106,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			{
 				Projectile.localAI[2]++;
 
-				SoundEngine.PlaySound(SoundID.DD2_GhastlyGlaiveImpactGhost, Projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item29, Projectile.Center);
 
-				Vector2 ShootSpeed = player.Center - Projectile.Center;
-				ShootSpeed.Normalize();
-				ShootSpeed *= 55f;
+				Vector2 position = new Vector2(152, 0).RotatedBy(Parent.rotation + MathHelper.PiOver2) + Parent.Center;
 
-				Vector2 Offset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 62f;
-				Vector2 position = new Vector2(Projectile.Center.X, Projectile.Center.Y);
-
-				if (Collision.CanHit(position, 0, 0, position + Offset, 0, 0))
-				{
-					position += Offset;
-				}
-
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<SpookmasSwordStar>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+				Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, Vector2.Zero, ModContent.ProjectileType<SpookmasSwordStar>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 			}
 
 			if (Parent.ai[1] > 2 && Parent.localAI[0] == 420)

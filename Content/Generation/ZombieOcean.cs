@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Ambient;
+using Spooky.Content.Tiles.Minibiomes.Ocean.Tree;
 
 namespace Spooky.Content.Generation
 {
@@ -285,8 +286,8 @@ namespace Spooky.Content.Generation
 
 						if (WorldGen.genRand.NextBool())
 						{
-							int OvalSizeX = WorldGen.genRand.Next(12, 19);
-							int OvalSizeY = WorldGen.genRand.Next(8, 16);
+							int OvalSizeX = WorldGen.genRand.Next(16, 19);
+							int OvalSizeY = WorldGen.genRand.Next(8, 14);
 
 							int YOffset = WorldGen.genRand.Next(8, 19);
 
@@ -412,6 +413,19 @@ namespace Spooky.Content.Generation
 						//place skulls on any tiles
 						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
 						{
+							if (WorldGen.genRand.NextBool(12) && CanPlaceFishTree(i, j))
+							{
+								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+								{
+									BoneFishTree.Grow(i, j - 1, 2, 8);
+
+									if (Main.tile[i, j - 1].TileType == ModContent.TileType<BoneFishTree>())
+									{
+										TryToPlaceHangingFishBone(i, j);
+									}
+								}
+							}
+
 							if (WorldGen.genRand.NextBool(12))
 							{
 								ushort[] Skulls = new ushort[] { (ushort)ModContent.TileType<FishFossil1>(), (ushort)ModContent.TileType<FishFossil2>(), 
@@ -514,6 +528,40 @@ namespace Spooky.Content.Generation
 				}
 			}
 		}
+
+		public static bool CanPlaceFishTree(int X, int Y)
+        {
+            for (int i = X - 5; i < X + 5; i++)
+            {
+                for (int j = Y - 5; j < Y + 5; j++)
+                {
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<BoneFishTree>())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+		public static bool TryToPlaceHangingFishBone(int X, int Y)
+        {
+			for (int j = Y; j < Y + 35; j++)
+			{
+				if ((Main.tile[X, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[X, j].TileType == ModContent.TileType<OceanBiomass>() || 
+				Main.tile[X, j].TileType == ModContent.TileType<OceanMeat>()) && !Main.tile[X, j + 1].HasTile)
+				{
+					if (!Main.tile[X, j].LeftSlope && !Main.tile[X, j].RightSlope && !Main.tile[X, j].IsHalfBlock)
+					{
+						BoneFishTreeHanging.Grow(X, j + 1, 2, 8);
+						return true;
+					}
+				}
+			}
+
+			return false;
+        }
 
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
 		{

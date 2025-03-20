@@ -53,6 +53,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         Vector2 SavePlayerPosition;
         Vector2 SaveNPCPosition;
 
+        private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> NeckTexture;
         private static Asset<Texture2D> AuraTexture;
         private static Asset<Texture2D> GlowTexture1;
@@ -170,7 +171,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.damage = 70;
             NPC.defense = 50;
             NPC.width = 134;
-            NPC.height = 170;
+            NPC.height = 134;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 30, 0, 0);
             NPC.lavaImmune = true;
@@ -232,22 +233,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     Vector2 newPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
                     rotation = (newPos - oldPos).ToRotation() + MathHelper.Pi;
                     
-                    spriteBatch.Draw(NeckTexture.Value, (oldPos + newPos) / 2 - Main.screenPosition, NeckTexture.Frame(), drawColor, rotation, textureCenter, NPC.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(NeckTexture.Value, (oldPos + newPos) / 2 - Main.screenPosition, NeckTexture.Frame(), NPC.GetAlpha(drawColor), rotation, textureCenter, NPC.scale, SpriteEffects.None, 0f);
                 }
             }
 
             //draw aura when healed or protected by flowers
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
             AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneAura");
 
             var effects = SpriteEffects.None;
 
             //while charging, use the saved direction and not the actual npc direction
             if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
-            {
-                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
-            //while shooting roses in phase 1, use the saved direction and not the actual npc direction
-            else if (NPC.ai[0] == 3 && NPC.localAI[0] > 60 && NPC.localAI[0] <= 240 && !Phase2)
             {
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
@@ -282,7 +279,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, NPC.GetAlpha(color), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
@@ -294,7 +291,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color, NPC.rotation, frameOrigin, NPC.scale, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, NPC.GetAlpha(color), NPC.rotation, frameOrigin, NPC.scale, effects, 0);
                 }
             }
 
@@ -307,17 +304,19 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color1, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 1.2f, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, NPC.GetAlpha(color1), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 1.2f, effects, 0);
                 }
 
                 for (float i = 0f; i < 1f; i += 0.25f)
                 {
                     float radians = (i + (fade / 2)) * MathHelper.TwoPi;
-                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, color2, NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 0.9f, effects, 0);
+                    spriteBatch.Draw(AuraTexture.Value, drawPos + new Vector2(0f, 25f).RotatedBy(radians) * time, NPC.frame, NPC.GetAlpha(color2), NPC.rotation, frameOrigin, NPC.scale + RealScaleAmount * 0.9f, effects, 0);
                 }
             }
 
-            return true;
+            Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+
+            return false;
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -331,11 +330,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             //while charging, use the saved direction and not the actual npc direction
             if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
-            {
-                effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
-            //while shooting roses in phase 1, use the saved direction and not the actual npc direction
-            else if (NPC.ai[0] == 3 && NPC.localAI[0] > 60 && NPC.localAI[0] <= 240 && !Phase2)
             {
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
@@ -353,27 +347,27 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             {
                 if (NPC.ai[0] == 0 || NPC.ai[0] == 7)
                 {
-                    Main.EntitySpriteDraw(GlowTexture1.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                    Main.EntitySpriteDraw(GlowTexture1.Value, NPC.Center - Main.screenPosition, null, NPC.GetAlpha(color), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
                 }
 
                 if (NPC.ai[0] == 2 || NPC.ai[0] == 3 || NPC.ai[0] == 6)
                 {
-                    Main.EntitySpriteDraw(GlowTexture2.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                    Main.EntitySpriteDraw(GlowTexture2.Value, NPC.Center - Main.screenPosition, null, NPC.GetAlpha(color), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
                 }
 
                 if (NPC.ai[0] == 4 || NPC.ai[0] == 5 || NPC.ai[0] == 8)
                 {
-                    Main.EntitySpriteDraw(GlowTexture3.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                    Main.EntitySpriteDraw(GlowTexture3.Value, NPC.Center - Main.screenPosition, null, NPC.GetAlpha(color), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
                 }
 
                 if (NPC.ai[0] == 1)
                 {
-                    Main.EntitySpriteDraw(GlowTexture4.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                    Main.EntitySpriteDraw(GlowTexture4.Value, NPC.Center - Main.screenPosition, null, NPC.GetAlpha(color), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
                 }
             }
             else
             {
-                Main.EntitySpriteDraw(GlowTexture3.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), null, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                Main.EntitySpriteDraw(GlowTexture3.Value, NPC.Center - Main.screenPosition, null, NPC.GetAlpha(color), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 
             //draw solar forcefield during his phase transition
@@ -1028,100 +1022,41 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //use razor rose attack
+                //use smelly corpsebloom attack
                 case 3:
                 {
                     NPC.localAI[0]++;
 
-                    GoAboveFlowerPot(200);
+                    GoAboveFlowerPot(120);
 
-                    //save the players location, then shoot a barrage of roses at that location
-                    if (!Phase2)
+                    //spawn corpsebloom
+                    if (NPC.localAI[0] == 2)
                     {
-                        if (NPC.localAI[0] == 60)
+                        int Flower = NPC.NewNPC(NPC.GetSource_FromAI(), (int)Parent.Center.X, (int)Parent.Center.Y - 20, ModContent.NPCType<SmellyFlower>(), 
+                        ai0: Parent.whoAmI, ai1: NPC.whoAmI, ai2: Phase2 ? 0.03f : 0.022f);
+
+                        if (Main.netMode != NetmodeID.SinglePlayer)
                         {
-                            SavePlayerPosition = player.Center + player.velocity * 15f;
-
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, SavePlayerPosition, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraph>(), 0, 0f);
-
-                            //set big bone's rotation to the predicted spot so it is correct when shooting roses
-                            Vector2 newVector = new Vector2(NPC.Center.X, NPC.Center.Y);
-                            float newRotateX = player.Center.X + player.velocity.X * 15f - newVector.X;
-                            float newRotateY = player.Center.Y + player.velocity.Y * 15f - newVector.Y;
-                            NPC.rotation = (float)Math.Atan2((double)newRotateY, (double)newRotateX) + 4.71f;
-
-                            //set big bone's direction based on the saved location so his sprite doesnt flip backwards
-                            NPC.direction = SavePlayerPosition.X > NPC.Center.X ? 1 : -1;
-
-                            SaveRotation = NPC.rotation;
-                            SaveDirection = NPC.direction;
-
-                            NPC.netUpdate = true;
+                            NetMessage.SendData(MessageID.SyncNPC, number: Flower);
                         }
 
-                        if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 240)
-                        {
-                            NPC.spriteDirection = SaveDirection;
-                            NPC.rotation = SaveRotation;
-                        }
+                        //shoot dirt particles up
+                        for (int numDusts = 0; numDusts < 15; numDusts++)
+                        {                                                                                  
+                            int dirtDust = Dust.NewDust(new Vector2(Parent.Center.X + Main.rand.Next(-60, 10), Parent.Center.Y - 90), 
+                            Parent.width / 2, Parent.height / 2, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
 
-                        if (NPC.localAI[0] >= 90 && NPC.localAI[0] <= 240)
-                        {
-                            NPC.velocity *= 0.98f;
-
-                            if (Main.rand.NextBool(2))
+                            Main.dust[dirtDust].noGravity = false;
+                            Main.dust[dirtDust].velocity.Y *= Main.rand.Next(10, 20);
+                            
+                            if (Main.dust[dirtDust].position != Parent.Center)
                             {
-                                //recoil
-                                Vector2 Recoil = SavePlayerPosition - NPC.Center;
-                                Recoil.Normalize();
-                                Recoil *= -2;
-                                NPC.velocity = Recoil;
-
-                                Vector2 ShootSpeed = SavePlayerPosition - NPC.Center;
-                                ShootSpeed.Normalize();
-                                ShootSpeed *= Main.rand.Next(25, 36);
-
-                                SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
-
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50)), 
-                                ShootSpeed, ModContent.ProjectileType<RazorRose>(), NPC.damage, 4.5f);
+                                Main.dust[dirtDust].velocity = Parent.DirectionTo(Main.dust[dirtDust].position) * 2f;
                             }
                         }
                     }
 
-                    //in phase 2 create a continuous stream of roses that is constantly shot at the player
-                    if (Phase2)
-                    {
-                        if (NPC.localAI[0] == 60)
-                        {
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, player.Center, Vector2.Zero, ModContent.ProjectileType<RazorRoseTelegraphLockOn>(), 0, 0f);
-                        }
-
-                        if (NPC.localAI[0] >= 100 && NPC.localAI[0] <= 240)
-                        {
-                            NPC.velocity *= 0.98f;
-
-                            if (Main.rand.NextBool(2))
-                            {
-                                //recoil
-                                Vector2 Recoil = player.Center - NPC.Center;
-                                Recoil.Normalize();
-                                Recoil *= -2;
-                                NPC.velocity = Recoil;
-
-                                Vector2 ShootSpeed = player.Center - NPC.Center;
-                                ShootSpeed.Normalize();
-                                ShootSpeed *= 16;
-
-                                SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
-
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-50, 50), NPC.Center.Y + Main.rand.Next(-50, 50)), 
-                                ShootSpeed, ModContent.ProjectileType<RazorRoseOrange>(), NPC.damage, 4.5f);
-                            }
-                        }
-                    }
-
-                    if (NPC.localAI[0] >= 240)
+                    if (NPC.localAI[0] >= 440)
                     {
                         if (Main.rand.NextBool(3))
                         {

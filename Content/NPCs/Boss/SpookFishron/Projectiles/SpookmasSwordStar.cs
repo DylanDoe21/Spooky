@@ -28,7 +28,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 45;
+            Projectile.timeLeft = 55;
 			Projectile.aiStyle = -1;
 		}
 
@@ -83,7 +83,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
                 Projectile.scale = 1.1f;
             }
 
-			Vector2 desiredVelocity = Projectile.DirectionTo(new Vector2(player.Center.X, player.Center.Y - 450)) * 22;
+			Vector2 desiredVelocity = Projectile.DirectionTo(new Vector2(player.Center.X, player.Center.Y - 370)) * 22;
 			Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 7);
 		}
 
@@ -94,7 +94,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			for (int numProjectiles = 0; numProjectiles < 40; numProjectiles++)
 			{
 				int VelocityX = Main.rand.Next(-90, 91);
-				int VelocityY = Main.rand.Next(-12, -5);
+				int VelocityY = Main.rand.Next(-15, -8);
 
 				int newProj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(VelocityX, VelocityY), ProjectileID.OrnamentFriendly, Projectile.damage, Projectile.knockBack, Projectile.owner);
 				Main.projectile[newProj].friendly = false;

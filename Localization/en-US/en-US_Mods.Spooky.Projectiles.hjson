@@ -13,7 +13,6 @@ HealingFlowerSeed.DisplayName: Flower Seed
 HomingFlower.DisplayName: Flower
 MassiveFlameBall.DisplayName: Flame Blast
 MassiveFlameBallBolt.DisplayName: Solar Blast
-RazorRose.DisplayName: Razor Rose
 SolarThorn.DisplayName: Solar Thorn
 GiantSnot.DisplayName: Snot Ball
 LingeringSnot.DisplayName: Snot Pile
@@ -286,9 +285,6 @@ SpiderBabyRed.DisplayName: Baby Spider
 TatantulaTomeFly.DisplayName: Large Fly
 SpiderSlingshotProj.DisplayName: Web Flinger
 SpiderSlingshotWeb.DisplayName: Web Ball
-RazorRoseTelegraph.DisplayName: Telegraph
-RazorRoseTelegraphLockOn.DisplayName: Telegraph
-RazorRoseOrange.DisplayName: Fire Rose
 BoneBowProj.DisplayName: Bone Bender
 BoneBowArrow.DisplayName: Piercing Bone
 HighVelocitySlingshotProj.DisplayName: High-Velocity Slingshot
@@ -499,3 +495,4 @@ Celery.DisplayName: Celery
 PepperMinion.DisplayName: Jalapeno
 GhostPepperMinion.DisplayName: Ghost Pepper Minion
 GrowingBroccoli.DisplayName: Growing Broccoli
+SmellyFlowerStink.DisplayName: Corpseflower Smell

@@ -38,6 +38,12 @@ namespace Spooky.Core
                 item.ChangeItemType(ModContent.ItemType<DaffodilBox>());
             }
 
+			if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookFishronXmas"))
+            {
+                SoundEngine.PlaySound(SoundID.Item166, player.Center);
+                item.ChangeItemType(ModContent.ItemType<SpookFishronBox>());
+            }
+
             base.UpdateAccessory(item, player, hideVisual);
         }
 
