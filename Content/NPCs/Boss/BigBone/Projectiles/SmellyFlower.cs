@@ -160,7 +160,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				}
 			}
 
-			if (BigBone.localAI[0] > 45 && BigBone.localAI[0] <= 150)
+			if (BigBone.localAI[0] > 0 && BigBone.localAI[0] <= 150)
 			{
 				if (DrawScale < 1.2f)
 				{
