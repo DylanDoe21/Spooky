@@ -28,6 +28,11 @@ namespace Spooky.Content.Biomes
 
         public override void Load()
         {
+	        if (ModLoader.TryGetMod("NotQuiteNitrate", out Mod nqn))
+	        {
+		        nqn.Call("ModifyDrawBlackThreshold", (Func<float, float>)NewThreshold);
+	        }
+			
             IL_Main.DrawBlack += ChangeBlackThreshold;
             On_Main.DrawBlack += ForceDrawBlack;
             On_TileLightScanner.GetTileLight += SpiderCaveLighting;
