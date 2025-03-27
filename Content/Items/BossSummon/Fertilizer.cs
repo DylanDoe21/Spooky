@@ -28,22 +28,6 @@ namespace Spooky.Content.Items.BossSummon
 
         public override bool CanUseItem(Player player)
         {
-            for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				if (Main.npc[i].active && Main.npc[i].type == ModContent.NPCType<BigFlowerPot>()) 
-				{
-                    if (Main.npc[i].Distance(player.Center) > 320f)
-                    {
-                        return false;
-                    }
-
-                    if (Main.npc[i].ai[0] > 0) 
-                    {
-                        return false;
-                    }
-                }
-            }
-
             if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && player.InModBiome(ModContent.GetInstance<Content.Biomes.CatacombBiome2>()))
             {
                 return true;
@@ -62,7 +46,7 @@ namespace Spooky.Content.Items.BossSummon
 				{
                     if (Main.npc[k].Distance(player.Center) <= 320f) 
                     {
-                        Main.npc[k].ai[1] = 1;
+                        Main.npc[k].ai[2] = 1;
                         Main.npc[k].netUpdate = true;
                     }
                 }

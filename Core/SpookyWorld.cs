@@ -109,6 +109,7 @@ namespace Spooky.Core
 					{
                         int FlowerPot = NPC.NewNPC(null, (int)Flags.FlowerPotPosition.X, (int)Flags.FlowerPotPosition.Y, ModContent.NPCType<BigFlowerPot>());
                         Main.npc[FlowerPot].position.X -= 6;
+                        Main.npc[FlowerPot].position.Y += 523;
 
                         if (Main.netMode == NetmodeID.Server)
                         {

@@ -6,6 +6,8 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles
 {
     public class RottenOoze : ModProjectile
@@ -80,6 +82,14 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
 
                 Projectile.rotation = 0;
+
+                if (Main.rand.NextBool(10))
+				{
+					int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.YellowGreen * 0.5f, Main.rand.NextFloat(0.1f, 0.2f));
+					Main.dust[DustEffect].position.Y += -10 * 0.05f - 1.5f;
+					Main.dust[DustEffect].velocity.Y = -1;
+					Main.dust[DustEffect].alpha = 125;
+				}
             }
 
             Projectile.frame = (int)Projectile.ai[0];

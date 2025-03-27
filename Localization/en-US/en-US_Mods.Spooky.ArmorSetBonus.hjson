@@ -10,6 +10,11 @@ WizardGangsterArmor2:
 	This stops scaling after you have more than 10 gold coins
 	'''
 BroccoliArmor: Minions will sometimes plant damaging broccoli on enemies
+SharkBoneArmor:
+	'''
+	Summons a skeleton shark friend to fight with you
+	The shark's power will scale based on the power of any fishing rod you are holding
+	'''
 GourdArmor:
 	'''
 	Melee weapons may inflict decay, which damages enemies over time

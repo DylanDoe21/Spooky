@@ -245,7 +245,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			}
 		}
 
-		// Copied from Main.snowing()
+		//vanilla modified snowing code, used for frost moon spook fishron
 		public void Snowing()
 		{
 			if (Main.remixWorld)
@@ -255,7 +255,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 			Vector2 scaledSize = Main.Camera.ScaledSize;
 			Vector2 scaledPosition = Main.Camera.ScaledPosition;
-			if (Main.gamePaused /* || Main.SceneMetrics.SnowTileCount <= 0 */ || (!((double)Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16.0) && (!Main.remixWorld || !((double)Main.player[Main.myPlayer].position.Y > Main.worldSurface * 16.0))))
+			if (Main.gamePaused || (!((double)Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16.0) && (!Main.remixWorld || !((double)Main.player[Main.myPlayer].position.Y > Main.worldSurface * 16.0))))
 			{
 				return;
 			}

@@ -9,6 +9,7 @@ using Spooky.Core;
 using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpookyHell;
+using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
@@ -87,6 +88,11 @@ namespace Spooky
 				vignetteShader = new Vignette(vignetteEffect, "MainPS");
 				Filters.Scene["Spooky:Vignette"] = new Filter(vignetteShader, (EffectPriority)100);
             }
+
+			if (!Main.dedServ)
+			{
+				BigBone.LoadHeadIcons();
+			}
 
             SpiderCaveBG.Load();
             SpookyHellBG.Load();

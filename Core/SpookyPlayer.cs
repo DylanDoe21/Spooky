@@ -42,6 +42,7 @@ namespace Spooky.Core
         public bool SpiderSet = false;
         public bool SpiderSpeed = false;
 		public bool BroccoliSet = false;
+        public bool SharkBoneSet = false;
 		public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
@@ -54,7 +55,6 @@ namespace Spooky.Core
         public bool CandyBag = false;
 		public bool CandyBagJustHit = false;
         public bool MagicCandle = false;
-        public bool EggCarton = false;
         public bool SkullAmulet = false;
         public bool CrossCharmShield = false;
         public bool PandoraChalice = false;
@@ -90,6 +90,7 @@ namespace Spooky.Core
 		public bool SewingThread = false;
 		public bool StitchedCloak = false;
         public bool AutumnLeaf = false;
+        public bool EggCarton = false;
 
 		//expert accessories
 		public bool FlyAmulet = false;
@@ -215,6 +216,7 @@ namespace Spooky.Core
             SpiderSet = false;
             SpiderSpeed = false;
 			BroccoliSet = false;
+            SharkBoneSet = false;
 			HorsemanSet = false;
             EyeArmorSet = false;
             FlowerArmorSet = false;
@@ -260,6 +262,7 @@ namespace Spooky.Core
 			SewingThread = false;
 			StitchedCloak = false;
             AutumnLeaf = false;
+            EggCarton = false;
 
 			//expert accessories
 			FlyAmulet = false;

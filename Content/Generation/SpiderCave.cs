@@ -347,7 +347,7 @@ namespace Spooky.Content.Generation
             GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 30), "OldHunterLegs", 12, 8);
 
             //place giant web in the center of the biome
-            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 8);
+            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 61);
 			StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
 
             Flags.SpiderGrottoCenter = new Vector2(origin.X * 16, origin.Y * 16);

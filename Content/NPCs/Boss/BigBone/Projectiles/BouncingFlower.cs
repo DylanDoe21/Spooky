@@ -5,116 +5,107 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Spooky.Core;
+using System;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
     public class BouncingFlower : ModProjectile
     {
-		int Bounces = 0;
-		bool runOnce = true;
-		Vector2[] trailLength = new Vector2[5];
-
 		private static Asset<Texture2D> ProjTexture;
+		private static Asset<Texture2D> TrailTexture;
 
-        public override void SetDefaults()
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+			Main.projFrames[Projectile.type] = 3;
+		}
+
+		public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
-            Projectile.hostile = true;
-            Projectile.tileCollide = true;
-            Projectile.timeLeft = 180;
+            Projectile.width = 32;
+            Projectile.height = 36;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.tileCollide = true;
+            Projectile.timeLeft = 420;
             Projectile.aiStyle = -1;
         }
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (runOnce)
-			{
-				return false;
-			}
-
 			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			TrailTexture ??= ModContent.Request<Texture2D>(Texture + "Trail");
 
-			Vector2 drawOrigin = new Vector2(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
-			Vector2 previousPosition = Projectile.Center;
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
-			Color color = new Color(255, 255, 75, 0);
-
-			for (int k = 0; k < trailLength.Length; k++)
+			for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
 			{
-				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
-				scale *= 1f;
-
-				if (trailLength[k] == Vector2.Zero)
-				{
-					return true;
-				}
-
-				Vector2 drawPos = trailLength[k] - Main.screenPosition;
-				Vector2 currentPos = trailLength[k];
-				Vector2 betweenPositions = previousPosition - currentPos;
-
-				float max = betweenPositions.Length() / (8 * scale);
-
-				for (int i = 0; i < max; i++)
-				{
-					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
-
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.65f, SpriteEffects.None, 0f);
-				}
-
-				previousPosition = currentPos;
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1.1f;
+				Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+				Color color = Color.Lerp(Color.Gold, Color.Brown, oldPos / (float)Projectile.oldPos.Length) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+				Main.EntitySpriteDraw(TrailTexture.Value, drawPos, rectangle, color, Projectile.oldRot[oldPos], drawOrigin, scale, SpriteEffects.None, 0);
 			}
 
-			return true;
+			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+
+			return false;
+		}
+
+		public override bool? CanDamage()
+		{
+			return Projectile.ai[0] > 35 && Projectile.ai[0] >= Projectile.localAI[0];
 		}
 
 		public override void AI()
 		{
-			Lighting.AddLight(Projectile.Center, 0.4f, 0.3f, 0f);
+			Projectile Parent = Main.projectile[(int)Projectile.ai[2]];
+			Player target = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
 
-			Projectile.rotation += 0.15f * (float)Projectile.direction;
+			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
-			if (runOnce)
+			Projectile.frame = (int)Projectile.ai[1];
+
+			Projectile.ai[0]++;
+			if (Projectile.ai[0] <= 35)
 			{
-				for (int i = 0; i < trailLength.Length; i++)
+				Projectile.Center = Parent.Center;
+
+				if (Projectile.scale < 1f && Projectile.ai[0] > 10)
 				{
-					trailLength[i] = Vector2.Zero;
+					Projectile.scale += 0.1f;
 				}
-				runOnce = false;
 			}
 
-			Vector2 current = Projectile.Center;
-			for (int i = 0; i < trailLength.Length; i++)
+			if (Projectile.ai[0] == 35)
 			{
-				Vector2 previousPosition = trailLength[i];
-				trailLength[i] = current;
-				current = previousPosition;
+				Projectile.localAI[0] = Main.rand.Next(80, 200);
+			}
+
+			if (Projectile.ai[0] == Projectile.localAI[0] && Parent.type == ModContent.ProjectileType<VineBase>())
+			{
+				double Velocity = Math.Atan2(target.position.Y - Projectile.position.Y, target.position.X - Projectile.position.X);
+				Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 16;
+
+				Parent.Kill();
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Bounces++;
-			if (Bounces >= 3)
-			{
-				Projectile.Kill();
-			}
-			else
-			{ 
-				SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 
-				if (Projectile.velocity.X != oldVelocity.X)
-				{
-					Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-					Projectile.velocity.X = -oldVelocity.X * 0.8f;
-				}
-				if (Projectile.velocity.Y != oldVelocity.Y)
-				{
-					Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-					Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
-				}
+			if (Projectile.velocity.X != oldVelocity.X)
+			{
+				Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+				Projectile.velocity.X = -oldVelocity.X * 0.8f;
+			}
+			if (Projectile.velocity.Y != oldVelocity.Y)
+			{
+				Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+				Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
 			}
 
 			return false;

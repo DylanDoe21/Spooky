@@ -1,19 +1,6 @@
 SpookySolutionProj.DisplayName: Spooky Spray
 CemeterySolutionProj.DisplayName: Cemetery Spray
 SpookyHellSolutionProj.DisplayName: Eye Valley Spray
-BigBoneThorn.DisplayName: Thorn Vine
-BigBoneThornTelegraph.DisplayName: Telegraph
-BoneWisp.DisplayName: Skull Wisp
-BouncingFlower.DisplayName: Flower
-DefensiveFlowerSeed.DisplayName: Flower Seed
-FlamingWisp.DisplayName: Flaming Skull Wisp
-FlowerSpore.DisplayName: Flower Spore
-GiantFlameBall.DisplayName: Flame Blast
-HealingFlowerSeed.DisplayName: Flower Seed
-HomingFlower.DisplayName: Flower
-MassiveFlameBall.DisplayName: Flame Blast
-MassiveFlameBallBolt.DisplayName: Solar Blast
-SolarThorn.DisplayName: Solar Thorn
 GiantSnot.DisplayName: Snot Ball
 LingeringSnot.DisplayName: Snot Pile
 SnotBall.DisplayName: Snot Ball
@@ -449,7 +436,6 @@ PuttyPet3.DisplayName: Putty Slime
 PuttyPetDisplay.DisplayName: Putty Display
 FleshAxeProj.DisplayName: Flesh Mincer
 LivingFleshAxeProj.DisplayName: Living Flesh Mincer
-BouncingBone.DisplayName: Bouncing Bone
 JungleCabbageBoulderProj.DisplayName: Cabbage Boulder
 RottenOoze.DisplayName: Ooze
 TarBubble.DisplayName: Tar Bubble
@@ -486,8 +472,6 @@ SpookFishronBowProj.DisplayName: Firestorm Monsoon
 SpookFishronBowBolt.DisplayName: Firebolt
 SpookFishronTornado.DisplayName: Spooknado
 EggplantWhipProj.DisplayName: Eggplant Smacker
-HoverCorn.DisplayName: Hovering Corn
-HoverCornPopped.DisplayName: Popcorn
 CursedExplosion.DisplayName: Cursed Inferno Explosion
 CursedExplosionSmall.DisplayName: Cursed Inferno Explosion
 CursedExplosionBall.DisplayName: Cursed Fireball
@@ -495,4 +479,14 @@ Celery.DisplayName: Celery
 PepperMinion.DisplayName: Jalapeno
 GhostPepperMinion.DisplayName: Ghost Pepper Minion
 GrowingBroccoli.DisplayName: Growing Broccoli
-SmellyFlowerStink.DisplayName: Corpseflower Smell
+CornSentry.DisplayName: Corn Sentry
+CornSentryEar.DisplayName: Corn Ear
+CornSentryPopcorn.DisplayName: Popcorn
+Pitcher1.DisplayName: Pitcher Plant
+Pitcher2.DisplayName: Pitcher Plant
+PitcherOoze1.DisplayName: Poisonous Ooze
+PitcherOoze2.DisplayName: Venomous Ooze
+VineBase.DisplayName: Plant Stem
+BouncingFlower.DisplayName: Bouncing Sunflower
+GrowingOrchid.DisplayName: Giant Orchid
+SharkArmorFriend.DisplayName: Shark Armor Friend

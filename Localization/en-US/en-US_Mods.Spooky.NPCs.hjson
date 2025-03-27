@@ -46,6 +46,7 @@ OrroHead: {
 
 BigBone: {
 	DisplayName: Big Bone
+	DisplayName2: Big Bulb
 
 	BossChecklistIntegration: {
 		SpawnInfo: Use [i:Spooky/Fertilizer] while standing nearby the giant flower pot in the catacombs.
@@ -63,12 +64,8 @@ SpookFishron: {
 }
 
 //boss stuff
-BigFlowerPot.DisplayName: Giant Flower Pot
-BigFlower.DisplayName: Solar Flower
-DefensiveFlower.DisplayName: Defensive Flower
-HealingFlower.DisplayName: Healing Flower
+BigFlowerPot.DisplayName: ""
 CatacombGuardian.DisplayName: Catacomb Guardian
-SmellyFlower.DisplayName: Smelly Flower
 BigBoneArenaBG.DisplayName: ""
 DaffodilBody.DisplayName: ""
 DaffodilHandLeft.DisplayName: Daffodil

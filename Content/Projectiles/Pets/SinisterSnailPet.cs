@@ -65,7 +65,9 @@ namespace Spooky.Content.Projectiles.Pets
                 Vector2 vector48 = player.Center - center2;
                 float playerDistance = Projectile.Distance(player.Center);
 
-                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 100f) || (playerDistance > 100f && Projectile.position.X == Projectile.oldPosition.X)))
+                Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
+
+                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 200f) || (playerDistance > 200f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
                     Projectile.velocity.Y = -7f;
                 }

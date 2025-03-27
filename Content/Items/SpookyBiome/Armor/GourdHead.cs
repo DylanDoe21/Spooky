@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 3;
+			Item.defense = 4;
 			Item.width = 26;
 			Item.height = 28;
 			Item.rare = ItemRarityID.Blue;
@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Melee) += 5;
+			player.GetCritChance(DamageClass.Melee) += 10;
 		}
 
 		public override void AddRecipes()
