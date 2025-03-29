@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics.Effects;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -21,6 +22,7 @@ using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.SpookFishron.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.NPCs.Boss.SpookFishron
 {
@@ -50,7 +52,20 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		private static Asset<Texture2D> IceOverlayTexture;
 
 		public static readonly SoundStyle StunnedSound = new("Spooky/Content/Sounds/SpookFishron/FishronStunned", SoundType.Sound);
-		
+
+		public override void Load()
+		{
+			On_Main.CalculateWaterStyle += (orig, ignoreFountains) =>
+			{
+				if (SkyManager.Instance["Spooky:SpookFishron"]?.IsActive() ?? false)
+				{
+					return ModContent.GetInstance<SpookyWaterStyle>().Slot;
+				}
+				
+				return orig(ignoreFountains);
+			};
+		}
+
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 8;
