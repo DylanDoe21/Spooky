@@ -32,13 +32,12 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.EyeArmor");
 			player.GetModPlayer<SpookyPlayer>().EyeArmorSet = true;
+			player.whipRangeMultiplier += 0.15f;
 		}
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.whipRangeMultiplier = 1.1f;
 			player.GetDamage(DamageClass.Summon) += 0.08f;
-			player.GetDamage(DamageClass.SummonMeleeSpeed) += 0.08f;
 		}
 
 		public override void AddRecipes()
