@@ -20,7 +20,6 @@ namespace Spooky.Content.NPCs.EggEvent
 {
 	public class EarWorm : ModNPC
 	{
-		float HeightAboveParent = 0f;
 		float SaveRotation = 0f;
 
 		bool Shake = false;
@@ -52,7 +51,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			writer.Write(Shake);
 
             //floats
-            writer.Write(HeightAboveParent);
             writer.Write(SaveRotation);
         }
 
@@ -62,7 +60,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			Shake = reader.ReadBoolean();
 
             //floats
-            HeightAboveParent = reader.ReadSingle();
             SaveRotation = reader.ReadSingle();
         }
 
@@ -78,7 +75,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			NPC.value = Item.buyPrice(0, 0, 2, 0);
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
-			NPC.hide = true;
 			NPC.HitSound = SoundID.NPCHit9;
 			NPC.DeathSound = SoundID.Zombie40 with { Pitch = 0.45f };
 			NPC.aiStyle = -1;
@@ -204,26 +200,23 @@ namespace Spooky.Content.NPCs.EggEvent
 			return false;
 		}
 
-		public override void DrawBehind(int index)
-		{
-			Main.instance.DrawCacheNPCsBehindNonSolidTiles.Add(index);
-		}
-
 		public override void AI()
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[2]];
 
 			Player player = Main.player[Parent.target];
-		
+
 			NPC.spriteDirection = Parent.direction;
 
 			//kill the hand if the parent does not exist
 			if (!Parent.active || Parent.type != ModContent.NPCType<EarWormBase>())
 			{
-                NPC.active = false;
+				NPC.active = false;
 			}
 
-			if (NPC.ai[1] < 300 || NPC.ai[1] > 360)
+			Parent.ai[0] = NPC.whoAmI;
+
+			if (NPC.ai[1] < 340 || NPC.ai[1] > 400)
 			{
 				//EoC rotation
 				Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -232,35 +225,34 @@ namespace Spooky.Content.NPCs.EggEvent
 				NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 			}
 
-			//movement
-			NPC.ai[0] += 0.05f;
-
-			Vector2 offset = new Vector2(Parent.direction).RotatedBy((float)Math.PI * 20f * (NPC.ai[0] / 60f));
-
-			NPC.Center = new Vector2(Parent.Center.X, Parent.Center.Y - HeightAboveParent) + offset * (HeightAboveParent / 20);
-			NPC.velocity = Vector2.Zero;
-
 			if (Parent.ai[1] == 0)
 			{
 				NPC.ai[1]++;
 
-				if (NPC.ai[1] < 300)
+				//fade in and go up
+				if (NPC.ai[1] < 340)
 				{
+					NPC.ai[0] += 0.05f;
+
+					Vector2 offset = new Vector2(Parent.direction).RotatedBy((float)Math.PI * 20f * (NPC.ai[0] / 60f));
+					Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 300) + offset * 15f;
+
+					Vector2 desiredVelocity = NPC.DirectionTo(GoTo) * 3;
+					NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+
 					SaveRotation = NPC.rotation;
 
-					if (HeightAboveParent < 300)
+					if (NPC.alpha > 0)
 					{
-						if (NPC.alpha > 0)
-						{
-							NPC.alpha -= 15;
-						}
-
-						HeightAboveParent += 5f;
+						NPC.alpha -= 15;
 					}
 				}
 
-				if (NPC.ai[1] > 300 && NPC.ai[1] < 400)
+				//shake before attacking
+				if (NPC.ai[1] > 340 && NPC.ai[1] < 400)
 				{
+					NPC.velocity = Vector2.Zero;
+
 					if (Shake)
 					{
 						NPC.rotation += 0.2f;
@@ -279,6 +271,7 @@ namespace Spooky.Content.NPCs.EggEvent
 					}
 				}
 
+				//shoot sound blast
 				if (NPC.ai[1] == 400)
 				{
 					SoundEngine.PlaySound(ScreechSound, NPC.Center);
@@ -290,28 +283,33 @@ namespace Spooky.Content.NPCs.EggEvent
 					ShootSpeed *= 10;
 
 					NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<EarWormSoundBase>(), NPC.damage, 4.5f);
+
+					NPC.velocity = -Vector2.Normalize(player.Center - NPC.Center) * Main.rand.Next(15, 23);
 				}
-				
+
+				//slow down after recoil
+				if (NPC.ai[1] >= 400 && NPC.ai[1] < 460)
+				{
+					NPC.velocity *= 0.8f;
+				}
+
 				if (NPC.ai[1] >= 460)
 				{
-					if (HeightAboveParent < 20)
-					{
-						if (NPC.alpha < 255)
-						{
-							NPC.alpha += 50;
-						}
-					}
+					Vector2 desiredVelocity = NPC.DirectionTo(Parent.Center) * 15;
+					NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 
-					if (HeightAboveParent > -20)
+					if (NPC.alpha < 255 && NPC.Distance(Parent.Center) < 40f)
 					{
-						HeightAboveParent -= 20f;
+						NPC.alpha += 50;
 					}
 
 					if (NPC.alpha >= 255)
 					{
+						NPC.velocity = Vector2.Zero;
+
 						NPC.immortal = true;
 						NPC.dontTakeDamage = true;
-						
+
 						Parent.ai[1] = 1;
 					}
 				}
@@ -320,7 +318,7 @@ namespace Spooky.Content.NPCs.EggEvent
 			{
 				NPC.immortal = false;
 				NPC.dontTakeDamage = false;
-				
+
 				NPC.ai[1] = 0;
 			}
 		}
@@ -421,7 +419,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			NPC.spriteDirection = NPC.direction;
 
-			if (NPC.ai[0] == 0)
+			if (NPC.ai[3] == 0)
 			{
 				int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<EarWorm>(), ai2: NPC.whoAmI);
 
@@ -430,7 +428,7 @@ namespace Spooky.Content.NPCs.EggEvent
 					NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
 				}
 
-				NPC.ai[0]++;
+				NPC.ai[3]++;
 
 				NPC.netUpdate = true;
 			}
@@ -482,6 +480,8 @@ namespace Spooky.Content.NPCs.EggEvent
 							Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 24), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
 							dust.noGravity = true;
 						}
+
+						Main.npc[(int)NPC.ai[0]].Center = NPC.Center;
 						
 						NPC.ai[1] = 0;
 						NPC.ai[2] = 0;

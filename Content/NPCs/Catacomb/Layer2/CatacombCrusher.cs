@@ -257,12 +257,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.lifeMax = 700;
             NPC.damage = 60;
             NPC.defense = 25;
-			NPC.width = 88;
-			NPC.height = 78;
-			NPC.npcSlots = 1f;
+            NPC.width = 88;
+            NPC.height = 78;
+            NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
-            NPC.noTileCollide = false;
+            NPC.noTileCollide = true;
             NPC.value = Item.buyPrice(0, 3, 0, 0);
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
             NPC.alpha = 255;

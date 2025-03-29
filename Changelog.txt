@@ -76,6 +76,12 @@ Items:
 -Buffed spooky scroll damage from 15 to 20
 -Pumptergiest projectiles now only spawn if you are holding a weapon, their damage now scales with the damage of that weapon (with a minimum of 30 damage), and reduced the minimum time for a pumpkin to spawn from 6 to 5 seconds
 -Zappy Zucchini lightning now does damage equal to 8% of an enemies maximum health instead of having a flat damage value of 20
+-Rotten gourd armor stat bonuses have been buffed: Head - 10% melee crit, Body - 12% melee damage, Legs - 10% melee speed
+-Rotten gourd armor set bonus no longer applies only to melee weapons, it now works with all weapons
+-Gourd decay debuff from gourd armor now lowers enemy defense along with the damage over time
+-Spirit horseman armor set defense and stats have been buffed: Head - 6 defense and 12% crit chance, Body - 7 defense and 15% damage, Legs - 6 defense and 20% movement speed
+-Buffed spirit horseman armor head minion damage from 35 to 40
+-Buffed living flesh mask and leggings defense from 3 to 4
 
 
 Whip Changes:
@@ -87,8 +93,7 @@ Whip Changes:
 -Leecher now has 10 summon tag damage
 -Living eye lasher damage buffed from 75 to 82
 
-
-Magic Weapon Rebalancing/Reworks:
+Magic Weapon Changes:
 
 -Snot nosed tome no longer flies to your cursor, it now summons the channeled nose above you, and shoots boogers at your cursor
 -Changed moocher staff projectile to be a giant cursed fire explosion that launches some cursed fireballs upward, it now does more damage, is more useful against flying targets, and visually looks better
@@ -125,6 +130,7 @@ Enemies and Bosses:
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
 -All of orro-boro's non head segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
 -Observing orchids will now only chase you if they have light of sight to you
+-Ear worms movement and behavior is now more natural looking, and they now recoil when shooting their sound blast
 
 
 Miscellaneous:

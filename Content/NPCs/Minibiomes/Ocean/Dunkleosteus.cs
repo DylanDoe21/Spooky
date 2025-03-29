@@ -38,13 +38,17 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		Vector2 PositionGoTo = Vector2.Zero;
 	 	List<int> BiomePositionDistances = new List<int>();
 
+		Player TargetedPlayer = Main.LocalPlayer;
+
 		private static Asset<Texture2D> NPCTexture;
 		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> BodyTexture;
 		private static Asset<Texture2D> BodyTexture2;
 
-		public static readonly SoundStyle RoarSound = new("Spooky/Content/Sounds/DunkleosteusRoar", SoundType.Sound) { PitchVariance = 0.6f };
-		public static readonly SoundStyle StingSound = new("Spooky/Content/Sounds/DunkleosteusSting", SoundType.Sound);
+		public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusGrowl1", SoundType.Sound);
+		public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusGrowl2", SoundType.Sound);
+		public static readonly SoundStyle RoarSound = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusRoar", SoundType.Sound) { PitchVariance = 0.6f };
+		public static readonly SoundStyle StingSound = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusSting", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{
@@ -233,10 +237,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 		public override void AI()
 		{
-			//local player temporarily, needs to change later to be the player that it actually aggros on to
-			Player FollowPlayer = Main.LocalPlayer;
-
-			if (!FollowPlayer.active || FollowPlayer.dead)
+			if (!TargetedPlayer.active || TargetedPlayer.dead)
 			{
 				Aggression = 0;
 			}
@@ -322,9 +323,24 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			//position infront of dunk where dunks "sight" is
 			Vector2 InfrontOfDunk = new Vector2(125, 0).RotatedBy(NPC.rotation + MathHelper.TwoPi) + NPC.Center;
-			
-			bool PlayerLineOfSight = Collision.CanHitLine(FollowPlayer.position, FollowPlayer.width, FollowPlayer.height, NPC.position, NPC.width, NPC.height);
-			bool ShouldBecomeAggressive = PlayerLineOfSight && FollowPlayer.Distance(InfrontOfDunk) <= 200;
+
+			if (NPC.ai[1] <= 0 && Aggression <= 0)
+			{
+				foreach (Player player in Main.ActivePlayers)
+				{
+					if (!player.dead)
+					{
+						bool PlayerLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+						bool ShouldBecomeAggressive = PlayerLineOfSight && player.Distance(InfrontOfDunk) <= 200;
+
+						if (ShouldBecomeAggressive)
+						{
+							TargetedPlayer = player;
+							NPC.ai[1] = 1;
+						}
+					}
+				}
+			}	
 
 			/*
 			//create dust ring for debugging
@@ -341,7 +357,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
             }
 			*/
 
-			if ((ShouldBecomeAggressive || NPC.ai[1] > 0) && Aggression <= 0)
+			if (NPC.ai[1] > 0 && Aggression <= 0)
 			{
 				NPC.noTileCollide = false;
 				NPC.velocity *= 0.92f;
@@ -441,26 +457,27 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;
 
-				float Speed = FollowPlayer.Distance(NPC.Center) >= 300f ? 4.25f : 3.5f;
+				float Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 4.25f : 3.5f;
 
 				//quickly loose aggression if the player leaves the biome
-				if (!FollowPlayer.InModBiome<ZombieOceanBiome>())
+				if (!TargetedPlayer.InModBiome<ZombieOceanBiome>())
 				{
 					Aggression -= 20;
 				}
 				else
 				{
-					if (FollowPlayer.Distance(NPC.Center) <= 100f)
+					if (TargetedPlayer.Distance(NPC.Center) <= 100f)
 					{
 						BiteAnimationTimer = 36;
 					}
 
 					//only use pathfinding if it doesnt have line of sight to the player
+					bool PlayerLineOfSight = Collision.CanHitLine(TargetedPlayer.position, TargetedPlayer.width, TargetedPlayer.height, NPC.position, NPC.width, NPC.height);
 					if (!PlayerLineOfSight)
 					{
 						NPC.noTileCollide = true;
 
-						PathfindingMovement(FollowPlayer.Center, Speed, 50, 7000, true);
+						PathfindingMovement(TargetedPlayer.Center, Speed, 50, 7000, true);
 
 						//decrease aggression timer
 						Aggression--;
@@ -469,7 +486,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						NPC.noTileCollide = false;
 
-						Vector2 desiredVelocity = NPC.DirectionTo(FollowPlayer.Center) * Speed;
+						Vector2 desiredVelocity = NPC.DirectionTo(TargetedPlayer.Center) * Speed;
 						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 					}
 				}

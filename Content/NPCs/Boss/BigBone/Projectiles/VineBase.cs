@@ -119,29 +119,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				{
 					case 0:
 					{
-						int Type = Main.rand.NextBool() ? ModContent.ProjectileType<Pitcher1>() : ModContent.ProjectileType<Pitcher2>();
-
 						int Proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-						Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, ai1: Projectile.whoAmI);
+						Vector2.Zero, ModContent.ProjectileType<BouncingFlower>(), Projectile.damage, Projectile.knockBack, ai1: Projectile.whoAmI);
 						Main.projectile[Proj].scale = 0f;
 
 						break;
 					}
 					case 1:
 					{
-						int Type = ModContent.ProjectileType<BouncingFlower>();
-
 						int Proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-						Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, ai1: Main.rand.Next(0, 3), ai2: Projectile.whoAmI);
+						Vector2.Zero, ModContent.ProjectileType<HomingFlower>(), Projectile.damage, Projectile.knockBack, ai1: Projectile.whoAmI);
 						Main.projectile[Proj].scale = 0f;
 
 						break;
 					}
 					case 2:
 					{
+						int Type = Main.rand.NextBool() ? ModContent.ProjectileType<Pitcher1>() : ModContent.ProjectileType<Pitcher2>();
+
 						int Proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-						Vector2.Zero, ModContent.ProjectileType<GrowingOrchid>(), Projectile.damage, Projectile.knockBack,
-						ai1: Main.rand.Next(0, 4), ai2: Projectile.whoAmI);
+						Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, ai1: Projectile.whoAmI);
 						Main.projectile[Proj].scale = 0f;
 
 						break;

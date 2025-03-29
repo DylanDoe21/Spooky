@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Cemetery.Armor
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 4;
+			Item.defense = 6;
 			Item.width = 22;
 			Item.height = 18;
 			Item.rare = ItemRarityID.Green;
@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Cemetery.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.moveSpeed += 0.12f;
+			player.moveSpeed += 0.2f;
 		}
 	}
 }

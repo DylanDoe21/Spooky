@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
     public class BouncingFlower : ModProjectile
@@ -18,13 +20,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		{
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-			Main.projFrames[Projectile.type] = 3;
 		}
 
-		public override void SetDefaults()
+        public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 36;
+            Projectile.width = 30;
+            Projectile.height = 30;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.tileCollide = true;
@@ -61,12 +62,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void AI()
 		{
-			Projectile Parent = Main.projectile[(int)Projectile.ai[2]];
+			Projectile Parent = Main.projectile[(int)Projectile.ai[1]];
 			Player target = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
 
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
-
-			Projectile.frame = (int)Projectile.ai[1];
 
 			Projectile.ai[0]++;
 			if (Projectile.ai[0] <= 35)

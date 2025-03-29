@@ -46,32 +46,35 @@ namespace Spooky.Content.Projectiles.Pets
 			{
                 ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/BigBonePetChain");
                 
-                Vector2 rootPosition = player.Center;
+                bool flip = false;
+				if (player.direction == -1)
+				{
+					flip = true;
+				}
 
-                Vector2[] bezierPoints = { rootPosition, rootPosition + new Vector2(0, -30), Projectile.Center + new Vector2(-30 * Projectile.direction, 0).RotatedBy(Projectile.rotation), Projectile.Center + new Vector2(-7 * Projectile.direction, 0).RotatedBy(Projectile.rotation) };
-                float bezierProgress = 0;
-                float bezierIncrement = 8;
-                
-                Vector2 textureCenter = Projectile.spriteDirection == -1 ? new Vector2(2, 2) : new Vector2(2, 2);
+				Vector2 drawOrigin = new Vector2(0, ChainTexture.Height() / 2);
+				Vector2 myCenter = Projectile.Center - new Vector2(0 * (flip ? -1 : 1), 5).RotatedBy(Projectile.rotation);
+				Vector2 p0 = player.Center;
+				Vector2 p1 = player.Center;
+				Vector2 p2 = myCenter - new Vector2(45 * (flip ? -1 : 1), 75).RotatedBy(Projectile.rotation);
+				Vector2 p3 = myCenter;
 
-                float rotation;
+				int segments = 32;
 
-                while (bezierProgress < 1)
-                {
-                    //draw stuff
-                    Vector2 oldPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
+				for (int i = 0; i < segments; i++)
+				{
+					float t = i / (float)segments;
+					Vector2 drawPos2 = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+					t = (i + 1) / (float)segments;
+					Vector2 drawPosNext = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+					Vector2 toNext = drawPosNext - drawPos2;
+					float rotation = toNext.ToRotation();
+					float distance = toNext.Length();
 
-                    //increment progress
-                    while ((oldPos - BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress)).Length() < bezierIncrement)
-                    {
-                        bezierProgress += 0.1f / BezierCurveUtil.BezierCurveDerivative(bezierPoints, bezierProgress).Length();
-                    }
+					Color color = Lighting.GetColor((int)drawPos2.X / 16, (int)(drawPos2.Y / 16));
 
-                    Vector2 newPos = BezierCurveUtil.BezierCurve(bezierPoints, bezierProgress);
-                    rotation = (newPos - oldPos).ToRotation() + MathHelper.Pi;
-
-                    Main.spriteBatch.Draw(ChainTexture.Value, (oldPos + newPos) / 2 - Main.screenPosition, ChainTexture.Frame(), lightColor, rotation, textureCenter, Projectile.scale, SpriteEffects.None, 0f);
-                }
+					Main.spriteBatch.Draw(ChainTexture.Value, drawPos2 - Main.screenPosition, null, Projectile.GetAlpha(color), rotation, drawOrigin, Projectile.scale * new Vector2((distance + 4) / (float)ChainTexture.Width(), 1), SpriteEffects.None, 0f);
+				}
             }
 
             return true;

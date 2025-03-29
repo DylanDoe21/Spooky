@@ -18,7 +18,7 @@ namespace Spooky.Content.Items.Cemetery.Armor
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 4;
+			Item.defense = 6;
 			Item.width = 26;
 			Item.height = 28;
 			Item.rare = ItemRarityID.Green;
@@ -40,13 +40,13 @@ namespace Spooky.Content.Items.Cemetery.Armor
 			{
 				//leave the source as null for right now
 				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, 
-				ModContent.ProjectileType<PumpkinHead>(), 0, 0f, player.whoAmI, 0f, 0f);
+				ModContent.ProjectileType<PumpkinHead>(), 40, 0f, player.whoAmI);
 			}
 		}
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Generic) += 5;
+			player.GetCritChance(DamageClass.Generic) += 12;
 		}
 	}
 }

@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Projectiles.Minibiomes.Vegetable;
+
 namespace Spooky.Content.Items.Minibiomes.Vegetable
 {
     public class RadishYoyo : ModItem
@@ -32,8 +34,8 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
             Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.Item1;
-            //Item.shoot = ModContent.ProjectileType<TortumorYoyoProj>();
-            //Item.shootSpeed = 8f;
+            Item.shoot = ModContent.ProjectileType<RadishYoyoProj>();
+            Item.shootSpeed = 8f;
         }
     }
 }

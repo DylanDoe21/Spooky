@@ -21,7 +21,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage(DamageClass.Melee) += 0.1f;
+			player.GetDamage(DamageClass.Melee) += 0.12f;
 		}
 
         public override void AddRecipes()

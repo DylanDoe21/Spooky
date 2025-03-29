@@ -11,10 +11,7 @@ namespace Spooky.Content.Buffs.Debuff
 	{
 		public override string Texture => "Spooky/Content/Buffs/Debuff/DebuffPlaceholder";
 
-		private bool initializeTime;
-		private int storedTime;
 		private bool initializeStats;
-        private int storedDamage;
         private int storedDefense;
 
 		public override void SetStaticDefaults()
@@ -26,14 +23,6 @@ namespace Spooky.Content.Buffs.Debuff
         {
 			if (!npc.friendly)
             {
-				//save buff time so it can check for when it reaches half duration
-				if (!initializeTime)
-				{
-					storedTime = npc.buffTime[buffIndex];
-
-					initializeTime = true;
-				}
-
 				//fly visuals
 				if (Main.rand.NextBool(50))
 				{
@@ -52,28 +41,18 @@ namespace Spooky.Content.Buffs.Debuff
 
                 npc.lifeRegen -= 5;
 
-				//actual stat decreases when buff is below half duration
-				if (!npc.IsTechnicallyBoss())
+				if (!initializeStats)
 				{
-					if (npc.buffTime[buffIndex] < (storedTime / 2) && npc.buffTime[buffIndex] >= 5)
-					{
-						if (!initializeStats)
-						{
-							storedDamage = npc.damage;
-							storedDefense = npc.defense;
-							npc.damage = (int)(npc.damage * 0.8f);
-							npc.defense = (int)(npc.defense * 0.8f);
+					storedDefense = npc.defense;
+					npc.defense = (int)(npc.defense * 0.8f);
 
-							initializeStats = true;
-						}
-					}
+					initializeStats = true;
+				}
 
-					if (npc.buffTime[buffIndex] < 5)
-					{
-						npc.damage = storedDamage;
-						npc.defense = storedDefense;
-						initializeStats = false;
-					}
+				if (npc.buffTime[buffIndex] < 5)
+				{
+					npc.defense = storedDefense;
+					initializeStats = false;
 				}
 			}
 		}

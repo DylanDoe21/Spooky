@@ -14,6 +14,7 @@ using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.NoseCult;
 using Spooky.Content.NPCs.PandoraBox;
 using System.Threading;
+using Spooky.Content.NPCs.Minibiomes.Ocean;
 
 namespace Spooky.Core
 {
@@ -52,12 +53,47 @@ namespace Spooky.Core
             return false;
         }
 
-        public override void PostUpdateEverything()
+		public bool AnyPlayersInZombieOceanBiome()
+		{
+			foreach (Player player in Main.ActivePlayers)
+			{
+				int playerInBiomeCount = 0;
+
+				if (!player.dead && player.InModBiome(ModContent.GetInstance<ZombieOceanBiome>()))
+				{
+					playerInBiomeCount++;
+				}
+
+				if (playerInBiomeCount >= 1)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public override void PostUpdateEverything()
         {
             if (!IsInSubworld())
             {
-                //spawn daffodil
-                if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()) && Flags.DaffodilPosition != Vector2.Zero)
+				//spawn big dunk, only if a player is in the biome
+                //even though big dunks pathfinding doesnt really affect preformance, still not a good idea to have it running in the background constantly
+				if (!NPC.AnyNPCs(ModContent.NPCType<Dunkleosteus>()) && AnyPlayersInZombieOceanBiome())
+				{
+					int Count = Flags.ZombieBiomePositions.Count - 1;
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int BigDunk = NPC.NewNPC(null, (int)Flags.ZombieBiomePositions[Count].X * 16, (int)Flags.ZombieBiomePositions[Count].Y * 16, ModContent.NPCType<Dunkleosteus>());
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: BigDunk);
+						}
+					}
+				}
+
+				//spawn daffodil
+				if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilBody>()) && Flags.DaffodilPosition != Vector2.Zero)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
 					{

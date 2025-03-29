@@ -147,7 +147,7 @@ namespace Spooky.Content.Generation
             }
 
             //clean out small floating chunks of blocks
-            CleanOutSmallClumps();
+            //CleanOutSmallClumps();
 
             //place dithering around the edge of the biome
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)

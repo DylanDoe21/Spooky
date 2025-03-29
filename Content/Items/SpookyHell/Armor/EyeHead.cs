@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 3;
+			Item.defense = 4;
 			Item.width = 38;
 			Item.height = 28;
 			Item.rare = ItemRarityID.Green;
@@ -32,6 +32,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.EyeArmor");
 			player.GetModPlayer<SpookyPlayer>().EyeArmorSet = true;
+			player.whipRangeMultiplier += 0.15f;
 		}
 
 		public override void UpdateEquip(Player player) 

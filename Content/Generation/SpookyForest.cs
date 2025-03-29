@@ -262,7 +262,8 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			CleanOutSmallClumps();
+			//disabled for now, needs to be optimized later
+			//CleanOutSmallClumps();
 
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, true);
 
@@ -698,8 +699,7 @@ namespace Spooky.Content.Generation
 			}
         }
 
-		//check for a flat surface in the dungeon that also has no tiles above the entire flat space
-		//use to check for a specific width to place individual pieces of furniture, or in other cases multiple pieces of furniture (such as tables with chairs next to them)
+		//check for a flat surface inside of the cabins to place furniture in
 		public bool IsFlatSurface(int PositionX, int PositionY, int Width)
 		{
 			bool AtLeastHasOneWall = false;
@@ -711,7 +711,6 @@ namespace Spooky.Content.Generation
 					AtLeastHasOneWall = true;
 				}
 
-				//check specifically for christmas carpet since the entire floor will be made out of that
 				if ((Main.tile[x, PositionY].TileType == ModContent.TileType<SpookyWood>() || Main.tile[x, PositionY].TileType == ModContent.TileType<OldWoodPlatform>()) && !Main.tile[x, PositionY - 1].HasTile)
 				{
 					continue;
@@ -725,7 +724,7 @@ namespace Spooky.Content.Generation
 			return AtLeastHasOneWall;
 		}
 
-        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
+        //determine if theres no snow or sand blocks nearby so the biome doesnt place in either of those biome
         public static bool CanPlaceBiome(int X, int Y)
         {
             for (int i = X - 300; i < X + 300; i++)
@@ -741,33 +740,6 @@ namespace Spooky.Content.Generation
 
             return true;
         }
-
-		public bool CanPlaceMushroomBiome(int PositionX, int PositionY, int SizeX, int SizeY)
-		{
-			for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
-			{
-				for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
-				{
-					if (Main.tile[i, j].TileType != ModContent.TileType<SpookyStone>())
-					{
-						return false;
-					}
-				}
-			}
-
-			for (int i = PositionX - SizeX * 2; i < PositionX + SizeX * 2; i++)
-			{
-				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j++)
-				{
-					if (Main.tile[i, j].TileType == ModContent.TileType<MushroomMoss>())
-					{
-						return false;
-					}
-				}
-			}
-
-			return true;
-		}
 
 		public bool CanPlaceLootCabin(int PositionX, int PositionY)
 		{

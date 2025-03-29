@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			{
 				if (SkyManager.Instance["Spooky:SpookFishron"]?.IsActive() ?? false)
 				{
-					return ModContent.GetInstance<SpookyWaterStyle>().Slot;
+					return Main.snowMoon ? ModContent.GetInstance<FishronIceWaterStyle>().Slot : ModContent.GetInstance<FishronWaterStyle>().Slot;
 				}
 				
 				return orig(ignoreFountains);

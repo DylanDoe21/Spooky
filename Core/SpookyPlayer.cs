@@ -432,12 +432,9 @@ namespace Spooky.Core
             if (target.active && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type])
             {
                 //inflict enemies with gourd decay while wearing the rotten gourd armor
-                if (GourdSet && hit.DamageType == DamageClass.Melee)
+                if (GourdSet && Main.rand.NextBool(8))
                 {
-                    if (Main.rand.NextBool(8))
-                    {
-                        target.AddBuff(ModContent.BuffType<GourdDecay>(), Main.rand.Next(600, 1200));
-                    }
+                    target.AddBuff(ModContent.BuffType<GourdDecay>(), Main.rand.Next(600, 1200));
                 }
 
                 //spawn eyes when hitting enemies with whips with the living flesh armor

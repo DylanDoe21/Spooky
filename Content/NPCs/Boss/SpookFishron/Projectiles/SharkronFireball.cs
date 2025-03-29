@@ -51,16 +51,13 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
             Projectile.velocity.Y = Projectile.velocity.Y + 1f;
 
-            for (int numDust = 0; numDust < 2; numDust++)
-			{
-                Vector2 dustPosition = Projectile.Center;
-                dustPosition -= Projectile.velocity * ((float)numDust * 0.25f);
-                int dustType = Main.snowMoon ? DustID.IceTorch : DustID.Torch;
-                int dust = Dust.NewDust(dustPosition, 1, 1, dustType, 0f, 0f, 0, default, 2f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].position = dustPosition;
-                Main.dust[dust].velocity *= 0.2f;
-            }
+            Vector2 dustPosition = Projectile.Center;
+            dustPosition -= Projectile.velocity * 0.25f;
+            int dustType = Main.snowMoon ? DustID.IceTorch : DustID.Torch;
+            int dust = Dust.NewDust(dustPosition, 1, 1, dustType, 0f, 0f, 0, default, 2f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].position = dustPosition;
+            Main.dust[dust].velocity *= 0.2f;
         }
 
         public override void OnKill(int timeLeft)

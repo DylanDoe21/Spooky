@@ -28,15 +28,6 @@ namespace Spooky.Content.Biomes
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
 
-		public override void OnInBiome(Player player)
-		{
-			if (!NPC.AnyNPCs(ModContent.NPCType<Dunkleosteus>()))
-			{
-				int Count = Flags.ZombieBiomePositions.Count - 1;
-				NPC.NewNPC(null, (int)Flags.ZombieBiomePositions[Count].X * 16, (int)Flags.ZombieBiomePositions[Count].Y * 16, ModContent.NPCType<Dunkleosteus>());
-			}
-		}
-
 		public override bool IsBiomeActive(Player player)
         {
             Point point = player.Center.ToTileCoordinates();

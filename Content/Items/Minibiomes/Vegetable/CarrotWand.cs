@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Content.Projectiles.Minibiomes.Vegetable;
+
 namespace Spooky.Content.Items.Minibiomes.Vegetable
 {
     public class CarrotWand : ModItem
@@ -24,8 +26,8 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
             Item.UseSound = SoundID.Item8;
-			//Item.shoot = ModContent.ProjectileType<GhostPepperMinion>();
-            //Item.shootSpeed = 0f;
+			Item.shoot = ModContent.ProjectileType<CarrotWandOoze>();
+            Item.shootSpeed = 15f;
         }
     }
 }

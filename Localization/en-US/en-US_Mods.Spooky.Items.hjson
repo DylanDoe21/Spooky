@@ -299,11 +299,7 @@ OrroboroEmbryo: {
 
 PumpkinSpiceLatte: {
 	DisplayName: Pumpkin Spice Latte
-	Tooltip:
-		'''
-		Grants a 12% increase to various stats for 10 seconds
-		Not consumable
-		'''
+	Tooltip: Can be used infinitely
 }
 
 SpiritAmulet: {
@@ -729,17 +725,17 @@ ThornStaff: {
 
 SpiritHorsemanBody: {
 	DisplayName: Spirit Horseman's Chestmail
-	Tooltip: 5% increased damage
+	Tooltip: 15% increased damage
 }
 
 SpiritHorsemanHead: {
 	DisplayName: Spirit Horseman's Pumpkin
-	Tooltip: 5% increased critical strike chance
+	Tooltip: 12% increased critical strike chance
 }
 
 SpiritHorsemanLegs: {
 	DisplayName: Spirit Horseman's Greaves
-	Tooltip: 12% increased movement speed
+	Tooltip: 20% increased movement speed
 }
 
 BackroomsCorpse: {
@@ -1831,17 +1827,17 @@ VenomHarpoon: {
 
 GourdBody: {
 	DisplayName: Rotten Gourd Breastplate
-	Tooltip: 5% increased 10% increased melee damage
+	Tooltip: 12% increased melee damage
 }
 
 GourdHead: {
 	DisplayName: Rotten Gourd Head
-	Tooltip: 5% increased melee critical strike chance
+	Tooltip: 10% increased melee critical strike chance
 }
 
 GourdLegs: {
 	DisplayName: Rotten Gourd Leggings
-	Tooltip: 5% increased melee speed
+	Tooltip: 10% increased melee speed
 }
 
 OldWoodBody: {

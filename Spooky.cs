@@ -89,11 +89,6 @@ namespace Spooky
 				Filters.Scene["Spooky:Vignette"] = new Filter(vignetteShader, (EffectPriority)100);
             }
 
-			if (!Main.dedServ)
-			{
-				BigBone.LoadHeadIcons();
-			}
-
             SpiderCaveBG.Load();
             SpookyHellBG.Load();
         }

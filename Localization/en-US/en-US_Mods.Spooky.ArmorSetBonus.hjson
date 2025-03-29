@@ -17,8 +17,8 @@ SharkBoneArmor:
 	'''
 GourdArmor:
 	'''
-	Melee weapons may inflict decay, which damages enemies over time
-	After a while, decay will also lower their attack and defense
+	Weapons may inflict decay on enemies sometimes 
+	Decay damages enemies over time and lowers their attack and defense
 	'''
 RootArmor: Your ranged projectiles have a chance to heal you
 SpiderArmor:
@@ -30,7 +30,7 @@ SpiderArmor:
 SpiritHorsemanArmor: Your own head will now fight with you!
 EyeArmor:
 	'''
-	10% increased whip range
+	15% increased whip range
 	Hitting enemies with whips will sometimes spawn eyes to deal additional damage
 	'''
 FlowerArmor:
