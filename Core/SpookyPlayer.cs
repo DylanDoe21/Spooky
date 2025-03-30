@@ -655,7 +655,7 @@ namespace Spooky.Core
                 }
             }
 
-			//activate pandora rosary hands healing AI
+			//activate daffodil hairpin petal projectiles
 			if (DaffodilHairpin)
 			{
 				for (int i = 0; i <= Main.maxProjectiles; i++)

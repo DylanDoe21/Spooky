@@ -201,10 +201,10 @@ namespace Spooky.Core
 
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
-			//if the glass eye is staring at an enemy multiply the damage they take from magic items
-			if (npc.HasBuff(ModContent.BuffType<GlassEyeDebuff>()) && modifiers.DamageType == DamageClass.Magic)
+			//if the glass eye is staring at an enemy multiply the damage they take from attacks
+			if (npc.HasBuff(ModContent.BuffType<GlassEyeDebuff>()))
 			{
-				modifiers.FinalDamage *= 1.35f;
+				modifiers.FinalDamage *= 1.25f;
 			}
 		}
 

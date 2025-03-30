@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 13;
+			Item.defense = 14;
 			Item.width = 30;
 			Item.height = 30;
 			Item.rare = ItemRarityID.LightPurple;

@@ -185,7 +185,7 @@ VegetablePepper: {
 	DisplayName: California Reaper
 	Tooltip:
 		'''
-		Grants a 10% increase to your 10% increased melee damage and speed
+		Grants a 10% increase to your melee damage and speed
 		Hitting enemies with melee weapons with inflict them with the pepper's spice
 		Enemies inflicted with this spice will spew out damaging fire around them
 		'''
@@ -1507,8 +1507,8 @@ MagicEyeOrb: {
 	DisplayName: Eyeball of Pondering
 	Tooltip:
 		'''
-		Summons a glass eye that looks at nearby enemies
-		Enemies being looked at will take 35% more damage from your magic attacks
+		Summons a glass eye that will look at a nearby enemy
+		The enemy being looked at will take 25% more damage
 		'''
 }
 

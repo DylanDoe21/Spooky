@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
     [AutoloadBossHead]
     public class BigBone : ModNPC
     {
-        int[] AttackPattern = new int[] { 0, 1, 2, 3, 4 };
+        int[] AttackPattern = new int[] { 0, 1, 2, 3, 4, 5 };
 
         public int ScaleTimerLimit = 12;
         public int SaveDirection;
@@ -470,9 +470,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 //play laughing sound
                 SoundEngine.PlaySound(LaughSound, NPC.Center);
 
-                if (Phase2 && AttackPattern.Length < 6)
+                if (Phase2 && AttackPattern.Length < 7)
                 {
-                    AttackPattern = AttackPattern.Append(5).ToArray();
+                    AttackPattern = AttackPattern.Append(6).ToArray();
                 }
                     
                 //shuffle the attack pattern list
@@ -755,8 +755,51 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //skull wisp attack
+                //orchid seed attack
                 case 1:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 180 && NPC.localAI[0] % 20 == 0)
+                    {
+                        Vector2 RandomPosition = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 2);
+
+                        Vector2 ShootSpeed = player.Center - RandomPosition;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= 27;
+
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, RandomPosition, ShootSpeed, ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: 3);
+                    }
+
+                    if (NPC.localAI[0] >= 360)
+                    {
+                        if (Main.rand.NextBool(3))
+                        {
+                            SoundEngine.PlaySound(GrowlSound1, NPC.Center);
+                        }
+
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
+                        NPC.ai[1]++;
+
+                        if (NPC.ai[1] >= AttackPattern.Length)
+                        {
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0;
+                            NPC.localAI[2] = 0;
+                            NPC.ai[1] = 0;
+                            NPC.ai[2] = 0;
+                        }
+
+                        NPC.netUpdate = true;
+                    }
+
+                    break;
+                }
+
+                //skull wisp attack
+                case 2:
                 {
                     NPC.localAI[0]++;
 
@@ -812,7 +855,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
 
                 //thorn attacks
-                case 2:
+                case 3:
                 {
                     NPC.localAI[0]++;
 
@@ -978,7 +1021,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
 
                 //grow pitcher plants and spit lingering poison
-                case 3:
+                case 4:
                 {
                     NPC.localAI[0]++;
 
@@ -1023,7 +1066,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
 
                 //homing fire ball attack
-                case 4:
+                case 5:
                 {
                     NPC.localAI[0]++;
 
@@ -1118,7 +1161,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 }
 
                 //stay still, then charge and crash into a wall
-                case 5:
+                case 6:
                 {
                     NPC.localAI[0]++;
 
