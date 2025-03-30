@@ -75,6 +75,11 @@ Items:
 -Buffed spooky scroll damage from 15 to 20
 -Pumptergiest projectiles now only spawn if you are holding a weapon, their damage now scales with the damage of that weapon (with a minimum of 30 damage), and reduced the minimum time for a pumpkin to spawn from 6 to 5 seconds
 -Zappy Zucchini lightning now does damage equal to 8% of an enemies maximum health instead of having a flat damage value of 20
+-Increased enemy detection range for the swarm scepter leech minions
+
+
+Armors:
+
 -Rotten gourd armor stat bonuses have been buffed: Head - 10% melee crit, Body - 12% melee damage, Legs - 10% melee speed
 -Rotten gourd armor set bonus no longer applies only to melee weapons, it now works with all weapons
 -Gourd decay debuff from gourd armor now lowers enemy defense along with the damage over time
@@ -92,6 +97,7 @@ Whip Changes:
 -Pheromone stinger extra spider minion damage nerfed from 40% to 20%, but it now gives 10% summon tag critical strike chance for spider minions along with the damage bonus
 -Leecher now has 10 summon tag damage
 -Living eye lasher damage buffed from 75 to 82
+
 
 Magic Weapon Changes:
 

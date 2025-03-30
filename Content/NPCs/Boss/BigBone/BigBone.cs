@@ -270,8 +270,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             var effects = SpriteEffects.None;
 
-            //while charging, use the saved direction and not the actual npc direction
-            if (NPC.ai[0] == 7 && NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
+            //if big bones saved direction is currently saving a direction, then use that for sprite effects
+            if (SaveDirection != 0)
             {
                 effects = SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
@@ -723,7 +723,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 2);
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, 10f * Parent.DirectionTo(new Vector2(Parent.Center.X, Parent.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, 10f * Parent.DirectionTo(ParentTopPos).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
                             ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: Type);
                         }
                     }
@@ -760,18 +760,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 {
                     NPC.localAI[0]++;
 
-                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 180 && NPC.localAI[0] % 20 == 0)
-                    {
-                        Vector2 RandomPosition = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 2);
+                    GoAboveFlowerPot(150);
 
-                        Vector2 ShootSpeed = player.Center - RandomPosition;
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 240 && NPC.localAI[0] % 20 == 0)
+                    {
+                        Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 2);
+
+                        Vector2 ShootSpeed = player.Center - ParentTopPos;
                         ShootSpeed.Normalize();
                         ShootSpeed *= 27;
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, RandomPosition, ShootSpeed, ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: 3);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, ShootSpeed, ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: 3);
                     }
 
-                    if (NPC.localAI[0] >= 360)
+                    if (NPC.localAI[0] >= 420)
                     {
                         if (Main.rand.NextBool(3))
                         {
@@ -1274,6 +1276,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 260)
                     {
+                        SaveDirection = 0;
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
                         NPC.ai[1]++;
@@ -1296,62 +1299,19 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public void GoAboveFlowerPot(float DistanceAbove)
         {
-            float goToX = Main.npc[(int)NPC.ai[3]].Center.X - NPC.Center.X;
-            float goToY = (Main.npc[(int)NPC.ai[3]].Center.Y - DistanceAbove) - NPC.Center.Y;
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
 
-            float speed;
+            float goToX = Parent.Center.X;
+            float goToY = Parent.Center.Y - DistanceAbove;
 
-            if (Vector2.Distance(NPC.Center, Main.npc[(int)NPC.ai[3]].Center) >= 400f)
+            if (Vector2.Distance(NPC.Center, new Vector2(goToX, goToY)) >= 20f)
             {
-                speed = 0.8f;
+                Vector2 desiredVelocity = NPC.DirectionTo(new Vector2(goToX, goToY)) * 8;
+                NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
             }
             else
             {
-                speed = 0.5f;
-            }
-            
-            if (NPC.velocity.X > speed)
-            {
-                NPC.velocity.X *= 0.98f;
-            }
-            if (NPC.velocity.Y > speed)
-            {
-                NPC.velocity.Y *= 0.98f;
-            }
-
-            if (NPC.velocity.X < goToX)
-            {
-                NPC.velocity.X = NPC.velocity.X + speed;
-                if (NPC.velocity.X < 0f && goToX > 0f)
-                {
-                    NPC.velocity.X = NPC.velocity.X + speed;
-                }
-            }
-            else if (NPC.velocity.X > goToX)
-            {
-                NPC.velocity.X = NPC.velocity.X - speed;
-                if (NPC.velocity.X > 0f && goToX < 0f)
-                {
-                    NPC.velocity.X = NPC.velocity.X - speed;
-                }
-            }
-            if (NPC.velocity.Y < goToY)
-            {
-                NPC.velocity.Y = NPC.velocity.Y + speed;
-                if (NPC.velocity.Y < 0f && goToY > 0f)
-                {
-                    NPC.velocity.Y = NPC.velocity.Y + speed;
-                    return;
-                }
-            }
-            else if (NPC.velocity.Y > goToY)
-            {
-                NPC.velocity.Y = NPC.velocity.Y - speed;
-                if (NPC.velocity.Y > 0f && goToY < 0f)
-                {
-                    NPC.velocity.Y = NPC.velocity.Y - speed;
-                    return;
-                }
+                NPC.velocity = Vector2.Zero;
             }
         }
 
