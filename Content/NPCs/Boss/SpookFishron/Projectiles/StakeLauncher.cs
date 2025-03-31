@@ -87,7 +87,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 					position += Offset;
 				}
 
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<Stake>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+				if (Main.netMode != NetmodeID.MultiplayerClient) 
+				{
+					Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, ShootSpeed, ModContent.ProjectileType<Stake>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+				}
+
+				Projectile.netUpdate = true;
 			}
 
 			if (Parent.ai[1] > 4 && Parent.localAI[0] == 420)
@@ -96,7 +101,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				ShootSpeed.Normalize();
 				ShootSpeed *= 55f;
 
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<StakeLauncherSpin>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<StakeLauncherSpin>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+				}
+
+				Projectile.netUpdate = true;
 
 				Projectile.Kill();
 			}

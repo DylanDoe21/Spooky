@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -88,7 +89,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Projectile.frame = 0;
 			}
 			
-			if (Projectile.localAI[0] == 0f && Main.myPlayer == Projectile.owner)
+			if (Projectile.localAI[0] == 0f)
 			{
 				Projectile.position.X += Projectile.width / 2;
 				Projectile.position.Y += Projectile.height / 2;
@@ -121,7 +122,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Projectile.ai[0]--;
 			}
 			
-			if (Projectile.ai[0] == 1f && Projectile.ai[1] > 0f && Projectile.owner == Main.myPlayer)
+			if (Projectile.ai[0] == 1f && Projectile.ai[1] > 0f)
 			{
 				Projectile.netUpdate = true;
 				Vector2 center4 = Projectile.Center;
@@ -130,13 +131,13 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				center4.Y -= (float)BaseHeight * num540 / 2f;
 				center4.Y += 2f;
 
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), center4.X, center4.Y, Projectile.velocity.X, Projectile.velocity.Y, 
+				Projectile.NewProjectile(Projectile.GetSource_FromAI(), center4.X, center4.Y, Projectile.velocity.X, Projectile.velocity.Y, 
 				Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f, Projectile.ai[2]);
 
 				if ((int)Projectile.ai[1] % 3 == 0 && Projectile.ai[1] != 0f)
 				{
 					//spawn a sharkron
-					int Sharkron = NPC.NewNPC(Projectile.GetSource_FromThis(), (int)center4.X + 20, (int)center4.Y + 20, ModContent.NPCType<SpookSharkron>());
+					int Sharkron = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)center4.X + 18, (int)center4.Y + 20, ModContent.NPCType<SpookSharkron>());
 					Main.npc[Sharkron].velocity = Projectile.velocity;
 					Main.npc[Sharkron].netUpdate = true;
 					Main.npc[Sharkron].alpha = 255;

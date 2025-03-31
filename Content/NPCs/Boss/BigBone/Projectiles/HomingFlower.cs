@@ -94,67 +94,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			if (Projectile.ai[0] > Projectile.localAI[0])
 			{
 				Projectile.localAI[1]++;
-            	if (Projectile.localAI[1] >= 30)
+				if (Projectile.localAI[1] < 110)
 				{
-					Projectile.localAI[2]++;
+					Projectile.velocity *= 0.98f;
+				}
 
-					if (Projectile.localAI[2] < 80)
+				if (Projectile.localAI[1] > 110 && Projectile.localAI[1] < 150)
+				{
+					float currentRot = Projectile.velocity.ToRotation();
+					Vector2 direction = target.Center - Projectile.Center;
+					float targetAngle = direction.ToRotation();
+					if (direction == Vector2.Zero)
 					{
-						Projectile.velocity *= 0.98f;
+						targetAngle = currentRot;
 					}
 
-					if (Projectile.localAI[2] > 80 && Projectile.localAI[2] < 120)
-					{
-						if (Projectile.localAI[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-						{
-							homingTarget = -1;
-							float distance = 2000f;
-							for (int k = 0; k < 255; k++)
-							{
-								if (Main.player[k].active && !Main.player[k].dead)
-								{
-									Vector2 center = Main.player[k].Center;
-									float currentDistance = Vector2.Distance(center, Projectile.Center);
-									if (currentDistance < distance || homingTarget == -1)
-									{
-										distance = currentDistance;
-										homingTarget = k;
-									}
-								}
-							}
-							if (homingTarget != -1)
-							{
-								Projectile.localAI[1] = 1;
-								Projectile.netUpdate = true;
-							}
-						}
-						else if (homingTarget >= 0 && homingTarget < Main.maxPlayers)
-						{
-							Player targetPlayer = Main.player[homingTarget];
-							if (!targetPlayer.active || targetPlayer.dead)
-							{
-								homingTarget = -1;
-								Projectile.localAI[1] = 0;
-								Projectile.netUpdate = true;
-							}
-							else
-							{
-								float currentRot = Projectile.velocity.ToRotation();
-								Vector2 direction = targetPlayer.Center - Projectile.Center;
-								float targetAngle = direction.ToRotation();
-								if (direction == Vector2.Zero)
-								{
-									targetAngle = currentRot;
-								}
+					float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
+					Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
 
-								float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
-								Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
-							}
-						}
-
-						Projectile.velocity *= 1.055f;
-					}
-				}	
+					Projectile.velocity *= 1.055f;
+				}
 			}
 		}
 

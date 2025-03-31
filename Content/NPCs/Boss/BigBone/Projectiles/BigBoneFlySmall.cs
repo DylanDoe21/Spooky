@@ -10,7 +10,7 @@ using System;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-    public class BoneWisp : ModProjectile
+    public class BigBoneFlySmall : ModProjectile
     {
         int Offset = Main.rand.Next(-100, 100);
 
@@ -18,14 +18,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 24;
-			Projectile.height = 26;
+            Projectile.width = 20;
+			Projectile.height = 16;
 			Projectile.friendly = false;
             Projectile.hostile = true;
 			Projectile.tileCollide = false;
@@ -39,8 +40,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             AfterImageTexture ??= TextureAssets.Extra[98];
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Green);
-            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Gold);
+            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Gray);
+            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Black);
 
             float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			TrailRotation += 0f * Projectile.direction;
@@ -51,7 +52,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 newColor = Projectile.GetAlpha(newColor);
                 newColor *= 1f;
 
-				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 0.72f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
 
                 for (int repeats = 0; repeats < 2; repeats++)
@@ -65,9 +66,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void AI()
         {
-            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 4)
+            {
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame >= 3)
+                {
+                    Projectile.frame = 0;
+                }
+            }
 
-            Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
+            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
             if (Projectile.alpha > 0)
             {
@@ -137,19 +147,23 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             {
                 Projectile.tileCollide = true;
                 
-                double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, Main.player[Main.myPlayer].position.X - Projectile.position.X);
-                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12;
+                if (Projectile.ai[2] == 0)
+                {
+                    double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, Main.player[Main.myPlayer].position.X - Projectile.position.X);
+                    Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12;
+                }
+                else
+                {
+                    Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
+                    Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
+                    Projectile.velocity = newVelocity;
+                }
             }
         }
 
         public override void OnKill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.DD2_SkeletonHurt, Projectile.Center);
-        
-        	if (Main.netMode != NetmodeID.Server) 
-            {
-                Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/BoneWispGore").Type);
-            }
+            SoundEngine.PlaySound(SoundID.NPCDeath47 with { Volume = 0.25f }, Projectile.Center);
 		}
     }
 }

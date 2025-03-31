@@ -8,6 +8,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -15,7 +16,6 @@ using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
@@ -27,13 +27,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 	{
 		private readonly PathFinding pathfinder = new PathFinding(20);
 
-		int syncTimer = 0;
+		int SyncTimer = 0;
 		int BodyFrame = 0;
 		int BodyFrameCounter = 0;
 		int Aggression = 0;
 
-		bool BiteAnimation = false;
 		int BiteAnimationTimer = 0;
+		bool BiteAnimation = false;
 
 		Vector2 PositionGoTo = Vector2.Zero;
 	 	List<int> BiomePositionDistances = new List<int>();
@@ -68,6 +68,38 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 		}
 
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			//vector2
+			writer.WriteVector2(PositionGoTo);
+
+			//ints
+			writer.Write(SyncTimer);
+			writer.Write(BodyFrame);
+			writer.Write(BodyFrameCounter);
+			writer.Write(BiteAnimationTimer);
+			writer.Write(Aggression);
+
+			//bools
+			writer.Write(BiteAnimation);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			//vector2
+			PositionGoTo = reader.ReadVector2();
+
+			//ints
+			SyncTimer = reader.ReadInt32();
+			BodyFrame = reader.ReadInt32();
+			BodyFrameCounter = reader.ReadInt32();
+			BiteAnimationTimer = reader.ReadInt32();
+			Aggression = reader.ReadInt32();
+
+			//bools
+			BiteAnimation = reader.ReadBoolean();
+		}
+
 		public override void SetDefaults()
 		{
 			NPC.lifeMax = 10000;
@@ -87,12 +119,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ZombieOceanBiome>().Type };
-		}
-
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
-		{
-			NPC.lifeMax = 10000;
-			NPC.damage = 100;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -191,22 +217,12 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			{
 				NPC.ai[1] = 1;
 			}
-
-			if (Aggression > 0)
-			{
-				Aggression += 60;
-			}
 		}
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
 			if (NPC.ai[1] < 1 && Aggression <= 0)
 			{
 				NPC.ai[1] = 1;
-			}
-
-			if (Aggression > 0)
-			{
-				Aggression += 60;
 			}
 		}
 
@@ -337,6 +353,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						{
 							TargetedPlayer = player;
 							NPC.ai[1] = 1;
+							NPC.netUpdate = true;
 						}
 					}
 				}
@@ -385,6 +402,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				if (NPC.ai[1] >= 85)
 				{
 					Aggression = 600;
+					NPC.netUpdate = true;
 				}
 			}
 			
@@ -417,13 +435,30 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//passive roaming pathfinding movement
 			if (Aggression <= 0)
 			{
+				if (Main.rand.NextBool(1000))
+				{
+					SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
+
+					SoundEngine.PlaySound(Main.rand.Next(Sounds), NPC.Center);
+
+					BiteAnimationTimer = 36;
+				}
+
 				//find a random position to go to
 				if (NPC.ai[0] == 0)
 				{
 					int randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
+
+					while (NPC.Distance(Flags.ZombieBiomePositions[randomPoint] * 16) > 2000f)
+					{
+						randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
+					}
+
 					PositionGoTo = Flags.ZombieBiomePositions[randomPoint] * 16;
 
 					NPC.ai[0] = 1;
+
+					NPC.netUpdate = true;
 				}
 				//go to the position
 				else
@@ -466,7 +501,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				}
 				else
 				{
-					if (TargetedPlayer.Distance(NPC.Center) <= 100f)
+					if (TargetedPlayer.Distance(NPC.Center) <= 150f)
 					{
 						BiteAnimationTimer = 36;
 					}
@@ -493,8 +528,14 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 				if (Aggression <= 5)
 				{
+					SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
+
+					SoundEngine.PlaySound(Main.rand.Next(Sounds), NPC.Center);
+
 					Aggression = 0;
 					NPC.ai[2] = 0;
+
+					NPC.netUpdate = true;
 				}
 			}
 		}
@@ -543,6 +584,10 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 								if (flag2)
 								{
 									WorldGen.KillTile(x, y);
+									if (Main.netMode == NetmodeID.MultiplayerClient)
+									{
+										NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, x, y);
+									}
 								}
 							}
 						}
@@ -569,12 +614,14 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 		private void PathfindingMovement(Vector2 position, float Speed, int DistanceCheck, int Iterations, bool FollowingPlayer)
 		{
+			/*
 			// Once every few seconds, sync the npc - bandaid on pathfinder in mp
-			if (++syncTimer > 60)
+			if (++SyncTimer > 60)
 			{
 				NPC.netUpdate = true;
-				syncTimer = 0;
+				SyncTimer = 0;
 			}
+			*/
 
 			bool FindClosestNode = false;
 
@@ -608,6 +655,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 											{
 												FindClosestNode = true;
 												BiomePositionDistances.Clear();
+												NPC.netUpdate = true;
+											}
+											else
+											{
+												NPC.ai[0] = 0;
 											}
 										}
 									}

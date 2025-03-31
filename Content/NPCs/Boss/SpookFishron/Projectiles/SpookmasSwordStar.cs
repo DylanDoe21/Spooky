@@ -62,7 +62,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
+			Player player = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
 
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f;
 

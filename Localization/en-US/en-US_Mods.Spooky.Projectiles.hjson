@@ -488,9 +488,6 @@ RadishYoyoProj.DisplayName: Razor Radish
 BouncingFlower.DisplayName: Bouncing Flower
 BigBoneThorn.DisplayName: Magic Thorn
 BigBoneThornTelegraph.DisplayName: Telegraph
-BoneWisp.DisplayName: Bone Wisp
-BouncingBone.DisplayName: Bouncing Bone
-FlamingWisp.DisplayName: Flaming Wisp
 FlowerSpore.DisplayName: Flower Spore
 GiantFlameBall.DisplayName: Flame Ball
 HomingFlower.DisplayName: Homing Flower
@@ -503,3 +500,5 @@ Pitcher2.DisplayName: Pitcher Plant
 PitcherOoze1.DisplayName: Poisonous Ooze
 PitcherOoze2.DisplayName: Venomous Ooze
 GrowingOrchid.DisplayName: Growing Orchid
+BigBoneFlyBig.DisplayName: Fly
+BigBoneFlySmall.DisplayName: Fly

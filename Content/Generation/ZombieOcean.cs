@@ -119,7 +119,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 4) * 5, (SizeYInt + 4) * 3, 1f, false, false);
+			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 6) * 5, (SizeYInt + 6) * 3, 1f, false, false);
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
@@ -229,7 +229,7 @@ namespace Spooky.Content.Generation
 			int Increment = PositionX > (Main.maxTilesX / 2) ? 1 : -1;
 
 			float RandomCaveDistance = 50; //WorldGen.genRand.Next(50, 75);
-			int Distance = 28;
+			int Distance = 35;
 
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j += 10)
 			{
@@ -284,7 +284,7 @@ namespace Spooky.Content.Generation
 							continue;
 						}
 
-						if (WorldGen.genRand.NextBool())
+						if (WorldGen.InWorld(i, j, 40))
 						{
 							int OvalSizeX = WorldGen.genRand.Next(16, 19);
 							int OvalSizeY = WorldGen.genRand.Next(8, 14);
@@ -313,7 +313,7 @@ namespace Spooky.Content.Generation
 				{
 					int MinDistanceIndex = GetClosestNodeIndex(Flags.ZombieBiomePositions[i]);
 
-					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[MinDistanceIndex] - new Vector2(0, 5), 5, false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[MinDistanceIndex] - new Vector2(0, 5), 6, false);
 				}
 			}
 
@@ -438,21 +438,21 @@ namespace Spooky.Content.Generation
 						//floor tiles
 						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile)
 						{
-							//light plants
-							if (WorldGen.genRand.NextBool(22))
-							{
-								ushort[] LightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlant1>(), (ushort)ModContent.TileType<LightPlant2>(), (ushort)ModContent.TileType<LightPlant3>() };
-
-								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(LightPlants));
-							}
-
 							//big light plants
-							if (WorldGen.genRand.NextBool(30))
+							if (WorldGen.genRand.NextBool(20))
 							{
 								ushort[] BigLightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlantBig1>(), (ushort)ModContent.TileType<LightPlantBig2>(), 
 								(ushort)ModContent.TileType<LightPlantBig3>(), (ushort)ModContent.TileType<LightPlantBig4>() };
 
 								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(BigLightPlants));
+							}
+
+							//light plants
+							if (WorldGen.genRand.NextBool(15))
+							{
+								ushort[] LightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlant1>(), (ushort)ModContent.TileType<LightPlant2>(), (ushort)ModContent.TileType<LightPlant3>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(LightPlants));
 							}
 
 							//corals

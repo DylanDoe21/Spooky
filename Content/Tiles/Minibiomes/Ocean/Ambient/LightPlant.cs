@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 			Tile tile = Framing.GetTileSafely(i, j);
             if (tile.TileFrameY == 0)
             {
-				float divide = 500f;
+				float divide = 800f;
 
 				r = 255f / divide;
 				g = 196f / divide;

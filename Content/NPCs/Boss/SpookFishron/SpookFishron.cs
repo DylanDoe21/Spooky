@@ -640,6 +640,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						{
 							NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
 							NPC.localAI[2] = Main.rand.Next(-350, 150);
+							NPC.netUpdate = true;
 						}
 
 						if (NPC.localAI[0] > 2 && NPC.localAI[0] < 150)
@@ -765,6 +766,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					if (NPC.localAI[0] == 2)
 					{
 						NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-500, -400) : Main.rand.Next(400, 500);
+						NPC.netUpdate = true;
 					}
 
 					if (NPC.localAI[0] > 2 && NPC.localAI[0] < 60)
@@ -841,8 +843,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						{
 							for (int numProjs = 0; numProjs <= 2; numProjs++)
 							{
-								float SpreadX = Phase2 ? 0 : Main.rand.Next(-1, 2);
-								float SpreadY = Phase2 ? 0 : Main.rand.Next(-1, 2);
+								float SpreadX = Phase2 ? Main.rand.Next(-1, 2) : Main.rand.Next(-2, 3);
+								float SpreadY = Phase2 ? Main.rand.Next(-1, 2) : Main.rand.Next(-2, 3);
 
 								NPCGlobalHelper.ShootHostileProjectile(NPC, position, new Vector2(ShootSpeed.X + SpreadX, ShootSpeed.Y + SpreadY), ModContent.ProjectileType<SpookyFlames>(), NPC.damage, 4.5f);
 							}
@@ -880,6 +882,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					{
 						NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-450, -400) : Main.rand.Next(400, 450);
 						NPC.localAI[2] = Main.rand.Next(-400, -200);
+						NPC.netUpdate = true;
 					}
 
 					if (NPC.localAI[0] > 2)
@@ -924,12 +927,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						//tornado in phase 1
 						if (!Phase2)
 						{
-							NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SpookyTornadoSpawner>(), NPC.damage, 4.5f);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SpookyTornadoSpawner>(), NPC.damage, 4.5f, ai1 : player.whoAmI);
 						}
 						//tornado bolt in phase 2 becomes fully homing
 						else
 						{
-							NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SpookyTornadoSpawner>(), NPC.damage, 4.5f, 1);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SpookyTornadoSpawner>(), NPC.damage, 4.5f, ai0 : 1, ai1 : player.whoAmI);
 						}
 					}
 
@@ -959,6 +962,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					if (NPC.localAI[0] == 2)
 					{
 						NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
+						NPC.netUpdate = true;
 					}
 
 					if (NPC.localAI[0] > 2 && NPC.localAI[0] < 60)
@@ -1013,6 +1017,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 										CurrentFrameX = 2;
 										NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
 										NPC.localAI[2] = Main.rand.Next(-350, 0);
+										NPC.netUpdate = true;
 									}
 									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
 									{
@@ -1067,6 +1072,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 										CurrentFrameX = 2;
 										NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
 										NPC.localAI[2] = Main.rand.Next(-350, 0);
+										NPC.netUpdate = true;
 									}
 									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 360)
 									{
@@ -1207,6 +1213,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 									{
 										CurrentFrameX = 2;
 										NPC.localAI[1] = player.Center.X > NPC.Center.X ? -600 : 600;
+										NPC.netUpdate = true;
 									}
 
 									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
@@ -1275,6 +1282,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 										CurrentFrameX = 2;
 										NPC.localAI[1] = player.Center.X > NPC.Center.X ? Main.rand.Next(-550, -450) : Main.rand.Next(450, 550);
 										NPC.localAI[2] = Main.rand.Next(-350, 0);
+										NPC.netUpdate = true;
 									}
 									if (NPC.localAI[0] > 240 && NPC.localAI[0] < 300)
 									{
@@ -1306,6 +1314,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 								if (NPC.localAI[0] == 240)
 								{
 									NPC.localAI[1] = player.Center.X > NPC.Center.X ? -660 : 660;
+									NPC.netUpdate = true;
 								}
 
 								if (NPC.localAI[0] > 240 && NPC.localAI[0] < 450)

@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
+			Player player = Main.player[(int)Projectile.ai[1]];
 
 			Projectile.rotation += 1f * (float)Projectile.direction;
 
@@ -110,11 +110,6 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			}
 		}
 
-		public override void OnHitPlayer(Player target, Player.HurtInfo info)
-		{
-			Projectile.Kill();
-		}
-
 		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item88, Projectile.Center);
@@ -140,7 +135,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 			int TornadoSize = Projectile.ai[0] > 0 ? 50 : 25;
 
-			Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpookyTornado>(), Projectile.damage, 2f, Main.myPlayer, TornadoSize, TornadoSize - 1, TornadoSize);
+			Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpookyTornado>(), Projectile.damage, 2f, (int)Projectile.ai[1], TornadoSize, TornadoSize - 1, TornadoSize);
 		}
 	}
 }

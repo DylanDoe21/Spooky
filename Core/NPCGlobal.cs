@@ -300,7 +300,7 @@ namespace Spooky.Core
 			}
 		}
 
-        //check for npcs that arent considered full bosses internally or are segments/pieces of bosses
+        //check for npcs that arent considered bosses internally or are segments/pieces of bosses
         public static bool IsTechnicallyBoss(this NPC npc)
 		{
 			int type = npc.type;

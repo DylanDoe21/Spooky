@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 		public override void AI()
 		{
 			NPC Parent = Main.npc[(int)Projectile.ai[0]];
-			Player player = Main.player[Parent.target];
+			Player player = Main.player[Projectile.owner];
 
 			if (!Parent.active || Parent.type != ModContent.NPCType<SpookFishron>())
 			{
@@ -111,6 +111,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				Vector2 position = new Vector2(152, 0).RotatedBy(Parent.rotation + MathHelper.PiOver2) + Parent.Center;
 
 				Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, Vector2.Zero, ModContent.ProjectileType<SpookmasSwordStar>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+			
+				Projectile.netUpdate = true;
 			}
 
 			if (Parent.ai[1] > 2 && Parent.localAI[0] == 420)
@@ -120,6 +122,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				ShootSpeed *= 55f;
 
 				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<SpookmasSwordSpin>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+
+				Projectile.netUpdate = true;
 
 				Projectile.Kill();
 			}

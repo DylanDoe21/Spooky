@@ -47,22 +47,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 if (NPC.ai[0] == 1)
                 {
                     SaveNPCPosition = NPC.Center;
-                    
-                    //shoot dirt particles up
-                    for (int numDusts = 0; numDusts < 15; numDusts++)
-                    {                                                                                  
-                        int dirtDust = Dust.NewDust(new Vector2(NPC.Center.X + Main.rand.Next(-60, 10), NPC.Center.Y - 90), 
-                        NPC.width / 2, NPC.height / 2, DustID.Dirt, 0f, -2f, 0, default, 1.5f);
-
-                        Main.dust[dirtDust].noGravity = false;
-                        Main.dust[dirtDust].velocity.Y *= Main.rand.Next(10, 20);
-                        
-                        if (Main.dust[dirtDust].position != NPC.Center)
-                        {
-                            Main.dust[dirtDust].velocity = NPC.DirectionTo(Main.dust[dirtDust].position) * 2f;
-                        }
-                    }
-
                     NPC.netUpdate = true;
                 }
 
@@ -109,14 +93,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
                     
-                    NPC.ai[2] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
+                    int BigBone = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
                     
-                    NetMessage.SendData(MessageID.SyncNPC, number: (int)NPC.ai[2]);
-
-                    NPC.netUpdate = true;
+                    NetMessage.SendData(MessageID.SyncNPC, number: BigBone);
 
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;
+                    
                     NPC.netUpdate = true;
                 }
             }

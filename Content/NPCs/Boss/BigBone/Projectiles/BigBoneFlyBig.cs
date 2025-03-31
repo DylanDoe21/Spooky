@@ -8,11 +8,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Content.NPCs.Catacomb;
-
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-    public class FlamingWisp : ModProjectile
+    public class BigBoneFlyBig : ModProjectile
     {
         int Offset = Main.rand.Next(-100, 100);
 
@@ -20,13 +18,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 24;
+            Projectile.width = 28;
 			Projectile.height = 26;
 			Projectile.friendly = false;
             Projectile.hostile = true;
@@ -41,21 +40,21 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             AfterImageTexture ??= TextureAssets.Extra[98];
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
 
-            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.OrangeRed);
-            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
+            Color color1 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Gray);
+            Color color2 = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Black);
 
             float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			TrailRotation += 0f * Projectile.direction;
 
-			for (int oldPos = 1; oldPos < Projectile.oldPos.Length; oldPos++)
+			for (int oldPos = 2; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                Color newColor = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Color newColor = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 newColor = Projectile.GetAlpha(newColor);
                 newColor *= 1f;
 
-				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 0.8f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                
+
                 for (int repeats = 0; repeats < 2; repeats++)
                 {
                     Main.EntitySpriteDraw(AfterImageTexture.Value, drawPos, null, newColor, TrailRotation, AfterImageTexture.Size() / 2f, scale, SpriteEffects.None);
@@ -65,16 +64,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             return true;
         }
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(BuffID.OnFire, 300);
-        }
-
         public override void AI()
         {
-            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 4)
+            {
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame >= 3)
+                {
+                    Projectile.frame = 0;
+                }
+            }
 
-            Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
+            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
             if (Projectile.alpha > 0)
             {
@@ -97,7 +100,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             {
                 NPC Parent = Main.npc[(int)Projectile.ai[1]];
 
-                if (Parent.active && (Parent.type == ModContent.NPCType<BigBone>() || Parent.type == ModContent.NPCType<CatacombGuardian>()))
+                if (Parent.active && Parent.type == ModContent.NPCType<BigBone>())
                 {
                     float goToX = Parent.Center.X + Offset - Projectile.Center.X;
                     float goToY = Parent.Center.Y + Offset - Projectile.Center.Y;
@@ -144,20 +147,23 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             {
                 Projectile.tileCollide = true;
                 
-                Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
-                Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
-                Projectile.velocity = newVelocity;
+                if (Projectile.ai[2] == 0)
+                {
+                    double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - Projectile.position.Y, Main.player[Main.myPlayer].position.X - Projectile.position.X);
+                    Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12;
+                }
+                else
+                {
+                    Vector2 Speed = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
+                    Vector2 newVelocity = Speed.RotatedBy(2 * Math.PI / 2 * (Main.rand.NextDouble() - 0.5));
+                    Projectile.velocity = newVelocity;
+                }
             }
         }
 
         public override void OnKill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.DD2_SkeletonHurt, Projectile.Center);
-        
-        	if (Main.netMode != NetmodeID.Server) 
-            {
-                Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/FlamingWispGore").Type);
-            }
+            SoundEngine.PlaySound(SoundID.NPCDeath47 with { Volume = 0.25f }, Projectile.Center);
 		}
     }
 }

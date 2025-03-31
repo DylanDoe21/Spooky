@@ -91,7 +91,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 		public override void AI()
 		{		
-			Player player = Main.player[Projectile.owner];
+			Player player = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
 
 			Lighting.AddLight(Projectile.Center, 1.5f, 0.8f, 0f);
 

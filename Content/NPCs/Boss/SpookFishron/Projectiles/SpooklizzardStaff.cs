@@ -111,6 +111,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<SpooklizzardStaffSpin>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
 
+				Projectile.netUpdate = true;
+
 				Projectile.Kill();
 			}
 		}

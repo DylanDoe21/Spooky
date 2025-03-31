@@ -84,7 +84,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 		public override void AI()
 		{
 			NPC Parent = Main.npc[(int)Projectile.ai[0]];
-			Player player = Main.player[Parent.target];
+			Player player = Main.player[Projectile.owner];
 
 			if (!Parent.active || Parent.type != ModContent.NPCType<SpookFishron>())
 			{
@@ -118,7 +118,10 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 				Vector2 ProjectileShootPos = new Vector2(Projectile.Center.X + (Projectile.velocity.X < 0 ? -45 : 45), Projectile.Center.Y);
 
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), ProjectileShootPos, ShootSpeed, ModContent.ProjectileType<SpookySwordPumpkin>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+				if (Main.netMode != NetmodeID.MultiplayerClient) 
+				{
+					Projectile.NewProjectile(Projectile.GetSource_FromAI(), ProjectileShootPos, ShootSpeed, ModContent.ProjectileType<SpookySwordPumpkin>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+				}
 			}
 			
 			//reset the swords AI value to it shoots again next charge attack
@@ -133,7 +136,12 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 				ShootSpeed.Normalize();
 				ShootSpeed *= 55f;
 
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<SpookySwordSpin>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+				if (Main.netMode != NetmodeID.MultiplayerClient) 
+				{
+					Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<SpookySwordSpin>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+				}
+
+				Projectile.netUpdate = true;
 
 				Projectile.Kill();
 			}

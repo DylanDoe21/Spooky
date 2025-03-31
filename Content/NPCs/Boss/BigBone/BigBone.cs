@@ -60,6 +60,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         private static Asset<Texture2D> GlowTexture4;
         private static Asset<Texture2D> ShieldTexture;
 
+        public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
         public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl1", SoundType.Sound);
         public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl2", SoundType.Sound);
         public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl3", SoundType.Sound);
@@ -762,9 +763,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(150);
 
-                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 240 && NPC.localAI[0] % 20 == 0)
+                    int ShootFrequency = Phase2 ? 14 : 20;
+
+                    if (NPC.localAI[0] >= 120 && NPC.localAI[0] <= 240 && NPC.localAI[0] % ShootFrequency == 0)
                     {
-                        Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 2);
+                        Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 7);
 
                         Vector2 ShootSpeed = player.Center - ParentTopPos;
                         ShootSpeed.Normalize();
@@ -800,7 +803,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //skull wisp attack
+                //flies attack
                 case 2:
                 {
                     NPC.localAI[0]++;
@@ -809,11 +812,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 195)
                     {
-                        int WispChance = Phase2 ? 3 : 5;
+                        int ShootChance = Phase2 ? 2 : 5;
 
-                        if (Main.rand.NextBool(WispChance))
+                        if (Main.rand.NextBool(ShootChance))
                         {
-                            SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
+                            SoundEngine.PlaySound(FlySound, NPC.Center);
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
@@ -821,10 +824,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             ShootSpeed.X *= Main.rand.Next(-12, 12);
                             ShootSpeed.Y *= Main.rand.Next(-12, 12);
 
-                            int ProjType = Phase2 ? ModContent.ProjectileType<FlamingWisp>() : ModContent.ProjectileType<BoneWisp>();
+                            int ProjType = Main.rand.NextBool() ? ModContent.ProjectileType<BigBoneFlyBig>() : ModContent.ProjectileType<BigBoneFlySmall>();
+                            int ShootType = Phase2 ? 1 : 0;
 
                             NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100)), 
-                            ShootSpeed, ProjType, NPC.damage, 4.5f, ai1: NPC.whoAmI);
+                            ShootSpeed, ProjType, NPC.damage, 4.5f, ai1: NPC.whoAmI, ai2: ShootType);
                         }
                     }
 
@@ -907,19 +911,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             if (NPC.localAI[0] == 120)
                             {
                                 SoundEngine.PlaySound(MagicCastSound, NPC.Center);
-
-                                //recoil
-                                Vector2 Recoil = player.Center - NPC.Center;
-                                Recoil.Normalize();
-                                        
-                                Recoil.X *= -10;
-                                Recoil.Y *= -10;
-                                NPC.velocity.X = Recoil.X;
-                                NPC.velocity.Y = Recoil.Y;
                             }
 
                             if (NPC.localAI[0] >= 125)
                             {
+                                NPC.velocity *= 0.8f;
+
                                 if (NPC.localAI[1] == 3)
                                 {
                                     NPC.localAI[0] = 0;
@@ -1029,7 +1026,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     GoAboveFlowerPot(150);
 
-                    int ShootFrequency = Phase2 ? 7 : 15;
+                    int ShootFrequency = Phase2 ? 8 : 15;
 
                     if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 180 && NPC.localAI[0] % ShootFrequency == 0)
                     {
@@ -1081,14 +1078,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
 
-                            //recoil
-                            Vector2 Recoil = player.Center - NPC.Center;
-                            Recoil.Normalize();
-                                    
-                            Recoil.X *= -15;
-                            Recoil.Y *= -15;
-                            NPC.velocity.X = Recoil.X;
-                            NPC.velocity.Y = Recoil.Y;
+                            NPC.velocity = -Vector2.Normalize(player.Center - NPC.Center) * Main.rand.Next(15, 23);
+
+                            NPC.velocity *= 0.8f;
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
@@ -1113,11 +1105,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
 
-                            //recoil
-                            Vector2 Recoil = player.Center - NPC.Center;
-                            Recoil.Normalize();
-                            Recoil *= -20;
-                            NPC.velocity = Recoil;
+                            NPC.velocity = -Vector2.Normalize(player.Center - NPC.Center) * Main.rand.Next(15, 23);
+
+                            NPC.velocity *= 0.8f;
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
@@ -1306,12 +1296,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             if (Vector2.Distance(NPC.Center, new Vector2(goToX, goToY)) >= 20f)
             {
-                Vector2 desiredVelocity = NPC.DirectionTo(new Vector2(goToX, goToY)) * 8;
+                Vector2 desiredVelocity = NPC.DirectionTo(new Vector2(goToX, goToY)) * 13;
                 NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
             }
             else
             {
-                NPC.velocity = Vector2.Zero;
+                NPC.velocity *= 0.85f;
             }
         }
 
