@@ -284,7 +284,7 @@ namespace Spooky.Content.Generation
 							continue;
 						}
 
-						if (WorldGen.InWorld(i, j, 40))
+						if (WorldGen.InWorld(i, j, 80))
 						{
 							int OvalSizeX = WorldGen.genRand.Next(16, 19);
 							int OvalSizeY = WorldGen.genRand.Next(8, 14);

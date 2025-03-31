@@ -35,6 +35,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		int BiteAnimationTimer = 0;
 		bool BiteAnimation = false;
 
+		int RoarAnimationTimer = 0;
+		bool RoarAnimation = false;
+
 		Vector2 PositionGoTo = Vector2.Zero;
 	 	List<int> BiomePositionDistances = new List<int>();
 
@@ -78,10 +81,12 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			writer.Write(BodyFrame);
 			writer.Write(BodyFrameCounter);
 			writer.Write(BiteAnimationTimer);
+			writer.Write(RoarAnimationTimer);
 			writer.Write(Aggression);
 
 			//bools
 			writer.Write(BiteAnimation);
+			writer.Write(RoarAnimation);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -94,10 +99,12 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			BodyFrame = reader.ReadInt32();
 			BodyFrameCounter = reader.ReadInt32();
 			BiteAnimationTimer = reader.ReadInt32();
+			RoarAnimationTimer = reader.ReadInt32();
 			Aggression = reader.ReadInt32();
 
 			//bools
 			BiteAnimation = reader.ReadBoolean();
+			RoarAnimation = reader.ReadBoolean();
 		}
 
 		public override void SetDefaults()
@@ -144,12 +151,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			Vector2 drawOrigin = new Vector2(BodyTexture.Width() * 0.5f, (BodyTexture.Height() / 8) * 0.5f);
 			spriteBatch.Draw(BodyTexture.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, NPC.oldRot[NPC.oldPos.Length - 1], drawOrigin, NPC.scale, effects, 0);
 
-			if (NPC.ai[1] <= 0 && Aggression <= 0 && !BiteAnimation)
+			//draw extra body texture when its mouth isnt open so it doesnt look odd when rotating while passively swimming
+			if (NPC.ai[1] <= 0 && Aggression <= 0 && !BiteAnimation && !RoarAnimation)
 			{
 				spriteBatch.Draw(BodyTexture2.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, NPC.oldRot[NPC.oldPos.Length - 1], drawOrigin, NPC.scale, effects, 0);
 			}
 
-			//draw head
+			//draw head and glowmask
 			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 			spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 
@@ -160,7 +168,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
         {
             NPC.frameCounter++;
 
-			if (!BiteAnimation)
+			if (!BiteAnimation && !RoarAnimation)
 			{
 				if (NPC.ai[2] <= 0 && Aggression <= 0)
 				{
@@ -192,7 +200,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					}
 				}
 			}
-			else
+			else if (BiteAnimation)
 			{
 				if (NPC.frame.Y < frameHeight * 5)
 				{
@@ -207,6 +215,34 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				if (NPC.frame.Y >= frameHeight * 14)
 				{
 					NPC.frame.Y = 0 * frameHeight;
+				}
+			}
+			else if (RoarAnimation)
+			{
+				if (NPC.frame.Y < frameHeight * 9 || NPC.frame.Y >= frameHeight * 14)
+				{
+					NPC.frame.Y = 8 * frameHeight;
+				}
+
+				if (NPC.frameCounter > 8)
+				{
+					NPC.frame.Y = NPC.frame.Y + frameHeight;
+					NPC.frameCounter = 0;
+				}
+
+				if (RoarAnimationTimer < 25)
+				{
+					if (NPC.frame.Y >= frameHeight * 14)
+					{
+						NPC.frame.Y = 0 * frameHeight;
+					}
+				}
+				else
+				{
+					if (NPC.frame.Y >= frameHeight * 13 && NPC.frame.Y < frameHeight * 14)
+					{
+						NPC.frame.Y = 10 * frameHeight;
+					}
 				}
 			}
         }
@@ -281,6 +317,16 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			else
 			{
 				BiteAnimation = false;
+			}
+
+			if (RoarAnimationTimer > 0)
+			{
+				RoarAnimation = true;
+				RoarAnimationTimer--;
+			}
+			else
+			{
+				RoarAnimation = false;
 			}
 	
 			float RotateDirection = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + MathHelper.TwoPi;
@@ -435,13 +481,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//passive roaming pathfinding movement
 			if (Aggression <= 0)
 			{
-				if (Main.rand.NextBool(1000))
+				if (Main.rand.NextBool(1500) && RoarAnimationTimer <= 0)
 				{
 					SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
 
 					SoundEngine.PlaySound(Main.rand.Next(Sounds), NPC.Center);
 
-					BiteAnimationTimer = 36;
+					RoarAnimationTimer = 75;
 				}
 
 				//find a random position to go to
@@ -531,6 +577,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
 
 					SoundEngine.PlaySound(Main.rand.Next(Sounds), NPC.Center);
+
+					RoarAnimationTimer = 75;
 
 					Aggression = 0;
 					NPC.ai[2] = 0;
