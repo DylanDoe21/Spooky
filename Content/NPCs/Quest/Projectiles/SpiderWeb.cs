@@ -1,63 +1,104 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Quest.Projectiles
 {
     public class SpiderWeb : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/SpiderCave/CannonEggBig";
+        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
+
+        bool runOnce = true;
+		Vector2[] trailLength = new Vector2[8];
 
 		private static Asset<Texture2D> ProjTexture;
-
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-        }
-
+		
         public override void SetDefaults()
         {
-            Projectile.width = 18;
+			Projectile.width = 18;
             Projectile.height = 18;
-            Projectile.friendly = false;
-            Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 180;
-            Projectile.penetrate = 1;
-        }
+            Projectile.ignoreWater = false;
+            Projectile.timeLeft = 45;
+            Projectile.alpha = 255;
+		}
 
         public override bool PreDraw(ref Color lightColor)
-        {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+		{
+			if (runOnce)
+			{
+				return false;
+			}
 
-            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
-            {
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
-                Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
-            }
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 previousPosition = Projectile.Center;
 
-            return true;
-        }
+			for (int k = 0; k < trailLength.Length; k++)
+			{
+				Color color = Color.White.MultiplyRGBA(lightColor);
+                color *= (Projectile.timeLeft) / 90f;
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(BuffID.Slow, 180);
-        }
+				if (trailLength[k] == Vector2.Zero)
+				{
+					return true;
+				}
+
+				Vector2 drawPos = trailLength[k] - Main.screenPosition;
+				Vector2 currentPos = trailLength[k];
+				Vector2 betweenPositions = previousPosition - currentPos;
+
+				float max = betweenPositions.Length();
+
+				for (int i = 0; i < max; i++)
+				{
+					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
+
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
+				}
+
+				previousPosition = currentPos;
+			}
+
+			return true;
+		}
 
         public override void AI()
-        {   
-            Projectile.rotation += 0.35f * (float)Projectile.direction;
+        {
+            Projectile.velocity.Y += 0.1f;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.05f;
-        }
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+
+            if (runOnce)
+			{
+				for (int i = 0; i < trailLength.Length; i++)
+				{
+					trailLength[i] = Vector2.Zero;
+				}
+				runOnce = false;
+			}
+
+			Vector2 current = Projectile.Center;
+			for (int i = 0; i < trailLength.Length; i++)
+			{
+				Vector2 previousPosition = trailLength[i];
+				trailLength[i] = current;
+				current = previousPosition;
+			}
+		}
     }
 }
+     
+          
+
+
+
+
+
+

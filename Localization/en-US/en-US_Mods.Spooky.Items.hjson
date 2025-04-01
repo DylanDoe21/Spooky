@@ -3187,9 +3187,19 @@ ChristmasBrickWallItem: {
 	Tooltip: ""
 }
 
+ChristmasBrickWallUnsafeItem: {
+	DisplayName: Nefarious Red Yuletide Brick Wall
+	Tooltip: A nefarious segment of yultide brick wall that will spawn monsters
+}
+
 ChristmasBrickWallAltItem: {
 	DisplayName: Blue Yuletide Brick Wall
 	Tooltip: ""
+}
+
+ChristmasBrickWallAltUnsafeItem: {
+	DisplayName: Nefarious Blue Yuletide Brick Wall
+	Tooltip: A nefarious segment of yultide brick wall that will spawn monsters
 }
 
 ChristmasCarpetItem: {

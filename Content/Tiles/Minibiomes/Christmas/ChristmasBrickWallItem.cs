@@ -9,6 +9,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 400;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ChristmasBrickWallUnsafeItem>();
         }
 
         public override void SetDefaults()
@@ -32,6 +33,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 400;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ChristmasBrickWallAltUnsafeItem>();
         }
 
         public override void SetDefaults()

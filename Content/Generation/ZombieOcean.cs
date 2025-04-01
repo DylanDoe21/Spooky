@@ -228,8 +228,8 @@ namespace Spooky.Content.Generation
 			int EndX = PositionX > (Main.maxTilesX / 2) ? PositionX + SizeX * 4 : PositionX - SizeX * 4;
 			int Increment = PositionX > (Main.maxTilesX / 2) ? 1 : -1;
 
-			float RandomCaveDistance = 50; //WorldGen.genRand.Next(50, 75);
-			int Distance = 35;
+			float MinDistanceBetweenCaves = 47;
+			int ValidTileCheckDistance = 32;
 
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j += 10)
 			{
@@ -245,7 +245,7 @@ namespace Spooky.Content.Generation
 						}
 
 						bool DontPlace = false;
-						for (int x = i - Distance; x <= i + Distance; x++)
+						for (int x = i - ValidTileCheckDistance; x <= i + ValidTileCheckDistance; x++)
 						{
 							if (!BlockTypes.Contains(Framing.GetTileSafely(x, j).TileType))
 							{
@@ -253,7 +253,7 @@ namespace Spooky.Content.Generation
 								break;
 							}
 						}
-						for (int y = j - Distance; y <= j + Distance; y++)
+						for (int y = j - ValidTileCheckDistance; y <= j + ValidTileCheckDistance; y++)
 						{
 							if (!BlockTypes.Contains(Framing.GetTileSafely(i, y).TileType))
 							{
@@ -272,7 +272,7 @@ namespace Spooky.Content.Generation
 
 						foreach (var ExistingPosition in Flags.ZombieBiomePositions)
 						{
-							if (Vector2.DistanceSquared(PositionToCheck, ExistingPosition) < RandomCaveDistance * RandomCaveDistance)
+							if (Vector2.DistanceSquared(PositionToCheck, ExistingPosition) < MinDistanceBetweenCaves * MinDistanceBetweenCaves)
 							{
 								tooClose = true;
 								break;

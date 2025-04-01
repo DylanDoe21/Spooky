@@ -10,14 +10,13 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 {
     public class SpiderMissile : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
-
 		int target;
 
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[12];
 
 		private static Asset<Texture2D> ProjTexture;
+        private static Asset<Texture2D> TrailTexture;
 
         public override void SetDefaults()
         {
@@ -37,9 +36,9 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 				return false;
 			}
 
-			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailSquare");
 
-			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 drawOrigin = new(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
 			Vector2 previousPosition = Projectile.Center;
 
 			for (int k = 0; k < trailLength.Length; k++)
@@ -68,17 +67,27 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 					float x = Main.rand.Next(-2, 3) * scale;
 					float y = Main.rand.Next(-2, 3) * scale;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), null, color, Projectile.rotation, drawOrigin, scale * 1.2f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos + new Vector2(x, y), null, color, Projectile.rotation, drawOrigin, scale * 1.2f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
 			}
+
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin2 = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin2, Projectile.scale, SpriteEffects.None, 0);
 
 			return true;
 		}
 
 		public override void AI()
         {
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			Projectile.rotation += 0f * (float)Projectile.direction;
+
             Lighting.AddLight(Projectile.Center, 0.4f, 0.3f, 0f);
 
 			if (runOnce)

@@ -326,23 +326,28 @@ namespace Spooky.Content.NPCs.Quest
 						}
 					}
 
-					if (NPC.localAI[0] == 180 || NPC.localAI[0] == 210 || NPC.localAI[0] == 240)
+					if (NPC.localAI[0] >= 180 && NPC.localAI[0] <= 240)
 					{
-						SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
-
-						Vector2 ShootSpeed = player.Center - NPC.Center;
-						ShootSpeed.Normalize();
-						ShootSpeed *= 18f;
-
-						Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 75f;
-						Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-						if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+						if (NPC.localAI[0] % 10 == 0)
 						{
-							position += muzzleOffset;
-						}
+							SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
-						NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<SpiderWeb>(), NPC.damage, 3.5f);
+							NPC.velocity = -Vector2.Normalize(player.Center - NPC.Center) * 2;
+
+							Vector2 ShootSpeed = (player.Center + new Vector2(Main.rand.Next(-20, 21), Main.rand.Next(-20, 21))) - NPC.Center;
+							ShootSpeed.Normalize();
+							ShootSpeed *= 35f;
+
+							Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 75f;
+							Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
+
+							if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+							{
+								position += muzzleOffset;
+							}
+
+							NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<SpiderWeb>(), NPC.damage, 3.5f);
+						}
 					}
 
 					if (NPC.localAI[0] >= 300)

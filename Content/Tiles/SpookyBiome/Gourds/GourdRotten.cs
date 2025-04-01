@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.Enums;
 using Terraria.Audio;
 using ReLogic.Content;
@@ -54,14 +55,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
-            bool isPlayerNear = WorldGen.PlayerLOS(i, j);
-
-            if (!Main.gamePaused && Main.instance.IsActive && isPlayerNear)
+            if (Main.rand.NextBool(300) && !Main.gamePaused && Main.instance.IsActive)
             {
-                if (Main.rand.NextBool(300))
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PooFly, new ParticleOrchestraSettings
                 {
-                    Projectile.NewProjectile(null, new Vector2((i + Main.rand.Next(0, 2)) * 16, (j + Main.rand.Next(0, 2)) * 16), Vector2.Zero, ModContent.ProjectileType<RottenGourdFly>(), 0, 0f, Main.myPlayer);
-                }
+                    PositionInWorld = new Vector2(i * 16 + 8, j * 16 - 8)
+                });
             }
         }
 
