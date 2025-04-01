@@ -24,7 +24,7 @@ Some Warnings:
 Massive thanks to all the people who have helped out the mod in some way, or are actively helping develop it!
 
 Developers: DylanDoe21, Hugekraken, Taco, Waasephi, Seasalt, Dandy, Hat in a River, Bananalizard, Rockwizard5, Luxcapacitor, Jim2OUK
-Contributors: Grae, Graydee, Lion8cake, HondaCivicMoment, RocketLauncher, Guck, Ennway, Angel, and thanks to Vortex of Rainbows for letting me reference and use a bunch of his visual effects code
+Contributors: Grae, Graydee, Lion8cake, HondaCivicMoment, RocketLauncher, Guck, Ennway, Tomat, and thanks to Vortex of Rainbows for letting me reference and use a bunch of his visual effects code
 Also credit to zapsplat.com, a free sound library where most of the custom sound effects used in this mod come from
 
 And of course, thanks to everyone who has supported the mod or shown interest in any way!
