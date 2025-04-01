@@ -247,11 +247,7 @@ namespace Spooky.Core
 					if (Main.hardMode)
 					{
 						pool.Add(ModContent.NPCType<CandleMonster>(), 2);
-
-						if (!NPC.AnyNPCs(ModContent.NPCType<SinisterSnail>()))
-						{	
-							pool.Add(ModContent.NPCType<SinisterSnail>(), 0.5f);
-						}
+						pool.Add(ModContent.NPCType<SinisterSnail>(), 2);
 					}
                 }
 			}
