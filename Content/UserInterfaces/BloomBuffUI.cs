@@ -16,8 +16,6 @@ namespace Spooky.Content.UserInterfaces
         public static bool UIOpen = false;
         public static bool IsDragging = false;
 
-        public static readonly Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 25);
-
         private static Asset<Texture2D> BarTexture;
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -40,7 +38,7 @@ namespace Spooky.Content.UserInterfaces
             if (ModContent.GetInstance<SpookyConfig>().DraggableUI && !Main.playerInventory)
             {
                 //if the player is hovering over the UI panel and presses left click then allow dragging
-                if (IsMouseOverUI(player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
+                if (IsMouseOverUI(player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
                     IsDragging = true;
                 }
@@ -49,7 +47,7 @@ namespace Spooky.Content.UserInterfaces
                 if (IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
                     player.mouseInterface = true;
-                    player.GetModPlayer<BloomBuffsPlayer>().UITopLeft = Main.MouseScreen - (BarTexture.Size() / 2) * UIBoxScale;
+                    player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft = Main.MouseScreen - (BarTexture.Size() / 2) * UIBoxScale;
                 }
 
                 //if the player lets go of mouse left, stop dragging the UI panel
@@ -65,34 +63,34 @@ namespace Spooky.Content.UserInterfaces
             }
 
             //draw the main UI box
-            spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
 
             //bloom buff icon drawing for each slot
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[0] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(19.8f, 30.5f) * Main.UIScale, 0, player.GetModPlayer<BloomBuffsPlayer>().Duration1);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(19.8f, 30.5f) * Main.UIScale, 0, player.GetModPlayer<BloomBuffsPlayer>().Duration1);
             }
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[1] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(63.2f, 30.5f) * Main.UIScale, 1, player.GetModPlayer<BloomBuffsPlayer>().Duration2);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(63.2f, 30.5f) * Main.UIScale, 1, player.GetModPlayer<BloomBuffsPlayer>().Duration2);
             }
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
             }
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
             }
 
             //draw locked icons if the player doesnt have those respective slots unlocked yet
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
             }
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().UITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
             }
         }
 
@@ -103,121 +101,8 @@ namespace Spooky.Content.UserInterfaces
 
             string BuffDisplayName = string.Empty;
 
-            switch (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor])
-            {
-                case "FallGourd": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallGourdIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallGourd.DisplayName");
-                    break;
-                case "FallSoulPumpkin": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallSoulPumpkinIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallSoulPumpkin.DisplayName");
-                    break;
-                case "FallWaterGourd": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallWaterGourdIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallWaterGourd.DisplayName");
-                    break;
-                case "FallZucchini": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/FallZucchiniIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.FallZucchini.DisplayName");
-                    break;
-                case "WinterBlackberry": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/WinterBlackberryIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.WinterBlackberry.DisplayName");
-                    break;
-                case "WinterBlueberry": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/WinterBlueberryIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.WinterBlueberry.DisplayName");
-                    break;
-                case "WinterGooseberry": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/WinterGooseberryIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.WinterGooseberry.DisplayName");
-                    break;
-                case "WinterStrawberry": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/WinterStrawberryIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.WinterStrawberry.DisplayName");
-                    break;
-                case "SpringHeartFlower": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringHeartFlowerIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringHeartFlower.DisplayName");
-                    break;
-                case "SpringIris": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringIrisIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringIris.DisplayName");
-                    break;
-                case "SpringOrchid": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringOrchidIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringOrchid.DisplayName");
-                    break;
-                case "SpringRose": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SpringRoseIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SpringRose.DisplayName");
-                    break;
-                case "SummerLemon": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SummerLemonIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SummerLemon.DisplayName");
-                    break;
-                case "SummerOrange": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SummerOrangeIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SummerOrange.DisplayName");
-                    break;
-                case "SummerPineapple": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SummerPineappleIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SummerPineapple.DisplayName");
-                    break;
-                case "SummerSunflower":
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SummerSunflowerIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SummerSunflower.DisplayName");
-                    break;
-                case "VegetableCauliflower": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/VegetableCauliflowerIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.VegetableCauliflower.DisplayName");
-                    break;
-                case "VegetableEggplantPaint": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/VegetableEggplantPaintIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.VegetableEggplantPaint.DisplayName");
-                    break;
-                case "VegetablePepper": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/VegetablePepperIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.VegetablePepper.DisplayName");
-                    break;
-                case "VegetableRomanesco":
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/VegetableRomanescoIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.VegetableRomanesco.DisplayName");
-                    break;
-                case "DandelionHerd": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DandelionHerdIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.DandelionHerd.DisplayName");
-                    break;
-                case "DandelionMapleSeed": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DandelionMapleSeedIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.DandelionMapleSeed.DisplayName");
-                    break;
-                case "DandelionTumbleweed": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DandelionTumbleweedIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.DandelionTumbleweed.DisplayName");
-                    break;
-                case "Dragonfruit": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DragonfruitIcon").Value; 
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.Dragonfruit.DisplayName");
-                    break;
-                case "SeaBarnacle": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaBarnacleIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaBarnacle.DisplayName");
-                    break;
-                case "SeaCucumber": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaCucumberIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaCucumber.DisplayName");
-                    break;
-                case "SeaSponge": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaSpongeIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaSponge.DisplayName");
-                    break;
-                case "SeaUrchin": 
-                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaUrchinIcon").Value;
-                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaUrchin.DisplayName");
-                    break;
-            }
+			IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/" + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + "Icon").Value; 
+            BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items." + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + ".DisplayName");
 
             if ((!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3 && SlotToCheckFor == 2) || (!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4 && SlotToCheckFor == 3))
             {

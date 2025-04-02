@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
 using Microsoft.Xna.Framework.Input;
+using Terraria.Localization;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -34,7 +35,7 @@ namespace Spooky.Content.UserInterfaces
 				if (ModContent.GetInstance<SpookyConfig>().DraggableUI && !Main.playerInventory)
 				{
 					//if the player is hovering over the UI panel and presses left click then allow dragging
-					if (IsMouseOverUI(player.GetModPlayer<SpookyPlayer>().KidneyUITopLeft, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
+					if (IsMouseOverUI(player.GetModPlayer<SpookyPlayer>().KidneyUIPos, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
 					{
 						IsDragging = true;
 					}
@@ -43,7 +44,7 @@ namespace Spooky.Content.UserInterfaces
 					if (IsDragging && mouse.LeftButton == ButtonState.Pressed)
 					{
 						player.mouseInterface = true;
-						player.GetModPlayer<SpookyPlayer>().KidneyUITopLeft = Main.MouseScreen - (BarTexture.Size() / 2) * UIBoxScale;
+						player.GetModPlayer<SpookyPlayer>().KidneyUIPos = Main.MouseScreen; //- (BarTexture.Size() / 2) * UIBoxScale;
 					}
 
 					//if the player lets go of mouse left, stop dragging the UI panel
@@ -58,19 +59,26 @@ namespace Spooky.Content.UserInterfaces
 					IsDragging = false;
 				}
 
+				if (IsMouseOverUI(player.GetModPlayer<SpookyPlayer>().KidneyUIPos, BarTexture.Value, UIBoxScale))
+				{
+					Main.instance.MouseText("LOL");
+				}
+
 				//draw the main UI box
-				spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUITopLeft, null, Color.White, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUIPos, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
 				float completionRatio = player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge / 10f;
 				Rectangle barRectangle = new Rectangle(0, 0, BarTexture.Width(), (int)(BarFillTexture.Width() * completionRatio));
-				spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUITopLeft, barRectangle, Color.White, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUIPos, barRectangle, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 			}
 		}
 
-        //check if the mouse is hovering over this UI
-        public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 backgroundScale)
+        //check if the mouse is hovering over the UI
+        public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 scale)
         {
-            Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
+            Rectangle backgroundArea = new Rectangle((int)TopLeft.X - (int)(texture.Width / 2 * scale.X), 
+			(int)TopLeft.Y - (int)(texture.Height / 2 * scale.Y), 
+			(int)(texture.Width * scale.X), (int)(texture.Height * scale.Y));
 
             if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
 			{

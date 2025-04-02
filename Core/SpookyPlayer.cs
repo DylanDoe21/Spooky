@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 using Terraria.GameInput;
-using Terraria.Graphics.CameraModifiers;
 using Terraria.Localization;
 using Terraria.Audio;
 using ReLogic.Content;
@@ -176,8 +175,8 @@ namespace Spooky.Core
 		public int dashDelay = 0;
 		public int dashTimer = 0;
 
-		public Vector2 MocoUITopLeft = new Vector2(Main.screenWidth / 2 + (Main.screenWidth / 12), Main.screenHeight / 1.5f);
-		public Vector2 KidneyUITopLeft = new Vector2(Main.screenWidth / 2 + (Main.screenWidth / 12), Main.screenHeight / 1.5f);
+		public Vector2 MocoNoseUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.5f * Main.UIScale);
+		public Vector2 KidneyUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.5f * Main.UIScale);
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
 
@@ -190,13 +189,13 @@ namespace Spooky.Core
 
 		public override void SaveData(TagCompound tag)
 		{
-			tag["MocoUITopLeft"] = MocoUITopLeft;
-			tag["KidneyUITopLeft"] = KidneyUITopLeft;
+			tag["MocoNoseUIPos"] = MocoNoseUIPos;
+			tag["KidneyUIPos"] = KidneyUIPos;
 		}
 		public override void LoadData(TagCompound tag)
 		{
-			MocoUITopLeft = tag.Get<Vector2>("MocoUITopLeft");
-			KidneyUITopLeft = tag.Get<Vector2>("KidneyUITopLeft");
+			MocoNoseUIPos = tag.Get<Vector2>("MocoNoseUIPos");
+			KidneyUIPos = tag.Get<Vector2>("KidneyUIPos");
 		}
 
 		public override void OnEnterWorld()

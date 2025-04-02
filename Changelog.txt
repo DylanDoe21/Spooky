@@ -11,16 +11,17 @@ Brand New Biomes:
 Spooky Forest Generation Overhaul:
 
 -Changed the spooky forests generation completely to be more natural looking and to make it more fun to explore overall
--Spooky forest underground now has entirely new cave generation to make exploring the biome more interesting and to make mining through it less annoying
--Spooky forest underground loot cabins are now randomly placed instead of only having a certain amount in set locations, which means more loot overall even on smaller worlds
+-Spooky forest underground now has entirely new cave generation to make exploring the biome more interesting, but mostly to make mining through it less annoying
+-Spooky forest underground loot cabins are now randomly placed instead of only having a certain amount in set locations, which means more loot (Even on smaller worlds!)
 -Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you use the detonator + explosive at the surface or just dig under the explosive
 -Completely new glowshroom minibiome generation because the previous one was just copy pasted glowing mushroom biome generation
 
 
 New Config Stuff:
 
+-Spooky mods config overall has been split into different categories in the menu due to the addition of multiple new worldgen options to keep them organized
 -Added new config category "Spooky World Generatiom Config" containing various options for world generation
--Moved the "Spooky Forest Spawnpoint" config option to this new spooky worldgen config category
+-Moved the "Spooky Forest Spawnpoint" config option to the new spooky worldgen config category
 -Added new config option "Eye Valley World Side" which uses a slider, allows you to determine what side of the world the eye valley will generate on. Options consist of: Random, Jungle Side (default), and Dungeon Side
 -Added new config option "Rotten Depths World Side" which uses a slider, allows you to determine what side of the world the new rotten depths biome will generate on. Options consist of: Random, Jungle Side, and Dungeon Side (default)
 
@@ -181,6 +182,7 @@ Miscellaneous:
 -Fixed possessed scarecrows shooting through blocks
 -Fixed total organ package not giving 8% increased crit chance inhereted from the corroding chompers
 -Fixed mini orro and boro minions from the gore armor flying around wildly when trying to follow the player
+-Fixed stoned kidney and snotty schnoz UI scaling from the top-left corner instead of the center and their default positions being offset with different UI scales
 
 
 Multiplayer:

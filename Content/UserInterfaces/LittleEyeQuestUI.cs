@@ -512,7 +512,7 @@ namespace Spooky.Content.UserInterfaces
         //check if the mouse is hovering over a specific button or UI box
         public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 backgroundScale)
         {
-            Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
+            Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Height * backgroundScale.Y));
 
             if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
 			{
