@@ -2888,6 +2888,11 @@ SpiderCaveBox: {
 	Tooltip: "[c/A88554:It's Just Spider Stuff] by BananaLizard"
 }
 
+SpookFishronBox: {
+	DisplayName: Music Box (Spook Fishron)
+	Tooltip: "[c/DE8533:Bad Sushi] by BananaLizard"
+}
+
 SpookyBiomeDayBox: {
 	DisplayName: Music Box (Spooky Forest Day)
 	Tooltip: "[c/FFBF00:Dead Trees...] by BananaLizard"
@@ -3906,5 +3911,87 @@ SpookyBiomeTorchItem: {
 
 SpookyHellTorchItem: {
 	DisplayName: Eye Valley Torch
+	Tooltip: ""
+}
+
+SpookFishronTrophyItem: {
+	Tooltip: ""
+	DisplayName: Spook Fishron Trophy
+}
+
+SpookFishronRelicItem: {
+	Tooltip: ""
+	DisplayName: Spook Fishron Relic
+}
+
+SpookFishronWings: {
+	DisplayName: Spook Fishron Wings
+	Tooltip:
+		'''
+		Allows flight and slow fall
+		Allows quick travel in water 
+		'''
+}
+
+SpookFishronBow: {
+	DisplayName: Firestorm Monsoon
+	Tooltip: Fires out a barrage of homing greek fire bolts
+}
+
+SpookFishronFlail: {
+	DisplayName: Flaming Flairon
+	Tooltip:
+		'''
+		Fires lingering bubbles at nearby enemies
+		The longer it is swung, the more bubbles it shoots when launched
+		'''
+}
+
+SpookFishronGun: {
+	DisplayName: Pumpkin Spicer
+	Tooltip: Shoots out a stream of pumpkin spice fire
+}
+
+SpookFishronStaff: {
+	DisplayName: Wand of the Spookron
+	Tooltip:
+		'''
+		Summons powerful spooky pigrons to fight with you
+		Each pigron costs 2 minion slots
+		'''
+}
+
+SpookFishronTome: {
+	DisplayName: Spooknado Spell
+	Tooltip: Cast giant slow-moving greek fire tornados
+}
+
+SinisterSnailItem: {
+	DisplayName: Sinister Snail
+	Tooltip: ""
+}
+
+SinisterShell: {
+	DisplayName: Sinister Shell
+	Tooltip: Summons a giant sinister snail
+}
+
+SpookFishronMask: {
+	Tooltip: ""
+	DisplayName: Spook Fishron Mask
+}
+
+BossBagSpookFishron: {
+	DisplayName: Treasure Bag (Spook Fishron)
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+PumpkinSpiceLatte: {
+	DisplayName: Pumpkin Spice Latte
+	Tooltip: Can be used infinitely
+}
+
+SinisterSnailCageItem: {
+	DisplayName: Sinister Snail Cage
 	Tooltip: ""
 }

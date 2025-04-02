@@ -509,3 +509,13 @@ PuttyPetBuff: {
 	DisplayName: Putty Slime Squad
 	Description: The putties are hopping along with you
 }
+
+SinisterSnailBuff: {
+	DisplayName: Sinister Snail
+	Description: Its all grown up!
+}
+
+SpookFishronMinionBuff: {
+	DisplayName: Spooky Pigron
+	Description: The pigron will protect you
+}

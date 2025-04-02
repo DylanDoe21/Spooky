@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Spooky.Core
 {
@@ -25,7 +27,8 @@ namespace Spooky.Core
         public static Vector2 SpiderGrottoCenter = Vector2.Zero;
         public static Vector2 EyeValleyCenter = Vector2.Zero;
 
-        public static bool downedRotGourd = false;
+		//bosses
+		public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
         public static bool downedMoco = false;
         public static bool downedDaffodil = false;
@@ -33,7 +36,9 @@ namespace Spooky.Core
         public static bool downedEggEvent = false;
         public static bool downedOrroboro = false;
         public static bool downedBigBone = false;
+        public static bool downedSpookFishron = false;
 
+		//events
         public static bool downedMocoIdol1 = false;
         public static bool downedMocoIdol2 = false;
         public static bool downedMocoIdol3 = false;
@@ -41,180 +46,185 @@ namespace Spooky.Core
         public static bool downedMocoIdol5 = false;
         public static bool downedMocoIdol6 = false;
         public static bool MinibossBarrierOpen = false;
+		public static bool RaveyardHappening = false;
+		public static bool GuaranteedRaveyard = false;
 
-        public static bool SpookyBackgroundAlt = false;
+		//misc stuff
+		public static bool SpookyBackgroundAlt = false;
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
-        public static bool RaveyardHappening = false;
-        public static bool GuaranteedRaveyard = false;
-
         public static bool OldHunterAssembled = false;
         public static bool OldHunterHat = false;
         public static bool OldHunterSkull = false;
         public static bool OldHunterTorso = false;
         public static bool OldHunterLegs = false;
         public static bool KillWeb = false;
-
         public static bool LittleEyeBounty1 = false; 
         public static bool LittleEyeBounty2 = false;
         public static bool LittleEyeBounty3 = false;
         public static bool LittleEyeBounty4 = false;
         public static bool BountyInProgress = false;
-
         public static bool encounteredMan = false;
 
         public override void ClearWorld()
         {
+		    //bosses
             downedRotGourd = false;
             downedSpookySpirit = false;
             downedMoco = false;
             downedDaffodil = false;
-            downedPandoraBox = false;
-            downedEggEvent = false;
             downedOrroboro = false;
             downedBigBone = false;
+            downedSpookFishron = false;
 
-            downedMocoIdol1 = false;
+			//events
+			downedPandoraBox = false;
+			downedEggEvent = false;
+			downedMocoIdol1 = false;
             downedMocoIdol2 = false;
             downedMocoIdol3 = false;
             downedMocoIdol4 = false;
             downedMocoIdol5 = false;
             downedMocoIdol6 = false;
             MinibossBarrierOpen = false;
+			GuaranteedRaveyard = false;
+			OldHunterAssembled = false;
 
-            SpookyBackgroundAlt = false;
+			//misc stuff
+			SpookyBackgroundAlt = false;
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
             RaveyardHappening = false;
-            GuaranteedRaveyard = false;
-
-            OldHunterAssembled = false;
             OldHunterHat = false;
             OldHunterSkull = false;
             OldHunterTorso = false;
             OldHunterLegs = false;
-
             LittleEyeBounty1 = false; 
             LittleEyeBounty2 = false;
             LittleEyeBounty3 = false;
             LittleEyeBounty4 = false;
             BountyInProgress = false;
-
             encounteredMan = false;
 		}
 
         public override void SaveWorldData(TagCompound tag)
         {
-            tag["DaffodilPosition"] = DaffodilPosition;
-            tag["PandoraPosition"] = PandoraPosition;
-            tag["FlowerPotPosition"] = FlowerPotPosition;
-            tag["SpiderWebPosition"] = SpiderWebPosition;
-            tag["EggPosition"] = EggPosition;
-            tag["MocoIdolPosition1"] = MocoIdolPosition1;
-            tag["MocoIdolPosition2"] = MocoIdolPosition2;
-            tag["MocoIdolPosition3"] = MocoIdolPosition3;
-            tag["MocoIdolPosition4"] = MocoIdolPosition4;
-            tag["MocoIdolPosition5"] = MocoIdolPosition5;
-            tag["LeaderIdolPositon"] = LeaderIdolPositon;
+		    //important world positions
+			tag[nameof(DaffodilPosition)] = DaffodilPosition;
+			tag[nameof(PandoraPosition)] = PandoraPosition;
+			tag[nameof(FlowerPotPosition)] = FlowerPotPosition;
+			tag[nameof(SpiderWebPosition)] = SpiderWebPosition;
+			tag[nameof(EggPosition)] = EggPosition;
+			tag[nameof(MocoIdolPosition1)] = MocoIdolPosition1;
+			tag[nameof(MocoIdolPosition2)] = MocoIdolPosition2;
+			tag[nameof(MocoIdolPosition3)] = MocoIdolPosition3;
+			tag[nameof(MocoIdolPosition4)] = MocoIdolPosition4;
+			tag[nameof(MocoIdolPosition5)] = MocoIdolPosition5;
+			tag[nameof(LeaderIdolPositon)] = LeaderIdolPositon;
 
-            tag["SpiderGrottoCenter"] = SpiderGrottoCenter;
-            tag["EyeValleyCenter"] = EyeValleyCenter;
+			//biome positions for compasses
+            tag[nameof(SpiderGrottoCenter)] = SpiderGrottoCenter;
+            tag[nameof(EyeValleyCenter)] = EyeValleyCenter;
 
-            if (downedRotGourd) tag["downedRotGourd"] = true;
-            if (downedSpookySpirit) tag["downedSpookySpirit"] = true;
-            if (downedMoco) tag["downedMoco"] = true;
-            if (downedDaffodil) tag["downedDaffodil"] = true;
-            if (downedPandoraBox) tag["downedPandoraBox"] = true;
-            if (downedEggEvent) tag["downedEggEvent"] = true;
-            if (downedOrroboro) tag["downedOrroboro"] = true;
-            if (downedBigBone) tag["downedBigBone"] = true;
+			//bosses
+			tag[nameof(downedRotGourd)] = downedRotGourd;
+			tag[nameof(downedSpookySpirit)] = downedSpookySpirit;
+			tag[nameof(downedMoco)] = downedMoco;
+			tag[nameof(downedDaffodil)] = downedDaffodil;
+			tag[nameof(downedOrroboro)] = downedOrroboro;
+			tag[nameof(downedBigBone)] = downedBigBone;
+			tag[nameof(downedSpookFishron)] = downedSpookFishron;
 
-            if (downedMocoIdol1) tag["downedMocoIdol1"] = true;
-            if (downedMocoIdol2) tag["downedMocoIdol2"] = true;
-            if (downedMocoIdol3) tag["downedMocoIdol3"] = true;
-            if (downedMocoIdol4) tag["downedMocoIdol4"] = true;
-            if (downedMocoIdol5) tag["downedMocoIdol5"] = true;
-            if (downedMocoIdol6) tag["downedMocoIdol6"] = true;
-            if (MinibossBarrierOpen) tag["MinibossBarrierOpen"] = true;
+			//events
+			tag[nameof(downedPandoraBox)] = downedPandoraBox;
+			tag[nameof(downedEggEvent)] = downedEggEvent;
+			tag[nameof(downedMocoIdol1)] = downedMocoIdol1;
+			tag[nameof(downedMocoIdol2)] = downedMocoIdol2;
+			tag[nameof(downedMocoIdol3)] = downedMocoIdol3;
+			tag[nameof(downedMocoIdol4)] = downedMocoIdol4;
+			tag[nameof(downedMocoIdol5)] = downedMocoIdol5;
+			tag[nameof(downedMocoIdol6)] = downedMocoIdol6;
+			tag[nameof(MinibossBarrierOpen)] = MinibossBarrierOpen;
+			tag[nameof(RaveyardHappening)] = RaveyardHappening;
+			tag[nameof(GuaranteedRaveyard)] = GuaranteedRaveyard;
 
-            if (SpookyBackgroundAlt) tag["SpookyBackgroundAlt"] = true;
-            if (CatacombKey1) tag["CatacombKey1"] = true;
-            if (CatacombKey2) tag["CatacombKey2"] = true;
-            if (CatacombKey3) tag["CatacombKey3"] = true;
-            if (RaveyardHappening) tag["RaveyardHappening"] = true;
-            if (GuaranteedRaveyard) tag["GuaranteedRaveyard"] = true;
-
-            if (OldHunterAssembled) tag["OldHunterAssembled"] = true;
-            if (OldHunterHat) tag["OldHunterHat"] = true;
-            if (OldHunterSkull) tag["OldHunterSkull"] = true;
-            if (OldHunterTorso) tag["OldHunterTorso"] = true;
-            if (OldHunterLegs) tag["OldHunterLegs"] = true;
-
-            if (LittleEyeBounty1) tag["LittleEyeBounty1"] = true;
-            if (LittleEyeBounty2) tag["LittleEyeBounty2"] = true;
-            if (LittleEyeBounty3) tag["LittleEyeBounty3"] = true;
-            if (LittleEyeBounty4) tag["LittleEyeBounty4"] = true;
-            if (BountyInProgress) tag["BountyInProgress"] = true;
-
-            if (encounteredMan) tag["encounteredMan"] = true;
+			//misc stuff
+			tag[nameof(SpookyBackgroundAlt)] = SpookyBackgroundAlt;
+			tag[nameof(CatacombKey1)] = CatacombKey1;
+			tag[nameof(CatacombKey2)] = CatacombKey2;
+			tag[nameof(CatacombKey3)] = CatacombKey3;
+			tag[nameof(OldHunterAssembled)] = OldHunterAssembled;
+			tag[nameof(OldHunterHat)] = OldHunterHat;
+			tag[nameof(OldHunterSkull)] = OldHunterSkull;
+			tag[nameof(OldHunterTorso)] = OldHunterTorso;
+			tag[nameof(OldHunterLegs)] = OldHunterLegs;
+			tag[nameof(LittleEyeBounty1)] = LittleEyeBounty1;
+			tag[nameof(LittleEyeBounty2)] = LittleEyeBounty2;
+			tag[nameof(LittleEyeBounty3)] = LittleEyeBounty3;
+			tag[nameof(LittleEyeBounty4)] = LittleEyeBounty4;
+			tag[nameof(BountyInProgress)] = BountyInProgress;
+			tag[nameof(encounteredMan)] = encounteredMan;
         }
 
         public override void LoadWorldData(TagCompound tag) 
         {
-            DaffodilPosition = tag.Get<Vector2>("DaffodilPosition");
-            PandoraPosition = tag.Get<Vector2>("PandoraPosition");
-            FlowerPotPosition = tag.Get<Vector2>("FlowerPotPosition");
-            SpiderWebPosition = tag.Get<Vector2>("SpiderWebPosition");
-            EggPosition = tag.Get<Vector2>("EggPosition");
-            MocoIdolPosition1 = tag.Get<Vector2>("MocoIdolPosition1");
-            MocoIdolPosition2 = tag.Get<Vector2>("MocoIdolPosition2");
-            MocoIdolPosition3 = tag.Get<Vector2>("MocoIdolPosition3");
-            MocoIdolPosition4 = tag.Get<Vector2>("MocoIdolPosition4");
-            MocoIdolPosition5 = tag.Get<Vector2>("MocoIdolPosition5");
-            LeaderIdolPositon = tag.Get<Vector2>("LeaderIdolPositon");
+		    //important world positions
+			DaffodilPosition = tag.Get<Vector2>(nameof(DaffodilPosition));
+			PandoraPosition = tag.Get<Vector2>(nameof(PandoraPosition));
+			FlowerPotPosition = tag.Get<Vector2>(nameof(FlowerPotPosition));
+			SpiderWebPosition = tag.Get<Vector2>(nameof(SpiderWebPosition));
+			EggPosition = tag.Get<Vector2>(nameof(EggPosition));
+			MocoIdolPosition1 = tag.Get<Vector2>(nameof(MocoIdolPosition1));
+			MocoIdolPosition2 = tag.Get<Vector2>(nameof(MocoIdolPosition2));
+			MocoIdolPosition3 = tag.Get<Vector2>(nameof(MocoIdolPosition3));
+			MocoIdolPosition4 = tag.Get<Vector2>(nameof(MocoIdolPosition4));
+			MocoIdolPosition5 = tag.Get<Vector2>(nameof(MocoIdolPosition5));
+			LeaderIdolPositon = tag.Get<Vector2>(nameof(LeaderIdolPositon));
 
-            SpiderGrottoCenter = tag.Get<Vector2>("SpiderGrottoCenter");
-            EyeValleyCenter =  tag.Get<Vector2>("EyeValleyCenter");
+			//world positions for compasses
+			SpiderGrottoCenter = tag.Get<Vector2>(nameof(SpiderGrottoCenter));
+			EyeValleyCenter = tag.Get<Vector2>(nameof(EyeValleyCenter));
 
-            downedRotGourd = tag.ContainsKey("downedRotGourd");
-            downedSpookySpirit = tag.ContainsKey("downedSpookySpirit");
-            downedMoco = tag.ContainsKey("downedMoco");
-            downedDaffodil = tag.ContainsKey("downedDaffodil");
-            downedPandoraBox = tag.ContainsKey("downedPandoraBox");
-            downedEggEvent = tag.ContainsKey("downedEggEvent");
-            downedOrroboro = tag.ContainsKey("downedOrroboro");
-            downedBigBone = tag.ContainsKey("downedBigBone");
+			//bosses
+			downedRotGourd = tag.GetBool(nameof(downedRotGourd));
+			downedSpookySpirit = tag.GetBool(nameof(downedSpookySpirit));
+			downedMoco = tag.GetBool(nameof(downedMoco));
+			downedDaffodil = tag.GetBool(nameof(downedDaffodil));
+			downedOrroboro = tag.GetBool(nameof(downedOrroboro));
+			downedBigBone = tag.GetBool(nameof(downedBigBone));
+			downedSpookFishron = tag.GetBool(nameof(downedSpookFishron));
 
-            downedMocoIdol1 = tag.ContainsKey("downedMocoIdol1");
-            downedMocoIdol2 = tag.ContainsKey("downedMocoIdol2");
-            downedMocoIdol3 = tag.ContainsKey("downedMocoIdol3");
-            downedMocoIdol4 = tag.ContainsKey("downedMocoIdol4");
-            downedMocoIdol5 = tag.ContainsKey("downedMocoIdol5");
-            downedMocoIdol6 = tag.ContainsKey("downedMocoIdol6");
-            MinibossBarrierOpen = tag.ContainsKey("MinibossBarrierOpen");
+			//events
+			downedPandoraBox = tag.GetBool(nameof(downedPandoraBox));
+			downedEggEvent = tag.GetBool(nameof(downedEggEvent));
+			downedMocoIdol1 = tag.GetBool(nameof(downedMocoIdol1));
+			downedMocoIdol2 = tag.GetBool(nameof(downedMocoIdol2));
+			downedMocoIdol3 = tag.GetBool(nameof(downedMocoIdol3));
+			downedMocoIdol4 = tag.GetBool(nameof(downedMocoIdol4));
+			downedMocoIdol5 = tag.GetBool(nameof(downedMocoIdol5));
+			downedMocoIdol6 = tag.GetBool(nameof(downedMocoIdol6));
+			MinibossBarrierOpen = tag.GetBool(nameof(MinibossBarrierOpen));
+			RaveyardHappening = tag.GetBool(nameof(RaveyardHappening));
+			GuaranteedRaveyard = tag.GetBool(nameof(GuaranteedRaveyard));
 
-            SpookyBackgroundAlt = tag.ContainsKey("SpookyBackgroundAlt");
-            CatacombKey1 = tag.ContainsKey("CatacombKey1");
-            CatacombKey2 = tag.ContainsKey("CatacombKey2");
-            CatacombKey3 = tag.ContainsKey("CatacombKey3");
-            RaveyardHappening = tag.ContainsKey("RaveyardHappening");
-            GuaranteedRaveyard = tag.ContainsKey("GuaranteedRaveyard");
-            
-            OldHunterAssembled = tag.ContainsKey("OldHunterAssembled");
-            OldHunterHat = tag.ContainsKey("OldHunterHat");
-            OldHunterSkull = tag.ContainsKey("OldHunterSkull");
-            OldHunterTorso = tag.ContainsKey("OldHunterTorso");
-            OldHunterLegs = tag.ContainsKey("OldHunterLegs");
-
-            LittleEyeBounty1 = tag.ContainsKey("LittleEyeBounty1");
-            LittleEyeBounty2 = tag.ContainsKey("LittleEyeBounty2");
-            LittleEyeBounty3 = tag.ContainsKey("LittleEyeBounty3");
-            LittleEyeBounty4 = tag.ContainsKey("LittleEyeBounty4");
-            BountyInProgress = tag.ContainsKey("BountyInProgress");
-
-            encounteredMan = tag.ContainsKey("encounteredMan");
+			//misc stuff
+			SpookyBackgroundAlt = tag.GetBool(nameof(SpookyBackgroundAlt));
+			CatacombKey1 = tag.GetBool(nameof(CatacombKey1));
+			CatacombKey2 = tag.GetBool(nameof(CatacombKey2));
+			CatacombKey3 = tag.GetBool(nameof(CatacombKey3));
+			OldHunterAssembled = tag.GetBool(nameof(OldHunterAssembled));
+			OldHunterHat = tag.GetBool(nameof(OldHunterHat));
+			OldHunterSkull = tag.GetBool(nameof(OldHunterSkull));
+			OldHunterTorso = tag.GetBool(nameof(OldHunterTorso));
+			OldHunterLegs = tag.GetBool(nameof(OldHunterLegs));
+			LittleEyeBounty1 = tag.GetBool(nameof(LittleEyeBounty1));
+			LittleEyeBounty2 = tag.GetBool(nameof(LittleEyeBounty2));
+			LittleEyeBounty3 = tag.GetBool(nameof(LittleEyeBounty3));
+			LittleEyeBounty4 = tag.GetBool(nameof(LittleEyeBounty4));
+			BountyInProgress = tag.GetBool(nameof(BountyInProgress));
+			encounteredMan = tag.GetBool(nameof(encounteredMan));
 		}
 
         public override void NetSend(BinaryWriter writer)
@@ -230,59 +240,29 @@ namespace Spooky.Core
             writer.WriteVector2(MocoIdolPosition4);
             writer.WriteVector2(MocoIdolPosition5);
             writer.WriteVector2(LeaderIdolPositon);
-
             writer.WriteVector2(SpiderGrottoCenter);
             writer.WriteVector2(EyeValleyCenter);
 
-            var downedFlags = new BitsByte();
-            downedFlags[0] = downedRotGourd;
-            downedFlags[1] = downedSpookySpirit;
-            downedFlags[2] = downedMoco;
-            downedFlags[3] = downedDaffodil;
-            downedFlags[4] = downedPandoraBox;
-            downedFlags[5] = downedEggEvent;
-            downedFlags[6] = downedOrroboro;
-            downedFlags[7] = downedBigBone;
-            writer.Write(downedFlags);
+			//downed bosses
+			writer.WriteFlags(downedRotGourd, downedSpookySpirit, downedMoco, downedDaffodil, downedOrroboro, downedBigBone, downedSpookFishron);
 
-            var noseDungeonFlags = new BitsByte();
-            noseDungeonFlags[0] = downedMocoIdol1;
-            noseDungeonFlags[1] = downedMocoIdol2;
-            noseDungeonFlags[2] = downedMocoIdol3;
-            noseDungeonFlags[3] = downedMocoIdol4;
-            noseDungeonFlags[4] = downedMocoIdol5;
-            noseDungeonFlags[5] = downedMocoIdol6;
-            noseDungeonFlags[6] = MinibossBarrierOpen;
-            writer.Write(noseDungeonFlags);
+			//downed events
+			writer.WriteFlags(downedPandoraBox, downedEggEvent);
 
-            var miscFlags = new BitsByte();
-            miscFlags[0] = SpookyBackgroundAlt;
-            miscFlags[1] = CatacombKey1;
-            miscFlags[2] = CatacombKey2;
-            miscFlags[3] = CatacombKey3;
-            miscFlags[4] = RaveyardHappening;
-            miscFlags[5] = GuaranteedRaveyard;
-            writer.Write(miscFlags);
+			//downed moco temple stuff
+			writer.WriteFlags(downedMocoIdol1, downedMocoIdol2, downedMocoIdol3, downedMocoIdol4, downedMocoIdol5, downedMocoIdol6, MinibossBarrierOpen);
 
-            var oldHunterFlags = new BitsByte();
-            oldHunterFlags[0] = OldHunterAssembled;
-            oldHunterFlags[1] = OldHunterHat;
-            oldHunterFlags[2] = OldHunterSkull;
-            oldHunterFlags[3] = OldHunterTorso;
-            oldHunterFlags[4] = OldHunterLegs;
-            writer.Write(oldHunterFlags);
+			//misc stuff
+			writer.WriteFlags(SpookyBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard);
 
-            var questFlags = new BitsByte();
-            questFlags[0] = LittleEyeBounty1;
-            questFlags[1] = LittleEyeBounty2;
-            questFlags[2] = LittleEyeBounty3;
-            questFlags[3] = LittleEyeBounty4;
-            questFlags[4] = BountyInProgress;
-            writer.Write(questFlags);
+			//old hunter stuff
+			writer.WriteFlags(OldHunterAssembled, OldHunterHat, OldHunterSkull, OldHunterTorso, OldHunterLegs);
 
-            var encounterFlags = new BitsByte();
-            encounterFlags[0] = encounteredMan;
-            writer.Write(encounterFlags);
+			//little eye quest stuff
+			writer.WriteFlags(LittleEyeBounty1, LittleEyeBounty2, LittleEyeBounty3, LittleEyeBounty4, BountyInProgress);
+
+			//entity (more will probably be added here in the future)
+			writer.WriteFlags(encounteredMan);
         }
 
         public override void NetReceive(BinaryReader reader)
@@ -298,53 +278,29 @@ namespace Spooky.Core
             MocoIdolPosition4 = reader.ReadVector2();
             MocoIdolPosition5 = reader.ReadVector2();
             LeaderIdolPositon = reader.ReadVector2();
-
             SpiderGrottoCenter = reader.ReadVector2();
             EyeValleyCenter = reader.ReadVector2();
 
-            BitsByte downedFlags = reader.ReadByte();
-            downedRotGourd = downedFlags[0];
-            downedSpookySpirit = downedFlags[1];
-            downedMoco = downedFlags[2];
-            downedDaffodil = downedFlags[3];
-            downedPandoraBox = downedFlags[4];
-            downedEggEvent = downedFlags[5];
-            downedOrroboro = downedFlags[6];
-            downedBigBone = downedFlags[7];
+			//downed bosses
+			reader.ReadFlags(out downedRotGourd, out downedSpookySpirit, out downedMoco, out downedDaffodil, out downedOrroboro, out downedBigBone, out downedSpookFishron);
 
-            BitsByte noseDungeonFlags = reader.ReadByte();
-            downedMocoIdol1 = noseDungeonFlags[0];
-            downedMocoIdol2 = noseDungeonFlags[1];
-            downedMocoIdol3 = noseDungeonFlags[2];
-            downedMocoIdol4 = noseDungeonFlags[3];
-            downedMocoIdol5 = noseDungeonFlags[4];
-            downedMocoIdol6 = noseDungeonFlags[5];
-            MinibossBarrierOpen = noseDungeonFlags[6];
+			//downed events
+			reader.ReadFlags(out downedPandoraBox, out downedEggEvent);
 
-            BitsByte miscFlags = reader.ReadByte();
-            SpookyBackgroundAlt = miscFlags[0];
-            CatacombKey1 = miscFlags[1];
-            CatacombKey2 = miscFlags[2];
-            CatacombKey3 = miscFlags[3];
-            RaveyardHappening = miscFlags[4];
-            GuaranteedRaveyard = miscFlags[5];
+			//downed moco temple stuff
+			reader.ReadFlags(out downedMocoIdol1, out downedMocoIdol2, out downedMocoIdol3, out downedMocoIdol4, out downedMocoIdol5, out downedMocoIdol6, out MinibossBarrierOpen);
 
-            BitsByte oldHunterFlags = reader.ReadByte();
-            OldHunterAssembled = oldHunterFlags[0];
-            OldHunterHat = oldHunterFlags[1];
-            OldHunterSkull = oldHunterFlags[2];
-            OldHunterTorso = oldHunterFlags[3];
-            OldHunterLegs = oldHunterFlags[4];
+			//misc stuff
+			reader.ReadFlags(out SpookyBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard);
 
-            BitsByte questFlags = reader.ReadByte();
-            LittleEyeBounty1 = questFlags[0];
-            LittleEyeBounty2 = questFlags[1];
-            LittleEyeBounty3 = questFlags[2];
-            LittleEyeBounty4 = questFlags[3];
-            BountyInProgress = questFlags[4];
+			//old hunter stuff
+			reader.ReadFlags(out OldHunterAssembled, out OldHunterHat, out OldHunterSkull, out OldHunterTorso, out OldHunterLegs);
 
-            BitsByte encounterFlags = reader.ReadByte();
-            encounteredMan = encounterFlags[0];
-        }
+			//little eye quest stuff
+			reader.ReadFlags(out LittleEyeBounty1, out LittleEyeBounty2, out LittleEyeBounty3, out LittleEyeBounty4, out BountyInProgress);
+
+			//entity (more will probably be added here in the future)
+			reader.ReadFlags(out encounteredMan);
+		}
     }
 }

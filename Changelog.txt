@@ -1,1 +1,3 @@
-Ported spooky mod structures and structure generation to new format in the new structure helper v3.0.0
+APRIL FOOLS!!!!
+
+-Oops! fixed another issue

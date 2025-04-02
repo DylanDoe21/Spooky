@@ -17,7 +17,9 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Sentient;
+using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
@@ -119,6 +121,7 @@ namespace Spooky.Core
         public bool PuttyPet = false;
         public bool RatPet = false;
         public bool ZombieCultistPet = false;
+        public bool SinisterSnailPet = false;
 
         //misc bools
         public bool EatenByGooSlug = false;
@@ -154,6 +157,7 @@ namespace Spooky.Core
 		public int RootHealCooldown = 0;
 		public int MagicEyeOrbHits = 0;
         public int CandyBagCooldown = 0;
+        public int PotionSicknessLatteTimer = 0;
 
 		//dashing stuff
 		public const int dashDown = 0;
@@ -285,6 +289,7 @@ namespace Spooky.Core
             PuttyPet = false;
             RatPet = false;
             ZombieCultistPet = false;
+            SinisterSnailPet = false;
 
             //misc bools
             WhipSpiderAggression = false;
@@ -1056,6 +1061,19 @@ namespace Spooky.Core
 			}
         }
 
+        public override void PostUpdateMiscEffects()
+		{
+			if (PotionSicknessLatteTimer > 0)
+			{
+				PotionSicknessLatteTimer--;
+			}
+			if (PotionSicknessLatteTimer == 1)
+			{
+				int Duration = Player.pStone ? (int)(3600 * 0.75) : 3600;
+				Player.AddBuff(BuffID.PotionSickness, Duration);
+			}
+		}
+
 		public override void PreUpdateMovement()
 		{
 			// If the player can use our dash and has double tapped in a direction, then apply the dash
@@ -1201,6 +1219,12 @@ namespace Spooky.Core
         {
             if (!attempt.inLava && !attempt.inHoney)
             {
+                if (Player.ZoneBeach && (Main.pumpkinMoon || Main.snowMoon) && attempt.playerFishingConditions.BaitItemType == ModContent.ItemType<SinisterSnailItem>())
+				{
+					npcSpawn = ModContent.NPCType<SpookFishron>();
+					return;
+				}
+
                 //spooky forest catches
                 if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
                 {

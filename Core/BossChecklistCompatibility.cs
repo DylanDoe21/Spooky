@@ -9,11 +9,13 @@ using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
+using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.PandoraBox;
@@ -314,6 +316,34 @@ namespace Spooky.Core
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.SpawnInfo").Value,
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.DespawnMessage").Value,
 					["customPortrait"] = OrroboroPortrait,
+				}
+			);
+
+
+			//Spook Fishron
+			var SpookFishronPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
+            {
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/SpookFishronBossChecklist").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			bossChecklistMod.Call(
+				"LogBoss", 
+				Mod,
+				nameof(SpookFishron),
+				14.01f,
+				() => Flags.downedSpookFishron,
+				ModContent.NPCType<SpookFishron>(),
+				new Dictionary<string, object>() 
+				{
+					["availability"] = () => Flags.downedSpookFishron,
+					["spawnItems"] = ModContent.ItemType<SinisterSnailItem>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<SpookFishronTrophyItem>(), ModContent.ItemType<SpookFishronMask>(),
+					ModContent.ItemType<SpookFishronRelicItem>(), ModContent.ItemType<SinisterShell>(), ModContent.ItemType<SpookFishronBox>() },
+					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.SpookFishron.BossChecklistIntegration.SpawnInfo"),
+					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.SpookFishron.BossChecklistIntegration.DespawnMessage"),
+					["customPortrait"] = SpookFishronPortrait,
 				}
 			);
 

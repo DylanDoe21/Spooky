@@ -1,0 +1,43 @@
+Spooky mod is a fairly large content mod that adds in silly content with lots of personality, with a vague theme of halloween and spookiness
+
+Currently the mod has:
+
+-Many new biomes and a giant underground structure to explore, all of which filled with new content to discover
+-Many new bosses and new events to fight
+-Tons of other usual content such as weapons, armor sets, accessories, pets, enemies, blocks, and whatever else
+-Banger soundtracks for all of the biomes, events, and bosses
+-And probably more to come in the future!
+
+
+Spooky mod also has compatibility with the following mods:
+
+-Boss checklist: All of spooky mod's important bosses and events are listed on boss checklist in their general places of progression
+-Music display: All of spooky mod's songs and the artists who made those songs will display when they start playing
+
+
+Some Warnings:
+-This mod adds in a bunch of fairly large biomes, so playing this mod with other mods that add in lots of large biomes/structures may cause issues or other conflictions! Don't let this discourage you from playing with other mods how you like, but just be aware of potential issues! (Spooky mod also has multiple config options which allow you to change where certain biomes spawn!)
+-Spooky mod is not currently compatible with any of terraria's secret world seeds. It may work with some seeds, but issues such as biomes generating incorrectly, world generation freezing, and crashing may happen!
+-While spooky mod is mostly multiplayer compatible, there may be still be some smaller issues. Multiplayer issues will continue getting fixed as the mod is worked on, and it would be greatly appreciated if any multiplayer issues you encounter are reported on either this mod's steam page or our discord server!
+
+
+[h1]Developers[/h1]
+
+Massive thanks to all the people who have helped out the mod in some way, or are actively helping develop it!
+
+Developers: DylanDoe21, Hugekraken, Taco, Waasephi, Seasalt, Dandy, Hat in a River, Bananalizard, Rockwizard5, Luxcapacitor, Jim2OUK
+Contributors: Grae, Graydee, Lion8cake, HondaCivicMoment, RocketLauncher, Guck, Ennway, Tomat, and thanks to Vortex of Rainbows for letting me reference and use a bunch of his visual effects code
+Also credit to zapsplat.com, a free sound library where most of the custom sound effects used in this mod come from
+
+And of course, thanks to everyone who has supported the mod or shown interest in any way!
+
+[h1]Other Stuff[/h1]
+
+If you have questions, feedback, or just want to hangout, we have a discord server: [h1][url=https://discord.gg/FFp7FwNBxu] Click here to join! [/url][/h1]
+
+We also have a terraria community forums page, which can be found [h1][url=https://forums.terraria.org/index.php?threads/spooky-mod.111311/] Here! [/url][/h1]
+
+You can also listen to and support bananalizard's soundtrack here:
+[h1][url=https://www.youtube.com/playlist?list=PLTkIRNhpw-3HBf7cKj8oRwepQE6vRYsdR] Youtube Playlist [/url][/h1]
+
+You can also support the soundtrack on bandcamp, which steam won't let me link here for whatever reason, but you can find it in the discord server
