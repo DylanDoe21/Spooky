@@ -34,11 +34,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
 		{
-			int size = (int)Utils.Remap(Projectile.ai[0], 0f, Fadetime, 10f, 40f);
+			int size = (int)Utils.Remap(Projectile.ai[0], 0f, Fadetime, 10f, 30f);
 
 			if (Projectile.ai[0] > Fadetime)
 			{
-				size = (int)Utils.Remap(Projectile.ai[0], Fadetime, Lifetime, 40f, 0f);
+				size = (int)Utils.Remap(Projectile.ai[0], Fadetime, Lifetime, 30f, 0f);
 			}
 
 			hitbox.Inflate(size, size);
@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 
 			if (Projectile.timeLeft < 20)
 			{
-				Projectile.alpha += 20;
+				Projectile.alpha += 5;
 			}
 		}
 	}

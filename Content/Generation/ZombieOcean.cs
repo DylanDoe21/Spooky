@@ -228,8 +228,8 @@ namespace Spooky.Content.Generation
 			int EndX = PositionX > (Main.maxTilesX / 2) ? PositionX + SizeX * 4 : PositionX - SizeX * 4;
 			int Increment = PositionX > (Main.maxTilesX / 2) ? 1 : -1;
 
-			float MinDistanceBetweenCaves = 47;
-			int ValidTileCheckDistance = 32;
+			float MinDistanceBetweenCaves = 50;
+			int ValidTileCheckDistance = 25;
 
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j += 10)
 			{
@@ -303,17 +303,17 @@ namespace Spooky.Content.Generation
 			{
 				if (i < Flags.ZombieBiomePositions.Count - 1)
 				{
-					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[i + 1] - new Vector2(0, 5), 5, false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[i + 1] - new Vector2(0, 5), false);
 				}
 			}
 
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
-				if (WorldGen.genRand.NextBool())
+				if (WorldGen.genRand.NextBool(2))
 				{
 					int MinDistanceIndex = GetClosestNodeIndex(Flags.ZombieBiomePositions[i]);
 
-					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[MinDistanceIndex] - new Vector2(0, 5), 6, false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[MinDistanceIndex] - new Vector2(0, 5), false);
 				}
 			}
 
@@ -331,7 +331,7 @@ namespace Spooky.Content.Generation
 				if (WorldGen.SolidTile(OceanTopX, OceanTopY))
 				{
 					OceanTopY += 3;
-					ConnectCavePoints(Flags.ZombieBiomePositions[1], new Vector2(OceanTopX, OceanTopY), 5, true);
+					ConnectCavePoints(Flags.ZombieBiomePositions[1], new Vector2(OceanTopX, OceanTopY), true);
 
 					placed = true;
 				}
@@ -360,7 +360,7 @@ namespace Spooky.Content.Generation
 			return minimumValueIndex;
 		}
 
-		public void ConnectCavePoints(Vector2 Start, Vector2 End, int Size, bool GoingToSurface)
+		public void ConnectCavePoints(Vector2 Start, Vector2 End, bool GoingToSurface)
 		{
 			int segments = 200;
 
@@ -393,7 +393,7 @@ namespace Spooky.Content.Generation
 					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 					t = (i + 1) / (float)segments;
 
-					WorldGen.digTunnel((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), default, default, WorldGen.genRand.Next(1, 4), Size, true);
+					WorldGen.digTunnel((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), default, default, WorldGen.genRand.Next(3, 5), 5, true);
 				}
 			}
 		}

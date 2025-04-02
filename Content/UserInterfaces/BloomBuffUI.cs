@@ -16,6 +16,8 @@ namespace Spooky.Content.UserInterfaces
         public static bool UIOpen = false;
         public static bool IsDragging = false;
 
+        public static readonly Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 25);
+
         private static Asset<Texture2D> BarTexture;
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -199,15 +201,25 @@ namespace Spooky.Content.UserInterfaces
                     IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DragonfruitIcon").Value; 
                     BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.Dragonfruit.DisplayName");
                     break;
+                case "SeaBarnacle": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaBarnacleIcon").Value;
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaBarnacle.DisplayName");
+                    break;
+                case "SeaCucumber": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaCucumberIcon").Value;
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaCucumber.DisplayName");
+                    break;
+                case "SeaSponge": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaSpongeIcon").Value;
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaSponge.DisplayName");
+                    break;
+                case "SeaUrchin": 
+                    IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/SeaUrchinIcon").Value;
+                    BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items.SeaUrchin.DisplayName");
+                    break;
             }
 
-            if (!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3 && SlotToCheckFor == 2)
-            {
-                IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value; 
-                BuffDisplayName = Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.BloomSlotLocked");
-            }
-
-            if (!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4 && SlotToCheckFor == 3)
+            if ((!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3 && SlotToCheckFor == 2) || (!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4 && SlotToCheckFor == 3))
             {
                 IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value; 
                 BuffDisplayName = Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.BloomSlotLocked");

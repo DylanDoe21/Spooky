@@ -59,6 +59,10 @@ namespace Spooky.Core
         public bool DandelionMapleSeed = false;
 		public bool DandelionTumbleweed = false;
 		public bool Dragonfruit = false;
+		public bool SeaBarnacle = false;
+		public bool SeaCucumber = false;
+		public bool SeaSponge = false;
+		public bool SeaUrchin = false;
 
 		//slot unlocks
 		public bool UnlockedSlot3 = false;
@@ -255,6 +259,10 @@ namespace Spooky.Core
             DandelionMapleSeed = BloomBuffSlots.Contains("DandelionMapleSeed");
             DandelionTumbleweed = BloomBuffSlots.Contains("DandelionTumbleweed");
             Dragonfruit = BloomBuffSlots.Contains("Dragonfruit");
+			SeaBarnacle = BloomBuffSlots.Contains("SeaBarnacle");
+			SeaCucumber = BloomBuffSlots.Contains("SeaCucumber");
+			SeaSponge = BloomBuffSlots.Contains("SeaSponge");
+			SeaUrchin = BloomBuffSlots.Contains("SeaUrchin");
         }
 
         //handler for the buffs duration decreasing over time and setting each buff slot back to blank if the duration of that buff slot runs out

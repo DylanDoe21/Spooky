@@ -662,15 +662,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 		private void PathfindingMovement(Vector2 position, float Speed, int DistanceCheck, int Iterations, bool FollowingPlayer)
 		{
-			/*
-			// Once every few seconds, sync the npc - bandaid on pathfinder in mp
-			if (++SyncTimer > 60)
-			{
-				NPC.netUpdate = true;
-				SyncTimer = 0;
-			}
-			*/
-
 			bool FindClosestNode = false;
 
 			//go to positions around the player, and if they arent valid try offsetting the position to allow dunk to find the location it needs to go to

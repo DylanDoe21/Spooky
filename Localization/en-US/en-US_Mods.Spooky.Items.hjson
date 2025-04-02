@@ -83,11 +83,55 @@ FallZucchini: {
 		'''
 }
 
+SeaBarnacle: {
+	DisplayName: Giant Barnacle
+	Tooltip:
+		'''
+		Dealing damage to enemies will infest them with barnacles that spread on them
+		The more barnacles on an enemy, the more damage they take over time
+		Barnacles will grow on enemies faster if they are in water or rain
+		3 minute duration
+		'''
+}
+
+SeaCucumber: {
+	DisplayName: Gluttonous Cucumber
+	Tooltip:
+		'''
+		Randomly shoot out a sticky disgestive organ at a nearby enemy
+		The organ inflicts poison and will sometimes heal you
+		The organ will remain attached as long as you are close enough to that enemy
+		If you are in water or rain, the organ and its debuffs become stronger
+		5 minute duration
+		'''
+}
+
+SeaSponge: {
+	DisplayName: Absorption Sponge
+	Tooltip:
+		'''
+		Grants a very slim chance to absorb any hostile projectile that comes near you
+		Absorbing a projectile will temporarily increase all of your stats for 5 seconds
+		The chance of absorbing a projectile increases if you are in water or rain
+		'''
+}
+
+SeaUrchin: {
+	DisplayName: Ouchy Urchin
+	Tooltip:
+		'''
+		Grow a spiny venomous sea urchin on your head
+		The sea urchin will retaliate against enemies that hit you
+		If you are in water or rain, the urchins retaliation becomes stronger
+		4 minute duration
+		'''
+}
+
 SpringHeartFlower: {
 	DisplayName: Bleeding Heart
 	Tooltip:
 		'''
-		Grants increased life regeneration for each occupied bloom slot you have, including this bloom
+		Grants increased life regeneration for each of your occupied bloom buff slots
 		5 minute duration
 		'''
 }
@@ -2887,6 +2931,16 @@ FallSeed: {
 		'''
 }
 
+SeaSeed: {
+	DisplayName: Rotten Clump
+	Tooltip:
+		'''
+		Places a disgusting growth that turns into various sea creatures
+		Requires a flat ground of Bloom Soil to be planted on
+		Will only grow if submerged in water
+		'''
+}
+
 SpringSeed: {
 	DisplayName: Puff of Pollen
 	Tooltip:
@@ -2906,7 +2960,7 @@ SummerSeed: {
 }
 
 VegetableSeed: {
-	DisplayName: Radioactive Seeds
+	DisplayName: Genetically-Modified Seeds
 	Tooltip:
 		'''
 		Places a plant that grows various strange vegetable blooms

@@ -55,11 +55,21 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 			if (!Parent.active || Parent.type != ModContent.NPCType<SpookFishron>())
 			{
 				Projectile.Kill();
+
+				if (Main.netMode != NetmodeID.Server) 
+				{
+					Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/SpooklizzardStaff").Type);
+				}
 			}
 
             if (Parent.active && Parent.type == ModContent.NPCType<SpookFishron>() && Parent.ai[0] != 6)
             {
                 Projectile.Kill();
+
+				if (Main.netMode != NetmodeID.Server) 
+				{
+					Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity, ModContent.Find<ModGore>("Spooky/SpooklizzardStaff").Type);
+				}
             }
 
 			Projectile.timeLeft = 5;
