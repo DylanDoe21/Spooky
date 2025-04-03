@@ -52,7 +52,7 @@ namespace Spooky.Content.UserInterfaces
             {
                 layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
                 {
-                    BloomBuffUI.Draw(Main.spriteBatch);
+					BloomBuffUI.Draw(Main.spriteBatch);
                     return true;
                 },
                 InterfaceScaleType.None));

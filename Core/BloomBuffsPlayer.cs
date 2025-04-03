@@ -82,11 +82,11 @@ namespace Spooky.Core
 		public int DragonfruitStacks = 0;
 
         //UI default position
-        public Vector2 BloomUITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 25);
+        public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
 
-        public override void SaveData(TagCompound tag)
+		public override void SaveData(TagCompound tag)
         {
-            tag["BloomUITopLeft"] = BloomUITopLeft;
+            tag["BloomUIPos"] = BloomUIPos;
 
             tag["BloomBuffSlot1"] = BloomBuffSlots[0];
             tag["BloomBuffSlot2"] = BloomBuffSlots[1];
@@ -105,7 +105,7 @@ namespace Spooky.Core
         
         public override void LoadData(TagCompound tag)
         {
-			BloomUITopLeft = tag.Get<Vector2>("BloomUITopLeft");
+			BloomUIPos = tag.Get<Vector2>("BloomUIPos");
 
             BloomBuffSlots[0] = tag.Get<string>("BloomBuffSlot1");
 			BloomBuffSlots[1] = tag.Get<string>("BloomBuffSlot2");

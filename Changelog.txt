@@ -77,6 +77,8 @@ Items:
 -Pumptergiest projectiles now only spawn if you are holding a weapon, their damage now scales with the damage of that weapon (with a minimum of 30 damage), and reduced the minimum time for a pumpkin to spawn from 6 to 5 seconds
 -Zappy Zucchini lightning now does damage equal to 8% of an enemies maximum health instead of having a flat damage value of 20
 -Increased enemy detection range for the swarm scepter leech minions
+-Ooze magnum giant bile glob that is shot when released at maximum fire rate now explodes into 30 small globs instead of 10
+-Dave & mike can now target individual enemies from much further away, it no longer needs to touch the enemy in order to begin attacking it, and massively increased the distance which dave and mike can target enemies from
 
 
 Armors:

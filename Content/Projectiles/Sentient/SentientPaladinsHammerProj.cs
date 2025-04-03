@@ -103,7 +103,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 NPC NPC = Main.npc[i];
 
                 //prioritize bosses over normal enemies
-                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.IsTechnicallyBoss() && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && (NPC.boss || NPC.IsTechnicallyBoss()) && Vector2.Distance(Projectile.Center, NPC.Center) <= 750f)
                 {
                     AttackingAI(NPC, owner);
                     return;
@@ -116,7 +116,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 NPC NPC = Main.npc[i];
 
                 //if no boss is found, target other enemies normally
-                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 550f)
+                if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 750f)
                 {
                     AttackingAI(NPC, owner);
                     return;

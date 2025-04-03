@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 
 using Spooky.Core;
+using Terraria.GameContent;
+using Terraria.UI.Chat;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -17,8 +19,10 @@ namespace Spooky.Content.UserInterfaces
         public static bool IsDragging = false;
 
         private static Asset<Texture2D> BarTexture;
+		private static Asset<Texture2D> DaffodilLockTexture;
+		private static Asset<Texture2D> BigBoneLockTexture;
 
-        public static void Draw(SpriteBatch spriteBatch)
+		public static void Draw(SpriteBatch spriteBatch)
         {
             Player player = Main.LocalPlayer;
 
@@ -28,17 +32,22 @@ namespace Spooky.Content.UserInterfaces
                 return;
             }
 
-            BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffUIBox");
-            Vector2 UIBoxScale = Vector2.One * Main.UIScale * 0.9f;
+			//set textures
+            BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffUI");
+			DaffodilLockTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/BloomBuffsSlotDaffodilLock");
+			BigBoneLockTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/BloomBuffsSlotBigBoneLock");
 
-            //UI dragging 
-            MouseState mouse = Mouse.GetState();
+			//UI box scaling
+			Vector2 UIBoxScale = Vector2.One * Main.UIScale;
+
+			//UI dragging 
+			MouseState mouse = Mouse.GetState();
 
             //only allow UI dragging if the config option is on and the player is not in the inventory
             if (ModContent.GetInstance<SpookyConfig>().DraggableUI && !Main.playerInventory)
             {
                 //if the player is hovering over the UI panel and presses left click then allow dragging
-                if (IsMouseOverUI(player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
+                if (IsMouseOverUI(player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
                     IsDragging = true;
                 }
@@ -47,7 +56,7 @@ namespace Spooky.Content.UserInterfaces
                 if (IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
                     player.mouseInterface = true;
-                    player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft = Main.MouseScreen - (BarTexture.Size() / 2) * UIBoxScale;
+                    player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos = Main.MouseScreen;
                 }
 
                 //if the player lets go of mouse left, stop dragging the UI panel
@@ -63,108 +72,106 @@ namespace Spooky.Content.UserInterfaces
             }
 
             //draw the main UI box
-            spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, Vector2.Zero, UIBoxScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
             //bloom buff icon drawing for each slot
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[0] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(19.8f, 30.5f) * Main.UIScale, 0, player.GetModPlayer<BloomBuffsPlayer>().Duration1);
-            }
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos - new Vector2(66f, 0f) * Main.UIScale, 0);
+				DisplayTimeText(spriteBatch, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos - new Vector2(82f, -12f) * Main.UIScale, player.GetModPlayer<BloomBuffsPlayer>().Duration1);
+			}
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[1] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(63.2f, 30.5f) * Main.UIScale, 1, player.GetModPlayer<BloomBuffsPlayer>().Duration2);
-            }
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos - new Vector2(22f, 0f) * Main.UIScale, 1);
+				DisplayTimeText(spriteBatch, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos - new Vector2(38f, -12f) * Main.UIScale, player.GetModPlayer<BloomBuffsPlayer>().Duration2);
+			}
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
-            }
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos + new Vector2(22.5f, 0f) * Main.UIScale, 2);
+				DisplayTimeText(spriteBatch, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos + new Vector2(6.5f, 12f) * Main.UIScale, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
+			}
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] != string.Empty)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
-            }
+                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos + new Vector2(66.5f, 0f) * Main.UIScale, 3);
+				DisplayTimeText(spriteBatch, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos + new Vector2(50.5f, 12f) * Main.UIScale, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
+			}
 
-            //draw locked icons if the player doesnt have those respective slots unlocked yet
+            //draw locked overlays if the player doesnt have those respective slots unlocked yet
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(106.1f, 30.5f) * Main.UIScale, 2, player.GetModPlayer<BloomBuffsPlayer>().Duration3);
-            }
+				spriteBatch.Draw(DaffodilLockTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, DaffodilLockTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+			}
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4)
             {
-                DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUITopLeft + new Vector2(149.3f, 30.5f) * Main.UIScale, 3, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
-            }
+				spriteBatch.Draw(BigBoneLockTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, BigBoneLockTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+			}
         }
 
         //used to draw individual buff icons over the main UI box
-        public static void DrawIcon(SpriteBatch spriteBatch, Player player, Vector2 IconTopLeft, int SlotToCheckFor, int DurationToCheckFor)
+        public static void DrawIcon(SpriteBatch spriteBatch, Player player, Vector2 IconPos, int SlotToCheckFor)
         {
-            Texture2D IconTexture = null;
+			Vector2 UIBoxScale = Vector2.One * Main.UIScale;
 
-            string BuffDisplayName = string.Empty;
+			//get the texture and display name based on the name of the bloom string in the slot to check for
+			//REMINDER: this is not the best way to implement it, but this always assumes that the string in the slot to check for matches the exact display name of the bloom item
+			//the same goes for that blooms corresponding icon, where its file name is the exact file name as the bloom item + "Icon"
+			Texture2D IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/" + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + "Icon").Value;
+			string BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items." + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + ".DisplayName");
 
-			IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/" + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + "Icon").Value; 
-            BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items." + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + ".DisplayName");
+            spriteBatch.Draw(IconTexture, IconPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, IconTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
-            if ((!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3 && SlotToCheckFor == 2) || (!player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4 && SlotToCheckFor == 3))
+            //only display text if the player is hovering over the UI, and the inventory is not open
+            if (IsMouseOverUI(IconPos, IconTexture, Vector2.One * Main.UIScale * 0.9f) && !Main.playerInventory)
             {
-                IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value; 
-                BuffDisplayName = Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.BloomSlotLocked");
-            }
-
-            if (IconTexture != null)
-            {
-                spriteBatch.Draw(IconTexture, IconTopLeft, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, Vector2.Zero, Vector2.One * Main.UIScale * 0.9f, SpriteEffects.None, 0f);
-
-                //only display text if the player is hovering over the UI, and the inventory is not open
-                if (IsMouseOverUI(IconTopLeft, IconTexture, Vector2.One * Main.UIScale * 0.9f) && !Main.playerInventory)
+                //if the player has the dragon fruit buff, then also display the dragon fruit buff stacks as part of the description
+                if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/DragonfruitIcon").Value)
                 {
-                    if (IconTexture != ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/BloomBuffSlotLocked").Value)
-                    {
-						//convert the buff time to minutes and seconds by dividing the time by 60 and then changing it to Minutes:Seconds format
-						TimeSpan time = TimeSpan.FromSeconds(DurationToCheckFor / 60);
-						string actualTime = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
-
-                        //if the player has the dragon fruit buff, then also display the dragon fruit buff stacks as part of the description
-                        if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomBuffIcons/DragonfruitIcon").Value)
-                        {
-                            Main.instance.MouseText(BuffDisplayName + "\n" + 
-                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick") + "\n" +
-                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10" + "\n" + 
-                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.Duration") + " " + actualTime);
-                        }
-                        else
-                        {
-						    Main.instance.MouseText(BuffDisplayName + "\n" + 
-                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick") + "\n" + 
-                            Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.Duration") + " " + actualTime);
-                        }
-
-						//remove the buff if the player right clicks the icon on the ui
-						if (Main.mouseRightRelease && Main.mouseRight)
-						{
-							player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] = string.Empty;
-						}
-                    }
-                    else
-                    {
-                        Main.instance.MouseText(BuffDisplayName);
-                    }
+                    Main.instance.MouseText(BuffDisplayName + "\n" + 
+                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick") + "\n" +
+                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10");
                 }
+                else
+                {
+					Main.instance.MouseText(BuffDisplayName + "\n" + 
+                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
+                }
+
+				//remove the buff if the player right clicks the icon on the ui
+				if (Main.mouseRightRelease && Main.mouseRight)
+				{
+					player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] = string.Empty;
+				}
             }
         }
 
-        //check if the mouse is hovering over a specific button or UI box
-        public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 backgroundScale)
-        {
-            Rectangle backgroundArea = new Rectangle((int)TopLeft.X, (int)TopLeft.Y, (int)(texture.Width * backgroundScale.X), (int)(texture.Width * backgroundScale.Y));
+		public static void DisplayTimeText(SpriteBatch spriteBatch, Vector2 TextTopLeft, int DurationToCheckFor)
+		{
+			Vector2 scale = new Vector2(0.85f, 0.825f) * MathHelper.Clamp(Main.screenHeight / 1440f, 0.825f, 1f) * Main.UIScale;
 
-            if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
+			TimeSpan time = TimeSpan.FromSeconds(DurationToCheckFor / 60);
+			string actualTime = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+
+			//bloom buff timeleft text
+			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, actualTime, TextTopLeft, 
+			Color.White * Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, Vector2.Zero, scale);
+			TextTopLeft.Y += Main.UIScale * 16f;
+		}
+
+		//check if the mouse is hovering over the UI
+		public static bool IsMouseOverUI(Vector2 TopLeft, Texture2D texture, Vector2 scale)
+		{
+			Rectangle backgroundArea = new Rectangle((int)TopLeft.X - (int)(texture.Width / 2 * scale.X),
+			(int)TopLeft.Y - (int)(texture.Height / 2 * scale.Y),
+			(int)(texture.Width * scale.X), (int)(texture.Height * scale.Y));
+
+			if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
 			{
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
     }
 }

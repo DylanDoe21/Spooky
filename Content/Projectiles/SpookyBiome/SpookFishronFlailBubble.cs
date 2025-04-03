@@ -56,6 +56,22 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             return false;
         }
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+                Projectile.velocity.X = -oldVelocity.X;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+                Projectile.velocity.Y = -oldVelocity.Y;
+            }
+
+			return false;
+		}
+
         public override void AI()
         {
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
@@ -88,21 +104,5 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
         }
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            if (Projectile.velocity.X != oldVelocity.X)
-            {
-                Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-                Projectile.velocity.X = -oldVelocity.X;
-            }
-            if (Projectile.velocity.Y != oldVelocity.Y)
-            {
-                Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-                Projectile.velocity.Y = -oldVelocity.Y;
-            }
-
-			return false;
-		}
     }
 }

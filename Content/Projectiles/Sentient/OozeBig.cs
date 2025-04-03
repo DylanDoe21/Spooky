@@ -80,7 +80,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Screenshake.ShakeScreenWithIntensity(Projectile.Center, 3f, 500f);
 
-            for (int numProjectiles = 0; numProjectiles < 10; numProjectiles++)
+            for (int numProjectiles = 0; numProjectiles < 30; numProjectiles++)
             {
                 Vector2 ProjectilePosition = Projectile.Center + new Vector2(0, 15).RotatedByRandom(360);
 

@@ -14,8 +14,8 @@ namespace Spooky.Content.Tiles.Blooms
 		public override void SetDefaults()
 		{
 			Item.DefaultToPlaceableTile(ModContent.TileType<SeaBloomPlant>());
-			Item.width = 52;
-			Item.height = 52;
+			Item.width = 42;
+			Item.height = 40;
 			Item.noUseGraphic = true;
 			Item.rare = ItemRarityID.Blue;
 			Item.placeStyle = Main.rand.Next(0, 4);

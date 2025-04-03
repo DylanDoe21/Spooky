@@ -78,7 +78,7 @@ FallZucchini: {
 	Tooltip:
 		'''
 		Occassionally zap nearby enemies with zucchini electricity for a few seconds
-		Electricity will deal 8% of the targetted enemies maximum health as damage
+		Electricity will deal 8% of the targeted enemies maximum health as damage
 		2 minute duration
 		'''
 }
@@ -107,12 +107,13 @@ SeaCucumber: {
 }
 
 SeaSponge: {
-	DisplayName: Absorption Sponge
+	DisplayName: Super-Absorbant Sponge
 	Tooltip:
 		'''
-		Grants a very slim chance to absorb any hostile projectile that comes near you
+		Grants a small chance to absorb any hostile projectile that comes near you
 		Absorbing a projectile will temporarily increase all of your stats for 5 seconds
 		The chance of absorbing a projectile increases if you are in water or rain
+		3 minute duration
 		'''
 }
 
@@ -213,6 +214,7 @@ VegetableCauliflower: {
 		'''
 		Grants a 10% increase to your summon damage
 		Hitting enemies with whips can summon homing cauliflower
+		5 minute duration
 		'''
 }
 
@@ -222,6 +224,7 @@ VegetableEggplantPaint: {
 		'''
 		Grants a 10% increase to your ranged damage
 		Ranged projectiles will leave behind damaging paint splatter
+		5 minute duration
 		'''
 }
 
@@ -232,6 +235,7 @@ VegetablePepper: {
 		Grants a 10% increase to your melee damage and speed
 		Hitting enemies with melee weapons with inflict them with the pepper's spice
 		Enemies inflicted with this spice will spew out damaging fire around them
+		5 minute duration
 		'''
 }
 
@@ -242,6 +246,7 @@ VegetableRomanesco: {
 		Grants a 10% increase to your magic damage
 		Using magic weapons can sometimes spawn a lingering romanesco 
 		Hitting it with a magic projectile will cause it to explode into homing leaves
+		5 minute duration
 		'''
 }
 
@@ -2932,10 +2937,10 @@ FallSeed: {
 }
 
 SeaSeed: {
-	DisplayName: Rotten Clump
+	DisplayName: Completely Unidentifiable Organ
 	Tooltip:
 		'''
-		Places a disgusting growth that turns into various sea creatures
+		Places a disgusting flesh growth that turns into various sea creatures
 		Requires a flat ground of Bloom Soil to be planted on
 		Will only grow if submerged in water
 		'''

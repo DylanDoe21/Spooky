@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
 using Microsoft.Xna.Framework.Input;
-using Terraria.Localization;
 
 namespace Spooky.Content.UserInterfaces
 {
