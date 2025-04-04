@@ -127,8 +127,8 @@ namespace Spooky.Content.UserInterfaces
                 if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/DragonfruitIcon").Value)
                 {
                     Main.instance.MouseText(BuffDisplayName + "\n" + 
-                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick") + "\n" +
-                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10");
+                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10" + "\n" +
+                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
                 }
                 else
                 {

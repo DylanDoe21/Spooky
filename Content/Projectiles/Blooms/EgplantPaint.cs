@@ -22,6 +22,7 @@ namespace Spooky.Content.Projectiles.Blooms
         {
             Projectile.width = 24;
             Projectile.height = 38;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 60;
@@ -33,7 +34,6 @@ namespace Spooky.Content.Projectiles.Blooms
             return false;
         }
 
-		//TODO: make this stay at the same position on the screen
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

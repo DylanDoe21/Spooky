@@ -302,7 +302,7 @@ namespace Spooky.Core
                 BloomBuffSlots[3] = string.Empty;
             }
 
-            //set the duration of a buff slot to 0 if the slot is empty
+            //set the duration of each buff slot to 0 if the slot is empty
 			if (BloomBuffSlots[0] == string.Empty)
 			{
 				Duration1 = 0;
@@ -635,7 +635,7 @@ namespace Spooky.Core
 
 				target.AddBuff(ModContent.BuffType<BlueberryFrost>(), 480);
 
-				Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<BlueberryExplosion>(), 0, 0, Player.whoAmI);
+				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Vector2.Zero, ModContent.ProjectileType<BlueberryExplosion>(), 0, 0, Player.whoAmI);
 			}
 
 			//spawn gooseberries on every third enemy hit with a 33% chance
@@ -647,7 +647,7 @@ namespace Spooky.Core
 				{
 					if (Main.rand.NextBool(3))
 					{
-						Projectile.NewProjectile(null, target.Center, new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-5, -2)), ModContent.ProjectileType<GooseberryBoost>(), 0, 0, Player.whoAmI);
+						Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-5, -2)), ModContent.ProjectileType<GooseberryBoost>(), 0, 0, Player.whoAmI);
 					}
 
 					WinterGooseberryHits = 0;
@@ -664,12 +664,17 @@ namespace Spooky.Core
 				ShootSpeed.Normalize();
 				ShootSpeed *= 55f;
 
-				Projectile.NewProjectile(null, new Vector2(RandomPosX, RandomPosY), ShootSpeed, ModContent.ProjectileType<Tumbleweed>(), hit.Damage + 30, 0, Player.whoAmI);
+				Projectile.NewProjectile(target.GetSource_OnHurt(Player), new Vector2(RandomPosX, RandomPosY), ShootSpeed, ModContent.ProjectileType<Tumbleweed>(), hit.Damage + 30, hit.Knockback, Player.whoAmI);
 			}
 
 			if (VegetablePepper && Main.rand.NextBool(15) && hit.DamageType == DamageClass.Melee)
 			{
 				target.AddBuff(ModContent.BuffType<PepperSpice>(), 600);
+			}
+
+			if (VegetableCauliflower && Main.rand.NextBool(10) && hit.DamageType == DamageClass.SummonMeleeSpeed)
+			{
+				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, new Vector2(0, -5), ModContent.ProjectileType<Cauliflower>(), hit.Damage, hit.Knockback, Player.whoAmI, Main.rand.Next(0, 3));
 			}
 		}
 	}

@@ -65,7 +65,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
 		public override void AI()
 		{
-			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f;
+			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
 			Projectile.velocity *= 0.975f;
 

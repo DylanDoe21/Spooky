@@ -1299,7 +1299,7 @@ SharkBoneLegs: {
 
 CarrotWand: {
 	DisplayName: Carrot Rot Wand
-	Tooltip: Casts out a glob of ooze
+	Tooltip: Casts out a glob of ooze that lingers on the ground
 }
 
 CeleryGun: {
