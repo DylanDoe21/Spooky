@@ -531,13 +531,21 @@ PlantChunk: {
 }
 
 Slot3Unlocker: {
-	DisplayName: 2nd Place Bloom Ribbon
-	Tooltip: Unlocks your third bloom slot
+	DisplayName: Bone Spade
+	Tooltip:
+		'''
+		Clears the thorn infestation away from your third bloom slot
+		Allows you to have up to 3 bloom buffs at once!
+		'''
 }
 
 Slot4Unlocker: {
-	DisplayName: 1st Place Bloom Ribbon
-	Tooltip: Unlocks your fourth bloom slot
+	DisplayName: Ancient Shovel
+	Tooltip:
+		'''
+		Clears the strange bulb infestation away from your fourth bloom slot
+		Allows you to have all 4 bloom buff slots!
+		'''
 }
 
 BigBoneBow: {

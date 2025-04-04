@@ -61,26 +61,23 @@ namespace Spooky.Content.Generation
 
 			for (int numBiomesPlaced = 0; numBiomesPlaced < maxBiomes; numBiomesPlaced++)
 			{
-				while (!CanPlaceBiome(BiomeX, BiomeY, SizeX, SizeY))
+				if (numBiomesPlaced == 0)
 				{
-					if (numBiomesPlaced == 0)
-					{
-						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
+					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
 
-						if (!IsSmallWorld)
-						{
-							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 75);
-						}
-						else
-						{
-							BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY - 300);
-						}
+					if (!IsSmallWorld)
+					{
+						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 75);
 					}
 					else
 					{
-						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
-						BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2, GenVars.desertHiveLow - SizeY - (SizeY / 2));
+						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY - 400);
 					}
+				}
+				else
+				{
+					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
+					BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2, GenVars.desertHiveLow - SizeY - (SizeY / 2));
 				}
 
 				SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);
@@ -643,7 +640,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
-					int[] ValidTiles = { TileID.Sand, TileID.Sandstone, TileID.HardenedSand };
+					int[] ValidTiles = { TileID.Sand, TileID.Sandstone, TileID.HardenedSand, TileID.DesertFossil };
 					int[] ValidWalls = { WallID.Sandstone, WallID.HardenedSand };
 
 					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && (ValidTiles.Contains(Main.tile[i, j].TileType) || ValidWalls.Contains(Main.tile[i, j].WallType)))

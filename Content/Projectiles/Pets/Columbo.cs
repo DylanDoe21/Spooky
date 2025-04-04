@@ -61,6 +61,9 @@ namespace Spooky.Content.Projectiles.Pets
 
             if (!playerFlying)
             {
+                //prevents the pet from getting stuck on sloped tiled
+                Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
+
                 Projectile.rotation = 0;
                 Vector2 center2 = Projectile.Center;
                 Vector2 vector48 = player.Center - center2;

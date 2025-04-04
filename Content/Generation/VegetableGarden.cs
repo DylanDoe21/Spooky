@@ -421,9 +421,6 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
 				{
-					//if (WorldGen.InWorld(i, j))
-						//WorldGen.PlaceTile(i, j, TileID.Adamantite);
-
 					int[] ValidTiles = { TileID.JungleGrass, TileID.Mud, TileID.LivingMahoganyLeaves };
 
 					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && ValidTiles.Contains(Main.tile[i, j].TileType))

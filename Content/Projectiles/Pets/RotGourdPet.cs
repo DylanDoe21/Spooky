@@ -40,6 +40,9 @@ namespace Spooky.Content.Projectiles.Pets
             {
 				Projectile.timeLeft = 2;
             }
+
+			//prevents the pet from getting stuck on sloped tiled
+            Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
 		}
 	}
 }

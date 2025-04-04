@@ -60,6 +60,9 @@ namespace Spooky.Content.Projectiles.Pets
 
             if (!playerFlying)
             {
+                //prevents the pet from getting stuck on sloped tiled
+                Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
+
                 //set frames when idle
                 if (Projectile.position.X == Projectile.oldPosition.X && Projectile.position.Y == Projectile.oldPosition.Y && Projectile.velocity.X == 0)
                 {

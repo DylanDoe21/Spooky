@@ -60,12 +60,13 @@ namespace Spooky.Content.Projectiles.Pets
 
             if (!playerFlying)
             {
+                //prevents the pet from getting stuck on sloped tiled
+                Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
+
                 Projectile.rotation = 0;
                 Vector2 center2 = Projectile.Center;
                 Vector2 vector48 = player.Center - center2;
                 float playerDistance = Projectile.Distance(player.Center);
-
-                Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
 
                 if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 200f) || (playerDistance > 200f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
