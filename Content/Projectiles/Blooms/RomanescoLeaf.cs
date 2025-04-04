@@ -59,7 +59,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-			float WaveIntensity = 4f;
+			float WaveIntensity = 8f;
 			float Wave = 4f;
 
 			Projectile.ai[0]++;

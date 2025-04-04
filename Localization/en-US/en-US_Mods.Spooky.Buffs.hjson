@@ -519,3 +519,8 @@ SentientLeatherWhipDebuff: {
 	DisplayName: Sentient Leather Whip Debuff
 	Description: ""
 }
+
+PepperSpice: {
+	DisplayName: Pepper Spice
+	Description: ""
+}

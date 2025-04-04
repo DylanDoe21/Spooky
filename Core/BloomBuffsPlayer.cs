@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
@@ -10,11 +11,6 @@ using System.Linq;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
-using Spooky.Content.UserInterfaces;
-using Mono.Cecil;
-using Spooky.Content.Projectiles.Sentient;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.DataStructures;
 
 namespace Spooky.Core
 {
@@ -669,6 +665,11 @@ namespace Spooky.Core
 				ShootSpeed *= 55f;
 
 				Projectile.NewProjectile(null, new Vector2(RandomPosX, RandomPosY), ShootSpeed, ModContent.ProjectileType<Tumbleweed>(), hit.Damage + 30, 0, Player.whoAmI);
+			}
+
+			if (VegetablePepper && Main.rand.NextBool(15) && hit.DamageType == DamageClass.Melee)
+			{
+				target.AddBuff(ModContent.BuffType<PepperSpice>(), 600);
 			}
 		}
 	}

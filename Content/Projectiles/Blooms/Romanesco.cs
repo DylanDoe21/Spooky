@@ -2,13 +2,17 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Spooky.Content.Projectiles.Blooms
 {
     public class Romanesco : ModProjectile
     {
+		private static Asset<Texture2D> ProjTexture;
+
         public override void SetDefaults()
         {
             Projectile.width = 26;
@@ -18,6 +22,24 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 600;
+        }
+
+		public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Lime);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+
+            for (int numEffect = 0; numEffect < 3; numEffect++)
+            {
+                Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) + (numEffect / 3 * 6 + Projectile.rotation + 0f).ToRotationVector2() - Main.screenPosition + new Vector2(0, Projectile.gfxOffY) - Projectile.velocity * numEffect;
+                Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+                Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0);
+            }
+
+            return true;
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

@@ -240,12 +240,12 @@ VegetablePepper: {
 }
 
 VegetableRomanesco: {
-	DisplayName: Romanesco
+	DisplayName: Poisonous Romanesco
 	Tooltip:
 		'''
 		Grants a 10% increase to your magic damage
 		Using magic weapons can sometimes spawn a lingering romanesco 
-		Hitting it with a magic projectile will cause it to explode into homing leaves
+		Hitting it with a magic projectile will cause it to explode into homing poison leaves
 		5 minute duration
 		'''
 }
