@@ -41,12 +41,12 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
         public static void SpawnWorm(int head, int body, int tail, Vector2 spawnPos, Player player, int damage, float knockback)
         {
-            Projectile.NewProjectile(null, spawnPos, player.DirectionTo(Main.MouseWorld) * 3, head, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(null, spawnPos, Vector2.Zero * 3, tail, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, head, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, tail, damage, knockback, player.whoAmI);
 
             for (var i = 0; i < 5; i++)
             {
-                Projectile.NewProjectile(null, spawnPos, Vector2.Zero * 3, body, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(null, spawnPos, Vector2.Zero, body, damage, knockback, player.whoAmI);
             }
         }
 

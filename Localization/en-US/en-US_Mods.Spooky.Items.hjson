@@ -83,6 +83,47 @@ FallZucchini: {
 		'''
 }
 
+FossilBlackPepper: {
+	DisplayName: Black Pepper Pebbles
+	Tooltip:
+		'''
+		Randomly shoot out pepper pebbles that increase defense when picked up
+		If your defense is lower, you will spawn pepper pebbles more frequently
+		Each one increases defense by 2, and will stack up to a maximum of 20
+		5 minute duration
+		'''
+}
+
+FossilDutchmanPipe: {
+	DisplayName: Evil Dutchman Pipe
+	Tooltip:
+		'''
+		Creates a negative aura around you
+		Enemies that step into the aura have their defense lowered permanently
+		5 minute duration
+		'''
+}
+
+FossilMagnolia: {
+	DisplayName: Sturdy Magnolia
+	Tooltip:
+		'''
+		Grants more damage reduction as your health lowers
+		3 minute duration
+		'''
+}
+
+FossilProtea: {
+	DisplayName: Diamond Protea
+	Tooltip:
+		'''
+		Puts a heavy protea shield around you which increases your defense 
+		This shield also causes you to fall faster and accelerate when falling
+		Falling from high enough will cause a powerful slam when you hit the ground or an enemy
+		2 minute duration
+		'''
+}
+
 SeaBarnacle: {
 	DisplayName: Giant Barnacle
 	Tooltip:
@@ -2944,6 +2985,15 @@ FallSeed: {
 		'''
 }
 
+FossilSeed: {
+	DisplayName: Ancient Plant Fossil
+	Tooltip:
+		'''
+		Places a plant that grows various prehistoric rock blooms
+		Requires a flat ground of Bloom Soil to be planted on
+		'''
+}
+
 SeaSeed: {
 	DisplayName: Completely Unidentifiable Organ
 	Tooltip:
@@ -4716,5 +4766,37 @@ Bestiary: {
 		'''
 		Completes the bestiary
 		Testing Item
+		'''
+}
+
+Bonemeal: {
+	DisplayName: Bonemeal
+	Tooltip:
+		'''
+		All blooms within a certain distance of you will grow much faster
+		Harvesting a bloom has a chance to yield an additional bloom fruit
+		'''
+}
+
+DaylightSavings: {
+	DisplayName: Daylight Savings
+	Tooltip: For each bloom buff with less than 1 minute duration left, gain attack, movement, and mining speed
+}
+
+FarmerGlove: {
+	DisplayName: Farmer's Glove
+	Tooltip: Plating a bloom will grant you increased life regeneration for 10 minutes
+}
+
+Wormy: {
+	DisplayName: Wormy Charles
+	Tooltip:
+		'''
+		Summons a friendly worm to fight with you
+		He will gain additional effects for each type of bloom buff you have
+		Spring bloom buffs will allow him to lifesteal
+		Summer bloom buffs grant him a chance to ignite enemies
+		Fall bloom buffs grant him a chance to spawn flies on enemy hits
+		Winter bloom buffs grant a chance to inflict Frostburn
 		'''
 }

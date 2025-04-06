@@ -11,6 +11,10 @@ namespace Spooky.Core
 {
     public class ProjectileGlobal : GlobalProjectile
     {
+		public override bool InstancePerEntity => true;
+
+		public bool SpongeAbsorbAttempt = false;
+
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             //creepy candle makes magic projectiles inflict on fire

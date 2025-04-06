@@ -74,6 +74,16 @@ namespace Spooky.Content.UserInterfaces
             //draw the main UI box
             spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
+            //draw locked overlays if the player doesnt have those respective slots unlocked yet
+            if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3)
+            {
+				spriteBatch.Draw(DaffodilLockTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, DaffodilLockTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+			}
+            if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4)
+            {
+				spriteBatch.Draw(BigBoneLockTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, BigBoneLockTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+			}
+
             //bloom buff icon drawing for each slot
             if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[0] != string.Empty)
             {
@@ -94,16 +104,6 @@ namespace Spooky.Content.UserInterfaces
             {
                 DrawIcon(spriteBatch, player, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos + new Vector2(66.5f, 0f) * Main.UIScale, 3);
 				DisplayTimeText(spriteBatch, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos + new Vector2(50.5f, 12f) * Main.UIScale, player.GetModPlayer<BloomBuffsPlayer>().Duration4);
-			}
-
-            //draw locked overlays if the player doesnt have those respective slots unlocked yet
-            if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[2] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot3)
-            {
-				spriteBatch.Draw(DaffodilLockTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, DaffodilLockTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
-			}
-            if (player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[3] == string.Empty && !player.GetModPlayer<BloomBuffsPlayer>().UnlockedSlot4)
-            {
-				spriteBatch.Draw(BigBoneLockTexture.Value, player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, null, Color.White * player.GetModPlayer<BloomBuffsPlayer>().UITransparency, 0f, BigBoneLockTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 			}
         }
 

@@ -59,6 +59,10 @@ namespace Spooky.Core
 		public bool SeaCucumber = false;
 		public bool SeaSponge = false;
 		public bool SeaUrchin = false;
+		public bool FossilBlackPepper = false;
+		public bool FossilDutchmanPipe = false;
+		public bool FossilMagnolia = false;
+		public bool FossilProtea = false;
 
 		//slot unlocks
 		public bool UnlockedSlot3 = false;
@@ -76,6 +80,9 @@ namespace Spooky.Core
 		public int DandelionMapleSeedTimer = 0;
 		public int DragonFruitTimer = 0;
 		public int DragonfruitStacks = 0;
+
+		//accessories
+		public bool Wormy = false;
 
         //UI default position
         public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
@@ -117,6 +124,11 @@ namespace Spooky.Core
 			UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");
         }
+
+		public override void ResetEffects()
+        {
+			Wormy = false;
+		}
 
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
         public bool CanConsumeFruit(string BuffName)
@@ -259,6 +271,10 @@ namespace Spooky.Core
 			SeaCucumber = BloomBuffSlots.Contains("SeaCucumber");
 			SeaSponge = BloomBuffSlots.Contains("SeaSponge");
 			SeaUrchin = BloomBuffSlots.Contains("SeaUrchin");
+			FossilBlackPepper = BloomBuffSlots.Contains("FossilBlackPepper");
+			FossilDutchmanPipe = BloomBuffSlots.Contains("FossilDutchmanPipe");
+			FossilMagnolia = BloomBuffSlots.Contains("FossilMagnolia");
+			FossilProtea = BloomBuffSlots.Contains("FossilProtea");
         }
 
         //handler for the buffs duration decreasing over time and setting each buff slot back to blank if the duration of that buff slot runs out
@@ -548,6 +564,26 @@ namespace Spooky.Core
 				DragonfruitStacks = 0;
 				DragonFruitTimer = 0;
 			}
+
+			if (SeaSponge)
+			{
+				foreach (var Proj in Main.ActiveProjectiles)
+				{
+					if (Player.Distance(Proj.Center) < 100 && Proj.hostile && Proj.damage > 0 && Proj.CanHitWithOwnBody(Player) && !Proj.GetGlobalProjectile<ProjectileGlobal>().SpongeAbsorbAttempt)
+					{
+						int ChanceToAbsorb = (Main.raining || Player.wet) ? 22 : 35;
+
+						if (Main.rand.NextBool(ChanceToAbsorb))
+						{
+							SoundEngine.PlaySound(SoundID.NPCDeath63, Proj.Center);
+
+							Proj.Kill();
+						}
+
+						Proj.GetGlobalProjectile<ProjectileGlobal>().SpongeAbsorbAttempt = true;
+					}
+				}
+			}
         }
 
         public override void PostUpdate()
@@ -574,6 +610,14 @@ namespace Spooky.Core
 			if (VegetableCauliflower)
 			{
 				Player.GetDamage(DamageClass.Summon) += 0.1f;
+			}
+
+			//magnolia increases player damage reduction based on players current health remaining
+			if (FossilMagnolia)
+			{
+				float DamageReductionAmount = (1f - (Player.statLife / Player.statLifeMax2)) / 2;
+
+				Player.endurance += DamageReductionAmount;
 			}
 		}
 

@@ -77,13 +77,13 @@ namespace Spooky.Content.Projectiles.Cemetery
                 //no damage cap if you have the analog horror tape
                 int damageToActivateParry = player.GetModPlayer<SpookyPlayer>().AnalogHorrorTape ? int.MaxValue : (Main.masterMode ? 120 : Main.expertMode ? 90 : 50);
 
-                for (int i = 0; i <= Main.maxProjectiles; i++)
-                {
-                    if (Projectile.Hitbox.Intersects(Main.projectile[i].Hitbox) && Main.projectile[i].hostile && Main.projectile[i].damage <= damageToActivateParry)
+                foreach (var Proj in Main.ActiveProjectiles)
+				{
+                    if (Projectile.Hitbox.Intersects(Proj.Hitbox) && Proj.hostile && Proj.damage <= damageToActivateParry)
                     {
                         ParryDelay = 30;
                         SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
-                        Main.projectile[i].velocity = -Main.projectile[i].velocity;
+                        Proj.velocity = -Proj.velocity;
                     }
                 }
             }

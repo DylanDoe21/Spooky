@@ -115,7 +115,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
 
 					ushort newObject = Main.rand.Next(Corns);
 
-					WorldGen.PlaceObject(i, j - 1, newObject, true, Main.rand.Next(0, 2));
+					WorldGen.PlaceObject(i, j - 1, newObject, true);
 					NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
 				}
 
