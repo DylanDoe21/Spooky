@@ -148,7 +148,7 @@ SeaCucumber: {
 }
 
 SeaSponge: {
-	DisplayName: Super-Absorbant Sponge
+	DisplayName: Super-Absorbent Sponge
 	Tooltip:
 		'''
 		Grants a small chance to absorb any hostile projectile that comes near you

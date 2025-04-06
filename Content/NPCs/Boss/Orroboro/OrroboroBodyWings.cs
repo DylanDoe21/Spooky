@@ -209,6 +209,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 			}
 
 			//if the head segment is "charging" then set the wing rotation to go downward and stay downward
+			//TODO: really bad, should eventually look into a better and smoother way to animate the wings with code
 			if (IsHeadSegmentCharging)
 			{
 				wingFlap = true;

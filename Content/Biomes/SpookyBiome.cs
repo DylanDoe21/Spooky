@@ -84,15 +84,23 @@ namespace Spooky.Content.Biomes
             //spawn falling leaves while in the spooky forest
             int[] Leaves = new int[] { ModContent.GoreType<LeafGreen>(), ModContent.GoreType<LeafOrange>(), ModContent.GoreType<LeafRed>() };
 
+            Vector2 scaledPosition = Main.Camera.ScaledPosition;
+
             if (Main.rand.NextBool(40) && player.ZoneOverworldHeight)
             {
                 float Scale = Main.rand.NextFloat(1f, 1.2f);
                 int SpawnX = (int)Main.screenPosition.X - 100;
                 int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
-                int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
-                Main.gore[LeafGore].rotation = 0f;
-                Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(0.5f, 3.5f);
-                Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
+
+                int dustPosXWorld = SpawnX / 16;
+                int dustPosYWorld = SpawnY / 16;
+                if (WorldGen.InWorld(dustPosXWorld, dustPosYWorld) && Main.tile[dustPosXWorld, dustPosYWorld] != null && !Main.tile[dustPosXWorld, dustPosYWorld].HasUnactuatedTile && Main.tile[dustPosXWorld, dustPosYWorld].WallType == 0)
+                {
+                    int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
+                    Main.gore[LeafGore].rotation = 0f;
+                    Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(0.5f, 3.5f);
+                    Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
+                }
             }
 
             if (Main.rand.NextBool(40) && player.ZoneOverworldHeight)
@@ -100,10 +108,16 @@ namespace Spooky.Content.Biomes
                 float Scale = Main.rand.NextFloat(1f, 1.2f);
                 int SpawnX = (int)Main.screenPosition.X + Main.screenWidth + 100;
                 int SpawnY = (int)Main.screenPosition.Y + Main.rand.Next(-100, Main.screenHeight);
-                int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
-                Main.gore[LeafGore].rotation = 0f;
-                Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-0.5f, -3.5f);
-                Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
+
+                int dustPosXWorld = SpawnX / 16;
+                int dustPosYWorld = SpawnY / 16;
+                if (WorldGen.InWorld(dustPosXWorld, dustPosYWorld) && Main.tile[dustPosXWorld, dustPosYWorld] != null && !Main.tile[dustPosXWorld, dustPosYWorld].HasUnactuatedTile && Main.tile[dustPosXWorld, dustPosYWorld].WallType == 0)
+                {
+                    int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
+                    Main.gore[LeafGore].rotation = 0f;
+                    Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-0.5f, -3.5f);
+                    Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
+                }
             }
         }
 

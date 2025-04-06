@@ -63,7 +63,7 @@ namespace Spooky.Content.Generation
 			{
 				if (numBiomesPlaced == 0)
 				{
-					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
+					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
 
 					if (!IsSmallWorld)
 					{
@@ -76,7 +76,7 @@ namespace Spooky.Content.Generation
 				}
 				else
 				{
-					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
+					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
 					BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2, GenVars.desertHiveLow - SizeY - (SizeY / 2));
 				}
 

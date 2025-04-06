@@ -138,6 +138,7 @@ Enemies and Bosses:
 -Buffed rot gourd max hp from 2200 to 2700
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
 -All of orro-boro's non head segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
+-Orro-boro's segments now have massively improved following/turning, the segments now move more naturally and look much better when orro-boro makes sharp turns
 -Observing orchids will now only chase you if they have light of sight to you
 -Ear worms movement and behavior is now more natural looking, they now recoil when shooting their sound blast, and they no longer draw behind tiles for better visibility
 
@@ -185,6 +186,7 @@ Miscellaneous:
 -Fixed total organ package not giving 8% increased crit chance inhereted from the corroding chompers
 -Fixed mini orro and boro minions from the gore armor flying around wildly when trying to follow the player
 -Fixed stoned kidney and snotty schnoz UI scaling from the top-left corner instead of the center and their default positions being offset with different UI scales
+-Fixed spooky forest ambient leaf gores being spawned inside of tiles
 
 
 Multiplayer:

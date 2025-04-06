@@ -87,6 +87,8 @@ namespace Spooky.Core
         //UI default position
         public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
 
+		public static readonly SoundStyle SpongeSound = new("Spooky/Content/Sounds/SpongeAbsorb", SoundType.Sound) { PitchVariance = 0.6f };
+
 		public override void SaveData(TagCompound tag)
         {
             tag["BloomUIPos"] = BloomUIPos;
@@ -569,13 +571,15 @@ namespace Spooky.Core
 			{
 				foreach (var Proj in Main.ActiveProjectiles)
 				{
-					if (Player.Distance(Proj.Center) < 100 && Proj.hostile && Proj.damage > 0 && Proj.CanHitWithOwnBody(Player) && !Proj.GetGlobalProjectile<ProjectileGlobal>().SpongeAbsorbAttempt)
+					if (Player.Distance(Proj.Center) < 100f && Proj.hostile && Proj.damage > 0 && Proj.CanHitWithOwnBody(Player) && !Proj.GetGlobalProjectile<ProjectileGlobal>().SpongeAbsorbAttempt)
 					{
-						int ChanceToAbsorb = (Main.raining || Player.wet) ? 22 : 35;
+						int ChanceToAbsorb = ((Main.raining && Player.ZoneOverworldHeight) || Player.wet) ? 15 : 22;
 
 						if (Main.rand.NextBool(ChanceToAbsorb))
 						{
-							SoundEngine.PlaySound(SoundID.NPCDeath63, Proj.Center);
+							SoundEngine.PlaySound(SpongeSound, Proj.Center);
+
+							Projectile.NewProjectile(null, Proj.Center, Vector2.Zero, ModContent.ProjectileType<SeaSpongeProj>(), 0, 0);
 
 							Proj.Kill();
 						}
@@ -715,10 +719,13 @@ namespace Spooky.Core
 			{
 				target.AddBuff(ModContent.BuffType<PepperSpice>(), 600);
 			}
+		}
 
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		{
 			if (VegetableCauliflower && Main.rand.NextBool(10) && hit.DamageType == DamageClass.SummonMeleeSpeed)
 			{
-				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, new Vector2(0, -5), ModContent.ProjectileType<Cauliflower>(), hit.Damage, hit.Knockback, Player.whoAmI, Main.rand.Next(0, 3));
+				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, new Vector2(0, -5), ModContent.ProjectileType<Cauliflower>(), proj.damage, proj.knockBack, Player.whoAmI, Main.rand.Next(0, 3));
 			}
 		}
 	}

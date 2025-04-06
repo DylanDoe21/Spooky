@@ -572,7 +572,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] >= 275)
                         {
-                            NPC.velocity *= 0.25f;
+                            NPC.velocity = Vector2.Zero;
                             NPC.localAI[0] = 20;
                             NPC.localAI[1]++;
                             NPC.netUpdate = true;
@@ -646,6 +646,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                             if (NPC.localAI[0] % 20 == frequency)
                             {
+                                SoundEngine.PlaySound(SpitSound, NPC.Center);
+
                                 Vector2 ShootSpeed = player.Center - NPC.Center;
                                 ShootSpeed.Normalize();
                                 ShootSpeed.X *= Enraged ? 3f : 4f;
