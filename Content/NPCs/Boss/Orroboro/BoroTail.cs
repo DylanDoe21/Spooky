@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
             NPC Parent = Main.npc[(int)NPC.ai[3]];
 
-            //kill segment if the head doesnt exist
+			//kill segment if the head doesnt exist
 			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
             {
 				NPC.active = false;
@@ -75,24 +75,26 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     NPC.Center += Main.rand.NextVector2Square(-2, 2);
                 }
             }
-			
-			if (NPC.ai[1] < (double)Main.npc.Length)
-            {
-                Vector2 npcCenter = new(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
-                float dirX = Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)NPC.ai[1]].position.Y + (float)(Main.npc[(int)NPC.ai[1]].height / 2) - npcCenter.Y;
-                NPC.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                float dist = (length - (float)NPC.width) / length;
-                float posX = dirX * dist;
-                float posY = dirY * dist;
- 
-                NPC.velocity = Vector2.Zero;
-                NPC.position.X = NPC.position.X + posX;
-                NPC.position.Y = NPC.position.Y + posY;
-            }
-            
-            return false;
+
+			NPC SegmentParent = Main.npc[(int)NPC.ai[1]];
+
+			Vector2 destinationOffset = SegmentParent.Center + SegmentParent.velocity - NPC.Center;
+
+			if (SegmentParent.rotation != NPC.rotation)
+			{
+				float angle = MathHelper.WrapAngle(SegmentParent.rotation - NPC.rotation);
+				destinationOffset = destinationOffset.RotatedBy(angle * 0.1f);
+			}
+
+			NPC.rotation = destinationOffset.ToRotation() + 1.57f;
+
+			//how far each segment should be from each other
+			if (destinationOffset != Vector2.Zero)
+			{
+				NPC.Center = SegmentParent.Center - destinationOffset.SafeNormalize(Vector2.Zero) * 30f;
+			}
+
+			return false;
         }
     }
 }
