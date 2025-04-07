@@ -165,7 +165,7 @@ namespace Spooky.Content.Tiles.Blooms
 							{
 								ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.PrincessWeapon, new ParticleOrchestraSettings
 								{
-									PositionInWorld = new Vector2(x * 16, y * 16) + new Vector2(Main.rand.Next(-5, 16), Main.rand.Next(-5, 25))
+									PositionInWorld = new Vector2(x * 16, y * 16) + new Vector2(Main.rand.Next(-16, 17), Main.rand.Next(-25, 26))
 								});
 							}
 						}

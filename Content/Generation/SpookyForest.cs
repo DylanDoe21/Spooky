@@ -797,7 +797,7 @@ namespace Spooky.Content.Generation
 
 					if (IncrementY == CurrentY || IncrementY == CurrentY + 50)
 					{
-						for (int ropeY = IncrementY - 3; ropeY <= IncrementY + 2; ropeY++)
+						for (int ropeY = IncrementY - 3; ropeY <= IncrementY + 5; ropeY++)
 						{
 							WorldGen.PlaceTile(CurrentX, ropeY, TileID.Rope);
 						}

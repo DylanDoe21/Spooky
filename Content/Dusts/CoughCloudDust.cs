@@ -21,8 +21,7 @@ namespace Spooky.Content.Dusts
 
         public override bool Update(Dust dust)
         {
-            dust.velocity *= 0.98f;
-            dust.velocity.X *= 0.95f;
+            dust.velocity *= 0.95f;
             dust.color *= 0.99f;
 
             if (dust.alpha > 100)

@@ -48,15 +48,6 @@ namespace Spooky.Content.Generation
 			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
 			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY / 2), Main.maxTilesY / 2);
 
-			if (!IsSmallWorld)
-			{
-				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 75);
-			}
-			else
-			{
-				BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2 + 50, Main.maxTilesY - 300);
-			}
-
 			int maxBiomes = !IsSmallWorld ? 2 : 1;
 
 			for (int numBiomesPlaced = 0; numBiomesPlaced < maxBiomes; numBiomesPlaced++)
@@ -67,17 +58,17 @@ namespace Spooky.Content.Generation
 
 					if (!IsSmallWorld)
 					{
-						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY / 2 - 75);
+						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), (Main.maxTilesY / 2) - 75);
 					}
 					else
 					{
-						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), Main.maxTilesY - 400);
+						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), GenVars.desertHiveLow - SizeY);
 					}
 				}
 				else
 				{
 					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-					BiomeY = WorldGen.genRand.Next(Main.maxTilesY / 2, GenVars.desertHiveLow - SizeY - (SizeY / 2));
+					BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2) + 75, GenVars.desertHiveLow - SizeY);
 				}
 
 				SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);

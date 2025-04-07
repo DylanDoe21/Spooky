@@ -1,6 +1,36 @@
-StrawberryBoost: {
-	DisplayName: Mountain Strawberry
+CemeteryLily: {
+	DisplayName: Lily of Rebirth
+	Tooltip:
+		'''
+		Cuts your health down to a third of your maximum health
+		You gain 2 revives, upon death you will loose a revive and gain stat buffs
+		After loosing all revives, this bloom buff will be removed from you
+		5 minute duration
+		'''
+}
+
+CemeteryMarigold: {
+	DisplayName: Guiding Marigold
+	Tooltip:
+		'''
+		Occasionally plant damaging marigolds on the ground while you walk
+		5 minute duration
+		'''
+}
+
+CemeteryPoppy: {
+	DisplayName: Cemetery Poppy
 	Tooltip: ""
+}
+
+CemeteryRose: {
+	DisplayName: Black Rose
+	Tooltip:
+		'''
+		You will take 10% more damage
+		On taking damage, you will release a ton of powerful black blood bolts
+		3 minute duration
+		'''
 }
 
 DandelionHerd: {
@@ -57,7 +87,7 @@ FallSoulPumpkin: {
 	DisplayName: Pumptergeist
 	Tooltip:
 		'''
-		Occassionally spawn a homing ghastly pumpkin while holding a weapon
+		Occasionally spawn a homing ghastly pumpkin while holding a weapon
 		The damage of the pumpkins scales based on the weapon you are using
 		The ghastly pumpkins will ignite enemies for a short time
 		4 minute duration
@@ -77,7 +107,7 @@ FallZucchini: {
 	DisplayName: Zappy Zucchini
 	Tooltip:
 		'''
-		Occassionally zap nearby enemies with zucchini electricity for a few seconds
+		Occasionally zap nearby enemies with zucchini electricity for a few seconds
 		Electricity will deal 8% of the targeted enemies maximum health as damage
 		2 minute duration
 		'''
@@ -366,7 +396,7 @@ MocoNose: {
 	Tooltip:
 		'''
 		Gives you a snot bar that will fill up as you pick up snot globs
-		Snot globs will occassionaly drop when you damage enemies
+		Snot globs will occasionally drop when you damage enemies
 		Once the bar is full, using any weapon will fire out a giant spread of snot
 		The damage and speed of the snot scales based on the weapon you use when shooting them
 		'''

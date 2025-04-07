@@ -143,14 +143,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 						break;
 					}
-					case 3:
-					{
-						int Proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-						Vector2.Zero, ModContent.ProjectileType<GrowingOrchid>(), Projectile.damage, Projectile.knockBack, ai1: Main.rand.Next(0, 4), ai2: Projectile.whoAmI);
-						Main.projectile[Proj].scale = 0f;
-
-						break;
-					}
 				}
 
 				for (int i = 0; i < trailLength.Length; i++)

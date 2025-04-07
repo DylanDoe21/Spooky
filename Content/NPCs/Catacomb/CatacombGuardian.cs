@@ -29,6 +29,7 @@ namespace Spooky.Content.NPCs.Catacomb
 
         public override void SetStaticDefaults()
         {
+            Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
@@ -55,19 +56,18 @@ namespace Spooky.Content.NPCs.Catacomb
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 280000;
-            NPC.damage = 420000;
-            NPC.defense = 0;
-            NPC.width = 126;
-			NPC.height = 116;
+            NPC.lifeMax = 9999;
+            NPC.damage = 1000;
+            NPC.defense = 9999;
+            NPC.width = 152;
+			NPC.height = 144;
             NPC.npcSlots = 0f;
 			NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.NPCDeath2;
-            NPC.aiStyle = 11;
-			AIType = NPCID.DungeonGuardian;
+            NPC.aiStyle = -1;
             SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.CatacombBiome>().Type, ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
         }
 
@@ -87,7 +87,7 @@ namespace Spooky.Content.NPCs.Catacomb
         //draw eye after images
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            EyeGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/CatacombGuardianEye");
+            EyeGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/CatacombGuardianGlow");
 
             Vector2 drawOrigin = new(EyeGlowTexture.Width() * 0.5f, NPC.height * 0.5f);
 
@@ -97,9 +97,80 @@ namespace Spooky.Content.NPCs.Catacomb
 
                 Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
                 Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-                spriteBatch.Draw(EyeGlowTexture.Value, drawPos, new Microsoft.Xna.Framework.Rectangle?(NPC.frame), color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+                spriteBatch.Draw(EyeGlowTexture.Value, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
             }
 		}
+
+        public override void FindFrame(int frameHeight)
+		{
+			//determine frame based on direction
+			if (NPC.direction == -1)
+			{
+				NPC.frame.Y = frameHeight * 0;
+			}
+            else
+            {
+                NPC.frame.Y = frameHeight * 1;
+            }
+        }
+
+        public void RotateToPlayer(Player player)
+        {
+            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
+            float RotateX = player.Center.X - vector.X;
+            float RotateY = player.Center.Y - vector.Y;
+
+            float RotateDirection = (float)Math.Atan2(RotateY, RotateX) + 4.71f;
+			float RotateSpeed = 0.04f;
+
+			if (RotateDirection < 0f)
+			{
+				RotateDirection += (float)Math.PI * 2f;
+			}
+			if (RotateDirection > (float)Math.PI * 2f)
+			{
+				RotateDirection -= (float)Math.PI * 2f;
+			}
+
+			if (NPC.rotation < RotateDirection)
+			{
+				if ((double)(RotateDirection - NPC.rotation) > Math.PI)
+				{
+					NPC.rotation -= RotateSpeed;
+				}
+				else
+				{
+					NPC.rotation += RotateSpeed;
+				}
+			}
+			if (NPC.rotation > RotateDirection)
+			{
+				if ((double)(NPC.rotation - RotateDirection) > Math.PI)
+				{
+					NPC.rotation += RotateSpeed;
+				}
+				else
+				{
+					NPC.rotation -= RotateSpeed;
+				}
+			}
+			if (NPC.rotation > RotateDirection - RotateSpeed && NPC.rotation < RotateDirection + RotateSpeed)
+			{
+				NPC.rotation = RotateDirection;
+			}
+			if (NPC.rotation < 0f)
+			{
+				NPC.rotation += (float)Math.PI * 2f;
+			}
+			if (NPC.rotation > (float)Math.PI * 2f)
+			{
+				NPC.rotation -= (float)Math.PI * 2f;
+			}
+			if (NPC.rotation > RotateDirection - RotateSpeed && NPC.rotation < RotateDirection + RotateSpeed)
+			{
+				NPC.rotation = RotateDirection;
+			}
+        }
         
         public override void AI()
 		{
@@ -107,13 +178,11 @@ namespace Spooky.Content.NPCs.Catacomb
             Player player = Main.player[NPC.target];
 
 			NPC.spriteDirection = NPC.direction;
-            NPC.defense = 0;
 
-            //EoC rotation
-            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-            float RotateX = player.Center.X - vector.X;
-            float RotateY = player.Center.Y - vector.Y;
-            NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+            RotateToPlayer(player);
+
+            Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 9;
+            NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 
             /*
             if (NPC.life <= NPC.lifeMax * 0.85)
@@ -255,6 +324,7 @@ namespace Spooky.Content.NPCs.Catacomb
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullKey>()));
         }
 
+        /*
         public override void HitEffect(NPC.HitInfo hit) 
         {
 			if (NPC.life <= 0) 
@@ -268,5 +338,6 @@ namespace Spooky.Content.NPCs.Catacomb
                 }
             }
         }
+        */
     }
 }
