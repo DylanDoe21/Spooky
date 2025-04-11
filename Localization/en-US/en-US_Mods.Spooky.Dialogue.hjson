@@ -244,7 +244,7 @@ NoseWinged: {
 
 PandoraBox: {
 	Button: Open
-	Dialogue: It's a strange box with a weird aura emanating from it. Will you open it?
+	Dialogue: It's a strange box with a weird aura emanating from it. Perhaps the paranormal energy can be unleashed with a special ghost-hunting device...
 }
 
 SentientCap: {

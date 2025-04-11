@@ -57,6 +57,7 @@ namespace Spooky.Content.Items.BossBags
 
             //boss mask
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<BigBoneMask>(), 7));
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<FlowerPotHead>(), 15));
 
             //expert item
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<BoneMask>(), 1));

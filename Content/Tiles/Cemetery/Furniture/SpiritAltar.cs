@@ -73,41 +73,6 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
             player.cursorItemIconID = 0;
         }
 
-        public override bool RightClick(int i, int j)
-        {
-            if (NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()))
-            {
-                return false;
-            }
-
-            for (int k = 0; k < Main.projectile.Length; k++)
-            {
-                if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<SpookySpiritSpawn>())
-                {
-                    return false;
-                }
-            }
-
-            //check if player has the EMF reader
-            Player player = Main.LocalPlayer;
-            if (player.HasItem(ModContent.ItemType<EMFReader>()) && !Main.dayTime)
-            {
-                int x = i;
-                int y = j;
-                while (Main.tile[x, y].TileType == Type) x--;
-                x++;
-                while (Main.tile[x, y].TileType == Type) y--;
-                y++;
-
-                int SpawnX = x * 16 + 28;
-                int SpawnY = y * 16 + 20;
-
-                Projectile.NewProjectile(new EntitySource_TileInteraction(player, x * 16, y * 16), SpawnX, SpawnY, 0, -1, ModContent.ProjectileType<SpookySpiritSpawn>(), 0, 0, Main.myPlayer);
-            }
-
-            return true;
-        }
-
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/Furniture/SpiritAltarGlow");

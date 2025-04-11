@@ -403,7 +403,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                         NPC.velocity.X = Enraged ? 48 : 42;
-                        NPC.velocity.Y *= 0;
+                        NPC.velocity.Y = 0;
                     }
 
                     if (NPC.localAI[0] >= 125 && NPC.localAI[0] <= 170)

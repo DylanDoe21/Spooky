@@ -1,9 +1,14 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System.Linq;
+using System.Collections.Generic;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.Tiles.Blooms;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 
 namespace Spooky.Content.NPCs.Cemetery.Projectiles
 {
@@ -13,8 +18,8 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 2;
-            Projectile.height = 2;
+            Projectile.width = 45;
+            Projectile.height = 45;
             Projectile.tileCollide = false;
             Projectile.aiStyle = -1;
             Projectile.timeLeft = 300;
@@ -28,53 +33,130 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 
         public override void AI()
         {
-            Spooky.MistGhostSpawnX = (int)Projectile.Center.X;
-            Spooky.MistGhostSpawnY = (int)Projectile.Center.Y;
-
-			int[] GhostTypes = new int[] { ModContent.NPCType<MistGhost>(), ModContent.NPCType<MistGhostFaces>(), ModContent.NPCType<MistGhostWiggle>() };
+			int[] GhostTypes = new int[] { ModContent.NPCType<MistGhost>(), ModContent.NPCType<MistGhostFaces>(), ModContent.NPCType<MistGhostWiggle>(), ModContent.NPCType<MistGhostSwirl>() };
 
 			if (Projectile.ai[0] == 0)
 			{
-				if (Main.netMode != NetmodeID.SinglePlayer)
-				{
-					ModPacket packet = Mod.GetPacket();
-					packet.Write((byte)SpookyMessageType.SpawnMistGhost);
-					packet.Send();
-				}
-				else
-				{
-					for (int numNPCs = 0; numNPCs < 3; numNPCs++)
-					{
-						int NewNPC = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, Main.rand.Next(GhostTypes));
-						Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-						Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-					}
-				}
+				Projectile.ai[1]++;
 
-				for (int numDusts = 0; numDusts < 30; numDusts++)
+				if (Main.rand.NextBool(5))
 				{
-					int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.35f);
+					int dustGore = Dust.NewDust(Projectile.position + new Vector2(0, 40), Projectile.width, Projectile.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.15f);
 					Main.dust[dustGore].color = Color.OrangeRed;
-					Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
-					Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
+					Main.dust[dustGore].velocity.X = 0;
+					Main.dust[dustGore].velocity.Y = Main.rand.NextFloat(-5f, -2f);
 					Main.dust[dustGore].noGravity = true;
 				}
 
-				Projectile.ai[0]++;
+				if (Projectile.ai[1] == 30 || Projectile.ai[1] == 60 || Projectile.ai[1] == 90)
+				{
+					SoundEngine.PlaySound((Main.rand.NextBool() ? SoundID.Zombie53 : SoundID.Zombie54) with { Pitch = -1.1f }, Projectile.Center);
 
-				Projectile.netUpdate = true;
+					int NewNPC = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X + Main.rand.Next(-35, 36), (int)Projectile.Center.Y + 40, Main.rand.Next(GhostTypes));
+					Main.npc[NewNPC].velocity.Y = Main.rand.Next(-5, -2);
+					Main.npc[NewNPC].alpha = 255;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+					}
+				}
+
+				if (Projectile.ai[1] >= 120)
+				{
+					Projectile.ai[0]++;
+
+					Projectile.netUpdate = true;
+				}
 			}
 			else
 			{
-				if (NPC.AnyNPCs(ModContent.NPCType<MistGhost>()) || NPC.AnyNPCs(ModContent.NPCType<MistGhostFaces>()) || NPC.AnyNPCs(ModContent.NPCType<MistGhostWiggle>()))
+				if (NPC.AnyNPCs(ModContent.NPCType<MistGhost>()) || NPC.AnyNPCs(ModContent.NPCType<MistGhostFaces>()) || 
+				NPC.AnyNPCs(ModContent.NPCType<MistGhostWiggle>()) || NPC.AnyNPCs(ModContent.NPCType<MistGhostSwirl>()))
 				{
-					Projectile.timeLeft = 25;
-				}
-				else
-				{
-					WorldGen.KillTile((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, fail: false);
+					Projectile.timeLeft = 2;
 				}
 			}
         }
+
+		public override void OnKill(int timeLeft)
+		{
+			DropItems();
+
+			WorldGen.KillTile((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, fail: false);
+
+			//spawn dust
+			for (int numDusts = 0; numDusts < 30; numDusts++)
+			{
+				int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<GlowyDust>(), 0f, -2f, 0, default, 0.15f);
+				Main.dust[dustGore].color = Color.OrangeRed;
+				Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-5f, 5f);
+				Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
+				Main.dust[dustGore].noGravity = true;
+			}
+
+			//spawn gores
+			for (int numGores = 1; numGores <= 5; numGores++)
+			{
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-3, -1)), ModContent.Find<ModGore>("Spooky/MysteriousTombstoneGore" + numGores).Type);
+				}
+			}
+		}
+
+		public void DropItems()
+		{
+			List<int> MiscItems = new List<int>
+			{
+				ModContent.ItemType<CemeteryBiomeTorchItem>(), ItemID.Grenade, ItemID.Rope, ItemID.BoneArrow
+			};
+
+			List<int> Bars = new List<int>
+			{
+				ItemID.SilverBar, ItemID.TungstenBar, 
+			};
+
+			List<int> UncommonItem = new List<int>
+			{
+				ItemID.Aglet, ItemID.PortableStool, ItemID.ClimbingClaws, ItemID.Radar, ItemID.CordageGuide
+			};
+
+			//drop misc items
+			List<int> ActualMiscItem = new List<int>(MiscItems);
+
+			ActualMiscItem = ActualMiscItem.OrderBy(x => Main.rand.Next()).ToList();
+
+			for (int numMisc = 0; numMisc < 2; numMisc++)
+			{
+				int ItemToChoose = Main.rand.Next(ActualMiscItem.Count);
+
+				int DroppedItem = Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, ActualMiscItem[ItemToChoose], Main.rand.Next(10, 21));
+				Main.item[DroppedItem].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, -1));
+
+				ActualMiscItem.RemoveAt(ItemToChoose);
+			}
+
+			//bars
+			if (Main.rand.NextBool(3))
+			{
+				int DroppedItem = Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, Main.rand.Next(Bars), Main.rand.Next(4, 11));
+				Main.item[DroppedItem].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, -1));
+			}
+
+			//uncommon loot
+			if (Main.rand.NextBool(5))
+			{
+				int DroppedItem = Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, Main.rand.Next(UncommonItem));
+				Main.item[DroppedItem].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, -1));
+			}
+
+			//bloom seed
+			if (Main.rand.NextBool(8))
+			{
+				int DroppedItem = Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, ModContent.ItemType<CemeterySeed>());
+				Main.item[DroppedItem].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, -1));
+			}
+		}
 	}
 }

@@ -6,6 +6,7 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -43,8 +44,8 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 90;
-            NPC.damage = 25;
+            NPC.lifeMax = 225;
+            NPC.damage = 30;
             NPC.defense = 0;
             NPC.width = 52;
 			NPC.height = 52;
@@ -110,44 +111,91 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.05f;
 
-            NPC.ai[0]++;
-
-            if (NPC.ai[0] >= 300)
+            if (NPC.ai[1] == 0)
             {
-                SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
+                NPC.ai[0]++;
 
-                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<MistGhostMiniFace>(), NPC.damage, 4.5f, ai1: NPC.whoAmI);
+                if (NPC.alpha > 0)
+                {
+                    NPC.alpha -= 10;
+                }
 
-                NPC.ai[0] = 0;
+                if (NPC.ai[0] > 40)
+                {
+                    NPC.velocity *= 0.95f;
+                }
+
+                if (NPC.ai[0] >= 65)
+                {
+                    NPC.ai[1]++;
+                }
             }
-
-            int MaxSpeed = 2;
-
-            //flies to players X position
-            if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed) 
+            else
             {
-                MoveSpeedX--;
-            }
-            else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed)
-            {
-                MoveSpeedX++;
-            }
+                NPC.ai[2]++;
 
-            NPC.velocity.X += MoveSpeedX * 0.01f;
-            NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
-            
-            //flies to players Y position
-            if (NPC.Center.Y >= player.Center.Y - 20 && MoveSpeedY >= -MaxSpeed - 1)
-            {
-                MoveSpeedY--;
-            }
-            else if (NPC.Center.Y <= player.Center.Y - 20 && MoveSpeedY <= MaxSpeed + 1)
-            {
-                MoveSpeedY++;
-            }
+                if (NPC.ai[2] >= 300)
+                {
+                    SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
-            NPC.velocity.Y += MoveSpeedY * 0.01f;
-            NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<MistGhostMiniFace>(), NPC.damage, 4.5f, ai1: NPC.whoAmI);
+
+                    NPC.ai[2] = 0;
+                }
+
+                int MaxSpeed = 2;
+
+                //flies to players X position
+                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed) 
+                {
+                    MoveSpeedX--;
+                }
+                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed)
+                {
+                    MoveSpeedX++;
+                }
+
+                NPC.velocity.X += MoveSpeedX * 0.01f;
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
+                
+                //flies to players Y position
+                if (NPC.Center.Y >= player.Center.Y - 20 && MoveSpeedY >= -MaxSpeed - 1)
+                {
+                    MoveSpeedY--;
+                }
+                else if (NPC.Center.Y <= player.Center.Y - 20 && MoveSpeedY <= MaxSpeed + 1)
+                {
+                    MoveSpeedY++;
+                }
+
+                NPC.velocity.Y += MoveSpeedY * 0.01f;
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
+
+                for (int num = 0; num < Main.npc.Length; num++)
+                {
+                    NPC other = Main.npc[num];
+                    if (other.type == NPC.type && num != NPC.whoAmI && other.active && Math.Abs(NPC.position.X - other.position.X) + Math.Abs(NPC.position.Y - other.position.Y) < NPC.width)
+                    {
+                        const float pushAway = 0.2f;
+                        if (NPC.position.X < other.position.X)
+                        {
+                            NPC.velocity.X -= pushAway;
+                        }
+                        else
+                        {
+                            NPC.velocity.X += pushAway;
+                        }
+                        if (NPC.position.Y < other.position.Y)
+                        {
+                            NPC.velocity.Y -= pushAway;
+                        }
+                        else
+                        {
+                            NPC.velocity.Y += pushAway;
+                        }
+                    }
+                }
+            }
         }
 
         public override void HitEffect(NPC.HitInfo hit)

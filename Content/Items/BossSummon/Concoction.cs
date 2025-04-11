@@ -1,8 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.SpookyHell.Misc;
+using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Content.Items.BossSummon
 {
@@ -17,13 +20,28 @@ namespace Spooky.Content.Items.BossSummon
         {
             Item.width = 30;
             Item.height = 38;
+            Item.noMelee = true;
+			Item.autoReuse = false;
+			Item.noUseGraphic = true;
+			Item.channel = true;
+            Item.useTime = 50;
+			Item.useAnimation = 50;
+			Item.useStyle = ItemUseStyleID.Shoot;
             Item.rare = ItemRarityID.White;
-            Item.maxStack = 1;
+            Item.shoot = ModContent.ProjectileType<ConcoctionProj>();
+			Item.shootSpeed = 0f;
         }
-		
+
         public override bool CanUseItem(Player player)
-        {
-            return false;
-        }
+		{
+			return player.ownedProjectileCounts[ModContent.ProjectileType<ConcoctionProj>()] < 1;
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<ConcoctionProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+
+			return false;
+		}
     }
 }

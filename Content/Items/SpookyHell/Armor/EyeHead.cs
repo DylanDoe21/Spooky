@@ -43,7 +43,7 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-			.AddRecipeGroup("SpookyMod:DemoniteBars", 8)
+			.AddRecipeGroup("SpookyMod:ShadowScales", 8)
 			.AddIngredient(ModContent.ItemType<CreepyChunk>(), 20)
 			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 50)
             .AddTile(TileID.Anvils)

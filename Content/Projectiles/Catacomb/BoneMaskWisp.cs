@@ -41,13 +41,13 @@ namespace Spooky.Content.Projectiles.Catacomb
             float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			TrailRotation += 0f * (float)Projectile.direction;
 
-			for (int oldPos = 2; oldPos < Projectile.oldPos.Length; oldPos++)
+			for (int oldPos = 1; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 Color newColor = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 newColor = Projectile.GetAlpha(newColor);
                 newColor *= 1f;
 
-				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 0.8f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
 
                 for (int repeats = 0; repeats < 2; repeats++)

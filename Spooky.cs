@@ -26,21 +26,12 @@ namespace Spooky
         
         internal Mod subworldLibrary = null;
 
-		public static int MistGhostSpawnX;
-        public static int MistGhostSpawnY;
-
-        public static int SpookySpiritSpawnX;
-        public static int SpookySpiritSpawnY;
-
         public static int MocoSpawnX;
         public static int MocoSpawnY;
 
         public static int DaffodilSpawnX;
         public static int DaffodilSpawnY;
         public static int DaffodilParent;
-
-        public static int PandoraBoxX;
-        public static int PandoraBoxY;
 
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
@@ -107,22 +98,6 @@ namespace Spooky
 			SpookyMessageType messageType = (SpookyMessageType)reader.ReadByte();
 			switch (messageType)
 			{
-                case SpookyMessageType.SpawnMistGhost:
-                {
-					int[] GhostTypes = new int[] { ModContent.NPCType<MistGhost>(), ModContent.NPCType<MistGhostFaces>(), ModContent.NPCType<MistGhostWiggle>() };
-					for (int numNPCs = 0; numNPCs < 3; numNPCs++)
-					{
-						int NewNPC = NPC.NewNPC(null, MistGhostSpawnX, MistGhostSpawnY, Main.rand.Next(GhostTypes));
-						Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-						Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-					}
-                    break;
-                }
-                case SpookyMessageType.SpawnSpookySpirit:
-                {
-                    NPC.NewNPC(null, SpookySpiritSpawnX, SpookySpiritSpawnY, ModContent.NPCType<SpookySpirit>());
-                    break;
-                }
                 case SpookyMessageType.SpawnMoco:
                 {
                     NPC.NewNPC(null, MocoSpawnX, MocoSpawnY, ModContent.NPCType<MocoSpawner>());
@@ -136,39 +111,6 @@ namespace Spooky
                 case SpookyMessageType.SpawnDaffodilEye:
                 {
                     NPC.NewNPC(null, DaffodilSpawnX, DaffodilSpawnY, ModContent.NPCType<DaffodilEye>(), ai0: (Flags.downedDaffodil && Main.rand.NextBool(20)) ? -4 : -1, ai1: DaffodilParent);
-                    break;
-                }
-                case SpookyMessageType.SpawnBobbert:
-                {
-                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Bobbert>());
-                    Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-                    Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-                    break;
-                }
-                case SpookyMessageType.SpawnStitch:
-                {
-                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Stitch>());
-                    Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-                    Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-                    break;
-                }
-                case SpookyMessageType.SpawnSheldon:
-                {
-                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Sheldon>());
-                    Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-                    Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-                    break;
-                }
-                case SpookyMessageType.SpawnChester:
-                {
-                    int NewNPC = NPC.NewNPC(null, PandoraBoxX, PandoraBoxY, ModContent.NPCType<Chester>());
-                    Main.npc[NewNPC].velocity.Y = -8;
-                    break;
-                }
-                case SpookyMessageType.PandoraBoxDowned:
-                {
-                    Flags.downedPandoraBox = true;
-                    NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
                 case SpookyMessageType.OldHunterHat:
@@ -206,12 +148,6 @@ namespace Spooky
                 {
                     EggEventWorld.EventTimeLeftUI = 21600;
                     EggEventWorld.EggEventActive = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.EggIncursionDowned:
-                {
-                    Flags.downedEggEvent = true;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
@@ -279,23 +215,16 @@ namespace Spooky
 
     enum SpookyMessageType : byte
     {
-        SpawnMistGhost,
         SpawnSpookySpirit,
         SpawnMoco,
         SpawnOrroboro,
         SpawnDaffodilEye,
-        SpawnBobbert,
-        SpawnStitch,
-        SpawnSheldon,
-        SpawnChester,
-        PandoraBoxDowned,
         OldHunterHat,
         OldHunterSkull,
         OldHunterTorso,
         OldHunterLegs,
         OldHunterAssembled,
         EggIncursionStart,
-        EggIncursionDowned,
         CatacombKey1,
         CatacombKey2,
         CatacombKey3,

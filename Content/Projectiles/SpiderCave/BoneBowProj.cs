@@ -113,8 +113,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
             {
                 Projectile.timeLeft = 20;
 
-				player.velocity.X *= 0.98f;
-
                 Projectile.localAI[0]++;
 
                 if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3)

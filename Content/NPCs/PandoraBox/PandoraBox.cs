@@ -154,18 +154,16 @@ namespace Spooky.Content.NPCs.PandoraBox
                     SpawnedEnemies = false;
                     HasDoneSpawnAnimation = false;
 
-                    NPC.netUpdate = true;
-
 					PandoraBoxWorld.Wave++;
-                }
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
                 else
                 {
                     EndingAnimation = true;
-                }
-
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.WorldData);
                 }
                 
                 NPC.netUpdate = true;
@@ -174,85 +172,52 @@ namespace Spooky.Content.NPCs.PandoraBox
 
         public void SpawnEnemy(int Type)
         {
+            int NPCToSpawn = 0;
+
             switch (Type)
             {
                 //bobbert
                 case 0:
                 {
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-					{
-                        ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)SpookyMessageType.SpawnBobbert);
-                        packet.Send();
-                    }
-                    else
-                    {
-                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Bobbert>());
-                        Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-                        Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-                    }
-
+                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Bobbert>());
+                    Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
+                    Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
                     break;
                 }
 
                 //stitch
                 case 1:
                 {
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-					{
-                        ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)SpookyMessageType.SpawnStitch);
-                        packet.Send();
-                    }
-                    else
-                    {
-                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Stitch>());
-                        Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-                        Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-                    }
-
+                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Stitch>());
+                    Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
+                    Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
                     break;
                 }
 
                 //sheldon
                 case 2:
                 {
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-					{
-                        ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)SpookyMessageType.SpawnSheldon);
-                        packet.Send();
-                    }
-                    else
-                    {
-                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Sheldon>());
-                        Main.npc[NewNPC].velocity.X = Main.rand.Next(-10, 11);
-                        Main.npc[NewNPC].velocity.Y = Main.rand.Next(-10, -5);
-                    }
-
+                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Sheldon>());
+                    Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
+                    Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
                     break;
                 }
 
                 //chester
                 case 3:
                 {
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-					{
-                        ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)SpookyMessageType.SpawnChester);
-                        packet.Send();
-                    }
-                    else
-                    {
-                        int NewNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Chester>());
-                        Main.npc[NewNPC].velocity.Y = -8;
-                    }
-
+                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Chester>());
+                    Main.npc[NPCToSpawn].velocity.Y = -8;
                     break;
                 }
             }
 
-            HasDoneSpawnAnimation = true;
+            if (Main.netMode == NetmodeID.Server)
+            {
+                NetMessage.SendData(MessageID.SyncNPC, number: NPCToSpawn);
+            }
+
+			HasDoneSpawnAnimation = true;
 
             NPC.netUpdate = true;
         }
@@ -407,40 +372,13 @@ namespace Spooky.Content.NPCs.PandoraBox
             return Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Dialogue");
         }
 
-        public override void SetChatButtons(ref string button, ref string button2)
-		{
-			button = Language.GetTextValue("Mods.Spooky.Dialogue.PandoraBox.Button");
-		}
-
-        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-		{
-            if (firstButton)
-            {
-                Main.npcChatText = string.Empty;
-                
-                NPC.ai[2] = 1;
-            }
-        }
-
         public override void AI()
         {
             Player player = Main.player[NPC.target];
 
-            Spooky.PandoraBoxX = (int)NPC.Center.X;
-            Spooky.PandoraBoxY = (int)NPC.Center.Y;
-
             if (NPC.ai[2] > 0)
             {
                 SoundEngine.PlaySound(SoundID.Unlock, NPC.Center);
-
-                PandoraBoxWorld.PandoraEventActive = true;
-
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.WorldData);
-                }
-
-                NPC.ai[0] = 180;
 
                 for (int numGores = 1; numGores <= 3; numGores++)
                 {
@@ -450,6 +388,14 @@ namespace Spooky.Content.NPCs.PandoraBox
                     }
                 }
 
+                PandoraBoxWorld.PandoraEventActive = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+
+                NPC.ai[0] = 180;
                 NPC.ai[2] = 0;
 
                 NPC.netUpdate = true;
@@ -585,20 +531,7 @@ namespace Spooky.Content.NPCs.PandoraBox
                             }
                         }
 
-                        if (!Flags.downedPandoraBox)
-                        {
-                            if (Main.netMode != NetmodeID.SinglePlayer)
-                            {
-                                ModPacket packet = Mod.GetPacket();
-                                packet.Write((byte)SpookyMessageType.PandoraBoxDowned);
-                                packet.Send();
-                            }
-                            else
-                            {
-                                Flags.downedPandoraBox = true;
-                            }
-                        }
-
+                        Flags.downedPandoraBox = true;
                         PandoraBoxWorld.PandoraEventActive = false;
 
                         if (Main.netMode == NetmodeID.Server)

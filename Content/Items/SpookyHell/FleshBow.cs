@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpookyHell
 
 		public override void SetDefaults()
 		{
-			Item.damage = 22;
+			Item.damage = 30;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = true;
@@ -68,7 +68,7 @@ namespace Spooky.Content.Items.SpookyHell
 		public override void AddRecipes()
         {
             CreateRecipe()
-			.AddRecipeGroup("SpookyMod:DemoniteBars", 10)
+			.AddRecipeGroup("SpookyMod:ShadowScales", 10)
 			.AddIngredient(ModContent.ItemType<CreepyChunk>(), 25)
 			.AddIngredient(ModContent.ItemType<LivingFleshItem>(), 65)
             .AddTile(TileID.Anvils)

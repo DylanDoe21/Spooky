@@ -21,8 +21,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 98;
-			Projectile.height = 98;
+			Projectile.width = 88;
+			Projectile.height = 88;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.ignoreWater = true;
@@ -37,9 +37,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Color color1 = new Color(Color.White.R, Color.White.G, Color.White.B, 200);
-			Color color2 = new Color(Color.White.R, Color.White.G, Color.White.B, 70);
-			Color color3 = new Color(Color.Orange.R, Color.Orange.G, Color.Orange.B, 70);
-			Color color4 = new Color(Color.Red.R, Color.Red.G, Color.Red.B, 100);
+			Color color2 = new Color(Color.OrangeRed.R, Color.OrangeRed.G, Color.OrangeRed.B, 70);
+			Color color3 = new Color(Color.Red.R, Color.Red.G, Color.Red.B, 70);
+			Color color4 = new Color(Color.DarkRed.R, Color.DarkRed.G, Color.DarkRed.B, 100);
 
 			float length = (Projectile.ai[0] > Fadetime - 10f) ? 0.1f : 0.15f;
 			float vOffset = Math.Min(Projectile.ai[0], 20f);

@@ -194,59 +194,44 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			addedStretch = -stretchRecoil;
 
-            //right click functionality
-            if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) && NPC.Distance(player.Center) <= 200f && !Main.mapFullscreen && OrroboroDoesNotExist && NPC.ai[0] == 0)
+            //egg incursion beginning
+            if (NPC.ai[2] >= 1)
             {
-                if (Main.mouseRight && Main.mouseRightRelease && !EggEventWorld.EggEventActive)
+                SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, NPC.Center);
+
+                //event start message
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
+                
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    Main.mouseRightRelease = false;
-
-                    //summon orroboro if the egg incursion has been completed
-                    if (player.HasItem(ModContent.ItemType<Concoction>()) && Flags.downedEggEvent)
-                    {
-                        SoundEngine.PlaySound(EggDecaySound, NPC.Center);
-
-                        NPC.ai[0] = 1;
-
-						NPC.netUpdate = true;
-					}
-                    //if the player hasnt completed the egg incursion or has a strange cyst, start the egg incursion
-                    else if ((player.HasItem(ModContent.ItemType<Concoction>()) && !Flags.downedEggEvent) || player.ConsumeItem(ModContent.ItemType<StrangeCyst>()))
-                    {
-                        SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, NPC.Center);
-
-                        //event start message
-                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventBegin");
-                        if (Main.netMode == NetmodeID.SinglePlayer)
-                        {
-                            Main.NewText(text, 171, 64, 255);
-                        }
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                        }
-
-                        Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 450f);
-
-                        if (Main.netMode != NetmodeID.SinglePlayer)
-                        {
-                            ModPacket packet = Mod.GetPacket();
-                            packet.Write((byte)SpookyMessageType.EggIncursionStart);
-                            packet.Send();
-                        }
-                        else
-                        {
-                            EggEventWorld.EventTimeLeftUI = 21600;
-                            EggEventWorld.EggEventActive = true;
-                        }
-
-                        NPC.netUpdate = true;
-                    }
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                 }
+                else if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Main.NewText(text, 171, 64, 255);
+                }
+
+                Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 450f);
+
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)SpookyMessageType.EggIncursionStart);
+                    packet.Send();
+                }
+                else
+                {
+                    EggEventWorld.EventTimeLeftUI = 21600;
+                    EggEventWorld.EggEventActive = true;
+                }
+
+                NPC.ai[2] = 0;
+                
+                NPC.netUpdate = true;
             }
 
             //orroboro spawn animation
-            if (NPC.ai[0] > 0)
+            if (NPC.ai[0] >= 1)
             {
                 NPC.ai[0]++;
 
@@ -268,18 +253,18 @@ namespace Spooky.Content.NPCs.EggEvent
                 {
                     SoundEngine.PlaySound(EggCrackSound2, NPC.Center);
 
-                    //spawn message
-                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OrroboroSpawn");
-
                     if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
                     {
-                        if (Main.netMode == NetmodeID.SinglePlayer)
-                        {   
-                            Main.NewText(text, 171, 64, 255);
-                        }
+                        //spawn message
+                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OrroboroSpawn");
+
                         if (Main.netMode == NetmodeID.Server)
                         {
                             ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        }
+						else if (Main.netMode == NetmodeID.SinglePlayer)
+						{
+							Main.NewText(text, 171, 64, 255);
                         }
 
                         if (Main.netMode != NetmodeID.SinglePlayer)
@@ -292,7 +277,7 @@ namespace Spooky.Content.NPCs.EggEvent
                         {
                             NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<OrroHeadP1>(), 0, -1);
                         }
-                    }
+					}
 
                     //spawn egg gores
                     for (int numGores = 1; numGores <= 7; numGores++)
@@ -310,14 +295,12 @@ namespace Spooky.Content.NPCs.EggEvent
                 }
             }
 
-            //egg event handling
+            //end egg incursion when the timer is past 6 minutes
             if (EggEventWorld.EggEventActive)
             {
-                //increment both timers
                 if (EggEventWorld.EventTimeLeft >= 21600)
                 {
                     NPC.ai[3]++;
-
                     if (NPC.ai[3] == 120)
                     {
                         SoundEngine.PlaySound(EventEndSound, NPC.Center);
@@ -347,47 +330,19 @@ namespace Spooky.Content.NPCs.EggEvent
                             }
                         }
 
-                        if (!Flags.downedEggEvent)
+                        //event end message (different for after you have beaten the event already)
+                        string text = Flags.downedEggEvent ? Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOverBeaten") : Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
+                        
+                        if (Main.netMode == NetmodeID.Server)
                         {
-                            //event end message
-                            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOver");
-                            if (Main.netMode == NetmodeID.SinglePlayer)
-                            {
-                                Main.NewText(text, 171, 64, 255);
-                            }
-                            if (Main.netMode == NetmodeID.Server)
-                            {
-                                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                            }
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                         }
-                        else
+                        else if (Main.netMode == NetmodeID.SinglePlayer)
                         {
-                            //event end message (different for after you have beaten the event already)
-                            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.EggEventOverBeaten");
-                            if (Main.netMode != NetmodeID.Server)
-                            {
-                                Main.NewText(text, 171, 64, 255);
-                            }
-                            else
-                            {
-                                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                            }
+                            Main.NewText(text, 171, 64, 255);
                         }
 
-                        if (!Flags.downedEggEvent)
-                        {
-                            if (Main.netMode != NetmodeID.SinglePlayer)
-                            {
-                                ModPacket packet = Mod.GetPacket();
-                                packet.Write((byte)SpookyMessageType.EggIncursionDowned);
-                                packet.Send();
-                            }
-                            else
-                            {
-                                Flags.downedEggEvent = true;
-                            }
-                        }
-                        
+                        Flags.downedEggEvent = true;
                         EggEventWorld.EggEventActive = false;
 
                         if (Main.netMode == NetmodeID.Server)

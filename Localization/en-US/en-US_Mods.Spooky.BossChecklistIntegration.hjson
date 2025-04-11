@@ -1,9 +1,9 @@
 PandoraBox: {
 	EntryName: Pandora's Box
-	SpawnInfo: Open the mysterious pandora's box in the catacombs
+	SpawnInfo: Use an [i:Spooky/EMFReader] nearby the locked pandora's chest in the lower catacombs.
 }
 
 EggEvent: {
 	EntryName: Egg Incursion
-	SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, or a [i:Spooky/StrangeCyst] if you have completed the event already.
+	SpawnInfo: Use the [i:Spooky/Concoction] to pour acid on the giant egg in the valley of eyes if you haven't completed the event yet. Use a [i:Spooky/StrangeCyst] nearby the giant egg if you have completed the event already.
 }

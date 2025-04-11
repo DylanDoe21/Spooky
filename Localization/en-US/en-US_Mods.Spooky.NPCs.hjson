@@ -11,7 +11,7 @@ SpookySpirit: {
 	DisplayName: Spooky Spirit
 
 	BossChecklistIntegration: {
-		SpawnInfo: Right click the cursed statue in the swampy cemetery at night while you have an [i:Spooky/EMFReader] in your inventory.
+		SpawnInfo: Use an [i:Spooky/EMFReader] nearby the cursed statue in the swampy cemetery at night.
 		DespawnMessage: All players have been haunted by the groovy geist
 	}
 }
@@ -39,7 +39,7 @@ OrroHead: {
 
 	BossChecklistIntegration: {
 		EntryName: Orro & Boro
-		SpawnInfo: Right click the egg in the valley of eyes while you have the [i:Spooky/Concoction] in your inventory, after you have completed the Egg Incursion event.
+		SpawnInfo: Use the [i:Spooky/Concoction] to pour acid on the giant egg in the valley of eyes, after you have completed the Egg Incursion event.
 		DespawnMessage: All players were made not one by Orro & Boro
 	}
 }
@@ -184,6 +184,7 @@ FeralRat2.DisplayName: Feral Rat
 HungryGhost.DisplayName: Hungry Ghost
 MistGhost.DisplayName: Mist Ghost
 MistGhostFaces.DisplayName: Mist Ghost
+MistGhostSwirl.DisplayName: Mist Ghost
 MistGhostWiggle.DisplayName: Mist Ghost
 Possessor.DisplayName: Devious Ghost
 PossessorEvil.DisplayName: Devious Ghost

@@ -48,6 +48,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
             return true;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
+		{
+            Projectile.damage = (int)(damageDone * 0.75f);
+        }
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

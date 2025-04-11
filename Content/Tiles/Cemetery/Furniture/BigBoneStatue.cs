@@ -29,7 +29,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(39, 39, 49));
-            DustType = DustID.Stone;
+            DustType = DustID.Ash;
             HitSound = SoundID.Tink;
         }
 

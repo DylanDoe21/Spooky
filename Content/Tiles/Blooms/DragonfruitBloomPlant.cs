@@ -141,7 +141,9 @@ namespace Spooky.Content.Tiles.Blooms
 			Tile tile = Framing.GetTileSafely(i, j);
 
 			int[] ValidBlooms = { ModContent.TileType<DandelionBloomPlant>(), ModContent.TileType<FallBloomPlant>(),
-			ModContent.TileType<SpringBloomPlant>(), ModContent.TileType<SummerBloomPlant>(), ModContent.TileType<WinterBloomPlant>() };
+			ModContent.TileType<SpringBloomPlant>(), ModContent.TileType<SummerBloomPlant>(), ModContent.TileType<WinterBloomPlant>(),
+			ModContent.TileType<CemeteryBloomPlant>(), ModContent.TileType<FossilBloomPlant>(), 
+			ModContent.TileType<SeaBloomPlant>(), ModContent.TileType<VegetableBloomPlant>() };
 
 			if (ValidBlooms.Contains(tile.TileType))
 			{

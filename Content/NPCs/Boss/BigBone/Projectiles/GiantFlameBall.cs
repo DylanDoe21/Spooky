@@ -17,7 +17,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		bool runOnce = true;
 		Vector2[] trailLength = new Vector2[15];
 
-		private static Asset<Texture2D> ProjTexture;
+		private static Asset<Texture2D> TrailTexture;
 
         public override void SetStaticDefaults()
         {
@@ -48,9 +48,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				return false;
 			}
 
-			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/GiantFlameBallTrail");
 
-			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+			Vector2 drawOrigin = new(TrailTexture.Width() * 0.5f, Projectile.height * 0.5f);
 			Vector2 previousPosition = Projectile.Center;
 
 			for (int k = 0; k < trailLength.Length; k++)
@@ -79,8 +79,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 					float x = Main.rand.Next(-5, 6) * scale;
 					float y = Main.rand.Next(-5, 6) * scale;
 
-					Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), rectangle, color, Projectile.rotation, drawOrigin, scale * 0.65f, SpriteEffects.None, 0f);
+					Rectangle rectangle = new(0, TrailTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, TrailTexture.Width(), TrailTexture.Height() / Main.projFrames[Projectile.type]);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos + new Vector2(x, y), rectangle, color, Projectile.rotation, drawOrigin, scale * 0.65f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;

@@ -499,7 +499,7 @@ Concoction: {
 		'''
 		Not consumable
 		A very corrosive substance, made from the most vile ingredients
-		Right click the giant egg with this in your inventory to corrode it
+		Pour on the giant egg in the valley of eyes to corrode it
 		'''
 }
 
@@ -520,12 +520,7 @@ CowBell: {
 
 EMFReader: {
 	DisplayName: EMF Reader
-	Tooltip:
-		'''
-		Not consumable
-		Used to find paranormal entities
-		Summons Spooky Spirit when used at the cursed statue at night
-		'''
+	Tooltip: A device used to find and unleash paranormal entities
 }
 
 EMFReaderBroke: {
@@ -549,7 +544,7 @@ RottenSeed: {
 
 StrangeCyst: {
 	DisplayName: Strange Cyst
-	Tooltip: Right click the giant egg with this in your inventory to begin the egg incursion
+	Tooltip: Use nearby the giant egg in the valley of eyes to begin the egg incursion
 }
 
 FlowerBody: {
@@ -2382,7 +2377,7 @@ GooChompers: {
 	DisplayName: Corroding Chompers
 	Tooltip:
 		'''
-		Increases critical strike chance by 8%
+		Increases critical strike chance by 10%
 		Hitting enemies may attach a set of goo jaws to deal additional damage
 		The goo jaws damage is the same as the damage of the hit that spawned it
 		'''
@@ -2985,6 +2980,15 @@ VinylSneaky: {
 BloomSoilItem: {
 	DisplayName: Bloom Soil
 	Tooltip: Allows blooms to be planted and grown on it
+}
+
+CemeterySeed: {
+	DisplayName: Withered Seed
+	Tooltip:
+		'''
+		Places a ghostly plant that grows various death flower blooms
+		Requires a flat ground of Bloom Soil to be planted on
+		'''
 }
 
 DandelionSeed: {

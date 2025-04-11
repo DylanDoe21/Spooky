@@ -95,28 +95,30 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void AI()
 		{
-            NPC.TargetClosest(true);
-            Player player = Main.player[NPC.target];
-    
-            NPC.velocity *= 0;
+            NPC.velocity = Vector2.Zero;
 
-            if (player.Distance(NPC.Center) >= 300f)
+            bool CanRevert = true;
+
+            foreach (Player player in Main.ActivePlayers)
             {
-                NPC.localAI[0]++;
-
-                if (NPC.localAI[0] > 20)
+                if (player.Distance(NPC.Center) <= 190f)
                 {
-                    SoundEngine.PlaySound(SoundID.GlommerBounce, NPC.Center);
-
-                    int SmallGhost = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BloatGhostSmall>());
-                    
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.SyncNPC, number: SmallGhost);
-                    }
-
-                    NPC.active = false;
+                    CanRevert = false;
                 }
+            }
+
+            if (CanRevert)
+            {
+                SoundEngine.PlaySound(SoundID.GlommerBounce, NPC.Center);
+
+                int SmallGhost = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 20, ModContent.NPCType<BloatGhostSmall>());
+                
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: SmallGhost);
+                }
+
+                NPC.active = false;
             }
         }
 

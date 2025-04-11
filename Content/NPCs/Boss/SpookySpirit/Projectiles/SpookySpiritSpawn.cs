@@ -33,12 +33,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 
         public override void AI()
         {
-            Spooky.SpookySpiritSpawnX = (int)Projectile.Center.X;
-            Spooky.SpookySpiritSpawnY = (int)Projectile.Center.Y;
-
             //make a trail of dust
             Vector2 dustPosition = Projectile.Center;
-            dustPosition -= Projectile.velocity * 0.25f;
+            dustPosition.Y -= Projectile.velocity.Y * 0.25f;
             int dust = Dust.NewDust(dustPosition, 1, 1, ModContent.DustType<GlowyDust>(), 0f, 0f, 0, default, 0.25f);
             Main.dust[dust].color = Color.BlueViolet;
             Main.dust[dust].noGravity = true;
@@ -62,22 +59,20 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
                 //spawn message
                 string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpookySpiritSpawn");
 
-                if (!NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()))
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    if (Main.netMode != NetmodeID.SinglePlayer)
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                }
+                else if (Main.netMode == NetmodeID.SinglePlayer)
+			    {
+                    Main.NewText(text, 171, 64, 255);
+                }
 
-                        ModPacket packet = Mod.GetPacket();
-                        packet.Write((byte)SpookyMessageType.SpawnSpookySpirit);
-                        packet.Send();
-                    }
-                    else 
-                    {
-                        Main.NewText(text, 171, 64, 255);
+                int Spirit = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
 
-                        NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<SpookySpirit>());
-                    }
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: Spirit);
                 }
 
                 for (int numDusts = 0; numDusts < 30; numDusts++)

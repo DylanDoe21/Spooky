@@ -52,6 +52,134 @@ namespace Spooky.Content.NPCs.EggEvent
 			EggEventActive = false;
 		}
 
+		//select a random player in the event if they are in the eye valley and arent dead/inactive
+		public static Player GetRandomPlayerInEvent()
+		{
+			Player[] list = new Player[] { };
+
+			foreach (Player player in Main.ActivePlayers)
+			{
+				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+				{
+					list = list.Append(player).ToArray();
+				}
+			}
+
+			return list[Main.rand.Next(0, list.Length)];
+		}
+
+		public bool AnyPlayersInBiome()
+		{
+			foreach (Player player in Main.ActivePlayers)
+			{
+				int playerInBiomeCount = 0;
+
+				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+				{
+					playerInBiomeCount++;
+				}
+
+				if (playerInBiomeCount >= 1)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		//spawn an enemy based on the type inputted
+		public static void SpawnEnemy(int BiomassType, int Type, Player player)
+		{
+			switch (BiomassType)
+			{
+				case 0:
+				{
+					//Types:
+					//0 = GooSlug
+					//1 = CruxBat
+					//2 = Biojetter
+					int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
+					Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, player.whoAmI, 0, 0, Type);
+					Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
+					}
+
+					break;
+				}
+
+				case 1:
+				{
+					//Types:
+					//0 = HoppingHeart
+					//1 = TongueBiter
+					//2 = ExplodingAppendix
+					//3 = CoughLungs
+					//4 = HoverBrain
+					int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
+					Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassRed>(), 0, 0, player.whoAmI, 0, 0, Type);
+					Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
+					}
+
+					break;
+				}
+			}
+		}
+
+		//get the total number of active egg incursion enemies
+		public int EventActiveNPCCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC Enemy = Main.npc[i];
+
+				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
+				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
+
+				if (Enemy.active && EventNPCs.Contains(Enemy.type))
+				{
+					NpcCount++;
+				}
+				else
+				{
+					continue;
+				}
+			}
+
+			return NpcCount;
+		}
+
+		//get the total number of active ear worms since they are spawned in manuallys
+		public int EarWormCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC Enemy = Main.npc[i];
+
+				if (Enemy.active && Enemy.type == ModContent.NPCType<EarWorm>())
+				{
+					NpcCount++;
+				}
+				else
+				{
+					continue;
+				}
+			}
+
+			return NpcCount;
+		}
+
 		public override void PostUpdateEverything()
 		{
 			if (!EggEventActive)
@@ -275,140 +403,6 @@ namespace Spooky.Content.NPCs.EggEvent
 					}
 				}
 			}
-		}
-
-		//select a random player in the event if they are in the eye valley and arent dead/inactive
-		public static Player GetRandomPlayerInEvent()
-		{
-			Player[] list = new Player[] {};
-
-			foreach (Player player in Main.ActivePlayers)
-			{
-				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
-				{
-					list = list.Append(player).ToArray();
-				}
-			}
-
-			return list[Main.rand.Next(0, list.Length)];
-		}
-
-		public bool AnyPlayersInBiome()
-		{
-			foreach (Player player in Main.ActivePlayers)
-			{
-				int playerInBiomeCount = 0;
-
-				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
-				{
-					playerInBiomeCount++;
-				}
-
-				if (playerInBiomeCount >= 1)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		//spawn an enemy based on the type inputted
-		public static void SpawnEnemy(int BiomassType, int Type, Player player)
-		{
-			switch (BiomassType)
-			{
-				case 0:
-				{
-					//Types:
-					//0 = GooSlug
-					//1 = CruxBat
-					//2 = Biojetter
-					if (Main.netMode != NetmodeID.MultiplayerClient)
-					{
-						int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
-						Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, player.whoAmI, 0, 0, Type);
-						Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
-
-						if (Main.netMode == NetmodeID.Server)
-						{
-							NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
-						}
-					}
-
-					break;
-				}
-
-				case 1:
-				{
-					//Types:
-					//0 = HoppingHeart
-					//1 = TongueBiter
-					//2 = ExplodingAppendix
-					//3 = CoughLungs
-					//4 = HoverBrain
-					if (Main.netMode != NetmodeID.MultiplayerClient)
-					{
-						int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
-						Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassRed>(), 0, 0, player.whoAmI, 0, 0, Type);
-						Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
-
-						if (Main.netMode == NetmodeID.Server)
-						{
-							NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
-						}
-					}
-
-					break;
-				}
-			}
-		}
-
-		//get the total number of active egg incursion enemies
-		public int EventActiveNPCCount()
-		{
-			int NpcCount = 0;
-
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC Enemy = Main.npc[i];
-
-				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
-				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
-
-				if (Enemy.active && EventNPCs.Contains(Enemy.type))
-				{
-					NpcCount++;
-				}
-				else
-				{
-					continue;
-				}
-			}
-
-			return NpcCount;
-		}
-
-		//get the total number of active ear worms since they are spawned in manuallys
-		public int EarWormCount()
-		{
-			int NpcCount = 0;
-
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC Enemy = Main.npc[i];
-
-				if (Enemy.active && Enemy.type == ModContent.NPCType<EarWorm>())
-				{
-					NpcCount++;
-				}
-				else
-				{
-					continue;
-				}
-			}
-
-			return NpcCount;
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

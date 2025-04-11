@@ -121,27 +121,13 @@ namespace Spooky.Content.NPCs.Cemetery
 				player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0);
 			}
 
-			/*
-			Vector2 GoTo = new Vector2(Parent.ai[2], Parent.ai[3]);
+			Vector2 destinationOffset = Parent.Center + Parent.velocity - NPC.Center;
 
-			Vector2 Speed = GoTo - NPC.Center;
-			Speed.Normalize();
-			Speed *= new Vector2(Math.Abs(Parent.velocity.X * 1.2f), Math.Abs(Parent.velocity.Y * 1.2f));
-
-			NPC.velocity = Speed;
-			*/
-
-			Vector2 npcCenter = new(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
-			float dirX = Parent.position.X + (Parent.width / 2) - npcCenter.X;
-			float dirY = Parent.position.Y + (Parent.height / 2) - npcCenter.Y;
-			float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-			float dist = (length - NPC.width * 2) / length;
-			float posX = dirX * dist;
-			float posY = dirY * dist;
-
-			NPC.velocity = Vector2.Zero;
-			NPC.position.X = NPC.position.X + posX;
-			NPC.position.Y = NPC.position.Y + posY;
+			//how far each segment should be from each other
+			if (destinationOffset != Vector2.Zero)
+			{
+				NPC.Center = Parent.Center - destinationOffset.SafeNormalize(Vector2.Zero) * 40f;
+			}
 
 			for (int num = 0; num < Main.maxNPCs; num++)
 			{

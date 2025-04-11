@@ -491,6 +491,7 @@ BouncingFlower.DisplayName: Bouncing Flower
 FlowerSpore.DisplayName: Flower Spore
 GiantFlameBall.DisplayName: Flame Ball
 HomingFlower.DisplayName: Homing Flower
+HomingLight.DisplayName: Light Bulb
 MassiveFlameBall.DisplayName: Flame Ball
 MassiveFlameBallBolt.DisplayName: Flame Bolt
 VineBase.DisplayName: Plant Stem
@@ -498,8 +499,6 @@ Pitcher1.DisplayName: Pitcher Plant
 Pitcher2.DisplayName: Pitcher Plant
 PitcherOoze1.DisplayName: Poisonous Ooze
 PitcherOoze2.DisplayName: Venomous Ooze
-BigBoneFlyBig.DisplayName: Fly
-BigBoneFlySmall.DisplayName: Fly
 Romanesco.DisplayName: Romanesco
 RomanescoLeaf.DisplayName: Romanesco Leaf
 PepperFlame.DisplayName: Pepper Flame
@@ -508,3 +507,6 @@ WormyHead.DisplayName: Wormy Charles
 WormySegment.DisplayName: Wormy Charles
 WormyTail.DisplayName: Wormy Charles
 SeaSpongeProj.DisplayName: Super-Absorbent Sponge
+CemeteryRoseBolt.DisplayName: Wither Bolt
+ConcoctionProj.DisplayName: Acidic Concoction
+ConcoctionAcid.DisplayName: Acid

@@ -4,6 +4,10 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Spooky.Content.NPCs.SpookyBiome;
+using static Spooky.Core.PathFinding;
+using System;
+using Terraria.Audio;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
@@ -18,7 +22,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.CloneDefaults(258);
 			Projectile.width = 14;
             Projectile.height = 14;
 			Projectile.hostile = true;
@@ -26,6 +29,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;
             Projectile.alpha = 255;
+			Projectile.timeLeft = 360;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -45,7 +49,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
 
-				Color color = Color.Lerp(Color.Red, Color.White, scale);
+				Color color = Color.Lerp(Color.OrangeRed, Color.White, scale);
+				color *= Projectile.timeLeft < 60 ? Projectile.timeLeft / 90f : 1f;
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -82,8 +87,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void AI()
 		{
-			Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
-
 			if (runOnce)
 			{
 				for (int i = 0; i < trailLength.Length; i++)
@@ -100,6 +103,34 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				trailLength[i] = current;
 				current = previousPosition;
 			}
+
+			Projectile.ai[1] += 1f;
+			if (Projectile.ai[1] >= 20f)
+			{
+				Projectile.velocity.Y += 0.2f;
+			}
+			if (Projectile.velocity.Y > 16f)
+			{
+				Projectile.velocity.Y = 16f;
+			}
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+
+			if (Projectile.velocity.X != oldVelocity.X)
+			{
+				Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+				Projectile.velocity.X = -oldVelocity.X;
+			}
+			if (Projectile.velocity.Y != oldVelocity.Y)
+			{
+				Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+				Projectile.velocity.Y = -oldVelocity.Y;
+			}
+
+			return false;
 		}
 	}
 }

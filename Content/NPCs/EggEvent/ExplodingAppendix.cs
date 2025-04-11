@@ -213,13 +213,10 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             if (NPC.life <= 0) 
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-				{
-                    //spawn splatter
-                    for (int i = 0; i < 6; i++)
-                    {
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-4, 5), Main.rand.Next(-4, -1)), ModContent.ProjectileType<YellowSplatter>(), 0, 0f);
-                    }
+                //spawn splatter
+                for (int i = 0; i < 6; i++)
+                {
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-4, 5), Main.rand.Next(-4, -1)), ModContent.ProjectileType<YellowSplatter>(), 0, 0f);
                 }
 
                 for (int numGores = 1; numGores <= 4; numGores++)

@@ -32,7 +32,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
             {
                 //Draw the sky box texture
                 spriteBatch.Draw(SkyTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), 
-                Main.ColorOfTheSkies * 0.95f * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * opacity));
+                Main.ColorOfTheSkies * 0.9f * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * opacity));
             }
 
             //deactivate the sky if in the menu

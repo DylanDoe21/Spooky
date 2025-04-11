@@ -10,7 +10,7 @@ using System;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-    public class BigBoneFlySmall : ModProjectile
+    public class HomingLight : ModProjectile
     {
         int Offset = Main.rand.Next(-100, 100);
 
@@ -25,8 +25,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-			Projectile.height = 16;
+            Projectile.width = 24;
+			Projectile.height = 24;
 			Projectile.friendly = false;
             Projectile.hostile = true;
 			Projectile.tileCollide = false;
@@ -46,13 +46,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             float TrailRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			TrailRotation += 0f * Projectile.direction;
 
-			for (int oldPos = 2; oldPos < Projectile.oldPos.Length; oldPos++)
+			for (int oldPos = 1; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 Color newColor = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * 0.65f * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 newColor = Projectile.GetAlpha(newColor);
                 newColor *= 1f;
 
-				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 0.72f;
+				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 0.7f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
 
                 for (int repeats = 0; repeats < 2; repeats++)
@@ -66,17 +66,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
         public override void AI()
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 4)
-            {
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-                if (Projectile.frame >= 3)
-                {
-                    Projectile.frame = 0;
-                }
-            }
+            Projectile.frame = (int)Projectile.ai[0];
 
+            Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
 
             if (Projectile.alpha > 0)
@@ -84,19 +76,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 Projectile.alpha -= 8;
             }
 
-            Projectile.ai[0]++;
-
-            if (Projectile.ai[0] >= 75)
-            {
-                Projectile.rotation = Projectile.velocity.ToRotation();
-
-                if (Projectile.spriteDirection == -1)
-                {
-                    Projectile.rotation += MathHelper.Pi;
-                }
-            }
-
-            if (Projectile.ai[0] < 75)
+            Projectile.localAI[0]++;
+            if (Projectile.localAI[0] < 75)
             {
                 NPC Parent = Main.npc[(int)Projectile.ai[1]];
 
@@ -143,7 +124,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 }
             }
 
-            if (Projectile.ai[0] == 75)
+            if (Projectile.localAI[0] == 75)
             {
                 Projectile.tileCollide = true;
                 
@@ -160,10 +141,5 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 }
             }
         }
-
-        public override void OnKill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.NPCDeath47 with { Volume = 0.25f }, Projectile.Center);
-		}
     }
 }

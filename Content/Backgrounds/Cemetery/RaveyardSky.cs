@@ -164,11 +164,11 @@ namespace Spooky.Content.Backgrounds.Cemetery
                         Texture2D BeamTextureBottom = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam2").Value;
 
                         spriteBatch.Draw(BeamTextureTop, position + new Vector2(0, 1620), null, 
-                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.4f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
+                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.55f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.5f * opacity,
                         i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), (Depth.X * 0.5f + 0.5f) * PillarIntensity * 1.35f , SpriteEffects.None, 0f);
 
                         spriteBatch.Draw(BeamTextureBottom, position + new Vector2(0, 1620), null, 
-                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.4f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.3f * opacity,
+                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.55f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.5f * opacity,
                         i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureBottom.Width / 2, 0), (Depth.X * 0.5f + 0.5f) * PillarIntensity * 1.35f, SpriteEffects.None, 0f);
                     }
                 }

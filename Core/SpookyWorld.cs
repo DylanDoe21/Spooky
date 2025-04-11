@@ -130,6 +130,7 @@ namespace Spooky.Core
 					{
                         int PandoraBox = NPC.NewNPC(null, (int)Flags.PandoraPosition.X, (int)Flags.PandoraPosition.Y, ModContent.NPCType<PandoraBox>());
                         Main.npc[PandoraBox].position.X -= 8;
+                        Main.npc[PandoraBox].position.Y += 235;
 
                         if (Main.netMode == NetmodeID.Server)
                         {

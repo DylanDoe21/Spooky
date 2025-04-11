@@ -40,17 +40,17 @@ namespace Spooky.Content.Items.BossSummon
         {
             SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
-            for (int k = 0; k < Main.maxNPCs; k++)
+			foreach (var npc in Main.ActiveNPCs)
 			{
-				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<BigFlowerPot>()) 
+				if (npc.type == ModContent.NPCType<BigFlowerPot>())
 				{
-                    if (Main.npc[k].Distance(player.Center) <= 320f) 
-                    {
-                        Main.npc[k].ai[1] = 1;
-                        Main.npc[k].netUpdate = true;
-                    }
-                }
-            }
+					if (npc.Distance(player.Center) <= 320f)
+					{
+						npc.ai[1] = 1;
+						npc.netUpdate = true;
+					}
+				}
+			}
 
             return true;
         }

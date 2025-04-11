@@ -28,14 +28,12 @@ namespace Spooky.Content.NPCs.PandoraBox
 		public override void NetSend(BinaryWriter writer)
 		{
 			writer.Write(Wave);
-
 			writer.WriteFlags(PandoraEventActive);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			Wave = reader.ReadInt32();
-
 			reader.ReadFlags(out PandoraEventActive);
 		}
 

@@ -32,8 +32,8 @@ namespace Spooky.Core
 				return new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + Name, Items);
 			}
 
-			RecipeGroup.RegisterGroup("SpookyMod:DemoniteBars", BaseGroup(ItemID.DemoniteBar, new int[]
-				{ ItemID.DemoniteBar, ItemID.CrimtaneBar }));
+			RecipeGroup.RegisterGroup("SpookyMod:DemoniteBars", BaseGroup(ItemID.DemoniteBar, new int[] { ItemID.DemoniteBar, ItemID.CrimtaneBar }));
+            RecipeGroup.RegisterGroup("SpookyMod:ShadowScales", BaseGroup(ItemID.ShadowScale, new int[] { ItemID.ShadowScale, ItemID.TissueSample }));
 		}
 
         public override void AddRecipes()

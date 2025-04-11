@@ -5,6 +5,7 @@ using Terraria.GameContent.Bestiary;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -40,8 +41,8 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 90;
-            NPC.damage = 25;
+            NPC.lifeMax = 180;
+            NPC.damage = 30;
             NPC.defense = 0;
             NPC.width = 50;
 			NPC.height = 54;
@@ -103,37 +104,84 @@ namespace Spooky.Content.NPCs.Cemetery
 		{
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
-            
+
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X * 0.05f;
-
-            int MaxSpeed = 3;
-
-            //flies to players X position
-            if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed) 
-            {
-                MoveSpeedX--;
-            }
-            else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed)
-            {
-                MoveSpeedX++;
-            }
-
-            NPC.velocity.X += MoveSpeedX * 0.01f;
-            NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
             
-            //flies to players Y position
-            if (NPC.Center.Y >= player.Center.Y - 20 && MoveSpeedY >= -MaxSpeed)
+            if (NPC.ai[1] == 0)
             {
-                MoveSpeedY--;
-            }
-            else if (NPC.Center.Y <= player.Center.Y - 20 && MoveSpeedY <= MaxSpeed)
-            {
-                MoveSpeedY++;
-            }
+                NPC.ai[0]++;
 
-            NPC.velocity.Y += MoveSpeedY * 0.1f;
-            NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
+                if (NPC.alpha > 0)
+                {
+                    NPC.alpha -= 10;
+                }
+
+                if (NPC.ai[0] > 40)
+                {
+                    NPC.velocity *= 0.95f;
+                }
+
+                if (NPC.ai[0] >= 65)
+                {
+                    NPC.ai[1]++;
+                }
+            }
+            else
+            {
+                int MaxSpeed = 3;
+
+                //flies to players X position
+                if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -MaxSpeed) 
+                {
+                    MoveSpeedX--;
+                }
+                else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= MaxSpeed)
+                {
+                    MoveSpeedX++;
+                }
+
+                NPC.velocity.X += MoveSpeedX * 0.01f;
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
+                
+                //flies to players Y position
+                if (NPC.Center.Y >= player.Center.Y - 20 && MoveSpeedY >= -MaxSpeed)
+                {
+                    MoveSpeedY--;
+                }
+                else if (NPC.Center.Y <= player.Center.Y - 20 && MoveSpeedY <= MaxSpeed)
+                {
+                    MoveSpeedY++;
+                }
+
+                NPC.velocity.Y += MoveSpeedY * 0.1f;
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
+
+                for (int num = 0; num < Main.npc.Length; num++)
+                {
+                    NPC other = Main.npc[num];
+                    if (other.type == NPC.type && num != NPC.whoAmI && other.active && Math.Abs(NPC.position.X - other.position.X) + Math.Abs(NPC.position.Y - other.position.Y) < NPC.width)
+                    {
+                        const float pushAway = 0.2f;
+                        if (NPC.position.X < other.position.X)
+                        {
+                            NPC.velocity.X -= pushAway;
+                        }
+                        else
+                        {
+                            NPC.velocity.X += pushAway;
+                        }
+                        if (NPC.position.Y < other.position.Y)
+                        {
+                            NPC.velocity.Y -= pushAway;
+                        }
+                        else
+                        {
+                            NPC.velocity.Y += pushAway;
+                        }
+                    }
+                }
+            }
         }
 
         public override void HitEffect(NPC.HitInfo hit)
