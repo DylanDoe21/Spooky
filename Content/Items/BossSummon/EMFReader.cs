@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Localization;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.NPCs.Boss.SpookySpirit;
@@ -16,6 +17,10 @@ namespace Spooky.Content.Items.BossSummon
 {
     public class EMFReader : ModItem
     {
+		public static readonly SoundStyle BeepSound1 = new("Spooky/Content/Sounds/EMFNoGhost", SoundType.Sound);
+		public static readonly SoundStyle BeepSound2 = new("Spooky/Content/Sounds/EMFGhost", SoundType.Sound);
+		public static readonly SoundStyle BeepSound3 = new("Spooky/Content/Sounds/EMFGhostPowerful", SoundType.Sound);
+
         public override void SetStaticDefaults()
         {
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
@@ -59,6 +64,7 @@ namespace Spooky.Content.Items.BossSummon
 			{
 				if (npc.type == ModContent.NPCType<PandoraBox>() && npc.Distance(player.Center) <= 200f)
 				{
+					SoundEngine.PlaySound(BeepSound3, player.Center);
 					CombatText.NewText(player.getRect(), Color.Cyan, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderPandoraBox"));
 
 					npc.ai[2] = 1;
@@ -71,6 +77,7 @@ namespace Spooky.Content.Items.BossSummon
 			{
 				if (i == (int)playerTileCenter.X + 8 && FoundValidAltar)
 				{
+					SoundEngine.PlaySound(BeepSound3, player.Center);
 					CombatText.NewText(player.getRect(), Color.MediumPurple, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderSpookySpirit"));
 					break;
 				}
@@ -121,6 +128,7 @@ namespace Spooky.Content.Items.BossSummon
 				{
 					if (i == (int)playerTileCenter.X + 8 && !FoundValidGrave)
 					{
+						SoundEngine.PlaySound(BeepSound1, player.Center);
 						CombatText.NewText(player.getRect(), Color.Lime, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderNoGhost"));
 						break;
 					}
@@ -155,6 +163,7 @@ namespace Spooky.Content.Items.BossSummon
 
 							if (CanSpawn && !NPC.AnyNPCs(ModContent.NPCType<MistGhost>()) && !NPC.AnyNPCs(ModContent.NPCType<MistGhostFaces>()) && !NPC.AnyNPCs(ModContent.NPCType<MistGhostWiggle>()))
 							{
+								SoundEngine.PlaySound(BeepSound2, player.Center);
 								CombatText.NewText(player.getRect(), Color.OrangeRed, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderGhost"));
 
 								int SpawnX = (left * 16) + 16;
