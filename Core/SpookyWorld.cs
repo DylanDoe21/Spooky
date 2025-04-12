@@ -177,7 +177,7 @@ namespace Spooky.Core
 					{
                         int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
                         Main.npc[GiantWeb].position.X += 18;
-                        Main.npc[GiantWeb].position.Y += 1518;
+                        Main.npc[GiantWeb].position.Y += 670;
 
                         if (Main.netMode == NetmodeID.Server)
                         {

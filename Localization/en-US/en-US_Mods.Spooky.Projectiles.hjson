@@ -5,8 +5,6 @@ GiantSnot.DisplayName: Snot Ball
 LingeringSnot.DisplayName: Snot Pile
 SnotBall.DisplayName: Snot Ball
 LingeringSnotBall.DisplayName: Snot Ball
-AcidBreath.DisplayName: Acidic Breath
-AcidTarget.DisplayName: Telegraph
 BoroBiomatter.DisplayName: Biomass
 EyeSpit.DisplayName: Saliva Ball
 EyeSpit2.DisplayName: Saliva Ball
@@ -234,10 +232,6 @@ ZomboidRootThorn.DisplayName: Root Spike
 ZomboidRootThornTelegraph.DisplayName: Thorn Telegraph
 ZomboidRootThornFire.DisplayName: Flaming Root Spike
 ZomboidRootThornTelegraphFire.DisplayName: Thorn Telegraph
-TelegraphRedLeft.DisplayName: Telegraph
-TelegraphRedDown.DisplayName: Telegraph
-TelegraphRedRight.DisplayName: Telegraph
-TelegraphRedUp.DisplayName: Telegraph
 GraveDiggerShovelBonk.DisplayName: Bonk
 SphiderFlailProj.DisplayName: Swingable Sphider
 SphiderFlailWeb.DisplayName: Web Ball

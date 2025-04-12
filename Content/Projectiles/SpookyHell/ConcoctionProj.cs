@@ -80,12 +80,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     {
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 10;
+                        ShootSpeed *= 2;
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 35f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset, 
-                        new Vector2(0, Main.rand.Next(1, 4)), ModContent.ProjectileType<ConcoctionAcid>(), 0, 0);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + muzzleOffset, ShootSpeed, ModContent.ProjectileType<ConcoctionAcid>(), 0, 0);
                     }
 
                     Projectile.localAI[0] = 0;

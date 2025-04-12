@@ -61,7 +61,7 @@ namespace Spooky.Content.Items.Quest
 						SoundEngine.PlaySound(SoundID.DD2_OgreHurt, player.Center);
 
 						//leave the source as null for right now
-						Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y - 25, 0f, 0f, ModContent.ProjectileType<BanditBruiserMinion>(), 40, 25f, player.whoAmI);
+						Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y - 25, 0f, 0f, ModContent.ProjectileType<BanditBruiserMinion>(), 50, 25f, player.whoAmI);
 					}
 
 					break;

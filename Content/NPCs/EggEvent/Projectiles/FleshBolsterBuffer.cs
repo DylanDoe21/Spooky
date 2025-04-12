@@ -230,7 +230,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 			{
 				NPC Target = Main.npc[target];
 
-				Target.AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 10);
+				Target.AddBuff(ModContent.BuffType<EggEventEnemyBuff>(), 20);
 
 				//stop buffing the enemy if it gets to far away from the bolster
 				if (!Target.active || Target.Distance(Parent.Center) > 600f)

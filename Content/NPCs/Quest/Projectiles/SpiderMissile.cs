@@ -78,7 +78,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             Vector2 drawOrigin2 = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
             Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
-            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin2, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin2, 1f, SpriteEffects.None, 0);
 
 			return true;
 		}

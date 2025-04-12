@@ -27,7 +27,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     public class BoroHead : ModNPC
     {
         private bool segmentsSpawned;
-        public bool Enraged = false;
 
         Vector2 SavePlayerPosition;
 
@@ -65,7 +64,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             writer.WriteVector2(SavePlayerPosition);
 
             //bools
-            writer.Write(Enraged);
             writer.Write(segmentsSpawned);
 
             //floats
@@ -81,7 +79,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             SavePlayerPosition = reader.ReadVector2();
 
             //bools
-            Enraged = reader.ReadBoolean();
             segmentsSpawned = reader.ReadBoolean();
 
             //floats
@@ -145,7 +142,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			if (Enraged)
+			if (NPC.localAI[3] > 0)
 			{
 				for (int i = 0; i < 360; i += 30)
 				{
@@ -177,7 +174,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
 
-            Enraged = !NPC.AnyNPCs(ModContent.NPCType<OrroHead>());
+            NPC.localAI[3] = !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) ? 1 : 0;
+            bool Enraged = NPC.localAI[3] > 0;
 
             //despawn if the player dies or leaves the biome
             if (player.dead || !player.active || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
@@ -229,66 +227,51 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     int repeats = Enraged ? 4 : 3;
                     if (NPC.localAI[1] < repeats)
                     {
-                        int positionTime = Enraged ? 50 : 60;
-                        if (NPC.localAI[0] < positionTime)
+                        int chargeTime = Enraged ? 65 : 75;
+
+                        if (NPC.localAI[0] == 2)
+                        {
+                            SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -600 : 600, Main.rand.Next(-200, 200));
+                            NPC.netUpdate = true;
+                        }
+                        
+                        if (NPC.localAI[0] > 2 && NPC.localAI[0] < chargeTime - 20)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += (NPC.Center.X < player.Center.X) ? -1200 : 1200;
-                            GoTo.Y -= 0;
+                            GoTo += SavePlayerPosition;
 
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 30);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-
-                        if (NPC.localAI[0] == positionTime)
-                        {
-                            SavePlayerPosition = player.Center;
-
-                            NPC.velocity *= 0;
-
-                            NPC.position.X = player.Center.X - (NPC.width / 2) + (NPC.Center.X < player.Center.X ? -1200 : 1200);
-                            NPC.position.Y = player.Center.Y - (NPC.height / 2);
-
-                            if (NPC.Center.X < player.Center.X)
+                            if (NPC.Distance(GoTo + SavePlayerPosition) > 100f)
                             {
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X - 300, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X - 400, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X - 500, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedLeft>(), 0, 0f);
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 20, 25);
+                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                             }
                             else
                             {
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X + 300, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X + 400, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X + 500, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                                NPC.velocity *= 0.85f;
                             }
                         }
 
-                        int chargeTime = Enraged ? 65 : 75;
+                        if (NPC.localAI[0] == chargeTime - 10)
+                        {
+                            NPC.velocity *= 0.5f;
+                            SavePlayerPosition = player.Center;
+                        }
+
                         if (NPC.localAI[0] == chargeTime)
                         {
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                             ChargeDirection.Normalize();
-                                    
-                            ChargeDirection.X *= Enraged ? 45 : 40;
-                            ChargeDirection.Y *= 0;
-                            NPC.velocity.X = ChargeDirection.X;
-                            NPC.velocity.Y = ChargeDirection.Y;
+
+                            ChargeDirection *= Enraged ? 45 : 40;
+                            NPC.velocity = ChargeDirection;
                         }
 
-                        int stopTime = Enraged ? 85 : 100;
+                        int stopTime = Enraged ? 80 : 90;
                         if (NPC.localAI[0] > stopTime)
                         {
-                            int check = Enraged ? 4 : 2;
-                            if (NPC.localAI[1] == check)
-                            {
-                                NPC.velocity *= 0.95f; 
-                            }
-                            else
-                            {
-                                NPC.velocity *= 0.99f;
-                            }
+                            NPC.velocity *= 0.95f;
                         }
 
                         int extraTime = Enraged ? 15 : 45;
@@ -331,10 +314,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                                     
-                            ChargeDirection.X *= (Enraged ? 40 : 32) + Main.rand.Next(-5, 5);
-                            ChargeDirection.Y *= (Enraged ? 40 : 32) + Main.rand.Next(-5, 5);
+                            ChargeDirection.X *= (Enraged ? 33 : 25) + Main.rand.Next(-5, 5);
+                            ChargeDirection.Y *= (Enraged ? 33 : 25) + Main.rand.Next(-5, 5);
                             NPC.velocity.X = ChargeDirection.X;
                             NPC.velocity.Y = ChargeDirection.Y;
+
+                            NPC.netUpdate = true;
                         }
                         else
                         {
@@ -368,40 +353,46 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 case 2:
                 {
                     NPC.localAI[0]++;
-                    
-                    if (NPC.localAI[0] < 75)
-                    {
-                        //this is slightly offset so its even with the other worm in game
-                        Vector2 GoTo = player.Center;
-                        GoTo.X += 1200;
-                        GoTo.Y += 0;
 
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                    if (NPC.localAI[0] == 2)
+                    {
+                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -650 : 650, Main.rand.Next(-400, 400));
+                        NPC.netUpdate = true;
                     }
                     
-                    //set exact position right before so the curling up is always even
-                    if (NPC.localAI[0] == 75)
+                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 70)
                     {
-                        NPC.velocity *= 0;
+                        Vector2 GoTo = player.Center;
+                        GoTo += SavePlayerPosition;
 
-                        NPC.position.X = player.Center.X - (NPC.width / 2) + 1250;
-                        NPC.position.Y = player.Center.Y - (NPC.height / 2);
+                        if (NPC.Distance(GoTo + SavePlayerPosition) > 100f)
+                        {
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+                        else
+                        {
+                            NPC.velocity *= 0.85f;
+                        }
+                    }
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X + 450, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X + 550, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X + 650, player.Center.Y), Vector2.Zero, ModContent.ProjectileType<TelegraphRedRight>(), 0, 0f);
+                    if (NPC.localAI[0] == 70)
+                    {
+                        NPC.velocity *= 0.5f;
+                        SavePlayerPosition = player.Center;
                     }
 
                     if (NPC.localAI[0] == 90)
                     {
                         SoundEngine.PlaySound(HissSound1, NPC.Center);
 
-                        NPC.velocity.X = Enraged ? -50 : -42;
-                        NPC.velocity.Y *= 0;
+                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+                        ChargeDirection.Normalize();
+                        ChargeDirection *= Enraged ? 48 : 42;
+                        NPC.velocity = ChargeDirection;
                     }
 
-                    if (NPC.localAI[0] >= 125 && NPC.localAI[0] <= 170)
+                    if (NPC.localAI[0] >= 105 && NPC.localAI[0] <= 170)
                     {
                         double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                         while (angle > Math.PI)
@@ -418,7 +409,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4f) * NPC.localAI[1]);
 
-                        if (NPC.localAI[0] == 130 || NPC.localAI[0] == 140 || NPC.localAI[0] == 150 || NPC.localAI[0] == 160 || NPC.localAI[0] == 170)
+                        if (NPC.localAI[0] % 10 == 0)
                         {
                             SoundEngine.PlaySound(SpitSound, NPC.Center);
 
@@ -456,25 +447,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     if (NPC.localAI[1] < repeats)
                     {
                         Vector2 GoTo = player.Center;
-                        GoTo.Y += 750;
+                        GoTo.Y += 650;
 
-                        //go from side to side
-                        if (NPC.localAI[0] < 130)
+                        if (NPC.Distance(GoTo) > 50f)
                         {
-                            GoTo.X += -750;
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 20, 25);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
-                        if (NPC.localAI[0] > 130)
+                        else
                         {
-                            GoTo.X += 750;
+                            NPC.velocity *= 0.95f;
                         }
-                        
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 17, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
-                        if (((!Enraged && NPC.localAI[0] % 60 == 20) || (Enraged && NPC.localAI[0] % 20 == 5)) && NPC.localAI[1] > 0)
+                        if (NPC.localAI[1] > 0 && ((!Enraged && NPC.localAI[0] % 60 == 20) || (Enraged && NPC.localAI[0] % 20 == 5)))
                         {
-                            Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
-                            center.X += Main.rand.Next(150, 220);
+                            Vector2 center = new(NPC.Center.X, player.Center.Y);
+                            center.X += Main.rand.Next(-500, 501);
                             int numtries = 0;
                             int x = (int)(center.X / 16);
                             int y = (int)(center.Y / 16);
@@ -544,16 +532,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         if (NPC.localAI[0] == time1 || NPC.localAI[0] == time2 || NPC.localAI[0] == time3)
                         {
                             Vector2 CenterPoint = player.Center;
-
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, CenterPoint, Vector2.Zero, ModContent.ProjectileType<AcidTarget>(), 0, 0f);
-                            
-                            //use SavePlayerPosition to save where the telegraph is
+                        
                             SavePlayerPosition = CenterPoint;
 
                             NPC.netUpdate = true;
                         }
 
-                        if (NPC.localAI[0] == time1 + 14 || NPC.localAI[0] == time2 + 14 || NPC.localAI[0] == time3 + 14)
+                        if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
                         {
                             SoundEngine.PlaySound(LickSound, NPC.Center);
 
@@ -561,10 +546,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             ChargeDirection.Normalize();
                             ChargeDirection *= Enraged ? 25 : 22;
                             NPC.velocity = ChargeDirection;
-                        }
 
-                        if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
-                        {
                             int Tongue = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + NPC.height / 2, ModContent.NPCType<BoroTongue>(), ai1: SavePlayerPosition.X, ai2: SavePlayerPosition.Y, ai3: NPC.whoAmI);
                     
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -573,7 +555,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             }
                         }
 
-                        if (NPC.localAI[0] >= time3 + 35)
+                        if (NPC.localAI[0] >= time3 + 40)
                         {
                             NPC.localAI[0] = 20;
                             NPC.localAI[1]++;

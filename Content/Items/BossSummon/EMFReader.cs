@@ -60,6 +60,13 @@ namespace Spooky.Content.Items.BossSummon
 			bool FoundValidGrave = false;
 			bool FoundValidAltar = false;
 
+			if (NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) || PandoraBoxWorld.PandoraEventActive)
+			{
+				SoundEngine.PlaySound(BeepSound3, player.Center);
+				CombatText.NewText(player.getRect(), Color.Crimson, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderSpiritExists"));
+				return;
+			}
+
 			foreach (var npc in Main.ActiveNPCs)
 			{
 				if (npc.type == ModContent.NPCType<PandoraBox>() && npc.Distance(player.Center) <= 200f)
@@ -79,7 +86,6 @@ namespace Spooky.Content.Items.BossSummon
 				{
 					SoundEngine.PlaySound(BeepSound3, player.Center);
 					CombatText.NewText(player.getRect(), Color.MediumPurple, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderSpookySpirit"));
-					break;
 				}
 
 				for (int j = (int)playerTileCenter.Y - 5; j <= (int)playerTileCenter.Y + 5; j++)
@@ -130,7 +136,6 @@ namespace Spooky.Content.Items.BossSummon
 					{
 						SoundEngine.PlaySound(BeepSound1, player.Center);
 						CombatText.NewText(player.getRect(), Color.Lime, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderNoGhost"));
-						break;
 					}
 
 					for (int j = (int)playerTileCenter.Y - 5; j <= (int)playerTileCenter.Y + 5; j++)
@@ -164,7 +169,7 @@ namespace Spooky.Content.Items.BossSummon
 							if (CanSpawn && !NPC.AnyNPCs(ModContent.NPCType<MistGhost>()) && !NPC.AnyNPCs(ModContent.NPCType<MistGhostFaces>()) && !NPC.AnyNPCs(ModContent.NPCType<MistGhostWiggle>()))
 							{
 								SoundEngine.PlaySound(BeepSound2, player.Center);
-								CombatText.NewText(player.getRect(), Color.OrangeRed, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderGhost"));
+								CombatText.NewText(player.getRect(), Color.Orange, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderGhost"));
 
 								int SpawnX = (left * 16) + 16;
 								int SpawnY = (top * 16) + 20;
@@ -172,6 +177,7 @@ namespace Spooky.Content.Items.BossSummon
 								//spawn a mist ghost ambush
 								Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY),
 								Vector2.Zero, ModContent.ProjectileType<MistGhostSpawn>(), 0, 0);
+								return;
 							}
 						}
 					}

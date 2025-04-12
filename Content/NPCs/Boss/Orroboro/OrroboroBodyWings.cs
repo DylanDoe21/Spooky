@@ -139,17 +139,31 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 			NPC Parent = Main.npc[(int)NPC.ai[3]];
 
+			bool Enraged = Parent.localAI[3] > 0;
+
 			//based on the head segment that the wing segment belongs to, set the wings to fold back whenever the head segment this belongs to is using a charging attack
 			//probably doesnt looks nice but whatever, it works
 			if (Parent.active)
 			{
 				if (Parent.type == ModContent.NPCType<BoroHead>())
 				{
-					if (Parent.ai[0] == 0 && Parent.localAI[0] >= 60 && Parent.localAI[0] <= 120)
+					int chargeTime = Enraged ? 65 : 75;
+					int stopTime = Enraged ? 85 : 100;
+
+					int lickTime1 = Enraged ? 60 : 80;
+					int lickTime2 = Enraged ? 120 : 160;
+					int lickTime3 = Enraged ? 180 : 240;
+					
+					if (Parent.ai[0] == 0 && Parent.localAI[0] >= chargeTime && Parent.localAI[0] <= stopTime + 20)
 					{
 						IsHeadSegmentCharging = true;
 					}
 					else if (Parent.ai[0] == 2 && Parent.localAI[0] >= 90 && Parent.localAI[0] <= 170)
+					{
+						IsHeadSegmentCharging = true;
+					}
+					else if (Parent.ai[0] == 4 && ((Parent.localAI[0] >= lickTime1 + 15 && Parent.localAI[0] <= lickTime1 + 40) || 
+					(Parent.localAI[0] >= lickTime2 + 15 && Parent.localAI[0] <= lickTime2 + 40) || (Parent.localAI[0] >= lickTime3 + 15 && Parent.localAI[0] <= lickTime3 + 40)))
 					{
 						IsHeadSegmentCharging = true;
 					}
@@ -158,10 +172,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 						IsHeadSegmentCharging = false;
 					}
 				}
-
-				if (Parent.type == ModContent.NPCType<OrroHead>())
+				else if (Parent.type == ModContent.NPCType<OrroHead>())
 				{
-					if (Parent.ai[0] == 1 && Parent.localAI[0] >= 70 && Parent.localAI[0] <= 125)
+					int chargeTime = Enraged ? 65 : 75;
+					int stopTime = Enraged ? 80 : 90;
+					
+					if (Parent.ai[0] == 1 && Parent.localAI[0] >= chargeTime && Parent.localAI[0] <= stopTime + 20)
 					{
 						IsHeadSegmentCharging = true;
 					}
@@ -178,8 +194,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 						IsHeadSegmentCharging = false;
 					}
 				}
-
-				if (Parent.type == ModContent.NPCType<OrroHeadP1>())
+				else if (Parent.type == ModContent.NPCType<OrroHeadP1>())
 				{
 					if (Parent.ai[0] == -1)
 					{

@@ -23,8 +23,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.lifeMax = 5;
             NPC.damage = 0;
             NPC.defense = 0;
-            NPC.width = 92;
-            NPC.height = 94;
+            NPC.width = 124;
+            NPC.height = 114;
             NPC.npcSlots = 0f;
             NPC.knockBackResist = 0f;
             NPC.immortal = true;

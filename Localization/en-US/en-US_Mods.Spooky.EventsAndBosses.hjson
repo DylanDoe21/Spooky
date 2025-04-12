@@ -11,7 +11,8 @@ EggEventOver: The egg's barrier has been broken!
 EggEventOverBeaten: The egg incursion has ended
 RaveyardStart: A rave has started in the cemetery!
 RaveyardEnd: The rave in the cemetery has ended
-EMFReaderNoGhost: No paranormal activity nearby!
-EMFReaderGhost: Paranormal activity detected!
-EMFReaderSpookySpirit: Powerful paranormal activity detected!
-EMFReaderPandoraBox: Chaotic paranormal activity detected!
+EMFReaderNoGhost: No paranormal energy nearby!
+EMFReaderGhost: Paranormal energy detected!
+EMFReaderSpookySpirit: Powerful paranormal energy detected!
+EMFReaderPandoraBox: Chaotic paranormal energy detected!
+EMFReaderSpiritExists: Extreme paranormal activity occuring!

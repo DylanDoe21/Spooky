@@ -48,7 +48,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Projectile.Kill();
             }
 
-            if (player.itemAnimation < player.itemAnimationMax / 3)
+            if (player.itemAnimation == player.itemAnimationMax / 3)
             {
                 if (Main.myPlayer == Projectile.owner)
                 {

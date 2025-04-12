@@ -58,7 +58,7 @@ Other Random Additions:
 
 Structure Helper is no longer a dependency: 
 
--Spooky mod still uses structure helper, but as of this update structure helper is no longer a direct dependency, meaning you no longer need to have it downloaded and enabled to use spooky mod
+-Spooky mod still uses structure helper but as of this update structure helper is not a direct dependency, meaning you no longer need to have it downloaded and enabled to use spooky mod
 
 
 
@@ -136,6 +136,7 @@ Miscellaneous:
 -Spooky biome dungeon keys now shimmer into their corresponding chest like vanilla biome keys
 -Spooky biome dungeon keys now correctly use the "it has been cursed by a powerful jungle creature" tooltip pre-plantera like vanilla biome keys
 -Living flesh armor and weapons now require shadow scales/tissue samples in their crafting recipes instead of demonite/crimtane bars, and lowered the amounts to make the recipes more fair
+-Slightly changed the spooky mod biome compass arrow texture to make it more obvious that its an arrow pointing somewhere
 
 
 ~Enemies & Bosses~
@@ -143,8 +144,9 @@ Miscellaneous:
 Boss Changes:
 -Buffed rot gourd max hp from 2200 to 2700
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
--All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
+-Orro-boro's floating arrow telegraphs have been removed, and its fight has been tweaked so that orro & boro are almost never actually off-screen to make their attacks easier to understand
 -Orro-boro's segments now have massively improved following/turning, the segments now move more naturally and look much better when orro-boro makes sharp turns
+-All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
 -Big bone's fight has received many changes, some of his attacks have been replaced with entirely new ones and some have been visually improved, as well as a new resprite for big bone
 -Big bone will now pulse with heat and gains a steam effect above his head in phase 2 to show him getting warmer
 -Big bone's death animation now ends with him exploding, turning black, and poofing into ash like a cartoon
@@ -168,7 +170,7 @@ Enemy Changes:
 -Catacomb bricks and walls can now be broken with pickaxes/hammers once the respective boss at the bottom of that layer has been defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (HOWEVER, the actual boss arenas and pandora's box arena are still completely indestructable. The indestructable arenas also only applies to new worlds, in old worlds the arenas are not made out of the new unbreakable block)
 -Removed catacomb grass seeds, cemetery grass seeds now serve the same purpose of placing moss on catacomb bricks along with placing cemetery grass
 -Removed all cooldown debuffs for accessories that have had their cooldowns removed
--Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey previously now use "double tap down" like terraria's special armor set bonuses
+-Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey before now use "double tap down" like terraria's special armor set bonuses
 -Being in the valley of eyes now disables the heat distortion caused by being in the underworld
 -Dumb zomboid bestiary entry now uses the spooky forest background instead of a blank black background
 

@@ -152,53 +152,45 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             {
                 bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
 
-				//shoot out ooze
+				//attempt to block the player
 				if (player.Distance(Parent.Center) <= 360f && !player.dead && HasLineOfSight)
 				{
-					NPC.ai[0]++;
-					if (NPC.ai[0] % 20 == 0)
-                	{
-						SoundEngine.PlaySound(SoundID.NPCDeath13 with { Volume = 0.5f, Pitch = -1.2f }, NPC.Center);
-
-						//spawn ooze
-						NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(Main.rand.Next(-3, 4), 2), ModContent.ProjectileType<RottenOoze>(), NPC.damage, 4.5f);
-					}
+					Vector2 desiredVelocity = NPC.DirectionTo(new Vector2(Parent.Center.X, player.Center.Y)) * 7;
+            		NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 				}
 				else
 				{
-					NPC.ai[0] = 0;
-				}
+					int MaxSpeed = 3;
+					float Acceleration = 0.01f;
 
-				int MaxSpeed = 3;
-				float Acceleration = 0.01f;
+					//flies to parent X position
+					if (NPC.Center.X >= Parent.Center.X && MoveSpeedX >= -MaxSpeed) 
+					{
+						MoveSpeedX--;
+					}
+					else if (NPC.Center.X <= Parent.Center.X && MoveSpeedX <= MaxSpeed)
+					{
+						MoveSpeedX++;
+					}
 
-				//flies to parent X position
-				if (NPC.Center.X >= Parent.Center.X && MoveSpeedX >= -MaxSpeed) 
-				{
-					MoveSpeedX--;
-				}
-				else if (NPC.Center.X <= Parent.Center.X && MoveSpeedX <= MaxSpeed)
-				{
-					MoveSpeedX++;
-				}
+					NPC.velocity.X += MoveSpeedX * Acceleration;
+					NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
+					
+					//flies to parent Y position
+					if (NPC.Center.Y >= Parent.Center.Y + 140 && MoveSpeedY >= -MaxSpeed)
+					{
+						MoveSpeedY--;
+					}
+					else if (NPC.Center.Y <= Parent.Center.Y + 140 && MoveSpeedY <= MaxSpeed)
+					{
+						MoveSpeedY++;
+					}
 
-				NPC.velocity.X += MoveSpeedX * Acceleration;
-				NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -MaxSpeed, MaxSpeed);
-				
-				//flies to parent Y position
-				if (NPC.Center.Y >= Parent.Center.Y + 140 && MoveSpeedY >= -MaxSpeed)
-				{
-					MoveSpeedY--;
-				}
-				else if (NPC.Center.Y <= Parent.Center.Y + 140 && MoveSpeedY <= MaxSpeed)
-				{
-					MoveSpeedY++;
-				}
+					NPC.velocity.Y += MoveSpeedY * Acceleration;
+					NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
 
-				NPC.velocity.Y += MoveSpeedY * Acceleration;
-				NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -MaxSpeed, MaxSpeed);
-
-				NPC.velocity *= 0.985f;
+					NPC.velocity *= 0.985f;
+				}
             }
             else
             {
