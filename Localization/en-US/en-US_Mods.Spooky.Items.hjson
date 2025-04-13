@@ -1,3 +1,35 @@
+Bonemeal: {
+	DisplayName: Bonemeal
+	Tooltip:
+		'''
+		All blooms within a certain distance of you will grow much faster
+		Harvesting a bloom has a chance to yield an additional bloom fruit
+		'''
+}
+
+DaylightSavings: {
+	DisplayName: Daylight Savings
+	Tooltip: For each bloom buff with less than 1 minute duration left, gain attack, movement, and mining speed
+}
+
+FarmerGlove: {
+	DisplayName: Farmer's Glove
+	Tooltip: Plating a bloom will grant you increased life regeneration for 10 minutes
+}
+
+Wormy: {
+	DisplayName: Wormy Charles
+	Tooltip:
+		'''
+		Summons a friendly worm to fight with you
+		He will gain additional effects for each type of bloom buff you have
+		Spring bloom buffs will allow him to lifesteal
+		Summer bloom buffs grant him a chance to ignite enemies
+		Fall bloom buffs grant him a chance to spawn flies on enemy hits
+		Winter bloom buffs grant a chance to inflict Frostburn
+		'''
+}
+
 CemeteryLily: {
 	DisplayName: Lily of Rebirth
 	Tooltip:
@@ -1231,6 +1263,11 @@ BoogerFish: {
 	Tooltip: "'Caught in Valley of Eyes'"
 }
 
+CarrotFish: {
+	DisplayName: Carrot Fish
+	Tooltip: ""
+}
+
 OrroEel: {
 	DisplayName: Orro Eel
 	Tooltip: "'Caught in Valley of Eyes'"
@@ -1249,6 +1286,11 @@ HibiscusFish: {
 SpookySpiritFish: {
 	DisplayName: Spirit Cod
 	Tooltip: "'Caught in Swampy Cemetery'"
+}
+
+TarGar: {
+	DisplayName: Tar Gar
+	Tooltip: ""
 }
 
 ZomboidFish: {
@@ -4805,37 +4847,5 @@ Bestiary: {
 		'''
 		Completes the bestiary
 		Testing Item
-		'''
-}
-
-Bonemeal: {
-	DisplayName: Bonemeal
-	Tooltip:
-		'''
-		All blooms within a certain distance of you will grow much faster
-		Harvesting a bloom has a chance to yield an additional bloom fruit
-		'''
-}
-
-DaylightSavings: {
-	DisplayName: Daylight Savings
-	Tooltip: For each bloom buff with less than 1 minute duration left, gain attack, movement, and mining speed
-}
-
-FarmerGlove: {
-	DisplayName: Farmer's Glove
-	Tooltip: Plating a bloom will grant you increased life regeneration for 10 minutes
-}
-
-Wormy: {
-	DisplayName: Wormy Charles
-	Tooltip:
-		'''
-		Summons a friendly worm to fight with you
-		He will gain additional effects for each type of bloom buff you have
-		Spring bloom buffs will allow him to lifesteal
-		Summer bloom buffs grant him a chance to ignite enemies
-		Fall bloom buffs grant him a chance to spawn flies on enemy hits
-		Winter bloom buffs grant a chance to inflict Frostburn
 		'''
 }

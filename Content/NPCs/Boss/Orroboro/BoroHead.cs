@@ -19,6 +19,7 @@ using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.Orroboro
@@ -31,7 +32,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         Vector2 SaveNPCPosition;
         Vector2 SavePlayerPosition;
 
-        private static Asset<Texture2D> NPCTexture;
+		int[] BlockTypes = new int[]
+		{
+			ModContent.TileType<SpookyMush>(),
+			ModContent.TileType<SpookyMushGrass>(),
+			ModContent.TileType<LivingFlesh>()
+		};
+
+		private static Asset<Texture2D> NPCTexture;
 
         public static readonly SoundStyle LickSound = new("Spooky/Content/Sounds/Orroboro/BoroLick", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
@@ -243,9 +251,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             Vector2 GoTo = player.Center;
                             GoTo += SavePlayerPosition;
 
-                            if (NPC.Distance(GoTo + SavePlayerPosition) > 100f)
+							bool IsPositionInTiles = TileGlobal.SolidCollisionWithSpecificTiles(player.Center + SavePlayerPosition - new Vector2(5, 5), 10, 10, BlockTypes);
+
+							if (NPC.Distance(GoTo + SavePlayerPosition) > 100f && !IsPositionInTiles)
                             {
-                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 20, 25);
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 30);
                                 NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                             }
                             else
@@ -297,7 +307,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity *= 0.5f;
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
-                        NPC.ai[0]++;
+                        //NPC.ai[0]++;
                         NPC.netUpdate = true;
                     }
                     
@@ -366,7 +376,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     if (NPC.localAI[0] == 2)
                     {
-                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -650 : 650, Main.rand.Next(-400, 400));
+                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -600 : 600, Main.rand.Next(-200, 200));
                         NPC.netUpdate = true;
                     }
                     
@@ -375,9 +385,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         Vector2 GoTo = player.Center;
                         GoTo += SavePlayerPosition;
 
-                        if (NPC.Distance(GoTo + SavePlayerPosition) > 100f)
+						bool IsPositionInTiles = TileGlobal.SolidCollisionWithSpecificTiles(player.Center + SavePlayerPosition - new Vector2(5, 5), 10, 10, BlockTypes);
+
+                        if (NPC.Distance(GoTo + SavePlayerPosition) > 100f && !IsPositionInTiles)
                         {
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 30);
                             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
                         else
@@ -593,6 +605,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] >= time3 + 40)
                         {
+							NPC.velocity *= 0.92f;
+
                             NPC.localAI[0] = 20;
                             NPC.localAI[1]++;
                             NPC.netUpdate = true;
@@ -699,7 +713,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
         }
 
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 

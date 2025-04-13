@@ -657,7 +657,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				ModContent.TileType<LabMetalPlate>()
 			};
 
-			return PathFinding.SolidCollisionWithSpecificTiles(Center - new Vector2(Width / 2, Height / 2), Width, Height, BlockTypes);
+			return TileGlobal.SolidCollisionWithSpecificTiles(Center - new Vector2(Width / 2, Height / 2), Width, Height, BlockTypes);
 		}
 
 		private void PathfindingMovement(Vector2 position, float Speed, int DistanceCheck, int Iterations, bool FollowingPlayer)

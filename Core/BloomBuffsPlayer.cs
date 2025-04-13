@@ -11,6 +11,7 @@ using System.Linq;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
+using System.Text;
 
 namespace Spooky.Core
 {
@@ -30,7 +31,11 @@ namespace Spooky.Core
 
         public float UITransparency = 0f;
 
-        //bools for each edible bloom
+		//bools for each edible bloom
+		public bool HasSpringBloom = false;
+		public bool HasSummerBloom = false;
+		public bool HasFallBloom = false;
+		public bool HasWinterBloom = false;
         public bool FallGourd = false;
         public bool FallSoulPumpkin = false;
         public bool FallWaterGourd = false;
@@ -63,6 +68,10 @@ namespace Spooky.Core
 		public bool FossilDutchmanPipe = false;
 		public bool FossilMagnolia = false;
 		public bool FossilProtea = false;
+		public bool CemeteryLily = false;
+		public bool CemeteryMarigold = false;
+		public bool CemeteryPoppy = false;
+		public bool CemeteryRose = false;
 
 		//slot unlocks
 		public bool UnlockedSlot3 = false;
@@ -84,8 +93,31 @@ namespace Spooky.Core
 		//accessories
 		public bool Wormy = false;
 
-        //UI default position
-        public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
+		//seasonal blooms lists
+		string[] SpringBlooms = new string[]
+		{
+			"CemeteryLily", "CemeteryMarigold", "CemeteryPoppy", "CemeteryRose",
+			"DandelionHerd", "DandelionMapleSeed", "DandelionTumbleweed",
+			"SpringHeartFlower", "SpringIris", "SpringOrchid", "SpringRose"
+		};
+		string[] SummerBlooms = new string[]
+		{
+			"VegetableCauliflower", "VegetableEggplantPaint", "VegetablePepper", "VegetableRomanesco",
+			"SummerLemon", "SummerOrange", "SummerPineapple", "SummerSunflower"
+		};
+		string[] FallBlooms = new string[]
+		{
+			"FallGourd", "FallSoulPumpkin", "FallWaterGourd", "FallZucchini",
+			"FossilBlackPepper", "FossilDutchmanPipe", "FossilMagnolia", "FossilProtea"
+		};
+		string[] WinterBlooms = new string[]
+		{
+			"WinterBlackberry", "WinterBlueberry", "WinterGooseberry", "WinterStrawberry",
+			"SeaBarnacle", "SeaCucumber", "SeaSponge", "SeaUrchin"
+		};
+
+		//UI default position
+		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
 
 		public static readonly SoundStyle SpongeSound = new("Spooky/Content/Sounds/SpongeAbsorb", SoundType.Sound) { PitchVariance = 0.6f };
 
@@ -277,6 +309,15 @@ namespace Spooky.Core
 			FossilDutchmanPipe = BloomBuffSlots.Contains("FossilDutchmanPipe");
 			FossilMagnolia = BloomBuffSlots.Contains("FossilMagnolia");
 			FossilProtea = BloomBuffSlots.Contains("FossilProtea");
+			CemeteryLily = BloomBuffSlots.Contains("CemeteryLily");
+			CemeteryMarigold = BloomBuffSlots.Contains("CemeteryMarigold");
+			CemeteryPoppy = BloomBuffSlots.Contains("CemeteryPoppy");
+			CemeteryRose = BloomBuffSlots.Contains("CemeteryRose");
+
+			HasSpringBloom = BloomBuffSlots.Any(x => SpringBlooms.Any(y => y == x));
+			HasSummerBloom = BloomBuffSlots.Any(x => SummerBlooms.Any(y => y == x));
+			HasFallBloom = BloomBuffSlots.Any(x => FallBlooms.Any(y => y == x));
+			HasWinterBloom = BloomBuffSlots.Any(x => WinterBlooms.Any(y => y == x));
         }
 
         //handler for the buffs duration decreasing over time and setting each buff slot back to blank if the duration of that buff slot runs out

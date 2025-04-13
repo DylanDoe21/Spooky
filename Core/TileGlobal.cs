@@ -5,6 +5,7 @@ using Terraria.GameContent;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 using Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles;
 using Spooky.Content.Tiles.Catacomb;
@@ -95,6 +96,48 @@ namespace Spooky.Core
 
 			//orig MUST be returned by default in order for vanillas own shimmer locking conditions to apply
 			return orig(type);
+		}
+
+		//custom copied version of vanilla SolidCollision but with a list of specific tiles
+		public static bool SolidCollisionWithSpecificTiles(Vector2 Position, int Width, int Height, int[] TileTypes)
+		{
+			int value = (int)(Position.X / 16f) - 1;
+			int value2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int value3 = (int)(Position.Y / 16f) - 1;
+			int value4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			int num = Utils.Clamp(value, 0, Main.maxTilesX - 1);
+			value2 = Utils.Clamp(value2, 0, Main.maxTilesX - 1);
+			value3 = Utils.Clamp(value3, 0, Main.maxTilesY - 1);
+			value4 = Utils.Clamp(value4, 0, Main.maxTilesY - 1);
+			Vector2 vector = default(Vector2);
+			for (int i = num; i < value2; i++)
+			{
+				for (int j = value3; j < value4; j++)
+				{
+					Tile tile = Main.tile[i, j];
+					if (tile == null || !tile.HasTile || !TileTypes.Contains(tile.TileType))
+					{
+						continue;
+					}
+					bool flag = Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
+					if (flag)
+					{
+						vector.X = i * 16;
+						vector.Y = j * 16;
+						int num2 = 16;
+						if (tile.IsHalfBlock)
+						{
+							vector.Y += 8f;
+							num2 -= 8;
+						}
+						if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num2)
+						{
+							return true;
+						}
+					}
+				}
+			}
+			return false;
 		}
     }
 }

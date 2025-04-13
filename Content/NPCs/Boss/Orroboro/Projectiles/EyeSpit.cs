@@ -74,7 +74,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 		{
 			for (int numDusts = 0; numDusts < 12; numDusts++)
 			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 52, 0f, -2f, 0, default(Color), 1.5f);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DesertWater2, 0f, -2f, 0, default, 1.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].scale = 0.85f;
 				Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
