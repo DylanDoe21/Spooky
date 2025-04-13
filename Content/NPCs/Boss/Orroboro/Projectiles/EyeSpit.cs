@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             {
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(Color.Purple) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+                Color color = Projectile.GetAlpha(Color.Gold) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
@@ -60,7 +60,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
                 }
             }
 
-			//fix Projectile direction
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
             
@@ -73,17 +72,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
 		public override void OnKill(int timeLeft)
 		{
-			for (int numDusts = 0; numDusts < 20; numDusts++)
+			for (int numDusts = 0; numDusts < 12; numDusts++)
 			{                                                                                  
-				int DustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, 0f, -2f, 0, default, 1.5f);
-				Main.dust[DustGore].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-				Main.dust[DustGore].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-                Main.dust[DustGore].noGravity = true;
-                
-				if (Main.dust[DustGore].position != Projectile.Center)
-                {
-				    Main.dust[DustGore].velocity = Projectile.DirectionTo(Main.dust[DustGore].position) * 2f;
-                }
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 52, 0f, -2f, 0, default(Color), 1.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].scale = 0.85f;
+				Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
 			}
 		}
     }

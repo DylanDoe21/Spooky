@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 4;
+			Item.defense = 5;
 			Item.width = 30;
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
@@ -28,16 +28,16 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-			.AddIngredient(ItemID.SilverBar, 12)
+			.AddIngredient(ItemID.SilverBar, 25)
 			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
-			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 75)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 180)
             .AddTile(TileID.Anvils)
             .Register();
 
 			CreateRecipe()
-			.AddIngredient(ItemID.TungstenBar, 12)
+			.AddIngredient(ItemID.TungstenBar, 25)
 			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
-			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 75)
+			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 180)
             .AddTile(TileID.Anvils)
             .Register();
         }

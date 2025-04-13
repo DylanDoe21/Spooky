@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public bool Chomp = false;
         public bool OpenMouth = false;
         
+        Vector2 SaveNPCPosition;
         Vector2 SavePlayerPosition;
 
         private static Asset<Texture2D> NPCTexture;
@@ -63,6 +64,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SendExtraAI(BinaryWriter writer)
         {
             //vector2
+            writer.WriteVector2(SaveNPCPosition);
             writer.WriteVector2(SavePlayerPosition);
 
             //bools
@@ -80,6 +82,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //vector2
+            SaveNPCPosition = reader.ReadVector2();
             SavePlayerPosition = reader.ReadVector2();
 
             //bools
@@ -170,11 +173,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
 					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
-					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.2f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
+					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, NPC.GetAlpha(color * 0.2f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
 				}
 			}
 
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
 			return false;
         }
@@ -278,7 +281,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     break;
                 }
 
-                //charge from the top/bottom while boro dashes
+                //charge from the sides while boro dashes
                 case 1:
                 {
                     NPC.localAI[0]++;
@@ -309,16 +312,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             }
                         }
 
-                        if (NPC.localAI[0] == chargeTime - 10)
+                        if (NPC.localAI[0] == chargeTime - 20)
                         {
+                            OpenMouth = true;
+
                             NPC.velocity *= 0.5f;
                             SavePlayerPosition = player.Center;
+                            SaveNPCPosition = NPC.Center;
+                        }
+
+                        if (NPC.localAI[0] > chargeTime - 20 && NPC.localAI[0] < chargeTime)
+                        {
+                            NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                            NPC.Center += Main.rand.NextVector2Square(-10, 10);
                         }
 
                         if (NPC.localAI[0] == chargeTime)
                         {
-                            OpenMouth = true;
-
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
@@ -370,7 +380,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -650 : 650, Main.rand.Next(-400, 400));
                     }
                     
-                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 70)
+                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 60)
                     {
                         Vector2 GoTo = player.Center;
                         GoTo += SavePlayerPosition;
@@ -386,16 +396,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                     }
 
-                    if (NPC.localAI[0] == 70)
+                    if (NPC.localAI[0] == 60)
                     {
+                        OpenMouth = true;
+
                         NPC.velocity *= 0.5f;
                         SavePlayerPosition = player.Center;
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-10, 10);
                     }
 
                     if (NPC.localAI[0] == 90)
                     {
-                        OpenMouth = true;
-
                         SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
@@ -404,7 +421,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity = ChargeDirection;
                     }
 
-                    if (NPC.localAI[0] >= 105 && NPC.localAI[0] <= 170)
+                    if (NPC.localAI[0] >= 105 && NPC.localAI[0] <= 175)
                     {
                         double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                         while (angle > Math.PI)
@@ -421,7 +438,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4f) * NPC.localAI[1]);
 
-                        if (NPC.localAI[0] % 10 == 0)
+                        if (NPC.localAI[0] % 12 == 0)
                         {
                             SoundEngine.PlaySound(SpitSound, NPC.Center);
 
@@ -433,9 +450,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                     }
 
-                    if (NPC.localAI[0] == 170)
+                    if (NPC.localAI[0] >= 175)
                     {
-                        NPC.velocity *= 0.25f;
+                        NPC.velocity *= 0.95f;
                     }
 
                     if (NPC.localAI[0] > 270)
@@ -464,15 +481,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 6f);
                         NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
+                        if (NPC.localAI[0] == 130)
+                        {
+                            OpenMouth = true;
+                        }
+
                         //Shoot spit when nearby the player
                         if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 200)
                         {
                             NPC.velocity *= 0.95f;
 
                             if (NPC.localAI[0] == 160 || NPC.localAI[0] == 180 || Enraged && NPC.localAI[0] == 200)
-                            {
-                                OpenMouth = true;
-                                    
+                            {       
                                 SoundEngine.PlaySound(SpitSound, NPC.Center);
 
                                 for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
@@ -557,11 +577,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         int Delay = Enraged ? 10 : 20;
                         int Time = Enraged ? 0 : 2;
 
+                        if (NPC.localAI[1] > 0)
+                        {
+                            OpenMouth = true;
+                        }
+
                         //shoot projectile spit down
                         if (NPC.localAI[0] % Delay == Time && NPC.localAI[1] > 0)
                         {
-                            OpenMouth = true;
-
                             SoundEngine.PlaySound(SpitSound, NPC.Center);
 
                             NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(2, 8)), ModContent.ProjectileType<EyeSpit2>(), NPC.damage, 4.5f);
@@ -569,8 +592,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] >= 275)
                         {
-                            OpenMouth = false;
-
                             NPC.velocity = Vector2.Zero;
                             NPC.localAI[0] = 20;
                             NPC.localAI[1]++;
@@ -579,16 +600,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
                     else
                     {
-                        if (NPC.localAI[0] <= 60)
-                        {
-                            Vector2 GoTo = player.Center;
-                            GoTo.Y -= 750;
-
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 18, 42);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
                         if (NPC.localAI[0] > 60)
                         {
+                            OpenMouth = false;
+                            
                             NPC.velocity *= 0.25f;
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;

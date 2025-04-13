@@ -80,7 +80,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     {
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 2;
+                        ShootSpeed *= 4;
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 35f;
 

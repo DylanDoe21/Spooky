@@ -21,6 +21,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public bool Chomp = false;
         public bool OpenMouth = false;
 
+        Vector2 SaveNPCPosition;
         Vector2 SavePlayerPosition;
 
         public static readonly SoundStyle HissSound1 = new("Spooky/Content/Sounds/Orroboro/HissShort", SoundType.Sound) { PitchVariance = 0.6f };
@@ -47,6 +48,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void SendExtraAI(BinaryWriter writer)
         {
             //vector2
+            writer.WriteVector2(SaveNPCPosition);
             writer.WriteVector2(SavePlayerPosition);
 
             //bools
@@ -64,6 +66,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //vector2
+            SaveNPCPosition = reader.ReadVector2();
             SavePlayerPosition = reader.ReadVector2();
 
             //bools
@@ -134,7 +137,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            spriteBatch.Draw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
             
             return false;
         }
@@ -369,17 +372,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     break;
                 }
 
-                //go to the players side and then dash and curl back
+                //go to the players side and then dash and curl around
                 case 1:
                 {
                     NPC.localAI[0]++;
 
                     if (NPC.localAI[0] == 2)
                     {
-                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -650 : 650, Main.rand.Next(-300, 300));
+                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -550 : 550, Main.rand.Next(-200, 200));
                     }
                     
-                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 70)
+                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 60)
                     {
                         Vector2 GoTo = player.Center;
                         GoTo += SavePlayerPosition;
@@ -395,17 +398,24 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                     }
 
-                    if (NPC.localAI[0] == 70)
+                    if (NPC.localAI[0] == 60)
                     {
+                        OpenMouth = true;
+
                         NPC.velocity *= 0.5f;
                         SavePlayerPosition = player.Center;
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 90)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+						NPC.Center += Main.rand.NextVector2Square(-10, 10);
                     }
 
                     //charge up
                     if (NPC.localAI[0] == 90)
                     {
-                        OpenMouth = true;
-
                         SoundEngine.PlaySound(HissSound2, NPC.Center);
 
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
@@ -473,25 +483,21 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         //slow down
                         if (NPC.localAI[0] == 70)
                         {
+                            OpenMouth = true;
+
                             NPC.velocity *= 0.95f;
                         }
 
                         //charge at the player
                         if (NPC.localAI[0] == 100)
                         {
-                            OpenMouth = true;
-
                             SoundEngine.PlaySound(SpitSound, NPC.Center);
 
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
                             ChargeDirection *= 13;
                             NPC.velocity = ChargeDirection;
-                        }
 
-                        //shoot a spread of venom spit
-                        if (NPC.localAI[0] == 110)
-                        {
                             for (int numProjectiles = 0; numProjectiles <= 7; numProjectiles++)
                             {
                                 Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y + Main.rand.Next(-50, 50)) - NPC.Center;
@@ -535,10 +541,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     if (NPC.localAI[0] == 2)
                     {
-                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -1300 : 1300, -400);
+                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? -600 : 600, -400);
                     }
                     
-                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 100)
+                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 90)
                     {
                         Vector2 GoTo = player.Center;
                         GoTo += SavePlayerPosition;
@@ -554,9 +560,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                     }
 
-                    if (NPC.localAI[0] == 100)
+                    if (NPC.localAI[0] == 90)
                     {
+                        OpenMouth = true;
+
                         SavePlayerPosition = player.Center;
+                        SaveNPCPosition = NPC.Center;
+                    }
+
+                    if (NPC.localAI[0] > 90 && NPC.localAI[0] <= 110)
+                    {
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+						NPC.Center += Main.rand.NextVector2Square(-10, 10);
                     }
 
                     //charge horizontally toward the player, but not vertically
@@ -598,8 +613,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     //shoot venom spit at the player while spinning
                     if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 250)
                     {
-                        OpenMouth = true;
-
                         if (NPC.localAI[0] % 20 == 5)
                         {
                             SoundEngine.PlaySound(SpitSound, NPC.Center);
@@ -633,7 +646,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         
                     if (NPC.localAI[0] == 2)
                     {
-                        SavePlayerPosition = new Vector2(0, 600);
+                        SavePlayerPosition = new Vector2(0, 650);
                     }
                     
                     if (NPC.localAI[0] > 2 && NPC.localAI[0] < 85)
@@ -653,7 +666,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
 
                     //play warning sound to telegraph the attack
-                    if (NPC.localAI[0] == 50)
+                    if (NPC.localAI[0] == 30)
                     {
                         SoundEngine.PlaySound(HissSound2, NPC.Center);
                     }
@@ -712,26 +725,31 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     if (NPC.localAI[1] < 3)
                     {
-                        Vector2 GoTo = player.Center;
-                        GoTo.Y += 750;
+                        if (NPC.localAI[0] > 30)
+                        {
+                            if (NPC.alpha < 255)
+                            {
+                                NPC.alpha += 5;
+                            }
+                        }
 
-                        //go from side to side
-                        if (NPC.localAI[0] < 120)
+                        Vector2 GoTo = player.Center;
+                        GoTo.Y += 550;
+
+                        if (NPC.Distance(GoTo) > 50f)
                         {
-                            GoTo.X += 550;
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 20, 25);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
                         }
-                        if (NPC.localAI[0] > 120)
+                        else
                         {
-                            GoTo.X += -550;
+                            NPC.velocity *= 0.95f;
                         }
-                        
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
 
                         if (NPC.localAI[0] % 30 == 10 && NPC.localAI[1] > 0)
                         {
                             Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
-                            center.X += Main.rand.Next(150, 220);
+                            center.X += Main.rand.Next(-500, 501);
                             int numtries = 0;
                             int x = (int)(center.X / 16);
                             int y = (int)(center.Y / 16);
@@ -754,35 +772,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             }
 
                             NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<FleshPillarTelegraph>(), NPC.damage, 4.5f);
-
-                            //sometimes spawn a pillar at the players position
-                            if (Main.rand.NextBool(15))
-                            {
-                                Vector2 PlayerCenter = new(player.Center.X, player.Center.Y + player.height / 4);
-                                PlayerCenter.X += Main.rand.Next(150, 220);
-                                int numPlayerTries = 0;
-                                int playerX = (int)(PlayerCenter.X / 16);
-                                int playerY = (int)(PlayerCenter.Y / 16);
-                                while (playerY < Main.maxTilesY - 10 && Main.tile[playerX, playerY] != null && !WorldGen.SolidTile2(playerX, playerY) && 
-                                Main.tile[playerX - 1, playerY] != null && !WorldGen.SolidTile2(playerX - 1, playerY) && Main.tile[playerX + 1, playerY] != null && !WorldGen.SolidTile2(playerX + 1, playerY)) 
-                                {
-                                    playerY++;
-                                    PlayerCenter.Y = playerY * 16;
-                                }
-                                while ((WorldGen.SolidOrSlopedTile(playerX, playerY) || WorldGen.SolidTile2(playerX, playerY)) && numPlayerTries < 10) 
-                                {
-                                    numPlayerTries++;
-                                    playerY--;
-                                    PlayerCenter.Y = playerY * 16;
-                                }
-
-                                if (numPlayerTries >= 10)
-                                {
-                                    break;
-                                }
-
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(PlayerCenter.X, PlayerCenter.Y + 20), Vector2.Zero, ModContent.ProjectileType<FleshPillarTelegraph>(), NPC.damage, 4.5f);
-                            }
                         }
 
                         if (NPC.localAI[0] >= 240)
@@ -794,11 +783,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     }
                     else
                     {
+                        NPC.alpha = 0;
+
                         //go up to the player before looping its attack pattern
                         if (NPC.localAI[0] <= 75)
                         {
                             Vector2 GoTo = player.Center;
-                            GoTo.X += NPC.Center.X < player.Center.X ? -475 : 475;
+                            GoTo.X += NPC.Center.X < player.Center.X ? -500 : 500;
                             GoTo.Y -= 350;
 
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 15);

@@ -191,7 +191,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 			});
 		}
         
-        public void DrawBody(bool SpawnGore)
+        public void DrawBody(Color drawColor, bool SpawnGore)
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[3]];
 
@@ -245,8 +245,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         Frame = new Rectangle(0, NeckTexture.Height() / 3 * 2, 40, 46);
                     }
+                    
+                    float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
+                    Color StemDrawColor = Phase2 ? Color.Lerp(drawColor, Color.Firebrick, fade) : drawColor;
 
-					Main.spriteBatch.Draw(NeckTexture.Value, drawPos2 - Main.screenPosition, Frame, NPC.GetAlpha(color), rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(NeckTexture.Value, drawPos2 - Main.screenPosition, Frame, NPC.GetAlpha(StemDrawColor), rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
 				}
 			}
 
@@ -298,7 +301,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            DrawBody(false);
+            DrawBody(drawColor, false);
 
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
             AuraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneAura");
@@ -746,7 +749,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
                         NPC.netUpdate = true;
-                        DrawBody(true);
+                        DrawBody(Color.Black, true);
                         player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
                     }
 
@@ -1081,10 +1084,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         GoAboveFlowerPot(450);
 
+                        int ProjAmount = 35;
+
 						if (NPC.localAI[0] == 60)
 						{
 							//set this to a random number without going too low or too high
-                            NPC.localAI[1] = Main.rand.Next(4, 44);
+                            NPC.localAI[1] = Main.rand.Next(4, ProjAmount - 1);
 
 							SaveNPCPosition = NPC.Center;
                             SaveDirection = NPC.spriteDirection;
@@ -1102,7 +1107,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-6, 6);
 
-							for (float numProjectiles = 0; numProjectiles < 45; numProjectiles++)
+							for (float numProjectiles = 0; numProjectiles < ProjAmount; numProjectiles++)
                             {
 								if (Main.rand.NextBool(5))
 								{
@@ -1111,7 +1116,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 									if (numProjectiles != NPC.localAI[1] && numProjectiles != NPC.localAI[1] - 1 && numProjectiles != NPC.localAI[1] - 2 && 
 									numProjectiles != NPC.localAI[1] - 3 && numProjectiles != NPC.localAI[1] - 4)
 									{
-										Vector2 projPos = NPC.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / 45));
+										Vector2 projPos = NPC.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / ProjAmount));
 
 										Vector2 ShootSpeed = NPC.Center - projPos;
 										ShootSpeed.Normalize();
@@ -1147,7 +1152,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 								SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 							}
                                 
-							if (NPC.localAI[0] % 2 == 0)
+							if (NPC.localAI[0] % 5 == 0)
 							{
                                 for (float numProjectiles = 0; numProjectiles < 45; numProjectiles++)
                                 {

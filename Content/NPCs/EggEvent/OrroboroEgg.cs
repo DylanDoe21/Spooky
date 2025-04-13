@@ -30,6 +30,7 @@ namespace Spooky.Content.NPCs.EggEvent
         bool OrroboroDoesNotExist;
 
         private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> BaseTexture;
         private static Asset<Texture2D> AuraTexture1;
         private static Asset<Texture2D> AuraTexture2;
 
@@ -62,7 +63,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.lifeMax = 250;
             NPC.damage = 0;
             NPC.defense = 0;
-            NPC.width = 128;
+            NPC.width = 100;
             NPC.height = 122;
             NPC.npcSlots = 0f;
             NPC.immortal = true;
@@ -72,6 +73,7 @@ namespace Spooky.Content.NPCs.EggEvent
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            BaseTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/OrroboroEggBase");
             AuraTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/OrroboroEggGlow1");
             AuraTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/EggEvent/OrroboroEggGlow2");
 
@@ -93,9 +95,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			Vector2 scaleStretch = new Vector2(1f - stretch, 1f + stretch);
 
-            Vector2 DrawPos = NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY + 4) - Main.screenPosition;
-
-            spriteBatch.Draw(NPCTexture.Value, DrawPos, NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, SpriteEffects.None, 0f);
+            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, scaleStretch, SpriteEffects.None, 0f);
 
             if (EggEventWorld.EggEventActive)
             {
@@ -105,6 +105,8 @@ namespace Spooky.Content.NPCs.EggEvent
                 spriteBatch.Draw(AuraTexture1.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, NPC.GetAlpha(Color.Red) * fade1, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
                 spriteBatch.Draw(AuraTexture2.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, NPC.GetAlpha(Color.Red) * fade2, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
             }
+
+            spriteBatch.Draw(BaseTexture.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0f);
 
             return false;
         }

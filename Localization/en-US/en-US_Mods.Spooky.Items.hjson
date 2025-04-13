@@ -1405,6 +1405,11 @@ JalapenoStaff: {
 		'''
 }
 
+PlantMulch: {
+	DisplayName: Plant Mulch
+	Tooltip: ""
+}
+
 RadishYoyo: {
 	DisplayName: Razor Radish
 	Tooltip: Has razor leaves that spin around for longer range

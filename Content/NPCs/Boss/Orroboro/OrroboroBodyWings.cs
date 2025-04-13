@@ -62,22 +62,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
 					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
-					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.2f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
+					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, NPC.GetAlpha(color * 0.2f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
 
 					Vector2 vector1 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
 					Vector2 vector2 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
 
 					float num = MathHelper.ToRadians(WingRotationDegrees);
 
-					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, color * 0.2f,
+					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, NPC.GetAlpha(color * 0.2f),
 					NPC.rotation + num, new Vector2(0f, Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
 
-					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, color * 0.2f,
+					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, NPC.GetAlpha(color * 0.2f),
 					NPC.rotation - num, new Vector2(Wing2Texture.Width(), Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
 				}
 			}
 
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
 			return false;
 		}
@@ -102,6 +102,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		public override bool PreAI()
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+			NPC.alpha = Parent.alpha;
 
             //kill segment if the head doesnt exist
 			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
@@ -325,22 +327,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
 
 					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
-					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.2f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
+					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, NPC.GetAlpha(color * 0.2f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
 
 					Vector2 vector1 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
 					Vector2 vector2 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
 
 					float num = MathHelper.ToRadians(WingRotationDegrees);
 
-					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, color * 0.2f,
+					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, NPC.GetAlpha(color * 0.2f),
 					NPC.rotation + num, new Vector2(0f, Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
 
-					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, color * 0.2f,
+					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, NPC.GetAlpha(color * 0.2f),
 					NPC.rotation - num, new Vector2(Wing2Texture.Width(), Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
 				}
 			}
 
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
 			return false;
 		}
@@ -366,7 +368,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
 			return false;
         }
@@ -374,6 +376,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override bool PreAI()
         {
 			NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+			NPC.alpha = Parent.alpha;
 
             //kill segment if the head doesnt exist
 			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
@@ -430,7 +434,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         {
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
 			return false;
         }

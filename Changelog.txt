@@ -105,6 +105,9 @@ Armors:
 -Buffed spirit horseman armor head minion damage from 35 to 40
 -Buffed living flesh mask and leggings defense from 3 to 4
 -Buffed gore armor defense: Hood - 14 defense, Mask - 10 defense, Body - 15 defense, Legs - 12 defense
+-Buffed root armor defense: Head - 3 defense, Body - 4 defense, Legs - 3 defense
+-Buffed spi-ops armor defense: Head - 4 defense, Body - 5 defense, Legs - 4 defense
+-Increased the amount of silver/tungsten bars and spider web blocks needed to craft each piece of the spi-ops armor
 
 Accessory:
 -Swapped the telescope and severed heads progression (telescope is now post daffodil and severed head is now post orroboro, both of their buy/sell prices and rarity colors have been adjusted accordingly)

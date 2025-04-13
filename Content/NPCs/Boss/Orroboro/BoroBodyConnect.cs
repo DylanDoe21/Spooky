@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
 			return false;
 		}
@@ -50,6 +50,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override bool PreAI()
         {   
             NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+            NPC.alpha = Parent.alpha;
 
             //kill segment if the head doesnt exist
 			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
