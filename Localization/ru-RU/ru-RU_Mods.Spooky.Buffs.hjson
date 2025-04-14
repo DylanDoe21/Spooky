@@ -1,0 +1,521 @@
+BustlingGlowshroomHeal: {
+	DisplayName: Регенерация светящихся грибов
+	Description: Скороcть регенерации здоровья значительно увеличена
+}
+
+DaffodilHairpinCooldown: {
+	DisplayName: Перезарядка кольца из лепестков
+	Description: Кольцу из лепестков нужно время, чтобы отрасти
+}
+
+EmbryoRevival: {
+	DisplayName: Эмбриональное пробуждение
+	Description:
+		'''
+		Эмбрион защитил вас от смерти
+		Защита и регенерация здоровья значительно увеличены
+		'''
+}
+
+FlyBuff: {
+	DisplayName: Рой мух
+	Description: Вас защищает рой из мух
+}
+
+SkullFrenzyBuff: {
+	DisplayName: Некромантическое безумие
+	Description: Увеличение урона, шанса нанести критический удар, силы отбрасывания и скорости передвижения
+}
+
+SnottySchnozCooldown: {
+	DisplayName: Перезарядка сопливого носища
+	Description: Соплебезумие перезаряжается
+}
+
+BouncerDeathmark: {
+	DisplayName: Смертельная метка скелета-вышибалы
+	Description: Стоять! Вы нарушили закон!
+}
+
+CatacombDebuff: {
+	DisplayName: Проклятье Катакомб 
+	Description: Проклятье сильно ограничевает ваше поле зрения!
+}
+
+CrossCooldown: {
+	DisplayName: Перезарядка крестика-оберега
+	Description: Защита, даруемая вашим оберегом, востанавливается
+}
+
+EmbryoCooldown: {
+	DisplayName: Эмбриональное разрушение
+	Description:
+		'''
+		Эмбриону нужно время для повторного пробуждения
+		Урон и шанс критического удара увеличены
+		'''
+}
+
+EnsnaredCooldown: {
+	DisplayName: Перезарядка поимки
+	Description: ""
+}
+
+EnsnaredDebuff: {
+	DisplayName: Пойманный
+	Description: ""
+}
+
+HallucinationDebuff1: {
+	DisplayName: Сущность
+	Description: Выхода нет
+}
+
+HallucinationDebuff2: {
+	DisplayName: Ребёнок
+	Description: Он плачет
+}
+
+HallucinationDebuff3: {
+	DisplayName: Лошадь
+	Description: Она здесь...
+}
+
+HallucinationDebuff4: {
+	DisplayName: Плоть
+	Description: Вы ощущаете свою бесполезность
+}
+
+FleshWhipCooldown: {
+	DisplayName: Перезарядка беззащитности
+	Description: ""
+}
+
+FleshWhipDefense: {
+	DisplayName: Беззащитный
+	Description: Защита снижена
+}
+
+FleshWhipDefense2: {
+	DisplayName: Беззащитный
+	Description: Защита снижена
+}
+
+FlowerArmorCooldown: {
+	DisplayName: Перезардка распыления
+	Description: Вы не можете вызвать пыльцу
+}
+
+FlyCooldown: {
+	DisplayName: Перезарядка роя мух
+	Description: Ваши защитные мухи не могут появляться
+}
+
+GourdDecay: {
+	DisplayName: Гниение
+	Description: ""
+}
+
+PandoraCrossCooldown: {
+	DisplayName: Перезарядка баса креста
+	Description: Вы не можете активировать способность креста
+}
+
+PandoraHandCooldown: {
+	DisplayName: Перезарядка летающих рук розария
+	Description: Летающие руки розария не могут появится
+}
+
+Possessed: {
+	DisplayName: Одержимость
+	Description: Вас контролирует злой дух!
+}
+
+SadDebuff: {
+	DisplayName: Грусть
+	Description: Урон снижен на 10%, вы двигаетесь медленнее
+}
+
+ThornMark: {
+	DisplayName: Метка шипа
+	Description: ""
+}
+
+BrainyBuff: {
+	DisplayName: Мозговитый
+	Description: Мозговитый с подозрением преследует вас
+}
+
+DaffodilHandBuff: {
+	DisplayName: Рука-растение
+	Description: Рука-растение поразит ваших врагов!
+}
+
+EntityMinionBuff: {
+	DisplayName: Маленькая Сущность
+	Description: Маленькая Сущность сражается за вас
+}
+
+EyeArmorMinionBuff: {
+	DisplayName: Глазастая кроха
+	Description: Маленький глаз защитит вас!
+}
+
+GrugBuff: {
+	DisplayName: Гаргулья
+	Description: Горгулья Камнеголовый защищает вас!
+}
+
+NoseMinionBuff: {
+	DisplayName: Носомуха
+	Description: Разрдражающе жужжит вокруг вас
+}
+
+OldHunterBuff: {
+	DisplayName: Души старых охотников
+	Description: Души охотников защитят вас
+}
+
+PumpkinHeadBuff: {
+	DisplayName: Тыквенная голова
+	Description: Ваша голова будет сражаеться за вас!
+}
+
+RotGourdMinionBuff: {
+	DisplayName: Тыква-дурашка
+	Description: Маленькая тыковка, расплющивающая врагов
+}
+
+SkullWispBuff: {
+	DisplayName: Призрачный череп
+	Description: Призрачный череп будет сражаться за вас
+}
+
+SoulSkullBuff: {
+	DisplayName: Череп-призрак
+	Description: Череп-призрак будет сражаться за вас
+}
+
+SkullTotemBuff: {
+	DisplayName: Усиление черепного идола
+	Description: Увеличение урона призывателя и дальности хлыста, а также 2 дополнительных слота миньонов
+}
+
+TortumorMinionBuff: {
+	DisplayName: Дружественная болепухоль
+	Description: Болепухоль будет сражаться за вас
+}
+
+BigBonePetBuff: {
+	DisplayName: Крошка-череп
+	Description: Возможно, он поглощает ваши питательные вещества
+}
+
+CatBuff: {
+	DisplayName: Чёрный котёнок
+	Description: Зловещий чёрный котёнок, преследующий вас
+}
+
+ColumboBuff: {
+	DisplayName: Коломбо
+	Description: Существо, скрывающееся за вашей спиной
+}
+
+FlyPetBuff: {
+	DisplayName: Муха Корнелиус
+	Description: Угрожающе парит вокруг вас
+}
+
+FuzzBatPetBuff: {
+	DisplayName: Бестолковая летучая плюшомышь
+	Description: Она не понимает почему, но ей нравится летать за вами
+}
+
+GhostPetBuff: {
+	DisplayName: Приведеньеце
+	Description: Жуткок пиведеньеце укажет вам путь
+}
+
+MocoPetBuff: {
+	DisplayName: Крошка Моко
+	Description: Нюх-нюх... Апчхииии!
+}
+
+PandoraBeanBuff: {
+	DisplayName: Фон Ангустон VI
+	Description: Древняя королевсткая особа приследует вас
+}
+
+PetscopBuff: {
+	DisplayName: Страж
+	Description: Создатель нового
+}
+
+PetscopMarvinBuff: {
+	DisplayName: Марвин
+	Description: Марвин поднимает инструмент
+}
+
+PetscopTiaraBuff: {
+	DisplayName: Тиара
+	Description: Тиара тоже играет плохую музыку
+}
+
+RotGourdPetBuff: {
+	DisplayName: Крошка Гнилая тыква
+	Description: Вонючий, но миленький
+}
+
+ShroomHopperBuff: {
+	DisplayName: Грибной попрыгунчик
+	Description: Ему нравятся ваши споры
+}
+
+SkullEmojiBuff: {
+	DisplayName: Летающий череп
+	Description: Он вращается целую вечность
+}
+
+SkullGoopBuff: {
+	DisplayName: Череп-слизняк
+	Description: Таинственный слизняк ползёт за вами
+}
+
+SpookySpiritPetBuff: {
+	DisplayName: Мини-дух
+	Description: Вас преследует маленький дух
+}
+
+StickyEyeBuff: {
+	DisplayName: Светящийся в темноте липкий глаз
+	Description: Может содержать токсичные вещества
+}
+
+ValleyNautilusBuff: {
+	DisplayName: Маленький моллюск
+	Description: Вас преследует маленький и дружелюбный моллюск
+}
+
+AlternateCooldown: {
+	DisplayName: Перезарядка доппельгангера
+	Description: Вы не можете призвать своего доппельгангера
+}
+
+BackroomsDecay: {
+	DisplayName: Разложение закулисья
+	Description: ""
+}
+
+MonumentMythosCooldown: {
+	DisplayName: Перезарядка сдерживания Свободы
+	Description: Пирамида из гиза-стекла восстанавливается
+}
+
+MonumentMythosShatter: {
+	DisplayName: Сдерживание Свободы разбито
+	Description: Получаемый урон от всех источников увеличен вдвое
+}
+
+InchwormBuff: {
+	DisplayName: Ручная гусеница
+	Description: Она хочет ваше яблоко
+}
+
+SlendermanPageBuff: {
+	DisplayName: Усиление страницы Слендермена
+	Description: Ваши слендер-щупальца усилены
+}
+
+HerobrineAltarCooldown: {
+	DisplayName: Перезарядка алтаря из блоков
+	Description: Вы не можете призвать молнию
+}
+
+SpiderArmorStealth: {
+	DisplayName: Паучья скрытность
+	Description:
+		'''
+		Враги реже будут выбирать вас в качестве цели
+		Сопротивление урону увеличено на 12%
+		'''
+}
+
+SpiderStealthCooldown: {
+	DisplayName: Перезарядка паучьей скрытности
+	Description: Паучьей скрытности нужно время на восстановление
+}
+
+WhipSpiderAggression: {
+	DisplayName: Паучьи феромоны
+	Description: Существа из паучьего грота более агрессивны
+}
+
+PheromoneWhipDebuff: {
+	DisplayName: Ослабления от жала с феромонами
+	Description: ""
+}
+
+TrapdoorSpiderMountBuff: {
+	DisplayName: Ездовой тарантул
+	Description: Берегитесь, арахнофобы!
+}
+
+SpiderBabyBuff: {
+	DisplayName: Паучки
+	Description: Они наследили на вас
+}
+
+HunterScarfMark: {
+	DisplayName: Метка шарфа старого охотника
+	Description: ""
+}
+
+BeeDamageBuff: {
+	DisplayName: Опылительное усиление
+	Description: ""
+}
+
+BeeHealingBuff: {
+	DisplayName: Опылительное лечение
+	Description: ""
+}
+
+BeePollinationProcessBuff: {
+	DisplayName: Усиление пчелиного опыления
+	Description: ""
+}
+
+BlueberryFrost: {
+	DisplayName: Голубичная заморозка
+	Description: ""
+}
+
+StrawberryBoostBuff: {
+	DisplayName: Клубничное усиление
+	Description: Урон, шанс критического удара и сила отбрасывания увеличены
+}
+
+LeechBuff: {
+	DisplayName: Пиявка
+	Description: Пиявка будет сражаться за вас
+}
+
+ToothyDebuff: {
+	DisplayName: Клыковый дебафф
+	Description: ""
+}
+
+SentientKeybrandDebuff: {
+	DisplayName: Дебафф «Молярного мучителя«
+	Description: ""
+}
+
+WingedBiomassBuff: {
+	DisplayName: Крылатая биомасса
+	Description: Крылатая биомасса следит за вами
+}
+
+BillyBuff: {
+	DisplayName: Билли Бонс
+	Description: Ворона Билли Бонс защищает вас!
+}
+
+GooseberryBoostBuff: {
+	DisplayName: Усиление крыжовника
+	Description: Регенерация здоровья и скорость передвижения увеличены
+}
+
+PeptoDebuff: {
+	DisplayName: Пепто-дебафф
+	Description: ""
+}
+
+SmokerLungCooldown: {
+	DisplayName: Перезарядка лёгких курильщика
+	Description: Вы не можете вызвать облако дыма
+}
+
+SmokerCoughDebuff: {
+	DisplayName: Дебафф облака дыма
+	Description: ""
+}
+
+NoseBlessingDebuff: {
+	DisplayName: Дебафф носового благословения
+	Description: ""
+}
+
+NoseBlessingDebuffCooldown: {
+	DisplayName: Перезарядка дебаффа носового благословения
+	Description: ""
+}
+
+NoseBlessingBuff: {
+	DisplayName: Благословение Нософерату
+	Description: Атаки по врагам будут наносить им дополнительный урон козявками
+}
+
+GhostBanditDefense: {
+	DisplayName: Священный щит Сиренти
+	Description: Защита увеличена на 15 ед.
+}
+
+GlassEyeDebuff: {
+	DisplayName: Дебафф «Глазного хлестателя«
+	Description: ""
+}
+
+GlassEyeCooldown: {
+	DisplayName: Разбитый глаз
+	Description: Ваш стеклянный глаз разбит
+}
+
+StitchedCloakCooldown: {
+	DisplayName: Перезарядка сшитого плаща
+	Description: Вы не можете использовать рывок сшитого плаща
+}
+
+StitchedCloakWebSlow: {
+	DisplayName: Замедление паутиной сшитого плаща
+	Description: ""
+}
+
+OrroboroPetBuff: {
+	DisplayName: Кольцо Орроборо
+	Description: Черви, медленно поглощающие друг друга
+}
+
+EggEventEnemyBuff: {
+	DisplayName: Мясная поддержка
+	Description: ""
+}
+
+ZombieCultistPetBuff: {
+	DisplayName: Зомби-носокультист
+	Description: Скорее всего хочет вернуть свои мозги
+}
+
+BeePetBuff: {
+	DisplayName: Пчёлка-опылытельница
+	Description: Её привлекают ваши соты
+}
+
+RatPetBuff: {
+	DisplayName: Крыса-альбинос
+	Description: Милый и, возможно, заразный!
+}
+
+PuttyPetBuff: {
+	DisplayName: Банда мастичных слизней
+	Description: Мастички прыгают за вами
+}
+
+SinisterSnailBuff: {
+	DisplayName: Зловещая улитка
+	Description: Воплощение типа литературного героя «Большая улитка»
+}
+
+SpookFishronMinionBuff: {
+	DisplayName: Жуткий свинрон
+	Description: Свинроны защищают вас
+}

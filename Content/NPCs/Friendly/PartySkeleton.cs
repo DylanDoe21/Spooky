@@ -269,9 +269,7 @@ namespace Spooky.Content.NPCs.Friendly
                 dialogueStyle = Main.rand.Next(1, 32);
 
                 //select a random name for the skeleton when it spawns
-                string[] names = { "Boney", "Tony", "Jeff", "McRib", "Clemmence", "Hans Flabberghast", "Carlcium", "Ribert", "Nigel",
-                "Morton", "Jeremy", "Gustavo", "Notorious B.O.N.E", "Patrice", "Patrique", "Wanda", "Señor Hernandez", "John Jr",
-                "Fortunado", "Quandale", "Normal Skeleton", "Bongo", "Ongo", "Pete Griffith", "Tario", "Clavicle" };
+                string[] names = Language.GetTextValue("Mods.Spooky.NPCs.PartySkeletons.Names").Split(', ');
                 NPC.GivenName = Main.rand.Next(names);
 
                 //choose pants

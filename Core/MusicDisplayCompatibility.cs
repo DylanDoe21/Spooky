@@ -12,7 +12,7 @@ namespace Spooky.Core
                 return;
             }
 
-            void AddMusic(string path, string name, string author) => display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, path), name, "by " + author, Language.GetTextValue("Mods.Spooky.MusicDisplay.ModName"));
+            void AddMusic(string path, string name, string author) => display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, path), name, Language.GetTextValue("Mods.Spooky.MusicDisplay.By") + " " + author, Language.GetTextValue("Mods.Spooky.MusicDisplay.ModName"));
 
             //spooky forest
             AddMusic("Content/Sounds/Music/SpookyBiomeDay", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestDay"), "BananaLizard");
