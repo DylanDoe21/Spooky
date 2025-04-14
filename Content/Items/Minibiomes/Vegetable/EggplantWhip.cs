@@ -31,5 +31,13 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
 		{
 			return true;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles;
 
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable

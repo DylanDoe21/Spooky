@@ -89,6 +89,7 @@ namespace Spooky.Core
 		public int DandelionMapleSeedTimer = 0;
 		public int DragonFruitTimer = 0;
 		public int DragonfruitStacks = 0;
+		public int CemeteryLilyRevives = 0;
 
 		//accessories
 		public bool Wormy = false;
@@ -135,6 +136,7 @@ namespace Spooky.Core
 			tag["Duration3"] = Duration3;
 			tag["Duration4"] = Duration4;
             tag["DragonfruitStacks"] = DragonfruitStacks;
+			tag["CemeteryLilyRevives"] = CemeteryLilyRevives;
 
 			if (UnlockedSlot3) tag["UnlockedSlot3"] = true;
             if (UnlockedSlot4) tag["UnlockedSlot4"] = true;
@@ -154,6 +156,7 @@ namespace Spooky.Core
 			Duration3 = tag.Get<int>("Duration3");
 			Duration4 = tag.Get<int>("Duration4");
             DragonfruitStacks = tag.Get<int>("DragonfruitStacks");
+			CemeteryLilyRevives = tag.Get<int>("CemeteryLilyRevives");
 
 			UnlockedSlot3 = tag.ContainsKey("UnlockedSlot3");
             UnlockedSlot4 = tag.ContainsKey("UnlockedSlot4");

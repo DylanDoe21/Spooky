@@ -80,46 +80,50 @@ namespace Spooky.Content.Generation
 			double heightLimit = Main.worldSurface * 0.35f;
 
 			//place the terrain itself and replace blocks with cemetery blocks
-			for (int X = XMiddle - (BiomeWidth / 2); X <= XMiddle + (BiomeWidth / 2); X++)
-            {
-                for (int Y = (int)heightLimit; Y <= Main.worldSurface; Y++)
-                {
-                    if (Y >= (int)heightLimit + 150 || (Y < (int)heightLimit + 150 && NoFloatingIsland(X, Y)))
-                    {
-                        Tile tile = Main.tile[X, Y];
+			for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
+			{
+				int StartValue = XMiddle - (BiomeWidth / 2) - 20;
+				int EndValue = XMiddle + (BiomeWidth / 2) + 20;
+				progress.Set((float)(X - StartValue) / (EndValue - StartValue));
 
-                        //place cemetery dirt blocks on crimstone and ebonstone walls because they are annoying
-                        if (!tile.HasTile && (tile.WallType == WallID.EbonstoneUnsafe || tile.WallType == WallID.CrimstoneUnsafe))
-                        {
-                            WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<CemeteryDirt>());
-                        }
+				//non-edge biome stuff so the dithering added later works correctly
+				if (X >= XMiddle - (BiomeWidth / 2) && X <= XMiddle + (BiomeWidth / 2))
+				{
+					for (int Y = (int)heightLimit; Y <= Main.worldSurface; Y++)
+					{
+						if (Y >= (int)heightLimit + 150 || (Y < (int)heightLimit + 150 && NoFloatingIsland(X, Y)))
+						{
+							Tile tile = Main.tile[X, Y];
 
-                        //convert all tiles into cemetery dirt
-                        if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
-                        {
-                            tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
-                        }
+							//place cemetery dirt blocks on crimstone and ebonstone walls because they are annoying
+							if (!tile.HasTile && (tile.WallType == WallID.EbonstoneUnsafe || tile.WallType == WallID.CrimstoneUnsafe))
+							{
+								WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<CemeteryDirt>());
+							}
 
-                        //reaplce walls with cemetery grass walls
-                        if (tile.WallType > 0)
-                        {
-                            tile.WallType = (ushort)ModContent.WallType<CemeteryDirtWall>();
-                        }
+							//convert all tiles into cemetery dirt
+							if (tile.HasTile && tile.TileType != TileID.Cloud && tile.TileType != TileID.RainCloud && tile.TileType != ModContent.TileType<CemeteryDirt>())
+							{
+								tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+							}
 
-                        tile.LiquidAmount = 0;
-                    }
-                }
+							//reaplce walls with cemetery grass walls
+							if (tile.WallType > 0)
+							{
+								tile.WallType = (ushort)ModContent.WallType<CemeteryDirtWall>();
+							}
 
-                //place block clusters right above the world surface to prevent the cemetery from generating too low
-                for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY += 3)
-                {
-                    SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), 0, WorldGen.genRand.Next(2, 3), true, true);
-                }
-            }
+							tile.LiquidAmount = 0;
+						}
+					}
 
-            //place dirt walls and replace open dirt walls with grass walls
-            for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
-            {
+					//place block clusters right above the world surface to prevent the cemetery from generating too low
+					for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY += 3)
+					{
+						SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), 0, WorldGen.genRand.Next(2, 3), true, true);
+					}
+				}
+
                 for (int Y = (int)heightLimit; Y <= Main.worldSurface; Y++)
                 {
                     if (Y >= (int)heightLimit + 150 || (Y < (int)heightLimit + 150 && NoFloatingIsland(X, Y)))
@@ -141,11 +145,7 @@ namespace Spooky.Content.Generation
                         }
                     }
                 }
-            }
 
-            //add tile dithering on the edges of the biome
-            for (int X = XMiddle - (BiomeWidth / 2) - 20; X <= XMiddle + (BiomeWidth / 2) + 20; X++)
-            {
                 for (int Y = (int)heightLimit; Y <= Main.worldSurface; Y++)
                 {
                     if (WorldGen.genRand.NextBool(2))

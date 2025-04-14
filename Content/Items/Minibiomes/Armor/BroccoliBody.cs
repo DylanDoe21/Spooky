@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.Minibiomes.Vegetable;
+
 namespace Spooky.Content.Items.Minibiomes.Armor
 {
 	[AutoloadEquip(EquipType.Body)]
@@ -20,14 +22,12 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 			player.GetDamage(DamageClass.Summon) += 0.1f;
 		}
 
-        /*
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 30)
-            .AddTile(TileID.WorkBenches)
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 45)
+            .AddTile(TileID.Anvils)
             .Register();
         }
-        */
 	}
 }

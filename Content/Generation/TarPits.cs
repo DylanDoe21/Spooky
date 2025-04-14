@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes.Desert;
 using Spooky.Content.Tiles.Minibiomes.Desert.Ambient;
+using static tModPorter.ProgressUpdate;
 
 namespace Spooky.Content.Generation
 {
@@ -72,7 +73,13 @@ namespace Spooky.Content.Generation
 				}
 
 				SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);
-				DigOutCaves(BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
+				DigOutCaves(progress, BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
+
+				for (double i = numBiomesPlaced * 0.5; i < (numBiomesPlaced == 1 ? 1 : 0.5); i += 0.00001)
+				{
+					progress.Set(i);
+				}
+
 				BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
 				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
 				PlaceStructures(BiomeX, BiomeY, SizeX, SizeY);
@@ -81,7 +88,7 @@ namespace Spooky.Content.Generation
 		}
 
 		//dig out caverns inside of the area of ovals
-		public void DigOutCaves(int PositionX, int PositionY, int SizeX, int SizeY, int Seed)
+		public void DigOutCaves(GenerationProgress progress, int PositionX, int PositionY, int SizeX, int SizeY, int Seed)
 		{
 			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
 			{

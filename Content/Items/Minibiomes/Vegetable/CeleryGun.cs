@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
     {
         public override void SetDefaults()
         {
-            Item.damage = 10;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
 			Item.autoReuse = true;
@@ -43,5 +43,13 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
 
 			return false;
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

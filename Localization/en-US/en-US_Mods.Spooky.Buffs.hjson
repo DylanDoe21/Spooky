@@ -524,3 +524,8 @@ PepperSpice: {
 	DisplayName: Pepper Spice
 	Description: ""
 }
+
+SpiderSlingshotSlow: {
+	DisplayName: Spider Slingshot Slow
+	Description: ""
+}

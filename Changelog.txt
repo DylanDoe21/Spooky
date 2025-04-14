@@ -44,6 +44,7 @@ New Music:
 
 Other Random Additions:
 
+-Spooky mod biomes now actually increase the little progress bar during worldgen to show that they are generating, this way the game doesnt just look like its frozen
 -Added placeable spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
 -Added spooky dirt walls, swampy mud walls, and damp soil walls. These walls now generate in their respective biomes, and have safe versions you can craft and build with
 -Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (IMPORTANT NOTE: if you place these unsafe walls in a world where daffodil (For layer 1 walls) and big bone (For layer 2 walls) haven't been defeated, then you will NOT be able to break them until you defeat that respective boss)
@@ -72,7 +73,7 @@ Melee:
 -Buffed swingable sphider damage from 30 to 35
 -Nerfed spider stabber damage from 25 to 20, but it now inflicts venom instead of poison
 -Nerfed bulb bomb damage from 52 to 45 and its thorns now deal half the base damage
--Dave & mike can now target individual enemies from much further away, it no longer needs to touch the enemy in order to begin attacking it, and massively increased the distance which dave and mike can target enemies from
+-Dave & mike no longer needs to touch the enemy its targeting in order to begin attacking it, and massively increased the distance which dave and mike can target enemies from
 
 Ranged:
 -Buffed spider egg cannon damage from 16 to 25
@@ -138,16 +139,17 @@ Miscellaneous:
 -Lowered drop rate of the putty slime pet
 -Spooky biome dungeon keys now shimmer into their corresponding chest like vanilla biome keys
 -Spooky biome dungeon keys now correctly use the "it has been cursed by a powerful jungle creature" tooltip pre-plantera like vanilla biome keys
--Living flesh armor and weapons now require shadow scales/tissue samples in their crafting recipes instead of demonite/crimtane bars, and lowered the amounts to make the recipes more fair
+-Living flesh armor and weapons now require shadow scales/tissue samples in their crafting recipes instead of demonite/crimtane bars
 -Slightly changed the spooky mod biome compass arrow texture to make it more obvious that its an arrow pointing somewhere
+-Changed spike shell basher into a shield accessory that gives 3 defense and retaliates with harmful spikes when you take damage
 
 
 ~Enemies & Bosses~
 
 Boss Changes:
--Buffed rot gourd max hp from 2200 to 2700
+-Buffed rot gourd max hp from 2200 to 2600
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
--Orro-boro's floating arrow telegraphs have been removed, and its fight has been tweaked so that orro & boro are almost never actually off-screen to make their attacks easier to understand
+-Orro-boro's floating arrow telegraphs have been removed, and its attacks that used these have been tweaked so that orro & boro are almost never actually off-screen to make their attacks easier to understand
 -Orro-boro's segments now have massively improved following/turning, the segments now move more naturally and look much better when orro-boro makes sharp turns
 -All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
 -Big bone's fight has received many changes, some of his attacks have been replaced with entirely new ones and some have been visually improved, as well as a new resprite for big bone

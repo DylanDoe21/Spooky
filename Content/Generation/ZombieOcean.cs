@@ -121,17 +121,23 @@ namespace Spooky.Content.Generation
 
 			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 6) * 5, (SizeYInt + 6) * 3, 1f, false, false);
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
+			for (double i = 0; i < 0.5; i += 0.00001)
+			{
+				progress.Set(i);
+			}
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
-
 			/*
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
 				PlaceLabs((int)Flags.ZombieBiomePositions[i].X, (int)Flags.ZombieBiomePositions[i].Y);
 			}
 			*/
-
+			for (double i = 0.5; i < 1; i += 0.00001)
+			{
+				progress.Set(i);
+			}
 			TileSloping(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceAmbience(StartPositionX, StartPositionY, SizeX, SizeY);
 		}

@@ -79,6 +79,11 @@ namespace Spooky.Content.Generation
 
 			SpookyWorldMethods.PlaceOval(PositionX, (int)Main.worldSurface + (Main.maxTilesY / 7), ModContent.TileType<MushroomMoss>(), 0, MushroomSizeX, MushroomSizeY, 2f, false, false);
 
+			for (double i = 0; i < 0.25; i += 0.00001)
+			{
+				progress.Set(i);
+			}
+
 			//place clumps of green grass using a temporary dirt tile clone that will be replaced later in generation
 			for (int moss = 0; moss < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); moss++)
 			{
@@ -117,6 +122,11 @@ namespace Spooky.Content.Generation
 						ModContent.TileType<SpookyStone>(), false, 0f, 0f, false, true);
 					}
 				}
+			}
+
+			for (double i = 0.25; i < 0.5; i += 0.00001)
+			{
+				progress.Set(i);
 			}
 
 			//dig out noise caves in the biome
@@ -210,6 +220,11 @@ namespace Spooky.Content.Generation
 				}
 			}
 
+			for (double i = 0.5; i < 0.75; i += 0.00001)
+			{
+				progress.Set(i);
+			}
+
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
 				for (int Y = (int)Main.worldSurface + 10; Y < Main.maxTilesY - 200; Y++)
@@ -265,6 +280,7 @@ namespace Spooky.Content.Generation
 			//disabled for now, needs to be optimized later
 			//CleanOutSmallClumps();
 
+			//add biome dithering
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, true);
 
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
@@ -294,6 +310,11 @@ namespace Spooky.Content.Generation
 						}
 					}
 				}
+			}
+
+			for (double i = 0.75; i < 1; i += 0.00001)
+			{
+				progress.Set(i);
 			}
 		}
 

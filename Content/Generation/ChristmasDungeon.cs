@@ -85,9 +85,23 @@ namespace Spooky.Content.Generation
 						ProceduralRoomsGenerator Generator = new ProceduralRoomsGenerator(X, Y, DungeonWidth, DungeonHeight, maxDungeonSegmentSize, minDungeonSegmentSize, MaxRoomSize, MinRoomSize);
 						Generator.GenerateDungeon();
 						FillEmptySpaceInbetweenRooms(X, Y, DungeonWidth, DungeonHeight);
+						for (double i = 0; i < 0.5; i += 0.00001)
+						{
+							progress.Set(i);
+						}
+
 						PlaceKrampusRoom(X, Y, 35, 22);
 						DungeonCleanup(X, Y, DungeonWidth, DungeonHeight);
+						for (double i = 0.5; i < 0.75; i += 0.00001)
+						{
+							progress.Set(i);
+						}
+
 						DungeonAmbienceAndDetails(X, Y, DungeonWidth, DungeonHeight);
+						for (double i = 0.75; i < 1; i += 0.00001)
+						{
+							progress.Set(i);
+						}
 
 						//get rid of annoying liquid inside the dungeon
 						for (int i = X - (DungeonWidth / 2) - 15; i <= X + (DungeonWidth / 2) + 15; i++)

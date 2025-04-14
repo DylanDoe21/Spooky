@@ -6,6 +6,8 @@ using Terraria.GameContent.ItemDropRules;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Minibiomes.Vegetable;
+
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 {
     public class HoppingPotato1 : ModNPC  

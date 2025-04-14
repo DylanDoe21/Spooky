@@ -29,7 +29,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
             Projectile.friendly = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 300;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 4;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -65,6 +65,11 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
             }
 
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
+		{
+            Projectile.damage = (int)(damageDone * 0.85f);
         }
 
         public override void AI()

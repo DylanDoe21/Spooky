@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
+using Spooky.Content.Buffs.Debuff;
+
 namespace Spooky.Content.Projectiles.SpiderCave
 {
     public class SpiderSlingshotWeb : ModProjectile
@@ -17,6 +19,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.tileCollide = true;
             Projectile.timeLeft = 500;
         }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
+		{
+			target.AddBuff(ModContent.BuffType<SpiderSlingshotSlow>(), 300);
+		}
 
         public override void AI()       
         {

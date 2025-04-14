@@ -398,14 +398,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 						bool IsPositionInTiles = TileGlobal.SolidCollisionWithSpecificTiles(player.Center + SavePlayerPosition - new Vector2(5, 5), 10, 10, BlockTypes);
 
-                        if (NPC.Distance(GoTo + SavePlayerPosition) > 100f && !IsPositionInTiles)
+                        if (NPC.Distance(GoTo + SavePlayerPosition) > 100f)
                         {
                             float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                            NPC.velocity.X = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f).X;
+
+                            if (!IsPositionInTiles)
+                            {
+                                NPC.velocity.Y = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f).Y;
+                            }
+                            else
+                            {
+                                NPC.velocity.Y *= 0.85f;
+                            }
                         }
                         else
                         {
-                            NPC.velocity *= 0.85f;
+                            NPC.velocity.X *= 0.85f;
                         }
                     }
 
@@ -699,6 +708,11 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity.Y = -32;
                     }
 
+                    if (NPC.localAI[0] > 100 && NPC.Center.Y < player.Center.Y)
+                    {
+                        NPC.velocity *= 0.9f;
+                    }
+
                     if (NPC.localAI[0] >= 150 && NPC.localAI[0] <= 200)
                     {
                         if (NPC.localAI[0] % 2 == 0)
@@ -708,11 +722,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + NPC.velocity.X * 0.5f, NPC.Center.Y + NPC.velocity.Y * 0.5f), 
                             new Vector2(Main.rand.NextFloat(-20f, 20f), Main.rand.NextFloat(-8f, -5f)), ModContent.ProjectileType<EyeSpit2>(), NPC.damage, 4.5f);
                         }
-                    }
-
-                    if (NPC.localAI[0] > 120)
-                    {
-                        NPC.velocity *= 0.95f;
                     }
 
                     if (NPC.localAI[0] > 200)

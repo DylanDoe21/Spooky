@@ -253,14 +253,23 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 							bool IsPositionInTiles = TileGlobal.SolidCollisionWithSpecificTiles(player.Center + SavePlayerPosition - new Vector2(5, 5), 10, 10, BlockTypes);
 
-							if (NPC.Distance(GoTo + SavePlayerPosition) > 100f && !IsPositionInTiles)
+                            if (NPC.Distance(GoTo + SavePlayerPosition) > 100f)
                             {
-                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 30);
-                                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
+                                NPC.velocity.X = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f).X;
+
+                                if (!IsPositionInTiles)
+                                {
+                                    NPC.velocity.Y = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f).Y;
+                                }
+                                else
+                                {
+                                    NPC.velocity.Y *= 0.85f;
+                                }
                             }
                             else
                             {
-                                NPC.velocity *= 0.85f;
+                                NPC.velocity.X *= 0.85f;
                             }
                         }
 
@@ -380,38 +389,47 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.netUpdate = true;
                     }
                     
-                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 60)
+                    if (NPC.localAI[0] > 2 && NPC.localAI[0] < 80)
                     {
                         Vector2 GoTo = player.Center;
                         GoTo += SavePlayerPosition;
 
 						bool IsPositionInTiles = TileGlobal.SolidCollisionWithSpecificTiles(player.Center + SavePlayerPosition - new Vector2(5, 5), 10, 10, BlockTypes);
 
-                        if (NPC.Distance(GoTo + SavePlayerPosition) > 100f && !IsPositionInTiles)
+                        if (NPC.Distance(GoTo + SavePlayerPosition) > 100f)
                         {
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 25, 30);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 15, 25);
+                            NPC.velocity.X = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f).X;
+
+                            if (!IsPositionInTiles)
+                            {
+                                NPC.velocity.Y = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f).Y;
+                            }
+                            else
+                            {
+                                NPC.velocity.Y *= 0.85f;
+                            }
                         }
                         else
                         {
-                            NPC.velocity *= 0.85f;
+                            NPC.velocity.X *= 0.85f;
                         }
                     }
 
-                    if (NPC.localAI[0] == 60)
+                    if (NPC.localAI[0] == 80)
                     {
                         NPC.velocity *= 0.5f;
                         SavePlayerPosition = player.Center;
                         SaveNPCPosition = NPC.Center;
                     }
 
-                    if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
+                    if (NPC.localAI[0] > 80 && NPC.localAI[0] < 110)
                     {
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-10, 10);
                     }
 
-                    if (NPC.localAI[0] == 90)
+                    if (NPC.localAI[0] == 110)
                     {
                         SoundEngine.PlaySound(HissSound1, NPC.Center);
 
@@ -421,7 +439,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         NPC.velocity = ChargeDirection;
                     }
 
-                    if (NPC.localAI[0] >= 105 && NPC.localAI[0] <= 175)
+                    if (NPC.localAI[0] >= 125 && NPC.localAI[0] <= 195)
                     {
                         double angle = NPC.DirectionTo(player.Center).ToRotation() - NPC.velocity.ToRotation();
                         while (angle > Math.PI)
@@ -451,12 +469,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         }
                     }
 
-                    if (NPC.localAI[0] >= 175)
+                    if (NPC.localAI[0] >= 195)
                     {
                         NPC.velocity *= 0.95f;
                     }
 
-                    if (NPC.localAI[0] > 270)
+                    if (NPC.localAI[0] > 290)
                     {
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;

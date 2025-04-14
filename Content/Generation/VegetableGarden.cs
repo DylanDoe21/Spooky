@@ -60,8 +60,14 @@ namespace Spooky.Content.Generation
 						{
 							PlaceOvalCluster(X, Y, Main.maxTilesX / WorldGen.genRand.Next(SizeXInt - 5, SizeXInt + 6), Main.maxTilesY / WorldGen.genRand.Next(SizeYInt - 5, SizeYInt + 6), Main.maxTilesX / 210, Main.maxTilesX / 175);
 							DigOutCaves(X, Y, SizeX, SizeY, CaveNoiseSeed);
+							for (double i = numBiomes * 0.5; i < (numBiomes == 1 ? 1 : 0.5); i += 0.00001)
+							{
+								progress.Set(i);
+							}
+
 							BiomePolish(X, Y, SizeX, SizeY);
 							PlaceAmbience(X, Y, SizeX, SizeY);
+
 							numBiomes++;
 							delayBeforeNext = 600;
 						}

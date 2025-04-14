@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Minibiomes.Vegetable;
+
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 {
     public class GhostPepper : ModNPC  

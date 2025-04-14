@@ -9,7 +9,7 @@ Bonemeal: {
 
 DaylightSavings: {
 	DisplayName: Daylight Savings
-	Tooltip: For each bloom buff with less than 1 minute duration left, gain attack, movement, and mining speed
+	Tooltip: For each bloom buff with less than 1 minute duration left, gain attack and movement speed
 }
 
 FarmerGlove: {
@@ -1897,13 +1897,8 @@ OrbWeaverGiantStaff: {
 }
 
 OrbWeaverShield: {
-	DisplayName: Spike Shell Basher
-	Tooltip:
-		'''
-		Hold out a spiked shield that deals more damage the faster you are moving
-		After 3 seconds of being held, the shield's spikes will become charged
-		Release when charged to fire out the shield's spikes
-		'''
+	DisplayName: Spike Shell Shield
+	Tooltip: Retaliate with orb weaver spikes when hit
 }
 
 OrbWeaverStaff: {

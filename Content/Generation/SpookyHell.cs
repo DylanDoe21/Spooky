@@ -74,17 +74,19 @@ namespace Spooky.Content.Generation
             int height = Main.maxTilesY - 150;
 
             int[] terrainContour = new int[width * height];
+			int[] terrainContourCeiling = new int[width * height];
 
-            double rand1 = WorldGen.genRand.NextDouble() + 1;
+			double rand1 = WorldGen.genRand.NextDouble() + 1;
             double rand2 = WorldGen.genRand.NextDouble() + 2;
             double rand3 = WorldGen.genRand.NextDouble() + 3;
 
-            float peakheight = 10;
+            float peakheight = 8;
             float flatness = 50;
-            int offset = Main.maxTilesY - 130;
+            int offset = Main.maxTilesY - 140;
+			int offsetCeiling = Main.maxTilesY - 195;
 
-            //genrate a random wave
-            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
+			//genrate a random wave
+			for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
                 double BiomeHeight = peakheight / rand1 * Math.Sin((float)X / flatness * rand1 + rand1);
                 BiomeHeight += peakheight / rand2 * Math.Sin((float)X / flatness * rand2 + rand2);
@@ -93,12 +95,24 @@ namespace Spooky.Content.Generation
                 BiomeHeight += offset;
 
                 terrainContour[X] = (int)BiomeHeight;
-            }
 
-            //place the randomized wave of blocks, with walls behind them
+				double BiomeHeight2 = peakheight / 3 / rand1 * Math.Sin((float)X / flatness * rand1 + rand1);
+				BiomeHeight2 += peakheight / 3 / rand2 * Math.Sin((float)X / flatness * rand2 + rand2);
+				BiomeHeight2 += peakheight / 3 / rand3 * Math.Sin((float)X / flatness * rand3 + rand3);
+
+				BiomeHeight2 += offsetCeiling;
+
+				terrainContourCeiling[X] = (int)BiomeHeight2;
+			}
+
+            //place the terrain and ceiling
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
+				int StartValue = StartPosition - 50;
+				int EndValue = BiomeEdge + 50;
+				progress.Set((float)(X - StartValue) / (EndValue - StartValue));
+
+				for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
                 {
                     if (Y > terrainContour[X] && WorldGen.InWorld(X, Y))
                     {
@@ -106,10 +120,19 @@ namespace Spooky.Content.Generation
                         Main.tile[X, Y + 5].WallType = (ushort)ModContent.WallType<SpookyMushWall>();
                     }
                 }
-            }
 
-            //place clumps of blocks along both edges of the biome so it transitions with the rest of the underworld more nicely
-            for (int X = StartPosition - 50; X <= StartPosition; X++)
+				for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 195; Y++)
+				{
+					if (Y < terrainContourCeiling[X] && WorldGen.InWorld(X, Y))
+					{
+						Main.tile[X, Y].ClearEverything();
+						WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
+					}
+				}
+			}
+
+			//place clumps of blocks along both edges of the biome so it transitions with the rest of the underworld more nicely
+			for (int X = StartPosition - 50; X <= StartPosition; X++)
             {
                 for (int Y = Main.maxTilesY - 110; Y < Main.maxTilesY - 20; Y++)
                 {
@@ -130,92 +153,45 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place ceiling of blocks across the top of the biome
-            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X += 10)
-            {
-                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 198; Y += 3)
-                {
-                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
-                }
-            }
-
             //roughen up the terrain so it looks more natural
-            for (int roughPass = 0; roughPass < 2; roughPass++)
+            int lastMaxTileX = 0;
+            int lastXRadius = 0;
+
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
-                int lastMaxTileX = 0;
-                int lastXRadius = 0;
-
-                for (int i = StartPosition - 50; i <= BiomeEdge + 50; i++)
+				// flat ellipses
+				if (WorldGen.genRand.NextBool(40) && X > lastMaxTileX + lastXRadius)
                 {
-                    // flat ellipses
-                    if (WorldGen.genRand.NextBool(40) && i > lastMaxTileX + lastXRadius)
+                    int roughingPosition = 0;
+                    // Look for a Y position to put ellipses
+                    for (int lookupY = Main.maxTilesY - 150; lookupY <= Main.maxTilesY - 130; lookupY++)
                     {
-                        int roughingPosition = 0;
-                        // Look for a Y position to put ellipses
-                        for (int lookupY = Main.maxTilesY - 150; lookupY <= Main.maxTilesY - 130; lookupY++)
+                        if (Framing.GetTileSafely(X, lookupY).HasTile)
                         {
-                            if (Framing.GetTileSafely(i, lookupY).HasTile)
-                            {
-                                roughingPosition = lookupY;
-                                break;
-                            }
+                            roughingPosition = lookupY;
+                            break;
                         }
+                    }
 
-                        int radiusX;
-                        int radiusY;
+                    int radiusX = WorldGen.genRand.Next(8, 18);
+                    int radiusY = WorldGen.genRand.Next(3, 6);
 
-                        //randomize the size of the craters that are dug
-                        switch (roughPass)
+                    int minTileX = X - radiusX;
+                    int maxTileX = X + radiusX;
+                    int minTileY = roughingPosition - radiusY;
+                    int maxTileY = roughingPosition + radiusY;
+
+                    int diameterX = Math.Abs(minTileX - maxTileX);
+                    int diameterY = Math.Abs(minTileY - maxTileY);
+                    float centerX = (minTileX + maxTileX - 1) / 2f;
+                    float centerY = (minTileY + maxTileY - 1) / 2f;
+
+                    //make the ellipse
+                    for (int ellipseTileX = minTileX; ellipseTileX < maxTileX; ellipseTileX++)
+                    {
+                        for (int ellipseTileY = minTileY; ellipseTileY < maxTileY; ellipseTileY++)
                         {
-                            case 0:
-                            {
-                                radiusX = WorldGen.genRand.Next(8, 18);
-                                radiusY = WorldGen.genRand.Next(3, 6);
-                                break;
-                            }
-                            case 1:
-                            {
-                                radiusX = WorldGen.genRand.Next(8, 15);
-                                radiusY = WorldGen.genRand.Next(2, 4);
-                                break;
-                            }
-                            default:
-                            {
-                                radiusX = 0;
-                                radiusY = 0;
-                                break;
-                            }
-                        }
-
-                        int minTileX = i - radiusX;
-                        int maxTileX = i + radiusX;
-                        int minTileY = roughingPosition - radiusY;
-                        int maxTileY = roughingPosition + radiusY;
-
-                        int diameterX = Math.Abs(minTileX - maxTileX);
-                        int diameterY = Math.Abs(minTileY - maxTileY);
-                        float centerX = (minTileX + maxTileX - 1) / 2f;
-                        float centerY = (minTileY + maxTileY - 1) / 2f;
-
-                        //make the ellipse
-                        for (int ellipseTileX = minTileX; ellipseTileX < maxTileX; ellipseTileX++)
-                        {
-                            for (int ellipseTileY = minTileY; ellipseTileY < maxTileY; ellipseTileY++)
-                            {
-                                if ((Math.Pow(ellipseTileX - centerX, 2) / Math.Pow(diameterX / 2, 2)) + (Math.Pow(ellipseTileY - centerY, 2) / Math.Pow(diameterY / 2, 2)) <= 1)
-                                {
-                                    if (ellipseTileX < Main.maxTilesX && ellipseTileY < Main.maxTilesY && ellipseTileX >= 0 && ellipseTileY >= 0)
-                                    {
-                                        Main.tile[ellipseTileX, ellipseTileY].ClearEverything();
-                                        WorldGen.KillWall(ellipseTileX + 1, ellipseTileY);
-                                        WorldGen.KillWall(ellipseTileX - 1, ellipseTileY);
-                                        WorldGen.KillWall(ellipseTileX, ellipseTileY + 1);
-                                        WorldGen.KillWall(ellipseTileX, ellipseTileY - 1);
-                                    }
-                                }
-                            }
-                            
-                            for (int ellipseTileY = minTileY - 20; ellipseTileY < maxTileY - diameterY / 2; ellipseTileY++)
+                            if ((Math.Pow(ellipseTileX - centerX, 2) / Math.Pow(diameterX / 2, 2)) + (Math.Pow(ellipseTileY - centerY, 2) / Math.Pow(diameterY / 2, 2)) <= 1)
                             {
                                 if (ellipseTileX < Main.maxTilesX && ellipseTileY < Main.maxTilesY && ellipseTileX >= 0 && ellipseTileY >= 0)
                                 {
@@ -227,10 +203,22 @@ namespace Spooky.Content.Generation
                                 }
                             }
                         }
-
-                        lastMaxTileX = maxTileX;
-                        lastXRadius = diameterX / 2;
+                            
+                        for (int ellipseTileY = minTileY - 20; ellipseTileY < maxTileY - diameterY / 2; ellipseTileY++)
+                        {
+                            if (ellipseTileX < Main.maxTilesX && ellipseTileY < Main.maxTilesY && ellipseTileX >= 0 && ellipseTileY >= 0)
+                            {
+                                Main.tile[ellipseTileX, ellipseTileY].ClearEverything();
+                                WorldGen.KillWall(ellipseTileX + 1, ellipseTileY);
+                                WorldGen.KillWall(ellipseTileX - 1, ellipseTileY);
+                                WorldGen.KillWall(ellipseTileX, ellipseTileY + 1);
+                                WorldGen.KillWall(ellipseTileX, ellipseTileY - 1);
+                            }
+                        }
                     }
+
+                    lastMaxTileX = maxTileX;
+                    lastXRadius = diameterX / 2;
                 }
             }
 
@@ -905,6 +893,8 @@ namespace Spooky.Content.Generation
 
         public void GenerateNoseTemple(GenerationProgress progress, GameConfiguration configuration)
         {
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.NoseTemple").Value;
+
             int DungeonX = StartPosition < (Main.maxTilesX / 2) ? 250 : Main.maxTilesX - 250;
             int ArenaX = StartPosition < (Main.maxTilesX / 2) ? 250 : Main.maxTilesX - 250;
 
@@ -961,6 +951,8 @@ namespace Spooky.Content.Generation
 
             for (int dungeonRoomLoop = 0; dungeonRoomLoop <= MaxDungeonRooms; dungeonRoomLoop++)
             {
+                progress.Set((float)dungeonRoomLoop / MaxDungeonRooms);
+
                 int numHallsBeforeRoom = Main.maxTilesX >= 8400 ? WorldGen.genRand.Next(2, 4) : (Main.maxTilesX >= 6400 ? WorldGen.genRand.Next(1, 3) : 1);
 
                 for (int numLoops = 0; numLoops <= numHallsBeforeRoom; numLoops++)

@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Vegetable;
 
 namespace Spooky.Content.Items.Minibiomes.Armor
 {
@@ -34,14 +35,12 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 			player.maxMinions += 1;
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
-            .AddTile(TileID.WorkBenches)
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 32)
+            .AddTile(TileID.Anvils)
             .Register();
         }
-		*/
 	}
 }

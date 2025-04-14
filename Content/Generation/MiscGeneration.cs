@@ -16,8 +16,6 @@ using Spooky.Content.Tiles.SpiderCave.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 
-using StructureHelper;
-
 namespace Spooky.Content.Generation
 {
     public class MiscGeneration : ModSystem
@@ -26,13 +24,17 @@ namespace Spooky.Content.Generation
         {
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.DungeonChests").Value;
 
-            PlaceDungeonChest(ModContent.TileType<SpookyBiomeChest>());
-            PlaceDungeonChest(ModContent.TileType<CemeteryBiomeChest>());
-            PlaceDungeonChest(ModContent.TileType<SpiderCaveChest>());
-            PlaceDungeonChest(ModContent.TileType<SpookyHellChest>());
-        }
+            PlaceDungeonChest(progress, ModContent.TileType<SpookyBiomeChest>());
+			progress.Set(0.25);
+            PlaceDungeonChest(progress, ModContent.TileType<CemeteryBiomeChest>());
+			progress.Set(0.5);
+			PlaceDungeonChest(progress, ModContent.TileType<SpiderCaveChest>());
+			progress.Set(0.75);
+			PlaceDungeonChest(progress, ModContent.TileType<SpookyHellChest>());
+			progress.Set(1);
+		}
 
-        public static void PlaceDungeonChest(int ChestType)
+        public static void PlaceDungeonChest(GenerationProgress progress, int ChestType)
         {   
             bool placedChest = false;
 
@@ -45,7 +47,7 @@ namespace Spooky.Content.Generation
 
             for (int i = Start; RightSideDungeon ? i >= End : i <= End; i += Increment)
 			{
-                for (int j = (int)Main.worldSurface + 300; j <= Main.maxTilesY - 200; j++)
+				for (int j = (int)Main.worldSurface + 300; j <= Main.maxTilesY - 200; j++)
                 {
                     Tile tile = Main.tile[i, j];
                     Tile tileUp = Main.tile[i, j - 1];

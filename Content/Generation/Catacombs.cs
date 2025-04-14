@@ -48,7 +48,7 @@ namespace Spooky.Content.Generation
 
 		private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs").Value;
+            progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs1").Value;
 
             int XStart = PositionX - (Cemetery.BiomeWidth / 2);
             int XMiddle = PositionX;
@@ -74,7 +74,11 @@ namespace Spooky.Content.Generation
             //first, place a circle of bricks where each catacomb room will be
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
             {
-                for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
+				int StartValue = XMiddle - layer1Width;
+				int EndValue = XMiddle + layer1Width;
+				progress.Set((float)(X - StartValue) / (EndValue - StartValue));
+
+				for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
                 {
                     SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), ModContent.WallType<CatacombBrickWall1>(), 40, true, true);
                 }
@@ -86,7 +90,7 @@ namespace Spooky.Content.Generation
             //place the actual rooms
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
             {
-                for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
+				for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
                 {
                     chosenRoom = RoomPatternLayer1[switchRoom];
 
@@ -303,10 +307,12 @@ namespace Spooky.Content.Generation
             }
 
 
-            //LAYER 2
+			//LAYER 2
 
-            //reset the room pattern stuff
-            switchRoom = 0;
+			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs2").Value;
+
+			//reset the room pattern stuff
+			switchRoom = 0;
             chosenRoom = 0;
 
             //reset the loot room bools
@@ -333,7 +339,11 @@ namespace Spooky.Content.Generation
             //since the rooms in layer 2 are wider, place two circles side by side
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
+				int StartValue = XMiddle - layer2Width;
+				int EndValue = XMiddle + layer2Width;
+				progress.Set((float)(X - StartValue) / (EndValue - StartValue));
+
+				for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
                     SpookyWorldMethods.PlaceCircle(X - 20, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 40, true, true);
                     SpookyWorldMethods.PlaceCircle(X + 20, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 40, true, true);
@@ -355,9 +365,9 @@ namespace Spooky.Content.Generation
             //place the actual rooms
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
-                for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
+				for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
-                    chosenRoom = RoomPatternLayer2[switchRoom];
+					chosenRoom = RoomPatternLayer2[switchRoom];
 
                     switchRoom++;
 
@@ -1198,9 +1208,6 @@ namespace Spooky.Content.Generation
 							//bars
 							int[] Bars = new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar };
 
-							//cross charm
-							chest.item[0].SetDefaults(ModContent.ItemType<CrossCharm>());
-							chest.item[0].stack = 1;
 							//bars
 							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
 							chest.item[1].stack = WorldGen.genRand.Next(3, 11);

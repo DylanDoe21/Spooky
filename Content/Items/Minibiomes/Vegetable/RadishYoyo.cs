@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
 
         public override void SetDefaults()
         {
-			Item.damage = 15;
+			Item.damage = 22;
 			Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.autoReuse = true;
             Item.noMelee = true;
@@ -36,6 +36,14 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<RadishYoyoProj>();
             Item.shootSpeed = 8f;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
     }
 }
