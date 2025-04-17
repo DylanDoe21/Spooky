@@ -38,7 +38,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetDamage(DamageClass.Melee) += 0.08f;
+			player.GetDamage(DamageClass.Generic) += 0.08f;
 			player.fishingSkill += 4;
 		}
 

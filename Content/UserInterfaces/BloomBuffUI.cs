@@ -130,10 +130,16 @@ namespace Spooky.Content.UserInterfaces
                     Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10" + "\n" +
                     Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
                 }
-                else
+				else if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/CemeteryLilyIcon").Value)
+				{
+					Main.instance.MouseText(BuffDisplayName + "\n" +
+					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.Revives") + " " + player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives + "\n" +
+					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
+				}
+				else
                 {
-					Main.instance.MouseText(BuffDisplayName + "\n" + 
-                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
+					Main.instance.MouseText(BuffDisplayName + "\n" +
+					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
                 }
 
 				//remove the buff if the player right clicks the icon on the ui

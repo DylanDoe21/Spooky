@@ -98,6 +98,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             Projectile.rotation = Projectile.velocity.ToRotation();
 
+            if (Projectile.Distance(player.Center) >= 2000f)
+            {
+                Projectile.Center = player.Center;
+            }
+
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
@@ -347,6 +352,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.ai[0]++;
 
             Projectile.rotation = Projectile.velocity.ToRotation();
+
+            if (Projectile.Distance(player.Center) >= 2000f)
+            {
+                Projectile.Center = player.Center;
+            }
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {

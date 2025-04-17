@@ -100,7 +100,7 @@ namespace Spooky.Content.Tiles.Blooms
 
 				if (ShouldDropExtra)
 				{
-					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<SummerSeed>());
+					Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<FossilSeed>());
 				}
 
 				if (frameY == 0) Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i + 1, j) * 16, ModContent.ItemType<FossilBlackPepper>(), ShouldDropExtra ? 2 : 1);

@@ -9,12 +9,22 @@ Bonemeal: {
 
 DaylightSavings: {
 	DisplayName: Daylight Savings
-	Tooltip: For each bloom buff with less than 1 minute duration left, gain attack and movement speed
+	Tooltip: Idk what this should even do
 }
 
 FarmerGlove: {
 	DisplayName: Farmer's Glove
-	Tooltip: Plating a bloom will grant you increased life regeneration for 10 minutes
+	Tooltip: Grants 15% increased attack and movement speed for each bloom buff you have
+}
+
+HerbShaker: {
+	DisplayName: 11 Herbs and Spices
+	Tooltip: Gain a random buff whenever you eat a bloom
+}
+
+TheMask: {
+	DisplayName: Ancient Nature Mask
+	Tooltip: Gain 5 defense for each active bloom buff you have
 }
 
 Wormy: {
@@ -25,8 +35,8 @@ Wormy: {
 		He will gain additional effects for each type of bloom buff you have
 		Spring bloom buffs will allow him to lifesteal
 		Summer bloom buffs grant him a chance to ignite enemies
-		Fall bloom buffs grant him a chance to spawn flies on enemy hits
-		Winter bloom buffs grant a chance to inflict Frostburn
+		Autumn bloom buffs grant him a chance to spawn flies on enemy hits
+		Winter bloom buffs grant a chance to inflict frostburn
 		'''
 }
 
@@ -51,8 +61,13 @@ CemeteryMarigold: {
 }
 
 CemeteryPoppy: {
-	DisplayName: Cemetery Poppy
-	Tooltip: ""
+	DisplayName: Ornamental Poppy
+	Tooltip:
+		'''
+		Spawns ghost seeds around you that damage enemies 
+		Seeds spawn more frequently the lower your health is
+		5 minute duration
+		'''
 }
 
 CemeteryRose: {
@@ -214,7 +229,7 @@ SeaSponge: {
 	Tooltip:
 		'''
 		Grants a small chance to absorb any hostile projectile that comes near you
-		Absorbing a projectile will temporarily increase all of your stats for 5 seconds
+		Absorbing a projectile will increase your damage reduction for 5 seconds
 		The chance of absorbing a projectile increases if you are in water or rain
 		3 minute duration
 		'''
@@ -1390,7 +1405,7 @@ SharkBoneBody: {
 	DisplayName: Fish Bone Chestplate
 	Tooltip:
 		'''
-		10% increased melee critical strike chance
+		10% increased critical strike chance
 		Increases fishing power by 5
 		'''
 }
@@ -1399,7 +1414,7 @@ SharkBoneHead: {
 	DisplayName: Fish Bone Mask
 	Tooltip:
 		'''
-		8% increased melee damage
+		8% increased damage
 		Increases fishing power by 4
 		'''
 }
@@ -1408,7 +1423,7 @@ SharkBoneLegs: {
 	DisplayName: Fish Bone Leggings
 	Tooltip:
 		'''
-		8% increased melee speed
+		8% increased attack speed
 		Increases fishing power by 4
 		'''
 }
@@ -3030,6 +3045,7 @@ CemeterySeed: {
 		'''
 		Places a ghostly plant that grows various death flower blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/5BFF53:Spring]
 		'''
 }
 
@@ -3039,6 +3055,7 @@ DandelionSeed: {
 		'''
 		Places a plant that grows various dandelion seed blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/5BFF53:Spring]
 		'''
 }
 
@@ -3049,6 +3066,7 @@ DragonfruitSeed: {
 		Places an invasive plant that grows a strange bloom
 		Requires a flat ground of Bloom Soil to be planted on
 		Will convert other nearby planted blooms into itself as it grows
+		Bloom Type: [c/FF3BD7:Diva]
 		'''
 }
 
@@ -3058,6 +3076,7 @@ FallSeed: {
 		'''
 		Places a plant that grows various gourd blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/FF9854:Autumn]
 		'''
 }
 
@@ -3067,6 +3086,7 @@ FossilSeed: {
 		'''
 		Places a plant that grows various prehistoric rock blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/FF9854:Autumn]
 		'''
 }
 
@@ -3077,6 +3097,7 @@ SeaSeed: {
 		Places a disgusting flesh growth that turns into various sea creatures
 		Requires a flat ground of Bloom Soil to be planted on
 		Will only grow if submerged in water
+		Bloom Type: [c/8BCAFF:Winter]
 		'''
 }
 
@@ -3086,6 +3107,7 @@ SpringSeed: {
 		'''
 		Places a plant that grows various flower blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/5BFF53:Spring]
 		'''
 }
 
@@ -3095,6 +3117,7 @@ SummerSeed: {
 		'''
 		Places a plant that grows various tropical blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/E4FF52:Summer]
 		'''
 }
 
@@ -3104,6 +3127,7 @@ VegetableSeed: {
 		'''
 		Places a plant that grows various strange vegetable blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/E4FF52:Summer]
 		'''
 }
 
@@ -3113,6 +3137,7 @@ WinterSeed: {
 		'''
 		Places a plant that grows various berry blooms
 		Requires a flat ground of Bloom Soil to be planted on
+		Bloom Type: [c/8BCAFF:Winter]
 		'''
 }
 
@@ -3333,6 +3358,21 @@ ChristmasTableItem: {
 ChristmasWorkBenchItem: {
 	DisplayName: Yuletide Wood Work Bench
 	Tooltip: ""
+}
+
+DavePaintingItem: {
+	DisplayName: Dave
+	Tooltip: "'Waasephi'"
+}
+
+HogPaintingItem: {
+	DisplayName: The Hog
+	Tooltip: "'Waasephi'"
+}
+
+HorsePaintingItem: {
+	DisplayName: The Horse
+	Tooltip: "'Waasephi'"
 }
 
 GrannyPaintingItem: {

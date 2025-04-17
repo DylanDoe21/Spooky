@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
@@ -35,7 +34,12 @@ namespace Spooky.Content.Projectiles.Blooms
             return false;
         }
 
-        public override void OnSpawn(IEntitySource source)
+		public override bool? CanDamage()
+		{
+			return false;
+		}
+
+		public override void OnSpawn(IEntitySource source)
         {
             foreach (var projectile in Main.projectile)
             {

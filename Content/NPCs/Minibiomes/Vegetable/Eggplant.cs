@@ -203,7 +203,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 		{
 			if (NPC.life <= 0)
 			{
-				NPC Parent = Main.npc[(int)NPC.ai[2]];
+				NPC Parent = Main.npc[(int)NPC.ai[1]];
 
 				Parent.active = false;
 

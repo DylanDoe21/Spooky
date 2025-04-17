@@ -6,20 +6,20 @@ using Spooky.Core;
 
 namespace Spooky.Content.Items.Blooms.Accessory
 {
-    public class FarmerGlove : ModItem
+    public class TheMask : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 36;
-            Item.height = 40;
+            Item.width = 32;
+            Item.height = 38;
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.buyPrice(gold: 15);
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(gold: 2);
         }
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            player.GetModPlayer<BloomBuffsPlayer>().FarmerGlove = true;
+            //player.GetModPlayer<BloomBuffsPlayer>().HerbShaker = true;
         }
     }
 }

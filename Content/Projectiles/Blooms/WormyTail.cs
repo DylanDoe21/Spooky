@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
@@ -29,7 +28,12 @@ namespace Spooky.Content.Projectiles.Blooms
             return false;
         }
 
-        public override void AI()
+		public override bool? CanDamage()
+		{
+			return false;
+		}
+
+		public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 

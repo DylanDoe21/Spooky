@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
+using Spooky.Content.Tiles.Minibiomes.Christmas.Painting;
 
 namespace Spooky.Content.Generation
 {
@@ -410,9 +411,30 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
-					if (WorldGen.genRand.NextBool(5) && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
+					int WindowSizeX = WorldGen.genRand.Next(8, 16);
+					int WindowSizeY = WorldGen.genRand.Next(8, 16);
+					if (WorldGen.genRand.NextBool(10) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
 					{
-						PlaceWindow(i, j, WorldGen.genRand.Next(8, 16), WorldGen.genRand.Next(8, 16));
+						if (CanPlaceWindow(i, j, WindowSizeX, WindowSizeY))
+						{
+							//place the actual window itself
+							for (int x = i - (WindowSizeX / 2); x <= i + (WindowSizeX / 2); x++)
+							{
+								for (int y = j - (WindowSizeY / 2); y <= j + (WindowSizeY / 2); y++)
+								{
+									//place a border of christmas wood around the window
+									if (x == i - (WindowSizeX / 2) || x == i + (WindowSizeX / 2) || y == j - (WindowSizeY / 2) || y == j + (WindowSizeY / 2))
+									{
+										Main.tile[x, y].WallType = (ushort)ModContent.WallType<ChristmasWoodWall>();
+									}
+									//place the actual window wall
+									else
+									{
+										Main.tile[x, y].WallType = (ushort)ModContent.WallType<ChristmasWindow>();
+									}
+								}
+							}
+						}
 					}
 
 					//left side door entrance
@@ -651,6 +673,31 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+
+			//place paintings
+			for (int i = PositionX - (Width / 2) - 25; i <= PositionX + (Width / 2) + 25; i++)
+			{
+				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
+				{
+					if (WorldGen.genRand.NextBool(7) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
+					{
+						if (CanPlacePainting(i, j))
+						{
+							List<ushort> Paintings = new()
+							{
+								(ushort)ModContent.TileType<DavePainting>(),
+								(ushort)ModContent.TileType<HogPainting>(),
+								(ushort)ModContent.TileType<HorsePainting>(),
+								(ushort)ModContent.TileType<GrannyPainting>(),
+								(ushort)ModContent.TileType<GrandpaPainting>(),
+								(ushort)ModContent.TileType<SlendrinaPainting>()
+							};
+
+							WorldGen.PlaceObject(i, j, WorldGen.genRand.Next(Paintings));
+						}
+					}
+				}
+			}
 		}
 
 		//check for a flat surface in the dungeon that also has no tiles above the entire flat space
@@ -791,7 +838,34 @@ namespace Spooky.Content.Generation
 			return true;
 		}
 
-		public void PlaceWindow(int PositionX, int PositionY, int SizeX, int SizeY)
+		public bool CanPlacePainting(int PositionX, int PositionY)
+		{
+			List<ushort> Paintings = new()
+			{
+				(ushort)ModContent.TileType<DavePainting>(),
+				(ushort)ModContent.TileType<HogPainting>(),
+				(ushort)ModContent.TileType<HorsePainting>(),
+				(ushort)ModContent.TileType<GrannyPainting>(),
+				(ushort)ModContent.TileType<GrandpaPainting>(),
+				(ushort)ModContent.TileType<SlendrinaPainting>()
+			};
+
+			//first check to make sure no other paintings are nearby
+			for (int i = PositionX - 6; i <= PositionX + 6; i++)
+			{
+				for (int j = PositionY - 6; j <= PositionY + 6; j++)
+				{
+					if (Paintings.Contains(Main.tile[i, j].TileType) || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickWall>())
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		public bool CanPlaceWindow(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
 			//first check to make sure no other windows are nearby
 			for (int i = PositionX - (SizeX / 2) - 10; i <= PositionX + (SizeX / 2) + 10; i++)
@@ -800,7 +874,7 @@ namespace Spooky.Content.Generation
 				{
 					if (Main.tile[i, j].WallType == ModContent.WallType<ChristmasWindow>())
 					{
-						return;
+						return false;
 					}
 				}
 			}
@@ -812,28 +886,12 @@ namespace Spooky.Content.Generation
 				{
 					if (Main.tile[i, j].HasTile || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickWall>())
 					{
-						return;
+						return false;
 					}
 				}
 			}
 
-			//place the actual window itself
-			for (int i = PositionX - (SizeX / 2); i <= PositionX + (SizeX / 2); i++)
-			{
-				for (int j = PositionY - (SizeY / 2); j <= PositionY + (SizeY / 2); j++)
-				{
-					//place a border of christmas wood around the window
-					if (i == PositionX - (SizeX / 2) || i == PositionX + (SizeX / 2) || j == PositionY - (SizeY / 2) || j == PositionY + (SizeY / 2))
-					{
-						Main.tile[i, j].WallType = (ushort)ModContent.WallType<ChristmasWoodWall>();
-					}
-					//place the actual window wall
-					else
-					{
-						Main.tile[i, j].WallType = (ushort)ModContent.WallType<ChristmasWindow>();
-					}
-				}
-			}
+			return true;
 		}
 
 		public void PlaceChainRope(int PositionX, int PositionY)
@@ -918,7 +976,7 @@ namespace Spooky.Content.Generation
 				return;
 			}
 
-			tasks.Insert(GenIndex1 + 1, new PassLegacy("Christmas Mansion", PlaceChristmasDungeon));
+			tasks.Insert(GenIndex1 + 1, new PassLegacy("Christmas Dungeon", PlaceChristmasDungeon));
 		}
 
 		//post worldgen to place items in the spooky biome chests

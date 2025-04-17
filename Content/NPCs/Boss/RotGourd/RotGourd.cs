@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
@@ -12,11 +11,11 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpiderCave.Misc;
-using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
 using Spooky.Content.Tiles.Blooms;
@@ -1135,6 +1134,9 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 			//pumpkin carving kit
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PumpkinCarvingKit>()));
+
+			//wormy
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Wormy>(), 2));
 
 			//spider grotto compass
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<GrottoCompass>()));

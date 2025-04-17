@@ -33,7 +33,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.width = 14;
             Projectile.height = 14;
             Projectile.DamageType = DamageClass.Generic;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 60;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -45,7 +45,9 @@ namespace Spooky.Content.Projectiles.Blooms
 
         public override bool PreDraw(ref Color lightColor)
         {
-            HeadTexture ??= ModContent.Request<Texture2D>(Texture);
+			Player player = Main.player[Projectile.owner];
+
+			HeadTexture ??= ModContent.Request<Texture2D>(Texture);
             BodyTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/WormySegment");
             TailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/WormyTail");
 
@@ -56,7 +58,27 @@ namespace Spooky.Content.Projectiles.Blooms
                     if (i < segments.Count)
                     {
 						Vector2 drawOrigin = new(BodyTexture.Width() * 0.5f, BodyTexture.Height() / 5 * 0.5f);
-						Rectangle rectangle = new(0, 0/*BodyTexture.Height() / 5 * Projectile.frame*/, BodyTexture.Width(), BodyTexture.Height() / 5);
+						Rectangle rectangle = new(0, (BodyTexture.Height() / 5) * 0, BodyTexture.Width(), BodyTexture.Height() / 5);
+
+						if (player.GetModPlayer<BloomBuffsPlayer>().HasWinterBloom && i == 2)
+						{
+							rectangle = new(0, (BodyTexture.Height() / 5) * 1, BodyTexture.Width(), BodyTexture.Height() / 5);
+						}
+
+						if (player.GetModPlayer<BloomBuffsPlayer>().HasFallBloom && i == 4)
+						{
+							rectangle = new(0, (BodyTexture.Height() / 5) * 2, BodyTexture.Width(), BodyTexture.Height() / 5);
+						}
+
+						if (player.GetModPlayer<BloomBuffsPlayer>().HasSpringBloom && i == 6)
+						{
+							rectangle = new(0, (BodyTexture.Height() / 5) * 3, BodyTexture.Width(), BodyTexture.Height() / 5);
+						}
+
+						if (player.GetModPlayer<BloomBuffsPlayer>().HasSummerBloom && i == 8)
+						{
+							rectangle = new(0, (BodyTexture.Height() / 5) * 4, BodyTexture.Width(), BodyTexture.Height() / 5);
+						}
 
 						Main.EntitySpriteDraw(BodyTexture.Value, segments[i].Center - Main.screenPosition, rectangle, segments[i].GetAlpha(lightColor),
                         segments[i].rotation + MathHelper.Pi / 2f, drawOrigin, segments[i].scale, SpriteEffects.None, 0);
@@ -80,7 +102,27 @@ namespace Spooky.Content.Projectiles.Blooms
             return false;
         }
 
-        public override void AI()
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Player player = Main.player[Projectile.owner];
+
+			if (player.GetModPlayer<BloomBuffsPlayer>().HasSpringBloom)
+			{
+				int LifeHealed = Main.rand.Next(2, 5);
+				player.statLife += LifeHealed;
+			    player.HealEffect(LifeHealed, true);
+			}
+			if (player.GetModPlayer<BloomBuffsPlayer>().HasSummerBloom && Main.rand.NextBool(3))
+			{
+				target.AddBuff(BuffID.OnFire, 300);
+			}
+			if (player.GetModPlayer<BloomBuffsPlayer>().HasWinterBloom && Main.rand.NextBool(3))
+			{
+				target.AddBuff(BuffID.Frostburn, 300);
+			}
+		}
+
+		public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
@@ -94,11 +136,16 @@ namespace Spooky.Content.Projectiles.Blooms
 				Projectile.timeLeft = 2;
 			}
 
-            Projectile.ai[0]++;
+			Projectile.ai[0]++;
 
             Projectile.rotation = Projectile.velocity.ToRotation();
 
-            for (int i = 0; i < Main.maxNPCs; i++)
+			if (Projectile.Distance(player.Center) >= 2000f)
+			{
+				Projectile.Center = player.Center;
+			}
+
+			for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC Target = Projectile.OwnerMinionAttackTargetNPC;
                 if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 600f)
@@ -223,7 +270,7 @@ namespace Spooky.Content.Projectiles.Blooms
             //charge at the target
             if (Projectile.ai[2] == 1)
             {
-                Projectile.velocity = Projectile.DirectionTo(destination) * 20;
+                Projectile.velocity = Projectile.DirectionTo(destination) * 12;
             }
 
             //once the target is passed, loop back around
@@ -242,7 +289,7 @@ namespace Spooky.Content.Projectiles.Blooms
                 if (Math.Abs(angle) > Math.PI / 2)
                 {
                     Projectile.ai[1] = Math.Sign(angle);
-                    Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 20;
+                    Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 12;
                 }
 
                 Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(6f) * Projectile.ai[1]);

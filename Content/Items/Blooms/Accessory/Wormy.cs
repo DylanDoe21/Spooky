@@ -15,7 +15,7 @@ namespace Spooky.Content.Items.Blooms.Accessory
             Item.width = 40;
             Item.height = 36;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 2);
         }
        
@@ -33,7 +33,7 @@ namespace Spooky.Content.Items.Blooms.Accessory
             Projectile.NewProjectile(null, spawnPos, Vector2.Zero, head, damage, knockback, player.whoAmI);
             Projectile.NewProjectile(null, spawnPos, Vector2.Zero, tail, damage, knockback, player.whoAmI);
 
-            for (var i = 0; i < 8; i++)
+            for (var i = 0; i < 9; i++)
             {
 				//ai[0] = Body should animate and have the frames for the seasonal abilities
 				//ai[1] = Current body segment frame

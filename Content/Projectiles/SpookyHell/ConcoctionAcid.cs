@@ -48,7 +48,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			for (int k = 0; k < trailLength.Length; k++)
 			{
-				Color color = Color.DarkOrchid.MultiplyRGBA(lightColor);
+				Color color = Color.Lime.MultiplyRGBA(lightColor);
                 color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)

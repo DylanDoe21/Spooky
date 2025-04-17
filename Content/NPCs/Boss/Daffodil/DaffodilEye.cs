@@ -15,6 +15,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb;
@@ -930,6 +931,9 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 			};
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
+
+            //farmer glove
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FarmerGlove>(), 2));
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DaffodilMask>(), 7));

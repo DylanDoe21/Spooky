@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 
         public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Melee) += 8;
+			player.GetCritChance(DamageClass.Generic) += 8;
 			player.fishingSkill += 5;
 		}
 

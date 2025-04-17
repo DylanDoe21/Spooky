@@ -12,6 +12,8 @@ using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
 using System.Text;
+using Spooky.Content.Buffs;
+using Spooky.Content.Items.BossBags.Accessory;
 
 namespace Spooky.Core
 {
@@ -93,6 +95,7 @@ namespace Spooky.Core
 
 		//accessories
 		public bool Wormy = false;
+		public bool FarmerGlove = false;
 
 		//seasonal blooms lists
 		string[] SpringBlooms = new string[]
@@ -165,6 +168,7 @@ namespace Spooky.Core
 		public override void ResetEffects()
         {
 			Wormy = false;
+			FarmerGlove = false;
 		}
 
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
@@ -382,6 +386,28 @@ namespace Spooky.Core
 				Duration4 = 0;
 			}
         }
+
+		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		{
+			bool ShouldPlayerDie = true;
+
+			//spring lily revive ability
+			if (Player.statLife <= 0)
+			{
+				if (CemeteryLily && CemeteryLilyRevives > 0)
+				{
+					SoundEngine.PlaySound(SoundID.Item103, Player.Center);
+					//Player.AddBuff(ModContent.BuffType<EmbryoRevival>(), 300);
+					Player.immuneTime += 60;
+					Player.statLife = Player.statLifeMax2;
+
+					CemeteryLilyRevives--;
+					ShouldPlayerDie = false;
+				}
+			}
+
+			return ShouldPlayerDie;
+		}
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
 		{
@@ -634,9 +660,9 @@ namespace Spooky.Core
 			}
         }
 
-        public override void PostUpdate()
-        {
-            //fall gourd increases damage if you are falling
+		public override void PostUpdateEquips()
+		{
+			//fall gourd increases damage if you are falling
 			if (FallGourd && Player.velocity.Y > 0f)
 			{
 				Player.GetDamage(DamageClass.Generic) += 0.15f;
@@ -666,6 +692,52 @@ namespace Spooky.Core
 				float DamageReductionAmount = (1f - (Player.statLife / Player.statLifeMax2)) / 2;
 
 				Player.endurance += DamageReductionAmount;
+			}
+
+			//lily bloom cuts the players health down to 1/3rd
+			if (CemeteryLily)
+			{
+				Player.statLifeMax2 /= 3;
+				if (Player.statLife > Player.statLifeMax2)
+				{
+					Player.statLife = Player.statLifeMax2;
+				}
+
+				if (CemeteryLilyRevives <= 0)
+				{
+					for (int i = 0; i < BloomBuffSlots.Length; i++) 
+					{
+						if (BloomBuffSlots[i] == "CemeteryLily")
+						{
+							BloomBuffSlots[i] = string.Empty;
+						}
+					}
+				}
+			}
+
+			//farmer glove grants attack speed for each occupied bloom buff slot
+			if (FarmerGlove)
+			{
+				if (BloomBuffSlots[0] != string.Empty)
+				{
+					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
+					Player.moveSpeed += 0.15f;
+				}
+				if (BloomBuffSlots[1] != string.Empty)
+				{
+					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
+					Player.moveSpeed += 0.15f;
+				}
+				if (BloomBuffSlots[2] != string.Empty)
+				{
+					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
+					Player.moveSpeed += 0.15f;
+				}
+				if (BloomBuffSlots[3] != string.Empty)
+				{
+					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
+					Player.moveSpeed += 0.15f;
+				}
 			}
 		}
 

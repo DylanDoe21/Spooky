@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpiderCave.Misc;
@@ -50,6 +51,9 @@ namespace Spooky.Content.Items.BossBags
 
 			//pumpkin carving kit
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<PumpkinCarvingKit>(), 1));
+
+			//wormy
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<Wormy>(), 2));
 
 			//spider grotto compass
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<GrottoCompass>(), 1));

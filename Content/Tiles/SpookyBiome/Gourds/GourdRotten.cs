@@ -31,7 +31,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             TileObjectData.newTile.Origin = new Point16(1, 3);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(120, 96, 62));
+            AddMapEntry(new Color(236, 157, 71));
             DustType = 288;
             HitSound = SoundID.Dig;
         }
@@ -131,7 +131,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(147, 33, 27));
+            AddMapEntry(new Color(236, 157, 71));
             DustType = 288;
             HitSound = SoundID.Dig;
         }
@@ -212,7 +212,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
-            AddMapEntry(new Color(147, 33, 27));
+            AddMapEntry(new Color(236, 157, 71));
             DustType = 288;
             HitSound = SoundID.Dig;
         }

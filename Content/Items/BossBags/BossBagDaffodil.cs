@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb;
@@ -54,6 +55,9 @@ namespace Spooky.Content.Items.BossBags
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
+
+			//farmer glove
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<FarmerGlove>(), 2));
 
 			//boss mask
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<DaffodilMask>(), 7));
