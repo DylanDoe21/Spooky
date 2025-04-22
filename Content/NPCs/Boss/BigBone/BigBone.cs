@@ -867,7 +867,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                         for (int numProjectiles = -6; numProjectiles <= 6; numProjectiles++)
                         {
-                            Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 2);
+                            Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 25, (Parent.width / 2) - 25), Parent.Top.Y + 10);
 
                             NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, 10f * Parent.DirectionTo(ParentTopPos).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
                             ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: Type);
@@ -901,7 +901,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //flies attack
+                //glowing flowers attack
                 case 1:
                 {
                     NPC.localAI[0]++;
@@ -939,7 +939,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
                         NPC.localAI[2] = 0;
-                        NPC.localAI[0] = 0;
                         NPC.ai[1]++;
 
                         if (NPC.ai[1] >= AttackPattern.Length)
@@ -1000,7 +999,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 {
                                     Vector2 ShootSpeed = SavePoint[numPoints] - NPC.Center;
                                     ShootSpeed.Normalize();
-                                    ShootSpeed *= 15;
+                                    ShootSpeed *= 6;
 
                                     Vector2 Offset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
                                     Vector2 position = NPC.Center;
@@ -1012,7 +1011,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                                     Color[] colors = new Color[] { Color.Gray, Color.DarkGray };
 
-                                    Dust DustEffect = Dust.NewDustPerfect(position, ModContent.DustType<CoughCloudDust>());
+                                    Dust DustEffect = Dust.NewDustPerfect(position, ModContent.DustType<BigBoneSmokeDust>());
                                     DustEffect.velocity = ShootSpeed;
                                     DustEffect.color = Main.rand.Next(colors);
                                     DustEffect.scale = Main.rand.NextFloat(0.5f, 0.75f);
@@ -1031,7 +1030,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 								SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 							}
                                 
-							if (NPC.localAI[0] % 2 == 0)
+							if (NPC.localAI[0] % 3 == 0)
 							{
                                 for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
                                 {
@@ -1120,7 +1119,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
 										Vector2 ShootSpeed = NPC.Center - projPos;
 										ShootSpeed.Normalize();
-										ShootSpeed *= 15;
+										ShootSpeed *= 6;
 
 										Vector2 Offset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
 										Vector2 position = NPC.Center;
@@ -1132,7 +1131,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
 										Color[] colors = new Color[] { Color.Gray, Color.DarkGray };
 
-										Dust DustEffect = Dust.NewDustPerfect(position, ModContent.DustType<CoughCloudDust>());
+										Dust DustEffect = Dust.NewDustPerfect(position, ModContent.DustType<BigBoneSmokeDust>());
 										DustEffect.velocity = ShootSpeed;
 										DustEffect.color = Main.rand.Next(colors);
 										DustEffect.scale = Main.rand.NextFloat(0.5f, 0.75f);
@@ -1152,16 +1151,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 								SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 							}
                                 
-							if (NPC.localAI[0] % 5 == 0)
+							if (NPC.localAI[0] % 3 == 0)
 							{
-                                for (float numProjectiles = 0; numProjectiles < 45; numProjectiles++)
+                                for (float numProjectiles = 0; numProjectiles < ProjAmount; numProjectiles++)
                                 {
                                     //this is how the gap in the circle of thorns is created
                                     //this check basically makes it so every thorn in the loop is spawned, except for the randomly chosen number and multiple thorns behind the chosen number
                                     if (numProjectiles != NPC.localAI[1] && numProjectiles != NPC.localAI[1] - 1 && numProjectiles != NPC.localAI[1] - 2 && 
                                     numProjectiles != NPC.localAI[1] - 3 && numProjectiles != NPC.localAI[1] - 4)
                                     {
-										Vector2 projPos = NPC.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / 45));
+										Vector2 projPos = NPC.Center + new Vector2(0, 2).RotatedBy(numProjectiles * (Math.PI * 2f / ProjAmount));
 
                                         Vector2 ShootSpeed = NPC.Center - projPos;
 										ShootSpeed.Normalize();
@@ -1225,7 +1224,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         int VelocityX = Main.rand.Next(-12, 13);
                         int VelocityY = Main.rand.Next(-15, -10);
 
-                        Vector2 RandomPosition = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 2);
+                        Vector2 RandomPosition = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 10);
                         NPCGlobalHelper.ShootHostileProjectile(NPC, RandomPosition, new Vector2(VelocityX, VelocityY), ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: 2);
                     }
 
@@ -1505,12 +1504,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         SaveDirection = 0;
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
                         NPC.ai[1]++;
 
                         if (NPC.ai[1] >= AttackPattern.Length)
                         {
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
+                            NPC.localAI[2] = 0;
                             NPC.ai[1] = 0;
                             NPC.ai[2] = 0;
                         }

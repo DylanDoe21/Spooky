@@ -23,7 +23,7 @@ HerbShaker: {
 }
 
 TheMask: {
-	DisplayName: Ancient Nature Mask
+	DisplayName: Strange Mask
 	Tooltip: Gain 5 defense for each active bloom buff you have
 }
 
@@ -46,7 +46,7 @@ CemeteryLily: {
 		'''
 		Cuts your health down to a third of your maximum health
 		You gain 2 revives, upon death you will loose a revive and gain stat buffs
-		After loosing all revives, this bloom buff will be removed from you
+		After loosing all revives, this blooms effect will be removed from you
 		5 minute duration
 		'''
 }
@@ -55,7 +55,7 @@ CemeteryMarigold: {
 	DisplayName: Guiding Marigold
 	Tooltip:
 		'''
-		Occasionally plant damaging marigolds on the ground while you walk
+		Occasionally plant damaging marigolds while moving
 		5 minute duration
 		'''
 }
@@ -64,18 +64,18 @@ CemeteryPoppy: {
 	DisplayName: Ornamental Poppy
 	Tooltip:
 		'''
-		Spawns ghost seeds around you that damage enemies 
-		Seeds spawn more frequently the lower your health is
+		Ability not decided
 		5 minute duration
 		'''
 }
 
 CemeteryRose: {
-	DisplayName: Black Rose
+	DisplayName: Withered Rose
 	Tooltip:
 		'''
-		You will take 10% more damage
-		On taking damage, you will release a ton of powerful black blood bolts
+		Causes you to take 15% more damage
+		When you take damage, you will release powerful withered petals
+		The withered petals damage becomes stronger the more damage you take
 		3 minute duration
 		'''
 }
@@ -135,7 +135,7 @@ FallSoulPumpkin: {
 	Tooltip:
 		'''
 		Occasionally spawn a homing ghastly pumpkin while holding a weapon
-		The damage of the pumpkins scales based on the weapon you are using
+		The damage of the pumpkins scales based on the weapon you are holding
 		The ghastly pumpkins will ignite enemies for a short time
 		4 minute duration
 		'''
@@ -176,7 +176,7 @@ FossilDutchmanPipe: {
 	Tooltip:
 		'''
 		Creates a negative aura around you
-		Enemies that step into the aura have their defense lowered permanently
+		Enemies that step into the aura will take increased damage
 		5 minute duration
 		'''
 }
@@ -225,11 +225,11 @@ SeaCucumber: {
 }
 
 SeaSponge: {
-	DisplayName: Super-Absorbent Sponge
+	DisplayName: Scrubby Sea Sponge
 	Tooltip:
 		'''
 		Grants a small chance to absorb any hostile projectile that comes near you
-		Absorbing a projectile will increase your damage reduction for 5 seconds
+		Absorbing a projectile will increase your damage reduction for 10 seconds
 		The chance of absorbing a projectile increases if you are in water or rain
 		3 minute duration
 		'''
@@ -1283,6 +1283,11 @@ CarrotFish: {
 	Tooltip: ""
 }
 
+DumboOctopoid: {
+	DisplayName: Dumbo Octopoid
+	Tooltip: ""
+}
+
 OrroEel: {
 	DisplayName: Orro Eel
 	Tooltip: "'Caught in Valley of Eyes'"
@@ -1306,6 +1311,11 @@ SpookySpiritFish: {
 TarGar: {
 	DisplayName: Tar Gar
 	Tooltip: ""
+}
+
+Tarpon: {
+	DisplayName: Tarpon
+	Tooltip: "'Caught in Tar Pits'"
 }
 
 ZomboidFish: {
@@ -1401,11 +1411,26 @@ BroccoliLegs: {
 	Tooltip: Increases your life regeneration
 }
 
+HazmatBody: {
+	DisplayName: Hazmat Suit
+	Tooltip: ""
+}
+
+HazmatHead: {
+	DisplayName: Hazmat Mask
+	Tooltip: ""
+}
+
+HazmatLegs: {
+	DisplayName: Hazmat Pants
+	Tooltip: ""
+}
+
 SharkBoneBody: {
 	DisplayName: Fish Bone Chestplate
 	Tooltip:
 		'''
-		10% increased critical strike chance
+		5% increased damage reduction
 		Increases fishing power by 5
 		'''
 }
@@ -4883,4 +4908,14 @@ Bestiary: {
 		Completes the bestiary
 		Testing Item
 		'''
+}
+
+BigBoneBobber: {
+	DisplayName: Big Bone Bobber
+	Tooltip: ""
+}
+
+PumpkinBobber: {
+	DisplayName: Pumpkin Bobber
+	Tooltip: ""
 }

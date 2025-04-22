@@ -48,6 +48,7 @@ namespace Spooky.Core
         public bool GoreArmorEye = false;
         public bool GoreArmorMouth = false;
         public bool SentientCap = false;
+        public bool DrawHazmatBack = false;
 
         //accessories
         public bool BustlingGlowshroom = false;
@@ -179,6 +180,7 @@ namespace Spooky.Core
 		public Vector2 KidneyUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.5f * Main.UIScale);
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
+        private static Asset<Texture2D> HazmatArmorBackTex;
 
 		//sounds
 		public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
@@ -222,6 +224,7 @@ namespace Spooky.Core
             GoreArmorEye = false;
             GoreArmorMouth = false;
             SentientCap = false;
+            DrawHazmatBack = false;
 
             //accessories
             BustlingGlowshroom = false;
@@ -1239,27 +1242,49 @@ namespace Spooky.Core
 
 			if (!drawInfo.drawPlayer.frozen && !drawInfo.drawPlayer.dead && !drawInfo.drawPlayer.wet)
 			{
-				if (ItemGlobal.ActiveItem(drawInfo.drawPlayer).type == ModContent.ItemType<SentientLeafBlower>())
-				{
-					SentientLeafBlowerBackTex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Sentient/SentientLeafBlowerBack");
+                HazmatArmorBackTex ??= ModContent.Request<Texture2D>("Spooky/Content/Items/Minibiomes/Armor/HazmatBackpack");
 
-					SpriteEffects spriteEffects = drawInfo.drawPlayer.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                SpriteEffects spriteEffects = drawInfo.drawPlayer.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-					int xOffset = 10;
+                if (ItemGlobal.ActiveItem(drawInfo.drawPlayer).type == ModContent.ItemType<SentientLeafBlower>())
+                {
+                    SentientLeafBlowerBackTex ??= ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Sentient/SentientLeafBlowerBack");
+                    
+                    int xOffset = 10;
 
-					DrawData PlayerBack = new DrawData(SentientLeafBlowerBackTex.Value,
-					new Vector2((int)(drawInfo.drawPlayer.position.X - Main.screenPosition.X + (drawInfo.drawPlayer.width / 2) - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.position.Y - Main.screenPosition.Y + (drawInfo.drawPlayer.height / 2) + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
-					new Rectangle(0, 0, SentientLeafBlowerBackTex.Width(), SentientLeafBlowerBackTex.Height()),
-					drawInfo.colorArmorBody,
-					drawInfo.drawPlayer.bodyRotation,
-					new Vector2(SentientLeafBlowerBackTex.Width() / 2, SentientLeafBlowerBackTex.Height() / 2),
-					1f, 
-					spriteEffects, 
-					0);
+                    DrawData PlayerBack = new DrawData(SentientLeafBlowerBackTex.Value,
+                    new Vector2((int)(drawInfo.drawPlayer.position.X - Main.screenPosition.X + (drawInfo.drawPlayer.width / 2) - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.position.Y - Main.screenPosition.Y + (drawInfo.drawPlayer.height / 2) + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
+                    new Rectangle(0, 0, SentientLeafBlowerBackTex.Width(), SentientLeafBlowerBackTex.Height()),
+                    drawInfo.colorArmorBody,
+                    drawInfo.drawPlayer.bodyRotation,
+                    new Vector2(SentientLeafBlowerBackTex.Width() / 2, SentientLeafBlowerBackTex.Height() / 2),
+                    1f, 
+                    spriteEffects, 
+                    0);
 
-					PlayerBack.shader = 0;
-					drawInfo.DrawDataCache.Add(PlayerBack);
-				}
+                    PlayerBack.shader = 0;
+                    drawInfo.DrawDataCache.Add(PlayerBack);
+                }
+
+                if (DrawHazmatBack)
+                {
+                    HazmatArmorBackTex ??= ModContent.Request<Texture2D>("Spooky/Content/Items/Minibiomes/Armor/HazmatBackpack");
+                
+                    int xOffset = 5;
+
+                    DrawData PlayerBack = new DrawData(HazmatArmorBackTex.Value,
+                    new Vector2((int)(drawInfo.drawPlayer.position.X - Main.screenPosition.X + (drawInfo.drawPlayer.width / 2) - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.position.Y - Main.screenPosition.Y + (drawInfo.drawPlayer.height / 2) + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
+                    new Rectangle(0, 0, HazmatArmorBackTex.Width(), HazmatArmorBackTex.Height()),
+                    drawInfo.colorArmorBody,
+                    drawInfo.drawPlayer.bodyRotation,
+                    new Vector2(HazmatArmorBackTex.Width() / 2, HazmatArmorBackTex.Height() / 2),
+                    1f, 
+                    spriteEffects, 
+                    0);
+
+                    PlayerBack.shader = 0;
+                    drawInfo.DrawDataCache.Add(PlayerBack);
+                }
 			}
 		}
 

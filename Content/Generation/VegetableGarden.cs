@@ -179,6 +179,27 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j++)
 				{
+					List<Point> chunkPoints = new();
+					getAttachedPoints(i, j, chunkPoints);
+
+					int cutoffLimit = 32;
+					if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
+					{
+						foreach (Point p in chunkPoints)
+						{
+							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+							{
+								new Actions.ClearTile(true)
+							}));
+						}
+					}
+				}
+			}
+
+			for (int i = PositionX - SizeX * 2; i < PositionX + SizeX * 2; i++)
+			{
+				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j++)
+				{
 					Main.tile[i, j].LiquidAmount = 0;
 
 					Tile tile = Main.tile[i, j];
@@ -238,21 +259,6 @@ namespace Spooky.Content.Generation
                         WorldGen.KillTile(i, j);
                         WorldGen.KillTile(i - 1, j);
                     }
-
-					List<Point> chunkPoints = new();
-                    getAttachedPoints(i, j, chunkPoints);
-
-					int cutoffLimit = 32;
-					if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
-					{
-						foreach (Point p in chunkPoints)
-						{
-							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
-							{
-								new Actions.ClearTile(true)
-							}));
-						}
-					}
 
 					WorldGen.SpreadGrass(i, j, ModContent.TileType<JungleSoil>(), ModContent.TileType<JungleSoilGrass>(), false);
 

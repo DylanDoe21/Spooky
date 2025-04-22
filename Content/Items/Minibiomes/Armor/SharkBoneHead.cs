@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 3;
+			Item.defense = 4;
 			Item.width = 28;
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
@@ -32,7 +32,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 			bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<SharkArmorFriend>()] <= 0;
 			if (NotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y - 25, 0f, 0f, ModContent.ProjectileType<SharkArmorFriend>(), 25, 15f, player.whoAmI);
+				Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y - 25, 0f, 0f, ModContent.ProjectileType<SharkArmorFriend>(), 25, 7f, player.whoAmI);
 			}
 		}
 

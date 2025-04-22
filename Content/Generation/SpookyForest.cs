@@ -820,7 +820,10 @@ namespace Spooky.Content.Generation
 					{
 						for (int ropeY = IncrementY - 3; ropeY <= IncrementY + 5; ropeY++)
 						{
-							WorldGen.PlaceTile(CurrentX, ropeY, TileID.Rope);
+							if (!Main.tile[CurrentX, ropeY].HasTile && !Main.tile[CurrentX - 1, ropeY].HasTile && !Main.tile[CurrentX + 1, ropeY].HasTile)
+							{
+								WorldGen.PlaceTile(CurrentX, ropeY, TileID.Rope);
+							}
 						}
 					}
 				}

@@ -84,18 +84,21 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     //spawn message
                     string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.BigBoneSpawn");
 
-                    if (Main.netMode != NetmodeID.Server)
+                    if (Main.netMode == NetmodeID.Server)
                     {
                         Main.NewText(text, 171, 64, 255);
                     }
-                    else
+                    else if (Main.netMode == NetmodeID.SinglePlayer)
                     {
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
                     
                     int BigBone = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<BigBone>(), ai3: NPC.whoAmI);
-                    
-                    NetMessage.SendData(MessageID.SyncNPC, number: BigBone);
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: BigBone);
+                    }
 
                     NPC.ai[0] = 0;
                     NPC.ai[1] = 0;

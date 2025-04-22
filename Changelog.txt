@@ -178,6 +178,7 @@ Enemy Changes:
 -Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey before now use "double tap down" like terraria's special armor set bonuses
 -Being in the valley of eyes now disables the heat distortion caused by being in the underworld
 -Dumb zomboid bestiary entry now uses the spooky forest background instead of a blank black background
+-Valley of eyes pylon can now be sold by npcs who are happy enough in the eye valley (Little eye will still give you one for free when woken up)
 
 
 

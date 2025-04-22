@@ -253,12 +253,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
 			Tile tile = Framing.GetTileSafely(i, j);
             Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
 
             int frameSize = 16;
             int frameSizeY = 16;
@@ -278,11 +272,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 				DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileGlobal.TileOffset, offset, false);
             }
 
-            Vector2 treeNormalOffset = new Vector2(0, 0);
-
             //draw the actual tree
-            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
-            new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             if (Framing.GetTileSafely(i, j).TileFrameX == 16)
             {
@@ -296,12 +287,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
         {
             Tile tile = Framing.GetTileSafely(i, j);
             Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
-
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
 
             int frameSize = 16;
             int frameSizeY = 16;
@@ -321,8 +306,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
 
             StemGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow");
-
-            Vector2 treeNormalOffset = new Vector2(0, 0);
 
             //draw the actual tree
             spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 

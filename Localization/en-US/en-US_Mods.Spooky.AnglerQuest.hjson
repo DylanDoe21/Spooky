@@ -23,6 +23,11 @@ SpookySpiritFish: {
 	CatchLocation: Caught in the Swampy Cemetery
 }
 
+Tarpon: {
+	Description: Deep in the underground desert you can find a rare ancient fish made out of tar! No, I don't care if you accidentally fall in the tar. I need one in my collection, now go get one for me!
+	CatchLocation: Caught in the Tar Pits
+}
+
 ZomboidFish: {
 	Description: Those stupid brain-dead zomboids that walk around in the spooky forest are really ugly. What's even uglier is the elusive zomboid fish, which I think you should find for me!
 	CatchLocation: Caught in the Spooky Forest

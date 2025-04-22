@@ -15,6 +15,11 @@ using Spooky.Core;
 
 namespace Spooky.Content.Tiles.Pylon
 {
+	public static class SpookyHellCondition
+    {
+        public static Condition InSpookyHellBiome = new Condition("Mods.Spooky.Conditions.InSpookyHellBiome", () => Main.LocalPlayer.InModBiome<Biomes.SpookyHellBiome>());
+    }
+
 	public class SpookyHellPylon : ModPylon
 	{
 		public const int CrystalVerticalFrameCount = 8;
@@ -58,9 +63,8 @@ namespace Spooky.Content.Tiles.Pylon
 
 		public override NPCShop.Entry GetNPCShopEntry()
         {
-			//this pylon is never sold
-			return null;
-		}
+            return new NPCShop.Entry(ModContent.ItemType<SpookyHellPylonItem>(), Condition.HappyEnoughToSellPylons, SpookyHellCondition.InSpookyHellBiome);
+        }
 
 		public override void MouseOver(int i, int j) 
         {

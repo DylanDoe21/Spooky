@@ -12,18 +12,19 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
 	public class SkeletonPiranha : ModNPC
 	{
+        Vector2 SavePosition = Vector2.Zero;
+
         private static Asset<Texture2D> NPCTexture;
 
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 6;
-			Main.npcCatchable[NPC.type] = true;
 			NPCID.Sets.CountsAsCritter[Type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 200;
+            NPC.lifeMax = 250;
 			NPC.damage = 0;
 			NPC.defense = 10;
 			NPC.width = 88;
@@ -35,8 +36,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.value = Item.buyPrice(0, 0, 0, 25);
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.DD2_SkeletonHurt;
-            NPC.aiStyle = 16;
-			AIType = NPCID.Goldfish;
+            NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ZombieOceanBiome>().Type };
 		}
 
@@ -76,7 +76,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		public override void FindFrame(int frameHeight)
 		{
             NPC.frameCounter++;
-			if (NPC.frameCounter > 7)
+			if (NPC.frameCounter > 9 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0;
@@ -89,39 +89,24 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 		public override void AI()
 		{
-			NPC.spriteDirection = -NPC.direction;
+			if (NPC.velocity.X > 0f)
+			{
+				NPC.direction = 1;
+			}
+			if (NPC.velocity.X < 0f)
+			{
+				NPC.direction = -1;
+			}
 
-			int BigDunk = NPC.FindFirstNPC(ModContent.NPCType<Dunkleosteus>());
-			if (BigDunk >= 0)
-            {
-                bool DunkLineOfSight = Collision.CanHitLine(Main.npc[BigDunk].position, Main.npc[BigDunk].width, Main.npc[BigDunk].height, NPC.position, NPC.width, NPC.height);
-                if (NPC.Distance(Main.npc[BigDunk].Center) <= 150f && DunkLineOfSight && NPC.wet)
-                {
-                    NPC.localAI[0] = 60;
-                }
-            }
+			NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.05f : -0.05f);
 
-            if (NPC.localAI[0] > 0)
-            {
-                NPC.localAI[0]--;
+			if (SavePosition == Vector2.Zero)
+			{
+				NPC.ai[0] = Main.rand.Next(-400, 400);
+				SavePosition = NPC.Center;
+			}
 
-                Vector2 vel = NPC.DirectionFrom(Main.npc[BigDunk].Center);
-                vel.Normalize();
-                vel *= 6f;
-                NPC.velocity = vel;
-                if (Main.npc[BigDunk].position.X > NPC.position.X)
-                {
-                    NPC.spriteDirection = -1;
-                    NPC.direction = -1;
-                    NPC.netUpdate = true;
-                }
-                else if (Main.npc[BigDunk].position.X < NPC.position.X)
-                {
-                    NPC.spriteDirection = 1;
-                    NPC.direction = 1;
-                    NPC.netUpdate = true;
-                }
-            }
+			SkeletonFish.FishSwimmingAI(NPC, SavePosition, 200, 170, 3f, 3f, 0.018f, 0.05f);
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 

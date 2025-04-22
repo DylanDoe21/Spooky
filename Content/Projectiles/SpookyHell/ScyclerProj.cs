@@ -70,11 +70,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     ShootSpeed.Normalize();
                     ShootSpeed *= 35;
                     Projectile.velocity = ShootSpeed;
+
+                    if (Projectile.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5)))
+                    {
+                        Projectile.ai[0] = 30;
+                    }
                 }
 
-                if (Projectile.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5)))
+                //spam net update because the projectile velocityollowing needs to be synced
+                if (Projectile.ai[0] % 2 == 0)
                 {
-                    Projectile.ai[0] = 30;
+                    Projectile.netUpdate = true;
                 }
             }
             if (Projectile.ai[0] > 30)

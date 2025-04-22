@@ -419,22 +419,24 @@ TarSlime2.DisplayName: Tar Slime
 CornMage1.DisplayName: Pop Corner
 CornMage2.DisplayName: Pop Corner
 EggplantSpawner.DisplayName: ""
-Eggplant.DisplayName: Eggplant
-EggplantBase.DisplayName: Eggplant
+Eggplant.DisplayName: Elongated Eggplant
+EggplantBase.DisplayName: Elongated Eggplant
 GhostPepper.DisplayName: Ghost Pepper
 HoppingPotato1.DisplayName: Hopping Potato
 HoppingPotato2.DisplayName: Hopping Potato
 HoppingPotato3.DisplayName: Hopping Potato
 HoppingPotato4.DisplayName: Hopping Potato
 OozeGarlic.DisplayName: Oozing Garlic
-RollingPepper.DisplayName: Rolling Jalapeno
+RollingPepper.DisplayName: Spicy Jalapeno
 RottenCarrot.DisplayName: Rotten Carrot
 //rotten depths
 Dunkleosteus.DisplayName: Big Dunk
 SkeletonFish.DisplayName: Skeletoid Fish
-SkeletonPiranha.DisplayName: Skeletoid Fish
-SkeletonGar.DisplayName: Skeletoid Fish
-SkeletonSunfish.DisplayName: Skeletoid Fish
+SkeletonPiranha.DisplayName: Skeletoid Piranha
+SkeletonGar.DisplayName: Skeletoid Gar
+SkeletonSunfish.DisplayName: Skeletoid Sunfish
+SkeletonSpearfish.DisplayName: Skeletoid Spearfish
+SkeletonBoomerang.DisplayName: Skeletoid Boomerang
 //krampus workshop
 TeddyBear1.DisplayName: Teddy Bear
 TeddyBear2.DisplayName: Teddy Bear

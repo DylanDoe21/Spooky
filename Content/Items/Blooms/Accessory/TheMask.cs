@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Blooms.Accessory
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            //player.GetModPlayer<BloomBuffsPlayer>().HerbShaker = true;
+            player.GetModPlayer<BloomBuffsPlayer>().TheMask = true;
         }
     }
 }

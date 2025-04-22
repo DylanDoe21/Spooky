@@ -24,5 +24,12 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
         {
             frameXOffset = i % 2 * 288; //288 is the width of each individual sheet
         }
+
+		public override void RandomUpdate(int i, int j)
+        {
+            Tile Tile = Framing.GetTileSafely(i, j);
+			Tile Below = Framing.GetTileSafely(i, j + 1);
+            Tile Above = Framing.GetTileSafely(i, j - 1);
+		}
 	}
 }

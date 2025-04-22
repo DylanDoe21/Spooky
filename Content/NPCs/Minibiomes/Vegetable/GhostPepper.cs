@@ -90,6 +90,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             }
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GhostPepperStaff>(), 25));
+        }
+
         public override void HitEffect(NPC.HitInfo hit)
         {
 			if (NPC.life <= 0) 

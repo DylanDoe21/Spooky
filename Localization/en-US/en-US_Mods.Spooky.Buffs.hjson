@@ -529,3 +529,8 @@ SpiderSlingshotSlow: {
 	DisplayName: Spider Slingshot Slow
 	Description: ""
 }
+
+SeaSpongeBuff: {
+	DisplayName: Scrubby Absorption
+	Description: 15% increased damage reduction
+}

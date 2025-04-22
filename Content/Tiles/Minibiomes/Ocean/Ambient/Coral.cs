@@ -19,6 +19,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(72, 214, 131));
             HitSound = SoundID.Dig;
+            DustType = -1;
         }
     }
 
@@ -42,6 +43,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(156, 72, 214));
             HitSound = SoundID.Dig;
+            DustType = -1;
         }
     }
 
@@ -65,6 +67,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(214, 82, 72));
             HitSound = SoundID.Dig;
+            DustType = -1;
         }
     }
 
@@ -88,6 +91,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(214, 156, 72));
             HitSound = SoundID.Dig;
+            DustType = -1;
         }
     }
 

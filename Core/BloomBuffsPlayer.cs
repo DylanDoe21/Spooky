@@ -14,6 +14,8 @@ using Spooky.Content.Projectiles.Blooms;
 using System.Text;
 using Spooky.Content.Buffs;
 using Spooky.Content.Items.BossBags.Accessory;
+using rail;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Spooky.Core
 {
@@ -96,6 +98,7 @@ namespace Spooky.Core
 		//accessories
 		public bool Wormy = false;
 		public bool FarmerGlove = false;
+		public bool TheMask = false;
 
 		//seasonal blooms lists
 		string[] SpringBlooms = new string[]
@@ -169,6 +172,7 @@ namespace Spooky.Core
         {
 			Wormy = false;
 			FarmerGlove = false;
+			TheMask = false;
 		}
 
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
@@ -386,6 +390,34 @@ namespace Spooky.Core
 				Duration4 = 0;
 			}
         }
+
+		public override void OnHurt(Player.HurtInfo info)
+		{
+			if (CemeteryRose)
+			{
+				SoundEngine.PlaySound(SoundID.Zombie21 with { Volume = 0.5f, Pitch = 1.05f }, Player.Center);
+
+				float maxAmount = 5;
+				int currentAmount = 0;
+				while (currentAmount <= maxAmount)
+				{
+					Vector2 velocity = new Vector2(5f, 5f);
+					Vector2 Bounds = new Vector2(3f, 3f);
+					float intensity = 5f;
+
+					Vector2 vector12 = Vector2.UnitX * 0f;
+					vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (5f / maxAmount)), default) * Bounds;
+					vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+					Vector2 ShootVelocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+
+					int Damage = info.Damage < 30 ? 30 : info.Damage;
+
+					Projectile.NewProjectile(null, Player.Center, ShootVelocity, ModContent.ProjectileType<CemeteryRosePetal>(), Damage, 4.5f, Player.whoAmI);
+
+					currentAmount++;
+				}
+			}
+		}
 
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
@@ -643,11 +675,13 @@ namespace Spooky.Core
 				{
 					if (Player.Distance(Proj.Center) < 100f && Proj.hostile && Proj.damage > 0 && Proj.CanHitWithOwnBody(Player) && !Proj.GetGlobalProjectile<ProjectileGlobal>().SpongeAbsorbAttempt)
 					{
-						int ChanceToAbsorb = ((Main.raining && Player.ZoneOverworldHeight) || Player.wet) ? 15 : 22;
+						int ChanceToAbsorb = ((Main.raining && Player.ZoneOverworldHeight) || Player.wet) ? 18 : 25;
 
 						if (Main.rand.NextBool(ChanceToAbsorb))
 						{
 							SoundEngine.PlaySound(SpongeSound, Proj.Center);
+
+							Player.AddBuff(ModContent.BuffType<SeaSpongeBuff>(), 600);
 
 							Projectile.NewProjectile(null, Proj.Center, Vector2.Zero, ModContent.ProjectileType<SeaSpongeProj>(), 0, 0);
 
@@ -715,6 +749,12 @@ namespace Spooky.Core
 				}
 			}
 
+			//player takes 15% more damage with the cemetery rose
+			if (CemeteryRose)
+			{
+				Player.endurance -= 0.15f;
+			}
+
 			//farmer glove grants attack speed for each occupied bloom buff slot
 			if (FarmerGlove)
 			{
@@ -737,6 +777,27 @@ namespace Spooky.Core
 				{
 					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
 					Player.moveSpeed += 0.15f;
+				}
+			}
+
+			//mask grants defense for each occupied bloom buff slot
+			if (TheMask)
+			{
+				if (BloomBuffSlots[0] != string.Empty)
+				{
+					Player.statDefense += 5;
+				}
+				if (BloomBuffSlots[1] != string.Empty)
+				{
+					Player.statDefense += 5;
+				}
+				if (BloomBuffSlots[2] != string.Empty)
+				{
+					Player.statDefense += 5;
+				}
+				if (BloomBuffSlots[3] != string.Empty)
+				{
+					Player.statDefense += 5;
 				}
 			}
 		}

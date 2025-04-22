@@ -11,7 +11,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 3;
+			Item.defense = 4;
 			Item.width = 34;
 			Item.height = 20;
 			Item.rare = ItemRarityID.Blue;

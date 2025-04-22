@@ -9,7 +9,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 	{
 		public override void SetDefaults() 
 		{
-			Item.defense = 4;
+			Item.defense = 5;
 			Item.width = 38;
 			Item.height = 24;
 			Item.rare = ItemRarityID.Blue;
@@ -17,7 +17,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 
         public override void UpdateEquip(Player player) 
 		{
-			player.GetCritChance(DamageClass.Generic) += 8;
+			player.endurance += 0.05f;
 			player.fishingSkill += 5;
 		}
 

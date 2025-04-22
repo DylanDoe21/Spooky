@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.Minibiomes.Vegetable;
 
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable
@@ -122,6 +123,19 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 				{
 					NPC.ai[2] += 0.01f;
 				}
+				
+				if (NPC.ai[2] > 0.5f)
+				{
+					if (Main.rand.NextBool(10))
+					{
+						Color[] colors = new Color[] { Color.Gray, Color.DarkGray };
+
+						int DustEffect = Dust.NewDust(NPC.position, NPC.width, 3, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Main.rand.Next(colors) * 0.5f, 0.2f);
+						Main.dust[DustEffect].velocity.X = 0;
+						Main.dust[DustEffect].velocity.Y = -2;
+						Main.dust[DustEffect].alpha = 100;
+					}
+				}
 
 				NPC.rotation += NPC.ai[1] * (float)NPC.direction;
 			}
@@ -132,7 +146,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
 				NPC.noGravity = true;
 
-				Vector2 ChargeDirection = new Vector2(player.Center.X, NPC.Center.Y - (player.Center.Y > NPC.Center.Y - 10 ? -250 : 250)) - NPC.Center;
+				Vector2 ChargeDirection = new Vector2(player.Center.X, NPC.Center.Y - 250) - NPC.Center;
 				ChargeDirection.Normalize();
 				ChargeDirection *= 15;
 				NPC.velocity = ChargeDirection;

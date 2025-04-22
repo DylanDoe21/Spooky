@@ -200,14 +200,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.localAI[3] = !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) ? 1 : 0;
             bool Enraged = NPC.localAI[3] > 0;
 
-            //despawn if the player dies or leaves the biome
-            if (player.dead || !player.active || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
-            {
-                NPC.velocity.Y += 0.25f;
-				NPC.EncourageDespawn(60);
-				return;
-            }
-
             //Make the worm itself
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
@@ -248,6 +240,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     segmentsSpawned = true;
                     NPC.netUpdate = true;
                 }
+            }
+
+            //despawn if the player dies or leaves the biome
+            if (player.dead || !player.active || !player.InModBiome(ModContent.GetInstance<Biomes.SpookyHellBiome>()))
+            {
+                NPC.velocity.Y += 0.25f;
+				NPC.EncourageDespawn(60);
+				return;
             }
 
             //attacks

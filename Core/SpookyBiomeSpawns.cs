@@ -593,8 +593,10 @@ namespace Spooky.Core
 				if (spawnInfo.Water)
 				{
 					pool.Add(ModContent.NPCType<SkeletonFish>(), 2);
-					pool.Add(ModContent.NPCType<SkeletonGar>(), 2);
-					pool.Add(ModContent.NPCType<SkeletonPiranha>(), 2);
+					pool.Add(ModContent.NPCType<SkeletonGar>(), 1);
+					pool.Add(ModContent.NPCType<SkeletonPiranha>(), 1);
+					pool.Add(ModContent.NPCType<SkeletonSpearfish>(), 1);
+					pool.Add(ModContent.NPCType<SkeletonBoomerang>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonSunfish>(), 1);
 				}
 			}

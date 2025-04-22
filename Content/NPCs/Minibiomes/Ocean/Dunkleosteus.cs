@@ -287,48 +287,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
             return false;
         }
 
-		public override void AI()
+		public void NPCRotation()
 		{
-			if (!TargetedPlayer.active || TargetedPlayer.dead)
-			{
-				Aggression = 0;
-			}
-
-			int BodyFrameRate = Aggression > 0 ? 4 : 8;
-
-			BodyFrameCounter++;
-			if (BodyFrameCounter % BodyFrameRate == 0)
-			{
-				if (BodyFrame >= 7)
-				{
-					BodyFrame = 0;
-				}
-				else
-				{
-					BodyFrame++;
-				}
-			}
-
-			if (BiteAnimationTimer > 0)
-			{
-				BiteAnimation = true;
-				BiteAnimationTimer--;
-			}
-			else
-			{
-				BiteAnimation = false;
-			}
-
-			if (RoarAnimationTimer > 0)
-			{
-				RoarAnimation = true;
-				RoarAnimationTimer--;
-			}
-			else
-			{
-				RoarAnimation = false;
-			}
-	
 			float RotateDirection = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + MathHelper.TwoPi;
 			float RotateSpeed = 0.04f;
 
@@ -378,6 +338,66 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			if (NPC.rotation > RotateDirection - RotateSpeed && NPC.rotation < RotateDirection + RotateSpeed)
 			{
 				NPC.rotation = RotateDirection;
+			}
+		}
+
+		public override void AI()
+		{
+			if (!TargetedPlayer.active || TargetedPlayer.dead)
+			{
+				Aggression = 0;
+			}
+
+			int BodyFrameRate = Aggression > 0 ? 4 : 8;
+
+			BodyFrameCounter++;
+			if (BodyFrameCounter % BodyFrameRate == 0)
+			{
+				if (BodyFrame >= 7)
+				{
+					BodyFrame = 0;
+				}
+				else
+				{
+					BodyFrame++;
+				}
+			}
+
+			if (BiteAnimationTimer > 0)
+			{
+				BiteAnimation = true;
+				BiteAnimationTimer--;
+			}
+			else
+			{
+				BiteAnimation = false;
+			}
+
+			if (RoarAnimationTimer > 0)
+			{
+				RoarAnimation = true;
+				RoarAnimationTimer--;
+			}
+			else
+			{
+				RoarAnimation = false;
+			}
+
+			NPCRotation();
+
+			//if there are no active players in the biome then despawn
+			if (!AnyPlayersInBiome())
+			{
+				NPC.ai[0] = 0;
+				NPC.ai[1] = 0;
+				NPC.ai[2] = 0;
+
+				NPC.noTileCollide = true;
+
+				NPC.velocity.Y += 0.4f;
+				NPC.EncourageDespawn(10);
+
+				return;
 			}
 
 			//constantly call stepup collision so it doesnt get stuck on blocks
@@ -450,21 +470,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					Aggression = 600;
 					NPC.netUpdate = true;
 				}
-			}
-			
-			//if there are no active players in the biome then despawn
-			if (!AnyPlayersInBiome())
-			{
-				NPC.ai[0] = 0;
-				NPC.ai[1] = 0;
-				NPC.ai[2] = 0;
-
-				NPC.noTileCollide = true;
-
-				NPC.velocity.Y += 0.4f;
-				NPC.EncourageDespawn(10);
-
-				return;
 			}
 
 			int[] InvalidBlockTypes = new int[]

@@ -1,34 +1,35 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Spooky.Content.NPCs.SpookyBiome;
-using static Spooky.Core.PathFinding;
 using System;
-using Terraria.Audio;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class MassiveFlameBallBolt : ModProjectile
 	{
-		public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
-
 		bool runOnce = true;
 		Vector2[] trailLength = new Vector2[10];
 
 		private static Asset<Texture2D> ProjTexture;
+		private static Asset<Texture2D> TrailTexture;
+
+		public override void SetStaticDefaults()
+        {
+            Main.projFrames[Projectile.type] = 6;
+        }
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 14;
-            Projectile.height = 14;
+			Projectile.width = 16;
+            Projectile.height = 16;
 			Projectile.hostile = true;
             Projectile.friendly = false;                              			  		
             Projectile.tileCollide = true;
 			Projectile.ignoreWater = false;
-            Projectile.alpha = 255;
 			Projectile.timeLeft = 360;
 		}
 
@@ -40,8 +41,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 
 			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/MassiveFlameBallBoltTrail");
 
-			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+			Vector2 vector = Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
 			Vector2 previousPosition = Projectile.Center;
 
 			for (int k = 0; k < trailLength.Length; k++)
@@ -49,8 +54,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
 
-				Color color = Color.Lerp(Color.OrangeRed, Color.White, scale);
-				color *= Projectile.timeLeft < 60 ? Projectile.timeLeft / 90f : 1f;
+				Color color = Color.Lerp(Color.Red, Color.Orange, scale);
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -61,32 +65,50 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Vector2 currentPos = trailLength[k];
 				Vector2 betweenPositions = previousPosition - currentPos;
 
-				float max = betweenPositions.Length() / (4 * scale);
+				float max = betweenPositions.Length() / (7 * scale);
 
 				for (int i = 0; i < max; i++)
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
 					//gives the projectile after images a shaking effect
-					float x = Main.rand.Next(-2, 3) * scale;
-					float y = Main.rand.Next(-2, 3) * scale;
+					float x = Main.rand.Next(-1, 2) * scale;
+					float y = Main.rand.Next(-1, 2) * scale;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos + new Vector2(x, y), null, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos + new Vector2(x, y), rectangle, Projectile.GetAlpha(color), Projectile.rotation, drawOrigin, scale * 0.65f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
 			}
 
-			return true;
+			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+
+			return false;
 		}
 
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
-		{
-			target.AddBuff(BuffID.OnFire, 300);
-		}
+        {
+            target.AddBuff(BuffID.OnFire, 600);
+        }
 
 		public override void AI()
 		{
+			Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 4)
+            {
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			Projectile.rotation += 0f * (float)Projectile.direction;
+            
+            Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);
+
 			if (runOnce)
 			{
 				for (int i = 0; i < trailLength.Length; i++)
@@ -112,6 +134,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			if (Projectile.velocity.Y > 16f)
 			{
 				Projectile.velocity.Y = 16f;
+			}
+
+			if (Projectile.timeLeft <= 60)
+			{
+				Projectile.alpha += 5;
 			}
 		}
 

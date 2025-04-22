@@ -23,8 +23,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()

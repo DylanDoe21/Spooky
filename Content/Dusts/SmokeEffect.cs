@@ -32,7 +32,6 @@ namespace Spooky.Content.Dusts
             }
             else
             {
-                Lighting.AddLight(dust.position, dust.color.ToVector3() * 0.1f);
                 dust.scale *= 1.002f;
                 dust.alpha += 2;
             }

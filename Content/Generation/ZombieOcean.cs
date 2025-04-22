@@ -212,12 +212,12 @@ namespace Spooky.Content.Generation
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (WorldGen.genRand.NextBool(65) && CanPlaceBiomass(i, j, 7) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
+						if (WorldGen.genRand.NextBool(65) && CheckForNearbyDungeon(i, j, 7, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
 						{
 							WorldGen.TileRunner(i, j, WorldGen.genRand.Next(8, 15), WorldGen.genRand.Next(7, 30), ModContent.TileType<OceanMeat>());
 						}
 
-						if (WorldGen.genRand.NextBool(4) && CanPlaceBiomass(i, j, 2) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !Main.tile[i, j - 3].HasTile)
+						if (WorldGen.genRand.NextBool(4) && CheckForNearbyDungeon(i, j, 2, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !Main.tile[i, j - 3].HasTile)
 						{
 							SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<OceanBiomass>(), 0, 6, 4, 1f, true, false);
 							SpookyWorldMethods.PlaceOval(i, j - 3, -1, ModContent.WallType<OceanBiomassWall>(), 8, 5, 1f, false, false);
@@ -235,7 +235,7 @@ namespace Spooky.Content.Generation
 			int Increment = PositionX > (Main.maxTilesX / 2) ? 1 : -1;
 
 			float MinDistanceBetweenCaves = 50;
-			int ValidTileCheckDistance = 25;
+			int ValidTileCheckDistance = 28;
 
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j += 10)
 			{
@@ -290,7 +290,7 @@ namespace Spooky.Content.Generation
 							continue;
 						}
 
-						if (WorldGen.InWorld(i, j, 80))
+						if (WorldGen.InWorld(i, j, 80) && CheckForNearbyDungeon(i, j, 20, false))
 						{
 							int OvalSizeX = WorldGen.genRand.Next(16, 19);
 							int OvalSizeY = WorldGen.genRand.Next(8, 14);
@@ -368,7 +368,7 @@ namespace Spooky.Content.Generation
 
 		public void ConnectCavePoints(Vector2 Start, Vector2 End, bool GoingToSurface)
 		{
-			int segments = 200;
+			int segments = 100;
 
 			Vector2 myCenter = Start;
 			Vector2 p0 = End;
@@ -386,7 +386,7 @@ namespace Spooky.Content.Generation
 						Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 						t = (i + 1) / (float)segments;
 
-						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile)
+						if (CheckForNearbyDungeon((int)Position.X, (int)Position.Y, 20, false) && Main.tile[(int)Position.X, (int)Position.Y].HasTile)
 						{
 							PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, false, true);
 						}
@@ -399,13 +399,38 @@ namespace Spooky.Content.Generation
 					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 					t = (i + 1) / (float)segments;
 
-					WorldGen.digTunnel((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), default, default, WorldGen.genRand.Next(3, 5), 5, true);
+					if (CheckForNearbyDungeon((int)Position.X, (int)Position.Y, 20, false))
+					{
+						WorldGen.digTunnel((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), default, default, WorldGen.genRand.Next(3, 5), 5, true);
+					}
 				}
 			}
 		}
 
 		public void PlaceAmbience(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
+			//place flesh vents first so that tube worms can be placed nearby
+			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
+			{
+				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						Tile tile = Main.tile[i, j];
+						Tile tileAbove = Main.tile[i, j - 1];
+						Tile tileBelow = Main.tile[i, j + 1];
+
+						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
+						{
+							if (WorldGen.genRand.NextBool(20))
+							{
+								WorldGen.PlaceObject(i, j - 1, ModContent.TileType<FleshVent>());
+							}
+						}
+					}
+				}
+			}
+
 			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
 			{
 				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
@@ -419,7 +444,15 @@ namespace Spooky.Content.Generation
 						//place skulls on any tiles
 						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
 						{
-							if (WorldGen.genRand.NextBool(12) && CanPlaceFishTree(i, j))
+							if (WorldGen.genRand.NextBool() && CanPlaceTubeWorm(i, j))
+							{
+								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+								{
+									TubeWorm.Grow(i, j - 1, 3, 7);
+								}
+							}
+
+							if (WorldGen.genRand.NextBool(9) && CanPlaceFishTree(i, j))
 							{
 								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
 								{
@@ -445,7 +478,7 @@ namespace Spooky.Content.Generation
 						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile)
 						{
 							//big light plants
-							if (WorldGen.genRand.NextBool(20))
+							if (WorldGen.genRand.NextBool(15))
 							{
 								ushort[] BigLightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlantBig1>(), (ushort)ModContent.TileType<LightPlantBig2>(), 
 								(ushort)ModContent.TileType<LightPlantBig3>(), (ushort)ModContent.TileType<LightPlantBig4>() };
@@ -454,7 +487,7 @@ namespace Spooky.Content.Generation
 							}
 
 							//light plants
-							if (WorldGen.genRand.NextBool(15))
+							if (WorldGen.genRand.NextBool(8))
 							{
 								ushort[] LightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlant1>(), (ushort)ModContent.TileType<LightPlant2>(), (ushort)ModContent.TileType<LightPlant3>() };
 
@@ -462,7 +495,7 @@ namespace Spooky.Content.Generation
 							}
 
 							//corals
-							if (WorldGen.genRand.NextBool(6))
+							if (WorldGen.genRand.NextBool())
 							{
 								ushort[] Corals = new ushort[] { (ushort)ModContent.TileType<CoralGreen1>(), (ushort)ModContent.TileType<CoralGreen2>(), (ushort)ModContent.TileType<CoralGreen3>(),
 								(ushort)ModContent.TileType<CoralPurple1>(), (ushort)ModContent.TileType<CoralPurple2>(), (ushort)ModContent.TileType<CoralPurple3>(),
@@ -483,14 +516,14 @@ namespace Spooky.Content.Generation
 						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileBelow.HasTile)
 						{
 							//hanging light plants
-							if (WorldGen.genRand.NextBool(12))
+							if (WorldGen.genRand.NextBool(6))
 							{
 								ushort[] HangingLightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlantHanging1>(), (ushort)ModContent.TileType<LightPlantHanging2>(), (ushort)ModContent.TileType<LightPlantHanging3>() };
 
 								WorldGen.PlaceObject(i, j + 1, WorldGen.genRand.Next(HangingLightPlants));
 							}
 
-							if (WorldGen.genRand.NextBool(3))
+							if (WorldGen.genRand.NextBool())
 							{
 								WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<OceanVines>());
 							}
@@ -535,20 +568,62 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public static bool CanPlaceFishTree(int X, int Y)
+		public static bool CanPlaceTubeWorm(int X, int Y)
         {
-            for (int i = X - 5; i < X + 5; i++)
+			int numFleshVent = 0;
+
+			for (int i = X - 10; i < X + 10; i++)
+			{
+				for (int j = Y - 5; j < Y + 5; j++)
+				{
+					if (Main.tile[i, j].TileType == ModContent.TileType<FleshVent>())
+					{
+						numFleshVent++;
+					}
+				}
+			}
+
+			for (int i = X - 2; i < X + 2; i++)
             {
-                for (int j = Y - 5; j < Y + 5; j++)
+                for (int j = Y - 2; j < Y + 2; j++)
                 {
-                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<BoneFishTree>())
+					if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>())
                     {
                         return false;
                     }
                 }
             }
 
-            return true;
+            return numFleshVent > 0;
+        }
+
+		public static bool CanPlaceFishTree(int X, int Y)
+        {
+			int numFleshVent = 0;
+
+			for (int i = X - 12; i < X + 12; i++)
+			{
+				for (int j = Y - 5; j < Y + 5; j++)
+				{
+					if (Main.tile[i, j].TileType == ModContent.TileType<FleshVent>())
+					{
+						numFleshVent++;
+					}
+				}
+			}
+
+			for (int i = X - 5; i < X + 5; i++)
+            {
+                for (int j = Y - 5; j < Y + 5; j++)
+                {
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<BoneFishTree>() || Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>()))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return numFleshVent <= 0;
         }
 
 		public static bool TryToPlaceHangingFishBone(int X, int Y)
@@ -793,7 +868,7 @@ namespace Spooky.Content.Generation
 			return numAboveTiles < 10 && numTiles >= 120;
 		}
 
-		public bool CanPlaceBiomass(int PositionX, int PositionY, int Distance)
+		public bool CheckForNearbyDungeon(int PositionX, int PositionY, int Distance, bool DoEmptyTileCheck)
 		{
 			for (int i = PositionX - Distance; i <= PositionX + Distance; i++)
 			{
@@ -801,7 +876,7 @@ namespace Spooky.Content.Generation
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (!Main.tile[i, j].HasTile || Main.tileDungeon[Main.tile[i, j].TileType] || Main.wallDungeon[Main.tile[i, j].WallType])
+						if ((DoEmptyTileCheck && !Main.tile[i, j].HasTile) || Main.tileDungeon[Main.tile[i, j].TileType] || Main.wallDungeon[Main.tile[i, j].WallType])
 						{
 							return false;
 						}

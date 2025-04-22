@@ -501,6 +501,8 @@ WormyHead.DisplayName: Wormy Charles
 WormySegment.DisplayName: Wormy Charles
 WormyTail.DisplayName: Wormy Charles
 SeaSpongeProj.DisplayName: Super-Absorbent Sponge
-CemeteryRoseBolt.DisplayName: Wither Bolt
 ConcoctionProj.DisplayName: Acidic Concoction
 ConcoctionAcid.DisplayName: Acid
+CemeteryRosePetal.DisplayName: Withered Petal
+BigBoneBobberProj.DisplayName: Big Bone Bobber
+PumpkinBobberProj.DisplayName: Pumpkin Bobber
