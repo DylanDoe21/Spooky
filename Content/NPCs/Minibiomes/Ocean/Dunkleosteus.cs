@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 	//big dunk could pathfind to the player if they try and dig through the biome, or at least go to the closest node? or potentially come up with another way to discourage breaking blocks
 	public class Dunkleosteus : ModNPC
 	{
-		private readonly PathFinding pathfinder = new PathFinding(20);
+		private readonly PathFinding pathfinder = new PathFinding(30);
 
 		int SyncTimer = 0;
 		int BodyFrame = 0;
@@ -117,7 +117,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
 			NPC.waterMovementSpeed = 1f;
-			NPC.noTileCollide = true;
+			NPC.noTileCollide = false;
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 			NPC.immortal = true;
@@ -392,8 +392,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				NPC.ai[1] = 0;
 				NPC.ai[2] = 0;
 
-				NPC.noTileCollide = true;
-
 				NPC.velocity.Y += 0.4f;
 				NPC.EncourageDespawn(10);
 
@@ -442,7 +440,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			if (NPC.ai[1] > 0 && Aggression <= 0)
 			{
-				NPC.noTileCollide = false;
 				NPC.velocity *= 0.92f;
 
 				NPC.ai[1]++;
@@ -514,11 +511,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				//go to the position
 				else
 				{
-					NPC.noTileCollide = true;
-
 					if (NPC.Distance(PositionGoTo) > 150f)
 					{
-						bool HasLineOfSight = Collision.CanHitLine(PositionGoTo - new Vector2(10, 10), 20, 20, NPC.position, NPC.width, NPC.height);
+						bool HasLineOfSight = Collision.CanHitLine(PositionGoTo - new Vector2(20, 20), 40, 40, NPC.position, NPC.width, NPC.height);
 
 						//only use pathfinding if it doesnt have line of sight to the position
 						if (!HasLineOfSight)
@@ -543,7 +538,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;
 
-				float Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 4.25f : 3.5f;
+				float Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 3.75f : 3.5f;
 
 				//quickly loose aggression if the player leaves the biome
 				if (!TargetedPlayer.InModBiome<ZombieOceanBiome>())
@@ -558,11 +553,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					}
 
 					//only use pathfinding if it doesnt have line of sight to the player
-					bool PlayerLineOfSight = Collision.CanHitLine(TargetedPlayer.position, TargetedPlayer.width, TargetedPlayer.height, NPC.position, NPC.width, NPC.height);
+					bool PlayerLineOfSight = Collision.CanHitLine(TargetedPlayer.Center - new Vector2(10, 10), 20, 20, NPC.position, NPC.width, NPC.height);
 					if (!PlayerLineOfSight)
 					{
-						NPC.noTileCollide = true;
-
 						PathfindingMovement(TargetedPlayer.Center, Speed, 50, 7000, true);
 
 						//decrease aggression timer
@@ -570,8 +563,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					}
 					else
 					{
-						NPC.noTileCollide = false;
-
 						Vector2 desiredVelocity = NPC.DirectionTo(TargetedPlayer.Center) * Speed;
 						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 					}
@@ -698,7 +689,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 											if (FollowingPlayer)
 											{
 												FindClosestNode = true;
-												BiomePositionDistances.Clear();
 												NPC.netUpdate = true;
 											}
 											else
@@ -717,6 +707,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//if for whatever reason the player is not reachable after the above position checks, then attempt to pathfind to the closest "node" position in the biome
 			if (FindClosestNode)
 			{
+				BiomePositionDistances.Clear();
+				
 				//get the distance between the player and every position in the zombie biome and add them to the position distances list
 				foreach (Vector2 pos in Flags.ZombieBiomePositions)
 				{
@@ -744,16 +736,14 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 				NPC.velocity = Vector2.Lerp(NPC.velocity, direction, 0.08f);
 
-				/*
 				//debug to show the calculated path with dusts
 				foreach (PathFinding.FoundPoint point in pathfinder.Path)
 				{
 					var Velocity = PathFinding.ToVector2(point.Direction);
-					int Type = checkPoints.Contains(point) ? point == checkPoints.Last() ? DustID.Poisoned : DustID.GreenFairy : DustID.YellowStarDust;
+					int Type = checkPoints.Contains(point) ? point == checkPoints.Last() ? DustID.GreenFairy : DustID.YellowStarDust : DustID.PinkFairy;
 					var NewDust = Dust.NewDustPerfect(point.Position.ToWorldCoordinates(), Type, Velocity * 2);
 					NewDust.noGravity = true;
 				}
-				*/
 			}
 		}
 

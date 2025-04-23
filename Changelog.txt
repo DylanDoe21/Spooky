@@ -207,6 +207,7 @@ Enemy Changes:
 -Fixed stoned kidney and snotty schnoz UI scaling from the top-left corner instead of the center and their default positions being offset with different UI scales
 -Fixed spooky forest ambient leaf gores being spawned inside of tiles
 -Fixed big bone treasure bag not dropping the flower pot head
+-Fixed little bone and little eye not turning into their shimmered forms correctly
 
 
 Multiplayer:

@@ -50,7 +50,7 @@ namespace Spooky.Core
 				return true;
 			}
 
-			checkingRectangle = GetCheckArea(start, end, new Point16(200, 180));
+			checkingRectangle = GetCheckArea(start, end, new Point16(200, 200));
 			objectSize = objSizeInTiles;
 			posOffset = positionOffset ?? Vector2.Zero;
 

@@ -67,53 +67,28 @@ namespace Spooky.Content.Generation
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
 
-			//left side
-			if (StartPositionX < Main.maxTilesX / 2)
+			//first place a box of sand under the ocean so the rotten depths circle doesnt look out of place
+			int Start = StartPositionX < Main.maxTilesX / 2 ? 10 : Main.maxTilesX - 260;
+			int End = StartPositionX < Main.maxTilesX / 2 ? 260 : Main.maxTilesX - 10;
+
+			for (int i = Start; i <= End; i++)
 			{
-				for (int i = 10; i <= 260; i++)
+				for (int j = 100; j <= StartPositionY; j++)
 				{
-					for (int j = 100; j <= StartPositionY; j++)
+					if (!Main.tileDungeon[Main.tile[i, j].TileType] && !Main.wallDungeon[Main.tile[i, j].WallType] && Main.tile[i, j].TileType != TileID.ShellPile)
 					{
-						if (!Main.tileDungeon[Main.tile[i, j].TileType] && !Main.wallDungeon[Main.tile[i, j].WallType])
+						if (j < Main.worldSurface)
 						{
-							if (j < Main.worldSurface)
-							{
-								if (WorldGen.SolidTile(i, j) || Main.tile[i, j].WallType > 0)
-								{
-									WorldGen.KillTile(i, j);
-									WorldGen.PlaceTile(i, j, TileID.Sand);
-								}
-							}
-							else
+							if (WorldGen.SolidTile(i, j) || Main.tile[i, j].WallType > 0)
 							{
 								WorldGen.KillTile(i, j);
 								WorldGen.PlaceTile(i, j, TileID.Sand);
 							}
 						}
-					}
-				}
-			}
-			else
-			{
-				for (int i = Main.maxTilesX - 260; i <= Main.maxTilesX - 10; i++)
-				{
-					for (int j = 100; j <= StartPositionY; j++)
-					{
-						if (!Main.tileDungeon[Main.tile[i, j].TileType] && !Main.wallDungeon[Main.tile[i, j].WallType])
+						else
 						{
-							if (j < Main.worldSurface)
-							{
-								if (WorldGen.SolidTile(i, j) || Main.tile[i, j].WallType > 0)
-								{
-									WorldGen.KillTile(i, j);
-									WorldGen.PlaceTile(i, j, TileID.Sand);
-								}
-							}
-							else
-							{
-								WorldGen.KillTile(i, j);
-								WorldGen.PlaceTile(i, j, TileID.Sand);
-							}
+							WorldGen.KillTile(i, j);
+							WorldGen.PlaceTile(i, j, TileID.Sand);
 						}
 					}
 				}
@@ -164,9 +139,18 @@ namespace Spooky.Content.Generation
 
 							if (!Main.tileDungeon[tile.TileType] && !Main.wallDungeon[tile.WallType])
 							{
-								if (ReplaceOnly)
+								if (tileType != -1)
 								{
-									if (tile.HasTile)
+									if (ReplaceOnly)
+									{
+										if (tile.HasTile)
+										{
+											WorldGen.KillTile(PositionX, PositionY);
+											tile.TileType = (ushort)tileType;
+											tile.HasTile = true;
+										}
+									}
+									else
 									{
 										WorldGen.KillTile(PositionX, PositionY);
 										tile.TileType = (ushort)tileType;
@@ -176,14 +160,14 @@ namespace Spooky.Content.Generation
 								else
 								{
 									WorldGen.KillTile(PositionX, PositionY);
-									tile.TileType = (ushort)tileType;
-									tile.HasTile = true;
+									tile.LiquidType = LiquidID.Water;
+									tile.LiquidAmount = 255;
 								}
-
-								WorldGen.KillWall(PositionX, PositionY);
 
 								if (Walls)
 								{
+									WorldGen.KillWall(PositionX, PositionY);
+
 									float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(PositionX / 80f, PositionY / 80f, 5, unchecked(Seed + 1)) * 0.01f;
 									float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(PositionX / 300f, PositionY / 1000f, 5, Seed) + 0.5f + horizontalOffsetNoise;
 									float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(PositionX / 300f, PositionY / 1000f, 5, unchecked(Seed - 1)) + 0.5f;
@@ -298,6 +282,7 @@ namespace Spooky.Content.Generation
 							int YOffset = WorldGen.genRand.Next(8, 19);
 
 							SpookyWorldMethods.PlaceOval(i, j + YOffset, -1, 0, OvalSizeX, OvalSizeY, 1f, true, false);
+							PlaceDepthsOval(i, j + YOffset, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), OvalSizeX + 2, OvalSizeY + 2, 1f, true, true);
 
 							Flags.ZombieBiomePositions.Add(new Vector2(i, j + YOffset));
 						}
@@ -399,9 +384,9 @@ namespace Spooky.Content.Generation
 					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 					t = (i + 1) / (float)segments;
 
-					if (CheckForNearbyDungeon((int)Position.X, (int)Position.Y, 20, false))
+					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && CheckForNearbyDungeon((int)Position.X, (int)Position.Y, 20, false))
 					{
-						WorldGen.digTunnel((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), default, default, WorldGen.genRand.Next(3, 5), 5, true);
+						PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), -1, 0, 7, 7, 1f, false, false);
 					}
 				}
 			}
@@ -414,7 +399,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
 				{
-					if (WorldGen.InWorld(i, j, 10))
+					if (WorldGen.InWorld(i, j, 25))
 					{
 						Tile tile = Main.tile[i, j];
 						Tile tileAbove = Main.tile[i, j - 1];
@@ -422,7 +407,7 @@ namespace Spooky.Content.Generation
 
 						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
 						{
-							if (WorldGen.genRand.NextBool(20))
+							if (WorldGen.genRand.NextBool(25))
 							{
 								WorldGen.PlaceObject(i, j - 1, ModContent.TileType<FleshVent>());
 							}
@@ -435,7 +420,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
 				{
-					if (WorldGen.InWorld(i, j, 10))
+					if (WorldGen.InWorld(i, j, 25))
 					{
 						Tile tile = Main.tile[i, j];
 						Tile tileAbove = Main.tile[i, j - 1];
