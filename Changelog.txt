@@ -142,6 +142,7 @@ Miscellaneous:
 -Living flesh armor and weapons now require shadow scales/tissue samples in their crafting recipes instead of demonite/crimtane bars
 -Slightly changed the spooky mod biome compass arrow texture to make it more obvious that its an arrow pointing somewhere
 -Changed spike shell basher into a shield accessory that gives 3 defense and retaliates with harmful spikes when you take damage
+-Trap door spider mount is now lower towards the ground so you can fit in smaller spaces, and made its wall/ceiling clinging mechanic way more lenient and much easier to use
 
 
 ~Enemies & Bosses~
@@ -208,6 +209,8 @@ Enemy Changes:
 -Fixed spooky forest ambient leaf gores being spawned inside of tiles
 -Fixed big bone treasure bag not dropping the flower pot head
 -Fixed little bone and little eye not turning into their shimmered forms correctly
+-Fixed carrion chunker backpack not drawing at the correct position if the player was on mounts
+-Fixed spooky mod relics facing the wrong directions when places
 
 
 Multiplayer:

@@ -16,8 +16,8 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(140, 52, 24));
-            DustType = DustID.Sand;
-			MineResist = 0.65f;
+            DustType = DustID.Blood;
+			HitSound = SoundID.NPCDeath1;
 		}
 	}
 }

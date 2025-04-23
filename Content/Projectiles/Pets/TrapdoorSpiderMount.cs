@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.Pets
 
         private static Asset<Texture2D> LegTexture;
 
-        public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/SpiderMountWalk", SoundType.Sound);
+        public static readonly SoundStyle WalkSound = new("Spooky/Content/Sounds/SpiderWalk", SoundType.Sound);
 
 		protected class SpiderLegData
 		{
@@ -53,14 +53,14 @@ namespace Spooky.Content.Projectiles.Pets
 			MountData.fallDamage = 0f;
 			MountData.totalFrames = 1;
 			MountData.bodyFrame = 3;
-			MountData.heightBoost = 65;
+			MountData.heightBoost = 30;
 			MountData.fatigueMax = 320;
 			MountData.yOffset = 0;
-            MountData.playerHeadOffset = 65;
+            MountData.playerHeadOffset = 30;
 			MountData.usesHover = false;
 			MountData.idleFrameLoop = true;
             MountData.constantJump = false;
-            MountData.playerYOffsets = Enumerable.Repeat(50, MountData.totalFrames).ToArray();
+            MountData.playerYOffsets = Enumerable.Repeat(30, MountData.totalFrames).ToArray();
 			MountData.buff = ModContent.BuffType<TrapdoorSpiderMountBuff>();
 
 			if (!Main.dedServ)
@@ -81,14 +81,16 @@ namespace Spooky.Content.Projectiles.Pets
 			}
 		}
 
+		int grounded = 0;
+
 		public override void UpdateEffects(Player player)
 		{
 			SpiderLegData SpiderLegData = (SpiderLegData)player.mount._mountSpecificData;
 			float standingHeight = 0f;
-			int grounded = 0;
+
 			for (int i = 0; i < SpiderLegData.NumLegs; i++)
 			{
-				Vector2 LegOffsets = new Vector2(((float)(i % 4) - ((float)SpiderLegData.NumLegs / 2f - 0.5f)) * 100f, 0f);
+				Vector2 LegOffsets = new Vector2(((float)(i % 4) - ((float)SpiderLegData.NumLegs / 2f - 0.5f)) * 150f, 0f);
 
 				if (i >= 8)
 				{
@@ -99,19 +101,21 @@ namespace Spooky.Content.Projectiles.Pets
 				int MovingTimer = (int)(((float)Main.GameUpdateCount + MoveDelay / 4f * (float)i) % MoveDelay);
 
 				Vector2 LegDestination = FindAirBlock(LegOffsets * 0.4f, player.Center + SpiderLegData.MountCenter + player.velocity * 10f);
-				Vector2 LegDestinationAir = FindAirBlock(LegOffsets * 0.3f, player.Center + SpiderLegData.MountCenter + new Vector2((player.direction == -1 ? -5f : 5f), 75f));
+				Vector2 LegDestinationAir = FindAirBlock(LegOffsets * 0.3f, player.Center + SpiderLegData.MountCenter + new Vector2((player.direction == -1 ? -5f : 5f), 40f));
 
-				if ((Vector2.Distance(SpiderLegData.AnchorPoint[i], LegDestination) > SpiderLegData.LegFrameHeight || Vector2.Distance(SpiderLegData.AnchorPoint[i], player.Center + SpiderLegData.MountCenter) > SpiderLegData.LegFrameHeight) && MovingTimer == 1)
+				if ((Vector2.Distance(SpiderLegData.AnchorPoint[i], LegDestination) > 5 || Vector2.Distance(SpiderLegData.AnchorPoint[i], player.Center + SpiderLegData.MountCenter) > 5) && MovingTimer == 1)
 				{
 					SpiderLegData.AnchorPoint[i] = FindAnchorTile(LegDestination, 25);
 				}
-				if (!Collision.SolidCollision(SpiderLegData.AnchorPoint[i], 25, 25, true) && !Collision.IsWorldPointSolid(SpiderLegData.AnchorPoint[i], false))
+				if (!Collision.SolidCollision(SpiderLegData.AnchorPoint[i], 1, 1, true) && !Collision.IsWorldPointSolid(SpiderLegData.AnchorPoint[i], false))
 				{
 					SpiderLegData.AnchorPoint[i] = FindAnchorTile(LegDestinationAir, 25);
+
+					if (grounded > 0) grounded--;
 				}
-				if (Collision.SolidCollision(SpiderLegData.AnchorPoint[i], 1, 1, true) || Collision.IsWorldPointSolid(SpiderLegData.AnchorPoint[i], false))
+				else
 				{
-					grounded++;
+					if (grounded < 4) grounded++;
 				}
 
 				float legCorrectionSpeed = 0.6f;
@@ -135,6 +139,7 @@ namespace Spooky.Content.Projectiles.Pets
 			{
 				player.mount._fatigue = 0f;
 			}
+
 			if (grounded >= 2)
 			{
 				TimerForVelocity++;

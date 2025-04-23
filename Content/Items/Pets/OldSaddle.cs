@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.Pets
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 26;
+			Item.width = 30;
 			Item.height = 20;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;

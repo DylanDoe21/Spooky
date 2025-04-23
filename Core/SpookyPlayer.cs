@@ -1253,8 +1253,8 @@ namespace Spooky.Core
                     int xOffset = 10;
 
                     DrawData PlayerBack = new DrawData(SentientLeafBlowerBackTex.Value,
-                    new Vector2((int)(drawInfo.drawPlayer.position.X - Main.screenPosition.X + (drawInfo.drawPlayer.width / 2) - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.position.Y - Main.screenPosition.Y + (drawInfo.drawPlayer.height / 2) + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
-                    new Rectangle(0, 0, SentientLeafBlowerBackTex.Width(), SentientLeafBlowerBackTex.Height()),
+					new Vector2((int)(drawInfo.drawPlayer.MountedCenter.X - Main.screenPosition.X - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.MountedCenter.Y - Main.screenPosition.Y + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
+					new Rectangle(0, 0, SentientLeafBlowerBackTex.Width(), SentientLeafBlowerBackTex.Height()),
                     drawInfo.colorArmorBody,
                     drawInfo.drawPlayer.bodyRotation,
                     new Vector2(SentientLeafBlowerBackTex.Width() / 2, SentientLeafBlowerBackTex.Height() / 2),
@@ -1273,7 +1273,7 @@ namespace Spooky.Core
                     int xOffset = 5;
 
                     DrawData PlayerBack = new DrawData(HazmatArmorBackTex.Value,
-                    new Vector2((int)(drawInfo.drawPlayer.position.X - Main.screenPosition.X + (drawInfo.drawPlayer.width / 2) - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.position.Y - Main.screenPosition.Y + (drawInfo.drawPlayer.height / 2) + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
+                    new Vector2((int)(drawInfo.drawPlayer.MountedCenter.X - Main.screenPosition.X - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.MountedCenter.Y - Main.screenPosition.Y + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
                     new Rectangle(0, 0, HazmatArmorBackTex.Width(), HazmatArmorBackTex.Height()),
                     drawInfo.colorArmorBody,
                     drawInfo.drawPlayer.bodyRotation,
