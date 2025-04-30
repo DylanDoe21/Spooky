@@ -534,3 +534,13 @@ SeaSpongeBuff: {
 	DisplayName: Scrubby Absorption
 	Description: 15% increased damage reduction
 }
+
+CemeteryLilyBuff: {
+	DisplayName: Lily Rebirth
+	Description: 10% increased damage, crit chance, and damage reduction
+}
+
+CucumberStomachDebuff: {
+	DisplayName: Cucumber Stomach Debuff
+	Description: ""
+}

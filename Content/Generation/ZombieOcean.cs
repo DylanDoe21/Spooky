@@ -14,6 +14,7 @@ using Spooky.Core;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Ambient;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Tree;
+using Terraria.Utilities;
 
 namespace Spooky.Content.Generation
 {
@@ -35,12 +36,14 @@ namespace Spooky.Content.Generation
 
 		List<int> BiomePositionDistances = new List<int>();
 
-		static int StartPositionX;
-		static int StartPositionY;
+		public static int StartPositionX;
+		public static int StartPositionY;
 
-		private void PlaceZombieOcean(GenerationProgress progress, GameConfiguration configuration)
+		int numLabs = 0;
+
+		private void DecideZombieOceanPosition(GenerationProgress progress, GameConfiguration configuration)
 		{
-			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.ZombieOcean").Value;
+			numLabs = 0;
 
 			//random worldside (default option)
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.Random)
@@ -57,8 +60,13 @@ namespace Spooky.Content.Generation
 			{
 				StartPositionX = GenVars.dungeonSide < 0 ? 185 : Main.maxTilesX - 175;
 			}
+		}
 
-			StartPositionY = (int)Main.worldSurface + 100;
+		private void PlaceZombieOcean(GenerationProgress progress, GameConfiguration configuration)
+		{
+			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.ZombieOcean").Value;
+
+			StartPositionY = (int)Main.worldSurface + 120;
 
 			Flags.ZombieBiomePositions.Clear();
 
@@ -103,12 +111,17 @@ namespace Spooky.Content.Generation
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
-			/*
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
-				PlaceLabs((int)Flags.ZombieBiomePositions[i].X, (int)Flags.ZombieBiomePositions[i].Y);
+				if (numLabs < 5)
+				{
+					PlaceLabs((int)Flags.ZombieBiomePositions[i].X, (int)Flags.ZombieBiomePositions[i].Y);
+				}
+				else
+				{
+					break;
+				}
 			}
-			*/
 			for (double i = 0.5; i < 1; i += 0.00001)
 			{
 				progress.Set(i);
@@ -196,12 +209,12 @@ namespace Spooky.Content.Generation
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (WorldGen.genRand.NextBool(65) && CheckForNearbyDungeon(i, j, 7, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
+						if (WorldGen.genRand.NextBool(65) && NoDungeonBlocksNearby(i, j, 7, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
 						{
 							WorldGen.TileRunner(i, j, WorldGen.genRand.Next(8, 15), WorldGen.genRand.Next(7, 30), ModContent.TileType<OceanMeat>());
 						}
 
-						if (WorldGen.genRand.NextBool(4) && CheckForNearbyDungeon(i, j, 2, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !Main.tile[i, j - 3].HasTile)
+						if (WorldGen.genRand.NextBool(4) && NoDungeonBlocksNearby(i, j, 2, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !Main.tile[i, j - 3].HasTile)
 						{
 							SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<OceanBiomass>(), 0, 6, 4, 1f, true, false);
 							SpookyWorldMethods.PlaceOval(i, j - 3, -1, ModContent.WallType<OceanBiomassWall>(), 8, 5, 1f, false, false);
@@ -274,7 +287,7 @@ namespace Spooky.Content.Generation
 							continue;
 						}
 
-						if (WorldGen.InWorld(i, j, 80) && CheckForNearbyDungeon(i, j, 20, false))
+						if (WorldGen.InWorld(i, j, 80) && NoDungeonBlocksNearby(i, j, 20, false))
 						{
 							int OvalSizeX = WorldGen.genRand.Next(16, 19);
 							int OvalSizeY = WorldGen.genRand.Next(8, 14);
@@ -371,7 +384,7 @@ namespace Spooky.Content.Generation
 						Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 						t = (i + 1) / (float)segments;
 
-						if (CheckForNearbyDungeon((int)Position.X, (int)Position.Y, 20, false) && Main.tile[(int)Position.X, (int)Position.Y].HasTile)
+						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 20, false))
 						{
 							PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, false, true);
 						}
@@ -384,9 +397,10 @@ namespace Spooky.Content.Generation
 					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 					t = (i + 1) / (float)segments;
 
-					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && CheckForNearbyDungeon((int)Position.X, (int)Position.Y, 20, false))
+					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 20, false))
 					{
-						PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), -1, 0, 7, 7, 1f, false, false);
+						int Size = GoingToSurface ? 5 : 7;
+						PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), -1, 0, Size, Size, 1f, false, false);
 					}
 				}
 			}
@@ -407,7 +421,7 @@ namespace Spooky.Content.Generation
 
 						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
 						{
-							if (WorldGen.genRand.NextBool(25))
+							if (WorldGen.genRand.NextBool(32))
 							{
 								WorldGen.PlaceObject(i, j - 1, ModContent.TileType<FleshVent>());
 							}
@@ -557,9 +571,10 @@ namespace Spooky.Content.Generation
         {
 			int numFleshVent = 0;
 
-			for (int i = X - 10; i < X + 10; i++)
+			//only allow them to place nearby thermal vents
+			for (int i = X - 10; i <= X + 10; i++)
 			{
-				for (int j = Y - 5; j < Y + 5; j++)
+				for (int j = Y - 5; j <= Y + 5; j++)
 				{
 					if (Main.tile[i, j].TileType == ModContent.TileType<FleshVent>())
 					{
@@ -568,11 +583,12 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = X - 2; i < X + 2; i++)
+			//dont allow tube worms to place too close to each other
+			for (int i = X - 1; i <= X + 1; i++)
             {
-                for (int j = Y - 2; j < Y + 2; j++)
+                for (int j = Y - 1; j <= Y + 1; j++)
                 {
-					if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>())
+					if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>() || Main.tile[i, j].TileType == ModContent.TileType<FleshVent>()))
                     {
                         return false;
                     }
@@ -782,8 +798,10 @@ namespace Spooky.Content.Generation
 				{
 					PlaceDepthsOval(PositionX, PositionY + 11, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 13, 7, 1f, true, false);
 
-					Vector2 LabOrigin = new Vector2(PositionX - 11, PositionY - 5);
-					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/OceanLab-" + WorldGen.genRand.Next(1, 7) + ".shstruct", LabOrigin.ToPoint16(), Mod);
+					Vector2 LabOrigin = new Vector2(PositionX - 18, PositionY - 5);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/LabPlaceholder.shstruct", LabOrigin.ToPoint16(), Mod);
+
+					numLabs++;
 				}
 			}
 		}
@@ -811,7 +829,7 @@ namespace Spooky.Content.Generation
 			//downward box check to make sure theres enough solid floor
 			for (int x = PositionX - 10; x < PositionX + 10; x++)
 			{
-				for (int y = PositionY; y < PositionY + 8; y++)
+				for (int y = PositionY; y < PositionY + 30; y++)
 				{
 					if (WorldGen.InWorld(x, y, 10))
 					{
@@ -836,7 +854,7 @@ namespace Spooky.Content.Generation
 			}
 
 			//dont allow labs to place too close to each other
-			for (int i = PositionX - 35; i < PositionX + 35; i++)
+			for (int i = PositionX - 50; i < PositionX + 50; i++)
 			{
 				for (int j = PositionY - 35; j < PositionY + 35; j++)
 				{
@@ -850,10 +868,10 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			return numAboveTiles < 10 && numTiles >= 120;
+			return numAboveTiles < 10 && numTiles >= 470;
 		}
 
-		public bool CheckForNearbyDungeon(int PositionX, int PositionY, int Distance, bool DoEmptyTileCheck)
+		public bool NoDungeonBlocksNearby(int PositionX, int PositionY, int Distance, bool DoEmptyTileCheck)
 		{
 			for (int i = PositionX - Distance; i <= PositionX + Distance; i++)
 			{
@@ -874,13 +892,23 @@ namespace Spooky.Content.Generation
 
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
-			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Remove Broken Traps"));
+			//Create Ocean Caves is the gen step right before shimmer
+			//This is to decide the position of the biome first because the shimmer needs to be moved based on what side of the world it will generate on to prevent the shimmer from being destroyed
+			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Create Ocean Caves"));
 			if (GenIndex1 == -1)
 			{
 				return;
 			}
 
-			tasks.Insert(GenIndex1 + 1, new PassLegacy("Rotten Depths", PlaceZombieOcean));
+			tasks.Insert(GenIndex1 + 1, new PassLegacy("Rotten Depths Position", DecideZombieOceanPosition));
+
+			int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Remove Broken Traps"));
+			if (GenIndex2 == -1)
+			{
+				return;
+			}
+
+			tasks.Insert(GenIndex2 + 1, new PassLegacy("Rotten Depths", PlaceZombieOcean));
 		}
 	}
 }

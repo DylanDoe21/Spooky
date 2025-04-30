@@ -1,32 +1,33 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Spooky.Content.Projectiles.SpiderCave
+using Spooky.Core;
+
+namespace Spooky.Content.Projectiles.Blooms
 {
-    public class OrbWeaverShieldSpike : ModProjectile
+    public class HeadUrchinSpike : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
         {
             Projectile.width = 14;
-            Projectile.height = 28;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.height = 14;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 1800;
-			Projectile.penetrate = 2;
+            Projectile.timeLeft = 240;
+            Projectile.aiStyle = -1;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -34,8 +35,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
-
-            var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
@@ -49,19 +48,51 @@ namespace Spooky.Content.Projectiles.SpiderCave
             return true;
         }
 
-        public override void AI()       
+		public override bool? CanDamage()
+		{
+			return Projectile.velocity.Y > 0;
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			target.AddBuff(BuffID.Venom, 180);
+		}
+
+        public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.32f;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
+
+            int foundTarget = HomeOnTarget();
+            if (foundTarget != -1)
+            {
+                NPC target = Main.npc[foundTarget];
+                Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 20;
+                Projectile.velocity.X = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20).X;
+            }
         }
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+        private int HomeOnTarget()
+        {
+            const float homingMaximumRangeInPixels = 500;
 
-			return true;
-		}
+            int selectedTarget = -1;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC target = Main.npc[i];
+                if (target.CanBeChasedBy(Projectile))
+                {
+                    float distance = Projectile.Distance(target.Center);
+                    if (distance <= homingMaximumRangeInPixels && (selectedTarget == -1 || Projectile.Distance(Main.npc[selectedTarget].Center) > distance))
+                    {
+                        selectedTarget = i;
+                    }
+                }
+            }
+
+            return selectedTarget;
+        }
     }
 }

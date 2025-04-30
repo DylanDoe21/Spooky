@@ -11,9 +11,10 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(70, 5, 5));
+            RegisterItemDrop(ModContent.ItemType<ChristmasBrickWallItem>());
             DustType = -1;
         }
-    }
+	}
 
     public class ChristmasBrickWallAlt : ModWall 
     {
@@ -21,9 +22,10 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(27, 33, 81));
+            RegisterItemDrop(ModContent.ItemType<ChristmasBrickWallAltItem>());
             DustType = -1;
         }
-    }
+	}
 
     public class ChristmasBrickWallSafe : ModWall 
     {

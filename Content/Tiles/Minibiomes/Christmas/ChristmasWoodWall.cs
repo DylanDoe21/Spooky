@@ -11,6 +11,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(108, 50, 21));
+            RegisterItemDrop(ModContent.ItemType<ChristmasWoodWallItem>());
             DustType = DustID.WoodFurniture;
         }
     }

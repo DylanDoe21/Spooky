@@ -29,7 +29,7 @@ namespace Spooky.Content.Items.Blooms
             Item.consumable = true;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.rare = ModContent.RarityType<BloomSpringRarity>();
+            Item.rare = ModContent.RarityType<BloomRarity>();
 			Item.UseSound = SoundID.Item2;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.maxStack = 9999;
@@ -43,8 +43,13 @@ namespace Spooky.Content.Items.Blooms
 
 		public override bool? UseItem(Player player)
 		{
-			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("CemeteryLily", 18000);
-			player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives = 2;
+			player.GetModPlayer<BloomBuffsPlayer>().AddBuffToList("CemeteryLily", 10800);
+
+            //dont increase the revive amount if the player already has revives to prevent abusing the mechanic
+            if (player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives <= 0)
+            {
+			    player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives = 3;
+            }
 
 			return true;
 		}

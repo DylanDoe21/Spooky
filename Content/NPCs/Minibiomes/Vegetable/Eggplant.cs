@@ -2,17 +2,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.Minibiomes.Vegetable;
-using Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles;
 
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 {
@@ -199,6 +197,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
             }
 		}
 
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantMulch>(), 3, 1, 2));
+        }
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0)
@@ -251,11 +254,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
 			if (NPC.ai[0] == 0)
 			{
-				int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<Eggplant>(), ai1: NPC.whoAmI);
+				int Eggplant = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 50, ModContent.NPCType<Eggplant>(), ai1: NPC.whoAmI);
 
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+					NetMessage.SendData(MessageID.SyncNPC, number: Eggplant);
 				}
 
 				NPC.ai[0]++;

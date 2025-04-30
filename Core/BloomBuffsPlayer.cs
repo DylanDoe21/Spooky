@@ -8,14 +8,12 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
-using System.Text;
-using Spooky.Content.Buffs;
-using Spooky.Content.Items.BossBags.Accessory;
-using rail;
-using static System.Net.Mime.MediaTypeNames;
+using Spooky.Content.Items.SpookyHell.EggEvent;
+using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Core
 {
@@ -36,10 +34,6 @@ namespace Spooky.Core
         public float UITransparency = 0f;
 
 		//bools for each edible bloom
-		public bool HasSpringBloom = false;
-		public bool HasSummerBloom = false;
-		public bool HasFallBloom = false;
-		public bool HasWinterBloom = false;
         public bool FallGourd = false;
         public bool FallSoulPumpkin = false;
         public bool FallWaterGourd = false;
@@ -94,34 +88,14 @@ namespace Spooky.Core
 		public int DragonFruitTimer = 0;
 		public int DragonfruitStacks = 0;
 		public int CemeteryLilyRevives = 0;
+		public int FossilBlackPepperTimer = 0;
+		public int FossilBlackPepperStacks = 0;
+		public int CemeteryMarigoldTimer = 0;
 
 		//accessories
 		public bool Wormy = false;
 		public bool FarmerGlove = false;
 		public bool TheMask = false;
-
-		//seasonal blooms lists
-		string[] SpringBlooms = new string[]
-		{
-			"CemeteryLily", "CemeteryMarigold", "CemeteryPoppy", "CemeteryRose",
-			"DandelionHerd", "DandelionMapleSeed", "DandelionTumbleweed",
-			"SpringHeartFlower", "SpringIris", "SpringOrchid", "SpringRose"
-		};
-		string[] SummerBlooms = new string[]
-		{
-			"VegetableCauliflower", "VegetableEggplantPaint", "VegetablePepper", "VegetableRomanesco",
-			"SummerLemon", "SummerOrange", "SummerPineapple", "SummerSunflower"
-		};
-		string[] FallBlooms = new string[]
-		{
-			"FallGourd", "FallSoulPumpkin", "FallWaterGourd", "FallZucchini",
-			"FossilBlackPepper", "FossilDutchmanPipe", "FossilMagnolia", "FossilProtea"
-		};
-		string[] WinterBlooms = new string[]
-		{
-			"WinterBlackberry", "WinterBlueberry", "WinterGooseberry", "WinterStrawberry",
-			"SeaBarnacle", "SeaCucumber", "SeaSponge", "SeaUrchin"
-		};
 
 		//UI default position
 		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
@@ -324,11 +298,6 @@ namespace Spooky.Core
 			CemeteryMarigold = BloomBuffSlots.Contains("CemeteryMarigold");
 			CemeteryPoppy = BloomBuffSlots.Contains("CemeteryPoppy");
 			CemeteryRose = BloomBuffSlots.Contains("CemeteryRose");
-
-			HasSpringBloom = BloomBuffSlots.Any(x => SpringBlooms.Any(y => y == x));
-			HasSummerBloom = BloomBuffSlots.Any(x => SummerBlooms.Any(y => y == x));
-			HasFallBloom = BloomBuffSlots.Any(x => FallBlooms.Any(y => y == x));
-			HasWinterBloom = BloomBuffSlots.Any(x => WinterBlooms.Any(y => y == x));
         }
 
         //handler for the buffs duration decreasing over time and setting each buff slot back to blank if the duration of that buff slot runs out
@@ -393,9 +362,32 @@ namespace Spooky.Core
 
 		public override void OnHurt(Player.HurtInfo info)
 		{
+			//fire off venom spines when hit with the sea urchin
+			if (SeaUrchin)
+			{
+				ModContent.GetInstance<HeadUrchin>().stretchRecoil = Main.rand.NextFloat(0.5f, 0.75f);
+
+				int MinDamage = Main.raining ? 50 : 30; //minimum damage, increases while raining
+				float DamageMultiplier = Main.raining ? 1f : 0.75f; //damage multiplier, while raining it does full damage
+
+				float Damage = info.Damage < MinDamage ? MinDamage * DamageMultiplier : info.Damage * DamageMultiplier;
+
+				for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
+				{
+					Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Top, 12f * Player.DirectionTo(Player.Top).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
+					ModContent.ProjectileType<HeadUrchinSpike>(), (int)Damage, 4.5f, Player.whoAmI);
+				}
+			}
+
+			//cemetery rose spawns a circle of withered petals on hit
 			if (CemeteryRose)
 			{
 				SoundEngine.PlaySound(SoundID.Zombie21 with { Volume = 0.5f, Pitch = 1.05f }, Player.Center);
+
+				int MinDamage = 30; //minimum damage
+				float DamageMultiplier = 0.5f; //damage multiplier, each petal should do half damage
+
+				float Damage = info.Damage < MinDamage ? MinDamage * DamageMultiplier : info.Damage * DamageMultiplier;
 
 				float maxAmount = 5;
 				int currentAmount = 0;
@@ -410,9 +402,7 @@ namespace Spooky.Core
 					vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
 					Vector2 ShootVelocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
 
-					int Damage = info.Damage < 30 ? 30 : info.Damage;
-
-					Projectile.NewProjectile(null, Player.Center, ShootVelocity, ModContent.ProjectileType<CemeteryRosePetal>(), Damage, 4.5f, Player.whoAmI);
+					Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center, ShootVelocity, ModContent.ProjectileType<CemeteryRosePetal>(), (int)Damage, 4.5f, Player.whoAmI);
 
 					currentAmount++;
 				}
@@ -426,15 +416,20 @@ namespace Spooky.Core
 			//spring lily revive ability
 			if (Player.statLife <= 0)
 			{
-				if (CemeteryLily && CemeteryLilyRevives > 0)
+				if (CemeteryLily)
 				{
-					SoundEngine.PlaySound(SoundID.Item103, Player.Center);
-					//Player.AddBuff(ModContent.BuffType<EmbryoRevival>(), 300);
-					Player.immuneTime += 60;
 					Player.statLife = Player.statLifeMax2;
 
-					CemeteryLilyRevives--;
-					ShouldPlayerDie = false;
+					if (CemeteryLilyRevives > 0)
+					{
+						SoundEngine.PlaySound(SoundID.Item103, Player.Center);
+						Player.AddBuff(ModContent.BuffType<CemeteryLilyBuff>(), 900);
+						Player.immuneTime += 60;
+						Player.statLife = Player.statLifeMax2;
+
+						CemeteryLilyRevives--;
+						ShouldPlayerDie = false;
+					}
 				}
 			}
 
@@ -669,13 +664,58 @@ namespace Spooky.Core
 				DragonFruitTimer = 0;
 			}
 
+			//spawn cucumber stomach when a valid enemy is nearby
+			if (SeaCucumber)
+			{
+				NPC Target = null;
+
+				if (Target == null)
+				{
+					//prioritize bosses over normal enemies
+					for (int i = 0; i < Main.maxNPCs; i++)
+					{
+						NPC NPC = Main.npc[i];
+
+						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && (NPC.boss || NPC.IsTechnicallyBoss()) && Vector2.Distance(Player.Center, NPC.Center) <= 350f)
+						{
+							Target = NPC;
+							break;
+						}
+					}
+
+					//target an enemy
+					for (int i = 0; i < Main.maxNPCs; i++)
+					{
+						NPC NPC = Main.npc[i];
+
+						//if no boss is found, target other enemies normally
+						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 350f)
+						{
+							Target = NPC;
+							break;
+						}
+					}
+				}
+				
+				if (Target != null)
+				{
+					if (Player.ownedProjectileCounts[ModContent.ProjectileType<CucumberStomach>()] < 1)
+					{
+						SoundEngine.PlaySound(SoundID.Item111 with { Pitch = -1f }, Player.Center);
+
+						Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<CucumberStomach>(), 0, 0, Player.whoAmI, 0, 0, Target.whoAmI);
+					}
+				}
+			}
+
+			//sea sponge gives you a chance to absorb hostile projectiles
 			if (SeaSponge)
 			{
 				foreach (var Proj in Main.ActiveProjectiles)
 				{
 					if (Player.Distance(Proj.Center) < 100f && Proj.hostile && Proj.damage > 0 && Proj.CanHitWithOwnBody(Player) && !Proj.GetGlobalProjectile<ProjectileGlobal>().SpongeAbsorbAttempt)
 					{
-						int ChanceToAbsorb = ((Main.raining && Player.ZoneOverworldHeight) || Player.wet) ? 18 : 25;
+						int ChanceToAbsorb = Main.raining ? 18 : 25;
 
 						if (Main.rand.NextBool(ChanceToAbsorb))
 						{
@@ -692,7 +732,57 @@ namespace Spooky.Core
 					}
 				}
 			}
-        }
+
+			//spawn multiple strawberry items with the winter strawberry
+			if (FossilBlackPepper)
+			{
+				if (FossilBlackPepperStacks < 10)
+				{
+					FossilBlackPepperTimer++;
+
+					int TimeToSpawnPebble = 3540 + Player.statDefense;
+
+					if (FossilBlackPepperTimer >= TimeToSpawnPebble)
+					{
+						Projectile.NewProjectile(null, Player.Center, new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, -2)), ModContent.ProjectileType<FossilBlackPepperPebble>(), 0, 0, Player.whoAmI, ai2: Main.rand.Next(0, 2));
+
+						FossilBlackPepperTimer = 0;
+					}
+				}
+			}
+			else
+			{
+				FossilBlackPepperTimer = 0;
+				FossilBlackPepperStacks = 0;
+			}
+
+			//spawn growing marigolds with the cemetery marigold
+			if (CemeteryMarigold)
+			{
+				//do not shoot under 10mph
+				if (SpookyPlayer.PlayerSpeedToMPH(Player) >= 10)
+				{
+					CemeteryMarigoldTimer++;
+
+					if (CemeteryMarigoldTimer >= 75)
+					{
+						SoundEngine.PlaySound(SoundID.DD2_SkeletonSummoned with { Volume = 0.5f, Pitch = 1.2f }, Player.Center);
+
+						//scale the damage based on the player's current speed
+						int damage = 40 + ((int)SpookyPlayer.PlayerSpeedToMPH(Player) / 3);
+
+						int Marigold = Projectile.NewProjectile(null, Player.Bottom, new Vector2(0, -6), ModContent.ProjectileType<CemeteryMarigoldProj>(), damage, 0f, Player.whoAmI);
+						Main.projectile[Marigold].scale = 0f;
+
+						CemeteryMarigoldTimer = 0;
+					}
+				}
+			}
+			else
+			{
+				CemeteryMarigoldTimer = 0;
+			}
+		}
 
 		public override void PostUpdateEquips()
 		{
@@ -755,49 +845,33 @@ namespace Spooky.Core
 				Player.endurance -= 0.15f;
 			}
 
+			//fossil black pepper gives defense based on the stack count, 2 defense for each stack
+			if (FossilBlackPepper && FossilBlackPepperStacks > 0)
+			{
+				Player.statDefense += FossilBlackPepperStacks * 2;
+			}
+
 			//farmer glove grants attack speed for each occupied bloom buff slot
 			if (FarmerGlove)
 			{
-				if (BloomBuffSlots[0] != string.Empty)
+				foreach (string var in BloomBuffSlots)
 				{
-					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
-					Player.moveSpeed += 0.15f;
-				}
-				if (BloomBuffSlots[1] != string.Empty)
-				{
-					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
-					Player.moveSpeed += 0.15f;
-				}
-				if (BloomBuffSlots[2] != string.Empty)
-				{
-					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
-					Player.moveSpeed += 0.15f;
-				}
-				if (BloomBuffSlots[3] != string.Empty)
-				{
-					Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
-					Player.moveSpeed += 0.15f;
+					if (var != string.Empty)
+					{
+						Player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
+					}
 				}
 			}
 
 			//mask grants defense for each occupied bloom buff slot
 			if (TheMask)
 			{
-				if (BloomBuffSlots[0] != string.Empty)
+				foreach (string var in BloomBuffSlots)
 				{
-					Player.statDefense += 5;
-				}
-				if (BloomBuffSlots[1] != string.Empty)
-				{
-					Player.statDefense += 5;
-				}
-				if (BloomBuffSlots[2] != string.Empty)
-				{
-					Player.statDefense += 5;
-				}
-				if (BloomBuffSlots[3] != string.Empty)
-				{
-					Player.statDefense += 5;
+					if (var != string.Empty)
+					{
+						Player.statDefense += 5;
+					}
 				}
 			}
 		}
@@ -900,6 +974,8 @@ namespace Spooky.Core
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
+			//spawn cauliflower on hit with whips with the vegetable cauliflower
+			//had to do it in OnHitNPCWithProj so that the projectile can use the whips base damage since they have damage falloff when they hit mutliple enemies
 			if (VegetableCauliflower && Main.rand.NextBool(10) && hit.DamageType == DamageClass.SummonMeleeSpeed)
 			{
 				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, new Vector2(0, -5), ModContent.ProjectileType<Cauliflower>(), proj.damage, proj.knockBack, Player.whoAmI, Main.rand.Next(0, 3));

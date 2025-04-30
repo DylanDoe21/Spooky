@@ -26,6 +26,11 @@ namespace Spooky.Content.Items.Fishing
             return true;
         }
 
+        public override bool IsAnglerQuestAvailable()
+        {
+            return true;
+        }
+
         public override void AnglerQuestChat(ref string description, ref string catchLocation) 
         {
             description = Language.GetTextValue("Mods.Spooky.AnglerQuest.Tarpon.Description");

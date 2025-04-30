@@ -57,31 +57,8 @@ namespace Spooky.Content.Projectiles.Blooms
                 {
                     if (i < segments.Count)
                     {
-						Vector2 drawOrigin = new(BodyTexture.Width() * 0.5f, BodyTexture.Height() / 5 * 0.5f);
-						Rectangle rectangle = new(0, (BodyTexture.Height() / 5) * 0, BodyTexture.Width(), BodyTexture.Height() / 5);
-
-						if (player.GetModPlayer<BloomBuffsPlayer>().HasWinterBloom && i == 2)
-						{
-							rectangle = new(0, (BodyTexture.Height() / 5) * 1, BodyTexture.Width(), BodyTexture.Height() / 5);
-						}
-
-						if (player.GetModPlayer<BloomBuffsPlayer>().HasFallBloom && i == 4)
-						{
-							rectangle = new(0, (BodyTexture.Height() / 5) * 2, BodyTexture.Width(), BodyTexture.Height() / 5);
-						}
-
-						if (player.GetModPlayer<BloomBuffsPlayer>().HasSpringBloom && i == 6)
-						{
-							rectangle = new(0, (BodyTexture.Height() / 5) * 3, BodyTexture.Width(), BodyTexture.Height() / 5);
-						}
-
-						if (player.GetModPlayer<BloomBuffsPlayer>().HasSummerBloom && i == 8)
-						{
-							rectangle = new(0, (BodyTexture.Height() / 5) * 4, BodyTexture.Width(), BodyTexture.Height() / 5);
-						}
-
-						Main.EntitySpriteDraw(BodyTexture.Value, segments[i].Center - Main.screenPosition, rectangle, segments[i].GetAlpha(lightColor),
-                        segments[i].rotation + MathHelper.Pi / 2f, drawOrigin, segments[i].scale, SpriteEffects.None, 0);
+						Main.EntitySpriteDraw(BodyTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
+                        segments[i].rotation + MathHelper.Pi / 2f, BodyTexture.Size() / 2f, segments[i].scale, SpriteEffects.None, 0);
                     }
                     else
                     {
@@ -101,26 +78,6 @@ namespace Spooky.Content.Projectiles.Blooms
         {
             return false;
         }
-
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			Player player = Main.player[Projectile.owner];
-
-			if (player.GetModPlayer<BloomBuffsPlayer>().HasSpringBloom)
-			{
-				int LifeHealed = Main.rand.Next(2, 5);
-				player.statLife += LifeHealed;
-			    player.HealEffect(LifeHealed, true);
-			}
-			if (player.GetModPlayer<BloomBuffsPlayer>().HasSummerBloom && Main.rand.NextBool(3))
-			{
-				target.AddBuff(BuffID.OnFire, 300);
-			}
-			if (player.GetModPlayer<BloomBuffsPlayer>().HasWinterBloom && Main.rand.NextBool(3))
-			{
-				target.AddBuff(BuffID.Frostburn, 300);
-			}
-		}
 
 		public override void AI()
         {

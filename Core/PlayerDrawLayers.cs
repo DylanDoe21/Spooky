@@ -113,6 +113,75 @@ namespace Spooky.Core
         }
     }
 
+	public class HeadUrchin : PlayerDrawLayer
+	{
+		public float addedStretch = 0f;
+		public float stretchRecoil = 0f;
+
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.FinchNest);
+
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+		{
+			return drawInfo.drawPlayer.GetModPlayer<BloomBuffsPlayer>().SeaUrchin && !drawInfo.drawPlayer.dead;
+		}
+
+		protected override void Draw(ref PlayerDrawSet drawInfo)
+		{
+			if (drawInfo.drawPlayer.dead)
+			{
+				return;
+			}
+
+			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/HeadUrchin").Value;
+
+			float stretch = 0f;
+
+			stretch = Math.Abs(stretch) - addedStretch;
+
+			//limit how much it can stretch
+			if (stretch > 0.5f)
+			{
+				stretch = 0.5f;
+			}
+
+			//limit how much it can squish
+			if (stretch < -0.5f)
+			{
+				stretch = -0.5f;
+			}
+
+			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+
+			//stretch stuff
+			if (stretchRecoil > 0)
+			{
+				stretchRecoil -= 0.02f;
+			}
+			else
+			{
+				stretchRecoil = 0;
+			}
+
+			addedStretch = -stretchRecoil;
+
+			//copied from vanilla finch minion nest drawing
+			Rectangle bodyFrame5 = new Rectangle(0, 0, tex.Width, tex.Height);
+			bodyFrame5.Y = 0;
+			Vector2 vector6 = new Vector2(0f, drawInfo.drawPlayer.gravDir == 1 ? -8f : 0f);
+			Color color8 = drawInfo.colorArmorHead;
+			if (drawInfo.drawPlayer.mount.Active && drawInfo.drawPlayer.mount.Type == 52)
+			{
+				Vector2 mountedCenter = drawInfo.drawPlayer.MountedCenter;
+				color8 = drawInfo.drawPlayer.GetImmuneAlphaPure(Lighting.GetColorClamped((int)mountedCenter.X / 16, (int)mountedCenter.Y / 16, Color.White), drawInfo.shadow);
+				vector6 = new Vector2(0f, -2f) * drawInfo.drawPlayer.Directions;
+			}
+			DrawData item = new DrawData(tex, vector6 + new Vector2((int)(drawInfo.Position.X - Main.screenPosition.X - (drawInfo.drawPlayer.bodyFrame.Width / 2) + (drawInfo.drawPlayer.width / 2)), 
+			(int)(drawInfo.Position.Y - Main.screenPosition.Y + drawInfo.drawPlayer.height - drawInfo.drawPlayer.bodyFrame.Height + 4f)) + drawInfo.drawPlayer.headPosition + drawInfo.headVect + Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height] * drawInfo.drawPlayer.gravDir, 
+			bodyFrame5, color8, drawInfo.drawPlayer.headRotation, drawInfo.headVect, scaleStretch, drawInfo.playerEffect);
+			drawInfo.DrawDataCache.Add(item);
+		}
+	}
+
     //cross charm drawing
     public class CrossCharmShield : PlayerDrawLayer
     {

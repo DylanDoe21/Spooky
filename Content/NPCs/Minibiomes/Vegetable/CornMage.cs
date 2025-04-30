@@ -135,6 +135,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantMulch>(), 3, 1, 4));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CornStaff>(), 30));
         }
 

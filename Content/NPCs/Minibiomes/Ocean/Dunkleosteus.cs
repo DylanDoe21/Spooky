@@ -20,12 +20,10 @@ using Spooky.Content.Tiles.Minibiomes.Ocean;
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
 	//TODO: 
-	//implement behavior for big dunk to roar and stop chasing the player when the player cant be pathfinded to instead of going to the closest node
-	//implement behavior for big dunk getting distracted with bait, should make him pathfind to an existing bait if hes close enough to it
 	//big dunk could pathfind to the player if they try and dig through the biome, or at least go to the closest node? or potentially come up with another way to discourage breaking blocks
 	public class Dunkleosteus : ModNPC
 	{
-		private readonly PathFinding pathfinder = new PathFinding(30);
+		private readonly PathFinding pathfinder = new PathFinding(15);
 
 		int SyncTimer = 0;
 		int BodyFrame = 0;
@@ -110,14 +108,15 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		public override void SetDefaults()
 		{
 			NPC.lifeMax = 10000;
-			NPC.damage = 100;
+			NPC.damage = 150;
 			NPC.defense = 9999;
 			NPC.width = 90;
 			NPC.height = 90;
 			NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
 			NPC.waterMovementSpeed = 1f;
-			NPC.noTileCollide = false;
+			NPC.SuperArmor = true;
+			NPC.noTileCollide = true;
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 			NPC.immortal = true;
@@ -133,7 +132,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Dunkleosteus"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ZombieOceanBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ZombieOceanBiome>().ModBiomeBestiaryInfoElement),
 			});
 		}
 
@@ -260,6 +259,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			{
 				NPC.ai[1] = 1;
 			}
+		}
+
+		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+		{
+			hurtInfo.Damage = NPC.defDamage;
 		}
 
 		public override bool CheckActive()
@@ -497,7 +501,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				{
 					int randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
 
-					while (NPC.Distance(Flags.ZombieBiomePositions[randomPoint] * 16) > 2000f)
+					while (NPC.Distance(Flags.ZombieBiomePositions[randomPoint] * 16) > 3500f)
 					{
 						randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
 					}
@@ -513,18 +517,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				{
 					if (NPC.Distance(PositionGoTo) > 150f)
 					{
-						bool HasLineOfSight = Collision.CanHitLine(PositionGoTo - new Vector2(20, 20), 40, 40, NPC.position, NPC.width, NPC.height);
-
-						//only use pathfinding if it doesnt have line of sight to the position
-						if (!HasLineOfSight)
-						{
-							PathfindingMovement(PositionGoTo, 2.5f, 20, 7000, false);
-						}
-						else
-						{
-							Vector2 desiredVelocity = NPC.DirectionTo(PositionGoTo) * 2.5f;
-							NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
-						}
+						PathfindingMovement(PositionGoTo, 2.5f, 20, 7000, false);
+						NPC.noTileCollide = true;
 					}
 					else
 					{
@@ -557,6 +551,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					if (!PlayerLineOfSight)
 					{
 						PathfindingMovement(TargetedPlayer.Center, Speed, 50, 7000, true);
+						NPC.noTileCollide = true;
 
 						//decrease aggression timer
 						Aggression--;
@@ -565,6 +560,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						Vector2 desiredVelocity = NPC.DirectionTo(TargetedPlayer.Center) * Speed;
 						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+						NPC.noTileCollide = false;
 					}
 				}
 
@@ -596,7 +592,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			value2 = Utils.Clamp(value2, 0, Main.maxTilesX - 1);
 			value3 = Utils.Clamp(value3, 0, Main.maxTilesY - 1);
 			value4 = Utils.Clamp(value4, 0, Main.maxTilesY - 1);
-			Vector2 vector = default(Vector2);
 			for (int i = num; i < value2; i++)
 			{
 				for (int j = value3; j < value4; j++)
@@ -728,7 +723,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			bool FoundValidPath = pathfinder.HasPath && pathfinder.Path.Count > 0;
 
-			if (FoundValidPath)
+			if (!FoundValidPath || (FindClosestNode && NPC.Distance(RealPosition) < 100f))
+			{
+				Aggression = 5;
+			}
+			else
 			{
 				int index = pathfinder.Path.IndexOf(pathfinder.Path.MinBy(x => x.Position.ToVector2().DistanceSQ(NPC.Center / 16f)));
 				List<PathFinding.FoundPoint> checkPoints = pathfinder.Path[^(Math.Min(pathfinder.Path.Count, 6))..];
@@ -736,6 +735,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 				NPC.velocity = Vector2.Lerp(NPC.velocity, direction, 0.08f);
 
+				/*
 				//debug to show the calculated path with dusts
 				foreach (PathFinding.FoundPoint point in pathfinder.Path)
 				{
@@ -744,6 +744,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					var NewDust = Dust.NewDustPerfect(point.Position.ToWorldCoordinates(), Type, Velocity * 2);
 					NewDust.noGravity = true;
 				}
+				*/
 			}
 		}
 

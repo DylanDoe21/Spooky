@@ -53,7 +53,8 @@ Other Random Additions:
 -Added cranberry jelly and cranberry juice, functionally identical to healing potions except they auto consume when you fall below half hp and have halved potion sickness time, but heal less health
 -The new cranberry jelly (pre-hardmode) and cranberry juice (hardmode) now drop from all spooky mod bosses in place of regular healing potions
 -Added 4 new sets of blooms obtained from each minibiome with 4 new blooms in each set, for a total of 16 new blooms
--You can now use the EMF Reader to summon multiple new ghost related things, including summoning spooky spirit like before, summoning mist ghost ambushes with rewards at mysterious tombstones, and its now used to open the pandoras box
+-Added a unique rarity color for all consumable blooms
+-You can now use the EMF Reader to summon multiple new ghost related things, including summoning spooky spirit like before, summoning mist ghost ambushes with rewards at mysterious tombstones, and its now used to open pandoras box
 -Added new mist ghost swirly variant
 
 
@@ -180,6 +181,7 @@ Enemy Changes:
 -Being in the valley of eyes now disables the heat distortion caused by being in the underworld
 -Dumb zomboid bestiary entry now uses the spooky forest background instead of a blank black background
 -Valley of eyes pylon can now be sold by npcs who are happy enough in the eye valley (Little eye will still give you one for free when woken up)
+-Bloom plants now have better map colors and have display names when you hover over them with your mouse
 
 
 

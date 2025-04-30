@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Cemetery.Armor;
@@ -896,6 +897,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             };
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, ArmorPieces));
+
+            //mask
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<TheMask>(), 2));
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookySpiritMask>(), 7));

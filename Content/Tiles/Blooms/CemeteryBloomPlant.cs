@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.Enums;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -34,7 +35,8 @@ namespace Spooky.Content.Tiles.Blooms
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<BloomSoil>() };
 			TileObjectData.addTile(Type);
-			AddMapEntry(Color.DarkGray);
+			LocalizedText name = CreateMapEntryName();
+			AddMapEntry(new Color(72, 69, 75), name);
 			RegisterItemDrop(ModContent.ItemType<CemeterySeed>());
 			DustType = DustID.Ash;
 			HitSound = SoundID.Dig;

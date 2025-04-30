@@ -867,14 +867,14 @@ namespace Spooky.Content.Generation
 				{
 					if ((int)Vector2.Distance(new Vector2(x, y), new Vector2(i, j)) <= radius)
 					{
-						if (Main.tile[x, y].HasTile)
+						if (Main.tile[x, y].HasTile && Main.tile[x, y].TileType != TileID.Rope)
 						{
 							Main.tile[x, y].TileType = (ushort)ModContent.TileType<SpookyWood>();
 						}
 
 						if (Main.tile[x, y].WallType > 0 && Main.tile[x, y].WallType != ModContent.WallType<SpookyStoneWall>())
 						{
-							Main.tile[x, y].WallType = WorldGen.genRand.NextBool(3) ? (ushort)ModContent.WallType<SpookyStoneWall>() : (ushort)ModContent.WallType<SpookyWoodWall>();
+							Main.tile[x, y].WallType = WorldGen.genRand.NextBool(5) ? (ushort)ModContent.WallType<SpookyStoneWall>() : (ushort)ModContent.WallType<SpookyWoodWall>();
 						}
 					}
 				}
@@ -930,7 +930,7 @@ namespace Spooky.Content.Generation
 						}
 
 						//dont place the beam if theres too much room
-						if (j == PositionY + 12 && !Main.tile[PositionX, j + 1].HasTile)
+						if (j == PositionY + 20 && !Main.tile[PositionX, j + 1].HasTile)
 						{
 							return;
 						}

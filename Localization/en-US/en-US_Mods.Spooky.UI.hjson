@@ -1,6 +1,7 @@
 BloomBuffs: {
-	DivaStacks: Stacks:
-	Revives: Revives:
+	DivaStacks: Maximum Orbiters:
+	Revives: Revives Remaining:
+	DefenseBonus: Defense Bonus:
 	RightClick: (Right click to remove)
 }
 

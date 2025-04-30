@@ -15,9 +15,13 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         {
             Main.wallHouse[Type] = false;
 			Main.wallLight[Type] = true;
-			//AddMapEntry(new Color(0, 0, 0));
             DustType = -1;
         }
+
+        public override bool Drop(int i, int j, ref int type)
+		{
+			return false;
+		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
@@ -69,7 +73,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         {
             Main.wallHouse[Type] = false;
 			Main.wallLight[Type] = true;
-			//AddMapEntry(new Color(0, 0, 0));
             DustType = -1;
         }
 

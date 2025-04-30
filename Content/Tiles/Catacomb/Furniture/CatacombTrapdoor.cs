@@ -119,7 +119,15 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
                     for (int y = top; y < top + 1; y++)
                     {
 						Tile tile = Framing.GetTileSafely(x, y);
-						tile.HasTile = false;
+
+                        if (x == left + 3)
+                        {
+                            WorldGen.PlaceTile(x, y, TileID.Chain);
+                        }
+                        else
+                        {
+						    tile.HasTile = false;
+                        }
 					}
 				}
 

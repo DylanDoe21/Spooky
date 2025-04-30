@@ -87,6 +87,12 @@ namespace Spooky.Content.Projectiles.Blooms
 						}
 					}
 				}
+
+                if (Projectile.Distance(player.Center) <= 150f)
+                {
+                    Vector2 desiredVelocity = Projectile.DirectionTo(player.MountedCenter) * 20;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                }
 				
 				if (Projectile.Hitbox.Intersects(player.Hitbox))
                 {
@@ -95,12 +101,6 @@ namespace Spooky.Content.Projectiles.Blooms
 					player.AddBuff(ModContent.BuffType<GooseberryBoostBuff>(), 300);
 
                     Projectile.Kill();
-                }
-
-                if (Projectile.Distance(player.Center) <= 150f)
-                {
-                    Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 20;
-                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
                 }
             }
 

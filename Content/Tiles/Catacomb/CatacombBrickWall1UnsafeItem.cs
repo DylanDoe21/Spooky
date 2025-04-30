@@ -1,13 +1,17 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Tiles.Catacomb
 {
     public class CatacombBrickWall1UnsafeItem : ModItem
     {
-        public override void SetStaticDefaults()
+		public override string Texture => "Spooky/Content/Tiles/Catacomb/CatacombBrickWall1Item";
+
+		public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 400;
+			ItemID.Sets.DrawUnsafeIndicator[Type] = true;
+			Item.ResearchUnlockCount = 400;
         }
 
         public override void SetDefaults()

@@ -172,7 +172,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (Projectile.velocity.Y == 0.35f)
             {
-                Projectile.velocity.X *= 0;
+                Projectile.velocity.X = 0;
             }
 
             Projectile.ai[0]++;

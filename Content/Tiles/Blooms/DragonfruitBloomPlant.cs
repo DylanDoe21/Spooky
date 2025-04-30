@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
+using Terraria.Localization;
 using Terraria.Enums;
 using Terraria.Audio;
 using ReLogic.Content;
@@ -39,7 +40,8 @@ namespace Spooky.Content.Tiles.Blooms
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<BloomSoil>() };
 			TileObjectData.addTile(Type);
-			AddMapEntry(Color.HotPink);
+			LocalizedText name = CreateMapEntryName();
+			AddMapEntry(new Color(229, 59, 161), name);
 			RegisterItemDrop(ModContent.ItemType<DragonfruitSeed>());
 			DustType = DustID.Grass;
 			HitSound = SoundID.Grass;

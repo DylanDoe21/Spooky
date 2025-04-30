@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -176,6 +177,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 			{
 				NPC.dontTakeDamage = true;
 			}
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantMulch>(), 3, 1, 2));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

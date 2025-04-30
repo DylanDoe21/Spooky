@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Minibiomes.Desert
 {
@@ -17,6 +16,14 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
             Item.DefaultToPlaceableTile(ModContent.TileType<DesertSandstone>());
             Item.width = 16;
 			Item.height = 16;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<DesertSandstoneWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
         }
     }
 }

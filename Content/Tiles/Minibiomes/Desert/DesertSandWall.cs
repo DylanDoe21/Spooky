@@ -14,4 +14,16 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
             DustType = DustID.Sand;
         }
     }
+
+    public class DesertSandWallSafe : ModWall 
+    {
+        public override string Texture => "Spooky/Content/Tiles/Minibiomes/Desert/DesertSandWall";
+
+        public override void SetStaticDefaults()
+        {
+            Main.wallHouse[Type] = true;
+            AddMapEntry(new Color(112, 74, 41));
+            DustType = DustID.Sand;
+        }
+	}
 }

@@ -14,11 +14,11 @@ DaylightSavings: {
 
 FarmerGlove: {
 	DisplayName: Farmer's Glove
-	Tooltip: Grants 15% increased attack and movement speed for each bloom buff you have
+	Tooltip: Grants 15% increased attack speed for each bloom buff you have
 }
 
 HerbShaker: {
-	DisplayName: 11 Herbs and Spices
+	DisplayName: Herbs and Spices
 	Tooltip: Gain a random buff whenever you eat a bloom
 }
 
@@ -32,11 +32,7 @@ Wormy: {
 	Tooltip:
 		'''
 		Summons a friendly worm to fight with you
-		He will gain additional effects for each type of bloom buff you have
-		Spring bloom buffs will allow him to lifesteal
-		Summer bloom buffs grant him a chance to ignite enemies
-		Autumn bloom buffs grant him a chance to spawn flies on enemy hits
-		Winter bloom buffs grant a chance to inflict frostburn
+		Each bloom buff you have will give him additional speed, damage, and attack range
 		'''
 }
 
@@ -44,10 +40,10 @@ CemeteryLily: {
 	DisplayName: Lily of Rebirth
 	Tooltip:
 		'''
-		Cuts your health down to a third of your maximum health
-		You gain 2 revives, upon death you will loose a revive and gain stat buffs
+		Cuts your maximum health down to a third and gives you 3 revives
+		Upon death you will loose a revive and gain stat buffs for 15 seconds
 		After loosing all revives, this blooms effect will be removed from you
-		5 minute duration
+		3 minute duration
 		'''
 }
 
@@ -56,6 +52,7 @@ CemeteryMarigold: {
 	Tooltip:
 		'''
 		Occasionally plant damaging marigolds while moving
+		The damage of the marigolds increases the faster you are moving
 		5 minute duration
 		'''
 }
@@ -164,9 +161,10 @@ FossilBlackPepper: {
 	DisplayName: Black Pepper Pebbles
 	Tooltip:
 		'''
-		Randomly shoot out pepper pebbles that increase defense when picked up
+		Sometimes shoot out pepper pebbles that increase defense when picked up
 		If your defense is lower, you will spawn pepper pebbles more frequently
 		Each one increases defense by 2, and will stack up to a maximum of 20
+		This defense bonus will last until this blooms effect runs out
 		5 minute duration
 		'''
 }
@@ -207,7 +205,7 @@ SeaBarnacle: {
 		'''
 		Dealing damage to enemies will infest them with barnacles that spread on them
 		The more barnacles on an enemy, the more damage they take over time
-		Barnacles will grow on enemies faster if they are in water or rain
+		Barnacles will grow on enemies faster if it is raining
 		3 minute duration
 		'''
 }
@@ -216,10 +214,10 @@ SeaCucumber: {
 	DisplayName: Gluttonous Cucumber
 	Tooltip:
 		'''
-		Randomly shoot out a sticky disgestive organ at a nearby enemy
-		The organ inflicts poison and will sometimes heal you
+		Shoot out a stomach at a nearby enemy that will digest them
 		The organ will remain attached as long as you are close enough to that enemy
-		If you are in water or rain, the organ and its debuffs become stronger
+		While attached it damages the enemy over time and will periodically heal you
+		If it is raining the damage over time and healing becomes stronger
 		5 minute duration
 		'''
 }
@@ -230,7 +228,7 @@ SeaSponge: {
 		'''
 		Grants a small chance to absorb any hostile projectile that comes near you
 		Absorbing a projectile will increase your damage reduction for 10 seconds
-		The chance of absorbing a projectile increases if you are in water or rain
+		The chance of absorbing a projectile increases if it is raining
 		3 minute duration
 		'''
 }
@@ -240,8 +238,8 @@ SeaUrchin: {
 	Tooltip:
 		'''
 		Grow a spiny venomous sea urchin on your head
-		The sea urchin will retaliate against enemies that hit you
-		If you are in water or rain, the urchins retaliation becomes stronger
+		The sea urchin will retaliate with venomous spikes when you take damage
+		If it is raining the urchins venomous spikes become stronger
 		4 minute duration
 		'''
 }
@@ -350,9 +348,9 @@ VegetablePepper: {
 	DisplayName: California Reaper
 	Tooltip:
 		'''
-		Grants a 10% increase to your melee damage and speed
+		Grants a 10% increase to your melee damage
 		Hitting enemies with melee weapons with inflict them with the pepper's spice
-		Enemies inflicted with this spice will spew out damaging fire around them
+		Enemies inflicted with this spice will spew out fire at other nearby enemies
 		5 minute duration
 		'''
 }
@@ -1488,7 +1486,7 @@ JalapenoStaff: {
 }
 
 PlantMulch: {
-	DisplayName: Plant Mulch
+	DisplayName: Strange Plant Mulch
 	Tooltip: ""
 }
 
@@ -1938,7 +1936,7 @@ OrbWeaverGiantStaff: {
 
 OrbWeaverShield: {
 	DisplayName: Spike Shell Shield
-	Tooltip: Retaliate with orb weaver spikes when hit
+	Tooltip: Attackers will take damage when they hit you
 }
 
 OrbWeaverStaff: {
@@ -3070,7 +3068,6 @@ CemeterySeed: {
 		'''
 		Places a ghostly plant that grows various death flower blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/5BFF53:Spring]
 		'''
 }
 
@@ -3080,7 +3077,6 @@ DandelionSeed: {
 		'''
 		Places a plant that grows various dandelion seed blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/5BFF53:Spring]
 		'''
 }
 
@@ -3091,7 +3087,6 @@ DragonfruitSeed: {
 		Places an invasive plant that grows a strange bloom
 		Requires a flat ground of Bloom Soil to be planted on
 		Will convert other nearby planted blooms into itself as it grows
-		Bloom Type: [c/FF3BD7:Diva]
 		'''
 }
 
@@ -3101,7 +3096,6 @@ FallSeed: {
 		'''
 		Places a plant that grows various gourd blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/FF9854:Autumn]
 		'''
 }
 
@@ -3111,7 +3105,6 @@ FossilSeed: {
 		'''
 		Places a plant that grows various prehistoric rock blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/FF9854:Autumn]
 		'''
 }
 
@@ -3122,7 +3115,6 @@ SeaSeed: {
 		Places a disgusting flesh growth that turns into various sea creatures
 		Requires a flat ground of Bloom Soil to be planted on
 		Will only grow if submerged in water
-		Bloom Type: [c/8BCAFF:Winter]
 		'''
 }
 
@@ -3132,7 +3124,6 @@ SpringSeed: {
 		'''
 		Places a plant that grows various flower blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/5BFF53:Spring]
 		'''
 }
 
@@ -3142,7 +3133,6 @@ SummerSeed: {
 		'''
 		Places a plant that grows various tropical blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/E4FF52:Summer]
 		'''
 }
 
@@ -3152,7 +3142,6 @@ VegetableSeed: {
 		'''
 		Places a plant that grows various strange vegetable blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/E4FF52:Summer]
 		'''
 }
 
@@ -3162,7 +3151,6 @@ WinterSeed: {
 		'''
 		Places a plant that grows various berry blooms
 		Requires a flat ground of Bloom Soil to be planted on
-		Bloom Type: [c/8BCAFF:Winter]
 		'''
 }
 
@@ -3492,6 +3480,26 @@ DesertSandItem: {
 
 DesertSandstoneItem: {
 	DisplayName: Orange Sandstone
+	Tooltip: ""
+}
+
+DesertSandWallItem: {
+	DisplayName: Grainy Sand Wall
+	Tooltip: ""
+}
+
+DesertSandstoneWallItem: {
+	DisplayName: Orange Sandstone Wall
+	Tooltip: ""
+}
+
+PlantFossilItem: {
+	DisplayName: Fossilized Plant Matter
+	Tooltip: Can be extractinated into something more useful
+}
+
+WheelItem: {
+	DisplayName: Metal Wheel
 	Tooltip: ""
 }
 

@@ -136,6 +136,12 @@ namespace Spooky.Content.UserInterfaces
 					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.Revives") + " " + player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives + "\n" +
 					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
 				}
+				else if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/FossilBlackPepperIcon").Value)
+				{
+					Main.instance.MouseText(BuffDisplayName + "\n" +
+					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DefenseBonus") + " " + (player.GetModPlayer<BloomBuffsPlayer>().FossilBlackPepperStacks * 2) + "\n" +
+					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
+				}
 				else
                 {
 					Main.instance.MouseText(BuffDisplayName + "\n" +

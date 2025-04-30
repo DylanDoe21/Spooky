@@ -986,6 +986,10 @@ namespace Spooky.Core
                     BoneWispTimer = 0;
                 }
             }
+            else
+            {
+                BoneWispTimer = 0;
+            }
 
 			//handle stoned kidney charge for the UI
 			if (StonedKidney)

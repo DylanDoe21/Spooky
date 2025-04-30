@@ -575,8 +575,8 @@ namespace Spooky.Core
 
 				if (Main.hardMode)
 				{
-					pool.Add(ModContent.NPCType<CornMage1>(), 1);
-					pool.Add(ModContent.NPCType<CornMage2>(), 1);
+					pool.Add(ModContent.NPCType<CornMage1>(), 0.5f);
+					pool.Add(ModContent.NPCType<CornMage2>(), 0.5f);
 
 					if (!NPC.AnyNPCs(ModContent.NPCType<GhostPepper>()))
 					{

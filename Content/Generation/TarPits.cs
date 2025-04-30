@@ -22,7 +22,8 @@ namespace Spooky.Content.Generation
 		public static List<ushort> BlockTypes = new()
 		{
 			(ushort)ModContent.TileType<DesertSand>(),
-			(ushort)ModContent.TileType<DesertSandstone>()
+			(ushort)ModContent.TileType<DesertSandstone>(),
+			(ushort)ModContent.TileType<PlantFossil>()
 		};
 
 		public static List<ushort> WallTypes = new()
@@ -121,7 +122,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
-					if (CanPlaceTarPit(i, j))
+					if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i, j - 1].HasTile && CanPlaceTarPit(i, j))
 					{
 						PlaceTarPit(i, j + 9, 15, 26, 0.5f);
 					}
@@ -169,6 +170,21 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+
+			//place plant matter ore
+			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			{
+				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
+				{
+					if (WorldGen.genRand.NextBool(650) && CanPlaceOre(i, j))
+					{
+						if (Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSand>())
+						{
+							WorldGen.TileRunner(i, j, WorldGen.genRand.Next(6, 9), WorldGen.genRand.Next(6, 9), ModContent.TileType<PlantFossil>(), false, 0f, 0f, false, true);
+						}
+					}
+				}
+            }
 		}
 
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
@@ -433,7 +449,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int x = PositionX - 15; x <= PositionX + 15; x++)
+			for (int x = PositionX - 25; x <= PositionX + 25; x++)
 			{
 				for (int y = PositionY - 15; y <= PositionY + 15; y++)
 				{
@@ -464,7 +480,7 @@ namespace Spooky.Content.Generation
 			}
 
 			//dont allow them to place too close to liquids
-			for (int x = PositionX - 6; x <= PositionX + 6; x++)
+			for (int x = PositionX - 15; x <= PositionX + 15; x++)
 			{
 				for (int y = PositionY - UpCheckDist; y <= PositionY + 5; y++)
 				{
@@ -568,9 +584,9 @@ namespace Spooky.Content.Generation
 		//dont allow tar pits to place outside of the biome or near another tar pit
 		public bool CanPlaceTarPit(int PositionX, int PositionY)
 		{
-			for (int i = PositionX - 30; i <= PositionX + 30; i++)
+			for (int i = PositionX - 40; i <= PositionX + 40; i++)
 			{
-				for (int j = PositionY - 30; j <= PositionY + 40; j++)
+				for (int j = PositionY - 40; j <= PositionY + 40; j++)
 				{
 					if (Main.tile[i, j].LiquidAmount > 0 && Main.tile[i, j].LiquidType == LiquidID.Water)
 					{
@@ -579,14 +595,9 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int x = PositionX - 5; x <= PositionX + 5; x++)
+			for (int i = PositionX - 3; i <= PositionX + 3; i++)
 			{
-				if ((Main.tile[x, PositionY].TileType == ModContent.TileType<DesertSand>() || Main.tile[x, PositionY].TileType == ModContent.TileType<DesertSandstone>()) &&
-				(Main.tile[x, PositionY - 1].TileType != ModContent.TileType<DesertSand>() || Main.tile[x, PositionY - 1].TileType != ModContent.TileType<DesertSandstone>()))
-				{
-					continue;
-				}
-				else
+				if (BlockTypes.Contains(Main.tile[i, PositionY].TileType) && Main.tile[i, PositionY - 1].HasTile)
 				{
 					return false;
 				}
@@ -620,6 +631,23 @@ namespace Spooky.Content.Generation
 				for (int j = Y - 4; j < Y + 4; j++)
 				{
 					if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<TarPitCactus>())
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		//dont allow plant fossil to place too close to water
+		public static bool CanPlaceOre(int X, int Y)
+		{
+			for (int i = X - 10; i < X + 10; i++)
+			{
+				for (int j = Y - 10; j < Y + 10; j++)
+				{
+					if (Main.tile[i, j].LiquidAmount > 0 && Main.tile[i, j].LiquidType == LiquidID.Water)
 					{
 						return false;
 					}

@@ -150,7 +150,7 @@ namespace Spooky.Content.Generation
                 {
                     if (WorldGen.genRand.NextBool(2))
                     {
-                        if (Y >= (int)heightLimit + 70 || (Y < (int)heightLimit + 70 && NoFloatingIsland(X, Y)))
+                        if (Y >= (int)heightLimit + 150 || (Y < (int)heightLimit + 150 && NoFloatingIsland(X, Y)))
                         {
                             Tile tile = Main.tile[X, Y];
 

@@ -241,8 +241,6 @@ WeaverSpikeRed.DisplayName: Orb Weaver Spike
 WeaverSpikeGreen.DisplayName: Orb Weaver Spike
 WeaverSpikeBlack.DisplayName: Orb Weaver Spike
 Local58Moon.DisplayName: The Moon
-OrbWeaverShieldProj.DisplayName: Spike Shell Basher
-OrbWeaverShieldSpike.DisplayName: Shield Spike
 CannonEggBig.DisplayName: Spider Egg
 CannonEggSmall.DisplayName: Spider Egg
 CannonSpider.DisplayName: Little Spider
@@ -506,3 +504,8 @@ ConcoctionAcid.DisplayName: Acid
 CemeteryRosePetal.DisplayName: Withered Petal
 BigBoneBobberProj.DisplayName: Big Bone Bobber
 PumpkinBobberProj.DisplayName: Pumpkin Bobber
+FossilBlackPepperPebble.DisplayName: Pepper Pebble
+CemeteryMarigoldProj.DisplayName: Guiding Marigold
+HeadUrchin.DisplayName: Head Urchin
+HeadUrchinSpike.DisplayName: Venomous Spikes
+CucumberStomach.DisplayName: Cucumber Stomach

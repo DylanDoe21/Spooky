@@ -15,11 +15,7 @@ namespace Spooky.Core
 	{
 		public enum Direction : byte
 		{
-			None,
-			Above,
-			Below,
-			Left,
-			Right
+			None, Above, Below, Left, Right
 		}
 
 		public readonly record struct FoundPoint(Point16 Position, Direction Direction);

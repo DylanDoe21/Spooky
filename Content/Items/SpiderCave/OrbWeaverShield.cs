@@ -20,5 +20,10 @@ namespace Spooky.Content.Items.SpiderCave
             Item.rare = ItemRarityID.Blue;  
             Item.value = Item.buyPrice(gold: 3);
 		}
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+        { 
+            player.thorns += 0.50f;
+        }
     }
 }
