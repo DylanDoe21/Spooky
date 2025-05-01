@@ -205,7 +205,7 @@ SeaBarnacle: {
 		'''
 		Hitting enemies with projectiles will sometimes infest them with damaging barnacles
 		Barnacles have a chance to create another barnacle when inflicting damage
-		Barnacles will deal more damage and grow on enemies faster if it is raining
+		Barnacles will grow on enemies faster if it is raining
 		3 minute duration
 		'''
 }

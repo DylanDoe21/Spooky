@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.friendly = true;
             Projectile.tileCollide = false;
 			Projectile.netImportant = true;
-			Projectile.timeLeft = 5;
+			Projectile.timeLeft = 600;
             Projectile.penetrate = -1;
         }
 
@@ -103,7 +103,7 @@ namespace Spooky.Content.Projectiles.Blooms
 
 			if (Projectile.ai[0] == 0)
 			{
-				Projectile.timeLeft = 5;
+				Projectile.timeLeft = 600;
 
 				float ExtraVelocity = Vector2.Distance(Projectile.Center, Parent.Center) <= 150 ? 15 : Vector2.Distance(Projectile.Center, Parent.Center) / 10;
 
@@ -144,12 +144,10 @@ namespace Spooky.Content.Projectiles.Blooms
 			}
 			else
 			{
-				Vector2 RetractSpeed = Projectile.Center - player.Center;
-				RetractSpeed.Normalize();
-				RetractSpeed *= -35;
-				Projectile.velocity = RetractSpeed;
+				Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 35;
+				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 
-				if (Projectile.Distance(player.Center) <= 50f)
+				if (Projectile.Hitbox.Intersects(player.Hitbox))
 				{
 					Projectile.Kill();
 				}

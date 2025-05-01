@@ -89,7 +89,7 @@ namespace Spooky.Content.Projectiles.Blooms
 				Projectile.scale -= 0.1f;
 			}
 
-			Projectile.Center = Parent.Center + new Vector2(PosX, PosY);
+			Projectile.Center = Parent.Center + new Vector2(PosX, PosY).RotatedBy(Parent.rotation);
             Projectile.gfxOffY = Parent.gfxOffY;
 		}
 

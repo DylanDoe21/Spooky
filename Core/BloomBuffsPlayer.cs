@@ -993,10 +993,8 @@ namespace Spooky.Core
 				int randomX = Main.rand.Next(-target.width / 3, target.width / 3);
 				int randomY = Main.rand.Next(-target.height / 3, target.height / 3);
 
-				int Damage = Main.raining ? hit.Damage / 2 : hit.Damage / 3;
-
 				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center + new Vector2(randomX, randomY), Vector2.Zero,
-				ModContent.ProjectileType<Barnacle>(), Damage, hit.Knockback, Player.whoAmI, ai0: target.whoAmI, ai1: randomX, ai2: randomY);
+				ModContent.ProjectileType<Barnacle>(), proj.damage / 2, hit.Knockback, Player.whoAmI, ai0: target.whoAmI, ai1: randomX, ai2: randomY);
 			}
 		}
 	}
