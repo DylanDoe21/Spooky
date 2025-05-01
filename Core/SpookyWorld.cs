@@ -415,11 +415,11 @@ namespace Spooky.Core
                 sunR = Utils.Clamp(sunR, 15, 255);
                 sunG = Utils.Clamp(sunG, 15, 255);
                 sunB = Utils.Clamp(sunB, 15, 255);
-                backgroundColor.R = (byte)sunR;
-                backgroundColor.G = (byte)sunG;
-                backgroundColor.B = (byte)sunB;
 
-                return;
+				Color LightColor = new Color(sunR, sunG, sunB);
+                backgroundColor = LightColor;
+
+				return;
             }
 
             if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
@@ -435,11 +435,11 @@ namespace Spooky.Core
                 sunR = Utils.Clamp(sunR, 15, 255);
                 sunG = Utils.Clamp(sunG, 15, 255);
                 sunB = Utils.Clamp(sunB, 15, 255);
-                backgroundColor.R = (byte)sunR;
-                backgroundColor.G = (byte)sunG;
-                backgroundColor.B = (byte)sunB;
 
-                return;
+				Color LightColor = new Color(sunR, sunG, sunB);
+				backgroundColor = LightColor;
+
+				return;
             }
         }
     }

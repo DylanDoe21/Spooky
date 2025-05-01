@@ -12,8 +12,6 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
-using Spooky.Content.Items.SpookyHell.EggEvent;
-using Spooky.Content.Projectiles.SpookyHell;
 
 namespace Spooky.Core
 {
@@ -669,31 +667,38 @@ namespace Spooky.Core
 			{
 				NPC Target = null;
 
-				if (Target == null)
+				//prioritize bosses over normal enemies
+				for (int i = 0; i < Main.maxNPCs; i++)
 				{
-					//prioritize bosses over normal enemies
-					for (int i = 0; i < Main.maxNPCs; i++)
-					{
-						NPC NPC = Main.npc[i];
+					NPC NPC = Main.npc[i];
 
-						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && (NPC.boss || NPC.IsTechnicallyBoss()) && Vector2.Distance(Player.Center, NPC.Center) <= 350f)
-						{
-							Target = NPC;
-							break;
-						}
+					if (Target != null)
+					{
+						break;
 					}
 
-					//target an enemy
-					for (int i = 0; i < Main.maxNPCs; i++)
+					if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && (NPC.boss || NPC.IsTechnicallyBoss()) && Vector2.Distance(Player.Center, NPC.Center) <= 400f)
 					{
-						NPC NPC = Main.npc[i];
+						Target = NPC;
+						break;
+					}
+				}
 
-						//if no boss is found, target other enemies normally
-						if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 350f)
-						{
-							Target = NPC;
-							break;
-						}
+				//target an enemy
+				for (int i = 0; i < Main.maxNPCs; i++)
+				{
+					NPC NPC = Main.npc[i];
+
+					if (Target != null)
+					{
+						break;
+					}
+
+					//if no boss is found, target other enemies normally
+					if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 400f)
+					{
+						Target = NPC;
+						break;
 					}
 				}
 				
@@ -966,6 +971,7 @@ namespace Spooky.Core
 				Projectile.NewProjectile(target.GetSource_OnHurt(Player), new Vector2(RandomPosX, RandomPosY), ShootSpeed, ModContent.ProjectileType<Tumbleweed>(), hit.Damage + 30, hit.Knockback, Player.whoAmI);
 			}
 
+			//pepper inflicts enemies with pepper spice on melee hits
 			if (VegetablePepper && Main.rand.NextBool(15) && hit.DamageType == DamageClass.Melee)
 			{
 				target.AddBuff(ModContent.BuffType<PepperSpice>(), 600);
@@ -979,6 +985,18 @@ namespace Spooky.Core
 			if (VegetableCauliflower && Main.rand.NextBool(10) && hit.DamageType == DamageClass.SummonMeleeSpeed)
 			{
 				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, new Vector2(0, -5), ModContent.ProjectileType<Cauliflower>(), proj.damage, proj.knockBack, Player.whoAmI, Main.rand.Next(0, 3));
+			}
+
+			//sea barnacle creates little damaging barnacles on enemies
+			if (SeaBarnacle && Main.rand.NextBool(15) && proj.type != ModContent.ProjectileType<Barnacle>() && Player.ownedProjectileCounts[ModContent.ProjectileType<Barnacle>()] < 10)
+			{
+				int randomX = Main.rand.Next(-target.width / 3, target.width / 3);
+				int randomY = Main.rand.Next(-target.height / 3, target.height / 3);
+
+				int Damage = Main.raining ? hit.Damage / 2 : hit.Damage / 3;
+
+				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center + new Vector2(randomX, randomY), Vector2.Zero,
+				ModContent.ProjectileType<Barnacle>(), Damage, hit.Knockback, Player.whoAmI, ai0: target.whoAmI, ai1: randomX, ai2: randomY);
 			}
 		}
 	}

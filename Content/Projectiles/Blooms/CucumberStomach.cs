@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.friendly = true;
             Projectile.tileCollide = false;
 			Projectile.netImportant = true;
-			Projectile.timeLeft = 300;
+			Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
         }
 
@@ -96,14 +96,14 @@ namespace Spooky.Content.Projectiles.Blooms
 			float RotateY = player.Center.Y - vector.Y;
 			Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-			if (player.Distance(Parent.Center) >= 450f || !Parent.active)
+			if (player.Distance(Parent.Center) >= 500f || !Parent.active)
 			{
 				Projectile.ai[0] = 1;
 			}
 
-			if (Projectile.ai[0] == 0 && Parent.active)
+			if (Projectile.ai[0] == 0)
 			{
-				Projectile.timeLeft = 300;
+				Projectile.timeLeft = 5;
 
 				float ExtraVelocity = Vector2.Distance(Projectile.Center, Parent.Center) <= 150 ? 15 : Vector2.Distance(Projectile.Center, Parent.Center) / 10;
 
@@ -113,6 +113,7 @@ namespace Spooky.Content.Projectiles.Blooms
 				if (Projectile.Hitbox.Intersects(Parent.Hitbox))
 				{
 					Projectile.Center = Parent.Center;
+					Projectile.gfxOffY = Parent.gfxOffY;
 
 					if (Projectile.scale > 1)
 					{

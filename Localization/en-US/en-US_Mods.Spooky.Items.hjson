@@ -203,9 +203,9 @@ SeaBarnacle: {
 	DisplayName: Giant Barnacle
 	Tooltip:
 		'''
-		Dealing damage to enemies will infest them with barnacles that spread on them
-		The more barnacles on an enemy, the more damage they take over time
-		Barnacles will grow on enemies faster if it is raining
+		Hitting enemies with projectiles will sometimes infest them with damaging barnacles
+		Barnacles have a chance to create another barnacle when inflicting damage
+		Barnacles will deal more damage and grow on enemies faster if it is raining
 		3 minute duration
 		'''
 }
@@ -214,8 +214,8 @@ SeaCucumber: {
 	DisplayName: Gluttonous Cucumber
 	Tooltip:
 		'''
-		Shoot out a stomach at a nearby enemy that will digest them
-		The organ will remain attached as long as you are close enough to that enemy
+		Shoot out a stomach at a nearby enemy that will attach to them
+		The stomach will remain attached as long as you are close enough to that enemy
 		While attached it damages the enemy over time and will periodically heal you
 		If it is raining the damage over time and healing becomes stronger
 		5 minute duration
