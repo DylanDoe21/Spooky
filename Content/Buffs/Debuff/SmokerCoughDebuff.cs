@@ -21,7 +21,7 @@ namespace Spooky.Content.Buffs.Debuff
         {
 			if (Main.rand.NextBool(100))
 			{
-                SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1.2f }, npc.Center);
+                SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1f }, npc.Center);
 
 				Projectile.NewProjectile(null, npc.Center, Vector2.Zero, ModContent.ProjectileType<CoughSmokeCloudSmall>(), 35, 0f, Main.myPlayer);
 			}

@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 5, 0);
-            NPC.HitSound = SoundID.Item95 with { Volume = 0.8f, Pitch = 1.3f };
+            NPC.HitSound = SoundID.Item95 with { Volume = 0.8f, Pitch = 1f };
 			NPC.DeathSound = SoundID.NPCDeath1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.TarPitsBiome>().Type };
         }

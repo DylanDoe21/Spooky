@@ -35,7 +35,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.knockBackResist = 0.8f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
-			NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1.2f };
+			NPC.HitSound = SoundID.NPCHit54 with { Pitch = 1f };
             NPC.DeathSound = SoundID.NPCDeath6;
 			NPC.aiStyle = 114;
 			AIType = NPCID.BlackDragonfly;

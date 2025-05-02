@@ -97,7 +97,7 @@ namespace Spooky.Content.Items.Quest
 					bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<BanditPriestMinion>()] <= 0;
 					if (NotSpawned && player.whoAmI == Main.myPlayer)
 					{
-						SoundEngine.PlaySound(SoundID.DD2_DarkMageHurt with { Pitch = 1.1f }, player.Center);
+						SoundEngine.PlaySound(SoundID.DD2_DarkMageHurt with { Pitch = 1f }, player.Center);
 
 						//leave the source as null for right now
 						Projectile.NewProjectile(null, player.position.X + (float)(player.width / 2), player.position.Y - 25, 0f, 0f, ModContent.ProjectileType<BanditPriestMinion>(), 0, 0, player.whoAmI);

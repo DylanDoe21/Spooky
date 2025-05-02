@@ -68,7 +68,7 @@ namespace Spooky.Content.Projectiles.Blooms
 					{
 						if (Projectile.Hitbox.Intersects(NPC.Hitbox))
 						{
-							SoundEngine.PlaySound(SoundID.NPCDeath1 with { Pitch = 1.2f }, Projectile.Center);
+							SoundEngine.PlaySound(SoundID.NPCDeath1 with { Pitch = 1f }, Projectile.Center);
 
 							Projectile.Kill();
 						}
@@ -81,7 +81,7 @@ namespace Spooky.Content.Projectiles.Blooms
 					{
 						if (Projectile.Hitbox.Intersects(Proj.Hitbox))
 						{
-							SoundEngine.PlaySound(SoundID.NPCDeath1 with { Pitch = 1.2f }, Projectile.Center);
+							SoundEngine.PlaySound(SoundID.NPCDeath1 with { Pitch = 1f }, Projectile.Center);
 
 							Projectile.Kill();
 						}

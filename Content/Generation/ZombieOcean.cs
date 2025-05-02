@@ -83,20 +83,23 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = 100; j <= StartPositionY; j++)
 				{
-					if (!Main.tileDungeon[Main.tile[i, j].TileType] && !Main.wallDungeon[Main.tile[i, j].WallType] && Main.tile[i, j].TileType != TileID.ShellPile)
+					Tile tile = Framing.GetTileSafely(i, j);
+
+					if (!Main.tileDungeon[tile.TileType] && !Main.wallDungeon[tile.WallType] && tile.TileType != TileID.ShellPile &&
+					tile.TileType != TileID.BeachPiles && tile.TileType != TileID.Coral)
 					{
 						if (j < Main.worldSurface)
 						{
-							if (WorldGen.SolidTile(i, j) || Main.tile[i, j].WallType > 0)
+							if (WorldGen.SolidTile(i, j) || tile.WallType > 0)
 							{
-								WorldGen.KillTile(i, j);
-								WorldGen.PlaceTile(i, j, TileID.Sand);
+								tile.TileType = TileID.Sand;
+								tile.HasTile = true;
 							}
 						}
 						else
 						{
-							WorldGen.KillTile(i, j);
-							WorldGen.PlaceTile(i, j, TileID.Sand);
+							tile.TileType = TileID.Sand;
+							tile.HasTile = true;
 						}
 					}
 				}

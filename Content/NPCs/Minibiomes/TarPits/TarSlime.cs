@@ -30,7 +30,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             NPC.value = Item.buyPrice(0, 0, 0, 50);
 			NPC.noGravity = false;
 			NPC.noTileCollide = false;
-			NPC.HitSound = SoundID.Item95 with { Volume = 0.8f, Pitch = 1.3f };
+			NPC.HitSound = SoundID.Item95 with { Volume = 0.8f, Pitch = 1f };
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 1;
 			AIType = NPCID.GreenSlime;

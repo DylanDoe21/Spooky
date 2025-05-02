@@ -73,7 +73,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles
 
         public override void OnKill(int timeLeft)
 		{
-            SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1.2f }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1f }, Projectile.Center);
 
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<CornPopped>(), Projectile.damage, 0, Main.myPlayer, Main.rand.Next(0, 3));
 		}

@@ -85,7 +85,7 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.height = 158;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
-            NPC.HitSound = SoundID.NPCHit52 with { Pitch = 1.5f, Volume = 2f };
+            NPC.HitSound = SoundID.NPCHit52 with { Pitch = 1f, Volume = 2f };
 			NPC.DeathSound = SoundID.NPCDeath5 with { Pitch = 1.2f };
             NPC.aiStyle = 3;
 			AIType = NPCID.GoblinScout;
