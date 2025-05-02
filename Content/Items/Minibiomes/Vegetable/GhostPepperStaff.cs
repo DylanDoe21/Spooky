@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 5);
-            Item.UseSound = SoundID.NPCDeath52 with { Volume = 0.5f, Pitch = 1.05f };
+            Item.UseSound = SoundID.NPCDeath52 with { Volume = 0.5f, Pitch = 1f };
             //Item.buffType = ModContent.BuffType<GhostPepperMinionBuff>();
 			//Item.shoot = ModContent.ProjectileType<GhostPepperMinion>();
             Item.shootSpeed = 0f;

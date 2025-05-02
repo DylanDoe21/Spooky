@@ -468,7 +468,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] == 120)
 					{
-						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
+						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1f }, NPC.Center);
 
 						CurrentFrameX = 1;
 						Phase3 = true;
@@ -539,7 +539,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] == 120)
 					{
-						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
+						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1f }, NPC.Center);
 
 						CurrentFrameX = 1;
 						Phase2 = true;

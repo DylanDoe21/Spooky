@@ -75,61 +75,6 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 			NPC.spriteDirection = NPC.direction;
         }
 
-		/*
-		public void JumpToTarget(Player target, int JumpHeight, int TimeBeforeNextJump)
-		{
-			NPC.ai[0]++;
-
-			//set where the it should be jumping towards
-			Vector2 JumpTo = new(target.Center.X, NPC.Center.Y - JumpHeight);
-
-			//set velocity and speed
-			Vector2 velocity = JumpTo - NPC.Center;
-			velocity.Normalize();
-
-			int JumpSpeed = Main.rand.Next(13, 18);
-
-			float speed = MathHelper.Clamp(velocity.Length() / 36, 10, JumpSpeed);
-
-			NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
-
-			//actual jumping
-			if (NPC.ai[0] >= TimeBeforeNextJump)
-			{
-				NPC.ai[1]++;
-
-				if (NPC.velocity == Vector2.Zero || NPC.wet)
-				{
-					if ((NPC.ai[1] == 10 && !HasJumped) || NPC.wet)
-					{
-						if (target.Distance(NPC.Center) <= 450f && !NPC.wet)
-						{
-							SoundEngine.PlaySound(SoundID.Item95 with { Volume = 0.8f, Pitch = 1.05f }, NPC.Center);
-						}
-
-						velocity.Y -= 0.25f;
-
-						HasJumped = true;
-					}
-				}
-
-				if (NPC.ai[1] < 12 && HasJumped)
-				{
-					NPC.velocity = velocity * speed;
-				}
-			}
-
-			//loop ai
-			if (NPC.ai[0] >= TimeBeforeNextJump + 150)
-			{
-				HasJumped = false;
-
-				NPC.ai[0] = 0;
-				NPC.ai[1] = 0;
-			}
-		}
-		*/
-
 		public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 

@@ -95,7 +95,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
             if (Projectile.localAI[0] == ItemGlobal.ActiveItem(player).useTime)
             {
-                SoundEngine.PlaySound(SoundID.NPCDeath13 with { Pitch = 1.2f }, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath13 with { Pitch = 1f }, Projectile.Center);
 
                 for (int numProjectiles = 0; numProjectiles < 5; numProjectiles++)
                 {

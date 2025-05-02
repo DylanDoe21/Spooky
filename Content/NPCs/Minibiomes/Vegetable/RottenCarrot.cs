@@ -168,7 +168,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
                 {
 					stretchRecoil = 0.65f;
 
-					SoundEngine.PlaySound(SoundID.NPCDeath9 with { Pitch = 1.2f }, NPC.Center);
+					SoundEngine.PlaySound(SoundID.NPCDeath9 with { Pitch = 1f }, NPC.Center);
 
 					NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y + 35), new Vector2(Main.rand.Next(-5, 6), -2), ModContent.ProjectileType<RottenOoze>(), NPC.damage, 0f);
                 }

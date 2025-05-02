@@ -378,7 +378,7 @@ namespace Spooky.Content.NPCs.NoseCult
 
                     if (NPC.localAI[0] == 160)
                     {
-                        SoundEngine.PlaySound(SoundID.Item29 with { Volume = 0.25f, Pitch = 1.2f }, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Item29 with { Volume = 0.25f, Pitch = 1f }, NPC.Center);
 
                         for (int numOrbiters = 0; numOrbiters < 4; numOrbiters++)
                         {

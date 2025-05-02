@@ -251,7 +251,7 @@ namespace Spooky.Content.NPCs.Quest
 
 				if (NPC.localAI[2] >= 120)
                 {
-                    SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Pitch = -1.5f }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton with { Pitch = -1f }, NPC.Center);
 
 					float maxAmount = 30;
 					int currentAmount = 0;

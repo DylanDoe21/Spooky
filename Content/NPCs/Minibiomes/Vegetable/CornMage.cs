@@ -116,7 +116,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
                 if (NPC.localAI[0] == 480 || NPC.localAI[0] == 500 || NPC.localAI[0] == 520)
                 {
-                    SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1.2f }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1f }, NPC.Center);
 
                     Vector2 ShootSpeed = player.Center - NPC.Center;
                     ShootSpeed.Normalize();

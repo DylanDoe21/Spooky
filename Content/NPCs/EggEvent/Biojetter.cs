@@ -325,7 +325,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     //do squishing animation before spitting
                     if (NPC.localAI[0] == 60 || NPC.localAI[0] == 90 || NPC.localAI[0] == 120)
                     {
-                        SoundEngine.PlaySound(SoundID.NPCDeath13 with { Pitch = -1.5f }, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.NPCDeath13 with { Pitch = -1f }, NPC.Center);
 
                         stretchRecoil = 0.5f;
 

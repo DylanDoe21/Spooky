@@ -325,7 +325,7 @@ namespace Spooky.Content.NPCs.Quest
 
 						if (NPC.localAI[0] >= 60)
 						{
-							SoundEngine.PlaySound(SoundID.Item29 with { Volume = 0.25f, Pitch = 1.2f }, NPC.Center);
+							SoundEngine.PlaySound(SoundID.Item29 with { Volume = 0.25f, Pitch = 1f }, NPC.Center);
 
 							stretchRecoil = 0.5f;
 

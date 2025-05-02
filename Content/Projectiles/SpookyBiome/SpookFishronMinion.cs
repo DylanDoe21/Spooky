@@ -221,7 +221,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             if (Projectile.ai[0] == 150)
             {
-                SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = 1.1f }, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = 1f }, Projectile.Center);
 
                 Charging = true;
 

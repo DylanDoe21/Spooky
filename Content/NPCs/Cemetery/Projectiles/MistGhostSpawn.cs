@@ -50,7 +50,7 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 
 				if (Projectile.ai[1] == 30 || Projectile.ai[1] == 60 || Projectile.ai[1] == 90)
 				{
-					SoundEngine.PlaySound((Main.rand.NextBool() ? SoundID.Zombie53 : SoundID.Zombie54) with { Pitch = -1.1f }, Projectile.Center);
+					SoundEngine.PlaySound((Main.rand.NextBool() ? SoundID.Zombie53 : SoundID.Zombie54) with { Pitch = -1f }, Projectile.Center);
 
 					int NewNPC = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X + Main.rand.Next(-35, 36), (int)Projectile.Center.Y + 40, Main.rand.Next(GhostTypes));
 					Main.npc[NewNPC].velocity.Y = Main.rand.Next(-5, -2);

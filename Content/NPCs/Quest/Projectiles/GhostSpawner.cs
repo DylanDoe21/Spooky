@@ -357,7 +357,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.DD2_DarkMageHurt with { Pitch = 1.1f }, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.DD2_DarkMageHurt with { Pitch = 1f }, Projectile.Center);
 
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
