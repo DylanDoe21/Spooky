@@ -113,7 +113,7 @@ namespace Spooky.Content.UserInterfaces
 			Vector2 UIBoxScale = Vector2.One * Main.UIScale;
 
 			//get the texture and display name based on the name of the bloom string in the slot to check for
-			//REMINDER: this is not the best way to implement it, but this always assumes that the string in the slot to check for matches the exact display name of the bloom item
+			//this is probably not the greatest way to do it, but this always assumes that the string in the slot to check for matches the exact display name of the bloom item
 			//the same goes for that blooms corresponding icon, where its file name is the exact file name as the bloom item + "Icon"
 			Texture2D IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/" + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + "Icon").Value;
 			string BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items." + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + ".DisplayName");
@@ -123,19 +123,21 @@ namespace Spooky.Content.UserInterfaces
             //only display text if the player is hovering over the UI, and the inventory is not open
             if (IsMouseOverUI(IconPos, IconTexture, Vector2.One * Main.UIScale * 0.9f) && !Main.playerInventory)
             {
-                //if the player has the dragon fruit buff, then also display the dragon fruit buff stacks as part of the description
+                //display dragonfruit stacks with the diva dragonfruit
                 if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/DragonfruitIcon").Value)
                 {
                     Main.instance.MouseText(BuffDisplayName + "\n" + 
-                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "/10" + "\n" +
+                    Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.DivaStacks") + " " + player.GetModPlayer<BloomBuffsPlayer>().DragonfruitStacks + "\n" +
                     Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
                 }
+                //display remaining revives with the cemetery lily
 				else if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/CemeteryLilyIcon").Value)
 				{
 					Main.instance.MouseText(BuffDisplayName + "\n" +
 					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.Revives") + " " + player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives + "\n" +
 					Language.GetTextValue("Mods.Spooky.UI.BloomBuffs.RightClick"));
 				}
+                //display defense bonus with the black pepper
 				else if (IconTexture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/FossilBlackPepperIcon").Value)
 				{
 					Main.instance.MouseText(BuffDisplayName + "\n" +

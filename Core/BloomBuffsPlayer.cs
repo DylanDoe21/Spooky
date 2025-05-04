@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -12,6 +13,7 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Projectiles.Blooms;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Core
 {
@@ -89,6 +91,8 @@ namespace Spooky.Core
 		public int FossilBlackPepperTimer = 0;
 		public int FossilBlackPepperStacks = 0;
 		public int CemeteryMarigoldTimer = 0;
+		public float DutchmanRingRotation;
+		public float DutchmanRingScale = 1f;
 
 		//accessories
 		public bool Wormy = false;
@@ -97,6 +101,10 @@ namespace Spooky.Core
 
 		//UI default position
 		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
+
+		private static Asset<Texture2D> DutchmanPipeRingTex1;
+		private static Asset<Texture2D> DutchmanPipeRingTex2;
+		private static Asset<Texture2D> DutchmanPipeRingTex3;
 
 		public static readonly SoundStyle SpongeSound = new("Spooky/Content/Sounds/SpongeAbsorb", SoundType.Sound) { PitchVariance = 0.6f };
 
@@ -677,7 +685,7 @@ namespace Spooky.Core
 						break;
 					}
 
-					if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && (NPC.boss || NPC.IsTechnicallyBoss()) && Vector2.Distance(Player.Center, NPC.Center) <= 400f)
+					if (NPC.active && NPC.CanBeChasedBy(Player) && !NPC.friendly && !NPC.dontTakeDamage && (NPC.boss || NPC.IsTechnicallyBoss()) && Vector2.Distance(Player.Center, NPC.Center) <= 400f)
 					{
 						Target = NPC;
 						break;
@@ -695,7 +703,7 @@ namespace Spooky.Core
 					}
 
 					//if no boss is found, target other enemies normally
-					if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 400f)
+					if (NPC.active && NPC.CanBeChasedBy(Player) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.boss && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 400f)
 					{
 						Target = NPC;
 						break;
@@ -745,7 +753,7 @@ namespace Spooky.Core
 				{
 					FossilBlackPepperTimer++;
 
-					int TimeToSpawnPebble = 3540 + Player.statDefense;
+					int TimeToSpawnPebble = 900 + Player.statDefense;
 
 					if (FossilBlackPepperTimer >= TimeToSpawnPebble)
 					{
@@ -759,6 +767,20 @@ namespace Spooky.Core
 			{
 				FossilBlackPepperTimer = 0;
 				FossilBlackPepperStacks = 0;
+			}
+
+			//dutchman pipe gives nearby enemies in the aura a debuff so they take more damage
+			if (FossilDutchmanPipe)
+			{
+				for (int i = 0; i < Main.maxNPCs; i++)
+				{
+					NPC NPC = Main.npc[i];
+
+					if (NPC.active && NPC.CanBeChasedBy(Player) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 240f)
+					{
+						NPC.AddBuff(ModContent.BuffType<DutchmanPipeDebuff>(), 2);
+					}
+				}
 			}
 
 			//spawn growing marigolds with the cemetery marigold
@@ -995,6 +1017,71 @@ namespace Spooky.Core
 
 				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center + new Vector2(randomX, randomY), Vector2.Zero,
 				ModContent.ProjectileType<Barnacle>(), proj.damage / 2, hit.Knockback, Player.whoAmI, ai0: target.whoAmI, ai1: randomX, ai2: randomY);
+			}
+		}
+
+		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+		{
+			//dutchman pipe aura ring
+			if (FossilDutchmanPipe)
+			{
+				DutchmanPipeRingTex1 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRing");
+				DutchmanPipeRingTex2 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRingInside");
+				DutchmanPipeRingTex3 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRingPattern");
+
+				float num = 1f;
+				float num2 = 0.1f;
+				float num3 = 0.9f;
+				if (!Main.gamePaused)
+				{
+					DutchmanRingScale += 0.004f;
+					DutchmanRingRotation += 0.01f;
+				}
+
+				if (DutchmanRingScale < 1f)
+				{
+					num = DutchmanRingScale;
+				}
+				else
+				{
+					DutchmanRingScale = 0.8f;
+					num = DutchmanRingScale;
+				}
+
+				if (DutchmanRingRotation > (float)Math.PI * 2f)
+				{
+					DutchmanRingRotation -= (float)Math.PI * 2f;
+				}
+
+				if (DutchmanRingRotation < (float)Math.PI * 2f)
+				{
+					DutchmanRingRotation += (float)Math.PI * 2f;
+				}
+
+				for (int i = 0; i < 4; i++)
+				{
+					float num4 = num + num2 * (i / 2);
+					if (num4 > 1f)
+					{
+						num4 -= num2 * 2f;
+					}
+
+					float num5 = MathHelper.Lerp(0.8f, 0f, Math.Abs(num4 - num3) * 10f);
+
+					for (int j = 0; j < 360; j += 90)
+					{
+						Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 12f), Main.rand.NextFloat(1f, 12f)).RotatedBy(MathHelper.ToRadians(j));
+
+						Main.spriteBatch.Draw(DutchmanPipeRingTex1.Value, Player.Center - Main.screenPosition + circular, new Rectangle(0, 0, 348, 348), Color.Red * 0.5f * num5,
+						DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f);
+					}
+
+					Main.spriteBatch.Draw(DutchmanPipeRingTex2.Value, Player.Center - Main.screenPosition, new Rectangle(0, 0, 348, 348), Color.Red * 0.25f * num5,
+					DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f);
+
+					Main.spriteBatch.Draw(DutchmanPipeRingTex3.Value, Player.Center - Main.screenPosition, new Rectangle(0, 0, 348, 348), Color.White * num5,
+					DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f);
+				}
 			}
 		}
 	}

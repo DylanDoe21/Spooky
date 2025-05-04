@@ -117,11 +117,13 @@ namespace Spooky.Content.Generation
 						}
 					}
 
+                    /*
 					//place block clusters right above the world surface to prevent the cemetery from generating too low
 					for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY += 3)
 					{
 						SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), 0, WorldGen.genRand.Next(2, 3), true, true);
 					}
+                    */
 				}
 
                 for (int Y = (int)heightLimit; Y <= Main.worldSurface; Y++)

@@ -604,7 +604,7 @@ namespace Spooky.Content.Generation
 					}
 
 					//tables and chairs
-					if (WorldGen.genRand.NextBool(15) && IsFlatSurface(i, j, 7))
+					if (WorldGen.genRand.NextBool(15) && CanPlaceFurniture(i, j, 7))
 					{
 						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasTable>());
 
@@ -625,19 +625,19 @@ namespace Spooky.Content.Generation
 					}
 
 					//sofas
-					if (WorldGen.genRand.NextBool(22) && IsFlatSurface(i, j, 4))
+					if (WorldGen.genRand.NextBool(22) && CanPlaceFurniture(i, j, 4))
 					{
 						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasSofa>());
 					}
 
 					//beds
-					if (WorldGen.genRand.NextBool(35) && IsFlatSurface(i, j, 6))
+					if (WorldGen.genRand.NextBool(35) && CanPlaceFurniture(i, j, 6))
 					{
 						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasBed>(), direction: WorldGen.genRand.NextBool() ? -1 : 1);
 					}
 
 					//dressers
-					if (WorldGen.genRand.NextBool(25) && IsFlatSurface(i, j, 4))
+					if (WorldGen.genRand.NextBool(25) && CanPlaceFurniture(i, j, 4))
 					{
 						WorldGen.PlaceChest(i, j - 1, (ushort)ModContent.TileType<ChristmasDresser>());
 
@@ -649,13 +649,13 @@ namespace Spooky.Content.Generation
 					}
 
 					//work benches
-					if (WorldGen.genRand.NextBool(18) && IsFlatSurface(i, j, 4))
+					if (WorldGen.genRand.NextBool(18) && CanPlaceFurniture(i, j, 4))
 					{
 						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasWorkBench>());
 					}
 
 					//lamps
-					if (WorldGen.genRand.NextBool(25) && IsFlatSurface(i, j, 2))
+					if (WorldGen.genRand.NextBool(25) && CanPlaceFurniture(i, j, 2))
 					{
 						WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasLamp>());
 					}
@@ -702,7 +702,7 @@ namespace Spooky.Content.Generation
 
 		//check for a flat surface in the dungeon that also has no tiles above the entire flat space
 		//use to check for a specific width to place individual pieces of furniture, or in other cases multiple pieces of furniture (such as tables with chairs next to them)
-		public bool IsFlatSurface(int PositionX, int PositionY, int Width)
+		public bool CanPlaceFurniture(int PositionX, int PositionY, int Width)
 		{
 			for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
 			{
@@ -714,6 +714,17 @@ namespace Spooky.Content.Generation
 				else
 				{
 					return false;
+				}
+			}
+
+			for (int x = PositionX - 5; x <= PositionX + 5; x++)
+			{
+				for (int y = PositionY - 5; y <= PositionY + 5; y++)
+				{
+					if (FurnitureTypes.Contains(Main.tile[x, y].TileType))
+					{
+						return false;
+					}
 				}
 			}
 

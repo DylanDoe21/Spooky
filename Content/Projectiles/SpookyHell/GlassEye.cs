@@ -181,7 +181,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			{
 				NPC NPC = Main.npc[i];
 
-				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.IsTechnicallyBoss() && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && NPC.IsTechnicallyBoss() && Vector2.Distance(Projectile.Center, NPC.Center) <= 500f)
 				{
 					AttackingAI(NPC);
 					return;
@@ -194,7 +194,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				NPC NPC = Main.npc[i];
 
 				//if no boss is found, target other enemies normally
-				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 450f)
+				if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPC.IsTechnicallyBoss() && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Projectile.Center, NPC.Center) <= 500f)
 				{
 					AttackingAI(NPC);
 					return;

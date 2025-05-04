@@ -42,7 +42,7 @@ CemeteryLily: {
 		'''
 		Cuts your maximum health down to a third and gives you 3 revives
 		Upon death you will loose a revive and gain stat buffs for 15 seconds
-		After loosing all revives, this blooms effect will be removed from you
+		After loosing all revives, this bloom's effect will be removed from you
 		3 minute duration
 		'''
 }
@@ -112,7 +112,7 @@ Dragonfruit: {
 		'''
 		Spawns a dragon fruit that will orbit around you and chase nearby enemies
 		After hitting an enemy the fruit will die, and will respawn after a few seconds
-		Eating multiple of this bloom while having this bloom's ability active will increase its stack
+		Eating multiple of this bloom while having this bloom's effect will increase its stack
 		Each stack of this buff gives you an additional orbiting fruit, up to 10 total
 		3 minute duration
 		'''
@@ -164,7 +164,7 @@ FossilBlackPepper: {
 		Sometimes shoot out pepper pebbles that increase defense when picked up
 		If your defense is lower, you will spawn pepper pebbles more frequently
 		Each one increases defense by 2, and will stack up to a maximum of 20
-		This defense bonus will last until this blooms effect runs out
+		This defense bonus will last until this bloom's effect runs out
 		5 minute duration
 		'''
 }
@@ -173,8 +173,8 @@ FossilDutchmanPipe: {
 	DisplayName: Evil Dutchman Pipe
 	Tooltip:
 		'''
-		Creates a negative aura around you
-		Enemies that step into the aura will take increased damage
+		Creates an evil aura around you
+		Enemies inside of this aura will take more damage for your attacks
 		5 minute duration
 		'''
 }

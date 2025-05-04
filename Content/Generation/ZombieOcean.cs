@@ -387,7 +387,7 @@ namespace Spooky.Content.Generation
 						Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 						t = (i + 1) / (float)segments;
 
-						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 20, false))
+						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 						{
 							PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, false, true);
 						}
@@ -400,7 +400,7 @@ namespace Spooky.Content.Generation
 					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 					t = (i + 1) / (float)segments;
 
-					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 20, false))
+					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 					{
 						int Size = GoingToSurface ? 5 : 7;
 						PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), -1, 0, Size, Size, 1f, false, false);
@@ -801,7 +801,7 @@ namespace Spooky.Content.Generation
 				{
 					PlaceDepthsOval(PositionX, PositionY + 11, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 13, 7, 1f, true, false);
 
-					Vector2 LabOrigin = new Vector2(PositionX - 18, PositionY - 5);
+					Vector2 LabOrigin = new Vector2(PositionX - 18, PositionY - 4);
 					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/LabPlaceholder.shstruct", LabOrigin.ToPoint16(), Mod);
 
 					numLabs++;
@@ -871,7 +871,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			return numAboveTiles < 10 && numTiles >= 470;
+			return numAboveTiles < 10 && numTiles >= 550;
 		}
 
 		public bool NoDungeonBlocksNearby(int PositionX, int PositionY, int Distance, bool DoEmptyTileCheck)

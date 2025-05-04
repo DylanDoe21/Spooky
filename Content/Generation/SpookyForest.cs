@@ -32,9 +32,6 @@ namespace Spooky.Content.Generation
 		{
 			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest").Value;
 
-			//decide whether or not to use the alt background
-			Flags.SpookyBackgroundAlt = WorldGen.genRand.NextBool();
-
 			//if config is enabled, place it at spawn
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().SpookyForestSpawn)
 			{
@@ -173,9 +170,9 @@ namespace Spooky.Content.Generation
 					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>())
 					{
 						//generate perlin noise caves
-						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
-						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
-						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 350f, Y / 250f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
+						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 400f, Y / 250f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
+						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 400f, Y / 250f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
+						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 400f, Y / 250f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
 						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
 						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
 

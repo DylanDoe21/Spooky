@@ -1,11 +1,11 @@
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using Terraria.GameContent;
-using Terraria.Graphics.Effects;
 using Terraria;
 using Terraria.ModLoader;
-using System.Reflection;
+using Terraria.GameContent;
+using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Reflection;
 
 namespace Spooky.Content.Backgrounds.Cemetery
 {
@@ -69,14 +69,33 @@ namespace Spooky.Content.Backgrounds.Cemetery
 				int bgStart = (int)(-Math.IEEERemainder(Main.screenPosition.X * bgParallax, bgW) - (bgW / 2));
 
 				//offset values so each background layer isnt drawn way too high above one another to give a more flat terrain feel
-				int TopHeightOffset = i == 0 ? 320 : (i == 1 ? 400 : 500);
+				int TopHeightOffset = 0;
+
+				switch (i)
+				{
+					case 0:
+					{
+						TopHeightOffset = 320;
+						break;
+					}
+					case 1:
+					{
+						TopHeightOffset = 400;
+						break;
+					}
+					case 2:
+					{
+						TopHeightOffset = 500;
+						break;
+					}
+				}
+
 				int bgTop = (int)((-Main.screenPosition.Y + screenOff / 2f) / (Main.worldSurface * 16.0) * a + b) + (int)scAdj - ((length - i) * TopHeightOffset);
 				int bgLoops = Main.screenWidth / bgW + 2;
 
 				if (Main.gameMenu)
 				{
-					int TopHeightOffsetForMenu = i == 0 ? 320 : (i == 1 ? 420 : 520);
-					bgTop = TopHeightOffsetForMenu;
+					bgTop = 320;
 				}
 
 				Color backColor = typeof(Main).GetFieldValue<Color>("ColorOfSurfaceBackgroundsModified", Main.instance);

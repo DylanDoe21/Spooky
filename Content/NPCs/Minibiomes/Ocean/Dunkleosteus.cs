@@ -725,13 +725,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			if (!FoundValidPath || (FindClosestNode && NPC.Distance(RealPosition) < 100f))
 			{
-				SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
-
-				SoundEngine.PlaySound(Main.rand.Next(Sounds), NPC.Center);
-
-				RoarAnimationTimer = 75;
-
-				Aggression = 0;
+				Aggression = 2;
 			}
 			else
 			{
