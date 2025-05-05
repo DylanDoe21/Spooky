@@ -75,6 +75,43 @@ namespace Spooky.Core
 
 			return base.PreAI(projectile);
 		}
+
+        public override bool PreKill(Projectile projectile, int timeLeft)
+        {
+            //make the world globe change the spooky mod surface biome backgrounds
+            if (projectile.type == ProjectileID.WorldGlobe)
+            {
+                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiomeUg>()))
+                {
+                    if (!Flags.SpookyBackgroundAlt)
+                    {
+                        Flags.SpookyBackgroundAlt = true;
+                    }
+                    else
+                    { 
+                        Flags.SpookyBackgroundAlt = false;
+                    }
+                    
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+
+                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
+                {
+                    if (!Flags.CemeteryBackgroundAlt)
+                    {
+                        Flags.CemeteryBackgroundAlt = true;
+                    }
+                    else
+                    { 
+                        Flags.CemeteryBackgroundAlt = false;
+                    }
+                    
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+            }
+
+            return base.PreKill(projectile, timeLeft);
+        }
     }
 
 	public static partial class ProjectileUtil

@@ -32,6 +32,9 @@ namespace Spooky.Content.Generation
 		{
 			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest").Value;
 
+			//decide whether or not to use the alt background
+			Flags.SpookyBackgroundAlt = Main.rand.NextBool();
+
 			//if config is enabled, place it at spawn
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().SpookyForestSpawn)
 			{

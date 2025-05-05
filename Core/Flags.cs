@@ -53,6 +53,8 @@ namespace Spooky.Core
 		public static bool GuaranteedRaveyard = false;
 
 		//misc stuff
+		public static bool SpookyBackgroundAlt = false;
+		public static bool CemeteryBackgroundAlt = false;
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
@@ -94,6 +96,8 @@ namespace Spooky.Core
 			OldHunterAssembled = false;
 
 			//misc stuff
+			SpookyBackgroundAlt = false;
+			CemeteryBackgroundAlt = false;
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
@@ -155,6 +159,8 @@ namespace Spooky.Core
 			tag[nameof(GuaranteedRaveyard)] = GuaranteedRaveyard;
 
 			//misc stuff
+			tag[nameof(SpookyBackgroundAlt)] = SpookyBackgroundAlt;
+			tag[nameof(CemeteryBackgroundAlt)] = CemeteryBackgroundAlt;
 			tag[nameof(CatacombKey1)] = CatacombKey1;
 			tag[nameof(CatacombKey2)] = CatacombKey2;
 			tag[nameof(CatacombKey3)] = CatacombKey3;
@@ -219,6 +225,8 @@ namespace Spooky.Core
 			GuaranteedRaveyard = tag.GetBool(nameof(GuaranteedRaveyard));
 
 			//misc stuff
+			SpookyBackgroundAlt = tag.GetBool(nameof(SpookyBackgroundAlt));
+			CemeteryBackgroundAlt = tag.GetBool(nameof(CemeteryBackgroundAlt));
 			CatacombKey1 = tag.GetBool(nameof(CatacombKey1));
 			CatacombKey2 = tag.GetBool(nameof(CatacombKey2));
 			CatacombKey3 = tag.GetBool(nameof(CatacombKey3));
@@ -261,7 +269,7 @@ namespace Spooky.Core
 			writer.WriteFlags(downedMocoIdol1, downedMocoIdol2, downedMocoIdol3, downedMocoIdol4, downedMocoIdol5, downedMocoIdol6, MinibossBarrierOpen);
 
 			//misc stuff
-			writer.WriteFlags(CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard);
+			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard);
 
 			//old hunter stuff
 			writer.WriteFlags(OldHunterAssembled, OldHunterHat, OldHunterSkull, OldHunterTorso, OldHunterLegs);
@@ -299,7 +307,7 @@ namespace Spooky.Core
 			reader.ReadFlags(out downedMocoIdol1, out downedMocoIdol2, out downedMocoIdol3, out downedMocoIdol4, out downedMocoIdol5, out downedMocoIdol6, out MinibossBarrierOpen);
 
 			//misc stuff
-			reader.ReadFlags(out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard);
+			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard);
 
 			//old hunter stuff
 			reader.ReadFlags(out OldHunterAssembled, out OldHunterHat, out OldHunterSkull, out OldHunterTorso, out OldHunterLegs);

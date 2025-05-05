@@ -131,8 +131,8 @@ namespace Spooky.Core
 				if (Main.dayTime)
 				{
 					//critters
-					pool.Add(ModContent.NPCType<FlySmall>(), 2);
-					pool.Add(ModContent.NPCType<FlyBig>(), 2);
+					pool.Add(ModContent.NPCType<FlySmall>(), 1);
+					pool.Add(ModContent.NPCType<FlyBig>(), 1);
 
 					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))

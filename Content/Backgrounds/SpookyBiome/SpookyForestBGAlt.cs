@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Spooky.Content.Backgrounds.SpookyBiome
 {
-	public class SpookyForestBG : ModSurfaceBackgroundStyle
+	public class SpookyForestBGAlt : ModSurfaceBackgroundStyle
 	{
 		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => -1;
 
@@ -27,27 +27,25 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 			float scAdj = (float)scAdjField.GetValue(Main.instance);
 			Color BGColorModified = (Color)BGColorModifiedField.GetValue(null);
 
-			//width and height (this is not usually a good idea but each of these 
+			//width and height (this is not usually a good idea but each of these bgs are the same dimensions
 			int Width = 1024;
 			int Height = 700;
 
 			//offsets for each individual background layer
-			int CloseBGYOffset = -20;
-			int MiddleCloseBGYOffset = -75;
-			int MiddleFarBGYOffset = -50;
-			int FarBGYOffset = -40;
+			int CloseBGYOffset = -250;
+			int MiddleBGYOffset = -300;
+			int FarBGYOffset = -100;
 
-			int[] textureSlots = new int[]
+			int[] textureSlots = new int[] 
 			{
-				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBG4"),
-				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBG3"),
-				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBG2"),
-				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBG1"),
+				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBGAlt3"),
+				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBGAlt2"),
+				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBGAlt1"),
 			};
 
 			//actual background color using vanillas own background color with modifications
 			Color BGActualColor = new Color(BGColorModified.R, BGColorModified.G, BGColorModified.B, BGColorModified.A);
-			
+
 			bool canBGDraw = false;
 
 			//only draw the background if you arent on the menu or a secret worldseed where surface backgrounds arent supposed to be drawn
@@ -95,15 +93,15 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 
 			if (canBGDraw)
 			{
-				//back layer mountain
-				var bgScale = 0.9f;
+				//back layer
+				var bgScale = 1.05f;
 				var bgParallax = 0.35;
 				var bgTopY = (int)(backgroundTopMagicNumber * 1800.0 + 1500.0) + (int)scAdj + pushBGTopHack;
 				bgScale *= bgGlobalScaleMultiplier;
 				var bgWidthScaled = (int)((float)Width * bgScale);
 				SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1.2f / (float)bgParallax);
 				var bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
-				
+
 				if (Main.gameMenu)
 				{
 					bgTopY = 320 + pushBGTopHack;
@@ -118,33 +116,9 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 					}
 				}
 
-				//far layer infront of mountain
-				bgScale = 1.1f;
-				bgParallax = 0.43;
-				bgTopY = (int)(backgroundTopMagicNumber * 1950.0 + 1750.0) + (int)scAdj + pushBGTopHack;
-				bgScale *= bgGlobalScaleMultiplier;
-				bgWidthScaled = (int)((float)Width * bgScale);
-				SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
-				bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
-
-				if (Main.gameMenu)
-				{
-					bgTopY = 400 + pushBGTopHack;
-					bgStartX -= 80;
-				}
-
-				bgLoops = Main.screenWidth / bgWidthScaled + 2;
-				if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
-				{
-					for (int i = -bgLoops; i < bgLoops; i++)
-					{
-						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[1]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleFarBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
-					}
-				}
-
-				//closer layer behind the front
-				bgScale = 1.22f;
-				bgParallax = 0.49;
+				//middle layer
+				bgScale = 1.2f;
+				bgParallax = 0.45;
 				bgTopY = (int)(backgroundTopMagicNumber * 2100.0 + 2000.0) + (int)scAdj + pushBGTopHack;
 				bgScale *= bgGlobalScaleMultiplier;
 				bgWidthScaled = (int)((float)Width * bgScale);
@@ -162,13 +136,13 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 				{
 					for (int i = -bgLoops; i < bgLoops; i++)
 					{
-						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[2]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleCloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[1]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
 					}
 				}
 
 				//front layer
-				bgScale = 1.34f;
-				bgParallax = 0.56;
+				bgScale = 1.35f;
+				bgParallax = 0.55;
 				bgTopY = (int)(backgroundTopMagicNumber * 2250.0 + 2250.0) + (int)scAdj + pushBGTopHack;
 				bgScale *= bgGlobalScaleMultiplier;
 				bgWidthScaled = (int)((float)Width * bgScale);
@@ -186,7 +160,7 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 				{
 					for (int i = -bgLoops; i < bgLoops; i++)
 					{
-						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[3]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + CloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[2]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + CloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
 					}
 				}
 			}

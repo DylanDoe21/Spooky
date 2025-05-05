@@ -12,10 +12,10 @@ namespace Spooky.Content.Biomes
 {
     public class CemeteryBiome : ModBiome
     {
-        public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.GetInstance<CemeteryBG>();
+		public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => Flags.CemeteryBackgroundAlt ? ModContent.GetInstance<CemeteryBGAlt>() : ModContent.GetInstance<CemeteryBG>();
 
-        //set the music to be consistent with vanilla's music priorities
-        public override int Music
+		//set the music to be consistent with vanilla's music priorities
+		public override int Music
         {
             get
             {
