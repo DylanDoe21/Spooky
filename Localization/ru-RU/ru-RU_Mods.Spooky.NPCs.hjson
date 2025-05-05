@@ -1,0 +1,409 @@
+RotGourd: {
+	DisplayName: Гнилая тыква
+
+	BossChecklistIntegration: {
+		SpawnInfo: Используйте [i:Spooky/RottenSeed] в жутком лесу. Семя можно получить при разрушении заплесневевших тыкв в этом же лесу.
+		DespawnMessage: Гнилая тыква упрыгивает за горизонт...
+	}
+}
+
+SpookySpirit: {
+	DisplayName: Жуткий дух
+
+	BossChecklistIntegration: {
+		SpawnInfo: Нажмите ПКМ по расположенной на заболоченном кладбище проклятой статуе ночью, держа [i:Spooky/EMFReader] в своём инвентаре.
+		DespawnMessage: Жуткий дух запугал всех игроков!
+	}
+}
+
+Moco: {
+	DisplayName: Моко
+
+	BossChecklistIntegration: {
+		SpawnInfo: Нажмите ПКМ по святыне носового Бога, держа [i:Spooky/CottonSwab] в своём инвентаре.
+		DespawnMessage: Моко зачихал всех игроков.
+	}
+}
+
+DaffodilEye: {
+	DisplayName: Нарцисс
+
+	BossChecklistIntegration: {
+		SpawnInfo: Бросьте [i:Spooky/Brick] в цветок, чтобы разбудить её.
+		DespawnMessage: Все игроки встретили свою смерть в цветах.
+	}
+}
+
+OrroHead: {
+	DisplayName: Орро
+
+	BossChecklistIntegration: {
+		EntryName: Орро и Боро
+		SpawnInfo: После завершения события Яичного нашествия нажмите ПКМ по гигантскому яйцу в глазастой долине, держа [i:Spooky/Concoction] в своём инвентаре.
+		DespawnMessage: Орро и Боро защитили своё яйцо.
+	}
+}
+
+BigBone: {
+	DisplayName: Исполинский череп
+
+	BossChecklistIntegration: {
+		SpawnInfo: Используйте [i:Spooky/Fertilizer] возле гигантского цветочного горшка, расположенного на самом дне Катакомб.
+		DespawnMessage: Все игроки стали жертвой гнева Исполинского черепа.
+	}
+}
+
+SpookFishron: {
+	DisplayName: Ужасающий Рыброн
+
+	BossChecklistIntegration: {
+		SpawnInfo: Рыбачьте в океане во время Тыквенной луны, используя [i:Spooky/SinisterSnailItem] в качестве наживки.
+		DespawnMessage: Все игроки пали жатвой очень оригинального босса.
+	}
+}
+
+//boss stuff
+BigFlowerPot.DisplayName: Гигантский цветочный горшок
+BigFlower.DisplayName: Солнечный цветок
+DefensiveFlower.DisplayName: Защитный цветок
+HealingFlower.DisplayName: Исцеляющий цветок
+CatacombGuardian.DisplayName: Страж Катакомб
+BigBoneArenaBG.DisplayName: ""
+DaffodilBody.DisplayName: ""
+DaffodilHandLeft.DisplayName: Нарцисс
+DaffodilHandRight.DisplayName: Нарцисс
+DaffodilArenaBG.DisplayName: ""
+MoclingMinion.DisplayName: Моклёнок
+MocoIntro.DisplayName: Моклёнок
+MocoOutro.DisplayName: Моклёнок
+MocoSpawner.DisplayName: ""
+BoroBody.DisplayName: Боро
+BoroBodyConnect.DisplayName: Боро
+BoroBodyWings.DisplayName: Боро
+BoroBodyWingsP1.DisplayName: Боро
+BoroBodyP1.DisplayName: Боро
+BoroHead.DisplayName: Боро
+BoroTail.DisplayName: Боро
+BoroTailP1.DisplayName: Боро
+OrroBody.DisplayName: Орро
+OrroBodyWings.DisplayName: Орро
+OrroBodyWingsP1.DisplayName: Орро
+OrroBodyP1.DisplayName: Орро
+OrroHeadP1.DisplayName: Орро
+OrroTail.DisplayName: Орро
+BoroTongue.DisplayName: Язык Боро
+PhantomSkull.DisplayName: Призрачный череп
+OrbitingBooger.DisplayName: Козявочный шар
+SpookSharkron.DisplayName: Жуткий акулон
+//hallucinations
+TheMan.DisplayName: Сущность
+//catacombs layer 1
+Skeletoid1.DisplayName: Скелетоид
+Skeletoid2.DisplayName: Скелетоид
+Skeletoid3.DisplayName: Скелетоид
+Skeletoid4.DisplayName: Скелетоид
+SkeletoidBig.DisplayName: Большой Джон
+BoneStackerBase.DisplayName: Плита Катакомб
+BoneStacker1.DisplayName: Костяная плита
+BoneStacker2.DisplayName: Костяная плита
+BoneStacker3.DisplayName: Костяная плита
+BoneStackerMoving1.DisplayName: Костяная плита
+BoneStackerMoving2.DisplayName: Костяная плита
+BoneStackerMoving3.DisplayName: Костяная плита
+GiantPutty.DisplayName: Мастичный куб
+RollingSkull1.DisplayName: Катающийся череп
+RollingSkull2.DisplayName: Катающийся череп
+RollingSkull3.DisplayName: Катающийся череп
+RollingSkull4.DisplayName: Позолоченный череп
+ZomboidGlyphomancer.DisplayName: Зомбоид-глифомант
+ZomboidNecromancer.DisplayName: Зомбоид-некромант
+ZomboidNecromancerSoul.DisplayName: Душа нежити
+PhantomRollingSkull.DisplayName: Призрак
+PhantomSkeletoid.DisplayName: Призрак
+ZomboidPyromancer.DisplayName: Зомбоид-пиромант
+ZomboidSuspiciomancer.DisplayName: Зомбоид-подозревант
+//catacombs layer 2
+CatacombCrusherSpawner.DisplayName: Спаунер древнего крушителя
+CatacombCrusher1.DisplayName: Древний крушитель
+CatacombCrusher2.DisplayName: Древний крушитель
+CatacombCrusher3.DisplayName: Древний крушитель
+CatacombCrusher4.DisplayName: Позолоченный крушитель
+CelebrationSkeletoid1.DisplayName: Усопший скелетоид
+CelebrationSkeletoid2.DisplayName: Усопший скелетоид
+CelebrationSkeletoid3.DisplayName: Усопший скелетоид
+CelebrationSkeletoid4.DisplayName: Усопший скелетоид
+CelebrationSkeletoid5.DisplayName: Усопший скелетоид
+Dahlia.DisplayName: Дивагеоргина
+DahliaEye.DisplayName: Дивагеоргина
+FlushBush1.DisplayName: Плачущий куст
+FlushBush2.DisplayName: Плачущий куст
+FlushBush3.DisplayName: Плачущий куст
+FlushBush4.DisplayName: Плачущий куст
+JumpingSeed1.DisplayName: Семяпрыгун
+JumpingSeed2.DisplayName: Семяпрыгун
+JumpingSeed3.DisplayName: Семяпрыгун
+LilySlime1Big.DisplayName: Кувшинка
+LilySlime1Small.DisplayName: Кувшинка
+LilySlime2Big.DisplayName: Кувшинка
+LilySlime2Small.DisplayName: Кувшинка
+OrchidPinkBig.DisplayName: Орхидея-надзиратель
+OrchidPinkSmall.DisplayName: Орхидея-надзиратель
+OrchidPurpleBig.DisplayName: Орхидея-надзиратель
+OrchidPurpleSmall.DisplayName: Орхидея-надзиратель
+OrchidStem.DisplayName: ""
+PitcherPlant1.DisplayName: Ростоплюй
+PitcherPlant2.DisplayName: Ростоплюй
+PitcherPlant3.DisplayName: Ростоплюй
+PitcherPlant4.DisplayName: Ростоплюй
+PlantTrap1.DisplayName: Цветущий ловец
+PlantTrap2.DisplayName: Цветущий ловец
+PlantTrap3.DisplayName: Цветущий ловец
+PlantTrap4.DisplayName: Цветущий ловец
+PlantTrap5.DisplayName: Цветущий ловец
+PlantTrap6.DisplayName: Цветущий ловец
+PollinatorBeeDamage.DisplayName: Пчела-опыльтельница
+PollinatorBeeHealing.DisplayName: Пчела-опыльтельница
+SkeletoidBandit.DisplayName: Скелетоид-бандит
+Smelly.DisplayName: Зловоние
+Sunflower1.DisplayName: Подкрадывающийся подсолнух
+Sunflower3.DisplayName: Подкрадывающийся подсолнух
+Sunflower2.DisplayName: Подкрадывающийся подсолнух
+//pandora's box
+PandoraBox.DisplayName: Ящик Пандоры
+Bobbert.DisplayName: Бобберт
+Chester.DisplayName: Честер
+ChesterClub.DisplayName: Честер
+ChesterShield.DisplayName: Честер
+Sheldon.DisplayName: Шелдон
+SheldonShield.DisplayName: Шелдон
+Stitch.DisplayName: Стич
+StitchWand.DisplayName: Стич
+//cemetery
+BloatGhostBig.DisplayName: Дующийся призрак
+BloatGhostSmall.DisplayName: Призрак
+FeralRat1.DisplayName: Дикая крыса
+FeralRat2.DisplayName: Дикая крыса
+HungryGhost.DisplayName: Голодный призрак
+MistGhost.DisplayName: Туманный призрак
+MistGhostFaces.DisplayName: Туманный призрак
+MistGhostWiggle.DisplayName: Туманный призрак
+Possessor.DisplayName: Извивающийся призрак
+PossessorEvil.DisplayName: Извивающийся призрак
+SadGhostBig.DisplayName: Грустящий призрак
+SadGhostSmall.DisplayName: Грустящий призрак
+SmileGhost.DisplayName: Счастливый призрак
+SmileGhostSmall1.DisplayName: Счастливый призрак
+SmileGhostSmall2.DisplayName: Счастливый призрак
+SmileGhostSmall3.DisplayName: Счастливый призрак
+TinyRat1.DisplayName: Крысёныш
+TinyRat2.DisplayName: Крысёныш
+ZomboidCasket.DisplayName: Зомбоид в гробу
+ZomboidGremlin.DisplayName: Зомбу
+//egg event
+Biojetter.DisplayName: Биострулёт
+BiojetterEye.DisplayName: Биострулёт
+CoughLungs.DisplayName: Кашляющие лёгкие
+CruxBat.DisplayName: Тощнотворец
+EarWorm.DisplayName: Ушной червь
+EarWormBase.DisplayName: ""
+ExplodingAppendix.DisplayName: Взрывной апендикс
+FleshBolster.DisplayName: Мясная поддержка
+GooSlug.DisplayName: Слизеслизь
+HoppingHeart.DisplayName: Сердце-попрыгунчик
+HoverBrain.DisplayName: Летающий мозг
+TongueBiter.DisplayName: Язык-кусатель
+OrroboroEgg.DisplayName: ""
+//friendly
+DumbZomboid.DisplayName: Безмозглый зомби
+GiantWebAnimationBase.DisplayName: ""
+GiantWebAnimationPiece.DisplayName: ""
+LittleBone.DisplayName: Черепок
+LittleBonePotTransform.DisplayName: Черепок
+LittleBoneSleeping.DisplayName: Спящее растение
+LittleEye.DisplayName: Глазик
+LittleEyeSleeping.DisplayName: Спящий глаз
+Musicman.DisplayName: Мьюзикмен
+PartySkeleton1.DisplayName: Тусующийся скелет
+PartySkeleton2.DisplayName: Тусующийся скелет
+PartySkeleton3.DisplayName: Тусующийся скелет
+PartySkeleton4.DisplayName: Тусующийся скелет
+PartySkeleton5.DisplayName: Тусующийся скелет
+PartySkeleton6.DisplayName: Тусующийся скелет
+PartySkeleton7.DisplayName: Тусующийся скелет
+PartySkeleton8.DisplayName: Тусующийся скелет
+PartySkeleton.Names: Костян, Тони, Джефф, МакРиб, Клемманс, Ханц Дряблосмертц, Хальций, Риберт, Нейджел, Мотрон, Джерэми, Густаво, Печально известный как Ч.Е.Р.Е.П, Патрик, Пуатрик, Ванда, Сеньор Эрнандес, Джон-младший, Фортунадо, Квандейл, Обычный скелет, Бонго, Онго, Пит Гриффит, Тарио, Реброн
+SkeletonBouncer.DisplayName: Скелет-вышибала
+SuspiciousSkeleton.DisplayName: Подозрительный скелет
+OldHunterSleeping.DisplayName: Старый охотник
+
+OldHunter: {
+	DisplayName: Старый охотник
+
+	TownNPCMood: {
+		Content: Меня всё устраивает.
+		NoHome: Знаешь, я тут как раз тебя спросить хотел... домика свободного не найдётся?
+		FarFromHome: Далеко ж я от дома отошёл... Слишком далеко...
+		LoveSpace: А тут и вправду просторно, есть где разгуляться.
+		DislikeCrowded: Ты нам тут приют для бездомных организовал? Куда ж столько народу-то...
+		HateCrowded: Слишком много народу! Я на сторости лет своих такой гам переношу еле как, ты же знаешь.
+		LoveBiome: Ах, старый добрый {BiomeName}. Темнота, затхлый воздух... и пауки, мать их за ногу. Обожаю это место.
+		LikeBiome: "{BiomeName} мне по душе, кто бы что ни говорил. Ничто мне так не напоминает о доме, как писк стаи летучих мышей по ночам или очередной ядовитый паук, ползущий по моему плечу."
+		DislikeBiome: Одного не могу понять: чем вам всем так нравится океан? Тут даже мухи не летают, скукота, да и только!
+		HateBiome: Какое к чёрту «освящение»? Радуга и единороги? Ну ты серьёзно? Может ещё и волшебную палочку мне дашь вместо винтовки? Даю тебе день на то, чтобы переселил меня подальше отсюдова.
+		LoveNPC: "{NPCName} чертовски крут! Хоть кого-то по-настоящему брутального встретил в этой дыре."
+		LikeNPC: Мне нравится {NPCName}. Признаться честно, это потому что он такой же старый, как и я, с молодёжью я говорить не умею, хах.
+		DislikeNPC: "{NPCName}? Как-то она много о себе возомнила, тебе так не кажется? Тоже мне, принцесса!"
+		HateNPC: Пусть {NPCName} идёт лесом. В жизни не видел такого вопиющего неуважения к старшим.
+		Princess_LovesNPC: ""
+		LikeNPC_Princess: ""
+	}
+}
+
+GiantWeb: {
+	DisplayName: Громадная паутина
+	DisplayNameAlt: Нажмите ПКМ, чтобы вставить старые вещи охотника
+}
+
+//spooky biome
+Bungus.DisplayName: Хриб
+CandleMonster.DisplayName: Монстросвеча
+Chungus.DisplayName: Толстый гриб
+FluffBatBig1.DisplayName: Гигантская летучая плюшомышь
+FluffBatBig2.DisplayName: Гигантская летучая плюшомышь
+FluffBatSmall1.DisplayName: Летучая плюшомышь
+FluffBatSmall2.DisplayName: Летучая плюшомышь
+FlyBig.DisplayName: Гигантская муха
+FlySmall.DisplayName: Муха
+HoppingCandyBasket.DisplayName: Прыгающая корзинка с конфетами
+LittleSpider.DisplayName: Крошечный паук
+MonsterEye1.DisplayName: Глаз-монстр
+MonsterEye2.DisplayName: Глаз-монстр
+MonsterEye4.DisplayName: Глаз-монстр
+MonsterEye3.DisplayName: Глаз-монстр
+PuttyPumpkin.DisplayName: Мастичная тыква
+PuttyPumpkinling.DisplayName: Мастичная тыковка
+PuttySlime1.DisplayName: Мастичный слизень
+PuttySlime2.DisplayName: Мастичный слизень
+PuttySlime3.DisplayName: Мастичный слизень
+ScarecrowShotgunner.DisplayName: Одержимое пугало
+ShroomHopper.DisplayName: Грибной прыгунчик
+SinisterSnail.DisplayName: Зловещая улитка
+SpookyDance.DisplayName: Жуткий танцующий призрак
+TinyGhost1.DisplayName: Приведеньеце
+TinyGhost2.DisplayName: Приведеньеце
+TinyGhostBoof.DisplayName: Приведеньеце
+TinyGhostRare.DisplayName: Жуткое приведеньеце
+TinyMushroom.DisplayName: Грибочек
+Witch.DisplayName: Злая ведьма
+ZomboidArmored.DisplayName: Бронированный зомбоид
+ZomboidClarinet.DisplayName: Зомбоид
+ZomboidFungus.DisplayName: Зомбоид
+ZomboidPumpkin.DisplayName: Корнезомбоид
+ZomboidPumpkinFire.DisplayName: Пылающий корнезомбоид
+ZomboidRain.DisplayName: Протекающий зомбоид
+ZomboidThorn.DisplayName: Зомбоид
+ZomboidTomatoMold.DisplayName: Помидорный зомбоид
+ZomboidTomato.DisplayName: Помидорный зомбоид
+ZomboidWarlock.DisplayName: Зомбоид-колдун
+WarlockSkull.DisplayName: Череп колдуна
+ZomboidWind.DisplayName: Зомбоид
+//valley of eyes
+EyeBat.DisplayName: Летучая глазомышь
+EyeBatFleshy.DisplayName: Летучая глазомышь
+ManHole.DisplayName: Мясная полость
+ManHoleFleshy.DisplayName: Мясная полость
+ManHoleEye.DisplayName: Глаз
+ManHoleBig.DisplayName: Большая мясная полость
+MrHandy.DisplayName: Мистер Руки
+MrHandyFleshy.DisplayName: Мистер Руки
+Tortumor.DisplayName: Болепухоль
+TortumorFleshy.DisplayName: Болепухоль
+TortumorGiant.DisplayName: Гигантская болепухоль
+TortumorGiantFleshy.DisplayName: Гигантская болепухоль
+Mocling.DisplayName: Моклёнок
+MoclingSwarm.DisplayName: ""
+ValleyFish.DisplayName: Подглядывающая рыба
+ValleyNautilus.DisplayName: Кроваво-красный моллюск
+ValleySquid.DisplayName: Тромбный кальмар
+ValleySquidClone.DisplayName: Тромбный кальмар
+ValleyEelBody.DisplayName: Аортный угорь
+ValleyEelHead.DisplayName: Аортный угорь
+ValleyEelTail.DisplayName: Аортный угорь
+ValleyShark.DisplayName: Чудище-гемотромб
+ValleySharkMouth.DisplayName: Чудище-гемотромб
+ValleyMerman.DisplayName: Мясной тритон
+//spider cave
+Ant1.DisplayName: Муравей
+Ant2.DisplayName: Муравей
+BallSpider.DisplayName: Пауг
+BallSpiderWeb.DisplayName: Поутина
+Cockroach.DisplayName: Таракан
+DaddyLongLegs.DisplayName: Паук-долгоножка
+Inchworm1.DisplayName: Гусеница
+Inchworm2.DisplayName: Гусеница
+Inchworm3.DisplayName: Гусеница
+JumpingSpider1.DisplayName: Паук-прыгун
+JumpingSpider2.DisplayName: Паук-прыгун
+LeafSpiderSleeping.DisplayName: Листок
+LeafSpider.DisplayName: Листотелый паук
+LeafSpiderWeb.DisplayName: Паутина листотелово паука
+Mosquito1.DisplayName: Москит
+Mosquito2.DisplayName: Москит
+Mosquito3.DisplayName: Москит
+Moth1.DisplayName: Моль
+Moth2.DisplayName: Моль
+OrbWeaver1.DisplayName: Шароткач
+OrbWeaver2.DisplayName: Шароткач
+OrbWeaver3.DisplayName: Шароткач
+OrbWeaverGiant.DisplayName: Гигантский шароткач
+TarantulaHawk1.DisplayName: Тарантуловый ястреб
+TarantulaHawk2.DisplayName: Тарантуловый ястреб
+TarantulaHawk3.DisplayName: Тарантуловый ястреб
+TinySpider1.DisplayName: Паучок
+TinySpider2.DisplayName: Паучок
+TinySpider3.DisplayName: Паучок
+TinySpider4.DisplayName: Паучок
+TinySpider5.DisplayName: Паучок
+TinySpiderEgg.DisplayName: Паучье яйцо
+TrapdoorSpider1.DisplayName: Паук-ловчий
+TrapdoorSpider2.DisplayName: Паук-ловчий
+TrapdoorSpiderIdle1.DisplayName: Паук-ловчий
+TrapdoorSpiderIdle2.DisplayName: Паук-ловчий
+WhipSpider.DisplayName: Паук-хлыстовик
+WhipSpiderTongue.DisplayName: Паук-хлыстовик
+//nose cult
+MocoIdol1.DisplayName: ""
+MocoIdol2.DisplayName: ""
+MocoIdol3.DisplayName: ""
+MocoIdol4.DisplayName: ""
+MocoIdol5.DisplayName: ""
+MocoIdol6.DisplayName: ""
+NoseBallPurple.DisplayName: Носольгама
+NoseBallRed.DisplayName: Носольгама
+NoseCultistBruteIdle.DisplayName: ""
+NoseCultistBrute.DisplayName: Культист-палач
+NoseCultistGruntIdle.DisplayName: ""
+NoseCultistGrunt.DisplayName: Культист-солдат
+NoseCultistGunnerIdle.DisplayName: ""
+NoseCultistGunner.DisplayName: Культист-стрелок
+NoseCultistMageIdle.DisplayName: ""
+NoseCultistMage.DisplayName: Культист-заклинатель
+NoseCultistWingedIdle.DisplayName: ""
+NoseCultistWinged.DisplayName: Культист-лётчик
+NoseCultistLeaderIdle.DisplayName: ""
+NoseCultistLeader.DisplayName: Нософерату
+SnotMonster.DisplayName: Сопляной монстр
+SnotSlime.DisplayName: Сопляной слизень
+//quest minibosses
+BanditBook.DisplayName: Том духов
+BanditBruiser.DisplayName: Крастантин
+BanditWizard.DisplayName: Зелёнтий
+BanditPriest.DisplayName: Синерин
+EyeWizard.DisplayName: Большеглазый
+EyeWizardClone.DisplayName: Призрак Большеглазого
+EyeWizardOrb.DisplayName: Глазное яблоко
+FrankenGoblin.DisplayName: Гоблин Франк
+FrankenGoblinHandFront.DisplayName: Рука Франка
+FrankenGoblinHandBack.DisplayName: Рука Франка
+FrankenGoblinEye.DisplayName: Глаз монстра
+StitchSpider.DisplayName: Сшиватель

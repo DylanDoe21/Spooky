@@ -1,0 +1,131 @@
+CemeteryBiomeChest: {
+	MapEntry0: Сундук заболоченного кладбища
+	MapEntry1: Закрытый сундук заболоченного кладбища
+}
+
+SpiderCaveChest: {
+	MapEntry0: Сундук паучьего грота
+	MapEntry1: Закрытый сундук паучьего грота
+}
+
+SpookyBiomeChest: {
+	MapEntry0: Сундук жуткого леса
+	MapEntry1: Закрытый сундук жуткого леса
+}
+
+SpookyHellChest: {
+	MapEntry0: Сундук глазастой долины
+	MapEntry1: Закрытый сундук глазастой долины
+}
+
+EyeDresser: {
+	ContainerName: Комод из ожившей плоти
+	MapEntry: Комод
+}
+
+CultistDresser: {
+	ContainerName: Оккультный комод
+	MapEntry: Комод
+}
+
+SpiritAltar.MapEntry: Алтарь духов
+CemeterySapling.MapEntry: Росток
+BigBoneBoxTile.MapEntry: Музыкальная шкатулка
+CatacombBoxTile.MapEntry: Музыкальная шкатулка
+CatacombBox2Tile.MapEntry: Музыкальная шкатулка
+CemeteryBoxTile.MapEntry: Музыкальная шкатулка
+DaffodilBoxTile.MapEntry: Музыкальная шкатулка
+EggEventBoxTile.MapEntry: Музыкальная шкатулка
+MocoBoxTile.MapEntry: Музыкальная шкатулка
+NoseTempleBoxTile.MapEntry: Музыкальная шкатулка
+PandoraEventBoxTile.MapEntry: Музыкальная шкатулка
+RaveyardBoxTile.MapEntry: Музыкальная шкатулка
+RotGourdBoxTile.MapEntry: Музыкальная шкатулка
+SpiderCaveBoxTile.MapEntry: Музыкальная шкатулка
+SpookyBiomeDayBoxTile.MapEntry: Музыкальная шкатулка
+SpookyBiomeNightBoxTile.MapEntry: Музыкальная шкатулка
+SpookyBiomeRainBoxTile.MapEntry: Музыкальная шкатулка
+SpookyBiomeUGBoxTile.MapEntry: Музыкальная шкатулка
+OrroboroBoxTile.MapEntry: Музыкальная шкатулка
+SpookyBloodmoonBoxTile.MapEntry: Музыкальная шкатулка
+SpookyHellBoxTile.MapEntry: Музыкальная шкатулка
+SpookyMenuBoxTile.MapEntry: Музыкальная шкатулка
+SpookySpiritBoxTile.MapEntry: Музыкальная шкатулка
+CemeteryPylon.MapEntry: Пилон заболоченного кладбища
+SpiderCavePylon.MapEntry: Пилон паучьего грота
+SpookyBiomePylon.MapEntry: Пилон жуткого леса
+SpookyHellPylon.MapEntry: Пилон глазастой долины
+FlyBigJar.MapEntry: Банка с большой мухой
+FlySmallJar.MapEntry: Банка с мухой
+OldWoodBathtub.MapEntry: Ванна
+OldWoodBed.MapEntry: Кровать
+OldWoodBookcase.MapEntry: Книжный шкаф
+OldWoodCandle.MapEntry: Свеча
+OldWoodChair.MapEntry: Стул
+OldWoodChest.MapEntry: Сундук из старого дерева
+OldWoodDoorClosed.MapEntry: Дверь
+OldWoodDoorOpen.MapEntry: Дверь
+OldWoodOrgan.MapEntry: Орган
+OldWoodSofa.MapEntry: Диван
+OldWoodTable.MapEntry: Стол
+OldWoodWorkBench.MapEntry: Верстак
+GiantShroom.MapEntry: Гигантский светящийся гриб
+SpookySapling.MapEntry: Росток
+SpookySaplingGreen.MapEntry: Росток
+Cauldron.MapEntry: Жуткий котёл
+EyeBathtub.MapEntry: Ванна
+EyeBed.MapEntry: Кровать
+EyeBookcase.MapEntry: Книжный шкаф
+EyeCandelabra.MapEntry: Подсвечник
+EyeCandle.MapEntry: Свеча
+EyeChair.MapEntry: Стул
+EyeChandelier.MapEntry: Люстра
+EyeChest.MapEntry: Монстр-сундук
+EyeClock.MapEntry: Напольные часы
+EyeDoorClosed.MapEntry: Дверь
+EyeDoorOpen.MapEntry: Дверь
+EyeLamp.MapEntry: Лампа
+EyeLantern.MapEntry: Фонарь
+EyePiano.MapEntry: Пианино
+EyeSink.MapEntry: Раковина
+EyeSofa.MapEntry: Диван
+EyeTable.MapEntry: Стол
+EyeWorkBench.MapEntry: Верстак
+EyeSapling.MapEntry: Росток глазостебля
+EyeTree.MapEntry: Глазостебель
+BigBoneTrophy.MapEntry: Трофей
+BoroTrophy.MapEntry: Трофей
+DaffodilTrophy.MapEntry: Трофей
+MocoTrophy.MapEntry: Трофей
+OrroTrophy.MapEntry: Трофей
+RotGourdTrophy.MapEntry: Трофей
+SpookySpiritTrophy.MapEntry: Трофей
+BigFlower.MapEntry: Большой цветок
+MysteriousTombstone.MapEntry: Загадочное надгробие
+GiantRoot.MapEntry: Гигантский корень
+GraveShovelTile.MapEntry: Лопата гробовщика
+TallMushroom.MapEntry: Высокий гриб
+TinyGhostJar.MapEntry: Привиденьеце в банке
+TinyMushroomCage.MapEntry: Террариум с грибочком
+CultistBathtub.MapEntry: Ванна
+CultistBed.MapEntry: Кровать
+CultistBookcase.MapEntry: Книжный шкаф
+CultistCandelabra.MapEntry: Подсвечник
+CultistCandle.MapEntry: Свеча
+CultistChair.MapEntry: Стул
+CultistChandelier.MapEntry: Люстра
+CultistChest.MapEntry: Сундук
+CultistClock.MapEntry: Напольные часы
+CultistDoorClosed.MapEntry: Дверь
+CultistDoorOpen.MapEntry: Дверь
+CultistLamp.MapEntry: Лампа
+CultistLantern.MapEntry: Фонарь
+CultistSink.MapEntry: Раковина
+CultistSofa.MapEntry: Диван
+CultistTable.MapEntry: Стол
+CultistWorkBench.MapEntry: Верстак
+TempleTrapdoor.MapEntry: Люк храма
+CatacombTrapdoor1.MapEntry: Закрытый люк
+CatacombTrapdoor2.MapEntry: Закрытый люк
+CatacombTrapdoor3.MapEntry: Закрытый люк
+SinisterSnailCage.MapEntry: Террариум со зловещей улиткой
