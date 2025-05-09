@@ -155,10 +155,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
             }
         }
 
-        public static void DrawTreeTop(int i, int j, Texture2D tex, Color color, Rectangle source, Vector2 offset)
+        public static void DrawTreeTop(int i, int j, Texture2D tex, Rectangle source, Vector2 offset)
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + offset;
+            Color color = TileGlobal.GetTileColorWithPaint(i + 1, j + 1, Lighting.GetColor(i + 1, j + 1));
 
 			float Update = Main.GameUpdateCount * 0.0052f;
 			float Rotation = (float)MathF.Sin(i / 20f - Update);
@@ -172,7 +173,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
             TopTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Tree/TubeWormTop");
 
 			Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
+            Color col = TileGlobal.GetTileColorWithPaint(i, j, Lighting.GetColor(i, j));
 
             int frameSize = 16;
             int frameSizeY = 16;
@@ -191,7 +192,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
 				Vector2 offset = new Vector2(17, 12);
 
 				//draw tree tops
-				DrawTreeTop(i - 1, j - 1, TopTexture.Value, col, new Rectangle(28 * frame, 0, 26, 54), TileGlobal.TileOffset + offset);
+				DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(28 * frame, 0, 26, 54), TileGlobal.TileOffset + offset);
 			}
 
 			return false;

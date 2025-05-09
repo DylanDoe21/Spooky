@@ -249,7 +249,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
-            Color color = Lighting.GetColor(i, j);
+            Color color = TileGlobal.GetTileColorWithPaint(i + 1, j + 1, Lighting.GetColor(i + 1, j + 1));
 
             Main.spriteBatch.Draw(tex, drawPos, source, Glow ? Color.White : color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
         }
@@ -260,10 +260,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 			StemTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-
-            int frameSize = 16;
-            int frameSizeY = 16;
+            Color col = TileGlobal.GetTileColorWithPaint(i, j, Lighting.GetColor(i, j));
 
             Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
@@ -281,12 +278,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
 
             //draw the actual tree
-            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
-            {
-                Framing.GetTileSafely(i, j).TileFrameX = 18;
-            }
+            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             return false;
         }
@@ -316,8 +308,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             StemGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Tree/EyeTreeGlow");
 
             //draw the actual tree
-            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
-			Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

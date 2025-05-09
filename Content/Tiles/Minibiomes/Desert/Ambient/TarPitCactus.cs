@@ -206,9 +206,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
-            Color color = Lighting.GetColor(i, j);
+			Color color = TileGlobal.GetTileColorWithPaint(i + 1, j + 1, Lighting.GetColor(i + 1, j + 1));
 
-            Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
         }
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -218,7 +218,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 			TileTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Tile tile = Framing.GetTileSafely(i, j);
-			Color col = Lighting.GetColor(i, j);
+			Color col = TileGlobal.GetTileColorWithPaint(i, j, Lighting.GetColor(i, j));
 			float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
 			if (xOff == 1 && (j / 4f) == 0)
@@ -257,13 +257,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             //draw extra tile below so it looks attached to the ground
             if (Main.tile[i, j + 1].TileType != Type)
             {
-                spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY),
-			    new Color(col.R, col.G, col.B, 255), 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), col, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
             }
 
 			//draw the actual tree
-			spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY),
-			new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			return false;
 		}

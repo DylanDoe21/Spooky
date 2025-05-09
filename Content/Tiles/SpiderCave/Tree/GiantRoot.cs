@@ -252,7 +252,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
-            Color color = Lighting.GetColor(i, j);
+            Color color = TileGlobal.GetTileColorWithPaint(i + 1, j + 1, Lighting.GetColor(i + 1, j + 1));
 
             Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
         }
@@ -263,9 +263,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
 			RootTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
+            Color col = TileGlobal.GetTileColorWithPaint(i, j, Lighting.GetColor(i, j));
 
+            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
             if (xOff == 1 && (j / 4f) == 0)
             {
                 xOff = 0;

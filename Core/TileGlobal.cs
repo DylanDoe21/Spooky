@@ -99,6 +99,16 @@ namespace Spooky.Core
 			return orig(type);
 		}
 
+		public static Color GetTileColorWithPaint(int i, int j, Color color)
+		{
+			int colType = Main.tile[i, j].TileColor;
+			Color paintCol = WorldGen.paintColor(colType);
+			color.R = (byte)(paintCol.R / 255f * color.R);
+			color.G = (byte)(paintCol.G / 255f * color.G);
+			color.B = (byte)(paintCol.B / 255f * color.B);
+			return color;
+		}
+
 		//custom copied version of vanilla SolidCollision but with a list of specific tiles
 		public static bool SolidCollisionWithSpecificTiles(Vector2 Position, int Width, int Height, int[] TileTypes)
 		{

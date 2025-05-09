@@ -193,9 +193,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Tree
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
-            Color color = Lighting.GetColor(i, j);
+			Color color = TileGlobal.GetTileColorWithPaint(i + 1, j + 1, Lighting.GetColor(i + 1, j + 1));
 
-            Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(tex, drawPos, source, color, 0, origin ?? source.Value.Size() / 3f, 1f, SpriteEffects.None, 0f);
         }
 
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
@@ -205,18 +205,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Tree
 			StemTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
+			Color col = TileGlobal.GetTileColorWithPaint(i, j, Lighting.GetColor(i, j));
 
-            if (xOff == 1 && (j / 4f) == 0)
-            {
-                xOff = 0;
-            }
-
-            int frameSize = 16;
-            int frameSizeY = 16;
-
-            Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+			Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
 			//draw tree branches
 			if (Framing.GetTileSafely(i, j).TileFrameX == 18)
@@ -247,13 +238,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Tree
             }
 
             //draw the actual tree
-            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
-            new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
-            if (Framing.GetTileSafely(i, j).TileFrameX == 16)
-            {
-                Framing.GetTileSafely(i, j).TileFrameX = 18;
-            }
+            spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             return false;
         }

@@ -206,7 +206,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
         {
             Tile tile = Main.tile[i, j];
             Vector2 drawPos = new Vector2(i, j).ToWorldCoordinates() - Main.screenPosition + (offset ?? new Vector2(0, -2));
-            Color color = Lighting.GetColor(i, j);
+            Color color = TileGlobal.GetTileColorWithPaint(i + 1, j + 1, Lighting.GetColor(i + 1, j + 1));
 
             if (!Glow)
             {
@@ -232,9 +232,8 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
 			StemGlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
 
 			Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
-            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
+            float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
             if (xOff == 1 && (j / 4f) == 0)
             {
                 xOff = 0;
@@ -281,7 +280,8 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
 			StemTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Tile tile = Framing.GetTileSafely(i, j);
-            Color col = Lighting.GetColor(i, j);
+            Color col = TileGlobal.GetTileColorWithPaint(i, j, Lighting.GetColor(i, j));
+
             float xOff = (float)Math.Sin((j * 19) * 0.04f) * 1.2f;
 
             if (xOff == 1 && (j / 4f) == 0)
