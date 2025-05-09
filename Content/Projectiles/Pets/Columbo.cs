@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 
 using Spooky.Core;
 
@@ -67,11 +68,11 @@ namespace Spooky.Content.Projectiles.Pets
                 Projectile.rotation = 0;
                 Vector2 center2 = Projectile.Center;
                 Vector2 vector48 = player.Center - center2;
-                float playerDistance = vector48.Length();
+                float playerDistance = Projectile.Distance(player.Center);
 
-                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 120f) || (playerDistance > 120f && Projectile.position.X == Projectile.oldPosition.X)))
+                if (Projectile.velocity.Y == 0 && ((HoleBelow() && playerDistance > 200f) || (playerDistance > 200f && Projectile.position.X == Projectile.oldPosition.X)))
                 {
-                    Projectile.velocity.Y = -8f;
+                    Projectile.velocity.Y = -7f;
                 }
 
                 Projectile.velocity.Y += 0.35f;
@@ -88,27 +89,27 @@ namespace Spooky.Content.Projectiles.Pets
                     Projectile.velocity.Y = 0f;
                 }
 
-                if (playerDistance > 100f)
+                if (playerDistance > 90f)
                 {
                     if (player.position.X - Projectile.position.X > 0f)
                     {
                         Projectile.velocity.X += 0.12f;
-                        if (Projectile.velocity.X > 6f)
+                        if (Projectile.velocity.X > 5.5f)
                         {
-                            Projectile.velocity.X = 6f;
+                            Projectile.velocity.X = 5.5f;
                         }
                     }
                     else
                     {
                         Projectile.velocity.X -= 0.12f;
-                        if (Projectile.velocity.X < -6f)
+                        if (Projectile.velocity.X < -5.5f)
                         {
-                            Projectile.velocity.X = -6f;
+                            Projectile.velocity.X = -5.5f;
                         }
                     }
                 }
 
-                if (playerDistance < 100f)
+                if (playerDistance < 90f)
                 {
                     if (Projectile.velocity.X != 0f)
                     {
@@ -127,9 +128,10 @@ namespace Spooky.Content.Projectiles.Pets
                     }
                 }
 
-                if (playerDistance < 70f)
+                float StopDistance = (player.GetModPlayer<SpookyPlayer>().ColumbonePet || player.GetModPlayer<SpookyPlayer>().ColumborangePet) ? 20f : 80f;
+                if (playerDistance < StopDistance)
                 {
-                    Projectile.velocity.X *= 0.5f;
+                    Projectile.velocity.X *= 0.75f;
                 }
 
                 //set frames when idle
@@ -139,7 +141,7 @@ namespace Spooky.Content.Projectiles.Pets
                     Projectile.frameCounter = 0;
                 }
                 //falling frame
-                else if (Projectile.velocity.Y > 0.3f && Projectile.position.Y != Projectile.oldPosition.Y)
+                else if (Projectile.velocity.Y > 1f && Projectile.position.Y != Projectile.oldPosition.Y)
                 {
                     Projectile.frame = 1;
                     Projectile.frameCounter = 0;
@@ -148,7 +150,7 @@ namespace Spooky.Content.Projectiles.Pets
                 else if (Projectile.velocity.X != 0)
                 {
                     Projectile.frameCounter++;
-                    if (Projectile.frameCounter > 5)
+                    if (Projectile.frameCounter > 3)
                     {
                         Projectile.frame++;
                         Projectile.frameCounter = 0;

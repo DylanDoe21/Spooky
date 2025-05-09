@@ -55,7 +55,8 @@ namespace Spooky.Content.Tiles.SpiderCave
                 if (Main.rand.NextBool(15)) 
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<DampVines>(), true);
-                }
+					NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
+				}
             }
 
 			if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
@@ -65,7 +66,8 @@ namespace Spooky.Content.Tiles.SpiderCave
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpiderCaveWeeds>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(16) * 18);
-                }
+					NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
+				}
 
                 //mushrooms 
                 if (Main.rand.NextBool(18))

@@ -291,60 +291,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
             return false;
         }
 
-		public void NPCRotation()
-		{
-			float RotateDirection = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + MathHelper.TwoPi;
-			float RotateSpeed = 0.04f;
-
-			if (RotateDirection < 0f)
-			{
-				RotateDirection += (float)Math.PI * 2f;
-			}
-			if (RotateDirection > (float)Math.PI * 2f)
-			{
-				RotateDirection -= (float)Math.PI * 2f;
-			}
-
-			if (NPC.rotation < RotateDirection)
-			{
-				if ((double)(RotateDirection - NPC.rotation) > Math.PI)
-				{
-					NPC.rotation -= RotateSpeed;
-				}
-				else
-				{
-					NPC.rotation += RotateSpeed;
-				}
-			}
-			if (NPC.rotation > RotateDirection)
-			{
-				if ((double)(NPC.rotation - RotateDirection) > Math.PI)
-				{
-					NPC.rotation += RotateSpeed;
-				}
-				else
-				{
-					NPC.rotation -= RotateSpeed;
-				}
-			}
-			if (NPC.rotation > RotateDirection - RotateSpeed && NPC.rotation < RotateDirection + RotateSpeed)
-			{
-				NPC.rotation = RotateDirection;
-			}
-			if (NPC.rotation < 0f)
-			{
-				NPC.rotation += (float)Math.PI * 2f;
-			}
-			if (NPC.rotation > (float)Math.PI * 2f)
-			{
-				NPC.rotation -= (float)Math.PI * 2f;
-			}
-			if (NPC.rotation > RotateDirection - RotateSpeed && NPC.rotation < RotateDirection + RotateSpeed)
-			{
-				NPC.rotation = RotateDirection;
-			}
-		}
-
 		public override void AI()
 		{
 			if (!TargetedPlayer.active || TargetedPlayer.dead)
@@ -387,7 +333,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				RoarAnimation = false;
 			}
 
-			NPCRotation();
+			//rotation stuff
+            float RotateDirection = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + MathHelper.TwoPi;
+			float RotateSpeed = 0.04f;
+
+            NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
 
 			//if there are no active players in the biome then despawn
 			if (!AnyPlayersInBiome())

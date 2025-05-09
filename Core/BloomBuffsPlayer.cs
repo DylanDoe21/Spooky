@@ -908,21 +908,12 @@ namespace Spooky.Core
 			//give the player additional life regeneration for each bloom slot in use
 			if (SpringHeartFlower)
 			{
-				if (BloomBuffSlots[0] != string.Empty)
+				foreach (string var in BloomBuffSlots)
 				{
-					Player.lifeRegen += 5;
-				}
-				if (BloomBuffSlots[1] != string.Empty)
-				{
-					Player.lifeRegen += 5;
-				}
-				if (BloomBuffSlots[2] != string.Empty)
-				{
-					Player.lifeRegen += 5;
-				}
-				if (BloomBuffSlots[3] != string.Empty)
-				{
-					Player.lifeRegen += 5;
+					if (var != string.Empty)
+					{
+						Player.lifeRegen += 5;
+					}
 				}
 			}
 		}

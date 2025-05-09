@@ -27,6 +27,8 @@ namespace Spooky.Core
         public static bool DaySwitched;
         public static bool LastTime;
 
+        public static float BGTransitionFlash;
+
 		//check to make sure the player isnt in a subworld so that all of the npcs meant to be saved and spawned in specific world locations are not spawned in subworlds
 		public bool IsInSubworld()
         {
@@ -75,6 +77,8 @@ namespace Spooky.Core
 
 		public override void PostUpdateEverything()
         {
+            BGTransitionFlash = MathHelper.Clamp(BGTransitionFlash - 0.05f, 0f, 1f);
+
             if (!IsInSubworld())
             {
 				//spawn big dunk, only if a player is in the biome

@@ -132,7 +132,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
             if (minBGPillarDepth != -1)
             {
                 Vector2 ScreenPos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
-                Rectangle rectangle = new Rectangle(-1000, -650, 4000, 4000);
+                Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
                 
                 for (int i = minBGPillarDepth + 4; i < maxBGPillarDepth; i++)
                 {

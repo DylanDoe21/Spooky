@@ -193,7 +193,7 @@ CatBuff: {
 
 ColumboBuff: {
 	DisplayName: Columbo
-	Description: The creature lurks behind you
+	Description: The being of organic
 }
 
 FlyPetBuff: {
@@ -548,4 +548,24 @@ CucumberStomachDebuff: {
 DutchmanPipeDebuff: {
 	DisplayName: Dutchman Pipe Debuff
 	Description: ""
+}
+
+ColumboneBuff: {
+	DisplayName: Columbone
+	Description: The being of bone
+}
+
+ColumbooBuff: {
+	DisplayName: Columboo
+	Description: The being of ghost
+}
+
+ColumborangeBuff: {
+	DisplayName: Columborange
+	Description: The being of round
+}
+
+ColumboPetCombinedBuff: {
+	DisplayName: Columbo Family
+	Description: The ancient powerful family travels with you
 }

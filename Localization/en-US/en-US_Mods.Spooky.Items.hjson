@@ -32,7 +32,7 @@ Wormy: {
 	Tooltip:
 		'''
 		Summons a friendly worm to fight with you
-		Each bloom buff you have will give him additional speed, damage, and attack range
+		Each bloom buff you have will increase his damage
 		'''
 }
 
@@ -1451,6 +1451,11 @@ SharkBoneLegs: {
 		'''
 }
 
+TarGun: {
+	DisplayName: Hak-2R
+	Tooltip: Converts bullets into tar spit blobs
+}
+
 CarrotWand: {
 	DisplayName: Carrot Rot Wand
 	Tooltip: Casts out a glob of ooze that lingers on the ground
@@ -1493,6 +1498,51 @@ PlantMulch: {
 RadishYoyo: {
 	DisplayName: Razor Radish
 	Tooltip: Has razor leaves that spin around for longer range
+}
+
+BrownieBone: {
+	DisplayName: Bone Brownie
+	Tooltip:
+		'''
+		Summons Columbone
+		'It is perhaps not a good idea to bite into this'
+		'''
+}
+
+BrownieCombined: {
+	DisplayName: Columbcake
+	Tooltip:
+		'''
+		Summons the Columbo family
+		'Something about it unsettles you'
+		'''
+}
+
+BrownieGhost: {
+	DisplayName: Ectoplasm Brownie
+	Tooltip:
+		'''
+		Summons Columboo
+		'How was this brownie made with ghost residue?'
+		'''
+}
+
+BrownieOrange: {
+	DisplayName: Pumpkin Brownie
+	Tooltip:
+		'''
+		Summons Columborange
+		'This is probably the most relatively edible brownie'
+		'''
+}
+
+BrownieOrganic: {
+	DisplayName: Suspicious Looking Brownie
+	Tooltip:
+		'''
+		Summons Columbo
+		'Your better judgement tells you to not eat this'
+		'''
 }
 
 CatEyes: {
@@ -1640,15 +1690,6 @@ SpiritLamp: {
 StickyEye: {
 	DisplayName: Glow In The Dark Sticky Eye
 	Tooltip: Summons a sticky eye ball that glows in the dark
-}
-
-SuspiciousBrownie: {
-	DisplayName: Suspicious Looking Brownie
-	Tooltip:
-		'''
-		Summons Columbo
-		'Your better judgement tells you to NOT eat this'
-		'''
 }
 
 ValleyNautilusShell: {
@@ -3812,6 +3853,11 @@ BaxterPaintingItem: {
 	Tooltip: "'Waasephi'"
 }
 
+ColumboCrucifixItem: {
+	DisplayName: Columbo Crucifix
+	Tooltip: An ancient holy religious symbol of some kind
+}
+
 FireExitSignItem: {
 	DisplayName: Fire Exit Sign
 	Tooltip: ""
@@ -4666,11 +4712,6 @@ SpookyHellCrate2: {
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
-EyeBlockItem: {
-	DisplayName: Eye Block
-	Tooltip: ""
-}
-
 EyeBathtubItem: {
 	DisplayName: Living Flesh Bathtub
 	Tooltip: ""
@@ -4789,6 +4830,16 @@ IconPainting5Item: {
 LittleEyePaintingItem: {
 	DisplayName: Little Eye's Self Portrait
 	Tooltip: "'Waasephi'"
+}
+
+EyeballBlockItem: {
+	DisplayName: Eyeball
+	Tooltip: ""
+}
+
+EyeBlockItem: {
+	DisplayName: Eye Block
+	Tooltip: ""
 }
 
 LivingFleshItem: {

@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Reflection;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Backgrounds.SpookyBiome
 {
 	public class SpookyForestBG : ModSurfaceBackgroundStyle
@@ -27,16 +29,6 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 			float scAdj = (float)scAdjField.GetValue(Main.instance);
 			Color BGColorModified = (Color)BGColorModifiedField.GetValue(null);
 
-			//width and height (this is not usually a good idea but each of these 
-			int Width = 1024;
-			int Height = 700;
-
-			//offsets for each individual background layer
-			int CloseBGYOffset = -20;
-			int MiddleCloseBGYOffset = -75;
-			int MiddleFarBGYOffset = -50;
-			int FarBGYOffset = -40;
-
 			int[] textureSlots = new int[]
 			{
 				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBG4"),
@@ -44,6 +36,17 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBG2"),
 				BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBG1"),
 			};
+
+			if (Flags.SpookyBackgroundAlt)
+			{
+				textureSlots = new int[] 
+				{
+					BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBGAlt3"),
+					BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBGAlt2"),
+					BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBGAlt1"),
+					BackgroundTextureLoader.GetBackgroundSlot("Spooky/Content/Backgrounds/SpookyBiome/SpookyForestBGAlt1"),
+				};
+			}
 
 			//actual background color using vanillas own background color with modifications
 			Color BGActualColor = new Color(BGColorModified.R, BGColorModified.G, BGColorModified.B, BGColorModified.A);
@@ -95,101 +98,280 @@ namespace Spooky.Content.Backgrounds.SpookyBiome
 
 			if (canBGDraw)
 			{
-				//back layer mountain
-				var bgScale = 0.9f;
-				var bgParallax = 0.35;
-				var bgTopY = (int)(backgroundTopMagicNumber * 1800.0 + 1500.0) + (int)scAdj + pushBGTopHack;
-				bgScale *= bgGlobalScaleMultiplier;
-				var bgWidthScaled = (int)((float)Width * bgScale);
-				SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1.2f / (float)bgParallax);
-				var bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
-				
-				if (Main.gameMenu)
+				//default background
+				if (!Flags.SpookyBackgroundAlt)
 				{
-					bgTopY = 320 + pushBGTopHack;
-				}
+					//width and height (this is not usually a good idea but each of these 
+					int Width = 1024;
+					int Height = 700;
 
-				var bgLoops = Main.screenWidth / bgWidthScaled + 2;
-				if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
-				{
-					for (int i = -bgLoops; i < bgLoops; i++)
+					//offsets for each individual background layer
+					int CloseBGYOffset = -150;
+					int MiddleCloseBGYOffset = -200;
+					int MiddleFarBGYOffset = -150;
+					int FarBGYOffset = -60;
+
+					//back layer mountain
+					var bgScale = 0.9f;
+					var bgParallax = 0.35;
+					var bgTopY = (int)(backgroundTopMagicNumber * 1800.0 + 1500.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					var bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1.2f / (float)bgParallax);
+					var bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+					
+					if (Main.gameMenu)
 					{
-						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[0]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + FarBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						bgTopY = 320 + pushBGTopHack;
 					}
-				}
 
-				//far layer infront of mountain
-				bgScale = 1.1f;
-				bgParallax = 0.43;
-				bgTopY = (int)(backgroundTopMagicNumber * 1950.0 + 1750.0) + (int)scAdj + pushBGTopHack;
-				bgScale *= bgGlobalScaleMultiplier;
-				bgWidthScaled = (int)((float)Width * bgScale);
-				SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
-				bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
-
-				if (Main.gameMenu)
-				{
-					bgTopY = 400 + pushBGTopHack;
-					bgStartX -= 80;
-				}
-
-				bgLoops = Main.screenWidth / bgWidthScaled + 2;
-				if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
-				{
-					for (int i = -bgLoops; i < bgLoops; i++)
+					var bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
 					{
-						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[1]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleFarBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[0]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + FarBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
 					}
-				}
 
-				//closer layer behind the front
-				bgScale = 1.22f;
-				bgParallax = 0.49;
-				bgTopY = (int)(backgroundTopMagicNumber * 2100.0 + 2000.0) + (int)scAdj + pushBGTopHack;
-				bgScale *= bgGlobalScaleMultiplier;
-				bgWidthScaled = (int)((float)Width * bgScale);
-				SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
-				bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+					//far layer infront of mountain
+					bgScale = 1.1f;
+					bgParallax = 0.43;
+					bgTopY = (int)(backgroundTopMagicNumber * 1950.0 + 1750.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
+					bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
 
-				if (Main.gameMenu)
-				{
-					bgTopY = 480 + pushBGTopHack;
-					bgStartX -= 100;
-				}
-
-				bgLoops = Main.screenWidth / bgWidthScaled + 2;
-				if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
-				{
-					for (int i = -bgLoops; i < bgLoops; i++)
+					if (Main.gameMenu)
 					{
-						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[2]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleCloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						bgTopY = 400 + pushBGTopHack;
+						bgStartX -= 80;
 					}
-				}
 
-				//front layer
-				bgScale = 1.34f;
-				bgParallax = 0.56;
-				bgTopY = (int)(backgroundTopMagicNumber * 2250.0 + 2250.0) + (int)scAdj + pushBGTopHack;
-				bgScale *= bgGlobalScaleMultiplier;
-				bgWidthScaled = (int)((float)Width * bgScale);
-				SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
-				bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
-
-				if (Main.gameMenu)
-				{
-					bgTopY = 560 + pushBGTopHack;
-					bgStartX -= 120;
-				}
-
-				bgLoops = Main.screenWidth / bgWidthScaled + 2;
-				if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
-				{
-					for (int i = -bgLoops; i < bgLoops; i++)
+					bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
 					{
-						Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[3]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + CloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[1]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleFarBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+
+					//closer layer behind the front
+					bgScale = 1.22f;
+					bgParallax = 0.49;
+					bgTopY = (int)(backgroundTopMagicNumber * 2100.0 + 2000.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
+					bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 480 + pushBGTopHack;
+						bgStartX -= 100;
+					}
+
+					bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[2]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleCloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+
+					//front layer
+					bgScale = 1.34f;
+					bgParallax = 0.56;
+					bgTopY = (int)(backgroundTopMagicNumber * 2250.0 + 2250.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
+					bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 560 + pushBGTopHack;
+						bgStartX -= 120;
+					}
+
+					bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[3]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + CloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+
+					/*
+					int CloseBGYOffset = -150;
+					int MiddleBGYOffset = -200;
+					int FarBGYOffset = -150;
+
+					//back layer
+					var bgScale = 1.05f;
+					var bgParallax = 0.35;
+					var bgTopY = (int)(backgroundTopMagicNumber * 1800.0 + 1500.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					var bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1.2f / (float)bgParallax);
+					var bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 320 + pushBGTopHack;
+					}
+
+					var bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[1]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + FarBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+
+					//middle layer
+					bgScale = 1.2f;
+					bgParallax = 0.45;
+					bgTopY = (int)(backgroundTopMagicNumber * 2100.0 + 2000.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
+					bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 480 + pushBGTopHack;
+						bgStartX -= 100;
+					}
+
+					bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[2]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+
+					//front layer
+					bgScale = 1.35f;
+					bgParallax = 0.55;
+					bgTopY = (int)(backgroundTopMagicNumber * 2250.0 + 2250.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
+					bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 560 + pushBGTopHack;
+						bgStartX -= 120;
+					}
+
+					bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[3]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + CloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+					*/
+				}
+				//alternate background
+				else
+				{
+					//width and height (this is not usually a good idea but each of these bgs are the same dimensions
+					int Width = 1024;
+					int Height = 700;
+
+					//offsets for each individual background layer
+					int CloseBGYOffset = -325;
+					int MiddleBGYOffset = -325;
+					int FarBGYOffset = -100;
+
+					//back layer
+					var bgScale = 1.05f;
+					var bgParallax = 0.35;
+					var bgTopY = (int)(backgroundTopMagicNumber * 1800.0 + 1500.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					var bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1.2f / (float)bgParallax);
+					var bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 320 + pushBGTopHack;
+					}
+
+					var bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[0]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + FarBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+
+					//middle layer
+					bgScale = 1.2f;
+					bgParallax = 0.45;
+					bgTopY = (int)(backgroundTopMagicNumber * 2100.0 + 2000.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
+					bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 480 + pushBGTopHack;
+						bgStartX -= 100;
+					}
+
+					bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[1]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + MiddleBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
+					}
+
+					//front layer
+					bgScale = 1.35f;
+					bgParallax = 0.55;
+					bgTopY = (int)(backgroundTopMagicNumber * 2250.0 + 2250.0) + (int)scAdj + pushBGTopHack;
+					bgScale *= bgGlobalScaleMultiplier;
+					bgWidthScaled = (int)((float)Width * bgScale);
+					SkyManager.Instance.DrawToDepth(Main.spriteBatch, 1f / (float)bgParallax);
+					bgStartX = (int)(0.0 - Math.IEEERemainder((double)Main.screenPosition.X * bgParallax, bgWidthScaled) - (double)(bgWidthScaled / 2));
+
+					if (Main.gameMenu)
+					{
+						bgTopY = 560 + pushBGTopHack;
+						bgStartX -= 120;
+					}
+
+					bgLoops = Main.screenWidth / bgWidthScaled + 2;
+					if ((double)Main.screenPosition.Y < Main.worldSurface * 16.0 + 16.0)
+					{
+						for (int i = -bgLoops; i < bgLoops; i++)
+						{
+							Main.spriteBatch.Draw(TextureAssets.Background[textureSlots[2]].Value, new Vector2(bgStartX + bgWidthScaled * i, bgTopY + CloseBGYOffset), new Rectangle(0, 0, Width, Height), BGActualColor, 0f, default(Vector2), bgScale, SpriteEffects.None, 0f);
+						}
 					}
 				}
 			}
+
+			Texture2D value = TextureAssets.MagicPixel.Value;
+			float flashPower = SpookyWorld.BGTransitionFlash;
+			Color color = Color.Black * flashPower;
+			Main.spriteBatch.Draw(value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color);
 
 			return false;
 		}

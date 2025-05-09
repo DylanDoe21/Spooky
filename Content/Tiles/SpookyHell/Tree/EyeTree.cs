@@ -214,6 +214,14 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 					}
                 }
 
+                int EyeBlock = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-56, 56), 
+                Main.rand.Next(-44, 44) - 66), ModContent.ItemType<EyeballBlockItem>(), Main.rand.Next(5, 11));
+
+                if (Main.netMode == NetmodeID.MultiplayerClient && EyeBlock >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, EyeBlock, 1f);
+                }
+
                 //spawn gores out of the tree
                 for (int numGores = 0; numGores <= Main.rand.Next(8, 15); numGores++)
                 {

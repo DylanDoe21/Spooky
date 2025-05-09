@@ -93,6 +93,28 @@ namespace Spooky.Content.Projectiles.Blooms
 				Projectile.timeLeft = 2;
 			}
 
+            int AdditionalDamage = 0;
+            bool ShouldScaleDamage = false;
+
+            //scale based on how many bloom buffs you have
+			foreach (string var in player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots)
+            {
+                if (var != string.Empty)
+                {
+                    AdditionalDamage += 15;
+                    ShouldScaleDamage = true;
+                }
+            }
+
+            if (ShouldScaleDamage)
+            {
+                Projectile.damage = Projectile.originalDamage + AdditionalDamage;
+            }
+            else
+            {
+                Projectile.damage = Projectile.originalDamage;
+            }
+
 			Projectile.ai[0]++;
 
             Projectile.rotation = Projectile.velocity.ToRotation();

@@ -33,7 +33,7 @@ namespace Spooky.Content.Generation
 			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.SpookyForest").Value;
 
 			//decide whether or not to use the alt background
-			Flags.SpookyBackgroundAlt = Main.rand.NextBool();
+			Flags.SpookyBackgroundAlt = WorldGen.genRand.NextBool();
 
 			//if config is enabled, place it at spawn
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().SpookyForestSpawn)
@@ -277,8 +277,8 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			//disabled for now, needs to be optimized later
-			//CleanOutSmallClumps();
+			//clean out small clusters of tiles
+			CleanOutSmallClumps();
 
 			//add biome dithering
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, true);
@@ -812,10 +812,11 @@ namespace Spooky.Content.Generation
 				}
 
 				//place ropes in the vertical tunnel
-				for (IncrementY = CurrentY; IncrementY <= CurrentY + 50; IncrementY++)
+				for (int RopeY = CurrentY - 3; RopeY <= IncrementY; RopeY++)
 				{
-					WorldGen.PlaceTile(CurrentX, IncrementY, TileID.Rope);
+					WorldGen.PlaceTile(CurrentX, RopeY, TileID.Rope);
 
+					/*
 					if (IncrementY == CurrentY || IncrementY == CurrentY + 50)
 					{
 						for (int ropeY = IncrementY - 3; ropeY <= IncrementY + 5; ropeY++)
@@ -826,6 +827,7 @@ namespace Spooky.Content.Generation
 							}
 						}
 					}
+					*/
 				}
 
 				//save the Y-position so the next tunnel starts from the bottom of the previous one
@@ -867,7 +869,7 @@ namespace Spooky.Content.Generation
 				{
 					if ((int)Vector2.Distance(new Vector2(x, y), new Vector2(i, j)) <= radius)
 					{
-						if (Main.tile[x, y].HasTile && Main.tile[x, y].TileType != TileID.Rope)
+						if (Main.tile[x, y].TileType != TileID.Rope)
 						{
 							Main.tile[x, y].TileType = (ushort)ModContent.TileType<SpookyWood>();
 						}
@@ -1047,7 +1049,7 @@ namespace Spooky.Content.Generation
 				(ushort)ModContent.TileType<MushroomMoss>()
 			};
 
-			int MaxPoints = 300;
+			int MaxPoints = 100;
 
 			void getAttachedPoints(int x, int y, List<Point> points)
 			{

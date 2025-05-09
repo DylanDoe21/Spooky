@@ -464,64 +464,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             return true;
         }
 
-        public void RotateToPlayer(Player player)
-        {
-            Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-            float RotateX = player.Center.X - vector.X;
-            float RotateY = player.Center.Y - vector.Y;
-
-            float RotateDirection = (float)Math.Atan2(RotateY, RotateX) + 4.71f;
-			float RotateSpeed = 0.05f;
-
-			if (RotateDirection < 0f)
-			{
-				RotateDirection += (float)Math.PI * 2f;
-			}
-			if (RotateDirection > (float)Math.PI * 2f)
-			{
-				RotateDirection -= (float)Math.PI * 2f;
-			}
-
-			if (NPC.rotation < RotateDirection)
-			{
-				if ((double)(RotateDirection - NPC.rotation) > Math.PI)
-				{
-					NPC.rotation -= RotateSpeed;
-				}
-				else
-				{
-					NPC.rotation += RotateSpeed;
-				}
-			}
-			if (NPC.rotation > RotateDirection)
-			{
-				if ((double)(NPC.rotation - RotateDirection) > Math.PI)
-				{
-					NPC.rotation += RotateSpeed;
-				}
-				else
-				{
-					NPC.rotation -= RotateSpeed;
-				}
-			}
-			if (NPC.rotation > RotateDirection - RotateSpeed && NPC.rotation < RotateDirection + RotateSpeed)
-			{
-				NPC.rotation = RotateDirection;
-			}
-			if (NPC.rotation < 0f)
-			{
-				NPC.rotation += (float)Math.PI * 2f;
-			}
-			if (NPC.rotation > (float)Math.PI * 2f)
-			{
-				NPC.rotation -= (float)Math.PI * 2f;
-			}
-			if (NPC.rotation > RotateDirection - RotateSpeed && NPC.rotation < RotateDirection + RotateSpeed)
-			{
-				NPC.rotation = RotateDirection;
-			}
-        }
-
         public override void AI()
         {
             NPC.TargetClosest(true);
@@ -531,7 +473,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             NPC.spriteDirection = NPC.direction;
 
-            RotateToPlayer(player);
+            //rotation stuff
+            Vector2 RotateTowards = player.Center - NPC.Center;
+
+            float RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + 4.71f;
+			float RotateSpeed = 0.05f;
+
+            NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
 
             if (!Parent.active || Parent.type != ModContent.NPCType<BigFlowerPot>())
             {

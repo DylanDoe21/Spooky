@@ -132,7 +132,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
 
                 if (NPC.localAI[0] == 460)
                 {
-                    SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1.2f }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1f }, NPC.Center);
 
                     Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y - 30) - NPC.Center;
                     ShootSpeed.Normalize();

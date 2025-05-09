@@ -30,7 +30,7 @@ namespace Spooky.Content.Generation
             progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Cemetery").Value;
 
             //decide whether or not to use the alt background
-			Flags.CemeteryBackgroundAlt = Main.rand.NextBool();
+			Flags.CemeteryBackgroundAlt = WorldGen.genRand.NextBool();
 
             BiomeWidth = Main.maxTilesX >= 8400 ? 500 : (Main.maxTilesX >= 6400 ? 420 : 250);
 

@@ -78,37 +78,50 @@ namespace Spooky.Core
 
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
-            //make the world globe change the spooky mod surface biome backgrounds
-            if (projectile.type == ProjectileID.WorldGlobe)
+			if (projectile.type == ProjectileID.WorldGlobe) 
             {
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()) || Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiomeUg>()))
+				Player player = Main.LocalPlayer;
+				if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (!Flags.SpookyBackgroundAlt)
+                    if (player.InModBiome<SpookyBiome>())
                     {
-                        Flags.SpookyBackgroundAlt = true;
-                    }
-                    else
-                    { 
-                        Flags.SpookyBackgroundAlt = false;
-                    }
-                    
-                    NetMessage.SendData(MessageID.WorldData);
-                }
+                        if (!Flags.SpookyBackgroundAlt)
+                        {
+                            Flags.SpookyBackgroundAlt = true;
+                        }
+                        else
+                        { 
+                            Flags.SpookyBackgroundAlt = false;
+                        }
+                        
+                        NetMessage.SendData(MessageID.WorldData);
 
-                if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
-                {
-                    if (!Flags.CemeteryBackgroundAlt)
+                        if (!Main.gameMenu)
+                        {
+                            SpookyWorld.BGTransitionFlash = 1f;
+                        }
+                    }
+
+                    if (player.InModBiome<CemeteryBiome>())
                     {
-                        Flags.CemeteryBackgroundAlt = true;
+                        if (!Flags.CemeteryBackgroundAlt)
+                        {
+                            Flags.CemeteryBackgroundAlt = true;
+                        }
+                        else
+                        { 
+                            Flags.CemeteryBackgroundAlt = false;
+                        }
+                        
+                        NetMessage.SendData(MessageID.WorldData);
+
+                        if (!Main.gameMenu)
+                        {
+                            SpookyWorld.BGTransitionFlash = 1f;
+                        }
                     }
-                    else
-                    { 
-                        Flags.CemeteryBackgroundAlt = false;
-                    }
-                    
-                    NetMessage.SendData(MessageID.WorldData);
-                }
-            }
+				}
+			}
 
             return base.PreKill(projectile, timeLeft);
         }

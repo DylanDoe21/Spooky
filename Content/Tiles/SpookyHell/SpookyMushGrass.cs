@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             Main.tileBlendAll[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(164, 29, 22));
+            AddMapEntry(new Color(188, 87, 82));
             RegisterItemDrop(ModContent.ItemType<SpookyMushItem>());
             DustType = DustID.Blood;
             HitSound = SoundID.Dig;
@@ -58,7 +58,8 @@ namespace Spooky.Content.Tiles.SpookyHell
                 if (Main.rand.NextBool(35)) 
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<EyeVine>(), true);
-                }
+					NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
+				}
             }
 
             if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
@@ -68,7 +69,8 @@ namespace Spooky.Content.Tiles.SpookyHell
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpookyHellWeeds>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(6) * 18);
-                }
+					NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
+				}
 
                 //eye stalks
                 if (Main.rand.NextBool(20))

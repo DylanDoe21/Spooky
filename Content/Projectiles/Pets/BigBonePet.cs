@@ -105,6 +105,8 @@ namespace Spooky.Content.Projectiles.Pets
 					Projectile.frame = 0;
 				}
 			}
+
+            Projectile.rotation = Projectile.velocity.X * 0.05f;
             
             Lighting.AddLight(Projectile.Center, 1.5f, 0.8f, 0f);
 
@@ -160,8 +162,6 @@ namespace Spooky.Content.Projectiles.Pets
                 Projectile.direction = Main.player[Projectile.owner].direction;
                 Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
             }
-
-            Projectile.rotation = Projectile.velocity.X * 0.05f;
 
             if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
             {

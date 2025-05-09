@@ -56,6 +56,7 @@ Other Random Additions:
 -Added a unique rarity color for all consumable blooms
 -You can now use the EMF Reader to summon multiple new ghost related things, including summoning spooky spirit like before, summoning mist ghost ambushes with rewards at mysterious tombstones, and its now used to open pandoras box
 -Added new mist ghost swirly variant
+-Added new eyeball blocks, dropped by eye stalk trees and found on naturally generated eye valley structures
 
 
 Structure Helper is no longer a dependency: 
