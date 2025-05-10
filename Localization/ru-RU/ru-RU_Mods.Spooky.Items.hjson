@@ -3871,13 +3871,13 @@ SpookyHellTorchItem: {
 }
 
 SpookFishronTrophyItem: {
-	DisplayName: Трофей Ужасающего Рыброна
 	Tooltip: ""
+	DisplayName: Трофей Ужасающего Рыброна
 }
 
 SpookFishronRelicItem: {
-	DisplayName: Реликвия Ужасающего Рыброна
 	Tooltip: ""
+	DisplayName: Реликвия Ужасающего Рыброна
 }
 
 SpookFishronWings: {
@@ -3933,8 +3933,8 @@ SinisterShell: {
 }
 
 SpookFishronMask: {
-	DisplayName: Маска Ужасающего Рыброна
 	Tooltip: ""
+	DisplayName: Маска Ужасающего Рыброна
 }
 
 BossBagSpookFishron: {

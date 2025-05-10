@@ -269,7 +269,7 @@ namespace Spooky.Content.NPCs.Friendly
                 dialogueStyle = Main.rand.Next(1, 32);
 
                 //select a random name for the skeleton when it spawns
-                string[] names = Language.GetTextValue("Mods.Spooky.NPCs.PartySkeletons.Names").Split(', ');
+                string[] names = Language.GetTextValue("Mods.Spooky.NPCs.PartySkeleton.Names").Split(',' + " ");
                 NPC.GivenName = Main.rand.Next(names);
 
                 //choose pants

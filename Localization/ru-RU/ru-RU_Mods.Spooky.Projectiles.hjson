@@ -101,7 +101,7 @@ EyeFlailProj.DisplayName: Скованный глаз
 EyeFlailProj2.DisplayName: Скованный глаз
 EyeRocket.DisplayName: Глазная ракета
 EyeRocketLauncherProj.DisplayName: ДЗН
-FleshWhipProj.DisplayName:  Глазной хлыст
+FleshWhipProj.DisplayName: Глазной хлыст
 Leech.DisplayName: Пиявка
 LeechWhipProj.DisplayName: Высасывающий
 NerveWhipProj.DisplayName: Открытый нерв
@@ -445,7 +445,7 @@ ZomboidArmoredLightning.DisplayName: Молния
 EntityMinion1.DisplayName: Маленькая сущность
 EntityMinion2.DisplayName: Маленькая сущность
 EntityMinion3.DisplayName: Маленькая сущность
-FleshBolsterBuffer.DisplayName:Хранилище лечащей плоти
+FleshBolsterBuffer.DisplayName: Хранилище лечащей плоти
 ZombieCultistPet.DisplayName: Зомби-культист
 BeePet.DisplayName: Опыляющая пчела
 RatPet.DisplayName: Крыса Альбино
@@ -455,7 +455,7 @@ PuttyPet3.DisplayName: Замазочный слайм
 PuttyPetDisplay.DisplayName: Замазочный дисплей
 FleshAxeProj.DisplayName: Мясорубка
 LivingFleshAxeProj.DisplayName: Живая мясорубка
-BouncingBone.DisplayName: Отскакивающая кость 
+BouncingBone.DisplayName: Отскакивающая кость
 SpookyBubble.DisplayName: Пряный пузырь
 SpookyFlames.DisplayName: Жуткое пламя
 SpookySword.DisplayName: Клинок всадника
