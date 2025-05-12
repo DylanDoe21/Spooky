@@ -22,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			TileID.Sets.MultiTileSway[Type] = true;
 			AddMapEntry(new Color(166, 158, 187));
 			DustType = DustID.Slush;
-			HitSound = SoundID.Dig;
+			HitSound = SoundID.Grass;
 			MineResist = 0.1f;
 		}
 

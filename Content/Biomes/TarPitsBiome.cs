@@ -137,6 +137,7 @@ namespace Spooky.Content.Biomes
 			player.ZoneCrimson = false;
 			player.ZoneCorrupt = false;
 			player.ZoneHallow = false;
+			player.ZoneJungle = false;
 
 			if (player.wet)
 			{

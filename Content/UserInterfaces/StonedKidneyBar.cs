@@ -58,11 +58,6 @@ namespace Spooky.Content.UserInterfaces
 					IsDragging = false;
 				}
 
-				if (IsMouseOverUI(player.GetModPlayer<SpookyPlayer>().KidneyUIPos, BarTexture.Value, UIBoxScale))
-				{
-					Main.instance.MouseText("LOL");
-				}
-
 				//draw the main UI box
 				spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUIPos, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 

@@ -43,6 +43,11 @@ namespace Spooky.Content.UserInterfaces
 			//UI dragging 
 			MouseState mouse = Mouse.GetState();
 
+			if (IsMouseOverUI(player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos, BarTexture.Value, UIBoxScale))
+			{
+				player.mouseInterface = true;
+			}
+
             //only allow UI dragging if the config option is on and the player is not in the inventory
             if (ModContent.GetInstance<SpookyConfig>().DraggableUI && !Main.playerInventory)
             {
@@ -55,7 +60,6 @@ namespace Spooky.Content.UserInterfaces
                 //if the player is dragging and continues to hold mouse left, then move the ui to the center of the mouse
                 if (IsDragging && mouse.LeftButton == ButtonState.Pressed)
                 {
-                    player.mouseInterface = true;
                     player.GetModPlayer<BloomBuffsPlayer>().BloomUIPos = Main.MouseScreen;
                 }
 

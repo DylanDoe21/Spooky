@@ -57,6 +57,33 @@ namespace Spooky.Content.Projectiles.Cemetery
 			Projectile.scale = 1.2f;
 		}
 
+		public override bool PreDraw(ref Color lightColor)
+		{
+			Player player = Main.player[Projectile.owner];
+
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			//fade out stuff
+			int SwingTime = ItemGlobal.ActiveItem(player).useTime;
+			float progress = Timer / (float)SwingTime;
+			progress = EaseFunction.EaseQuadOut.Ease(progress);
+			float SlashAlpha = 1f - Math.Abs(progress);
+
+			var Effects1 = Projectile.ai[0] == 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			var Effects2 = Projectile.ai[0] == 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+			if (flip)
+			{
+				Main.spriteBatch.Draw(ProjTexture.Value, player.MountedCenter - Main.screenPosition, null, lightColor, rotation + 1.57f, new Vector2(ProjTexture.Width() / 2, ProjTexture.Height()), Projectile.scale, Effects1, 0f);
+			}
+			else
+			{
+				Main.spriteBatch.Draw(ProjTexture.Value, player.MountedCenter - Main.screenPosition, null, lightColor, rotation + 1.57f, new Vector2(ProjTexture.Width() / 2, ProjTexture.Height()), Projectile.scale, Effects2, 0f);
+			}
+
+			return false;
+		}
+
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			Player player = Main.player[Projectile.owner];
@@ -161,33 +188,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 
 			player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
 			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation - 1.57f);
-		}
-
-		public override bool PreDraw(ref Color lightColor)
-		{
-			Player player = Main.player[Projectile.owner];
-
-			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			//fade out stuff
-			int SwingTime = ItemGlobal.ActiveItem(player).useTime;
-			float progress = Timer / (float)SwingTime;
-			progress = EaseFunction.EaseQuadOut.Ease(progress);
-			float SlashAlpha = 1f - Math.Abs(progress);
-
-			var Effects1 = Projectile.ai[0] == 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-			var Effects2 = Projectile.ai[0] == 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-			if (flip)
-			{
-				Main.spriteBatch.Draw(ProjTexture.Value, player.MountedCenter - Main.screenPosition, null, lightColor, rotation + 1.57f, new Vector2(ProjTexture.Width() / 2, ProjTexture.Height()), Projectile.scale, Effects1, 0f);
-			}
-			else
-			{
-				Main.spriteBatch.Draw(ProjTexture.Value, player.MountedCenter - Main.screenPosition, null, lightColor, rotation + 1.57f, new Vector2(ProjTexture.Width() / 2, ProjTexture.Height()), Projectile.scale, Effects2, 0f);
-			}
-
-			return false;
 		}
 
 		private float GetProgress()

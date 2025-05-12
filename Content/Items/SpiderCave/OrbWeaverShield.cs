@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.SpiderCave
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            player.thorns += 0.50f;
+            player.thorns += 0.75f;
         }
     }
 }

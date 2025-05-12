@@ -43,6 +43,7 @@ namespace Spooky.Content.Tiles.Catacomb
             LeafTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/CemeteryGrassWallLeaf");
 
 			Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+			Color color = TileGlobal.GetWallColorWithPaint(i, j, Lighting.GetColor(i, j));
 
 			//do not draw any fancy grass on the wall if its merged with a surrounding wall
 			if (Main.tile[i, j + 1].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[i - 1, j].WallType != ModContent.WallType<CatacombBrickWall1>() &&
@@ -56,7 +57,7 @@ namespace Spooky.Content.Tiles.Catacomb
 					float sin = (float)Math.Sin(Main.GameUpdateCount / 45f + offset);
 
 					spriteBatch.Draw(LeafTexture.Value, pos + new Vector2(6, 6) + new Vector2(1, 0.5f) * sin * 2.2f,
-					new Rectangle(rand.Next(6) * 18, 0, 16, 16), Lighting.GetColor(i, j), sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
+					new Rectangle(rand.Next(6) * 18, 0, 16, 16), color, sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
 				}
 			}
 			else
@@ -64,22 +65,22 @@ namespace Spooky.Content.Tiles.Catacomb
 				//down wall merge
 				if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall1>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), color);
 				}
 				//left wall merge
 				if (Main.tile[i - 1, j].WallType == ModContent.WallType<CatacombBrickWall1>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), color);
 				}
 				//up wall merge
 				if (Main.tile[i, j - 1].WallType == ModContent.WallType<CatacombBrickWall1>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), color);
 				}
 				//right wall merge
 				if (Main.tile[i + 1, j].WallType == ModContent.WallType<CatacombBrickWall1>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), color);
 				}
 			}
 		}
@@ -103,6 +104,7 @@ namespace Spooky.Content.Tiles.Catacomb
             LeafTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Cemetery/CemeteryGrassWallLeaf");
 
 			Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+			Color color = TileGlobal.GetWallColorWithPaint(i, j, Lighting.GetColor(i, j));
 
 			//do not draw any fancy grass on the wall if its merged with a surrounding wall
 			if (Main.tile[i, j + 1].WallType != ModContent.WallType<CatacombBrickWall2>() && Main.tile[i - 1, j].WallType != ModContent.WallType<CatacombBrickWall2>() &&
@@ -116,7 +118,7 @@ namespace Spooky.Content.Tiles.Catacomb
 					float sin = (float)Math.Sin(Main.GameUpdateCount / 45f + offset);
 
 					spriteBatch.Draw(LeafTexture.Value, pos + new Vector2(6, 6) + new Vector2(1, 0.5f) * sin * 2.2f,
-					new Rectangle(rand.Next(6) * 18, 0, 16, 16), Lighting.GetColor(i, j), sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
+					new Rectangle(rand.Next(6) * 18, 0, 16, 16), color, sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
 				}
             }
 			else
@@ -124,22 +126,22 @@ namespace Spooky.Content.Tiles.Catacomb
 				//down wall merge
 				if (Main.tile[i, j + 1].WallType == ModContent.WallType<CatacombBrickWall2>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), color);
 				}
 				//left wall merge
 				if (Main.tile[i - 1, j].WallType == ModContent.WallType<CatacombBrickWall2>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), color);
 				}
 				//up wall merge
 				if (Main.tile[i, j - 1].WallType == ModContent.WallType<CatacombBrickWall2>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), color);
 				}
 				//right wall merge
 				if (Main.tile[i + 1, j].WallType == ModContent.WallType<CatacombBrickWall2>())
 				{
-					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), Lighting.GetColor(i, j));
+					spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), color);
 				}
 			}
         }

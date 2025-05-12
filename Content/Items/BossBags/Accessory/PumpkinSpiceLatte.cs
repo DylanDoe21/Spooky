@@ -55,6 +55,10 @@ namespace Spooky.Content.Items.BossBags.Accessory
 			if (player.controlQuickHeal && !player.HasBuff(BuffID.PotionSickness))
 			{
 				SoundEngine.PlaySound(Item.UseSound, player.Center);
+
+				player.ConsumeItem(Type, false, false);
+				player.Heal(Item.healLife);
+
 				player.GetModPlayer<SpookyPlayer>().PotionSicknessLatteTimer = 2;
 			}
 		}

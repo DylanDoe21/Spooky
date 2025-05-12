@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+using Spooky.Content.Items.SpookyHell;
+
 namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class ControllableEye : ModProjectile
@@ -58,6 +61,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+
+            if (ItemGlobal.ActiveItem(player).type != ModContent.ItemType<FleshStaff>())
+            {
+                Projectile.Kill();
+            }
 
             Projectile.rotation += 0.35f * (float)Projectile.direction;
 

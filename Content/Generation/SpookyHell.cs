@@ -1084,7 +1084,7 @@ namespace Spooky.Content.Generation
             int BGBrickWall = ModContent.WallType<NoseTempleWallBGPurple>();
             int Platform = ModContent.TileType<NoseTemplePlatformPurple>();
 
-            //for debugging: 0 = gray, 1 = green, 2 = purple, 3 = red (applies to both brick colors)
+            //0 = gray, 1 = green, 2 = purple, 3 = red (applies to both brick colors)
             NoseTempleBrickColor = WorldGen.genRand.Next(0, 4);
             NoseTempleSlabColor = WorldGen.genRand.Next(0, 4);
 

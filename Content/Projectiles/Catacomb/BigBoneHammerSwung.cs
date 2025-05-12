@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -133,6 +134,11 @@ namespace Spooky.Content.Projectiles.Catacomb
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+
+            if (ItemGlobal.ActiveItem(player).type != ModContent.ItemType<BigBoneHammer>())
+            {
+                Projectile.Kill();
+            }
 
             if (runOnce)
 			{

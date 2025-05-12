@@ -38,7 +38,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(93, 62, 39), name);
+			AddMapEntry(new Color(165, 66, 76), name);
 			RegisterItemDrop(ModContent.ItemType<ChristmasChestItem>());
 			DustType = -1;
 			AdjTiles = new int[] { TileID.Containers };

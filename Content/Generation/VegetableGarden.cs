@@ -26,8 +26,13 @@ namespace Spooky.Content.Generation
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
+			/*
 			int SizeXInt = Main.maxTilesX < 6400 ? 56 : 66;
 			int SizeYInt = Main.maxTilesY < 1800 ? 40 : 50;
+			*/
+
+			int SizeXInt = Main.maxTilesX < 6400 ? 40 : 50;
+			int SizeYInt = Main.maxTilesY < 1800 ? 30 : 40;
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
 
@@ -54,7 +59,7 @@ namespace Spooky.Content.Generation
 						delayBeforeNext--;
 					}
 
-					if (CanPlaceBiome(X, Y, Main.maxTilesX / (SizeXInt - 12), Main.maxTilesY / (SizeYInt - 20)))
+					if (CanPlaceBiome(X, Y, Main.maxTilesX / (SizeXInt - 8), Main.maxTilesY / (SizeYInt - 11)))
 					{
 						if (delayBeforeNext == 0)
 						{
@@ -433,7 +438,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
 				{
-					int[] ValidTiles = { TileID.JungleGrass, TileID.Mud, TileID.LivingMahoganyLeaves };
+					int[] ValidTiles = { TileID.JungleGrass, TileID.Mud, TileID.LivingMahogany, TileID.LivingMahoganyLeaves, TileID.Granite, TileID.Marble };
 
 					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && ValidTiles.Contains(Main.tile[i, j].TileType))
 					{
@@ -450,7 +455,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			int AmountOfTilesNeeded = (SizeX * SizeY) / 2;
+			int AmountOfTilesNeeded = (SizeX * SizeY) / 4;
 
 			if (numJungleTiles > AmountOfTilesNeeded)
 			{

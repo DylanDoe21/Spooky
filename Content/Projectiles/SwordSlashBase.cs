@@ -24,6 +24,7 @@ namespace Spooky.Content.Projectiles
             Projectile.ownerHitCheck = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.usesOwnerMeleeHitCD = true;
+            Projectile.noEnchantmentVisuals = true;
             Projectile.stopsDealingDamageAfterPenetrateHits = true;
             Projectile.ownerHitCheckDistance = 300f;
             Projectile.localNPCHitCooldown = 30;
@@ -41,6 +42,12 @@ namespace Spooky.Content.Projectiles
             Projectile.rotation = (float)Math.PI * num2 * num + Fade + num2 * (float)Math.PI + player.fullRotation;
 
             Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) - Projectile.velocity;
+
+            /*
+            float scaleMulti = 0.2f;
+			float scaleAdder = 1f;
+            Projectile.scale = scaleAdder + num * scaleMulti;
+            */
 
             float num8 = Projectile.rotation + Main.rand.NextFloatDirection() * ((float)Math.PI / 2f) * 0.7f;
             Vector2 vector2 = Projectile.Center + num8.ToRotationVector2() * 84f * Projectile.scale;

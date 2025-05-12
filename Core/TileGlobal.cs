@@ -100,14 +100,37 @@ namespace Spooky.Core
 		}
 
 		public static Color GetTileColorWithPaint(int i, int j, Color color)
-		{
-			int colType = Main.tile[i, j].TileColor;
-			Color paintCol = WorldGen.paintColor(colType);
-			color.R = (byte)(paintCol.R / 255f * color.R);
-			color.G = (byte)(paintCol.G / 255f * color.G);
-			color.B = (byte)(paintCol.B / 255f * color.B);
-			return color;
-		}
+        {
+            int colType = Main.tile[i, j].TileColor;
+            Color paintCol = WorldGen.paintColor(colType);
+            if (colType >= 13 && colType <= 24)
+            {
+                color.R = (byte)(paintCol.R / 255f * color.R);
+                color.G = (byte)(paintCol.G / 255f * color.G);
+                color.B = (byte)(paintCol.B / 255f * color.B);
+            }
+            return color;
+        }
+
+		public static Color GetWallColorWithPaint(int i, int j, Color color)
+        {
+            int colType = Main.tile[i, j].WallColor;
+            Color paintCol = WorldGen.paintColor(colType);
+            if (colType < 13)
+            {
+                paintCol.R = (byte)((paintCol.R / 2f) + 128);
+                paintCol.G = (byte)((paintCol.G / 2f) + 128);
+                paintCol.B = (byte)((paintCol.B / 2f) + 128);
+            }
+            if (colType == 29)
+            {
+                paintCol = Color.Black;
+            }
+            color.R = (byte)(paintCol.R / 255f * color.R);
+            color.G = (byte)(paintCol.G / 255f * color.G);
+            color.B = (byte)(paintCol.B / 255f * color.B);
+            return color;
+        }
 
 		//custom copied version of vanilla SolidCollision but with a list of specific tiles
 		public static bool SolidCollisionWithSpecificTiles(Vector2 Position, int Width, int Height, int[] TileTypes)

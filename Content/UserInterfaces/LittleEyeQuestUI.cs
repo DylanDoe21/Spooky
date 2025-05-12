@@ -71,12 +71,11 @@ namespace Spooky.Content.UserInterfaces
             spriteBatch.Draw(UIBoxTexture, UITopLeft, null, Color.White, 0f, UIBoxTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
             //prevent any mouse interactions while the mouse is hovering over this UI
-            if (IsMouseOverUI(UITopLeft, UIBoxTexture, UIBoxScale))
+            if (IsMouseOverUIBox(UITopLeft, UIBoxTexture, UIBoxScale))
             {
                 IsHoveringOverAnyButton = false;
 
-                player.mouseInterface = false;
-                Main.blockMouse = true;
+                player.mouseInterface = true;
             }
 
             Point ButtonTopLeft = (UITopLeft + new Vector2(-525f, -110f) * UIBoxScale).ToPoint();
@@ -523,5 +522,22 @@ namespace Spooky.Content.UserInterfaces
                 return false;
             }
         }
+
+		//check if the mouse is hovering over the UI
+		public static bool IsMouseOverUIBox(Vector2 TopLeft, Texture2D texture, Vector2 scale)
+		{
+			Rectangle backgroundArea = new Rectangle((int)TopLeft.X - (int)(texture.Width / 2 * scale.X),
+			(int)TopLeft.Y - (int)(texture.Height / 2 * scale.Y),
+			(int)(texture.Width * scale.X), (int)(texture.Height * scale.Y));
+
+			if (backgroundArea.Contains(Main.mouseX, Main.mouseY))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
     }
 }

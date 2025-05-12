@@ -25,26 +25,27 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
             MergeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Desert/DesertSandstoneWallMerge");
 
 			Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+            Color color = TileGlobal.GetWallColorWithPaint(i, j, Lighting.GetColor(i, j));
 
 			//down wall merge
             if (Main.tile[i, j + 1].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), color);
             }
             //left wall merge
             if (Main.tile[i - 1, j].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), color);
             }
             //up wall merge
             if (Main.tile[i, j - 1].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), color);
             }
             //right wall merge
             if (Main.tile[i + 1, j].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), color);
             }
         }
     }
@@ -67,26 +68,27 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
             MergeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Desert/DesertSandstoneWallMerge");
 
 			Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+            Color color = TileGlobal.GetWallColorWithPaint(i, j, Lighting.GetColor(i, j));
 
 			//down wall merge
             if (Main.tile[i, j + 1].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 0, 0, 16, 16), color);
             }
             //left wall merge
             if (Main.tile[i - 1, j].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 1, 0, 16, 16), color);
             }
             //up wall merge
             if (Main.tile[i, j - 1].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 2, 0, 16, 16), color);
             }
             //right wall merge
             if (Main.tile[i + 1, j].WallType == ModContent.WallType<DesertSandWall>())
             {
-                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), Lighting.GetColor(i, j));
+                spriteBatch.Draw(MergeTexture.Value, pos, new Rectangle(18 * 3, 0, 16, 16), color);
             }
         }
     }

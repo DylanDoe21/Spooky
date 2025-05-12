@@ -5,7 +5,22 @@ using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.Minibiomes.Christmas
 {
-	public class ChristmasBrickSlab : ModTile
+	public class ChristmasSlabRed : ModTile
+	{
+		public override void SetStaticDefaults()
+		{
+			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
+			Main.tileMergeDirt[Type] = true;
+            Main.tileBlendAll[Type] = true;
+			Main.tileSolid[Type] = true;
+			Main.tileBlockLight[Type] = true;
+            AddMapEntry(new Color(134, 33, 21));
+            DustType = -1;
+			HitSound = SoundID.Tink;
+		}
+	}
+
+	public class ChristmasSlabBlue : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -20,7 +35,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
 		}
 	}
 
-	public class ChristmasBrickSlabAlt : ModTile
+	public class ChristmasSlabGreen : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -29,7 +44,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(134, 33, 21));
+            AddMapEntry(new Color(35, 104, 33));
             DustType = -1;
 			HitSound = SoundID.Tink;
 		}

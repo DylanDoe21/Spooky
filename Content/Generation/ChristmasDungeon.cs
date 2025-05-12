@@ -17,25 +17,25 @@ using Spooky.Content.Tiles.Minibiomes.Christmas.Painting;
 
 namespace Spooky.Content.Generation
 {
-	//TODO:
-	//make krampus mansion block filling in gaps better
-	//make pathways that are too short filled with blocks so that krampus' own room doesnt create pathways that are only 2 blocks tall
 	public class ChristmasDungeon : ModSystem
 	{
 		public static List<ushort> BlockTypes = new()
 		{
-			(ushort)ModContent.TileType<ChristmasBrick>(),
-			(ushort)ModContent.TileType<ChristmasBrickAlt>(),
-			(ushort)ModContent.TileType<ChristmasBrickSlab>(),
-			(ushort)ModContent.TileType<ChristmasBrickSlabAlt>(),
-			(ushort)ModContent.TileType<ChristmasWoodPlanks>(),
+			(ushort)ModContent.TileType<ChristmasBrickRed>(),
+			(ushort)ModContent.TileType<ChristmasBrickBlue>(),
+			(ushort)ModContent.TileType<ChristmasBrickGreen>(),
+			(ushort)ModContent.TileType<ChristmasSlabRed>(),
+			(ushort)ModContent.TileType<ChristmasSlabBlue>(),
+			(ushort)ModContent.TileType<ChristmasSlabGreen>(),
+			(ushort)ModContent.TileType<ChristmasWood>(),
 			(ushort)ModContent.TileType<ChristmasCarpet>()
 		};
 
 		public static List<int> WallTypes = new()
 		{
-			ModContent.WallType<ChristmasBrickWall>(),
-			ModContent.WallType<ChristmasBrickWallAlt>(),
+			ModContent.WallType<ChristmasBrickRedWall>(),
+			ModContent.WallType<ChristmasBrickBlueWall>(),
+			ModContent.WallType<ChristmasBrickGreenWall>(),
 			ModContent.WallType<ChristmasWoodWall>(),
 			ModContent.WallType<ChristmasWindow>()
 		};
@@ -61,8 +61,8 @@ namespace Spooky.Content.Generation
 		{
 			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.ChrismtasDungeon").Value;
 
-			int DungeonWidth = Main.maxTilesX / 32;
-			int DungeonHeight = Main.maxTilesY / 11;
+			int DungeonWidth = Main.maxTilesX / 30;
+			int DungeonHeight = Main.maxTilesY / 10;
 
 			int maxDungeonSegmentSize = 25;
 			int minDungeonSegmentSize = 24;
@@ -113,27 +113,59 @@ namespace Spooky.Content.Generation
 							}
 						}
 
-						//50% chance to change the dungeon to its alternate colors
-						if (WorldGen.genRand.NextBool())
+						//change the dungeon to the actual colors
+						int Brick = ModContent.TileType<ChristmasBrickRed>();
+						int BrickWall = ModContent.WallType<ChristmasBrickRedWall>();
+						int Slab = ModContent.TileType<ChristmasSlabRed>();
+
+						//0 = red, 1 = blue, 2 = green (applies to both brick colors)
+						int BrickColor = WorldGen.genRand.Next(0, 3);
+
+						//randomize the colors for the slab and walls
+						bool FirstColor = WorldGen.genRand.NextBool();
+
+						switch (BrickColor)
 						{
-							for (int i = X - (DungeonWidth / 2) - 50; i <= X + (DungeonWidth / 2) + 50; i++)
+							case 0:
 							{
-								for (int j = Y - (DungeonHeight / 2) - 50; j <= Y + (DungeonHeight / 2) + 50; j++)
+								Brick = ModContent.TileType<ChristmasBrickRed>();
+							 	BrickWall = FirstColor ? ModContent.WallType<ChristmasBrickBlueWall>() : ModContent.WallType<ChristmasBrickGreenWall>();
+								Slab = !FirstColor ? ModContent.TileType<ChristmasSlabBlue>() : ModContent.TileType<ChristmasSlabGreen>();
+								break;
+							}
+							case 1:
+							{
+								Brick = ModContent.TileType<ChristmasBrickBlue>();
+							 	BrickWall = FirstColor ? ModContent.WallType<ChristmasBrickGreenWall>() : ModContent.WallType<ChristmasBrickRedWall>();
+								Slab = !FirstColor ? ModContent.TileType<ChristmasSlabGreen>() : ModContent.TileType<ChristmasSlabRed>();
+								break;
+							}
+							case 2:
+							{
+								Brick = ModContent.TileType<ChristmasBrickGreen>();
+							 	BrickWall = FirstColor ? ModContent.WallType<ChristmasBrickRedWall>() : ModContent.WallType<ChristmasBrickBlueWall>();
+								Slab = !FirstColor ? ModContent.TileType<ChristmasSlabRed>() : ModContent.TileType<ChristmasSlabBlue>();
+								break;
+							}
+						}
+
+						for (int i = X - (DungeonWidth / 2) - 50; i <= X + (DungeonWidth / 2) + 50; i++)
+						{
+							for (int j = Y - (DungeonHeight / 2) - 50; j <= Y + (DungeonHeight / 2) + 50; j++)
+							{
+								if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>())
 								{
-									if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>())
-									{
-										Main.tile[i, j].TileType = (ushort)ModContent.TileType<ChristmasBrickAlt>();
-									}
+									Main.tile[i, j].TileType = (ushort)Brick;
+								}
 
-									if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickSlab>())
-									{
-										Main.tile[i, j].TileType = (ushort)ModContent.TileType<ChristmasBrickSlabAlt>();
-									}
+								if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasSlabRed>())
+								{
+									Main.tile[i, j].TileType = (ushort)Slab;
+								}
 
-									if (Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
-									{
-										Main.tile[i, j].WallType = (ushort)ModContent.WallType<ChristmasBrickWallAlt>();
-									}
+								if (Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>())
+								{
+									Main.tile[i, j].WallType = (ushort)BrickWall;
 								}
 							}
 						}
@@ -147,15 +179,15 @@ namespace Spooky.Content.Generation
 		public void FillEmptySpaceInbetweenRooms(int PositionX, int PositionY, int Width, int Height)
 		{
 			//first, fill in general space toward the center of the dungeon
-			for (int i = PositionX - (Width / 2) + 15; i <= PositionX + (Width / 2) - 15; i++)
+			for (int i = PositionX - (Width / 2) + 25; i <= PositionX + (Width / 2) - 25; i++)
 			{
-				for (int j = PositionY - (Height / 2) + 15; j <= PositionY + (Height / 2) - 15; j++)
+				for (int j = PositionY - (Height / 2) + 25; j <= PositionY + (Height / 2) - 25; j++)
 				{
 					if (!BlockTypes.Contains(Main.tile[i, j].TileType) && !WallTypes.Contains(Main.tile[i, j].WallType))
 					{
 						Main.tile[i, j].ClearEverything();
-						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
-						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickWall>());
+						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
+						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
 					}
 				}
 			}
@@ -190,23 +222,23 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = PositionX - (Width / 2) - 15; i <= PositionX + (Width / 2) + 15; i++)
+			for (int i = PositionX - (Width / 2) - 25; i <= PositionX + (Width / 2) + 25; i++)
 			{
-				for (int j = PositionY - (Height / 2) - 15; j <= PositionY + (Height / 2) + 15; j++)
+				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
 					List<Point> chunkPoints = new();
 
 					getAttachedPoints(i, j, chunkPoints);
 
-					if (chunkPoints.Count >= 1 && chunkPoints.Count < MaxPoints)
+					if (chunkPoints.Count <= MaxPoints)
 					{
 						foreach (Point p in chunkPoints)
 						{
 							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
 							{
 								new Actions.ClearTile(true), new Actions.SetLiquid(0, 0),
-								new Actions.PlaceTile((ushort)ModContent.TileType<ChristmasBrick>()),
-								new Actions.PlaceWall((ushort)ModContent.WallType<ChristmasBrickWall>())
+								new Actions.PlaceTile((ushort)ModContent.TileType<ChristmasBrickRed>()),
+								new Actions.PlaceWall((ushort)ModContent.WallType<ChristmasBrickRedWall>())
 							}));
 						}
 					}
@@ -217,26 +249,26 @@ namespace Spooky.Content.Generation
 		public void PlaceKrampusRoom(int PositionX, int PositionY, int Width, int Height)
 		{
 			//places the floor without any tile check so that krampus always has a solid floor he can spawn on
-			for (int i = PositionX - (Width / 2) - 8; i <= PositionX + (Width / 2) + 8; i++)
+			for (int i = PositionX - (Width / 3) - 3; i <= PositionX + (Width / 3) + 3; i++)
 			{
 				for (int j = PositionY + (Height / 2) + 1; j <= PositionY + (Height / 2) + 8; j++)
 				{
 					Main.tile[i, j].ClearEverything();
-					WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
-					WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickWall>());
+					WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
+					WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
 				}
 			}
 
 			//place the rest of the room so that it doesnt fill in air
 			for (int i = PositionX - (Width / 2) - 8; i <= PositionX + (Width / 2) + 8; i++)
 			{
-				for (int j = PositionY - (Height / 2) - 8; j <= PositionY + (Height / 2); j++)
+				for (int j = PositionY - (Height / 2) - 8; j <= PositionY + (Height / 2) + 8; j++)
 				{
-					if (Main.tile[i, j].TileType != ModContent.TileType<ChristmasBrick>() && Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickWall>())
+					if (Main.tile[i, j].TileType != ModContent.TileType<ChristmasBrickRed>() && Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						Main.tile[i, j].ClearEverything();
-						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
-						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickWall>());
+						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
+						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
 					}
 				}
 			}
@@ -253,7 +285,8 @@ namespace Spooky.Content.Generation
 					WorldGen.KillTile(i, j + 1);
 				}
 			}
-
+			
+			//spawn krampus
 			NPC.NewNPC(null, PositionX * 16, (PositionY + 12) * 16, ModContent.NPCType<Krampus>());
 		}
 
@@ -291,14 +324,18 @@ namespace Spooky.Content.Generation
 					getAttachedPoints(i, j, chunkPoints);
 
 					int cutoffLimit = 200;
-					if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
+					if (chunkPoints.Count > 0 && chunkPoints.Count < cutoffLimit)
 					{
 						foreach (Point p in chunkPoints)
 						{
+							/*
 							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
 							{
 								new Actions.ClearTile(true)
 							}));
+							*/
+
+							WorldGen.KillTile(p.X, p.Y);
 						}
 					}
 
@@ -316,10 +353,10 @@ namespace Spooky.Content.Generation
 						}
 					}
 
-					if (!Main.tile[i, j].HasTile && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrick>() &&
-					Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i, j + 1].TileType == ModContent.TileType<ChristmasBrick>())
+					if (!Main.tile[i, j].HasTile && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() &&
+					Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasBrickRed>() && Main.tile[i, j + 1].TileType == ModContent.TileType<ChristmasBrickRed>())
 					{
-						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
+						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
 					}
 
 					//get rid single 1x1 strips of tiles
@@ -335,21 +372,21 @@ namespace Spooky.Content.Generation
 					}
 
 					//get rid of single tiles on the ground since it looks weird
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
 					{
 						WorldGen.KillTile(i, j);
 					}
 
 					//get rid of 1x2 tiles on the ground since it looks weird
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
 					{
 						WorldGen.KillTile(i, j);
 						WorldGen.KillTile(i - 1, j);
 					}
 
 					//get rid of 1x3 tiles on the ground since it looks weird
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrick>() && 
-					Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 2, j].HasTile)
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && 
+					Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 2, j].HasTile)
 					{
 						WorldGen.KillTile(i, j);
 						WorldGen.KillTile(i - 1, j);
@@ -357,7 +394,7 @@ namespace Spooky.Content.Generation
 					}
 
 					//get rid of surfaces in the dungeon that arent thick enough for wooden planks flooring to place
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>())
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>())
 					{
 						if ((!Main.tile[i, j - 1].HasTile && !Main.tile[i, j - 2].HasTile && !Main.tile[i, j - 3].HasTile) && !CanPlacePlankFlooring(i, j, false))
 						{
@@ -372,10 +409,10 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
-					bool NoTileUp = Main.tile[i, j - 1].TileType != ModContent.TileType<ChristmasBrick>() && !WallTypes.Contains(Main.tile[i, j - 1].WallType);
-					bool NoTileDown = Main.tile[i, j + 1].TileType != ModContent.TileType<ChristmasBrick>() && !WallTypes.Contains(Main.tile[i, j + 1].WallType);
-					bool NoTileLeft = Main.tile[i - 1, j].TileType != ModContent.TileType<ChristmasBrick>() && !WallTypes.Contains(Main.tile[i - 1, j].WallType);
-					bool NoTileRight = Main.tile[i + 1, j].TileType != ModContent.TileType<ChristmasBrick>() && !WallTypes.Contains(Main.tile[i + 2, j].WallType);
+					bool NoTileUp = Main.tile[i, j - 1].TileType != ModContent.TileType<ChristmasBrickRed>() && !WallTypes.Contains(Main.tile[i, j - 1].WallType);
+					bool NoTileDown = Main.tile[i, j + 1].TileType != ModContent.TileType<ChristmasBrickRed>() && !WallTypes.Contains(Main.tile[i, j + 1].WallType);
+					bool NoTileLeft = Main.tile[i - 1, j].TileType != ModContent.TileType<ChristmasBrickRed>() && !WallTypes.Contains(Main.tile[i - 1, j].WallType);
+					bool NoTileRight = Main.tile[i + 1, j].TileType != ModContent.TileType<ChristmasBrickRed>() && !WallTypes.Contains(Main.tile[i + 2, j].WallType);
 
 					if ((NoTileUp || NoTileDown || NoTileLeft || NoTileRight) && WallTypes.Contains(Main.tile[i, j].WallType))
 					{
@@ -413,7 +450,7 @@ namespace Spooky.Content.Generation
 				{
 					int WindowSizeX = WorldGen.genRand.Next(8, 16);
 					int WindowSizeY = WorldGen.genRand.Next(8, 16);
-					if (WorldGen.genRand.NextBool(10) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
+					if (WorldGen.genRand.NextBool(10) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						if (CanPlaceWindow(i, j, WindowSizeX, WindowSizeY))
 						{
@@ -438,7 +475,7 @@ namespace Spooky.Content.Generation
 					}
 
 					//left side door entrance
-					if (CanPlaceEntrance(i, j, false, false) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i - 1, j].HasTile && Main.tile[i, j].WallType == 0)
+					if (CanPlaceEntrance(i, j, false, false) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i - 1, j].HasTile && Main.tile[i, j].WallType == 0)
 					{
 						bool CanPlace = false;
 
@@ -460,7 +497,7 @@ namespace Spooky.Content.Generation
 					}
 
 					//right side door entrance
-					if (CanPlaceEntrance(i, j, true, false) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && !Main.tile[i + 1, j].HasTile && Main.tile[i, j].WallType == 0)
+					if (CanPlaceEntrance(i, j, true, false) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i + 1, j].HasTile && Main.tile[i, j].WallType == 0)
 					{
 						bool CanPlace = false;
 
@@ -482,8 +519,8 @@ namespace Spooky.Content.Generation
 					}
 
 					//trapdoor entrance
-					if (CanPlaceEntrance(i, j, false, true) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() && 
-					Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrick>() && Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrick>() && 
+					if (CanPlaceEntrance(i, j, false, true) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && 
+					Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && 
 					!Main.tile[i, j - 1].HasTile && !Main.tile[i - 1, j - 1].HasTile && Main.tile[i, j].WallType == 0)
 					{
 						bool CanPlace = false;
@@ -518,16 +555,16 @@ namespace Spooky.Content.Generation
 					bool NoWallsAround = WallTypes.Contains(Main.tile[i - 1, j].WallType) || WallTypes.Contains(Main.tile[i + 1, j].WallType) || 
 					WallTypes.Contains(Main.tile[i, j - 1].WallType) || WallTypes.Contains(Main.tile[i, j + 1].WallType);
 
-					if ((Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrick>() || Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickSlab>()) && 
+					if ((Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() || Main.tile[i, j].TileType == ModContent.TileType<ChristmasSlabRed>()) && 
 					WallTypes.Contains(Main.tile[i, j].WallType) && AnySurroundingAir) //&& !NoWallsAround)
 					{
 						for (int x = i - 1; x <= i + 1; x++)
 						{
 							for (int y = j - 1; y <= j + 1; y++)
 							{
-								if (Main.tile[x, y].TileType == ModContent.TileType<ChristmasBrick>() && WallTypes.Contains(Main.tile[x, y].WallType))
+								if (Main.tile[x, y].TileType == ModContent.TileType<ChristmasBrickRed>() && WallTypes.Contains(Main.tile[x, y].WallType))
 								{
-									Main.tile[x, y].TileType = (ushort)ModContent.TileType<ChristmasBrickSlab>();
+									Main.tile[x, y].TileType = (ushort)ModContent.TileType<ChristmasSlabRed>();
 								}
 							}
 						}
@@ -542,7 +579,7 @@ namespace Spooky.Content.Generation
 					bool NoSolidTile = Main.tile[i, j].Slope != 0;
 					bool AnySurroundingTile = Main.tile[i - 1, j].HasTile || Main.tile[i + 1, j].HasTile || Main.tile[i, j - 1].HasTile || Main.tile[i, j + 1].HasTile;
 
-					if (Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>() && ((!Main.tile[i, j].HasTile && AnySurroundingTile) || NoSolidTile))
+					if (Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>() && ((!Main.tile[i, j].HasTile && AnySurroundingTile) || NoSolidTile))
 					{
 						Main.tile[i, j].WallType = (ushort)ModContent.WallType<ChristmasWoodWall>();
 					}
@@ -555,13 +592,13 @@ namespace Spooky.Content.Generation
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
 					//specifically check to make sure the wall type 2 blocks above is a dungeon wall, this prevents the planks from being placed outside of the dungeon
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickSlab>() && WallTypes.Contains(Main.tile[i, j - 2].WallType))
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasSlabRed>() && WallTypes.Contains(Main.tile[i, j - 2].WallType))
 					{
 						if (!Main.tile[i, j - 1].HasTile && CanPlacePlankFlooring(i, j, true))
 						{
-							Main.tile[i, j].TileType = (ushort)ModContent.TileType<ChristmasWoodPlanks>();
-							Main.tile[i, j + 1].TileType = (ushort)ModContent.TileType<ChristmasWoodPlanks>();
-							Main.tile[i, j + 2].TileType = (ushort)ModContent.TileType<ChristmasWoodPlanks>();
+							Main.tile[i, j].TileType = (ushort)ModContent.TileType<ChristmasWood>();
+							Main.tile[i, j + 1].TileType = (ushort)ModContent.TileType<ChristmasWood>();
+							Main.tile[i, j + 2].TileType = (ushort)ModContent.TileType<ChristmasWood>();
 						}
 					}
 				}
@@ -579,8 +616,8 @@ namespace Spooky.Content.Generation
 					}
 
 					//place carpets on the plank flooring
-					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() && (!Main.tile[i, j - 1].HasTile || Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasChain>()) && 
-					Main.tile[i - 1, j].HasTile && Main.tile[i + 1, j].HasTile && (Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() || Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasWoodPlanks>() ||
+					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasWood>() && (!Main.tile[i, j - 1].HasTile || Main.tile[i, j - 1].TileType == ModContent.TileType<ChristmasChain>()) && 
+					Main.tile[i - 1, j].HasTile && Main.tile[i + 1, j].HasTile && (Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasWood>() || Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasWood>() ||
 					Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasCarpet>() || Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasCarpet>()))
 					{
 						Main.tile[i, j].TileType = (ushort)ModContent.TileType<ChristmasCarpet>();
@@ -679,7 +716,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
-					if (WorldGen.genRand.NextBool(7) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickWall>())
+					if (WorldGen.genRand.NextBool(7) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						if (CanPlacePainting(i, j))
 						{
@@ -736,7 +773,9 @@ namespace Spooky.Content.Generation
 		{
 			for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
 			{
-				if ((Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasBrickSlab>() || Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasBrickSlabAlt>()) && !FurnitureTypes.Contains(Main.tile[x, PositionY + 1].TileType) &&
+				bool ValidSlabType = Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasSlabRed>() || Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasSlabBlue>();
+
+				if (ValidSlabType && !FurnitureTypes.Contains(Main.tile[x, PositionY + 1].TileType) && 
 				!Main.tile[x, PositionY + 1].HasTile && !Main.tile[x, PositionY + 2].HasTile && !Main.tile[x, PositionY + 3].HasTile && !Main.tile[x, PositionY + 4].HasTile && !Main.tile[x, PositionY + 5].HasTile)
 				{
 					continue;
@@ -839,7 +878,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int y = PositionY - 15; y <= PositionY + 15; y++)
 				{
-					if (Main.tile[x, y].TileType != ModContent.TileType<ChristmasBrick>())
+					if (Main.tile[x, y].TileType != ModContent.TileType<ChristmasBrickRed>())
 					{
 						return false;
 					}
@@ -866,7 +905,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - 6; j <= PositionY + 6; j++)
 				{
-					if (Paintings.Contains(Main.tile[i, j].TileType) || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickWall>())
+					if (Paintings.Contains(Main.tile[i, j].TileType) || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						return false;
 					}
@@ -895,7 +934,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - (SizeY / 2) - 2; j <= PositionY + (SizeY / 2) + 2; j++)
 				{
-					if (Main.tile[i, j].HasTile || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickWall>())
+					if (Main.tile[i, j].HasTile || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						return false;
 					}
@@ -1087,11 +1126,11 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = room.Y - (room.Height / 2) - 8; j <= room.Y + (room.Height / 2) + 8; j++)
 				{
-					if (Main.tile[i, j].TileType != ModContent.TileType<ChristmasBrick>() && Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickWall>())
+					if (Main.tile[i, j].TileType != ModContent.TileType<ChristmasBrickRed>() && Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						Main.tile[i, j].ClearEverything();
-						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrick>());
-						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickWall>());
+						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
+						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
 					}
 				}
 			}
@@ -1136,11 +1175,11 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - 9; j <= PositionY + 9; j++)
 				{
-					if (Main.tile[x, j].TileType != ModContent.TileType<ChristmasBrick>() && Main.tile[x, j].WallType != ModContent.WallType<ChristmasBrickWall>())
+					if (Main.tile[x, j].TileType != ModContent.TileType<ChristmasBrickRed>() && Main.tile[x, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						Main.tile[x, j].ClearEverything();
-						WorldGen.PlaceTile(x, j, ModContent.TileType<ChristmasBrick>());
-						WorldGen.PlaceWall(x, j, ModContent.WallType<ChristmasBrickWall>());
+						WorldGen.PlaceTile(x, j, ModContent.TileType<ChristmasBrickRed>());
+						WorldGen.PlaceWall(x, j, ModContent.WallType<ChristmasBrickRedWall>());
 					}
 				}
 			}
@@ -1161,11 +1200,11 @@ namespace Spooky.Content.Generation
 			{
 				for (int i = PositionX - 8; i <= PositionX + 8; i++)
 				{
-					if (Main.tile[i, y].TileType != ModContent.TileType<ChristmasBrick>() && Main.tile[i, y].WallType != ModContent.WallType<ChristmasBrickWall>())
+					if (Main.tile[i, y].TileType != ModContent.TileType<ChristmasBrickRed>() && Main.tile[i, y].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						Main.tile[i, y].ClearEverything();
-						WorldGen.PlaceTile(i, y, ModContent.TileType<ChristmasBrick>());
-						WorldGen.PlaceWall(i, y, ModContent.WallType<ChristmasBrickWall>());
+						WorldGen.PlaceTile(i, y, ModContent.TileType<ChristmasBrickRed>());
+						WorldGen.PlaceWall(i, y, ModContent.WallType<ChristmasBrickRedWall>());
 					}
 				}
 			}

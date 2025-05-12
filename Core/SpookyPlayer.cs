@@ -139,7 +139,6 @@ namespace Spooky.Core
         public bool NoseCultistDisguise1 = false;
 		public bool NoseCultistDisguise2 = false;
 		public bool NoseBlessingBuff = false;
-        public bool DivingSuit = false;
 
 		//misc timers
         public float SpiderStealthAlpha = 0f;
@@ -315,7 +314,6 @@ namespace Spooky.Core
             NoseCultistDisguise1 = false;
 			NoseCultistDisguise2 = false;
 			NoseBlessingBuff = false;
-            DivingSuit = false;
 
 			//dashing stuff
             if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
@@ -1230,16 +1228,6 @@ namespace Spooky.Core
                 g *= 1f - (SpiderStealthAlpha * 0.5f);
                 b *= 1f - (SpiderStealthAlpha * 0.75f);
                 a *= 1f - (SpiderStealthAlpha * 0.5f);
-            }
-        }
-
-        public override void FrameEffects()
-        {
-            if (DivingSuit)
-            {
-                Player.legs = EquipLoader.GetEquipSlot(Mod, "DivingSuit", EquipType.Legs);
-                Player.body = EquipLoader.GetEquipSlot(Mod, "DivingSuit", EquipType.Body);
-                Player.head = EquipLoader.GetEquipSlot(Mod, "DivingSuit", EquipType.Head);
             }
         }
 

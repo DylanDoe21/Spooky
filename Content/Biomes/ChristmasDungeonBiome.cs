@@ -31,7 +31,7 @@ namespace Spooky.Content.Biomes
             int PlayerX = (int)player.Center.X / 16;
             int PlayerY = (int)player.Center.Y / 16;
 
-            int[] DungeonWalls = new int[] { ModContent.WallType<ChristmasBrickWall>(), ModContent.WallType<ChristmasBrickWallAlt>(), 
+            int[] DungeonWalls = new int[] { ModContent.WallType<ChristmasBrickRedWall>(), ModContent.WallType<ChristmasBrickBlueWall>(), ModContent.WallType<ChristmasBrickGreenWall>(), 
             ModContent.WallType<ChristmasWoodWall>(), ModContent.WallType<ChristmasWindow>() };
 
             bool BiomeCondition = DungeonWalls.Contains(Main.tile[PlayerX, PlayerY].WallType);

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Catacomb;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -119,6 +120,11 @@ namespace Spooky.Content.Projectiles.Catacomb
         {
             Player player = Main.player[Projectile.owner];
 
+            if (ItemGlobal.ActiveItem(player).type != ModContent.ItemType<FemurFracture>())
+            {
+                Projectile.Kill();
+            }
+
             if (runOnce)
 			{
 				for (int i = 0; i < trailLength.Length; i++)
@@ -158,7 +164,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.knockBack = 0;
             }
 
-            if (player.controlUseItem)
+            if (player.channel)
             {
                 //set time left super high since this projectile will always die manually
                 Projectile.timeLeft = 10000;
@@ -201,25 +207,25 @@ namespace Spooky.Content.Projectiles.Catacomb
                 SetOwnerAnimation(player);
             }
 
-            //when you release right click when the hammer is charged, throw it
-            if (Projectile.ai[0] >= 120 && Projectile.ai[0] < 240 && Main.mouseLeftRelease)
-            {
-                SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
+			//when you release right click when the hammer is charged, throw it
+			if (Projectile.ai[0] >= 120 && Projectile.ai[0] < 240 && !player.channel)
+			{
+				SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
-                if (Projectile.owner == Main.myPlayer)
-                {
-                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                    ShootSpeed.Normalize();
-                    ShootSpeed *= 45;
-                            
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
-                }
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+					ShootSpeed.Normalize();
+					ShootSpeed *= 45;
 
-                Projectile.Kill();
-            }
+					Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+				}
+
+				Projectile.Kill();
+			}
 
             //throw the super charged hammer, but faster and set its ai to shoot skulls
-            if (Projectile.ai[0] >= 240 && Main.mouseLeftRelease)
+            if (Projectile.ai[0] >= 240 && !player.channel)
             {
                 SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
 
@@ -236,7 +242,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             }
 
             //kill this projectile if you release right click before its charged
-            if (Projectile.ai[0] > 2 && Projectile.ai[0] < 120 && Main.mouseLeftRelease)
+            if (Projectile.ai[0] > 2 && Projectile.ai[0] < 120 && (Main.mouseLeftRelease || !player.channel))
             {
                 Projectile.Kill();
             }

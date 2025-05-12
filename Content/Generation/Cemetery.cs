@@ -120,6 +120,14 @@ namespace Spooky.Content.Generation
 						}
 					}
 
+                    for (int Y = (int)Main.worldSurface - 50; Y <= Main.worldSurface; Y++)
+					{
+                        Tile tile = Main.tile[X, Y];
+
+                        tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
+                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
+                    }
+
                     /*
 					//place block clusters right above the world surface to prevent the cemetery from generating too low
 					for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY += 3)

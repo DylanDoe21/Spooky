@@ -4,15 +4,15 @@ Brand New Biomes:
 
 -Fetid farms, a nasty rotting vegetable garden found in the underground jungle (only 1 on small worlds, 2 on medium and large)
 -Tar pits, a rocky desert cave with fossils and tar found in the underground desert (only 1 on small worlds, 2 on medium and large)
--Krampus' workshop, a strange dungeon structure found in the underground ice biome (only 1 per world, but scales with worldsize)
+-Krampus' workshop, a strange dungeon structure found in the underground ice biome (only 1 per world)
 -Rotten depths, an underwater cave system with old labs where an experiment has gone wrong under the ocean (only 1 per world, does not scale with worldsize due to the oceans always being the same size on all worlds)
 
 
 Spooky Forest Generation Overhaul:
 
 -Changed the spooky forests generation completely to be more natural looking and to make it more fun to explore overall
--Spooky forest underground now has entirely new cave generation to make exploring the biome more interesting, but mostly to make mining through it less annoying
--Spooky forest underground loot cabins are now randomly placed instead of only having a certain amount in set locations, which means more loot (Even on smaller worlds!)
+-Spooky forest underground now has entirely new cave generation to make exploring the biome more interesting and to make mining through it less annoying
+-Spooky forest underground loot cabins are now randomly placed instead of only having a certain amount in set locations, which means more loot overall
 -Replaced the giant crater in the spooky forest with a proper mineshaft that you can enter if you use the detonator + explosive at the surface or just dig under the explosive
 -Completely new glowshroom minibiome generation because the previous one was just copy pasted glowing mushroom biome generation
 
@@ -27,7 +27,7 @@ Bloom UI overhaul:
 New Config Stuff:
 
 -Spooky mods config has been split into different categories in the menu due to the addition of multiple new worldgen options to keep them organized
--Added new config category "Spooky World Generatiom Config" containing various options for world generation
+-Added new config category "Spooky World Generation Config" containing various options for world generation
 -Moved the "Spooky Forest Spawnpoint" config option to the new spooky worldgen config category
 -Added new config option "Eye Valley World Side" which uses a slider, allows you to determine what side of the world the eye valley will generate on. Options consist of: Random, Jungle Side (default), and Dungeon Side
 -Added new config option "Rotten Depths World Side" which uses a slider, allows you to determine what side of the world the new rotten depths biome will generate on. Options consist of: Random, Jungle Side, and Dungeon Side (default)
@@ -35,10 +35,10 @@ New Config Stuff:
 
 New Music:
 
-"T-Funk" by Bananlizard, plays in the new tar pits minibiome
-"Something Smells Funky" by Bananlizard, plays in the new fetid farms minibiome
+"T-Funk" by Bananlizard, plays in the new tar pits biome
+"Something Smells Funky" by Bananlizard, plays in the new fetid farms biome
+"Where Divers Don't Dare" by Bananalizard, plays in the new rotten depths biome
 "Tapioca Motel" by Bananlizard, plays in the new krampus' workshop structure
-"Where Divers Don't Dare" by Bananalizard, plays in the new rotten depths minibiome
 "Neo Alkahouse" by Bananlizard, new alternate theme that plays during the raveyard
 
 
@@ -57,6 +57,9 @@ Other Random Additions:
 -You can now use the EMF Reader to summon multiple new ghost related things, including summoning spooky spirit like before, summoning mist ghost ambushes with rewards at mysterious tombstones, and its now used to open pandoras box
 -Added new mist ghost swirly variant
 -Added new eyeball blocks, dropped by eye stalk trees and found on naturally generated eye valley structures
+-Added multiple new bloom-related accessories that give you various bonuses based on blooms
+-Added new surface background sprites for the spooky forest and swampy cemetery
+-Swampy cemetery now has a new alternate surface background
 
 
 Structure Helper is no longer a dependency: 
@@ -118,15 +121,15 @@ Accessory:
 -Apocalypse mixtape telescope moon now has no damage cap for projectiles it can reflect (This does not apply to the regular telescope accessory)
 -Arcade cabinet now gives 2% increased critical strike chance per missing swirl charge up to 10% total, and increased the amount of time it takes for one charge to regenerate to 2 seconds
 -Dreadful clarinet no longer has a cooldown for spawning notes on critical hits but you cannot have more than 5 notes at once, also increased their enemy targetting range
--Strange video game now disables your life regeneration but it will now spawn natures mockery around you constantly, only one can exist at a time but once one dies another will immediately spawn
+-Strange video game now disables your life regeneration but it will now spawn natures mockery around you constantly to give you lots of healing
 -Samson's cuff no longer decreases movement speed and damage (Applies to both the regular accessory and the amalghoul)
 -Sewing thread now inflicts pierced onto any enemy it hits, pierced enemies will take 2x damage and be inflicted with a damage-over-time debuff for 10 seconds the next time they are hit by any weapon that isnt the thread
 -Stitched cloak dash now allows you to dash vertically/horizontally in a straight direction, and you are now invincible while dashing which allows you to dash through enemies and their attacks
 -Removed the stitched cloak's spider web ability
--Eyeball of pondering damage bonus nerfed from 35% to 25%, removed the "shattering when you get hit too many times" gimmick entirely, and it now applies to all damage instead of just magic
+-Eyeball of pondering damage bonus nerfed from 35% to 25%, removed the "shattering when you get hit too many times" gimmick entirely, and it now applies to all damage classes instead of just magic
 -Tome of spirits now gives stats based on the eye color: 12% more melee/ranged damage and knockback when red, 12% increased magic/summon damage and 15% less mana usage when green, and 10 defense and extra life regen when blue
 -Allergy medication now provides immunity to venom and poisoned along with oozed and converts both of those debuffs into positive buffs like it does with oozed
--Corroding chompers projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it, and now gives 10% increased critical strike chance to make it more useful overall
+-Corroding chompers projectile no longer has a damage cap and will always deal damage equal to the damage of the hit that spawned it, and it now gives 10% increased critical strike chance to make it more useful overall
 -Stoned kidney now gives 15% increased damage while at full charge
 -Skull amulet now grants 2% increased damage for each enemy soul you absorb for a maximum of 20%, and reworked the frenzy buff to give you a massive attack speed boost along with the 20% damage increase instead of generic stat boosts
 -Snotty schnoz no longer has a cooldown period after shooting a spread of snot, but the snot projectiles are no longer homing
@@ -138,12 +141,12 @@ Blooms:
 -Zappy Zucchini lightning now does damage equal to 8% of an enemies maximum health instead of having a flat damage value of 20
 
 Miscellaneous:
--Lowered drop rate of the putty slime pet
--Spooky biome dungeon keys now shimmer into their corresponding chest like vanilla biome keys
+-Lowered drop rate of the putty slime pet to 1% drop chance
+-Spooky biome dungeon keys now shimmer into their corresponding dungeon chest like vanilla biome keys
 -Spooky biome dungeon keys now correctly use the "it has been cursed by a powerful jungle creature" tooltip pre-plantera like vanilla biome keys
 -Living flesh armor and weapons now require shadow scales/tissue samples in their crafting recipes instead of demonite/crimtane bars
 -Slightly changed the spooky mod biome compass arrow texture to make it more obvious that its an arrow pointing somewhere
--Changed spike shell basher into a shield accessory that gives 3 defense and retaliates with harmful spikes when you take damage
+-Changed spike shell basher into a shield accessory that gives 3 defense and causes enemies that hit you to take damage
 -Trap door spider mount is now lower towards the ground so you can fit in smaller spaces, and made its wall/ceiling clinging mechanic way more lenient and much easier to use
 
 
@@ -169,7 +172,7 @@ Enemy Changes:
 
 -Made the spider grotto biome size a tiny bit smaller
 -Spider grotto caves are now a bit longer horizontally and a bit shorter vertically
--Swampy cemetery terrain now generates a bit flatter so structures dont generate weirdly and to make it feel like an actual cemetery a bit more
+-Swampy cemetery terrain now generates flatter so structures dont generate weirdly and to make it feel like an actual cemetery a bit more
 -Carved gourd-o-lanterns now count as light source blocks for npc housing
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
 -Spooky mod grasses now immediately turn into their corresponding dirt block when broken like terraria grasses do
@@ -191,6 +194,7 @@ Enemy Changes:
 
 -Fixed spooky mod helmets/masks with custom drawing (such as glowmasks and extended helmets) drawing incorrectly when gravity is flipped
 -Fixed bug with many spooky mod objects (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
+-Fixed bug with many spooky mod custom tiles and special wall drawing (such as custom trees, giant glowshrooms, grass wall leaves, ect) not being affected when painted
 -Fixed issue where spooky biome ambient grass and vines wouldnt be destroyed when converted by clentaminator solutions
 -Fixed brown solution not converting spooky mod biomes into a forest biome
 -Fixed frank the goblin's hands despawning if the player gets too far away from him
@@ -214,6 +218,10 @@ Enemy Changes:
 -Fixed little bone and little eye not turning into their shimmered forms correctly
 -Fixed carrion chunker backpack not drawing at the correct position if the player was on mounts
 -Fixed spooky mod relics facing the wrong directions when places
+-Fixed retina staff and living retina staff projectiles continuing to exist if you switch to a different item
+-Fixed femur fracture hammer continuing to exist if you switch to a different item or if you move your mouse over your inventory while using it
+-Fixed skull smasher hammer continuing to exist if you switch to a different item
+-Fixed weird issue where spooky mod sword slashes would draw at the incorrect rotation when aiming directly downward
 
 
 Multiplayer:

@@ -28,6 +28,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             LeafTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/SpookyGrassWallLeaf");
 
             Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+            Color color = TileGlobal.GetWallColorWithPaint(i, j, Lighting.GetColor(i, j));
 
             if (i > Main.screenPosition.X / 16 && i < Main.screenPosition.X / 16 + Main.screenWidth / 16 && j > Main.screenPosition.Y / 16 && j < Main.screenPosition.Y / 16 + Main.screenHeight / 16)
             {
@@ -37,7 +38,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 float sin = (float)Math.Sin(Main.GameUpdateCount / 45f + offset);
 
                 spriteBatch.Draw(LeafTexture.Value, pos + new Vector2(6, 6) + new Vector2(1, 0.5f) * sin * 2.2f,
-                new Rectangle(rand.Next(6) * 18, 0, 16, 16), Lighting.GetColor(i, j), sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
+                new Rectangle(rand.Next(6) * 18, 0, 16, 16), color, sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
             }
         }
     }
@@ -61,6 +62,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
             LeafTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/SpookyGrassWallLeaf");
 
             Vector2 pos = TileGlobal.TileCustomPosition(i, j);
+            Color color = TileGlobal.GetWallColorWithPaint(i, j, Lighting.GetColor(i, j));
 
             if (i > Main.screenPosition.X / 16 && i < Main.screenPosition.X / 16 + Main.screenWidth / 16 && j > Main.screenPosition.Y / 16 && j < Main.screenPosition.Y / 16 + Main.screenHeight / 16)
             {
@@ -70,7 +72,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 float sin = (float)Math.Sin(Main.GameUpdateCount / 45f + offset);
 
                 spriteBatch.Draw(LeafTexture.Value, pos + new Vector2(6, 6) + new Vector2(1, 0.5f) * sin * 2.2f,
-                new Rectangle(rand.Next(6) * 18, 0, 16, 16), Lighting.GetColor(i, j), sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
+                new Rectangle(rand.Next(6) * 18, 0, 16, 16), color, sin * 0.09f, new Vector2(3, 6), 1 + sin / 14f, 0, 0);
             }
         }
     }

@@ -40,8 +40,8 @@ namespace Spooky.Content.Generation
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
-			int SizeXInt = Main.maxTilesX < 6400 ? 37 : 53;
-			int SizeYInt = Main.maxTilesY < 1800 ? 15 : 22;
+			int SizeXInt = Main.maxTilesX < 6400 ? 36 : 48;
+			int SizeYInt = Main.maxTilesY < 1800 ? 14 : 17;
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
 

@@ -1452,7 +1452,7 @@ SharkBoneLegs: {
 }
 
 TarGun: {
-	DisplayName: Hak-2R
+	DisplayName: HAK-2r
 	Tooltip: Converts bullets into tar spit blobs
 }
 
@@ -3449,43 +3449,63 @@ SlendrinaPaintingItem: {
 	Tooltip: "'Kekroc'"
 }
 
-ChristmasBrickItem: {
+ChristmasBrickRedItem: {
 	DisplayName: Red Yuletide Brick
 	Tooltip: ""
 }
 
-ChristmasBrickAltItem: {
+ChristmasBrickBlueItem: {
 	DisplayName: Blue Yuletide Brick
 	Tooltip: ""
 }
 
-ChristmasBrickSlabItem: {
-	DisplayName: Blue Yuletide Slab
+ChristmasBrickGreenItem: {
+	DisplayName: Green Yuletide Brick
 	Tooltip: ""
 }
 
-ChristmasBrickSlabAltItem: {
+ChristmasSlabRedItem: {
 	DisplayName: Red Yuletide Slab
 	Tooltip: ""
 }
 
-ChristmasBrickWallItem: {
+ChristmasSlabBlueItem: {
+	DisplayName: Blue Yuletide Slab
+	Tooltip: ""
+}
+
+ChristmasSlabGreenItem: {
+	DisplayName: Green Yuletide Slab
+	Tooltip: ""
+}
+
+ChristmasBrickRedWallItem: {
 	DisplayName: Red Yuletide Brick Wall
 	Tooltip: ""
 }
 
-ChristmasBrickWallUnsafeItem: {
-	DisplayName: Nefarious Red Yuletide Brick Wall
-	Tooltip: A nefarious segment of yultide brick wall that will spawn monsters
-}
-
-ChristmasBrickWallAltItem: {
+ChristmasBrickBlueWallItem: {
 	DisplayName: Blue Yuletide Brick Wall
 	Tooltip: ""
 }
 
-ChristmasBrickWallAltUnsafeItem: {
+ChristmasBrickGreenWallItem: {
+	DisplayName: Green Yuletide Brick Wall
+	Tooltip: ""
+}
+
+ChristmasBrickRedWallUnsafeItem: {
+	DisplayName: Nefarious Red Yuletide Brick Wall
+	Tooltip: A nefarious segment of yultide brick wall that will spawn monsters
+}
+
+ChristmasBrickBlueWallUnsafeItem: {
 	DisplayName: Nefarious Blue Yuletide Brick Wall
+	Tooltip: A nefarious segment of yultide brick wall that will spawn monsters
+}
+
+ChristmasBrickGreenWallUnsafeItem: {
+	DisplayName: Nefarious Green Yuletide Brick Wall
 	Tooltip: A nefarious segment of yultide brick wall that will spawn monsters
 }
 

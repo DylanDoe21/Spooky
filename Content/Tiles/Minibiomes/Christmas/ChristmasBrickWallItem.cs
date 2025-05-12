@@ -4,17 +4,17 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Tiles.Minibiomes.Christmas
 {
-    public class ChristmasBrickWallItem : ModItem
+    public class ChristmasBrickRedWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 400;
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ChristmasBrickWallUnsafeItem>();
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ChristmasBrickRedWallUnsafeItem>();
         }
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasBrickWallSafe>());
+            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasBrickRedWallSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
@@ -22,23 +22,23 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void AddRecipes()
         {
             CreateRecipe(4)
-            .AddIngredient(ModContent.ItemType<ChristmasBrickItem>(), 1)
+            .AddIngredient(ModContent.ItemType<ChristmasBrickRedItem>(), 1)
             .AddTile(TileID.WorkBenches)
             .Register();
         }
     }
 
-    public class ChristmasBrickWallAltItem : ModItem
+    public class ChristmasBrickBlueWallItem : ModItem
     {
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 400;
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ChristmasBrickWallAltUnsafeItem>();
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ChristmasBrickBlueWallUnsafeItem>();
         }
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasBrickWallAltSafe>());
+            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasBrickBlueWallSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
@@ -46,7 +46,31 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void AddRecipes()
         {
             CreateRecipe(4)
-            .AddIngredient(ModContent.ItemType<ChristmasBrickAltItem>(), 1)
+            .AddIngredient(ModContent.ItemType<ChristmasBrickBlueItem>(), 1)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
+    }
+
+    public class ChristmasBrickGreenWallItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 400;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ChristmasBrickGreenWallUnsafeItem>();
+        }
+
+        public override void SetDefaults()
+        {
+            Item.DefaultToPlaceableWall(ModContent.WallType<ChristmasBrickGreenWallSafe>());
+            Item.width = 16;
+			Item.height = 16;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<ChristmasBrickGreenItem>(), 1)
             .AddTile(TileID.WorkBenches)
             .Register();
         }

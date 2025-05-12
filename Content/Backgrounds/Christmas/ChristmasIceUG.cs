@@ -8,8 +8,9 @@ namespace Spooky.Content.Backgrounds.Christmas
 		public override void FillTextureArray(int[] textureSlots)
         {
 			//ice background code, taken from terrarias own background drawing for each individual ice underground background variant
-			//this is a work-around so that krampus' workshop always has the same exact bg as the underground ice, since manually setting the snow biome doesnt work
-			//this is because krampus' workshop is large and areas with very little ice blocks nearby wouldnt be considered an ice biome, and so this works with texture packs
+			//this is a work-around so that krampus' workshop always has the same exact bg as the underground ice, since manually setting vanillas snow biome bool doesnt set the background
+			//this is because krampus' workshop is large and areas with very little ice blocks nearby wouldnt be considered an ice biome, and would change the bg to unfitting dirt and rock
+			//this also grabs the same exact vanilla textures so it works with texture packs as well
 			if (Main.iceBackStyle == 0)
 			{
 				textureSlots[1] = 33;
