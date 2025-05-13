@@ -328,13 +328,6 @@ namespace Spooky.Content.Generation
 					{
 						foreach (Point p in chunkPoints)
 						{
-							/*
-							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
-							{
-								new Actions.ClearTile(true)
-							}));
-							*/
-
 							WorldGen.KillTile(p.X, p.Y);
 						}
 					}
@@ -443,37 +436,12 @@ namespace Spooky.Content.Generation
 
 		public void DungeonAmbienceAndDetails(int PositionX, int PositionY, int Width, int Height)
 		{
-			//place entrances
+			//place entrances on the sides and top of the dungeon
+			//TODO: create smaller loops so these dont take so long to generate
 			for (int i = PositionX - (Width / 2) - 25; i <= PositionX + (Width / 2) + 25; i++)
 			{
 				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
-					int WindowSizeX = WorldGen.genRand.Next(8, 16);
-					int WindowSizeY = WorldGen.genRand.Next(8, 16);
-					if (WorldGen.genRand.NextBool(10) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>())
-					{
-						if (CanPlaceWindow(i, j, WindowSizeX, WindowSizeY))
-						{
-							//place the actual window itself
-							for (int x = i - (WindowSizeX / 2); x <= i + (WindowSizeX / 2); x++)
-							{
-								for (int y = j - (WindowSizeY / 2); y <= j + (WindowSizeY / 2); y++)
-								{
-									//place a border of christmas wood around the window
-									if (x == i - (WindowSizeX / 2) || x == i + (WindowSizeX / 2) || y == j - (WindowSizeY / 2) || y == j + (WindowSizeY / 2))
-									{
-										Main.tile[x, y].WallType = (ushort)ModContent.WallType<ChristmasWoodWall>();
-									}
-									//place the actual window wall
-									else
-									{
-										Main.tile[x, y].WallType = (ushort)ModContent.WallType<ChristmasWindow>();
-									}
-								}
-							}
-						}
-					}
-
 					//left side door entrance
 					if (CanPlaceEntrance(i, j, false, false) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i - 1, j].HasTile && Main.tile[i, j].WallType == 0)
 					{
@@ -497,24 +465,27 @@ namespace Spooky.Content.Generation
 					}
 
 					//right side door entrance
-					if (CanPlaceEntrance(i, j, true, false) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i + 1, j].HasTile && Main.tile[i, j].WallType == 0)
+					if (CanPlaceEntrance(i, j, true, false))
 					{
-						bool CanPlace = false;
-
-						for (int xCheck = i; xCheck >= i - 7; xCheck--)
+						if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && !Main.tile[i + 1, j].HasTile && Main.tile[i, j].WallType == 0)
 						{
-							if (!Main.tile[xCheck, j].HasTile && !Main.tile[xCheck, j - 1].HasTile && !Main.tile[xCheck, j - 2].HasTile && 
-							!Main.tile[xCheck, j + 1].HasTile && !Main.tile[xCheck, j + 2].HasTile && WallTypes.Contains(Main.tile[xCheck, j].WallType))
+							bool CanPlace = false;
+
+							for (int xCheck = i; xCheck >= i - 7; xCheck--)
 							{
-								CanPlace = true;
-								break;
+								if (!Main.tile[xCheck, j].HasTile && !Main.tile[xCheck, j - 1].HasTile && !Main.tile[xCheck, j - 2].HasTile && 
+								!Main.tile[xCheck, j + 1].HasTile && !Main.tile[xCheck, j + 2].HasTile && WallTypes.Contains(Main.tile[xCheck, j].WallType))
+								{
+									CanPlace = true;
+									break;
+								}
 							}
-						}
 
-						if (CanPlace)
-						{
-							Vector2 EntranceOrigin = new Vector2(i - 6, j - 3);
-							StructureHelper.API.Generator.GenerateStructure("Content/Structures/ChristmasDungeon/EntranceRight.shstruct", EntranceOrigin.ToPoint16(), Mod);
+							if (CanPlace)
+							{
+								Vector2 EntranceOrigin = new Vector2(i - 6, j - 3);
+								StructureHelper.API.Generator.GenerateStructure("Content/Structures/ChristmasDungeon/EntranceRight.shstruct", EntranceOrigin.ToPoint16(), Mod);
+							}
 						}
 					}
 
@@ -544,7 +515,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			//place slab lining around the inside of the biome, yuletide wood wall lining, and slope tiles
+			//place slab lining around the inside of the biome, slope tiles
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
@@ -575,22 +546,20 @@ namespace Spooky.Content.Generation
 					{
 						Tile.SmoothSlope(i, j);
 					}
-
-					bool NoSolidTile = Main.tile[i, j].Slope != 0;
-					bool AnySurroundingTile = Main.tile[i - 1, j].HasTile || Main.tile[i + 1, j].HasTile || Main.tile[i, j - 1].HasTile || Main.tile[i, j + 1].HasTile;
-
-					if (Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>() && ((!Main.tile[i, j].HasTile && AnySurroundingTile) || NoSolidTile))
-					{
-						Main.tile[i, j].WallType = (ushort)ModContent.WallType<ChristmasWoodWall>();
-					}
 				}
 			}
 
-			//place wooden planks on the floor
+			//place wooden plank walls, place wooden planks on the floor
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
+					//place wooden plank walls
+					if (Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>() && CanPlaceWoodWall(i, j))
+					{
+						Main.tile[i, j].WallType = (ushort)ModContent.WallType<ChristmasWoodWall>();
+					}
+
 					//specifically check to make sure the wall type 2 blocks above is a dungeon wall, this prevents the planks from being placed outside of the dungeon
 					if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasSlabRed>() && WallTypes.Contains(Main.tile[i, j - 2].WallType))
 					{
@@ -604,11 +573,37 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			//place ropes and christmas carpet on the floor
+			//place windows, place ropes, place christmas carpet on the floor
 			for (int i = PositionX - 25 - (Width / 2); i <= PositionX + 25 + (Width / 2); i++)
 			{
 				for (int j = PositionY - 25 - (Height / 2); j <= PositionY + 25 + (Height / 2); j++)
 				{
+					int WindowSizeX = WorldGen.genRand.Next(6, 10);
+					int WindowSizeY = WorldGen.genRand.Next(6, 10);
+					if (WorldGen.genRand.NextBool(7) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasWoodWall>())
+					{
+						if (CanPlaceWindow(i, j, WindowSizeX, WindowSizeY))
+						{
+							//place the actual window itself
+							for (int x = i - (WindowSizeX / 2); x <= i + (WindowSizeX / 2); x++)
+							{
+								for (int y = j - (WindowSizeY / 2); y <= j + (WindowSizeY / 2); y++)
+								{
+									//place a border of christmas wood around the window
+									if (x == i - (WindowSizeX / 2) || x == i + (WindowSizeX / 2) || y == j - (WindowSizeY / 2) || y == j + (WindowSizeY / 2))
+									{
+										Main.tile[x, y].WallType = (ushort)ModContent.WallType<ChristmasBrickRedWall>();
+									}
+									//place the actual window wall
+									else
+									{
+										Main.tile[x, y].WallType = (ushort)ModContent.WallType<ChristmasWindow>();
+									}
+								}
+							}
+						}
+					}
+					
 					//place ropes
 					if (BlockTypes.Contains(Main.tile[i, j].TileType) && WallTypes.Contains(Main.tile[i, j].WallType) && !Main.tile[i, j + 1].HasTile)
 					{
@@ -716,7 +711,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
-					if (WorldGen.genRand.NextBool(7) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>())
+					if (WorldGen.genRand.NextBool(8) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasWoodWall>())
 					{
 						if (CanPlacePainting(i, j))
 						{
@@ -773,10 +768,8 @@ namespace Spooky.Content.Generation
 		{
 			for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
 			{
-				bool ValidSlabType = Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasSlabRed>() || Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasSlabBlue>();
-
-				if (ValidSlabType && !FurnitureTypes.Contains(Main.tile[x, PositionY + 1].TileType) && 
-				!Main.tile[x, PositionY + 1].HasTile && !Main.tile[x, PositionY + 2].HasTile && !Main.tile[x, PositionY + 3].HasTile && !Main.tile[x, PositionY + 4].HasTile && !Main.tile[x, PositionY + 5].HasTile)
+				if (Main.tile[x, PositionY].TileType == ModContent.TileType<ChristmasSlabRed>() && !FurnitureTypes.Contains(Main.tile[x, PositionY + 1].TileType) && !Main.tile[x, PositionY + 1].HasTile && 
+				!Main.tile[x, PositionY + 2].HasTile && !Main.tile[x, PositionY + 3].HasTile && !Main.tile[x, PositionY + 4].HasTile && !Main.tile[x, PositionY + 5].HasTile)
 				{
 					continue;
 				}
@@ -833,7 +826,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int y = PositionY - 1; y >= PositionY - 8; y--)
 				{
-					if (Main.tile[PositionX, y].HasTile)
+					if (Main.tile[PositionX, y].HasTile || Main.tile[PositionX, y].LiquidAmount > 0)
 					{
 						return false;
 					}
@@ -888,6 +881,23 @@ namespace Spooky.Content.Generation
 			return true;
 		}
 
+		public bool CanPlaceWoodWall(int PositionX, int PositionY)
+		{
+			//check for a thick enough surface where wood plank flooring can be placed
+			for (int x = PositionX - 1; x <= PositionX + 1; x++)
+			{
+				for (int y = PositionY - 1; y <= PositionY + 1; y++)
+				{
+					if (Main.tile[x, y].HasTile) //&& Main.tile[x, y].Slope == 0)
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
 		public bool CanPlacePainting(int PositionX, int PositionY)
 		{
 			List<ushort> Paintings = new()
@@ -905,7 +915,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - 6; j <= PositionY + 6; j++)
 				{
-					if (Paintings.Contains(Main.tile[i, j].TileType) || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
+					if (Paintings.Contains(Main.tile[i, j].TileType) || Main.tile[i, j].WallType != ModContent.WallType<ChristmasWoodWall>())
 					{
 						return false;
 					}
@@ -934,7 +944,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - (SizeY / 2) - 2; j <= PositionY + (SizeY / 2) + 2; j++)
 				{
-					if (Main.tile[i, j].HasTile || Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
+					if (Main.tile[i, j].HasTile || Main.tile[i, j].WallType != ModContent.WallType<ChristmasWoodWall>())
 					{
 						return false;
 					}

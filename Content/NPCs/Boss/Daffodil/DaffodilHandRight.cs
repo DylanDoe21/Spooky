@@ -163,6 +163,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             return Parent.ai[0] == 4;
         }
 
+        public override bool CheckActive()
+        {
+            return false;
+        }
+
         public override void AI()
         {
             NPC Parent = Main.npc[(int)NPC.ai[3]];
@@ -172,7 +177,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             NPC.direction = 1;
 
             //kill the hand if the parent does not exist
-            if (!Parent.active)
+            if (!Parent.active || Parent.type != ModContent.NPCType<DaffodilEye>())
             {
                 NPC.active = false;
             }

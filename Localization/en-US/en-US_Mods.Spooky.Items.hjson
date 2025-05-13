@@ -3520,17 +3520,12 @@ ChristmasWindowItem: {
 }
 
 ChristmasWoodItem: {
-	DisplayName: Yuletide Wood
-	Tooltip: ""
-}
-
-ChristmasWoodPlanksItem: {
 	DisplayName: Yuletide Planks
 	Tooltip: ""
 }
 
 ChristmasWoodWallItem: {
-	DisplayName: Yuletide Wood Wall
+	DisplayName: Yuletide Planks Wall
 	Tooltip: ""
 }
 
