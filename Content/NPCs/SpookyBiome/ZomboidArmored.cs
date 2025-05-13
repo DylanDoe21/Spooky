@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
+using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -17,6 +18,20 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 8;
+        }
+
+		public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -83,14 +98,12 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 NPC.dontTakeDamage = true;
                 NPC.life = 1;
 
-                NPC.localAI[2] = 2;
-
                 NPC.netUpdate = true;
 
                 return false;
             }
-
-            return true;
+				
+			return true;
         }
         
         public override void AI()
@@ -150,6 +163,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                 if (NPC.localAI[1] > 120)
 				{
+					NPC.localAI[2] = 1;
+
                     NPC.immortal = false;
                     NPC.dontTakeDamage = false;
                     NPC.netUpdate = true;

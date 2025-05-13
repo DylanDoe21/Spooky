@@ -16,7 +16,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(76, 52, 42));
+            AddMapEntry(new Color(94, 65, 50));
             RegisterItemDrop(ModContent.ItemType<ChristmasWoodWallItem>());
             DustType = DustID.WoodFurniture;
         }

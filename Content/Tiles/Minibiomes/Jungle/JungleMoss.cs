@@ -44,6 +44,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
                 if (Main.rand.NextBool(5)) 
                 {
 					WorldGen.PlaceObject(i, j + 1, (ushort)ModContent.TileType<JungleVines>(), true);
+                    NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
 				}
             }
 
@@ -55,6 +56,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
                 {
 					WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<JungleMossWeeds>(), true);
 					Above.TileFrameX = (short)(WorldGen.genRand.Next(11) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
 				}
 
                 //grow broccoli trees

@@ -437,8 +437,7 @@ namespace Spooky.Content.Generation
 		public void DungeonAmbienceAndDetails(int PositionX, int PositionY, int Width, int Height)
 		{
 			//place entrances on the sides and top of the dungeon
-			//TODO: create smaller loops so these dont take so long to generate
-			for (int i = PositionX - (Width / 2) - 25; i <= PositionX + (Width / 2) + 25; i++)
+			for (int i = PositionX - (Width / 2) - 25; i <= PositionX - 20; i++)
 			{
 				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
@@ -463,7 +462,13 @@ namespace Spooky.Content.Generation
 							StructureHelper.API.Generator.GenerateStructure("Content/Structures/ChristmasDungeon/EntranceLeft.shstruct", EntranceOrigin.ToPoint16(), Mod);
 						}
 					}
+				}
+			}
 
+			for (int i = PositionX + 20; i <= PositionX + (Width / 2) + 25; i++)
+			{
+				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
+				{
 					//right side door entrance
 					if (CanPlaceEntrance(i, j, true, false))
 					{
@@ -488,7 +493,13 @@ namespace Spooky.Content.Generation
 							}
 						}
 					}
+				}
+			}
 
+			for (int i = PositionX - (Width / 2); i <= PositionX + (Width / 2); i++)
+			{
+				for (int j = PositionY - (Height / 2) - 25; j <= PositionY - 20; j++)
+				{
 					//trapdoor entrance
 					if (CanPlaceEntrance(i, j, false, true) && Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && 
 					Main.tile[i - 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && Main.tile[i + 1, j].TileType == ModContent.TileType<ChristmasBrickRed>() && 
@@ -804,7 +815,7 @@ namespace Spooky.Content.Generation
 				{
 					for (int x = PositionX - 1; x >= PositionX - 8; x--)
 					{
-						if (Main.tile[x, PositionY].HasTile)
+						if (Main.tile[x, PositionY].HasTile || Main.tile[x, PositionY].LiquidAmount > 0)
 						{
 							return false;
 						}
@@ -814,7 +825,7 @@ namespace Spooky.Content.Generation
 				{
 					for (int x = PositionX + 1; x <= PositionX + 8; x++)
 					{
-						if (Main.tile[x, PositionY].HasTile)
+						if (Main.tile[x, PositionY].HasTile || Main.tile[x, PositionY].LiquidAmount > 0)
 						{
 							return false;
 						}
