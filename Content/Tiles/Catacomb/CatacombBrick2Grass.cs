@@ -48,6 +48,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 if (Main.rand.NextBool(15)) 
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines>(), true);
+                    NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
                 }
             }
 
@@ -58,6 +59,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<CatacombWeeds>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
 
                 //grow mushrooms
@@ -65,6 +67,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SporeMushroom>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
 
                 //grow giant flowers
@@ -108,6 +111,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 if (Main.rand.NextBool(15)) 
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CatacombVines>(), true);
+                    NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
                 }
             }
 
@@ -118,6 +122,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<CatacombWeeds>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
 
                 //grow mushrooms
@@ -125,6 +130,7 @@ namespace Spooky.Content.Tiles.Catacomb
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SporeMushroom>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
             }
         }

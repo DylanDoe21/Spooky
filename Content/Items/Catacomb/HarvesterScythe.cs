@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.Catacomb
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int Slash = Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<HarvesterScytheSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
+			int Slash = Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), ModContent.ProjectileType<HarvesterScytheSlash>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
 			Main.projectile[Slash].scale *= (Item.scale - 0.5f) * (player.meleeScaleGlove ? 1.1f : 1f);
 
             return false;

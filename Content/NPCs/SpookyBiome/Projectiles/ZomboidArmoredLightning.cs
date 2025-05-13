@@ -156,8 +156,9 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 					Main.dust[Electricity].noGravity = true;
 				}
 
-				target.localAI[2] = 1;
 				modifiers.FinalDamage += target.lifeMax;
+                target.localAI[2] = 1;
+                target.netUpdate = true;
 			}
 		}
 	}

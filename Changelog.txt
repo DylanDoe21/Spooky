@@ -1,1 +1,16 @@
--Added russian localization to the mod, Thanks to Nexora, Большой Котэ, and Xenofite for their translations!
+Changes:
+
+-Gourd blocks/platforms/walls now have the correct map colors
+-Gourd blocks can be shimmered into each color
+-The colored gourd tiles now drop way more gourd blocks, increased from 5 to 10 -> 15 to 25 per gourd
+-Reduced the rate at which rotten gourds grow a bit
+-2 Lime-Orange gourd blocks can be crafted with one lime gourd block and one orange gourd block
+-2 Yellow-Green gourd blocks can be crafted with one yellow gourd block and one green gourd block
+
+Bugs:
+
+-Fixed issue where spooky mod ambient grasses werent being synced in multiplayer properly when grown
+-Fixed armored zomboids not dying correctly from their lighting strike in multiplayer
+-Tried to fix monster eyes clipping into the floor in multiplayer
+-Fixed pumpkin spice latte not healing the player when used with the quick heal hotkey
+-Fixed spooky mod melee swing effect bugging out in the wrong position if you aimed directly below you

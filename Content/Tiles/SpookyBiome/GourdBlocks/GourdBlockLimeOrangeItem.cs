@@ -8,6 +8,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.GourdBlocks
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GourdBlockOrangeItem>();
             Item.ResearchUnlockCount = 100;
         }
 
@@ -22,6 +23,12 @@ namespace Spooky.Content.Tiles.SpookyBiome.GourdBlocks
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<GourdBlockLimeOrangeWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+
+            CreateRecipe(2)
+            .AddIngredient(ModContent.ItemType<GourdBlockOrangeItem>(), 1)
+            .AddIngredient(ModContent.ItemType<GourdBlockLimeItem>(), 1)
             .AddTile(TileID.WorkBenches)
             .Register();
 

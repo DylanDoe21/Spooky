@@ -42,7 +42,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<GourdBlockRedItem>(), Main.rand.Next(5, 11));
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<GourdBlockRedItem>(), Main.rand.Next(15, 26));
         }
 
         public override void MouseOver(int i, int j)

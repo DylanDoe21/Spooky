@@ -66,6 +66,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 if (Main.rand.NextBool(15)) 
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<SpookyVines>(), true);
+                    NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
                 }
             }
 
@@ -76,6 +77,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpookyWeedsOrange>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
                 
                 //grow colored gourds
@@ -92,7 +94,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 }
 
                 //grow rotten gourd
-                if (Main.rand.NextBool(45) && SpookyForest.CanGrowRottenGourd(i, j))
+                if (Main.rand.NextBool(55) && SpookyForest.CanGrowRottenGourd(i, j))
                 {
                     WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), true, Main.rand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), 0, 0, -1, -1);

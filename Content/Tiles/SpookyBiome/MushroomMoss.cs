@@ -53,6 +53,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 if (Main.rand.NextBool(15))
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<SpookyFungusVines>(), true);
+                    NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
                 }
             }
 
@@ -63,6 +64,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpookyMushroom>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(4) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
 				}
 
                 //grow big mushrooms

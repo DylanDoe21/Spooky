@@ -1,6 +1,6 @@
 displayName = [c/FFA01C:Spooky Mod]
 author = The Spooky Mod Team
-version = 1.2.8.2
+version = 1.2.8.3
 modReferences = StructureHelper
 hideCode = true
 hideResources = true

@@ -45,6 +45,7 @@ namespace Spooky.Content.Tiles.SpookyHell
                 if (Main.rand.NextBool(35)) 
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<EyeVine>(), true);
+                    NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
                 }
             }
 
@@ -55,6 +56,7 @@ namespace Spooky.Content.Tiles.SpookyHell
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpookyHellWeeds>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(6) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
 
                 //eye stalks

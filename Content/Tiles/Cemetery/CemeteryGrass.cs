@@ -45,6 +45,7 @@ namespace Spooky.Content.Tiles.Cemetery
                 if (Main.rand.NextBool(15)) 
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<CemeteryVines>(), true);
+                    NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
                 }
             }
 
@@ -55,6 +56,7 @@ namespace Spooky.Content.Tiles.Cemetery
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<CemeteryWeeds>(), true);
                     Above.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
 
                 if (Main.rand.NextBool(30))
