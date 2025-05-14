@@ -147,6 +147,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                         velocity.Y -= 0.25f;
                         
                         HasJumped = true;
+                        NPC.netUpdate = true;
                     }
                 }
                 
@@ -163,6 +164,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                 NPC.ai[0] = DelayBeforeNextJump;
                 NPC.ai[1] = 0;
+
+                NPC.netUpdate = true;
             }
         }
 

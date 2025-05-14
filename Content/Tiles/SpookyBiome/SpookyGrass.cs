@@ -105,7 +105,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 }
 
                 //grow rotten gourd
-                if (Main.rand.NextBool(45) && SpookyForest.CanGrowRottenGourd(i, j))
+                if (Main.rand.NextBool(55) && SpookyForest.CanGrowRottenGourd(i, j))
                 {
                     WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), true, Main.rand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<GourdRotten>(), 0, 0, -1, -1);

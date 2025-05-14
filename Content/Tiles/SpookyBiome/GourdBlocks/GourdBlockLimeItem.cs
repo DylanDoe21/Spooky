@@ -8,6 +8,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.GourdBlocks
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GourdBlockLimeOrangeItem>();
             Item.ResearchUnlockCount = 100;
         }
 

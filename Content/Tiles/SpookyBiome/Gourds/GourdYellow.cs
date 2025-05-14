@@ -39,7 +39,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<GourdBlockYellowItem>(), Main.rand.Next(5, 11));
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<GourdBlockYellowItem>(), Main.rand.Next(15, 26));
         }
 
         public override void MouseOver(int i, int j)
@@ -176,30 +176,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
         public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Gourds/GourdYellowCarved";
 
         private Asset<Texture2D> GlowTexture;
-
-        public override void SetStaticDefaults()
-        {
-            Main.tileSolid[Type] = false;
-            Main.tileFrameImportant[Type] = true;
-            Main.tileNoAttach[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
-            TileObjectData.newTile.Height = 2;
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
-            TileObjectData.newTile.Origin = new Point16(0, 1);
-            TileObjectData.newTile.DrawYOffset = 2;
-            TileObjectData.newTile.StyleWrapLimit = 2;
-            TileObjectData.newTile.StyleMultiplier = 2;
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
-            TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
-            TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
-            TileObjectData.addAlternate(1);
-            TileObjectData.addTile(Type);
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
-            AddMapEntry(new Color(195, 146, 27));
-            DustType = 288;
-            HitSound = SoundID.Dig;
-        }
 
         public override void MouseOver(int i, int j)
 		{

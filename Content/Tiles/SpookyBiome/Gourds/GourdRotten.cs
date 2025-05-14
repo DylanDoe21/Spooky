@@ -31,7 +31,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             TileObjectData.newTile.Origin = new Point16(1, 3);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(236, 157, 71));
+            AddMapEntry(new Color(120, 96, 62));
             DustType = 288;
             HitSound = SoundID.Dig;
         }
@@ -55,7 +55,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
-            if (Main.rand.NextBool(300) && !Main.gamePaused && Main.instance.IsActive)
+            bool isPlayerNear = WorldGen.PlayerLOS(i, j);
+
+            if (Main.rand.NextBool(300) && !Main.gamePaused && Main.instance.IsActive && isPlayerNear)
             {
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PooFly, new ParticleOrchestraSettings
                 {
@@ -131,7 +133,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(236, 157, 71));
+            AddMapEntry(new Color(147, 33, 27));
             DustType = 288;
             HitSound = SoundID.Dig;
         }
@@ -194,28 +196,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
         public override string Texture => "Spooky/Content/Tiles/SpookyBiome/Gourds/GourdRottenCarved";
 
         private Asset<Texture2D> GlowTexture;
-
-        public override void SetStaticDefaults()
-        {
-            Main.tileSolid[Type] = false;
-            Main.tileFrameImportant[Type] = true;
-            Main.tileNoAttach[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
-            TileObjectData.newTile.Origin = new Point16(1, 3);
-            TileObjectData.newTile.DrawYOffset = 2;
-            TileObjectData.newTile.StyleWrapLimit = 2;
-            TileObjectData.newTile.StyleMultiplier = 2;
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
-            TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
-            TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
-            TileObjectData.addAlternate(1);
-            TileObjectData.addTile(Type);
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
-            AddMapEntry(new Color(236, 157, 71));
-            DustType = 288;
-            HitSound = SoundID.Dig;
-        }
 
         public override void MouseOver(int i, int j)
 		{

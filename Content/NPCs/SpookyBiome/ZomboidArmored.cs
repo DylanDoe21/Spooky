@@ -23,15 +23,15 @@ namespace Spooky.Content.NPCs.SpookyBiome
 		public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);
-            writer.Write(NPC.localAI[1]);
-            writer.Write(NPC.localAI[2]);
+			writer.Write(NPC.localAI[1]);
+			writer.Write(NPC.localAI[2]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             NPC.localAI[0] = reader.ReadSingle();
-            NPC.localAI[1] = reader.ReadSingle();
-            NPC.localAI[2] = reader.ReadSingle();
+			NPC.localAI[1] = reader.ReadSingle();
+			NPC.localAI[2] = reader.ReadSingle();
         }
         
         public override void SetDefaults()
@@ -98,12 +98,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 NPC.dontTakeDamage = true;
                 NPC.life = 1;
 
+                NPC.localAI[2] = 2;
+
                 NPC.netUpdate = true;
 
                 return false;
             }
-				
-			return true;
+
+            return true;
         }
         
         public override void AI()
@@ -151,6 +153,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 						Main.NewLightning();
 
 						NPC.localAI[0] = 0;
+
+						NPC.netUpdate = true;
 					}
 				}
 			}
@@ -163,8 +167,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
                 if (NPC.localAI[1] > 120)
 				{
-					NPC.localAI[2] = 1;
-
                     NPC.immortal = false;
                     NPC.dontTakeDamage = false;
                     NPC.netUpdate = true;
