@@ -31,7 +31,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.GourdBlocks
 			TileObjectData.newTile.LavaDeath = true;
 			TileObjectData.newTile.DrawYOffset = 0;
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(87, 151, 8));
+            AddMapEntry(new Color(153, 96, 15));
 			DustType = 288;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AdjTiles = new int[] { TileID.Platforms };

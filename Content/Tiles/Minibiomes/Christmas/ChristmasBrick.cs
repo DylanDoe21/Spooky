@@ -56,7 +56,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(67, 162, 76));
+            AddMapEntry(new Color(38, 136, 72));
             DustType = -1;
 			HitSound = SoundID.Tink;
 		}

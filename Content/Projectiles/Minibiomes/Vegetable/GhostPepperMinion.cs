@@ -21,7 +21,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 11;
+            Main.projFrames[Projectile.type] = 6;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }

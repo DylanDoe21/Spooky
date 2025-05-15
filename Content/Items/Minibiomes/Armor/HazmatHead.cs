@@ -2,9 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Content.Projectiles.Minibiomes.Ocean;
+using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 
 namespace Spooky.Content.Items.Minibiomes.Armor
 {
@@ -27,7 +28,22 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 		public override void UpdateArmorSet(Player player) 
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.HazmatArmor");
-			//player.GetModPlayer<BloomBuffsPlayer>().HazmatSet = true;
+			player.GetModPlayer<SpookyPlayer>().HazmatSet = true;
+
+			int MaxMinions = 0;
+
+			foreach (string var in player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots)
+			{
+				if (var != string.Empty)
+				{
+					MaxMinions++;
+				}
+			}
+
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<HazmatArmorMinion>()] < MaxMinions)
+			{
+				Projectile.NewProjectile(null, player.Center, Vector2.Zero, ModContent.ProjectileType<HazmatArmorMinion>(), 60, 0f, player.whoAmI);
+			}
 		}
 
 		public override void UpdateEquip(Player player) 

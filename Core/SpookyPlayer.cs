@@ -47,8 +47,9 @@ namespace Spooky.Core
         public bool FlowerArmorSet = false;
         public bool GoreArmorEye = false;
         public bool GoreArmorMouth = false;
-        public bool SentientCap = false;
+        public bool HazmatSet = false;
         public bool DrawHazmatBack = false;
+        public bool SentientCap = false;
 
         //accessories
         public bool BustlingGlowshroom = false;
@@ -191,6 +192,7 @@ namespace Spooky.Core
         public static readonly SoundStyle CapSound2 = new("Spooky/Content/Sounds/SentientCap2", SoundType.Sound);
         public static readonly SoundStyle CapSound3 = new("Spooky/Content/Sounds/SentientCap3", SoundType.Sound);
 
+        /*
 		public override void SaveData(TagCompound tag)
 		{
 			tag["MocoNoseUIPos"] = MocoNoseUIPos;
@@ -201,6 +203,7 @@ namespace Spooky.Core
 			MocoNoseUIPos = tag.Get<Vector2>("MocoNoseUIPos");
 			KidneyUIPos = tag.Get<Vector2>("KidneyUIPos");
 		}
+        */
 
 		public override void OnEnterWorld()
         {
@@ -225,6 +228,7 @@ namespace Spooky.Core
             FlowerArmorSet = false;
             GoreArmorEye = false;
             GoreArmorMouth = false;
+            HazmatSet = false;
             SentientCap = false;
             DrawHazmatBack = false;
 

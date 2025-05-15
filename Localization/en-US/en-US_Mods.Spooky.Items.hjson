@@ -1491,7 +1491,7 @@ JalapenoStaff: {
 }
 
 PlantMulch: {
-	DisplayName: Strange Plant Mulch
+	DisplayName: Strange Mulch
 	Tooltip: ""
 }
 
@@ -3520,12 +3520,12 @@ ChristmasWindowItem: {
 }
 
 ChristmasWoodItem: {
-	DisplayName: Yuletide Planks
+	DisplayName: Yuletide Wood
 	Tooltip: ""
 }
 
 ChristmasWoodWallItem: {
-	DisplayName: Yuletide Planks Wall
+	DisplayName: Yuletide Wood Wall
 	Tooltip: ""
 }
 

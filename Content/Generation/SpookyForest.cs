@@ -998,8 +998,12 @@ namespace Spooky.Content.Generation
 										WorldGen.KillTile(PositionX, PositionY);
 										tile.TileType = (ushort)ModContent.TileType<SpookyDirt>();
 										tile.HasTile = true;
-										Main.tile[PositionX, PositionY + 2].WallType = (ushort)ModContent.WallType<SpookyDirtWall>();
 										tile.LiquidAmount = 0;
+
+										if (Main.tile[PositionX - 1, PositionY].HasTile && Main.tile[PositionX + 1, PositionY].HasTile)
+										{
+											Main.tile[PositionX, PositionY + 2].WallType = (ushort)ModContent.WallType<SpookyDirtWall>();
+										}
 									}
 								}
 							}

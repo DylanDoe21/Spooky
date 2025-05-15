@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			Main.tileBlockLight[Type] = false;
 			Main.tileLighted[Type] = true;
 			AddMapEntry(new Color(93, 101, 101));
-            DustType = DustID.Grass;
+            DustType = DustID.Stone;
 		}
 
 		/*
