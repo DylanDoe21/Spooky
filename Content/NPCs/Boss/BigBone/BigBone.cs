@@ -469,15 +469,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             return true;
         }
 
-        /*
-        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
-		{
-			Player player = Main.player[NPC.target];
-
-			boundingBox = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
-		}
-        */
-
         public override void AI()
         {
             NPC.TargetClosest(true);
