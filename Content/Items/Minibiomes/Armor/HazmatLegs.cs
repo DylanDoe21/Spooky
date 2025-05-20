@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.Minibiomes.Vegetable;
+
 namespace Spooky.Content.Items.Minibiomes.Armor
 {
 	[AutoloadEquip(EquipType.Legs)]
@@ -19,14 +21,13 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 		{
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 25)
-            .AddTile(TileID.WorkBenches)
+			.AddIngredient(ItemID.HallowedBar, 12)
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 45)
+            .AddTile(TileID.MythrilAnvil)
             .Register();
         }
-		*/
 	}
 }

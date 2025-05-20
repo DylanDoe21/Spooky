@@ -52,13 +52,16 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 				{
 					SoundEngine.PlaySound((Main.rand.NextBool() ? SoundID.Zombie53 : SoundID.Zombie54) with { Pitch = -1f }, Projectile.Center);
 
-					int NewNPC = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X + Main.rand.Next(-35, 36), (int)Projectile.Center.Y + 40, Main.rand.Next(GhostTypes));
-					Main.npc[NewNPC].velocity.Y = Main.rand.Next(-5, -2);
-					Main.npc[NewNPC].alpha = 255;
-
-					if (Main.netMode == NetmodeID.Server)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+						int NewNPC = NPC.NewNPC(Projectile.GetSource_FromAI(), (int)Projectile.Center.X + Main.rand.Next(-35, 36), (int)Projectile.Center.Y + 40, Main.rand.Next(GhostTypes));
+						Main.npc[NewNPC].velocity.Y = Main.rand.Next(-5, -2);
+						Main.npc[NewNPC].alpha = 255;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+						}
 					}
 				}
 

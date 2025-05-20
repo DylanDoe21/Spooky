@@ -9,6 +9,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
 	public class BigBoneFlame2 : ModProjectile
 	{
+		public override string Texture => "Spooky/Content/NPCs/Boss/BigBone/Projectiles/BigBoneFlame";
+
 		public static int Lifetime => 96;
 		public static int Fadetime => 80;
 
@@ -21,8 +23,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 88;
-			Projectile.height = 88;
+			Projectile.width = 76;
+			Projectile.height = 76;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.ignoreWater = true;

@@ -128,6 +128,8 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
                         {
 						    tile.HasTile = false;
                         }
+
+                        NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
 					}
 				}
 

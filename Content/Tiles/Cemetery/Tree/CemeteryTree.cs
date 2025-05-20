@@ -26,7 +26,8 @@ namespace Spooky.Content.Tiles.Cemetery.Tree
 		//the tiles this tree can grow on
 		public override void SetStaticDefaults() 
 		{
-			GrowsOnTileId = new int[3] { ModContent.TileType<CemeteryGrass>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>() };
+			GrowsOnTileId = new int[5] { ModContent.TileType<CemeteryGrass>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>(),
+			ModContent.TileType<CatacombBrick1GrassSafe>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
 		}
 
 		//the sapling that grows into this tree

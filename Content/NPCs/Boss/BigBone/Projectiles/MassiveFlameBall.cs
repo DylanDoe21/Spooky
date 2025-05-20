@@ -177,7 +177,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 						float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
 						Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
 					}
-                }		
+                }
 			}
 
             if (Projectile.ai[1] >= 115 && Projectile.ai[1] <= 130)
@@ -243,8 +243,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
             }
 
             //inferno blast
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, 
-            ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer, 0, 0);
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ProjectileID.InfernoHostileBlast, Projectile.damage, 0f, Main.myPlayer);
+			}
         }
     }
 }

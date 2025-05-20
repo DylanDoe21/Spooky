@@ -39,10 +39,10 @@ namespace Spooky.Content.Projectiles.Blooms
 			ChainTexture ??= ModContent.Request<Texture2D>(Texture + "Chain");
 
 			Vector2 drawOriginChain = new Vector2(ChainTexture.Width() / 2, ChainTexture.Height() / 2);
-			Vector2 myCenter = Projectile.Center - new Vector2(0, 2).RotatedBy(Parent.rotation);
+			Vector2 myCenter = Projectile.Center;
 			Vector2 p0 = player.Center;
 			Vector2 p1 = player.Center;
-			Vector2 p2 = myCenter - new Vector2(0, 2).RotatedBy(Parent.rotation);
+			Vector2 p2 = myCenter;
 			Vector2 p3 = myCenter;
 
 			int segments = 32;
@@ -139,6 +139,8 @@ namespace Spooky.Content.Projectiles.Blooms
 						player.HealEffect((int)HealAmount, true);
 
 						Projectile.ai[1] = 0;
+
+						Projectile.netUpdate = true;
 					}
 				}
 			}

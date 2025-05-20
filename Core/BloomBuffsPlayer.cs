@@ -100,7 +100,7 @@ namespace Spooky.Core
 		public bool TheMask = false;
 
 		//UI default position
-		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 4.5f * Main.UIScale);
+		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 20f * Main.UIScale);
 
 		private static Asset<Texture2D> DutchmanPipeRingTex1;
 		private static Asset<Texture2D> DutchmanPipeRingTex2;
@@ -110,7 +110,7 @@ namespace Spooky.Core
 
 		public override void SaveData(TagCompound tag)
         {
-            tag["BloomUIPos"] = BloomUIPos;
+            tag[nameof(BloomUIPos)] = BloomUIPos;
 
             tag["BloomBuffSlot1"] = BloomBuffSlots[0];
             tag["BloomBuffSlot2"] = BloomBuffSlots[1];
@@ -130,9 +130,12 @@ namespace Spooky.Core
         
         public override void LoadData(TagCompound tag)
         {
-			BloomUIPos = tag.Get<Vector2>("BloomUIPos");
+			if (tag.ContainsKey(nameof(BloomUIPos)))
+			{
+				BloomUIPos = tag.Get<Vector2>(nameof(BloomUIPos));
+			}
 
-            BloomBuffSlots[0] = tag.Get<string>("BloomBuffSlot1");
+			BloomBuffSlots[0] = tag.Get<string>("BloomBuffSlot1");
 			BloomBuffSlots[1] = tag.Get<string>("BloomBuffSlot2");
 			BloomBuffSlots[2] = tag.Get<string>("BloomBuffSlot3");
 			BloomBuffSlots[3] = tag.Get<string>("BloomBuffSlot4");

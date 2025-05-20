@@ -148,6 +148,7 @@ Miscellaneous:
 -Slightly changed the spooky mod biome compass arrow texture to make it more obvious that its an arrow pointing somewhere
 -Changed spike shell basher into a shield accessory that gives 3 defense and causes enemies that hit you to take damage
 -Trap door spider mount is now lower towards the ground so you can fit in smaller spaces, and made its wall/ceiling clinging mechanic way more lenient and much easier to use
+-Cemetery trees can now be planted and grown on catacomb brick moss placed by the player
 
 
 ~Enemies & Bosses~
@@ -221,7 +222,7 @@ Enemy Changes:
 -Fixed retina staff and living retina staff projectiles continuing to exist if you switch to a different item
 -Fixed femur fracture hammer continuing to exist if you switch to a different item or if you move your mouse over your inventory while using it
 -Fixed skull smasher hammer continuing to exist if you switch to a different item
--Fixed weird issue where spooky mod sword slashes would draw at the incorrect rotation when aiming directly downward
+-Fixed issue where big bones tile collision when charging would not work properly on sloped tiles, causing him to unintentionally slide instead of just stopping
 
 
 Multiplayer:

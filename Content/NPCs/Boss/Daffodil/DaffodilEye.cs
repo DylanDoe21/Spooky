@@ -40,8 +40,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
         private static Asset<Texture2D> EyeTexture;
 
         public static readonly SoundStyle SeedSpawnSound = new("Spooky/Content/Sounds/Daffodil/SeedSpawn", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
         public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/FlyBuzzing", SoundType.Sound);
 
         public override void SetStaticDefaults()
@@ -62,8 +60,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            //bools
-            writer.Write(Phase2);
+			//vector2
+			for (int i = 0; i < SavePoint.Length; i++)
+            {
+                writer.WriteVector2(SavePoint[i]);
+            }
+
+			//bools
+			writer.Write(Phase2);
             writer.Write(SpawnedHands);
             writer.Write(ActuallyDead);
 
@@ -76,8 +80,14 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            //bools
-            Phase2 = reader.ReadBoolean();
+			//vector2
+			for (int i = 0; i < SavePoint.Length; i++)
+            {
+                SavePoint[i] = reader.ReadVector2();
+            }
+
+			//bools
+			Phase2 = reader.ReadBoolean();
             SpawnedHands = reader.ReadBoolean();
             ActuallyDead = reader.ReadBoolean();
 
@@ -655,7 +665,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] == 120)
                     {
-                        SoundEngine.PlaySound(MagicCastSound, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton, NPC.Center);
                     }
 
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 145)
@@ -766,7 +776,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] == 60)
                     {
-                        SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton, NPC.Center);
                     }
 
                     if (NPC.localAI[0] >= 120 && NPC.localAI[0] < 300)
@@ -865,6 +875,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                             SavePoint[savePoints] = new Vector2(positionX, positionY);
                         }
+
+						NPC.netUpdate = true;
                     }
 
                     if (NPC.localAI[0] >= 30 && NPC.localAI[0] < 70)

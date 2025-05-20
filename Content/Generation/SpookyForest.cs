@@ -1210,8 +1210,9 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex2 + 1, new PassLegacy("Spooky Forest Cabins", GenerateCabins));
             tasks.Insert(GenIndex2 + 2, new PassLegacy("Glowshroom Cleanup", ClearStuffAroundMushroomMoss));
-            tasks.Insert(GenIndex2 + 3, new PassLegacy("Spooky Forest Trees", GrowSpookyTrees));
-            tasks.Insert(GenIndex2 + 4, new PassLegacy("Spooky Forest Objects", SpookyForestAmbience));
+			tasks.Insert(GenIndex2 + 3, new PassLegacy("Spooky Forest Grass", SpreadSpookyGrass));
+            tasks.Insert(GenIndex2 + 4, new PassLegacy("Spooky Forest Trees", GrowSpookyTrees));
+            tasks.Insert(GenIndex2 + 5, new PassLegacy("Spooky Forest Objects", SpookyForestAmbience));
         }
 
         //post worldgen to place items in the spooky biome chests

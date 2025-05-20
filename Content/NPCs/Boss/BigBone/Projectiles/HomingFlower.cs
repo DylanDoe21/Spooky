@@ -29,7 +29,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.tileCollide = true;
-            Projectile.timeLeft = 480;
+            Projectile.timeLeft = 300;
             Projectile.aiStyle = -1;
         }
 
@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1.1f;
 				Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
 				Color color = Color.Lerp(Color.OrangeRed, Color.Brown, oldPos / (float)Projectile.oldPos.Length) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-				Main.EntitySpriteDraw(TrailTexture.Value, drawPos, rectangle, color, Projectile.oldRot[oldPos], drawOrigin, scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(TrailTexture.Value, drawPos, rectangle, Projectile.GetAlpha(color), Projectile.oldRot[oldPos], drawOrigin, scale, SpriteEffects.None, 0);
 			}
 
 			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
@@ -55,102 +55,47 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			return false;
 		}
 
-		public override bool? CanDamage()
-		{
-			return Projectile.ai[0] > 35 && Projectile.ai[0] >= Projectile.localAI[0];
-		}
-
 		public override void AI()
 		{
-			Projectile Parent = Main.projectile[(int)Projectile.ai[1]];
 			Player target = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
 
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
-			Projectile.ai[0]++;
-			if (Projectile.ai[0] <= 35)
+			if (Projectile.ai[2] == 0)
 			{
-				Projectile.Center = Parent.Center;
+				double Velocity = Math.Atan2(target.position.Y - Projectile.position.Y, target.position.X - Projectile.position.X);
+				Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 16;
 
+				Projectile.ai[2] = 1;
+			}
+
+			Projectile.ai[0]++;
+			if (Projectile.ai[0] <= 15)
+			{
 				if (Projectile.scale < 1f && Projectile.ai[0] > 10)
 				{
 					Projectile.scale += 0.1f;
 				}
 			}
 
-			if (Projectile.ai[0] == 35)
+			if (Projectile.timeLeft < 60)
 			{
-				Projectile.localAI[0] = Main.rand.Next(80, 200);
-			}
-
-			if (Projectile.ai[0] == Projectile.localAI[0] && Parent.type == ModContent.ProjectileType<VineBase>())
-			{
-				double Velocity = Math.Atan2(target.position.Y - Projectile.position.Y, target.position.X - Projectile.position.X);
-				Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12;
-
-				Parent.Kill();
-			}
-
-			if (Projectile.ai[0] > Projectile.localAI[0])
-			{
-				Projectile.localAI[1]++;
-				if (Projectile.localAI[1] < 110)
-				{
-					Projectile.velocity *= 0.98f;
-				}
-
-				if (Projectile.localAI[1] > 110 && Projectile.localAI[1] < 150)
-				{
-					float currentRot = Projectile.velocity.ToRotation();
-					Vector2 direction = target.Center - Projectile.Center;
-					float targetAngle = direction.ToRotation();
-					if (direction == Vector2.Zero)
-					{
-						targetAngle = currentRot;
-					}
-
-					float desiredRot = currentRot.AngleLerp(targetAngle, 0.1f);
-					Projectile.velocity = new Vector2(Projectile.velocity.Length(), 0f).RotatedBy(desiredRot);
-
-					Projectile.velocity *= 1.055f;
-				}
+				Projectile.alpha += 5;
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
+			Player target = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
+
 			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 
-			if (Projectile.velocity.X != oldVelocity.X)
-			{
-				Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-				Projectile.velocity.X = -oldVelocity.X * 0.8f;
-			}
-			if (Projectile.velocity.Y != oldVelocity.Y)
-			{
-				Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
-				Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
-			}
+			double Velocity = Math.Atan2(target.position.Y - Projectile.position.Y, target.position.X - Projectile.position.X);
+			Vector2 actualSpeed = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 16;
+
+			Projectile.velocity = actualSpeed;
 
 			return false;
-		}
-
-		public override void OnKill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
-        
-        	for (int numDusts = 0; numDusts < 25; numDusts++)
-			{                                                                                  
-				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-				Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-                Main.dust[newDust].noGravity = true;
-                
-				if (Main.dust[newDust].position != Projectile.Center)
-				{
-					Main.dust[newDust].velocity = Projectile.DirectionTo(Main.dust[newDust].position) * 2f;
-				}
-			}
 		}
     }
 }

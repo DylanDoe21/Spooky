@@ -136,13 +136,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 13;
-			float launchSpeed = 20f;
-			float maxLaunchLength = 500f;
+			int launchTimeLimit = 10;
+			float launchSpeed = 35f;
+			float maxLaunchLength = 700f;
 			float retractAcceleration = 3.5f;
-			float maxRetractSpeed = 35f;
-			float forcedRetractAcceleration = 20f;
-			float maxForcedRetractSpeed = 15f; 
+			float maxRetractSpeed = 25f; 
+			float forcedRetractAcceleration = 25f;
+			float maxForcedRetractSpeed = 15f;
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
 			int unusedChainLength = 60;
@@ -295,11 +295,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         Projectile.Kill(); // Kill the projectile once it is close enough to the player
                         return;
                     }
-					
-                    Projectile.velocity *= 0.98f;
+
+					Projectile.velocity *= 0.98f;
 					Projectile.velocity = Projectile.velocity.MoveTowards(unitVectorTowardsPlayer * maxRetractSpeed, retractAcceleration);
 					player.ChangeDir((player.Center.X < Projectile.Center.X) ? 1 : (-1));
-
+					
                     break;
                 }
 				case AIState.UnusedState: // Projectile.ai[0] == 3; This case is actually unused, but maybe a Terraria update will add it back in, or maybe it is useless, so I left it here.

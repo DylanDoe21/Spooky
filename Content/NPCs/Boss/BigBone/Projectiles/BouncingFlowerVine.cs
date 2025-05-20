@@ -5,12 +5,15 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 {
-	public class VineBase : ModProjectile
+	public class BouncingFlowerVine : ModProjectile
 	{
+		public override string Texture => "Spooky/Content/NPCs/Boss/BigBone/Projectiles/BouncingFlower";
+
 		bool runOnce = true;
 		Vector2[] trailLength = new Vector2[50];
 		float[] rotations = new float[50];
@@ -20,14 +23,47 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public static readonly SoundStyle GrowSound = new("Spooky/Content/Sounds/BigBone/PlantGrow", SoundType.Sound);
 		public static readonly SoundStyle KillSound = new("Spooky/Content/Sounds/BigBone/PlantDestroy", SoundType.Sound) { Volume = 0.5f };
 
+		public override void SendExtraAI(BinaryWriter writer)
+        {
+			for (int i = 0; i < trailLength.Length; i++)
+            {
+                writer.WriteVector2(trailLength[i]);
+				writer.Write(rotations[i]);
+            }
+
+            //bools
+            writer.Write(runOnce);
+
+            //floats
+            writer.Write(Projectile.localAI[0]);
+            writer.Write(Projectile.localAI[1]);
+			writer.Write(Projectile.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+			for (int i = 0; i < trailLength.Length; i++)
+            {
+                trailLength[i] = reader.ReadVector2();
+				rotations[i] = reader.ReadSingle();
+            }
+
+            //bools
+            runOnce = reader.ReadBoolean();
+
+            //floats
+            Projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[1] = reader.ReadSingle();
+			Projectile.localAI[2] = reader.ReadSingle();
+        }
+
 		public override void SetDefaults()
 		{
-			Projectile.width = 22;
-			Projectile.height = 22;
+			Projectile.width = 30;
+			Projectile.height = 30;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.tileCollide = true;
-			Projectile.hide = true;
 			Projectile.timeLeft = 180;
 			Projectile.penetrate = -1;
 		}
@@ -35,7 +71,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public override bool PreDraw(ref Color lightColor)
 		{
 			DrawChain(false);
-			return false;
+			return true;
 		}
 
 		public bool DrawChain(bool SpawnGore)
@@ -45,7 +81,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				return false;
 			}
 
-			TrailTexture ??= ModContent.Request<Texture2D>(Texture);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/Projectiles/VineBase");
 
 			Vector2 drawOrigin = new Vector2(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
 			Vector2 previousPosition = Projectile.Center;
@@ -86,16 +122,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			return false;
 		}
 
-		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
-		{
-			behindProjectiles.Add(index);
-		}
-
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (Projectile.localAI[0] > 5)
+			if (Projectile.ai[2] > 5)
 			{
-				Projectile.localAI[0] = 36;
+				Projectile.ai[2] = 36;
 			}
 
 			return false;
@@ -115,36 +146,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			{
 				SoundEngine.PlaySound(GrowSound, Projectile.Center);
 
-				switch ((int)Projectile.ai[2])
-				{
-					case 0:
-					{
-						int Proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-						Vector2.Zero, ModContent.ProjectileType<BouncingFlower>(), Projectile.damage, Projectile.knockBack, ai1: Projectile.whoAmI);
-						Main.projectile[Proj].scale = 0f;
-
-						break;
-					}
-					case 1:
-					{
-						int Proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-						Vector2.Zero, ModContent.ProjectileType<HomingFlower>(), Projectile.damage, Projectile.knockBack, ai1: Projectile.whoAmI);
-						Main.projectile[Proj].scale = 0f;
-
-						break;
-					}
-					case 2:
-					{
-						int Type = Main.rand.NextBool() ? ModContent.ProjectileType<Pitcher1>() : ModContent.ProjectileType<Pitcher2>();
-
-						int Proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-						Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, ai1: Projectile.whoAmI);
-						Main.projectile[Proj].scale = 0f;
-
-						break;
-					}
-				}
-
 				for (int i = 0; i < trailLength.Length; i++)
 				{
 					trailLength[i] = Vector2.Zero;
@@ -152,10 +153,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				}
 
 				runOnce = false;
+
+				Projectile.netUpdate = true;
 			}
 
-			Projectile.localAI[0]++;
-			if (Projectile.localAI[0] <= 35)
+			Projectile.ai[2]++;
+			if (Projectile.ai[2] <= 35)
 			{
 				Projectile.timeLeft = 180;
 
@@ -182,57 +185,77 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 					}
 				}
 
-				//move in a random wavy pattern
-				float WaveIntensity = Main.rand.NextFloat(-7.5f, 7.5f);
-				float Wave = Main.rand.NextFloat(-10f, 11f);
+				Projectile.localAI[0] = Main.rand.NextFloat(-7.5f, 7.5f);
+				Projectile.localAI[1] = Main.rand.NextFloat(-10f, 11f);
 
-				if (Projectile.ai[2] == 2 || Projectile.ai[2] == 3)
-				{
-					WaveIntensity = 5f;
-					Wave = 5f;
-				}
+				Projectile.netUpdate = true;
 
 				Projectile.ai[0]++;
 				if (Projectile.ai[1] == 0)
 				{
-					if (Projectile.ai[0] > Wave * 0.5f)
+					if (Projectile.ai[0] > Projectile.localAI[1] * 0.5f)
 					{
 						Projectile.ai[0] = 0;
 						Projectile.ai[1] = 1;
 					}
 					else
 					{
-						Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
+						Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-Projectile.localAI[0]));
 						Projectile.velocity = perturbedSpeed;
 					}
+
+					Projectile.netUpdate = true;
 				}
 				else
 				{
-					if (Projectile.ai[0] <= Wave)
+					if (Projectile.ai[0] <= Projectile.localAI[1])
 					{
-						Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
+						Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(Projectile.localAI[0]));
 						Projectile.velocity = perturbedSpeed;
 					}
 					else
 					{
-						Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
+						Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-Projectile.localAI[0]));
 						Projectile.velocity = perturbedSpeed;
 					}
-					if (Projectile.ai[0] >= Wave * 2)
+					
+					if (Projectile.ai[0] >= Projectile.localAI[1] * 2)
 					{
 						Projectile.ai[0] = 0;
 					}
+
+					Projectile.netUpdate = true;
 				}
 			}
 			else
 			{
 				Projectile.velocity = Vector2.Zero;
+
+				if (Projectile.localAI[2] == 0)
+				{
+					Projectile.localAI[2] = Main.rand.Next(1, 121);
+					Projectile.netUpdate = true;
+				}
+				else
+				{
+					if (Projectile.timeLeft < Projectile.localAI[2])
+					{
+						Projectile.netUpdate = true;
+						Projectile.Kill();
+					}
+				}
 			}
 		}
 
 		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(KillSound, Projectile.Center);
+
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BouncingFlower>(), Projectile.damage, Projectile.knockBack);
+			}
+
 			DrawChain(true);
 		}
 	}

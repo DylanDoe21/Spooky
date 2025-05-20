@@ -120,7 +120,7 @@ namespace Spooky.Content.Generation
 						}
 					}
 
-                    for (int Y = (int)Main.worldSurface - 50; Y <= Main.worldSurface; Y++)
+                    for (int Y = (int)Main.worldSurface - 60; Y <= Main.worldSurface; Y++)
 					{
                         Tile tile = Main.tile[X, Y];
 

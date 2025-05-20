@@ -41,12 +41,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public float SaveRotation;
         public float ScaleAmount = 0f;
         public float RealScaleAmount = 0f;
+        public float HeatMaskAlpha = 0f;
         
         public bool Phase2 = false;
         public bool Transition = false;
         public bool FlowersSpawned = false;
         public bool ActuallyDead = false;
         public bool DeathAnimation = false;
+        public bool DefaultRotation = true;
 
         Vector2[] SavePoint = new Vector2[8];
         Vector2 SavePlayerPosition;
@@ -56,14 +58,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         private static Asset<Texture2D> NeckTexture;
         private static Asset<Texture2D> AuraTexture;
         private static Asset<Texture2D> GlowTexture;
-        private static Asset<Texture2D> ShieldTexture;
+        private static Asset<Texture2D> EyeGlowTexture;
+        private static Asset<Texture2D> HeatGlowTexture;
 
-        public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl1", SoundType.Sound);
-        public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl2", SoundType.Sound);
-        public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl3", SoundType.Sound);
-        public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/BigBone/BigBoneLaugh", SoundType.Sound);
-        public static readonly SoundStyle MagicCastSound = new("Spooky/Content/Sounds/BigBone/BigBoneMagic", SoundType.Sound) { PitchVariance = 0.6f };
-        public static readonly SoundStyle MagicCastSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneMagic2", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl1", SoundType.Sound) { Pitch = 1.35f, PitchVariance = 0.5f };
+        public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl2", SoundType.Sound) { Pitch = 1.35f, PitchVariance = 0.5f };
+        public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl3", SoundType.Sound) { Pitch = 1f, PitchVariance = 0.5f };
+        public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/BigBone/BigBoneLaugh", SoundType.Sound) { Pitch = 0.4f, PitchVariance = 0.5f };
+        public static readonly SoundStyle SteamSound = new("Spooky/Content/Sounds/BigBone/BigBoneHeat", SoundType.Sound);
+        public static readonly SoundStyle StunnedSound = new("Spooky/Content/Sounds/GoofyStunned", SoundType.Sound);
         public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/BigBone/BigBoneDeath", SoundType.Sound);
         public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneDeath2", SoundType.Sound);
 
@@ -91,14 +94,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void SendExtraAI(BinaryWriter writer)
         {
             //attack pattern
-            writer.Write(AttackPattern[0]);
-            writer.Write(AttackPattern[1]);
-            writer.Write(AttackPattern[2]);
-            writer.Write(AttackPattern[3]);
-            writer.Write(AttackPattern[4]);
-            writer.Write(AttackPattern[5]);
+            for (int i = 0; i < AttackPattern.Length; i++)
+            {
+                writer.Write(AttackPattern[i]);
+            }
 
             //vector2
+            for (int i = 0; i < SavePoint.Length; i++)
+            {
+                writer.WriteVector2(SavePoint[i]);
+            }
             writer.WriteVector2(SavePlayerPosition);
             writer.WriteVector2(SaveNPCPosition);
 
@@ -112,6 +117,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             writer.Write(FlowersSpawned);
             writer.Write(ActuallyDead);
             writer.Write(DeathAnimation);
+            writer.Write(DefaultRotation);
 
             //floats
             writer.Write(SaveRotation);
@@ -125,14 +131,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //attack pattern
-            AttackPattern[0] = reader.ReadInt32();
-            AttackPattern[1] = reader.ReadInt32();
-            AttackPattern[2] = reader.ReadInt32();
-            AttackPattern[3] = reader.ReadInt32();
-            AttackPattern[4] = reader.ReadInt32();
-            AttackPattern[5] = reader.ReadInt32();
+            for (int i = 0; i < AttackPattern.Length; i++)
+            {
+                AttackPattern[i] = reader.ReadInt32();
+            }
 
             //vector2
+            for (int i = 0; i < SavePoint.Length; i++)
+            {
+                SavePoint[i] = reader.ReadVector2();
+            }
             SavePlayerPosition = reader.ReadVector2();
             SaveNPCPosition = reader.ReadVector2();
 
@@ -146,6 +154,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             FlowersSpawned = reader.ReadBoolean();
             ActuallyDead = reader.ReadBoolean();
             DeathAnimation = reader.ReadBoolean();
+            DefaultRotation = reader.ReadBoolean();
 
             //floats
             SaveRotation = reader.ReadSingle();
@@ -159,15 +168,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void SetDefaults()
         {
             NPC.lifeMax = 72000;
-            NPC.damage = 70;
+            NPC.damage = 65;
             NPC.defense = 50;
-            NPC.width = 134;
-            NPC.height = 170;
+            NPC.width = 130;
+            NPC.height = 130;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 30, 0, 0);
             NPC.lavaImmune = true;
             NPC.noGravity = true;
-            NPC.noTileCollide = false;
+            NPC.noTileCollide = true;
             NPC.netAlways = true;
             NPC.boss = true;
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
@@ -247,9 +256,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     }
                     
                     float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
-                    Color StemDrawColor = Phase2 ? Color.Lerp(drawColor, Color.Firebrick, fade) : drawColor;
+                    //Color StemDrawColor = Phase2 ? Color.Lerp(drawColor, Color.Firebrick, fade) : drawColor;
 
-					Main.spriteBatch.Draw(NeckTexture.Value, drawPos2 - Main.screenPosition, Frame, NPC.GetAlpha(StemDrawColor), rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+					Main.EntitySpriteDraw(NeckTexture.Value, drawPos2 - Main.screenPosition, Frame, NPC.GetAlpha(drawColor), rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+
+                    if (NPC.ai[0] == -2 && NPC.localAI[0] >= 360)
+                    {
+                        Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition, Frame, Color.Black * 0.9f, rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0f);
+                    }
 				}
 			}
 
@@ -363,7 +377,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
 			if (NPC.ai[0] == -2 && NPC.localAI[0] >= 360)
             {
-                Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, Color.Black * 0.85f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, Color.Black * 0.9f, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
             }
 
 			return false;
@@ -372,6 +386,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneGlow");
+            EyeGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneEyesGlow");
+            HeatGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/BigBone/BigBoneHeatGlow");
 
             var effects = SpriteEffects.None;
 
@@ -391,26 +407,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
             //glowmask
             Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(EyeGlowTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
 
-            //draw solar forcefield during his phase transition
-            if (NPC.ai[0] == -1 && NPC.AnyNPCs(ModContent.NPCType<BigFlower>()))
+            //heat mask when big bone uses fire-related attacks
+            if (HeatMaskAlpha > 0)
             {
-                ShieldTexture ??= ModContent.Request<Texture2D>("Spooky/ShaderAssets/BigBoneShield");
+                Color OuterColor = Phase2 ? Color.OrangeRed : new Color(255, 218, 75);
 
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-
-                var center = NPC.Center - Main.screenPosition;
-                float intensity = fade;
-                DrawData drawData = new DrawData(ShieldTexture.Value, center + new Vector2(0, 55), new Rectangle(0, 0, 500, 400), Color.Lerp(Color.OrangeRed, Color.Tomato, fade), 0, new Vector2(250f, 250f), NPC.scale * (1f + intensity * 0.05f), SpriteEffects.None, 0);
-                GameShaders.Misc["ForceField"].UseColor(new Vector3(1f + intensity * 0.5f));
-                GameShaders.Misc["ForceField"].Apply(drawData);
-                drawData.Draw(Main.spriteBatch);
-
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-
-                return;
+                Main.EntitySpriteDraw(HeatGlowTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, OuterColor * HeatMaskAlpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+                Main.EntitySpriteDraw(HeatGlowTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, Color.White * HeatMaskAlpha, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale * 0.82f, effects, 0);
             }
         }
 
@@ -464,6 +469,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             return true;
         }
 
+        /*
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+		{
+			Player player = Main.player[NPC.target];
+
+			boundingBox = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
+		}
+        */
+
         public override void AI()
         {
             NPC.TargetClosest(true);
@@ -474,12 +488,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.spriteDirection = NPC.direction;
 
             //rotation stuff
-            Vector2 RotateTowards = player.Center - NPC.Center;
+            if (DefaultRotation)
+            {
+                Vector2 RotateTowards = player.Center - NPC.Center;
 
-            float RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + 4.71f;
-			float RotateSpeed = 0.05f;
+                float RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + 4.71f;
+                float RotateSpeed = 0.05f;
 
-            NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
+                NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
+            }
 
             if (!Parent.active || Parent.type != ModContent.NPCType<BigFlowerPot>())
             {
@@ -502,14 +519,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     if (Main.projectile[k].active && Main.projectile[k].hostile) 
                     {
                         Main.projectile[k].Kill();
-                    }
-                }
-
-                for (int k = 0; k < Main.maxNPCs; k++)
-                {
-                    if (Main.npc[k].type == ModContent.NPCType<BigFlower>()) 
-                    {
-                        Main.npc[k].active = false;
                     }
                 }
 
@@ -575,7 +584,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 //death animation
                 case -2:
                 {
-                    SaveDirection = 0;
+                    HeatMaskAlpha = 0;
+					SaveDirection = 0;
+					SaveRotation = 0;
+					DefaultRotation = true;
 
                     NPC.localAI[0]++;
 
@@ -584,6 +596,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     if (NPC.localAI[0] < 360)
                     {
                         Screenshake.ShakeScreenWithIntensity(NPC.Center, NPC.localAI[0] / 10, 300f);
+
+                        if (HeatMaskAlpha < 1)
+                        {
+                            HeatMaskAlpha = NPC.localAI[0] / 360;
+                        }
 
                         //kill every single hostile projectile to prevent unfair hits or deaths during the death animation
                         if (NPC.localAI[0] <= 5)
@@ -614,16 +631,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             NPC.Center += Main.rand.NextVector2Square(-Shake, Shake);
 
                             int MaxDusts = Main.rand.Next(10, 15);
-                            float distance = 1.5f + (NPC.localAI[0] / 85);
 
                             for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
                             {
+                                float distance = Main.rand.NextFloat(2f, 5f) + (NPC.localAI[0] / 85);
+
                                 Vector2 dustPos = (Vector2.One * new Vector2(NPC.width / 3f, NPC.height / 3f) * distance).RotatedBy((double)((numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / MaxDusts), default) + NPC.Center;
                                 Vector2 velocity = (dustPos - NPC.Center) * 0.5f;
 
-                                if (Main.rand.NextBool(2))
+                                if (Main.rand.NextBool())
                                 {
-                                    int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.05f + (NPC.localAI[0] / 450));
+                                    int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.InfernoFork, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f + (NPC.localAI[0] / 100));
                                     Main.dust[dustEffect].color = Color.Orange;
                                     Main.dust[dustEffect].noGravity = true;
                                     Main.dust[dustEffect].noLight = false;
@@ -664,6 +682,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         SoundEngine.PlaySound(DeathSound2, NPC.Center);
 
                         Screenshake.ShakeScreenWithIntensity(NPC.Center, 3f, 300f);
+
+                        HeatMaskAlpha = 0;
 
                         //flame dusts
                         for (int numDust = 0; numDust < 50; numDust++)
@@ -710,6 +730,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     GoAboveFlowerPot(350);
 
                     SaveDirection = 0;
+					SaveRotation = 0;
+					DefaultRotation = true;
 
                     NPC.immortal = true;
                     NPC.dontTakeDamage = true;
@@ -720,82 +742,121 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     NPC.localAI[2]++;
 
-                    //spawn solar flowers
-                    if (NPC.localAI[2] >= 60 && !FlowersSpawned)
+                    if (NPC.localAI[2] == 2)
                     {
-                        int maxFlowers = 5;
-                        for (int numFlowers = 0; numFlowers < maxFlowers; numFlowers++)
+                        SoundEngine.PlaySound(GrowlSound1, NPC.Center);
+                        
+                        HeatMaskAlpha = 0;
+                    }
+
+					//kill every single hostile projectile to prevent unfair hits or deaths during the death animation
+                    if (NPC.localAI[2] <= 5)
+                    {
+                        for (int k = 0; k < Main.projectile.Length; k++)
                         {
-                            Vector2 flowerPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * 5f).RotatedBy((double)((float)(numFlowers - (maxFlowers / 2 - 1)) * 6.28318548f / (float)maxFlowers), default(Vector2)) + NPC.Center;
-
-                            int solarFlower = NPC.NewNPC(NPC.GetSource_FromAI(), (int)flowerPos.X, (int)flowerPos.Y, ModContent.NPCType<BigFlower>(), ai0: NPC.whoAmI);
-
-                            if (Main.netMode != NetmodeID.SinglePlayer)
+                            if (Main.projectile[k].active && Main.projectile[k].hostile) 
                             {
-                                NetMessage.SendData(MessageID.SyncNPC, number: solarFlower);
+                                Main.projectile[k].Kill();
                             }
                         }
-
-                        FlowersSpawned = true;
                     }
 
-                    if (NPC.localAI[2] >= 180 && NPC.localAI[2] < 200)
+                    //save positions
+                    if (NPC.localAI[2] == 60)
                     {
-                        SoundEngine.PlaySound(SoundID.Grass, NPC.Center);
+                        SaveNPCPosition = NPC.Center;
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100)), 
-                        new Vector2(Main.rand.Next(-2, 2), Main.rand.Next(-2, 2)), ModContent.ProjectileType<FlowerSpore>(), NPC.damage - 10, 4.5f);
-                    }
-
-                    if (NPC.localAI[2] >= 560)
-                    {
-                        //if theres 3 or less flowers left, shoot a homing fire ball at the end of the attack
-                        if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 3)
-			            {
-                            SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
-
-                            //recoil
-                            Vector2 Recoil = player.Center - NPC.Center;
-                            Recoil.Normalize();
-                                    
-                            Recoil.X *= -20;
-                            Recoil.Y *= -20;
-                            NPC.velocity.X = Recoil.X;
-                            NPC.velocity.Y = Recoil.Y;
-
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                            ShootSpeed *= 5;
-
-                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
-                            Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
-
-                            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-                            {
-                                position += muzzleOffset;
-                            }
-
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<MassiveFlameBall>(), NPC.damage + 20, 4.5f);
-                        }
-
-                        NPC.localAI[2] = 0;
                         NPC.netUpdate = true;
                     }
 
-                    if (NPC.CountNPCS(ModContent.NPCType<BigFlower>()) <= 0 && FlowersSpawned)
+					//shake, and cause a circle of dusts around big bone that becomes bigger over time
+                    if (NPC.localAI[2] > 60 && NPC.localAI[2] < 290)
                     {
-                        //add charging attack to the attack list
-                        AttackPattern = AttackPattern.Append(6).ToArray();
+                        int Shake = (int)NPC.localAI[2] / 10;
 
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-Shake, Shake);
+
+                        int MaxDusts = Main.rand.Next(10, 15);
+
+                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                        {
+                            float distance = Main.rand.NextFloat(2f, 5f);
+
+                            Vector2 dustPos = (Vector2.One * new Vector2(NPC.width / 3f, NPC.height / 3f) * distance).RotatedBy((double)((numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / MaxDusts), default) + NPC.Center;
+                            Vector2 velocity = (dustPos - NPC.Center) * 0.5f;
+
+                            if (Main.rand.NextBool())
+                            {
+                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, DustID.InfernoFork, velocity.X * 2f, velocity.Y * 2f, 100, default, 1f);
+                                Main.dust[dustEffect].color = Color.Orange;
+                                Main.dust[dustEffect].noGravity = true;
+                                Main.dust[dustEffect].noLight = false;
+                                Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * -18f;
+                                Main.dust[dustEffect].fadeIn = 1.2f;
+                            }
+                        }
+                    }
+
+					if (NPC.localAI[2] == 195)
+					{
+						SoundEngine.PlaySound(SteamSound, NPC.Center);
+					}
+
+                    if (NPC.localAI[2] > 195 && NPC.localAI[2] < 290)
+                    {
+                        if (HeatMaskAlpha < 1)
+                        {
+                            HeatMaskAlpha += 0.015f;
+                        }
+                    }
+
+                    if (NPC.localAI[2] == 290)
+                    {
+                        SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, NPC.Center);
+
+                        HeatMaskAlpha = 0;
+
+                        //flame dusts
+                        for (int numDusts = 0; numDusts < 50; numDusts++)
+                        {                                                                                  
+                            int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.InfernoFork, 0f, -2f, 0, default, Main.rand.NextFloat(3f, 6f));
+                            Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-8f, 8f) * 2;
+                            Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-8f, 8f);
+                            Main.dust[dustGore].noGravity = true;
+                        }
+
+                        //explosion smoke
+                        for (int numExplosion = 0; numExplosion < 25; numExplosion++)
+                        {
+                            int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, 
+                            ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.8f, 1.2f));
+
+                            Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-3f, 3f);
+                            Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(-3f, 3f);
+                            Main.dust[DustGore].noGravity = true;
+
+                            if (Main.rand.NextBool(2))
+                            {
+                                Main.dust[DustGore].scale = 0.5f;
+                                Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                            }
+                        }
+
+                        //reset all variables
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
 
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
+
                         Phase2 = true;
                         Transition = false;
+
                         NPC.netUpdate = true;
                     }
 
@@ -811,14 +872,13 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
                     if (NPC.localAI[0] == 100)
                     {
-                        int Type = Phase2 ? 1 : 0;
+                        int Type = Phase2 ? ModContent.ProjectileType<HomingFlowerVine>() : ModContent.ProjectileType<BouncingFlowerVine>();
 
                         for (int numProjectiles = -6; numProjectiles <= 6; numProjectiles++)
                         {
-                            Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 25, (Parent.width / 2) - 25), Parent.Top.Y + 10);
+                            Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 25, (Parent.width / 2) - 25), Parent.Top.Y + 12);
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, 10f * Parent.DirectionTo(ParentTopPos).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
-                            ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: Type);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, 10f * Parent.DirectionTo(ParentTopPos).RotatedBy(MathHelper.ToRadians(12) * numProjectiles), Type, NPC.damage, 4.5f);
                         }
                     }
 
@@ -849,57 +909,102 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //glowing flowers attack
+                //shoot out eye flowers at the player
                 case 1:
                 {
                     NPC.localAI[0]++;
 
-                    GoAboveFlowerPot(500);
+                    GoAboveFlowerPot(420);
 
-                    if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 195)
-                    {
-                        int ShootChance = Phase2 ? 2 : 5;
+					int repeats = Phase2 ? 10 : 6;
 
-                        if (Main.rand.NextBool(ShootChance))
-                        {
-                            SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
+					if (NPC.localAI[1] < repeats)
+					{
+						if (NPC.localAI[0] == 60)
+						{
+							SoundEngine.PlaySound(GrowlSound2, NPC.Center);
 
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                                    
-                            ShootSpeed.X *= Main.rand.Next(-12, 12);
-                            ShootSpeed.Y *= Main.rand.Next(-12, 12);
+							DefaultRotation = false;
 
-                            int ShootType = Phase2 ? 1 : 0;
+							SaveNPCPosition = NPC.Center;
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-100, 100), NPC.Center.Y + Main.rand.Next(-100, 100)), 
-                            ShootSpeed, ModContent.ProjectileType<HomingLight>(), NPC.damage, 4.5f, ai0: Main.rand.Next(0, 3), ai1: NPC.whoAmI, ai2: ShootType);
-                        }
-                    }
+							SavePlayerPosition = player.Center;
+                            SaveDirection = NPC.direction;
+						}
 
-                    if (NPC.localAI[0] >= 240)
-                    {
-                        if (Main.rand.NextBool(3))
-                        {
-                            SoundEngine.PlaySound(GrowlSound1, NPC.Center);
-                        }
+						if (NPC.localAI[0] > 60 && NPC.localAI[0] < 90)
+						{
+							NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+							NPC.Center += Main.rand.NextVector2Square(-6, 6);
+						}
 
-                        NPC.localAI[0] = 0;
-                        NPC.localAI[1] = 0;
-                        NPC.localAI[2] = 0;
-                        NPC.ai[1]++;
+						if (NPC.localAI[0] > 60 && NPC.localAI[0] < 120)
+						{
+							Vector2 RotateTowards = SavePlayerPosition - NPC.Center;
 
-                        if (NPC.ai[1] >= AttackPattern.Length)
-                        {
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.localAI[2] = 0;
-                            NPC.ai[1] = 0;
-                            NPC.ai[2] = 0;
-                        }
+							float RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + 4.71f;
+							float RotateSpeed = 0.05f;
 
-                        NPC.netUpdate = true;
-                    }
+							NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
+							NPC.spriteDirection = SaveDirection;
+						}
+
+						if (NPC.localAI[0] == 90)
+						{
+							SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<ThornVine>(), NPC.damage, 4.5f);
+						}
+
+						if (NPC.localAI[0] >= 120)
+						{
+							NPC.localAI[0] = 59;
+							NPC.localAI[1]++;
+
+							SaveDirection = 0;
+
+							DefaultRotation = true;
+
+							NPC.netUpdate = true;
+						}
+					}
+					else
+					{
+						SaveDirection = 0;
+						DefaultRotation = true;
+
+						if (NPC.localAI[0] >= 190)
+						{
+							for (int k = 0; k < Main.projectile.Length; k++)
+							{
+								if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<ThornVine>()) 
+								{
+									Main.projectile[k].Kill();
+								}
+							}
+
+							if (Main.rand.NextBool(3))
+							{
+								SoundEngine.PlaySound(GrowlSound1, NPC.Center);
+							}
+
+							NPC.localAI[0] = 0;
+							NPC.localAI[1] = 0;
+							NPC.localAI[2] = 0;
+							NPC.ai[1]++;
+
+							if (NPC.ai[1] >= AttackPattern.Length)
+							{
+								NPC.localAI[0] = 0;
+								NPC.localAI[1] = 0;
+								NPC.localAI[2] = 0;
+								NPC.ai[1] = 0;
+								NPC.ai[2] = 0;
+							}
+
+							NPC.netUpdate = true;
+						}
+					}
 
                     break;
                 }
@@ -930,16 +1035,25 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //save positions
                         if (NPC.localAI[0] == 75)
                         {
+                            SoundEngine.PlaySound(SteamSound, NPC.Center);
+
                             for (int numProjectiles = 0; numProjectiles < SavePoint.Length; numProjectiles++)
                             {
 								SavePoint[numProjectiles] = NPC.Center + new Vector2(650, 0).RotatedByRandom(360);
                             }
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.localAI[0] > 75 && NPC.localAI[0] < 155)
                         {
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-6, 6);
+
+                            if (HeatMaskAlpha < 1)
+                            {
+                                HeatMaskAlpha += 0.015f;
+                            }
 
                             for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
                             {
@@ -966,6 +1080,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                     DustEffect.alpha = 100;
                                 }
                             }
+                        }
+
+                        if (NPC.localAI[0] == 155)
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, NPC.Center);
                         }
 
 						if (NPC.localAI[0] >= 155 && NPC.localAI[0] < 250)
@@ -998,6 +1118,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 }
                             }
 						}
+
+                        if (NPC.localAI[0] >= 250)
+                        {
+                            if (HeatMaskAlpha > 0)
+                            {
+                                HeatMaskAlpha -= 0.025f;
+                            }
+                        }
                         
                         if (NPC.localAI[0] >= 300)
                         {
@@ -1051,6 +1179,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
 						if (NPC.localAI[0] > 75 && NPC.localAI[0] < 200)
                         {
+                            if (HeatMaskAlpha < 1)
+                            {
+                                HeatMaskAlpha += 0.01f;
+                            }
+
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-6, 6);
 
@@ -1088,6 +1221,17 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 								}
 							}
 						}
+
+                        if (NPC.localAI[0] == 120)
+                        {
+                            SoundEngine.PlaySound(SteamSound, NPC.Center);
+                        }
+
+                        if (NPC.localAI[0] == 200)
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, NPC.Center);
+                        }
 
                         if (NPC.localAI[0] >= 200 && NPC.localAI[0] < 300)
                         {
@@ -1127,6 +1271,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                                 }
                             }
 						}
+
+                        if (NPC.localAI[0] >= 300)
+                        {
+                            if (HeatMaskAlpha > 0)
+                            {
+                                HeatMaskAlpha -= 0.025f;
+                            }
+                        }
                         
                         if (NPC.localAI[0] >= 350)
                         {
@@ -1172,8 +1324,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         int VelocityX = Main.rand.Next(-12, 13);
                         int VelocityY = Main.rand.Next(-15, -10);
 
-                        Vector2 RandomPosition = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 10);
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, RandomPosition, new Vector2(VelocityX, VelocityY), ModContent.ProjectileType<VineBase>(), NPC.damage, 4.5f, ai2: 2);
+                        Vector2 RandomPosition = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 15, (Parent.width / 2) - 15), Parent.Top.Y + 12);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, RandomPosition, new Vector2(VelocityX, VelocityY), ModContent.ProjectileType<PitcherVine>(), NPC.damage, 4.5f);
                     }
 
                     if (NPC.localAI[0] >= 300)
@@ -1215,7 +1367,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         if (NPC.localAI[0] == 75 || NPC.localAI[0] == 105 || NPC.localAI[0] == 135)
                         {
-                            SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, NPC.Center);
 
                             NPC.velocity = -Vector2.Normalize(player.Center - NPC.Center) * Main.rand.Next(15, 23);
 
@@ -1242,7 +1395,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     {
                         if (NPC.localAI[0] == 75)
                         {
-                            SoundEngine.PlaySound(MagicCastSound2, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, NPC.Center);
 
                             NPC.velocity = -Vector2.Normalize(player.Center - NPC.Center) * Main.rand.Next(15, 23);
 
@@ -1291,180 +1445,351 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //todo: big bone slams head on roof and causes debris to fall
+                //big bone slams head on roof and causes debris to fall in phase 1, charges directly at the player in phase 2
                 case 5:
                 {
                     NPC.localAI[0]++;
 
-                    GoAboveFlowerPot(250);
-
-                    if (NPC.localAI[0] == 1)
+                    if (!Phase2)
                     {
-					    Main.NewText("Head Slam Attack");
-                    }
-
-                    if (NPC.localAI[0] >= 10)
-                    {
-                        if (Main.rand.NextBool(3))
+                        if (NPC.localAI[1] == 0)
                         {
-                            SoundEngine.PlaySound(GrowlSound1, NPC.Center);
+                            NPC.rotation = NPC.rotation.AngleTowards(NPC.direction == -1 ? (float)MathHelper.PiOver2 : -(float)MathHelper.PiOver2, 0.2f);
                         }
 
-                        NPC.localAI[0] = 0;
-                        NPC.localAI[1] = 0;
-                        NPC.localAI[2] = 0;
-                        NPC.ai[1]++;
-
-                        if (NPC.ai[1] >= AttackPattern.Length)
+                        if (NPC.localAI[0] == 5)
                         {
+                            SoundEngine.PlaySound(GrowlSound2, NPC.Center);
+                        }
+
+                        if (NPC.localAI[0] >= 5 && NPC.localAI[0] <= 85)
+                        {
+                            GoAboveFlowerPot(150);
+
+                            int MaxDusts = Main.rand.Next(5, 15);
+                            for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                            {
+                                Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                                Vector2 velocity = dustPos - NPC.Center;
+                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
+                                Main.dust[dustEffect].color = Color.Gold;
+                                Main.dust[dustEffect].noGravity = true;
+                                Main.dust[dustEffect].noLight = false;
+                                Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
+                                Main.dust[dustEffect].fadeIn = 1.3f;
+                            }
+                        }
+
+                        if (NPC.localAI[0] == 85)
+                        {
+                            SoundEngine.PlaySound(GrowlSound3, NPC.Center);
+
+                            SaveRotation = NPC.rotation;
+                            SaveDirection = NPC.direction;
+
+                            NPC.velocity.Y = 5;
+
+                            NPC.netUpdate = true;
+                        }
+
+                        if (NPC.localAI[0] > 85)
+                        {
+                            NPC.spriteDirection = SaveDirection;
+                            
+                            if (NPC.localAI[1] == 0)
+                            {
+                                NPC.rotation = SaveRotation;
+                            }
+                        }
+
+                        if (NPC.localAI[0] == 95)
+                        {
+                            NPC.velocity *= 0.5f;
+                        }
+
+                        //charge to the destination
+                        if (NPC.localAI[0] == 100)
+                        {
+                            NPC.velocity.Y = -50;
+
+                            NPC.netUpdate = true;
+                        }
+
+                        //stop and play slamming sound when big bone impacts a solid surface
+                        if (NPC.localAI[0] > 100 && NPC.localAI[1] == 0)
+                        {
+                            if (IsColliding())
+                            {
+                                SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
+                                SoundEngine.PlaySound(StunnedSound, NPC.Center);
+                                
+                                Screenshake.ShakeScreenWithIntensity(NPC.Center, 25f, 1000f);
+
+                                NPC.velocity = Vector2.Zero;
+
+                                for (int numRubble = -700; numRubble <= 700; numRubble += 100)
+                                {
+                                    Vector2 center = new Vector2(Parent.Center.X + numRubble, Parent.Center.Y - 500);
+                                    center.X += Main.rand.Next(-20, 21); //add some randomness so it isnt always the same even spread
+
+                                    int numtries = 0;
+                                    int x = (int)(center.X / 16);
+                                    int y = (int)(center.Y / 16);
+                                    while (Main.tile[x, y] == null || !Main.tile[x, y].HasTile || Main.tile[x, y].IsActuated ||
+                                    !Main.tileSolid[(int)Main.tile[x, y].TileType] || TileID.Sets.Platforms[(int)Main.tile[x, y].TileType])
+                                    {
+                                        y--;
+                                        center.Y = y * 16;
+                                    }
+
+                                    NPCGlobalHelper.ShootHostileProjectile(NPC, center, Vector2.Zero, ModContent.ProjectileType<CatacombBrickRubble>(), NPC.damage, 4.5f, ai1: Main.rand.Next(0, 3));
+                                }
+
+                                NPC.localAI[1] = 1;
+                            }
+                        }
+                    
+                        //stunned behavior, produce star dusts and rotate
+                        if (NPC.localAI[1] > 0)
+                        {
+                            DefaultRotation = false;
+
+                            if (NPC.localAI[0] == 120)
+                            {
+                                NPC.velocity.Y = 20;
+                            }
+
+                            NPC.velocity *= 0.95f;
+
+                            if (NPC.localAI[2] == 0)
+                            {
+                                NPC.rotation += 0.015f;
+                                if (NPC.rotation > SaveRotation + 0.25f)
+                                {
+                                    NPC.localAI[2] = 1;
+                                    NPC.netUpdate = true;
+                                }
+                            }
+                            else
+                            {
+                                NPC.rotation -= 0.015f;
+                                if (NPC.rotation < SaveRotation - 0.25f)
+                                {
+                                    NPC.localAI[2] = 0;
+                                    NPC.netUpdate = true;
+                                }
+                            }
+
+                            if (NPC.localAI[0] % 5 == 0)
+                            {				
+                                int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1.2f);
+                                Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                                Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                                Main.dust[newDust].velocity.Y = Main.rand.Next(-10, -4);
+                                Main.dust[newDust].noGravity = true;
+                            }
+                        }
+
+                        if (NPC.localAI[0] >= 320)
+                        {
+                            SaveDirection = 0;
+                            DefaultRotation = true;
+
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.localAI[2] = 0;
-                            NPC.ai[1] = 0;
-                            NPC.ai[2] = 0;
-                        }
+                            NPC.ai[1]++;
 
-                        NPC.netUpdate = true;
-                    }
+                            if (NPC.ai[1] >= AttackPattern.Length)
+                            {
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1] = 0;
+                                NPC.localAI[2] = 0;
+                                NPC.ai[1] = 0;
+                                NPC.ai[2] = 0;
+                            }
 
-                    break;
-                }
-
-                //stay still, then charge and crash into a wall
-                case 6:
-                {
-                    NPC.localAI[0]++;
-
-                    if (NPC.localAI[0] == 1)
-                    {
-                        SoundEngine.PlaySound(GrowlSound2, NPC.Center);
-                    }
-
-                    if (NPC.localAI[0] <= 85)
-                    {
-                        GoAboveFlowerPot(375);
-
-                        int MaxDusts = Main.rand.Next(5, 15);
-                        for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
-                        {
-                            Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
-                            Vector2 velocity = dustPos - NPC.Center;
-                            int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
-                            Main.dust[dustEffect].color = Color.Yellow;
-                            Main.dust[dustEffect].noGravity = true;
-                            Main.dust[dustEffect].noLight = false;
-                            Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
-                            Main.dust[dustEffect].fadeIn = 1.3f;
+                            NPC.netUpdate = true;
                         }
                     }
-
-                    if (NPC.localAI[0] == 85)
+                    else
                     {
-                        SoundEngine.PlaySound(GrowlSound3, NPC.Center);
-
-                        //predict the players movement in phase 2
-                        SavePlayerPosition = Phase2 ? player.Center + player.velocity * 40f : player.Center;
-
-                        //in phase 2, modify big bone's rotation and direction right before saving it so it is correct with the player movement prediction
-                        if (Phase2)
+                        if (NPC.localAI[0] == 5)
                         {
-                            //set big bone's rotation to the predicted spot so it is correct when charging
-                            Vector2 newVector = new Vector2(NPC.Center.X, NPC.Center.Y);
-                            float newRotateX = player.Center.X + player.velocity.X * 40f - newVector.X;
-                            float newRotateY = player.Center.Y + player.velocity.Y * 40f - newVector.Y;
-                            NPC.rotation = (float)Math.Atan2((double)newRotateY, (double)newRotateX) + 4.71f;
+                            SoundEngine.PlaySound(GrowlSound2, NPC.Center);
+                        }
+
+                        if (NPC.localAI[0] >= 5 && NPC.localAI[0] <= 85)
+                        {
+                            GoAboveFlowerPot(375);
+
+                            int MaxDusts = Main.rand.Next(5, 15);
+                            for (int numDusts = 0; numDusts < MaxDusts; numDusts++)
+                            {
+                                Vector2 dustPos = (Vector2.One * new Vector2((float)NPC.width / 3f, (float)NPC.height / 3f) * Main.rand.NextFloat(1.25f, 1.75f)).RotatedBy((double)((float)(numDusts - (MaxDusts / 2 - 1)) * 6.28318548f / (float)MaxDusts), default(Vector2)) + NPC.Center;
+                                Vector2 velocity = dustPos - NPC.Center;
+                                int dustEffect = Dust.NewDust(dustPos + velocity, 0, 0, ModContent.DustType<GlowyDust>(), velocity.X * 2f, velocity.Y * 2f, 100, default, 0.1f);
+                                Main.dust[dustEffect].color = Color.Gold;
+                                Main.dust[dustEffect].noGravity = true;
+                                Main.dust[dustEffect].noLight = false;
+                                Main.dust[dustEffect].velocity = Vector2.Normalize(velocity) * Main.rand.NextFloat(-18f, -5f);
+                                Main.dust[dustEffect].fadeIn = 1.3f;
+                            }
+                        }
+
+                        if (NPC.localAI[0] == 85)
+                        {
+                            SoundEngine.PlaySound(GrowlSound3, NPC.Center);
+
+                            SaveNPCPosition = NPC.Center;
+
+                            //predict the players movement in phase 2
+                            SavePlayerPosition = player.Center;
 
                             //set big bone's direction based on the saved location so his sprite doesnt flip backwards
                             NPC.direction = SavePlayerPosition.X > NPC.Center.X ? 1 : -1;
+
+                            SaveRotation = NPC.rotation;
+                            SaveDirection = NPC.direction;
+
+                            Vector2 Recoil = SavePlayerPosition - NPC.Center;
+                            Recoil.Normalize();
+                                    
+                            Recoil *= -5; 
+                            NPC.velocity = Recoil;
+
+                            NPC.netUpdate = true;
                         }
 
-                        SaveRotation = NPC.rotation;
-                        SaveDirection = NPC.direction;
+                        if (NPC.localAI[0] > 85)
+                        {
+                            NPC.spriteDirection = SaveDirection;
 
-                        Vector2 Recoil = SavePlayerPosition - NPC.Center;
-                        Recoil.Normalize();
+                            if (NPC.localAI[1] == 0)
+                            {
+                                NPC.rotation = SaveRotation;
+                            }
+                        }
+
+                        if (NPC.localAI[0] == 95)
+                        {
+                            NPC.velocity *= 0.5f;
+                        }
+
+                        //charge to the destination
+                        if (NPC.localAI[0] == 105)
+                        {
+                            Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+                            ChargeDirection.Normalize();
+                            ChargeDirection *= 50;
+                            NPC.velocity = ChargeDirection;
+
+                            NPC.netUpdate = true;
+                        }
+
+                        //stop and play slamming sound when big bone impacts a solid surface
+                        if (NPC.localAI[0] > 105 && NPC.localAI[1] == 0)
+                        {
+                            if (IsColliding())
+                            {
+                                SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
+                                SoundEngine.PlaySound(StunnedSound, NPC.Center);
                                 
-                        Recoil *= -5; 
-                        NPC.velocity = Recoil;
+                                Screenshake.ShakeScreenWithIntensity(NPC.Center, 25f, 1000f);
 
-                        NPC.netUpdate = true;
-                    }
+                                NPC.velocity = Vector2.Zero;
 
-                    if (NPC.localAI[0] > 85 && NPC.localAI[0] <= 160)
-                    {
-                        NPC.spriteDirection = SaveDirection;
-                        NPC.rotation = SaveRotation;
-                    }
+                                NPC.localAI[0] = 120;
 
-                    if (NPC.localAI[0] == 95)
-                    {
-                        NPC.velocity *= 0.5f;
-                    }
+                                for (int numRubble = -700; numRubble <= 700; numRubble += 100)
+                                {
+                                    Vector2 center = new Vector2(Parent.Center.X + numRubble, Parent.Center.Y - 500);
+                                    center.X += Main.rand.Next(-20, 21); //add some randomness so it isnt always the same even spread
 
-                    //charge to the destination
-                    if (NPC.localAI[0] == 105)
-                    {
-                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
-                        ChargeDirection.Normalize();
-                        ChargeDirection *= 50;
-                        NPC.velocity = ChargeDirection;
-                    }
+                                    int numtries = 0;
+                                    int x = (int)(center.X / 16);
+                                    int y = (int)(center.Y / 16);
+                                    while (Main.tile[x, y] == null || !Main.tile[x, y].HasTile || Main.tile[x, y].IsActuated ||
+                                    !Main.tileSolid[(int)Main.tile[x, y].TileType] || TileID.Sets.Platforms[(int)Main.tile[x, y].TileType])
+                                    {
+                                        y--;
+                                        center.Y = y * 16;
+                                    }
 
-                    //stop and play slamming sound when big bone impacts a solid surface
-                    if (NPC.localAI[0] > 105 && NPC.localAI[1] == 0)
-                    {
-                        if (NPC.velocity.X <= 0.1f && NPC.velocity.X >= -0.1f)
-                        {
-                            NPC.velocity = Vector2.Zero;
+                                    int Type = Main.rand.NextBool(4) ? ModContent.ProjectileType<CatacombBrickRubbleGiant>() : ModContent.ProjectileType<CatacombBrickRubble>();
+
+                                    NPCGlobalHelper.ShootHostileProjectile(NPC, center, Vector2.Zero, Type, NPC.damage, 4.5f, ai1: Main.rand.Next(0, 3));
+                                }
+
+                                NPC.localAI[1] = 1;
+                            }
                         }
 
-                        if (NPC.velocity.Y <= 0.1f && NPC.velocity.Y >= -0.1f)
+                        //stunned behavior, produce star dusts and rotate
+                        if (NPC.localAI[1] > 0)
                         {
-                            NPC.velocity = Vector2.Zero;
+                            DefaultRotation = false;
+
+                            if (NPC.localAI[0] == 120)
+                            {
+                                Vector2 ChargeDirection = SaveNPCPosition - NPC.Center;
+                                ChargeDirection.Normalize();
+                                ChargeDirection *= 20;
+                                NPC.velocity = ChargeDirection;
+                            }
+
+                            NPC.velocity *= 0.95f;
+
+                            if (NPC.localAI[2] == 0)
+                            {
+                                NPC.rotation += 0.015f;
+                                if (NPC.rotation > SaveRotation + 0.25f)
+                                {
+                                    NPC.localAI[2] = 1;
+                                    NPC.netUpdate = true;
+                                }
+                            }
+                            else
+                            {
+                                NPC.rotation -= 0.015f;
+                                if (NPC.rotation < SaveRotation - 0.25f)
+                                {
+                                    NPC.localAI[2] = 0;
+                                    NPC.netUpdate = true;
+                                }
+                            }
+
+                            if (NPC.localAI[0] % 5 == 0)
+                            {				
+                                int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1.2f);
+                                Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                                Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
+                                Main.dust[newDust].velocity.Y = Main.rand.Next(-10, -4);
+                                Main.dust[newDust].noGravity = true;
+                            }
                         }
 
-                        if (NPC.velocity == Vector2.Zero)
+                        if (NPC.localAI[0] >= 320)
                         {
-                            SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
-                            
-                            Screenshake.ShakeScreenWithIntensity(NPC.Center, 25f, 1000f);
+                            SaveDirection = 0;
+                            DefaultRotation = true;
 
-                            NPC.velocity = Vector2.Zero;
-
-                            NPC.localAI[1] = 1;
-                        }
-                    }
-
-                    //go back above the flower pot before switching attacks
-                    if (NPC.localAI[0] >= 160)
-                    {
-                        SaveDirection = 0;
-
-                        if (NPC.localAI[1] == 1)
-                        {
-                            GoAboveFlowerPot(300);
-                            NPC.velocity *= 0.98f;
-                        }
-                    }
-
-                    if (NPC.localAI[0] >= 260)
-                    {
-                        SaveDirection = 0;
-                        NPC.localAI[0] = 0;
-                        NPC.localAI[1] = 0;
-                        NPC.localAI[2] = 0;
-                        NPC.ai[1]++;
-
-                        if (NPC.ai[1] >= AttackPattern.Length)
-                        {
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;
                             NPC.localAI[2] = 0;
-                            NPC.ai[1] = 0;
-                            NPC.ai[2] = 0;
-                        }
+                            NPC.ai[1]++;
 
-                        NPC.netUpdate = true;
+                            if (NPC.ai[1] >= AttackPattern.Length)
+                            {
+                                NPC.localAI[0] = 0;
+                                NPC.localAI[1] = 0;
+                                NPC.localAI[2] = 0;
+                                NPC.ai[1] = 0;
+                                NPC.ai[2] = 0;
+                            }
+
+                            NPC.netUpdate = true;
+                        }
                     }
 
                     break;
@@ -1491,6 +1816,50 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 NPC.velocity *= 0.85f;
             }
         }
+
+        public bool IsColliding()
+		{
+			int minTilePosX = (int)(NPC.position.X / 16) - 1;
+			int maxTilePosX = (int)((NPC.position.X + NPC.width) / 16) + 1;
+			int minTilePosY = (int)(NPC.position.Y / 16) - 1;
+			int maxTilePosY = (int)((NPC.position.Y + NPC.height) / 16) + 1;
+			if (minTilePosX < 0)
+			{
+				minTilePosX = 0;
+			}
+			if (maxTilePosX > Main.maxTilesX)
+			{
+				maxTilePosX = Main.maxTilesX;
+			}
+			if (minTilePosY < 0)
+			{
+				minTilePosY = 0;
+			}
+			if (maxTilePosY > Main.maxTilesY)
+			{
+				maxTilePosY = Main.maxTilesY;
+			}
+
+			for (int i = minTilePosX; i < maxTilePosX; ++i)
+			{
+				for (int j = minTilePosY; j < maxTilePosY; ++j)
+				{
+					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated &&
+					Main.tileSolid[(int)Main.tile[i, j].TileType] && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType])
+					{
+						Vector2 vector2;
+						vector2.X = (float)(i * 16);
+						vector2.Y = (float)(j * 16);
+						if (NPC.position.X + NPC.width > vector2.X && NPC.position.X < vector2.X + 16.0 && (NPC.position.Y + NPC.height > (double)vector2.Y && NPC.position.Y < vector2.Y + 16.0))
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
+		}
 
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 

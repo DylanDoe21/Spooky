@@ -174,41 +174,44 @@ namespace Spooky.Content.NPCs.PandoraBox
         {
             int NPCToSpawn = 0;
 
-            switch (Type)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                //bobbert
-                case 0:
+                switch (Type)
                 {
-                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Bobbert>());
-                    Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
-                    Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
-                    break;
-                }
+                    //bobbert
+                    case 0:
+                    {
+                        NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Bobbert>());
+                        Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
+                        Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
+                        break;
+                    }
 
-                //stitch
-                case 1:
-                {
-                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Stitch>());
-                    Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
-                    Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
-                    break;
-                }
+                    //stitch
+                    case 1:
+                    {
+                        NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Stitch>());
+                        Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
+                        Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
+                        break;
+                    }
 
-                //sheldon
-                case 2:
-                {
-                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Sheldon>());
-                    Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
-                    Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
-                    break;
-                }
+                    //sheldon
+                    case 2:
+                    {
+                        NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Sheldon>());
+                        Main.npc[NPCToSpawn].velocity.X = Main.rand.Next(-10, 11);
+                        Main.npc[NPCToSpawn].velocity.Y = Main.rand.Next(-10, -5);
+                        break;
+                    }
 
-                //chester
-                case 3:
-                {
-                    NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Chester>());
-                    Main.npc[NPCToSpawn].velocity.Y = -8;
-                    break;
+                    //chester
+                    case 3:
+                    {
+                        NPCToSpawn = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Chester>());
+                        Main.npc[NPCToSpawn].velocity.Y = -8;
+                        break;
+                    }
                 }
             }
 
@@ -513,21 +516,22 @@ namespace Spooky.Content.NPCs.PandoraBox
                         int[] Accessories = new int[] { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(), 
                         ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>() };
 
-                        int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, Main.rand.Next(Accessories));
-
-                        if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                        }
-
-                        //chance to drop the funny bean
-                        if (Main.rand.NextBool(20))
-                        {
-                            int FunnyBean = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<PandoraBean>());
-
-                            if (Main.netMode == NetmodeID.MultiplayerClient && FunnyBean >= 0)
+                            int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, Main.rand.Next(Accessories));
+                            if (Main.netMode == NetmodeID.Server)
                             {
-                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, FunnyBean, 1f);
+                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                            }
+
+                            //chance to drop the funny bean
+                            if (Main.rand.NextBool(20))
+                            {
+                                int FunnyBean = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<PandoraBean>());
+                                if (Main.netMode == NetmodeID.Server)
+                                {
+                                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, FunnyBean, 1f);
+                                }
                             }
                         }
 

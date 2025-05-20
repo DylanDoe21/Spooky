@@ -51,7 +51,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> IceOverlayTexture;
 
-		public static readonly SoundStyle StunnedSound = new("Spooky/Content/Sounds/SpookFishron/FishronStunned", SoundType.Sound);
+		public static readonly SoundStyle StunnedSound = new("Spooky/Content/Sounds/GoofyStunned", SoundType.Sound);
 
 		public override void Load()
 		{

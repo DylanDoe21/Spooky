@@ -87,7 +87,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             //slam down
             if (NPC.ai[0] > 60 && !hasCollidedWithFloor && IsColliding())
             {
-                Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 350f);
+                Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 450f);
 
 				if (player.Distance(NPC.Center) <= 550f)
 				{
@@ -179,7 +179,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath1>(), NPC.damage / 2, 0, NPC.target);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath1>(), NPC.damage, 4.5f);
             }
         }
     }
@@ -212,7 +212,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath2>(), NPC.damage / 2, 0, NPC.target);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath2>(), NPC.damage, 4.5f);
             }
         }
     }
@@ -245,7 +245,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath3>(), NPC.damage / 2, 0, NPC.target);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath3>(), NPC.damage, 4.5f);
             }
         }
     }
@@ -296,7 +296,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         {
 			if (NPC.life <= 0) 
             {
-                Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath4>(), NPC.damage / 2, 0, NPC.target);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<CatacombCrusherDeath4>(), NPC.damage, 4.5f);
             }
         }
     }

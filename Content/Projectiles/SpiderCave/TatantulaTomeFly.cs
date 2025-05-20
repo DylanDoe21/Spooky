@@ -87,11 +87,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         speed = 0.3f;
                     }
 
-                    if (Projectile.velocity.X > speed)
+                    if (Projectile.velocity.X > speed || Projectile.velocity.X < -speed)
                     {
                         Projectile.velocity.X *= 0.98f;
                     }
-                    if (Projectile.velocity.Y > speed)
+                    if (Projectile.velocity.Y > speed || Projectile.velocity.Y < -speed)
                     {
                         Projectile.velocity.Y *= 0.98f;
                     }

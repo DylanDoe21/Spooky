@@ -480,17 +480,18 @@ RadishYoyoProj.DisplayName: Razor Radish
 BigBoneFlame.DisplayName: Hot Flame
 BigBoneFlame2.DisplayName: Super-Hot Flame
 BouncingFlower.DisplayName: Bouncing Flower
-FlowerSpore.DisplayName: Flower Spore
 GiantFlameBall.DisplayName: Flame Ball
 HomingFlower.DisplayName: Homing Flower
-HomingLight.DisplayName: Light Bulb
 MassiveFlameBall.DisplayName: Flame Ball
 MassiveFlameBallBolt.DisplayName: Flame Bolt
-VineBase.DisplayName: Plant Stem
-Pitcher1.DisplayName: Pitcher Plant
-Pitcher2.DisplayName: Pitcher Plant
 PitcherOoze1.DisplayName: Poisonous Ooze
 PitcherOoze2.DisplayName: Venomous Ooze
+BouncingFlowerVine.DisplayName: Bouncing Flower
+HomingFlowerVine.DisplayName: Homing Flower
+PitcherVine.DisplayName: Spitcher
+CatacombBrickRubble.DisplayName: Rubble
+CatacombBrickRubbleGiant.DisplayName: Giant Rubble
+ThornVine.DisplayName: Seeking Thorn
 Romanesco.DisplayName: Romanesco
 RomanescoLeaf.DisplayName: Romanesco Leaf
 PepperFlame.DisplayName: Pepper Flame

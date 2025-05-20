@@ -133,8 +133,8 @@ namespace Spooky.Core
             tag[nameof(SpiderGrottoCenter)] = SpiderGrottoCenter;
             tag[nameof(EyeValleyCenter)] = EyeValleyCenter;
 
-			//list of eel biome nodes
-			tag["Spooky:ZombieBiomePositions"] = ZombieBiomePositions;
+			//list of zombie biome positions
+			tag[nameof(ZombieBiomePositions)] = ZombieBiomePositions;
 
 			//bosses
 			tag[nameof(downedRotGourd)] = downedRotGourd;
@@ -196,10 +196,10 @@ namespace Spooky.Core
 			SpiderGrottoCenter = tag.Get<Vector2>(nameof(SpiderGrottoCenter));
 			EyeValleyCenter = tag.Get<Vector2>(nameof(EyeValleyCenter));
 
-			//eel biome positions
-			if (tag.ContainsKey("Spooky:ZombieBiomePositions"))
+			//list of zombie biome positions
+			if (tag.ContainsKey(nameof(ZombieBiomePositions)))
 			{
-				ZombieBiomePositions = tag.Get<List<Vector2>>("Spooky:ZombieBiomePositions");
+				ZombieBiomePositions = tag.Get<List<Vector2>>(nameof(ZombieBiomePositions));
 			}
 
 			//bosses

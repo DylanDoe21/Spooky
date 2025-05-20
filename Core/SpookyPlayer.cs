@@ -179,8 +179,8 @@ namespace Spooky.Core
 		public int dashDelay = 0;
 		public int dashTimer = 0;
 
-		public Vector2 MocoNoseUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.5f * Main.UIScale);
-		public Vector2 KidneyUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.5f * Main.UIScale);
+		public Vector2 MocoNoseUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.75f * Main.UIScale);
+		public Vector2 KidneyUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.75f * Main.UIScale);
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
         private static Asset<Texture2D> HazmatArmorBackTex;
@@ -192,18 +192,24 @@ namespace Spooky.Core
         public static readonly SoundStyle CapSound2 = new("Spooky/Content/Sounds/SentientCap2", SoundType.Sound);
         public static readonly SoundStyle CapSound3 = new("Spooky/Content/Sounds/SentientCap3", SoundType.Sound);
 
-        /*
 		public override void SaveData(TagCompound tag)
 		{
-			tag["MocoNoseUIPos"] = MocoNoseUIPos;
-			tag["KidneyUIPos"] = KidneyUIPos;
+			tag[nameof(MocoNoseUIPos)] = MocoNoseUIPos;
+			tag[nameof(KidneyUIPos)] = KidneyUIPos;
 		}
+
 		public override void LoadData(TagCompound tag)
 		{
-			MocoNoseUIPos = tag.Get<Vector2>("MocoNoseUIPos");
-			KidneyUIPos = tag.Get<Vector2>("KidneyUIPos");
+			if (tag.ContainsKey(nameof(MocoNoseUIPos)))
+			{
+				MocoNoseUIPos = tag.Get<Vector2>(nameof(MocoNoseUIPos));
+			}
+            
+			if (tag.ContainsKey(nameof(KidneyUIPos)))
+			{
+				KidneyUIPos = tag.Get<Vector2>(nameof(KidneyUIPos));
+			}
 		}
-        */
 
 		public override void OnEnterWorld()
         {

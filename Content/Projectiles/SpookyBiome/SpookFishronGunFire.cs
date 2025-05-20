@@ -21,8 +21,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 10;
-			Projectile.height = 10;
+			Projectile.width = 76;
+			Projectile.height = 76;
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.localNPCHitCooldown = 60;
             Projectile.usesLocalNPCImmunity = true;
@@ -37,18 +37,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
 			Projectile.damage = (int)(damageDone * 0.75f);
-		}
-
-		public override void ModifyDamageHitbox(ref Rectangle hitbox)
-		{
-			int size = (int)Utils.Remap(Projectile.ai[0], 0f, Fadetime, 10f, 40f);
-
-			if (Projectile.ai[0] > Fadetime)
-			{
-				size = (int)Utils.Remap(Projectile.ai[0], Fadetime, Lifetime, 40f, 0f);
-			}
-
-			hitbox.Inflate(size, size);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

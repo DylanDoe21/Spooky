@@ -50,7 +50,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 			Vector2 pos = list[0];
 
-			for (int i = 0; i < list.Count - 1; i++) 
+			for (int i = 0; i < list.Count - 1; i++)
             {
 				Rectangle frame = new Rectangle(0, 0, 14, 18);
 				Vector2 origin = new Vector2(7, 7);

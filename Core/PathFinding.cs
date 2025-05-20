@@ -155,10 +155,10 @@ namespace Spooky.Core
 
 		public bool InvalidTile(Point16 position)
 		{
-			return !checkingRectangle.Contains(position.ToPoint())  || SolidBig(position, objectSize, posOffset) || found.ContainsKey(position);
+			return !checkingRectangle.Contains(position.ToPoint())  || ContainsSpecificTile(position, objectSize, posOffset) || found.ContainsKey(position);
 		}
 
-		private static bool SolidBig(Point16 position, Vector2 objectSize, Vector2 positionOffset)
+		private static bool ContainsSpecificTile(Point16 position, Vector2 objectSize, Vector2 positionOffset)
 		{
 			Vector2 pos = position.ToWorldCoordinates() + positionOffset;
 

@@ -24,7 +24,7 @@ HerbShaker: {
 
 TheMask: {
 	DisplayName: Strange Mask
-	Tooltip: Gain 5 defense for each active bloom buff you have
+	Tooltip: Gain 5 defense for each bloom buff you have
 }
 
 Wormy: {
@@ -183,7 +183,7 @@ FossilMagnolia: {
 	DisplayName: Sturdy Magnolia
 	Tooltip:
 		'''
-		Grants more damage reduction as your health lowers
+		Grants damage reduction that increases the lower your health is
 		3 minute duration
 		'''
 }
@@ -299,7 +299,7 @@ SummerOrange: {
 	Tooltip:
 		'''
 		Gain an orbiting angry orange that damages enemies and burns them
-		The faster you are moving the more its speed, range, and damage increase
+		The faster you are moving, the more its speed, range, and damage increases
 		5 minute duration
 		'''
 }
@@ -349,7 +349,7 @@ VegetablePepper: {
 	Tooltip:
 		'''
 		Grants a 10% increase to your melee damage
-		Hitting enemies with melee weapons with inflict them with the pepper's spice
+		Hitting enemies with melee weapons will inflict them with the pepper's spice
 		Enemies inflicted with this spice will spew out fire at other nearby enemies
 		5 minute duration
 		'''
@@ -4991,5 +4991,10 @@ BigBoneBobber: {
 
 PumpkinBobber: {
 	DisplayName: Pumpkin Bobber
+	Tooltip: ""
+}
+
+DownedReset: {
+	DisplayName: Downed Reset
 	Tooltip: ""
 }

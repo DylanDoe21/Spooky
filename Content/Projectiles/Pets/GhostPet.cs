@@ -78,15 +78,7 @@ namespace Spooky.Content.Projectiles.Pets
             Vector2 direction = player.Center - center;
             Projectile.ai[1] = 3600f;
             Projectile.netUpdate = true;
-            int num = 1;
-            for (int k = 0; k < Projectile.whoAmI; k++)
-            {
-                if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
-                {
-                    num++;
-                }
-            }
-            direction.X += ((10 + num * 20) * player.direction);
+            direction.X += (100 * player.direction);
             direction.Y -= 50f;
             float distanceTo = direction.Length();
             if (distanceTo > 200f && speed < 30f)

@@ -40,6 +40,8 @@ namespace Spooky.Content.Projectiles.Blooms
                 {
                     Projectile.ai[0] = 0;
                     Projectile.ai[1] = 1;
+
+                    Projectile.netUpdate = true;
                 }
                 else
                 {
@@ -62,6 +64,8 @@ namespace Spooky.Content.Projectiles.Blooms
                 if (Projectile.ai[0] >= Wave * 2)
                 {
                     Projectile.ai[0] = 0;
+
+                    Projectile.netUpdate = true;
                 }
             }
 

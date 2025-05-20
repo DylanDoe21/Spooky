@@ -121,8 +121,10 @@ namespace Spooky.Content.Items.BossSummon
 							int SpawnX = (left * 16) + 25;
 							int SpawnY = (top * 16) + 35;
 
-							Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY), new Vector2(0, -1),
-							ModContent.ProjectileType<SpookySpiritSpawn>(), 0, 0);
+							if (Main.netMode != NetmodeID.MultiplayerClient)
+							{
+								Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY), new Vector2(0, -1), ModContent.ProjectileType<SpookySpiritSpawn>(), 0, 0);
+							}
 						}
 					}
 				}
@@ -175,8 +177,11 @@ namespace Spooky.Content.Items.BossSummon
 								int SpawnY = (top * 16) + 20;
 
 								//spawn a mist ghost ambush
-								Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY),
-								Vector2.Zero, ModContent.ProjectileType<MistGhostSpawn>(), 0, 0);
+								if (Main.netMode != NetmodeID.MultiplayerClient)
+								{
+									Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY), Vector2.Zero, ModContent.ProjectileType<MistGhostSpawn>(), 0, 0);
+								}
+								
 								return;
 							}
 						}

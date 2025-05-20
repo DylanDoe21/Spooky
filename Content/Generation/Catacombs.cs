@@ -722,14 +722,6 @@ namespace Spooky.Content.Generation
                                 {
                                     WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Chain);
                                 }
-                                //place cobwebs randomly around the chain
-                                else
-                                {
-                                    if (WorldGen.genRand.NextBool(3))
-                                    {
-                                        WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Cobweb);
-                                    }
-                                }
                             }
                         }
                     }
@@ -790,14 +782,6 @@ namespace Spooky.Content.Generation
                         if (tunnelX == XMiddle - 1)
                         {
                             WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Chain);
-                        }
-                        //place cobwebs randomly around the chain
-                        else
-                        {
-                            if (WorldGen.genRand.NextBool(3))
-                            {
-                                WorldGen.PlaceTile(tunnelX, tunnelY, TileID.Cobweb);
-                            }
                         }
                     }
                 }
@@ -864,6 +848,11 @@ namespace Spooky.Content.Generation
                     //catacomb vines and weeds
                     if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>() || tile.TileType == ModContent.TileType<CatacombBrick2GrassArena>())
                     {
+                        if (WorldGen.genRand.NextBool(5) && !tileAbove.HasTile)
+                        {
+                            GrowGiantFlower(X, Y, ModContent.TileType<BigFlower>());
+                        }
+
                         if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
                         {
                             WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines>());
@@ -965,7 +954,7 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
-				if (WorldGen.InWorld(chest.x, chest.y))
+				if (WorldGen.InWorld(chest.x, chest.y, 20))
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];
 

@@ -226,9 +226,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 				xOff = 0;
 			}
 
-			int frameSize = 16;
-			int frameSizeY = 16;
-
 			Vector2 pos = TileGlobal.TileCustomPosition(i, j);
 
 			if (Framing.GetTileSafely(i, j).TileFrameX == 18)
@@ -252,16 +249,14 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 				DrawBranch(i - 1, j - 1, BranchRightTexture.Value, new Rectangle(0, 18 * frame, 16, 16), TileGlobal.TileOffset, offset);
 			}
 
-			Vector2 treeNormalOffset = new Vector2(0, -6);
-
             //draw extra tile below so it looks attached to the ground
             if (Main.tile[i, j + 1].TileType != Type)
             {
-                spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), col, 0f, treeNormalOffset, 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), col, 0f, new Vector2(0, -6), 1f, SpriteEffects.None, 0f);
             }
 
 			//draw the actual tree
-			spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			return false;
 		}

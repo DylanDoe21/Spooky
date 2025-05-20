@@ -5,6 +5,7 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Vegetable;
 using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 
 namespace Spooky.Content.Items.Minibiomes.Armor
@@ -50,14 +51,13 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 		{
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
-            .AddTile(TileID.WorkBenches)
+			.AddIngredient(ItemID.HallowedBar, 12)
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 40)
+            .AddTile(TileID.MythrilAnvil)
             .Register();
         }
-		*/
 	}
 }

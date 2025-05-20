@@ -92,20 +92,5 @@ namespace Spooky.Content.Projectiles.Blooms
 			Projectile.Center = Parent.Center + new Vector2(PosX, PosY).RotatedBy(Parent.rotation);
             Projectile.gfxOffY = Parent.gfxOffY;
 		}
-
-		/*
-        public override void OnKill(int timeLeft)
-		{
-            SoundEngine.PlaySound(SoundID.NPCHit2, Projectile.Center);
-
-            for (int numGores = 1; numGores <= 2; numGores++)
-            {
-                if (Main.netMode != NetmodeID.Server) 
-                {
-                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.Find<ModGore>("Spooky/SentientSkullGore" + numGores).Type);
-                }
-            }
-        }
-		*/
     }
 }

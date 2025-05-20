@@ -18,7 +18,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 			Main.tileCut[Type] = true;
 			Main.tileSolid[Type] = false;
 			Main.tileBlockLight[Type] = false;
-			Main.tileLighted[Type] = true;
 			TileID.Sets.IsVine[Type] = true;
             TileID.Sets.VineThreads[Type] = true;
 			TileID.Sets.MultiTileSway[Type] = true;
@@ -37,13 +36,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
 			return false;
 		}
-
-		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
-		{
-			r = 0.35f;
-			g = 0.25f;
-			b = 0f;
-        }
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {

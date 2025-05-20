@@ -47,7 +47,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
         public override void FindFrame(int frameHeight)
 		{
 			NPC.frameCounter++;
-            if (NPC.frameCounter > 3)
+            if (NPC.frameCounter > 1)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0;

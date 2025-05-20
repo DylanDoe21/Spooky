@@ -26,11 +26,6 @@ namespace Spooky.Content.Generation
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
-			/*
-			int SizeXInt = Main.maxTilesX < 6400 ? 56 : 66;
-			int SizeYInt = Main.maxTilesY < 1800 ? 40 : 50;
-			*/
-
 			int SizeXInt = Main.maxTilesX < 6400 ? 40 : 50;
 			int SizeYInt = Main.maxTilesY < 1800 ? 30 : 40;
 			int SizeX = Main.maxTilesX / SizeXInt;
@@ -434,19 +429,12 @@ namespace Spooky.Content.Generation
 		{
 			int numJungleTiles = 0;
 
-			for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+			for (int i = PositionX - SizeX * 2; i < PositionX + SizeX * 2; i += 10)
 			{
-				for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j += 10)
 				{
-					int[] ValidTiles = { TileID.JungleGrass, TileID.Mud, TileID.LivingMahogany, TileID.LivingMahoganyLeaves, TileID.Granite, TileID.Marble };
-
-					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && ValidTiles.Contains(Main.tile[i, j].TileType))
-					{
-						numJungleTiles++;
-					}
-
-					int[] InvalidTiles = { TileID.LihzahrdBrick, TileID.Hive, TileID.Dirt, ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick2>(),
-					ModContent.TileType<JungleSoilGrass>(), ModContent.TileType<JungleSoil>(), ModContent.TileType<JungleMoss>() };
+					int[] InvalidTiles = { ModContent.TileType<JungleSoilGrass>(), ModContent.TileType<JungleSoil>(),
+					ModContent.TileType<JungleMoss>() };
 
 					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType))
 					{
@@ -455,7 +443,27 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			int AmountOfTilesNeeded = (SizeX * SizeY) / 4;
+			for (int i = PositionX - SizeX; i < PositionX + SizeX; i += 2)
+			{
+				for (int j = PositionY - SizeY; j < PositionY + SizeY; j += 2)
+				{
+					int[] ValidTiles = { TileID.JungleGrass, TileID.Mud, TileID.LivingMahogany, TileID.LivingMahoganyLeaves, TileID.Granite, TileID.Marble };
+
+					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && ValidTiles.Contains(Main.tile[i, j].TileType))
+					{
+						numJungleTiles++;
+					}
+
+					int[] InvalidTiles = { TileID.LihzahrdBrick, TileID.Hive, TileID.Dirt, ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick2>() };
+
+					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType))
+					{
+						return false;
+					}
+				}
+			}
+
+			int AmountOfTilesNeeded = (SizeX * SizeY) / 8;
 
 			if (numJungleTiles > AmountOfTilesNeeded)
 			{

@@ -62,23 +62,28 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
             if (NPC.ai[0] == 1)
             {
                 //spawn message
-                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.DaffodilSpawn");
-
                 if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
                 {
+                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.DaffodilSpawn");
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        Main.NewText(text, 171, 64, 255);
+                    }
+                    else if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
+
                     if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ModPacket packet = Mod.GetPacket();
                         packet.Write((byte)SpookyMessageType.SpawnDaffodilEye);
                         packet.Send();
-
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
                     else
                     {
                         NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + 30, ModContent.NPCType<DaffodilEye>(), ai0: Main.rand.NextBool(20) && Flags.downedDaffodil ? -4 : -1, ai1: NPC.whoAmI);
-
-                        Main.NewText(text, 171, 64, 255);
                     }
                 }
 

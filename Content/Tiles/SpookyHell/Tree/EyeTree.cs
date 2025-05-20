@@ -277,6 +277,12 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 				DrawTreeTop(i - 1, j - 1, TopTexture.Value, new Rectangle(260 * frame, 0, 258, 106), TileGlobal.TileOffset, offset, false);
             }
 
+            //draw extra tile below so it looks attached to the ground
+            if (Main.tile[i, j + 1].TileType != Type)
+            {
+                spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), col, 0f, new Vector2(0, -6), 1f, SpriteEffects.None, 0f);
+            }
+
             //draw the actual tree
             spriteBatch.Draw(StemTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 

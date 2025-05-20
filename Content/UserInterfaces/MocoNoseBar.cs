@@ -25,7 +25,7 @@ namespace Spooky.Content.UserInterfaces
 				BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBar", AssetRequestMode.ImmediateLoad);
 				BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBarFill", AssetRequestMode.ImmediateLoad);
 
-				Vector2 UIBoxScale = Vector2.One * 1.2f * Main.UIScale;
+				Vector2 UIBoxScale = (Vector2.One * 0.9f) * Main.UIScale;
 
 				//UI dragging 
 				MouseState mouse = Mouse.GetState();
