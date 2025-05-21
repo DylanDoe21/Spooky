@@ -222,7 +222,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 					}
 				}
 
-				Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 12;
+				Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 11;
 				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 
 				if (Projectile.ai[2] == 1)

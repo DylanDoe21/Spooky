@@ -91,7 +91,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 
 			double Velocity = Math.Atan2(target.position.Y - Projectile.position.Y, target.position.X - Projectile.position.X);
-			Vector2 actualSpeed = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 16;
+			Vector2 actualSpeed = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 14;
 
 			Projectile.velocity = actualSpeed;
 

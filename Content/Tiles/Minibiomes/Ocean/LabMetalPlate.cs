@@ -22,9 +22,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
             HitSound = SoundID.Item52;
 		}
 
+        /*
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
             frameXOffset = i % 3 * 234;
         }
+        */
     }
 }

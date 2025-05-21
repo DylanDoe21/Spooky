@@ -238,7 +238,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_Death(), Position, speed, 
-                    ModContent.ProjectileType<MassiveFlameBallBolt>(), Projectile.damage, 0f, Main.myPlayer, 0, 0);
+                    ModContent.ProjectileType<MassiveFlameBallBolt>(), Projectile.damage / 2, 0f, Main.myPlayer);
                 }
             }
 

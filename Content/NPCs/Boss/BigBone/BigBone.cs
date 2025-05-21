@@ -900,16 +900,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     break;
                 }
 
-                //shoot out eye flowers at the player
+                //shoot out seeking thorns at the player
                 case 1:
                 {
                     NPC.localAI[0]++;
 
                     GoAboveFlowerPot(420);
 
-					int repeats = Phase2 ? 10 : 6;
+					int repeats = Phase2 ? 8 : 5;
 
-					if (NPC.localAI[1] < repeats)
+					if (NPC.localAI[1] <= repeats)
 					{
 						if (NPC.localAI[0] == 60)
 						{

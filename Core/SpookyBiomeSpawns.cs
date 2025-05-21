@@ -547,8 +547,8 @@ namespace Spooky.Core
 
 				if (spawnInfo.Water)
 				{
-					pool.Add(ModContent.NPCType<Tarblimp>(), 3);
-					pool.Add(ModContent.NPCType<Tarrar>(), 3);
+					pool.Add(ModContent.NPCType<Tarblimp>(), 5);
+					pool.Add(ModContent.NPCType<Tarrar>(), 5);
 				}
 				else
 				{

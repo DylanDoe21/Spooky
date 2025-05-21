@@ -159,9 +159,8 @@ Boss Changes:
 -Orro-boro's floating arrow telegraphs have been removed, and its attacks that used these have been tweaked so that orro & boro are almost never actually off-screen to make their attacks easier to understand
 -Orro-boro's segments now have massively improved following/turning, the segments now move more naturally and look much better when orro-boro makes sharp turns
 -All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
--Big bone's fight has received many changes, some of his attacks have been replaced with entirely new ones and some have been visually improved, as well as a new resprite for big bone
--Big bone will now pulse with heat and gains a steam effect above his head in phase 2 to show him getting warmer
--Big bone's death animation now ends with him exploding, turning black, and poofing into ash like a cartoon
+-Big bone's entire fight has been revamped, with new attacks that are more fun, more thematically fitting, and have more personality
+-Big bone's phase 2 transition with the solar flowers you had to kill has been removed entirely due to it just unnecessarily extending the fight
 
 Enemy Changes:
 -Observing orchids will now only chase you if they have light of sight to you
