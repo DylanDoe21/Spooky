@@ -79,7 +79,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
                     if (NPC.ai[1] >= 15)
                     {
-                        int EggPlant = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y - 35, ModContent.NPCType<EggplantBase>());
+                        int EggPlant = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y - 3, ModContent.NPCType<EggplantBase>());
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {   

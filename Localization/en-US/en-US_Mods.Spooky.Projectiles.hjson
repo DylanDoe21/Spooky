@@ -431,7 +431,7 @@ LivingFleshAxeProj.DisplayName: Living Flesh Mincer
 JungleCabbageBoulderProj.DisplayName: Cabbage Boulder
 RottenOoze.DisplayName: Ooze
 TarBubble.DisplayName: Tar Bubble
-CornKernal.DisplayName: Corn Kernal
+CornKernel.DisplayName: Corn Kernel
 CornPopped.DisplayName: Popcorn
 HydroraptorSpit.DisplayName: Tar Spit
 DaffodilHairpinPetal.DisplayName: Flower Petal
@@ -469,10 +469,9 @@ CursedExplosionSmall.DisplayName: Cursed Inferno Explosion
 CursedExplosionBall.DisplayName: Cursed Fireball
 Celery.DisplayName: Celery
 PepperMinion.DisplayName: Jalapeno
-GhostPepperMinion.DisplayName: Ghost Pepper Minion
 GrowingBroccoli.DisplayName: Growing Broccoli
 CornSentry.DisplayName: Corn Sentry
-CornSentryEar.DisplayName: Corn Ear
+CornSentryKernel.DisplayName: Corn Kernel
 CornSentryPopcorn.DisplayName: Popcorn
 CarrotWandOoze.DisplayName: Ooze
 SharkArmorFriend.DisplayName: Shark Friend
@@ -520,3 +519,7 @@ ColumborangeStare.DisplayName: Columborange
 ColumboPetDisplay.DisplayName: Columbo Pet Display
 TarGunBlob.DisplayName: Tar Blob
 HazmatArmorMinion.DisplayName: Goo Friend
+GhostPepperMinionTier1.DisplayName: Ghost Pepper
+GhostPepperMinionTier2.DisplayName: Ghost Pepper
+GhostPepperMinionTier3.DisplayName: Ghost Pepper
+GhostPepperMinionTier4.DisplayName: Ghost Pepper

@@ -132,7 +132,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
 
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 12,
-				perturbedSpeed.X, Main.rand.Next(-10, -4), ModContent.ProjectileType<CornSentryEar>(), Projectile.damage, 0f, Main.myPlayer);
+				perturbedSpeed.X, Main.rand.Next(-6, 1), ModContent.ProjectileType<CornSentryKernel>(), Projectile.damage, 0f, Main.myPlayer);
 
                 Projectile.ai[0] = 0;
             }

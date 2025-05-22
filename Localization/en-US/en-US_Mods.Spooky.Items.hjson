@@ -1271,6 +1271,11 @@ ZomboidPyromancerHood: {
 	Tooltip: "'Legalize nuclear bombs!'"
 }
 
+BigBoneBobber: {
+	DisplayName: Big Bone Bobber
+	Tooltip: ""
+}
+
 BoogerFish: {
 	DisplayName: Schnoz Fish
 	Tooltip: "'Caught in Valley of Eyes'"
@@ -1289,6 +1294,11 @@ DumboOctopoid: {
 OrroEel: {
 	DisplayName: Orro Eel
 	Tooltip: "'Caught in Valley of Eyes'"
+}
+
+PumpkinBobber: {
+	DisplayName: Pumpkin Bobber
+	Tooltip: ""
 }
 
 GourdFish: {
@@ -1477,8 +1487,13 @@ EggplantWhip: {
 }
 
 GhostPepperStaff: {
-	DisplayName: Ghoul Pepper Scepter
-	Tooltip: Summons ghost pepper minions that will cloak to sneak up on enemies
+	DisplayName: Ghost Pepper Scepter
+	Tooltip:
+		'''
+		Summons a ghost pepper minion that will cloak to sneak up on enemies
+		The ghost pepper can be grown 3 times, each growth stage costing one extra minion slot
+		Growing it increases its movement speed and damage
+		'''
 }
 
 JalapenoStaff: {
@@ -4982,16 +4997,6 @@ Bestiary: {
 		Completes the bestiary
 		Testing Item
 		'''
-}
-
-BigBoneBobber: {
-	DisplayName: Big Bone Bobber
-	Tooltip: ""
-}
-
-PumpkinBobber: {
-	DisplayName: Pumpkin Bobber
-	Tooltip: ""
 }
 
 DownedReset: {

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles
 {
-    public class CornKernal : ModProjectile
+    public class CornKernel : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
 

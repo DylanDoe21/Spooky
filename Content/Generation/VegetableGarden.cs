@@ -196,12 +196,18 @@ namespace Spooky.Content.Generation
 				}
 			}
 
+			for (int i = PositionX - SizeX - 25; i < PositionX + SizeX + 25; i++)
+			{
+				for (int j = PositionY - SizeY - 25; j < PositionY + SizeY + 25; j++)
+				{
+					Main.tile[i, j].LiquidAmount = 0;
+				}
+			}
+
 			for (int i = PositionX - SizeX * 2; i < PositionX + SizeX * 2; i++)
 			{
 				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j++)
 				{
-					Main.tile[i, j].LiquidAmount = 0;
-
 					Tile tile = Main.tile[i, j];
 					Tile tileAbove = Main.tile[i, j - 1];
 					Tile tileBelow1 = Main.tile[i, j + 1];

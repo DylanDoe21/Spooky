@@ -1307,22 +1307,22 @@ namespace Spooky.Core
 					return;
 				}
 
-                //spooky forest catches
                 if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
                 {
                     //quest fishes
                     if (attempt.questFish == ModContent.ItemType<GourdFish>() && attempt.uncommon)
 					{
                         itemDrop = ModContent.ItemType<GourdFish>();
-
-						return;
                     }
                     if (attempt.questFish == ModContent.ItemType<ZomboidFish>() && attempt.uncommon)
 					{
                         itemDrop = ModContent.ItemType<ZomboidFish>();
-
-						return;
                     }
+
+					if (Main.rand.NextBool(3) && attempt.common)
+					{
+						itemDrop = ModContent.ItemType<DumboOctopoid>();
+					}
 
 					//crate
 					if (attempt.uncommon && attempt.crate)
@@ -1360,7 +1360,29 @@ namespace Spooky.Core
                         itemDrop = Main.hardMode ? ModContent.ItemType<CatacombCrate2>() : ModContent.ItemType<CatacombCrate>();
                     }
                 }
-            }
+
+				if (Player.InModBiome<TarPitsBiome>())
+				{
+					//quest fishes
+					if (attempt.questFish == ModContent.ItemType<Tarpon>() && attempt.uncommon)
+					{
+						itemDrop = ModContent.ItemType<Tarpon>();
+					}
+
+					if (Main.rand.NextBool(3) && attempt.common)
+					{
+						itemDrop = ModContent.ItemType<TarGar>();
+					}
+				}
+
+				if (Player.InModBiome<VegetableBiome>())
+				{
+					if (Main.rand.NextBool(7) && attempt.common)
+					{
+						itemDrop = ModContent.ItemType<CarrotFish>();
+					}
+				}
+			}
 
             //alternate blood moon enemy catches
             if (Player.InModBiome<SpookyHellBiome>())	

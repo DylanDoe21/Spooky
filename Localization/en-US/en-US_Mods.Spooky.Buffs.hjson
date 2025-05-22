@@ -569,3 +569,8 @@ ColumboPetCombinedBuff: {
 	DisplayName: Columbo Family
 	Description: The ancient powerful family travels with you
 }
+
+GhostPepperMinionBuff: {
+	DisplayName: Ghost Pepper
+	Description: The ghost pepper protects you
+}

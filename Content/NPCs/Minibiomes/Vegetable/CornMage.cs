@@ -123,7 +123,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
                     ShootSpeed.X *= Main.rand.Next(-8, 9);
                     ShootSpeed.Y *= Main.rand.Next(3, 7);
 
-                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<CornKernal>(), NPC.damage, 4.5f);
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<CornKernel>(), NPC.damage, 4.5f);
                 }
             }
 
@@ -136,7 +136,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PlantMulch>(), 3, 1, 4));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CornStaff>(), 30));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CornStaff>(), 15));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
