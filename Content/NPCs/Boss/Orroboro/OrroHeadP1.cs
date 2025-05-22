@@ -21,6 +21,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         private bool segmentsSpawned;
         public bool Chomp = false;
         public bool OpenMouth = false;
+        public bool DefaultRotation = true;
 
         Vector2 SaveNPCPosition;
         Vector2 SavePlayerPosition;
@@ -62,6 +63,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //bools
             writer.Write(Chomp);
             writer.Write(OpenMouth);
+            writer.Write(DefaultRotation);
             writer.Write(segmentsSpawned);
 
             //floats
@@ -80,6 +82,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             //bools
             Chomp = reader.ReadBoolean();
             OpenMouth = reader.ReadBoolean();
+            DefaultRotation = reader.ReadBoolean();
             segmentsSpawned = reader.ReadBoolean();
 
             //floats
@@ -155,7 +158,19 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
+            if (DefaultRotation)
+            {
+                NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
+            }
+            else
+            {
+                Vector2 RotateTowards = player.Center - NPC.Center;
+
+                float RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + 1.57f;
+                float RotateSpeed = 0.1f;
+
+                NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
+            }
 
             //Create the worm itself
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -348,6 +363,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             ChargeDirection.X *= 28;
                             ChargeDirection.Y *= 20;
                             NPC.velocity = ChargeDirection;
+
+                            NPC.netUpdate = true;
                         }
 
                         //slow down after charging
@@ -429,6 +446,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     if (NPC.localAI[0] > 60 && NPC.localAI[0] <= 90)
                     {
+                        DefaultRotation = false;
+
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
 						NPC.Center += Main.rand.NextVector2Square(-10, 10);
                     }
@@ -436,12 +455,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     //charge
                     if (NPC.localAI[0] == 90)
                     {
+                        DefaultRotation = true;
+
                         SoundEngine.PlaySound(HissSound2, NPC.Center);
 
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize();
                         ChargeDirection *= 40;
                         NPC.velocity = ChargeDirection;
+
+                        NPC.netUpdate = true;
                     }
 
                     //turn around after passing the player
@@ -528,6 +551,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                                 NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + NPC.velocity.X * 0.5f, NPC.Center.Y + NPC.velocity.Y * 0.5f), 
                                 ShootSpeed, ModContent.ProjectileType<EyeSpit>(), NPC.damage, 4.5f);
                             }
+
+                            NPC.netUpdate = true;
                         }
 
                         if (NPC.localAI[0] >= 130)
@@ -591,6 +616,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     if (NPC.localAI[0] > 90 && NPC.localAI[0] <= 110)
                     {
+                        DefaultRotation = false;
+
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
 						NPC.Center += Main.rand.NextVector2Square(-10, 10);
                     }
@@ -598,6 +625,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     //charge horizontally toward the player, but not vertically
                     if (NPC.localAI[0] == 110)
                     {
+                        DefaultRotation = true;
+
                         SoundEngine.PlaySound(HissSound1, NPC.position);
 
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
@@ -607,6 +636,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                         ChargeDirection.Y *= 0;  
                         NPC.velocity.X = ChargeDirection.X;
                         NPC.velocity.Y = ChargeDirection.Y;
+
+                        NPC.netUpdate = true;
                     }
 
                     //spin around after horizontally passing the player

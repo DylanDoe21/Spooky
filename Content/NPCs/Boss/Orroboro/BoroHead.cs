@@ -28,6 +28,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     public class BoroHead : ModNPC
     {
         private bool segmentsSpawned;
+        public bool DefaultRotation = true;
 
         Vector2 SaveNPCPosition;
         Vector2 SavePlayerPosition;
@@ -74,6 +75,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             writer.WriteVector2(SavePlayerPosition);
 
             //bools
+            writer.Write(DefaultRotation);
             writer.Write(segmentsSpawned);
 
             //floats
@@ -90,6 +92,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             SavePlayerPosition = reader.ReadVector2();
 
             //bools
+            DefaultRotation = reader.ReadBoolean();
             segmentsSpawned = reader.ReadBoolean();
 
             //floats
@@ -183,7 +186,19 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-            NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
+            if (DefaultRotation)
+            {
+                NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
+            }
+            else
+            {
+                Vector2 RotateTowards = player.Center - NPC.Center;
+
+                float RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + 1.57f;
+                float RotateSpeed = 0.1f;
+
+                NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
+            }
 
             NPC.localAI[3] = !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) ? 1 : 0;
             bool Enraged = NPC.localAI[3] > 0;
@@ -282,12 +297,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if (NPC.localAI[0] > chargeTime - 20 && NPC.localAI[0] < chargeTime)
                         {
+                            DefaultRotation = false;
+
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-10, 10);
                         }
 
                         if (NPC.localAI[0] == chargeTime)
                         {
+                            DefaultRotation = true;
+
                             SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
@@ -425,12 +444,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     if (NPC.localAI[0] > 80 && NPC.localAI[0] < 110)
                     {
+                        DefaultRotation = false;
+
                         NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                         NPC.Center += Main.rand.NextVector2Square(-10, 10);
                     }
 
                     if (NPC.localAI[0] == 110)
                     {
+                        DefaultRotation = true;
+
                         SoundEngine.PlaySound(HissSound1, NPC.Center);
 
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
@@ -600,12 +623,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                         if ((NPC.localAI[0] > time1 - 10 && NPC.localAI[0] < time1 + 15) || (NPC.localAI[0] > time2 - 10 && NPC.localAI[0] < time2 + 15) || (NPC.localAI[0] > time3 - 10 && NPC.localAI[0] < time3 + 15))
                         {
+                            DefaultRotation = false;
+
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-10, 10);
                         }
 
                         if (NPC.localAI[0] == time1 + 15 || NPC.localAI[0] == time2 + 15 || NPC.localAI[0] == time3 + 15)
                         {
+                            DefaultRotation = true;
+
                             SoundEngine.PlaySound(LickSound, NPC.Center);
 
                             Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;

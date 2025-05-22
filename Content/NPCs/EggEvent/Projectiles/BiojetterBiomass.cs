@@ -16,7 +16,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class BiojetterBiomass : ModProjectile
     {
-        public override string Texture => "Spooky/Content/NPCs/EggEvent/Projectiles/GiantBiomassRed";
+        public override string Texture => "Spooky/Content/NPCs/EggEvent/GiantBiomassRed";
 
         private static Asset<Texture2D> AuraTexture;
 
@@ -165,6 +165,17 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-7, 8), Main.rand.Next(-7, 8), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                }
+            }
+
+            for (int repeats = 0; repeats <= 1; repeats++)
+            {
+                for (int numGores = 1; numGores <= 4; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(-8, 9)), ModContent.Find<ModGore>("Spooky/BloodyBiomassGore" + numGores).Type);
+                    }
                 }
             }
 

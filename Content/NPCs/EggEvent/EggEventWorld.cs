@@ -99,13 +99,18 @@ namespace Spooky.Content.NPCs.EggEvent
 					//0 = GooSlug
 					//1 = CruxBat
 					//2 = Biojetter
-					int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
-					Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassPurple>(), 0, 0, player.whoAmI, 0, 0, Type);
-					Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
-
-					if (Main.netMode == NetmodeID.Server)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
+						int Biomass = NPC.NewNPC(null, (int)(player.Center.X + Main.rand.Next(-600, 600)), 
+						(int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)), ModContent.NPCType<GiantBiomassPurple>(), ai2: Type);
+						Main.npc[Biomass].velocity = new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f));
+						Main.npc[Biomass].alpha = 255;
+						Main.npc[Biomass].netUpdate = true;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: Biomass);
+						}
 					}
 
 					break;
@@ -119,13 +124,18 @@ namespace Spooky.Content.NPCs.EggEvent
 					//2 = ExplodingAppendix
 					//3 = CoughLungs
 					//4 = HoverBrain
-					int Spawner = Projectile.NewProjectile(player.GetSource_ReleaseEntity(), (int)(player.Center.X + Main.rand.Next(-900, 900)), (int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)),
-					Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f), ModContent.ProjectileType<GiantBiomassRed>(), 0, 0, player.whoAmI, 0, 0, Type);
-					Main.projectile[Spawner].rotation += Main.rand.NextFloat(0f, 360f);
-
-					if (Main.netMode == NetmodeID.Server)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						NetMessage.SendData(MessageID.SyncProjectile, number: Spawner);
+						int Biomass = NPC.NewNPC(null, (int)(player.Center.X + Main.rand.Next(-600, 600)), 
+						(int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)), ModContent.NPCType<GiantBiomassRed>(), ai2: Type);
+						Main.npc[Biomass].velocity = new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f));
+						Main.npc[Biomass].alpha = 255;
+						Main.npc[Biomass].netUpdate = true;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: Biomass);
+						}
 					}
 
 					break;

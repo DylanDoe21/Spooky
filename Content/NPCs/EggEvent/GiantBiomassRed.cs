@@ -12,7 +12,7 @@ using Spooky.Content.NPCs.EggEvent.Projectiles;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
-    public class GiantBiomassPurple : ModNPC
+    public class GiantBiomassRed : ModNPC
     {
 		int ScaleTimerLimit = 10;
 		float RotateSpeed = 0.2f;
@@ -85,7 +85,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			}
 
 			NPC.ai[0]++;
-
 			if (NPC.ai[0] == 90 || NPC.ai[0] == 110 || NPC.ai[0] == 130)
 			{
 				ScaleAmount += 0.025f;
@@ -119,7 +118,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			{
 				OnKill();
 				NPC.active = false;
-				//NPC.netUpdate = true;
 			}
 		}
 
@@ -152,7 +150,7 @@ namespace Spooky.Content.NPCs.EggEvent
 			//spawn blood explosion clouds
 			for (int numExplosion = 0; numExplosion < 8; numExplosion++)
 			{
-				int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Purple * 0.65f, Main.rand.NextFloat(1f, 1.2f));
+				int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Red * 0.65f, Main.rand.NextFloat(1f, 1.2f));
 				Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-3f, 3f);
 				Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(-3f, 0f);
 				Main.dust[DustGore].noGravity = true;
@@ -185,19 +183,37 @@ namespace Spooky.Content.NPCs.EggEvent
 			{
 				case 0:
 				{
-					SpawnNPC(ModContent.NPCType<GooSlug>());
+					SpawnNPC(ModContent.NPCType<HoppingHeart>());
 					break;
 				}
 
 				case 1:
 				{
-					SpawnNPC(ModContent.NPCType<CruxBat>());
+					SpawnNPC(ModContent.NPCType<TongueBiter>());
 					break;
 				}
 
 				case 2:
 				{
-					SpawnNPC(ModContent.NPCType<Biojetter>());
+					SpawnNPC(ModContent.NPCType<ExplodingAppendix>());
+					break;
+				}
+
+				case 3:
+				{
+					SpawnNPC(ModContent.NPCType<CoughLungs>());
+					break;
+				}
+
+				case 4:
+				{
+					SpawnNPC(ModContent.NPCType<HoverBrain>());
+					break;
+				}
+
+				case 5:
+				{
+					SpawnNPC(ModContent.NPCType<FleshBolster>());
 					break;
 				}
 			}

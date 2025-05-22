@@ -211,6 +211,8 @@ HoppingHeart.DisplayName: Hopping Heart
 HoverBrain.DisplayName: Hovering Brain
 TongueBiter.DisplayName: Tongue Biter
 OrroboroEgg.DisplayName: ""
+GiantBiomassPurple.DisplayName: ""
+GiantBiomassRed.DisplayName: ""
 //friendly
 DumbZomboid.DisplayName: Dumb Zomboid
 GiantWebAnimationBase.DisplayName: ""
