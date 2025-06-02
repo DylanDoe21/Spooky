@@ -1,4 +1,4 @@
-BiomassExplosion: was exploded by Biomatter.
-VesicatorExplosion: was exploded by Vesicator.
-BubbleExplosion: was exploded by Blood Bubble.
-GodGunExplode: used the Holy Fire for too long.
+BiomassExplosion: "{0} was exploded by Biomatter."
+VesicatorExplosion: "{0} was exploded by Vesicator."
+BubbleExplosion: "{0} was exploded by Blood Bubble."
+GodGunExplode: "{0} used the Holy Fire for too long."

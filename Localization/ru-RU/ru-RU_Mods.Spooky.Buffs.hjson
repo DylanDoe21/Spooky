@@ -112,7 +112,7 @@ FlyCooldown: {
 }
 
 GourdDecay: {
-	DisplayName: Гниение
+	DisplayName: Разложение
 	Description: ""
 }
 

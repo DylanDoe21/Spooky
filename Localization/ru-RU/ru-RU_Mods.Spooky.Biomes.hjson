@@ -19,13 +19,13 @@ RaveyardBiome: {
 }
 
 CatacombBiome: {
-	DisplayName: Мрачные катакомбы
-	TownNPCDialogueName: Мрачные катакомбы
+	DisplayName: Жуткие катакомбы
+	TownNPCDialogueName: Жуткие катакомбы
 }
 
 CatacombBiome2: {
-	DisplayName: Мрачнейшие катакомбы
-	TownNPCDialogueName: Мрачнейшие катакомбы
+	DisplayName: Низшие катакомбы
+	TownNPCDialogueName: Низшие катакомбы
 }
 
 NoseTempleBiome: {
@@ -55,7 +55,7 @@ SpookyHellLake: {
 
 SpiderCaveBiome: {
 	DisplayName: Паучий грот
-	TownNPCDialogueName: паучий грот
+	TownNPCDialogueName: Паучий грот
 }
 
 HallucinationZone: {
