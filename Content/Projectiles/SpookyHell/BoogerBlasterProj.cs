@@ -73,15 +73,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
+            player.itemRotation = Projectile.rotation;
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
+
 			if (player.channel && Projectile.ai[2] == 0) 
             {
                 Projectile.timeLeft = 30;
-
-                player.itemRotation = Projectile.rotation;
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-
-				Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 5 - Projectile.height / 2);
-				player.velocity.X *= 0.99f;
 
                 Projectile.localAI[0]++;
 

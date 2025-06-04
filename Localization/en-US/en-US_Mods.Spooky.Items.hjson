@@ -152,7 +152,7 @@ FallZucchini: {
 	Tooltip:
 		'''
 		Occasionally zap nearby enemies with zucchini electricity for a few seconds
-		Electricity will deal 8% of the targeted enemies maximum health as damage
+		Electricity damage scales based on the enemies damage
 		2 minute duration
 		'''
 }
@@ -516,7 +516,7 @@ CranberryJelly: {
 	Tooltip:
 		'''
 		Will be consumed automatically if you fall below half health
-		Has less potion sickness duration than regular healing potions
+		Has half the sickness duration than regular healing potions
 		'''
 }
 
@@ -525,7 +525,7 @@ CranberryJuice: {
 	Tooltip:
 		'''
 		Will be consumed automatically if you fall below half health
-		Has less potion sickness duration than regular healing potions
+		Has half the sickness duration than regular healing potions
 		'''
 }
 
@@ -1421,17 +1421,17 @@ BroccoliLegs: {
 
 HazmatBody: {
 	DisplayName: Hazmat Suit
-	Tooltip: ""
+	Tooltip: 10% increased summon damage
 }
 
 HazmatHead: {
 	DisplayName: Hazmat Mask
-	Tooltip: ""
+	Tooltip: 5% increased minion critical strike chance
 }
 
 HazmatLegs: {
 	DisplayName: Hazmat Pants
-	Tooltip: ""
+	Tooltip: Increases your max minions by 2
 }
 
 SharkBoneBody: {
@@ -1464,6 +1464,86 @@ SharkBoneLegs: {
 TarGun: {
 	DisplayName: HAK-2r
 	Tooltip: Converts bullets into tar spit blobs
+}
+
+BoomerangFish: {
+	DisplayName: Boomerang Fish
+	Tooltip: Throw returning boomerang fish
+}
+
+BoomerangFishScale: {
+	DisplayName: Reinforced Boomerang Fish
+	Tooltip:
+		'''
+		Throw returning boomerang fish
+		Can cut through a few enemies before returning to you
+		'''
+}
+
+DavyJonesFridge: {
+	DisplayName: Davy Jones' Fridge
+	Tooltip: Rapidly casts out refridgerated ocean life
+}
+
+DavyJonesLocker: {
+	DisplayName: Davy Jones' Locker
+	Tooltip: Rapidly casts out skeletal fish from the depths
+}
+
+DunkleosteusCannon: {
+	DisplayName: The Dunker
+	Tooltip:
+		'''
+		Can use cannonballs as ammo if you have any on you
+		If you have cannonballs it will shoot them
+		If you don't it will fire out short range bubbles instead
+		'''
+}
+
+MineDynamite: {
+	DisplayName: Box of Dynamites
+	Tooltip:
+		'''
+		A box of old dynamite sticks
+		Component used to make a bomb
+		'''
+}
+
+MineMetalPlates: {
+	DisplayName: Metal Plates
+	Tooltip:
+		'''
+		Very sturdy, but flexible
+		Component used to make a bomb
+		'''
+}
+
+MinePressureSensor: {
+	DisplayName: Pressure Sensors
+	Tooltip:
+		'''
+		Capable of sensing any change in pressure
+		Component used to make a bomb
+		'''
+}
+
+MineTimer: {
+	DisplayName: Mechanical Timer
+	Tooltip:
+		'''
+		A timer that sends a singal when complete
+		Component used to make a bomb
+		'''
+}
+
+SharkboneCannon: {
+	DisplayName: Sharkbone Hand Cannon
+	Tooltip:
+		'''
+		Can use bones as ammo if you have any on you
+		If you have bones the cannon will fire out spreads bone shrapnel
+		If you don't the cannon will fire out short range bubbles instead
+		'''
 }
 
 CarrotWand: {
@@ -3006,6 +3086,7 @@ NerveWhip: {
 	DisplayName: Exposed Nerve
 	Tooltip:
 		'''
+		5 summon tag damage
 		Your summons will focus struck enemies
 		Deals more damage the more enemies it hits, caps after 5 enemies are hit
 		'''
@@ -3464,6 +3545,11 @@ SlendrinaPaintingItem: {
 	Tooltip: "'Kekroc'"
 }
 
+SlendrinaSonPaintingItem: {
+	DisplayName: Slendrina's Child
+	Tooltip: "'Astrobit'"
+}
+
 ChristmasBrickRedItem: {
 	DisplayName: Red Yuletide Brick
 	Tooltip: ""
@@ -3619,8 +3705,8 @@ OceanBiomassItem: {
 	Tooltip: ""
 }
 
-OceanMeatItem: {
-	DisplayName: Rotten Meat Block
+OceanRockItem: {
+	DisplayName: Marine Rock
 	Tooltip: ""
 }
 

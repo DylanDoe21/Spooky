@@ -85,7 +85,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             }
 
             //slam down
-            if (NPC.ai[0] > 60 && !hasCollidedWithFloor && IsColliding())
+            if (NPC.ai[0] > 60 && !hasCollidedWithFloor && NPCGlobalHelper.IsColliding(NPC))
             {
                 Screenshake.ShakeScreenWithIntensity(NPC.Center, 8f, 450f);
 
@@ -114,7 +114,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				{
 					NPC.ai[1]++;
 
-					if (NPC.ai[1] > 5 && IsColliding())
+					if (NPC.ai[1] > 5 && NPCGlobalHelper.IsColliding(NPC))
 					{
 						hasCollidedWithFloor = false;
 
@@ -124,51 +124,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 				}
             }
         }
-
-		public bool IsColliding()
-		{
-			int minTilePosX = (int)(NPC.position.X / 16) - 1;
-			int maxTilePosX = (int)((NPC.position.X + NPC.width) / 16) + 1;
-			int minTilePosY = (int)(NPC.position.Y / 16) - 1;
-			int maxTilePosY = (int)((NPC.position.Y + NPC.height) / 16) + 1;
-			if (minTilePosX < 0)
-			{
-				minTilePosX = 0;
-			}
-			if (maxTilePosX > Main.maxTilesX)
-			{
-				maxTilePosX = Main.maxTilesX;
-			}
-			if (minTilePosY < 0)
-			{
-				minTilePosY = 0;
-			}
-			if (maxTilePosY > Main.maxTilesY)
-			{
-				maxTilePosY = Main.maxTilesY;
-			}
-
-			for (int i = minTilePosX; i < maxTilePosX; ++i)
-			{
-				for (int j = minTilePosY; j < maxTilePosY; ++j)
-				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated &&
-					Main.tileSolid[(int)Main.tile[i, j].TileType] && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType])
-					{
-						Vector2 vector2;
-						vector2.X = (float)(i * 16);
-						vector2.Y = (float)(j * 16);
-						if (NPC.position.X + NPC.width > vector2.X && NPC.position.X < vector2.X + 16.0 &&
-						(NPC.position.Y + NPC.height > (double)vector2.Y && NPC.position.Y < vector2.Y + 16.0))
-						{
-							return true;
-						}
-					}
-				}
-			}
-
-			return false;
-		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {

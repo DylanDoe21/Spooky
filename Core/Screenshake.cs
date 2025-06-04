@@ -9,14 +9,13 @@ namespace Spooky.Core
 	public class Screenshake : ModSystem
 	{
 		public static Vector2 Position;
-
 		public static float ShakeIntensity = 0;
 		public static float AdditionalFalloff = 0;
 
+		//this is what should be called whenever screenshake needs to be created by setting the screen shake variables to whatever parameters are put in
 		public static void ShakeScreenWithIntensity(Vector2 SourcePosition, float ScreenShakeAmount, float FalloffDistance)
 		{
 			Position = SourcePosition;
-
 			ShakeIntensity = ScreenShakeAmount;
 			AdditionalFalloff = FalloffDistance;
 		}
@@ -48,7 +47,6 @@ namespace Spooky.Core
 			else
 			{
 				Position = Vector2.Zero;
-
 				ShakeIntensity = 0;
 				AdditionalFalloff = 0;
 			}

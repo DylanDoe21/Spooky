@@ -133,10 +133,19 @@ namespace Spooky.Core
 					modifiers.SetCrit();
 				}
 
+				foreach (Player player in Main.ActivePlayers)
+            	{
+					//hazmat helmet gives minions 5% chance to critically hit
+					if (player.GetModPlayer<SpookyPlayer>().HazmatSet && projectile.owner == player.whoAmI && Main.rand.NextBool(20))
+					{
+						modifiers.SetCrit();
+					}
+				}
+
 				//enemies inflicted with the pheromone stinger debuff take increased damage from all spider related minions
 				if (npc.HasBuff(ModContent.BuffType<PheromoneWhipDebuff>()))
 				{
-					int[] SpiderMinionProjectiles = { ProjectileID.SpiderHiver, ProjectileID.BabySpider, ProjectileID.VenomSpider, ProjectileID.JumperSpider, ProjectileID.DangerousSpider,
+					int[] SpiderMinionProjectiles = { ProjectileID.SpiderHiver, ProjectileID.SpiderEgg, ProjectileID.BabySpider, ProjectileID.VenomSpider, ProjectileID.JumperSpider, ProjectileID.DangerousSpider,
 					ModContent.ProjectileType<SpiderBabyGreen>(), ModContent.ProjectileType<SpiderBabyPurple>(), ModContent.ProjectileType<SpiderBabyRed>(),
 					ModContent.ProjectileType<OrbWeaverSentrySmallSpike>(), ModContent.ProjectileType<OrbWeaverSentryBigSpike>() };
 
@@ -163,6 +172,10 @@ namespace Spooky.Core
 				if (npc.HasBuff<SentientLeatherWhipDebuff>())
 				{
 					modifiers.FlatBonusDamage += SentientLeatherWhipDebuff.tagDamage;
+				}
+				if (npc.HasBuff<NerveWhipDebuff>())
+				{
+					modifiers.FlatBonusDamage += NerveWhipDebuff.tagDamage;
 				}
 			}
 
@@ -298,6 +311,52 @@ namespace Spooky.Core
 				int NewProj = Projectile.NewProjectile(npc.GetSource_FromAI(), position, velocity, projType, damage, knockback, Main.myPlayer, ai0, ai1, ai2);
 				Main.projectile[NewProj].frame = Frame;
 			}
+		}
+
+		//use for when npcs do special things when colliding with tiles but dont use tileCollide
+		//also useful for npcs that should only collide with solid tiles excluding platforms, planter boxes, ect
+		public static bool IsColliding(this Terraria.NPC npc)
+		{
+			int minTilePosX = (int)(npc.position.X / 16) - 1;
+			int maxTilePosX = (int)((npc.position.X + npc.width) / 16) + 1;
+			int minTilePosY = (int)(npc.position.Y / 16) - 1;
+			int maxTilePosY = (int)((npc.position.Y + npc.height) / 16) + 1;
+			if (minTilePosX < 0)
+			{
+				minTilePosX = 0;
+			}
+			if (maxTilePosX > Main.maxTilesX)
+			{
+				maxTilePosX = Main.maxTilesX;
+			}
+			if (minTilePosY < 0)
+			{
+				minTilePosY = 0;
+			}
+			if (maxTilePosY > Main.maxTilesY)
+			{
+				maxTilePosY = Main.maxTilesY;
+			}
+
+			for (int i = minTilePosX; i < maxTilePosX; ++i)
+			{
+				for (int j = minTilePosY; j < maxTilePosY; ++j)
+				{
+					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated &&
+					Main.tileSolid[(int)Main.tile[i, j].TileType] && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType])
+					{
+						Vector2 vector2;
+						vector2.X = (float)(i * 16);
+						vector2.Y = (float)(j * 16);
+						if (npc.position.X + npc.width > vector2.X && npc.position.X < vector2.X + 16.0 && (npc.position.Y + npc.height > (double)vector2.Y && npc.position.Y < vector2.Y + 16.0))
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
 		}
 
         //check for npcs that arent considered bosses internally or are segments/pieces of bosses

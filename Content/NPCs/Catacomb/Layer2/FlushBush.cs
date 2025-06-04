@@ -36,8 +36,8 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
             NPC.lifeMax = 140;
             NPC.damage = 40;
             NPC.defense = 10;
-            NPC.width = 80;
-            NPC.height = 72;
+            NPC.width = 42;
+            NPC.height = 54;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;

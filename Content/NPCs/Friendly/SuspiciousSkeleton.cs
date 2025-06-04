@@ -98,7 +98,7 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			if (firstButton) 
 			{
-				shop = ShopName;
+				shop = Language.GetTextValue("LegacyInterface.28");
 			}
 		}
 

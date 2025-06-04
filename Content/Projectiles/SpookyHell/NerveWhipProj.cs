@@ -6,10 +6,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.WhipDebuff;
+
 namespace Spooky.Content.Projectiles.SpookyHell
 {
 	public class NerveWhipProj : ModProjectile
 	{
+		int numHits = 0;
+
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults() 
@@ -25,17 +29,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Projectile.WhipSettings.RangeMultiplier = 1.5f;
 		}
 
-		int numHits = 0;
-
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
 			numHits++;
 
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+
+			target.AddBuff(ModContent.BuffType<NerveWhipDebuff>(), 240);
 			
 			if (numHits < 5)
 			{
-				Projectile.damage = (int)(damageDone * 1.1f);
+				Projectile.damage = (int)(damageDone * 1.2f);
 			}
 		}
 

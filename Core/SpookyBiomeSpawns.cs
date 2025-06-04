@@ -57,17 +57,17 @@ namespace Spooky.Core
 			}
 			else if (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && Flags.CatacombKey2)
 			{
-				spawnRate /= 3;
+				spawnRate /= 2;
 				maxSpawns *= 2;
 			}
 			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that a catacomb guardian spawns instantly
 			else if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
 			{
-				spawnRate /= 5;
+				spawnRate /= 10;
 			}
 			else if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
             {
-				spawnRate /= 3;
+				spawnRate /= 2;
 				maxSpawns *= 2;
 			}
 
@@ -598,6 +598,7 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<SkeletonSpearfish>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonBoomerang>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonSunfish>(), 1);
+					pool.Add(ModContent.NPCType<SkeletonPufferfish>(), 1);
 				}
 			}
 

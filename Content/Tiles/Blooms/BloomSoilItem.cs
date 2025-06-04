@@ -25,30 +25,29 @@ namespace Spooky.Content.Tiles.Blooms
 
         public override void AddRecipes()
         {
-            CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>())
-            .AddIngredient(ItemID.DirtBlock, 6)
-            .Register();
+            CreateRecipe(5)
+            .AddIngredient(ItemID.DirtBlock, 5)
+			.AddIngredient(ItemID.MudBlock, 5)
+			.AddIngredient(ItemID.JungleSpores, 1)
+			.Register();
 
-            CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>())
-            .AddIngredient(ItemID.MudBlock, 6)
-            .Register();
+            CreateRecipe(5)
+            .AddIngredient(ModContent.ItemType<CemeteryDirtItem>(), 5)
+			.AddIngredient(ItemID.MudBlock, 5)
+			.AddIngredient(ItemID.JungleSpores, 1)
+			.Register();
 
-            CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>())
-            .AddIngredient(ModContent.ItemType<CemeteryDirtItem>(), 6)
-            .Register();
+            CreateRecipe(5)
+            .AddIngredient(ModContent.ItemType<DampSoilItem>(), 5)
+			.AddIngredient(ItemID.MudBlock, 5)
+			.AddIngredient(ItemID.JungleSpores, 1)
+			.Register();
 
-            CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>())
-            .AddIngredient(ModContent.ItemType<DampSoilItem>(), 6)
-            .Register();
-
-            CreateRecipe(3)
-            .AddIngredient(ModContent.ItemType<RottenChunk>())
-            .AddIngredient(ModContent.ItemType<SpookyDirtItem>(), 6)
-            .Register();
+            CreateRecipe(5)
+            .AddIngredient(ModContent.ItemType<SpookyDirtItem>(), 5)
+			.AddIngredient(ItemID.MudBlock, 5)
+			.AddIngredient(ItemID.JungleSpores, 1)
+			.Register();
         }
     }
 }

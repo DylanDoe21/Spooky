@@ -67,7 +67,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
         {
             Player player = Main.player[NPC.target];
 
-            if (player.Distance(NPC.Center) <= 220f)
+            bool PlayerLineOfSight = Collision.CanHitLine(player.Center - new Vector2(10, 10), 20, 20, NPC.position, NPC.width, NPC.height);
+            if (player.Distance(NPC.Center) <= 220f && PlayerLineOfSight)
             {
                 NPC.frameCounter++;
                 if (NPC.frameCounter > 4)
@@ -130,8 +131,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 		{
 			Player player = Main.player[NPC.target];
 
-			if (player.Distance(NPC.Center) <= 220f)
-			{
+			bool PlayerLineOfSight = Collision.CanHitLine(player.Center - new Vector2(10, 10), 20, 20, NPC.position, NPC.width, NPC.height);
+            if (player.Distance(NPC.Center) <= 220f && PlayerLineOfSight)
+            {
 				boundingBox = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
 			}
 			else
@@ -159,7 +161,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable
 
 			addedStretch = -stretchRecoil;
 
-            if (player.Distance(NPC.Center) <= 220f)
+            bool PlayerLineOfSight = Collision.CanHitLine(player.Center - new Vector2(10, 10), 20, 20, NPC.position, NPC.width, NPC.height);
+            if (player.Distance(NPC.Center) <= 220f && PlayerLineOfSight)
             {
 				NPC.dontTakeDamage = false;
 

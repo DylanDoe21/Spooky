@@ -207,8 +207,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			Player player = Main.player[Parent.target];
 
 			NPC.spriteDirection = Parent.direction;
-
-			//kill the hand if the parent does not exist
 			if (!Parent.active || Parent.type != ModContent.NPCType<EarWormBase>())
 			{
 				NPC.active = false;

@@ -76,13 +76,13 @@ namespace Spooky.Content.NPCs.Friendly
 			button = Language.GetTextValue("LegacyInterface.28");
 		}
 
-        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-        {
-            if (firstButton)
-            {
-                shopName = Language.GetTextValue("LegacyInterface.28");
-				SoundEngine.PlaySound(SoundID.Item166, NPC.Center);
-            }
+		public override void OnChatButtonClicked(bool firstButton, ref string shop) 
+		{
+			if (firstButton) 
+			{
+				shop = Language.GetTextValue("LegacyInterface.28");
+                SoundEngine.PlaySound(SoundID.Item166, NPC.Center);
+			}
 		}
 
         public override string GetChat()

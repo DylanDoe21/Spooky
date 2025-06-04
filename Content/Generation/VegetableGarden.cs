@@ -326,6 +326,12 @@ namespace Spooky.Content.Generation
 						}
 						if (WorldGen.genRand.NextBool(20))
 						{
+							ushort[] Radishes = new ushort[] { (ushort)ModContent.TileType<Radish1>(), (ushort)ModContent.TileType<Radish2>() };
+
+							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Radishes));
+						}
+						if (WorldGen.genRand.NextBool(20))
+						{
 							ushort[] Potatos = new ushort[] { (ushort)ModContent.TileType<Potato1>(), (ushort)ModContent.TileType<Potato2>(), (ushort)ModContent.TileType<Potato3>(), (ushort)ModContent.TileType<Potato4>() };
 
 							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Potatos));
@@ -349,6 +355,11 @@ namespace Spooky.Content.Generation
 						if (WorldGen.genRand.NextBool(8))
 						{
 							WorldGen.PlaceObject(i, j + 1, (ushort)ModContent.TileType<Eggplant>(), true, WorldGen.genRand.Next(0, 2));
+						}
+
+						if (WorldGen.genRand.NextBool(15))
+						{
+							WorldGen.PlaceObject(i, j + 1, (ushort)ModContent.TileType<RadishHanging>(), true, WorldGen.genRand.Next(0, 2));
 						}
 
 						if (WorldGen.genRand.NextBool(3))

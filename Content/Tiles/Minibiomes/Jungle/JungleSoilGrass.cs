@@ -68,7 +68,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
 				if (Main.rand.NextBool(3))
                 {
 					WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<JungleMossWeeds>(), true);
-					Above.TileFrameX = (short)(WorldGen.genRand.Next(11) * 18);
+					Above.TileFrameX = (short)(Main.rand.Next(11) * 18);
 					NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
 				}
 
@@ -79,7 +79,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
 				}
 
 				//cabbage boulders
-				if (WorldGen.genRand.NextBool(30) && VegetableGarden.CanPlaceCabbageBoulder(i, j))
+				if (Main.rand.NextBool(30) && VegetableGarden.CanPlaceCabbageBoulder(i, j))
 				{
 					ushort newObject = (ushort)ModContent.TileType<JungleCabbageBoulder>();
 
@@ -122,13 +122,24 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
 				}
 
 				//garlic
-				if (WorldGen.genRand.NextBool(20))
+				if (Main.rand.NextBool(20))
 				{
 					ushort newObject = (ushort)ModContent.TileType<Garlic>();
 
 					WorldGen.PlaceObject(i, j - 1, newObject, true);
 					NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
 				}
+
+				//radish
+				if (Main.rand.NextBool(20))
+                {
+                    ushort[] Radishes = new ushort[] { (ushort)ModContent.TileType<Radish1>(), (ushort)ModContent.TileType<Radish2>() };
+
+                    ushort newObject = Main.rand.Next(Radishes);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
 
 				//potatos
 				if (Main.rand.NextBool(20))

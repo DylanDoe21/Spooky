@@ -574,3 +574,8 @@ GhostPepperMinionBuff: {
 	DisplayName: Ghost Pepper
 	Description: The ghost pepper protects you
 }
+
+NerveWhipDebuff: {
+	DisplayName: Nerve Whip Debuff
+	Description: ""
+}

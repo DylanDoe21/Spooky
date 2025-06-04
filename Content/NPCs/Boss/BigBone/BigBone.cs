@@ -167,7 +167,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 72000;
+            NPC.lifeMax = 75000;
             NPC.damage = 65;
             NPC.defense = 50;
             NPC.width = 130;
@@ -1509,7 +1509,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //stop and play slamming sound when big bone impacts a solid surface
                         if (NPC.localAI[0] > 100 && NPC.localAI[1] == 0)
                         {
-                            if (IsColliding())
+                            if (NPCGlobalHelper.IsColliding(NPC))
                             {
                                 SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
                                 SoundEngine.PlaySound(StunnedSound, NPC.Center);
@@ -1681,7 +1681,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //stop and play slamming sound when big bone impacts a solid surface
                         if (NPC.localAI[0] > 105 && NPC.localAI[1] == 0)
                         {
-                            if (IsColliding())
+                            if (NPCGlobalHelper.IsColliding(NPC))
                             {
                                 SoundEngine.PlaySound(SoundID.NPCDeath43, NPC.Center);
                                 SoundEngine.PlaySound(StunnedSound, NPC.Center);
@@ -1807,50 +1807,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                 NPC.velocity *= 0.85f;
             }
         }
-
-        public bool IsColliding()
-		{
-			int minTilePosX = (int)(NPC.position.X / 16) - 1;
-			int maxTilePosX = (int)((NPC.position.X + NPC.width) / 16) + 1;
-			int minTilePosY = (int)(NPC.position.Y / 16) - 1;
-			int maxTilePosY = (int)((NPC.position.Y + NPC.height) / 16) + 1;
-			if (minTilePosX < 0)
-			{
-				minTilePosX = 0;
-			}
-			if (maxTilePosX > Main.maxTilesX)
-			{
-				maxTilePosX = Main.maxTilesX;
-			}
-			if (minTilePosY < 0)
-			{
-				minTilePosY = 0;
-			}
-			if (maxTilePosY > Main.maxTilesY)
-			{
-				maxTilePosY = Main.maxTilesY;
-			}
-
-			for (int i = minTilePosX; i < maxTilePosX; ++i)
-			{
-				for (int j = minTilePosY; j < maxTilePosY; ++j)
-				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated &&
-					Main.tileSolid[(int)Main.tile[i, j].TileType] && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType])
-					{
-						Vector2 vector2;
-						vector2.X = (float)(i * 16);
-						vector2.Y = (float)(j * 16);
-						if (NPC.position.X + NPC.width > vector2.X && NPC.position.X < vector2.X + 16.0 && (NPC.position.Y + NPC.height > (double)vector2.Y && NPC.position.Y < vector2.Y + 16.0))
-						{
-							return true;
-						}
-					}
-				}
-			}
-
-			return false;
-		}
 
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 

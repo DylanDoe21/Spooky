@@ -439,6 +439,9 @@ SkeletonGar.DisplayName: Skeletoid Gar
 SkeletonSunfish.DisplayName: Skeletoid Sunfish
 SkeletonSpearfish.DisplayName: Skeletoid Spearfish
 SkeletonBoomerang.DisplayName: Skeletoid Boomerang
+SkeletonPufferfish.DisplayName: Skeletoid Pufferfish
+SeaMine.DisplayName: Sea Mine
+SeaMineBase.DisplayName: ""
 //krampus workshop
 TeddyBear1.DisplayName: Teddy Bear
 TeddyBear2.DisplayName: Teddy Bear

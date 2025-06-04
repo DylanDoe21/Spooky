@@ -16,15 +16,15 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
 			Item.noUseGraphic = true;
 			Item.width = 32;
             Item.height = 48;
-			Item.useTime = 42;
-			Item.useAnimation = 42;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 10;
 			Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(gold: 1);
 			Item.UseSound = SoundID.Item152;
 			Item.shoot = ModContent.ProjectileType<EggplantWhipProj>();
-			Item.shootSpeed = 2f;
+			Item.shootSpeed = 3f;
         }
 
         public override bool MeleePrefix() 

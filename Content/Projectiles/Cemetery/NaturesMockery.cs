@@ -15,6 +15,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 5;
+            ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
         }
 
         public override void SetDefaults()

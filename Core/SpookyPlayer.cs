@@ -48,6 +48,7 @@ namespace Spooky.Core
         public bool GoreArmorEye = false;
         public bool GoreArmorMouth = false;
         public bool HazmatSet = false;
+        public bool HazmatMinionCrit = false;
         public bool DrawHazmatBack = false;
         public bool SentientCap = false;
 
@@ -235,6 +236,7 @@ namespace Spooky.Core
             GoreArmorEye = false;
             GoreArmorMouth = false;
             HazmatSet = false;
+            HazmatMinionCrit = false;
             SentientCap = false;
             DrawHazmatBack = false;
 
@@ -1243,7 +1245,7 @@ namespace Spooky.Core
 
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{
-			if (drawInfo.shadow != 0f)
+			if (drawInfo.shadow != 0f || EatenByGooSlug)
 			{
 				return;
 			}
@@ -1258,7 +1260,7 @@ namespace Spooky.Core
                 {
                     SentientLeafBlowerBackTex ??= ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Sentient/SentientLeafBlowerBack");
                     
-                    int xOffset = 10;
+                    int xOffset = 6;
 
                     DrawData PlayerBack = new DrawData(SentientLeafBlowerBackTex.Value,
 					new Vector2((int)(drawInfo.drawPlayer.MountedCenter.X - Main.screenPosition.X - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.MountedCenter.Y - Main.screenPosition.Y + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
@@ -1424,10 +1426,8 @@ namespace Spooky.Core
 
                 if (!BloodFishingEnemiesExist && ItemGlobal.ActiveItem(Player).type == ModContent.ItemType<SentientChumCaster>())
                 {
-                    int ExtraChanceToFishEnemy = (Player.HeldItem.fishingPole + Player.fishingSkill) / 5;
-
                     //claret cephalopod
-                    if (Flags.downedOrroboro && Main.rand.NextBool(25 - ExtraChanceToFishEnemy))
+                    if (Flags.downedOrroboro && Main.rand.NextBool(25))
                     {
                         npcSpawn = ModContent.NPCType<ValleyNautilus>();
 
@@ -1435,7 +1435,7 @@ namespace Spooky.Core
                     }
 
                     //aortic eel and hemostasis beast
-                    if (Main.hardMode && Main.rand.NextBool(20 - ExtraChanceToFishEnemy))
+                    if (Main.hardMode && Main.rand.NextBool(20))
                     {
                         npcSpawn = Main.rand.NextBool() ? ModContent.NPCType<ValleyEelHead>() : ModContent.NPCType<ValleyShark>();
 
@@ -1443,7 +1443,7 @@ namespace Spooky.Core
                     }
 
                     //clot squid
-                    if (Main.rand.NextBool(18 - ExtraChanceToFishEnemy))
+                    if (Main.rand.NextBool(18))
                     {
                         npcSpawn = ModContent.NPCType<ValleySquid>();
 
@@ -1451,7 +1451,7 @@ namespace Spooky.Core
                     }
 
                     //peeper fish and flesh merfolk
-                    if (Main.rand.NextBool(15 - ExtraChanceToFishEnemy))
+                    if (Main.rand.NextBool(15))
                     {
                         npcSpawn = Main.rand.NextBool() ? ModContent.NPCType<ValleyFish>() : ModContent.NPCType<ValleyMerman>();
 

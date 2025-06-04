@@ -18,6 +18,15 @@ namespace Spooky.Core
 			None, Above, Below, Left, Right
 		}
 
+		public static int[] BlockTypes = new int[]
+		{
+			ModContent.TileType<OceanSand>(),
+			ModContent.TileType<OceanBiomass>(),
+			ModContent.TileType<OceanRock>(),
+			ModContent.TileType<LabMetalPipe>(),
+			ModContent.TileType<LabMetalPlate>()
+		};
+
 		public readonly record struct FoundPoint(Point16 Position, Direction Direction);
 		public readonly record struct WorkingPoint(Direction Direction, float Weight);
 
@@ -161,15 +170,6 @@ namespace Spooky.Core
 		private static bool ContainsSpecificTile(Point16 position, Vector2 objectSize, Vector2 positionOffset)
 		{
 			Vector2 pos = position.ToWorldCoordinates() + positionOffset;
-
-			int[] BlockTypes = new int[]
-			{
-				ModContent.TileType<OceanSand>(),
-				ModContent.TileType<OceanBiomass>(),
-				ModContent.TileType<OceanMeat>(),
-				ModContent.TileType<LabMetalPipe>(),
-				ModContent.TileType<LabMetalPlate>()
-			};
 
 			return TileGlobal.SolidCollisionWithSpecificTiles(pos, (int)(objectSize.X * 16), (int)(objectSize.Y * 16), BlockTypes);
 		}

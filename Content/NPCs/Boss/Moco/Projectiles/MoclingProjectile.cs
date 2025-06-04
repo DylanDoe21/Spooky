@@ -112,12 +112,12 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
                 Projectile.velocity *= 0.85f;
             }
             
-            if (Projectile.ai[0] == 45)
+            if (Projectile.ai[0] == 50)
             {
                 SaveProjPosition = Projectile.Center;
             }
 
-            if (Projectile.ai[0] > 45 && Projectile.ai[0] <= 55)
+            if (Projectile.ai[0] > 50 && Projectile.ai[0] <= 60)
             {
                 Projectile.Center = new Vector2(SaveProjPosition.X, SaveProjPosition.Y);
                 Projectile.Center += Main.rand.NextVector2Square(-6, 6);
@@ -128,10 +128,8 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
                 Vector2 ChargeDirection = player.Center - Projectile.Center;
                 ChargeDirection.Normalize();
                         
-                ChargeDirection.X *= 1f;
-                ChargeDirection.Y *= 2f;
-                Projectile.velocity.X = ChargeDirection.X;
-                Projectile.velocity.Y = ChargeDirection.Y;
+                ChargeDirection *= 2f;
+                Projectile.velocity = ChargeDirection;
             }
 
             if (Projectile.ai[0] > 60)

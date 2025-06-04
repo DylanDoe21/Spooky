@@ -117,22 +117,30 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				bool DunkLineOfSight = Collision.CanHitLine(Main.npc[BigDunk].position, Main.npc[BigDunk].width, Main.npc[BigDunk].height, NPC.position, NPC.width, NPC.height);
 				if (NPC.Distance(Main.npc[BigDunk].Center) <= 200f && DunkLineOfSight && NPC.wet)
 				{
-					NPC.ai[1] = 60;
+					NPC.ai[1] = 2;
+
+					float Aceleration = 0.1f;
+                    if (NPC.Center.X < Main.npc[BigDunk].Center.X)
+                    {
+                        NPC.velocity.X -= Aceleration;
+                    }
+                    else
+                    {
+                        NPC.velocity.X += Aceleration;
+                    }
+                    if (NPC.Center.Y < Main.npc[BigDunk].Center.Y)
+                    {
+                        NPC.velocity.Y -= Aceleration;
+                    }
+                    else
+                    {
+                        NPC.velocity.Y += Aceleration;
+                    }
 				}
 			}
 
 			//NPC.ai[2] is used to check for fish fleeing behavior
-			if (NPC.ai[1] > 0)
-			{
-				NPC.ai[1]--;
-
-				Vector2 vel = NPC.DirectionFrom(Main.npc[BigDunk].Center);
-				vel.Normalize();
-				vel *= 5f;
-				NPC.velocity = vel;
-			}
-			//if the fish isnt swimming away, then do normal passive behavior
-			else
+			if (NPC.ai[1] <= 0)
 			{
 				NPC.ai[0]++;
 
@@ -248,6 +256,10 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						NPC.velocity.Y = 5f;
 					}
 				}
+			}
+			else
+			{
+				NPC.ai[1]--;
 			}
         }
 

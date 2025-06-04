@@ -14,7 +14,6 @@ using Spooky.Core;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Ambient;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Tree;
-using Terraria.Utilities;
 
 namespace Spooky.Content.Generation
 {
@@ -24,7 +23,7 @@ namespace Spooky.Content.Generation
 		{
 			(ushort)ModContent.TileType<OceanSand>(),
 			(ushort)ModContent.TileType<OceanBiomass>(),
-			(ushort)ModContent.TileType<OceanMeat>(),
+			(ushort)ModContent.TileType<OceanRock>(),
 			(ushort)ModContent.TileType<LabMetalPlate>()
 		};
 
@@ -39,11 +38,11 @@ namespace Spooky.Content.Generation
 		public static int StartPositionX;
 		public static int StartPositionY;
 
-		int numLabs = 0;
+		int LabsPlaced = 0;
 
 		private void DecideZombieOceanPosition(GenerationProgress progress, GameConfiguration configuration)
 		{
-			numLabs = 0;
+			LabsPlaced = 0;
 
 			//random worldside (default option)
 			if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.Random)
@@ -72,8 +71,8 @@ namespace Spooky.Content.Generation
 
 			int SizeXInt = 40;
 			int SizeYInt = 40;
-			int SizeX = Main.maxTilesX / SizeXInt;
-			int SizeY = Main.maxTilesY / SizeYInt;
+			int SizeX = 300;
+			int SizeY = 150;
 
 			//first place a box of sand under the ocean so the rotten depths circle doesnt look out of place
 			int Start = StartPositionX < Main.maxTilesX / 2 ? 10 : Main.maxTilesX - 260;
@@ -105,18 +104,15 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 6) * 5, (SizeYInt + 6) * 3, 1f, false, false);
+			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 3) * 5, (SizeYInt + 3) * 3, 1f, false, false);
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
-			for (double i = 0; i < 0.5; i += 0.00001)
-			{
-				progress.Set(i);
-			}
+			progress.Set(0.5);
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
-				if (numLabs < 5)
+				if (LabsPlaced < 5)
 				{
 					PlaceLabs((int)Flags.ZombieBiomePositions[i].X, (int)Flags.ZombieBiomePositions[i].Y);
 				}
@@ -125,10 +121,7 @@ namespace Spooky.Content.Generation
 					break;
 				}
 			}
-			for (double i = 0.5; i < 1; i += 0.00001)
-			{
-				progress.Set(i);
-			}
+			progress.Set(1);
 			TileSloping(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceAmbience(StartPositionX, StartPositionY, SizeX, SizeY);
 		}
@@ -206,17 +199,12 @@ namespace Spooky.Content.Generation
 		//place clumps of zombie biomass and flesh
 		public void PlaceBiomassClumps(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int j = (int)Main.worldSurface; j < PositionY + SizeY * 4; j++)
+			for (int j = (int)Main.worldSurface; j < PositionY + SizeY; j++)
 			{
-				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
 				{
 					if (WorldGen.InWorld(i, j, 10))
 					{
-						if (WorldGen.genRand.NextBool(65) && NoDungeonBlocksNearby(i, j, 7, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>())
-						{
-							WorldGen.TileRunner(i, j, WorldGen.genRand.Next(8, 15), WorldGen.genRand.Next(7, 30), ModContent.TileType<OceanMeat>());
-						}
-
 						if (WorldGen.genRand.NextBool(4) && NoDungeonBlocksNearby(i, j, 2, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !Main.tile[i, j - 3].HasTile)
 						{
 							SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<OceanBiomass>(), 0, 6, 4, 1f, true, false);
@@ -230,14 +218,14 @@ namespace Spooky.Content.Generation
 		//dig out caverns inside of the area of ovals
 		public void DigOutCaves(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			int StartX = PositionX > (Main.maxTilesX / 2) ? PositionX - SizeX * 4 : PositionX + SizeX * 4;
-			int EndX = PositionX > (Main.maxTilesX / 2) ? PositionX + SizeX * 4 : PositionX - SizeX * 4;
-			int Increment = PositionX > (Main.maxTilesX / 2) ? 1 : -1;
+			int StartX = PositionX > (Main.maxTilesX / 2) ? PositionX - SizeX : PositionX + SizeX;
+			int EndX = PositionX > (Main.maxTilesX / 2) ? PositionX + SizeX : PositionX - SizeX;
+			int Increment = PositionX > (Main.maxTilesX / 2) ? 5 : -5;
 
-			float MinDistanceBetweenCaves = 50;
-			int ValidTileCheckDistance = 28;
+			float MinDistanceBetweenCaves = 60;
+			int ValidTileCheckDistance = 35;
 
-			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j += 10)
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j += 5)
 			{
 				for (int i = StartX; PositionX > (Main.maxTilesX / 2) ? i < EndX : i > EndX; i += Increment)
 				{
@@ -295,7 +283,7 @@ namespace Spooky.Content.Generation
 							int OvalSizeX = WorldGen.genRand.Next(16, 19);
 							int OvalSizeY = WorldGen.genRand.Next(8, 14);
 
-							int YOffset = WorldGen.genRand.Next(8, 19);
+							int YOffset = WorldGen.genRand.Next(-10, 11);
 
 							SpookyWorldMethods.PlaceOval(i, j + YOffset, -1, 0, OvalSizeX, OvalSizeY, 1f, true, false);
 							PlaceDepthsOval(i, j + YOffset, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), OvalSizeX + 2, OvalSizeY + 2, 1f, true, true);
@@ -306,21 +294,38 @@ namespace Spooky.Content.Generation
 				}
 			}
 
+			//connect all cave points in the biome in the order they were placed
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
 				if (i < Flags.ZombieBiomePositions.Count - 1)
 				{
-					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[i + 1] - new Vector2(0, 5), false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i], Flags.ZombieBiomePositions[i + 1], false);
 				}
 			}
 
+			//place randomized tunnels between a chosen cave point and the closest cave point to it
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
 				if (WorldGen.genRand.NextBool(2))
 				{
 					int MinDistanceIndex = GetClosestNodeIndex(Flags.ZombieBiomePositions[i]);
 
-					ConnectCavePoints(Flags.ZombieBiomePositions[i] - new Vector2(0, 5), Flags.ZombieBiomePositions[MinDistanceIndex] - new Vector2(0, 5), false);
+					ConnectCavePoints(Flags.ZombieBiomePositions[i], Flags.ZombieBiomePositions[MinDistanceIndex], false);
+				}
+			}
+
+			//place layer of marine rock to prevent breaking through the biome
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j))
+					{
+						if (BlockTypes.Contains(Main.tile[i, j].TileType) && CanPlaceRock(i, j, 2))
+						{
+							Main.tile[i, j].TileType = (ushort)ModContent.TileType<OceanRock>();
+						}
+					}
 				}
 			}
 
@@ -353,7 +358,7 @@ namespace Spooky.Content.Generation
 			{
 				float Dist = Vector2.Distance(pos, Position);
 
-				if (Collision.CanHitLine(pos * 16 - new Vector2(10, 10), 20, 20, Position * 16 - new Vector2(10, 10), 20, 20))
+				if (Collision.CanHitLine(pos * 16 - new Vector2(1, 1), 2, 2, Position * 16 - new Vector2(1, 1), 2, 2))
 				{
 					Dist = 0;
 				}
@@ -369,7 +374,7 @@ namespace Spooky.Content.Generation
 
 		public void ConnectCavePoints(Vector2 Start, Vector2 End, bool GoingToSurface)
 		{
-			int segments = 100;
+			int segments = 50;
 
 			Vector2 myCenter = Start;
 			Vector2 p0 = End;
@@ -377,7 +382,7 @@ namespace Spooky.Content.Generation
 			Vector2 p2 = myCenter;
 			Vector2 p3 = myCenter;
 
-			if (!Collision.CanHitLine(End * 16 - new Vector2(10, 10), 20, 20, Start * 16 - new Vector2(10, 10), 20, 20))
+			if (!Collision.CanHitLine(End * 16 - new Vector2(1, 1), 2, 2, Start * 16 - new Vector2(1, 1), 2, 2))
 			{
 				if (GoingToSurface)
 				{
@@ -389,7 +394,7 @@ namespace Spooky.Content.Generation
 
 						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 						{
-							PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, false, true);
+							PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, true, true);
 						}
 					}
 				}
@@ -409,12 +414,202 @@ namespace Spooky.Content.Generation
 			}
 		}
 
+		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						Tile tile = Main.tile[i, j];
+
+						if (WallTypes.Contains(tile.WallType))
+						{
+							tile.LiquidType = LiquidID.Water;
+							tile.LiquidAmount = 255;
+						}
+
+						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i, j + 1].HasTile)
+						{
+							for (int waterY = j; waterY < j + 6; waterY++)
+							{
+								Main.tile[i, waterY].LiquidAmount = 255;
+							}
+						}
+					}
+				}
+			}
+
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						//clean tiles that are sticking out (basically tiles only attached to one tile on one side)
+						bool OnlyRight = !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile && !Main.tile[i - 1, j].HasTile;
+						bool OnlyLeft = !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile && !Main.tile[i + 1, j].HasTile;
+						bool OnlyDown = !Main.tile[i, j - 1].HasTile && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile;
+						bool OnlyUp = !Main.tile[i, j + 1].HasTile && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile;
+
+						bool SingleThick = (!Main.tile[i, j + 1].HasTile && !Main.tile[i, j - 1].HasTile) || (!Main.tile[i + 1, j].HasTile && !Main.tile[i - 1, j].HasTile);
+
+						if (OnlyRight || OnlyLeft || OnlyDown || OnlyUp || SingleThick)
+						{
+							if (BlockTypes.Contains(Main.tile[i, j].TileType))
+							{
+								WorldGen.KillTile(i, j);
+							}
+						}
+
+						//kill one block thick tiles
+						if ((BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile) ||
+						(BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile))
+						{
+							for (int fillX = i - 1; fillX < i + 1; fillX++)
+							{
+								for (int fillY = j - 1; fillY < j + 1; fillY++)
+								{
+									WorldGen.PlaceTile(fillX, fillY, ModContent.TileType<OceanSand>());
+								}
+							}
+						}
+
+						//get rid of single tiles on the ground since it looks weird
+						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
+						{
+							WorldGen.KillTile(i, j);
+						}
+
+						//get rid of 1x2 tiles on the ground since it looks weird
+						if (BlockTypes.Contains(Main.tile[i, j].TileType) && BlockTypes.Contains(Main.tile[i - 1, j].TileType) && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
+						{
+							WorldGen.KillTile(i, j);
+							WorldGen.KillTile(i - 1, j);
+						}
+
+						//get rid of 1x3 tiles on the ground since it looks weird
+						if (BlockTypes.Contains(Main.tile[i, j].TileType) && BlockTypes.Contains(Main.tile[i - 1, j].TileType) &&
+						BlockTypes.Contains(Main.tile[i + 1, j].TileType) && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 2, j].HasTile)
+						{
+							WorldGen.KillTile(i, j);
+							WorldGen.KillTile(i - 1, j);
+							WorldGen.KillTile(i + 1, j);
+						}
+					}
+				}
+			}
+
+			//clean out small clumps of blocks in the biome
+			int cutoffLimit = 150;
+
+			void getAttachedPoints(int x, int y, List<Point> points)
+			{
+				if (!WorldGen.InWorld(x, y, 10))
+				{
+					return;
+				}
+
+				Tile tile = Main.tile[x, y];
+				Point point = new(x, y);
+
+				if (!BlockTypes.Contains(tile.TileType) || !tile.HasTile || points.Count > cutoffLimit || points.Contains(point))
+				{
+					return;
+				}
+
+				points.Add(point);
+
+				getAttachedPoints(x + 1, y, points);
+				getAttachedPoints(x - 1, y, points);
+				getAttachedPoints(x, y + 1, points);
+				getAttachedPoints(x, y - 1, points);
+			}
+
+			void getAttachedWallPoints(int x, int y, List<Point> points)
+			{
+				if (!WorldGen.InWorld(x, y, 10))
+				{
+					return;
+				}
+
+				Tile tile = Main.tile[x, y];
+				Point point = new(x, y);
+
+				if (!WallTypes.Contains(tile.WallType) || points.Count > cutoffLimit || points.Contains(point))
+				{
+					return;
+				}
+
+				points.Add(point);
+
+				getAttachedWallPoints(x + 1, y, points);
+				getAttachedWallPoints(x - 1, y, points);
+				getAttachedWallPoints(x, y + 1, points);
+				getAttachedWallPoints(x, y - 1, points);
+			}
+
+			for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+			{
+				for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+				{
+					//clean up floating clumps of tiles in the dungeon
+					List<Point> chunkPoints = new();
+					getAttachedPoints(i, j, chunkPoints);
+
+					if (WorldGen.InWorld(i, j, 10) && chunkPoints.Count >= 1 && chunkPoints.Count <= cutoffLimit)
+					{
+						foreach (Point p in chunkPoints)
+						{
+							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+							{
+								new Actions.ClearTile(true)
+							}));
+						}
+					}
+
+					//clean up floating clumps of tiles in the dungeon
+					List<Point> WallPoints = new();
+					getAttachedWallPoints(i, j, WallPoints);
+
+					if (WorldGen.InWorld(i, j, 10) && WallPoints.Count >= 1 && WallPoints.Count <= cutoffLimit)
+					{
+						foreach (Point p in WallPoints)
+						{
+							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+							{
+								new Actions.ClearWall(true)
+							}));
+						}
+					}
+				}
+			}
+		}
+
+		public void TileSloping(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						if (BlockTypes.Contains(Main.tile[i, j].TileType))
+						{
+							Tile.SmoothSlope(i, j);
+						}
+					}
+				}
+			}
+		}
+
 		public void PlaceAmbience(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
 			//place flesh vents first so that tube worms can be placed nearby
-			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
 			{
-				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
 				{
 					if (WorldGen.InWorld(i, j, 25))
 					{
@@ -422,7 +617,7 @@ namespace Spooky.Content.Generation
 						Tile tileAbove = Main.tile[i, j - 1];
 						Tile tileBelow = Main.tile[i, j + 1];
 
-						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
+						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>()) && !tileAbove.HasTile)
 						{
 							if (WorldGen.genRand.NextBool(32))
 							{
@@ -433,9 +628,9 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
 			{
-				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
 				{
 					if (WorldGen.InWorld(i, j, 25))
 					{
@@ -444,7 +639,7 @@ namespace Spooky.Content.Generation
 						Tile tileBelow = Main.tile[i, j + 1];
 
 						//place skulls on any tiles
-						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() || Main.tile[i, j].TileType == ModContent.TileType<OceanMeat>()) && !tileAbove.HasTile)
+						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>()) && !tileAbove.HasTile)
 						{
 							if (WorldGen.genRand.NextBool() && CanPlaceTubeWorm(i, j))
 							{
@@ -570,215 +765,6 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public static bool CanPlaceTubeWorm(int X, int Y)
-        {
-			int numFleshVent = 0;
-
-			//only allow them to place nearby thermal vents
-			for (int i = X - 10; i <= X + 10; i++)
-			{
-				for (int j = Y - 5; j <= Y + 5; j++)
-				{
-					if (Main.tile[i, j].TileType == ModContent.TileType<FleshVent>())
-					{
-						numFleshVent++;
-					}
-				}
-			}
-
-			//dont allow tube worms to place too close to each other
-			for (int i = X - 1; i <= X + 1; i++)
-            {
-                for (int j = Y - 1; j <= Y + 1; j++)
-                {
-					if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>() || Main.tile[i, j].TileType == ModContent.TileType<FleshVent>()))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return numFleshVent > 0;
-        }
-
-		public static bool CanPlaceFishTree(int X, int Y)
-        {
-			int numFleshVent = 0;
-
-			for (int i = X - 12; i < X + 12; i++)
-			{
-				for (int j = Y - 5; j < Y + 5; j++)
-				{
-					if (Main.tile[i, j].TileType == ModContent.TileType<FleshVent>())
-					{
-						numFleshVent++;
-					}
-				}
-			}
-
-			for (int i = X - 5; i < X + 5; i++)
-            {
-                for (int j = Y - 5; j < Y + 5; j++)
-                {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<BoneFishTree>() || Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>()))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return numFleshVent <= 0;
-        }
-
-		public static bool TryToPlaceHangingFishBone(int X, int Y)
-        {
-			for (int j = Y; j < Y + 35; j++)
-			{
-				if ((Main.tile[X, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[X, j].TileType == ModContent.TileType<OceanBiomass>() || 
-				Main.tile[X, j].TileType == ModContent.TileType<OceanMeat>()) && !Main.tile[X, j + 1].HasTile)
-				{
-					if (!Main.tile[X, j].LeftSlope && !Main.tile[X, j].RightSlope && !Main.tile[X, j].IsHalfBlock)
-					{
-						BoneFishTreeHanging.Grow(X, j + 1, 2, 8);
-						return true;
-					}
-				}
-			}
-
-			return false;
-        }
-
-		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
-		{
-			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
-			{
-				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
-				{
-					if (WorldGen.InWorld(i, j, 10))
-					{
-						//clean tiles that are sticking out (basically tiles only attached to one tile on one side)
-						bool OnlyRight = !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile && !Main.tile[i - 1, j].HasTile;
-						bool OnlyLeft = !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile && !Main.tile[i + 1, j].HasTile;
-						bool OnlyDown = !Main.tile[i, j - 1].HasTile && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile;
-						bool OnlyUp = !Main.tile[i, j + 1].HasTile && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile;
-
-						bool SingleThick = (!Main.tile[i, j + 1].HasTile && !Main.tile[i, j - 1].HasTile) || (!Main.tile[i + 1, j].HasTile && !Main.tile[i - 1, j].HasTile);
-
-						if (OnlyRight || OnlyLeft || OnlyDown || OnlyUp || SingleThick)
-						{
-							if (BlockTypes.Contains(Main.tile[i, j].TileType))
-							{
-								WorldGen.KillTile(i, j);
-							}
-						}
-
-						//kil one block thick tiles
-						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i, j - 1].HasTile && !Main.tile[i, j + 1].HasTile)
-						{
-							WorldGen.KillTile(i, j);
-						}
-						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
-						{
-							WorldGen.KillTile(i, j);
-						}
-
-						//get rid of single tiles on the ground since it looks weird
-						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i - 1, j].HasTile && !Main.tile[i + 1, j].HasTile)
-						{
-							WorldGen.KillTile(i, j);
-						}
-
-						//get rid of 1x2 tiles on the ground since it looks weird
-						if (BlockTypes.Contains(Main.tile[i, j].TileType) && BlockTypes.Contains(Main.tile[i - 1, j].TileType) && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 1, j].HasTile)
-						{
-							WorldGen.KillTile(i, j);
-							WorldGen.KillTile(i - 1, j);
-						}
-
-						//get rid of 1x3 tiles on the ground since it looks weird
-						if (BlockTypes.Contains(Main.tile[i, j].TileType) && BlockTypes.Contains(Main.tile[i - 1, j].TileType) &&
-						BlockTypes.Contains(Main.tile[i + 1, j].TileType) && !Main.tile[i - 2, j].HasTile && !Main.tile[i + 2, j].HasTile)
-						{
-							WorldGen.KillTile(i, j);
-							WorldGen.KillTile(i - 1, j);
-							WorldGen.KillTile(i + 1, j);
-						}
-
-						Tile tile = Main.tile[i, j];
-
-						if (WallTypes.Contains(tile.WallType))
-						{
-							tile.LiquidType = LiquidID.Water;
-							tile.LiquidAmount = 255;
-						}
-					}
-				}
-			}
-
-			int cutoffLimit = 150;
-
-			void getAttachedPoints(int x, int y, List<Point> points)
-			{
-				if (!WorldGen.InWorld(x, y, 10))
-				{
-					return;
-				}
-
-				Tile tile = Main.tile[x, y];
-				Point point = new(x, y);
-
-				if (!BlockTypes.Contains(tile.TileType) || !tile.HasTile || points.Count > cutoffLimit || points.Contains(point))
-				{
-					return;
-				}
-
-				points.Add(point);
-
-				getAttachedPoints(x + 1, y, points);
-				getAttachedPoints(x - 1, y, points);
-				getAttachedPoints(x, y + 1, points);
-				getAttachedPoints(x, y - 1, points);
-			}
-
-			for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
-			{
-				for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
-				{
-					//clean up floating clumps of tiles in the dungeon
-					List<Point> chunkPoints = new();
-					getAttachedPoints(i, j, chunkPoints);
-
-					if (WorldGen.InWorld(i, j, 10) && chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
-					{
-						foreach (Point p in chunkPoints)
-						{
-							WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
-							{
-								new Actions.ClearTile(true)
-							}));
-						}
-					}
-				}
-			}
-		}
-
-		public void TileSloping(int PositionX, int PositionY, int SizeX, int SizeY)
-		{
-			for (int j = PositionY - SizeY * 4; j < PositionY + SizeY * 4; j++)
-			{
-				for (int i = PositionX - SizeX * 4; i < PositionX + SizeX * 4; i++)
-				{
-					if (WorldGen.InWorld(i, j, 10))
-					{
-						if (BlockTypes.Contains(Main.tile[i, j].TileType))
-						{
-							Tile.SmoothSlope(i, j);
-						}
-					}
-				}
-			}
-		}
-
 		public void PlaceLabs(int PositionX, int PositionY)
 		{
 			if (WorldGen.InWorld(PositionX, PositionY, 10))
@@ -799,12 +785,10 @@ namespace Spooky.Content.Generation
 				
 				if (CanPlaceLab(PositionX, PositionY))
 				{
-					PlaceDepthsOval(PositionX, PositionY + 11, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 13, 7, 1f, true, false);
-
 					Vector2 LabOrigin = new Vector2(PositionX - 18, PositionY - 4);
-					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/LabPlaceholder.shstruct", LabOrigin.ToPoint16(), Mod);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/Lab-" + WorldGen.genRand.Next(1, 6) + ".shstruct", LabOrigin.ToPoint16(), Mod);
 
-					numLabs++;
+					LabsPlaced++;
 				}
 			}
 		}
@@ -874,6 +858,83 @@ namespace Spooky.Content.Generation
 			return numAboveTiles < 10 && numTiles >= 550;
 		}
 
+		public static bool CanPlaceTubeWorm(int X, int Y)
+		{
+			int numFleshVent = 0;
+
+			//only allow them to place nearby thermal vents
+			for (int i = X - 10; i <= X + 10; i++)
+			{
+				for (int j = Y - 5; j <= Y + 5; j++)
+				{
+					if (Main.tile[i, j].TileType == ModContent.TileType<FleshVent>())
+					{
+						numFleshVent++;
+					}
+				}
+			}
+
+			//dont allow tube worms to place too close to each other
+			for (int i = X - 1; i <= X + 1; i++)
+			{
+				for (int j = Y - 1; j <= Y + 1; j++)
+				{
+					if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>() || Main.tile[i, j].TileType == ModContent.TileType<FleshVent>()))
+					{
+						return false;
+					}
+				}
+			}
+
+			return numFleshVent > 0;
+		}
+
+		public static bool CanPlaceFishTree(int X, int Y)
+		{
+			int numFleshVent = 0;
+
+			for (int i = X - 12; i < X + 12; i++)
+			{
+				for (int j = Y - 5; j < Y + 5; j++)
+				{
+					if (Main.tile[i, j].TileType == ModContent.TileType<FleshVent>())
+					{
+						numFleshVent++;
+					}
+				}
+			}
+
+			for (int i = X - 5; i < X + 5; i++)
+			{
+				for (int j = Y - 5; j < Y + 5; j++)
+				{
+					if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<BoneFishTree>() || Main.tile[i, j].TileType == ModContent.TileType<TubeWorm>()))
+					{
+						return false;
+					}
+				}
+			}
+
+			return numFleshVent <= 0;
+		}
+
+		public static bool TryToPlaceHangingFishBone(int X, int Y)
+		{
+			for (int j = Y; j < Y + 35; j++)
+			{
+				if ((Main.tile[X, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[X, j].TileType == ModContent.TileType<OceanBiomass>()) && !Main.tile[X, j + 1].HasTile)
+				{
+					if (!Main.tile[X, j].LeftSlope && !Main.tile[X, j].RightSlope && !Main.tile[X, j].IsHalfBlock)
+					{
+						BoneFishTreeHanging.Grow(X, j + 1, 2, 8);
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
 		public bool NoDungeonBlocksNearby(int PositionX, int PositionY, int Distance, bool DoEmptyTileCheck)
 		{
 			for (int i = PositionX - Distance; i <= PositionX + Distance; i++)
@@ -883,6 +944,25 @@ namespace Spooky.Content.Generation
 					if (WorldGen.InWorld(i, j, 10))
 					{
 						if ((DoEmptyTileCheck && !Main.tile[i, j].HasTile) || Main.tileDungeon[Main.tile[i, j].TileType] || Main.wallDungeon[Main.tile[i, j].WallType])
+						{
+							return false;
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		public bool CanPlaceRock(int PositionX, int PositionY, int Distance)
+		{
+			for (int i = PositionX - Distance; i <= PositionX + Distance; i++)
+			{
+				for (int j = PositionY - Distance; j <= PositionY + Distance; j++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						if (!BlockTypes.Contains(Main.tile[i, j].TileType) && Main.tile[i, j].TileType != TileID.Sand)
 						{
 							return false;
 						}

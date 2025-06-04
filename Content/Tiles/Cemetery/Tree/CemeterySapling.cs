@@ -30,7 +30,8 @@ namespace Spooky.Content.Tiles.Cemetery.Tree
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.AnchorValidTiles = new int[] { ModContent.TileType<CemeteryGrass>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>() };
+			TileObjectData.newTile.AnchorValidTiles = new int[] { ModContent.TileType<CemeteryGrass>(), ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick2Grass>(),
+			ModContent.TileType<CatacombBrick1GrassSafe>(), ModContent.TileType<CatacombBrick2GrassSafe>() };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.DrawFlipHorizontal = true;
 			TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;

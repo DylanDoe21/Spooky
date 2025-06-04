@@ -120,17 +120,15 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3)
                 {
                     Projectile.frame++;
-
                     Projectile.localAI[0] = 0;
                 }
 			}
 			else 
             {
+                Projectile.frame = 3;
+
                 if (Projectile.timeLeft >= 19)
                 {
-                    //set ai[2] to 1 so it cannot shoot again
-                    Projectile.ai[2] = 1;
-                    
                     SoundEngine.PlaySound(SoundID.Item102, Projectile.Center);
 
                     if (Projectile.owner == Main.myPlayer)
@@ -144,7 +142,19 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     }
                 }
 
-                Projectile.frame = 3;
+                if (Projectile.timeLeft < 5)
+                {
+                    if (!player.channel || !player.HasAmmo(ItemGlobal.ActiveItem(player)))
+                    {
+                        Projectile.Kill();
+                    }
+                    else
+                    {
+                        player.PickAmmo(ItemGlobal.ActiveItem(player), out _, out _, out _, out _, out _);
+                        Projectile.frame = 0;
+                        Projectile.ai[2] = 0;
+                    }
+                }
 			}
 
             player.heldProj = Projectile.whoAmI;

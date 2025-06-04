@@ -23,8 +23,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 		{
 			Projectile.DefaultToWhip();
 
-			Projectile.WhipSettings.Segments = 30;
-			Projectile.WhipSettings.RangeMultiplier = 0.85f;
+			Projectile.WhipSettings.Segments = 35;
+			Projectile.WhipSettings.RangeMultiplier = 1f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
@@ -60,17 +60,17 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 					frame.Y = 44;
 					frame.Height = 22;
 				}
-				else if (i <= list.Count - 3 && i >= list.Count - 7)
+				else if (i <= list.Count - 3 && i >= list.Count - 6)
 				{
 					frame.Y = 36;
 					frame.Height = 6;
 				}
-				else if (i < list.Count - 7 && i >= list.Count - 12)
+				else if (i < list.Count - 6 && i >= list.Count - 11)
 				{
 					frame.Y = 28;
 					frame.Height = 6;
 				}
-				else if (i < list.Count - 12 && i >= list.Count - 16)
+				else if (i < list.Count - 11 && i >= list.Count - 16)
 				{
 					frame.Y = 20;
 					frame.Height = 6;

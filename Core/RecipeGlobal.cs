@@ -38,6 +38,7 @@ namespace Spooky.Core
 
         public override void AddRecipes()
         {
+            //furnace crafting recipe with mossy stone from the spooky forest
             Recipe furnaceRecipe = Recipe.Create(ItemID.Furnace);
             furnaceRecipe.AddIngredient(ModContent.ItemType<SpookyStoneItem>(), 20);
             furnaceRecipe.AddRecipeGroup(RecipeGroupID.Wood, 4);

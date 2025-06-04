@@ -103,8 +103,6 @@ namespace Spooky.Content.NPCs.EggEvent
 					{
 						int Biomass = NPC.NewNPC(null, (int)(player.Center.X + Main.rand.Next(-600, 600)), 
 						(int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)), ModContent.NPCType<GiantBiomassPurple>(), ai2: Type);
-						Main.npc[Biomass].velocity = new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f));
-						Main.npc[Biomass].alpha = 255;
 						Main.npc[Biomass].netUpdate = true;
 
 						if (Main.netMode == NetmodeID.Server)
@@ -128,8 +126,6 @@ namespace Spooky.Content.NPCs.EggEvent
 					{
 						int Biomass = NPC.NewNPC(null, (int)(player.Center.X + Main.rand.Next(-600, 600)), 
 						(int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)), ModContent.NPCType<GiantBiomassRed>(), ai2: Type);
-						Main.npc[Biomass].velocity = new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f));
-						Main.npc[Biomass].alpha = 255;
 						Main.npc[Biomass].netUpdate = true;
 
 						if (Main.netMode == NetmodeID.Server)
@@ -335,14 +331,14 @@ namespace Spooky.Content.NPCs.EggEvent
 											center.Y = y * 16;
 										}
 
-										//int EarWorm = NPC.NewNPC(NPC.GetSource_FromAI(), (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
-										//Main.npc[EarWorm].netUpdate = true;
-
 										if (Main.netMode != NetmodeID.MultiplayerClient)
 										{
 											int EarWorm = NPC.NewNPC(null, (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
-											Main.npc[EarWorm].netUpdate = true;
-											NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+
+											if (Main.netMode == NetmodeID.Server)
+											{
+												NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+											}
 										}
 									}
 									else
@@ -397,11 +393,14 @@ namespace Spooky.Content.NPCs.EggEvent
 									center.Y = y * 16;
 								}
 
-								int EarWorm = NPC.NewNPC(null, (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
-
 								if (Main.netMode != NetmodeID.MultiplayerClient)
 								{
-									NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+									int EarWorm = NPC.NewNPC(null, (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
+
+									if (Main.netMode == NetmodeID.Server)
+									{
+										NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
+									}
 								}
 							}
 							else

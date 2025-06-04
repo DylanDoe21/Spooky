@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
             Projectile.width = 54;
             Projectile.height = 114;
-            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;

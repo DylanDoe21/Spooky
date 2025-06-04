@@ -1,0 +1,37 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+using Spooky.Content.Projectiles.Minibiomes.Ocean;
+ 
+namespace Spooky.Content.Items.Minibiomes.Ocean
+{
+    public class BoomerangFishScale : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.damage = 60;
+            Item.DamageType = DamageClass.Melee;
+            Item.useTurn = true;    
+            Item.noUseGraphic = true; 
+            Item.noMelee = true;
+            Item.autoReuse = true;             
+            Item.width = 30;
+            Item.height = 34;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 2;
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.buyPrice(gold: 10);
+            Item.UseSound = SoundID.Item1; 
+            Item.shoot = ModContent.ProjectileType<BoomerangFishScaleProj>();  
+            Item.shootSpeed = 25f;
+        }
+
+        public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[Item.shoot] < 5;
+		}
+    }
+}

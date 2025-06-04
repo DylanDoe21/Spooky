@@ -736,7 +736,7 @@ namespace Spooky.Content.Generation
             //place random structures after the main ones are generated
             for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
             {
-                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 6; Y++)
+                for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 50; Y++)
                 {
                     //ground structures
                     if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && 

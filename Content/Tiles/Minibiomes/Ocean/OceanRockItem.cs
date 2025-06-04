@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace Spooky.Content.Tiles.Minibiomes.Ocean
 {
-    public class OceanMeatItem : ModItem
+    public class OceanRockItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,19 +14,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<OceanMeat>());
+            Item.DefaultToPlaceableTile(ModContent.TileType<OceanRock>());
             Item.width = 16;
 			Item.height = 16;
         }
-
-        /*
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<OceanBiomassWallItem>(), 4)
-            .AddTile(TileID.WorkBenches)
-            .Register();
-        }
-        */
     }
 }

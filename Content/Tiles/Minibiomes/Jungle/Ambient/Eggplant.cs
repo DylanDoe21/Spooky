@@ -17,8 +17,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Ambient
 			Main.tileSolid[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			Main.tileLavaDeath[Type] = true;
-			Main.tileLighted[Type] = true;
 			TileID.Sets.MultiTileSway[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
 			TileObjectData.newTile.Width = 2;
@@ -31,6 +29,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle.Ambient
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(113, 55, 111));
 			DustType = 288;
+            HitSound = SoundID.Dig;
 		}
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)

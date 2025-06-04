@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
     {
         public override void SetDefaults()
         {
-            Item.damage = 40;
+            Item.damage = 30;
 			Item.mana = 20;
             Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;

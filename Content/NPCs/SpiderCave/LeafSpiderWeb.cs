@@ -49,7 +49,6 @@ namespace Spooky.Content.NPCs.SpiderCave
 
                 Vector2 ParentCenter = Parent.Center;
                 
-
                 Rectangle? chainSourceRectangle = null;
                 float chainHeightAdjustment = 0f;
 

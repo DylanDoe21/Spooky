@@ -19,8 +19,6 @@ using Spooky.Content.Tiles.Minibiomes.Ocean;
 
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
-	//TODO: 
-	//big dunk could pathfind to the player if they try and dig through the biome, or at least go to the closest node? or potentially come up with another way to discourage breaking blocks
 	public class Dunkleosteus : ModNPC
 	{
 		private readonly PathFinding pathfinder = new PathFinding(15);
@@ -375,7 +373,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						}
 					}
 				}
-			}	
+			}
 
 			/*
 			//create dust ring for debugging
@@ -423,16 +421,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				}
 			}
 
-			int[] InvalidBlockTypes = new int[]
-			{
-				ModContent.TileType<OceanSand>(),
-				ModContent.TileType<OceanBiomass>(),
-				ModContent.TileType<OceanMeat>(),
-				ModContent.TileType<LabMetalPipe>(),
-				ModContent.TileType<LabMetalPlate>()
-			};
-
-			SolidCollisionDestroyTiles(NPC.position, NPC.width, NPC.height, InvalidBlockTypes);
+			SolidCollisionDestroyTiles(NPC.position, NPC.width, NPC.height, PathFinding.BlockTypes);
 
 			//passive roaming pathfinding movement
 			if (Aggression <= 0)
@@ -497,14 +486,17 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					}
 
 					//only use pathfinding if it doesnt have line of sight to the player
-					bool PlayerLineOfSight = Collision.CanHitLine(TargetedPlayer.Center - new Vector2(10, 10), 20, 20, NPC.position, NPC.width, NPC.height);
+					bool PlayerLineOfSight = Collision.CanHitLine(TargetedPlayer.Center - new Vector2(1, 1), 2, 2, NPC.position, NPC.width, NPC.height);
 					if (!PlayerLineOfSight)
 					{
-						PathfindingMovement(TargetedPlayer.Center, Speed, 50, 7000, true);
+						PathfindingMovement(TargetedPlayer.Center, Speed, 70, 7000, true);
 						NPC.noTileCollide = true;
 
 						//decrease aggression timer
 						Aggression--;
+
+						//for debugging
+						//Main.NewText(Aggression);
 					}
 					else
 					{
@@ -589,16 +581,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 		private static bool SolidCollideArea(Vector2 Center, int Width, int Height)
 		{
-			int[] BlockTypes = new int[]
-			{
-				ModContent.TileType<OceanSand>(),
-				ModContent.TileType<OceanBiomass>(),
-				ModContent.TileType<OceanMeat>(),
-				ModContent.TileType<LabMetalPipe>(),
-				ModContent.TileType<LabMetalPlate>()
-			};
-
-			return TileGlobal.SolidCollisionWithSpecificTiles(Center - new Vector2(Width / 2, Height / 2), Width, Height, BlockTypes);
+			return TileGlobal.SolidCollisionWithSpecificTiles(Center - new Vector2(Width / 2, Height / 2), Width, Height, PathFinding.BlockTypes);
 		}
 
 		private void PathfindingMovement(Vector2 position, float Speed, int DistanceCheck, int Iterations, bool FollowingPlayer)
@@ -607,7 +590,45 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			//go to positions around the player, and if they arent valid try offsetting the position to allow dunk to find the location it needs to go to
 			//this is done by just doing an additional solid collision check around every compass direction and every diagonal position from the position it needs to go to
-			Vector2 RealPosition = (position + new Vector2(0, DistanceCheck)); 
+			Vector2 RealPosition = Vector2.Zero; //= (position + new Vector2(0, DistanceCheck)); 
+
+			//do a loop to check a box around the player for a valid spot to pathfind to
+			for (int X = -DistanceCheck; X < DistanceCheck; X++)
+			{
+				if (RealPosition != Vector2.Zero)
+				{
+					break;
+				}
+
+				for (int Y = -DistanceCheck; Y < DistanceCheck; Y++)
+				{
+					if (SolidCollideArea(position + new Vector2(X, Y), NPC.width + 20, NPC.height + 20))
+					{
+						continue;
+					}
+					else
+					{
+						RealPosition = position + new Vector2(X, Y);
+						break;
+					}
+				}
+			}
+
+			//if a position is not able to be found after the loop, then find the closest node
+			if (RealPosition == Vector2.Zero)
+			{
+				if (FollowingPlayer)
+				{
+					FindClosestNode = true;
+					NPC.netUpdate = true;
+				}
+				else
+				{
+					NPC.ai[0] = 0;
+				}
+			}
+
+			/*
 			if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
 			{
 				RealPosition = (position + new Vector2(0, -DistanceCheck));
@@ -648,6 +669,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					}
 				}
 			}
+			*/
 
 			//if for whatever reason the player is not reachable after the above position checks, then attempt to pathfind to the closest "node" position in the biome
 			if (FindClosestNode)
@@ -675,7 +697,10 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			if (!FoundValidPath || (FindClosestNode && NPC.Distance(RealPosition) < 100f))
 			{
-				Aggression = 2;
+				if (Aggression > 2)
+				{
+					Aggression = 2;
+				}
 			}
 			else
 			{

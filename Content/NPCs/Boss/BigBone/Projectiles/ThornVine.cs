@@ -25,6 +25,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public static readonly SoundStyle GrowSound = new("Spooky/Content/Sounds/BigBone/PlantGrow", SoundType.Sound) { Pitch = -0.35f };
 		public static readonly SoundStyle KillSound = new("Spooky/Content/Sounds/BigBone/PlantDestroy", SoundType.Sound) { Pitch = -0.35f, Volume = 0.5f };
 
+		public override void SetStaticDefaults()
+		{
+            ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+		}
+
 		public override void SendExtraAI(BinaryWriter writer)
         {
 			for (int i = 0; i < trailLength.Length; i++)

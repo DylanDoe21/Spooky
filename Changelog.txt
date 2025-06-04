@@ -148,7 +148,7 @@ Miscellaneous:
 -Slightly changed the spooky mod biome compass arrow texture to make it more obvious that its an arrow pointing somewhere
 -Changed spike shell basher into a shield accessory that gives 3 defense and causes enemies that hit you to take damage
 -Trap door spider mount is now lower towards the ground so you can fit in smaller spaces, and made its wall/ceiling clinging mechanic way more lenient and much easier to use
--Cemetery trees can now be planted and grown on catacomb brick moss placed by the player
+-Cemetery tree saplings can now be planted and grown on catacomb brick moss placed by the player
 
 
 ~Enemies & Bosses~
@@ -161,6 +161,8 @@ Boss Changes:
 -All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag damage debuffs)
 -Big bone's entire fight has been revamped, with new attacks that are more fun, more thematically fitting, and have more personality
 -Big bone's phase 2 transition with the solar flowers you had to kill has been removed entirely due to it just unnecessarily extending the fight
+-Big bone health buffed from 72000 to 75000
+-Moco's kamikaze mocling projectiles now fly at you horizontally instead of just vertically 
 
 Enemy Changes:
 -Observing orchids will now only chase you if they have light of sight to you
@@ -229,5 +231,6 @@ Multiplayer:
 -Attempted to fix issue with temple of moco idols not completing the event properly
 -Attempted to fix the egg incursion visuals and music not showing up for some players in multiplayer
 -Fixed noseferatu's rapid fire booger projectiles not spawning in multiplayer
--Big bone should now be way more functional in multiplayer
+-Fixed various spooky mod screenshake issues in multiplayer
+-Big bone should now be more functional in multiplayer
 -Egg incursion should now be more functional in multiplayer

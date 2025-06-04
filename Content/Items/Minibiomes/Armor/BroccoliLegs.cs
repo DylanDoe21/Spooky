@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<PlantMulch>(), 38)
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 28)
             .AddTile(TileID.Anvils)
             .Register();
         }

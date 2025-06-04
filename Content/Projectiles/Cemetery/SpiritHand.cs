@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
 		}
 
 		public override void SetDefaults()

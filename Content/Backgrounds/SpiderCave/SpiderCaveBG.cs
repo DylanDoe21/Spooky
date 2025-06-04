@@ -6,7 +6,7 @@ using System;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Backgrounds.SpookyHell
+namespace Spooky.Content.Backgrounds.SpiderCave
 { 
     internal static class SpiderCaveBG
     {

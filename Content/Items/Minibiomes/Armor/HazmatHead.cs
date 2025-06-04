@@ -49,6 +49,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
+			player.GetModPlayer<SpookyPlayer>().HazmatMinionCrit = true;
 		}
 
 		public override void AddRecipes()

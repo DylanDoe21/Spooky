@@ -164,8 +164,10 @@ namespace Spooky.Core
 					{
 						continue;
 					}
-					bool flag = Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
-					if (flag)
+					
+					bool IsTileValid = Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
+
+					if (IsTileValid)
 					{
 						vector.X = i * 16;
 						vector.Y = j * 16;
@@ -182,6 +184,7 @@ namespace Spooky.Core
 					}
 				}
 			}
+			
 			return false;
 		}
     }

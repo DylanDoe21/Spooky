@@ -1,11 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
-using Spooky.Core;
 using Spooky.Content.Buffs.Minion;
 
 namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
@@ -41,6 +39,14 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
             return isAttacking;
         }
 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (Projectile.alpha > 0)
+			{
+				Projectile.alpha -= 20;
+			}
+		}
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -71,7 +77,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 			for (int i = 0; i < Main.maxNPCs; i++)
 			{
 				NPC Target = Projectile.OwnerMinionAttackTargetNPC;
-				if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type] && Vector2.Distance(player.Center, Target.Center) <= 700f)
+				if (Target != null && Target.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[Target.type])
 				{
 					AttackingAI(Target);
 
@@ -99,32 +105,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 			{
 				IdleAI(player);
 			}
-
-            //prevent Projectiles clumping together
-			for (int num = 0; num < Main.projectile.Length; num++)
-			{
-				Projectile other = Main.projectile[num];
-				if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
-				{
-					const float pushAway = 0.1f;
-					if (Projectile.position.X < other.position.X)
-					{
-						Projectile.velocity.X -= pushAway;
-					}
-					else
-					{
-						Projectile.velocity.X += pushAway;
-					}
-					if (Projectile.position.Y < other.position.Y)
-					{
-						Projectile.velocity.Y -= pushAway;
-					}
-					else
-					{
-						Projectile.velocity.Y += pushAway;
-					}
-				}
-			}
 		}
 
         public void AttackingAI(NPC target)
@@ -142,18 +122,18 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 			}
 
-            if (Projectile.Distance(target.Center) >= 80f)
+            if (Projectile.Distance(target.Center) >= 120f)
             {
                 if (Projectile.alpha < 255)
                 {
-                    Projectile.alpha += 5;
+                    Projectile.alpha += 20;
                 }
             }
             else
             {
                 if (Projectile.alpha > 0)
                 {
-                    Projectile.alpha -= 15;
+                    Projectile.alpha -= 20;
                 }
             }
 		}
@@ -164,7 +144,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 
 			if (Projectile.alpha > 0)
 			{
-				Projectile.alpha -= 15;
+				Projectile.alpha -= 20;
 			}
 
 			float Speed = 0.25f;

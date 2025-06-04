@@ -36,7 +36,7 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
 		{
             player.AddBuff(Item.buffType, 2);
 
-			var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
+			var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
 			projectile.originalDamage = Item.damage;
 
 			return false;

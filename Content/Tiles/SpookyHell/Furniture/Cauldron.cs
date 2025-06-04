@@ -84,6 +84,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
         public override void SetStaticDefaults()
         {
 			Main.projFrames[Projectile.type] = 4;
+			ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
         }
 
         public override void SetDefaults()
@@ -131,13 +132,11 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
 			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
 
-			Color color = Lighting.GetColor((int)Projectile.Center.X / 16, (int)(Projectile.Center.Y / 16));
-
-			Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, color, Projectile.rotation, new Vector2(ProjTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
 
 			if (shakeTimer <= 0)
 			{
-				Main.spriteBatch.Draw(GlowTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, color, Projectile.rotation, new Vector2(GlowTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(GlowTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(GlowTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
 			}
 
             return false;

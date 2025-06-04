@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -35,6 +36,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 		public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 6;
+            ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
         }
 
 		public override void SetDefaults()

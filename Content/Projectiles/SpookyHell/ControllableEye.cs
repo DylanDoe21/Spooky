@@ -62,16 +62,16 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             Player player = Main.player[Projectile.owner];
 
-            if (ItemGlobal.ActiveItem(player).type != ModContent.ItemType<FleshStaff>())
-            {
-                Projectile.Kill();
-            }
-
             Projectile.rotation += 0.35f * (float)Projectile.direction;
 
             if (player.channel && Projectile.ai[0] == 0)
             {
                 Projectile.timeLeft = 200;
+
+                if (ItemGlobal.ActiveItem(player).type != ModContent.ItemType<FleshStaff>())
+                {
+                    Projectile.Kill();
+                }
 
                 if (Projectile.owner == Main.myPlayer)
                 {

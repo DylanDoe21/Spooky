@@ -32,7 +32,7 @@ namespace Spooky.Core
                 if (Main.rand.NextBool(5))
                 {
                     //heal based on how much damage was done
-                    int LifeHealed = damageDone > 12 ? 12 : damageDone / 2;
+                    int LifeHealed = damageDone > 12 ? 6 : damageDone / 2;
                     Main.LocalPlayer.statLife += LifeHealed;
                     Main.LocalPlayer.HealEffect(LifeHealed, true);
                     Main.LocalPlayer.GetModPlayer<SpookyPlayer>().RootHealCooldown = 300;

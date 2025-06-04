@@ -171,13 +171,13 @@ SinisterSnailCage.MapEntry: Sinister Snail Cage
 BoneFishTree.MapEntry: Fish Spine
 BoneFishTreeHanging.MapEntry: Fish Spine
 TubeWorm.MapEntry: Tube Worm
-CemeteryBloomPlant.MapEntry: Withered Bloom Plant
-DandelionBloomPlant.MapEntry: Dandelion Bloom Plant
-DragonfruitBloomPlant.MapEntry: Diva Bloom Plant
-FallBloomPlant.MapEntry: Pumpkin Bloom Plant
-FossilBloomPlant.MapEntry: Fossil Bloom Plant
-SeaBloomPlant.MapEntry: Depths Bloom Plant
-SpringBloomPlant.MapEntry: Pollen Bloom Plant
-SummerBloomPlant.MapEntry: Solar Bloom Plant
-VegetableBloomPlant.MapEntry: Genetically-Modified Bloom Plant
-WinterBloomPlant.MapEntry: Berry Bush Bloom Plant
+CemeteryBloomPlant.MapEntry: Withered Bloom
+DandelionBloomPlant.MapEntry: Dandelion Bloom
+DragonfruitBloomPlant.MapEntry: Diva Bloom
+FallBloomPlant.MapEntry: Pumpkin Bloom
+FossilBloomPlant.MapEntry: Fossil Bloom
+SeaBloomPlant.MapEntry: Depths Bloom
+SpringBloomPlant.MapEntry: Pollen Bloom
+SummerBloomPlant.MapEntry: Solar Bloom
+VegetableBloomPlant.MapEntry: Genetically-Modified Bloom
+WinterBloomPlant.MapEntry: Berry Bush Bloom

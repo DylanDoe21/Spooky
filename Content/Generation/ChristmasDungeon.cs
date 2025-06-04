@@ -733,7 +733,8 @@ namespace Spooky.Content.Generation
 								(ushort)ModContent.TileType<HorsePainting>(),
 								(ushort)ModContent.TileType<GrannyPainting>(),
 								(ushort)ModContent.TileType<GrandpaPainting>(),
-								(ushort)ModContent.TileType<SlendrinaPainting>()
+								(ushort)ModContent.TileType<SlendrinaPainting>(),
+								(ushort)ModContent.TileType<SlendrinaSonPainting>()
 							};
 
 							WorldGen.PlaceObject(i, j, WorldGen.genRand.Next(Paintings));

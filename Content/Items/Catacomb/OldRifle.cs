@@ -45,22 +45,6 @@ namespace Spooky.Content.Items.Catacomb
                 position += muzzleOffset;
             }
 
-			for (int numExplosion = 0; numExplosion < 3; numExplosion++)
-            {
-				int DustGore = Dust.NewDust(position, player.width / 2, player.height / 2, ModContent.DustType<SmokeEffect>(), 
-				0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.5f, 1f));
-
-				Main.dust[DustGore].velocity.X *= 0.2f;
-                Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(0f, 1f);
-                Main.dust[DustGore].noGravity = true;
-
-                if (Main.rand.NextBool(2))
-                {
-                    Main.dust[DustGore].scale = 0.5f;
-                    Main.dust[DustGore].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                }
-            }
-
 			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<RustedBulletProj>(), damage, knockback, player.whoAmI, 0f, 0f);
 
 			return false;

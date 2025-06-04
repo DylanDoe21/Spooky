@@ -31,7 +31,7 @@ namespace Spooky.Core
 			spiderCaveTiles = tileCounts[ModContent.TileType<DampGrass>()] + tileCounts[ModContent.TileType<DampSoil>()];
 			vegetableTiles = tileCounts[ModContent.TileType<JungleMoss>()] + tileCounts[ModContent.TileType<JungleSoilGrass>()];
 			tarPitsTiles = tileCounts[ModContent.TileType<DesertSand>()] + tileCounts[ModContent.TileType<DesertSandstone>()];
-			zombieOceanTiles = tileCounts[ModContent.TileType<OceanSand>()] + tileCounts[ModContent.TileType<OceanBiomass>()] + tileCounts[ModContent.TileType<OceanMeat>()];
+			zombieOceanTiles = tileCounts[ModContent.TileType<OceanSand>()] + tileCounts[ModContent.TileType<OceanBiomass>()] + tileCounts[ModContent.TileType<OceanRock>()]; 
 		}
 	}
 }

@@ -765,12 +765,12 @@ namespace Spooky.Content.Generation
 		public bool CanPlaceLootCabin(int PositionX, int PositionY)
 		{
 			//dont allow loot cabins to place too close to each other
-			for (int i = PositionX - 75; i < PositionX + 75; i++)
+			for (int i = PositionX - 65; i < PositionX + 65; i++)
 			{
 				for (int j = PositionY - 50; j < PositionY + 50; j++)
 				{
 					if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWood>() || Main.tile[i, j].TileType == ModContent.TileType<OldWoodChest>() ||
-					Main.tile[i, j].TileType == ModContent.TileType<MushroomMoss>() || Main.tileDungeon[Main.tile[i, j].TileType])
+					(Main.tile[i, j].TileType == ModContent.TileType<MushroomMoss>() && j < PositionY + 25) || Main.tileDungeon[Main.tile[i, j].TileType])
 					{
 						return false;
 					}

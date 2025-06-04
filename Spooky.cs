@@ -8,15 +8,12 @@ using System.IO;
 using Spooky.Core;
 using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
+using Spooky.Content.Backgrounds.SpiderCave;
 using Spooky.Content.Backgrounds.SpookyHell;
-using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.NPCs.Boss.SpookySpirit;
-using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.EggEvent;
-using Spooky.Content.NPCs.PandoraBox;
 
 namespace Spooky
 {

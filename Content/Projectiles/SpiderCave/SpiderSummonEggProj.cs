@@ -48,7 +48,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 int[] PotentialSpiders = { ModContent.ProjectileType<SpiderBabyGreen>(), ModContent.ProjectileType<SpiderBabyPurple>(), ModContent.ProjectileType<SpiderBabyRed>() };
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - Main.rand.Next(0, 10)), 
-                Vector2.Zero, Main.rand.Next(PotentialSpiders), Projectile.damage, 0f, Main.myPlayer);
+                Vector2.Zero, Main.rand.Next(PotentialSpiders), Projectile.damage, 0f, Projectile.owner);
             }
 
             for (int numGores = 1; numGores <= 3; numGores++)

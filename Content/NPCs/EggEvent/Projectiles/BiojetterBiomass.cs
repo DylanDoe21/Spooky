@@ -79,7 +79,8 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             if (Projectile.ai[0] < 120)
             {
-                Player player = Main.LocalPlayer;
+                Player player = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
+
                 float goToX = player.Center.X - Projectile.Center.X;
                 float goToY = player.Center.Y - Projectile.Center.Y;
                 float speed = 0.2f;

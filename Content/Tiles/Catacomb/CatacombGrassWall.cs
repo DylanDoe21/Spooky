@@ -5,8 +5,8 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Spooky.Core;
 
+using Spooky.Core;
 using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Tiles.Catacomb
