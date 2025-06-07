@@ -43,7 +43,7 @@ namespace Spooky.Core
 			if (player.InModBiome(ModContent.GetInstance<SpookyBiome>()) || player.InModBiome(ModContent.GetInstance<SpookyBiomeUg>()) || player.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
             {
 				spawnRate /= 2;
-				maxSpawns *= 2;
+				//maxSpawns *= 2;
 			}
 			else if (player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
             {
@@ -53,12 +53,12 @@ namespace Spooky.Core
 			else if (player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && Flags.CatacombKey1)
             {
 				spawnRate /= 2;
-				maxSpawns *= 2;
+				//maxSpawns *= 2;
 			}
 			else if (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && Flags.CatacombKey2)
 			{
 				spawnRate /= 2;
-				maxSpawns *= 2;
+				//maxSpawns *= 2;
 			}
 			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that a catacomb guardian spawns instantly
 			else if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))

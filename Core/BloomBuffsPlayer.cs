@@ -91,8 +91,6 @@ namespace Spooky.Core
 		public int FossilBlackPepperTimer = 0;
 		public int FossilBlackPepperStacks = 0;
 		public int CemeteryMarigoldTimer = 0;
-		public float DutchmanRingRotation;
-		public float DutchmanRingScale = 1f;
 
 		//accessories
 		public bool Wormy = false;
@@ -101,10 +99,6 @@ namespace Spooky.Core
 
 		//UI default position
 		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 20f * Main.UIScale);
-
-		private static Asset<Texture2D> DutchmanPipeRingTex1;
-		private static Asset<Texture2D> DutchmanPipeRingTex2;
-		private static Asset<Texture2D> DutchmanPipeRingTex3;
 
 		public static readonly SoundStyle SpongeSound = new("Spooky/Content/Sounds/SpongeAbsorb", SoundType.Sound) { PitchVariance = 0.6f };
 
@@ -1011,71 +1005,6 @@ namespace Spooky.Core
 
 				Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center + new Vector2(randomX, randomY), Vector2.Zero,
 				ModContent.ProjectileType<Barnacle>(), proj.damage / 2, hit.Knockback, Player.whoAmI, ai0: target.whoAmI, ai1: randomX, ai2: randomY);
-			}
-		}
-
-		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
-		{
-			//dutchman pipe aura ring
-			if (FossilDutchmanPipe)
-			{
-				DutchmanPipeRingTex1 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRing");
-				DutchmanPipeRingTex2 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRingInside");
-				DutchmanPipeRingTex3 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRingPattern");
-
-				float num = 1f;
-				float num2 = 0.1f;
-				float num3 = 0.9f;
-				if (!Main.gamePaused)
-				{
-					DutchmanRingScale += 0.004f;
-					DutchmanRingRotation += 0.01f;
-				}
-
-				if (DutchmanRingScale < 1f)
-				{
-					num = DutchmanRingScale;
-				}
-				else
-				{
-					DutchmanRingScale = 0.8f;
-					num = DutchmanRingScale;
-				}
-
-				if (DutchmanRingRotation > (float)Math.PI * 2f)
-				{
-					DutchmanRingRotation -= (float)Math.PI * 2f;
-				}
-
-				if (DutchmanRingRotation < (float)Math.PI * 2f)
-				{
-					DutchmanRingRotation += (float)Math.PI * 2f;
-				}
-
-				for (int i = 0; i < 4; i++)
-				{
-					float num4 = num + num2 * (i / 2);
-					if (num4 > 1f)
-					{
-						num4 -= num2 * 2f;
-					}
-
-					float num5 = MathHelper.Lerp(0.8f, 0f, Math.Abs(num4 - num3) * 10f);
-
-					for (int j = 0; j < 360; j += 90)
-					{
-						Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 12f), Main.rand.NextFloat(1f, 12f)).RotatedBy(MathHelper.ToRadians(j));
-
-						Main.spriteBatch.Draw(DutchmanPipeRingTex1.Value, Player.Center - Main.screenPosition + circular, new Rectangle(0, 0, 348, 348), Color.Red * 0.5f * num5,
-						DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f);
-					}
-
-					Main.spriteBatch.Draw(DutchmanPipeRingTex2.Value, Player.Center - Main.screenPosition, new Rectangle(0, 0, 348, 348), Color.Red * 0.25f * num5,
-					DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f);
-
-					Main.spriteBatch.Draw(DutchmanPipeRingTex3.Value, Player.Center - Main.screenPosition, new Rectangle(0, 0, 348, 348), Color.White * num5,
-					DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f);
-				}
 			}
 		}
 	}

@@ -83,7 +83,7 @@ namespace Spooky.Core
             {
 				//spawn big dunk, only if a player is in the biome
                 //even though big dunks pathfinding doesnt really affect preformance, still not a good idea to have it running in the background constantly
-				if (!NPC.AnyNPCs(ModContent.NPCType<Dunkleosteus>()) && AnyPlayersInZombieOceanBiome())
+				if (!NPC.AnyNPCs(ModContent.NPCType<Dunkleosteus>()) && AnyPlayersInZombieOceanBiome() && !Flags.downedDunkleosteus)
 				{
 					int Count = Flags.ZombieBiomePositions.Count - 1;
 					if (Main.netMode != NetmodeID.MultiplayerClient)

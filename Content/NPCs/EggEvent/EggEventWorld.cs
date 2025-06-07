@@ -245,7 +245,7 @@ namespace Spooky.Content.NPCs.EggEvent
 					{
 						if (!HasSpawnedBiojetter)
 						{
-							Player player = GetRandomPlayerInEvent();
+							Player player = Main.LocalPlayer;
 
 							SpawnEnemy(0, 2, player);
 
@@ -272,7 +272,7 @@ namespace Spooky.Content.NPCs.EggEvent
 					{
 						if (!HasSpawnedBolster)
 						{
-							Player player = GetRandomPlayerInEvent();
+							Player player = Main.LocalPlayer;
 
 							SpawnEnemy(1, 5, player);
 
@@ -294,7 +294,7 @@ namespace Spooky.Content.NPCs.EggEvent
 						{
 							for (int numEnemies = 0; numEnemies <= 5; numEnemies++)
 							{
-								Player player = GetRandomPlayerInEvent();
+								Player player = Main.LocalPlayer;
 
 								if (timeLeft < 60)
 								{
@@ -356,7 +356,7 @@ namespace Spooky.Content.NPCs.EggEvent
 					//randomly spawn enemies throughout the event
 					if (EventActiveNPCCount() < 20 && Main.rand.NextBool(ChanceToSpawnEnemy))
 					{
-						Player player = GetRandomPlayerInEvent();
+						Player player = Main.LocalPlayer;
 
 						if (timeLeft < 60)
 						{

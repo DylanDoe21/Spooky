@@ -136,18 +136,18 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 10;
-			float launchSpeed = 35f;
-			float maxLaunchLength = 700f;
-			float retractAcceleration = 3.5f;
-			float maxRetractSpeed = 25f; 
-			float forcedRetractAcceleration = 25f;
-			float maxForcedRetractSpeed = 15f;
+			int launchTimeLimit = 17;
+			float launchSpeed = 30f;
+			float maxLaunchLength = 360f;
+			float retractAcceleration = 3f;
+			float maxRetractSpeed = 30f;
+			float forcedRetractAcceleration = 30f;
+			float maxForcedRetractSpeed = 20f;
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
 			int unusedChainLength = 60;
 			int defaultHitCooldown = 10;
-			int spinHitCooldown = 20; 
+			int spinHitCooldown = 20;
 			int movingHitCooldown = 20;
 			int ricochetTimeLimit = launchTimeLimit + 5;
 

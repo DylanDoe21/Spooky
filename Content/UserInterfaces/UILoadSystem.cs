@@ -34,11 +34,19 @@ namespace Spooky.Content.UserInterfaces
 				InterfaceScaleType.None));
 			}
 
+			//rotten depths lab UI
 			//little eye bounty UI
 			int mouseTextIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseTextIndex != -1)
             {
-                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Little Eye Bounty UI", () =>
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Rotten Depths Lab Email", () =>
+				{
+					RottenDepthsEmailUI.Draw(Main.spriteBatch);
+					return true;
+				},
+				InterfaceScaleType.None));
+
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Little Eye Bounty UI", () =>
                 {
                     LittleEyeQuestUI.Draw(Main.spriteBatch);
                     return true;

@@ -227,6 +227,7 @@ namespace Spooky.Core
 				PandoraBoxEnemies,
 				new Dictionary<string, object>()
 				{
+					["spawnItems"] = ModContent.ItemType<EMFReader>(),
                     ["collectibles"] = new List<int>() { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(),
                     ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>(), ModContent.ItemType<PandoraBean>() },
                     ["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.EntryName"),
@@ -272,7 +273,7 @@ namespace Spooky.Core
 				"LogEvent", 
 				Mod,
 				"EggEvent",
-				11.01f,
+				11.02f,
 				() => Flags.downedEggEvent,
 				EggEventEnemies,
 				new Dictionary<string, object>()
@@ -304,7 +305,7 @@ namespace Spooky.Core
 				"LogBoss", 
 				Mod,
 				nameof(OrroHead),
-				11.02f,
+				11.03f,
 				() => Flags.downedOrroboro,
 				Orroboro,
 				new Dictionary<string, object>() 

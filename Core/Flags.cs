@@ -40,6 +40,7 @@ namespace Spooky.Core
         public static bool downedOrroboro = false;
         public static bool downedBigBone = false;
         public static bool downedSpookFishron = false;
+		public static bool downedDunkleosteus = false;
 
 		//events
         public static bool downedMocoIdol1 = false;
@@ -81,6 +82,7 @@ namespace Spooky.Core
             downedOrroboro = false;
             downedBigBone = false;
             downedSpookFishron = false;
+			downedDunkleosteus = false;
 
 			//events
 			downedPandoraBox = false;
@@ -144,6 +146,7 @@ namespace Spooky.Core
 			tag[nameof(downedOrroboro)] = downedOrroboro;
 			tag[nameof(downedBigBone)] = downedBigBone;
 			tag[nameof(downedSpookFishron)] = downedSpookFishron;
+			tag[nameof(downedDunkleosteus)] = downedDunkleosteus;
 
 			//events
 			tag[nameof(downedPandoraBox)] = downedPandoraBox;
@@ -210,6 +213,7 @@ namespace Spooky.Core
 			downedOrroboro = tag.GetBool(nameof(downedOrroboro));
 			downedBigBone = tag.GetBool(nameof(downedBigBone));
 			downedSpookFishron = tag.GetBool(nameof(downedSpookFishron));
+		 	downedDunkleosteus = tag.GetBool(nameof(downedDunkleosteus));
 
 			//events
 			downedPandoraBox = tag.GetBool(nameof(downedPandoraBox));
@@ -260,7 +264,7 @@ namespace Spooky.Core
             writer.WriteVector2(EyeValleyCenter);
 
 			//downed bosses
-			writer.WriteFlags(downedRotGourd, downedSpookySpirit, downedMoco, downedDaffodil, downedOrroboro, downedBigBone, downedSpookFishron);
+			writer.WriteFlags(downedRotGourd, downedSpookySpirit, downedMoco, downedDaffodil, downedOrroboro, downedBigBone, downedSpookFishron, downedDunkleosteus);
 
 			//downed events
 			writer.WriteFlags(downedPandoraBox, downedEggEvent);
@@ -298,7 +302,7 @@ namespace Spooky.Core
             EyeValleyCenter = reader.ReadVector2();
 
 			//downed bosses
-			reader.ReadFlags(out downedRotGourd, out downedSpookySpirit, out downedMoco, out downedDaffodil, out downedOrroboro, out downedBigBone, out downedSpookFishron);
+			reader.ReadFlags(out downedRotGourd, out downedSpookySpirit, out downedMoco, out downedDaffodil, out downedOrroboro, out downedBigBone, out downedSpookFishron, out downedDunkleosteus);
 
 			//downed events
 			reader.ReadFlags(out downedPandoraBox, out downedEggEvent);

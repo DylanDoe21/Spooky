@@ -20,7 +20,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-			TileObjectData.newTile.Origin = new Point16(1, 1);
+			TileObjectData.newTile.Origin = new Point16(1, 2);
             TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
             AddMapEntry(new Color(26, 76, 38));

@@ -29,6 +29,15 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
             Projectile.penetrate = 1;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
+		{
+            if (Projectile.ai[1] == 2)
+            {
+                target.AddBuff(BuffID.Stinky, 600);
+                target.AddBuff(BuffID.Poisoned, 600);
+            }
+        }
+
         public override void AI()
         {
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;

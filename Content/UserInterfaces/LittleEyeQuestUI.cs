@@ -14,9 +14,6 @@ using Spooky.Content.Items.Quest;
 
 namespace Spooky.Content.UserInterfaces
 {
-    //TODO:
-    //make icons display using the locked texture once a bounty has been accepted
-    //allow players to click the icon of the quest they accepted in case they loose the item to attract the miniboss (will likely require a separate accepted bool for each quest)
     public class LittleEyeQuestUI
     {
         public static int LittleEye = -1;

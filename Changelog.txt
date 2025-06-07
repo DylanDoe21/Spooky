@@ -92,6 +92,7 @@ Magic:
 -Snot nosed tome no longer flies to your cursor, it now summons the channeled nose above you, and shoots boogers at your cursor
 -Changed moocher staff projectile to be a giant cursed fire explosion that launches some cursed fireballs upward, it now does more damage, is more useful against flying targets, and visually looks better
 -Arachnid leg wand reworked, it now rapidly fires out short range and short lived spider leg apparitions that can go through blocks, nerfed its damage as a result of this rework
+-Pumpkin spicer flames now actually spawn from the front of the held weapon instead of the player's center and added some randomness to the flames shooting
 
 Summon:
 -Buffed spooky scroll damage from 15 to 20

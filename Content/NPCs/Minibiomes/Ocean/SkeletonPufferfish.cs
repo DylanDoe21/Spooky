@@ -26,8 +26,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
             NPC.lifeMax = 80;
 			NPC.damage = 0;
 			NPC.defense = 10;
-			NPC.width = 88;
-			NPC.height = 50;
+			NPC.width = 42;
+			NPC.height = 36;
 			NPC.npcSlots = 0.5f;
 			NPC.knockBackResist = 0.35f;
 			NPC.noGravity = true;

@@ -4,14 +4,11 @@ using Terraria.ModLoader;
 
 using Spooky.Core;
 
-namespace Spooky.Content.Items.BossSummon
+namespace Spooky.Content.Items
 {
     public class RaveStarter : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            ItemID.Sets.SortingPriorityBossSpawns[Type] = 12;
-        }
+        public override string Texture => "Spooky/Content/Items/BossSummon/CowBell";
 
         public override void SetDefaults()
         {

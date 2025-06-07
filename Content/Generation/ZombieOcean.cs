@@ -108,7 +108,6 @@ namespace Spooky.Content.Generation
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
 			progress.Set(0.5);
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
-			PlaceBiomassClumps(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
@@ -190,25 +189,6 @@ namespace Spooky.Content.Generation
 									}
 								}
 							}
-						}
-					}
-				}
-			}
-		}
-
-		//place clumps of zombie biomass and flesh
-		public void PlaceBiomassClumps(int PositionX, int PositionY, int SizeX, int SizeY)
-		{
-			for (int j = (int)Main.worldSurface; j < PositionY + SizeY; j++)
-			{
-				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
-				{
-					if (WorldGen.InWorld(i, j, 10))
-					{
-						if (WorldGen.genRand.NextBool(4) && NoDungeonBlocksNearby(i, j, 2, true) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !Main.tile[i, j - 3].HasTile)
-						{
-							SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<OceanBiomass>(), 0, 6, 4, 1f, true, false);
-							SpookyWorldMethods.PlaceOval(i, j - 3, -1, ModContent.WallType<OceanBiomassWall>(), 8, 5, 1f, false, false);
 						}
 					}
 				}
@@ -416,6 +396,23 @@ namespace Spooky.Content.Generation
 
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
+			//place zombie biomass clumps on the floor
+			for (int j = (int)Main.worldSurface; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j, 10))
+					{
+						if (WorldGen.genRand.NextBool(20) && NoDungeonBlocksNearby(i, j, 2, false) && Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !Main.tile[i, j - 1].HasTile)
+						{
+							SpookyWorldMethods.PlaceOval(i, j, ModContent.TileType<OceanBiomass>(), 0, 6, 4, 1f, true, false);
+							SpookyWorldMethods.PlaceOval(i, j - 1, -1, ModContent.WallType<OceanBiomassWall>(), 8, 5, 1f, false, false);
+						}
+					}
+				}
+			}
+
+			//place more water in the biome to fill it up more and so it doesnt drain the entire ocean
 			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
 			{
 				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
@@ -432,7 +429,7 @@ namespace Spooky.Content.Generation
 
 						if (BlockTypes.Contains(Main.tile[i, j].TileType) && !Main.tile[i, j + 1].HasTile)
 						{
-							for (int waterY = j; waterY < j + 6; waterY++)
+							for (int waterY = j; waterY < j + 15; waterY++)
 							{
 								Main.tile[i, waterY].LiquidAmount = 255;
 							}
@@ -583,6 +580,27 @@ namespace Spooky.Content.Generation
 							}));
 						}
 					}
+				}
+			}
+
+			//place surface lab
+			bool placedSurfaceLab = false;
+            int surfaceLabAttempts = 0;
+            while (!placedSurfaceLab && surfaceLabAttempts++ < 100000)
+            {
+				int OceanTopX = StartPositionX + (StartPositionX > (Main.maxTilesX / 2) ? -120 : 120);
+				int OceanTopY = 10;
+
+				while (!WorldGen.SolidTile(OceanTopX, OceanTopY) && OceanTopY <= Main.worldSurface)
+				{
+					OceanTopY++;
+				}
+				if (WorldGen.SolidTile(OceanTopX, OceanTopY))
+				{
+					Vector2 LabOrigin = new Vector2(OceanTopX - 18, OceanTopY - 12);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/SurfaceLab-" + WorldGen.genRand.Next(1, 3) + ".shstruct", LabOrigin.ToPoint16(), Mod);
+
+					placedSurfaceLab = true;
 				}
 			}
 		}

@@ -26,7 +26,14 @@ namespace Spooky.Content.Biomes
                     //play normal theme if it isnt storming
                     if (!Main.IsItStorming)
                     {
-                        music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+                        if (Main.dayTime)
+                        {
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+                        }
+                        else
+                        {
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/CemeteryNight");
+                        }
                     }
                     //play monsoon theme during a storm
                     else if (Main.IsItStorming)

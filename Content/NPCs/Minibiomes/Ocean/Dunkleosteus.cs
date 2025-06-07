@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.Localization;
+using Terraria.Chat;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -15,6 +17,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
+using Spooky.Content.Projectiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
@@ -30,6 +33,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 		int BiteAnimationTimer = 0;
 		bool BiteAnimation = false;
+		bool AteBomb = false;
 
 		int RoarAnimationTimer = 0;
 		bool RoarAnimation = false;
@@ -48,6 +52,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusGrowl2", SoundType.Sound);
 		public static readonly SoundStyle RoarSound = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusRoar", SoundType.Sound) { PitchVariance = 0.6f };
 		public static readonly SoundStyle StingSound = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusSting", SoundType.Sound);
+		public static readonly SoundStyle GulpSound = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusGulp", SoundType.Sound);
+		public static readonly SoundStyle ExplodeSound = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusExplode", SoundType.Sound);
 
 		public override void SetStaticDefaults()
 		{
@@ -83,6 +89,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//bools
 			writer.Write(BiteAnimation);
 			writer.Write(RoarAnimation);
+			writer.Write(AteBomb);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -101,6 +108,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//bools
 			BiteAnimation = reader.ReadBoolean();
 			RoarAnimation = reader.ReadBoolean();
+			AteBomb = reader.ReadBoolean();
 		}
 
 		public override void SetDefaults()
@@ -120,13 +128,15 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.immortal = true;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.DeathSound = RoarSound with { Pitch = -1.2f };
 			NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ZombieOceanBiome>().Type };
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type], quickUnlock: true);
+
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Dunkleosteus"),
@@ -167,7 +177,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			if (!BiteAnimation && !RoarAnimation)
 			{
-				if (NPC.ai[2] <= 0 && Aggression <= 0)
+				if ((NPC.ai[2] <= 0 && Aggression <= 0) || AteBomb)
 				{
 					if (NPC.frameCounter > 10)
 					{
@@ -296,7 +306,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				Aggression = 0;
 			}
 
-			int BodyFrameRate = Aggression > 0 ? 4 : 8;
+			int BodyFrameRate = AteBomb ? 15 : (Aggression > 0 ? 4 : 8);
 
 			BodyFrameCounter++;
 			if (BodyFrameCounter % BodyFrameRate == 0)
@@ -336,6 +346,104 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			float RotateSpeed = 0.04f;
 
             NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
+
+			if (Aggression > 2)
+			{
+				foreach (var proj in Main.ActiveProjectiles)
+				{
+					if (proj.type == ModContent.ProjectileType<MineProj>() && proj.Distance(NPC.Center) <= 200)
+					{
+						Vector2 desiredVelocity = proj.DirectionTo(NPC.Center) * 5;
+						proj.velocity = Vector2.Lerp(proj.velocity, desiredVelocity, 1f / 20);
+
+						if (proj.Hitbox.Intersects(new Rectangle((int)NPC.Center.X - 20, (int)NPC.Center.Y - 20, 40, 40)))
+						{
+							proj.scale -= 0.25f;
+
+							if (proj.scale <= 0)
+							{
+								AteBomb = true;
+								proj.active = false;
+							}
+						}
+					}
+				}
+			}
+
+			if (AteBomb)
+			{
+				Vector2 desiredVelocity = NPC.DirectionTo(TargetedPlayer.Center) * 1;
+				NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+				NPC.velocity *= 0.98f;
+
+				NPC.localAI[0]++;
+
+				if (NPC.localAI[0] == 2 || NPC.localAI[0] == 60)
+				{
+					SoundEngine.PlaySound(GulpSound, NPC.Center);
+
+					Screenshake.ShakeScreenWithIntensity(NPC.Center, 10f, 500f);
+				}
+
+				if (NPC.localAI[0] >= 180)
+				{
+					NPC.SuperArmor = false;
+					NPC.immortal = false;
+
+					SoundEngine.PlaySound(ExplodeSound, NPC.Center);
+
+					Screenshake.ShakeScreenWithIntensity(NPC.Center, 20f, 700f);
+
+					//spawn gores
+					for (int numGores = 1; numGores <= 10; numGores++)
+					{
+						if (Main.netMode != NetmodeID.Server)
+						{
+							Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), ModContent.Find<ModGore>("Spooky/DunkleosteusGore" + numGores).Type);
+						}
+					}
+
+					//flame dusts
+					for (int numDust = 0; numDust < 50; numDust++)
+					{
+						int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.InfernoFork, 0f, -2f, 0, default, Main.rand.NextFloat(3f, 5f));
+						Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-20f, 20f);
+						Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-10f, 10f);
+						Main.dust[dustGore].noGravity = true;
+					}
+
+					//explosion smoke
+					for (int numExplosion = 0; numExplosion < 25; numExplosion++)
+					{
+						int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, Main.rand.NextFloat(0.8f, 1.2f));
+						Main.dust[DustGore].velocity *= Main.rand.NextFloat(-3f, 3f);
+						Main.dust[DustGore].noGravity = true;
+					}
+
+					//death message
+					string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.DunkleosteusDefeat");
+
+					if (Main.netMode != NetmodeID.Server)
+					{
+						Main.NewText(text, 171, 64, 255);
+					}
+					else
+					{
+						ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+					}
+
+					Flags.downedDunkleosteus = true;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+
+					TargetedPlayer.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false, null, true);
+				}
+
+				return;
+			}
 
 			//if there are no active players in the biome then despawn
 			if (!AnyPlayersInBiome())
@@ -456,7 +564,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				{
 					if (NPC.Distance(PositionGoTo) > 150f)
 					{
-						PathfindingMovement(PositionGoTo, 2.5f, 20, 7000, false);
+						PathfindingMovement(PositionGoTo, 2f, 20, 7000, false);
 						NPC.noTileCollide = true;
 					}
 					else
@@ -471,7 +579,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;
 
-				float Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 3.75f : 3.5f;
+				float Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 3.5f : 3f;
 
 				//quickly loose aggression if the player leaves the biome
 				if (!TargetedPlayer.InModBiome<ZombieOceanBiome>())
@@ -492,11 +600,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						PathfindingMovement(TargetedPlayer.Center, Speed, 70, 7000, true);
 						NPC.noTileCollide = true;
 
-						//decrease aggression timer
+						//decrease aggression
 						Aggression--;
-
-						//for debugging
-						//Main.NewText(Aggression);
 					}
 					else
 					{
@@ -627,49 +732,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					NPC.ai[0] = 0;
 				}
 			}
-
-			/*
-			if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-			{
-				RealPosition = (position + new Vector2(0, -DistanceCheck));
-				if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-				{
-					RealPosition = (position + new Vector2(DistanceCheck, 0));
-					if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-					{
-						RealPosition = (position + new Vector2(-DistanceCheck, 0));
-						if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-						{
-							RealPosition = (position + new Vector2(DistanceCheck, DistanceCheck));
-							if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-							{
-								RealPosition = (position + new Vector2(DistanceCheck, -DistanceCheck));
-								if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-								{
-									RealPosition = (position + new Vector2(-DistanceCheck, DistanceCheck));
-									if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-									{
-										RealPosition = (position + new Vector2(-DistanceCheck, -DistanceCheck));
-										if (SolidCollideArea(RealPosition, NPC.width, NPC.height))
-										{
-											if (FollowingPlayer)
-											{
-												FindClosestNode = true;
-												NPC.netUpdate = true;
-											}
-											else
-											{
-												NPC.ai[0] = 0;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			*/
 
 			//if for whatever reason the player is not reachable after the above position checks, then attempt to pathfind to the closest "node" position in the biome
 			if (FindClosestNode)

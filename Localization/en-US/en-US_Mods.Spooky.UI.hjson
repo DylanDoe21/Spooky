@@ -26,6 +26,27 @@ LittleEyeBounties: {
 	BountyCompletedItem: Click this button to get the item to summon this monster if you'd like to rematch it
 }
 
+RottenDepthsTerminal: {
+	Inbox: Doohickey Labs Incorporated Mail Inbox
+	Sender: Sender
+	Message: Message
+	EmailSender1: @DoohickeyLabsInc
+	EmailTime1: 10:32 AM
+	Email1: Good morning, fellow employee! As a result of all your hard work, you are being granted a raise of $1.01 to your existing hourly pay! Keep up the good work! Kind regards, Doohickey Labs Management.
+	EmailSender2: @cellularmobilephone
+	EmailTime2: 12:25 PM
+	Email2: Congrats you winned our contest! Come to our building to claim youre free cellhpone! You have 5 days to claim your prize!  (This message has been marked as potential spam. Remember to report suspicious messages!)
+	EmailSender3: @DoohickeyLabsInc
+	EmailTime3: 4:47 PM
+	Email3: Automatic message from Doohickey Emergency Alerts: Specimen 01-D has escaped from its containment. All re-containment procedures are being executed immediately to allow for minimal property damage and prevent harmful substances from being released.
+	EmailSender4: @DoohickeyLabsInc
+	EmailTime4: 5:08 PM
+	Email4: Automatic message from Doohickey Emergency Alerts: Extreme damage sustained by Doohickey Labs underwater property. Large amounts of experimental virus 05-Zomb detected in the area. Evacuation protocols are being executed immediately to prevent massive loss of intelligence from personel caused by the virus.
+	EmailSender5: @John425
+	EmailTime5: 5:12 PM
+	Email5: HOLY HELL this entire underwater study is done for!! These cheap idiots couldn't be bothered to contain the specimen in a reinforced tank and now its wrecking everything. I just got the news that the zombie virus has been released and people are being infected. I've been developing a weapon in secret but I haven't put the pieces together. I will be going back into the depths to try and kill the specimen to save everyone who is stuck down there. It may be the last chance to destroy that monster.
+}
+
 EggEvent: {
 	EggEventBarProgress: Survive for:
 	EggEventBarDisplayName: Egg Incursion

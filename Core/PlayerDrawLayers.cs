@@ -239,6 +239,86 @@ namespace Spooky.Core
         }
     }
 
+    //dutchman pipe aura drawing
+    public class DutchmanPipeRingDraw : PlayerDrawLayer
+    {
+		float DutchmanRingRotation;
+		float DutchmanRingScale = 1f;
+
+		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.Carpet);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return drawInfo.drawPlayer.GetModPlayer<BloomBuffsPlayer>().FossilDutchmanPipe;
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            if (drawInfo.drawPlayer.dead)
+            {
+                return;
+            }
+
+            Texture2D DutchmanPipeRingTex1 = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRing").Value;
+            Texture2D DutchmanPipeRingTex2 = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRingInside").Value;
+            Texture2D DutchmanPipeRingTex3 = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/DutchmanPipeRingPattern").Value;
+
+            float num = 1f;
+            float num2 = 0.1f;
+            float num3 = 0.9f;
+            if (!Main.gamePaused)
+            {
+                DutchmanRingScale += 0.004f;
+                DutchmanRingRotation += 0.01f;
+            }
+
+            if (DutchmanRingScale < 1f)
+            {
+                num = DutchmanRingScale;
+            }
+            else
+            {
+                DutchmanRingScale = 0.8f;
+                num = DutchmanRingScale;
+            }
+
+            if (DutchmanRingRotation > (float)Math.PI * 2f)
+            {
+                DutchmanRingRotation -= (float)Math.PI * 2f;
+            }
+
+            if (DutchmanRingRotation < (float)Math.PI * 2f)
+            {
+                DutchmanRingRotation += (float)Math.PI * 2f;
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                float num4 = num + num2 * (i / 2);
+                if (num4 > 1f)
+                {
+                    num4 -= num2 * 2f;
+                }
+
+                float num5 = MathHelper.Lerp(0.8f, 0f, Math.Abs(num4 - num3) * 10f);
+
+                for (int j = 0; j < 360; j += 90)
+                {
+                    Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 12f), Main.rand.NextFloat(1f, 12f)).RotatedBy(MathHelper.ToRadians(j));
+
+                    drawInfo.DrawDataCache.Add(new DrawData(DutchmanPipeRingTex1, drawInfo.drawPlayer.MountedCenter - Main.screenPosition + circular, new Rectangle(0, 0, 348, 348), 
+					Color.Red * 0.5f * num5, DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f));
+                }
+
+                drawInfo.DrawDataCache.Add(new DrawData(DutchmanPipeRingTex2, drawInfo.drawPlayer.MountedCenter - Main.screenPosition, new Rectangle(0, 0, 348, 348), 
+				Color.Red * 0.25f * num5, DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f));
+
+                drawInfo.DrawDataCache.Add(new DrawData(DutchmanPipeRingTex3, drawInfo.drawPlayer.MountedCenter - Main.screenPosition, new Rectangle(0, 0, 348, 348), 
+				Color.White * num5, DutchmanRingRotation + (float)Math.PI / 3f * i, new Vector2(348 / 2, 348 / 2), num4 * 1.5f, SpriteEffects.None, 0f));
+            }
+        }
+    }
+
     //biome compass drawing
     public class BiomeCompassDraw : PlayerDrawLayer
     {

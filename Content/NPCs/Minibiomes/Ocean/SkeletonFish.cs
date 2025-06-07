@@ -245,16 +245,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 				if (!NPC.wet)
 				{
-					if (NPC.velocity.Y < 0f)
-					{
-						NPC.velocity.Y *= 0.95f;
-					}
-
-					NPC.velocity.Y += 0.5f;
-					if (NPC.velocity.Y > 5f)
-					{
-						NPC.velocity.Y = 5f;
-					}
+					NPC.aiStyle = 16;
+				}
+				else
+				{
+					NPC.aiStyle = -1;
 				}
 			}
 			else

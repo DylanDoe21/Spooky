@@ -1466,6 +1466,16 @@ TarGun: {
 	Tooltip: Converts bullets into tar spit blobs
 }
 
+BloodSoaker: {
+	DisplayName: Blood Soaker
+	Tooltip: Fires out steams of boiling blood
+}
+
+BloodSoakerBig: {
+	DisplayName: Super Blood Soaker
+	Tooltip: Fires out high velocity boiling blood
+}
+
 BoomerangFish: {
 	DisplayName: Boomerang Fish
 	Tooltip: Throw returning boomerang fish
@@ -1533,6 +1543,17 @@ MineTimer: {
 		'''
 		A timer that sends a singal when complete
 		Component used to make a bomb
+		'''
+}
+
+Mine: {
+	DisplayName: Sea Mine
+	Tooltip:
+		'''
+		An explosive mine with a note attached, it reads:
+		[c/686868:This is a desperate measure, but it may be our only chance...]
+		[c/686868:Find specimen 01-D, lure it towards you, and then throw this bomb into its mouth]
+		[c/686868:-John]
 		'''
 }
 
@@ -3685,6 +3706,11 @@ JungleSoilWallItem: {
 	Tooltip: ""
 }
 
+LabComputerItem: {
+	DisplayName: Lab Computer
+	Tooltip: ""
+}
+
 LabMetalPipeItem: {
 	DisplayName: Rusted Pipe
 	Tooltip: ""
@@ -3731,8 +3757,13 @@ CatacombBox2: {
 }
 
 CemeteryBox: {
-	DisplayName: Music Box (Swampy Cemetery)
-	Tooltip: "[c/6E9E3B:A Boneyard Too Far] by BananaLizard"
+	DisplayName: Music Box (Swampy Cemetery Day)
+	Tooltip: "[c/61924B:A Boneyard Too Far] by BananaLizard"
+}
+
+CemeteryNightBox: {
+	DisplayName: Music Box (Swampy Cemetery Night)
+	Tooltip: "[c/61924B:Boneyard Fo Real] by BananaLizard"
 }
 
 ChristmasDungeonBox: {
@@ -5087,5 +5118,27 @@ Bestiary: {
 
 DownedReset: {
 	DisplayName: Downed Reset
-	Tooltip: ""
+	Tooltip:
+		'''
+		Sets spooky mod boss downed variables to false
+		Testing Item
+		'''
+}
+
+DownedRedowner: {
+	DisplayName: Downed Redowner
+	Tooltip:
+		'''
+		Sets spooky mod boss downed variables to true
+		Testing Item
+		'''
+}
+
+BigDunkRevive: {
+	DisplayName: Big Dunk Revive
+	Tooltip:
+		'''
+		Allows big dunk to respawn after being killed
+		Testing Item
+		'''
 }
