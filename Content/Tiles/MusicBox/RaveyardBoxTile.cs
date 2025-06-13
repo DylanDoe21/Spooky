@@ -40,7 +40,7 @@ namespace Spooky.Content.Tiles.MusicBox
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-            if (Main.tile[i, j].TileFrameX == 36)
+            if (Main.tile[i, j].TileFrameX >= 36)
             {
                 r = Main.DiscoColor.R / 450f;
                 g = Main.DiscoColor.G / 450f;

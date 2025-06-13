@@ -48,11 +48,11 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.damage = 0;
 			NPC.defense = 25;
             NPC.width = 20;
-			NPC.height = 50;
-			NPC.townNPC = true;
+			NPC.height = 44;
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+			NPC.dontCountMe = true;
             TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -83,6 +83,11 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.frame.Y = 0 * frameHeight;
             }
         }
+
+		public override bool CanChat() 
+        {
+			return true;
+		}
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{

@@ -147,7 +147,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 								int randomVelocityY = Main.rand.Next(-2, 3);
 
 								Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
-								ShootSpeed.X + randomVelocityX, ShootSpeed.Y + randomVelocityY, ModContent.ProjectileType<SharkboneCannonBubble>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+								ShootSpeed.X + randomVelocityX, ShootSpeed.Y + randomVelocityY, ModContent.ProjectileType<SharkboneCannonBubble>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
 							}
 						}
 					}

@@ -16,9 +16,36 @@ namespace Spooky.Content.Biomes
 
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 250 ? ModContent.GetInstance<GlowshroomUndergroundBG>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
 
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
-       
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
+		//set the music to be consistent with vanilla's music priorities
+		public override int Music
+		{
+			get
+			{
+				int music = Main.curMusic;
+
+				//play town music if enough town npcs exist
+				if (Main.LocalPlayer.townNPCs > 2f)
+				{
+					if (Main.dayTime)
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
+					}
+					else
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
+					}
+				}
+				//play normal music
+				else
+				{
+					music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeUnderground");
+				}
+
+				return music;
+			}
+		}
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
         
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<SpookyWaterStyle>();
 
@@ -32,7 +59,7 @@ namespace Spooky.Content.Biomes
 
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyTiles >= 800 && ModContent.GetInstance<TileCount>().spiderCaveTiles < 1200;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyTiles >= 1000 && ModContent.GetInstance<TileCount>().spiderCaveTiles < 1200;
             bool UndergroundCondition = (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight) && !player.ZoneDungeon;
 
             return BiomeCondition && UndergroundCondition;

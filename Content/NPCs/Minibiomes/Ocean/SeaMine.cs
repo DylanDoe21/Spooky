@@ -1,15 +1,20 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
 	public class SeaMine : ModNPC
 	{
+		private static Asset<Texture2D> NPCTexture;
 		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> HeatTexture;
 		private static Asset<Texture2D> ChainTexture;
@@ -71,18 +76,24 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
                 while (chainLengthRemainingToDraw > 0f)
                 {
-                    Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
+					if (!SpawnGore)
+					{
+						Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
 
-                    Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+						Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+					}
+					else
+					{
+						if (Main.netMode != NetmodeID.Server)
+						{
+							Gore.NewGore(NPC.GetSource_Death(), chainDrawPosition, NPC.velocity, ModContent.Find<ModGore>("Spooky/SeaMineChainGore" + Main.rand.Next(1, 3)).Type);
+						}
+					}
 
-                    chainDrawPosition += unitVectorToNPC * chainSegmentLength;
+					chainDrawPosition += unitVectorToNPC * chainSegmentLength;
                     chainCount++;
                     chainLengthRemainingToDraw -= chainSegmentLength;
                 }
-			}
-
-			if (SpawnGore)
-			{
 			}
 		}
 
@@ -90,23 +101,47 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		{
 			DrawBody(false);
 
-			return true;
+			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+			HeatTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/SeaMineHeatGlow");
+
+			//draw aura
+            for (int i = 0; i < 360; i += 90)
+            {
+                Color color = new Color(75 - NPC.alpha, 75 - NPC.alpha, 75 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
+
+                Vector2 circular = new Vector2(3f, 0).RotatedBy(MathHelper.ToRadians(i));
+
+                spriteBatch.Draw(HeatTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0f);
+            }
+
+			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0f);
+
+			return false;
 		}
 
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/SeaMineGlow");
-			HeatTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/SeaMineHeatGlow");
 
-            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-            NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+			//glowmask
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
 
+			//bomb explosion glow
 			if (NPC.ai[0] > 0)
 			{
-				Main.EntitySpriteDraw(HeatTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-				NPC.frame, NPC.GetAlpha(Color.White) * NPC.ai[0], NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(HeatTexture.Value, NPC.Center - Main.screenPosition, NPC.frame, NPC.GetAlpha(Color.White) * NPC.ai[0], NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
 			}
         }
+
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return false;
+		}
+
+		public override bool CanHitNPC(NPC target)
+		{
+			return false;
+		}
 
 		public override bool CheckActive()
 		{
@@ -116,6 +151,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		public override bool CheckDead()
         {
 			NPC.ai[3] = 1;
+			NPC.life = 1;
             return false;
         }
 
@@ -148,6 +184,45 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				else
 				{
 					SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion with { Pitch = -0.5f }, NPC.Center);
+
+					//spawn gores
+					for (int numGores = 1; numGores <= 10; numGores++)
+					{
+						if (Main.netMode != NetmodeID.Server)
+						{
+							Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), ModContent.Find<ModGore>("Spooky/SeaMineGore" + numGores).Type);
+						}
+					}
+
+					//flame dusts
+					for (int numDust = 0; numDust < 45; numDust++)
+					{
+						int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.InfernoFork, 0f, -2f, 0, default, 1.5f);
+						Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-7f, 8f);
+						Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-6f, 7f);
+						Main.dust[dustGore].noGravity = true;
+					}
+
+					//explosion smoke
+					for (int numExplosion = 0; numExplosion < 5; numExplosion++)
+					{
+						int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, 0.45f);
+						Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-1f, 2f);
+						Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-1f, 2f);
+						Main.dust[DustGore].noGravity = true;
+					}
+
+					foreach (Player player in Main.ActivePlayers)
+					{
+						if (!player.dead && player.Distance(NPC.Center) <= 150f)
+						{
+							player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.SeaMineExplosion")), NPC.damage + Main.rand.Next(-30, 30), 0);
+						}
+					}
+
+					DrawBody(true);
+
+					Parent.active = false;
 					NPC.active = false;
 				}
 			}
@@ -179,16 +254,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			}
 		}
 
-		public override void HitEffect(NPC.HitInfo hit)
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
-			if (NPC.life <= 0)
-			{
-				NPC Parent = Main.npc[(int)NPC.ai[2]];
-
-				Parent.active = false;
-
-				DrawBody(true);
-			}
+			return false;
 		}
 	}
 

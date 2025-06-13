@@ -9,9 +9,36 @@ namespace Spooky.Content.Biomes
 {
     public class VegetableBiome : ModBiome
     {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/VegetableBiome");
-       
-        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
+		//set the music to be consistent with vanilla's music priorities
+		public override int Music
+		{
+			get
+			{
+				int music = Main.curMusic;
+
+				//play town music if enough town npcs exist
+				if (Main.LocalPlayer.townNPCs > 2f)
+				{
+					if (Main.dayTime)
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
+					}
+					else
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
+					}
+				}
+				//play normal music
+				else
+				{
+					music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/VegetableBiome");
+				}
+
+				return music;
+			}
+		}
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
         public override int BiomeTorchItemType => ItemID.JungleTorch;
 
@@ -26,8 +53,9 @@ namespace Spooky.Content.Biomes
             //part of the biome condition makes it so that there must be more garden tiles than jungle tiles so the biome zone doesnt overreach in game
             bool BiomeCondition = ModContent.GetInstance<TileCount>().vegetableTiles >= 200 && (ModContent.GetInstance<TileCount>().vegetableTiles > Main.SceneMetrics.JungleTileCount / 5);
             bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
+			bool NotInDungeons = !player.InModBiome<CatacombBiome>() && !player.InModBiome<CatacombBiome2>() && !player.ZoneLihzhardTemple;
 
-            return BiomeCondition && UndergroundCondition;
+            return BiomeCondition && UndergroundCondition && NotInDungeons;
         }
     }
 }

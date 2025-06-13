@@ -140,8 +140,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			float launchSpeed = 30f;
 			float maxLaunchLength = 360f;
 			float retractAcceleration = 3f;
-			float maxRetractSpeed = 30f;
-			float forcedRetractAcceleration = 30f;
+			float maxRetractSpeed = 40f;
+			float forcedRetractAcceleration = 40f;
 			float maxForcedRetractSpeed = 20f;
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
@@ -228,7 +228,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 							if (lineOfSight && SpinningStateTimer % 8 == 0)
 							{
-								Vector2 ShootSpeed = NPC.Center - Projectile.Center;
+								Vector2 ShootSpeed = (NPC.Center + NPC.velocity * 20f) - Projectile.Center;
 								ShootSpeed.Normalize();
 								ShootSpeed *= 15f;
 
@@ -290,7 +290,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 {
                     Vector2 unitVectorTowardsPlayer = Projectile.DirectionTo(mountedCenter).SafeNormalize(Vector2.Zero);
 
-                    if (Projectile.Distance(mountedCenter) <= maxRetractSpeed) 
+                    if (Projectile.Distance(mountedCenter) <= 60f) 
                     {
                         Projectile.Kill(); // Kill the projectile once it is close enough to the player
                         return;

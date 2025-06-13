@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.Vinyl;
+using Spooky.Content.Tiles.MusicBox;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -93,15 +93,15 @@ namespace Spooky.Content.NPCs.Friendly
 		public override void AddShops()
         {
             var npcShop = new NPCShop(Type)
-            .Add<VinylMysterious>()
-            .Add<VinylLazy>()
-            .Add<VinylSleepy>()
-            .Add<VinylSneaky>()
-            .Add<VinylAlley>()
-            .Add<RaveyardDisc1>()
-            .Add<RaveyardDisc2>()
-            .Add<RaveyardDisc3>()
-            .Add<RaveyardDisc4>()
+            .Add<GramophoneBlueBox>()
+            .Add<GramophoneGreenBox>()
+            .Add<GramophoneOrangeBox>()
+            .Add<GramophonePurpleBox>()
+            .Add<GramophoneYellowBox>()
+            .Add<RaveyardOrangeBox>()
+            .Add<RaveyardPurpleBox>()
+            .Add<RaveyardLimeBox>()
+            .Add<RaveyardCyanBox>()
             .Add<DylanDoeHead>()
             .Add<KrakenHead>()
             .Add<TacoHead>()

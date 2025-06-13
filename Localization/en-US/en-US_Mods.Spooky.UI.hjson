@@ -33,9 +33,9 @@ RottenDepthsTerminal: {
 	EmailSender1: @DoohickeyLabsInc
 	EmailTime1: 10:32 AM
 	Email1: Good morning, fellow employee! As a result of all your hard work, you are being granted a raise of $1.01 to your existing hourly pay! Keep up the good work! Kind regards, Doohickey Labs Management.
-	EmailSender2: @cellularmobilephone
+	EmailSender2: @John425
 	EmailTime2: 12:25 PM
-	Email2: Congrats you winned our contest! Come to our building to claim youre free cellhpone! You have 5 days to claim your prize!  (This message has been marked as potential spam. Remember to report suspicious messages!)
+	Email2: Yo dude... I really didn't think it was possible, but I did it somehow. The fish revival worked and now we've got a live specimen. I caught a glimpse of it being transported from my lab, and my goodness is it big. Dont really wanna know what its like to be close to it though!
 	EmailSender3: @DoohickeyLabsInc
 	EmailTime3: 4:47 PM
 	Email3: Automatic message from Doohickey Emergency Alerts: Specimen 01-D has escaped from its containment. All re-containment procedures are being executed immediately to allow for minimal property damage and prevent harmful substances from being released.
@@ -44,7 +44,7 @@ RottenDepthsTerminal: {
 	Email4: Automatic message from Doohickey Emergency Alerts: Extreme damage sustained by Doohickey Labs underwater property. Large amounts of experimental virus 05-Zomb detected in the area. Evacuation protocols are being executed immediately to prevent massive loss of intelligence from personel caused by the virus.
 	EmailSender5: @John425
 	EmailTime5: 5:12 PM
-	Email5: HOLY HELL this entire underwater study is done for!! These cheap idiots couldn't be bothered to contain the specimen in a reinforced tank and now its wrecking everything. I just got the news that the zombie virus has been released and people are being infected. I've been developing a weapon in secret but I haven't put the pieces together. I will be going back into the depths to try and kill the specimen to save everyone who is stuck down there. It may be the last chance to destroy that monster.
+	Email5: HOLY HELL this entire underwater study is done for!! These cheap idiots couldn't be bothered to contain the specimen in a reinforced tank and now its wrecking everything. I just got the news that the zombie virus has been released and people are being infected. I've been developing a weapon in secret in case of an emergency like this but I haven't put the pieces together, and I am going to try doing it. It may be the last chance to destroy that monster.
 }
 
 EggEvent: {

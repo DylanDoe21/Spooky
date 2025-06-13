@@ -790,47 +790,55 @@ namespace Spooky.Content.Generation
             //ambient tiles and grass walls
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
             {
-                for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 200; Y++)
-                {
-                    Tile tile = Main.tile[X, Y];
-                    Tile tileAbove = Main.tile[X, Y - 1];
-                    Tile tileBelow = Main.tile[X, Y + 1];
+				for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 200; Y++)
+				{
+					Tile tile = Main.tile[X, Y];
+					Tile tileAbove = Main.tile[X, Y - 1];
+					Tile tileBelow = Main.tile[X, Y + 1];
 
-                    //place grass walls
-                    if (!tile.HasTile && Y <= DaffodilArenaY - 40 && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
-                    {
-                        SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<CatacombGrassWall1>(), WorldGen.genRand.Next(4, 9), false, true);
-                    }
+					//place grass walls
+					if (!tile.HasTile && Y <= DaffodilArenaY - 40 && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
+					{
+						SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<CatacombGrassWall1>(), WorldGen.genRand.Next(4, 9), false, true);
+					}
 
-                    //catacomb vines and weeds
-                    if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>() || tile.TileType == ModContent.TileType<CatacombBrick1GrassArena>())
-                    {
-                        if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
-                        {
-                            WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines>());
-                        }
+					//catacomb vines and weeds
+					if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>() || tile.TileType == ModContent.TileType<CatacombBrick1GrassArena>())
+					{
+						if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile)
+						{
+							WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<CatacombVines>());
+						}
 
-                        if (WorldGen.genRand.NextBool(12) && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
-                        {
-                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<SporeMushroom>());
-                            tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
-                        }
+						if (WorldGen.genRand.NextBool(12) && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+						{
+							WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<SporeMushroom>());
+							tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+						}
 
-                        if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
-                        {
-                            WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<CatacombWeeds>());
-                            tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
-                        }
-                    }
-                    if (tile.TileType == ModContent.TileType<CatacombVines>())
-                    {
-                        int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
-			            ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>(), 
-                        ModContent.TileType<CatacombBrick1GrassArena>(), ModContent.TileType<CatacombBrick2GrassArena>() };
+						if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+						{
+							WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<CatacombWeeds>());
+							tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(18) * 18);
+						}
+					}
+					if (tile.TileType == ModContent.TileType<CatacombVines>())
+					{
+						int[] ValidTiles = { ModContent.TileType<CatacombBrick1Grass>(), ModContent.TileType<CatacombBrick1GrassSafe>(),
+						ModContent.TileType<CatacombBrick2Grass>(), ModContent.TileType<CatacombBrick2GrassSafe>(),
+						ModContent.TileType<CatacombBrick1GrassArena>(), ModContent.TileType<CatacombBrick2GrassArena>() };
 
-                        SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
-                    }
-                }
+						SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
+					}
+
+					if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>() || tile.TileType == ModContent.TileType<CatacombBrick1GrassArena>() || tile.TileType == ModContent.TileType<CatacombFlooring>())
+					{
+						if (WorldGen.genRand.NextBool(12))
+						{
+							WorldGen.PlaceChest(X, Y - 1, 21, false, 5);
+						}
+					}
+				}
 
                 //ambient tiles for layer 2
                 for (int Y = DaffodilArenaY + 50; Y <= Main.maxTilesY - 100; Y++)
@@ -878,7 +886,15 @@ namespace Spooky.Content.Generation
 
                         SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
                     }
-                }
+
+					if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>() || tile.TileType == ModContent.TileType<CatacombBrick2GrassArena>() || tile.TileType == ModContent.TileType<GildedBrick>())
+					{
+						if (WorldGen.genRand.NextBool(12))
+						{
+							WorldGen.PlaceChest(X, Y - 1, 21, false, 5);
+						}
+					}
+				}
             }
         }
 
@@ -1110,6 +1126,9 @@ namespace Spooky.Content.Generation
 							//bars
 							int[] Bars = new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar };
 
+                            //cross charm
+							chest.item[0].SetDefaults(ModContent.ItemType<CrossCharm>());
+                            chest.item[0].stack = 1;
 							//bars
 							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
 							chest.item[1].stack = WorldGen.genRand.Next(3, 11);

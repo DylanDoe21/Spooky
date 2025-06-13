@@ -522,7 +522,7 @@ GhostPepperMinionTier2.DisplayName: Ghost Pepper
 GhostPepperMinionTier3.DisplayName: Ghost Pepper
 GhostPepperMinionTier4.DisplayName: Ghost Pepper
 BoomerangFishProj.DisplayName: Boomerang Fish
-BoomerangFishScaleProj.DisplayName: Reinforced Boomerang Fish
+BoomerangFishMetalProj.DisplayName: Reinforced Boomerang Fish
 SharkboneCannonProj.DisplayName: Sharkbone Hand Cannon
 SharkboneShard.DisplayName: Bone Shard
 SharkboneCannonBubble.DisplayName: Bubble
@@ -533,3 +533,8 @@ LockerFish.DisplayName: Skeleton Fish
 LockerSock.DisplayName: Smelly Sock
 FridgeFish.DisplayName: Fish
 MineProj.DisplayName: Sea Mine
+BloodGunSplatter.DisplayName: Blood
+SpearfishLanceProj.DisplayName: Spearfish Lance
+SpearfishLanceSlashProj.DisplayName: Spearfish Lance Slash
+SpearfishLanceMetalProj.DisplayName: Reinforced Spearfish Lance
+SpearfishLanceMetalSlashProj.DisplayName: Reinforced Spearfish Lance

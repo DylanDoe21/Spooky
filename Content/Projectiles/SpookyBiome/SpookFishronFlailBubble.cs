@@ -79,9 +79,9 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] >= 40)
+            if (Projectile.ai[0] >= 20)
             {
-                Projectile.velocity *= 0.92f;
+                Projectile.velocity *= 0.935f;
             }
 
             if (Scale < 1f)

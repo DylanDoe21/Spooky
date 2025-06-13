@@ -33,7 +33,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.knockBackResist = 0.35f;
 			NPC.noGravity = true;
             NPC.dontTakeDamageFromHostiles = false;
-			NPC.value = Item.buyPrice(0, 0, 0, 25);
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.DD2_SkeletonHurt;
             NPC.aiStyle = -1;

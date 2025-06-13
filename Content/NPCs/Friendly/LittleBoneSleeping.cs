@@ -23,11 +23,12 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.damage = 0;
 			NPC.defense = 25;
             NPC.width = 20;
-			NPC.height = 50;
+			NPC.height = 22;
 			NPC.townNPC = true;
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+			NPC.dontCountMe = true;
             TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -38,6 +39,11 @@ namespace Spooky.Content.NPCs.Friendly
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			return false;
+		}
+
+		public override bool CanChat() 
+        {
+			return true;
 		}
 
 		public override string GetChat()
@@ -60,15 +66,10 @@ namespace Spooky.Content.NPCs.Friendly
                 if (!player.active) continue;
                 if (player.talkNPC == NPC.whoAmI)
                 {
-                    Rescue();
+                    NPC.Transform(ModContent.NPCType<LittleBone>());
                     return;
                 }
             }
-        }
-
-        public void Rescue()
-        {
-            NPC.Transform(ModContent.NPCType<LittleBone>());
         }
     }
 }

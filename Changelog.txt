@@ -35,11 +35,14 @@ New Config Stuff:
 
 New Music:
 
-"T-Funk" by Bananlizard, plays in the new tar pits biome
-"Something Smells Funky" by Bananlizard, plays in the new fetid farms biome
-"Where Divers Don't Dare" by Bananalizard, plays in the new rotten depths biome
-"Tapioca Motel" by Bananlizard, plays in the new krampus' workshop structure
-"Neo Alkahouse" by Bananlizard, new alternate theme that plays during the raveyard
+"T-Funk" by BananaLizard, plays in the new tar pits biome
+"Something Smells Funky" by BananaLizard, plays in the new fetid farms biome
+"Where Divers Don't Dare" by BananaLizard, plays in the new rotten depths biome
+"Tapioca Motel" by BananaLizard, plays in the new krampus' workshop structure
+"Neo Alkahouse" by BananaLizard, new alternate theme that plays during the raveyard
+"Boneyard Fo Real" by BananaLizard, plays in the swampy cemetery at night
+"Hollow's Eve" by BananaLizard, new town day theme that plays while in any habitable spooky mod biome
+"Hallow's Ween" by BananaLizard, new town night theme that plays while in any habitable spooky mod biome
 
 
 Other Random Additions:
@@ -60,6 +63,7 @@ Other Random Additions:
 -Added multiple new bloom-related accessories that give you various bonuses based on blooms
 -Added new surface background sprites for the spooky forest and swampy cemetery
 -Swampy cemetery now has a new alternate surface background
+-Removed all of the vinyl discs and replaced them with proper music boxes, the way they are obtained is still the same (Purchased from musicman during a raveyard)
 
 
 Structure Helper is no longer a dependency: 
@@ -88,7 +92,7 @@ Ranged:
 
 Magic:
 -Necronomicon volume II heart projectile now shoots a bit more frequently in all size stages
--Nerfed jerrys book of stinkology damage from 18 to 15, and its projectile now has damage fall-off each time it pierces an enemy
+-Nerfed jerrys book of stinkology projectile now has damage fall-off each time it pierces an enemy
 -Snot nosed tome no longer flies to your cursor, it now summons the channeled nose above you, and shoots boogers at your cursor
 -Changed moocher staff projectile to be a giant cursed fire explosion that launches some cursed fireballs upward, it now does more damage, is more useful against flying targets, and visually looks better
 -Arachnid leg wand reworked, it now rapidly fires out short range and short lived spider leg apparitions that can go through blocks, nerfed its damage as a result of this rework
@@ -189,6 +193,7 @@ Enemy Changes:
 -Dumb zomboid bestiary entry now uses the spooky forest background instead of a blank black background
 -Valley of eyes pylon can now be sold by npcs who are happy enough in the eye valley (Little eye will still give you one for free when woken up)
 -Bloom plants now have better map colors and have display names when you hover over them with your mouse
+-Spooky mod music boxes now display the song title in orange, since some of the previous colors were hard to read and having to make specific colors for every music box was a bit annoying
 
 
 

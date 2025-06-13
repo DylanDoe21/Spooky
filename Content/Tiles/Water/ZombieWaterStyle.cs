@@ -15,7 +15,7 @@ namespace Spooky.Content.Tiles.Water
 
 		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/SpookyWaterDroplet").Type;
 
-		public override Asset<Texture2D> GetRainTexture() 
+		public override Asset<Texture2D> GetRainTexture()
 		{
 			return ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyRain");
 		}

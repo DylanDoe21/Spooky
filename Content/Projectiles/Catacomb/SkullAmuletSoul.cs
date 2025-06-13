@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Buffs;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
@@ -111,7 +112,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.Hitbox.Intersects(player.Hitbox))
             {
-                player.GetModPlayer<SpookyPlayer>().SkullFrenzyCharge++;
+				//if the player has the skull frenzy buff, allow them to maintain it if more souls are absorbed
+				if (player.HasBuff(ModContent.BuffType<SkullFrenzyBuff>()))
+				{
+					player.AddBuff(ModContent.BuffType<SkullFrenzyBuff>(), 600);
+				}
+				else
+				{
+					player.GetModPlayer<SpookyPlayer>().SkullFrenzyCharge++;
+				}
 
                 Projectile.Kill();
             }

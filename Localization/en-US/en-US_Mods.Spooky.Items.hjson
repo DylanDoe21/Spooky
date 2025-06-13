@@ -878,6 +878,7 @@ SkullAmulet: {
 		Each absorbed soul grants 2% increased damage
 		After 10 souls are absorbed you will enter a frenzy for 10 seconds
 		This frenzy gives you a massive boost to your attack speed
+		Absorbing souls while in this frenzy will let you maintain it for longer
 		'''
 }
 
@@ -999,7 +1000,7 @@ PolybiusArcadeGame: {
 }
 
 RedGodzillaCartridge: {
-	DisplayName: NES Cartridge
+	DisplayName: Cursed Cartridge
 	Tooltip:
 		'''
 		Upon damaging an enemy, there is a rare chance to summon a red apparition
@@ -1481,7 +1482,7 @@ BoomerangFish: {
 	Tooltip: Throw returning boomerang fish
 }
 
-BoomerangFishScale: {
+BoomerangFishMetal: {
 	DisplayName: Reinforced Boomerang Fish
 	Tooltip:
 		'''
@@ -1497,7 +1498,11 @@ DavyJonesFridge: {
 
 DavyJonesLocker: {
 	DisplayName: Davy Jones' Locker
-	Tooltip: Rapidly casts out skeletal fish from the depths
+	Tooltip:
+		'''
+		Rapidly casts out skeletal fish from the depths
+		Sometimes fires out davy jones' stinky socks
+		'''
 }
 
 DunkleosteusCannon: {
@@ -1557,6 +1562,16 @@ Mine: {
 		'''
 }
 
+PufferfishFlail: {
+	DisplayName: Puffer Shatterer
+	Tooltip: Shatters into damaging bone shards on impact
+}
+
+PufferfishFlailMetal: {
+	DisplayName: Alloy Pufferfish
+	Tooltip: Causes a massive shockwave on impact
+}
+
 SharkboneCannon: {
 	DisplayName: Sharkbone Hand Cannon
 	Tooltip:
@@ -1567,8 +1582,18 @@ SharkboneCannon: {
 		'''
 }
 
+SpearfishLance: {
+	DisplayName: Spearfish Lance
+	Tooltip: Right click to slash through enemies with the spearfish
+}
+
+SpearfishLanceMetal: {
+	DisplayName: Reinforced Spearfish Lance
+	Tooltip: Right click to preform a slash attack that gouges enemies, causing severe bleeding
+}
+
 CarrotWand: {
-	DisplayName: Carrot Rot Wand
+	DisplayName: Rotten Carrot Stick
 	Tooltip: Casts out a glob of ooze that lingers on the ground
 }
 
@@ -3170,51 +3195,6 @@ TortumorYoyo: {
 	Tooltip: Generates damaging chunks around it while used
 }
 
-RaveyardDisc1: {
-	DisplayName: Raveyard Vinyl
-	Tooltip: "[c/6FE4A5:Graveyard Without The G] by BananaLizard"
-}
-
-RaveyardDisc2: {
-	DisplayName: Raveyard Vinyl
-	Tooltip: "[c/6FE4A5:Neo Alkahouse] by BananaLizard"
-}
-
-RaveyardDisc3: {
-	DisplayName: Raveyard Vinyl
-	Tooltip: "[c/6FE4A5:Graveyard Without The G (Legacy Version)] by BananaLizard & Lurak"
-}
-
-RaveyardDisc4: {
-	DisplayName: Raveyard Vinyl
-	Tooltip: "[c/6FE4A5:Deathrattlin' Raving (Legacy Version)] by Luxcapacitor"
-}
-
-VinylAlley: {
-	DisplayName: Vinyl Disc (Alley)
-	Tooltip: ""
-}
-
-VinylLazy: {
-	DisplayName: Vinyl Disc (Lazy)
-	Tooltip: ""
-}
-
-VinylMysterious: {
-	DisplayName: Vinyl Disc (Mysterious)
-	Tooltip: ""
-}
-
-VinylSleepy: {
-	DisplayName: Vinyl Disc (Sleepy)
-	Tooltip: ""
-}
-
-VinylSneaky: {
-	DisplayName: Vinyl Disc (Sneaky)
-	Tooltip: ""
-}
-
 BloomSoilItem: {
 	DisplayName: Bloom Soil
 	Tooltip: Allows blooms to be planted and grown on it
@@ -3707,8 +3687,28 @@ JungleSoilWallItem: {
 }
 
 LabComputerItem: {
-	DisplayName: Lab Computer
+	DisplayName: Computer
 	Tooltip: ""
+}
+
+LabComputerRustedItem: {
+	DisplayName: Rusty Computer
+	Tooltip: "'It might turn on again if you keep hitting it'"
+}
+
+LabSafeItem: {
+	DisplayName: Rusty Safe
+	Tooltip: ""
+}
+
+LabScreenItem: {
+	DisplayName: Lab Screen
+	Tooltip: ""
+}
+
+LabScreenRustedItem: {
+	DisplayName: Rusty Lab Screen
+	Tooltip: "'Surely it can be repaired with some tape and glue'"
 }
 
 LabMetalPipeItem: {
@@ -3743,146 +3743,217 @@ OceanSandItem: {
 
 BigBoneBox: {
 	DisplayName: Music Box (Big Bone)
-	Tooltip: "[c/D7D000:Doom Abloom] by BananaLizard"
+	Tooltip: "[c/FF8D00:Doom Abloom] by BananaLizard"
 }
 
 CatacombBox: {
 	DisplayName: Music Box (Upper Catacomb)
-	Tooltip: "[c/4A86AE:Tomb Crawlin'] by BananaLizard"
+	Tooltip: "[c/FF8D00:Tomb Crawlin'] by BananaLizard"
 }
 
 CatacombBox2: {
 	DisplayName: Music Box (Lower Catacomb)
-	Tooltip: "[c/B35A27:Deep Dive To The Catacombs] by BananaLizard"
+	Tooltip: "[c/FF8D00:Deep Dive To The Catacombs] by BananaLizard"
 }
 
 CemeteryBox: {
 	DisplayName: Music Box (Swampy Cemetery Day)
-	Tooltip: "[c/61924B:A Boneyard Too Far] by BananaLizard"
+	Tooltip: "[c/FF8D00:A Boneyard Too Far] by BananaLizard"
 }
 
 CemeteryNightBox: {
 	DisplayName: Music Box (Swampy Cemetery Night)
-	Tooltip: "[c/61924B:Boneyard Fo Real] by BananaLizard"
+	Tooltip: "[c/FF8D00:Boneyard Fo Real] by BananaLizard"
 }
 
 ChristmasDungeonBox: {
 	DisplayName: Music Box (Krampus' Workshop)
-	Tooltip: "[c/52BDF2:Tapioca Motel] by BananaLizard"
+	Tooltip: "[c/FF8D00:Tapioca Motel] by BananaLizard"
 }
 
 DaffodilBox: {
 	DisplayName: Music Box (Daffodil)
-	Tooltip: "[c/A7CF17:To A Floral Demise] by BananaLizard"
+	Tooltip: "[c/FF8D00:To A Floral Demise] by BananaLizard"
 }
 
 EggEventBox: {
 	DisplayName: Music Box (Egg Incursion)
-	Tooltip: "[c/FF1515:The Evolution Of Evil] by Rockwizard5"
+	Tooltip: "[c/FF8D00:The Evolution Of Evil] by Rockwizard5"
+}
+
+GramophoneBlueBox: {
+	DisplayName: Music Box (Sneaky)
+	Tooltip: "[c/FF8D00:Sneaky] by BananaLizard"
+}
+
+GramophoneGreenBox: {
+	DisplayName: Music Box (Lazy)
+	Tooltip: "[c/FF8D00:Lazy] by BananaLizard"
+}
+
+GramophoneOrangeBox: {
+	DisplayName: Music Box (Sleepy)
+	Tooltip: "[c/FF8D00:Sleepy] by BananaLizard"
+}
+
+GramophonePurpleBox: {
+	DisplayName: Music Box (Mysterious)
+	Tooltip: "[c/FF8D00:Mysterious] by BananaLizard"
+}
+
+GramophoneYellowBox: {
+	DisplayName: Music Box (Alley)
+	Tooltip: "[c/FF8D00:Alley] by BananaLizard"
 }
 
 MocoBox: {
 	DisplayName: Music Box (Moco)
-	Tooltip: "[c/4DDE17:And Yet The Snot-Nosed Bug Remains] by BananaLizard"
+	Tooltip: "[c/FF8D00:And Yet The Snot-Nosed Bug Remains] by BananaLizard"
 }
 
 NoseTempleBox: {
 	DisplayName: Music Box (Temple of Moco)
-	Tooltip: "[c/EF5145:Grand Sinus Corridors] by BananaLizard"
+	Tooltip: "[c/FF8D00:Grand Sinus Corridors] by BananaLizard"
 }
 
 OrroboroBox: {
 	DisplayName: Music Box (Orro & Boro)
-	Tooltip: "[c/A17CFF:The All Is One] by BananaLizard"
+	Tooltip: "[c/FF8D00:The All Is One] by BananaLizard"
 }
 
 PandoraEventBox: {
 	DisplayName: Music Box (Pandora's Box)
-	Tooltip: "[c/33C0A4:You Should Know Better] by BananaLizard"
+	Tooltip: "[c/FF8D00:You Should Know Better] by BananaLizard"
 }
 
 RaveyardBox: {
 	DisplayName: Music Box (Raveyard)
 	Tooltip:
 		'''
-		Placeable on ceilings and provides rainbow party light when turned on
-		[c/6FE4A5:Raveyard Medley] by BananaLizard
+		Can only be placed on ceilings
+		[c/FF8D00:Raveyard Medley] by BananaLizard
+		'''
+}
+
+RaveyardCyanBox: {
+	DisplayName: Music Box (Raveyard - Legacy Song 2)
+	Tooltip:
+		'''
+		Can only be placed on ceilings
+		[c/FF8D00:Deathrattlin' Raving] by Luxcapacitor
+		'''
+}
+
+RaveyardLimeBox: {
+	DisplayName: Music Box (Raveyard - Legacy Song 1)
+	Tooltip:
+		'''
+		Can only be placed on ceilings
+		[c/FF8D00:Graveyard Without The G (Legacy Version)] by BananaLizard & Lurak
+		'''
+}
+
+RaveyardOrangeBox: {
+	DisplayName: Music Box (Raveyard - Song 1)
+	Tooltip:
+		'''
+		Can only be placed on ceilings
+		[c/FF8D00:Graveyard Without The G] by BananaLizard
+		'''
+}
+
+RaveyardPurpleBox: {
+	DisplayName: Music Box (Raveyard - Song 2)
+	Tooltip:
+		'''
+		Can only be placed on ceilings
+		[c/FF8D00:Neo Alkahouse] by BananaLizard
 		'''
 }
 
 RotGourdBox: {
 	DisplayName: Music Box (Rot Gourd)
-	Tooltip: "[c/D45037:Funky Pumpkin] by BananaLizard"
+	Tooltip: "[c/FF8D00:Funky Pumpkin] by BananaLizard"
 }
 
 SpiderCaveBox: {
 	DisplayName: Music Box (Spider Grotto)
-	Tooltip: "[c/A88554:It's Just Spider Stuff] by BananaLizard"
+	Tooltip: "[c/FF8D00:It's Just Spider Stuff] by BananaLizard"
 }
 
 SpookFishronBox: {
 	DisplayName: Music Box (Spook Fishron)
-	Tooltip: "[c/DE8533:Bad Sushi] by BananaLizard"
+	Tooltip: "[c/FF8D00:Bad Sushi] by BananaLizard"
 }
 
 SpookyBiomeDayBox: {
 	DisplayName: Music Box (Spooky Forest Day)
-	Tooltip: "[c/FFBF00:Dead Trees...] by BananaLizard"
+	Tooltip: "[c/FF8D00:Dead Trees...] by BananaLizard"
 }
 
 SpookyBiomeNightBox: {
 	DisplayName: Music Box (Spooky Forest Night)
-	Tooltip: "[c/FFBF00:...And Yellow Grass] by BananaLizard"
+	Tooltip: "[c/FF8D00:...And Yellow Grass] by BananaLizard"
 }
 
 SpookyBiomeRainBox: {
 	DisplayName: Music Box (Spooky Forest Rain)
-	Tooltip: "[c/FFBF00:Harvest Rainfall] by BananaLizard"
-}
-
-SpookyBiomeTownNightBox: {
-	DisplayName: Music Box (Spooky Forest Town Night)
-	Tooltip: "[c/AA19E3:Spooky Town Night] by BananaLizard"
+	Tooltip: "[c/FF8D00:Harvest Rainfall] by BananaLizard"
 }
 
 SpookyBiomeUGBox: {
 	DisplayName: Music Box (Spooky Forest Underground)
-	Tooltip: "[c/FFBF00:Spooky Spelunking] by BananaLizard"
+	Tooltip: "[c/FF8D00:Spooky Spelunking] by BananaLizard"
 }
 
 SpookyBloodmoonBox: {
 	DisplayName: Music Box (Spooky Blood Moon)
-	Tooltip: "[c/B60038:Too Groovy, Very Spooky] by BananaLizard"
+	Tooltip: "[c/FF8D00:Too Groovy, Very Spooky] by BananaLizard"
 }
 
 SpookyHellBox: {
 	DisplayName: Music Box (Valley of Eyes)
-	Tooltip: "[c/E64565:Eyeballs] by BananaLizard"
+	Tooltip: "[c/FF8D00:Eyeballs] by BananaLizard"
 }
 
 SpookyMenuBox: {
 	DisplayName: Music Box (Spooky Mod Menu)
-	Tooltip: "[c/FFBF00:Welcome To Spooky Mod] by BananaLizard"
+	Tooltip: "[c/FF8D00:Welcome To Spooky Mod] by BananaLizard"
 }
 
 SpookySpiritBox: {
 	DisplayName: Music Box (Spooky Spirit)
-	Tooltip: "[c/B6ABFF:Groovy Geist] by BananaLizard"
+	Tooltip: "[c/FF8D00:Groovy Geist] by BananaLizard"
+}
+
+SpookyTownDayBox: {
+	DisplayName: Music Box (Spooky Town Day)
+	Tooltip: "[c/FF8D00:Hallow's Eve] by BananaLizard"
+}
+
+SpookyTownNightBox: {
+	DisplayName: Music Box (Spooky Town Night)
+	Tooltip: "[c/FF8D00:Hallow's Ween] by BananaLizard"
+}
+
+SpookyBiomeTownNightBox: {
+	DisplayName: Music Box (Spooky Forest Town Night)
+	Tooltip: "[c/FF8D00:Spooky Town Night] by BananaLizard"
 }
 
 TarPitsBox: {
 	DisplayName: Music Box (Tar Pits)
-	Tooltip: "[c/6A66B3:T-Funk] by BananaLizard"
+	Tooltip: "[c/FF8D00:T-Funk] by BananaLizard"
 }
 
 VegetableBiomeBox: {
 	DisplayName: Music Box (Fetid Farms)
-	Tooltip: "[c/52A54C:Something Smells Funky] by BananaLizard"
+	Tooltip: "[c/FF8D00:Something Smells Funky] by BananaLizard"
 }
 
 ZombieOceanBox: {
 	DisplayName: Music Box (Rotten Depths)
-	Tooltip: "[c/DEC066:Where Divers Don't Dare] by BananaLizard"
+	Tooltip: "[c/FF8D00:Where Divers Don't Dare] by BananaLizard"
 }
 
 CultistBathtubItem: {

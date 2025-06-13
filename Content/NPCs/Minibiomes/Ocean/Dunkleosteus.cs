@@ -58,7 +58,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 14;
-			NPCID.Sets.TrailCacheLength[NPC.type] = 12;
+			NPCID.Sets.TrailCacheLength[NPC.type] = 20;
 			NPCID.Sets.TrailingMode[NPC.type] = 3;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -126,7 +126,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 			NPC.immortal = true;
-			NPC.value = Item.buyPrice(0, 0, 1, 0);
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = RoarSound with { Pitch = -1.2f };
 			NPC.aiStyle = -1;
@@ -156,7 +155,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//draw body
 			Vector2 pos = new Vector2(NPC.velocity.X > 0f ? 12 : -12, 7).RotatedBy(NPC.rotation + MathHelper.PiOver2) + NPC.Center;
 			Vector2 drawOrigin = new Vector2(BodyTexture.Width() * 0.5f, (BodyTexture.Height() / 8) * 0.5f);
-			spriteBatch.Draw(BodyTexture.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, NPC.oldRot[NPC.oldPos.Length - 1], drawOrigin, NPC.scale, effects, 0);
+			spriteBatch.Draw(BodyTexture.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, NPC.oldRot[NPC.oldPos.Length / 2], drawOrigin, NPC.scale, effects, 0);
 
 			//draw extra body texture when its mouth isnt open so it doesnt look odd when rotating while passively swimming
 			if (NPC.ai[1] <= 0 && Aggression <= 0 && !BiteAnimation && !RoarAnimation)
@@ -378,11 +377,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 				NPC.localAI[0]++;
 
-				if (NPC.localAI[0] == 2 || NPC.localAI[0] == 60)
+				if (NPC.localAI[0] == 2)
 				{
 					SoundEngine.PlaySound(GulpSound, NPC.Center);
 
-					Screenshake.ShakeScreenWithIntensity(NPC.Center, 10f, 500f);
+					Screenshake.ShakeScreenWithIntensity(NPC.Center, 2f, 500f);
 				}
 
 				if (NPC.localAI[0] >= 180)
@@ -406,7 +405,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					//flame dusts
 					for (int numDust = 0; numDust < 50; numDust++)
 					{
-						int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.InfernoFork, 0f, -2f, 0, default, Main.rand.NextFloat(3f, 5f));
+						int dustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.InfernoFork, 0f, -2f, 0, default, 5f);
 						Main.dust[dustGore].velocity.X *= Main.rand.NextFloat(-20f, 20f);
 						Main.dust[dustGore].velocity.Y *= Main.rand.NextFloat(-10f, 10f);
 						Main.dust[dustGore].noGravity = true;
@@ -564,7 +563,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				{
 					if (NPC.Distance(PositionGoTo) > 150f)
 					{
-						PathfindingMovement(PositionGoTo, 2f, 20, 7000, false);
+						PathfindingMovement(PositionGoTo, 2.5f, 20, 7000, false);
 						NPC.noTileCollide = true;
 					}
 					else

@@ -843,8 +843,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						{
 							for (int numProjs = 0; numProjs <= 2; numProjs++)
 							{
-								float SpreadX = Phase2 ? Main.rand.Next(-1, 2) : Main.rand.Next(-2, 3);
-								float SpreadY = Phase2 ? Main.rand.Next(-1, 2) : Main.rand.Next(-2, 3);
+								float SpreadX = Phase2 ? 0 : Main.rand.Next(-2, 3);
+								float SpreadY = Phase2 ? 0 : Main.rand.Next(-2, 3);
 
 								NPCGlobalHelper.ShootHostileProjectile(NPC, position, new Vector2(ShootSpeed.X + SpreadX, ShootSpeed.Y + SpreadY), ModContent.ProjectileType<SpookyFlames>(), NPC.damage, 4.5f);
 							}

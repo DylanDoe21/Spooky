@@ -25,10 +25,11 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.defense = 25;
             NPC.width = 20;
 			NPC.height = 40;
-			NPC.friendly = true;
 			NPC.townNPC = true;
+			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+			NPC.dontCountMe = true;
             TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -61,16 +62,11 @@ namespace Spooky.Content.NPCs.Friendly
                 if (!player.active) continue;
                 if (player.talkNPC == NPC.whoAmI)
                 {
-                    Rescue();
+                    NPC.Transform(ModContent.NPCType<LittleEye>());
+					SpawnItem(ModContent.ItemType<SpookyHellPylonItem>(), 1);
                     return;
                 }
             }
-        }
-
-        public void Rescue()
-        {
-            NPC.Transform(ModContent.NPCType<LittleEye>());
-			SpawnItem(ModContent.ItemType<SpookyHellPylonItem>(), 1);
         }
 
 		public void SpawnItem(int Type, int Amount)

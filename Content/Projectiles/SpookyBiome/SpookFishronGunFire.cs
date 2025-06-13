@@ -21,8 +21,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 76;
-			Projectile.height = 76;
+			Projectile.width = 10;
+			Projectile.height = 10;
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.localNPCHitCooldown = 60;
             Projectile.usesLocalNPCImmunity = true;
@@ -32,6 +32,18 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.penetrate = -1;
 			Projectile.MaxUpdates = 4;
 			Projectile.timeLeft = 96;
+		}
+
+		public override void ModifyDamageHitbox(ref Rectangle hitbox)
+		{
+			int size = (int)Utils.Remap(Projectile.ai[0], 0f, Fadetime, 10f, 45f);
+
+			if (Projectile.ai[0] > Fadetime)
+			{
+				size = (int)Utils.Remap(Projectile.ai[0], Fadetime, Lifetime, 45f, 0f);
+			}
+
+			hitbox.Inflate(size, size);
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
@@ -97,10 +109,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			}
 
 			Projectile.ai[0]++;
-
 			if (Projectile.ai[0] > Fadetime)
 			{
 				Projectile.velocity *= 0.95f;
+			}
+
+			if (Projectile.timeLeft < 20)
+			{
+				Projectile.alpha += 5;
 			}
 		}
 	}

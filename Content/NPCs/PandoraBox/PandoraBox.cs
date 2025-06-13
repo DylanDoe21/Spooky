@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -551,6 +552,16 @@ namespace Spooky.Content.NPCs.PandoraBox
                     }
                 }
             }
+        }
+
+        //this exists entirely because boss checklist doesnt let you manually add non-vanity items to the "collectibles" list
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PandoraChalice>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PandoraCross>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PandoraCuffs>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PandoraRosary>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PandoraBean>()));
         }
     }
 }

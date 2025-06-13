@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Events;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -60,7 +61,7 @@ namespace Spooky.Core
 				spawnRate /= 2;
 				//maxSpawns *= 2;
 			}
-			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that a catacomb guardian spawns instantly
+			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that a catacomb guardian spawns quickly
 			else if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
 			{
 				spawnRate /= 10;
@@ -68,7 +69,7 @@ namespace Spooky.Core
 			else if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
             {
 				spawnRate /= 2;
-				maxSpawns *= 2;
+				//maxSpawns *= 2;
 			}
 
 			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
@@ -114,7 +115,8 @@ namespace Spooky.Core
 		{
 			//bool to check if no events are happening
 			bool NoEventsHappening = !spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-			!(spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerStardust);
+			!(spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerStardust) &&
+			!(DD2Event.Ongoing && spawnInfo.Player.ZoneOldOneArmy);
 
             //spooky forest surface spawns
             if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) && NoEventsHappening)
@@ -592,13 +594,14 @@ namespace Spooky.Core
 
 				if (spawnInfo.Water)
 				{
-					pool.Add(ModContent.NPCType<SkeletonFish>(), 2);
+					pool.Add(ModContent.NPCType<SkeletonFish>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonGar>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonPiranha>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonSpearfish>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonBoomerang>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonSunfish>(), 1);
 					pool.Add(ModContent.NPCType<SkeletonPufferfish>(), 1);
+					pool.Add(ModContent.NPCType<SeaMineBase>(), 1);
 				}
 			}
 

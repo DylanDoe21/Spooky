@@ -11,8 +11,10 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Ambient;
+using Spooky.Content.Tiles.Minibiomes.Ocean.Furniture;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Tree;
 
 namespace Spooky.Content.Generation
@@ -109,6 +111,7 @@ namespace Spooky.Content.Generation
 			progress.Set(0.5);
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
+
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
 				if (LabsPlaced < 5)
@@ -120,9 +123,49 @@ namespace Spooky.Content.Generation
 					break;
 				}
 			}
+
+			if (LabsPlaced < 5)
+			{
+				for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
+				{
+					if (LabsPlaced < 5)
+					{
+						PlaceChest((int)Flags.ZombieBiomePositions[i].X, (int)Flags.ZombieBiomePositions[i].Y);
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+			
 			progress.Set(1);
 			TileSloping(StartPositionX, StartPositionY, SizeX, SizeY);
 			PlaceAmbience(StartPositionX, StartPositionY, SizeX, SizeY);
+		}
+
+		private void PlaceSurfaceLab(GenerationProgress progress, GameConfiguration configuration)
+		{
+			//place surface lab
+			bool placedSurfaceLab = false;
+            int surfaceLabAttempts = 0;
+            while (!placedSurfaceLab && surfaceLabAttempts++ < 100000)
+            {
+				int LabX = StartPositionX + (StartPositionX > (Main.maxTilesX / 2) ? -100 : 100);
+				int LabY = 10;
+
+				while (!WorldGen.SolidTile(LabX, LabY) && LabY <= Main.worldSurface)
+				{
+					LabY++;
+				}
+				if (WorldGen.SolidTile(LabX, LabY))
+				{
+					Vector2 LabOrigin = new Vector2(LabX - 11, LabY - 35);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/SurfaceLab.shstruct", LabOrigin.ToPoint16(), Mod);
+
+					placedSurfaceLab = true;
+				}
+			}
 		}
 
 		public static void PlaceDepthsOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool Walls, bool ReplaceOnly)
@@ -168,6 +211,7 @@ namespace Spooky.Content.Generation
 								else
 								{
 									WorldGen.KillTile(PositionX, PositionY);
+									tile.HasTile = false;
 									tile.LiquidType = LiquidID.Water;
 									tile.LiquidAmount = 255;
 								}
@@ -309,21 +353,24 @@ namespace Spooky.Content.Generation
 				}
 			}
 
+			//dig tunnel from surface to rotten depths
 			bool placed = false;
             int attempts = 0;
             while (!placed && attempts++ < 100000)
             {
-				int OceanTopX = StartPositionX + (StartPositionX < (Main.maxTilesX / 2) ? -45 : 45);
-				int OceanTopY = 10;
+				int TunnelX = StartPositionX; // + (StartPositionX < (Main.maxTilesX / 2) ? 0 : 0);
+				int TunnelY = 10;
 
-				while (!WorldGen.SolidTile(OceanTopX, OceanTopY) && OceanTopY <= Main.worldSurface)
+				while (!WorldGen.SolidTile(TunnelX, TunnelY) && TunnelY <= Main.worldSurface)
 				{
-					OceanTopY++;
+					TunnelY++;
 				}
-				if (WorldGen.SolidTile(OceanTopX, OceanTopY))
+				if (WorldGen.SolidTile(TunnelX, TunnelY))
 				{
-					OceanTopY += 3;
-					ConnectCavePoints(Flags.ZombieBiomePositions[1], new Vector2(OceanTopX, OceanTopY), true);
+					TunnelY += 3;
+
+					int MinDistanceIndex = GetClosestNodeIndex(new Vector2(TunnelX, TunnelY));
+					ConnectCavePoints(Flags.ZombieBiomePositions[MinDistanceIndex], new Vector2(TunnelX, TunnelY), true);
 
 					placed = true;
 				}
@@ -354,7 +401,7 @@ namespace Spooky.Content.Generation
 
 		public void ConnectCavePoints(Vector2 Start, Vector2 End, bool GoingToSurface)
 		{
-			int segments = 50;
+			int segments = 100;
 
 			Vector2 myCenter = Start;
 			Vector2 p0 = End;
@@ -374,7 +421,7 @@ namespace Spooky.Content.Generation
 
 						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 						{
-							PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-2, 3), ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, true, true);
+							PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, true, true);
 						}
 					}
 				}
@@ -388,7 +435,7 @@ namespace Spooky.Content.Generation
 					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 					{
 						int Size = GoingToSurface ? 5 : 7;
-						PlaceDepthsOval((int)Position.X, (int)Position.Y + WorldGen.genRand.Next(-1, 2), -1, 0, Size, Size, 1f, false, false);
+						PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, Size, Size, 1f, false, false);
 					}
 				}
 			}
@@ -582,27 +629,6 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
-
-			//place surface lab
-			bool placedSurfaceLab = false;
-            int surfaceLabAttempts = 0;
-            while (!placedSurfaceLab && surfaceLabAttempts++ < 100000)
-            {
-				int OceanTopX = StartPositionX + (StartPositionX > (Main.maxTilesX / 2) ? -120 : 120);
-				int OceanTopY = 10;
-
-				while (!WorldGen.SolidTile(OceanTopX, OceanTopY) && OceanTopY <= Main.worldSurface)
-				{
-					OceanTopY++;
-				}
-				if (WorldGen.SolidTile(OceanTopX, OceanTopY))
-				{
-					Vector2 LabOrigin = new Vector2(OceanTopX - 18, OceanTopY - 12);
-					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/SurfaceLab-" + WorldGen.genRand.Next(1, 3) + ".shstruct", LabOrigin.ToPoint16(), Mod);
-
-					placedSurfaceLab = true;
-				}
-			}
 		}
 
 		public void TileSloping(int PositionX, int PositionY, int SizeX, int SizeY)
@@ -678,6 +704,11 @@ namespace Spooky.Content.Generation
 										TryToPlaceHangingFishBone(i, j);
 									}
 								}
+							}
+
+							if (WorldGen.genRand.NextBool(15))
+							{
+								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<LockerTile>());
 							}
 
 							if (WorldGen.genRand.NextBool(12))
@@ -803,77 +834,127 @@ namespace Spooky.Content.Generation
 				
 				if (CanPlaceLab(PositionX, PositionY))
 				{
-					Vector2 LabOrigin = new Vector2(PositionX - 18, PositionY - 4);
-					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/Lab-" + WorldGen.genRand.Next(1, 6) + ".shstruct", LabOrigin.ToPoint16(), Mod);
+					Vector2 LabOrigin = new Vector2(PositionX - 16, PositionY - 4);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/Lab-" + WorldGen.genRand.Next(1, 5) + ".shstruct", LabOrigin.ToPoint16(), Mod);
 
 					LabsPlaced++;
 				}
 			}
 		}
 
-		public bool CanPlaceLab(int PositionX, int PositionY)
+		//for if not enough labs generate
+		public void PlaceChest(int PositionX, int PositionY)
 		{
-			int numAboveTiles = 0;
-			int numTiles = 0;
-
-			//upward check to make sure theres enough room
-			for (int x = PositionX - 12; x < PositionX + 12; x++)
+			if (WorldGen.InWorld(PositionX, PositionY, 10))
 			{
-				for (int y = PositionY - 12; y < PositionY - 4; y++)
+				bool foundSpot = false;
+				int attempts = 0;
+				while (!foundSpot && attempts++ < 100000)
 				{
-					if (WorldGen.InWorld(x, y, 10))
+					while (!WorldGen.SolidTile(PositionX, PositionY) && PositionY <= (Main.maxTilesY / 2))
 					{
-						if (Main.tile[x, y].HasTile)
+						PositionY++;
+					}
+					if (WorldGen.SolidTile(PositionX, PositionY))
+					{
+						foundSpot = true;
+					}
+				}
+				
+				if (CanPlaceLab(PositionX, PositionY, true))
+				{
+					Vector2 LabOrigin = new Vector2(PositionX - 6, PositionY - 6);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/LabChest.shstruct", LabOrigin.ToPoint16(), Mod);
+
+					LabsPlaced++;
+				}
+			}
+		}
+
+		public bool CanPlaceLab(int PositionX, int PositionY, bool ChestOnly = false)
+		{
+			if (!ChestOnly)
+			{
+				int numTiles = 0;
+
+				//downward box check to make sure theres enough solid floor
+				for (int x = PositionX - 10; x < PositionX + 10; x++)
+				{
+					for (int y = PositionY; y < PositionY + 30; y++)
+					{
+						if (WorldGen.InWorld(x, y, 10))
 						{
-							numAboveTiles++;
+							if (Main.tile[x, y].HasTile)
+							{
+								numTiles++;
+							}
 						}
 					}
 				}
-			}
 
-			//downward box check to make sure theres enough solid floor
-			for (int x = PositionX - 10; x < PositionX + 10; x++)
-			{
-				for (int y = PositionY; y < PositionY + 30; y++)
+				//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
+				for (int y = PositionY; y <= PositionY + 18; y++)
 				{
-					if (WorldGen.InWorld(x, y, 10))
+					if (WorldGen.InWorld(PositionX, y, 10))
 					{
-						if (Main.tile[x, y].HasTile)
-						{
-							numTiles++;
-						}
-					}
-				}
-			}
-
-			//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
-			for (int y = PositionY; y <= PositionY + 18; y++)
-			{
-				if (WorldGen.InWorld(PositionX, y, 10))
-				{
-					if (!Main.tile[PositionX, y].HasTile)
-					{
-						return false;
-					}
-				}
-			}
-
-			//dont allow labs to place too close to each other
-			for (int i = PositionX - 50; i < PositionX + 50; i++)
-			{
-				for (int j = PositionY - 35; j < PositionY + 35; j++)
-				{
-					if (WorldGen.InWorld(i, j, 10))
-					{
-						if (Main.tile[i, j].TileType == ModContent.TileType<LabMetalPlate>())
+						if (!Main.tile[PositionX, y].HasTile)
 						{
 							return false;
 						}
 					}
 				}
-			}
 
-			return numAboveTiles < 10 && numTiles >= 550;
+				//dont allow labs to place too close to each other
+				for (int i = PositionX - 50; i < PositionX + 50; i++)
+				{
+					for (int j = PositionY - 35; j < PositionY + 35; j++)
+					{
+						if (WorldGen.InWorld(i, j, 10))
+						{
+							if (Main.tile[i, j].TileType == ModContent.TileType<LabMetalPlate>())
+							{
+								return false;
+							}
+						}
+					}
+				}
+
+				return numTiles >= 575;
+			}
+			else
+			{
+				//make sure the floor is thick enough for the lab to place without it sticking out through ceilings
+				for (int i = PositionX - 4; i < PositionX + 4; i++)
+				{
+					for (int j = PositionY; j < PositionY + 5; j++)
+					{
+						if (WorldGen.InWorld(i, j, 10))
+						{
+							if (!Main.tile[i, j].HasTile)
+							{
+								return false;
+							}
+						}
+					}
+				}
+
+				//dont allow labs to place too close to each other
+				for (int i = PositionX - 25; i < PositionX + 25; i++)
+				{
+					for (int j = PositionY - 25; j < PositionY + 25; j++)
+					{
+						if (WorldGen.InWorld(i, j, 10))
+						{
+							if (Main.tile[i, j].TileType == ModContent.TileType<LabMetalPlate>())
+							{
+								return false;
+							}
+						}
+					}
+				}
+
+				return true;
+			}
 		}
 
 		public static bool CanPlaceTubeWorm(int X, int Y)
@@ -1010,6 +1091,73 @@ namespace Spooky.Content.Generation
 			}
 
 			tasks.Insert(GenIndex2 + 1, new PassLegacy("Rotten Depths", PlaceZombieOcean));
+
+			int GenIndex3 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
+			if (GenIndex3 == -1)
+			{
+				return;
+			}
+
+			tasks.Insert(GenIndex3 + 1, new PassLegacy("Rotten Depths Lab", PlaceSurfaceLab));
 		}
+
+		//post worldgen to place items in the spooky biome chests
+        public override void PostWorldGen()
+		{
+			List<int> MainItem = new List<int>
+			{
+				ModContent.ItemType<MineDynamite>(), ModContent.ItemType<MineMetalPlates>(), ModContent.ItemType<MinePressureSensor>(), ModContent.ItemType<MineTimer>()
+			};
+
+			List<int> ActualMainItem = new List<int>(MainItem);
+
+			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
+            {
+				Chest chest = Main.chest[chestIndex];
+
+				if (chest == null) 
+                {
+					continue;
+				}
+
+				if (WorldGen.InWorld(chest.x, chest.y))
+				{
+					Tile chestTile = Main.tile[chest.x, chest.y];
+
+					if (chestTile.TileType == ModContent.TileType<LabSafe>())
+					{
+						if (ActualMainItem.Count == 0)
+						{
+							ActualMainItem = new List<int>(MainItem);
+						}
+
+						int ItemToPutInChest = WorldGen.genRand.Next(ActualMainItem.Count);
+
+						//bomb material
+						chest.item[0].SetDefaults(ActualMainItem[ItemToPutInChest]);
+						chest.item[0].stack = 1;
+						ActualMainItem.RemoveAt(ItemToPutInChest);
+
+						if (chest.y > (int)Main.worldSurface)
+						{
+							//blood water gun
+							chest.item[1].SetDefaults(ModContent.ItemType<BloodSoaker>());
+							chest.item[1].stack = 1;
+							//glowstick
+							chest.item[2].SetDefaults(ItemID.Glowstick);
+							chest.item[2].stack = WorldGen.genRand.Next(10, 21);
+						}
+						else
+						{
+							for (int slot = 1; slot < 5; slot++)
+							{
+								chest.item[slot].SetDefaults(ItemID.DivingGear);
+								chest.item[slot].stack = 1;
+							}
+						}
+					}
+				}
+            }
+        }
 	}
 }

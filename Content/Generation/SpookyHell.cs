@@ -83,7 +83,7 @@ namespace Spooky.Content.Generation
             float peakheight = 8;
             float flatness = 50;
             int offset = Main.maxTilesY - 140;
-			int offsetCeiling = Main.maxTilesY - 195;
+			int offsetCeiling = Main.UnderworldLayer + 4;
 
 			//genrate a random wave
 			for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
@@ -121,11 +121,22 @@ namespace Spooky.Content.Generation
                     }
                 }
 
-				for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 195; Y++)
+                //ceiling wave shape
+                for (int Y = Main.maxTilesY - 215; Y <= Main.UnderworldLayer + 4; Y++)
 				{
 					if (Y < terrainContourCeiling[X] && WorldGen.InWorld(X, Y))
 					{
 						Main.tile[X, Y].ClearEverything();
+						WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
+					}
+				}
+
+                //ceiling solid box
+				for (int Y = Main.maxTilesY - 215; Y <= Main.UnderworldLayer; Y++)
+				{
+					if (WorldGen.InWorld(X, Y) && Main.tile[X, Y].TileType != ModContent.TileType<SpookyMush>())
+					{
+                        Main.tile[X, Y].ClearEverything();
 						WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
 					}
 				}
@@ -554,12 +565,6 @@ namespace Spooky.Content.Generation
                     //plants that can grow on both blocks
                     if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<EyeBlock>())
                     {
-						//place flesh pots
-						if (WorldGen.genRand.NextBool(4))
-						{
-							WorldGen.PlacePot(X, Y - 1, 28, WorldGen.genRand.Next(22, 25));
-						}
-
                         //eye stalks
                         if (WorldGen.genRand.NextBool(20))
                         {

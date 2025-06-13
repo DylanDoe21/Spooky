@@ -28,14 +28,30 @@ namespace Spooky.Content.Biomes
                     //play normal theme
                     if (!Main.raining)
                     {
-                        if (Main.dayTime)
-                        {
-                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeDay");
-                        }
-                        else
-                        {
-                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
-                        }
+						//play town music if enough town npcs exist
+						if (Main.LocalPlayer.townNPCs > 2f)
+						{
+							if (Main.dayTime)
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
+							}
+							else
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
+							}
+						}
+						//play normal music
+						else
+						{
+							if (Main.dayTime)
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeDay");
+							}
+							else
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyBiomeNight");
+							}
+						}
                     }
                     //play spooky biome rain song if it is raining
                     else if (Main.raining)
@@ -124,7 +140,7 @@ namespace Spooky.Content.Biomes
         //conditions to be in the biome
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyTiles >= 650;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().spookyTiles >= 1000;
             bool SurfaceCondition = player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition;

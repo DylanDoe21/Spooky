@@ -22,6 +22,7 @@ using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
+using Spooky.Content.Projectiles.Minibiomes.Ocean;
 using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
@@ -166,6 +167,7 @@ namespace Spooky.Core
         public int DaffodilHairpinTimer = 0;
 		public int PotionSicknessCranberryTimer = 0;
 		public int PotionSicknessLatteTimer = 0;
+        public int SpearfishChargeCooldown = 0;
 
 		//dashing stuff
 		public const int dashDown = 0;
@@ -760,6 +762,10 @@ namespace Spooky.Core
             {
                 CandyBagCooldown--;
             }
+            if (SpearfishChargeCooldown > 0)
+            {
+                SpearfishChargeCooldown--;
+            }
 
             //set skeleton bouncer hositility to false if no raveyard is happening
             if (!Flags.RaveyardHappening)
@@ -1095,6 +1101,12 @@ namespace Spooky.Core
 				int Duration = Player.pStone ? (int)(3600 * 0.75) : 3600;
 				Player.AddBuff(BuffID.PotionSickness, Duration);
 			}
+
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<SpearfishLanceSlashProj>()] > 0 || Player.ownedProjectileCounts[ModContent.ProjectileType<SpearfishLanceMetalSlashProj>()] > 0)
+            {
+                Player.noFallDmg = true;
+                Player.maxFallSpeed = 80f;
+            }
 		}
 
 		public override void PreUpdateMovement()

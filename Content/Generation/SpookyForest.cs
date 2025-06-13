@@ -291,6 +291,16 @@ namespace Spooky.Content.Generation
 					{
 						WorldGen.KillTile(X, Y);
 					}
+
+					if (!(Main.tile[X - 1, Y].HasTile && Main.tile[X - 1, Y].HasTile &&
+					Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile &&
+					Main.tile[X - 1, Y - 1].HasTile && Main.tile[X - 1, Y + 1].HasTile &&
+					Main.tile[X + 1, Y - 1].HasTile && Main.tile[X + 1, Y + 1].HasTile) &&
+					Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>() &&
+					Main.tile[X, Y].WallType == ModContent.WallType<SpookyDirtWall>() && Y < (int)Main.worldSurface)
+					{
+						WorldGen.KillWall(X, Y);
+					}
 				}
 			}
 
@@ -631,9 +641,9 @@ namespace Spooky.Content.Generation
 		public void ClearStuffAroundMushroomMoss(GenerationProgress progress, GameConfiguration configuration)
         {
 			//statues and traps are annoying, so clear out everything from the mushroom area in the spooky forest
-			for (int mushroomX = PositionX - Main.maxTilesX / 12; mushroomX <= PositionX + Main.maxTilesX / 12; mushroomX++)
+			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
-				for (int mushroomY = PositionY - 100; mushroomY < Main.maxTilesY / 2 - 50; mushroomY++)
+				for (int Y = PositionY - 100; Y < Main.maxTilesY / 2 - 50; Y++)
                 {
                     //whitelist so tiles meant to be on mushroom moss dont get cleared
                     int[] ClearWhitelist = { ModContent.TileType<MushroomMoss>(), ModContent.TileType<SpookyMushroom>(), 
@@ -644,17 +654,17 @@ namespace Spooky.Content.Generation
                     ModContent.TileType<GiantShroomYellow1>(), ModContent.TileType<GiantShroomYellow2>(), ModContent.TileType<GiantShroomYellow3>(), 
                     ModContent.TileType<GiantShroomYellow4>() };
 
-                    if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>() && !ClearWhitelist.Contains(Main.tile[mushroomX, mushroomY - 1].TileType))
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>() && !ClearWhitelist.Contains(Main.tile[X, Y - 1].TileType))
                     {
-                        WorldGen.KillTile(mushroomX, mushroomY - 1);
+                        WorldGen.KillTile(X, Y - 1);
                     }
 
                     //also get rid of any liquids
-                    if (Main.tile[mushroomX, mushroomY].TileType == ModContent.TileType<MushroomMoss>() && Main.tile[mushroomX, mushroomY - 1].LiquidAmount > 0)
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>() && Main.tile[X, Y - 1].LiquidAmount > 0)
                     {
-                        for (int checkY = mushroomY; checkY >= mushroomY - 12; checkY--)
+                        for (int checkY = Y; checkY >= Y - 12; checkY--)
                         {
-                            Main.tile[mushroomX, checkY].LiquidAmount = 0;
+                            Main.tile[X, checkY].LiquidAmount = 0;
                         }
                     }
                 }
@@ -906,13 +916,6 @@ namespace Spooky.Content.Generation
 				{
 					for (int i = PositionX - 3; i <= PositionX + 3; i++)
 					{
-						//dont place the beam if there isnt enough room (less than 6 tiles downward)
-						if (j >= PositionY + 6 && Main.tile[PositionX, j + 1].HasTile)
-						{
-							CanPlaceBeam = true;
-							break;
-						}
-						
 						//if a wooden beam is too close, dont place another beam
 						if (Main.tile[i, j].TileType == TileID.WoodenBeam)
 						{
@@ -925,14 +928,14 @@ namespace Spooky.Content.Generation
 							return;
 						}
 
-						//dont place the beam if there isnt enough room (less than 6 tiles downward)
-						if (j < PositionY + 6 && Main.tile[PositionX, j + 1].HasTile)
+						//dont place the beam if there isnt enough room (less than 3 tiles downward)
+						if (j < PositionY + 3 && Main.tile[PositionX, j + 1].HasTile)
 						{
 							return;
 						}
 
 						//dont place the beam if theres too much room
-						if (j == PositionY + 20 && !Main.tile[PositionX, j + 1].HasTile)
+						if (j >= PositionY + 20 && !Main.tile[PositionX, j + 1].HasTile)
 						{
 							return;
 						}
@@ -1000,9 +1003,12 @@ namespace Spooky.Content.Generation
 										tile.HasTile = true;
 										tile.LiquidAmount = 0;
 
-										if (Main.tile[PositionX - 1, PositionY].HasTile && Main.tile[PositionX + 1, PositionY].HasTile)
+										if (Main.tile[PositionX - 1, PositionY].HasTile && Main.tile[PositionX - 1, PositionY].HasTile &&
+										Main.tile[PositionX, PositionY - 1].HasTile && Main.tile[PositionX, PositionY + 1].HasTile &&
+										Main.tile[PositionX - 1, PositionY - 1].HasTile && Main.tile[PositionX - 1, PositionY + 1].HasTile &&
+										Main.tile[PositionX + 1, PositionY - 1].HasTile && Main.tile[PositionX + 1, PositionY + 1].HasTile)
 										{
-											Main.tile[PositionX, PositionY + 2].WallType = (ushort)ModContent.WallType<SpookyDirtWall>();
+											Main.tile[PositionX, PositionY].WallType = (ushort)ModContent.WallType<SpookyDirtWall>();
 										}
 									}
 								}

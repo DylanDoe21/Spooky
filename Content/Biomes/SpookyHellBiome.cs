@@ -1,4 +1,3 @@
-
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Graphics.Light;
@@ -14,9 +13,36 @@ namespace Spooky.Content.Biomes
 {
     public class SpookyHellBiome : ModBiome
     {
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell");
+		//set the music to be consistent with vanilla's music priorities
+		public override int Music
+		{
+			get
+			{
+				int music = Main.curMusic;
 
-        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+				//play town music if enough town npcs exist
+				if (Main.LocalPlayer.townNPCs > 2f)
+				{
+					if (Main.dayTime)
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
+					}
+					else
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
+					}
+				}
+				//play normal music
+				else
+				{
+					music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyHell");
+				}
+
+				return music;
+			}
+		}
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
         public override ModWaterStyle WaterStyle => ModContent.GetInstance<BloodWaterStyle>();
 
@@ -51,7 +77,7 @@ namespace Spooky.Content.Biomes
         //modified vanilla hell lighting code, just makes the vanilla hell lighting a different color because the default hell lighting is ugly in the biome
         private void SpookyHellCustomLighting(On_TileLightScanner.orig_ApplyHellLight orig, TileLightScanner self, Tile tile, int x, int y, ref Vector3 lightColor)
         {
-            if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+            if (ModContent.GetInstance<TileCount>().spookyHellTiles >= 500)
             {
                 float Red = 0f;
                 float Green = 0f;

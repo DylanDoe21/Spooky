@@ -16,16 +16,20 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 
 		public override void SetStaticDefaults()
 		{
-			TileID.Sets.CanBeDugByShovel[Type] = true;
 			TileID.Sets.BlockMergesWithMergeAllBlock[Type] = true;
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(54, 68, 66));
+            AddMapEntry(new Color(132, 93, 52));
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 			MinPick = 110;
+		}
+
+		public override bool CanExplode(int i, int j)
+		{
+			return false;
 		}
 		
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

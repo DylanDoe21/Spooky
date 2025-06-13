@@ -23,8 +23,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 76;
-			Projectile.height = 76;
+			Projectile.width = 10;
+			Projectile.height = 10;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.ignoreWater = true;
@@ -32,6 +32,18 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Projectile.penetrate = 7;
 			Projectile.MaxUpdates = 4;
 			Projectile.timeLeft = 96;
+		}
+
+		public override void ModifyDamageHitbox(ref Rectangle hitbox)
+		{
+			int size = (int)Utils.Remap(Projectile.ai[0], 0f, Fadetime, 10f, 45f);
+
+			if (Projectile.ai[0] > Fadetime)
+			{
+				size = (int)Utils.Remap(Projectile.ai[0], Fadetime, Lifetime, 45f, 0f);
+			}
+
+			hitbox.Inflate(size, size);
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -92,7 +104,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 
 			Projectile.ai[0]++;
-
 			if (Projectile.ai[0] > Fadetime)
 			{
 				Projectile.velocity *= 0.95f;

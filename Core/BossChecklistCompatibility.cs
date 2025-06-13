@@ -200,6 +200,7 @@ namespace Spooky.Core
 			//Pandora's Box
 			List<int> PandoraBoxEnemies = new List<int>()
 			{
+				ModContent.NPCType<PandoraBox>(),
 				ModContent.NPCType<Bobbert>(), 
 				ModContent.NPCType<Stitch>(), 
 				ModContent.NPCType<Sheldon>(),
@@ -228,8 +229,7 @@ namespace Spooky.Core
 				new Dictionary<string, object>()
 				{
 					["spawnItems"] = ModContent.ItemType<EMFReader>(),
-                    ["collectibles"] = new List<int>() { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(),
-                    ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>(), ModContent.ItemType<PandoraBean>() },
+                    ["collectibles"] = ModContent.ItemType<PandoraEventBox>(),
                     ["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.EntryName"),
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.PandoraBox.SpawnInfo"),
 					["overrideHeadTextures"] = PandoraBoxIcon,

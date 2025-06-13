@@ -23,17 +23,32 @@ namespace Spooky.Content.Biomes
 
                 if (!Main.bloodMoon && !Main.eclipse)
                 {
-                    //play normal theme if it isnt storming
                     if (!Main.IsItStorming)
                     {
-                        if (Main.dayTime)
-                        {
-                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
-                        }
-                        else
-                        {
-                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/CemeteryNight");
-                        }
+						//play town music if enough town npcs exist
+						if (Main.LocalPlayer.townNPCs > 2f)
+						{
+							if (Main.dayTime)
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
+							}
+							else
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
+							}
+						}
+						//play normal music
+						else
+						{
+							if (Main.dayTime)
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+							}
+							else
+							{
+								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/CemeteryNight");
+							}
+						}
                     }
                     //play monsoon theme during a storm
                     else if (Main.IsItStorming)
@@ -91,7 +106,7 @@ namespace Spooky.Content.Biomes
         //conditions to be in the biome
         public override bool IsBiomeActive(Player player)
         {
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 500;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().cemeteryTiles >= 650;
             bool SurfaceCondition = player.ZoneOverworldHeight;
 
             return BiomeCondition && SurfaceCondition && !player.ZoneBeach;

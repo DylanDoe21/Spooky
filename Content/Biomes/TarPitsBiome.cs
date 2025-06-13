@@ -17,9 +17,36 @@ namespace Spooky.Content.Biomes
     {
 		public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TarPitsUndergroundBG>();
 
-		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TarPits");
+		//set the music to be consistent with vanilla's music priorities
+		public override int Music
+		{
+			get
+			{
+				int music = Main.curMusic;
 
-        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+				//play town music if enough town npcs exist
+				if (Main.LocalPlayer.townNPCs > 2f)
+				{
+					if (Main.dayTime)
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
+					}
+					else
+					{
+						music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
+					}
+				}
+				//play normal music
+				else
+				{
+					music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/TarPits");
+				}
+
+				return music;
+			}
+		}
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
 		public override ModWaterStyle WaterStyle => ModContent.GetInstance<TarWaterStyle>();
 
