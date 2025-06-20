@@ -1,6 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.SpookyBiome.Misc;
+
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class GlowshroomPlatformItem : ModItem
@@ -20,7 +22,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe(2)
-            .AddIngredient(ModContent.ItemType<GlowshroomBlockItem>(), 1)
+            .AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 1)
             .Register();
         }
 	}
@@ -42,7 +44,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe(2)
-            .AddIngredient(ModContent.ItemType<GlowshroomYellowBlockItem>(), 1)
+            .AddIngredient(ModContent.ItemType<SpookyGlowshroomYellow>(), 1)
             .Register();
         }
 	}

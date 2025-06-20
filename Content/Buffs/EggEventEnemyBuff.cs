@@ -18,9 +18,7 @@ namespace Spooky.Content.Buffs
         {
             if (!initializeStats)
             {
-                storedDefense = npc.defense;
                 storedDamage = npc.damage;
-				npc.defense = storedDefense * 10;
 				npc.damage = storedDamage * 2;
 
                 initializeStats = true;
@@ -28,7 +26,6 @@ namespace Spooky.Content.Buffs
 
             if (npc.buffTime[buffIndex] < 5)
             {
-                npc.defense = storedDefense;
                 npc.damage = storedDamage;
             }
 		}

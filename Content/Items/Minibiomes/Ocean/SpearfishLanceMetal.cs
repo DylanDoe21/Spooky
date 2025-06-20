@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
     {
         public override void SetDefaults()
         {
-            Item.damage = 55;
+            Item.damage = 60;
             Item.DamageType = DamageClass.Melee;
             Item.autoReuse = true; 
             Item.noMelee = true;
@@ -90,6 +90,16 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
             }
 
             return false;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SpearfishLance>(), 1)
+            .AddIngredient(ModContent.ItemType<DunkleosteusHide>(), 12)
+            .AddIngredient(ItemID.SoulofMight, 5)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

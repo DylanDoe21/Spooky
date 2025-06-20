@@ -25,6 +25,37 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
             Projectile.timeLeft = 10000;
         }
 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
+		{
+			if (Projectile.ai[1] == 0)
+			{
+				Projectile.ai[0] = 5;
+				ActualSpeed = -ActualSpeed;
+
+				Projectile.ai[1]++;
+			}
+        }
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
+
+			Projectile.ai[0] = 5;
+			ActualSpeed = -ActualSpeed;
+
+			if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.velocity.X = -oldVelocity.X;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y;
+            }
+
+            return false;
+        }
+
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -39,8 +70,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 			}
 
 			Projectile.ai[0]++;
-
-			if (Projectile.ai[0] >= 5 && ActualSpeed < 15)
+			if (Projectile.ai[0] >= 5 && ActualSpeed < 20)
 			{
 				ActualSpeed += 0.5f;
 
@@ -65,26 +95,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 					Projectile.Kill();
 				}
 			}
-        }
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
-
-			Projectile.ai[0] = 5;
-			ActualSpeed = -ActualSpeed;
-
-			if (Projectile.velocity.X != oldVelocity.X)
-            {
-                Projectile.velocity.X = -oldVelocity.X;
-            }
-            if (Projectile.velocity.Y != oldVelocity.Y)
-            {
-                Projectile.velocity.Y = -oldVelocity.Y;
-            }
-
-            return false;
         }
     }
 }

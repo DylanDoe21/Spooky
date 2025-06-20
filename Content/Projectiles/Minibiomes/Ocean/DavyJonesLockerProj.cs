@@ -98,8 +98,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
                 {
                     player.statMana -= ItemGlobal.ActiveItem(player).mana;
 
-					SoundEngine.PlaySound(SoundID.Item177 with { Pitch = -1f, Volume = 0.5f }, Projectile.Center);
-					SoundEngine.PlaySound(SoundID.NPCDeath1 with { Pitch = -1f, Volume = 0.5f }, Projectile.Center);
+					SoundEngine.PlaySound(SoundID.Item177 with { Pitch = -1f, Volume = 0.35f }, Projectile.Center);
+					SoundEngine.PlaySound(SoundID.NPCDeath1 with { Pitch = -1f, Volume = 0.35f }, Projectile.Center);
 
 					if (Projectile.owner == Main.myPlayer)
                     {
@@ -120,7 +120,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
                         int Type = Main.rand.NextBool(10) ? ModContent.ProjectileType<LockerSock>() : ModContent.ProjectileType<LockerFish>();
 
 						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
-                        ShootSpeed.X + Main.rand.Next(-3, 4), ShootSpeed.Y + Main.rand.Next(-3, 4), Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        ShootSpeed.X, ShootSpeed.Y, Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
 
                     Projectile.ai[2] = 0;

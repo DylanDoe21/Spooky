@@ -26,14 +26,7 @@ namespace Spooky.Content.Items.SpookyBiome.Armor
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.GoldBar, 15)
-			.AddIngredient(ItemID.Silk, 15)
-			.AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 30)
-            .AddTile(TileID.Anvils)
-            .Register();
-
-			CreateRecipe()
-            .AddIngredient(ItemID.PlatinumBar, 15)
+            .AddRecipeGroup("SpookyMod:GoldBars", 15)
 			.AddIngredient(ItemID.Silk, 15)
 			.AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 30)
             .AddTile(TileID.Anvils)

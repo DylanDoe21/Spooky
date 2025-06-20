@@ -104,8 +104,9 @@ namespace Spooky.Content.NPCs.Quest
 					float distance = toNext.Length();
 
 					Color GetlightColor = Lighting.GetColor((int)drawPos2.X / 16, (int)(drawPos2.Y / 16));
+					Color BuffTintColor = Parent.GetNPCColorTintedByBuffs(GetlightColor);
 
-					Main.spriteBatch.Draw(ChainTexture.Value, drawPos2 - Main.screenPosition, null, GetlightColor, rotation, drawOrigin, NPC.scale * new Vector2((distance + 4) / (float)ChainTexture.Width(), 1), SpriteEffects.None, 0f);
+					Main.EntitySpriteDraw(ChainTexture.Value, drawPos2 - Main.screenPosition, null, BuffTintColor, rotation, drawOrigin, NPC.scale * new Vector2((distance + 4) / (float)ChainTexture.Width(), 1), SpriteEffects.None, 0f);
 				}
 
 				if (Parent.localAI[3] == 4 && Parent.localAI[0] >= 80 && Parent.localAI[0] < 170)
@@ -120,7 +121,7 @@ namespace Spooky.Content.NPCs.Quest
 						EyeScale += 0.02f;
 					}
 
-					Main.spriteBatch.Draw(EyeHoldTexture.Value, drawPos, null, EyeDrawColor, 0, eyeDrawOrigin, EyeScale, SpriteEffects.None, 0f);
+					Main.EntitySpriteDraw(EyeHoldTexture.Value, drawPos, null, Parent.GetNPCColorTintedByBuffs(EyeDrawColor), 0, eyeDrawOrigin, EyeScale, SpriteEffects.None, 0f);
 				}
 				else
 				{

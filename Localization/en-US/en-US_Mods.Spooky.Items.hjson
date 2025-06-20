@@ -1493,7 +1493,7 @@ BoomerangFishMetal: {
 
 DavyJonesFridge: {
 	DisplayName: Davy Jones' Fridge
-	Tooltip: Rapidly casts out refridgerated ocean life
+	Tooltip: Rapidly casts out live fish from the ocean
 }
 
 DavyJonesLocker: {
@@ -1513,6 +1513,11 @@ DunkleosteusCannon: {
 		If you have cannonballs it will shoot them
 		If you don't it will fire out short range bubbles instead
 		'''
+}
+
+DunkleosteusHide: {
+	DisplayName: Rotten Hide
+	Tooltip: A strudy chunk of big dunk's flesh
 }
 
 MineDynamite: {
@@ -1564,12 +1569,17 @@ Mine: {
 
 PufferfishFlail: {
 	DisplayName: Puffer Shatterer
-	Tooltip: Shatters into damaging bone shards on impact
+	Tooltip: Shatters into damaging bone shards on impact with enemies
 }
 
 PufferfishFlailMetal: {
 	DisplayName: Alloy Pufferfish
-	Tooltip: Causes a massive shockwave on impact
+	Tooltip:
+		'''
+		Will automatically fall to the ground when launched due to its heavy weight
+		Causes a damaging shockwave that launches enemies when it lands
+		The flails damage and size of the shockwave increases the longer it falls
+		'''
 }
 
 SharkboneCannon: {
@@ -1588,8 +1598,18 @@ SpearfishLance: {
 }
 
 SpearfishLanceMetal: {
-	DisplayName: Reinforced Spearfish Lance
+	DisplayName: Steelfish Lance
 	Tooltip: Right click to preform a slash attack that gouges enemies, causing severe bleeding
+}
+
+UnstableSteroid: {
+	DisplayName: Unstable Steroid
+	Tooltip:
+		'''
+		Grants 20% increased damage
+		The steroids effect is strong and cannot be removed
+		After the steroids effect run out, you will enter a withdrawal
+		'''
 }
 
 CarrotWand: {
@@ -2318,6 +2338,11 @@ SpookyGlowshroom: {
 	Tooltip: "'Filled with arcane energies'"
 }
 
+SpookyGlowshroomYellow: {
+	DisplayName: Yellow Glowshroom
+	Tooltip: "'Filled with sparkling magic'"
+}
+
 SpookySolution: {
 	DisplayName: Orange Solution
 	Tooltip:
@@ -2504,7 +2529,7 @@ SpookFishronFlail: {
 	DisplayName: Flaming Flairon
 	Tooltip:
 		'''
-		Fires lingering bubbles at nearby enemies
+		Fires lingering bubbles at nearby enemies while being swung
 		The longer it is swung, the more bubbles it shoots when launched
 		'''
 }
@@ -3511,46 +3536,6 @@ ChristmasWorkBenchItem: {
 	Tooltip: ""
 }
 
-DavePaintingItem: {
-	DisplayName: Dave
-	Tooltip: "'Waasephi'"
-}
-
-HogPaintingItem: {
-	DisplayName: The Hog
-	Tooltip: "'Waasephi'"
-}
-
-HorsePaintingItem: {
-	DisplayName: The Horse
-	Tooltip: "'Waasephi'"
-}
-
-GrannyPaintingItem: {
-	DisplayName: Granny
-	Tooltip: "'Kekroc'"
-}
-
-GrandpaPaintingItem: {
-	DisplayName: Grandpa
-	Tooltip: "'Kekroc'"
-}
-
-GrandpaMLGPaintingItem: {
-	DisplayName: MLG Grandpa
-	Tooltip: "'Kekroc'"
-}
-
-SlendrinaPaintingItem: {
-	DisplayName: Slendrina
-	Tooltip: "'Kekroc'"
-}
-
-SlendrinaSonPaintingItem: {
-	DisplayName: Slendrina's Child
-	Tooltip: "'Astrobit'"
-}
-
 ChristmasBrickRedItem: {
 	DisplayName: Red Yuletide Brick
 	Tooltip: ""
@@ -3731,6 +3716,11 @@ OceanBiomassItem: {
 	Tooltip: ""
 }
 
+OceanBiomassWallItem: {
+	DisplayName: Zomboid Biomass Wall
+	Tooltip: ""
+}
+
 OceanRockItem: {
 	DisplayName: Marine Rock
 	Tooltip: ""
@@ -3738,6 +3728,11 @@ OceanRockItem: {
 
 OceanSandItem: {
 	DisplayName: Deep Sea Sand
+	Tooltip: ""
+}
+
+OceanSandWallItem: {
+	DisplayName: Deep Sea Sand Wall
 	Tooltip: ""
 }
 
@@ -4061,46 +4056,6 @@ NoseTemplePlatformRedItem: {
 	Tooltip: ""
 }
 
-AmbushPaintingItem: {
-	DisplayName: Ambush
-	Tooltip: "'Hat in a River'"
-}
-
-BaxterPaintingItem: {
-	DisplayName: Portrait of Baxter
-	Tooltip: "'Waasephi'"
-}
-
-ColumboCrucifixItem: {
-	DisplayName: Columbo Crucifix
-	Tooltip: An ancient holy religious symbol of some kind
-}
-
-FireExitSignItem: {
-	DisplayName: Fire Exit Sign
-	Tooltip: ""
-}
-
-LuigiPaintingItem: {
-	DisplayName: Luigi
-	Tooltip: "'Waasephi'"
-}
-
-MonalumboItem: {
-	DisplayName: The Mona-Lumbo
-	Tooltip: "'Waasephi'"
-}
-
-RedMistPaintingItem: {
-	DisplayName: Red Mist
-	Tooltip: "'RocketLauncher'"
-}
-
-ShadowEyePaintingItem: {
-	DisplayName: The Eye
-	Tooltip: "'???'"
-}
-
 NoseTempleBrickGreenItem: {
 	DisplayName: Green Occultist Brick
 	Tooltip: ""
@@ -4181,6 +4136,121 @@ NoseTempleWallRedItem: {
 	Tooltip: ""
 }
 
+AlbumPosterPaintingItem: {
+	DisplayName: Spooky Album Poster
+	Tooltip: "'BananaLizard'"
+}
+
+DavePaintingItem: {
+	DisplayName: Dave
+	Tooltip: "'Waasephi'"
+}
+
+HogPaintingItem: {
+	DisplayName: The Hog
+	Tooltip: "'Waasephi'"
+}
+
+HorsePaintingItem: {
+	DisplayName: The Horse
+	Tooltip: "'Waasephi'"
+}
+
+GrannyPaintingItem: {
+	DisplayName: Granny
+	Tooltip: "'Kekroc'"
+}
+
+GrandpaPaintingItem: {
+	DisplayName: Grandpa
+	Tooltip: "'Kekroc'"
+}
+
+GrandpaMLGPaintingItem: {
+	DisplayName: MLG Grandpa
+	Tooltip: "'Kekroc'"
+}
+
+SlendrinaPaintingItem: {
+	DisplayName: Slendrina
+	Tooltip: "'Kekroc'"
+}
+
+SlendrinaSonPaintingItem: {
+	DisplayName: Slendrina's Child
+	Tooltip: "'Astrobit'"
+}
+
+AmbushPaintingItem: {
+	DisplayName: Ambush
+	Tooltip: "'Hat in a River'"
+}
+
+BaxterPaintingItem: {
+	DisplayName: Portrait of Baxter
+	Tooltip: "'Waasephi'"
+}
+
+ColumboCrucifixItem: {
+	DisplayName: Columbo Crucifix
+	Tooltip: An ancient holy religious symbol of some kind
+}
+
+FireExitSignItem: {
+	DisplayName: Fire Exit Sign
+	Tooltip: ""
+}
+
+LuigiPaintingItem: {
+	DisplayName: Luigi
+	Tooltip: "'Waasephi'"
+}
+
+MonalumboItem: {
+	DisplayName: The Mona-Lumbo
+	Tooltip: "'Waasephi'"
+}
+
+RedMistPaintingItem: {
+	DisplayName: Red Mist
+	Tooltip: "'RocketLauncher'"
+}
+
+ShadowEyePaintingItem: {
+	DisplayName: The Eye
+	Tooltip: "'???'"
+}
+
+IconPainting1Item: {
+	DisplayName: Pumpkin Face
+	Tooltip: "'DylanDoe21'"
+}
+
+IconPainting2Item: {
+	DisplayName: Scary Logo
+	Tooltip: "'Honda'"
+}
+
+IconPainting3Item: {
+	DisplayName: Spooky Midnight
+	Tooltip: "'Hugekraken'"
+}
+
+IconPainting4Item: {
+	DisplayName: Spooky Sunrise
+	Tooltip: "'Hugekraken'"
+}
+
+IconPainting5Item: {
+	DisplayName: Nose Cultist Portrait
+	Tooltip: "'Hugekraken'"
+}
+
+LittleEyePaintingItem: {
+	DisplayName: Little Eye's Self Portrait
+	Tooltip: "'Waasephi'"
+}
+
 CemeteryPylonItem: {
 	DisplayName: Swampy Cemetery Pylon
 	Tooltip:
@@ -4230,6 +4300,11 @@ BigBoneRelicItem: {
 DaffodilRelicItem: {
 	DisplayName: Daffodil Relic
 	Tooltip: ""
+}
+
+DunkleosteusRelicItem: {
+	DisplayName: Big Dunk Participation Relic
+	Tooltip: You killed big dunk[i:75][c/F0D522:Congratulation!][i:75]
 }
 
 EyeWizardRelicItem: {
@@ -4825,18 +4900,8 @@ GourdYellowGreenCarvedLitItem: {
 	Tooltip: ""
 }
 
-GlowshroomBlockItem: {
-	DisplayName: Glowshroom Block
-	Tooltip: ""
-}
-
 GlowshroomWallItem: {
 	DisplayName: Glowshroom Wall
-	Tooltip: ""
-}
-
-GlowshroomYellowBlockItem: {
-	DisplayName: Yellow Glowshroom Block
 	Tooltip: ""
 }
 
@@ -5018,36 +5083,6 @@ EyeTableItem: {
 EyeWorkBenchItem: {
 	DisplayName: Living Flesh Work Bench
 	Tooltip: ""
-}
-
-IconPainting1Item: {
-	DisplayName: Pumpkin Face
-	Tooltip: "'DylanDoe21'"
-}
-
-IconPainting2Item: {
-	DisplayName: Scary Logo
-	Tooltip: "'Honda'"
-}
-
-IconPainting3Item: {
-	DisplayName: Spooky Midnight
-	Tooltip: "'Hugekraken'"
-}
-
-IconPainting4Item: {
-	DisplayName: Spooky Sunrise
-	Tooltip: "'Hugekraken'"
-}
-
-IconPainting5Item: {
-	DisplayName: Nose Cultist Portrait
-	Tooltip: "'Hugekraken'"
-}
-
-LittleEyePaintingItem: {
-	DisplayName: Little Eye's Self Portrait
-	Tooltip: "'Waasephi'"
 }
 
 EyeballBlockItem: {

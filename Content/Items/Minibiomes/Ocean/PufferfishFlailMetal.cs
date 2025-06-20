@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
     {
         public override void SetDefaults() 
         {
-			Item.damage = 50;
+			Item.damage = 110;
             Item.DamageType = DamageClass.Melee;
             Item.channel = true;
             Item.noMelee = true;
@@ -28,16 +28,18 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
             Item.rare = ItemRarityID.LightRed;
            	Item.value = Item.buyPrice(gold: 10);
             Item.UseSound = SoundID.Item1;
-            //Item.shoot = ModContent.ProjectileType<PufferfishFlailMetalProj>();
+            Item.shoot = ModContent.ProjectileType<PufferfishFlailMetalProj>();
             Item.shootSpeed = 12f;
 		}
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void AddRecipes()
         {
-            //Projectile.NewProjectile(source, position, new Vector2(velocity.X, velocity.Y).RotatedByRandom((float)Math.PI / 16f), 
-            //ModContent.ProjectileType<PufferfishFlailMetalProj>(), damage, knockback, player.whoAmI);
-
-            return false;
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<PufferfishFlail>(), 1)
+            .AddIngredient(ModContent.ItemType<DunkleosteusHide>(), 12)
+            .AddIngredient(ItemID.SoulofMight, 5)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

@@ -5,7 +5,7 @@ Brand New Biomes:
 -Fetid farms, a nasty rotting vegetable garden found in the underground jungle (only 1 on small worlds, 2 on medium and large)
 -Tar pits, a rocky desert cave with fossils and tar found in the underground desert (only 1 on small worlds, 2 on medium and large)
 -Krampus' workshop, a strange dungeon structure found in the underground ice biome (only 1 per world)
--Rotten depths, an underwater cave system with old labs where an experiment has gone wrong under the ocean (only 1 per world, does not scale with worldsize due to the oceans always being the same size on all worlds)
+-Rotten depths, an underwater cave system below the ocean with old rusted labs (only 1 per world, does not scale with worldsize due to the oceans always being the same size on all worlds)
 
 
 Spooky Forest Generation Overhaul:
@@ -51,6 +51,7 @@ Other Random Additions:
 -Added placeable spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
 -Added spooky dirt walls, swampy mud walls, and damp soil walls. These walls now generate in their respective biomes, and have safe versions you can craft and build with
 -Added unsafe catacomb walls that can be obtained by shimmering regular catacomb walls after that respective catacomb layers boss is defeated (daffodil for layer 1 bricks, big bone for layer 2 bricks) (IMPORTANT NOTE: if you place these unsafe walls in a world where daffodil (For layer 1 walls) and big bone (For layer 2 walls) haven't been defeated, then you will NOT be able to break them until you defeat that respective boss)
+-Added new blue and yellow glowshroom blocks, walls, and furniture sets
 -Added a couple new accessories to the underground spooky forest cabin chests, one for melee and one for ranged
 -Added new raveyard vinyls for the individual tracks "Graveyard without the G" and "Neo Alkahouse"
 -Added cranberry jelly and cranberry juice, functionally identical to healing potions except they auto consume when you fall below half hp and have halved potion sickness time, but heal less health
@@ -63,7 +64,7 @@ Other Random Additions:
 -Added multiple new bloom-related accessories that give you various bonuses based on blooms
 -Added new surface background sprites for the spooky forest and swampy cemetery
 -Swampy cemetery now has a new alternate surface background
--Removed all of the vinyl discs and replaced them with proper music boxes, the way they are obtained is still the same (Purchased from musicman during a raveyard)
+-Removed all of the vinyl discs and replaced them with new proper music boxes, the way they are obtained is still the same (Purchased from musicman during a raveyard)
 
 
 Structure Helper is no longer a dependency: 
@@ -82,7 +83,7 @@ Melee:
 -Buffed swingable sphider damage from 30 to 35
 -Nerfed spider stabber damage from 25 to 20, but it now inflicts venom instead of poison
 -Nerfed bulb bomb damage from 52 to 45 and its thorns now deal half the base damage
--Dave & mike no longer needs to touch the enemy its targeting in order to begin attacking it, and massively increased the distance which dave and mike can target enemies from
+-Dave & mike no longer needs to physically touch the enemy its targeting in order to begin attacking it, and massively increased the distance which dave and mike can target enemies from
 
 Ranged:
 -Buffed spider egg cannon damage from 16 to 25
@@ -193,50 +194,54 @@ Enemy Changes:
 -Dumb zomboid bestiary entry now uses the spooky forest background instead of a blank black background
 -Valley of eyes pylon can now be sold by npcs who are happy enough in the eye valley (Little eye will still give you one for free when woken up)
 -Bloom plants now have better map colors and have display names when you hover over them with your mouse
--Spooky mod music boxes now display the song title in orange, since some of the previous colors were hard to read and having to make specific colors for every music box was a bit annoying
+-Spooky mod music boxes now display the song title in orange in their tooltip, since some of the previous colors were hard to read and having to make specific colors for every music box was a bit annoying
 
 
 
 
 ~BUGS AND OTHER FIXES~
 
--Fixed spooky mod helmets/masks with custom drawing (such as glowmasks and extended helmets) drawing incorrectly when gravity is flipped
--Fixed bug with many spooky mod objects (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
--Fixed bug with many spooky mod custom tiles and special wall drawing (such as custom trees, giant glowshrooms, grass wall leaves, ect) not being affected when painted
--Fixed issue where spooky biome ambient grass and vines wouldnt be destroyed when converted by clentaminator solutions
--Fixed brown solution not converting spooky mod biomes into a forest biome
--Fixed frank the goblin's hands despawning if the player gets too far away from him
--Fixed spooky mod vines growing longer than 10 tiles during world generation
--Fixed spi-ops armor setbonus tooltip saying spider stealth stuns enemies as this was scrapped
--Fixed gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
--Fixed living flesh mask still giving extra whip range
--Fixed gore mask giving 3 extra minion slots instead of 2
--Fixed spooky mod flails not dealing reduced damage while being spun around
--Fixed dreadful clarinet note projectiles not fading out correctly
--Fixed blueford's casting animation playing way too early before he actually shields another ghost bandit
--Fixed issue where ancient crushers would almost never spawn because of a problem with their upward tile check when spawning on ceilings
--Fixed ancient crushers colliding with platforms when slamming down
--Fixed cemetery biome dungeon chest item not having a sell price
--Fixed possessed scarecrows shooting through blocks
--Fixed total organ package not giving 10% increased crit chance inhereted from the corroding chompers
--Fixed mini orro and boro minions from the gore armor flying around wildly when trying to follow the player
--Fixed stoned kidney and snotty schnoz UI scaling from the top-left corner instead of the center and their default positions being offset with different UI scales
--Fixed spooky forest ambient leaf gores being spawned inside of tiles
--Fixed big bone treasure bag not dropping the flower pot head
--Fixed little bone and little eye not turning into their shimmered forms correctly
--Fixed carrion chunker backpack not drawing at the correct position if the player was on mounts
--Fixed spooky mod relics facing the wrong directions when places
--Fixed retina staff and living retina staff projectiles continuing to exist if you switch to a different item
--Fixed femur fracture hammer continuing to exist if you switch to a different item or if you move your mouse over your inventory while using it
--Fixed skull smasher hammer continuing to exist if you switch to a different item
--Fixed issue where big bones tile collision when charging would not work properly on sloped tiles, causing him to unintentionally slide instead of just stopping
+Fixed all of the following bugs and issues:
+
+-Spooky mod helmets/masks with custom drawing (such as glowmasks and extended helmets) drawing incorrectly when gravity is flipped
+-Bug with many spooky mod objects (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
+-Bug with many spooky mod custom tiles and special wall drawing (such as custom trees, giant glowshrooms, grass wall leaves, ect) not being affected when painted
+-Issue where spooky biome ambient grass and vines wouldnt be destroyed when converted by clentaminator solutions
+-Brown solution not converting spooky mod biomes into a forest biome
+-Frank the goblin's hands despawning if the player gets too far away from him
+-Spooky mod vines growing longer than 10 tiles during world generation
+-Spi-ops armor setbonus tooltip saying spider stealth stuns enemies as this was scrapped
+-Gore mask, living flesh mask, living flesh legs, and skull totem buff giving double damage increase to whips
+-Living flesh mask still giving extra whip range
+-Gore mask giving 3 extra minion slots instead of 2
+-Spooky mod flails not dealing reduced damage while being spun around
+-Dreadful clarinet note projectiles not fading out correctly
+-Blueford's casting animation playing way too early before he actually shields another ghost bandit
+-Issue where ancient crushers would almost never spawn because of a problem with their upward tile check when spawning on ceilings
+-Ancient crushers colliding with platforms when slamming down
+-Cemetery biome dungeon chest item not having a sell price
+-Possessed scarecrows shooting through blocks
+-Total organ package not giving 10% increased crit chance inhereted from the corroding chompers
+-Mini orro and boro minions from the gore armor flying around wildly when trying to follow the player
+-Stoned kidney and snotty schnoz UI scaling from the top-left corner instead of the center and their default positions being offset with different UI scales
+-Spooky forest ambient leaf gores being spawned inside of tiles
+-Big bone treasure bag not dropping the flower pot head vanity item
+-Little bone and little eye not turning into their shimmered forms correctly
+-Carrion chunker backpack not drawing at the correct position if the player was on mounts
+-Spooky mod relics facing the wrong directions when places
+-Retina staff and living retina staff projectiles continuing to exist if you switch to a different item
+-Femur fracture hammer continuing to exist if you switch to a different item or if you move your mouse over your inventory while using it
+-Skull smasher hammer continuing to exist if you switch to a different item
+-Issue where big bones tile collision when charging would not work properly on sloped tiles, causing him to unintentionally slide across tiles instead of just stopping
+-Issue where spooky mod flails launch speed and distance would scale down instead of up based on your melee speed (Skull Emoji)
+-Spook fishron flamethrower projectiles having an unfairly large hitbox
 
 
 Multiplayer:
 
 -Attempted to fix issue with temple of moco idols not completing the event properly
--Attempted to fix the egg incursion visuals and music not showing up for some players in multiplayer
--Fixed noseferatu's rapid fire booger projectiles not spawning in multiplayer
--Fixed various spooky mod screenshake issues in multiplayer
--Big bone should now be more functional in multiplayer
--Egg incursion should now be more functional in multiplayer
+-Attempted to fix the egg incursion visuals and music not showing up for some players
+-Fixed noseferatu's rapid fire booger projectiles not spawning
+-Fixed spooky mod screenshake behaving weirdly across individual clients
+-Big bone should now be more functional
+-Egg incursion should now be more functional

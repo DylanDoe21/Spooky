@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 100;
+			Item.damage = 150;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = true;
@@ -20,8 +20,8 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			Item.channel = true;
 			Item.width = 92;
 			Item.height = 50;
-			Item.useTime = 35;
-			Item.useAnimation = 35;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
             Item.rare = ItemRarityID.LightRed;
@@ -30,5 +30,15 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			Item.shoot = ModContent.ProjectileType<DunkleosteusCannonProj>();
 			Item.shootSpeed = 0f;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<SharkboneCannon>(), 1)
+			.AddIngredient(ModContent.ItemType<DunkleosteusHide>(), 12)
+            .AddIngredient(ItemID.SoulofSight, 5)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
 	}
 }

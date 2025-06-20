@@ -843,10 +843,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 						{
 							for (int numProjs = 0; numProjs <= 2; numProjs++)
 							{
-								float SpreadX = Phase2 ? 0 : Main.rand.Next(-2, 3);
-								float SpreadY = Phase2 ? 0 : Main.rand.Next(-2, 3);
+								int Spread = Phase2 ? 3 : 6;
 
-								NPCGlobalHelper.ShootHostileProjectile(NPC, position, new Vector2(ShootSpeed.X + SpreadX, ShootSpeed.Y + SpreadY), ModContent.ProjectileType<SpookyFlames>(), NPC.damage, 4.5f);
+								Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(Spread));
+
+								NPCGlobalHelper.ShootHostileProjectile(NPC, position, newVelocity, ModContent.ProjectileType<SpookyFlames>(), NPC.damage, 4.5f);
 							}
 						}
 					}
@@ -924,16 +925,8 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							position += Offset;
 						}
 
-						//tornado in phase 1
-						if (!Phase2)
-						{
-							NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SpookyTornadoSpawner>(), NPC.damage, 4.5f, ai1 : player.whoAmI);
-						}
-						//tornado bolt in phase 2 becomes fully homing
-						else
-						{
-							NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SpookyTornadoSpawner>(), NPC.damage, 4.5f, ai0 : 1, ai1 : player.whoAmI);
-						}
+						//shoot tornado bolt
+						NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SpookyTornadoSpawner>(), NPC.damage, 4.5f, ai0: Phase2 ? 1 : 0, ai1: player.whoAmI);
 					}
 
 					if (NPC.localAI[0] >= 320)
@@ -1149,10 +1142,10 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 									//stunned behavior, goofy tweety bird sound and star dusts
 									if (NPC.localAI[0] % 5 == 0)
 									{						
-										int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1.2f);
-										Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-										Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-										Main.dust[newDust].velocity.Y = Main.rand.Next(-10, -4);
+										int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 4, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1f);
+										Main.dust[newDust].velocity.X = Main.rand.NextFloat(-1.5f, 1.5f);
+										Main.dust[newDust].velocity.Y = Main.rand.NextFloat(-1.5f, -0.2f);
+										Main.dust[newDust].alpha = Main.rand.Next(0, 2);
 										Main.dust[newDust].noGravity = true;
 									}
 								}
@@ -1365,10 +1358,10 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 									//stunned behavior, goofy tweety bird sound and star dusts
 									if (NPC.localAI[0] % 5 == 0)
 									{						
-										int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1.2f);
-										Main.dust[newDust].position.X += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-										Main.dust[newDust].position.Y += Main.rand.Next(-50, 51) * 0.05f - 1.5f;
-										Main.dust[newDust].velocity.Y = Main.rand.Next(-10, -4);
+										int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height / 4, ModContent.DustType<CartoonStar>(), 0f, -2f, 0, default, 1f);
+										Main.dust[newDust].velocity.X = Main.rand.NextFloat(-1.5f, 1.5f);
+										Main.dust[newDust].velocity.Y = Main.rand.NextFloat(-1.5f, -0.2f);
+										Main.dust[newDust].alpha = Main.rand.Next(0, 2);
 										Main.dust[newDust].noGravity = true;
 									}
 								}

@@ -131,11 +131,11 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 13; 
-			float launchSpeed = 25f; 
-			float maxLaunchLength = 820f; 
-			float retractAcceleration = 3f; 
+			float launchSpeed = 20f; 
+			float maxLaunchLength = 800f; 
+			float retractAcceleration = 2f;
 			float maxRetractSpeed = 20f; 
-			float forcedRetractAcceleration = 20f;
+			float forcedRetractAcceleration = 25f;
 			float maxForcedRetractSpeed = 15f; 
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
@@ -144,9 +144,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			int spinHitCooldown = 20; 
 			int movingHitCooldown = 20;
 
-			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
-			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
-			float meleeSpeedMultiplier = 1f / meleeSpeed;
+			//melee speed scaling
+			float meleeSpeedMultiplier = player.GetAttackSpeed(DamageClass.Melee);
 			launchSpeed *= meleeSpeedMultiplier;
 			unusedRetractAcceleration *= meleeSpeedMultiplier;
 			unusedMaxRetractSpeed *= meleeSpeedMultiplier;
@@ -154,7 +153,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			maxRetractSpeed *= meleeSpeedMultiplier;
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
+
 			float launchRange = launchSpeed * launchTimeLimit;
+			float maxDroppedRange = launchRange + 160f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
 
 			switch (CurrentAIState) 

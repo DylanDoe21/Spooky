@@ -52,5 +52,14 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			
 			return false;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<BloodSoaker>(), 1)
+			.AddRecipeGroup("SpookyMod:AdamantiteBars", 10)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
 	}
 }

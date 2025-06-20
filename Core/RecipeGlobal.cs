@@ -17,7 +17,7 @@ namespace Spooky.Core
             RecipeGroup wood = RecipeGroup.recipeGroups[RecipeGroupID.Wood];
             wood.ValidItems.Add(ModContent.ItemType<SpookyWoodItem>());
 
-			RecipeGroup BaseGroup(object GroupName, int[] Items)
+			RecipeGroup BaseGroup(object GroupName, object GroupName2, int[] Items)
 			{
 				string Name = "";
 				Name += GroupName switch
@@ -29,11 +29,25 @@ namespace Spooky.Core
 					//custom group names
 					_ => GroupName.ToString(),
 				};
-				return new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + Name, Items);
+
+                string Name2 = "";
+				Name2 += GroupName switch
+				{
+					//modcontent items
+					int i => Lang.GetItemNameValue((int)GroupName2),
+					//vanilla item ids
+					short s => Lang.GetItemNameValue((short)GroupName2),
+					//custom group names
+					_ => GroupName2.ToString(),
+				};
+                
+				return new RecipeGroup(() => Name + "/" + Name2, Items);
 			}
 
-			RecipeGroup.RegisterGroup("SpookyMod:DemoniteBars", BaseGroup(ItemID.DemoniteBar, new int[] { ItemID.DemoniteBar, ItemID.CrimtaneBar }));
-            RecipeGroup.RegisterGroup("SpookyMod:ShadowScales", BaseGroup(ItemID.ShadowScale, new int[] { ItemID.ShadowScale, ItemID.TissueSample }));
+            RecipeGroup.RegisterGroup("SpookyMod:GoldBars", BaseGroup(ItemID.GoldBar, ItemID.PlatinumBar, new int[] { ItemID.GoldBar, ItemID.PlatinumBar }));
+            RecipeGroup.RegisterGroup("SpookyMod:DemoniteBars", BaseGroup(ItemID.DemoniteBar, ItemID.CrimtaneBar, new int[] { ItemID.DemoniteBar, ItemID.CrimtaneBar }));
+            RecipeGroup.RegisterGroup("SpookyMod:ShadowScales", BaseGroup(ItemID.ShadowScale, ItemID.TissueSample, new int[] { ItemID.ShadowScale, ItemID.TissueSample }));
+            RecipeGroup.RegisterGroup("SpookyMod:AdamantiteBars", BaseGroup(ItemID.AdamantiteBar, ItemID.TitaniumBar, new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar }));
 		}
 
         public override void AddRecipes()

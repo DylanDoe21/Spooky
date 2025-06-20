@@ -1,6 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.SpookyBiome.Misc;
+
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class GlowshroomClockItem : ModItem
@@ -15,7 +17,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<GlowshroomBlockItem>(), 15)
+            .AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 15)
 			.AddRecipeGroup(RecipeGroupID.IronBar, 3)
 			.AddIngredient(ItemID.Glass, 5)
             .AddTile(TileID.WorkBenches)
@@ -35,7 +37,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<GlowshroomYellowBlockItem>(), 15)
+            .AddIngredient(ModContent.ItemType<SpookyGlowshroomYellow>(), 15)
 			.AddRecipeGroup(RecipeGroupID.IronBar, 3)
 			.AddIngredient(ItemID.Glass, 5)
             .AddTile(TileID.WorkBenches)

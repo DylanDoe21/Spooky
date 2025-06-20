@@ -17,9 +17,9 @@ namespace Spooky.Content.Items.SpiderCave.Misc
         {
             Item.width = 26;
             Item.height = 32;
+            Item.maxStack = 9999;
             Item.rare = ItemRarityID.Blue;  
             Item.value = Item.buyPrice(copper: 50);
-            Item.maxStack = 9999;
         }
 	}
 }

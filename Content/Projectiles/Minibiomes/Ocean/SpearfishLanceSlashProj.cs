@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Enums;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,6 +18,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
         Vector2 SaveVelocity;
 
+        public static readonly SoundStyle PokeSound = new("Spooky/Content/Sounds/SpearfishPoke", SoundType.Sound);
+
         public override void SetDefaults()
         {
             Projectile.width = 90;
@@ -29,6 +32,11 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
             Projectile.timeLeft = 15;
             Projectile.penetrate = -1;
             Projectile.alpha = 255;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            SoundEngine.PlaySound(PokeSound, target.Center);
         }
 
         public override void CutTiles() 

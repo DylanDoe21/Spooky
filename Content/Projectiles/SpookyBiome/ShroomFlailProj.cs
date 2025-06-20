@@ -132,11 +132,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 12;
-			float launchSpeed = 16f; 
-			float maxLaunchLength = 575f;
+			float launchSpeed = 15f; 
+			float maxLaunchLength = 800f;
 			float retractAcceleration = 2f; 
-			float maxRetractSpeed = 25f;
-			float forcedRetractAcceleration = 25f; 
+			float maxRetractSpeed = 15f;
+			float forcedRetractAcceleration = 20f; 
 			float maxForcedRetractSpeed = 20f; 
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
@@ -146,9 +146,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			int movingHitCooldown = 20; 
 			int ricochetTimeLimit = launchTimeLimit + 5;
 
-			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
-			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
-			float meleeSpeedMultiplier = 1f / meleeSpeed;
+			//melee speed scaling
+			float meleeSpeedMultiplier = player.GetAttackSpeed(DamageClass.Melee);
 			launchSpeed *= meleeSpeedMultiplier;
 			unusedRetractAcceleration *= meleeSpeedMultiplier;
 			unusedMaxRetractSpeed *= meleeSpeedMultiplier;
@@ -156,6 +155,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			maxRetractSpeed *= meleeSpeedMultiplier;
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
+
 			float launchRange = launchSpeed * launchTimeLimit;
 			float maxDroppedRange = launchRange + 160f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
@@ -183,11 +183,11 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         }
                     }
 
-                    SpinningStateTimer += 1f;
+                    SpinningStateTimer += 0.85f;
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 
-                    offsetFromPlayer.Y *= 0.85f;
+                    offsetFromPlayer.Y *= 0.7f;
                     if (offsetFromPlayer.Y * player.gravDir > 0f) 
                     {
                         offsetFromPlayer.Y *= 1f;

@@ -362,6 +362,17 @@ namespace Spooky.Content.Generation
                     {
                         WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyDirt2>(), ModContent.TileType<SpookyGrassGreen>(), false);
                     }
+
+					if (Y < Main.worldSurface && tile.WallType == ModContent.WallType<SpookyStoneWall>() && tileAbove.TileType != ModContent.TileType<SpookyStone>() && tileAbove.WallType <= 0)
+					{
+						for (int i = X - 1; i <= X + 1; i++)
+						{
+							for (int j = Y - 1; j <= Y + 1; j++)
+							{
+								WorldGen.PlaceTile(i, j, ModContent.TileType<SpookyStone>());
+							}
+						}
+					}
                 }
             }
         }

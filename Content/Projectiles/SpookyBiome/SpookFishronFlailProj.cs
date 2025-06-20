@@ -136,12 +136,12 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 17;
-			float launchSpeed = 30f;
-			float maxLaunchLength = 360f;
+			int launchTimeLimit = 13;
+			float launchSpeed = 20f;
+			float maxLaunchLength = 800f;
 			float retractAcceleration = 3f;
-			float maxRetractSpeed = 40f;
-			float forcedRetractAcceleration = 40f;
+			float maxRetractSpeed = 20f;
+			float forcedRetractAcceleration = 25f;
 			float maxForcedRetractSpeed = 20f;
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
@@ -151,9 +151,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			int movingHitCooldown = 20;
 			int ricochetTimeLimit = launchTimeLimit + 5;
 
-			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
-			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
-			float meleeSpeedMultiplier = 1f / meleeSpeed;
+			//melee speed scaling
+			float meleeSpeedMultiplier = player.GetAttackSpeed(DamageClass.Melee);
 			launchSpeed *= meleeSpeedMultiplier;
 			unusedRetractAcceleration *= meleeSpeedMultiplier;
 			unusedMaxRetractSpeed *= meleeSpeedMultiplier;
@@ -161,6 +160,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			maxRetractSpeed *= meleeSpeedMultiplier;
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
+
 			float launchRange = launchSpeed * launchTimeLimit;
 			float maxDroppedRange = launchRange + 160f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
@@ -202,13 +202,13 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (SpinningStateTimer / 60f) * player.direction);
 
-                    offsetFromPlayer.Y *= 0.9f;
+                    offsetFromPlayer.Y *= 0.75f;
                     if (offsetFromPlayer.Y * player.gravDir > 0f) 
                     {
                         offsetFromPlayer.Y *= 1f;
                     }
 
-					offsetFromPlayer.X *= 1f;
+					offsetFromPlayer.X *= 1.2f;
                     if (offsetFromPlayer.X * player.gravDir > 0f) 
                     {
                         offsetFromPlayer.X *= 1f;
@@ -228,7 +228,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
 							if (lineOfSight && SpinningStateTimer % 8 == 0)
 							{
-								Vector2 ShootSpeed = (NPC.Center + NPC.velocity * 20f) - Projectile.Center;
+								Vector2 ShootSpeed = (NPC.Center + NPC.velocity) - Projectile.Center;
 								ShootSpeed.Normalize();
 								ShootSpeed *= 15f;
 

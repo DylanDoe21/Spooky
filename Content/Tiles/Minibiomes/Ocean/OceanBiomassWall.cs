@@ -15,25 +15,18 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
             DustType = DustID.Blood;
 			HitSound = SoundID.NPCDeath1;
         }
+    }
 
-        /*
-        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+    public class OceanBiomassWallSafe : ModWall 
+    {
+        public override string Texture => "Spooky/Content/Tiles/Minibiomes/Ocean/OceanBiomassWall";
+
+        public override void SetStaticDefaults()
         {
-            Tile tile = Main.tile[i, j];
-
-            //spawn water infront of the wall
-            if ((tile.LiquidAmount == 0 || tile.LiquidType == LiquidID.Water) && !tile.HasTile)
-            {
-                tile.Get<LiquidData>().LiquidType = LiquidID.Water;
-                tile.LiquidAmount = byte.MaxValue;
-                WorldGen.SquareTileFrame(i, j);
-
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.sendWater(i, j);
-                }
-            }
+            Main.wallHouse[Type] = true;
+            AddMapEntry(new Color(18, 56, 23));
+            DustType = DustID.Blood;
+			HitSound = SoundID.NPCDeath1;
         }
-        */
     }
 }

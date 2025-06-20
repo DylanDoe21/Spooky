@@ -141,11 +141,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                     if (NPC.ai[1] <= 60)
                     {
-                        for (int k = 0; k < 30; k++)
-                        {
-                            Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 14), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, Color.White, 1.5f);
-                            dust.noGravity = true;
-                        }
+                        Dust dust = Dust.NewDustDirect(new Vector2((destinationX * 16f) - 30, (destinationY * 16f) - 20), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, Color.White, 2.5f);
+                        dust.noGravity = true;
                     }
                     else
                     {

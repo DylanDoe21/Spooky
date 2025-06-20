@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Tiles.NoseTemple;
-using Spooky.Content.Tiles.NoseTemple.Painting;
+using Spooky.Content.Tiles.Painting;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
 {

@@ -67,23 +67,23 @@ namespace Spooky.Content.Projectiles.Pets
                 Projectile.ai[0] = 1f;
             }
 
-            float speed = 5f;
+            float speed = 6f;
 
             if (Projectile.ai[0] == 1f)
             {
-                speed = 10f;
+                speed = 9f;
             }
 
             Vector2 center = Projectile.Center;
             Vector2 direction = player.Center - center;
             Projectile.ai[1] = 3600f;
             Projectile.netUpdate = true;
-            direction.X += (100 * player.direction);
+            direction.X += (20 * player.direction);
             direction.Y -= 50f;
             float distanceTo = direction.Length();
-            if (distanceTo > 200f && speed < 30f)
+            if (distanceTo > 200f && speed < 12f)
             {
-                speed = 15f;
+                speed = 12f;
             }
             if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
             {
@@ -94,7 +94,7 @@ namespace Spooky.Content.Projectiles.Pets
             {
                 Projectile.Center = player.Center;
             }
-            if (distanceTo > 48f)
+            if (distanceTo > 30f)
             {
                 direction.Normalize();
                 direction *= speed;

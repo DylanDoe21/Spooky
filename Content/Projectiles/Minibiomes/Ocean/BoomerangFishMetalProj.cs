@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 			Projectile.ai[0]++;
 
-			if (Projectile.ai[0] >= 5 && ActualSpeed < 25)
+			if (Projectile.ai[0] >= 5 && ActualSpeed < 30)
 			{
 				ActualSpeed += 0.5f;
 

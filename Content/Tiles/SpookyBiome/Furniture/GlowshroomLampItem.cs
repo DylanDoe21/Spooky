@@ -1,6 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items.SpookyBiome.Misc;
+
 namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 {
 	public class GlowshroomLampItem : ModItem
@@ -15,7 +17,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<GlowshroomBlockItem>(), 3)
+            .AddIngredient(ModContent.ItemType<SpookyGlowshroom>(), 3)
 			.AddIngredient(ItemID.Torch, 1)
             .AddTile(TileID.WorkBenches)
             .Register();
@@ -34,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<GlowshroomYellowBlockItem>(), 3)
+            .AddIngredient(ModContent.ItemType<SpookyGlowshroomYellow>(), 3)
 			.AddIngredient(ItemID.Torch, 1)
             .AddTile(TileID.WorkBenches)
             .Register();

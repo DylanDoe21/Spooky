@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
-using Spooky.Content.Tiles.Minibiomes.Christmas.Painting;
+using Spooky.Content.Tiles.Painting;
 
 namespace Spooky.Content.Generation
 {

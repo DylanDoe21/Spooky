@@ -633,7 +633,7 @@ namespace Spooky.Content.Generation
 
 		public void TileSloping(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			for (int j = PositionY - SizeY - 100; j < PositionY + SizeY; j++)
 			{
 				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
 				{
@@ -746,7 +746,7 @@ namespace Spooky.Content.Generation
 								ushort[] Corals = new ushort[] { (ushort)ModContent.TileType<CoralGreen1>(), (ushort)ModContent.TileType<CoralGreen2>(), (ushort)ModContent.TileType<CoralGreen3>(),
 								(ushort)ModContent.TileType<CoralPurple1>(), (ushort)ModContent.TileType<CoralPurple2>(), (ushort)ModContent.TileType<CoralPurple3>(),
 								(ushort)ModContent.TileType<CoralRed1>(), (ushort)ModContent.TileType<CoralRed2>(), (ushort)ModContent.TileType<CoralRed3>(),
-								(ushort)ModContent.TileType<CoralYellow1>(), (ushort)ModContent.TileType<CoralYellow2>(), (ushort)ModContent.TileType<CoralYellow3>()};
+								(ushort)ModContent.TileType<CoralYellow1>(), (ushort)ModContent.TileType<CoralYellow2>(), (ushort)ModContent.TileType<CoralYellow3>() };
 
 								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Corals));
 							}
@@ -1143,9 +1143,12 @@ namespace Spooky.Content.Generation
 							//blood water gun
 							chest.item[1].SetDefaults(ModContent.ItemType<BloodSoaker>());
 							chest.item[1].stack = 1;
+							//steroids
+							chest.item[2].SetDefaults(ModContent.ItemType<UnstableSteroid>());
+							chest.item[2].stack = WorldGen.genRand.Next(5, 16);
 							//glowstick
-							chest.item[2].SetDefaults(ItemID.Glowstick);
-							chest.item[2].stack = WorldGen.genRand.Next(10, 21);
+							chest.item[3].SetDefaults(ItemID.Glowstick);
+							chest.item[3].stack = WorldGen.genRand.Next(10, 21);
 						}
 						else
 						{

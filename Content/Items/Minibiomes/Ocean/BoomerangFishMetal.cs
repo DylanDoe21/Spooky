@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
     {
         public override void SetDefaults()
         {
-            Item.damage = 60;
+            Item.damage = 75;
             Item.DamageType = DamageClass.Melee;
             Item.useTurn = true;    
             Item.noUseGraphic = true; 
@@ -33,5 +33,15 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 5;
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<BoomerangFish>(), 1)
+            .AddIngredient(ModContent.ItemType<DunkleosteusHide>(), 12)
+            .AddIngredient(ItemID.SoulofMight, 5)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
     }
 }

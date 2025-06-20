@@ -187,7 +187,7 @@ namespace Spooky.Content.NPCs.Quest
 
             var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetNPCColorTintedByBuffs(NPC.GetAlpha(drawColor)), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
             
             return false;
         }
@@ -334,7 +334,7 @@ namespace Spooky.Content.NPCs.Quest
 						{
 							for (int i = -4; i <= 4; i++)
 							{
-								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
+								Vector2 center = new Vector2(NPC.Center.X, player.Center.Y - 100);
 
 								center.X += Main.rand.Next(200, 300) * i; //distance between each eye
 
@@ -342,19 +342,20 @@ namespace Spooky.Content.NPCs.Quest
 								int x = (int)(center.X / 16);
 								int y = (int)(center.Y / 16);
 
-								while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
+								while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && 
+								!WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
 								{
 									y++;
 									center.Y = y * 16;
 								}
-								while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
+								while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 50)
 								{
 									numtries++;
 									y--;
 									center.Y = y * 16;
 								}
 
-								if (numtries >= 10)
+								if (numtries >= 50)
 								{
 									break;
 								}

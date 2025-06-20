@@ -14,12 +14,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<OceanBiomass>());
+            Item.DefaultToPlaceableTile(ModContent.TileType<OceanBiomassSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
 
-        /*
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -27,6 +26,5 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
             .AddTile(TileID.WorkBenches)
             .Register();
         }
-        */
     }
 }

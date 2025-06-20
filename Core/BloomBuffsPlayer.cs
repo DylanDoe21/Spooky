@@ -528,7 +528,7 @@ namespace Spooky.Core
                 {
                     NPC NPC = Main.npc[i];
 
-                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 450f)
+                    if (NPC.active && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 500f)
                     {
                         FallZucchiniTimer++;
 

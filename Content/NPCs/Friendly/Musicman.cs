@@ -12,6 +12,7 @@ using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Tiles.MusicBox;
+using Spooky.Content.Tiles.Painting;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -109,7 +110,8 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<SeasaltHead>()
             .Add<WaasephiHead>()
             .Add<DandyHead>()
-            .Add<HatHead>();
+            .Add<HatHead>()
+            .Add<AlbumPosterPaintingItem>();
 
             npcShop.Register();
         }

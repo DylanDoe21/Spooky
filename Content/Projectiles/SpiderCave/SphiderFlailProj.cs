@@ -131,12 +131,12 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
-			int launchTimeLimit = 10;
-			float launchSpeed = 25f;
-			float maxLaunchLength = 700f;
+			int launchTimeLimit = 15;
+			float launchSpeed = 15f;
+			float maxLaunchLength = 800f;
 			float retractAcceleration = 2.5f;
-			float maxRetractSpeed = 25f; 
-			float forcedRetractAcceleration = 25f;
+			float maxRetractSpeed = 15f; 
+			float forcedRetractAcceleration = 20f;
 			float maxForcedRetractSpeed = 15f;
 			float unusedRetractAcceleration = 1f;
 			float unusedMaxRetractSpeed = 14f;
@@ -146,9 +146,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			int movingHitCooldown = 20;
 			int ricochetTimeLimit = launchTimeLimit + 5;
 
-			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
-			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
-			float meleeSpeedMultiplier = 1f / meleeSpeed;
+			//melee speed scaling
+			float meleeSpeedMultiplier = player.GetAttackSpeed(DamageClass.Melee);
 			launchSpeed *= meleeSpeedMultiplier;
 			unusedRetractAcceleration *= meleeSpeedMultiplier;
 			unusedMaxRetractSpeed *= meleeSpeedMultiplier;
@@ -156,6 +155,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 			maxRetractSpeed *= meleeSpeedMultiplier;
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
+			
 			float launchRange = launchSpeed * launchTimeLimit;
 			float maxDroppedRange = launchRange + 80f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
@@ -183,29 +183,29 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         }
                     }
 
-                    SpinningStateTimer += 1f;
+                    SpinningStateTimer++;
                     // This line creates a unit vector that is constantly rotated around the player. 10f controls how fast the projectile visually spins around the player
                     Vector2 offsetFromPlayer = new Vector2(player.direction).RotatedBy((float)Math.PI * 8.5f * (SpinningStateTimer / 60f) * player.direction);
 
                     offsetFromPlayer.Y *= 0.75f;
                     if (offsetFromPlayer.Y * player.gravDir > 0f) 
                     {
-                        offsetFromPlayer.Y *= 0.75f;
+                        offsetFromPlayer.Y *= 1f;
                     }
 
 					offsetFromPlayer.X *= 1.2f;
                     if (offsetFromPlayer.X * player.gravDir > 0f) 
                     {
-                        offsetFromPlayer.X *= 1.2f;
+                        offsetFromPlayer.X *= 1f;
                     }
 
                     Projectile.Center = mountedCenter + offsetFromPlayer * 25f;
                     Projectile.velocity = Vector2.Zero;
                     Projectile.localNPCHitCooldown = spinHitCooldown; // set the hit speed to the spinning hit speed
 
-					if (Main.rand.NextBool(20))
+					if (Main.rand.NextBool(15))
 					{
-						SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+						SoundEngine.PlaySound(SoundID.Item17 with { Pitch = 1.15f, Volume = 0.5f }, Projectile.Center);
 
 						Vector2 ShootSpeed = player.Center - Projectile.Center;
                         ShootSpeed.Normalize();

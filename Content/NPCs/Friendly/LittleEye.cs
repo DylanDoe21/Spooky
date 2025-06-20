@@ -15,7 +15,7 @@ using Spooky.Content.Items.Quest;
 using Spooky.Content.Items.SpookyHell;
 using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.Tiles.SpookyHell.Painting;
+using Spooky.Content.Tiles.Painting;
 using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -55,6 +55,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.defense = 25;
             NPC.width = 20;
 			NPC.height = 50;
+			NPC.townNPC = true;
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
@@ -89,6 +90,11 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.frame.Y = 0 * frameHeight;
             }
         }
+
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			return false;
+		}
 
 		public override bool CanChat() 
         {
@@ -382,11 +388,6 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.spriteDirection = NPC.direction;
 
 			NPC.velocity.X = 0;
-		}
-
-		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-		{
-			return false;
 		}
     }
 }

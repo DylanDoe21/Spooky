@@ -375,11 +375,6 @@ LeechBuff: {
 	Description: The leech will fight with you
 }
 
-ToothyDebuff: {
-	DisplayName: Toothy Debuff
-	Description: ""
-}
-
 SentientKeybrandDebuff: {
 	DisplayName: Sentient Keybrand Debuff
 	Description: ""
@@ -577,5 +572,30 @@ GhostPepperMinionBuff: {
 
 NerveWhipDebuff: {
 	DisplayName: Nerve Whip Debuff
+	Description: ""
+}
+
+SteroidBuff: {
+	DisplayName: Steroid Strength
+	Description: You feel strong, 20% increased damage
+}
+
+SteroidWeakness: {
+	DisplayName: Steroid Withdrawal
+	Description: You are having withdrawls, 15% decreased damage
+}
+
+SpearfishBleed: {
+	DisplayName: Spearfish Bleed
+	Description: ""
+}
+
+CavefishStunned: {
+	DisplayName: Cavefish Stunned
+	Description: ""
+}
+
+HazmatMinionToxic: {
+	DisplayName: Hazmat Minion Toxic
 	Description: ""
 }

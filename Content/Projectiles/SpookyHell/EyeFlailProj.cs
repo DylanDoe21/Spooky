@@ -133,7 +133,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 17;
 			float launchSpeed = 30f;
-			float maxLaunchLength = 360f;
+			float maxLaunchLength = 800f;
 			float retractAcceleration = 3f;
 			float maxRetractSpeed = 30f;
 			float forcedRetractAcceleration = 30f;
@@ -146,9 +146,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			int movingHitCooldown = 20;
 			int ricochetTimeLimit = launchTimeLimit + 5;
 
-			// Scaling these speeds and accelerations by the players meleeSpeed make the weapon more responsive if the player boosts their meleeSpeed
-			float meleeSpeed = player.GetAttackSpeed(DamageClass.Melee);
-			float meleeSpeedMultiplier = 1f / meleeSpeed;
+			//melee speed scaling
+			float meleeSpeedMultiplier = player.GetAttackSpeed(DamageClass.Melee);
 			launchSpeed *= meleeSpeedMultiplier;
 			unusedRetractAcceleration *= meleeSpeedMultiplier;
 			unusedMaxRetractSpeed *= meleeSpeedMultiplier;
@@ -156,11 +155,12 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			maxRetractSpeed *= meleeSpeedMultiplier;
 			forcedRetractAcceleration *= meleeSpeedMultiplier;
 			maxForcedRetractSpeed *= meleeSpeedMultiplier;
+
 			float launchRange = launchSpeed * launchTimeLimit;
 			float maxDroppedRange = launchRange + 160f;
 			Projectile.localNPCHitCooldown = defaultHitCooldown;
 
-			switch (CurrentAIState) 
+			switch (CurrentAIState)
             {
 				case AIState.Spinning: 
                 {

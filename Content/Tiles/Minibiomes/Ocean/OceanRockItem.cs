@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<OceanRock>());
+            Item.DefaultToPlaceableTile(ModContent.TileType<OceanRockSafe>());
             Item.width = 16;
 			Item.height = 16;
         }

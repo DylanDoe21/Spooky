@@ -19,8 +19,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 		
         public override void SetDefaults()
         {
-			Projectile.width = 8;
-            Projectile.height = 8;
+			Projectile.width = 12;
+            Projectile.height = 12;
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.friendly = true;
             Projectile.tileCollide = true;
@@ -76,7 +76,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
         public override void AI()
         {
-            Projectile.velocity.Y += 0.2f;
+            Projectile.velocity.Y += 0.08f;
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 

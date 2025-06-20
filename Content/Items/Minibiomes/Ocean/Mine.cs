@@ -40,6 +40,8 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
             .AddIngredient(ModContent.ItemType<MineMetalPlates>(), 1)
             .AddIngredient(ModContent.ItemType<MinePressureSensor>(), 1)
             .AddIngredient(ModContent.ItemType<MineTimer>(), 1)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddIngredient(ItemID.Wire, 20)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

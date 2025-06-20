@@ -168,7 +168,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             //kill the tree if there are no tiles below it
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
-                int NewItem = Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16), ModContent.ItemType<SpookyGlowshroom>());
+                int NewItem = Item.NewItem(new EntitySource_TileInteraction(Main.LocalPlayer, i, j), (new Vector2(i, j) * 16), ModContent.ItemType<SpookyGlowshroomYellow>());
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
                 {

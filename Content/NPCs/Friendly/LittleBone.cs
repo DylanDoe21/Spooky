@@ -49,6 +49,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.defense = 25;
             NPC.width = 20;
 			NPC.height = 44;
+			NPC.townNPC = true;
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
@@ -83,6 +84,11 @@ namespace Spooky.Content.NPCs.Friendly
                 NPC.frame.Y = 0 * frameHeight;
             }
         }
+
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			return false;
+		}
 
 		public override bool CanChat() 
         {
@@ -324,11 +330,6 @@ namespace Spooky.Content.NPCs.Friendly
 		public override void AI()
 		{
 			NPC.velocity.X = 0;
-		}
-
-		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-		{
-			return false;
 		}
     }
 }

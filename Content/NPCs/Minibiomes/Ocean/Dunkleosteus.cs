@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 using Terraria.Chat;
 using Terraria.Audio;
@@ -17,8 +18,10 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.Minibiomes.Ocean;
 using Spooky.Content.Projectiles.Minibiomes.Ocean;
-using Spooky.Content.Tiles.Minibiomes.Ocean;
+using Spooky.Content.Tiles.Blooms;
+using Spooky.Content.Tiles.Relic;
 
 namespace Spooky.Content.NPCs.Minibiomes.Ocean
 {
@@ -130,6 +133,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.DeathSound = RoarSound with { Pitch = -1.2f };
 			NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ZombieOceanBiome>().Type };
+		}
+
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		{
+			NPC.damage = (int)(NPC.damage * 0.75f * balance * bossAdjustment);
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -268,9 +276,10 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			}
 		}
 
-		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
-			hurtInfo.Damage = NPC.defDamage;
+			//big dunk damage ignores all player defense
+			modifiers.ScalingArmorPenetration += 1f;
 		}
 
 		public override bool CheckActive()
@@ -578,7 +587,16 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				NPC.ai[0] = 0;
 				NPC.ai[1] = 0;
 
-				float Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 3.5f : 3f;
+				float Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 3f : 2.5f;
+
+				if (Main.expertMode && !Main.masterMode)
+				{
+					Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 3.5f : 3f;
+				}
+				else if (Main.masterMode)
+				{
+					Speed = TargetedPlayer.Distance(NPC.Center) >= 300f ? 3.8f : 3.5f;
+				}
 
 				//quickly loose aggression if the player leaves the biome
 				if (!TargetedPlayer.InModBiome<ZombieOceanBiome>())
@@ -694,7 +712,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			//go to positions around the player, and if they arent valid try offsetting the position to allow dunk to find the location it needs to go to
 			//this is done by just doing an additional solid collision check around every compass direction and every diagonal position from the position it needs to go to
-			Vector2 RealPosition = Vector2.Zero; //= (position + new Vector2(0, DistanceCheck)); 
+			Vector2 RealPosition = Vector2.Zero;
 
 			//do a loop to check a box around the player for a valid spot to pathfind to
 			for (int X = -DistanceCheck; X < DistanceCheck; X++)
@@ -767,24 +785,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			{
 				int index = pathfinder.Path.IndexOf(pathfinder.Path.MinBy(x => x.Position.ToVector2().DistanceSQ(NPC.Center / 16f)));
 				List<PathFinding.FoundPoint> checkPoints = pathfinder.Path[^(Math.Min(pathfinder.Path.Count, 6))..];
-				Vector2 direction = -AveragePathDirection(checkPoints, Speed);
+				Vector2 direction = -GetPathDirection(checkPoints, Speed);
 
 				NPC.velocity = Vector2.Lerp(NPC.velocity, direction, 0.08f);
-
-				/*
-				//debug to show the calculated path with dusts
-				foreach (PathFinding.FoundPoint point in pathfinder.Path)
-				{
-					var Velocity = PathFinding.ToVector2(point.Direction);
-					int Type = checkPoints.Contains(point) ? point == checkPoints.Last() ? DustID.GreenFairy : DustID.YellowStarDust : DustID.PinkFairy;
-					var NewDust = Dust.NewDustPerfect(point.Position.ToWorldCoordinates(), Type, Velocity * 2);
-					NewDust.noGravity = true;
-				}
-				*/
 			}
 		}
 
-		private static Vector2 AveragePathDirection(List<PathFinding.FoundPoint> foundPoints, float Speed)
+		private static Vector2 GetPathDirection(List<PathFinding.FoundPoint> foundPoints, float Speed)
 		{
 			Vector2 dir = Vector2.Zero;
 
@@ -794,6 +801,25 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			}
 
 			return dir / foundPoints.Count;
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+			var parameters = new DropOneByOne.Parameters() 
+			{
+				ChanceNumerator = 1,
+				ChanceDenominator = 1,
+				MinimumStackPerChunkBase = 1,
+				MaximumStackPerChunkBase = 1,
+				MinimumItemDropsCount = 75,
+				MaximumItemDropsCount = 100,
+			};
+
+			npcLoot.Add(new DropOneByOne(ModContent.ItemType<DunkleosteusHide>(), parameters));
+
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SeaSeed>(), 1, 1, 2));
+
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DunkleosteusRelicItem>()));
 		}
 	}
 

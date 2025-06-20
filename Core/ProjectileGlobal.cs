@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Projectiles.Blooms;
 
@@ -68,9 +70,31 @@ namespace Spooky.Core
                 TileConversionMethods.ConvertSpookyIntoDesert((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
             }
 
-			if (Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().VegetableEggplantPaint && projectile.velocity != Vector2.Zero && projectile.DamageType == DamageClass.Ranged && Main.GameUpdateCount % 10 == 0)
+			if (Main.player[projectile.owner].GetModPlayer<BloomBuffsPlayer>().VegetableEggplantPaint && projectile.velocity != Vector2.Zero && projectile.DamageType == DamageClass.Ranged && Main.GameUpdateCount % 10 == 0)
 			{
 				Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<EgplantPaint>(), projectile.damage / 3, 0f, Main.LocalPlayer.whoAmI, Main.rand.Next(0, 5));
+			}
+
+			//minions inflict toxic and have toxic cloud dusts with the hazmat armor set
+			if (Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().HazmatSet && projectile.DamageType == DamageClass.Summon && projectile.minionSlots > 0)
+			{
+				if (Main.rand.NextBool(18))
+				{
+					Color[] colors = new Color[] { Color.Lime, Color.Green };
+
+					int DustEffect = Dust.NewDust(projectile.position, projectile.width, 3, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Main.rand.Next(colors) * 0.5f, Main.rand.NextFloat(0.2f, 0.5f));
+					Main.dust[DustEffect].velocity.X = 0;
+					Main.dust[DustEffect].velocity.Y = -1;
+					Main.dust[DustEffect].alpha = 100;
+				}
+
+				foreach (NPC npc in Main.ActiveNPCs)
+				{
+					if (npc != null && npc.CanBeChasedBy(this) && !NPCID.Sets.CountsAsCritter[npc.type] && Vector2.Distance(projectile.Center, npc.Center) <= 200f)
+					{
+						npc.AddBuff(ModContent.BuffType<HazmatMinionToxic>(), 2);
+					}
+				}
 			}
 
 			return base.PreAI(projectile);
@@ -80,7 +104,7 @@ namespace Spooky.Core
         {
 			if (projectile.type == ProjectileID.WorldGlobe) 
             {
-				Player player = Main.LocalPlayer;
+				Player player = Main.player[projectile.owner];
 				if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     if (player.InModBiome<SpookyBiome>())

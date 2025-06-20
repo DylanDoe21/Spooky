@@ -42,6 +42,11 @@ namespace Spooky.Content.NPCs.Friendly
 			return false;
 		}
 
+		public override bool CanChat() 
+        {
+			return true;
+		}
+
 		public override string GetChat()
 		{
 			return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Awaken");

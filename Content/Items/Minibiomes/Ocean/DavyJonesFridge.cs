@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
     {
         public override void SetDefaults()
         {
-            Item.damage = 55;
+            Item.damage = 70;
             Item.mana = 10;
             Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;
@@ -28,6 +28,16 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			Item.UseSound = SoundID.Item1;
 			Item.shoot = ModContent.ProjectileType<DavyJonesFridgeProj>();
 			Item.shootSpeed = 0f;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<DavyJonesLocker>(), 1)
+            .AddIngredient(ModContent.ItemType<DunkleosteusHide>(), 12)
+            .AddIngredient(ItemID.SoulofFright, 5)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

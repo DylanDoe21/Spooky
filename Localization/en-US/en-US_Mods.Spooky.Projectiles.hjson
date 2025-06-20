@@ -535,6 +535,10 @@ FridgeFish.DisplayName: Fish
 MineProj.DisplayName: Sea Mine
 BloodGunSplatter.DisplayName: Blood
 SpearfishLanceProj.DisplayName: Spearfish Lance
-SpearfishLanceSlashProj.DisplayName: Spearfish Lance Slash
-SpearfishLanceMetalProj.DisplayName: Reinforced Spearfish Lance
-SpearfishLanceMetalSlashProj.DisplayName: Reinforced Spearfish Lance
+SpearfishLanceSlashProj.DisplayName: Spearfish Lance
+SpearfishLanceMetalProj.DisplayName: Steelfish Lance
+SpearfishLanceMetalSlashProj.DisplayName: Steelfish Lance
+PufferfishFlailProj.DisplayName: Puffer Shatterer
+PufferfishFlailShard.DisplayName: Pufferfish Bone Shard
+PufferfishFlailMetalProj.DisplayName: Alloy Pufferfish
+PufferfishFlailMetalSmash.DisplayName: Shockwave

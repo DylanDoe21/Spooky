@@ -57,7 +57,7 @@ SpookFishron: {
 	DisplayName: Spook Fishron
 
 	BossChecklistIntegration: {
-		SpawnInfo: Fish in the ocean at night during a pumpkin moon while using [i:Spooky/SinisterSnailItem] as bait
+		SpawnInfo: Fish in the ocean at night during a pumpkin moon while using [i:Spooky/SinisterSnailItem] as bait.
 		DespawnMessage: Every player has been turned into bad sushi
 	}
 }
@@ -177,7 +177,7 @@ Stitch.DisplayName: Stitch
 StitchWand.DisplayName: Stitch
 //cemetery
 BloatGhostBig.DisplayName: Bloated Ghost
-BloatGhostSmall.DisplayName: Ghost
+BloatGhostSmall.DisplayName: Bloat Ghost
 FeralRat1.DisplayName: Feral Rat
 FeralRat2.DisplayName: Feral Rat
 HungryGhost.DisplayName: Hungry Ghost

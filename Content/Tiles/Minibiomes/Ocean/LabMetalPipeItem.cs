@@ -14,19 +14,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<LabMetalPipe>());
+            Item.DefaultToPlaceableTile(ModContent.TileType<LabMetalPipeSafe>());
             Item.width = 16;
 			Item.height = 16;
         }
-
-        /*
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<OceanBiomassWallItem>(), 4)
-            .AddTile(TileID.WorkBenches)
-            .Register();
-        }
-        */
     }
 }

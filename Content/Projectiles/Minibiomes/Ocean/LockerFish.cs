@@ -15,7 +15,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
         public override void SetDefaults()
         {
             Projectile.width = 18;
-            Projectile.height = 36;
+            Projectile.height = 18;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
@@ -34,8 +34,21 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 15)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
             }
         }
+
+        public override void OnKill(int timeLeft)
+		{
+            SoundEngine.PlaySound(SoundID.NPCHit2 with { Pitch = 1.25f, Volume = 0.35f }, Projectile.Center);
+
+			for (int numDusts = 0; numDusts < 5; numDusts++)
+			{
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, 0f, -2f, 0, default, 1f);
+				Main.dust[dust].position.X += Main.rand.Next(-15, 15) * 0.05f - 1.5f;
+				Main.dust[dust].position.Y += Main.rand.Next(-15, 15) * 0.05f - 1.5f;
+				Main.dust[dust].velocity = Projectile.velocity * 0.5f;
+			}
+		}
     }
 }

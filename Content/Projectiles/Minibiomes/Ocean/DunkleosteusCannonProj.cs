@@ -10,8 +10,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 {
 	public class DunkleosteusCannonProj : ModProjectile
 	{
-		int playerCenterOffset = 5;
-
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 3;
@@ -19,8 +17,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 54;
-			Projectile.height = 94;
+			Projectile.width = 66;
+			Projectile.height = 122;
 			Projectile.DamageType = DamageClass.Ranged;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
@@ -51,7 +49,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y);
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -75,7 +73,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 			player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
 
-            Projectile.Center = new Vector2(player.MountedCenter.X, player.MountedCenter.Y - playerCenterOffset);
+            Projectile.Center = new Vector2(player.MountedCenter.X, player.MountedCenter.Y);
 
             if (direction.X > 0) 
             {
@@ -92,7 +90,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 				Projectile.localAI[0]++;
 
-				if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 5)
+				if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3)
 				{
 					if (Projectile.frame >= 2)
 					{
@@ -127,7 +125,9 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 							Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 2f;
 
-							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
+							SpawnMuzzleDust(new Vector2(Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y), ShootSpeed * 0.5f);
+
+							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
 							ShootSpeed.X, ShootSpeed.Y, ProjectileID.CannonballFriendly, Projectile.damage, Projectile.knockBack, Projectile.owner);
 						}
 						//if the player doesnt have bones fire out weak bubbles
@@ -139,15 +139,16 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 							ShootSpeed.Normalize();
 							ShootSpeed *= 10;
 
-							Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
+							Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 42f;
+
+							SpawnMuzzleDust(new Vector2(Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y), ShootSpeed * 0.5f);
 
 							for (int numProjs = 0; numProjs < 3; numProjs++)
 							{
-								int randomVelocityX = Main.rand.Next(-2, 3);
-								int randomVelocityY = Main.rand.Next(-2, 3);
+								Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(45));
 
 								Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
-								ShootSpeed.X + randomVelocityX, ShootSpeed.Y + randomVelocityY, ModContent.ProjectileType<SharkboneCannonBubble>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
+								newVelocity.X, newVelocity.Y, ModContent.ProjectileType<SharkboneCannonBubble>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner, ai0: Main.rand.Next(0, 10));
 							}
 						}
 					}
@@ -170,5 +171,17 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
             player.heldProj = Projectile.whoAmI;
             player.SetDummyItemTime(2);
         }
+
+		public void SpawnMuzzleDust(Vector2 Pos, Vector2 velocity)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(60));
+
+				Dust dust = Dust.NewDustPerfect(Pos, 31, newVelocity, default, default, 1f);
+				dust.velocity *= Main.rand.NextFloat(0.5f, 0.8f);
+				dust.velocity += velocity * 0.1f;
+			}
+		}
 	}
 }
