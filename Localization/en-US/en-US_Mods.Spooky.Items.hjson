@@ -1218,7 +1218,7 @@ PetscopTool2: {
 }
 
 PetscopTool3: {
-	DisplayName: Pink tool
+	DisplayName: Pink Tool
 	Tooltip: Summons Tiara
 }
 
