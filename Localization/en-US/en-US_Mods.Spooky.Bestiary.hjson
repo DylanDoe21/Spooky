@@ -7,14 +7,14 @@ BoroHead: A blind and aggressive serpent that works together with Orro to defend
 RotGourd: This giant rotting husk and their little fly friends are not fond of invaders in their land. Rotty will aggressively jump while jerry acts as a turret, spitting nasty mold spores and bugs.
 SpookFishron: Certain species of fishron are more unique than others. This one has become more powerful after consuming an evil pumpkin spice latte that gave it spooky magic. It can be seen extremely rarely hunting for its favorite treat under the night of a harvest moon.
 SpookSharkron: Mutant sharks conjured by spook fishron using flaming tornados that fling them around as projectiles. They are also extremely volatile and will explode into flames on death.
-SpookySpirit: A giant, mischevious spirit who uses ghastly apparations to mess with those who distrub its statue. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery.
+SpookySpirit: A giant, mischievous spirit who uses ghastly apparitions to mess with those who distrub its statue. As a result of becoming too powerful, it abandoned the giant gourd it once possessed and took over the swampy cemetery.
 //hallucinations
 TheMan: Always observing.
 //catacombs layer 1
 CatacombGuardian: Any fool attempting to enter the catacombs unpermitted will face the wrath of the catacomb guardian.
 BoneStackerBase: A slab of brick with a face on it. It carries many bone slabs on its back, creating a wall-like barrier that prevents intruders from exploring further.
 BoneStacker1: Slabs of bone that can stack on top of each other. When their base is gone, they can use small legs under their bone shell to walk on the ground.
-BoneStacker2: When the base of their stack is destroyed, They can sometimes free themselves and attack foes directly as a last resort.
+BoneStacker2: When the base of their stack is destroyed, they can sometimes free themselves and attack foes directly as a last resort.
 BoneStacker3: These bone slabs have a not so secret weapon, their thorns. Their thorns are sharp, and can cause bleeding.
 GiantPutty: Giant slime cubes that wander through the catacombs. These putty slimes are larger than usual, and now have the ability to smell their targets.
 RollingSkull1: Gigantic skulls that mindlessly roll around the catacombs, crushing and destroying anything in their path.
@@ -28,7 +28,7 @@ Skeletoid4: These skeletoids have a protective barrier of thorns and vines aroun
 SkeletoidBig: Big john was once a very big and strong man who died at some point. But despite this, he is still big john to this day. Good for him.
 ZomboidNecromancer: These zomboids spend their time locked away in the catacombs learning necromancy. They can conjure spirits by harnessing the souls from undead creatures around them.
 ZomboidPyromancer: Sometimes, even the most dedicated zomboid mages do not know how to use magic correctly. Judging by their burnt cloak, this is not the first time their spells exploded in their face.
-ZomboidSuspiciomancer: An unusually gigantic cloak with a group of mischevious zombinos hiding under it, disguised as one of the various zomboid mages. It is unknown why they travel together in such goofy ways.
+ZomboidSuspiciomancer: An unusually gigantic cloak with a group of mischievous zombinos hiding under it, disguised as one of the various zomboid mages. It is unknown why they travel together in such goofy ways.
 //catacombs layer 2
 CatacombCrusher1: A large and cracked statue that constantly smashes the ground, causing intense tremors throughout the lower catacombs.
 CatacombCrusher2: They constantly smash the ground in an extremely hostile way. They may have been created as a sort of trap to kill off unwanted intruders.
@@ -47,10 +47,10 @@ JumpingSeed2: Despite their small size, they can leap out of the ground when dis
 JumpingSeed3: It is unknown where exactly these seeds come from. They may actually be the seeds that grow into the other plant creatures in the deep catacombs.
 LilySlime1Big: These flowers can hop around by trapping excess water under their flower, turning it into a bouncy slime-like substance.
 LilySlime2Big: They hop around the catacombs aimlessly in search of more water so they can grow bigger. Their watery bodies are very squishy and bouncy.
-LilySlime1Small: Small juvenile lillies that travel by using a small water droplet to jump around.
+LilySlime1Small: Small juvenile lilies that travel by using a small water droplet to jump around.
 LilySlime2Small: They store water under themselves so that they can drink it when needed. It also helps them navigate the deep catacombs.
 OrchidPinkBig: These passive looking flowers are very territorial. They will not pay any mind to intruders so long as they stay away from their area.
-OrchidPinkSmall: Their stretchy stem allows them to navigate a little ways away from where they grew from. They don't like being approached by unfamiliar creatures.
+OrchidPinkSmall: Their stretchy stem allows them to navigate a little way away from where they grew from. They don't like being approached by unfamiliar creatures.
 OrchidPurpleBig: Their petals are covered in tons of tiny spikes. This allows them to inflict damage on contact with any intruder to ensure they don't get eaten or killed.
 OrchidPurpleSmall: Their nice looking petals are extremely deceiving. They are covered in microscopic spines that will hurt when rubbed against.
 PitcherPlant1: They have grown inside of an unusually large boot. They earned the name "Spitcher" because they can spit poisonous acid stored in their pitcher at prey.
@@ -69,7 +69,7 @@ Sunflower2: They have become great at remaining still and can easily look like a
 Sunflower3: Even though they remain perfectly still when hunting, they also do the same when sleeping. Though waking them from their sleep probably makes them angrier.
 //pandora's box
 Bobbert: Tiny little ghosts that pulse. Do not go near them, as they have a very explosive reaction when defeated!
-Stitch: Mischevious spirits trapped in pandora's box. They use their fragile wands to cast spells at foes.
+Stitch: Mischievous spirits trapped in pandora's box. They use their fragile wands to cast spells at foes.
 Sheldon: Large blob shaped spirits with a shield that can protect them from certain projectiles. Beware of their dash attack!
 Chester: The strongest soul in pandora's box, it wields an unusually powerful club and a reflective shield to protect itself.
 //cemetery
@@ -83,7 +83,7 @@ MistGhostWiggle: These ghosts are powered with magic and are very erratic as a r
 Possessor: These evil ghosts wander around the cemetery at night, maliciously stalking any target it wishes to possess.
 SadGhostBig: Larger ghosts that are constantly sad for some reason. They spend their time wandering the cemetery, and can use their emotions as a weapon.
 SadGhostSmall: Sad ghosts that mope around the cemetery, inflicting their sadness onto others when nearby.
-SmileGhost: A very happy and jolly spirit, so happy infact that it even has its own group of little followers. However, they are not as nice as they may look.
+SmileGhost: A very happy and jolly spirit, so happy in fact that it even has its own group of little followers. However, they are not as nice as they may look.
 SpookyDance: Spooky month lasts all year! At least these happy ghosts think so!
 TinyRat1: Small rodents that live in the cemetery, they scurry along quietly.
 TinyRat2: These rodents are small and cute, but who knows how dirty they are?
@@ -98,11 +98,11 @@ ExplodingAppendix: While not exactly powerful, these sacks of flesh can explode 
 FleshBolster: Using the eye tendrils attached to its main sac, it can directly inject its power into other creatures to make them immune to attacks.
 GooSlug: Hungry and brainless, they will attempt to eat anything they can bite or fit in their mouth. Luckily though they are picky eaters, and will spit things out if they taste bad.
 HoppingHeart: With their squishy flesh they can easily rebound and jump off the ground. The tube on their head can be used to shoot out harmful blood with pressure from inside its body.
-HoverBrain: A large brain with psychic power that can fire out beams to mess with other creatures brains, after which they can go in close range to kill their target.
+HoverBrain: A large brain with psychic power that can fire out beams to mess with other creatures’ brains, after which they can go in close range to kill their target.
 TongueBiter: A mutated tongue with a large mouth for clamping down on prey. It can use the many tubes coming off of its back as boosters to propel itself through the air.
 //friendly town npcs
 DumbZomboid: A zomboid that got lost. It does not know how to read. Or think.
-LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
+LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passersby.
 LittleEye: A strange sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 Musicman: Alien scientist gone rogue, Musicman has become your personal DJ. He looks like he's trying to communicate...
 OldHunter: An ancient old hunter that once called the grotto home before it became taken over by spiders. He enjoys collecting guns along with other ranged weapons he can get his hands on.
@@ -142,19 +142,19 @@ ShroomHopper: Small bugs with a giant mushroom on their back, they peacefully ho
 SinisterSnail: A rare snail with a strange energy to it. Said to attract a dangerous creature during the harvest moon.
 TinyGhost1: Little mischevious ghosts that wander around during the night in the spooky forest.
 TinyGhost2: Small nefarious apparitions that wander around and harass homeowners in the spooky forest.
-TinyGhostBoof: A more fancy and well mannered ghost who also smokes its little pipe.
+TinyGhostBoof: A more fancy and well-mannered ghost who also smokes its little pipe.
 TinyGhostRare: It's a tiny ghost, but these ones are orange. They can be befriended if you can manage to find and catch one!
 TinyMushroom: Who knew that the mushrooms in the spooky forest could move? Well now you do!
 Witch: As it turns out, the stories of evil witches are true. The death of the flesh wall has unleashed powerful spooky magic, allowing these wretched witches to live at night once again, throwing their toxic flasks at everyone.
 ZomboidArmored: The few times zomboids do something that seems smart, it usually comes back to bite them. This one was smart enough to make armor, but not smart enough to use a material that doesn't attract lightning.
-ZomboidClarinet: Zomboids are known to frequently get themselves into very stupid situations. This ones entire body is stuck inside of a giant instrument.
+ZomboidClarinet: Zomboids are known to frequently get themselves into very stupid situations. This one’s entire body is stuck inside of a giant instrument.
 ZomboidFungus: Zomboids that have become overgrown with a strange fungus. Despite being blind, they can still sniff out their target's location.
 ZomboidPumpkin: Rooted to the ground, these zomboids are incapable of movement and are constantly angry because of it. They can control their roots to attack nearby foes from below.
 ZomboidPumpkinFire: The death of the flesh wall has unleashed their full potential. Enraged and constantly on fire, their attacks are now far more chaotic and can lead to third-degree burns.
 ZomboidRain: Its body is extremely decayed to the point that rain water is able to flow through it like a water fountain. This doesn't stop them from mindlessly shambling around though.
 ZomboidThorn: Shambling, thorn-covered monsters that arise at night. They may be braindead, but should not be messed with if underprepared.
 ZomboidTomato: The blood moon's curse has driven these zomboids insane and they have hidden themselves in a giant tomato.
-ZomboidTomatoMold: They run around recklessly during bloodmoons as they are blinded by the tomato they put on their head. They leave behind harmful tomato juice on the ground when killed.
+ZomboidTomatoMold: They run around recklessly during blood moons as they are blinded by the tomato they put on their head. They leave behind harmful tomato juice on the ground when killed.
 ZomboidWarlock: These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes.
 ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine.
 //eye valley
@@ -163,7 +163,7 @@ EyeBatFleshy: The eye valley's attempt at mimicking demons and hellbats. Its sha
 ManHole: These horrid mouths form on the ground in the eye valley, and can be very dangerous to unsuspecting explorers. They can also spit saliva to digest prey from afar.
 ManHoleFleshy: The eye valley creates and uses these to consume prey to absorb more biomass. They can also sink into the ground and resurface elsewhere to confuse prey.
 Mocling: These nose-like bugs hover around in groups, referred to as "Mocks", around their territory. They don't take kindly to being approached and will shoot out snot at potential threats.
-MrHandy: A rather energetic living hand that will aggressively hop towards it's target. It may look goofy from a distance, until it gets too close.
+MrHandy: A rather energetic living hand that will aggressively hop towards its target. It may look goofy from a distance, until it gets too close.
 MrHandyFleshy: Even more erratic, the eye valley created them to have sharper claws, allowing them to rip apart prey and unwanted intruders.
 Tortumor: These weirdly non-hostile blobs of flesh have a special gas in their body, allowing them to float and propel themselves unpredictably.
 TortumorGiant: Rarely these mutated tortumors can be spotted floating around aimlessly in the eye valley. The gas in their body is extremely volatile and will combust if the tortumor is injured enough.
@@ -189,7 +189,7 @@ JumpingSpider2: Rarely creating webs, these spiders have a more aggressive and a
 LeafSpider: These creatures are smart, and have learned to protect their fragile bodies with a large leaf as a disguise. When provoked, they can shoot a web to grapple themselves away from danger.
 Mosquito1: Annoying disease spreading pests.
 Mosquito2: This mosquito's body is a bit bloated from the blood it has fed on.
-Mosquito3: An extremely gluttonous mosquito who's body has blown up like a balloon.
+Mosquito3: An extremely gluttonous mosquito whose body has blown up like a balloon.
 Moth1: Cute fuzzy moths that can be seen flying around the grotto. Probably one of the only friendly looking creatures that live there.
 Moth2: These rarer moths have brown fur, which tricks predators into thinking they are part of the terrain.
 OrbWeaver1: Tiny spiders with a giant shell on their back. Using pressure they store, they can shoot and quickly regrow their spikes as a means of defense.
@@ -211,15 +211,15 @@ WhipSpider: These creatures are actually more related to crustaceans than spider
 NoseBallPurple: A large amalgam of noses fused together with the cult leader's magic. They can jump around off of surfaces by blowing air out of their many noses.
 NoseBallRed: Created by Noseferatu, they chaotically propel themselves around to serve as a distraction. They are formed using parts of other cultists who willingly sacrificed themselves.
 NoseCultistGrunt: Members of the nose cult, they are extremely devoted to their rituals. They also have a constant runny nose which they can use against their enemies.
-NoseCultistGunner: Armed with the cult's own creation, the booger blaster. An important weapon to the cultists, who claim to recive holy telephathic messages from them.
+NoseCultistGunner: Armed with the cult's own creation, the booger blaster. An important weapon to the cultists, who claim to receive holy telepathic messages from them.
 NoseCultistWinged: Higher ups in the cult have mutated and grown wings, which can quickly carry them through the air. They are seen as divine due to this unique ability to fly, like the one they worship.
 NoseCultistMage: Seen as much higher above the grunts of the cult, these cultists are larger and can summon reinforcements with their magical snot.
 NoseCultistBrute: Once grunt cultists, they have been blessed with divine snot magic, turning them into mindless and powerful brutes. Their sticky snot flail takes no effort for them to swing around.
 NoseCultistLeader: The great leader and the most powerful of the cultists. The amount of snot magic in his body allows him to erratically cast spells, but it has turned him insane. A perfect trait for the nose cult's leader.
-SnotMonster: Humanoid beings formed with magic snot by the conjurers, they serve as temporary sentries before they loose magic and explode.
+SnotMonster: Humanoid beings formed with magic snot by the conjurers, they serve as temporary sentries before they lose magic and explode.
 SnotSlime: The snot from the conjurers has enough magical power to live on its own, and can hop around in the form of a living blob.
 //quest minibosses
 StitchSpider: A sewing project turned chimera, this spider-like creature made out of felt and spider skin now crawls around the spider grotto after it escaped. It also has metal fangs and a mortar cannon in its body which allows it to fire off heat-seeking missiles.
 EyeWizard: Little eye's most successful experiment, a large clone of himself that possesses enchanced magic abilities, can use various spells, and can move freely without being stuck on the ground. After finding a stylish cloak and hat it left little eye's lab to hone its skills further, making little eye extremely jealous.
 FrankenGoblin: In an attempt to make a guardian for his lab, little eye instead created a horrible frankensteined goblin with an incredibly lazy but hostile personality. It is also equipped with extendable stretchy arms for grabbing things, and can call upon eyes to assist it in combat.
-BanditBook: A group of grave-robber's souls trapped within a tome for their mischevious behavior. After being sold to little eye, the book was mistakenly opened. They took the chance to escape from little eye's lab, and have found their way to the cemetery to try and steal treasure from the catacombs like they once did before death.
+BanditBook: A group of grave-robber's souls trapped within a tome for their mischievous behavior. After being sold to little eye, the book was mistakenly opened. They took the chance to escape from little eye's lab, and have found their way to the cemetery to try and steal treasure from the catacombs like they once did before death.

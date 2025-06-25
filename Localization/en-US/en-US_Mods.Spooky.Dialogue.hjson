@@ -16,9 +16,9 @@ LittleBone: {
 	Transport: Here, take my magical transportation pot. When you use this, it will allow you to bring me anywhere on your adventures! I was hoping I could tag along and help you when you need.
 	NoTransport: It looks like you already have my magical flower pot.
 	//default
-	Default1: Why am I dancing, you ask? Because it's fun, You should try it sometime.
+	Default1: Why am I dancing, you ask? Because it's fun, you should try it sometime.
 	Default2: When is spooky season? It's always spooky season! Well, from my perspective anyway.
-	Default3: Wow, you look like you're in the halloween spirit!
+	Default3: Wow, you look like you're in the Halloween spirit!
 	Default4: It's fun going on adventures, too bad I can't move in this flower pot.
 	Default5: Being a plant isn't so bad, at least I can enjoy the scenery!
 	Default6: ...
@@ -33,21 +33,21 @@ LittleBone: {
 	Cemetery1: This place is really foggy and spooky, I love it!
 	Cemetery2: Be aware of your surroundings, I have heard there are ghosts here that can potentially possess unsuspecting humans.
 	Cemetery3: The cemetery is a strange area, where zombies and other undead monsters come to life. Be careful around here!
-	CatacombFirstLayer1: Theres an awful lot of plants down here for an underground catacomb that has no sunlight...
+	CatacombFirstLayer1: There’s an awful lot of plants down here for an underground catacomb that has no sunlight...
 	CatacombFirstLayer2: Careful, I have heard rumors of explorers getting crushed by giant rolling skulls!
 	CatacombFirstLayer3: Something about this place is strange. The undead creatures here are very odd compared to everywhere else.
 	CatacombSecondLayer1: There seems to be an infestation of strange plants down here. Some of them are even sentient!
 	CatacombSecondLayer2: I wonder how there is so much plant life down here, with absolutely no sunlight.
 	CatacombSecondLayer3: Something about this place is strange. These plant creatures seem weirdly familiar.
 	SpiderGrotto1: This place is a lot darker than I thought, I wonder what kind of people used to live down here?
-	SpiderGrotto2: Theres so many glowing eyes everywhere! I hope you don't get bitten by any deadly poisonous spiders.
+	SpiderGrotto2: There’s so many glowing eyes everywhere! I hope you don't get bitten by any deadly poisonous spiders.
 	SpiderGrotto3: Ewww!!! There's so much sticky cobweb here, can we leave here soon?
 	Forest1: This forest is like the spooky forest... but where did all the spooky go?
 	Forest2: This is a nice area you've found! Very calm and peaceful.
 	Forest3: I like this place. This nice forest makes me feel at home, even outside of the spooky forest.
 	Snow1: Brrrr, this is a very cold forest!
-	Snow2: This place looks a bit spooky, but its awfully cold here!
-	Desert1: What is this horrible place? Its nothing but sand and awfully hot weather. I don't like this area.
+	Snow2: This place looks a bit spooky, but it’s awfully cold here!
+	Desert1: What is this horrible place? It’s nothing but sand and awfully hot weather. I don't like this area.
 	Desert2: Ouch! Why are there so many painful prickly plants here? I thought plants were supposed to be nice and friendly!
 	Desert3: Can we go somewhere else? Sand keeps getting inside my flower pot!
 	Jungle1: This is a really dense and humid forest. Very groovy!
@@ -140,14 +140,14 @@ PartySkeleton: {
 SkeletonBouncer: {
 	Dialogue1: You must be new around here. I don't wanna see you getting into any trouble, these parties take a lot of time and effort to set up.
 	Dialogue2: Move along, go have fun and party. Just don't go bothering anyone.
-	Dialogue3: These parties are super fun. Just don't go around comitting crimes or I'll have to murder you with my machine pistol.
-	Dialogue4: Companies been supplying us with these new otherworldy guns. They claim its better than what we had before but I don't know, I swear I heard it scream.
+	Dialogue3: These parties are super fun. Just don't go around committing crimes or I'll have to murder you with my machine pistol.
+	Dialogue4: Companies been supplying us with these new otherworldly guns. They claim its better than what we had before but I don't know, I swear I heard it scream.
 	Dialogue5: ...
 }
 
 SuspiciousSkeleton: {
 	Dialogue1: Ey kid, you want some of em nightmare fuel? Hits the spot just right.
-	Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
+	Dialogue2: My brother Tony's the supplier. Apparently it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
 	Dialogue3: Ey kid! Yer too slow! Just sold someone a big golden ring earlier. Haven't heard from em in a minute though
 	Dialogue4: Sorry kid, I ain't got much to give ya right now. Ye've gotta beat up some big fellas before Tony can get his hands on the good stuff, ye see what I'm sayin?
 	Dialogue5: Yer asking me if I've tried the stuff? My brother in christ, I'm not stupid enough to. You are. Now buy more of my stuff.
@@ -160,10 +160,10 @@ SuspiciousSkeleton: {
 	Dialogue12: I've heard there's actually some stuff similar to what I sell lying around here. No idea how ye get it, Tony's been trying. If ye come across anythin real weird let me know ey?
 	Dialogue13: I hate parties but they do a good job at hiding my business.
 	Dialogue14: Ey, I don't sell no bone meal. That stuff is REAL nasty you hear me? Stay away from it if ye wanna keep your noggin.
-	Dialogue15: Ye know Tony told me apperantly some of the stuff he gets from his ventures has this kind of weird magnetism. Ye know they stick together like glue and what not? Oughta mean something.
+	Dialogue15: Ye know Tony told me apparently some of the stuff he gets from his ventures has this kind of weird magnetism. Ye know they stick together like glue and what not? Oughta mean something.
 	Dialogue16: If ye wanna get more goods, make sure ye go and kill some of them big fellas around. Gives Tony enough time to smuggle the stuff without bringing unwanted attention.
 	Dialogue17: Tony loves parties. Sucks that I don't, but I gotta do what I gotta do.
-	Dialogue18: Some of this stuff apperantly's got a lot of familial sentimental value to some folks. Not any folks here mind you, I ain't got time to be family counselor. If they wanted the stuff should've gotten it before Tony.
+	Dialogue18: Some of this stuff's apparently got a lot of familial sentimental value to some folks. Not any folks here, mind you, I ain't got time to be family counselor. If they wanted the stuff should've gotten it before Tony.
 	Dialogue19: You snooze, you lose. That's my motto kid, so get yer stuff while I'm here!
 	Dialogue20: Ye know one time ma brother Tony got lost in this weird town faaar away from here. Real foggy, couldn't see a thing, and it was filled with some real nasty ghouls. Not like us, more like, say the ones from the stuff I'm selling ye. Tony couldn't nab nothing from the place cause this cone-head freak kept chasing him around with a claymore.
 	Dialogue21: The real horror would be not buying the goods while ye got the chance to.

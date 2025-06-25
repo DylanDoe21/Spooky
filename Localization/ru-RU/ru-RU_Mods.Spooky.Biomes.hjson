@@ -29,8 +29,8 @@ CatacombBiome2: {
 }
 
 NoseTempleBiome: {
-	DisplayName: Храм Моко
-	TownNPCDialogueName: Храм Моко
+	DisplayName: Храм Сопёла
+	TownNPCDialogueName: Храм Сопёла
 }
 
 PandoraBoxBiome: {

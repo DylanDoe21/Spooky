@@ -17,15 +17,15 @@ RazorRose.DisplayName: Бритвенная роза
 SolarThorn.DisplayName: Солнечная лоза
 GiantSnot.DisplayName: Сопленой шар
 LingeringSnot.DisplayName: Кучка соплей
-SnotBall.DisplayName: Сопленой шар
-LingeringSnotBall.DisplayName: Сопленой шар
+SnotBall.DisplayName: Шар из соплей
+LingeringSnotBall.DisplayName: Шар из соплей
 AcidBreath.DisplayName: Кислотное дыхание
 AcidTarget.DisplayName: Предупреждение
 BoroBiomatter.DisplayName: Биомасса
-EyeSpit.DisplayName: Комок слюны
-EyeSpit2.DisplayName: Комок слюны
+EyeSpit.DisplayName: Плевок
+EyeSpit2.DisplayName: Плевок
 OrroBiomatter.DisplayName: Биомасса
-DirtDebris.DisplayName: Обломки земли
+DirtDebris.DisplayName: Землистый обломок
 MoldSpore.DisplayName: Проплесневевшая спора
 RotFly.DisplayName: Муха
 EyeBeam.DisplayName: Глазной луч
@@ -34,8 +34,8 @@ EyeBolt.DisplayName: Глазной выстрел
 PhantomBomb.DisplayName: Бомба-череп
 PhantomExplosion.DisplayName: Призрачный взрыв
 PhantomSeed.DisplayName: Призрачное семя
-PhantomSkullProj.DisplayName: Череп-призрак
-CruxAura.DisplayName: Истощающая аура
+PhantomSkullProj.DisplayName: Призрачный череп
+CruxAura.DisplayName: Висцераура
 SalivaBall.DisplayName: Ядовитый плевок
 TumorOrb.DisplayName: Кусок плоти
 BigBoneHammerProj.DisplayName: Череполом
@@ -66,16 +66,16 @@ SpiritScrollHoldout.DisplayName: Жуткий свиток
 SpiritSlingshotProj.DisplayName: Призрачная рогатка
 SpookyExplosion.DisplayName: Черепной взрыв
 SpookySkull.DisplayName: Черепная бомба
-BigBonePet.DisplayName: Крошка кость
+BigBonePet.DisplayName: Крошка-кость
 FuzzBatPet.DisplayName: Пушистая летучая мышь
-GhostPet.DisplayName: Мелкий призрак
-MocoPet.DisplayName: Крошка Моко
-RotGourdPet.DisplayName: Гнилая Тыква
+GhostPet.DisplayName: Маленький призрак
+MocoPet.DisplayName: Крошка-Сопёл
+RotGourdPet.DisplayName: Гнилая тыква
 SkullEmoji.DisplayName: Эмодзи черепа
-SpookySpiritPet.DisplayName: Маленьки дух
+SpookySpiritPet.DisplayName: Маленький дух
 CandyBagProj.DisplayName: Мешок со сладостями
 Candy.DisplayName: Сладость
-ElGourdoProj.DisplayName: Эль Гоурдо
+ElGourdoProj.DisplayName: Эль Тыкво
 LeafProjGreen.DisplayName: Лист
 LeafProjOrange.DisplayName: Лист
 LeafProjRed.DisplayName: Лист
@@ -88,8 +88,8 @@ ZombiePart3.DisplayName: Кусок зомби
 BlasterBoogerBig.DisplayName: Комок соплей
 BlasterBoogerSmall.DisplayName: Комок соплей
 BoogerBlasterProj.DisplayName: Козявочный бластер
-BoogerFlailFlung.DisplayName: Комок соплей
-BoogerFlailProj.DisplayName: Комок соплей
+BoogerFlailFlung.DisplayName: Шар из соплей
+BoogerFlailProj.DisplayName: Шар из соплей
 BowEye.DisplayName: Глаз провидец
 Brainy.DisplayName: Мозговитый
 BrainyExplosion.DisplayName: Мозговой взрыв
@@ -100,17 +100,17 @@ EyeArmorMinion.DisplayName: Глазной прислужник
 EyeFlailProj.DisplayName: Скованный глаз
 EyeFlailProj2.DisplayName: Скованный глаз
 EyeRocket.DisplayName: Глазная ракета
-EyeRocketLauncherProj.DisplayName: ДЗН
+EyeRocketLauncherProj.DisplayName: Я.Т.В.
 FleshWhipProj.DisplayName: Глазной хлыст
 Leech.DisplayName: Пиявка
 LeechWhipProj.DisplayName: Высасывающий
 NerveWhipProj.DisplayName: Открытый нерв
 NoseMinion.DisplayName: Муха-нос
 ScyclerProj.DisplayName: Велосипедист
-TortumorMinion.DisplayName: Болепухоль
+TortumorMinion.DisplayName: Пыткопухоль
 TortumorMinionOrb.DisplayName: Опухоль
 CauldronTransformProj.DisplayName: Видоизменённый котёл
-OrroboroSpawn.DisplayName: Место появления Оро и Борро
+OrroboroSpawn.DisplayName: Место появления Орро и Боро
 DecayDebuffFly.DisplayName: Муха дебаффа разложения
 BigBoneHammerSwung.DisplayName: Крушитель черепов
 BrainJarProj.DisplayName: Банка мозговитого
@@ -118,22 +118,22 @@ CauldronDummy.DisplayName: Котёл
 SentientKatanaSlash.DisplayName: Разумный разрез
 SentientKatanaSlashSpawner.DisplayName: Разумный разрез
 CursedFlamePillar.DisplayName: Проклятая стена огня
-SentientChikProj.DisplayName: Пенделог
+SentientChikProj.DisplayName: Пенделок
 SentientChikTear.DisplayName: Кристальная слеза
 ToxicBubble.DisplayName: Токсичный пузырь
 ToxicBubblePurple.DisplayName: Токсичный пузырь
 ToxicBubbleBlue.DisplayName: Токсичный пузырь
 ToxicBubbleRed.DisplayName: Токсичный пузырь
-SentientLeatherWhipProj.DisplayName: Лизатель
-SentientShootiusSentry.DisplayName: Разумный стрелиус
-SentientShootiusBolt.DisplayName: Выстрел разумного стрелиуса
-Grug.DisplayName: Краг
+SentientLeatherWhipProj.DisplayName: Облизыватель
+SentientShootiusSentry.DisplayName: Разумникус Стрелятус
+SentientShootiusBolt.DisplayName: Выстрел Разумникуса Стрелятуса
+Grug.DisplayName: Камнеголовый
 GrugFireball.DisplayName: Проклятый огненный шар
 BloodTooth.DisplayName: Кровавый зуб
 DrainedSoulHealth.DisplayName: Душа здоровья
 DrainedSoulMana.DisplayName: Душа маны
 SoulDrainShockwave.DisplayName: Духовная ударная волна
-SentientBladeTongueProj.DisplayName: Мечеязык
+SentientBladeTongueProj.DisplayName: Лезвие-язык
 IchorCloud.DisplayName: Ихорное облако
 SentientSkull.DisplayName: Жующий череп
 SpookySpiritSpawn.DisplayName: Место появления жутких духов
@@ -163,9 +163,9 @@ DaffodilFly.DisplayName: Большая муха
 ShroomFlailProj.DisplayName: Грибной цеп
 ShroomHopperPet.DisplayName: Грибной попрыгун
 FlyPet.DisplayName: Корнелиус
-FemurFractureSwung.DisplayName: Крошитель бёдер
-FemurFractureProj.DisplayName: Крошитель бёдер
-FemurFractureSkull.DisplayName: Дробитель черепов
+FemurFractureSwung.DisplayName: Ломатель бедренных костей
+FemurFractureProj.DisplayName: Ломатель бедренных костей
+FemurFractureSkull.DisplayName: Череп ломателя
 VenomBreath.DisplayName: Ядовитое дыхание
 CatPet.DisplayName: Чёрный котёнок
 StickyEyePet.DisplayName: Блеск в тёмном оке
@@ -209,11 +209,11 @@ LivingFleshWhipProjRed.DisplayName: Живой глазной хлыст
 FleshBowChunk1.DisplayName: Кровяной сгусток
 FleshBowChunk2.DisplayName: Кровяной сгусток
 LivingFleshAxeEye.DisplayName: Глаз
-PandoraBeanPet.DisplayName: Фон Ангустон IV, наследник престола короля Бина
+PandoraBeanPet.DisplayName: Фон Ангустон IV, наследник трона короля бобовых
 PandoraEnemySpawnChester.DisplayName: Место появления врагов ящика Пандоры
 StitchBolt.DisplayName: Выстрел ужаса
 BobbertExplosion.DisplayName: Бобберт
-DaffodilBowProj.DisplayName: Муза-снаряд
+DaffodilBowProj.DisplayName: Муха-снаряд
 DaffodilBowFly.DisplayName: Муха
 DaffodilHandMinion.DisplayName: Растительная рука
 PandoraCrossSound.DisplayName: Бас страданий
@@ -244,7 +244,7 @@ InchwormPet.DisplayName: Гусеничка
 SlendermanTentacle.DisplayName: Теневая тентакля
 HerobrineLightning.DisplayName: Молния
 DaffodilRodProj.DisplayName: Жезл подсолнуха
-SentientPaladinsHammerProj.DisplayName: Майк и Дейв
+SentientPaladinsHammerProj.DisplayName: Дейв и Майк
 ZomboidRootThorn.DisplayName: Корень-шип
 ZomboidRootThornTelegraph.DisplayName: Предупреждение о шипах
 ZomboidRootThornFire.DisplayName: Воспламенённый корень-шип
@@ -268,12 +268,12 @@ CannonEggBig.DisplayName: Паучье яйцо
 CannonEggSmall.DisplayName: Паучье яйцо
 CannonSpider.DisplayName: Маленький паук
 LeafSpiderAcid.DisplayName: Кислотный плевок
-WeaverSpikeGiant.DisplayName: Шип шароткача
-OrbWeaverBoomerangProj.DisplayName: Шёлкоранг
-OrbWeaverSentryBig.DisplayName: Большой шароткач-турель
-OrbWeaverSentryBigSpike.DisplayName: Шипастый ткач-турель
-OrbWeaverSentrySmall.DisplayName: Шароткач-турель
-OrbWeaverSentrySmallSpike.DisplayName: Шипастый ткач-турель
+WeaverSpikeGiant.DisplayName: Шип кругопряда
+OrbWeaverBoomerangProj.DisplayName: Прядоранг
+OrbWeaverSentryBig.DisplayName: Большой кругопряд
+OrbWeaverSentryBigSpike.DisplayName: Шипастый кругопряд
+OrbWeaverSentrySmall.DisplayName: Кругопряд
+OrbWeaverSentrySmallSpike.DisplayName: Шипастый Кругопряд
 PheromoneWhipProj.DisplayName: Феромонное жало
 SpiderSwordProj.DisplayName: Паучий протыкатель
 SpiderCrossbowProj.DisplayName: Отравляющий арбалет
@@ -281,9 +281,9 @@ SpiderCrossbowDart.DisplayName: Ядовитый дротик
 TarantulaHawkBowProj.DisplayName: Большой лук паучьего крыла
 TarantulaHawkArrow.DisplayName: Стрела тарантулового ястреба
 SpiderSummonEggProj.DisplayName: Странное паучье яйцо
-SpiderBabyGreen.DisplayName: Крошка паук
-SpiderBabyPurple.DisplayName: Крошка паук
-SpiderBabyRed.DisplayName: Крошка паук
+SpiderBabyGreen.DisplayName: Крошка-паук
+SpiderBabyPurple.DisplayName: Крошка-паук
+SpiderBabyRed.DisplayName: Крошка-паук
 TatantulaTomeFly.DisplayName: Большая муха
 SpiderSlingshotProj.DisplayName: Метатель паутины
 SpiderSlingshotWeb.DisplayName: Комок паутины
@@ -295,7 +295,7 @@ BoneBowArrow.DisplayName: Прошивающая кость
 HighVelocitySlingshotProj.DisplayName: Высокоскоростная рогатка
 HighVelocityPebble.DisplayName: Высокоскоростная галька
 RedMistNote.DisplayName: Красный туман
-NaturesMockery.DisplayName: Природное издевательство
+NaturesMockery.DisplayName: Насмешка природы
 RottenGourdFly.DisplayName: Муха сгнившей тыквы
 RustedBulletProj.DisplayName: Заржавевшая пуля
 RustedBulletShrapnel.DisplayName: Заржавевшая шрапнель
@@ -321,45 +321,45 @@ PitcherSpitVenom.DisplayName: Ядовитый плевок
 SmellyFly.DisplayName: Трупная муха
 NoseCultistBruteFlail.DisplayName: Козявочный цеп
 DaffodilBeam.DisplayName: Солнечный луч
-DragonfruitOrbiter.DisplayName: Драконий фрукт дивы
-MonkeyOrchidShuriken.DisplayName: Обезьяний орхидеевый сюрикен
+DragonfruitOrbiter.DisplayName: Дива-драконий фрукт
+MonkeyOrchidShuriken.DisplayName: Сюрикен обезьяньей орхидеи
 GhastlyPumpkin.DisplayName: Ужасающая тыква
 BouncyLemon.DisplayName: Упругий лимон
-ZucchiniLightning.DisplayName: Электроцукини
+ZucchiniLightning.DisplayName: Цукини-молния
 RoseThornRing.DisplayName: Кольцо шипов
-IrisPetalLockOn.DisplayName: Ирисовый глаз
-IrisPetal.DisplayName: Ирисовый лепесток
+IrisPetalLockOn.DisplayName: Анютин глазик
+IrisPetal.DisplayName: Анютин лепесток
 NoseCultistGruntSnot.DisplayName: Сопля
 NoseCultistWingedSnot.DisplayName: Сопля
-NoseCultistMageSnot.DisplayName: Комок соплей
-OrbitingBoogerProj.DisplayName: Комок из козявок
-NoseBallPurpleProj.DisplayName: Нолегама
-NoseBallRedProj.DisplayName: Нолегама
-NoseCultistEnemySpawner.DisplayName: Комок соплей
+NoseCultistMageSnot.DisplayName: Шар из соплей
+OrbitingBoogerProj.DisplayName: Шар из козявок
+NoseBallPurpleProj.DisplayName: Носольгама
+NoseBallRedProj.DisplayName: Носольгама
+NoseCultistEnemySpawner.DisplayName: Шар из соплей
 MocoSpawnerPower.DisplayName: Ритуальный сопливый порошок
 MocoEye.DisplayName: Глаз Моко
-MoclingProjectile.DisplayName: Моксит
-SnotRocketProj.DisplayName: Сопливая ракета
+MoclingProjectile.DisplayName: Соплёнок
+SnotRocketProj.DisplayName: Соплеракета
 SnotRocketBall.DisplayName: Комок соплей
 SnotRocketLinger.DisplayName: Кучка соплей
 DandelionFloater1.DisplayName: Скопление семян
 DandelionFloater2.DisplayName: Скопление семян
 DandelionFloater3.DisplayName: Скопление семян
 BlueberryExplosion.DisplayName: Ледяной взрыв
-SnotBulletProj.DisplayName: Слизневая пуля
+SnotBulletProj.DisplayName: Соплепуля
 BrainBeam.DisplayName: Луч замешательства
 GiantBiomassPurple.DisplayName: Биомасса
 GiantBiomassRed.DisplayName: Биомасса
 BiojetterDeath.DisplayName: Биострулёт
-MocoSpawnerProj.DisplayName: Место появления Моко
+MocoSpawnerProj.DisplayName: Место появления Сопёла
 HeartGlob1.DisplayName: Сердечная кучка
 HeartGlob2.DisplayName: Сердечная кучка
 AppendixLingerCloud.DisplayName: Ихорное облако
 ToxicBloodSplatter.DisplayName: Токсичные кровавые брызги
 YellowSplatter.DisplayName: Ихор
 RedSplatter.DisplayName: Кровь
-GreenSplatter.DisplayName: Тина
-BlueSplatter.DisplayName: Тина
+GreenSplatter.DisplayName: Выделения
+BlueSplatter.DisplayName: Выделения
 CoughCloud.DisplayName: Ихорное облако
 SpiderWeb.DisplayName: Паучья паутина
 SpiderMissile.DisplayName: Ракета с теплонаведением
@@ -373,24 +373,24 @@ SneezerProj.DisplayName: Чихатель
 SnotArrowProj.DisplayName: Стрела наёмника
 VesicatorBiomass.DisplayName: Биомасса
 EyeMine.DisplayName: Глазная мина
-SentientMineLauncherProj.DisplayName: Отрыжковый глаз
-SentientVenusMagnumProj.DisplayName: Тиновый магнум
+SentientMineLauncherProj.DisplayName: Глазоотрыгиватель
+SentientVenusMagnumProj.DisplayName: Выделяющийся магнум
 OozeBig.DisplayName: Желчь
 OozeSmall.DisplayName: Желчь
 OozeTooth.DisplayName: Зуб
 EyeMineExplosion.DisplayName: Взрыв глазной мины
-EnergyHeart.DisplayName: Сердечная энергия
+EnergyHeart.DisplayName: Энергичное сердце
 EnergyHeartBolt.DisplayName: Кровавая энергия
-SentientKeybrandProj.DisplayName: Коренной маулер
-SentientKeybrandThrown.DisplayName: Коренной маулер
+SentientKeybrandProj.DisplayName: Молярный мучитель
+SentientKeybrandThrown.DisplayName: Молярный мучитель
 OrganicChunk.DisplayName: Кусок падали
 SentientLeafBlowerProj.DisplayName: Падальщик
 WingedBiomass.DisplayName: Летающая биомасса
 WingedBiomassFalling.DisplayName: Летающая биомасса
 WingedBiomassEye.DisplayName: Глаз
-Billy.DisplayName: Билли Кость
+Billy.DisplayName: Билли Бонс
 BillyFeather.DisplayName: Перо Билли
-BiojetterBiomass.DisplayName: Биострулётная биомасса
+BiojetterBiomass.DisplayName: Биоструелётная биомасса
 BillyPhantomPortal.DisplayName: Фантомный портал
 BillyPhantom.DisplayName: Фантом Билли
 GraveDiggerShovelSwung.DisplayName: Лопата расхитителя могил
@@ -418,11 +418,11 @@ EarParasite.DisplayName: Ушной паразит
 EarParasiteSound.DisplayName: Звуковая волна
 EarParasiteSoundBase.DisplayName: Звуковая волна
 VeinChainProj.DisplayName: Кровососущая вена
-GooChomperProj.DisplayName: Разлагающий укус
+GooChomperProj.DisplayName: Абсцессный укус
 CoughSmokeCloud.DisplayName: Дымовое облако
 CoughSmokeCloudSmall.DisplayName: Дымовое облако
 KidneyRock.DisplayName: Камень из почки
-SnotBlessingOrbiter.DisplayName: Комок соплей
+SnotBlessingOrbiter.DisplayName: Шар из соплей
 LingeringEyeBolt.DisplayName: Затяжной глазной выстрел
 FlameIdolAura.DisplayName: Жаркое пламя
 FlameIdolRing.DisplayName: Огненное кольцо
@@ -438,8 +438,8 @@ BanditWizardMinionBall.DisplayName: Магический взрыв
 BanditPriestMinionBuffer.DisplayName: Магия щита
 MapleSeedBooster.DisplayName: Усилитель кленового семени
 OrroboroPet.DisplayName: Орроборо-питомец
-VenomHarpoonProj.DisplayName: Ядовытий паукорпун
-VenomHarpoonSpike.DisplayName: Ядовытий гарпун
+VenomHarpoonProj.DisplayName: Ядовитый паукорпун
+VenomHarpoonSpike.DisplayName: Ядовитый гарпун
 VenomHarpoonSpit.DisplayName: Ядовитый плевок
 ZomboidArmoredLightning.DisplayName: Молния
 EntityMinion1.DisplayName: Маленькая сущность
@@ -448,13 +448,13 @@ EntityMinion3.DisplayName: Маленькая сущность
 FleshBolsterBuffer.DisplayName: Хранилище лечащей плоти
 ZombieCultistPet.DisplayName: Зомби-культист
 BeePet.DisplayName: Опыляющая пчела
-RatPet.DisplayName: Крыса Альбино
-PuttyPet1.DisplayName: Замазочный слайм
-PuttyPet2.DisplayName: Замазочный слайм
-PuttyPet3.DisplayName: Замазочный слайм
-PuttyPetDisplay.DisplayName: Замазочный дисплей
-FleshAxeProj.DisplayName: Мясорубка
-LivingFleshAxeProj.DisplayName: Живая мясорубка
+RatPet.DisplayName: Крыса-альбинос
+PuttyPet1.DisplayName: Мастичный слизень
+PuttyPet2.DisplayName: Мастичный слизень
+PuttyPet3.DisplayName: Мастичный слизень
+PuttyPetDisplay.DisplayName: Мастички на показ
+FleshAxeProj.DisplayName: Мясоизмельчитель
+LivingFleshAxeProj.DisplayName: Оживший мясоизмельчитель
 BouncingBone.DisplayName: Отскакивающая кость
 SpookyBubble.DisplayName: Пряный пузырь
 SpookyFlames.DisplayName: Жуткое пламя
