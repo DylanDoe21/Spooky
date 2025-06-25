@@ -456,7 +456,7 @@ NoseBlessingBuff: {
 }
 
 GhostBanditDefense: {
-	DisplayName: Священный щит Синергея
+	DisplayName: Священный щит Блюфорда
 	Description: Защита увеличена на 15 единиц
 }
 
