@@ -99,8 +99,8 @@ namespace Spooky.Content.Generation
 					if (Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSand>())
 					{
 						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(i / 80f, j / 80f, 5, unchecked(Seed + 1)) * 0.01f;
-						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(i / 1000f, j / 300f, 5, Seed) + 0.5f + horizontalOffsetNoise;
-						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(i / 1000f, j / 300f, 5, unchecked(Seed - 1)) + 0.5f;
+						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(i / 1000f, j / 350f, 5, Seed) + 0.5f + horizontalOffsetNoise;
+						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(i / 1000f, j / 350f, 5, unchecked(Seed - 1)) + 0.5f;
 						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
 						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
 

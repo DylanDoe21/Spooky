@@ -13,6 +13,7 @@ namespace Spooky.Content.Tiles.Catacomb
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
+            Main.wallBlend[Type] = ModContent.WallType<CatacombGrassWall2>();
             AddMapEntry(new Color(44, 15, 15));
 			RegisterItemDrop(ModContent.ItemType<CatacombBrickWall2Item>());
 			DustType = DustID.t_Lihzahrd;

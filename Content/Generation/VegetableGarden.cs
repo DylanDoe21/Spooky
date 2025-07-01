@@ -326,12 +326,6 @@ namespace Spooky.Content.Generation
 						}
 						if (WorldGen.genRand.NextBool(20))
 						{
-							ushort[] Radishes = new ushort[] { (ushort)ModContent.TileType<Radish1>(), (ushort)ModContent.TileType<Radish2>() };
-
-							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Radishes));
-						}
-						if (WorldGen.genRand.NextBool(20))
-						{
 							ushort[] Potatos = new ushort[] { (ushort)ModContent.TileType<Potato1>(), (ushort)ModContent.TileType<Potato2>(), (ushort)ModContent.TileType<Potato3>(), (ushort)ModContent.TileType<Potato4>() };
 
 							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Potatos));
@@ -339,6 +333,12 @@ namespace Spooky.Content.Generation
 						if (WorldGen.genRand.NextBool(20))
 						{
 							WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<Pepper>(), true, WorldGen.genRand.Next(0, 2));
+						}
+						if (WorldGen.genRand.NextBool(35))
+						{
+							ushort[] Radishes = new ushort[] { (ushort)ModContent.TileType<Radish1>(), (ushort)ModContent.TileType<Radish2>() };
+
+							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Radishes));
 						}
 
 						//grow weeds

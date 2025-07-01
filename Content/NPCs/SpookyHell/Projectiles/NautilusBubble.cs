@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.SpookyHell.Projectiles
 
 				if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
 				{
-                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BubbleExplosion")), Damage + Main.rand.Next(-30, 30), 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.BubbleExplosion").ToNetworkText(player.name)), Damage + Main.rand.Next(-30, 30), 0);
                 }
             }
 

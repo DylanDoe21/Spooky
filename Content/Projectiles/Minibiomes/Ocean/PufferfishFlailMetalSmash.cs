@@ -28,7 +28,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			target.velocity.Y = Main.rand.Next(-15, -9) * target.knockBackResist;
+			target.velocity.Y = Main.rand.Next(-20, -9) * target.knockBackResist;
 		}
 		
 		public override void AI()

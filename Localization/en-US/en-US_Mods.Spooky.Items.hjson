@@ -1608,7 +1608,7 @@ UnstableSteroid: {
 		'''
 		Grants 20% increased damage
 		The steroids effect is strong and cannot be removed
-		After the steroids effect run out, you will enter a withdrawal
+		After the steroids effect runs out, you will enter a withdrawal
 		'''
 }
 
@@ -1793,7 +1793,7 @@ PetscopTool2: {
 }
 
 PetscopTool3: {
-	DisplayName: Pink tool
+	DisplayName: Pink Tool
 	Tooltip: Summons Tiara
 }
 

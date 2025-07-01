@@ -133,7 +133,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(147, 33, 27));
+            AddMapEntry(new Color(120, 96, 62));
             DustType = 288;
             HitSound = SoundID.Dig;
         }

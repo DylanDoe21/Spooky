@@ -129,23 +129,23 @@ namespace Spooky.Content.Tiles.Minibiomes.Jungle
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 
-                //radish
-				if (Main.rand.NextBool(20))
-                {
-                    ushort[] Radishes = new ushort[] { (ushort)ModContent.TileType<Radish1>(), (ushort)ModContent.TileType<Radish2>() };
-
-                    ushort newObject = Main.rand.Next(Radishes);
-
-                    WorldGen.PlaceObject(i, j - 1, newObject, true);
-                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
-                }
-
                 //potatos
                 if (Main.rand.NextBool(20))
                 {
                     ushort[] Potatos = new ushort[] { (ushort)ModContent.TileType<Potato1>(), (ushort)ModContent.TileType<Potato2>(), (ushort)ModContent.TileType<Potato3>(), (ushort)ModContent.TileType<Potato4>() };
 
                     ushort newObject = Main.rand.Next(Potatos);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //radish
+				if (Main.rand.NextBool(35))
+                {
+                    ushort[] Radishes = new ushort[] { (ushort)ModContent.TileType<Radish1>(), (ushort)ModContent.TileType<Radish2>() };
+
+                    ushort newObject = Main.rand.Next(Radishes);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);

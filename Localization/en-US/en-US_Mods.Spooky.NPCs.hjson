@@ -234,7 +234,7 @@ PartySkeleton7.DisplayName: Party Skeleton
 PartySkeleton8.DisplayName: Party Skeleton
 SkeletonBouncer.DisplayName: Skeleton Bouncer
 SuspiciousSkeleton.DisplayName: Suspicious Skeleton
-PartySkeleton.Names: Boney, Tony, Jeff, McRib, Clemmence, Hans Flabberghast, Carlcium, Ribert, Nigel, Morton, Jeremy, Gustavo, Notorious B.O.N.E, Patrice, Patrique, Wanda, Señor Hernandez, John Jr, Fortunado, Quandale, Normal Skeleton, Bongo, Ongo, Pete Griffith, Tario, Clavicle
+PartySkeleton.Names: Boney, Tony, Jeff, McRib, Clemmence, Hans Flabberghast, Carlcium, Ribert, Nigel, Morton, Jeremy, Gustavo, Notorious B.O.N.E., Patrice, Patrique, Wanda, Señor Hernandez, John Jr, Fortunado, Quandale, Normal Skeleton, Bongo, Ongo, Pete Griffith, Tario, Clavicle
 LabComputerDummy.DisplayName: ""
 OldHunterSleeping.DisplayName: Old Hunter
 
@@ -418,6 +418,14 @@ TarBlobSmallMouth.DisplayName: Regina Jaws
 Tarrar.DisplayName: Tarrar
 TarSlime1.DisplayName: Tar Slime
 TarSlime2.DisplayName: Tar Slime
+OpalHandDino.DisplayName: Terrazinosaurus
+OpalHandDinoClaw.DisplayName: Terrazinosaurus Claw
+OpalTarDino.DisplayName: Terradactyl
+OpalTarDinoSpawner.DisplayName: ""
+OpalTarCrawlerBall.DisplayName: Terramalgam
+OpalTarCrawler.DisplayName: Terramalgam
+OpalTarSnail.DisplayName: Terrammonin
+TarSlimeSpiked.DisplayName: Spiked Tar Slime
 //vegetable garden
 CornMage1.DisplayName: Pop Corner
 CornMage2.DisplayName: Pop Corner

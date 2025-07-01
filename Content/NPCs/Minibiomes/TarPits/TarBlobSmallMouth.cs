@@ -157,7 +157,7 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits
             //fly towards the player
             if (player.Distance(Parent.Center) <= 230f && lineOfSight && !player.dead)
             {
-                Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 5;
+                Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * MaxSpeed;
                 NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
             }
             //if too far away, move back to the parent stem

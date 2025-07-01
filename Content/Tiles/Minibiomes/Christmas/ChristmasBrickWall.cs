@@ -10,6 +10,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
+            Main.wallBlend[Type] = ModContent.WallType<ChristmasWoodWall>();
             AddMapEntry(new Color(70, 5, 5));
             RegisterItemDrop(ModContent.ItemType<ChristmasBrickRedWallItem>());
             DustType = -1;
@@ -21,6 +22,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
+            Main.wallBlend[Type] = ModContent.WallType<ChristmasWoodWall>();
             AddMapEntry(new Color(27, 33, 81));
             RegisterItemDrop(ModContent.ItemType<ChristmasBrickBlueWallItem>());
             DustType = -1;
@@ -32,6 +34,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
+            Main.wallBlend[Type] = ModContent.WallType<ChristmasWoodWall>();
             AddMapEntry(new Color(23, 63, 32));
             RegisterItemDrop(ModContent.ItemType<ChristmasBrickGreenWallItem>());
             DustType = -1;
@@ -45,6 +48,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
+            Main.wallBlend[Type] = ModContent.WallType<ChristmasWoodWallSafe>();
             AddMapEntry(new Color(70, 5, 5));
             DustType = -1;
         }
@@ -57,6 +61,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
+            Main.wallBlend[Type] = ModContent.WallType<ChristmasWoodWallSafe>();
             AddMapEntry(new Color(27, 33, 81));
             DustType = -1;
         }
@@ -69,6 +74,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
+            Main.wallBlend[Type] = ModContent.WallType<ChristmasWoodWallSafe>();
             AddMapEntry(new Color(23, 63, 32));
             DustType = -1;
         }

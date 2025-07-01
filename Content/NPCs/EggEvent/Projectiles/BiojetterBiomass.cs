@@ -155,7 +155,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
 				if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
 				{
-                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.BiomassExplosion")), Damage + Main.rand.Next(-30, 30), 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.BiomassExplosion").ToNetworkText(player.name)), Damage + Main.rand.Next(-30, 30), 0);
                 }
             }
 

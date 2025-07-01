@@ -21,6 +21,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = false;
             NPCID.Sets.NoTownNPCHappiness[Type] = true;
+            Main.npcFrameCount[NPC.type] = 13;
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
@@ -35,7 +36,7 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.lifeMax = 250;
             NPC.defense = 5;
             NPC.width = 40;
-			NPC.height = 172;
+			NPC.height = 174;
             NPC.townNPC = true;
             NPC.friendly = true;
 			NPC.immortal = true;
@@ -61,6 +62,20 @@ namespace Spooky.Content.NPCs.Friendly
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frameCounter++;
+            if (NPC.frameCounter > 7)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0;
+            }
+            if (NPC.frame.Y >= frameHeight * 13)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
+        }
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{

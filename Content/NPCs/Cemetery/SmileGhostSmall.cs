@@ -123,39 +123,16 @@ namespace Spooky.Content.NPCs.Cemetery
 
 			Vector2 destinationOffset = Parent.Center + Parent.velocity - NPC.Center;
 
+			if (Parent.rotation != NPC.rotation)
+			{
+				float angle = MathHelper.WrapAngle(Parent.rotation - NPC.rotation);
+				destinationOffset = destinationOffset.RotatedBy(angle * 0.1f);
+			}
+
 			//how far each segment should be from each other
 			if (destinationOffset != Vector2.Zero)
 			{
-				NPC.Center = Parent.Center - destinationOffset.SafeNormalize(Vector2.Zero) * 40f;
-			}
-
-			for (int num = 0; num < Main.maxNPCs; num++)
-			{
-				NPC other = Main.npc[num];
-
-				bool IsPushable = other.type == ModContent.NPCType<SmileGhost>() || other.type == ModContent.NPCType<SmileGhostSmall1>() ||
-				other.type == ModContent.NPCType<SmileGhostSmall2>() || other.type == ModContent.NPCType<SmileGhostSmall3>();
-
-				if (num != NPC.whoAmI && IsPushable && other.active && Math.Abs(NPC.position.X - other.position.X) + Math.Abs(NPC.position.Y - other.position.Y) < NPC.width)
-				{
-					const float pushAway = 0.2f;
-					if (NPC.position.X < other.position.X)
-					{
-						NPC.velocity.X -= pushAway;
-					}
-					else
-					{
-						NPC.velocity.X += pushAway;
-					}
-					if (NPC.position.Y < other.position.Y)
-					{
-						NPC.velocity.Y -= pushAway;
-					}
-					else
-					{
-						NPC.velocity.Y += pushAway;
-					}
-				}
+				NPC.Center = Parent.Center - destinationOffset.SafeNormalize(Vector2.Zero) * 30f;
 			}
 		}
 

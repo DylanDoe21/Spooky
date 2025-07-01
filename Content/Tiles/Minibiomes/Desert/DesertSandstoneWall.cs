@@ -16,6 +16,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
+            Main.wallBlend[Type] = ModContent.WallType<DesertSandWall>();
             AddMapEntry(new Color(105, 48, 10));
             DustType = DustID.YellowStarfish;
         }

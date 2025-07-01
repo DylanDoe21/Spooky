@@ -132,7 +132,7 @@ namespace Spooky.Content.NPCs.Quest
 					if (i == 7 && LostLeg3) continue;
 					if (i == 1 && LostLeg4) continue;
 
-					legs[i].Draw(NPC.Center, NPC.rotation, false, spriteBatch, NPC.whoAmI);
+					legs[i].Draw(NPC.Center, NPC.rotation, false, spriteBatch);
 				}
 			}
 
@@ -495,25 +495,25 @@ namespace Spooky.Content.NPCs.Quest
 			//cause legs to fall off at certain hp intervals
             if (NPC.life <= (NPC.lifeMax * 0.8f) && !LostLeg1)
             {
-				legs[3].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[3].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
 
 				LostLeg1 = true;
 			}
 			if (NPC.life <= (NPC.lifeMax * 0.6f) && !LostLeg2)
             {
-				legs[5].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[5].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
 
 				LostLeg2 = true;
 			}
 			if (NPC.life <= (NPC.lifeMax * 0.4f) && !LostLeg3)
             {
-				legs[7].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[7].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
 
 				LostLeg3 = true;
 			}
 			if (NPC.life <= (NPC.lifeMax * 0.2f) && !LostLeg4)
             {
-				legs[1].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[1].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
 
 				LostLeg4 = true;
 			}
@@ -521,10 +521,10 @@ namespace Spooky.Content.NPCs.Quest
 			//on death destroy the rest of the legs
 			if (NPC.life <= 0)
             {
-				legs[0].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
-				legs[2].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
-				legs[4].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
-				legs[6].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC.whoAmI);
+				legs[0].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
+				legs[2].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
+				legs[4].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
+				legs[6].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
 
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
@@ -593,7 +593,7 @@ namespace Spooky.Content.NPCs.Quest
 			}
 		}
 
-		public void Draw(Vector2 Position, float Angle, bool SpawnGore, SpriteBatch spriteBatch, int whoAmI)
+		public void Draw(Vector2 Position, float Angle, bool SpawnGore, SpriteBatch spriteBatch, NPC NPC = null)
 		{
 			int LegSegmentLength = 68;
 			int LegClawLength = 78;
@@ -631,14 +631,12 @@ namespace Spooky.Content.NPCs.Quest
 			}
 			else
 			{
-				NPC Parent = Main.npc[whoAmI];
-
 				if (Main.netMode != NetmodeID.Server)
 				{
-					Gore.NewGore(Parent.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore1").Type);
-					Gore.NewGore(Parent.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore2").Type);
-					Gore.NewGore(Parent.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore3").Type);
-					Gore.NewGore(Parent.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore4").Type);
+					Gore.NewGore(NPC.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore1").Type);
+					Gore.NewGore(NPC.GetSource_Death(), start, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore2").Type);
+					Gore.NewGore(NPC.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore3").Type);
+					Gore.NewGore(NPC.GetSource_Death(), halfway2, new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)), ModContent.Find<ModGore>("Spooky/StitchSpiderLegGore4").Type);
 				}
 			}
 		}

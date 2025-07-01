@@ -216,7 +216,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						if (!player.dead && player.Distance(NPC.Center) <= 150f)
 						{
-							player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.SeaMineExplosion")), NPC.damage + Main.rand.Next(-30, 30), 0);
+							player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.SeaMineExplosion").ToNetworkText(player.name)), NPC.damage + Main.rand.Next(-30, 30), 0);
 						}
 					}
 

@@ -134,7 +134,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     //explode and damage the player
                     if (OverheatTimer > 660)
                     {
-                        player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.GodGunExplode")), 150 + Main.rand.Next(-30, 30), 0);
+                        player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.GodGunExplode").ToNetworkText(player.name)), 150 + Main.rand.Next(-30, 30), 0);
 
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 

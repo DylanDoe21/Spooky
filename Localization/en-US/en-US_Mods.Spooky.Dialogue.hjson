@@ -140,14 +140,14 @@ PartySkeleton: {
 SkeletonBouncer: {
 	Dialogue1: You must be new around here. I don't wanna see you getting into any trouble, these parties take a lot of time and effort to set up.
 	Dialogue2: Move along, go have fun and party. Just don't go bothering anyone.
-	Dialogue3: These parties are super fun. Just don't go around comitting crimes or I'll have to murder you with my machine pistol.
-	Dialogue4: Companies been supplying us with these new otherworldy guns. They claim its better than what we had before but I don't know, I swear I heard it scream.
+	Dialogue3: These parties are super fun. Just don't go around committing crimes or I'll have to murder you with my machine pistol.
+	Dialogue4: Companies been supplying us with these new otherworldly guns. They claim its better than what we had before but I don't know, I swear I heard it scream.
 	Dialogue5: ...
 }
 
 SuspiciousSkeleton: {
 	Dialogue1: Ey kid, you want some of em nightmare fuel? Hits the spot just right.
-	Dialogue2: My brother Tony's the supplier. Apperantly it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
+	Dialogue2: My brother Tony's the supplier. Apparently it's easier to get the stuff whenever them big guys ye've been fighting get beaten to a pulp. Don't ask me how it works, cuz I don't know.
 	Dialogue3: Ey kid! Yer too slow! Just sold someone a big golden ring earlier. Haven't heard from em in a minute though
 	Dialogue4: Sorry kid, I ain't got much to give ya right now. Ye've gotta beat up some big fellas before Tony can get his hands on the good stuff, ye see what I'm sayin?
 	Dialogue5: Yer asking me if I've tried the stuff? My brother in christ, I'm not stupid enough to. You are. Now buy more of my stuff.
@@ -160,10 +160,10 @@ SuspiciousSkeleton: {
 	Dialogue12: I've heard there's actually some stuff similar to what I sell lying around here. No idea how ye get it, Tony's been trying. If ye come across anythin real weird let me know ey?
 	Dialogue13: I hate parties but they do a good job at hiding my business.
 	Dialogue14: Ey, I don't sell no bone meal. That stuff is REAL nasty you hear me? Stay away from it if ye wanna keep your noggin.
-	Dialogue15: Ye know Tony told me apperantly some of the stuff he gets from his ventures has this kind of weird magnetism. Ye know they stick together like glue and what not? Oughta mean something.
+	Dialogue15: Ye know Tony told me apparently some of the stuff he gets from his ventures has this kind of weird magnetism. Ye know they stick together like glue and what not? Oughta mean something.
 	Dialogue16: If ye wanna get more goods, make sure ye go and kill some of them big fellas around. Gives Tony enough time to smuggle the stuff without bringing unwanted attention.
 	Dialogue17: Tony loves parties. Sucks that I don't, but I gotta do what I gotta do.
-	Dialogue18: Some of this stuff apperantly's got a lot of familial sentimental value to some folks. Not any folks here mind you, I ain't got time to be family counselor. If they wanted the stuff should've gotten it before Tony.
+	Dialogue18: Some of this stuff's apparently got a lot of familial sentimental value to some folks. Not any folks here, mind you, I ain't got time to be family counselor. If they wanted the stuff should've gotten it before Tony.
 	Dialogue19: You snooze, you lose. That's my motto kid, so get yer stuff while I'm here!
 	Dialogue20: Ye know one time ma brother Tony got lost in this weird town faaar away from here. Real foggy, couldn't see a thing, and it was filled with some real nasty ghouls. Not like us, more like, say the ones from the stuff I'm selling ye. Tony couldn't nab nothing from the place cause this cone-head freak kept chasing him around with a claymore.
 	Dialogue21: The real horror would be not buying the goods while ye got the chance to.

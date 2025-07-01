@@ -29,6 +29,7 @@ using Spooky.Content.NPCs.SpiderCave;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Tiles.Catacomb;
+using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.NoseTemple;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpookyBiome;
@@ -504,7 +505,7 @@ namespace Spooky.Core
 				ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(), ModContent.TileType<NoseTempleFancyBrickRed>(),
 				ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(), ModContent.TileType<NoseTemplePlatformRed>() };
 
-				//do not allow catacomb enemies to spawn on non catacomb tiles
+				//do not allow eye valley enemies to spawn inside of the nose temple
 				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					//quest miniboss
@@ -558,6 +559,15 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TarSlime2>(), 2);
 					pool.Add(ModContent.NPCType<TarBlobSmall>(), 1);
 					pool.Add(ModContent.NPCType<Hydroraptor>(), 2);
+
+					if (Main.hardMode)
+					{
+						pool.Add(ModContent.NPCType<OpalHandDino>(), 1);
+						pool.Add(ModContent.NPCType<OpalTarDinoSpawner>(), 2);
+						pool.Add(ModContent.NPCType<OpalTarCrawlerBall>(), 1);
+						pool.Add(ModContent.NPCType<OpalTarSnail>(), 2);
+						pool.Add(ModContent.NPCType<TarSlimeSpiked>(), 2);
+					}
 				}
 			}
 
@@ -609,11 +619,17 @@ namespace Spooky.Core
 			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<ChristmasDungeonBiome>()))
 			{
 				pool.Clear();
-
-				pool.Add(ModContent.NPCType<TeddyBear1>(), 1);
-				pool.Add(ModContent.NPCType<TeddyBear2>(), 1);
-				pool.Add(ModContent.NPCType<TeddyBear3>(), 1);
-				pool.Add(ModContent.NPCType<ToyRobot>(), 1);
+				
+				int[] DungeonWalls = new int[] { ModContent.WallType<ChristmasBrickRedWall>(), ModContent.WallType<ChristmasBrickBlueWall>(), 
+            	ModContent.WallType<ChristmasBrickGreenWall>(), ModContent.WallType<ChristmasWoodWall>(), ModContent.WallType<ChristmasWindow>() };
+				
+				if (DungeonWalls.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType))
+				{
+					pool.Add(ModContent.NPCType<TeddyBear1>(), 1);
+					pool.Add(ModContent.NPCType<TeddyBear2>(), 1);
+					pool.Add(ModContent.NPCType<TeddyBear3>(), 1);
+					pool.Add(ModContent.NPCType<ToyRobot>(), 1);
+				}
 			}
 
 			//dumb zomboid can spawn anywhere super rarely

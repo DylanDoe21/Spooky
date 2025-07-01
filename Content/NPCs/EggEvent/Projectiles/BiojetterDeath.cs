@@ -149,13 +149,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
             int Damage = Main.masterMode ? 300 : Main.expertMode ? 200 : 100;
 
-            for (int i = 0; i < Main.maxPlayers; i++)
-            {
-                Player player = Main.player[i];
-
-                if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.ai[0] + time)
+            foreach (Player player in Main.ActivePlayers)
+			{
+                if (!player.dead && player.Distance(Projectile.Center) <= Projectile.ai[0] + time)
                 {
-                    player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " " + Language.GetTextValue("Mods.Spooky.DeathReasons.VesicatorExplosion")), Damage + Main.rand.Next(-30, 30), 0);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.VesicatorExplosion").ToNetworkText(player.name)), Damage + Main.rand.Next(-30, 30), 0);
                 }
             }
 
