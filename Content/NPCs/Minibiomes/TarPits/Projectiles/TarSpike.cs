@@ -21,8 +21,8 @@ namespace Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 18;
+            Projectile.width = 10;
+            Projectile.height = 20;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.ignoreWater = false;

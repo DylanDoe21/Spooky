@@ -1070,7 +1070,7 @@ Creepypasta: {
 		For each lost spiral charge you gain 2% increased critical strike chance
 		Summons a smiling puppy that will maul nearby enemies
 		Critical hits may spawn orbiting red notes that will attack enemies
-		Summons black tentacles to attack nearby enemies, enemies killed by them may drop pages that buff them
+		Summons black tentacles to attack nearby enemies, enemies critically hit by them may drop pages that buff them
 		Damaging enemies has a rare chance to spawn a red apparition to deal massive damage to them
 		Press the Accessory Hotkey to summon lighting that smites enemies and deals lots of damage to bosses
 		'''
@@ -3939,6 +3939,11 @@ SpookyBiomeTownNightBox: {
 TarPitsBox: {
 	DisplayName: Music Box (Tar Pits)
 	Tooltip: "[c/FF8D00:T-Funk] by BananaLizard"
+}
+
+TurkeyBox: {
+	DisplayName: Music Box (Turkey Riding)
+	Tooltip: "[c/FF8D00:Turkey Time] by BananaLizard"
 }
 
 VegetableBiomeBox: {

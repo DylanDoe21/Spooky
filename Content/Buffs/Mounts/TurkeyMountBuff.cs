@@ -3,19 +3,19 @@ using Terraria.ModLoader;
 
 using Spooky.Content.Projectiles.Pets;
 
-namespace Spooky.Content.Buffs.Pets
+namespace Spooky.Content.Buffs.Mounts
 {
-	public class TrapdoorSpiderMountBuff : ModBuff
+	public class TurkeyMountBuff : ModBuff
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.buffNoSave[Type] = true;
+			Main.buffNoSave[Type] = false;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.mount.SetMount(ModContent.MountType<TrapdoorSpiderMount>(), player);
+			player.mount.SetMount(ModContent.MountType<TurkeyMount>(), player);
 			player.buffTime[buffIndex] = 2;
 		}
 	}

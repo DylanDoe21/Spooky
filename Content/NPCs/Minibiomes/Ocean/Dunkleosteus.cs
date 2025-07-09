@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		int BodyFrame = 0;
 		int BodyFrameCounter = 0;
 		int Aggression = 0;
-
+		
 		int BiteAnimationTimer = 0;
 		bool BiteAnimation = false;
 		bool AteBomb = false;

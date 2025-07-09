@@ -296,6 +296,7 @@ TinyGhost2.DisplayName: Tiny Ghost
 TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
+Turkey.DisplayName: Turkey
 Witch.DisplayName: Evil Witch
 ZomboidArmored.DisplayName: Armored Zomboid
 ZomboidClarinet.DisplayName: Zomboid
@@ -402,8 +403,8 @@ BanditBruiser.DisplayName: Rarg
 BanditWizard.DisplayName: Greeny
 BanditPriest.DisplayName: Blueford
 EyeWizard.DisplayName: Bigger Eye
-EyeWizardClone.DisplayName: Bigger Eye Phantom
-EyeWizardOrb.DisplayName: Eye Orb
+EyeWizardBook.DisplayName: Book of Eyes
+EyeWizardMinion.DisplayName: Glass Eye
 FrankenGoblin.DisplayName: Frank the Goblin
 FrankenGoblinHandFront.DisplayName: Frank's Hand
 FrankenGoblinHandBack.DisplayName: Frank's Hand

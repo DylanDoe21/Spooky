@@ -45,7 +45,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				ModContent.ItemType<LeafBlower>(),
 				ModContent.ItemType<NecromancyTome>(),
 				ModContent.ItemType<CreepyCandle>(),
-				ModContent.ItemType<CandyBag>()
+				ModContent.ItemType<CandyBag>(),
+				ModContent.ItemType<AutumnLeaf>(),
+				ModContent.ItemType<EggCarton>()
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, spookyChestDrops));

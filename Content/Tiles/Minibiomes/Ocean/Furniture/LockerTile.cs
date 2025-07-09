@@ -15,8 +15,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Furniture
 {
     public class LockerTile : ModTile
     {
-        private Asset<Texture2D> GlowTexture;
-
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;

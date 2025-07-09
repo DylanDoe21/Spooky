@@ -1063,6 +1063,7 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
+				//placeholder loot for now
 				if (WorldGen.InWorld(chest.x, chest.y))
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];

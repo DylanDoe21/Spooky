@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-using Spooky.Content.Buffs.Pets;
+using Spooky.Content.Buffs.Mounts;
 
 namespace Spooky.Content.Projectiles.Pets
 {

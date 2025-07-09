@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Events;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -115,9 +116,9 @@ namespace Spooky.Core
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
 		{
 			//bool to check if no events are happening
-			bool NoEventsHappening = !spawnInfo.Invasion && Main.invasionType == 0 && !Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse &&
-			!(spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerStardust) &&
-			!(DD2Event.Ongoing && spawnInfo.Player.ZoneOldOneArmy);
+			bool NoEventsHappening = !spawnInfo.Invasion && (Main.invasionType == InvasionID.None || (Main.invasionType != InvasionID.None && Math.Abs(spawnInfo.Player.Center.X - Main.invasionX) > 150)) &&
+			!Main.pumpkinMoon && !Main.snowMoon && !Main.eclipse && !(DD2Event.Ongoing && spawnInfo.Player.ZoneOldOneArmy) &&
+			!(spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerStardust);
 
             //spooky forest surface spawns
             if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiome>()) && NoEventsHappening)
@@ -136,6 +137,7 @@ namespace Spooky.Core
 					//critters
 					pool.Add(ModContent.NPCType<FlySmall>(), 1);
 					pool.Add(ModContent.NPCType<FlyBig>(), 1);
+					pool.Add(ModContent.NPCType<Turkey>(), 0.2f);
 
 					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))

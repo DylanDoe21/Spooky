@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,6 +38,18 @@ namespace Spooky.Core
         public bool HasVeinChainAttached = false;
         public bool HasGooChompterAttached = false;
 		public bool BeingBuffedByBolster = false;
+
+		public bool TurkeyTamed = false;
+
+		public override void SaveData(NPC npc, TagCompound tag)
+		{
+			tag[nameof(TurkeyTamed)] = TurkeyTamed;
+		}
+
+		public override void LoadData(NPC npc, TagCompound tag)
+		{
+			TurkeyTamed = tag.GetBool(nameof(TurkeyTamed));
+		}
 
 		public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

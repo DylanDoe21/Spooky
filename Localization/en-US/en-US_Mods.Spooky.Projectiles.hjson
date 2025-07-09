@@ -336,11 +336,7 @@ CoughCloud.DisplayName: Ichor Cloud
 SpiderWeb.DisplayName: Spider Web
 SpiderMissile.DisplayName: Heat-Seeking Missile
 SnotMonsterBooger.DisplayName: Snot
-LingeringEye.DisplayName: Eye Rune
-LingeringEyeSpawner.DisplayName: Rune Magic
-HomingEye.DisplayName: Magic Eye
-BouncingEye.DisplayName: Bouncing Eye
-EyeOrbEnergy.DisplayName: Eye Energy
+EyeWizardEnergy.DisplayName: Eye Energy
 SneezerProj.DisplayName: Sneezer
 SnotArrowProj.DisplayName: Booger Arrow
 VesicatorBiomass.DisplayName: Biomass
@@ -544,3 +540,8 @@ PufferfishFlailMetalProj.DisplayName: Alloy Pufferfish
 PufferfishFlailMetalSmash.DisplayName: Shockwave
 OpalTarDinoGlob.DisplayName: Tar Glob
 TarSpike.DisplayName: Tar Spike
+EyeWizardOrb.DisplayName: Eyeball Orb
+BouncingEye.DisplayName: Bouncing Eye
+EyeBookRune.DisplayName: Magical Rune
+EyeRune.DisplayName: Eye Rune
+EyeMinionBeam.DisplayName: Eye Beam

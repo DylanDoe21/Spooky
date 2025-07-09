@@ -131,7 +131,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 for (int numExplosion = 0; numExplosion < 8; numExplosion++)
                 {
                     int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Indigo * 0.65f, Main.rand.NextFloat(0.5f, 0.8f));
-                    Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-4f, 4f);
+                    Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-2f, 2f);
                     Main.dust[DustGore].noGravity = true;
 
                     if (Main.rand.NextBool(2))

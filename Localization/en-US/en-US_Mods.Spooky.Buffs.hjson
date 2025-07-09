@@ -599,3 +599,8 @@ HazmatMinionToxic: {
 	DisplayName: Hazmat Minion Toxic
 	Description: ""
 }
+
+TurkeyMountBuff: {
+	DisplayName: Riding a Turkey
+	Description: Gobble gobble!
+}

@@ -20,13 +20,8 @@ namespace Spooky.Content.NPCs.Quest
 {
 	public class EyeWizard : ModNPC
 	{
-		int CurrentFrameX = 0; //0 = idle flying animation  1 = go inside cloak
-
-		bool SpawnedOrb = false;
-		bool SpawnedClone = false;
-
-		Vector2 SaveNPCPosition;
-        Vector2 SavePlayerPosition;
+		bool SpawnedBook = false;
+		bool EyeClosed = true;
 
 		private static Asset<Texture2D> NPCTexture;
 		private static Asset<Texture2D> GlowTexture;
@@ -43,16 +38,9 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void SendExtraAI(BinaryWriter writer)
         {
-			//vector2
-            writer.WriteVector2(SavePlayerPosition);
-            writer.WriteVector2(SaveNPCPosition);
-
-			//ints
-            writer.Write(CurrentFrameX);
-
 			//bools
-            writer.Write(SpawnedOrb);
-			writer.Write(SpawnedClone);
+            writer.Write(SpawnedBook);
+			writer.Write(EyeClosed);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -61,16 +49,9 @@ namespace Spooky.Content.NPCs.Quest
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-			//vector2
-            SavePlayerPosition = reader.ReadVector2();
-            SaveNPCPosition = reader.ReadVector2();
-
-			//ints
-            CurrentFrameX = reader.ReadInt32();
-
 			//bools
-            SpawnedOrb = reader.ReadBoolean();
-			SpawnedClone = reader.ReadBoolean();
+            SpawnedBook = reader.ReadBoolean();
+			EyeClosed = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
@@ -114,30 +95,19 @@ namespace Spooky.Content.NPCs.Quest
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/EyeWizardGlow");
-			EyeClosedTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/EyeWizardClosed");
+			EyeClosedTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Quest/EyeWizardEyeClosed");
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-			
-			if (CurrentFrameX == 1)
-            {
-                for (int i = 0; i < 360; i += 90)
-                {
-                    Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.HotPink);
 
-                    Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
-                    spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, color * 0.5f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.1f, effects, 0);
-                }
-            }
-
-            spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 			
-			if (NPC.ai[0] == 0 && !NPC.IsABestiaryIconDummy)
+			if (EyeClosed && !NPC.IsABestiaryIconDummy)
 			{
-				spriteBatch.Draw(EyeClosedTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+				Main.EntitySpriteDraw(EyeClosedTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 			}
 			else
 			{
-				spriteBatch.Draw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+				Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 			}
 
 			return false;
@@ -145,45 +115,21 @@ namespace Spooky.Content.NPCs.Quest
 
 		public override void FindFrame(int frameHeight)
         {
-			if (Main.netMode != NetmodeID.Server)
-            {
-                NPC.frame.Width = TextureAssets.Npc[NPC.type].Width() / 2;
-            }
-
-            NPC.frame.X = (int)(NPC.frame.Width * CurrentFrameX);
-
-            //flying animation
-			if (CurrentFrameX == 0)
+			NPC.frameCounter++;
+			if (NPC.frameCounter > 4)
 			{
-				NPC.frameCounter++;
-				if (NPC.frameCounter > 4)
-				{
-					NPC.frame.Y = NPC.frame.Y + frameHeight;
-					NPC.frameCounter = 0;
-				}
-				if (NPC.frame.Y >= frameHeight * 10)
-				{
-					NPC.frame.Y = 0 * frameHeight;
-				}
+				NPC.frame.Y = NPC.frame.Y + frameHeight;
+				NPC.frameCounter = 0;
 			}
-			else
+			if (NPC.frame.Y >= frameHeight * 10)
 			{
-				NPC.frameCounter++;
-				if (NPC.frameCounter > 4)
-				{
-					NPC.frame.Y = NPC.frame.Y + frameHeight;
-					NPC.frameCounter = 0;
-				}
-				if (NPC.frame.Y >= frameHeight * 8)
-				{
-					NPC.frame.Y = 4 * frameHeight;
-				}
+				NPC.frame.Y = 0 * frameHeight;
 			}
 		}
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return NPC.ai[0] != 0;
+            return false;
         }
 
 		public override void AI()
@@ -191,34 +137,18 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
-			NPC.spriteDirection = NPC.direction;
-
             NPC.rotation = NPC.velocity.X * 0.03f;
 
-			if (!SpawnedOrb)
+			if (!SpawnedBook)
 			{
-				int Orb = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (Main.rand.NextBool() ? -100 : 100), (int)NPC.Center.Y, ModContent.NPCType<EyeWizardOrb>(), ai0: NPC.whoAmI);
+				int Book = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (Main.rand.NextBool() ? -100 : 100), (int)NPC.Center.Y, ModContent.NPCType<EyeWizardBook>(), ai0: NPC.whoAmI);
 
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					NetMessage.SendData(MessageID.SyncNPC, number: Orb);
+					NetMessage.SendData(MessageID.SyncNPC, number: Book);
 				}
 
-				SpawnedOrb = true;
-
-				NPC.netUpdate = true;
-			}
-
-			if (NPC.life < (NPC.lifeMax / 2) && !SpawnedClone)
-			{
-				int Clone = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<EyeWizardClone>(), ai0: NPC.whoAmI);
-
-				if (Main.netMode != NetmodeID.MultiplayerClient)
-				{
-					NetMessage.SendData(MessageID.SyncNPC, number: Clone);
-				}
-
-				SpawnedClone = true;
+				SpawnedBook = true;
 
 				NPC.netUpdate = true;
 			}
@@ -239,10 +169,12 @@ namespace Spooky.Content.NPCs.Quest
 				NPC.immortal = false;
 				NPC.dontTakeDamage = false;
 
+				NPC.spriteDirection = NPC.direction;
+
 				NPC.localAI[2]++;
 
-				//passively spawn dust rings below to make it look like its floating
-				if (NPC.localAI[2] % 10 == 0)
+				//passively spawn dust rings below to make it look like its floating with magic
+				if (NPC.localAI[2] % 7 == 0)
 				{
 					SoundEngine.PlaySound(SoundID.Item24, NPC.Center);
 
@@ -263,9 +195,11 @@ namespace Spooky.Content.NPCs.Quest
 
 			switch ((int)NPC.ai[0])
 			{
-				//fly to the player briefly
+				//fly to the player
 				case 1:
 				{
+					EyeClosed = false;
+
 					NPC.localAI[0]++;
 
 					//go to the player
@@ -291,239 +225,105 @@ namespace Spooky.Content.NPCs.Quest
 					break;
 				}
 
-				//shoot out bolts that turn into lingering eye runes
+				//use magic book to shoot out bouncing eyes
 				case 2:
 				{
+					EyeClosed = true;
+
+					NPC.velocity *= 0.95f;
+
+					NPC.localAI[0]++;
+				
+					if (NPC.localAI[0] >= 260)
+					{
+						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.ai[0]++;
+					
+						NPC.netUpdate = true;
+					}
+
+					break;
+				}
+
+				case 3:
+				{
+					goto case 1;
+				}
+
+				//book circles around little eye and shoots out runes
+				case 4:
+				{
+					EyeClosed = true;
+
+					NPC.velocity *= 0.95f;
+
 					NPC.localAI[0]++;
 
 					//go to the player
-					if (NPC.localAI[0] < 70)
+					if (player.Distance(NPC.Center) > 220f)
 					{
-						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
-
-						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 15);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+						Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 4;
+						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+					}
+					else
+					{
+						NPC.velocity *= 0.95f;
+					}
+				
+					if (NPC.localAI[0] >= 260)
+					{
+						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.ai[0]++;
+					
+						NPC.netUpdate = true;
 					}
 
-					if (NPC.localAI[1] < 3)
+					break;
+				}
+
+				case 5:
+				{
+					goto case 1;
+				}
+
+				//use magic
+				case 6:
+				{
+					EyeClosed = true;
+
+					NPC.velocity *= 0.95f;
+
+					NPC.localAI[0]++;
+
+					//go to the player
+					if (player.Distance(NPC.Center) > 220f)
 					{
-						if (NPC.localAI[0] >= 70)
+						Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 4;
+						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+					}
+					else
+					{
+						NPC.velocity *= 0.95f;
+					}
+
+					//loop 12 times so the book shoots 12 lingering eye runes
+					if (NPC.localAI[1] < 12)
+					{
+						if (NPC.localAI[0] >= 32)
 						{
-							NPC.velocity *= 0.85f;
-						}
-
-						if (NPC.localAI[0] == 75)
-						{
-							CurrentFrameX = 1;
-							NPC.frame.Y = 0;
-
-							SaveNPCPosition = NPC.Center;
-
-							NPC.netUpdate = true;
-						}
-
-						if (NPC.localAI[0] > 75 && NPC.localAI[0] <= 125)
-						{
-							//NPC.Center = SaveNPCPosition;
-							NPC.Center += Main.rand.NextVector2Square(-5, 5);
-						}
-
-						if (NPC.localAI[0] == 125)
-						{
-							SoundEngine.PlaySound(SoundID.Item80, NPC.Center);
-
-							Vector2 NPCPosition = NPC.Center + new Vector2(0, 25).RotatedByRandom(360);
-
-							Vector2 ShootSpeed = NPC.Center - NPCPosition;
-							ShootSpeed.Normalize();
-							ShootSpeed *= -3.5f;
-
-							NPCGlobalHelper.ShootHostileProjectile(NPC, NPCPosition, ShootSpeed, ModContent.ProjectileType<LingeringEyeSpawner>(), NPC.damage, 3.5f);
-						}
-
-						if (NPC.localAI[0] >= 145)
-						{
-							CurrentFrameX = 0;
-							NPC.frame.Y = 0;
-
-							NPC.localAI[0] = 0;
 							NPC.localAI[1]++;
-
+							NPC.localAI[0] = 0;
+						
 							NPC.netUpdate = true;
 						}
 					}
 					else
 					{
-						if (NPC.localAI[0] >= 65)
-						{
-							NPC.localAI[0] = 0;
-							NPC.localAI[1] = 0;
-							NPC.ai[0]++;
-						
-							NPC.netUpdate = true;
-						}
-					}
-
-					break;
-				}
-
-				//shout out homing eyes
-				case 3:
-				{
-					NPC.localAI[0]++;
-
-					if (NPC.localAI[0] < 420)
-					{
-						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
-
-						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 10);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-					}
-
-					if (NPC.localAI[0] >= 180)
-					{
-						NPC.velocity *= 0.85f;
-					}
-
-					if (NPC.localAI[0] == 150)
-					{
-						CurrentFrameX = 1;
-						NPC.frame.Y = 0;
-					}
-
-					if (NPC.localAI[0] == 180)
-					{
-						SaveNPCPosition = NPC.Center;
-
-                        NPC.netUpdate = true;
-					}
-
-					if (NPC.localAI[0] > 180 && NPC.localAI[0] <= 420)
-					{
-						SaveNPCPosition = NPC.Center;
-
-						//NPC.Center = SaveNPCPosition;
-                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
-
-						if (NPC.localAI[0] % 40 == 0)
-						{
-							Vector2 NPCPosition = NPC.Center + new Vector2(0, 25).RotatedByRandom(360);
-
-							SoundEngine.PlaySound(SoundID.Item79, NPCPosition);
-
-							Vector2 ShootSpeed = NPC.Center - NPCPosition;
-							ShootSpeed.Normalize();
-							ShootSpeed *= Main.rand.NextFloat(-10f, -5f);
-
-							NPCGlobalHelper.ShootHostileProjectile(NPC, NPCPosition, ShootSpeed, ModContent.ProjectileType<HomingEye>(), NPC.damage, 3.5f);
-						}
-					}
-
-					if (NPC.localAI[0] == 420)
-					{
-						CurrentFrameX = 0;
-						NPC.frame.Y = 0;
-					}
-
-					//float towards player
-					if (NPC.localAI[0] >= 420)
-					{
-						//go to the player
-						if (player.Distance(NPC.Center) > 220f)
-						{
-							Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
-							NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
-						}
-						else
-						{
-							NPC.velocity *= 0.95f;
-						}
-					}
-
-					if (NPC.localAI[0] >= 630)
-					{
-						CurrentFrameX = 0;
-						NPC.frame.Y = 0;
-
 						NPC.localAI[0] = 0;
-						NPC.ai[0]++;
-
-						NPC.netUpdate = true;
-					}
-
-					break;
-				}
-
-				//shout out bouncing eyes
-				case 4:
-				{
-					NPC.localAI[0]++;
-
-					//go to the player
-					if (NPC.localAI[0] < 300)
-					{
-						Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 200);
-
-						float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 5, 8);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-					}
-
-					if (NPC.localAI[0] >= 240)
-					{
-						NPC.velocity *= 0.85f;
-					}
-
-					if (NPC.localAI[0] == 240)
-					{
-						CurrentFrameX = 1;
-						NPC.frame.Y = 0;
-
-                        NPC.netUpdate = true;
-					}
-
-					if (NPC.localAI[0] > 240 && NPC.localAI[0] <= 360)
-					{
-						SaveNPCPosition = NPC.Center;
-
-						//NPC.Center = SaveNPCPosition;
-                        NPC.Center += Main.rand.NextVector2Square(-5, 5);
-
-						if (NPC.localAI[0] % 10 == 0)
-						{
-							SoundEngine.PlaySound(SoundID.Item85, NPC.Center);
-
-							NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 45),
-							new Vector2(Main.rand.Next(-15, 16), Main.rand.Next(-15, -6)), ModContent.ProjectileType<BouncingEye>(), NPC.damage, 3.5f);
-						}
-					}
-
-					if (NPC.localAI[0] == 360)
-					{
-						CurrentFrameX = 0;
-						NPC.frame.Y = 0;
-					}
-
-					//float towards player
-					if (NPC.localAI[0] >= 360)
-					{
-						//go to the player
-						if (player.Distance(NPC.Center) > 220f)
-						{
-							Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
-							NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
-						}
-						else
-						{
-							NPC.velocity *= 0.95f;
-						}
-					}
-
-					if (NPC.localAI[0] >= 600)
-					{
-						NPC.localAI[0] = 0;
+						NPC.localAI[1] = 0;
 						NPC.ai[0] = 1;
-
-						NPC.netUpdate = true;
 					}
 
 					break;

@@ -18,6 +18,9 @@ namespace Spooky.Core
             AddMusic("Content/Sounds/Music/SpookyTownDay", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyTownDay"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyTownNight", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyTownNight"), "BananaLizard");
 
+            //turkey
+            AddMusic("Content/Sounds/Music/TurkeyTime", Language.GetTextValue("Mods.Spooky.MusicDisplay.TurkeyTime"), "BananaLizard");
+
             //spooky forest
             AddMusic("Content/Sounds/Music/SpookyMenu", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyMenu"), "BananaLizard");
             AddMusic("Content/Sounds/Music/SpookyBiomeDay", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpookyForestDay"), "BananaLizard");

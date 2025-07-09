@@ -486,7 +486,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                             NPC.velocity = Vector2.Normalize(NPC.velocity) * 30;
                         }
 
-                        NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(4.5f) * NPC.localAI[1]);
+                        NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(8f) * NPC.localAI[1]);
                     }
 
                     if (NPC.localAI[0] > 175)
@@ -764,100 +764,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     {
                         NPC.velocity *= 0.5f;
                         NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
+                        NPC.ai[0] = 0;
                         NPC.netUpdate = true;
-                    }
-
-                    break;
-                }
-
-                //summon thorn pillars 2 times, then charge up at the player
-                case 5:
-                {
-                    NPC.localAI[0]++;
-
-                    if (NPC.localAI[1] < 3)
-                    {
-                        if (NPC.localAI[0] > 30)
-                        {
-                            if (NPC.alpha < 255)
-                            {
-                                NPC.alpha += 5;
-                            }
-                        }
-
-                        Vector2 GoTo = player.Center;
-                        GoTo.Y += 550;
-
-                        if (NPC.Distance(GoTo) > 50f)
-                        {
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 20, 25);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-                        else
-                        {
-                            NPC.velocity *= 0.95f;
-                        }
-
-                        if (NPC.localAI[0] % 30 == 10 && NPC.localAI[1] > 0)
-                        {
-                            Vector2 center = new(NPC.Center.X, player.Center.Y + player.height / 4);
-                            center.X += Main.rand.Next(-500, 501);
-                            int numtries = 0;
-                            int x = (int)(center.X / 16);
-                            int y = (int)(center.Y / 16);
-                            while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
-                            Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
-                            {
-                                y++;
-                                center.Y = y * 16;
-                            }
-                            while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
-                            {
-                                numtries++;
-                                y--;
-                                center.Y = y * 16;
-                            }
-
-                            if (numtries >= 10)
-                            {
-                                break;
-                            }
-
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<FleshPillarTelegraph>(), NPC.damage, 4.5f);
-                        }
-
-                        if (NPC.localAI[0] >= 240)
-                        {
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1]++;
-                            NPC.netUpdate = true;
-                        }
-                    }
-                    else
-                    {
-                        NPC.alpha = 0;
-
-                        //go up to the player before looping its attack pattern
-                        if (NPC.localAI[0] <= 75)
-                        {
-                            Vector2 GoTo = player.Center;
-                            GoTo.X += NPC.Center.X < player.Center.X ? -500 : 500;
-                            GoTo.Y -= 350;
-
-                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 10, 15);
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
-                        }
-
-                        if (NPC.localAI[0] >= 75)
-                        {
-                            NPC.velocity *= 0.2f;
-
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0; 
-                            NPC.ai[0] = 0;
-                            NPC.netUpdate = true;
-                        }
                     }
 
                     break;

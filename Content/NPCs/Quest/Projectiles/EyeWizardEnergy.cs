@@ -6,13 +6,13 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Buffs;
+
 namespace Spooky.Content.NPCs.Quest.Projectiles
 {
-    public class LingeringEyeBolt : ModProjectile
+    public class EyeWizardEnergy : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
-
-		int target;
+        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
 
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[12];
@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 120;
             Projectile.aiStyle = -1;
         }
 
@@ -62,9 +62,14 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Indigo);
+                    for (int j = 0; j < 360; j += 90)
+                    {
+                        Color color = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Red);
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.75f, SpriteEffects.None, 0f);
+                        Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2.5f), 0).RotatedBy(MathHelper.ToRadians(j));
+
+                        Main.spriteBatch.Draw(ProjTexture.Value, drawPos + circular, null, color, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
+                    }
 				}
 
 				previousPosition = currentPos;
@@ -73,9 +78,20 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 			return false;
 		}
 
+        public override bool CanHitPlayer(Player target)
+        {
+            return false;
+        }
+
 		public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, 0.4f, 0.3f, 0f);
+            NPC Parent = Main.npc[(int)Projectile.ai[0]];
+
+			//kill this npc if the parent does not exist
+			if (!Parent.active || Parent.type != ModContent.NPCType<EyeWizard>())
+			{
+                Projectile.active = false;
+			}
 
 			if (runOnce)
 			{
@@ -109,24 +125,41 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
                 Projectile.ai[1] = 0;
                 Projectile.scale = 1f;
             }
+
+			Projectile.ai[2]++;
+            if (Projectile.ai[2] > 30)
+            {
+				Vector2 Speed = Parent.Center - Projectile.Center;
+				Speed.Normalize();
+				Speed *= 25;
+
+				Projectile.velocity = Speed;
+
+				if (Projectile.Hitbox.Intersects(Parent.Hitbox))
+				{
+					Parent.ai[0] = 1;
+
+					Projectile.Kill();
+				}
+			}
         }
 
         public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item104 with { Volume = 0.5f }, Projectile.Center);
 
-        	float maxAmount = 15;
+        	float maxAmount = 30;
 			int currentAmount = 0;
 			while (currentAmount <= maxAmount)
 			{
-				Vector2 velocity = new Vector2(5f, 5f);
-				Vector2 Bounds = new Vector2(3f, 3f);
-				float intensity = 5f;
+				Vector2 velocity = new Vector2(2f, 2f);
+				Vector2 Bounds = new Vector2(2f, 2f);
+				float intensity = 3f;
 
 				Vector2 vector12 = Vector2.UnitX * 0f;
 				vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 				vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.Shadowflame, 0f, 0f, 100, default, 2f);
+				int num104 = Dust.NewDust(Projectile.Center, 0, 0, DustID.RedTorch, 0f, 0f, 100, default, 2f);
 				Main.dust[num104].noGravity = true;
 				Main.dust[num104].position = Projectile.Center + vector12;
 				Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
