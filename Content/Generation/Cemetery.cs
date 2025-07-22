@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
@@ -545,7 +546,7 @@ namespace Spooky.Content.Generation
 					if (chestTile.TileFrameX == 15 * 36 && (chest.item[0].type == ItemID.BladedGlove || chest.item[0].type == ItemID.BloodyMachete))
 					{
 						int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
-						int[] Potions = new int[] { ItemID.LesserHealingPotion, ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
+						int[] Potions = new int[] { ModContent.ItemType<CranberryJelly>(), ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
 
                         //broken emf reader
 						chest.item[1].SetDefaults(ModContent.ItemType<EMFReaderBroke>());

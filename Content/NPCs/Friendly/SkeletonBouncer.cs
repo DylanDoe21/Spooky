@@ -225,7 +225,7 @@ namespace Spooky.Content.NPCs.Friendly
                         Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(10));
 
                         int bolt = Projectile.NewProjectile(NPC.GetSource_FromAI(), positonToShootFrom, newVelocity,
-                        ModContent.ProjectileType<PartyNailBolt>(), player.statLifeMax / 2, 0, player.whoAmI, 0f, 0f);
+                        ModContent.ProjectileType<PartyNailBoltHostile>(), player.statLifeMax / 2, 0, player.whoAmI, 0f, 0f);
 
                         Main.projectile[bolt].friendly = false;
                         Main.projectile[bolt].hostile = true;

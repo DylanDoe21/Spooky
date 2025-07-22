@@ -34,7 +34,7 @@ namespace Spooky.Content.Items.SpookyBiome
 		{
             int[] Projectiles = { ModContent.ProjectileType<ZombiePart1>(), ModContent.ProjectileType<ZombiePart2>(), ModContent.ProjectileType<ZombiePart3>() };
 
-			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Projectiles[Main.rand.Next(3)], damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Main.rand.Next(Projectiles), damage, knockback, player.whoAmI, 0f, 0f);
 			
 			return false;
 		}

@@ -57,8 +57,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
             Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
             Projectile.ai[0]++;
-
-            if (Projectile.ai[0] == 40 || Projectile.ai[0] == 60 || Projectile.ai[0] == 80 || Projectile.ai[0] == 100 || Projectile.ai[0] == 120)
+            if (Projectile.ai[0] >= 60 && Projectile.ai[0] < 200 && Projectile.ai[0] % 30 == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item42, Projectile.Center);
 

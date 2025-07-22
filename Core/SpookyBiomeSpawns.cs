@@ -22,13 +22,14 @@ using Spooky.Content.NPCs.Catacomb.Layer2;
 using Spooky.Content.NPCs.Cemetery;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.Minibiomes.Christmas;
+using Spooky.Content.NPCs.Minibiomes.Desert;
 using Spooky.Content.NPCs.Minibiomes.Ocean;
-using Spooky.Content.NPCs.Minibiomes.TarPits;
 using Spooky.Content.NPCs.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Quest;
 using Spooky.Content.NPCs.SpiderCave;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
+using Spooky.Content.NPCs.Tameable;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.NoseTemple;
@@ -275,6 +276,8 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TinyRat1>(), 1);
 					pool.Add(ModContent.NPCType<TinyRat2>(), 1);
 				}
+
+				pool.Add(ModContent.NPCType<Crow>(), 0.2f);
 
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
@@ -566,9 +569,13 @@ namespace Spooky.Core
 					{
 						pool.Add(ModContent.NPCType<OpalHandDino>(), 1);
 						pool.Add(ModContent.NPCType<OpalTarDinoSpawner>(), 2);
-						pool.Add(ModContent.NPCType<OpalTarCrawlerBall>(), 1);
 						pool.Add(ModContent.NPCType<OpalTarSnail>(), 2);
 						pool.Add(ModContent.NPCType<TarSlimeSpiked>(), 2);
+
+						if (!NPC.AnyNPCs(ModContent.NPCType<OpalTarCrawlerBall>()) && !NPC.AnyNPCs(ModContent.NPCType<OpalTarCrawler>()))
+						{
+							pool.Add(ModContent.NPCType<OpalTarCrawlerBall>(), 1);
+						}
 					}
 				}
 			}

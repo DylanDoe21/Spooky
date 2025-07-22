@@ -42,7 +42,8 @@ namespace Spooky.Core
         public bool SpiderSet = false;
         public bool SpiderSpeed = false;
 		public bool BroccoliSet = false;
-        public bool SharkBoneSet = false;
+		public bool GoldrushSet = false;
+		public bool SharkBoneSet = false;
 		public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
@@ -132,6 +133,7 @@ namespace Spooky.Core
         public bool PuttyPet = false;
         public bool RatPet = false;
         public bool ZombieCultistPet = false;
+        public bool LongisquamaPet = false;
 
         //misc bools
         public bool EatenByGooSlug = false;
@@ -232,6 +234,7 @@ namespace Spooky.Core
             SpiderSpeed = false;
 			BroccoliSet = false;
             SharkBoneSet = false;
+			GoldrushSet = false;
 			HorsemanSet = false;
             EyeArmorSet = false;
             FlowerArmorSet = false;
@@ -319,6 +322,7 @@ namespace Spooky.Core
             PuttyPet = false;
             RatPet = false;
             ZombieCultistPet = false;
+            LongisquamaPet = false;
 
             //misc bools
             WhipSpiderAggression = false;
@@ -558,6 +562,12 @@ namespace Spooky.Core
                 { 
                     CandyBagJustHit = true;
                 }
+
+				//goldrush set inflicts midas forever
+				if (GoldrushSet)
+				{
+					target.AddBuff(BuffID.Midas, int.MaxValue);
+				}
             }
         }
 
@@ -1517,5 +1527,5 @@ namespace Spooky.Core
 
             return num20;
         }
-    }
+	}
 }

@@ -54,23 +54,27 @@ namespace Spooky.Content.Generation
 
 			for (int numBiomesPlaced = 0; numBiomesPlaced < maxBiomes; numBiomesPlaced++)
 			{
-				if (numBiomesPlaced == 0)
+				int attempts = 0;
+				while (!CanPlaceBiome(BiomeX, BiomeY, SizeX, SizeY) && attempts++ < 200)
 				{
-					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-
-					if (!IsSmallWorld)
+					if (numBiomesPlaced == 0)
 					{
-						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), (Main.maxTilesY / 2) - 75);
+						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
+
+						if (!IsSmallWorld)
+						{
+							BiomeY = WorldGen.genRand.Next((int)Main.worldSurface + (SizeY * 2), (Main.maxTilesY / 2));
+						}
+						else
+						{
+							BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2), GenVars.desertHiveLow - SizeY);
+						}
 					}
 					else
 					{
-						BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 3), GenVars.desertHiveLow - SizeY);
+						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
+						BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2) + 75, GenVars.desertHiveLow - SizeY);
 					}
-				}
-				else
-				{
-					BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-					BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2) + 75, GenVars.desertHiveLow - SizeY);
 				}
 
 				SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);
@@ -662,38 +666,21 @@ namespace Spooky.Content.Generation
 		{
 			int numDesertTiles = 0;
 
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 			{
-				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
+				for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
 				{
-					int[] ValidTiles = { TileID.Sand, TileID.Sandstone, TileID.HardenedSand, TileID.DesertFossil };
-					int[] ValidWalls = { WallID.Sandstone, WallID.HardenedSand };
-
-					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && (ValidTiles.Contains(Main.tile[i, j].TileType) || ValidWalls.Contains(Main.tile[i, j].WallType)))
-					{
-						numDesertTiles++;
-					}
-
-					int[] InvalidTiles = { TileID.Stone, TileID.Dirt, ModContent.TileType<DesertSand>(), ModContent.TileType<DesertSandstone>(),
+					int[] InvalidTiles = { ModContent.TileType<DesertSand>(), ModContent.TileType<DesertSandstone>(),
 					ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick2>(), };
 
-					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType))
+					if (WorldGen.InWorld(i, j) && InvalidTiles.Contains(Main.tile[i, j].TileType))
 					{
 						return false;
 					}
 				}
 			}
 
-			int AmountOfTilesNeeded = (SizeX * SizeY) / 4;
-
-			if (numDesertTiles > AmountOfTilesNeeded)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return true;
 		}
 
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)

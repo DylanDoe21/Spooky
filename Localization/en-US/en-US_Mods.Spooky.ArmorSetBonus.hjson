@@ -10,6 +10,7 @@ WizardGangsterArmor2:
 	This stops scaling after you have more than 10 gold coins
 	'''
 BroccoliArmor: Minions will sometimes plant damaging broccoli on enemies
+GoldrushArmor: All of your attacks inflict midas, causing enemies to drop more money
 SharkBoneArmor:
 	'''
 	Summons a skeleton shark friend to fight with you

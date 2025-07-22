@@ -21,11 +21,10 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 12;
+            Projectile.height = 12;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.hostile = false;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 180;
@@ -38,22 +37,18 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
             Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+            Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
-                Vector2 trailDrawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Color.Gray * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Main.spriteBatch.Draw(ProjTexture.Value, trailDrawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale - oldPos / (float)Projectile.oldPos.Length / 3, SpriteEffects.None, 0f);
+                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
+                Vector2 drawPosOld = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPosOld, rectangle, Color.Gray * 0.75f, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0);
             }
 
-            Main.EntitySpriteDraw(ProjTexture.Value, drawPos, null, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return false;
-        }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(BuffID.Slow, 300);
         }
 
         public override void AI()       

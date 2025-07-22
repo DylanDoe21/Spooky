@@ -1,10 +1,6 @@
 Bonemeal: {
 	DisplayName: Bonemeal
-	Tooltip:
-		'''
-		All blooms within a certain distance of you will grow much faster
-		Harvesting a bloom has a chance to yield an additional bloom fruit
-		'''
+	Tooltip: All blooms nearby you will grow at a decently faster rate
 }
 
 DaylightSavings: {
@@ -61,7 +57,7 @@ CemeteryPoppy: {
 	DisplayName: Ornamental Poppy
 	Tooltip:
 		'''
-		Ability not decided
+		When you kill an enemy, spawn a poppy that shoots at other nearby enemies for a bit
 		5 minute duration
 		'''
 }
@@ -91,7 +87,7 @@ DandelionMapleSeed: {
 	DisplayName: Whindwhirl Mapleseed
 	Tooltip:
 		'''
-		Ocassionally spawns a gliding mapleseed around you while you are flying
+		Occasionally spawns a gliding mapleseed around you while you are flying
 		Collecting these mapleseeds will slightly boost your flight time
 		4 minute duration
 		'''
@@ -1420,6 +1416,21 @@ BroccoliLegs: {
 	Tooltip: Increases your life regeneration
 }
 
+GoldrushBody: {
+	DisplayName: Goldrush Waistcoat
+	Tooltip: 10% increased mining speed
+}
+
+GoldrushHead: {
+	DisplayName: Goldrush Hat
+	Tooltip: 10% increased mining speed
+}
+
+GoldrushLegs: {
+	DisplayName: Goldrush Boots
+	Tooltip: 10% increased mining speed
+}
+
 HazmatBody: {
 	DisplayName: Hazmat Suit
 	Tooltip: 10% increased summon damage
@@ -1462,9 +1473,94 @@ SharkBoneLegs: {
 		'''
 }
 
+GoldrushPickaxe: {
+	DisplayName: Goldrush Pickaxe
+	Tooltip: Stone broken with this will occasionally drop ores and gems
+}
+
+HallucigeniaSpine: {
+	DisplayName: Hallucigenia Spine
+	Tooltip: Spawns lingering spines around you when you take damage
+}
+
+HallucigeniaToothNecklace: {
+	DisplayName: Megalodon Tooth Necklace
+	Tooltip:
+		'''
+		Increases armor penetration by 10
+		Spawns lingering spines around you when you take damage
+		'''
+}
+
+HelicoprionSaw: {
+	DisplayName: Helicoprion Saw
+	Tooltip: ""
+}
+
+LongisquamaWings: {
+	DisplayName: Longisquama Wings
+	Tooltip: Allows flight and slow fall
+}
+
+SabertoothScythe: {
+	DisplayName: Sabertooth Scythe
+	Tooltip:
+		'''
+		Rapidly swing a sabertooth on a stick
+		Every second swing will fling the sabertooth blade off the stick
+		'''
+}
+
+TarBomb: {
+	DisplayName: Tar Bomba
+	Tooltip:
+		'''
+		Throw a small bomb that explodes into a bit of tar
+		'Doesn't seem functional anymore'
+		'''
+}
+
+TarCannon: {
+	DisplayName: Opalised Cannon
+	Tooltip:
+		'''
+		Fires out globs of tar
+		Sometimes fires out friendly tar slimes that will chase enemies
+		'''
+}
+
+TarFeatherTome: {
+	DisplayName: Tar & Feathers
+	Tooltip:
+		'''
+		Casts out tar blobs and feathers 
+		Tar blobs will sometimes cover enemies in tar
+		Feathers will stick to tarred enemies to deal more damage
+		'''
+}
+
 TarGun: {
 	DisplayName: HAK-2r
 	Tooltip: Converts bullets into tar spit blobs
+}
+
+TarSurpriseEgg: {
+	DisplayName: Kinder Tar-prise Egg
+	Tooltip:
+		'''
+		Use at an extractinator for a surprise!
+		'Not FDA compliant'
+		'''
+}
+
+TitanoboaWhip: {
+	DisplayName: Titanoboa Whip
+	Tooltip:
+		'''
+		10 summon tag damage
+		Your summons will focus struck enemies
+		Inflicts venom for a bit on enemies it hits
+		'''
 }
 
 BloodSoaker: {
@@ -1759,7 +1855,7 @@ OddBrain: {
 	Tooltip: Summons a zombie nose cultist
 }
 
-OldSaddle: {
+TrapdoorSpiderSaddle: {
 	DisplayName: Old Saddle
 	Tooltip:
 		'''
@@ -1809,6 +1905,11 @@ RottenGourd: {
 		Summons a squishy little gourd to follow you
 		'Its small, but smells awful'
 		'''
+}
+
+ScalyHockeyStick: {
+	DisplayName: Scaly Hockey Stick
+	Tooltip: Summons a pet longisquama
 }
 
 SinisterShell: {
@@ -5251,5 +5352,14 @@ BigDunkRevive: {
 		'''
 		Allows big dunk to respawn after being killed
 		Testing Item
+		'''
+}
+
+PetCommander: {
+	DisplayName: Pet Command Whistle
+	Tooltip:
+		'''
+		Click on any nearby tamed critter while holding this to give them commands
+		Allows the tamed critter to roam freely, follow you, or stay put
 		'''
 }

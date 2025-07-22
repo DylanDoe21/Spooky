@@ -205,6 +205,20 @@ namespace Spooky.Core
                         }
 					}
                 }
+
+                //spawn krampus
+                if (!NPC.AnyNPCs(ModContent.NPCType<Krampus>()) && Flags.KrampusPosition != Vector2.Zero)
+                {
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int Krampus = NPC.NewNPC(null, (int)Flags.KrampusPosition.X, (int)Flags.KrampusPosition.Y, ModContent.NPCType<Krampus>());
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Krampus);
+                        }
+					}
+                }
                 
                 //spawn moco idols in each ambush room
                 if (!NPC.AnyNPCs(ModContent.NPCType<MocoIdol1>()) && Flags.MocoIdolPosition1 != Vector2.Zero && !Flags.downedMocoIdol1)

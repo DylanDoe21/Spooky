@@ -24,6 +24,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
+			Projectile.ArmorPenetration = int.MaxValue;
             Projectile.penetrate = 1;
             Projectile.extraUpdates = 5;
             Projectile.timeLeft = 180;
@@ -72,18 +73,6 @@ namespace Spooky.Content.Projectiles.Cemetery
 			}
 
 			return true;
-		}
-
-		public override bool? CanHitNPC(NPC target)
-		{
-			bool IsPartySkeleton = target.type == ModContent.NPCType<PartySkeleton1>() || target.type == ModContent.NPCType<PartySkeleton2>() ||
-			target.type == ModContent.NPCType<PartySkeleton3>() || target.type == ModContent.NPCType<PartySkeleton4>() ||
-			target.type == ModContent.NPCType<PartySkeleton5>() || target.type == ModContent.NPCType<PartySkeleton6>() ||
-			target.type == ModContent.NPCType<PartySkeleton7>() || target.type == ModContent.NPCType<PartySkeleton8>() ||
-			target.type == ModContent.NPCType<SkeletonBouncer>() || target.type == ModContent.NPCType<SuspiciousSkeleton>() ||
-			target.type == ModContent.NPCType<Musicman>();
-
-			return !IsPartySkeleton;
 		}
 
 		public override void AI()

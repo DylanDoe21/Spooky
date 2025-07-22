@@ -32,7 +32,6 @@ namespace Spooky.Content.Items.Cemetery
 			Item.useAnimation = 2;
 			Item.useStyle = ItemUseStyleID.Shoot;         
 			Item.knockBack = 0;
-			Item.ArmorPenetration = 10000;
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = ShootSound;
@@ -96,7 +95,7 @@ namespace Spooky.Content.Items.Cemetery
 
 			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
 
-			Projectile.NewProjectile(source, position.X, position.Y - 12, newVelocity.X, newVelocity.Y, ModContent.ProjectileType<PartyNailBolt>(), damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y - 12, newVelocity.X, newVelocity.Y, ModContent.ProjectileType<PartyNailBolt>(), damage, knockback, player.whoAmI);
 
 			return false;
 		}

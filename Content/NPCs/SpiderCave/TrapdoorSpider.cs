@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OldSaddle>(), 15));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TrapdoorSpiderSaddle>(), 15));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
@@ -151,7 +151,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OldSaddle>(), 8));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TrapdoorSpiderSaddle>(), 8));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

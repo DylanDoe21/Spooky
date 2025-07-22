@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-using Spooky.Content.Projectiles.Pets;
+using Spooky.Content.Items.Pets;
 
 namespace Spooky.Content.Buffs.Mounts
 {

@@ -1,19 +1,17 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
-using Terraria.Audio;
-using ReLogic.Content;
 using Microsoft.Xna.Framework;
-using System;
-using System.Linq;
-
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
+using Spooky.Content.NPCs.Boss.SpookFishron.Projectiles;
 using Spooky.Content.Projectiles.Blooms;
-using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Spooky.Core
 {
@@ -91,6 +89,7 @@ namespace Spooky.Core
 		public int FossilBlackPepperTimer = 0;
 		public int FossilBlackPepperStacks = 0;
 		public int CemeteryMarigoldTimer = 0;
+		public bool FossilProteaSlammed = false;
 
 		//accessories
 		public bool Wormy = false;
@@ -780,6 +779,33 @@ namespace Spooky.Core
 				}
 			}
 
+			//fossil protea slam shakes the screen and flings diamond projectiles everywhere
+			if (FossilProtea)
+			{
+				if (Collision.SolidCollision(Player.BottomLeft, Player.width, 30, true) && !FossilProteaSlammed && Player.velocity.Y >= 10)
+				{
+					Screenshake.ShakeScreenWithIntensity(Player.Center, 6f, 100f);
+
+					for (int numProjs = 0; numProjs < Player.velocity.Y / 3; numProjs++)
+					{
+						Vector2 velocity = new Vector2(0, -Player.velocity.Y / 2.75f).RotatedByRandom(MathHelper.ToRadians(55));
+
+						Projectile.NewProjectile(null, Player.Bottom + new Vector2(Main.rand.Next(-20, 21), 0), velocity, ModContent.ProjectileType<FossilProteaDiamond>(), (int)Player.velocity.Y * 2, 0, Player.whoAmI);
+					}
+
+					FossilProteaSlammed = true;
+				}
+
+				if (FossilProteaSlammed && Player.velocity.Y < 0)
+				{
+					FossilProteaSlammed = false;
+				}
+			}
+			else
+			{
+				FossilProteaSlammed = false;
+			}
+
 			//spawn growing marigolds with the cemetery marigold
 			if (CemeteryMarigold)
 			{
@@ -837,9 +863,24 @@ namespace Spooky.Core
 			//magnolia increases player damage reduction based on players current health remaining
 			if (FossilMagnolia)
 			{
-				float DamageReductionAmount = (1f - (Player.statLife / Player.statLifeMax2)) / 2;
+				if (Player.statLife < Player.statLifeMax2)
+				{
+					float DefenseAmount = 0.45f * (1f - ((float)Player.statLife / Player.statLifeMax2));
+					Player.endurance += DefenseAmount;
+				}
+			}
 
-				Player.endurance += DamageReductionAmount;
+			//fossil black pepper gives defense based on the stack count, 2 defense for each stack
+			if (FossilBlackPepper && FossilBlackPepperStacks > 0)
+			{
+				Player.statDefense += FossilBlackPepperStacks * 2;
+			}
+
+			//fossil protea gives flat defense increase
+			if (FossilProtea)
+			{
+				Player.statDefense += 5;
+				Player.maxFallSpeed = 22f;
 			}
 
 			//lily bloom cuts the players health down to 1/3rd
@@ -867,12 +908,6 @@ namespace Spooky.Core
 			if (CemeteryRose)
 			{
 				Player.endurance -= 0.15f;
-			}
-
-			//fossil black pepper gives defense based on the stack count, 2 defense for each stack
-			if (FossilBlackPepper && FossilBlackPepperStacks > 0)
-			{
-				Player.statDefense += FossilBlackPepperStacks * 2;
 			}
 
 			//farmer glove grants attack speed for each occupied bloom buff slot

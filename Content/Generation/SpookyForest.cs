@@ -11,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Friendly;
@@ -1277,6 +1278,12 @@ namespace Spooky.Content.Generation
 						//iron or lead bars
 						chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
 						chest.item[1].stack = WorldGen.genRand.Next(5, 10);
+						//random chance to replace bars with tamed critter whistle
+						if (WorldGen.genRand.NextBool(5))
+						{
+							chest.item[1].SetDefaults(ModContent.ItemType<PetCommander>());
+							chest.item[1].stack = 1;
+						}
 						//light sources
 						chest.item[2].SetDefaults(WorldGen.genRand.Next(LightSources));
 						chest.item[2].stack = WorldGen.genRand.Next(3, 8);

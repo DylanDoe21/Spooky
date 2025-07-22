@@ -16,6 +16,7 @@ namespace Spooky.Core
         public static Vector2 FlowerPotPosition = Vector2.Zero;
         public static Vector2 SpiderWebPosition = Vector2.Zero;
         public static Vector2 EggPosition = Vector2.Zero;
+		public static Vector2 KrampusPosition = Vector2.Zero;
         public static Vector2 MocoIdolPosition1 = Vector2.Zero;
         public static Vector2 MocoIdolPosition2 = Vector2.Zero;
         public static Vector2 MocoIdolPosition3 = Vector2.Zero;
@@ -27,7 +28,7 @@ namespace Spooky.Core
         public static Vector2 SpiderGrottoCenter = Vector2.Zero;
         public static Vector2 EyeValleyCenter = Vector2.Zero;
 
-		//list of eel biome nodes
+		//list of rotten depths biome positions for big dunk to travel between
 		public static List<Vector2> ZombieBiomePositions = new List<Vector2>();
 
 		//bosses
@@ -124,6 +125,7 @@ namespace Spooky.Core
 			tag[nameof(FlowerPotPosition)] = FlowerPotPosition;
 			tag[nameof(SpiderWebPosition)] = SpiderWebPosition;
 			tag[nameof(EggPosition)] = EggPosition;
+			tag[nameof(KrampusPosition)] = KrampusPosition;
 			tag[nameof(MocoIdolPosition1)] = MocoIdolPosition1;
 			tag[nameof(MocoIdolPosition2)] = MocoIdolPosition2;
 			tag[nameof(MocoIdolPosition3)] = MocoIdolPosition3;
@@ -188,6 +190,7 @@ namespace Spooky.Core
 			FlowerPotPosition = tag.Get<Vector2>(nameof(FlowerPotPosition));
 			SpiderWebPosition = tag.Get<Vector2>(nameof(SpiderWebPosition));
 			EggPosition = tag.Get<Vector2>(nameof(EggPosition));
+			KrampusPosition = tag.Get<Vector2>(nameof(KrampusPosition));
 			MocoIdolPosition1 = tag.Get<Vector2>(nameof(MocoIdolPosition1));
 			MocoIdolPosition2 = tag.Get<Vector2>(nameof(MocoIdolPosition2));
 			MocoIdolPosition3 = tag.Get<Vector2>(nameof(MocoIdolPosition3));
@@ -254,6 +257,7 @@ namespace Spooky.Core
             writer.WriteVector2(FlowerPotPosition);
             writer.WriteVector2(SpiderWebPosition);
             writer.WriteVector2(EggPosition);
+			writer.WriteVector2(KrampusPosition);
             writer.WriteVector2(MocoIdolPosition1);
             writer.WriteVector2(MocoIdolPosition2);
             writer.WriteVector2(MocoIdolPosition3);
@@ -292,6 +296,7 @@ namespace Spooky.Core
             FlowerPotPosition = reader.ReadVector2();
             SpiderWebPosition = reader.ReadVector2();
             EggPosition = reader.ReadVector2();
+			KrampusPosition = reader.ReadVector2();
             MocoIdolPosition1 = reader.ReadVector2();
             MocoIdolPosition2 = reader.ReadVector2();
             MocoIdolPosition3 = reader.ReadVector2();

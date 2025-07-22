@@ -41,6 +41,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
             var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
@@ -49,9 +51,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color RealColor = Projectile.GetAlpha(Color.Orange * 0.5f) * ((float)(Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
-                Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
                 Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, RealColor, Projectile.rotation, drawOrigin, scale, effects, 0);
             }
+
+            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
 
 			return true;
 		}
@@ -75,6 +78,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 int RandX = Main.rand.NextBool() ? -10 : 10;
                 int RandY = Main.rand.NextBool() ? -10 : 10;
                 SavePosition = new Vector2(Projectile.Center.X + RandX, Projectile.Center.Y + RandY);
+
+                Projectile.ai[1] = Main.rand.NextFloat(10f, 14f);
+
+                Projectile.netUpdate = true;
             }
 
             if (Projectile.ai[0] > 15)
@@ -90,9 +97,14 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
 
                 float Angle = Math.Sign(angle);
-                Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 12;
+                Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 5;
 
-                Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(13f) * Angle);
+                Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(Projectile.ai[1]) * Angle);
+            }
+
+            if (Projectile.ai[0] > 75)
+            {
+                Projectile.scale *= 0.95f;
             }
 		}
     }

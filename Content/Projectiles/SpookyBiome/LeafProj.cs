@@ -32,17 +32,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 6)
-            {
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-                if (Projectile.frame >= 8)
-                {
-                    Projectile.frame = 0;
-                }
-            }
-
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
@@ -62,6 +51,17 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 		
 		public override void AI()
         {
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 6)
+            {
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame >= 8)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 

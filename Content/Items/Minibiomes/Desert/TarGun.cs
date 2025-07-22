@@ -25,11 +25,11 @@ namespace Spooky.Content.Items.Minibiomes.Desert
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(gold: 1);
+            Item.value = Item.buyPrice(gold: 2);
             Item.UseSound = SoundID.Item17 with { Pitch = -1f };
             Item.shoot = ModContent.ProjectileType<TarGunBlob>();
             Item.useAmmo = AmmoID.Bullet;
-			Item.shootSpeed = 22f;
+			Item.shootSpeed = 15f;
         }
 
         public override Vector2? HoldoutOffset()

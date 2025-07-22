@@ -14,6 +14,8 @@ namespace Spooky.Core
 {
     public class ItemGlobal : GlobalItem
     {
+		public static int RangedEggUses = 0;
+
         public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Volume = 0.75f, Pitch = 0.9f };
 
         public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
@@ -207,6 +209,25 @@ namespace Spooky.Core
 						Velocity *= 12;
 
 						Projectile.NewProjectile(null, player.Center, Velocity, ModContent.ProjectileType<AutumnLeafProj>(), item.damage, item.knockBack, player.whoAmI);
+					}
+				}
+
+				//shoot out an egg every 6 shots with ranged items with the egg carton
+				if (player.GetModPlayer<SpookyPlayer>().EggCarton && item.DamageType == DamageClass.Ranged)
+				{
+					RangedEggUses++;
+					if (RangedEggUses >= 6)
+					{
+						float mouseXDist = Main.mouseX + Main.screenPosition.X;
+						float mouseYDist = Main.mouseY + Main.screenPosition.Y;
+
+						Vector2 Velocity = new Vector2(mouseXDist, mouseYDist) - player.Center;
+						Velocity.Normalize();
+						Velocity *= item.shootSpeed * 2f;
+
+						Projectile.NewProjectile(null, player.Center, Velocity, ModContent.ProjectileType<RangedEgg>(), item.damage * 2, item.knockBack, player.whoAmI);
+
+						RangedEggUses = 0;
 					}
 				}
 

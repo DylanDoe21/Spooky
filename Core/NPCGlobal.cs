@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.Localization;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,6 +26,7 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.NPCs.Cemetery;
 
 namespace Spooky.Core
 {
@@ -39,16 +41,74 @@ namespace Spooky.Core
         public bool HasGooChompterAttached = false;
 		public bool BeingBuffedByBolster = false;
 
-		public bool TurkeyTamed = false;
+		public bool NPCTamed = false; //use for all instances of a tameable animal in spooky mod
 
 		public override void SaveData(NPC npc, TagCompound tag)
 		{
-			tag[nameof(TurkeyTamed)] = TurkeyTamed;
+			tag[nameof(NPCTamed)] = NPCTamed;
 		}
 
 		public override void LoadData(NPC npc, TagCompound tag)
 		{
-			TurkeyTamed = tag.GetBool(nameof(TurkeyTamed));
+			NPCTamed = tag.GetBool(nameof(NPCTamed));
+		}
+
+		public override void Load()
+		{
+			On_Main.DrawMiscMapIcons += DrawTamedMapIcons;
+		}
+
+		public override void Unload()
+		{
+			On_Main.DrawMiscMapIcons -= DrawTamedMapIcons;
+		}
+
+		private static void DrawTamedMapIcons(On_Main.orig_DrawMiscMapIcons orig, Main self, SpriteBatch spriteBatch, Vector2 mapTopLeft, Vector2 mapX2Y2AndOff, Rectangle? mapRect, float mapScale, float drawScale, ref string mouseTextString)
+		{
+			orig(self, spriteBatch, mapTopLeft, mapX2Y2AndOff, mapRect, mapScale, drawScale, ref mouseTextString);
+			DrawTamedMapIcon(self, spriteBatch, mapTopLeft, mapX2Y2AndOff, mapRect, mapScale, drawScale, ref mouseTextString);
+		}
+
+		private static void DrawTamedMapIcon(Main self, SpriteBatch spriteBatch, Vector2 mapTopLeft, Vector2 mapX2Y2AndOff, Rectangle? mapRect, float mapScale, float drawScale, ref string mouseTextString)
+		{
+			if (Main.gameMenu)
+			{
+				return;
+			}
+
+			foreach (NPC npc in Main.ActiveNPCs)
+			{
+				if (npc.GetGlobalNPC<NPCGlobal>().NPCTamed)
+				{
+					float alphaMult = 1f;
+					Vector2 vec = npc.Center / 16f - mapTopLeft;
+					vec *= mapScale;
+					vec += mapX2Y2AndOff;
+					vec = vec.Floor();
+					bool draw = true;
+					if (mapRect.HasValue)
+					{
+						Rectangle value2 = mapRect.Value;
+						if (!value2.Contains(vec.ToPoint()))
+						{
+							draw = false;
+						}
+					}
+					if (draw)
+					{
+						Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Tameable/" + npc.TypeName + "MapIcon").Value;
+
+						Rectangle rectangle = texture.Frame();
+
+						spriteBatch.Draw(texture, vec, rectangle, Color.White * alphaMult, 0f, rectangle.Size() / 2f, drawScale, 0, 0f);
+						Rectangle rectangle2 = Utils.CenteredRectangle(vec, rectangle.Size() * drawScale);
+						if (rectangle2.Contains(Main.MouseScreen.ToPoint()))
+						{
+							mouseTextString = Language.GetTextValue("Mods.Spooky.NPCs." + npc.TypeName + ".DisplayName");
+						}
+					}
+				}
+			}
 		}
 
 		public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -135,8 +195,8 @@ namespace Spooky.Core
 			}
 		}
 
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
-        {
+		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+		{
 			//whip debuff stuff
 			if (!projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
 			{
@@ -147,7 +207,7 @@ namespace Spooky.Core
 				}
 
 				foreach (Player player in Main.ActivePlayers)
-            	{
+				{
 					//hazmat helmet gives minions 5% chance to critically hit
 					if (player.GetModPlayer<SpookyPlayer>().HazmatSet && projectile.owner == player.whoAmI && Main.rand.NextBool(20))
 					{
@@ -199,19 +259,19 @@ namespace Spooky.Core
 			ModContent.NPCType<OrroBodyWings>(), ModContent.NPCType<BoroBodyWings>(), ModContent.NPCType<OrroBodyWingsP1>(), ModContent.NPCType<BoroBodyWingsP1>() };
 
 			//give all orro & boro segments resistance to piercing projectiles because terraria worm moment
-            if (OrroBoroSegments.Contains(npc.type))
+			if (OrroBoroSegments.Contains(npc.type))
 			{
-                if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
-                {
-                    modifiers.FinalDamage /= 1.8f;
-                }
-            }
+				if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
+				{
+					modifiers.FinalDamage /= 1.8f;
+				}
+			}
 
-            //enemies inflicted with the hunter mark debuff take more damage from ranged weapons
-            if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()) && modifiers.DamageType == DamageClass.Ranged)
-            {
-                modifiers.FinalDamage *= 1.2f;
-            }
+			//enemies inflicted with the hunter mark debuff take more damage from ranged weapons
+			if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()) && modifiers.DamageType == DamageClass.Ranged)
+			{
+				modifiers.FinalDamage *= 1.2f;
+			}
 
 			//enemies inflicted with pierced should take 2x damage and be bled for 10 seconds
 			if (npc.HasBuff(ModContent.BuffType<PiercedDebuff>()) && projectile.type != ModContent.ProjectileType<SewingNeedle>())

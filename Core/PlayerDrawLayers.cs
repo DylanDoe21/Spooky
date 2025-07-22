@@ -204,7 +204,7 @@ namespace Spooky.Core
             float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
             Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
-            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 45, MidpointRounding.AwayFromZero));
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 45, MidpointRounding.ToNegativeInfinity));
 
             drawInfo.DrawDataCache.Add(new DrawData(tex, roundedPos - Main.screenPosition, null, Color.White, 0f, tex.Size() / 2, 0.8f + fade / 2f, SpriteEffects.None, 0));
         }
@@ -232,10 +232,62 @@ namespace Spooky.Core
             Color color = Lighting.GetColor((int)drawInfo.drawPlayer.MountedCenter.X / 16, (int)(drawInfo.drawPlayer.MountedCenter.Y / 16f));
 
             Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
-            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 10, MidpointRounding.AwayFromZero));
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 10, MidpointRounding.ToNegativeInfinity));
 
             drawInfo.DrawDataCache.Add(new DrawData(tex1, roundedPos - Main.screenPosition, null, color, 0, tex1.Size() / 2, 1.2f, SpriteEffects.None, 0));
             drawInfo.DrawDataCache.Add(new DrawData(tex2, roundedPos - Main.screenPosition, null, color * 0.8f, 0, tex2.Size() / 2, 1.2f, SpriteEffects.None, 0));
+        }
+    }
+
+    //fossil protea drawing
+    public class FossilProteaShellDrawBack : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.WebbedDebuffBack);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return drawInfo.drawPlayer.GetModPlayer<BloomBuffsPlayer>().FossilProtea;
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            if (drawInfo.drawPlayer.dead)
+            {
+                return;
+            }
+
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/FossilProteaShieldBack").Value;
+            Color color = Lighting.GetColor((int)drawInfo.drawPlayer.MountedCenter.X / 16, (int)(drawInfo.drawPlayer.MountedCenter.Y / 16f));
+
+            Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y + 2, MidpointRounding.ToNegativeInfinity));
+
+            drawInfo.DrawDataCache.Add(new DrawData(tex, roundedPos - Main.screenPosition, null, color, 0, tex.Size() / 2, 1f, SpriteEffects.None, 0));
+        }
+    }
+    public class FossilProteaShellDrawFront : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.FinchNest);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+        {
+            return drawInfo.drawPlayer.GetModPlayer<BloomBuffsPlayer>().FossilProtea;
+        }
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            if (drawInfo.drawPlayer.dead)
+            {
+                return;
+            }
+
+			Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/FossilProteaShieldFront").Value;
+			Color color = Lighting.GetColor((int)drawInfo.drawPlayer.MountedCenter.X / 16, (int)(drawInfo.drawPlayer.MountedCenter.Y / 16f));
+
+            Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y + 2, MidpointRounding.ToNegativeInfinity));
+
+            drawInfo.DrawDataCache.Add(new DrawData(tex, roundedPos - Main.screenPosition, null, color, 0, tex.Size() / 2, 1f, SpriteEffects.None, 0));
         }
     }
 
@@ -343,7 +395,7 @@ namespace Spooky.Core
             float pulse = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
 
             Vector2 roundedPos = new Vector2(MathF.Round(drawInfo.drawPlayer.MountedCenter.X, MidpointRounding.ToNegativeInfinity),
-            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 45, MidpointRounding.AwayFromZero));
+            MathF.Round(drawInfo.drawPlayer.MountedCenter.Y - 45, MidpointRounding.ToNegativeInfinity));
 
             if (drawInfo.drawPlayer.GetModPlayer<SpookyPlayer>().SpiderGrottoCompass)
             {

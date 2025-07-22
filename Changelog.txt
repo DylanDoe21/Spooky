@@ -80,7 +80,7 @@ Other Random Additions:
 -Added new surface background sprites for the spooky forest and swampy cemetery
 -Swampy cemetery now has a new alternate surface background
 -Removed all of the vinyl discs and replaced them with new proper music boxes, the way they are obtained is still the same (Purchased from musicman during a raveyard)
--Added turkey
+-Added turkies and crows that can be tamed with rotten seeds
 
 
 Structure Helper is no longer a dependency: 
@@ -133,8 +133,8 @@ Armors:
 -Buffed spirit horseman armor head minion damage from 35 to 40
 -Buffed living flesh mask and leggings defense from 3 to 4
 -Buffed gore armor defense: Hood - 14 defense, Mask - 10 defense, Body - 15 defense, Legs - 12 defense
--Buffed root armor defense: Head - 3 defense, Body - 4 defense, Legs - 3 defense
--Buffed spi-ops armor defense: Head - 4 defense, Body - 5 defense, Legs - 4 defense
+-Buffed root armor helmet and garments defense from 2 to 3
+-Buffed spi-ops leggings defense from 2 to 3
 -Increased the amount of silver/tungsten bars and spider web blocks needed to craft each piece of the spi-ops armor
 
 Accessory:
@@ -182,7 +182,7 @@ Boss Changes:
 -Orro-boro's segments now have massively improved following/turning, the segments now move more naturally and look much better when orro-boro makes sharp turns
 -All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag debuffs)
 -Big bone health buffed from 72000 to 75000
--Moco's kamikaze mocling projectiles now fly at you horizontally instead of just vertically 
+-Moco's kamikaze mocling projectiles now fly at you horizontally too instead of only vertically 
 
 Enemy Changes:
 -Observing orchids will now only chase you if they have light of sight to you

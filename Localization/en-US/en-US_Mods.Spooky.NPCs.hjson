@@ -296,7 +296,6 @@ TinyGhost2.DisplayName: Tiny Ghost
 TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
-Turkey.DisplayName: Turkey
 Witch.DisplayName: Evil Witch
 ZomboidArmored.DisplayName: Armored Zomboid
 ZomboidClarinet.DisplayName: Zomboid
@@ -404,12 +403,16 @@ BanditWizard.DisplayName: Greeny
 BanditPriest.DisplayName: Blueford
 EyeWizard.DisplayName: Bigger Eye
 EyeWizardBook.DisplayName: Book of Eyes
-EyeWizardMinion.DisplayName: Glass Eye
 FrankenGoblin.DisplayName: Frank the Goblin
 FrankenGoblinHandFront.DisplayName: Frank's Hand
 FrankenGoblinHandBack.DisplayName: Frank's Hand
 FrankenGoblinEye.DisplayName: Monster Eye
 StitchSpider.DisplayName: Stitches
+//krampus workshop
+TeddyBear1.DisplayName: Teddy Bear
+TeddyBear2.DisplayName: Teddy Bear
+TeddyBear3.DisplayName: Teddy Bear
+ToyRobot.DisplayName: Toy Robot
 //tar pits
 Hydroraptor.DisplayName: Hydroraptor
 Tarblimp.DisplayName: Tarblimp
@@ -452,8 +455,18 @@ SkeletonBoomerang.DisplayName: Skeletoid Boomerang
 SkeletonPufferfish.DisplayName: Skeletoid Pufferfish
 SeaMine.DisplayName: Sea Mine
 SeaMineBase.DisplayName: ""
-//krampus workshop
-TeddyBear1.DisplayName: Teddy Bear
-TeddyBear2.DisplayName: Teddy Bear
-TeddyBear3.DisplayName: Teddy Bear
-ToyRobot.DisplayName: Toy Robot
+
+//tameable
+Crow: {
+	DisplayName: Crow
+	State1: Crow is Roaming
+	State2: Crow is Following
+	State3: Crow is Staying
+}
+
+Turkey: {
+	DisplayName: Turkey
+	State1: Turkey is Roaming
+	State2: Turkey is Following
+	State3: Turkey is Staying
+}

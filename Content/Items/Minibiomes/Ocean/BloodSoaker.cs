@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 12;
+			Item.damage = 10;
 			Item.mana = 10;
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;

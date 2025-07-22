@@ -7,7 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 
-using Spooky.Content.NPCs.Minibiomes.TarPits.Projectiles;
+using Spooky.Content.Items.Minibiomes.Desert;
+using Spooky.Content.NPCs.Minibiomes.Desert.Projectiles;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.Pylon;
@@ -24,6 +25,22 @@ namespace Spooky.Core
 		public override void Load()
 		{
 			On_ShimmerTransforms.IsItemTransformLocked += CustomShimmerLockConditions;
+		}
+
+		public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (Main.tile[i, j].TileType == TileID.Stone && Main.rand.NextBool(40) && ItemGlobal.ActiveItem(Main.LocalPlayer).type == ModContent.ItemType<GoldrushPickaxe>())
+			{
+				int[] Items = new int[] { ItemID.CopperOre, ItemID.TinOre, ItemID.IronOre, ItemID.LeadOre, ItemID.SilverOre, ItemID.TungstenOre, ItemID.GoldOre, ItemID.PlatinumOre,
+				ItemID.Amethyst, ItemID.Topaz, ItemID.Sapphire, ItemID.Ruby, ItemID.Amber, ItemID.Diamond };
+
+				int OreDrop = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), Main.rand.Next(Items), 1);
+
+				if (Main.netMode == NetmodeID.MultiplayerClient && OreDrop >= 0)
+				{
+					NetMessage.SendData(MessageID.SyncItem, -1, -1, null, OreDrop, 1f);
+				}
+			}
 		}
 
 		public override bool Slope(int i, int j, int type)

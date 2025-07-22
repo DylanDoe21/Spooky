@@ -785,7 +785,7 @@ namespace Spooky.Content.Generation
                     {
                         if (WorldGen.genRand.NextBool(18) && CanPlaceStructure(X, Y))
                         {
-                            switch (WorldGen.genRand.Next(5))
+                            switch (WorldGen.genRand.Next(4))
                             {
                                 case 0:
                                 {
@@ -806,12 +806,6 @@ namespace Spooky.Content.Generation
                                     break;
                                 }
                                 case 3:
-                                {
-                                    Vector2 structureOrigin = new Vector2(X - 5, Y - 5);
-                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingEyeStalkLong.shstruct", structureOrigin.ToPoint16(), Mod);
-                                    break;
-                                }
-                                case 4:
                                 {
                                     Vector2 structureOrigin = new Vector2(X - 8, Y - 6);
                                     StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyHell/CeilingMouth" + WorldGen.genRand.Next(1, 3) + ".shstruct", structureOrigin.ToPoint16(), Mod);

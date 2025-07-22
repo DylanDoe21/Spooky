@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 
 		public override void SetDefaults() 
 		{
-			Item.defense = 4;
+			Item.defense = 3;
 			Item.width = 28;
 			Item.height = 22;
 			Item.rare = ItemRarityID.Blue;

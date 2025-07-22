@@ -148,26 +148,13 @@ namespace Spooky.Content.NPCs.Quest
 			NPC Parent = Main.npc[(int)NPC.ai[0]];
 			Player player = Main.player[Parent.target];
 
+			bool Phase2 = Parent.life <= (Parent.lifeMax / 2);
+
 			//kill this npc if the parent does not exist
 			if (!Parent.active || Parent.type != ModContent.NPCType<EyeWizard>())
 			{
                 NPC.active = false;
 			}
-
-			/*
-			if (!SpawnedGlassEye && Parent.life <= (Parent.lifeMax / 2))
-			{
-				int GlassEye = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<EyeWizardMinion>(), ai0: NPC.whoAmI);
-				if (Main.netMode != NetmodeID.MultiplayerClient)
-				{
-					NetMessage.SendData(MessageID.SyncNPC, number: GlassEye);
-				}
-
-				SpawnedGlassEye = true;
-
-				NPC.netUpdate = true;
-			}
-			*/
 
 			if (Parent.ai[0] == 0)
 			{

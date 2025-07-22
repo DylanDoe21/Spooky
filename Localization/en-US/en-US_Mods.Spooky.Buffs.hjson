@@ -604,3 +604,13 @@ TurkeyMountBuff: {
 	DisplayName: Riding a Turkey
 	Description: Gobble gobble!
 }
+
+Tarred: {
+	DisplayName: Tarred
+	Description: ""
+}
+
+LongisquamaPetBuff: {
+	DisplayName: Longisquama
+	Description: The longisquama follows you
+}

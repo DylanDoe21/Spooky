@@ -147,7 +147,6 @@ TinyGhost2: Small nefarious apparitions that wander around and harass homeowners
 TinyGhostBoof: A more fancy and well mannered ghost who also smokes its little pipe.
 TinyGhostRare: It's a tiny ghost, but these ones are orange. They can be befriended if you can manage to find and catch one!
 TinyMushroom: Who knew that the mushrooms in the spooky forest could move? Well now you do!
-Turkey: Not exactly the smartest birds, they wander about and peck at the ground to find food. They prefer the spooky forest because rotten seeds, their favorite snack, is plentiful there.
 Witch: As it turns out, the stories of evil witches are true. The death of the flesh wall has unleashed powerful spooky magic, allowing these wretched witches to live at night once again, throwing their toxic flasks at everyone.
 ZomboidArmored: The few times zomboids do something that seems smart, it usually comes back to bite them. This one was smart enough to make armor, but not smart enough to use a material that doesn't attract lightning.
 ZomboidClarinet: Zomboids are known to frequently get themselves into very stupid situations. This ones entire body is stuck inside of a giant instrument.
@@ -234,8 +233,9 @@ Tarblimp: Even after finding a Sea Blimp fossil to wear, some tar slimes crave t
 Hydroraptor: These tar slimes have found the skull and claws of a Hydroraptor fossil, using them as armor. They aim to knock intrepid explorers into the deep using their sticky spit.
 TarBlobSmallClub: Some tar slimes are lucky enough to get their hands on a Spasimosaurus tail fossil. They will threaten to smash any terrarian straight into the ground with it!
 TarBlobSmallMouth: Known for their powerful jaws, the Pharaosaurus Regina once dominated the prehistoric ecosystem. Fortunately, the tar slimes have only found small fragments of their jaw fossils, so the original power isn't exactly present.
+TarSlimeSpiked: These tar slimes are more dangerous and angry after being removed from terradactyl fossils they housed themselves in. They have figured out how to shape their bodies into sharp spines they can launch.
 OpalHandDino: Occasionally, fossils will turn to radiant opal instead of dull stone. This specimen guards its territory with its massive, opalescent claws.
-OpalTarDino: A colony of tar slimes have made their home in the disemboweled opalised fossil of a Terradactyl. Beware of falling tar!
+OpalTarDino: A colony of tar slimes have made their home in the disemboweled opalised fossil of a Terradactyl. Beware of falling tar, and the slimes that live in it!
 OpalTarCrawler: Certain dinosaurs, such as the Terraceratops and Terrasaurolophus, held immense Terra energy within their bones, causing their fossils to opalise over time. Having coalesced so much opal, this tar monster has lost its conscience, reverting to primal instinct.
 OpalTarSnail: A tar slime found its forever home in the opalised shell of a Terrammonin. However, Terrammonins typically looked squidlike, so this little fellow better hit the books!
 //vegetable garden
@@ -259,3 +259,6 @@ SkeletonPiranha: Piranhas tend to travel in schools. In some cases, the more cou
 SkeletonPufferfish: Previously equipped with poisonous spines for defense, they are now skeletons filled with holes. Unable to control themselves in the water, they can only uselessly float around.
 SkeletonSpearfish: Their slim and short bodies allow them to propel through the water at fast speeds. Now with their home infected and all wildlife dead, their spear doesn't serve much purpose anymore.
 SkeletonSunfish: An incredibly large and docile creature, the sunfish does not pose a threat to any. Occasionally, they stray far out of their depth, in more ways then one.
+//tameable
+Crow: Friendly birds that fly about the cemetery. They are incredibly defense of those who feed them rotten seeds, their favorite food.
+Turkey: Not exactly the smartest birds, they wander about and peck at the ground to find food. They prefer the spooky forest because rotten seeds, their favorite snack, is plentiful there.
