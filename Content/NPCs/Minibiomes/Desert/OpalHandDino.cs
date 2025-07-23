@@ -2,12 +2,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Collections.Generic;
+
+using Spooky.Content.Items.Minibiomes.Desert;
 
 namespace Spooky.Content.NPCs.Minibiomes.Desert
 {
@@ -219,6 +222,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert
                 NPC.localAI[0] = 0;
             }
         }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DinoArmHook>(), 10));
+		}
 
         public override void HitEffect(NPC.HitInfo hit) 
         {

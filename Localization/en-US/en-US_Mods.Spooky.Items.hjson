@@ -5,7 +5,7 @@ Bonemeal: {
 
 DaylightSavings: {
 	DisplayName: Daylight Savings
-	Tooltip: Idk what this should even do
+	Tooltip: 20% chance for your bloom buffs to continue for 2 extra minutes when they run out
 }
 
 FarmerGlove: {
@@ -1471,6 +1471,11 @@ SharkBoneLegs: {
 		8% increased attack speed
 		Increases fishing power by 4
 		'''
+}
+
+DinoArmHook: {
+	DisplayName: Terrazinosaurus Arm
+	Tooltip: ""
 }
 
 GoldrushPickaxe: {

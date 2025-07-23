@@ -63,7 +63,7 @@ namespace Spooky.Content.Generation
 
 						if (!IsSmallWorld)
 						{
-							BiomeY = WorldGen.genRand.Next((int)Main.worldSurface + (SizeY * 2), (Main.maxTilesY / 2));
+							BiomeY = WorldGen.genRand.Next((int)Main.worldSurface + (SizeY * 4), (Main.maxTilesY / 2));
 						}
 						else
 						{

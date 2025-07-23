@@ -133,7 +133,7 @@ Armors:
 -Buffed spirit horseman armor head minion damage from 35 to 40
 -Buffed living flesh mask and leggings defense from 3 to 4
 -Buffed gore armor defense: Hood - 14 defense, Mask - 10 defense, Body - 15 defense, Legs - 12 defense
--Buffed root armor helmet and garments defense from 2 to 3
+-Buffed root armor mask and garments defense from 2 to 3
 -Buffed spi-ops leggings defense from 2 to 3
 -Increased the amount of silver/tungsten bars and spider web blocks needed to craft each piece of the spi-ops armor
 

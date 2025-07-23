@@ -95,6 +95,7 @@ namespace Spooky.Core
 		public bool Wormy = false;
 		public bool FarmerGlove = false;
 		public bool TheMask = false;
+		public bool DaylightSavings = false;
 
 		//UI default position
 		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 20f * Main.UIScale);
@@ -149,6 +150,7 @@ namespace Spooky.Core
 			Wormy = false;
 			FarmerGlove = false;
 			TheMask = false;
+			DaylightSavings = false;
 		}
 
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
@@ -311,7 +313,14 @@ namespace Spooky.Core
             }
             else
             {
-                BloomBuffSlots[0] = string.Empty;
+				if (DaylightSavings && Main.rand.NextBool(5))
+				{
+					Duration1 = 7200;
+				}
+				else
+				{
+                	BloomBuffSlots[0] = string.Empty;
+				}
             }
 
             if (Duration2 > 0)
@@ -320,7 +329,14 @@ namespace Spooky.Core
             }
             else
             {
-                BloomBuffSlots[1] = string.Empty;
+				if (DaylightSavings && Main.rand.NextBool(5))
+				{
+					Duration2 = 7200;
+				}
+				else
+				{
+                	BloomBuffSlots[1] = string.Empty;
+				}
             }
 
             //automatically set the string to empty if the player doesnt have the additional 3rd slot unlocked
@@ -330,7 +346,14 @@ namespace Spooky.Core
             }
             else
             {
-                BloomBuffSlots[2] = string.Empty;
+                if (DaylightSavings && Main.rand.NextBool(5))
+				{
+					Duration3 = 7200;
+				}
+				else
+				{
+                	BloomBuffSlots[2] = string.Empty;
+				}
             }
 
             //automatically set the string to empty if the player doesnt have the additional 4th slot unlocked
@@ -340,7 +363,14 @@ namespace Spooky.Core
             }
             else
             {
-                BloomBuffSlots[3] = string.Empty;
+                if (DaylightSavings && Main.rand.NextBool(5))
+				{
+					Duration4 = 7200;
+				}
+				else
+				{
+                	BloomBuffSlots[3] = string.Empty;
+				}
             }
 
             //set the duration of each buff slot to 0 if the slot is empty
@@ -784,13 +814,16 @@ namespace Spooky.Core
 			{
 				if (Collision.SolidCollision(Player.BottomLeft, Player.width, 30, true) && !FossilProteaSlammed && Player.velocity.Y >= 10)
 				{
+					SoundEngine.PlaySound(SoundID.NPCDeath43 with { Pitch = -1.2f, Volume = 0.25f }, Player.Center);
+
 					Screenshake.ShakeScreenWithIntensity(Player.Center, 6f, 100f);
 
-					for (int numProjs = 0; numProjs < Player.velocity.Y / 3; numProjs++)
+					for (int numProjs = 0; numProjs < Player.velocity.Y / 2; numProjs++)
 					{
 						Vector2 velocity = new Vector2(0, -Player.velocity.Y / 2.75f).RotatedByRandom(MathHelper.ToRadians(55));
 
-						Projectile.NewProjectile(null, Player.Bottom + new Vector2(Main.rand.Next(-20, 21), 0), velocity, ModContent.ProjectileType<FossilProteaDiamond>(), (int)Player.velocity.Y * 2, 0, Player.whoAmI);
+						Projectile.NewProjectile(null, Player.Bottom + new Vector2(Main.rand.Next(-20, 21), 0), velocity + new Vector2(0, Main.rand.Next(-3, 6)), 
+						ModContent.ProjectileType<FossilProteaDiamond>(), (int)Player.velocity.Y * 2, 0, Player.whoAmI);
 					}
 
 					FossilProteaSlammed = true;
@@ -879,6 +912,7 @@ namespace Spooky.Core
 			//fossil protea gives flat defense increase
 			if (FossilProtea)
 			{
+				Player.noFallDmg = true;
 				Player.statDefense += 5;
 				Player.maxFallSpeed = 22f;
 			}
