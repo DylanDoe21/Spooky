@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -107,6 +108,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			}
 
 			SkeletonFish.FishSwimmingAI(NPC, SavePosition, 220, 60, 7f, 2f, 0.02f, 0.05f);
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FishboneChunk>(), 3));
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 

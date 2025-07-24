@@ -5,11 +5,14 @@ using Terraria.GameContent;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Spooky.Content.Projectiles.Catacomb
 {
-	public class BoneMaskWisp : ModProjectile
+	public class FlowerPotShoeFlower : ModProjectile
 	{
+        public override string Texture => "Spooky/Content/NPCs/Boss/BigBone/Projectiles/BouncingFlower";
+
         private static Asset<Texture2D> AfterImageTexture;
 
         public override void SetStaticDefaults()
@@ -20,8 +23,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetDefaults()
 		{
-			Projectile.width = 24;
-			Projectile.height = 26;
+			Projectile.width = 30;
+			Projectile.height = 30;
 			Projectile.friendly = true;
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 240;
@@ -61,13 +64,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		public override void AI()
 		{
-            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? -1 : 1;
-            Projectile.rotation = Projectile.velocity.ToRotation();
-
-            if (Projectile.spriteDirection == 1)
-            {
-                Projectile.rotation += MathHelper.Pi;
-            }
+            Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
             int foundTarget = HomeOnTarget();
             if (foundTarget != -1)

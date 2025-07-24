@@ -11,6 +11,7 @@ using System;
 
 using Spooky.Core;
 using Spooky.Content.Items.Food;
+using Spooky.Content.Items.Minibiomes.Ocean;
 
 namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
 {
@@ -118,14 +119,12 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
             //kill the tree if there are no tiles below it
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
-                /*
-                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<LivingFleshItem>());
+                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<FishboneChunk>());
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
                 {
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
                 }
-                */
 
                 WorldGen.KillTile(i, j, false, false, false);
 

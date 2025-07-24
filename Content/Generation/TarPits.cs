@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Minibiomes.Desert;
 using Spooky.Content.Tiles.Minibiomes.Desert.Ambient;
-using static tModPorter.ProgressUpdate;
 
 namespace Spooky.Content.Generation
 {
@@ -63,7 +62,7 @@ namespace Spooky.Content.Generation
 
 						if (!IsSmallWorld)
 						{
-							BiomeY = WorldGen.genRand.Next((int)Main.worldSurface + (SizeY * 4), (Main.maxTilesY / 2));
+							BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2) - (SizeY / 2), (Main.maxTilesY / 2));
 						}
 						else
 						{

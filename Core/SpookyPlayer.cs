@@ -102,7 +102,7 @@ namespace Spooky.Core
         public bool MocoNose = false;
         public bool DaffodilHairpin = false;
         public bool OrroboroEmbyro = false;
-        public bool BoneMask = false;
+        public bool FlowerPotShoe = false;
 
         //pets
         public bool ColumboPet = false;
@@ -291,7 +291,7 @@ namespace Spooky.Core
             MocoNose = false;
             DaffodilHairpin = false;
             OrroboroEmbyro = false;
-            BoneMask = false;
+            FlowerPotShoe = false;
 
             //pets
             ColumboPet = false;
@@ -990,7 +990,7 @@ namespace Spooky.Core
             }
 
 			//shoot skulls with big bones expert item
-            if (BoneMask)
+            if (FlowerPotShoe)
             {
                 //do not shoot skulls under 20mph (basically if you are not moving fast enough)
                 if (PlayerSpeedToMPH(Player) >= 20)
@@ -1008,7 +1008,7 @@ namespace Spooky.Core
                         int damage = 80 + ((int)PlayerSpeedToMPH(Player) / 3);
 
                         Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
-                        ModContent.ProjectileType<BoneMaskWisp>(), damage, 0f, Main.myPlayer);
+                        ModContent.ProjectileType<FlowerPotShoeFlower>(), damage, 0f, Main.myPlayer);
 
                         BoneWispTimer = 0;
                     }
@@ -1218,7 +1218,7 @@ namespace Spooky.Core
 				Player.runAcceleration += 0.025f;
 			}
 
-			if (BoneMask)
+			if (FlowerPotShoe)
 			{
 				Player.maxRunSpeed += 7f;
 				Player.runAcceleration += 0.075f;

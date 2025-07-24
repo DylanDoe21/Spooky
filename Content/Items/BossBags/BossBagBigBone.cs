@@ -60,7 +60,7 @@ namespace Spooky.Content.Items.BossBags
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<FlowerPotHead>(), 15));
 
             //expert item
-            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<BoneMask>(), 1));
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<FlowerPotShoe>(), 1));
 
 			//money
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<BigBone>()));

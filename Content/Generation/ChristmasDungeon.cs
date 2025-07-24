@@ -251,35 +251,33 @@ namespace Spooky.Content.Generation
 
 		public void PlaceKrampusRoom(int PositionX, int PositionY, int Width, int Height)
 		{
-			//place the rest of the room so that it doesnt fill in air
-			for (int i = PositionX - (Width / 2) - 8; i <= PositionX + (Width / 2) + 9; i++)
+			//places the floor without any tile check so that krampus always has a solid floor he can spawn on
+			for (int i = PositionX - (Width / 2) - 8; i <= PositionX + (Width / 2) + 8; i++)
 			{
-				for (int j = PositionY - (Height / 2) - 8; j <= PositionY + (Height / 2) + 8; j++)
+				for (int j = PositionY + (Height / 2) + 1; j <= PositionY + (Height / 2) + 8; j++)
 				{
-					//place ceiling and floor always
-					if (j < PositionY - (Height / 2) - 1 || j > PositionY + (Height / 2) + 1)
+					Main.tile[i, j].ClearEverything();
+					WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
+					WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
+				}
+			}
+
+			//place the rest of the room so that it doesnt fill in air
+			for (int i = PositionX - (Width / 2) - 8; i <= PositionX + (Width / 2) + 8; i++)
+			{
+				for (int j = PositionY - (Height / 2) - 8; j <= PositionY + (Height / 2); j++)
+				{
+					if (Main.tile[i, j].TileType != ModContent.TileType<ChristmasBrickRed>() && Main.tile[i, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
 						Main.tile[i, j].ClearEverything();
 						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
 						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
 					}
-					/*
-					//dont place vertical walls so krampus room has some openings to it
-					else
-					{
-						if (Main.tile[i, j].TileType == ModContent.TileType<ChristmasBrickRed>() && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>())
-						{
-							Main.tile[i, j].ClearEverything();
-							WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
-							WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
-						}
-					}
-					*/
 				}
 			}
 
 			//dig out smaller box inside the main one
-			for (int i = PositionX - (Width / 2); i <= PositionX + (Width / 2) + 1; i++)
+			for (int i = PositionX - (Width / 2); i <= PositionX + (Width / 2); i++)
 			{
 				for (int j = PositionY - (Height / 2); j <= PositionY + (Height / 2); j++)
 				{

@@ -402,16 +402,6 @@ WinterStrawberry: {
 		'''
 }
 
-BoneMask: {
-	DisplayName: Ancient Skull Mask
-	Tooltip:
-		'''
-		Increases your maximum movement speed and movement acceleration
-		Fire off homing skull wisps while you are flying or running
-		The rate wisps are fired and their damage scales with your current speed
-		'''
-}
-
 DaffodilHairpin: {
 	DisplayName: Flower Hairpin
 	Tooltip:
@@ -419,6 +409,17 @@ DaffodilHairpin: {
 		Constantly generate flower petals that orbit around you, up to 6 total
 		Taking damage will cause all existing petals home in on nearby enemies
 		The petals will deal damage equal to how much damage you took with a minimum of 40
+		'''
+}
+
+FlowerPotShoe: {
+	DisplayName: Flower Boot
+	Tooltip:
+		'''
+		Increases your maximum movement speed and movement acceleration
+		Fire off homing flowers while you are flying or running
+		The rate flowers are fired and their damage scales with your current speed
+		'It couldn't have just walked away'
 		'''
 }
 
@@ -1619,6 +1620,11 @@ DunkleosteusCannon: {
 DunkleosteusHide: {
 	DisplayName: Rotten Hide
 	Tooltip: A strudy chunk of big dunk's flesh
+}
+
+FishboneChunk: {
+	DisplayName: Fishbone Chunk
+	Tooltip: ""
 }
 
 MineDynamite: {

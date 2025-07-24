@@ -24,7 +24,6 @@ SalivaBall.DisplayName: Toxic Spit
 TumorOrb.DisplayName: Flesh Chunk
 BigBoneHammerProj.DisplayName: Skull Smasher
 BigBoneHammerProj2.DisplayName: Skull Smasher
-BoneMaskWisp.DisplayName: Skull Wisp
 BowFlower.DisplayName: Razor Rose
 BowFlowerThorn.DisplayName: Thorn Vine
 BowThornFlower.DisplayName: Thorn Flower
@@ -560,3 +559,4 @@ TarTomeBlob.DisplayName: Tar Blob
 TarTomeFeather.DisplayName: Feather
 LongisquamaPet.DisplayName: Longisquama
 DinoArmHookProj.DisplayName: Terrazinosaurus Hand
+FlowerPotShoeFlower.DisplayName: Flower

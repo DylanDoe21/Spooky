@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spooky.Content.Items.Minibiomes.Vegetable
+namespace Spooky.Content.Items.Minibiomes.Ocean
 {
     public class FishboneChunk : ModItem
     {
