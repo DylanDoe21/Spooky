@@ -173,7 +173,9 @@ namespace Spooky.Content.Projectiles.Sentient
 			player.heldProj = Projectile.whoAmI;
 
 			if (Projectile.owner != Main.myPlayer)
+			{
 				return;
+			}
 
 			if (!initialized)
 			{

@@ -78,14 +78,14 @@ namespace Spooky.Content.Projectiles.Sentient
             //explosion
             int Multiplier = Projectile.ai[0] == 0 ? 1 : 2;
 
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EyeMineExplosion>(), Projectile.damage * Multiplier, 0f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<EyeMineExplosion>(), Projectile.damage * Multiplier, 0f, Projectile.owner);
 
             //spawn blood splatter
             for (int i = 0; i < 3; i++)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-7, 8), Main.rand.Next(-7, 8), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-7, 8), Main.rand.Next(-7, 8), ModContent.ProjectileType<RedSplatter>(), 0, 0, Projectile.owner);
                 }
             }
         }

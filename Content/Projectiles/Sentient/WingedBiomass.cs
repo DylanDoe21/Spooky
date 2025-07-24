@@ -210,7 +210,8 @@ namespace Spooky.Content.Projectiles.Sentient
                 ShootSpeed.Normalize();
                 ShootSpeed *= 35f;
 
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), ShootSpeed, ModContent.ProjectileType<WingedBiomassEye>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, target.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y), ShootSpeed, 
+                ModContent.ProjectileType<WingedBiomassEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner, target.whoAmI);
 
 				EyeScale = 0f;
 
@@ -238,7 +239,8 @@ namespace Spooky.Content.Projectiles.Sentient
 
             if (Projectile.ai[2] >= 615)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WingedBiomassFalling>(), Projectile.damage * 5, Projectile.knockBack, Main.myPlayer, target.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
+                ModContent.ProjectileType<WingedBiomassFalling>(), Projectile.damage * 5, Projectile.knockBack, Projectile.owner, target.whoAmI);
                 
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {

@@ -132,7 +132,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                 Screenshake.ShakeScreenWithIntensity(target.Center, 3f, 150f);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<GraveDiggerShovelBonk>(), 0, 0f, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<GraveDiggerShovelBonk>(), 0, 0f, Projectile.owner);
             }
         }
 
@@ -147,7 +147,9 @@ namespace Spooky.Content.Projectiles.Cemetery
 			player.heldProj = Projectile.whoAmI;
 
 			if (Projectile.owner != Main.myPlayer)
+			{
 				return;
+			}
 
 			if (!initialized)
 			{

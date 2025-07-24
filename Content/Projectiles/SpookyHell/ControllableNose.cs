@@ -107,7 +107,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         ShootSpeed.Normalize();
                         ShootSpeed *= 25;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, 
+                        ModContent.ProjectileType<ControllableNoseBooger>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
 
                     Projectile.ai[2] = 0;

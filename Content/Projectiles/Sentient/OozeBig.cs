@@ -88,7 +88,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 ShootSpeed.Normalize();
                 ShootSpeed *= -20f;
 
-                Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition, ShootSpeed, ModContent.ProjectileType<OozeSmall>(), Projectile.damage / 2, 0, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition, ShootSpeed, ModContent.ProjectileType<OozeSmall>(), Projectile.damage / 2, 0, Projectile.owner);
             }
 
             for (int numDusts = 0; numDusts < 25; numDusts++)

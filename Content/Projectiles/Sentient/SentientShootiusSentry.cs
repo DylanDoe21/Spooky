@@ -176,8 +176,8 @@ namespace Spooky.Content.Projectiles.Sentient
 				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
 				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
 
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + 7, Projectile.Center.Y - 21,
-				perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SentientShootiusBolt>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + 7, Projectile.Center.Y - 21,
+				perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SentientShootiusBolt>(), Projectile.damage, 0f, Projectile.owner);
             }
 
             if (Projectile.ai[0] >= 80)

@@ -90,7 +90,8 @@ namespace Spooky.Content.Projectiles.Blooms
 								ShootSpeed.Normalize();
 								ShootSpeed *= -5f;
 
-								Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition, ShootSpeed, ModContent.ProjectileType<RomanescoLeaf>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+								Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition, ShootSpeed, 
+								ModContent.ProjectileType<RomanescoLeaf>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 							}
 
 							for (int numDust = 0; numDust < 10; numDust++)

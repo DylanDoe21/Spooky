@@ -251,9 +251,9 @@ namespace Spooky.Content.Projectiles.Sentient
                 Vector2 ShootSpeed = target.Center - Projectile.Center;
                 ShootSpeed.Normalize();
                 ShootSpeed *= 25f;
-                        
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<GrugFireball>(), Projectile.damage / 2, 2f, Main.myPlayer, 0f, 0f);
+
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 
+                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<GrugFireball>(), Projectile.damage / 2, 2f, Projectile.owner);
             }
 
             //go to the side of the target to prepare for dashing

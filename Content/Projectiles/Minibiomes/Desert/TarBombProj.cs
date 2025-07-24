@@ -60,7 +60,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
                 ShootSpeed.Normalize();
                 ShootSpeed *= 2f;
 
-                Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition, ShootSpeed - new Vector2(0, 5), ModContent.ProjectileType<TarBombBlob>(), Projectile.damage / 2, 0, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), ProjectilePosition, ShootSpeed - new Vector2(0, 5), ModContent.ProjectileType<TarBombBlob>(), Projectile.damage / 2, 0, Projectile.owner);
             }
 
 			float maxAmount = 30;

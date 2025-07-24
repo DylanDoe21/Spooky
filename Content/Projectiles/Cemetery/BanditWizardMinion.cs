@@ -211,7 +211,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                     position += muzzleOffset;
                 }
                         
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, ShootSpeed, ModContent.ProjectileType<BanditWizardMinionBall>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, ShootSpeed, ModContent.ProjectileType<BanditWizardMinionBall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
 
             //loop ai

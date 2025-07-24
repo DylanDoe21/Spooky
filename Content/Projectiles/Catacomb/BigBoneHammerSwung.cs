@@ -227,7 +227,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     ShootSpeed *= 55;
                             
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage, 12f, Projectile.owner);
                 }
 
                 Projectile.Kill();

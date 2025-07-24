@@ -185,7 +185,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                     stretchRecoil = 0.5f;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BanditPriestMinionBuffer>(), 0, 0f, player.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BanditPriestMinionBuffer>(), 0, 0f, Projectile.owner);
                 }
             }
 

@@ -101,7 +101,7 @@ namespace Spooky.Content.Projectiles.Blooms
             {
                 if (var != string.Empty)
                 {
-                    AdditionalDamage += 15;
+                    AdditionalDamage += 10;
                     ShouldScaleDamage = true;
                 }
             }
@@ -122,6 +122,7 @@ namespace Spooky.Content.Projectiles.Blooms
 			if (Projectile.Distance(player.Center) >= 2000f)
 			{
 				Projectile.Center = player.Center;
+                Projectile.netUpdate = true;
 			}
 
 			for (int i = 0; i < Main.maxNPCs; i++)

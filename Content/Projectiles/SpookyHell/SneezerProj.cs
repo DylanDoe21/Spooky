@@ -102,7 +102,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y) + muzzleOffset, ShootSpeed * Multiplier, Type, Projectile.damage * Multiplier, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y) + muzzleOffset, 
+                        ShootSpeed * Multiplier, Type, Projectile.damage * Multiplier, Projectile.knockBack, Projectile.owner);
                     }
                     
                     if (Projectile.localAI[1] >= 9)

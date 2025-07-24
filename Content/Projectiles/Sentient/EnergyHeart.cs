@@ -113,7 +113,8 @@ namespace Spooky.Content.Projectiles.Sentient
                                     ShootSpeed.Normalize();
                                     ShootSpeed *= 15f;
 
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<EnergyHeartBolt>(), Projectile.damage, 0, player.whoAmI, ShootSpeed.ToRotation());
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, 
+                                    ModContent.ProjectileType<EnergyHeartBolt>(), Projectile.damage, 0, Projectile.owner, ShootSpeed.ToRotation());
 
                                     NumNPCsTargetted++;
                                 }

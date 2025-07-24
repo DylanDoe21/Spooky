@@ -184,6 +184,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
             {
                 Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 7;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+
+                Projectile.netUpdate = true;
             }
             if (distanceFromOwner < 200f)
             {
@@ -262,6 +264,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
             if (Projectile.ai[2] >= 60)
             {
                 Projectile.ai[2] = 0;
+                Projectile.netUpdate = true;
             }
         }
     }

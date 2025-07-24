@@ -151,7 +151,7 @@ namespace Spooky.Content.Projectiles.Cemetery
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center.X, target.Center.Y, 
-                    Main.rand.Next(-2, 2), Main.rand.Next(-10, -6), ModContent.ProjectileType<SpookySkull>(), Projectile.damage / 2, 0, Main.myPlayer);
+                    Main.rand.Next(-2, 2), Main.rand.Next(-10, -6), ModContent.ProjectileType<SpookySkull>(), Projectile.damage / 2, 0, Projectile.owner);
                 }
             }
         }

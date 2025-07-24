@@ -75,6 +75,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Projectile.ai[0] = Projectile.position.Y;
                 Projectile.localAI[0]++;
+
+                Projectile.netUpdate = true;
             }
 
             Projectile.ai[1]++;

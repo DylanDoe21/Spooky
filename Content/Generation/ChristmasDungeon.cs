@@ -257,12 +257,12 @@ namespace Spooky.Content.Generation
 				for (int j = PositionY - (Height / 2) - 8; j <= PositionY + (Height / 2) + 8; j++)
 				{
 					//place ceiling and floor always
-					//if (j < PositionY - (Height / 2) || j > PositionY + (Height / 2))
-					//{
+					if (j < PositionY - (Height / 2) - 1 || j > PositionY + (Height / 2) + 1)
+					{
 						Main.tile[i, j].ClearEverything();
 						WorldGen.PlaceTile(i, j, ModContent.TileType<ChristmasBrickRed>());
 						WorldGen.PlaceWall(i, j, ModContent.WallType<ChristmasBrickRedWall>());
-					//}
+					}
 					/*
 					//dont place vertical walls so krampus room has some openings to it
 					else

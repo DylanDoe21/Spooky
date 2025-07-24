@@ -226,7 +226,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 				ShootSpeed.Normalize();
 				ShootSpeed *= 25f;
 						
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<TortumorMinionOrb>(), Projectile.damage, 1f, Main.myPlayer, Main.rand.Next(0, 2));
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ShootSpeed, 
+				ModContent.ProjectileType<TortumorMinionOrb>(), Projectile.damage, 1f, Projectile.owner, Main.rand.Next(0, 2));
 			}
 
 			if (Projectile.ai[0] >= 80)

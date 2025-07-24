@@ -762,7 +762,7 @@ namespace Spooky.Core
 
 							Player.AddBuff(ModContent.BuffType<SeaSpongeBuff>(), 600);
 
-							Projectile.NewProjectile(null, Proj.Center, Vector2.Zero, ModContent.ProjectileType<SeaSpongeProj>(), 0, 0);
+							Projectile.NewProjectile(null, Proj.Center, Vector2.Zero, ModContent.ProjectileType<SeaSpongeProj>(), 0, 0, Player.whoAmI);
 
 							Proj.Kill();
 						}

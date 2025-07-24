@@ -218,7 +218,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 					ShootSpeed.Normalize();
 					ShootSpeed *= 45;
 
-					Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Main.myPlayer, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<FemurFractureProj>(), Projectile.damage, 12f, Projectile.owner);
 				}
 
 				Projectile.Kill();

@@ -151,14 +151,14 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
             if (Projectile.localAI[0] >= 3600)
             {
-                for (int k = 0; k < Main.projectile.Length; k++)
-                {
-                    if (Main.projectile[k].active && Main.projectile[k].minion && Main.projectile[k].type != ModContent.ProjectileType<Brainy>()) 
+                foreach (var Proj in Main.ActiveProjectiles)
+				{
+                    if (Proj.minion && Proj.owner == Projectile.owner && Proj.type != ModContent.ProjectileType<Brainy>()) 
                     {
-                        SoundEngine.PlaySound(SoundID.Item96, Main.projectile[k].Center);
+                        SoundEngine.PlaySound(SoundID.Item96, Proj.Center);
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Main.projectile[k].Center.X, Main.projectile[k].Center.Y, 
-                        0, 0, ModContent.ProjectileType<BrainyExplosion>(), Projectile.damage + (Main.projectile[k].damage), 0f, Main.myPlayer, 0, 0);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Proj.Center, Vector2.Zero, 
+                        ModContent.ProjectileType<BrainyExplosion>(), Projectile.damage + Proj.damage, 0f, Projectile.owner);
 
                         Main.projectile[k].Kill();
                     }
@@ -186,14 +186,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Vector2 direction = player.Center - center;
             Projectile.ai[1] = 3600f;
             Projectile.netUpdate = true;
-            int num = 1;
-            for (int k = 0; k < Projectile.whoAmI; k++)
-            {
-                if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
-                {
-                    num++;
-                }
-            }
             
             direction.Y -= 70f;
             float distanceTo = direction.Length();

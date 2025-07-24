@@ -177,7 +177,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 ShootSpeed *= 20f;
                         
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<NoseMinionBooger>(), Projectile.damage, 2f, Main.myPlayer, 0f, 0f);
+                ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<NoseMinionBooger>(), Projectile.damage, 2f, Projectile.owner);
 			}
 
 			if (Projectile.localAI[0] >= 90)

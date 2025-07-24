@@ -75,7 +75,8 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 if (Projectile.timeLeft == 60)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BillyPhantom>(), Projectile.damage, Projectile.knockBack, Main.player[Projectile.owner].whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
+                    ModContent.ProjectileType<BillyPhantom>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
             else

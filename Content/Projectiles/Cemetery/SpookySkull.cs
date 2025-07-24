@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.Cemetery
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - 25, 0, 0, 
-                ModContent.ProjectileType<SpookyExplosion>(), Projectile.damage, 0, Main.myPlayer, 0, 0);
+                ModContent.ProjectileType<SpookyExplosion>(), Projectile.damage, 0, Projectile.owner);
             }
         }
     }

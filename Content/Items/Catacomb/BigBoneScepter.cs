@@ -77,11 +77,11 @@ namespace Spooky.Content.Items.Catacomb
 		{
 			if (player.altFunctionUse == 2)
 			{
-				for (int k = 0; k < Main.projectile.Length; k++)
+				foreach (var Proj in Main.ActiveProjectiles)
 				{
-					if (Main.projectile[k].active && Main.projectile[k].type == ModContent.ProjectileType<SkullTotem>()) 
-					{
-						Main.projectile[k].Kill();
+                    if (Proj.owner == player.whoAmI && Proj.type == ModContent.ProjectileType<SkullTotem>()) 
+                    {
+						Proj.Kill();
 					}
 				}
 

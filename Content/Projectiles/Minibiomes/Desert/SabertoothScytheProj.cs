@@ -154,7 +154,9 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			player.heldProj = Projectile.whoAmI;
 
 			if (Projectile.owner != Main.myPlayer)
+			{
 				return;
+			}
 
 			if (!initialized)
 			{
@@ -187,7 +189,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 					Vector2 Offset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 45f;
 
 					Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center + Offset, ShootSpeed, 
-					ModContent.ProjectileType<SabertoothScytheFlung>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+					ModContent.ProjectileType<SabertoothScytheFlung>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 				}
 
 				LaunchedBlade = true;

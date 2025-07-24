@@ -190,7 +190,7 @@ namespace Spooky.Content.Projectiles.Sentient
                     SoundEngine.PlaySound(SoundID.DD2_SonicBoomBladeSlash, Projectile.Center);
                             
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(-2f, 2f), 
-                    ModContent.ProjectileType<BillyFeather>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                    ModContent.ProjectileType<BillyFeather>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
 
@@ -269,7 +269,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 SoundEngine.PlaySound(SoundID.DD2_WitherBeastAuraPulse with { Volume = 10f }, Projectile.Center);
                         
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + Main.rand.Next(-200, 200), Projectile.Center.Y + Main.rand.Next(-200, 200)), 
-                Vector2.Zero, ModContent.ProjectileType<BillyPhantomPortal>(), Projectile.damage / 2, Projectile.knockBack, Main.player[Projectile.owner].whoAmI);
+                Vector2.Zero, ModContent.ProjectileType<BillyPhantomPortal>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             }
 
             //loop ai

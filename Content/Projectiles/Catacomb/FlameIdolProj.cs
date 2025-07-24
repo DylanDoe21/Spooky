@@ -101,7 +101,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                     SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, player.MountedCenter);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<FlameIdolRing>(), Projectile.damage, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.MountedCenter, Vector2.Zero, ModContent.ProjectileType<FlameIdolRing>(), Projectile.damage, 0f, Projectile.owner);
 
                     Projectile.localAI[0] = 0;
                 }

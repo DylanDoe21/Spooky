@@ -150,7 +150,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                                 {
                                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset) + muzzleOffset,
                                     16f * Projectile.DirectionTo(Main.MouseWorld).RotatedBy(MathHelper.ToRadians(6) * numProjectiles), 
-                                    ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Main.myPlayer);
+                                    ModContent.ProjectileType<BlasterBoogerSmall>(), Projectile.damage, 0f, Projectile.owner);
                                 }
 
                                 break;

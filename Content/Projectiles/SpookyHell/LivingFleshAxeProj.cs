@@ -153,7 +153,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-15, -10), 
-                        ModContent.ProjectileType<LivingFleshAxeEye>(), Projectile.damage, 2f, player.whoAmI);
+                        ModContent.ProjectileType<LivingFleshAxeEye>(), Projectile.damage, 2f, Projectile.owner);
                     }
                 }
             }

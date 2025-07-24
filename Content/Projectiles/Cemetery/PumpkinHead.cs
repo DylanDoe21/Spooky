@@ -152,7 +152,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
 
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y,
-				perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<PumpkinHeadBolt>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+				perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<PumpkinHeadBolt>(), Projectile.damage, 0f, Projectile.owner);
 			}
 
             if (Projectile.ai[2] >= 100)
