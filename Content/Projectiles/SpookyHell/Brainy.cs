@@ -160,7 +160,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Proj.Center, Vector2.Zero, 
                         ModContent.ProjectileType<BrainyExplosion>(), Projectile.damage + Proj.damage, 0f, Projectile.owner);
 
-                        Main.projectile[k].Kill();
+                        Proj.Kill();
                     }
                 }
 
