@@ -58,7 +58,10 @@ namespace Spooky.Content.Generation
 			ModContent.TileType<ChristmasPiano>(),
 			ModContent.TileType<ChristmasClock>(),
 			ModContent.TileType<ChristmasBathtub>(),
-			ModContent.TileType<ChristmasSink>()
+			ModContent.TileType<ChristmasSink>(),
+			ModContent.TileType<KrampusGiantWorkBench>(),
+			ModContent.TileType<KrampusSawStation>(),
+			ModContent.TileType<KrampusDrillStation>()
 		};
 
 		public static Vector2[] RoomChestList = new Vector2[] {};
@@ -834,7 +837,7 @@ namespace Spooky.Content.Generation
 					//tables and chairs with candles/candelabras on them
 					if (WorldGen.genRand.NextBool(3) && CanPlaceFurniture(i, j, 12))
 					{
-						switch (WorldGen.genRand.Next(5))
+						switch (WorldGen.genRand.Next(6))
 						{
 							//two tables with chairs and sometimes candles/candelabras on the tables
 							case 0:
@@ -902,16 +905,40 @@ namespace Spooky.Content.Generation
 							//bathtub and sink
 							case 4:
 							{
+								WorldGen.PlaceObject(i - 3, j - 1, ModContent.TileType<ChristmasTable>());
+								WorldGen.PlaceObject(i, j - 1, ModContent.TileType<ChristmasClock>());
+								WorldGen.PlaceObject(i + 4, j - 1, ModContent.TileType<ChristmasTable>());
+								break;
+							}
+							case 5:
+							{
 								WorldGen.PlaceObject(i + 1, j - 1, ModContent.TileType<ChristmasBathtub>());
 								WorldGen.PlaceObject(i - 1, j - 1, ModContent.TileType<ChristmasSink>());
 								break;
 							}
-							/*
-							case 5:
+						}
+					}
+
+					//random krampus contraptions
+					if (WorldGen.genRand.NextBool(20) && CanPlaceFurniture(i, j, 3))
+					{
+						switch (WorldGen.genRand.Next(3))
+						{
+							case 0:
 							{
+								WorldGen.PlaceObject(i, j - 1, ModContent.TileType<KrampusGiantWorkBench>());
 								break;
 							}
-							*/
+							case 1:
+							{
+								WorldGen.PlaceObject(i, j - 1, ModContent.TileType<KrampusDrillStation>());
+								break;
+							}
+							case 2:
+							{
+								WorldGen.PlaceObject(i, j - 1, ModContent.TileType<KrampusSawStation>());
+								break;
+							}
 						}
 					}
 
