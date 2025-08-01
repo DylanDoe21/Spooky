@@ -179,7 +179,8 @@ FossilMagnolia: {
 	DisplayName: Sturdy Magnolia
 	Tooltip:
 		'''
-		Grants damage reduction that increases the lower your health is
+		Grants damage reduction when you are below maximum health
+		The damage reduction increases the lower your health is
 		3 minute duration
 		'''
 }
@@ -3578,8 +3579,18 @@ CemeteryStoneItem: {
 	Tooltip: ""
 }
 
+ChristmasBathtubItem: {
+	DisplayName: Yuletide Wood Bathtub
+	Tooltip: ""
+}
+
 ChristmasBedItem: {
 	DisplayName: Yuletide Wood Bed
+	Tooltip: ""
+}
+
+ChristmasBookcaseItem: {
+	DisplayName: Yuletide Wood Bookcase
 	Tooltip: ""
 }
 
@@ -3613,6 +3624,11 @@ ChristmasChestItem: {
 	Tooltip: ""
 }
 
+ChristmasClockItem: {
+	DisplayName: Yuletide Wood Grandfather Clock
+	Tooltip: ""
+}
+
 ChristmasDoorItem: {
 	DisplayName: Yuletide Wood Door
 	Tooltip: ""
@@ -3630,6 +3646,21 @@ ChristmasLampItem: {
 
 ChristmasLanternItem: {
 	DisplayName: Yuletide Ice Lantern
+	Tooltip: ""
+}
+
+ChristmasPianoItem: {
+	DisplayName: Yuletide Keyboard
+	Tooltip: ""
+}
+
+ChristmasPlatformItem: {
+	DisplayName: Yuletide Wood Platform
+	Tooltip: ""
+}
+
+ChristmasSinkItem: {
+	DisplayName: Yuletide Wood Sink
 	Tooltip: ""
 }
 
@@ -4366,6 +4397,61 @@ IconPainting5Item: {
 LittleEyePaintingItem: {
 	DisplayName: Little Eye's Self Portrait
 	Tooltip: "'Waasephi'"
+}
+
+XmasAbstractPainting1Item: {
+	DisplayName: S
+	Tooltip: "'Krampus'"
+}
+
+XmasAbstractPainting2Item: {
+	DisplayName: A
+	Tooltip: "'Krampus'"
+}
+
+XmasAbstractPainting3Item: {
+	DisplayName: N
+	Tooltip: "'Krampus'"
+}
+
+XmasAbstractPainting4Item: {
+	DisplayName: Ta
+	Tooltip: "'Krampus'"
+}
+
+XmasForestPaintingItem: {
+	DisplayName: The Tallest One
+	Tooltip: "'Taco'"
+}
+
+XmasNorthStarPaintingItem: {
+	DisplayName: The North Star
+	Tooltip: "'Joseph'"
+}
+
+XmasSnowPillarPaintingItem: {
+	DisplayName: Frozen Wasteland
+	Tooltip: "'Kekroc'"
+}
+
+XmasSnowTownPaintingItem: {
+	DisplayName: Cozy Winter Night
+	Tooltip: "'Holems.S'"
+}
+
+XmasSpiritPaintingItem: {
+	DisplayName: Christmas Spirit
+	Tooltip: "'Taco'"
+}
+
+XmasTiltedHousePaintingItem: {
+	DisplayName: The Bucket's House
+	Tooltip: "'W.W'"
+}
+
+XmasTrainPaintingItem: {
+	DisplayName: Polar Express
+	Tooltip: "'Taco'"
 }
 
 CemeteryPylonItem: {

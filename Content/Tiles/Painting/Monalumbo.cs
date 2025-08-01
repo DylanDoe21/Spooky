@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.Painting
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
             TileObjectData.newTile.Width = 2;
             TileObjectData.newTile.Height = 3;
-            TileObjectData.newTile.Origin = new Point16(0, 2);
+            TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(90, 50, 30), Language.GetText("MapObject.Painting"));

@@ -33,5 +33,13 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 3;
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FishboneChunk>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

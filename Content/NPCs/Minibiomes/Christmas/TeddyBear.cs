@@ -19,18 +19,18 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 60;
-            NPC.damage = 30;
+            NPC.lifeMax = 50;
+            NPC.damage = 25;
             NPC.defense = 0;
             NPC.width = 24;
 			NPC.height = 36;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
+            NPC.noGravity = false;
+			NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit15;
 			NPC.DeathSound = SoundID.NPCDeath15;
-            NPC.aiStyle = 3;
-            AIType = NPCID.DesertGhoul;
+            NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().Type };
         }
 
@@ -46,7 +46,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 		public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
-            if (NPC.frameCounter > 5)
+            if (NPC.frameCounter > 8 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0;
@@ -69,9 +69,104 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         
         public override void AI()
 		{
+            NPC Parent = Main.npc[(int)NPC.ai[0]];
             Player player = Main.player[NPC.target];
+ 
+            //follow the parent snow teddy bear
+            if (Parent.type == ModContent.NPCType<TeddyBearSnow>() && Parent.life == Parent.lifeMax)
+            {
+                NPC.spriteDirection = NPC.direction = NPC.velocity.X <= 0 ? -1 : 1;
 
-            NPC.spriteDirection = NPC.direction;
+                //prevents the pet from getting stuck on sloped tiled
+                Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
+
+                Vector2 center2 = NPC.Center;
+                Vector2 vector48 = Parent.Center - center2;
+                float ParentDistance = vector48.Length();
+
+                if (NPC.velocity.Y == 0 && (((HoleBelow() && ParentDistance > 100f) || (ParentDistance > 100f && NPC.position.X == NPC.oldPosition.X)) || Main.rand.NextBool(350)))
+                {
+                    NPC.velocity.Y = -8f;
+                    NPC.netUpdate = true;
+                }
+
+                NPC.velocity.Y += 0.35f;
+
+                if (NPC.velocity.Y > 15f)
+                {
+                    NPC.velocity.Y = 15f;
+                }
+
+                if (ParentDistance > 55f)
+                {
+                    if (Parent.position.X - NPC.position.X > 0f)
+                    {
+                        NPC.velocity.X += 0.5f;
+                        if (NPC.velocity.X > 6f)
+                        {
+                            NPC.velocity.X = 6f;
+                        }
+                    }
+                    else
+                    {
+                        NPC.velocity.X -= 0.5f;
+                        if (NPC.velocity.X < -6f)
+                        {
+                            NPC.velocity.X = -6f;
+                        }
+                    }
+                }
+                else
+                {
+                    if (NPC.velocity.X >= 0)
+                    {
+                        NPC.velocity.X += 0.5f;
+                        if (NPC.velocity.X > 6f)
+                        {
+                            NPC.velocity.X = 6f;
+                        }
+                    }
+                    else
+                    {
+                        NPC.velocity.X -= 0.5f;
+                        if (NPC.velocity.X < -6f)
+                        {
+                            NPC.velocity.X = -6f;
+                        }
+                    }
+                }
+            }
+            //if the snow bear is dead, then it should attack on its own
+            else
+            {
+                NPC.spriteDirection = NPC.direction;
+
+                NPC.aiStyle = 3;
+                AIType = NPCID.DesertGhoul;
+            }
+        }
+
+        public bool HoleBelow()
+        {
+            int tileWidth = 4;
+            int tileX = (int)(NPC.Center.X / 16f) - tileWidth;
+            if (NPC.velocity.X > 0)
+            {
+                tileX += tileWidth;
+            }
+            int tileY = (int)((NPC.position.Y + NPC.height) / 16f);
+            for (int y = tileY; y < tileY + 2; y++)
+            {
+                for (int x = tileX; x < tileX + tileWidth; x++)
+                {
+                    if (Main.tile[x, y].HasTile && (Main.tile[x - 1, y].HasTile || Main.tile[x + 1, y].HasTile))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

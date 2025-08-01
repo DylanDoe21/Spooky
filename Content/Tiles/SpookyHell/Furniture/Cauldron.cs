@@ -103,6 +103,24 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			behindNPCs.Add(index);
 		}
 
+		public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/CauldronDummyGlow");
+
+			int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
+			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
+
+			Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+
+			if (shakeTimer <= 0)
+			{
+				Main.spriteBatch.Draw(GlowTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(GlowTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
+			}
+
+            return false;
+        }
+
 		public override void AI()
         {
 			if (shakeTimer-- > 0)
@@ -122,24 +140,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 			
 			Projectile.frame %= Main.projFrames[Projectile.type];
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyHell/Furniture/CauldronDummyGlow");
-
-			int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
-			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
-
-			Main.spriteBatch.Draw(ProjTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
-
-			if (shakeTimer <= 0)
-			{
-				Main.spriteBatch.Draw(GlowTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(GlowTexture.Width() / 2, frameHeight), Projectile.scale * (Vector2.One + (0.1f * scaleVec)), SpriteEffects.None, 0f);
-			}
-
-            return false;
         }
     }
 

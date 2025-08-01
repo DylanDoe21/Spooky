@@ -1,7 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +15,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
     public class MineProj : ModProjectile
     {
         public override string Texture => "Spooky/Content/Items/Minibiomes/Ocean/Mine";
+
+		private Asset<Texture2D> ProjTexture;
 
         public override void SetDefaults()
         {
@@ -31,6 +35,18 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 		{
 			behindNPCs.Add(index);
 		}
+
+		public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
+			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
+
+			Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2, frameHeight), Projectile.scale, SpriteEffects.None, 0f);
+
+            return false;
+        }
 
 		public override bool? CanHitNPC(NPC target)
 		{

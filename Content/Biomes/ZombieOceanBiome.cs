@@ -5,8 +5,8 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Backgrounds.ZombieOcean;
-using Spooky.Content.Tiles.Water;
 using Spooky.Content.NPCs.Minibiomes.Ocean;
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Content.Biomes
 {
@@ -27,6 +27,12 @@ namespace Spooky.Content.Biomes
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
+
+        public override void OnInBiome(Player player)
+        {
+            VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
+            vignettePlayer.SetVignette(1f, 750f, 0.95f, new Color(7, 17, 3), player.Center);
+        }
 
 		public override bool IsBiomeActive(Player player)
         {

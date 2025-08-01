@@ -131,6 +131,11 @@ ChristmasLantern.MapEntry: Lantern
 ChristmasSofa.MapEntry: Sofa
 ChristmasTable.MapEntry: Table
 ChristmasWorkBench.MapEntry: Work Bench
+ChristmasBathtub.MapEntry: Bathtub
+ChristmasBookcase.MapEntry: Bookcase
+ChristmasClock.MapEntry: Clock
+ChristmasPiano.MapEntry: Piano
+ChristmasSink.MapEntry: Sink
 GlowshroomBathtub.MapEntry: Bathtub
 GlowshroomBed.MapEntry: Bed
 GlowshroomBench.MapEntry: Bench

@@ -208,7 +208,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, new Color(146, 75, 19) * 0.5f, 0.45f);
 						Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-1f, 2f);
-						Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-1f, 2f);
+						Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(-1f, 2f);
 						Main.dust[DustGore].noGravity = true;
 					}
 

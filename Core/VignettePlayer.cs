@@ -1,10 +1,10 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Effects
+namespace Spooky.Core
 {
-    [Autoload(Side = ModSide.Client)]
     class VignettePlayer : ModPlayer
 	{
 		private bool WasActiveLastTick;
@@ -35,6 +35,11 @@ namespace Spooky.Effects
 
 		public override void PostUpdateMiscEffects()
 		{
+			if (Main.netMode == NetmodeID.Server)
+			{
+				return;
+			}
+
 			Spooky.vignetteShader.UseColor(Color);
 			Spooky.vignetteShader.UseIntensity(Opacity);
 			Spooky.vignetteEffect.Parameters["Radius"].SetValue(Radius);

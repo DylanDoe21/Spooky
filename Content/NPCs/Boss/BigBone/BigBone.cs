@@ -67,8 +67,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/BigBone/BigBoneLaugh", SoundType.Sound) { Pitch = 0.4f, PitchVariance = 0.5f };
         public static readonly SoundStyle SteamSound = new("Spooky/Content/Sounds/BigBone/BigBoneHeat", SoundType.Sound);
         public static readonly SoundStyle StunnedSound = new("Spooky/Content/Sounds/GoofyStunned", SoundType.Sound);
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/BigBone/BigBoneDeath", SoundType.Sound);
-        public static readonly SoundStyle DeathSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneDeath2", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -180,7 +178,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.netAlways = true;
             NPC.boss = true;
             NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.NPCDeath55;
+			NPC.DeathSound = SoundID.NPCDeath55 with { Pitch = 1.25f };
             NPC.aiStyle = -1;
             Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/BigBone");
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.CatacombBiome2>().Type };
@@ -451,7 +449,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             //death animation stuff
             if (!ActuallyDead)
             {
-                SoundEngine.PlaySound(DeathSound, NPC.Center);
+                //SoundEngine.PlaySound(SoundID.NPCDeath2 with { Pitch = -1f }, NPC.Center);
 
                 NPC.localAI[0] = 0;
                 NPC.localAI[1] = 0;
@@ -666,11 +664,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         }
                     }
 
+                    if (NPC.localAI[0] == 260)
+                    {
+                        SoundEngine.PlaySound(SteamSound, NPC.Center);
+                    }
+
                     //explode
                     if (NPC.localAI[0] == 360)
                     {
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
-                        SoundEngine.PlaySound(DeathSound2, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.NPCDeath2 with { Pitch = -1f }, NPC.Center);
 
                         Screenshake.ShakeScreenWithIntensity(NPC.Center, 3f, 300f);
 

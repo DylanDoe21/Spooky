@@ -12,14 +12,17 @@ namespace Spooky.Content.Dusts
             dust.frame = new Rectangle(0, Main.rand.Next(2) * 24, 12, 24);
         }
 
+        public override Color? GetAlpha(Dust dust, Color lightColor)
+        {
+			return Color.White * dust.scale;
+        }
+
         public override bool Update(Dust dust)
         {
-            dust.alpha += 10;
+            dust.scale *= 0.98f;
 
-            if (dust.alpha >= 255)
-            {
+            if (dust.scale <= 0)
                 dust.active = false;
-            }
 
             return false;
         }

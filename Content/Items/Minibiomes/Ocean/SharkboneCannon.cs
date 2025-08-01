@@ -31,7 +31,6 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			Item.shootSpeed = 0f;
         }
 
-		/*
         public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[ModContent.ProjectileType<SharkboneCannonProj>()] < 1;
@@ -43,6 +42,14 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 
 			return false;
 		}
-		*/
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FishboneChunk>(), 20)
+			.AddRecipeGroup(RecipeGroupID.IronBar, 10)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
 	}
 }

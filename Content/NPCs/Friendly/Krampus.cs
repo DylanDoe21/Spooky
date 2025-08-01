@@ -38,9 +38,10 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.width = 40;
 			NPC.height = 174;
             NPC.townNPC = true;
-            NPC.friendly = true;
+			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+			NPC.dontCountMe = true;
             TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;

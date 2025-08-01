@@ -898,7 +898,7 @@ namespace Spooky.Content.Generation
             }
         }
 
-        //determine if theres no snow blocks nearby so the biome doesnt place in the snow biome
+        //determine if theres no jungle blocks nearby so the biome doesnt place in the jungle biome
         public static bool NoJungleNearby(int X, int Y)
         {
             for (int i = X - 50; i < X + 50; i++)

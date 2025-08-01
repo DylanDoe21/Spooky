@@ -46,7 +46,7 @@ namespace Spooky.Content.Generation
 				}
 
 				//define the x-position and then place the temple after finding a valid position
-				int newTempleX = XMiddle < (Main.maxTilesX / 2) ? XMiddle + 400 : XMiddle - 400;
+				int newTempleX = XMiddle < (Main.maxTilesX / 2) ? XMiddle + 450 : XMiddle - 450;
 
 				WorldGen.makeTemple(newTempleX, newTempleY);
 			});

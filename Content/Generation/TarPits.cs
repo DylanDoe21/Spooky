@@ -46,8 +46,16 @@ namespace Spooky.Content.Generation
 
 			bool IsSmallWorld = Main.maxTilesX < 6400 && Main.maxTilesY < 1800;
 
-			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + (SizeX / 2), GenVars.desertHiveRight - (SizeX / 2));
-			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY / 2), Main.maxTilesY / 2);
+			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
+			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), (Main.maxTilesY / 2) - SizeY);
+			if (!IsSmallWorld)
+			{
+				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), (Main.maxTilesY / 2) - (SizeY * 2));
+			}
+			else
+			{
+				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), GenVars.desertHiveLow - (SizeY * 2));
+			}
 
 			int maxBiomes = !IsSmallWorld ? 2 : 1;
 
@@ -62,17 +70,17 @@ namespace Spooky.Content.Generation
 
 						if (!IsSmallWorld)
 						{
-							BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2) - (SizeY / 2), (Main.maxTilesY / 2));
+							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), (Main.maxTilesY / 2) - (SizeY * 2));
 						}
 						else
 						{
-							BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2), GenVars.desertHiveLow - SizeY);
+							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), GenVars.desertHiveLow - (SizeY * 2));
 						}
 					}
 					else
 					{
 						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-						BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2) + 75, GenVars.desertHiveLow - SizeY);
+						BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2), GenVars.desertHiveLow - SizeY);
 					}
 				}
 
@@ -663,8 +671,6 @@ namespace Spooky.Content.Generation
 		//place the biome if there isnt already another tar pits biome nearby
 		public bool CanPlaceBiome(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			int numDesertTiles = 0;
-
 			for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 			{
 				for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)

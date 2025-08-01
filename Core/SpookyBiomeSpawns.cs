@@ -634,10 +634,11 @@ namespace Spooky.Core
 				
 				if (DungeonWalls.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType))
 				{
-					pool.Add(ModContent.NPCType<TeddyBear1>(), 1);
-					pool.Add(ModContent.NPCType<TeddyBear2>(), 1);
-					pool.Add(ModContent.NPCType<TeddyBear3>(), 1);
-					pool.Add(ModContent.NPCType<ToyRobot>(), 1);
+					pool.Add(ModContent.NPCType<SockManGreen>(), 1);
+					pool.Add(ModContent.NPCType<SockManOrange>(), 1);
+					pool.Add(ModContent.NPCType<SockManRed>(), 1);
+					pool.Add(ModContent.NPCType<TeddyBearSnow>(), 0.5f);
+					pool.Add(ModContent.NPCType<ToyRobot>(), 2);
 				}
 			}
 

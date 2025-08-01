@@ -122,7 +122,7 @@ namespace Spooky.Content.Generation
                 }
 
                 //ceiling wave shape
-                for (int Y = Main.maxTilesY - 215; Y <= Main.UnderworldLayer + 4; Y++)
+                for (int Y = Main.maxTilesY - 210; Y <= Main.UnderworldLayer + 4; Y++)
 				{
 					if (Y < terrainContourCeiling[X] && WorldGen.InWorld(X, Y))
 					{

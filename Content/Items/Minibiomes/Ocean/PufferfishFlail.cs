@@ -39,5 +39,13 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 
             return false;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<FishboneChunk>(), 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

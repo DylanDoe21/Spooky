@@ -13,15 +13,13 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			Item.height = 16;
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 4)
+            .AddIngredient(ModContent.ItemType<ChristmasWoodItem>(), 4)
 			.AddIngredient(ItemID.Torch, 1)
             .AddTile(TileID.WorkBenches)
             .Register();
         }
-		*/
 	}
 }

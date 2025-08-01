@@ -160,8 +160,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			var effects = NPC.velocity.X > 0f ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
+			if (NPC.ai[1] > 0 && Aggression <= 0)
+			{
+				effects = NPC.Center.X < TargetedPlayer.Center.X ? SpriteEffects.None : SpriteEffects.FlipVertically;
+			}
+
 			//draw body
-			Vector2 pos = new Vector2(NPC.velocity.X > 0f ? 12 : -12, 7).RotatedBy(NPC.rotation + MathHelper.PiOver2) + NPC.Center;
+			Vector2 pos = new Vector2(effects == SpriteEffects.None ? 12 : -12, 7).RotatedBy(NPC.rotation + MathHelper.PiOver2) + NPC.Center;
 			Vector2 drawOrigin = new Vector2(BodyTexture.Width() * 0.5f, (BodyTexture.Height() / 8) * 0.5f);
 			spriteBatch.Draw(BodyTexture.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, NPC.oldRot[NPC.oldPos.Length / 2], drawOrigin, NPC.scale, effects, 0);
 
@@ -353,7 +358,17 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
             float RotateDirection = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + MathHelper.TwoPi;
 			float RotateSpeed = 0.04f;
 
-            NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
+			if (NPC.ai[1] > 0 && Aggression <= 0)
+			{
+				Vector2 RotateTowards = TargetedPlayer.Center - NPC.Center;
+                RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + MathHelper.TwoPi;
+			}
+			else
+			{
+				RotateDirection = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + MathHelper.TwoPi;
+			}
+
+			NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
 
 			if (Aggression > 2)
 			{
@@ -470,7 +485,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
 
 			//position infront of dunk where dunks "sight" is
-			Vector2 InfrontOfDunk = new Vector2(125, 0).RotatedBy(NPC.rotation + MathHelper.TwoPi) + NPC.Center;
+			Vector2 InfrontOfDunk = new Vector2(110, 0).RotatedBy(NPC.rotation + MathHelper.TwoPi) + NPC.Center;
+			Vector2 BigDunkBody = -new Vector2(60, 0).RotatedBy(NPC.rotation + MathHelper.TwoPi) + NPC.Center;
 
 			if (NPC.ai[1] <= 0 && Aggression <= 0)
 			{
@@ -479,7 +495,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					if (!player.dead)
 					{
 						bool PlayerLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
-						bool ShouldBecomeAggressive = PlayerLineOfSight && player.Distance(InfrontOfDunk) <= 200;
+						bool ShouldBecomeAggressive = PlayerLineOfSight && (player.Distance(InfrontOfDunk) <= 175 || player.Distance(BigDunkBody) <= 125);
 
 						if (ShouldBecomeAggressive)
 						{
@@ -492,13 +508,24 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			}
 
 			/*
-			//create dust ring for debugging
+			//create dust rings for debugging
             for (int i = 0; i < 20; i++)
             {
                 Vector2 offset = new Vector2();
                 double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                offset.X += (float)(Math.Sin(angle) * 200);
-                offset.Y += (float)(Math.Cos(angle) * 200);
+                offset.X += (float)(Math.Sin(angle) * 125);
+                offset.Y += (float)(Math.Cos(angle) * 125);
+                Dust dust = Main.dust[Dust.NewDust(BigDunkBody + offset - new Vector2(4, 4), 0, 0, DustID.RedTorch, 0, 0, 100, Color.White, 1f)];
+                dust.velocity *= 0;
+                dust.noGravity = true;
+                dust.scale = 2.5f;
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 offset = new Vector2();
+                double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                offset.X += (float)(Math.Sin(angle) * 175);
+                offset.Y += (float)(Math.Cos(angle) * 175);
                 Dust dust = Main.dust[Dust.NewDust(InfrontOfDunk + offset - new Vector2(4, 4), 0, 0, DustID.GreenTorch, 0, 0, 100, Color.White, 1f)];
                 dust.velocity *= 0;
                 dust.noGravity = true;
@@ -542,42 +569,50 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//passive roaming pathfinding movement
 			if (Aggression <= 0)
 			{
-				if (Main.rand.NextBool(1500) && RoarAnimationTimer <= 0)
+				if (NPC.ai[1] > 0)
 				{
-					SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
-
-					SoundEngine.PlaySound(Main.rand.Next(Sounds), NPC.Center);
-
-					RoarAnimationTimer = 75;
+					Vector2 desiredVelocity = NPC.DirectionTo(TargetedPlayer.Center) * 1;
+					NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 				}
-
-				//find a random position to go to
-				if (NPC.ai[0] == 0)
-				{
-					int randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
-
-					while (NPC.Distance(Flags.ZombieBiomePositions[randomPoint] * 16) > 3500f)
-					{
-						randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
-					}
-
-					PositionGoTo = Flags.ZombieBiomePositions[randomPoint] * 16;
-
-					NPC.ai[0] = 1;
-
-					NPC.netUpdate = true;
-				}
-				//go to the position
 				else
 				{
-					if (NPC.Distance(PositionGoTo) > 150f)
+					if (Main.rand.NextBool(1500) && RoarAnimationTimer <= 0)
 					{
-						PathfindingMovement(PositionGoTo, 2.5f, 20, 7000, false);
-						NPC.noTileCollide = true;
+						SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
+
+						SoundEngine.PlaySound(Main.rand.Next(Sounds), NPC.Center);
+
+						RoarAnimationTimer = 75;
 					}
+
+					//find a random position to go to
+					if (NPC.ai[0] == 0)
+					{
+						int randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
+
+						while (NPC.Distance(Flags.ZombieBiomePositions[randomPoint] * 16) > 3500f)
+						{
+							randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
+						}
+
+						PositionGoTo = Flags.ZombieBiomePositions[randomPoint] * 16;
+
+						NPC.ai[0] = 1;
+
+						NPC.netUpdate = true;
+					}
+					//go to the position
 					else
 					{
-						NPC.ai[0] = 0;
+						if (NPC.Distance(PositionGoTo) > 150f)
+						{
+							PathfindingMovement(PositionGoTo, 2.2f, 20, 7000, false);
+							NPC.noTileCollide = true;
+						}
+						else
+						{
+							NPC.ai[0] = 0;
+						}
 					}
 				}
 			}

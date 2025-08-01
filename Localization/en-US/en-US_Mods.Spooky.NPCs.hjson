@@ -408,11 +408,6 @@ FrankenGoblinHandFront.DisplayName: Frank's Hand
 FrankenGoblinHandBack.DisplayName: Frank's Hand
 FrankenGoblinEye.DisplayName: Monster Eye
 StitchSpider.DisplayName: Stitches
-//krampus workshop
-TeddyBear1.DisplayName: Teddy Bear
-TeddyBear2.DisplayName: Teddy Bear
-TeddyBear3.DisplayName: Teddy Bear
-ToyRobot.DisplayName: Toy Robot
 //tar pits
 Hydroraptor.DisplayName: Hydroraptor
 Tarblimp.DisplayName: Tarblimp
@@ -455,6 +450,15 @@ SkeletonBoomerang.DisplayName: Skeletoid Boomerang
 SkeletonPufferfish.DisplayName: Skeletoid Pufferfish
 SeaMine.DisplayName: Sea Mine
 SeaMineBase.DisplayName: ""
+//krampus workshop
+SockManGreen.DisplayName: Stocking Helper
+SockManOrange.DisplayName: Stocking Helper
+SockManRed.DisplayName: Stocking Helper
+TeddyBear1.DisplayName: Teddy Bear
+TeddyBear2.DisplayName: Teddy Bear
+TeddyBear3.DisplayName: Teddy Bear
+TeddyBearSnow.DisplayName: Snow Bear
+ToyRobot.DisplayName: Toy Robot
 
 //tameable
 Crow: {
@@ -470,3 +474,5 @@ Turkey: {
 	State2: Turkey is Following
 	State3: Turkey is Staying
 }
+
+Marble.DisplayName: Marble

@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
-using Spooky.Effects;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;

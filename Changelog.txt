@@ -2,10 +2,16 @@
 
 Brand New Biomes:
 
--Fetid farms, a nasty rotting vegetable garden found in the underground jungle (only 1 on small worlds, 2 on medium and large)
--Tar pits, a rocky desert cave with fossils and tar found in the underground desert (only 1 on small worlds, 2 on medium and large)
--Krampus' workshop, a strange dungeon structure found in the underground ice biome (only 1 per world)
--Rotten depths, an underwater cave system below the ocean with old rusted labs (only 1 per world, does not scale with worldsize due to the oceans always being the same size on all worlds)
+Fetid farms, a rotting vegetable garden in the underground jungle. Beware of the living vegetables, but the abandoned greenhouses have some useful new blooms in them
+Tar pits, a cavern with lakes of tar in the underground desert. Filled with hostile tar slimes using fossils, along with a new block that can be extractinated for another new bloom
+Krampus Workshop, a large structure in the deep underground ice biome with mass-produced dangerous toys wandering around. Interacting with krampus himself may prove useful!
+Rotten Depths, an abandoned underwater study area with ruined labs. Don't let the initial quiet and peaceful atmosphere deceive you and be careful!
+
+Amounts:
+-Fetid farms (only 1 on small worlds, 2 on medium and large, and size scales with world size a little bit)
+-Tar pits  (only 1 on small worlds, 2 on medium and large, and size scales with world size a little bit)
+-Krampus' workshop (only 1 per world, scales with world size a lot more than the others)
+-Rotten depths (only 1 per world, does not scale with worldsize due to the oceans always being the same size on all worlds)
 
 
 Spooky Forest Generation Overhaul:
@@ -20,7 +26,7 @@ Spooky Forest Generation Overhaul:
 New Big Bone Rework:
 
 -Big bone has been almost entirely reworked to be a generally more fun fight, as his old fight wasnt very fun and we felt it didnt really fully expand on any interesting ideas
--Big bones attacks in general have a much more unique presentation/visuals to make it more thematically interesting
+-Big bones attacks in general have much more unique presentation and visuals to make it more thematically interesting
 -Added some new attacks, such as big bone slamming his head and causing rubble to fall from the ceiling
 -Big bone has new sound effects because the old ones were just ripped from another game, the new sounds are similar to the old ones so they arent too jarring or different
 

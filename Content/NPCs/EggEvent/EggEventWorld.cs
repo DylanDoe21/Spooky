@@ -50,6 +50,9 @@ namespace Spooky.Content.NPCs.EggEvent
 			EventTimeLeft = 0;
 			EventTimeLeftUI = 0;
 			EggEventActive = false;
+			EggEventActive = false;
+			HasSpawnedBiojetter = false;
+			HasSpawnedBolster = false;
 		}
 
 		//select a random player in the event if they are in the eye valley and arent dead/inactive
@@ -59,13 +62,13 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			foreach (Player player in Main.ActivePlayers)
 			{
-				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+				if (!player.dead && !player.ghost && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 				{
 					list = list.Append(player).ToArray();
 				}
 			}
 
-			return list[Main.rand.Next(0, list.Length)];
+			return Main.netMode == NetmodeID.MultiplayerClient ? null : list[Main.rand.Next(0, list.Length)];
 		}
 
 		public bool AnyPlayersInBiome()
@@ -91,6 +94,11 @@ namespace Spooky.Content.NPCs.EggEvent
 		//spawn an enemy based on the type inputted
 		public static void SpawnEnemy(int BiomassType, int Type, Player player)
 		{
+			if (player == null)
+			{
+				return;
+			}
+
 			switch (BiomassType)
 			{
 				case 0:
@@ -196,11 +204,11 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			if (EggEventActive)
 			{
+				Player player = GetRandomPlayerInEvent();
+
 				//end the event and reset everything if you die, or if you leave the valley of eyes
 				if (!AnyPlayersInBiome())
 				{
-					EventTimeLeft = 0;
-					EventTimeLeftUI = 0;
 					EggEventActive = false;
 
 					if (Main.netMode == NetmodeID.Server)
@@ -245,8 +253,6 @@ namespace Spooky.Content.NPCs.EggEvent
 					{
 						if (!HasSpawnedBiojetter)
 						{
-							Player player = Main.LocalPlayer;
-
 							SpawnEnemy(0, 2, player);
 
 							HasSpawnedBiojetter = true;
@@ -272,8 +278,6 @@ namespace Spooky.Content.NPCs.EggEvent
 					{
 						if (!HasSpawnedBolster)
 						{
-							Player player = Main.LocalPlayer;
-
 							SpawnEnemy(1, 5, player);
 
 							HasSpawnedBolster = true;
@@ -294,8 +298,6 @@ namespace Spooky.Content.NPCs.EggEvent
 						{
 							for (int numEnemies = 0; numEnemies <= 5; numEnemies++)
 							{
-								Player player = Main.LocalPlayer;
-
 								if (timeLeft < 60)
 								{
 									int BiomassType = Main.rand.Next(0, 2);
@@ -356,8 +358,6 @@ namespace Spooky.Content.NPCs.EggEvent
 					//randomly spawn enemies throughout the event
 					if (EventActiveNPCCount() < 20 && Main.rand.NextBool(ChanceToSpawnEnemy))
 					{
-						Player player = Main.LocalPlayer;
-
 						if (timeLeft < 60)
 						{
 							int BiomassType = Main.rand.Next(0, 2);
