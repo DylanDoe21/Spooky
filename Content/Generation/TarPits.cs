@@ -70,7 +70,17 @@ namespace Spooky.Content.Generation
 
 						if (!IsSmallWorld)
 						{
-							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), (Main.maxTilesY / 2) - (SizeY * 2));
+							int Min = GenVars.desertHiveHigh + (SizeY * 2);
+							int Max = (Main.maxTilesY / 2) - (SizeY * 2);
+
+							if (Min < Max)
+							{
+								BiomeY = WorldGen.genRand.Next(Min, Max);
+							}
+							else
+							{
+								BiomeY = Max;
+							}
 						}
 						else
 						{

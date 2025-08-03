@@ -52,6 +52,13 @@ namespace Spooky.Content.UserInterfaces
                     return true;
                 },
                 InterfaceScaleType.None));
+
+                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Krampus Dialogue UI", () =>
+                {
+                    KrampusDialogueUI.Draw(Main.spriteBatch);
+                    return true;
+                },
+                InterfaceScaleType.None));
             }
 
             //bloom buff UI

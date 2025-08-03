@@ -1,4 +1,4 @@
-displayName = [c/FFA01C:Spooky Mod]
+displayName = [c/F68919:Spooky] [c/8ADE2B:Mod] 
 author = The Spooky Mod Team
 version = 1.3
 dllReferences = StructureHelper

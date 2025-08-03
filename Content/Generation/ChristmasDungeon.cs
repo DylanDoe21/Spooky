@@ -58,10 +58,7 @@ namespace Spooky.Content.Generation
 			ModContent.TileType<ChristmasPiano>(),
 			ModContent.TileType<ChristmasClock>(),
 			ModContent.TileType<ChristmasBathtub>(),
-			ModContent.TileType<ChristmasSink>(),
-			ModContent.TileType<KrampusGiantWorkBench>(),
-			ModContent.TileType<KrampusSawStation>(),
-			ModContent.TileType<KrampusDrillStation>()
+			ModContent.TileType<ChristmasSink>()
 		};
 
 		public static Vector2[] RoomChestList = new Vector2[] {};

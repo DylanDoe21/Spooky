@@ -2,15 +2,16 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.UI;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using Terraria.GameContent.UI;
 
 using Spooky.Content.Biomes;
+using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -37,18 +38,21 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.defense = 5;
             NPC.width = 40;
 			NPC.height = 174;
-            NPC.townNPC = true;
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
 			NPC.dontCountMe = true;
-            TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().Type };
         }
+
+        public override bool CheckActive()
+		{
+			return false;
+		}
 
         public override bool CanChat() 
         {
@@ -80,18 +84,23 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override void SetChatButtons(ref string button, ref string button2)
 		{
-			button = "";
-		}
+			button = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Button1");
+        }
+
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		{
+			//quest button
+			if (firstButton) 
+            {
+                KrampusDialogueUI.Krampus = NPC.whoAmI;
+			    KrampusDialogueUI.UIOpen = true;
+            }
+        }
 
         public override string GetChat()
 		{
 			return Language.GetTextValue("I HATE CHRISTMAS!!!");
 		}
-
-        public override void AI()
-        {
-            NPC.velocity.X = 0;
-        }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
