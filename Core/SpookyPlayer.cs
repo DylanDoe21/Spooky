@@ -140,6 +140,7 @@ namespace Spooky.Core
         public bool RatPet = false;
         public bool ZombieCultistPet = false;
         public bool LongisquamaPet = false;
+        public bool ChalupoPet = false;
 
         //misc bools
         public bool EatenByGooSlug = false;
@@ -336,6 +337,7 @@ namespace Spooky.Core
             RatPet = false;
             ZombieCultistPet = false;
             LongisquamaPet = false;
+            ChalupoPet = false;
 
             //misc bools
             WhipSpiderAggression = false;

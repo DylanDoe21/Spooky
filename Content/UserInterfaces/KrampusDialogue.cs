@@ -14,7 +14,8 @@ using Spooky.Core;
 
 namespace Spooky.Content.UserInterfaces
 {
-    public class ChatUI : UIState
+	//krampus dialogue code referenced from Mod of redemption dialogue system: https://github.com/Hallam9K/RedemptionAlpha/tree/3b2349a6be8d1e64929c84c4777b7fb0776752d0/UI/ChatUI
+    public class KrampusDialogueUI : UIState
     {
         public static List<IDialogue> Dialogue;
 
@@ -51,7 +52,7 @@ namespace Spooky.Content.UserInterfaces
 		
         public override void Draw(SpriteBatch spriteBatch)
         {
-			if (!Visible || Dialogue.Count == 0 || !Visible)
+			if (!Visible || Dialogue.Count == 0)
 			{
 				return;
 			}
@@ -72,6 +73,7 @@ namespace Spooky.Content.UserInterfaces
 
 				DisplayingPlayerResponse = !dialogue.NotPlayer && dialogue.textFinished;
 
+				//shift camera to the entity the dialogue belongs to, only if it is not a player
 				if (dialogue.NotPlayer)
 				{
 					Main.instance.CameraModifiers.Add(new CameraPanning(dialogue.entity.Center, 20));
@@ -201,7 +203,6 @@ namespace Spooky.Content.UserInterfaces
 
         public static void DrawStringEightWay(SpriteBatch spriteBatch, string text, Vector2 position)
         {
-            //ChatManager.DrawColorCodedStringShadow(spriteBatch, FontAssets.MouseText.Value, text, position, Color.Red, 0, Vector2.Zero, Vector2.One);
             ChatManager.DrawColorCodedString(spriteBatch, FontAssets.MouseText.Value, text, position, Color.White, 0, Vector2.Zero, Vector2.One);
         }
 
@@ -221,21 +222,21 @@ namespace Spooky.Content.UserInterfaces
         }
     }
 
-	public class ChatUISystem : ModSystem
+	public class KrampusDialogueUISystem : ModSystem
 	{
 		public override void Load()
 		{
 			if (Main.dedServ)
-				ChatUI.Dialogue = new();
+				KrampusDialogueUI.Dialogue = new();
 		}
 
 		public override void PreUpdateEntities()
 		{
-			if (Main.dedServ && ChatUI.Visible && ChatUI.Dialogue.Count > 0)
+			if (Main.dedServ && KrampusDialogueUI.Visible && KrampusDialogueUI.Dialogue.Count > 0)
 			{
-				for (int i = 0; i < ChatUI.Dialogue.Count; i++)
+				for (int i = 0; i < KrampusDialogueUI.Dialogue.Count; i++)
 				{
-					IDialogue dialogue = ChatUI.Dialogue[i];
+					IDialogue dialogue = KrampusDialogueUI.Dialogue[i];
 					dialogue.Update(Main.gameTimeCache);
 				}
 			}
@@ -355,19 +356,19 @@ namespace Spooky.Content.UserInterfaces
 
 					if (NotPlayer)
 					{
-						ChatUI.DisplayPlayerResponse = true;
+						KrampusDialogueUI.DisplayPlayerResponse = true;
 					}
 				}
 
-				if (textFinished && entity.active && ChatUI.DisplayPlayerResponse && NotPlayer)
+				if (textFinished && entity.active && KrampusDialogueUI.DisplayPlayerResponse && NotPlayer)
 				{
 					TriggerPlayerResponse(playerText, 0);
 					chain?.TriggerPlayerResponse(playerText, 0);
-					ChatUI.DisplayPlayerResponse = false;
+					KrampusDialogueUI.DisplayPlayerResponse = false;
 				}
 			}
 
-			if (textFinished && ChatUI.DisplayingPlayerResponse && Main.mouseLeft && Main.mouseLeftRelease || !entity.active || IsLastDialogue)
+			if (textFinished && KrampusDialogueUI.DisplayingPlayerResponse && Main.mouseLeft && Main.mouseLeftRelease || !entity.active || IsLastDialogue)
 			{
 				if (IsLastDialogue)
 				{
@@ -381,7 +382,7 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else
 				{
-					ChatUI.Dialogue.Remove(this);
+					KrampusDialogueUI.Dialogue.Remove(this);
 				}
 			}
 
@@ -427,7 +428,7 @@ namespace Spooky.Content.UserInterfaces
 		{
 			Dialogue[0].Update(gameTime);
 			if (Dialogue.Count == 0)
-				ChatUI.Dialogue.Remove(this);
+				KrampusDialogueUI.Dialogue.Remove(this);
 		}
 		public DialogueChain Add(Dialogue dialogue)
 		{

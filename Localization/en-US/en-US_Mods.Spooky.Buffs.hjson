@@ -614,3 +614,8 @@ LongisquamaPetBuff: {
 	DisplayName: Longisquama
 	Description: The longisquama follows you
 }
+
+ChalupoBuff: {
+	DisplayName: Chalupo & Chalupa
+	Description: The spicy pepper ghosts hover around you
+}

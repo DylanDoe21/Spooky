@@ -1834,6 +1834,11 @@ CatEyes: {
 	Tooltip: Summons a pet black kitten
 }
 
+ChalupoPepper: {
+	DisplayName: Odd Spicy Pepper
+	Tooltip: Summons chalupo and chalupa
+}
+
 DissolvedBone: {
 	DisplayName: Slightly Dissolved Bone
 	Tooltip:

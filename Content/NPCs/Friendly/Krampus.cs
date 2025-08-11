@@ -138,8 +138,8 @@ namespace Spooky.Content.NPCs.Friendly
 								.Add(new(NPC, null, null, TalkSound, 0.045f, 2f, 0f, modifier, true));
 								chain.OnPlayerResponseTrigger += PlayerResponse;
 								chain.OnEndTrigger += QuestVariableSetting;
-								ChatUI.Visible = true;
-								ChatUI.Add(chain);
+								KrampusDialogueUI.Visible = true;
+								KrampusDialogueUI.Add(chain);
 							}
 							else if (Flags.KrampusQuest1 && !Flags.KrampusQuest2)
 							{	
@@ -171,8 +171,8 @@ namespace Spooky.Content.NPCs.Friendly
 								.Add(new(NPC, null, null, TalkSound, 0.045f, 2f, 0f, modifier, true));
 								chain.OnPlayerResponseTrigger += PlayerResponse;
 								chain.OnEndTrigger += QuestVariableSetting;
-								ChatUI.Visible = true;
-								ChatUI.Add(chain);
+								KrampusDialogueUI.Visible = true;
+								KrampusDialogueUI.Add(chain);
 							}
 							else if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
 							{
@@ -204,8 +204,8 @@ namespace Spooky.Content.NPCs.Friendly
 								.Add(new(NPC, null, null, TalkSound, 0.045f, 2f, 0f, modifier, true));
 								chain.OnPlayerResponseTrigger += PlayerResponse;
 								chain.OnEndTrigger += QuestVariableSetting;
-								ChatUI.Visible = true;
-								ChatUI.Add(chain);
+								KrampusDialogueUI.Visible = true;
+								KrampusDialogueUI.Add(chain);
 							}
 							else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
 							{
@@ -228,20 +228,20 @@ namespace Spooky.Content.NPCs.Friendly
 		private void PlayerResponse(Dialogue dialogue, string Text, int ID)
 		{
 			Dialogue newDialogue = new(PlayerTalkingTo, Text, null, SoundID.Item1, 0.01f, 2f, 0f, default, NotPlayer: false);
-			ChatUI.Visible = true;
-			ChatUI.Add(newDialogue);
+			KrampusDialogueUI.Visible = true;
+			KrampusDialogueUI.Add(newDialogue);
 		}
 
 		private void StopDialogueDefault(Dialogue dialogue, int ID)
 		{
 			Yapping = false;
-			ChatUI.Visible = false;
+			KrampusDialogueUI.Visible = false;
 		}
 
 		private void QuestVariableSetting(Dialogue dialogue, int ID)
 		{
 			Yapping = false;
-			ChatUI.Visible = false;
+			KrampusDialogueUI.Visible = false;
 
 			int[] Items = new int[] { ModContent.ItemType<QuestPresent1>(), ModContent.ItemType<QuestPresent2>(), ModContent.ItemType<QuestPresent3>() };
 
