@@ -1,14 +1,31 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
+using System;
 using System.Collections.Generic;
 
 namespace Spooky.Content.UserInterfaces
 {
-    [Autoload(Side = ModSide.Client)]
+	[Autoload(Side = ModSide.Client)]
 	public class UILoadSystem : ModSystem
 	{
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		public UserInterface TextBubbleUILayer;
+		public ChatUI TextBubbleUIElement;
+
+		public override void Load()
+		{
+			TextBubbleUILayer = new UserInterface();
+			TextBubbleUIElement = new ChatUI();
+			TextBubbleUILayer.SetState(TextBubbleUIElement);
+		}
+
+		public override void ClearWorld()
+		{
+			if (!Main.dedServ && ChatUI.Visible)
+				ChatUI.Clear();
+		}
+
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             //snotty schnoz UI
             int resourceBarIndex1 = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
@@ -52,14 +69,7 @@ namespace Spooky.Content.UserInterfaces
                     return true;
                 },
                 InterfaceScaleType.None));
-
-                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Krampus Dialogue UI", () =>
-                {
-                    KrampusDialogueUI.Draw(Main.spriteBatch);
-                    return true;
-                },
-                InterfaceScaleType.None));
-            }
+			}
 
             //bloom buff UI
             int inGameOptionsIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Ingame Options");
@@ -71,7 +81,18 @@ namespace Spooky.Content.UserInterfaces
                     return true;
                 },
                 InterfaceScaleType.None));
-            }
+
+				layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Krampus UI",
+				delegate
+				{
+					if (ChatUI.Visible)
+					{
+						TextBubbleUILayer.Update(Main._drawInterfaceGameTime);
+						TextBubbleUIElement.Draw(Main.spriteBatch);
+					}
+					return true;
+				}, InterfaceScaleType.None));
+			}
         }
 	}
 }

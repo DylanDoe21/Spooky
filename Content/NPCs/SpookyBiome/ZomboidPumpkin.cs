@@ -77,15 +77,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y == frameHeight * 8)
-                {
-                    Screenshake.ShakeScreenWithIntensity(NPC.Center, 4f, 200f);
-                    SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
-                }
                 if (NPC.frame.Y >= frameHeight * 9)
                 {
                     NPC.frame.Y = 0 * frameHeight;
-                    NPC.ai[1] = 0;
                 }
             }
         }
@@ -105,10 +99,16 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 {
                     NPC.ai[1] = 1;
                 }
+
+                if (NPC.ai[0] == 305)
+                {
+                    Screenshake.ShakeScreenWithIntensity(NPC.Center, 4f, 200f);
+                    SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+                }
             }
 
             //spawn thorns out of the ground and reset ai
-            if (NPC.ai[0] > 300 && NPC.ai[1] == 0)
+            if (NPC.ai[0] > 320 && NPC.ai[1] == 1)
             {
                 for (int j = 1; j <= 3; j++)
                 {
@@ -137,7 +137,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                             break;
                         }
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 3, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraph>(), NPC.damage, 3.5f);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 4, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraph>(), NPC.damage, 3.5f);
                     }
                 }
 

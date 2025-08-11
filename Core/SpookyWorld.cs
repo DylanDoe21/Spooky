@@ -13,21 +13,23 @@ using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.NoseCult;
 using Spooky.Content.NPCs.PandoraBox;
-using System.Threading;
+
 using Spooky.Content.NPCs.Minibiomes.Ocean;
 
 namespace Spooky.Core
 {
     public class SpookyWorld : ModSystem
     {
+        public static float BGTransitionFlash;
+
         public bool initializeHalloween;
         public bool storedHalloween;
         public bool storedHalloweenForToday;
 
+        public bool KrampusDailyQuest = true;
+
         public static bool DaySwitched;
         public static bool LastTime;
-
-        public static float BGTransitionFlash;
 
 		//check to make sure the player isnt in a subworld so that all of the npcs meant to be saved and spawned in specific world locations are not spawned in subworlds
 		public bool IsInSubworld()
@@ -60,7 +62,6 @@ namespace Spooky.Core
 			foreach (Player player in Main.ActivePlayers)
 			{
 				int playerInBiomeCount = 0;
-
 				if (!player.dead && player.InModBiome(ModContent.GetInstance<ZombieOceanBiome>()))
 				{
 					playerInBiomeCount++;
@@ -347,6 +348,16 @@ namespace Spooky.Core
                     {
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
+                }
+            }
+
+            if (DaySwitched && !Flags.KrampusDailyQuest)
+            {
+                Flags.KrampusDailyQuest = true;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
                 }
             }
 

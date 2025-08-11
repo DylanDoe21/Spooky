@@ -52,31 +52,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			Wing1Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing1");
-			Wing2Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing2");
-
-			if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
-			{
-				for (int i = 0; i < 360; i += 30)
-				{
-                    Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
-
-					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
-					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, NPC.GetAlpha(color * 0.2f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
-
-					Vector2 vector1 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
-					Vector2 vector2 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
-
-					float num = MathHelper.ToRadians(WingRotationDegrees);
-
-					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, NPC.GetAlpha(color * 0.2f),
-					NPC.rotation + num, new Vector2(0f, Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
-
-					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, NPC.GetAlpha(color * 0.2f),
-					NPC.rotation - num, new Vector2(Wing2Texture.Width(), Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
-				}
-			}
-
 			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
 			return false;
@@ -149,18 +124,22 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 			{
 				if (Parent.type == ModContent.NPCType<BoroHead>())
 				{
-					int chargeTime = Enraged ? 65 : 75;
-					int stopTime = Enraged ? 85 : 100;
+					int chargeTime = 75;
+					int stopTime = 100;
 
-					int lickTime1 = Enraged ? 60 : 80;
-					int lickTime2 = Enraged ? 120 : 160;
-					int lickTime3 = Enraged ? 180 : 240;
+					int lickTime1 = 80;
+					int lickTime2 = 160;
+					int lickTime3 = 240;
 					
 					if (Parent.ai[0] == 0 && Parent.localAI[0] >= chargeTime && Parent.localAI[0] <= stopTime + 20)
 					{
 						IsHeadSegmentCharging = true;
 					}
 					else if (Parent.ai[0] == 2 && Parent.localAI[0] >= 90 && Parent.localAI[0] <= 170)
+					{
+						IsHeadSegmentCharging = true;
+					}
+					else if (Parent.ai[0] == 3 && Parent.localAI[0] >= 80)
 					{
 						IsHeadSegmentCharging = true;
 					}
@@ -176,8 +155,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 				}
 				else if (Parent.type == ModContent.NPCType<OrroHead>())
 				{
-					int chargeTime = Enraged ? 65 : 75;
-					int stopTime = Enraged ? 80 : 90;
+					int chargeTime = 75;
+					int stopTime = 90;
 					
 					if (Parent.ai[0] == 1 && Parent.localAI[0] >= chargeTime && Parent.localAI[0] <= stopTime + 20)
 					{
@@ -218,6 +197,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 					{
 						IsHeadSegmentCharging = true;
 					}
+					else if (Parent.ai[0] == 5 && Parent.localAI[0] >= 140)
+					{
+						IsHeadSegmentCharging = true;
+					}
 					else
 					{
 						IsHeadSegmentCharging = false;
@@ -226,7 +209,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 			}
 
 			//if the head segment is "charging" then set the wing rotation to go downward and stay downward
-			//TODO: really bad, should eventually look into a better and smoother way to animate the wings with code
+			//TODO: should eventually look into a better and smoother way to animate the wings with code
 			if (IsHeadSegmentCharging)
 			{
 				wingFlap = true;
@@ -316,31 +299,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			Wing1Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing1");
-			Wing2Texture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroboroWing2");
-
-			if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
-			{
-				for (int i = 0; i < 360; i += 30)
-				{
-                    Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
-
-					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
-					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, NPC.GetAlpha(color * 0.2f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
-
-					Vector2 vector1 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
-					Vector2 vector2 = Utils.RotatedBy(new Vector2(0f, 0f), NPC.rotation, default);
-
-					float num = MathHelper.ToRadians(WingRotationDegrees);
-
-					spriteBatch.Draw(Wing1Texture.Value, NPC.Center + circular - Main.screenPosition + vector1, null, NPC.GetAlpha(color * 0.2f),
-					NPC.rotation + num, new Vector2(0f, Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
-
-					spriteBatch.Draw(Wing2Texture.Value, NPC.Center + circular - Main.screenPosition + vector2, null, NPC.GetAlpha(color * 0.2f),
-					NPC.rotation - num, new Vector2(Wing2Texture.Width(), Wing1Texture.Height() / 2 + 15f), NPC.scale * 1.05f, SpriteEffects.None, 0f);
-				}
-			}
 
 			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 

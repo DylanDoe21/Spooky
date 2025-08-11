@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.Projectiles.Cemetery;
 
@@ -19,7 +20,10 @@ namespace Spooky.Content.NPCs.EggEvent
 {
 	public class FleshBolster : ModNPC
 	{
-		bool HasSpawnedTendrils = false;
+        float addedStretch = 0f;
+		float stretchRecoil = 0f;
+        
+        private static Asset<Texture2D> NPCTexture;
 
 		public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/EggEvent/BiomassExplode2", SoundType.Sound);
 
@@ -40,13 +44,11 @@ namespace Spooky.Content.NPCs.EggEvent
 		public override void SendExtraAI(BinaryWriter writer)
         {
             //bools
-            writer.Write(HasSpawnedTendrils);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             //bools
-            HasSpawnedTendrils = reader.ReadBoolean();
         }
 
 		public override void SetDefaults()
@@ -92,36 +94,94 @@ namespace Spooky.Content.NPCs.EggEvent
             }
 		}
 
-        public override void AI()
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-            NPC.spriteDirection = NPC.direction;
+			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			if (!HasSpawnedTendrils)
-            {
-				bool[] spawnedTentacle = new bool[4];
-				for (int i = 0; i < Main.maxProjectiles; i++)
-				{
-					Projectile projectile = Main.projectile[i];
-					if (projectile.active && projectile.type == ModContent.ProjectileType<FleshBolsterBuffer>() && projectile.ai[1] >= 0f && projectile.ai[1] < 4f)
-					{
-						spawnedTentacle[(int)projectile.ai[1]] = true;
-					}
-				}
+			float stretch = 0f;
 
-				for (int i = 0; i < 4; i++)
-				{
-					if (!spawnedTentacle[i])
-					{
-						NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<FleshBolsterBuffer>(), 0, 0f, 
-						ai0: Main.rand.Next(120), ai1: i + 3, ai2: NPC.whoAmI);
-					}
-				}
+			stretch = Math.Abs(stretch) - addedStretch;
 
-                HasSpawnedTendrils = true;
-                NPC.netUpdate = true;
-            }
+			//limit how much it can stretch
+			if (stretch > 0.5f)
+			{
+				stretch = 0.5f;
+			}
+
+			//limit how much it can squish
+			if (stretch < -0.5f)
+			{
+				stretch = -0.5f;
+			}
+
+			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+			//draw npc manually for stretching
+			spriteBatch.Draw(NPCTexture.Value, new Vector2(NPC.Center.X, NPC.Center.Y + 56) - screenPos, NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
+
+			return false;
 		}
 
+        public override void AI()
+        {
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
+            //stretch stuff
+			if (stretchRecoil > 0)
+			{
+				stretchRecoil -= 0.05f;
+			}
+			else
+			{
+				stretchRecoil = 0;
+			}
+
+			addedStretch = -stretchRecoil;
+
+            bool PlayerLineOfSight = Collision.CanHitLine(player.Center - new Vector2(10, 10), 20, 20, NPC.position, NPC.width, NPC.height);
+            if (player.Distance(NPC.Center) <= 450f && PlayerLineOfSight)
+            {
+                NPC.ai[0]++;
+                if (NPC.ai[0] % 60 == 0)
+                {
+					stretchRecoil = 0.35f;
+
+                    int Pos1 = Main.rand.Next(1, 11);
+                    int Pos2 = (Main.rand.NextBool() ? -1 : 1);
+                    int RandomPosition = Pos1 * 45 * Pos2;
+
+                    Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y - 100);
+                    center.X += RandomPosition; //45 is the distance between each one
+                    int numtries = 0;
+                    int x = (int)(center.X / 16);
+                    int y = (int)(center.Y / 16);
+                    while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
+                    Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
+                    {
+                        y++;
+                        center.Y = y * 16;
+                    }
+                    while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
+                    {
+                        numtries++;
+                        y--;
+                        center.Y = y * 16;
+                    }
+
+                    if (numtries <= 10)
+                    {
+                        Vector2 lineDirection = new Vector2(-(Pos1 * Pos2) * 2, 16);
+
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X, center.Y + 30), Vector2.Zero, ModContent.ProjectileType<FleshPillar>(), NPC.damage, 4.5f, 
+                        ai0: lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                    }
+                }
+            }
+        }
+		
 		public override void HitEffect(NPC.HitInfo hit) 
         {
 			if (NPC.life <= 0) 

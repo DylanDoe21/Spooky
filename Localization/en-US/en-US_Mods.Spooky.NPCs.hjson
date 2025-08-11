@@ -89,6 +89,7 @@ OrroBodyP1.DisplayName: Orro
 OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
 BoroTongue.DisplayName: Boro's Tongue
+GrappleTongue.DisplayName: ""
 PhantomSkull.DisplayName: Phantom Skull
 OrbitingBooger.DisplayName: Booger Ball
 SpookSharkron.DisplayName: Spooky Sharkron
@@ -475,4 +476,4 @@ Turkey: {
 	State3: Turkey is Staying
 }
 
-Marble.DisplayName: Marble
+PresentTrapBlue.DisplayName: Present Trap Blue

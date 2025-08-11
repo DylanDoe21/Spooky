@@ -264,4 +264,42 @@ TheMan: {
 	Five: Five
 }
 
-TheHorse: How hungry?
+KrampusDialogue: {
+	//quest 1
+	Dialogue1-1: Finally! After nine months one of you finally made it to the interview!
+	PlayerResponse1-1: Uhhhh...
+	Dialogue1-2: What, are ya nervous? BAHAHA! You are already hired, kid. In fact, I need you to do a delivery right now!
+	PlayerResponse1-2: ...You have the wrong person dude.
+	Dialogue1-3: WHAT?! Kid, you can't do this to me. Come on, I'll even pay you!
+	PlayerResponse1-3: MONEY?!
+	Dialogue1-4: Yes.
+	PlayerResponse1-4: SIGN. ME. UP!
+	Dialogue1-5: Great! Just take this, and deliver it to some townsfolk. If you do a good enough job you might only get one piece of coal this year.
+	PlayerResponse1-5: Ok.
+	//quest 2
+	Dialogue2-1: Oh, you are actually back? I thought you ran off or something.
+	PlayerResponse2-1: Nah.
+	Dialogue2-2: Perfect! Well, how did it go? Spread a lot of christmas cheer? Make someone's day better?
+	PlayerResponse2-2: Bro your present killed someone.
+	Dialogue2-3: I'm sorry, WHAT?!
+	PlayerResponse2-3: Yeah.
+	Dialogue2-4: I JUST started mass producing those things! I thought that... I have MILLIONS of them. All USELESS!
+	PlayerResponse2-4: Ok do I get paid now?
+	Dialogue2-5: Yes, you get paid... if you deliver another present!
+	PlayerResponse2-5: Bruh.
+	Dialogue2-6: BAHAHA! Take your pay, and your delivery. I’ve got a feeling this one will go much better, so long as YOU don’t screw it up!
+	PlayerResponse2-6: Ok, fine.
+	//quest 3
+	Dialogue3-1: There you are! You didn't mess up the delivery this time, yes?
+	PlayerResponse3-1: I didn't mess it up the other times.
+	Dialogue3-2: Sure! It must have gone so much better now that you have experience, yes?
+	PlayerResponse3-2: Nah it went worse.
+	Dialogue3-3: WHAT!
+	PlayerResponse3-3: The person I gave your gift to needs a closed casket funeral.
+	Dialogue3-4: WHAT?!
+	PlayerResponse3-4: You kinda suck at this.
+	Dialogue3-5: Have you NEVER been taught any manners, kid?! You are lucky you are the ONLY postman I have. Now, take your pay and go do your job.
+	PlayerResponse3-5: Fine bro.
+	Dialogue3-6: This time, this time I am SURE they'll love this gift. It’ll be a gift they'll NEVER forget! BAHAHAHAHA!
+	PlayerResponse3-6: Whatever you say.
+}

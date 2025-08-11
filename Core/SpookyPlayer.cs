@@ -1,24 +1,15 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Localization;
-using Terraria.Audio;
-using ReLogic.Content;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-
+using ReLogic.Content;
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.SpookFishron;
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
@@ -29,8 +20,17 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Tree;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Spooky.Content.Tiles.SpookyHell.Tree;
+using System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Spooky.Core
 {
@@ -95,6 +95,12 @@ namespace Spooky.Core
 		public bool StitchedCloak = false;
         public bool AutumnLeaf = false;
         public bool EggCarton = false;
+        public bool KrampusBricks = false;
+        public bool KrampusChimney = false;
+        public bool KrampusJumpShoe = false;
+        public bool KrampusResolution = false;
+        public bool KrampusSack = false;
+        public bool KrampusShapeBox = false;
 
 		//expert accessories
 		public bool FlyAmulet = false;
@@ -144,6 +150,7 @@ namespace Spooky.Core
         public bool NoseCultistDisguise1 = false;
 		public bool NoseCultistDisguise2 = false;
 		public bool NoseBlessingBuff = false;
+        public bool YappingWithKrampus = false;
 
 		//misc timers
         public float SpiderStealthAlpha = 0f;
@@ -284,6 +291,12 @@ namespace Spooky.Core
 			StitchedCloak = false;
             AutumnLeaf = false;
             EggCarton = false;
+            KrampusBricks = false;
+            KrampusChimney = false;
+            KrampusJumpShoe = false;
+            KrampusResolution = false;
+            KrampusSack = false;
+            KrampusShapeBox = false;
 
 			//expert accessories
 			FlyAmulet = false;
@@ -332,6 +345,7 @@ namespace Spooky.Core
             NoseCultistDisguise1 = false;
 			NoseCultistDisguise2 = false;
 			NoseBlessingBuff = false;
+            YappingWithKrampus = false;
 
 			//dashing stuff
             if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
@@ -1090,6 +1104,24 @@ namespace Spooky.Core
 			}
 		}
 
+		public override void SetControls()
+		{
+			if (YappingWithKrampus)
+			{
+				Player.controlLeft = false;
+				Player.controlRight = false;
+				Player.controlUp = false;
+				Player.controlDown = false;
+				Player.controlJump = false;
+				Player.controlHook = false;
+				Player.controlInv = false;
+				Player.controlUseItem = false;
+				Player.controlUseTile = false;
+				Player.controlMap = false;
+				Player.controlMount = false;
+			}
+		}
+
 		public override void PostUpdateMiscEffects()
 		{
 			if (PotionSicknessCranberryTimer > 0)
@@ -1319,7 +1351,6 @@ namespace Spooky.Core
                 }
 			}
 		}
-
 
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {

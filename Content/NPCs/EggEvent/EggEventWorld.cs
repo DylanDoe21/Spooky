@@ -27,11 +27,18 @@ namespace Spooky.Content.NPCs.EggEvent
 		public static bool HasSpawnedBiojetter = false;
 		public static bool HasSpawnedBolster = false;
 
+		public static int[] list = new int[] { };
+
 		public override void NetSend(BinaryWriter writer)
 		{
 			writer.Write(EventTimeLeft);
 			writer.Write(EventTimeLeftUI);
 			writer.Write(EnemySpawnTimer);
+
+			for (int i = 0; i < list.Length; i++)
+			{
+				writer.Write(list[i]);
+			}
 
 			writer.WriteFlags(EggEventActive, HasSpawnedBiojetter, HasSpawnedBolster);
 		}
@@ -41,6 +48,11 @@ namespace Spooky.Content.NPCs.EggEvent
 			EventTimeLeft = reader.ReadInt32();
 			EventTimeLeftUI = reader.ReadInt32();
 			EnemySpawnTimer = reader.ReadInt32();
+
+			for (int i = 0; i < list.Length; i++)
+			{
+				list[i] = reader.ReadInt32();
+			}
 
 			reader.ReadFlags(out EggEventActive, out HasSpawnedBiojetter, out HasSpawnedBolster);
 		}
@@ -56,19 +68,17 @@ namespace Spooky.Content.NPCs.EggEvent
 		}
 
 		//select a random player in the event if they are in the eye valley and arent dead/inactive
-		public static Player GetRandomPlayerInEvent()
+		public static int GetRandomPlayerInEvent()
 		{
-			Player[] list = new Player[] { };
-
 			foreach (Player player in Main.ActivePlayers)
 			{
 				if (!player.dead && !player.ghost && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 				{
-					list = list.Append(player).ToArray();
+					list = list.Append(player.whoAmI).ToArray();
 				}
 			}
 
-			return Main.netMode == NetmodeID.MultiplayerClient ? null : list[Main.rand.Next(0, list.Length)];
+			return list[Main.rand.Next(0, list.Length)];
 		}
 
 		public bool AnyPlayersInBiome()
@@ -77,7 +87,7 @@ namespace Spooky.Content.NPCs.EggEvent
 			{
 				int playerInBiomeCount = 0;
 
-				if (!player.dead && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+				if (!player.dead && !player.ghost && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
 				{
 					playerInBiomeCount++;
 				}
@@ -91,9 +101,57 @@ namespace Spooky.Content.NPCs.EggEvent
 			return false;
 		}
 
+		//get the total number of active egg incursion enemies
+		public int EventActiveNPCCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC Enemy = Main.npc[i];
+
+				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
+				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
+
+				if (Enemy.active && EventNPCs.Contains(Enemy.type))
+				{
+					NpcCount++;
+				}
+				else
+				{
+					continue;
+				}
+			}
+
+			return NpcCount;
+		}
+
+		//get the total number of active ear worms since they are spawned in manuallys
+		public int EarWormCount()
+		{
+			int NpcCount = 0;
+
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC Enemy = Main.npc[i];
+
+				if (Enemy.active && Enemy.type == ModContent.NPCType<EarWorm>())
+				{
+					NpcCount++;
+				}
+				else
+				{
+					continue;
+				}
+			}
+
+			return NpcCount;
+		}
+
 		//spawn an enemy based on the type inputted
 		public static void SpawnEnemy(int BiomassType, int Type, Player player)
 		{
+			//if the player is null (which is done on multiplayer clients) then dont do anything at all
 			if (player == null)
 			{
 				return;
@@ -147,53 +205,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			}
 		}
 
-		//get the total number of active egg incursion enemies
-		public int EventActiveNPCCount()
-		{
-			int NpcCount = 0;
-
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC Enemy = Main.npc[i];
-
-				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
-				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
-
-				if (Enemy.active && EventNPCs.Contains(Enemy.type))
-				{
-					NpcCount++;
-				}
-				else
-				{
-					continue;
-				}
-			}
-
-			return NpcCount;
-		}
-
-		//get the total number of active ear worms since they are spawned in manuallys
-		public int EarWormCount()
-		{
-			int NpcCount = 0;
-
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC Enemy = Main.npc[i];
-
-				if (Enemy.active && Enemy.type == ModContent.NPCType<EarWorm>())
-				{
-					NpcCount++;
-				}
-				else
-				{
-					continue;
-				}
-			}
-
-			return NpcCount;
-		}
-
 		public override void PostUpdateEverything()
 		{
 			if (!EggEventActive)
@@ -204,13 +215,12 @@ namespace Spooky.Content.NPCs.EggEvent
 
 			if (EggEventActive)
 			{
-				Player player = GetRandomPlayerInEvent();
-
 				//end the event and reset everything if you die, or if you leave the valley of eyes
 				if (!AnyPlayersInBiome())
 				{
 					EggEventActive = false;
-
+					EventTimeLeft = 0;
+					EventTimeLeftUI = 0;
 					if (Main.netMode == NetmodeID.Server)
 					{
 						NetMessage.SendData(MessageID.WorldData);
@@ -219,6 +229,8 @@ namespace Spooky.Content.NPCs.EggEvent
 
 				if (EventTimeLeft < 21600)
 				{
+					Player player = Main.netMode == NetmodeID.MultiplayerClient ? null : Main.player[GetRandomPlayerInEvent()];
+
 					//increment both timers
 					//the timer for the UI gets decreased so that the actual time displayed on the UI bar is counting down and not up
 					EventTimeLeft++;

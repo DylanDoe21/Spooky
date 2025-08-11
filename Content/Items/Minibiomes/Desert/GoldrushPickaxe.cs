@@ -15,6 +15,7 @@ namespace Spooky.Content.Items.Minibiomes.Desert
             Item.pick = 60;
 			Item.DamageType = DamageClass.Melee;
 			Item.autoReuse = true;
+            Item.useTurn = true;
             Item.width = 38;
             Item.height = 36;
             Item.useTime = 12;

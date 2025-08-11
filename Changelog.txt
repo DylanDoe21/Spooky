@@ -184,9 +184,11 @@ Miscellaneous:
 Boss Changes:
 -Buffed rot gourd max hp from 2200 to 2600
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
--Orro-boro's floating arrow telegraphs have been removed, and its attacks that used these have been tweaked so that orro & boro are almost never actually off-screen to make their attacks easier to understand
+-Orro-boro's floating arrow telegraphs have been removed, and all of their attacks that used these have been tweaked so that they are still completely readable without these telegraphs so the fight feels more natural
 -Orro-boro's segments now have massively improved following/turning, the segments now move more naturally and look much better when orro-boro makes sharp turns
 -All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag debuffs)
+-Orro's eye and the eyes on its body segments have glowmasks, not only to be visually consistent with the other eye valley enemies having glowing eyes, but also helps with visibility during its attacks
+-Orro-boro's spit projectiles are now yellow for better visibility in the eye valley (And because some snakes venom in real life are yellow!)
 -Big bone health buffed from 72000 to 75000
 -Moco's kamikaze mocling projectiles now fly at you horizontally too instead of only vertically 
 
@@ -258,7 +260,7 @@ Fixed all of the following bugs and issues:
 -Certain spooky mod biomes spawning vanilla enemies and not their enemies while an invasion was moving towards spawn (When it says "X is approaching from the (direction)!")
 
 
-Multiplayer:
+Fixed all of the following multiplayer bugs and issues:
 
 -Attempted to fix issue with temple of moco idols not completing the event properly
 -Attempted to fix the egg incursion visuals and music not showing up for some players

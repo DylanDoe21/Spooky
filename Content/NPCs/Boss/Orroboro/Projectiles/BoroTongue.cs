@@ -21,9 +21,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 15000;
+            NPC.lifeMax = 5;
             NPC.damage = 65;
-            NPC.defense = 30;
+            NPC.defense = 0;
             NPC.width = 65;
             NPC.height = 65;
             NPC.noGravity = true;
@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
             //only draw if the parent is active
             if (Parent.active && Parent.type == ModContent.NPCType<BoroHead>())
             {
-                ProjTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongue");
+                ProjTexture ??= ModContent.Request<Texture2D>(Texture);
                 ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/Projectiles/BoroTongueSegment");
                 
                 Vector2 ParentCenter = Parent.Center;

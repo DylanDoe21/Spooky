@@ -711,7 +711,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						BiteAnimationTimer = 36;
 					}
 
-					if (NPC.ai[3] >= 10 && BiteAnimationTimer == 5)
+					if (NPC.ai[3] >= 41) //&& BiteAnimationTimer == 5)
 					{
 						for (int x = num; x < value2; x++)
 						{

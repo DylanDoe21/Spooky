@@ -105,7 +105,7 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<RaveyardCyanBox>()
             .Add<DylanDoeHead>()
             .Add<KrakenHead>()
-            .Add<TacoHead>()
+            .Add<TortillaHead>()
             .Add<BananalizardHead>()
             .Add<SeasaltHead>()
             .Add<WaasephiHead>()

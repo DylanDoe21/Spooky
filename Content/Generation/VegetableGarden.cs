@@ -10,9 +10,9 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Content.Tiles.Catacomb;
-using Spooky.Content.Tiles.Minibiomes.Jungle;
-using Spooky.Content.Tiles.Minibiomes.Jungle.Ambient;
-using Spooky.Content.Tiles.Minibiomes.Jungle.Tree;
+using Spooky.Content.Tiles.Minibiomes.Vegetable;
+using Spooky.Content.Tiles.Minibiomes.Vegetable.Ambient;
+using Spooky.Content.Tiles.Minibiomes.Vegetable.Tree;
 
 using StructureHelper;
 

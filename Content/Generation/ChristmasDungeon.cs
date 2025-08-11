@@ -11,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Christmas;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
@@ -832,7 +833,7 @@ namespace Spooky.Content.Generation
 					}
 
 					//tables and chairs with candles/candelabras on them
-					if (WorldGen.genRand.NextBool(3) && CanPlaceFurniture(i, j, 12))
+					if (WorldGen.genRand.NextBool() && CanPlaceFurniture(i, j, 10))
 					{
 						switch (WorldGen.genRand.Next(6))
 						{
@@ -917,7 +918,7 @@ namespace Spooky.Content.Generation
 					}
 
 					//random krampus contraptions
-					if (WorldGen.genRand.NextBool(20) && CanPlaceFurniture(i, j, 3))
+					if (WorldGen.genRand.NextBool(10) && CanPlaceFurniture(i, j, 3))
 					{
 						switch (WorldGen.genRand.Next(3))
 						{
@@ -946,13 +947,13 @@ namespace Spooky.Content.Generation
 					}
 
 					//lanterns
-					if (WorldGen.genRand.NextBool(18) && IsFlatCeiling(i, j, 2) && CanPlaceFurniture(i, j, 4, true))
+					if (WorldGen.genRand.NextBool(25) && IsFlatCeiling(i, j, 2) && CanPlaceFurniture(i, j, 4, true))
 					{
 						WorldGen.PlaceObject(i, j + 1, ModContent.TileType<ChristmasLantern>());
 					}
 
 					//chandeliers
-					if (WorldGen.genRand.NextBool(25) && IsFlatCeiling(i, j, 4) && CanPlaceFurniture(i, j, 4, true))
+					if (WorldGen.genRand.NextBool(32) && IsFlatCeiling(i, j, 4) && CanPlaceFurniture(i, j, 4, true))
 					{
 						WorldGen.PlaceObject(i, j + 1, ModContent.TileType<ChristmasChandelier>());
 					}
@@ -1270,7 +1271,7 @@ namespace Spooky.Content.Generation
 			for (int j = PositionY + 1; j <= PositionY + 300; j++)
 			{
 				//stop placing the rope if theres a tile on floor below it
-				if (WorldGen.SolidTile(PositionX, j) && Main.tile[PositionX, j].TileType != ModContent.TileType<ChristmasPlatform>())
+				if (WorldGen.SolidOrSlopedTile(PositionX, j) && Main.tile[PositionX, j].TileType != ModContent.TileType<ChristmasPlatform>())
 				{
 					return;
 				}
@@ -1282,7 +1283,7 @@ namespace Spooky.Content.Generation
 
 				WorldGen.PlaceTile(PositionX, j, ModContent.TileType<ChristmasChain>());
 
-				if (!WorldGen.SolidTile(PositionX, j) && Main.tile[PositionX, j].TileType != ModContent.TileType<ChristmasPlatform>())
+				if (!WorldGen.SolidOrSlopedTile(PositionX, j) && Main.tile[PositionX, j].TileType != ModContent.TileType<ChristmasPlatform>())
 				{
 					Main.tile[PositionX, j].TileType = (ushort)ModContent.TileType<ChristmasChain>();
 				}
@@ -1340,6 +1341,14 @@ namespace Spooky.Content.Generation
 		//post worldgen to place items in the spooky biome chests
         public override void PostWorldGen()
 		{
+			List<int> MainItem = new List<int>
+			{
+				ModContent.ItemType<KrampusBricks>(), ModContent.ItemType<KrampusChimney>(), ModContent.ItemType<KrampusJumpShoe>(), 
+				ModContent.ItemType<KrampusResolution>(), ModContent.ItemType<KrampusSack>(), ModContent.ItemType<KrampusShapeBox>()
+			};
+
+			List<int> ActualMainItem = new List<int>(MainItem);
+
 			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
             {
 				Chest chest = Main.chest[chestIndex];
@@ -1349,16 +1358,23 @@ namespace Spooky.Content.Generation
 					continue;
 				}
 
-				//placeholder loot for now
 				if (WorldGen.InWorld(chest.x, chest.y))
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];
 
 					if (chestTile.TileType == ModContent.TileType<ChristmasChest>())
 					{
-						//goodie bags
-						chest.item[0].SetDefaults(ItemID.GoodieBag);
-						chest.item[0].stack = WorldGen.genRand.Next(1, 3);
+						if (ActualMainItem.Count == 0)
+						{
+							ActualMainItem = new List<int>(MainItem);
+						}
+
+						int ItemToPutInChest = WorldGen.genRand.Next(ActualMainItem.Count);
+
+						//main items
+						chest.item[0].SetDefaults(ActualMainItem[ItemToPutInChest]);
+						chest.item[0].stack = 1;
+						ActualMainItem.RemoveAt(ItemToPutInChest);
 					}
 				}
             }

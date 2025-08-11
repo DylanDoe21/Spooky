@@ -419,9 +419,13 @@ namespace Spooky.Content.Generation
 						Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 						t = (i + 1) / (float)segments;
 
-						if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
+						if (i % 3 == 0 && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 						{
-							PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), 9, 9, 1f, true, true);
+							if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
+							{
+								int Size = WorldGen.genRand.Next(9, 11); //tragic random numbering
+								PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), Size, Size, 1f, true, true);
+							}
 						}
 					}
 				}
@@ -432,12 +436,42 @@ namespace Spooky.Content.Generation
 					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
 					t = (i + 1) / (float)segments;
 
-					if (Main.tile[(int)Position.X, (int)Position.Y].HasTile && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
+					if (i % 3 == 0 && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 					{
-						int Size = GoingToSurface ? 5 : 7;
-						PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, Size, Size, 1f, false, false);
+						if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
+						{
+							int Size = GoingToSurface ? WorldGen.genRand.Next(5, 7) : WorldGen.genRand.Next(7, 9);
+							PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, Size, Size, 1f, false, false);
+						}
 					}
 				}
+			}
+		}
+
+		public bool CanPlaceCave(int PositionX, int PositionY, int Size)
+		{
+			int numTiles = 0;
+
+			for (int j = PositionY - Size; j < PositionY + Size; j++)
+			{
+				for (int i = PositionX - Size; i < PositionX + Size; i++)
+				{
+					if (Main.tile[i, j].HasTile)
+					{
+						numTiles++;
+					}
+				}
+			}
+
+			float AmountOfTilesNeeded = (Size * Size) / 1.1f;
+
+			if (numTiles > (int)AmountOfTilesNeeded)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 

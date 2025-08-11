@@ -30,8 +30,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.ai[0]++;
 			if (Projectile.ai[0] >= 30)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;  
-                Projectile.velocity.X = Projectile.velocity.X * 0.99f;   
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
+                Projectile.velocity.X = Projectile.velocity.X * 0.99f;
             }
 
 			foundTarget = FindTarget();

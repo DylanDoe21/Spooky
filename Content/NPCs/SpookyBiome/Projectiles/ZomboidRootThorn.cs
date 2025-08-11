@@ -10,6 +10,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
     public class ZomboidRootThorn : ModProjectile
     {
         private static Asset<Texture2D> ProjTexture;
+		private static Asset<Texture2D> OutlineTexture;
 
         public override void SetDefaults()
 		{
@@ -42,19 +43,17 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 		public override bool PreDraw(ref Color lightColor)
 		{
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			OutlineTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/SpookyBiome/Projectiles/ZomboidRootThornOutline");
 
             lightColor = Lighting.GetColor((int)(Projectile.Center.X / 16), (int)(Projectile.Center.Y / 16));
 
-			if (Projectile.ai[1] > 0)
-            {
-				Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center + new Vector2(2, 0) - Main.screenPosition, 
-                new Rectangle(44 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 10), Color.Chocolate, 
-                Projectile.rotation, new Vector2(17, 17), 1.2f, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, 
+			new Rectangle(46 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 14), lightColor, 
+			Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
 
-		    	Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, 
-                new Rectangle(44 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 10), lightColor, 
-                Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
-            }
+			Main.EntitySpriteDraw(OutlineTexture.Value, Projectile.Center - Main.screenPosition, 
+			new Rectangle(46 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 14), Color.White, 
+			Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
 
 			return false;
 		}
@@ -77,9 +76,9 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 			{
 				Projectile.ai[1] += 11;
 
-				if (Projectile.ai[1] > 44)
+				if (Projectile.ai[1] > 46)
 				{
-					Projectile.ai[1] = 44;
+					Projectile.ai[1] = 46;
 
 					Projectile.ai[0]++;
 				}

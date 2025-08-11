@@ -23,7 +23,7 @@ namespace Spooky.Content.Projectiles.Blooms
 		{
 			Projectile.width = 58;
 			Projectile.height = 58;
-			Projectile.DamageType = DamageClass.Melee;
+			Projectile.DamageType = DamageClass.Generic;
 			Projectile.friendly = true;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
@@ -34,7 +34,10 @@ namespace Spooky.Content.Projectiles.Blooms
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
-			Projectile.damage = (int)(damageDone * 0.75f);
+			if (target.whoAmI != Projectile.ai[1])
+			{
+				Projectile.damage = (int)(damageDone * 0.75f);
+			}
 		}
 
 		public override bool PreDraw(ref Color lightColor)

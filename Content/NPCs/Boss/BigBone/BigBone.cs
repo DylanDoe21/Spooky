@@ -1087,7 +1087,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-13, 13);
 
-							if (NPC.localAI[0] % 10 == 0)
+							if (NPC.localAI[0] % 20 == 0)
 							{
 								SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 							}
@@ -1232,7 +1232,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
                             NPC.Center += Main.rand.NextVector2Square(-13, 13);
 
-							if (NPC.localAI[0] % 10 == 0)
+							if (NPC.localAI[0] % 20 == 0)
 							{
 								SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 							}

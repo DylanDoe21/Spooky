@@ -132,7 +132,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 			Vector2 mountedCenter = player.MountedCenter;
 			bool shouldOwnerHitCheck = false;
 			int launchTimeLimit = 17;
-			float launchSpeed = 30f;
+			float launchSpeed = 26f;
 			float maxLaunchLength = 800f;
 			float retractAcceleration = 3f;
 			float maxRetractSpeed = 30f;

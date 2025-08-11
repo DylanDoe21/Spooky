@@ -3,8 +3,8 @@ using System;
 
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Minibiomes.Desert;
-using Spooky.Content.Tiles.Minibiomes.Jungle;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
+using Spooky.Content.Tiles.Minibiomes.Vegetable;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyHell;

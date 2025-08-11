@@ -104,7 +104,6 @@ namespace Spooky.Content.NPCs.EggEvent
 			else
 			{
 				NPC.ai[0]++;
-
 				if (NPC.ai[0] == 1)
 				{
 					NPC.velocity = new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, -5f));
@@ -114,6 +113,11 @@ namespace Spooky.Content.NPCs.EggEvent
 				if (NPC.ai[0] >= 70)
 				{
 					NPC.velocity *= 0.95f;
+
+					if (NPC.ai[2] == 5)
+					{
+						NPC.velocity.Y = NPC.velocity.Y + 0.75f;
+					}
 
 					NPC.ai[3]++;
 					if (NPC.ai[3] % 5 == 0)
@@ -129,11 +133,23 @@ namespace Spooky.Content.NPCs.EggEvent
 					}
 				}
 
-				if (NPC.ai[0] >= 150)
+				if (NPC.ai[2] == 5)
 				{
-					OnKill();
-					NPC.active = false;
-					NPC.netUpdate = true;
+					if (NPC.velocity.Y > 0 && NPCGlobalHelper.IsColliding(NPC))
+					{
+						OnKill();
+						NPC.active = false;
+						NPC.netUpdate = true;
+					}
+				}
+				else
+				{
+					if (NPC.ai[0] >= 150)
+					{
+						OnKill();
+						NPC.active = false;
+						NPC.netUpdate = true;
+					}
 				}
 			}
 		}

@@ -74,7 +74,6 @@ namespace Spooky.Content.Generation
             int height = Main.maxTilesY - 150;
 
             int[] terrainContour = new int[width * height];
-			int[] terrainContourCeiling = new int[width * height];
 
 			double rand1 = WorldGen.genRand.NextDouble() + 1;
             double rand2 = WorldGen.genRand.NextDouble() + 2;
@@ -83,7 +82,6 @@ namespace Spooky.Content.Generation
             float peakheight = 8;
             float flatness = 50;
             int offset = Main.maxTilesY - 140;
-			int offsetCeiling = Main.UnderworldLayer + 4;
 
 			//genrate a random wave
 			for (int X = StartPosition - 50; X <= BiomeEdge + 50; X++)
@@ -95,14 +93,6 @@ namespace Spooky.Content.Generation
                 BiomeHeight += offset;
 
                 terrainContour[X] = (int)BiomeHeight;
-
-				double BiomeHeight2 = peakheight / 3 / rand1 * Math.Sin((float)X / flatness * rand1 + rand1);
-				BiomeHeight2 += peakheight / 3 / rand2 * Math.Sin((float)X / flatness * rand2 + rand2);
-				BiomeHeight2 += peakheight / 3 / rand3 * Math.Sin((float)X / flatness * rand3 + rand3);
-
-				BiomeHeight2 += offsetCeiling;
-
-				terrainContourCeiling[X] = (int)BiomeHeight2;
 			}
 
             //place the terrain and ceiling
@@ -120,26 +110,6 @@ namespace Spooky.Content.Generation
                         Main.tile[X, Y + 5].WallType = (ushort)ModContent.WallType<SpookyMushWall>();
                     }
                 }
-
-                //ceiling wave shape
-                for (int Y = Main.maxTilesY - 210; Y <= Main.UnderworldLayer + 4; Y++)
-				{
-					if (Y < terrainContourCeiling[X] && WorldGen.InWorld(X, Y))
-					{
-						Main.tile[X, Y].ClearEverything();
-						WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
-					}
-				}
-
-                //ceiling solid box
-				for (int Y = Main.maxTilesY - 215; Y <= Main.UnderworldLayer; Y++)
-				{
-					if (WorldGen.InWorld(X, Y) && Main.tile[X, Y].TileType != ModContent.TileType<SpookyMush>())
-					{
-                        Main.tile[X, Y].ClearEverything();
-						WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
-					}
-				}
 			}
 
 			//place clumps of blocks along both edges of the biome so it transitions with the rest of the underworld more nicely
@@ -161,6 +131,15 @@ namespace Spooky.Content.Generation
                     {
                         SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 20), true, true);
                     }
+                }
+            }
+
+            //place ceiling of blocks across the top of the biome
+            for (int X = StartPosition - 50; X <= BiomeEdge + 50; X += 10)
+            {
+                for (int Y = Main.maxTilesY - 215; Y <= Main.maxTilesY - 198; Y += 3)
+                {
+                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<SpookyMush>(), ModContent.WallType<SpookyMushWall>(), WorldGen.genRand.Next(5, 7), true, true);
                 }
             }
 

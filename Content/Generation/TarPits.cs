@@ -46,21 +46,34 @@ namespace Spooky.Content.Generation
 
 			bool IsSmallWorld = Main.maxTilesX < 6400 && Main.maxTilesY < 1800;
 
+			//define positions
 			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-			int BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), (Main.maxTilesY / 2) - SizeY);
+			int BiomeY = 0;
 			if (!IsSmallWorld)
 			{
-				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), (Main.maxTilesY / 2) - (SizeY * 2));
+				int Min = GenVars.desertHiveHigh + (SizeY * 2);
+				int Max = (Main.maxTilesY / 2) - (SizeY * 2);
+
+				if (Min < Max)
+				{
+					BiomeY = WorldGen.genRand.Next(Min, Max);
+				}
+				else
+				{
+					BiomeY = Max;
+				}
 			}
 			else
 			{
 				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), GenVars.desertHiveLow - (SizeY * 2));
 			}
 
+			//place tar pits amount based on world size
 			int maxBiomes = !IsSmallWorld ? 2 : 1;
 
 			for (int numBiomesPlaced = 0; numBiomesPlaced < maxBiomes; numBiomesPlaced++)
 			{
+				//if the positions above are not valid, continue to try and place tar pits elsewhere in the underground desert
 				int attempts = 0;
 				while (!CanPlaceBiome(BiomeX, BiomeY, SizeX, SizeY) && attempts++ < 200)
 				{

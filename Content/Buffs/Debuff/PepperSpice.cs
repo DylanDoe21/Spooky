@@ -52,7 +52,6 @@ namespace Spooky.Content.Buffs.Debuff
                 npc.color = Color.Firebrick;
 
 				FlameTimer++;
-
 				if (FlameTimer > 120 && FlameTimer % 10 == 0)
 				{
 					for (int i = 0; i < Main.maxNPCs; i++)
@@ -69,7 +68,7 @@ namespace Spooky.Content.Buffs.Debuff
 
 							int FinalDamage = NPC.damage > 250 ? 250 : NPC.damage;
 
-							Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, ShootSpeed, ModContent.ProjectileType<PepperFlame>(), FinalDamage, 0f, npc.target, ai1: npc.whoAmI);
+							Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, ShootSpeed, ModContent.ProjectileType<PepperFlame>(), FinalDamage, 0f, Main.LocalPlayer.whoAmI, ai1: npc.whoAmI);
 
 							break;
 						}

@@ -10,7 +10,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 {
     public class OrroBody : ModNPC
     {
-        private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> GlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -40,24 +40,14 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         }
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-		{
-			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+        {
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroBodyGlow");
 
-			if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
-			{
-				for (int i = 0; i < 360; i += 30)
-				{
-                    Color color = new Color(125 - NPC.alpha, 125 - NPC.alpha, 125 - NPC.alpha, 0).MultiplyRGBA(Color.Red);
+            Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White) * 0.5f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
-					Vector2 circular = new Vector2(Main.rand.NextFloat(3.5f, 5), 0).RotatedBy(MathHelper.ToRadians(i));
-					spriteBatch.Draw(NPCTexture.Value, NPC.Center + circular - screenPos, NPC.frame, NPC.GetAlpha(color * 0.2f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale * 1.2f, SpriteEffects.None, 0);
-				}
-			}
-
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
-
-			return false;
-		}
+            return false;
+        }
 
 		public override bool PreAI()
         {
@@ -144,15 +134,16 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
     {
         public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroBody";
 
-		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> GlowTexture;
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Boss/Orroboro/OrroBodyGlow");
 
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White) * 0.5f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
-			return false;
+            return false;
         }
 
         public override bool PreAI()
