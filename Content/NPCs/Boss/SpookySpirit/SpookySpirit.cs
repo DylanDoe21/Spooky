@@ -901,6 +901,9 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             //mask
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<TheMask>(), 2));
 
+            //chalpuo pet
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ChalupoPepper>(), 15));
+
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SpookySpiritMask>(), 7));
 

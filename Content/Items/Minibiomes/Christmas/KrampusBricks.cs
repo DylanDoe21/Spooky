@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            //player.GetModPlayer<SpookyPlayer>().KrampusBricks = true;
+            player.GetModPlayer<SpookyPlayer>().KrampusBricks = true;
         }
     }
 }

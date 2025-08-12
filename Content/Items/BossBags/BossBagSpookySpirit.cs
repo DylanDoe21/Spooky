@@ -11,6 +11,7 @@ using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Cemetery.Armor;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky.Content.Items.BossBags
@@ -68,6 +69,9 @@ namespace Spooky.Content.Items.BossBags
 
             //mask
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<TheMask>(), 2));
+
+            //chalupo pet
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<ChalupoPepper>(), 15));
 
             //boss mask
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SpookySpiritMask>(), 7));

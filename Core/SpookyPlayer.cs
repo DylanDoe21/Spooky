@@ -1,18 +1,28 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.Localization;
+using Terraria.Audio;
 using ReLogic.Content;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Fishing;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.SpookFishron;
-using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
+using Spooky.Content.Projectiles.Minibiomes.Christmas;
 using Spooky.Content.Projectiles.Minibiomes.Ocean;
 using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -20,17 +30,8 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using System;
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Core
 {
@@ -178,6 +179,7 @@ namespace Spooky.Core
 		public int PotionSicknessCranberryTimer = 0;
 		public int PotionSicknessLatteTimer = 0;
         public int SpearfishChargeCooldown = 0;
+        public int KrampusShoeJumps = 0;
 
 		//dashing stuff
 		public const int dashDown = 0;
@@ -454,6 +456,18 @@ namespace Spooky.Core
 					Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<CoughSmokeCloud>(), 50, 0f, Player.whoAmI);
 
 					Player.AddBuff(ModContent.BuffType<SmokerLungCooldown>(), 3600);
+				}
+
+                //spawn lingering bricks with the krampus lego bricks
+				if (KrampusBricks && !Player.HasBuff(ModContent.BuffType<KrampusBricksCooldown>()))
+				{
+                    for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
+                    {
+                        Projectile.NewProjectile(null, Player.Center, new Vector2(numProjectiles, Main.rand.NextFloat(-7f, -4f)),
+                        ModContent.ProjectileType<KrampusBricksProj>(), 25, 0f, Player.whoAmI, ai1: Main.rand.Next(0, 4));
+                    }
+
+					Player.AddBuff(ModContent.BuffType<KrampusBricksCooldown>(), 900);
 				}
             }
         }

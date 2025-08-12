@@ -619,3 +619,8 @@ ChalupoBuff: {
 	DisplayName: Chalupo & Chalupa
 	Description: The spicy pepper ghosts hover around you
 }
+
+KrampusBricksCooldown: {
+	DisplayName: Stik Brix Cooldown
+	Description: You have run out of stik brix
+}

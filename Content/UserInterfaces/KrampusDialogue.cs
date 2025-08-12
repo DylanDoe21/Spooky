@@ -112,51 +112,58 @@ namespace Spooky.Content.UserInterfaces
 
 		public static void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Color color, int width, int height)
         {
-            // Top Left
             Vector2 topLeftPos = position;
             Rectangle topLeftRect = new(0, 0, 34, 34);
-            spriteBatch.Draw(texture, topLeftPos, topLeftRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            // Top Middle
             Rectangle topMiddlePos = new((int)topLeftPos.X + topLeftRect.Width, (int)topLeftPos.Y, width, 34);
             Rectangle topMiddleRect = new(34, 0, 2, 34);
-            spriteBatch.Draw(texture, topMiddlePos, topMiddleRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 
-            // Top Right
             Vector2 topRightPos = topMiddlePos.TopRight();
             Rectangle topRightRect = new(36, 0, 34, 34);
-            spriteBatch.Draw(texture, topRightPos, topRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-
-            // Middle Left
             Rectangle middleLeftDest = new((int)topLeftPos.X, (int)topLeftPos.Y + topLeftRect.Height, 34, height - 34);
             Rectangle middleLeftRect = new(0, 34, 34, 2);
-            spriteBatch.Draw(texture, middleLeftDest, middleLeftRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 
-            // Middle Middle
             Rectangle middleMiddleDest = new((int)topLeftPos.X + topLeftRect.Width, (int)topLeftPos.Y + topLeftRect.Height, width, height - 34);
             Rectangle middleMiddleRect = new(34, 34, 2, 2);
-            spriteBatch.Draw(texture, middleMiddleDest, middleMiddleRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 
-            // Middle Right
             Rectangle middleRightDest = new((int)topRightPos.X, (int)topRightPos.Y + topRightRect.Height, 34, height - 34);
             Rectangle middleRightRect = new(36, 34, 34, 2);
-            spriteBatch.Draw(texture, middleRightDest, middleRightRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 
-
-            // Bottom Left
             Vector2 bottomLeftPos = middleLeftDest.BottomLeft();
             Rectangle bottomLeftRect = new(0, 36, 34, 34);
-            spriteBatch.Draw(texture, bottomLeftPos, bottomLeftRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            // Bottom Middle
             Rectangle bottomMiddlePos = new((int)bottomLeftPos.X + bottomLeftRect.Width, (int)bottomLeftPos.Y, width, 34);
             Rectangle bottomMiddleRect = new(34, 36, 2, 34);
-            spriteBatch.Draw(texture, bottomMiddlePos, bottomMiddleRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 
-            // Bottom Right
             Vector2 bottomRightPos = middleRightDest.BottomLeft();
             Rectangle bottomRightRect = new(36, 36, 34, 34);
+
+			//Top Middle
+            spriteBatch.Draw(texture, topMiddlePos, topMiddleRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+
+            //Middle Left
+            spriteBatch.Draw(texture, middleLeftDest, middleLeftRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+
+            //Middle Middle
+            spriteBatch.Draw(texture, middleMiddleDest, middleMiddleRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+
+            //Middle Right
+            spriteBatch.Draw(texture, middleRightDest, middleRightRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+
+            //Bottom Middle
+            spriteBatch.Draw(texture, bottomMiddlePos, bottomMiddleRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+
+            //Top Left
+            spriteBatch.Draw(texture, topLeftPos, topLeftRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+			//Top Right
+            spriteBatch.Draw(texture, topRightPos, topRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+			//Bottom Left
+            spriteBatch.Draw(texture, bottomLeftPos, bottomLeftRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+			//Bottom Right
             spriteBatch.Draw(texture, bottomRightPos, bottomRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 

@@ -302,4 +302,45 @@ KrampusDialogue: {
 	PlayerResponse3-5: Fine bro.
 	Dialogue3-6: This time, this time I am SURE they'll love this gift. It’ll be a gift they'll NEVER forget! BAHAHAHAHA!
 	PlayerResponse3-6: Whatever you say.
+	//quest 4
+	Dialogue4-1: Ah, perfect! I was just waiting for you, I’ve got ten-thousand more of those ready to be delivered TODAY!
+	PlayerResponse4-1: Ummm...
+	Dialogue4-2: Come on kid! Don't keep me waiting! Give me ALL the details!
+	PlayerResponse4-2: Ok so, first it like, hurled itself at the person, then it tore off their nose, then it-
+	Dialogue4-3: NO NO NO! Nevermind...
+	PlayerResponse4-3: Ok whatever.
+	Dialogue4-4: GODAMNIT! Now I have to blast all of these things to HELL! It'll be fine, I STILL have one more thing. It has to work, It will SAVE christmas. I WILL save christmas!
+	PlayerResponse4-4: Dude its october.
+	Dialogue4-5: Yes it is october you IMBECILE! It's been october for the past 3 YEARS! And unless you want to make Christmas even more ruined than it already is, you better take this and scram!
+	PlayerResponse4-5: Ok Ok, jeez...
+	Dialogue4-6: This WILL work, It HAS to...
+	PlayerResponse4-6: ...
+	//quest 5
+	Dialogue5-1: ...
+	PlayerResponse5-1: It didn't work.
+	Dialogue5-2: PERFECT! what a surprise...
+	PlayerResponse5-2: You suck at your job cuh.
+	Dialogue5-3: IT'S NOT MY JOB! Or well... It shouldn’t be MY job. Somebody has been messing EVERYTHING up and now Nick can’t get here anymore.
+	PlayerResponse5-3: Ok.
+	Dialogue5-4: Damnit, I knew that I couldn't do it. I guess I can’t be much more than Krampus...
+	PlayerResponse5-4: Give me my money.
+	Dialogue5-5: Yes, yes... there is one more delivery I have for you. After that you are free to just, not come back. Ever.
+	PlayerResponse5-5: Yay!
+	Dialogue5-6: PLEASE just, go. And make sure no one dies this time...
+	PlayerResponse5-6: Sure.
+	//post final quest
+	Dialogue6-1: Did you do the delivery?
+	PlayerResponse6-1: Yes, but...
+	Dialogue6-2: Do not bother. Take your pay, and leave me be.
+	PlayerResponse6-2: Ok but-
+	Dialogue6-3: WHAT?
+	PlayerResponse6-3: ...Little eye liked your gift.
+	Dialogue6-4: WHAT?!
+	PlayerResponse6-4: Yeah, he said it awes-
+	Dialogue6-5: YES! YES! I DID IT! I have finally DONE IT! I have made something that someone ACTUALLY likes! Oh kid you have just made me the happiest demon in terraria!
+	PlayerResponse6-5: Wait you're a demon?
+	Dialogue6-6: MINIONS! Get sawing, knitting, welding, and weaving! Christmas is not over yet, and it’ll be MY way! BAHAHAHAHAHA!
+	PlayerResponse6-6: Uh, ok so-
+	Dialogue6-7: ...and YOU! You've got a lot of delivering to do now!
+	PlayerResponse6-7: ...Oh no.
 }
