@@ -24,29 +24,9 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 			Item.value = Item.buyPrice(gold: 1);
 		}
 
-		public bool IsOnStandableGround(in float startX, float y, int width, bool onlySolid = false)
-		{
-			float fx = startX;
-
-			do
-			{
-				Point point = new Vector2(fx, y + 0.01f).ToTileCoordinates(); //0.01f is a magic number vanilla uses
-				Tile tile = Main.tile[point.X, point.Y];
-				if (onlySolid && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]))
-				{
-					return true;
-				}
-
-				fx += 16;
-			}
-			while (fx < startX + width);
-
-			return false;
-		}
-
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SpookyPlayer>().KrampusJumpShoe = true;
+			//player.GetModPlayer<SpookyPlayer>().KrampusJumpShoe = true;
 			player.GetJumpState<KrampusShoeJump1>().Enable();
 			player.GetJumpState<KrampusShoeJump2>().Enable();
 			player.GetJumpState<KrampusShoeJump3>().Enable();
