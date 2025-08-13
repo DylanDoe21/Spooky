@@ -86,7 +86,9 @@ Other Random Additions:
 -Added new surface background sprites for the spooky forest and swampy cemetery
 -Added a new alternate surface background style for the swampy cemetery
 -Removed all of the vinyl discs and replaced them with new proper music boxes, the way they are obtained is still the same (Purchased from musicman during a raveyard)
--Added turkies that can be tamed with rotten seeds
+-Added new "short" eye stalk tree variants to the eye valley, these trees have the same drops and sprites as the regular eye stalks but are shorter, have small tops, and have branches
+-Added crow critters to the swampy cemetery
+-Added turkies to the spooky forest that can be tamed with rotten seeds
 -Chalupo is back and better than ever
 
 

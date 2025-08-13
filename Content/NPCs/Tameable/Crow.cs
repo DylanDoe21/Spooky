@@ -193,6 +193,7 @@ namespace Spooky.Content.NPCs.Tameable
 				NPC.localAI[1]--;
 			}
 
+			/*
 			Rectangle RealHitbox = new Rectangle((int)(NPC.Center.X - 13), (int)NPC.position.Y, 26, NPC.height);
 			foreach (Player player in Main.ActivePlayers)
 			{
@@ -378,49 +379,52 @@ namespace Spooky.Content.NPCs.Tameable
 				}
 				else
 				{
-					if (Flying && PositionToFlyAround != Vector2.Zero)
+
+				}
+			}
+			*/
+
+			if (Flying && PositionToFlyAround != Vector2.Zero)
+			{
+				NPC.noGravity = true;
+				NPC.aiStyle = -1;
+
+				NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.05f : -0.05f);
+
+				NPC.localAI[0]++;
+				if (NPC.localAI[0] < 600)
+				{
+					FlyingAroundLocation(PositionToFlyAround, 150, 55, 2.5f, 2f, 0.01f, 0.05f);
+
+					if (NPC.collideY && NPC.localAI[0] > 60)
 					{
-						NPC.noGravity = true;
-						NPC.aiStyle = -1;
+						PositionToFlyAround = Vector2.Zero;
 
-						NPC.rotation = NPC.velocity.Y * (NPC.direction == 1 ? 0.05f : -0.05f);
-
-						NPC.localAI[0]++;
-						if (NPC.localAI[0] < 600)
-						{
-							FlyingAroundLocation(PositionToFlyAround, 150, 55, 2.5f, 2f, 0.01f, 0.05f);
-
-							if (NPC.collideY && NPC.localAI[0] > 60)
-							{
-								PositionToFlyAround = Vector2.Zero;
-
-								Flying = false;
-								NPC.localAI[0] = 0;
-							}
-						}
-						else
-						{
-							if (NPC.velocity.Y < 2)
-							{
-								NPC.velocity.Y += 0.1f;
-							}
-
-							NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -1, 1);
-
-							if (NPC.collideY)
-							{
-								Flying = false;
-								NPC.localAI[0] = 0;
-							}
-						}
-					}
-					else
-					{
-						NPC.noGravity = false;
-						NPC.rotation = 0;
-						NPC.aiStyle = 7;
+						Flying = false;
+						NPC.localAI[0] = 0;
 					}
 				}
+				else
+				{
+					if (NPC.velocity.Y < 2)
+					{
+						NPC.velocity.Y += 0.1f;
+					}
+
+					NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -1, 1);
+
+					if (NPC.collideY)
+					{
+						Flying = false;
+						NPC.localAI[0] = 0;
+					}
+				}
+			}
+			else
+			{
+				NPC.noGravity = false;
+				NPC.rotation = 0;
+				NPC.aiStyle = 7;
 			}
         }
 

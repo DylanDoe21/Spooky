@@ -492,25 +492,32 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = Main.maxTilesY - 155; Y < Main.maxTilesY - 120; Y++)
                 {
-                    if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>()) && CanPlaceTree(X, Y))
+                    if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>()))
                     {
                         if (WorldGen.genRand.NextBool(7) && (Main.tile[X, Y - 1].WallType <= 0 || Main.tile[X, Y - 1].WallType == ModContent.WallType<SpookyMushWall>()) && 
                         !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                         {
-                            EyeTree.Grow(X, Y - 1, 12, 35, false);
+                            if (WorldGen.genRand.NextBool(3) && CanPlaceTree(X, Y, 2))
+                            {
+                                EyeTreeShort.Grow(X, Y - 1, 8, 15, false);
+                            }
+                            else if (CanPlaceTree(X, Y, 5))
+                            {
+                                EyeTree.Grow(X, Y - 1, 12, 35, false);
+                            }
                         }
                     }
                 }
             }
         }
 
-        public static bool CanPlaceTree(int X, int Y)
+        public static bool CanPlaceTree(int X, int Y, int DistanceX)
         {
-            for (int i = X - 5; i < X + 5; i++)
+            for (int i = X - DistanceX; i < X + DistanceX; i++)
             {
                 for (int j = Y - 5; j < Y + 5; j++)
                 {
-                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<EyeTree>())
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<EyeTree>() || Main.tile[i, j].TileType == ModContent.TileType<EyeTreeShort>()))
                     {
                         return false;
                     }
