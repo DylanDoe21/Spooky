@@ -254,9 +254,8 @@ namespace Spooky.Core
 
 			//list of every orro & boro segment
 			int[] OrroBoroSegments = { ModContent.NPCType<OrroHeadP1>(), ModContent.NPCType<OrroHead>(), ModContent.NPCType<BoroHead>(),
-			ModContent.NPCType<OrroBodyP1>(), ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBodyP1>(), ModContent.NPCType<BoroBody>(),
-			ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), ModContent.NPCType<BoroTailP1>(), ModContent.NPCType<BoroTail>(),
-			ModContent.NPCType<OrroBodyWings>(), ModContent.NPCType<BoroBodyWings>(), ModContent.NPCType<OrroBodyWingsP1>(), ModContent.NPCType<BoroBodyWingsP1>() };
+			ModContent.NPCType<OrroBody>(), ModContent.NPCType<BoroBody>(), ModContent.NPCType<BoroBodyConnect>(), ModContent.NPCType<OrroTail>(), 
+			ModContent.NPCType<BoroTail>(), ModContent.NPCType<OrroBodyWings>(), ModContent.NPCType<BoroBodyWings>() };
 
 			//give all orro & boro segments resistance to piercing projectiles because terraria worm moment
 			if (OrroBoroSegments.Contains(npc.type))

@@ -98,7 +98,6 @@ namespace Spooky.Core
         public bool EggCarton = false;
         public bool KrampusBricks = false;
         public bool KrampusChimney = false;
-        public bool KrampusJumpShoe = false;
         public bool KrampusResolution = false;
         public bool KrampusSack = false;
         public bool KrampusShapeBox = false;
@@ -157,6 +156,7 @@ namespace Spooky.Core
 		//misc timers
         public float SpiderStealthAlpha = 0f;
 		public float StonedKidneyCharge = 0f;
+        public float KrampusChimneyCharge = 0f;
 		public int SpiderSpeedTimer = 0;
         public int FlySpawnTimer = 0;
         public int SkullFrenzyCharge = 0;
@@ -171,7 +171,7 @@ namespace Spooky.Core
         public int SlendermanPageDelay = 0;
         public int CarnisSporeSpawnTimer = 0;
         public int RedMistNoteSpawnDelay = 0;
-        public int RedGodzillaCartridgeSpawnDelay = 0;
+        public int RedGodzillaCartridgeHits = 0;
         public int GooSlugEatCooldown = 0;
 		public int RootHealCooldown = 0;
         public int CandyBagCooldown = 0;
@@ -180,6 +180,8 @@ namespace Spooky.Core
 		public int PotionSicknessLatteTimer = 0;
         public int SpearfishChargeCooldown = 0;
         public int KrampusShoeJumps = 0;
+        public int KrampusResolutionTimer = 0;
+        public int KrampusChimneyProjTimer = 0;
 
 		//dashing stuff
 		public const int dashDown = 0;
@@ -196,6 +198,7 @@ namespace Spooky.Core
 
 		public Vector2 MocoNoseUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.75f * Main.UIScale);
 		public Vector2 KidneyUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.75f * Main.UIScale);
+        public Vector2 ChimneyUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.75f * Main.UIScale);
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
         private static Asset<Texture2D> HazmatArmorBackTex;
@@ -211,6 +214,7 @@ namespace Spooky.Core
 		{
 			tag[nameof(MocoNoseUIPos)] = MocoNoseUIPos;
 			tag[nameof(KidneyUIPos)] = KidneyUIPos;
+            tag[nameof(ChimneyUIPos)] = ChimneyUIPos;
 		}
 
 		public override void LoadData(TagCompound tag)
@@ -223,6 +227,11 @@ namespace Spooky.Core
 			if (tag.ContainsKey(nameof(KidneyUIPos)))
 			{
 				KidneyUIPos = tag.Get<Vector2>(nameof(KidneyUIPos));
+			}
+
+            if (tag.ContainsKey(nameof(ChimneyUIPos)))
+			{
+				ChimneyUIPos = tag.Get<Vector2>(nameof(ChimneyUIPos));
 			}
 		}
 
@@ -296,7 +305,6 @@ namespace Spooky.Core
             EggCarton = false;
             KrampusBricks = false;
             KrampusChimney = false;
-            KrampusJumpShoe = false;
             KrampusResolution = false;
             KrampusSack = false;
             KrampusShapeBox = false;
@@ -463,12 +471,17 @@ namespace Spooky.Core
 				{
                     for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
                     {
-                        Projectile.NewProjectile(null, Player.Center, new Vector2(numProjectiles, Main.rand.NextFloat(-7f, -4f)),
+                        Projectile.NewProjectile(null, Player.Center, new Vector2(numProjectiles * 2, Main.rand.NextFloat(-7f, -4f)),
                         ModContent.ProjectileType<KrampusBricksProj>(), 25, 0f, Player.whoAmI, ai1: Main.rand.Next(0, 4));
                     }
 
 					Player.AddBuff(ModContent.BuffType<KrampusBricksCooldown>(), 900);
 				}
+
+                if (KrampusChimney && KrampusChimneyCharge >= 10f && KrampusChimneyProjTimer <= 0)
+                {
+                    KrampusChimneyProjTimer = 120;
+                }
             }
         }
 
@@ -532,17 +545,22 @@ namespace Spooky.Core
                     Projectile.NewProjectile(target.GetSource_OnHit(target), Player.Center, Vector2.Zero, ModContent.ProjectileType<RedMistNote>(), damage, hit.Knockback, Player.whoAmI, 0, 0, Main.rand.Next(0, 2));
                 }
 
-                //rarely spawn the red face when hitting an enemy
-                if (RedGodzillaCartridge && RedGodzillaCartridgeSpawnDelay <= 0 && Main.rand.NextBool(50))
+                //spawn red face every 25 hits with the nes cartridge
+                if (RedGodzillaCartridge)
                 {
-                    RedGodzillaCartridgeSpawnDelay = 360;
+                    RedGodzillaCartridgeHits++;
 
-                    //dont spawn a red apparition if one already exists
-                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<RedFace>()] <= 0)
+                    if (RedGodzillaCartridgeHits >= 25)
                     {
-                        Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
+                        RedGodzillaCartridgeHits = 0;
 
-                        Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+                        //dont spawn a red apparition if one already exists
+                        if (Player.ownedProjectileCounts[ModContent.ProjectileType<RedFace>()] <= 0)
+                        {
+                            Vector2 SpawnPosition = target.Center + new Vector2(0, 85).RotatedByRandom(360);
+
+                            Projectile.NewProjectile(target.GetSource_OnHit(target), SpawnPosition, Vector2.Zero, ModContent.ProjectileType<RedFace>(), damageDone * 5, hit.Knockback, Player.whoAmI, 0, target.whoAmI);
+                        }
                     }
                 }
 
@@ -635,7 +653,7 @@ namespace Spooky.Core
             {
                 GizaGlassHits++;
 
-                if (GizaGlassHits == 3)
+                if (GizaGlassHits == 5)
                 {
                     SoundEngine.PlaySound(SoundID.Shatter, Player.Center);
                     
@@ -727,6 +745,12 @@ namespace Spooky.Core
 					}
 				}
 			}
+
+            //when you get hit, krampus chimney charge resets
+            if (KrampusChimney)
+            {
+                KrampusChimneyCharge = 0;
+            }
 		}
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -736,7 +760,7 @@ namespace Spooky.Core
 
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            bool ShouldRevive = true;
+            bool ShouldPlayerDie = true;
 
             //embryo revive ability
             if (Player.statLife <= 0)
@@ -748,11 +772,19 @@ namespace Spooky.Core
                     Player.AddBuff(ModContent.BuffType<EmbryoCooldown>(), 36000);
                     Player.immuneTime += 60;
                     Player.statLife = 1;
-                    ShouldRevive = false;
+                    ShouldPlayerDie = false;
+                }
+
+                if (KrampusResolution)
+                {
+                    KrampusResolutionTimer = 300;
+                    Player.immuneTime += 300;
+                    Player.statLife = 1;
+                    ShouldPlayerDie = false;
                 }
             }
 
-            return ShouldRevive;
+            return ShouldPlayerDie;
         }
 
         public override void HideDrawLayers(PlayerDrawSet drawInfo)
@@ -786,10 +818,6 @@ namespace Spooky.Core
             {
                 SlendermanPageDelay--;
             }
-            if (RedGodzillaCartridgeSpawnDelay > 0)
-            {
-                RedGodzillaCartridgeSpawnDelay--;
-            }
             if (RootHealCooldown > 0)
             {
                 RootHealCooldown--;
@@ -806,6 +834,19 @@ namespace Spooky.Core
             {
                 SpearfishChargeCooldown--;
             }
+            if (KrampusResolutionTimer > 0)
+            {
+				KrampusResolutionTimer--;
+
+                if (KrampusResolutionTimer == 1)
+                {
+					Player.KillMe(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.KrampusResolution").ToNetworkText(Player.name)), 10, 0, false);    
+                }
+            }
+			if (Player.dead)
+			{
+				KrampusResolutionTimer = 0;
+			}
 
             //set skeleton bouncer hositility to false if no raveyard is happening
             if (!Flags.RaveyardHappening)
@@ -823,6 +864,11 @@ namespace Spooky.Core
             if (!SkullAmulet)
             {
                 SkullFrenzyCharge = 0;
+            }
+
+            if (!RedGodzillaCartridge)
+            {
+                RedGodzillaCartridgeHits = 0;
             }
 
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
@@ -1067,6 +1113,48 @@ namespace Spooky.Core
 			else
 			{
 				StonedKidneyCharge = 0;
+			}
+
+            //handle krampus chimney charge for the UI
+			if (KrampusChimney)
+			{
+				if (KrampusChimneyCharge < 10.5f)
+				{
+					KrampusChimneyCharge += 0.0075f;
+				}
+
+                if (KrampusChimneyProjTimer > 0)
+                {
+                    KrampusChimneyProjTimer--;
+
+                    if (KrampusChimneyProjTimer % 10 == 0)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item73, Player.Center);
+
+                        Vector2 velocity = new Vector2(0, -25).RotatedByRandom(MathHelper.ToRadians(35));
+
+                        Vector2 Position = Player.Top + new Vector2(Player.direction == 1 ? -10 : 10, 0);
+
+						Projectile.NewProjectile(null, Position, velocity, ModContent.ProjectileType<ChimneyCoal>(), 25, 0, Player.whoAmI);
+
+                        for (int j = 0; j < 10; j++)
+                        {
+                            Vector2 dustVelocity = new Vector2(0, -25).RotatedByRandom(MathHelper.ToRadians(35));
+
+                            Dust dust = Dust.NewDustPerfect(Position, DustID.Torch, dustVelocity, default, default, 1f);
+                            dust.velocity *= Main.rand.NextFloat(0.1f, 0.001f);
+                        }
+                    }
+
+                    if (KrampusChimneyCharge > 0)
+                    {
+                        KrampusChimneyCharge -= 0.1f;
+                    }
+                }
+			}
+			else
+			{
+				KrampusChimneyCharge = 0;
 			}
 
             if (DaffodilHairpin)

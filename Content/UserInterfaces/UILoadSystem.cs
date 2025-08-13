@@ -4,6 +4,8 @@ using Terraria.UI;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Core;
+
 namespace Spooky.Content.UserInterfaces
 {
 	[Autoload(Side = ModSide.Client)]
@@ -22,47 +24,53 @@ namespace Spooky.Content.UserInterfaces
 		public override void ClearWorld()
 		{
 			if (!Main.dedServ && KrampusDialogueUI.Visible)
+			{
 				KrampusDialogueUI.Clear();
+			}
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            //snotty schnoz UI
-            int resourceBarIndex1 = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
-            if (resourceBarIndex1 != -1)
+            int resourceBarIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
+            if (resourceBarIndex != -1)
             {
-                layers.Insert(resourceBarIndex1, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
+				//snotty schnoz UI
+                layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Snotty Schnoz UI", () =>
                 {
                     MocoNoseBar.Draw(Main.spriteBatch);
                     return true;
                 },
                 InterfaceScaleType.None));
-            }
-
-			//stoned kidney UI
-			int resourceBarIndex2 = layers.FindIndex(layer => layer.Name == "Vanilla: Resource Bars");
-			if (resourceBarIndex2 != -1)
-			{
-				layers.Insert(resourceBarIndex2, new LegacyGameInterfaceLayer("Stoned Kidney UI", () =>
+            
+				//stoned kidney UI
+				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Stoned Kidney UI", () =>
 				{
 					StonedKidneyBar.Draw(Main.spriteBatch);
 					return true;
 				},
 				InterfaceScaleType.None));
+
+				//krampus chimney UI
+				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Backpack Chimney UI", () =>
+				{
+					KrampusChimneyBar.Draw(Main.spriteBatch);
+					return true;
+				},
+				InterfaceScaleType.None));
 			}
 
-			//rotten depths lab UI
-			//little eye bounty UI
 			int mouseTextIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Mouse Text");
             if (mouseTextIndex != -1)
             {
-				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Rotten Depths Lab Email", () =>
+				//rotten depths lab UI
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Rotten Depths Lab Email UI", () =>
 				{
 					RottenDepthsEmailUI.Draw(Main.spriteBatch);
 					return true;
 				},
 				InterfaceScaleType.None));
 
+				//little eye bounty UI
 				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Little Eye Bounty UI", () =>
                 {
                     LittleEyeQuestUI.Draw(Main.spriteBatch);
@@ -71,10 +79,10 @@ namespace Spooky.Content.UserInterfaces
                 InterfaceScaleType.None));
 			}
 
-            //bloom buff UI
             int inGameOptionsIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Ingame Options");
             if (inGameOptionsIndex != -1)
             {
+				//bloom buff UI
                 layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Bloom Buffs UI", () =>
                 {
 					BloomBuffUI.Draw(Main.spriteBatch);
@@ -82,7 +90,16 @@ namespace Spooky.Content.UserInterfaces
                 },
                 InterfaceScaleType.None));
 
-				layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Krampus UI",
+				//new years resolution UI
+				layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("New Years Resolution UI", () =>
+                {
+					KrampusResolutionUI.Draw(Main.spriteBatch);
+                    return true;
+                },
+                InterfaceScaleType.None));
+
+				//krampus dialogue UI
+				layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Krampus Dialogue UI",
 				delegate
 				{
 					if (KrampusDialogueUI.Visible)

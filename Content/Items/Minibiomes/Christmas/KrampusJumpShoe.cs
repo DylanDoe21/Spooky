@@ -13,8 +13,6 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
     //[AutoloadEquip(EquipType.Shoes)]
 	public class KrampusJumpShoe : ModItem
 	{
-		public bool allowJump = true;
-
 		public override void SetDefaults()
 		{
 			Item.width = 38;
@@ -26,7 +24,8 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			//player.GetModPlayer<SpookyPlayer>().KrampusJumpShoe = true;
+			player.autoJump = true;
+			player.jumpSpeedBoost += 1.5f;
 			player.GetJumpState<KrampusShoeJump1>().Enable();
 			player.GetJumpState<KrampusShoeJump2>().Enable();
 			player.GetJumpState<KrampusShoeJump3>().Enable();
@@ -35,11 +34,11 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 
 	public class KrampusShoeJump1 : ExtraJump
 	{
-        public static readonly SoundStyle JumpSound = new("Spooky/Content/Sounds/KrampusShoeJump", SoundType.Sound) { Volume = 0.45f };
+        public static readonly SoundStyle JumpSound = new("Spooky/Content/Sounds/KrampusShoeJump", SoundType.Sound) { Volume = 0.32f };
 
 		public override Position GetDefaultPosition() => new Before(CloudInABottle);
 
-		public override float GetDurationMultiplier(Player player) => 1.5f;
+		public override float GetDurationMultiplier(Player player) => 1.22f;
 
 		public override void OnStarted(Player player, ref bool playSound)
 		{
@@ -54,7 +53,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
             {
                 Vector2 position = -Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 20) * new Vector2(1f, 0.25f);
                 Vector2 velocity = -playerVelocity - position * 1.25f;
-                position = position * Main.rand.Next(1, 35) + offset;
+                position = position * Main.rand.Next(35, 56) + offset;
                 Dust dust = Dust.NewDustPerfect(position, DustID.SnowflakeIce, velocity);
                 dust.noGravity = true;
             }
@@ -62,10 +61,13 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 
 		public override void ShowVisuals(Player player)
 		{
-			int offsetY = (player.gravDir == -1f) ? -6 : player.height;
+			if (Main.rand.NextBool())
+			{
+				int offsetY = (player.gravDir == -1f) ? -6 : player.height;
 
-			Dust dust = Dust.NewDustDirect(player.position + new Vector2(-4, offsetY), player.width + 8, 4, ModContent.DustType<CartoonStar>(), -player.velocity.X * .5f, player.velocity.Y * 0.5f, 100, default, 0.5f);
-			dust.velocity = dust.velocity * 0.5f - player.velocity * new Vector2(0.1f, 0.3f);
+				Dust dust = Dust.NewDustDirect(player.position + new Vector2(-4, offsetY), player.width + 8, 4, ModContent.DustType<CartoonStar>(), -player.velocity.X * 0.5f, player.velocity.Y * 0.5f, 100, default, 0.5f);
+				dust.velocity = dust.velocity * 0.5f - player.velocity * new Vector2(0.1f, 0.3f);
+			}
 		}
 	}
 

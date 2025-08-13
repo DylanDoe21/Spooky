@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Spooky.Content.UserInterfaces
 {
-    public class StonedKidneyBar
+    public class KrampusChimneyBar
     {
         public static bool IsDragging = false;
 
@@ -20,15 +20,15 @@ namespace Spooky.Content.UserInterfaces
         {
 			Player player = Main.LocalPlayer;
 
-			if (player.GetModPlayer<SpookyPlayer>().StonedKidney)
+			if (player.GetModPlayer<SpookyPlayer>().KrampusChimney)
 			{
-                BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/StonedKidneyBar", AssetRequestMode.ImmediateLoad);
-                BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/StonedKidneyBarFill", AssetRequestMode.ImmediateLoad);
+                BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/KrampusChimneyBar", AssetRequestMode.ImmediateLoad);
+                BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/KrampusChimneyBarFill", AssetRequestMode.ImmediateLoad);
 
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-				Vector2 UIBoxScale = (Vector2.One * 0.9f) * Main.UIScale;
+				Vector2 UIBoxScale = (Vector2.One * 0.85f) * Main.UIScale;
 
 				//UI dragging 
 				MouseState mouse = Mouse.GetState();
@@ -37,7 +37,7 @@ namespace Spooky.Content.UserInterfaces
 				if (ModContent.GetInstance<SpookyConfig>().DraggableUI && !Main.playerInventory)
 				{
 					//if the player is hovering over the UI panel and presses left click then allow dragging
-					if (IsMouseOverUI(player.GetModPlayer<SpookyPlayer>().KidneyUIPos, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
+					if (IsMouseOverUI(player.GetModPlayer<SpookyPlayer>().ChimneyUIPos, BarTexture.Value, UIBoxScale) && !IsDragging && mouse.LeftButton == ButtonState.Pressed)
 					{
 						IsDragging = true;
 					}
@@ -46,7 +46,7 @@ namespace Spooky.Content.UserInterfaces
 					if (IsDragging && mouse.LeftButton == ButtonState.Pressed)
 					{
 						player.mouseInterface = true;
-						player.GetModPlayer<SpookyPlayer>().KidneyUIPos = Main.MouseScreen;
+						player.GetModPlayer<SpookyPlayer>().ChimneyUIPos = Main.MouseScreen;
 					}
 
 					//if the player lets go of mouse left, stop dragging the UI panel
@@ -62,11 +62,16 @@ namespace Spooky.Content.UserInterfaces
 				}
 
 				//draw the main UI box
-				spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUIPos, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(BarTexture.Value, player.GetModPlayer<SpookyPlayer>().ChimneyUIPos, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
-				float completionRatio = player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge / 10f;
+				float completionRatio = player.GetModPlayer<SpookyPlayer>().KrampusChimneyCharge / 10f;
 				Rectangle barRectangle = new Rectangle(0, 0, BarTexture.Width(), (int)(BarFillTexture.Width() * completionRatio));
-				spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUIPos, barRectangle, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().ChimneyUIPos, barRectangle, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+
+				if (player.GetModPlayer<SpookyPlayer>().KrampusChimneyCharge >= 10.5f || player.GetModPlayer<SpookyPlayer>().KrampusChimneyProjTimer > 0)
+				{
+					spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().ChimneyUIPos, barRectangle, Color.Orange, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+				}
 
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);

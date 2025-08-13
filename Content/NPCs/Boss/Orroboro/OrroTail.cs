@@ -54,30 +54,45 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
             NPC.alpha = Parent.alpha;
 
+            //go invulnerable and shake during phase 2 transition
+            if (Parent.type == ModContent.NPCType<OrroHeadP1>() && Parent.ai[0] == -2)
+            {
+                NPC.immortal = true;
+                NPC.dontTakeDamage = true;
+                NPC.netUpdate = true;
+                NPC.velocity = Vector2.Zero;
+
+                NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                NPC.Center += Main.rand.NextVector2Square(-2, 2);
+            }
+
             //kill segment if the head doesnt exist
 			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
             {
-                SpawnGores();
+                if (Parent.type != ModContent.NPCType<OrroHeadP1>())
+                {
+                    SpawnGores();
+                }
 
                 NPC.active = false;
             }
 
 			NPC SegmentParent = Main.npc[(int)NPC.ai[1]];
 
-			Vector2 destinationOffset = SegmentParent.Center + SegmentParent.velocity - NPC.Center;
+			Vector2 SegmentCenter = SegmentParent.Center + SegmentParent.velocity - NPC.Center;
 
 			if (SegmentParent.rotation != NPC.rotation)
 			{
 				float angle = MathHelper.WrapAngle(SegmentParent.rotation - NPC.rotation);
-				destinationOffset = destinationOffset.RotatedBy(angle * 0.1f);
+				SegmentCenter = SegmentCenter.RotatedBy(angle * 0.1f);
 			}
 
-			NPC.rotation = destinationOffset.ToRotation() + 1.57f;
+			NPC.rotation = SegmentCenter.ToRotation() + 1.57f;
 
 			//how far each segment should be from each other
-			if (destinationOffset != Vector2.Zero)
+			if (SegmentCenter != Vector2.Zero)
 			{
-				NPC.Center = SegmentParent.Center - destinationOffset.SafeNormalize(Vector2.Zero) * 30f;
+				NPC.Center = SegmentParent.Center - SegmentCenter.SafeNormalize(Vector2.Zero) * 30f;
 			}
 
 			return false;

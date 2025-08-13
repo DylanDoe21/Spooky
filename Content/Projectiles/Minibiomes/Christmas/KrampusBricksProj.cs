@@ -22,7 +22,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
             Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 360;
             Projectile.penetrate = 3;
         }
 

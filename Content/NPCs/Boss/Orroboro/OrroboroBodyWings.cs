@@ -15,7 +15,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		public float WingRotationDegrees;
 
 	    public bool wingFlap;
-		public bool IsPhase1Segment;
 		public bool IsHeadSegmentCharging;
 
         private static Asset<Texture2D> NPCTexture;
@@ -80,30 +79,45 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
 			NPC.alpha = Parent.alpha;
 
+            //go invulnerable and shake during phase 2 transition
+            if (Parent.type == ModContent.NPCType<OrroHeadP1>() && Parent.ai[0] == -2)
+            {
+                NPC.immortal = true;
+                NPC.dontTakeDamage = true;
+                NPC.netUpdate = true;
+                NPC.velocity = Vector2.Zero;
+
+                NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
+                NPC.Center += Main.rand.NextVector2Square(-2, 2);
+            }
+
             //kill segment if the head doesnt exist
 			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
             {
-				SpawnGores();
+                if (Parent.type != ModContent.NPCType<OrroHeadP1>())
+                {
+                    SpawnGores();
+                }
 
-				NPC.active = false;
-			}
+                NPC.active = false;
+            }
 
 			NPC SegmentParent = Main.npc[(int)NPC.ai[1]];
 
-			Vector2 destinationOffset = SegmentParent.Center + SegmentParent.velocity - NPC.Center;
+			Vector2 SegmentCenter = SegmentParent.Center + SegmentParent.velocity - NPC.Center;
 
 			if (SegmentParent.rotation != NPC.rotation)
 			{
 				float angle = MathHelper.WrapAngle(SegmentParent.rotation - NPC.rotation);
-				destinationOffset = destinationOffset.RotatedBy(angle * 0.1f);
+				SegmentCenter = SegmentCenter.RotatedBy(angle * 0.1f);
 			}
 
-			NPC.rotation = destinationOffset.ToRotation() + 1.57f;
+			NPC.rotation = SegmentCenter.ToRotation() + 1.57f;
 
 			//how far each segment should be from each other
-			if (destinationOffset != Vector2.Zero)
+			if (SegmentCenter != Vector2.Zero)
 			{
-				NPC.Center = SegmentParent.Center - destinationOffset.SafeNormalize(Vector2.Zero) * 30f;
+				NPC.Center = SegmentParent.Center - SegmentCenter.SafeNormalize(Vector2.Zero) * 30f;
 			}
 
 			return true;
@@ -112,11 +126,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		//handle all of this npcs wing-flap variables in AI
 		public override void AI()
 		{
-			IsPhase1Segment = NPC.type == ModContent.NPCType<OrroBodyWingsP1>() || NPC.type == ModContent.NPCType<BoroBodyWingsP1>();
-
 			NPC Parent = Main.npc[(int)NPC.ai[3]];
 
-			bool Enraged = Parent.localAI[3] > 0;
+			//bool Enraged = Parent.localAI[3] > 0;
 
 			//based on the head segment that the wing segment belongs to, set the wings to fold back whenever the head segment this belongs to is using a charging attack
 			//probably doesnt looks nice but whatever, it works
@@ -313,88 +325,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
         public override bool CheckActive()
         {
             return false;
-        }
-    }
-
-    public class OrroBodyWingsP1 : OrroBodyWings
-    {
-        public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroboroBodyWings";
-
-		private static Asset<Texture2D> NPCTexture;
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
-
-			return false;
-        }
-
-        public override bool PreAI()
-        {
-			NPC Parent = Main.npc[(int)NPC.ai[3]];
-
-			NPC.alpha = Parent.alpha;
-
-            //kill segment if the head doesnt exist
-			if (!Parent.active || (Parent.type != ModContent.NPCType<OrroHeadP1>() && Parent.type != ModContent.NPCType<OrroHead>() && Parent.type != ModContent.NPCType<BoroHead>()))
-            {
-				NPC.active = false;
-			}
-
-            //go invulnerable and shake during phase 2 transition
-            if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
-            {
-                if (Main.npc[(int)NPC.ai[1]].ai[2] > 0)
-                {
-                    NPC.immortal = true;
-                    NPC.dontTakeDamage = true;
-                    NPC.netUpdate = true;
-                    NPC.velocity *= 0f;
-
-                    NPC.ai[2]++;
-
-                    NPC.Center = new Vector2(NPC.Center.X, NPC.Center.Y);
-                    NPC.Center += Main.rand.NextVector2Square(-2, 2);
-                }
-            }
-
-			NPC SegmentParent = Main.npc[(int)NPC.ai[1]];
-
-			Vector2 destinationOffset = SegmentParent.Center + SegmentParent.velocity - NPC.Center;
-
-			if (SegmentParent.rotation != NPC.rotation)
-			{
-				float angle = MathHelper.WrapAngle(SegmentParent.rotation - NPC.rotation);
-				destinationOffset = destinationOffset.RotatedBy(angle * 0.1f);
-			}
-
-			NPC.rotation = destinationOffset.ToRotation() + 1.57f;
-
-			//how far each segment should be from each other
-			if (destinationOffset != Vector2.Zero)
-			{
-				NPC.Center = SegmentParent.Center - destinationOffset.SafeNormalize(Vector2.Zero) * 30f;
-			}
-
-			return true;
-        }
-    }
-
-    public class BoroBodyWingsP1 : OrroBodyWingsP1
-    {
-        public override string Texture => "Spooky/Content/NPCs/Boss/Orroboro/OrroboroBodyWings";
-
-		private static Asset<Texture2D> NPCTexture;
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
-
-			return false;
         }
     }
 }

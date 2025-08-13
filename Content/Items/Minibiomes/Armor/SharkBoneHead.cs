@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Ocean;
 using Spooky.Content.Projectiles.Minibiomes.Ocean;
 
 namespace Spooky.Content.Items.Minibiomes.Armor
@@ -42,14 +43,12 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 			player.fishingSkill += 4;
 		}
 
-		/*
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<SpookyWoodItem>(), 20)
-            .AddTile(TileID.WorkBenches)
+            .AddIngredient(ModContent.ItemType<FishboneChunk>(), 20)
+            .AddTile(TileID.Anvils)
             .Register();
         }
-		*/
 	}
 }

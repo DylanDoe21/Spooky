@@ -414,7 +414,7 @@ DaffodilHairpin: {
 }
 
 FlowerPotShoe: {
-	DisplayName: Flower Boot
+	DisplayName: Big Bone's Left Shoe
 	Tooltip:
 		'''
 		Increases your maximum movement speed and movement acceleration
@@ -978,7 +978,7 @@ MonumentMythosPyramid: {
 	Tooltip:
 		'''
 		Encases you in a protective glass pyramid 
-		The pyramid will drastically increase your damage reduction for 3 hits, after which it will shatter
+		The pyramid will drastically increase your damage reduction for 5 hits, after which it will shatter
 		After it shatters, you will take double damage from all attacks for 10 seconds
 		The pyramid will regenerate after one minute
 		'She is only dormant now'
@@ -1001,8 +1001,8 @@ RedGodzillaCartridge: {
 	DisplayName: Cursed Cartridge
 	Tooltip:
 		'''
-		Upon damaging an enemy, there is a rare chance to summon a red apparition
-		The red apparition will deal a huge amount of damage to the enemy you hit
+		Every 25th time you hit an enemy a red apparition will spawn to attack it
+		The red apparition deals a huge amount of damage, scaling based on how much damage you did
 		'King of monsters'
 		'''
 }
@@ -1054,7 +1054,7 @@ AnalogHorrorTape: {
 		Summons an orbiting moon that can reflect hostile projectiles at day and damage enemies at night
 		The moon also grants 10% increased damage during the day and 10 defense at night
 		Spawns a floating head that decays nearby enemies above half health, rapidly draining their health
-		Grants you a glass pyramid that gives you high damage reduction for 3 hits and then shatters
+		Grants you a glass pyramid that gives you high damage reduction for 5 hits and then shatters
 		You will take double damage for 10 seconds after the pyramid shatters
 		'''
 }
@@ -1488,6 +1488,15 @@ QuestPresent2: {
 QuestPresent3: {
 	DisplayName: Mystery Present
 	Tooltip: Use near a friendly town npc to give them this gift
+}
+
+QuestPresentLittleEye: {
+	DisplayName: Mystery Present
+	Tooltip:
+		'''
+		A special present addressed to 'Little Eye'
+		Use near little eye to give them this gift
+		'''
 }
 
 DinoArmHook: {
@@ -5512,8 +5521,9 @@ KrampusJumpShoe: {
 	DisplayName: Moon Shoes
 	Tooltip:
 		'''
-		Allows you to triple jump
-		Hold down the Jump key to constantly jump
+		Slihglty increases your jump height
+		Grants you a triple jump
+		Allows you to auto-jump by holding the jump key
 		'''
 }
 

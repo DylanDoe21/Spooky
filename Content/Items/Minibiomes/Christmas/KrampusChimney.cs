@@ -6,6 +6,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Items.Minibiomes.Christmas
 {
+    [AutoloadEquip(EquipType.Back)]
     public class KrampusChimney : ModItem
     {
         public override void SetDefaults()

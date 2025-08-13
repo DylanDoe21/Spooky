@@ -87,6 +87,8 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void AI()
 		{
+			Lighting.AddLight(NPC.Center, 0.2f, 0.2f, 0.2f);
+
 			if (Yapping)
 			{
 				if (PlayerTalkingTo != null)

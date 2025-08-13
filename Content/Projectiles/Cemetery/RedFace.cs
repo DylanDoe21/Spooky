@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Cemetery
         {
             Projectile.width = 88;
 			Projectile.height = 56;
-            Projectile.localNPCHitCooldown = 60;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.usesLocalNPCImmunity = true;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
@@ -36,7 +36,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] < 60)
+            if (Projectile.ai[0] < 30)
             {
                 Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y);
                 float RotateX = target.Center.X - vector.X;
@@ -45,7 +45,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
                 Projectile.direction = Projectile.spriteDirection = target.Center.X < Projectile.Center.X ? -1 : 1;
 
-                Projectile.alpha -= 5;
+                Projectile.alpha -= 10;
 
                 if (Projectile.alpha <= 0)
                 {
@@ -53,18 +53,18 @@ namespace Spooky.Content.Projectiles.Cemetery
                 }
             }
     
-            if (Projectile.ai[0] == 60)
+            if (Projectile.ai[0] == 30)
             {
                 SaveDirection = Projectile.direction;
                 SaveRotation = Projectile.rotation;
 
                 double Velocity = Math.Atan2(target.Center.Y - Projectile.Center.Y, target.Center.X - Projectile.Center.X);
-                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 12;
+                Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 25;
             }
 
-            if (Projectile.ai[0] > 75)
+            if (Projectile.ai[0] > 30)
             {
-                Projectile.alpha += 10;
+                Projectile.alpha += 20;
 
                 if (Projectile.alpha >= 255)
                 {

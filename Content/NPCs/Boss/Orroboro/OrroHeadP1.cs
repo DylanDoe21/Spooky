@@ -199,13 +199,13 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     for (int Segment1 = 0; Segment1 < 7; Segment1++)
                     {
-                        int Type = Segment1 == 2 ? ModContent.NPCType<OrroBodyWingsP1>() : ModContent.NPCType<OrroBodyP1>();
+                        int Type = Segment1 == 2 ? ModContent.NPCType<OrroBodyWings>() : ModContent.NPCType<OrroBody>();
 
                         latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), Type, NPC.whoAmI, 0, latestNPC);                   
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-                        if (Type == ModContent.NPCType<OrroBodyP1>()) Main.npc[latestNPC].frame.Y = 38 * Main.rand.Next(0, 3); //38 is the segments actual sprite height on the png
+                        if (Type == ModContent.NPCType<OrroBody>()) Main.npc[latestNPC].frame.Y = 38 * Main.rand.Next(0, 3); //38 is the segments actual sprite height on the png
                         NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
                     }
                     
@@ -217,17 +217,17 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     for (int Segment2 = 0; Segment2 < 7; Segment2++)
                     {
-                        int Type = Segment2 == 2 ? ModContent.NPCType<BoroBodyWingsP1>() : ModContent.NPCType<BoroBodyP1>();
+                        int Type = Segment2 == 2 ? ModContent.NPCType<BoroBodyWings>() : ModContent.NPCType<BoroBody>();
 
                         latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), Type, NPC.whoAmI, 0, latestNPC);
                         Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                         Main.npc[latestNPC].realLife = NPC.whoAmI;
                         Main.npc[latestNPC].ai[3] = NPC.whoAmI;
-                        if (Type == ModContent.NPCType<BoroBodyP1>()) Main.npc[latestNPC].frame.Y = 38 * Main.rand.Next(0, 3); //38 is the segments actual sprite height on the png
+                        if (Type == ModContent.NPCType<BoroBody>()) Main.npc[latestNPC].frame.Y = 38 * Main.rand.Next(0, 3); //38 is the segments actual sprite height on the png
                         NetMessage.SendData(MessageID.SyncNPC, number: latestNPC);
                     }
 
-                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroTailP1>(), NPC.whoAmI, 0, latestNPC);
+                    latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<BoroTail>(), NPC.whoAmI, 0, latestNPC);
                     Main.npc[latestNPC].lifeMax = NPC.lifeMax;
                     Main.npc[latestNPC].realLife = NPC.whoAmI;
                     Main.npc[latestNPC].ai[3] = NPC.whoAmI;

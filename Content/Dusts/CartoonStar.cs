@@ -28,7 +28,7 @@ namespace Spooky.Content.Dusts
 			dust.position.Y += dust.velocity.Y;
 			dust.scale *= 0.975f;
 
-            if (dust.scale <= 0)
+            if (dust.scale <= 0.1f)
                 dust.active = false;
 
             return false;

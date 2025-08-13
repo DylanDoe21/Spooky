@@ -1242,7 +1242,7 @@ namespace Spooky.Content.Generation
 		{
 			//first preform a downward check to make sure theres enough vertical room to place the rope
 			//check down for 55 tiles at minimum and if theres that many tiles or more downward, allow the actual rope to be placed
-			for (int j = PositionY + 2; j <= PositionY + 55; j++)
+			for (int j = PositionY + 1; j <= PositionY + 200; j++)
 			{
 				if (Main.tile[PositionX, j].TileType == ModContent.TileType<ChristmasPlatform>() || Main.tile[PositionX - 1, j].TileType == ModContent.TileType<ChristmasPlatform>() || Main.tile[PositionX + 1, j].TileType == ModContent.TileType<ChristmasPlatform>())
 				{
@@ -1268,7 +1268,7 @@ namespace Spooky.Content.Generation
 
 			//if the above checking loop is successful, then place the actual rope
 			//use an arbitrary maximum of 300 tiles since the rope (probably) wont ever go that far down
-			for (int j = PositionY + 1; j <= PositionY + 300; j++)
+			for (int j = PositionY + 1; j <= PositionY + 200; j++)
 			{
 				//stop placing the rope if theres a tile on floor below it
 				if (WorldGen.SolidOrSlopedTile(PositionX, j) && Main.tile[PositionX, j].TileType != ModContent.TileType<ChristmasPlatform>())

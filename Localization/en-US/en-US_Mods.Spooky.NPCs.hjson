@@ -77,15 +77,10 @@ MocoSpawner.DisplayName: ""
 BoroBody.DisplayName: Boro
 BoroBodyConnect.DisplayName: Boro
 BoroBodyWings.DisplayName: Boro
-BoroBodyWingsP1.DisplayName: Boro
-BoroBodyP1.DisplayName: Boro
 BoroHead.DisplayName: Boro
 BoroTail.DisplayName: Boro
-BoroTailP1.DisplayName: Boro
 OrroBody.DisplayName: Orro
 OrroBodyWings.DisplayName: Orro
-OrroBodyWingsP1.DisplayName: Orro
-OrroBodyP1.DisplayName: Orro
 OrroHeadP1.DisplayName: Orro
 OrroTail.DisplayName: Orro
 BoroTongue.DisplayName: Boro's Tongue
@@ -452,6 +447,7 @@ SkeletonPufferfish.DisplayName: Skeletoid Pufferfish
 SeaMine.DisplayName: Sea Mine
 SeaMineBase.DisplayName: ""
 //krampus workshop
+PresentTrapBlue.DisplayName: Present
 SockManGreen.DisplayName: Stocking Helper
 SockManOrange.DisplayName: Stocking Helper
 SockManRed.DisplayName: Stocking Helper
@@ -475,5 +471,3 @@ Turkey: {
 	State2: Turkey is Following
 	State3: Turkey is Staying
 }
-
-PresentTrapBlue.DisplayName: Present Trap Blue

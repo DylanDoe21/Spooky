@@ -556,7 +556,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                                 if (NPCGlobalHelper.IsColliding(NPC) && NPC.localAI[3] >= 2)
                                 {
-                                    SaveRotation = NPC.rotation + (NPC.velocity.X > 0 ? Main.rand.NextFloat(-0.2f, -0.01f) : Main.rand.NextFloat(0.01f, 0.2f));
+                                    SaveRotation = NPC.rotation + (NPC.velocity.X > 0 ? -1 : 1);
 
                                     NPC.velocity = Vector2.Zero;
 
