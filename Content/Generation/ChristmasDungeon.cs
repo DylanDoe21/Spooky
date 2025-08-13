@@ -1242,7 +1242,7 @@ namespace Spooky.Content.Generation
 		{
 			//first preform a downward check to make sure theres enough vertical room to place the rope
 			//check down for 55 tiles at minimum and if theres that many tiles or more downward, allow the actual rope to be placed
-			for (int j = PositionY + 1; j <= PositionY + 200; j++)
+			for (int j = PositionY + 1; j <= PositionY + 55; j++)
 			{
 				if (Main.tile[PositionX, j].TileType == ModContent.TileType<ChristmasPlatform>() || Main.tile[PositionX - 1, j].TileType == ModContent.TileType<ChristmasPlatform>() || Main.tile[PositionX + 1, j].TileType == ModContent.TileType<ChristmasPlatform>())
 				{
@@ -1268,7 +1268,7 @@ namespace Spooky.Content.Generation
 
 			//if the above checking loop is successful, then place the actual rope
 			//use an arbitrary maximum of 300 tiles since the rope (probably) wont ever go that far down
-			for (int j = PositionY + 1; j <= PositionY + 200; j++)
+			for (int j = PositionY + 1; j <= PositionY + 300; j++)
 			{
 				//stop placing the rope if theres a tile on floor below it
 				if (WorldGen.SolidOrSlopedTile(PositionX, j) && Main.tile[PositionX, j].TileType != ModContent.TileType<ChristmasPlatform>())
@@ -1446,6 +1446,17 @@ namespace Spooky.Content.Generation
 			room.X = room.X - room.Width / 2;
 			room.Y = room.Y - room.Height / 2;
 
+			for (int i = room.X - (room.Width / 2) - 8; i <= room.X + (room.Width / 2) + 8; i++)
+			{
+				for (int j = room.Y - (room.Height / 2) - 8; j <= room.Y + (room.Height / 2) + 8; j++)
+				{
+					if (!Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasBrickRedWall>())
+					{
+						return;
+					}
+				}
+			}
+
 			//place larger square of blocks
 			for (int i = room.X - (room.Width / 2) - 8; i <= room.X + (room.Width / 2) + 8; i++)
 			{
@@ -1570,8 +1581,6 @@ namespace Spooky.Content.Generation
 		private Rectangle RoomRectangle1;
 		private Rectangle RoomRectangle2;
 
-		private List<Rectangle> rooms = new List<Rectangle>();
-
 		public DungeonSegment(int x, int y, int DungeonSegmentWidth, int DungeonSegmentHeight)
 		{
 			this.DungeonSegmentWidth = DungeonSegmentWidth;
@@ -1661,23 +1670,7 @@ namespace Spooky.Content.Generation
 
 				RoomRectangle = new Rectangle(RoomX, RoomY, roomWidth, roomHeight);
 
-				Rectangle RoomRectangleCheck = new Rectangle(RoomX - 25, RoomY - 25, roomWidth + 25, roomHeight + 25);
-
-				bool newRoomIntersects = false;
-				foreach (Rectangle existingRoom in rooms)
-                {
-                    if (RoomRectangleCheck.Intersects(existingRoom))
-                    {
-                        newRoomIntersects = true;
-                        break;
-                    }
-                }
-
-                if (!newRoomIntersects)
-                {
-                    rooms.Add(RoomRectangle);
-					mapGenerator.PlaceRoom(RoomRectangle);
-                }
+				mapGenerator.PlaceRoom(RoomRectangle);
 			}
 		}
 

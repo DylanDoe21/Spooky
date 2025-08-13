@@ -19,8 +19,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
         //reminder:
         //X frame 0 = normal tree segment
         //X frame 18 = tree top draw segment
-        //X frame 36 = branch draw segment
-        //X frame 54 = stubby top segment
+        //X frame 36 = left branch segment
+        //X frame 54 = right branch segment
+        //X frame 72 = both branch segment
+        //X frame 90 = stubby top segment
 
         private static Asset<Texture2D> TopTexture;
         private static Asset<Texture2D> StemTexture;
@@ -116,11 +118,31 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 Framing.GetTileSafely(i, j - numSegments).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
 
                 //randomly place branch segment
-                if (numSegments > 1 && numSegments < height - 1 && Framing.GetTileSafely(i, j - numSegments + 1).TileFrameX != 36)
+                if (numSegments > 1 && numSegments < height - 1 && 
+                Framing.GetTileSafely(i, j - numSegments + 1).TileFrameX != 36 && 
+                Framing.GetTileSafely(i, j - numSegments + 1).TileFrameX != 54 &&
+                Framing.GetTileSafely(i, j - numSegments + 1).TileFrameX != 72)
                 {
                     if (Main.rand.NextBool())
                     {
-                        Framing.GetTileSafely(i, j - numSegments).TileFrameX = 36;
+                        switch (Main.rand.Next(3))
+                        {
+                            case 0:
+                            {
+                                Framing.GetTileSafely(i, j - numSegments).TileFrameX = 36;
+                                break;
+                            }
+                            case 1:
+                            {
+                                Framing.GetTileSafely(i, j - numSegments).TileFrameX = 54;
+                                break;
+                            }
+                            case 2:
+                            {
+                                Framing.GetTileSafely(i, j - numSegments).TileFrameX = 72;
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -186,11 +208,6 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            //X frame 0 = normal tree segment
-            //X frame 16 = tree top draw segment
-            //X frame 36 = branch segments
-            //X frame 54 = stubby top segment
-
             Tile tile = Framing.GetTileSafely(i, j);
 
             if (fail && !effectOnly && !noItem)
@@ -207,9 +224,9 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             int belowFrame = Framing.GetTileSafely(i, j + 1).TileFrameX;
 
             //if theres any remaining segments below, turn it into a stub top segment
-            if (belowFrame < 54)
+            if (belowFrame < 90)
             {
-                Framing.GetTileSafely(i, j + 1).TileFrameX = 54;
+                Framing.GetTileSafely(i, j + 1).TileFrameX = 90;
             }
 
             if (tile.TileFrameX == 18)
@@ -246,36 +263,33 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
                 }
             }
 
-            if (tile.TileFrameX == 36)
+            //left branches
+            if (Framing.GetTileSafely(i, j).TileFrameX == 36 || Framing.GetTileSafely(i, j).TileFrameX == 72)
             {
-                //left branches
-				if (Framing.GetTileSafely(i, j).TileFrameY == 18 || Framing.GetTileSafely(i, j).TileFrameY == 36)
-				{
-                    for (int numGores = 0; numGores <= Main.rand.Next(1, 3); numGores++)
+                for (int numGores = 0; numGores <= Main.rand.Next(1, 3); numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
                     {
-                        if (Main.netMode != NetmodeID.Server) 
-                        {
-                            Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i - 2, j) * 16),
-                            new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
-                        }
-                    }
-                }
-
-                //right branches
-				if (Framing.GetTileSafely(i, j).TileFrameY == 0 || Framing.GetTileSafely(i, j).TileFrameY == 36)
-				{
-                    for (int numGores = 0; numGores <= Main.rand.Next(1, 3); numGores++)
-                    {
-                        if (Main.netMode != NetmodeID.Server) 
-                        {
-                            Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i + 2, j) * 16),
-                            new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
-                        }
+                        Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i - 2, j) * 16),
+                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
                     }
                 }
             }
 
-            if (tile.TileFrameX == 54)
+            //right branches
+            if (Framing.GetTileSafely(i, j).TileFrameX == 54 || Framing.GetTileSafely(i, j).TileFrameX == 72)
+            {
+                for (int numGores = 0; numGores <= Main.rand.Next(1, 3); numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i + 2, j) * 16),
+                        new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore" + Main.rand.Next(1, 4)).Type);
+                    }
+                }
+            }
+
+            if (tile.TileFrameX == 90)
             {
                 SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
 
@@ -322,28 +336,25 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
 
             //draw branches
-			if (Framing.GetTileSafely(i, j).TileFrameX == 36)
-			{
-				//left branches
-				if (Framing.GetTileSafely(i, j).TileFrameY == 18 || Framing.GetTileSafely(i, j).TileFrameY == 36)
-				{
-					int frame = tile.TileFrameY / 18;
+            //left branches
+            if (Framing.GetTileSafely(i, j).TileFrameX == 36 || Framing.GetTileSafely(i, j).TileFrameX == 72)
+            {
+                int frame = tile.TileFrameY / 18;
 
-					Vector2 offset = new Vector2((BranchLeftTexture.Width() / 2) + 18, -(BranchLeftTexture.Height() / 3) + 54);
+                Vector2 offset = new Vector2((BranchLeftTexture.Width() / 2) + 18, -(BranchLeftTexture.Height() / 3) + 54);
 
-					DrawTreeStuff(i - 1, j - 1, BranchLeftTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, false);
-				}
+                DrawTreeStuff(i - 1, j - 1, BranchLeftTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, false);
+            }
 
-				//right branches
-				if (Framing.GetTileSafely(i, j).TileFrameY == 0 || Framing.GetTileSafely(i, j).TileFrameY == 36)
-				{
-					int frame = tile.TileFrameY / 18;
+            //right branches
+            if (Framing.GetTileSafely(i, j).TileFrameX == 54 || Framing.GetTileSafely(i, j).TileFrameX == 72)
+            {
+                int frame = tile.TileFrameY / 18;
 
-					Vector2 offset = new Vector2(-(BranchRightTexture.Width() / 2) + 8, -(BranchRightTexture.Height() / 3) + 54);
+                Vector2 offset = new Vector2(-(BranchRightTexture.Width() / 2) + 8, -(BranchRightTexture.Height() / 3) + 54);
 
-					DrawTreeStuff(i - 1, j - 1, BranchRightTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, false);
-				}
-			}
+                DrawTreeStuff(i - 1, j - 1, BranchRightTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, false);
+            }
 
             //draw extra tile below so it looks attached to the ground
             if (Main.tile[i, j + 1].TileType != Type)
@@ -383,28 +394,25 @@ namespace Spooky.Content.Tiles.SpookyHell.Tree
             }
 
             //draw branches
-			if (Framing.GetTileSafely(i, j).TileFrameX == 36)
-			{
-				//left branches
-				if (Framing.GetTileSafely(i, j).TileFrameY == 18 || Framing.GetTileSafely(i, j).TileFrameY == 36)
-				{
-					int frame = tile.TileFrameY / 18;
+            //left branches
+            if (Framing.GetTileSafely(i, j).TileFrameX == 36 || Framing.GetTileSafely(i, j).TileFrameX == 72)
+            {
+                int frame = tile.TileFrameY / 18;
 
-					Vector2 offset = new Vector2((BranchLeftGlowTexture.Width() / 2) + 18, -(BranchLeftGlowTexture.Height() / 3) + 54);
+                Vector2 offset = new Vector2((BranchLeftGlowTexture.Width() / 2) + 18, -(BranchLeftGlowTexture.Height() / 3) + 54);
 
-					DrawTreeStuff(i - 1, j - 1, BranchLeftGlowTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, true);
-				}
+                DrawTreeStuff(i - 1, j - 1, BranchLeftGlowTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, true);
+            }
 
-				//right branches
-				if (Framing.GetTileSafely(i, j).TileFrameY == 0 || Framing.GetTileSafely(i, j).TileFrameY == 36)
-				{
-					int frame = tile.TileFrameY / 18;
+            //right branches
+            if (Framing.GetTileSafely(i, j).TileFrameX == 54 || Framing.GetTileSafely(i, j).TileFrameX == 72)
+            {
+                int frame = tile.TileFrameY / 18;
 
-					Vector2 offset = new Vector2(-(BranchRightGlowTexture.Width() / 2) + 8, -(BranchRightGlowTexture.Height() / 3) + 54);
+                Vector2 offset = new Vector2(-(BranchRightGlowTexture.Width() / 2) + 8, -(BranchRightGlowTexture.Height() / 3) + 54);
 
-					DrawTreeStuff(i - 1, j - 1, BranchRightGlowTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, true);
-				}
-			}
+                DrawTreeStuff(i - 1, j - 1, BranchRightGlowTexture.Value, new Rectangle(0, 46 * frame, 58, 44), TileGlobal.TileOffset, offset, true);
+            }
 
             //draw the actual tree
             spriteBatch.Draw(StemGlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
