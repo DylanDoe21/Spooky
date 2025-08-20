@@ -357,7 +357,7 @@ KrampusDialogue: {
 	PlayerPresent-1: No.
 	DialoguePresent-2: Then... why are you here?
 	PlayerPresent-2: I don't know.
-	DialoguePresent-3: Ok...?
+	DialoguePresent-3: Ok?
 	PlayerPresent-3: ...
 	DialoguePresent-4: Go do the job I'm paying you for, NOW!
 	PlayerPresent-4: Ok ok jeez...

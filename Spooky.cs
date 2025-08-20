@@ -200,6 +200,12 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.KrampusQuestGiven:
+                {
+                    Flags.KrampusQuestGiven = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
 				//should never occur I think?
 				default:
                 {
@@ -230,5 +236,6 @@ namespace Spooky
         Bounty2Complete,
         Bounty3Complete,
         Bounty4Complete,
+        KrampusQuestGiven,
 	}
 }

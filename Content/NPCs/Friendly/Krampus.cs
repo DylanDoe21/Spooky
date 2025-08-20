@@ -496,8 +496,18 @@ namespace Spooky.Content.NPCs.Friendly
 			}
 
 			DialogueUI.Visible = false;
-			Flags.KrampusQuestGiven = true;
 			Expression = 0;
+
+			if (Main.netMode != NetmodeID.SinglePlayer)
+			{
+				ModPacket packet = Mod.GetPacket();
+				packet.Write((byte)SpookyMessageType.KrampusQuestGiven);
+				packet.Send();
+			}
+			else
+			{
+				Flags.KrampusQuestGiven = true;
+			}
 
 			if (Main.netMode == NetmodeID.Server)
 			{
@@ -508,8 +518,18 @@ namespace Spooky.Content.NPCs.Friendly
 		private void EndDialogue(Dialogue dialogue, int ID)
 		{
 			DialogueUI.Visible = false;
-			Flags.KrampusQuestGiven = true;
 			Expression = 0;
+
+			if (Main.netMode != NetmodeID.SinglePlayer)
+			{
+				ModPacket packet = Mod.GetPacket();
+				packet.Write((byte)SpookyMessageType.KrampusQuestGiven);
+				packet.Send();
+			}
+			else
+			{
+				Flags.KrampusQuestGiven = true;
+			}
 
 			if (Main.netMode == NetmodeID.Server)
 			{
