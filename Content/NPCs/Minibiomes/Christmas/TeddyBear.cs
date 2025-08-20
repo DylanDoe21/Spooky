@@ -173,11 +173,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 6; numGores++)
+                for (int numGores = 1; numGores <= 2; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CornGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TeddyBear1Gore" + numGores).Type);
                     }
                 }
             }
@@ -194,6 +194,20 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TeddyBear2Gore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class TeddyBear3 : TeddyBear1  
@@ -206,5 +220,19 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TeddyBear3Gore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

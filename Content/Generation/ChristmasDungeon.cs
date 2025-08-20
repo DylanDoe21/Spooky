@@ -965,7 +965,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - (Height / 2) - 25; j <= PositionY + (Height / 2) + 25; j++)
 				{
-					if (WorldGen.genRand.NextBool(4) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasWoodWall>())
+					if (WorldGen.genRand.NextBool(10) && !Main.tile[i, j].HasTile && Main.tile[i, j].WallType == ModContent.WallType<ChristmasWoodWall>())
 					{
 						List<ushort> Paintings = new()
 						{
@@ -1163,11 +1163,22 @@ namespace Spooky.Content.Generation
 		public bool CanPlacePainting(int PositionX, int PositionY, List<ushort> PaintingsToCheckFor)
 		{
 			//first check to make sure no other paintings are nearby
+			for (int i = PositionX - 3; i <= PositionX + 3; i++)
+			{
+				for (int j = PositionY - 3; j <= PositionY + 3; j++)
+				{
+					if (Main.tile[i, j].WallType != ModContent.WallType<ChristmasWoodWall>())
+					{
+						return false;
+					}
+				}
+			}
+
 			for (int i = PositionX - 6; i <= PositionX + 6; i++)
 			{
 				for (int j = PositionY - 6; j <= PositionY + 6; j++)
-				{
-					if (PaintingsToCheckFor.Contains(Main.tile[i, j].TileType) || Main.tile[i, j].WallType != ModContent.WallType<ChristmasWoodWall>())
+				{	
+					if (PaintingsToCheckFor.Contains(Main.tile[i, j].TileType))
 					{
 						return false;
 					}
@@ -1507,7 +1518,7 @@ namespace Spooky.Content.Generation
 		private void HorizontalPathway(int xStart, int xEnd, int PositionY)
 		{
 			//place additional tiles if theres no dungeon blocks where the pathway is
-			for (int x = Math.Min(xStart, xEnd) - 5; x <= Math.Max(xStart, xEnd) + 5; x++)
+			for (int x = Math.Min(xStart, xEnd) - 10; x <= Math.Max(xStart, xEnd) + 10; x++)
 			{
 				for (int j = PositionY - 10; j <= PositionY + 9; j++)
 				{

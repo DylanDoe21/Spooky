@@ -11,11 +11,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Friendly;
 
 namespace Spooky.Content.UserInterfaces
 {
-	//krampus dialogue code referenced from Mod of redemption dialogue system: https://github.com/Hallam9K/RedemptionAlpha/tree/3b2349a6be8d1e64929c84c4777b7fb0776752d0/UI/ChatUI
-    public class KrampusDialogueUI : UIState
+	//dialogue code referenced from Mod of redemption dialogue system: https://github.com/Hallam9K/RedemptionAlpha/tree/3b2349a6be8d1e64929c84c4777b7fb0776752d0/UI/ChatUI
+    public class DialogueUI : UIState
     {
         public static List<IDialogue> Dialogue;
 
@@ -23,15 +24,17 @@ namespace Spooky.Content.UserInterfaces
 		public static bool DisplayPlayerResponse = false;
 		public static bool DisplayingPlayerResponse = false;
 
-		public Texture2D BoxTex;
+		public Texture2D KrampusBoxTex;
+		public Texture2D LittleEyeBoxTex;
 		public Texture2D PlayerBoxTex;
 
 		public override void OnInitialize()
         {
             Dialogue = new();
 
-			BoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/KrampusDialogueBox", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-			PlayerBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/KrampusDialoguePlayerBox", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			KrampusBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIKrampus", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			LittleEyeBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			PlayerBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
 
         public override void Update(GameTime gameTime)
@@ -58,6 +61,7 @@ namespace Spooky.Content.UserInterfaces
 			}
 
 			Main.LocalPlayer.mouseInterface = true;
+			Main.LocalPlayer.GetModPlayer<SpookyPlayer>().DisablePlayerControls = true;
 
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -84,14 +88,30 @@ namespace Spooky.Content.UserInterfaces
 				(dialogue.entity != null ? dialogue.entity.Center - Main.screenPosition - new Vector2((width - 350f) / 2f, dialogue.entity.height - 15) : 
 				dialogue.chain.anchor != null ? dialogue.chain.anchor.VisualPosition : new Vector2(Main.screenWidth / 2f - width / 2f, Main.screenHeight * 0.8f - height / 2f));
 
-				Vector2 PlayerOffset = dialogue.NotPlayer ? new Vector2(0, 0) : new Vector2(-190, 65);
+				Vector2 PlayerOffset = dialogue.NotPlayer ? new Vector2(0, 0) : new Vector2(-200f, 65f);
 
-				DrawPanel(spriteBatch, dialogue.NotPlayer ? BoxTex : PlayerBoxTex, pos + PlayerOffset - new Vector2(16f, 12f), Color.White, width, height);
+				Texture2D BoxTextureToUse;
+
+				if (dialogue.NotPlayer)
+				{
+					BoxTextureToUse = KrampusBoxTex;
+
+					if (dialogue.NPCType == ModContent.NPCType<LittleEye>())
+					{
+						BoxTextureToUse = LittleEyeBoxTex;
+					}
+				}
+				else
+				{
+					BoxTextureToUse = PlayerBoxTex;
+				}
+
+				DrawPanel(spriteBatch, BoxTextureToUse, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
 
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-				Vector2 textPos = pos + PlayerOffset;
+				Vector2 textPos = pos + PlayerOffset + new Vector2(7f, 0f);
                 for (int k = 0; k < drawnText.Length; k++)
                 {
                     string text = drawnText[k];
@@ -229,21 +249,23 @@ namespace Spooky.Content.UserInterfaces
         }
     }
 
-	public class KrampusDialogueUISystem : ModSystem
+	public class DialogueUISystem : ModSystem
 	{
 		public override void Load()
 		{
 			if (Main.dedServ)
-				KrampusDialogueUI.Dialogue = new();
+			{
+				DialogueUI.Dialogue = new();
+			}
 		}
 
 		public override void PreUpdateEntities()
 		{
-			if (Main.dedServ && KrampusDialogueUI.Visible && KrampusDialogueUI.Dialogue.Count > 0)
+			if (Main.dedServ && DialogueUI.Visible && DialogueUI.Dialogue.Count > 0)
 			{
-				for (int i = 0; i < KrampusDialogueUI.Dialogue.Count; i++)
+				for (int i = 0; i < DialogueUI.Dialogue.Count; i++)
 				{
-					IDialogue dialogue = KrampusDialogueUI.Dialogue[i];
+					IDialogue dialogue = DialogueUI.Dialogue[i];
 					dialogue.Update(Main.gameTimeCache);
 				}
 			}
@@ -281,8 +303,12 @@ namespace Spooky.Content.UserInterfaces
 		public float preFadeTime;
 		public float fadeTime;
 		public float fadeTimeMax;
+		public float expression;
 
-		public Dialogue(Entity entity, string text, string playerText, SoundStyle sound, float charTime, float preFadeTime, float fadeTime, Vector2 modifier = default, bool IsLastDialogue = false, bool NotPlayer = true)
+		public int NPCType;
+
+		public Dialogue(Entity entity, string text, string playerText, SoundStyle sound, float charTime, float preFadeTime, float fadeTime, 
+		Vector2 modifier = default, bool IsLastDialogue = false, bool NotPlayer = true, float Expression = -1, int NPCID = -1)
 		{
 			this.entity = entity;
 			this.playerText ??= playerText;
@@ -297,14 +323,22 @@ namespace Spooky.Content.UserInterfaces
 			this.preFadeTime = preFadeTime;
 			this.fadeTime = fadeTime;
 			this.fadeTimeMax = fadeTime;
+			this.expression = Expression;
 			this.modifier = modifier;
 
 			if (this.charTime < 0)
+			{
 				this.charTime = 0.01f;
+			}
 
 			if (!Main.dedServ)
 			{
 				this.sound = NotPlayer ? sound : null;
+			}
+
+			if (NPCID != -1)
+			{
+				NPCType = NPCID;
 			}
 		}
 
@@ -320,6 +354,11 @@ namespace Spooky.Content.UserInterfaces
 
 			if (!IsLastDialogue)
 			{
+				if (NotPlayer && expression != -1)
+				{
+					Krampus.Expression = expression;
+				}
+
 				// Measure our progress via a modulo between our char time and
 				// our timer, allowing us to decide how many chars to display
 				if (pauseTime <= 0 && displayingText.Length != text.Length && timer >= charTime)
@@ -331,7 +370,7 @@ namespace Spooky.Content.UserInterfaces
 						char trigger = displayingText[^1];
 						if (!Main.dedServ && dialogueSoundTimer % 3 == 0 && sound != null && (trigger is not '.' and not ',' and not '!' and not '?'))
 						{
-							SoundEngine.PlaySound((SoundStyle)sound, entity.position);
+							SoundEngine.PlaySound((SoundStyle)sound, entity.Center);
 						}
 					}
 
@@ -363,19 +402,19 @@ namespace Spooky.Content.UserInterfaces
 
 					if (NotPlayer)
 					{
-						KrampusDialogueUI.DisplayPlayerResponse = true;
+						DialogueUI.DisplayPlayerResponse = true;
 					}
 				}
 
-				if (textFinished && entity.active && KrampusDialogueUI.DisplayPlayerResponse && NotPlayer)
+				if (textFinished && entity.active && DialogueUI.DisplayPlayerResponse && NotPlayer)
 				{
 					TriggerPlayerResponse(playerText, 0);
 					chain?.TriggerPlayerResponse(playerText, 0);
-					KrampusDialogueUI.DisplayPlayerResponse = false;
+					DialogueUI.DisplayPlayerResponse = false;
 				}
 			}
 
-			if (textFinished && KrampusDialogueUI.DisplayingPlayerResponse && Main.mouseLeft && Main.mouseLeftRelease || !entity.active || IsLastDialogue)
+			if (textFinished && DialogueUI.DisplayingPlayerResponse && Main.mouseLeft && Main.mouseLeftRelease || !entity.active || IsLastDialogue)
 			{
 				if (IsLastDialogue)
 				{
@@ -389,7 +428,7 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else
 				{
-					KrampusDialogueUI.Dialogue.Remove(this);
+					DialogueUI.Dialogue.Remove(this);
 				}
 			}
 
@@ -435,7 +474,7 @@ namespace Spooky.Content.UserInterfaces
 		{
 			Dialogue[0].Update(gameTime);
 			if (Dialogue.Count == 0)
-				KrampusDialogueUI.Dialogue.Remove(this);
+				DialogueUI.Dialogue.Remove(this);
 		}
 		public DialogueChain Add(Dialogue dialogue)
 		{

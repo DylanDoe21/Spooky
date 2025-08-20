@@ -92,7 +92,7 @@ namespace Spooky.Content.Items.Quest
 					player.GetModPlayer<SpookyPlayer>().GhostBookBlue = true;
 
 					player.statDefense += 10;
-					player.lifeRegen += 15;
+					player.lifeRegen += 2;
 
 					bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<BanditPriestMinion>()] <= 0;
 					if (NotSpawned && player.whoAmI == Main.myPlayer)

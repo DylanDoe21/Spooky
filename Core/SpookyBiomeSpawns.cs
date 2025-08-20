@@ -277,7 +277,7 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TinyRat2>(), 1);
 				}
 
-				pool.Add(ModContent.NPCType<Crow>(), 0.2f);
+				pool.Add(ModContent.NPCType<Crow>(), 1f);
 
                 //dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
@@ -634,11 +634,31 @@ namespace Spooky.Core
 				
 				if (DungeonWalls.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType))
 				{
+					pool.Add(ModContent.NPCType<BasketBall>(), 1);
+					pool.Add(ModContent.NPCType<BeachBall>(), 1);
 					pool.Add(ModContent.NPCType<SockManGreen>(), 1);
 					pool.Add(ModContent.NPCType<SockManOrange>(), 1);
 					pool.Add(ModContent.NPCType<SockManRed>(), 1);
 					pool.Add(ModContent.NPCType<TeddyBearSnow>(), 0.5f);
 					pool.Add(ModContent.NPCType<ToyRobot>(), 2);
+					pool.Add(ModContent.NPCType<ToyRobotTank>(), 0.5f);
+
+					if (Flags.KrampusQuest1)
+					{
+						pool.Add(ModContent.NPCType<Marble>(), 0.5f);
+					}
+					if (Flags.KrampusQuest2)
+					{
+						pool.Add(ModContent.NPCType<JackInTheBox>(), 0.5f);
+					}
+					if (Flags.KrampusQuest3)
+					{
+						pool.Add(ModContent.NPCType<BuilderBot>(), 0.5f);
+					}
+					if (Flags.KrampusQuest4)
+					{
+						pool.Add(ModContent.NPCType<ChefRobot>(), 0.5f);
+					}
 				}
 			}
 

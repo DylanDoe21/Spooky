@@ -43,8 +43,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 			NPC.height = 50;
             NPC.npcSlots = 0.5f;
             NPC.noGravity = true;
-			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.HitSound = SoundID.DD2_GoblinScream with { Pitch = 1.25f, Volume = 0.4f };
+            NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().Type };
 		}
@@ -198,9 +198,12 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         {
             if (NPC.life <= 0) 
             {
-                if (Main.netMode != NetmodeID.Server) 
+                for (int numGores = 1; numGores <= 2; numGores++)
                 {
-                    //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ShroomHopperGore").Type);
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SockManGreenGore" + numGores).Type);
+                    }
                 }
             }
         }
@@ -216,6 +219,20 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SockManOrangeGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 
     public class SockManRed : SockManGreen
@@ -228,5 +245,19 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/SockManRedGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

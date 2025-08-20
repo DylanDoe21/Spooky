@@ -117,13 +117,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         {
             if (NPC.life <= 0) 
             {
-                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<SnowCloud>(), NPC.damage, 0f);
+                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(0, -6), ModContent.ProjectileType<TeddyBearSnowHead>(), NPC.damage, 4.5f);
 
-                for (int numGores = 1; numGores <= 6; numGores++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CornGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TeddyBearSnowGore" + numGores).Type);
                     }
                 }
             }

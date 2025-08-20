@@ -1,11 +1,14 @@
-/*
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+
+using Spooky.Core;
+using Spooky.Content.NPCs.Minibiomes.Christmas.Projectiles;
 
 namespace Spooky.Content.NPCs.Minibiomes.Christmas
 {
@@ -23,25 +26,25 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 60;
+            NPC.lifeMax = 30;
             NPC.damage = 25;
             NPC.defense = 10;
-            NPC.width = 60;
-			NPC.height = 60;
+            NPC.width = 28;
+			NPC.height = 28;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0.5f;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 2, 0);
-            NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
+            NPC.HitSound = SoundID.Tink with { Volume = 0.75f, Pitch = 1.25f };
+			NPC.DeathSound = SoundID.Shatter with { Pitch = 1.75f };
             NPC.aiStyle = 26;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().Type };
         }
 
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Marble"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().ModBiomeBestiaryInfoElement)
@@ -56,40 +59,19 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 			NPC.spriteDirection = NPC.direction;
 
             NPC.rotation += 0.05f * (float)NPC.direction + (NPC.velocity.X / 40);
-
-            //only run screenshake code if the player is close enough
-            if (player.Distance(NPC.Center) < 250f)
-            {
-                //shake the screen if the skull is rolling at maximum speed
-                if ((NPC.velocity.X >= 6 || NPC.velocity.X <= -6) && player.velocity.Y == 0 && Collision.SolidCollision(NPC.Center, NPC.width, NPC.height))
-                {
-                    hasCollidedWithWall = false;
-
-                    //kill this npc and spawn small marbles
-                }
-            }
-
-            if (NPC.localAI[0] > 0)
-            {
-                NPC.localAI[0]--;
-
-                NPC.velocity.X *= 0.2f;
-            }
         }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
 			if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 6; numGores++)
+                for (int numProjs = 0; numProjs <= 5; numProjs++)
                 {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/RollingSkullGore" + numGores).Type);
-                    }
+                    Vector2 velocity = new Vector2(0, Main.rand.Next(-12, -8)).RotatedByRandom(MathHelper.ToRadians(25));
+
+                    NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, velocity, ModContent.ProjectileType<TinyMarble>(), NPC.damage / 2, 4.5f);
                 }
             }
         }
     }
 }
-*/

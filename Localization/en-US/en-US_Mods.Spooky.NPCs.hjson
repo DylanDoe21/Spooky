@@ -447,15 +447,25 @@ SkeletonPufferfish.DisplayName: Skeletoid Pufferfish
 SeaMine.DisplayName: Sea Mine
 SeaMineBase.DisplayName: ""
 //krampus workshop
+BasketBall.DisplayName: Bouncy Basket Ball
+BeachBall.DisplayName: Bouncy Beach Ball
+BuilderBot.DisplayName: Builder Bot
+BuilderBotHand.DisplayName: Builder Bot
+BuilderBotHandBack.DisplayName: Builder Bot
+ChefRobot.DisplayName: Chef-Bot 9000
+JackInTheBox.DisplayName: Boxed Jack
+Marble.DisplayName: Giant Marble
 PresentTrapBlue.DisplayName: Present
-SockManGreen.DisplayName: Stocking Helper
-SockManOrange.DisplayName: Stocking Helper
-SockManRed.DisplayName: Stocking Helper
+SockManGreen.DisplayName: Krampus' Helper
+SockManOrange.DisplayName: Krampus' Helper
+SockManRed.DisplayName: Krampus' Helper
 TeddyBear1.DisplayName: Teddy Bear
 TeddyBear2.DisplayName: Teddy Bear
 TeddyBear3.DisplayName: Teddy Bear
+TeddyBearGiant.DisplayName: Cornelius
 TeddyBearSnow.DisplayName: Snow Bear
 ToyRobot.DisplayName: Toy Robot
+ToyRobotTank.DisplayName: Toy Tankbot
 
 //tameable
 Crow: {

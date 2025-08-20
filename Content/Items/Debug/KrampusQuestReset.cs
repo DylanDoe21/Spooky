@@ -33,6 +33,8 @@ namespace Spooky.Content.Items.Debug
             Flags.KrampusQuest3 = false;
             Flags.KrampusQuest4 = false;
             Flags.KrampusQuest5 = false;
+            Flags.KrampusDailyQuest = false;
+            Flags.KrampusQuestGiven = false;
 
 			return true;
 		}

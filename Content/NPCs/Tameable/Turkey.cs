@@ -8,8 +8,8 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Buffs.Mounts;
 using Spooky.Content.Dusts;
+using Spooky.Content.Buffs.Mounts;
 using Spooky.Content.Items.BossSummon;
 
 namespace Spooky.Content.NPCs.Tameable
@@ -33,10 +33,10 @@ namespace Spooky.Content.NPCs.Tameable
 		{
 			Main.npcFrameCount[NPC.type] = 18;
             NPCID.Sets.CountsAsCritter[NPC.type] = true;
-			NPCID.Sets.TakesDamageFromHostilesWithoutBeingFriendly[NPC.type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+			NPCID.Sets.TakesDamageFromHostilesWithoutBeingFriendly[NPC.type] = true;
 
-            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
 				Velocity = 1f
 			};

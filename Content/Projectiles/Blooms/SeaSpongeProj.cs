@@ -31,8 +31,10 @@ namespace Spooky.Content.Projectiles.Blooms
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Vector2 drawOrigin = new(Projectile.width * 0.5f, Projectile.height * 0.5f);
+
+            Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(lightColor);
          
-            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, drawOrigin, Scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, drawOrigin, Scale, SpriteEffects.None, 0);
 
             return false;
         }

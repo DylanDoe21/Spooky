@@ -215,7 +215,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 			{
 				Vector2 previousPosition = trailLength[i];
 				trailLength[i] = current;
-				trailHitboxes[i] = new Rectangle((int)current.X - 5, (int)current.Y - 5, 5, 5);
+				trailHitboxes[i] = new Rectangle((int)current.X - 3, (int)current.Y - 3, 6, 6);
 
 				current = previousPosition;
 			}

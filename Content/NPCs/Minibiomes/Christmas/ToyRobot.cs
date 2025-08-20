@@ -48,7 +48,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 75;
+            NPC.lifeMax = 50;
             NPC.damage = 30;
             NPC.defense = 10;
             NPC.width = 36;
@@ -191,7 +191,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 
                     foreach (Player player in Main.ActivePlayers)
 					{
-						if (!player.dead && player.Distance(NPC.Center) <= 80f)
+						if (!player.dead && player.Distance(NPC.Center) <= 135f)
 						{
 							player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.ToyRobotExplosion").ToNetworkText(player.name)), NPC.damage + Main.rand.Next(0, 30), 0);
 						}

@@ -501,7 +501,7 @@ namespace Spooky.Content.NPCs.NoseCult
                     break;
                 }
 
-                //special attack, summon a nose amalgam, and summon multiple after reaching half hp
+                //special attack, summon nose amalgams
                 case 4:
                 {
                     NPC.localAI[0]++;

@@ -193,7 +193,7 @@ namespace Spooky.Content.NPCs.Quest.Projectiles
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion with { Volume = 0.5f }, Projectile.Center);
 
         	float maxAmount = 30;
 			int currentAmount = 0;

@@ -15,7 +15,7 @@ namespace Spooky.Content.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			//increase life regen
-			player.lifeRegen += 10;
+			player.lifeRegen += 4;
 
 			if (Main.rand.NextBool(10))
 			{

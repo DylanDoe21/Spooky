@@ -61,6 +61,7 @@ namespace Spooky.Core
 		public static bool KrampusQuest4 = false;
 		public static bool KrampusQuest5 = false;
 		public static bool KrampusDailyQuest = false;
+		public static bool KrampusQuestGiven = false;
 
 		//misc stuff
 		public static bool SpookyBackgroundAlt = false;
@@ -113,6 +114,7 @@ namespace Spooky.Core
 			KrampusQuest4 = false;
 			KrampusQuest5 = false;
 			KrampusDailyQuest = false;
+			KrampusQuestGiven = false;
 
 			//misc stuff
 			SpookyBackgroundAlt = false;
@@ -186,6 +188,7 @@ namespace Spooky.Core
 			tag[nameof(KrampusQuest4)] = KrampusQuest4;
 			tag[nameof(KrampusQuest5)] = KrampusQuest5;
 			tag[nameof(KrampusDailyQuest)] = KrampusDailyQuest;
+			tag[nameof(KrampusQuestGiven)] = KrampusQuestGiven;
 
 			//misc stuff
 			tag[nameof(SpookyBackgroundAlt)] = SpookyBackgroundAlt;
@@ -262,6 +265,7 @@ namespace Spooky.Core
 			KrampusQuest4 = tag.GetBool(nameof(KrampusQuest4));
 			KrampusQuest5 = tag.GetBool(nameof(KrampusQuest5));
 			KrampusDailyQuest = tag.GetBool(nameof(KrampusDailyQuest));
+			KrampusQuestGiven = tag.GetBool(nameof(KrampusQuestGiven));
 
 			//misc stuff
 			SpookyBackgroundAlt = tag.GetBool(nameof(SpookyBackgroundAlt));
@@ -309,7 +313,7 @@ namespace Spooky.Core
 			writer.WriteFlags(downedMocoIdol1, downedMocoIdol2, downedMocoIdol3, downedMocoIdol4, downedMocoIdol5, downedMocoIdol6, MinibossBarrierOpen);
 
 			//krampus quests
-			writer.WriteFlags(KrampusQuest1, KrampusQuest2, KrampusQuest3, KrampusQuest4, KrampusQuest5, KrampusDailyQuest);
+			writer.WriteFlags(KrampusQuest1, KrampusQuest2, KrampusQuest3, KrampusQuest4, KrampusQuest5, KrampusDailyQuest, KrampusQuestGiven);
 
 			//misc stuff
 			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard);
@@ -351,7 +355,7 @@ namespace Spooky.Core
 			reader.ReadFlags(out downedMocoIdol1, out downedMocoIdol2, out downedMocoIdol3, out downedMocoIdol4, out downedMocoIdol5, out downedMocoIdol6, out MinibossBarrierOpen);
 
 			//krampus quests
-			reader.ReadFlags(out KrampusQuest1, out KrampusQuest2, out KrampusQuest3, out KrampusQuest4, out KrampusQuest5, out KrampusDailyQuest);
+			reader.ReadFlags(out KrampusQuest1, out KrampusQuest2, out KrampusQuest3, out KrampusQuest4, out KrampusQuest5, out KrampusDailyQuest, out KrampusQuestGiven);
 
 			//misc stuff
 			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard);

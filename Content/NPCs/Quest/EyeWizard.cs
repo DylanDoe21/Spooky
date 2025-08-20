@@ -308,8 +308,10 @@ namespace Spooky.Content.NPCs.Quest
 						NPC.velocity *= 0.95f;
 					}
 
+					int Repeats = NPC.life <= (NPC.lifeMax / 2) ? 20 : 12;
+
 					//loop 12 times so the book shoots 12 lingering eye runes
-					if (NPC.localAI[1] < 12)
+					if (NPC.localAI[1] < Repeats)
 					{
 						if (NPC.localAI[0] >= 32)
 						{

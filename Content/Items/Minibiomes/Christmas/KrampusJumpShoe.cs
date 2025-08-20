@@ -54,7 +54,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
                 Vector2 position = -Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / 20) * new Vector2(1f, 0.25f);
                 Vector2 velocity = -playerVelocity - position * 1.25f;
                 position = position * Main.rand.Next(35, 56) + offset;
-                Dust dust = Dust.NewDustPerfect(position, DustID.SnowflakeIce, velocity);
+                Dust dust = Dust.NewDustPerfect(position, DustID.Vortex, velocity);
                 dust.noGravity = true;
             }
 		}

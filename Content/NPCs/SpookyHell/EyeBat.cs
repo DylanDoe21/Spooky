@@ -18,7 +18,6 @@ namespace Spooky.Content.NPCs.SpookyHell
     public class EyeBat : ModNPC
     {
         private static Asset<Texture2D> GlowTexture;
-        private static Asset<Texture2D> NPCTexture;
 
         public override void SetStaticDefaults()
         {
@@ -60,26 +59,6 @@ namespace Spooky.Content.NPCs.SpookyHell
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.EyeBat"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
-		}
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			if (NPC.localAI[0] >= 180)
-			{
-                Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
-
-                for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
-                {
-                    var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
-                    Color color = NPC.GetAlpha(Color.Purple) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length));
-                    spriteBatch.Draw(NPCTexture.Value, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
-                }
-			}
-            
-            return true;
 		}
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -150,6 +129,8 @@ namespace Spooky.Content.NPCs.SpookyHell
             {
                 SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 
+                NPC.knockBackResist = 0f;
+
                 Vector2 ChargeDirection = player.Center - NPC.Center;
                 ChargeDirection.Normalize();
                         
@@ -161,11 +142,10 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             if (NPC.localAI[0] >= 270)
             {
-                NPC.velocity *= 0.9f;
-            }
+                NPC.knockBackResist = 0.5f;
 
-            if (NPC.localAI[0] >= 295)
-            {
+                NPC.velocity *= 0.9f;
+
                 NPC.localAI[0] = 0;
             }
         }

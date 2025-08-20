@@ -165,32 +165,6 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.velocity *= 0.95f;
             }
 
-            //prevent Projectiles clumping together
-            for (int k = 0; k < Main.projectile.Length; k++)
-            {
-                Projectile other = Main.projectile[k];
-                if (k != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
-                {
-                    const float pushAway = 0.1f;
-                    if (Projectile.position.X < other.position.X)
-                    {
-                        Projectile.velocity.X -= pushAway;
-                    }
-                    else
-                    {
-                        Projectile.velocity.X += pushAway;
-                    }
-                    if (Projectile.position.Y < other.position.Y)
-                    {
-                        Projectile.velocity.Y -= pushAway;
-                    }
-                    else
-                    {
-                        Projectile.velocity.Y += pushAway;
-                    }
-                }
-            }
-
             //shoot its eye out
             Projectile.ai[1]++;
             

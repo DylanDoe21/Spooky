@@ -3,5 +3,6 @@ VesicatorExplosion: "{0} was exploded by Vesicator."
 BubbleExplosion: "{0} was exploded by Blood Bubble."
 GodGunExplode: "{0} used the Holy Fire for too long."
 SeaMineExplosion: "{0} was blown to smithereens."
-ToyRobotExplosion: "{0} was blown up by a Toy Robot"
+ToyRobotExplosion: "{0} was blown up by a Toy Robot."
+JackInTheBoxExplosion: "{0} was blown up by a Boxed Jack."
 KrampusResolution: Happy new year, {0}!

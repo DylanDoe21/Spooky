@@ -86,7 +86,7 @@ namespace Spooky.Core
                 //even though big dunks pathfinding doesnt really affect preformance, still not a good idea to have it running in the background constantly
 				if (!NPC.AnyNPCs(ModContent.NPCType<Dunkleosteus>()) && AnyPlayersInZombieOceanBiome() && !Flags.downedDunkleosteus)
 				{
-					int Count = Flags.ZombieBiomePositions.Count - 1;
+					int Count = Flags.ZombieBiomePositions.Count / 2;
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
 						int BigDunk = NPC.NewNPC(null, (int)Flags.ZombieBiomePositions[Count].X * 16, (int)Flags.ZombieBiomePositions[Count].Y * 16, ModContent.NPCType<Dunkleosteus>());
@@ -351,10 +351,10 @@ namespace Spooky.Core
                 }
             }
 
+            //krampus daily quests should refresh when it switches to day or night
             if (DaySwitched && !Flags.KrampusDailyQuest)
             {
                 Flags.KrampusDailyQuest = true;
-
                 if (Main.netMode == NetmodeID.Server)
                 {
                     NetMessage.SendData(MessageID.WorldData);
@@ -428,12 +428,12 @@ namespace Spooky.Core
             LastTime = Main.dayTime;
         }
 
-        public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
+		public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
         {
 			//spooky forest ambient lighting
 			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpookyBiome>()))
             {
-                float Intensity = ModContent.GetInstance<TileCount>().spookyTiles / 200f;
+                float Intensity = ModContent.GetInstance<TileCount>().spookyTiles / 3500f;
                 Intensity = Math.Min(Intensity, 1f);
                 int sunR = backgroundColor.R;
                 int sunG = backgroundColor.G;
@@ -447,13 +447,11 @@ namespace Spooky.Core
 
 				Color LightColor = new Color(sunR, sunG, sunB);
                 backgroundColor = LightColor;
-
-				return;
-            }
+			}
 
             if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<CemeteryBiome>()))
             {
-                float Intensity = ModContent.GetInstance<TileCount>().cemeteryTiles / 200f;
+                float Intensity = ModContent.GetInstance<TileCount>().cemeteryTiles / 2200f;
                 Intensity = Math.Min(Intensity, 1f);
                 int sunR = backgroundColor.R;
                 int sunG = backgroundColor.G;
@@ -467,8 +465,6 @@ namespace Spooky.Core
 
 				Color LightColor = new Color(sunR, sunG, sunB);
 				backgroundColor = LightColor;
-
-				return;
             }
         }
     }

@@ -12,20 +12,20 @@ namespace Spooky.Content.UserInterfaces
 	public class UILoadSystem : ModSystem
 	{
 		public UserInterface TextLayer;
-		public KrampusDialogueUI TextBox;
+		public DialogueUI TextBox;
 
 		public override void Load()
 		{
 			TextLayer = new UserInterface();
-			TextBox = new KrampusDialogueUI();
+			TextBox = new DialogueUI();
 			TextLayer.SetState(TextBox);
 		}
 
 		public override void ClearWorld()
 		{
-			if (!Main.dedServ && KrampusDialogueUI.Visible)
+			if (!Main.dedServ && DialogueUI.Visible)
 			{
-				KrampusDialogueUI.Clear();
+				DialogueUI.Clear();
 			}
 		}
 
@@ -102,7 +102,7 @@ namespace Spooky.Content.UserInterfaces
 				layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Krampus Dialogue UI",
 				delegate
 				{
-					if (KrampusDialogueUI.Visible)
+					if (DialogueUI.Visible)
 					{
 						TextLayer.Update(Main._drawInterfaceGameTime);
 						TextBox.Draw(Main.spriteBatch);

@@ -501,7 +501,7 @@ namespace Spooky.Content.Generation
                             {
                                 EyeTreeShort.Grow(X, Y - 1, 8, 15, false);
                             }
-                            else if (CanPlaceTree(X, Y, 5))
+                            else if (CanPlaceTree(X, Y, 3))
                             {
                                 EyeTree.Grow(X, Y - 1, 12, 35, false);
                             }

@@ -306,12 +306,12 @@ KrampusDialogue: {
 	Dialogue4-1: Ah, perfect! I was just waiting for you, I’ve got ten-thousand more of those ready to be delivered TODAY!
 	PlayerResponse4-1: Ummm...
 	Dialogue4-2: Come on kid! Don't keep me waiting! Give me ALL the details!
-	PlayerResponse4-2: Ok so, first it like, hurled itself at the person, then it tore off their nose, then it-
+	PlayerResponse4-2: Ok so, first it hurled itself at the person, then it tore off their nose, then it-
 	Dialogue4-3: NO NO NO! Nevermind...
 	PlayerResponse4-3: Ok whatever.
 	Dialogue4-4: GODAMNIT! Now I have to blast all of these things to HELL! It'll be fine, I STILL have one more thing. It has to work, It will SAVE christmas. I WILL save christmas!
 	PlayerResponse4-4: Dude its october.
-	Dialogue4-5: Yes it is october you IMBECILE! It's been october for the past 3 YEARS! And unless you want to make Christmas even more ruined than it already is, you better take this and scram!
+	Dialogue4-5: Yes it is october you IMBECILE! It's been october for the past three YEARS! And unless you want to make christmas even more ruined than it already is, you better take this and scram!
 	PlayerResponse4-5: Ok Ok, jeez...
 	Dialogue4-6: This WILL work, It HAS to...
 	PlayerResponse4-6: ...
@@ -319,13 +319,13 @@ KrampusDialogue: {
 	Dialogue5-1: ...
 	PlayerResponse5-1: It didn't work.
 	Dialogue5-2: PERFECT! what a surprise...
-	PlayerResponse5-2: You suck at your job cuh.
-	Dialogue5-3: IT'S NOT MY JOB! Or well... It shouldn’t be MY job. Somebody has been messing EVERYTHING up and now Nick can’t get here anymore.
+	PlayerResponse5-2: You suck at your job.
+	Dialogue5-3: IT'S NOT MY JOB! Or well... It shouldn't be. Somebody has been messing EVERYTHING up and now Nick can't get here anymore.
 	PlayerResponse5-3: Ok.
 	Dialogue5-4: Damnit, I knew that I couldn't do it. I guess I can’t be much more than Krampus...
 	PlayerResponse5-4: Give me my money.
-	Dialogue5-5: Yes, yes... there is one more delivery I have for you. After that you are free to just, not come back. Ever.
-	PlayerResponse5-5: Yay!
+	Dialogue5-5: Yes, yes... there is one more delivery I have for you. After that you are free to not come back. Ever.
+	PlayerResponse5-5: Sure.
 	Dialogue5-6: PLEASE just, go. And make sure no one dies this time...
 	PlayerResponse5-6: Sure.
 	//post final quest
@@ -341,6 +341,38 @@ KrampusDialogue: {
 	PlayerResponse6-5: Wait you're a demon?
 	Dialogue6-6: MINIONS! Get sawing, knitting, welding, and weaving! Christmas is not over yet, and it'll be christmas MY way! BAHAHAHAHAHA!
 	PlayerResponse6-6: Uh, ok so-
-	Dialogue6-7: ...and YOU! You've got a lot of delivering to do now!
+	Dialogue6-7: And YOU! You've got a lot of delivering to do now!
 	PlayerResponse6-7: ...Oh no.
+	//the player lost the present somehow
+	DialogueNoPresent-1: Hm? Back so soon?
+	PlayerNoPresent-1: I need another present.
+	DialogueNoPresent-2: Ah, trying to multitask? Commendable kid, reminds me of Nick.
+	PlayerNoPresent-2: No I lost the present.
+	DialogueNoPresent-3: What? HOW!?
+	PlayerNoPresent-3: I dunno.
+	DialogueNoPresent-4: You are LUCKY that I have another gift ready. Take it, and don't lose it.
+	PlayerNoPresent-4: Ok!
+	//the player has the present already
+	DialoguePresent-1: Ah, did you deliver the gift?
+	PlayerPresent-1: No.
+	DialoguePresent-2: Then... why are you here?
+	PlayerPresent-2: I don't know.
+	DialoguePresent-3: Ok...?
+	PlayerPresent-3: ...
+	DialoguePresent-4: Go do the job I'm paying you for, NOW!
+	PlayerPresent-4: Ok ok jeez...
+	//the players inventory is full
+	DialogueInvFull-1: ...Uhh, kid I don't think you can carry this.
+	PlayerInvFull-1: What do you mean?
+	DialogueInvFull-2: There is nowhere this can fit on your person, kid.
+	PlayerInvFull-2: Nah I can do it.
+	DialogueInvFull-3: I'll just leave it on the floor for now I guess.
+	PlayerInvFull-3: ...
+	//little eye dialogue
+	LittleEye1: Whoa! What's this thing?!
+	PlayerLittleEye1: Uhhh, some gift from krampus?
+	LittleEye2: Well whatever it is, it's amazing! I've always wanted a giant teddy bear to keep me company down here!
+	PlayerLittleEye2: So... you like the gift?
+	LittleEye3: Yes of course! This is the most awesome thing ever! I think I'll name him Cornelius!
+	PlayerLittleEye3: Alright... I guess I'll go let krampus know you like it then.
 }

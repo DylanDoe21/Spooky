@@ -716,7 +716,21 @@ namespace Spooky.Content.Generation
 						Tile tileAbove = Main.tile[i, j - 1];
 						Tile tileBelow = Main.tile[i, j + 1];
 
-						//place skulls on any tiles
+						//place corals
+						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile)
+						{
+							if (WorldGen.genRand.NextBool(3))
+							{
+								ushort[] Corals = new ushort[] { (ushort)ModContent.TileType<CoralGreen1>(), (ushort)ModContent.TileType<CoralGreen2>(), (ushort)ModContent.TileType<CoralGreen3>(),
+								(ushort)ModContent.TileType<CoralPurple1>(), (ushort)ModContent.TileType<CoralPurple2>(), (ushort)ModContent.TileType<CoralPurple3>(),
+								(ushort)ModContent.TileType<CoralRed1>(), (ushort)ModContent.TileType<CoralRed2>(), (ushort)ModContent.TileType<CoralRed3>(),
+								(ushort)ModContent.TileType<CoralYellow1>(), (ushort)ModContent.TileType<CoralYellow2>(), (ushort)ModContent.TileType<CoralYellow3>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Corals));
+							}
+						}
+
+						//place fish bones and fossils on both sand and zombie biomass
 						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>()) && !tileAbove.HasTile)
 						{
 							if (WorldGen.genRand.NextBool() && CanPlaceTubeWorm(i, j))
@@ -731,7 +745,7 @@ namespace Spooky.Content.Generation
 							{
 								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
 								{
-									BoneFishTree.Grow(i, j - 1, 2, 8);
+									BoneFishTree.Grow(i, j - 1, 3, 8);
 
 									if (Main.tile[i, j - 1].TileType == ModContent.TileType<BoneFishTree>())
 									{
@@ -745,7 +759,7 @@ namespace Spooky.Content.Generation
 								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<LockerTile>());
 							}
 
-							if (WorldGen.genRand.NextBool(12))
+							if (WorldGen.genRand.NextBool())
 							{
 								ushort[] Skulls = new ushort[] { (ushort)ModContent.TileType<FishFossil1>(), (ushort)ModContent.TileType<FishFossil2>(), 
 								(ushort)ModContent.TileType<FishFossil3>(), (ushort)ModContent.TileType<FishFossil4>(), (ushort)ModContent.TileType<FishFossil5>() };
@@ -753,12 +767,52 @@ namespace Spooky.Content.Generation
 								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Skulls));
 							}
 						}
+					}
+				}
+			}
 
-						//floor tiles
+			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j, 25))
+					{
+						Tile tile = Main.tile[i, j];
+						Tile tileAbove = Main.tile[i, j - 1];
+						Tile tileBelow = Main.tile[i, j + 1];
+
+						//zombie tiles
+						if (Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() && !tileAbove.HasTile)
+						{
+							//brains
+							if (WorldGen.genRand.NextBool(5))
+							{
+								ushort[] Brains = new ushort[] { (ushort)ModContent.TileType<Brain1>(), (ushort)ModContent.TileType<Brain2>(),
+								(ushort)ModContent.TileType<Brain3>(), (ushort)ModContent.TileType<Brain4>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Brains));
+							}
+
+							//fingers
+							if (WorldGen.genRand.NextBool(5))
+							{
+								ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<ZombieFinger1>(), (ushort)ModContent.TileType<ZombieFinger2>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Fingers));
+							}
+
+							//zomboid piles
+							if (WorldGen.genRand.NextBool())
+							{
+								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<ZombiePiles>(), true, WorldGen.genRand.Next(0, 9));
+							}
+						}
+
+						//sand tiles
 						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile)
 						{
 							//big light plants
-							if (WorldGen.genRand.NextBool(15))
+							if (WorldGen.genRand.NextBool(3))
 							{
 								ushort[] BigLightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlantBig1>(), (ushort)ModContent.TileType<LightPlantBig2>(), 
 								(ushort)ModContent.TileType<LightPlantBig3>(), (ushort)ModContent.TileType<LightPlantBig4>() };
@@ -767,22 +821,11 @@ namespace Spooky.Content.Generation
 							}
 
 							//light plants
-							if (WorldGen.genRand.NextBool(8))
+							if (WorldGen.genRand.NextBool(3))
 							{
 								ushort[] LightPlants = new ushort[] { (ushort)ModContent.TileType<LightPlant1>(), (ushort)ModContent.TileType<LightPlant2>(), (ushort)ModContent.TileType<LightPlant3>() };
 
 								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(LightPlants));
-							}
-
-							//corals
-							if (WorldGen.genRand.NextBool())
-							{
-								ushort[] Corals = new ushort[] { (ushort)ModContent.TileType<CoralGreen1>(), (ushort)ModContent.TileType<CoralGreen2>(), (ushort)ModContent.TileType<CoralGreen3>(),
-								(ushort)ModContent.TileType<CoralPurple1>(), (ushort)ModContent.TileType<CoralPurple2>(), (ushort)ModContent.TileType<CoralPurple3>(),
-								(ushort)ModContent.TileType<CoralRed1>(), (ushort)ModContent.TileType<CoralRed2>(), (ushort)ModContent.TileType<CoralRed3>(),
-								(ushort)ModContent.TileType<CoralYellow1>(), (ushort)ModContent.TileType<CoralYellow2>(), (ushort)ModContent.TileType<CoralYellow3>() };
-
-								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Corals));
 							}
 
 							//grow weeds
@@ -815,33 +858,6 @@ namespace Spooky.Content.Generation
 							int[] ValidTiles = { ModContent.TileType<OceanSand>() };
 
 							SpookyWorldMethods.PlaceVines(i, j, ModContent.TileType<OceanVines>(), ValidTiles);
-						}
-
-						//zombie tiles
-						if (Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() && !tileAbove.HasTile)
-						{
-							//brains
-							if (WorldGen.genRand.NextBool(5))
-							{
-								ushort[] Brains = new ushort[] { (ushort)ModContent.TileType<Brain1>(), (ushort)ModContent.TileType<Brain2>(),
-								(ushort)ModContent.TileType<Brain3>(), (ushort)ModContent.TileType<Brain4>() };
-
-								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Brains));
-							}
-
-							//fingers
-							if (WorldGen.genRand.NextBool(5))
-							{
-								ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<ZombieFinger1>(), (ushort)ModContent.TileType<ZombieFinger2>() };
-
-								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Fingers));
-							}
-
-							//zomboid piles
-							if (WorldGen.genRand.NextBool())
-							{
-								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<ZombiePiles>(), true, WorldGen.genRand.Next(0, 9));
-							}
 						}
 					}
 				}
@@ -1059,7 +1075,7 @@ namespace Spooky.Content.Generation
 				{
 					if (!Main.tile[X, j].LeftSlope && !Main.tile[X, j].RightSlope && !Main.tile[X, j].IsHalfBlock)
 					{
-						BoneFishTreeHanging.Grow(X, j + 1, 2, 8);
+						BoneFishTreeHanging.Grow(X, j + 1, 3, 8);
 						return true;
 					}
 				}

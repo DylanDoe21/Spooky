@@ -834,21 +834,18 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 							position += Offset;
 						}
 
-						if (NPC.localAI[0] % 10 == 0)
+						if (NPC.localAI[0] % 20 == 0)
 						{
 							SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 						}
 
 						if (NPC.localAI[0] % 2 == 0)
 						{
-							for (int numProjs = 0; numProjs <= 2; numProjs++)
-							{
-								int Spread = Phase2 ? 3 : 6;
+							int Spread = Phase2 ? 3 : 6;
 
-								Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(Spread));
+							Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(Spread));
 
-								NPCGlobalHelper.ShootHostileProjectile(NPC, position, newVelocity, ModContent.ProjectileType<SpookyFlames>(), NPC.damage, 4.5f);
-							}
+							NPCGlobalHelper.ShootHostileProjectile(NPC, position, newVelocity, ModContent.ProjectileType<SpookyFlames>(), NPC.damage, 4.5f);
 						}
 					}
 

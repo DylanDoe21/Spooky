@@ -10,6 +10,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
@@ -151,7 +152,7 @@ namespace Spooky.Core
         public bool NoseCultistDisguise1 = false;
 		public bool NoseCultistDisguise2 = false;
 		public bool NoseBlessingBuff = false;
-        public bool YappingWithKrampus = false;
+        public bool DisablePlayerControls = false;
 
 		//misc timers
         public float SpiderStealthAlpha = 0f;
@@ -179,7 +180,6 @@ namespace Spooky.Core
 		public int PotionSicknessCranberryTimer = 0;
 		public int PotionSicknessLatteTimer = 0;
         public int SpearfishChargeCooldown = 0;
-        public int KrampusShoeJumps = 0;
         public int KrampusResolutionTimer = 0;
         public int KrampusChimneyProjTimer = 0;
 
@@ -202,6 +202,8 @@ namespace Spooky.Core
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
         private static Asset<Texture2D> HazmatArmorBackTex;
+
+		public List<int> KrampusShapeBoxOrbiters = new List<int>();
 
 		//sounds
 		public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
@@ -357,7 +359,7 @@ namespace Spooky.Core
             NoseCultistDisguise1 = false;
 			NoseCultistDisguise2 = false;
 			NoseBlessingBuff = false;
-            YappingWithKrampus = false;
+            DisablePlayerControls = false;
 
 			//dashing stuff
             if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
@@ -1210,8 +1212,9 @@ namespace Spooky.Core
 
 		public override void SetControls()
 		{
-			if (YappingWithKrampus)
+			if (DisablePlayerControls)
 			{
+                Main.playerInventory = false;
 				Player.controlLeft = false;
 				Player.controlRight = false;
 				Player.controlUp = false;
@@ -1223,6 +1226,8 @@ namespace Spooky.Core
 				Player.controlUseTile = false;
 				Player.controlMap = false;
 				Player.controlMount = false;
+				Player.immuneNoBlink = true;
+                Player.immuneTime = 30;
 			}
 		}
 

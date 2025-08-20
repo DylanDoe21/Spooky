@@ -978,7 +978,7 @@ namespace Spooky.Core
 				{
 					if (var != string.Empty)
 					{
-						Player.lifeRegen += 5;
+						Player.lifeRegen += 2;
 					}
 				}
 			}

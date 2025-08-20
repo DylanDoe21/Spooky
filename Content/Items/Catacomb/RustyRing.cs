@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.Catacomb
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statLifeMax2 += 60;
-            player.lifeRegen += 10;
+            player.lifeRegen += 1;
 
             if (player.ZoneDungeon || player.InModBiome(ModContent.GetInstance<CatacombBiome>()) || player.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
             {

@@ -4444,13 +4444,13 @@ XmasAbstractPainting3Item: {
 }
 
 XmasAbstractPainting4Item: {
-	DisplayName: Ta
+	DisplayName: TA
 	Tooltip: "'Krampus'"
 }
 
 XmasForestPaintingItem: {
 	DisplayName: The Tallest One
-	Tooltip: "'Taco'"
+	Tooltip: "'Tortilla'"
 }
 
 XmasNorthStarPaintingItem: {

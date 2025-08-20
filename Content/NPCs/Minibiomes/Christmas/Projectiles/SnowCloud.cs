@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Dusts;
 
@@ -12,29 +13,30 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas.Projectiles
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
         public override void SetDefaults()
-        {
-            Projectile.width = 130;
-            Projectile.height = 130;
+        {   
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.tileCollide = false;
-            Projectile.timeLeft = 300;
-            Projectile.penetrate = 3;
+            Projectile.tileCollide = true;
+            Projectile.ignoreWater = true;
+            Projectile.timeLeft = 75;
+            Projectile.extraUpdates = 3;
+            Projectile.penetrate = 1;
             Projectile.alpha = 255;
         }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            int[] Debuffs = new int[] { BuffID.Confused, BuffID.Weak, BuffID.Chilled, BuffID.Suffocation };
-            
-            target.AddBuff(Main.rand.Next(Debuffs), Main.rand.Next(240, 361));
-        }
-
+        
         public override void AI()
         {
-            int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<CoughCloudDust>(), 0f, 0f, 100, Color.White * 0.25f, Main.rand.NextFloat(0.3f, 0.6f));
-            Main.dust[DustEffect].velocity = Vector2.Zero;
-            Main.dust[DustEffect].alpha = 100;
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.08f;
+
+            if (Main.rand.NextBool(5))
+            {
+                Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<SmokeEffect>(), Projectile.velocity * 0.1f);
+                dust.scale = Main.rand.NextFloat(0.25f, 0.45f);
+                dust.color = Color.White * 0.5f;
+                dust.alpha = 150;
+            }
         }
     }
 }

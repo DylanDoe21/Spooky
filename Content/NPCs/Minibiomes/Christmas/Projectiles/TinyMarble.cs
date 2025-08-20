@@ -26,16 +26,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas.Projectiles
         {
 			Projectile.rotation += 0.2f * (float)Projectile.direction;
 
-			Projectile.ai[0]++;
-			if (Projectile.ai[0] >= 30)
-            {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;  
-                Projectile.velocity.X = Projectile.velocity.X * 0.99f;   
-            }
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.75f;
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
+			SoundEngine.PlaySound(SoundID.Tink with { Volume = 0.45f, Pitch = 1.25f }, Projectile.Center);
+
 			Bounces++;
 			if (Bounces >= 5)
 			{
@@ -43,10 +40,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas.Projectiles
 			}
 			else
 			{
-				Projectile.ai[0] = 30;
-				
-				//SoundEngine.PlaySound(SoundID.Item177, Projectile.Center);
-
 				if (Projectile.velocity.X != oldVelocity.X)
 				{
 					Projectile.position.X = Projectile.position.X + Projectile.velocity.X;

@@ -201,7 +201,7 @@ namespace Spooky.Content.NPCs.Quest
 							currentAmount++;
 						}
 
-						NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Top, new Vector2(0, -2) + NPC.velocity, ModContent.ProjectileType<EyeWizardOrb>(), NPC.damage, 4.5f);
+						NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Top, new Vector2(0, -2) + NPC.velocity, ModContent.ProjectileType<EyeWizardOrb>(), NPC.damage, 4.5f, ai1: Phase2 ? 20 : 30);
 					}
 				}
 				//spin and fire out runes
@@ -215,7 +215,7 @@ namespace Spooky.Content.NPCs.Quest
 
 						Vector2 GoTo = new Vector2(Parent.Center.X - (int)(Math.Cos(rad) * distance), Parent.Center.Y - (int)(Math.Sin(rad) * distance));
 
-						Vector2 desiredVelocity = NPC.DirectionTo(GoTo) * 10;
+						Vector2 desiredVelocity = NPC.DirectionTo(GoTo) * (Phase2 ? 15 : 10);
 						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 					}
 					//afterward, rotate towards and then spin around bigger eye while shooting out runes

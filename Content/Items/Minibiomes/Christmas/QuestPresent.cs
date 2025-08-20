@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Projectiles.Minibiomes.Christmas;
 
 namespace Spooky.Content.Items.Minibiomes.Christmas
@@ -24,11 +25,14 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 
 		public override bool CanUseItem(Player player)
         {
-			foreach (var npc in Main.ActiveNPCs)
+			if (Flags.KrampusQuestGiven)
 			{
-				if (npc.friendly && npc.townNPC && (!npc.immortal && !npc.dontTakeDamage) && npc.Distance(player.Center) <= 100f)
+				foreach (var npc in Main.ActiveNPCs)
 				{
-					return true;
+					if (npc.friendly && npc.townNPC && (!npc.immortal && !npc.dontTakeDamage) && npc.Distance(player.Center) <= 100f)
+					{
+						return true;
+					}
 				}
 			}
 
@@ -57,10 +61,8 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 					{
 						Flags.KrampusQuest4 = true;
 					}
-					else if (Flags.KrampusQuest4 && !Flags.KrampusQuest5)
-					{
-						Flags.KrampusQuest5 = true;
-					}
+
+					Flags.KrampusQuestGiven = false;
 
 					if (Main.netMode == NetmodeID.Server)
 					{
@@ -77,8 +79,13 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 						frame = 2;
 					}
 
-					int Offset = npc.direction == -1 ? -30 : 30;
-					Projectile.NewProjectile(null, npc.Center + new Vector2(Offset, 5), Vector2.Zero, ModContent.ProjectileType<QuestPresentSpawner>(), 0, 0f, player.whoAmI, ai1: frame, ai2: npc.whoAmI);
+					int Offset = npc.direction == -1 ? -15 : 15;
+
+					if (player.ownedProjectileCounts[ModContent.ProjectileType<QuestPresentSpawner>()] < 1)
+					{
+						Projectile.NewProjectile(null, npc.Center + new Vector2(Offset, 5), Vector2.Zero,
+						ModContent.ProjectileType<QuestPresentSpawner>(), 0, 0f, player.whoAmI, ai1: frame, ai2: npc.whoAmI);
+					}
 				}
 			}
 
@@ -96,5 +103,67 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 
 	public class QuestPresentLittleEye : QuestPresent1
 	{
+		public override bool CanUseItem(Player player)
+        {
+			if (Flags.KrampusQuestGiven)
+			{
+				foreach (var npc in Main.ActiveNPCs)
+				{
+					if (npc.type == ModContent.NPCType<LittleEye>() && npc.Distance(player.Center) <= 100f)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		public override bool? UseItem(Player player)
+        {
+			foreach (var npc in Main.ActiveNPCs)
+			{
+				if (npc.type == ModContent.NPCType<LittleEye>() && npc.Distance(player.Center) <= 100f)
+				{
+					if (!Flags.KrampusQuest1)
+					{
+						Flags.KrampusQuest1 = true;
+					}
+					else if (Flags.KrampusQuest1 && !Flags.KrampusQuest2)
+					{
+						Flags.KrampusQuest2 = true;
+					}
+					else if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
+					{
+						Flags.KrampusQuest3 = true;
+					}
+					else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
+					{
+						Flags.KrampusQuest4 = true;
+					}
+					else if (Flags.KrampusQuest4 && !Flags.KrampusQuest5)
+					{
+						Flags.KrampusQuest5 = true;
+					}
+
+					Flags.KrampusQuestGiven = false;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+
+					int frame = 3;
+
+					if (player.ownedProjectileCounts[ModContent.ProjectileType<QuestPresentSpawner>()] < 1)
+					{
+						Projectile.NewProjectile(null, npc.Center + new Vector2(35, 5), Vector2.Zero,
+						ModContent.ProjectileType<QuestPresentSpawner>(), 0, 0f, player.whoAmI, ai1: frame, ai2: npc.whoAmI);
+					}
+				}
+			}
+
+			return true;
+		}
 	}
 }

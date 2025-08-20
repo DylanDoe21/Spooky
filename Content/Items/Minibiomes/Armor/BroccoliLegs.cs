@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.lifeRegen += 10;
+			player.lifeRegen += 1;
 		}
 
 		public override void AddRecipes()
