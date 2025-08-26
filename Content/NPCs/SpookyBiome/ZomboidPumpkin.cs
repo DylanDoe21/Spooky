@@ -227,42 +227,45 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 {
                     NPC.ai[1] = 1;
                 }
+
+                if (NPC.ai[0] == 305)
+                {
+                    Screenshake.ShakeScreenWithIntensity(NPC.Center, 4f, 200f);
+                    SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+                }
             }
 
             //spawn thorns out of the ground and reset ai
-            if (NPC.ai[0] > 300 && NPC.ai[1] == 0)
+            if (NPC.ai[0] > 320 && NPC.ai[1] == 1)
             {
-                for (int j = 1; j <= 5; j++)
+                for (int j = 1; j <= 3; j++)
                 {
-                    for (int i = -2; i <= 2; i += 2)
+                    for (int i = -1; i <= 1; i += 2)
                     {
-                        if (i != 0)
+                        Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y + NPC.height / 4);
+                        center.X += j * 45 * i; //35 is the distance between each one
+                        int numtries = 0;
+                        int x = (int)(center.X / 16);
+                        int y = (int)(center.Y / 16);
+                        while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
+                        Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
                         {
-                            Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y + NPC.height / 2);
-                            center.X += j * 35 * i; //35 is the distance between each one
-                            int numtries = 0;
-                            int x = (int)(center.X / 16);
-                            int y = (int)(center.Y / 16);
-                            while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && 
-                            Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y)) 
-                            {
-                                y++;
-                                center.Y = y * 16;
-                            }
-                            while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
-                            {
-                                numtries++;
-                                y--;
-                                center.Y = y * 16;
-                            }
-
-                            if (numtries >= 10)
-                            {
-                                break;
-                            }
-
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 4, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraphFire>(), NPC.damage, 3.5f);
+                            y++;
+                            center.Y = y * 16;
                         }
+                        while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10) 
+                        {
+                            numtries++;
+                            y--;
+                            center.Y = y * 16;
+                        }
+
+                        if (numtries >= 10)
+                        {
+                            break;
+                        }
+
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 4, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraph>(), NPC.damage, 3.5f);
                     }
                 }
 

@@ -26,7 +26,6 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
-using Spooky.Content.NPCs.Cemetery;
 
 namespace Spooky.Core
 {
@@ -281,6 +280,12 @@ namespace Spooky.Core
 
 				int buffIndex = npc.FindBuffIndex(ModContent.BuffType<PiercedDebuff>());
 				npc.DelBuff(buffIndex);
+			}
+
+			//enemies inflicted with the cursed doll effect take 15% more damage from magic attacks
+			if (npc.HasBuff(ModContent.BuffType<CursedDollDebuff>()) && modifiers.DamageType == DamageClass.Magic)
+			{
+				modifiers.FinalDamage *= 1.15f;
 			}
 		}
 

@@ -28,7 +28,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 120;
 			Projectile.penetrate = 1;
         }
 
@@ -66,7 +66,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
             if (Projectile.ai[0] == 20)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.12f;
             }
         }
 

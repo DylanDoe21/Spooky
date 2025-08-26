@@ -624,3 +624,13 @@ KrampusBricksCooldown: {
 	DisplayName: Stik Brix Cooldown
 	Description: You have run out of stik brix
 }
+
+CursedDollDebuff: {
+	DisplayName: Cursed Doll Debuff
+	Description: ""
+}
+
+StockingMinionBuff: {
+	DisplayName: Krampus' lil Helpers
+	Description: The little helpers will defend you!
+}

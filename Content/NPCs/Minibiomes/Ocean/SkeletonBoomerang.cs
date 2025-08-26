@@ -27,7 +27,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 60;
+            NPC.lifeMax = 30;
 			NPC.damage = 0;
 			NPC.defense = 10;
 			NPC.width = 30;

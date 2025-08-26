@@ -18,14 +18,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetStaticDefaults()
 		{
+			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 		}
 
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 46;
+            Projectile.height = 52;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.tileCollide = true;
@@ -42,11 +43,42 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
 			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
+			Color color1 = Color.Gold;
+			Color color2 = Color.Brown;
+
+			switch (Projectile.frame)
+			{
+				case 0:
+				{
+					color1 = new Color(151, 206, 67);
+			 		color2 = new Color(151, 206, 67) * 0.5f;
+					break;
+				}
+				case 1:
+				{
+					color1 = new Color(206, 128, 67);
+			 		color2 = new Color(206, 128, 67) * 0.5f;
+					break;
+				}
+				case 2:
+				{
+					color1 = new Color(107, 86, 216);
+			 		color2 = new Color(107, 86, 216) * 0.5f;
+					break;
+				}
+				case 3:
+				{
+					color1 = new Color(216, 86, 149);
+			 		color2 = new Color(216, 86, 149) * 0.5f;
+					break;
+				}
+			}
+
 			for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
 			{
 				float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1.1f;
 				Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-				Color color = Color.Lerp(Color.OrangeRed, Color.Brown, oldPos / (float)Projectile.oldPos.Length) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
+				Color color = Color.Lerp(color1, color2, oldPos / (float)Projectile.oldPos.Length) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
 				Main.EntitySpriteDraw(TrailTexture.Value, drawPos, rectangle, Projectile.GetAlpha(color), Projectile.oldRot[oldPos], drawOrigin, scale, SpriteEffects.None, 0);
 			}
 

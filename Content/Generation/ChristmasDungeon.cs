@@ -358,7 +358,7 @@ namespace Spooky.Content.Generation
 					List<Point> chunkPoints = new();
 					getAttachedPoints(i, j, chunkPoints);
 
-					int cutoffLimit = 200;
+					int cutoffLimit = 150;
 					if (chunkPoints.Count > 0 && chunkPoints.Count < cutoffLimit)
 					{
 						foreach (Point p in chunkPoints)
@@ -918,7 +918,7 @@ namespace Spooky.Content.Generation
 					}
 
 					//random krampus contraptions
-					if (WorldGen.genRand.NextBool(10) && CanPlaceFurniture(i, j, 3))
+					if (WorldGen.genRand.NextBool(10) && CanPlaceFurniture(i, j, 5))
 					{
 						switch (WorldGen.genRand.Next(3))
 						{
@@ -1174,9 +1174,9 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = PositionX - 6; i <= PositionX + 6; i++)
+			for (int i = PositionX - 12; i <= PositionX + 12; i++)
 			{
-				for (int j = PositionY - 6; j <= PositionY + 6; j++)
+				for (int j = PositionY - 12; j <= PositionY + 12; j++)
 				{	
 					if (PaintingsToCheckFor.Contains(Main.tile[i, j].TileType))
 					{
@@ -1518,9 +1518,9 @@ namespace Spooky.Content.Generation
 		private void HorizontalPathway(int xStart, int xEnd, int PositionY)
 		{
 			//place additional tiles if theres no dungeon blocks where the pathway is
-			for (int x = Math.Min(xStart, xEnd) - 10; x <= Math.Max(xStart, xEnd) + 10; x++)
+			for (int x = Math.Min(xStart, xEnd) - 9; x <= Math.Max(xStart, xEnd) + 9; x++)
 			{
-				for (int j = PositionY - 10; j <= PositionY + 9; j++)
+				for (int j = PositionY - 10; j <= PositionY + 10; j++)
 				{
 					if (Main.tile[x, j].TileType != ModContent.TileType<ChristmasBrickRed>() && Main.tile[x, j].WallType != ModContent.WallType<ChristmasBrickRedWall>())
 					{
@@ -1543,7 +1543,7 @@ namespace Spooky.Content.Generation
 		private void VerticalPathway(int yStart, int yEnd, int PositionX)
 		{
 			//place additional tiles if theres no dungeon blocks where the pathway is
-			for (int y = Math.Min(yStart, yEnd) - 10; y <= Math.Max(yStart, yEnd) + 9; y++)
+			for (int y = Math.Min(yStart, yEnd) - 9; y <= Math.Max(yStart, yEnd) + 9; y++)
 			{
 				for (int i = PositionX - 10; i <= PositionX + 10; i++)
 				{

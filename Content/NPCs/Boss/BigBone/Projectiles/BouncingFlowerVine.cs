@@ -5,6 +5,7 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -18,10 +19,16 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		Vector2[] trailLength = new Vector2[50];
 		float[] rotations = new float[50];
 
+		private static Asset<Texture2D> ProjTexture;
 		private static Asset<Texture2D> TrailTexture;
 
 		public static readonly SoundStyle GrowSound = new("Spooky/Content/Sounds/BigBone/PlantGrow", SoundType.Sound);
 		public static readonly SoundStyle KillSound = new("Spooky/Content/Sounds/BigBone/PlantDestroy", SoundType.Sound) { Volume = 0.5f };
+
+		public override void SetStaticDefaults()
+		{
+			Main.projFrames[Projectile.type] = 4;
+		}
 
 		public override void SendExtraAI(BinaryWriter writer)
         {
@@ -59,8 +66,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 30;
-			Projectile.height = 30;
+			Projectile.width = 46;
+            Projectile.height = 52;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.tileCollide = true;
@@ -71,7 +78,20 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public override bool PreDraw(ref Color lightColor)
 		{
 			DrawChain(false);
-			return true;
+
+			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+			//bool Condition = Projectile.ai[2] > 35 && Projectile.timeLeft < Projectile.localAI[2] + 40;
+			//float ScaleForTelegraph = Condition ? Projectile.scale * (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f : Projectile.scale;
+			//ScaleForTelegraph = MathHelper.Clamp(ScaleForTelegraph, 1f, 5f);
+
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+
+			return false;
 		}
 
 		public bool DrawChain(bool SpawnGore)
@@ -233,7 +253,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 				if (Projectile.localAI[2] == 0)
 				{
-					Projectile.localAI[2] = Main.rand.Next(1, 121);
+					Projectile.localAI[2] = Main.rand.Next(40, 121);
 					Projectile.netUpdate = true;
 				}
 				else
@@ -253,7 +273,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BouncingFlower>(), Projectile.damage, Projectile.knockBack);
+				int newProj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BouncingFlower>(), Projectile.damage, Projectile.knockBack);
+				Main.projectile[newProj].frame = Projectile.frame;
 			}
 
 			DrawChain(true);

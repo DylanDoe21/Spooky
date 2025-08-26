@@ -13,22 +13,22 @@ namespace Spooky.Content.Items.SpookyHell
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 42;      
-			Item.mana = 2;  
-			Item.DamageType = DamageClass.Magic;  
-			Item.autoReuse = true;       
+			Item.damage = 32;
+			Item.mana = 2;
+			Item.DamageType = DamageClass.Magic;
+			Item.autoReuse = true;
 			Item.noMelee = true;
-			Item.width = 70;           
-			Item.height = 28;         
-			Item.useTime = 4;         
-			Item.useAnimation = 8;
+			Item.width = 70;
+			Item.height = 28;
+			Item.useTime = 5;
+			Item.useAnimation = 10;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightPurple;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item34;
 			Item.shoot = ModContent.ProjectileType<VenomBreath>();
-			Item.shootSpeed = 5f;
+			Item.shootSpeed = 2.5f;
 		}
 
 		public override Vector2? HoldoutOffset()

@@ -57,8 +57,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 		{
             if (Projectile.ai[0] == 0)
             {
-                //SoundEngine.PlaySound(SplatSound, Projectile.Center);
-
                 Projectile.velocity.X *= 0;
 
                 Projectile.ai[0]++;
@@ -74,6 +72,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 
         public override void AI()
         {
+            Projectile.frame = (int)Projectile.ai[0];
+
             if (Projectile.ai[0] == 0)
             {
                 Projectile.rotation += 0.5f * (float)Projectile.direction;
@@ -96,8 +96,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 					Main.dust[DustEffect].alpha = 125;
 				}
             }
-
-            Projectile.frame = (int)Projectile.ai[0];
 
             if (Projectile.timeLeft <= 60)
             {

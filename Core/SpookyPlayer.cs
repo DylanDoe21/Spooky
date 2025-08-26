@@ -1,22 +1,12 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Localization;
-using Terraria.Audio;
-using ReLogic.Content;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-
+using ReLogic.Content;
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Items.Fishing;
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.SpookFishron;
@@ -31,14 +21,24 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Tree;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
+using Spooky.Content.Tiles.SpookyHell.Tree;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Spooky.Core
 {
     public class SpookyPlayer : ModPlayer
     {
-        //armors
+		//armor related stuff
         public bool GourdSet = false;
         public bool RootSet = false;
         public bool SpiderSet = false;
@@ -46,6 +46,7 @@ namespace Spooky.Core
 		public bool BroccoliSet = false;
 		public bool GoldrushSet = false;
 		public bool SharkBoneSet = false;
+		public bool YuletideSet = false;
 		public bool HorsemanSet = false;
         public bool EyeArmorSet = false;
         public bool FlowerArmorSet = false;
@@ -156,6 +157,7 @@ namespace Spooky.Core
 
 		//misc timers
         public float SpiderStealthAlpha = 0f;
+		public float YuletideFireAlpha = 0f;
 		public float StonedKidneyCharge = 0f;
         public float KrampusChimneyCharge = 0f;
 		public int SpiderSpeedTimer = 0;
@@ -182,6 +184,7 @@ namespace Spooky.Core
         public int SpearfishChargeCooldown = 0;
         public int KrampusResolutionTimer = 0;
         public int KrampusChimneyProjTimer = 0;
+		public int YuletideFireTimer = 0;
 
 		//dashing stuff
 		public const int dashDown = 0;
@@ -255,6 +258,7 @@ namespace Spooky.Core
             SpiderSpeed = false;
 			BroccoliSet = false;
             SharkBoneSet = false;
+			YuletideSet = false;
 			GoldrushSet = false;
 			HorsemanSet = false;
             EyeArmorSet = false;
@@ -408,6 +412,12 @@ namespace Spooky.Core
 			{
 				Player.AddBuff(ModContent.BuffType<SpiderArmorStealth>(), 600);
 				Player.AddBuff(ModContent.BuffType<SpiderStealthCooldown>(), 7200);
+			}
+
+			//yuletide combustion
+			if (YuletideSet && YuletideFireTimer <= 0)
+			{
+				YuletideFireTimer = 300;
 			}
 		}
 
@@ -1085,8 +1095,9 @@ namespace Spooky.Core
                         //scale the damage based on the player's current speed
                         int damage = 80 + ((int)PlayerSpeedToMPH(Player) / 3);
 
-                        Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
+                        int newProj = Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
                         ModContent.ProjectileType<FlowerPotShoeFlower>(), damage, 0f, Main.myPlayer);
+                        Main.projectile[newProj].frame = Main.rand.Next(0, 4);
 
                         BoneWispTimer = 0;
                     }
@@ -1137,7 +1148,7 @@ namespace Spooky.Core
 
                         Vector2 Position = Player.Top + new Vector2(Player.direction == 1 ? -10 : 10, 0);
 
-						Projectile.NewProjectile(null, Position, velocity, ModContent.ProjectileType<ChimneyCoal>(), 25, 0, Player.whoAmI);
+						Projectile.NewProjectile(null, Position, velocity, ModContent.ProjectileType<ChimneyCoal>(), 32, 0, Player.whoAmI);
 
                         for (int j = 0; j < 10; j++)
                         {
@@ -1159,7 +1170,31 @@ namespace Spooky.Core
 				KrampusChimneyCharge = 0;
 			}
 
-            if (DaffodilHairpin)
+			if (YuletideSet && YuletideFireTimer > 0)
+			{
+				YuletideFireTimer--;
+
+				if (YuletideFireTimer % 10 == 0)
+				{
+					SoundEngine.PlaySound(SoundID.Item42, Player.Center);
+
+					Vector2 velocity = new Vector2(0, -3).RotatedByRandom(MathHelper.ToRadians(65));
+
+					Projectile.NewProjectile(null, Player.Top, velocity, Main.rand.Next(400, 403), 35, 0, Player.whoAmI);
+				}
+
+				if (Main.rand.NextBool(10))
+				{
+					Color[] colors = new Color[] { Color.Gray, Color.DarkGray };
+
+					int DustEffect = Dust.NewDust(Player.position, Player.width, 3, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Main.rand.Next(colors) * 0.5f, Main.rand.NextFloat(0.2f, 0.4f));
+					Main.dust[DustEffect].velocity.X = 0;
+					Main.dust[DustEffect].velocity.Y = -2;
+					Main.dust[DustEffect].alpha = 100;
+				}
+			}
+
+			if (DaffodilHairpin)
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<DaffodilHairpinPetal>()] < 6)
                 {
@@ -1370,18 +1405,11 @@ namespace Spooky.Core
                 Player.maxRunSpeed += 3f;
                 Player.runAcceleration += 0.015f;
             }
-
-			/*
-			if (Player.HasBuff(ModContent.BuffType<DivingSuitBuff>()) && Player.wet)
-			{
-				Player.maxRunSpeed += 5f;
-				Player.runAcceleration += 0.075f;
-			}
-			*/
-			}
+		}
 
 		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
+			//spider stealth alpha
             if (Player.HasBuff(ModContent.BuffType<SpiderArmorStealth>()))
             {
                 if (SpiderStealthAlpha < 0.8f)
@@ -1397,14 +1425,37 @@ namespace Spooky.Core
                 }
             }
 
-            if (SpiderStealthAlpha > 0f)
-            {
-                r *= 1f - (SpiderStealthAlpha * 0.75f);
-                g *= 1f - (SpiderStealthAlpha * 0.5f);
-                b *= 1f - (SpiderStealthAlpha * 0.75f);
-                a *= 1f - (SpiderStealthAlpha * 0.5f);
-            }
-        }
+			if (SpiderStealthAlpha > 0f)
+			{
+				r *= 1f - (SpiderStealthAlpha * 0.75f);
+				g *= 1f - (SpiderStealthAlpha * 0.5f);
+				b *= 1f - (SpiderStealthAlpha * 0.75f);
+				a *= 1f - (SpiderStealthAlpha * 0.5f);
+			}
+
+			//yuletide fire colors
+			if (YuletideSet && YuletideFireTimer > 0)
+			{
+				if (YuletideFireAlpha < 0.8f)
+				{
+					YuletideFireAlpha += 0.02f;
+				}
+			}
+			else
+			{
+				if (YuletideFireAlpha > 0f)
+				{
+					YuletideFireAlpha -= 0.02f;
+				}
+			}
+
+			if (YuletideFireAlpha > 0f)
+			{
+				r *= 1f - (YuletideFireAlpha * 0.15f);
+				g *= 1f - (YuletideFireAlpha * 0.75f);
+				b *= 1f - (YuletideFireAlpha * 1f);
+			}
+		}
 
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{

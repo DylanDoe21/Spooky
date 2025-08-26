@@ -15,6 +15,7 @@ using Spooky.Content.Items;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
@@ -28,6 +29,8 @@ namespace Spooky.Content.Generation
         //default positions, edit based on the config below
         static int PositionX = Main.maxTilesX / 2;
 		static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
+
+		static bool PlacedJobApplication = false;
 
 		private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
 		{
@@ -621,6 +624,15 @@ namespace Spooky.Content.Generation
 			{
 				for (int Y = (int)Main.worldSurface + 10; Y < Main.maxTilesY - 300; Y++)
 				{
+					if (Main.tile[X - 1, Y].TileType == ModContent.TileType<KrampusJobSign>())
+					{
+						PlacedJobApplication = true;
+					}
+					if (WorldGen.genRand.NextBool(3) && IsFlatSurface(X, Y, 3) && !PlacedJobApplication)
+					{
+						WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<KrampusJobSign>());
+					}
+
 					//table
 					if (WorldGen.genRand.NextBool(5) && IsFlatSurface(X, Y, 5))
 					{

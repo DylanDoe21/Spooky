@@ -63,7 +63,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 		}
 	}
 
-	public class OceanRockSafe : ModTile
+	public class OceanRockSafe : OceanRock
 	{
 		public override string Texture => "Spooky/Content/Tiles/Minibiomes/Ocean/OceanRock";
 
@@ -80,11 +80,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 			MinPick = 110;
-		}
-
-		public override bool CanExplode(int i, int j)
-		{
-			return false;
 		}
 		
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)

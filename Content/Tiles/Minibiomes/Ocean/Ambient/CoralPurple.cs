@@ -13,6 +13,8 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 {
     public class CoralPurple1 : ModTile
     {
+        public override string Texture => "Spooky/Content/Projectiles/Blank";
+
         private Asset<Texture2D> PlantTexture;
 
         public override void SetStaticDefaults()
@@ -23,7 +25,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(158, 48, 216));
+            AddMapEntry(new Color(115, 91, 157));
             HitSound = SoundID.Dig;
             DustType = -1;
         }

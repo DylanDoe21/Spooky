@@ -17,14 +17,15 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
 
         public override void SetDefaults()
 		{
-			Projectile.width = 30;
-			Projectile.height = 30;
+			Projectile.width = 46;
+            Projectile.height = 52;
 			Projectile.friendly = true;
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 240;
@@ -65,6 +66,16 @@ namespace Spooky.Content.Projectiles.Catacomb
 		public override void AI()
 		{
             Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
+
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] > 15)
+            {
+                Projectile.tileCollide = true;
+            }
+            else
+            {
+                Projectile.tileCollide = false;
+            }
 
             int foundTarget = HomeOnTarget();
             if (foundTarget != -1)

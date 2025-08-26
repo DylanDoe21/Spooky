@@ -872,7 +872,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         {
                             Vector2 ParentTopPos = new Vector2(Parent.Top.X + Main.rand.Next(-(Parent.width / 2) + 25, (Parent.width / 2) - 25), Parent.Top.Y + 12);
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, 10f * Parent.DirectionTo(ParentTopPos).RotatedBy(MathHelper.ToRadians(12) * numProjectiles), Type, NPC.damage, 4.5f);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, ParentTopPos, 10f * Parent.DirectionTo(ParentTopPos).RotatedBy(MathHelper.ToRadians(12) * numProjectiles), Type, NPC.damage, 4.5f, Frame: Main.rand.Next(0, 4));
                         }
                     }
 

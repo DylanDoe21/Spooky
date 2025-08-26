@@ -40,7 +40,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas.Projectiles
             {
                 Projectile.rotation = SaveRotation;
 
-                Projectile.ai[2] -= 0.05f;
+                Projectile.ai[2] -= 0.01f;
 
                 Projectile.ai[1]++;
                 if (Projectile.ai[1] % 5 == 0 && Projectile.timeLeft > 60)

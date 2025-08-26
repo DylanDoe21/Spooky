@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
+using Spooky.Core;
 using Spooky.Content.Backgrounds.Christmas;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
 
@@ -25,6 +26,16 @@ namespace Spooky.Content.Biomes
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
+
+        public override void OnInBiome(Player player)
+        {
+            Flags.DrawKrampusMapIcon = false;
+
+			if (Main.netMode == NetmodeID.Server)
+			{
+				NetMessage.SendData(MessageID.WorldData);
+			}
+        }
 
 		public override bool IsBiomeActive(Player player)
         {

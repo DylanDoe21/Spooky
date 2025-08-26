@@ -582,7 +582,11 @@ Fertilizer: {
 
 RottenSeed: {
 	DisplayName: Rotten Seed
-	Tooltip: Summons Rot Gourd when used in the spooky forest
+	Tooltip:
+		'''
+		Summons Rot Gourd when used in the spooky forest
+		Can be used to tame wild turkies when held
+		'''
 }
 
 StrangeCyst: {
@@ -1475,6 +1479,135 @@ SharkBoneLegs: {
 		'''
 }
 
+YuletideBody: {
+	DisplayName: Yuletide Wood Chestplate
+	Tooltip: ""
+}
+
+YuletideHead: {
+	DisplayName: Yuletide Wood Mask
+	Tooltip: ""
+}
+
+YuletideLegs: {
+	DisplayName: Yuletide Wood Shoes
+	Tooltip: ""
+}
+
+CursedDoll: {
+	DisplayName: Cursed Doll
+	Tooltip:
+		'''
+		Channel to create an aura around you that hexes enemies inside of it
+		Hexed enemies will take 15% extra damage from magic attacks for a bit
+		'''
+}
+
+JackPack: {
+	DisplayName: Pack of Jacks
+	Tooltip: Throw out cards that float in the air for a bit
+}
+
+JacksBag: {
+	DisplayName: Krampus' Bag of Jacks
+	Tooltip:
+		'''
+		Throws out rubber jacks that linger on the ground
+		Jacks bounce off of enemies when they touch them
+		'''
+}
+
+KrampusBricks: {
+	DisplayName: Stik Brix
+	Tooltip:
+		'''
+		Press the Accessory Hotkey to throw damaging spiked brix all over the floor
+		This ability has a 15 second cooldown before it can be used again
+		'''
+}
+
+KrampusChimney: {
+	DisplayName: Backpack Chimney
+	Tooltip:
+		'''
+		Wear a portable chimney that builds up heat if you don't take damage
+		Once at maximum heat, press the Accessory Hotkey to erupt hot coals everywhere
+		'''
+}
+
+KrampusJobApplication: {
+	DisplayName: Job Application
+	Tooltip:
+		'''
+		A strange job application, mentioning a 'delivery' position
+		Use to mark the address of the form on your map
+		'''
+}
+
+KrampusJumpShoe: {
+	DisplayName: Moon Shoes
+	Tooltip:
+		'''
+		Slightly increases your jump height
+		Grants you a triple jump and allows you to auto-jump
+		'''
+}
+
+KrampusResolution: {
+	DisplayName: New Years Resolution
+	Tooltip:
+		'''
+		When killed, you gain a 5 second countdown before you actually die
+		Being healed during this countdown will not prevent you from dying when it ends
+		'''
+}
+
+KrampusRewardPresent1: {
+	DisplayName: Giant Christmas Present
+	Tooltip:
+		'''
+		{$CommonItemTooltip.RightClickToOpen}
+		Contains a ton of rewards!
+		'''
+}
+
+KrampusRewardPresent2: {
+	DisplayName: Giant Christmas Present
+	Tooltip:
+		'''
+		{$CommonItemTooltip.RightClickToOpen}
+		Contains a ton of rewards!
+		'''
+}
+
+KrampusRewardPresent3: {
+	DisplayName: Giant Christmas Present
+	Tooltip:
+		'''
+		{$CommonItemTooltip.RightClickToOpen}
+		Contains a ton of rewards!
+		'''
+}
+
+KrampusSack: {
+	DisplayName: Sack of Trinkets
+	Tooltip: Throw around random "trinkets" while moving around
+}
+
+KrampusShapeBox: {
+	DisplayName: Box 'O Shapes
+	Tooltip:
+		'''
+		Drops random wood shapes on the floor around you sometimes
+		Each shape will grant you a different buff
+		'''
+}
+
+MarbleJar: {
+	DisplayName: Fragile Jar of Marbles
+	Tooltip: Throw jars filled with marbles
+}
+
 QuestPresent1: {
 	DisplayName: Mystery Present
 	Tooltip: Use near a friendly town npc to give them this gift
@@ -1497,6 +1630,26 @@ QuestPresentLittleEye: {
 		A special present addressed to 'Little Eye'
 		Use near little eye to give them this gift
 		'''
+}
+
+RobotOven: {
+	DisplayName: Chef Bot's Oven
+	Tooltip: Spews hot flames all over the place
+}
+
+SnakeTrombone: {
+	DisplayName: Slithering Horn
+	Tooltip: Casts magical snakes that slither around
+}
+
+SnowBag: {
+	DisplayName: Bottomless Bag of Snow
+	Tooltip: Spews out a stream of strange snow powder
+}
+
+StockingStaff: {
+	DisplayName: Krampus' Helper Wand
+	Tooltip: Summons little krampus helpers to fight with you
 }
 
 DinoArmHook: {
@@ -5496,56 +5649,5 @@ PetCommander: {
 		'''
 		Click on any nearby tamed critter while holding this to give them commands
 		Allows the tamed critter to roam freely, follow you, or stay put
-		'''
-}
-
-KrampusBricks: {
-	DisplayName: Stik Brix
-	Tooltip:
-		'''
-		Press the Accessory Hotkey to throw damaging spiked brix all over the floor
-		This ability has a 15 second cooldown before it can be used again
-		'''
-}
-
-KrampusChimney: {
-	DisplayName: Backpack Chimney
-	Tooltip:
-		'''
-		Wear a portable chimney that builds up heat if you don't take damage
-		Once at maximum heat, press the Accessory Hotkey to erupt hot coals everywhere
-		'''
-}
-
-KrampusJumpShoe: {
-	DisplayName: Moon Shoes
-	Tooltip:
-		'''
-		Slihglty increases your jump height
-		Grants you a triple jump
-		Allows you to auto-jump by holding the jump key
-		'''
-}
-
-KrampusResolution: {
-	DisplayName: New Years Resolution
-	Tooltip:
-		'''
-		When killed, you gain a 5 second countdown before you actually die
-		Being healed during this countdown will not prevent you from dying when it ends
-		'''
-}
-
-KrampusSack: {
-	DisplayName: Sack of Trinkets
-	Tooltip: Throw around random "trinkets" while moving around
-}
-
-KrampusShapeBox: {
-	DisplayName: Box 'O Shapes
-	Tooltip:
-		'''
-		Drops random wood shapes on the floor around you sometimes
-		Each shape will grant you a different buff
 		'''
 }

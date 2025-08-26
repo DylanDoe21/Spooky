@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
-using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -14,11 +13,14 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
     {
         bool SpawnedHands = false;
 
-        private static Asset<Texture2D> ArmsTexture;
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 6;
+
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BuilderBotBestiary"
+            };
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -77,16 +79,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         public override void DrawBehind(int index)
 		{
 			Main.instance.DrawCacheNPCsOverPlayers.Add(index);
-		}
-
-		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-		{
-			ArmsTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Christmas/BuilderBotBestiaryArms");
-
-			if (NPC.IsABestiaryIconDummy)
-			{
-                Main.EntitySpriteDraw(ArmsTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY + 4), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
-			}
 		}
         
         public override void AI()

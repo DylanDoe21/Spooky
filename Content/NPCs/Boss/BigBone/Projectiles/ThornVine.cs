@@ -223,7 +223,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 						rotations[i] = currentRot;
 						currentRot = previousRot;
 
-						trailHitboxes[i] = new Rectangle((int)current.X - 5, (int)current.Y - 5, 5, 5);
+						trailHitboxes[i] = new Rectangle((int)current.X - 5, (int)current.Y - 5, 10, 10);
 					}
 				}
 
