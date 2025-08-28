@@ -80,7 +80,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 			};
 			itemLoot.Add(new OneFromRulesRule(1, KrampusSlabs));
 
-			//carpets
+			//yuletide wood
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<ChristmasWoodItem>(), 1, 250, 500));
 
 			//carpets

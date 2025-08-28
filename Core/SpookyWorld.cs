@@ -352,9 +352,10 @@ namespace Spooky.Core
             }
 
             //krampus daily quests should refresh when it switches to day or night
-            if (DaySwitched && !Flags.KrampusDailyQuest)
+            if (DaySwitched && Flags.KrampusQuestlineDone && !Flags.KrampusQuestGiven)
             {
                 Flags.KrampusDailyQuest = true;
+                Flags.KrampusDailyQuestDone = false;
                 if (Main.netMode == NetmodeID.Server)
                 {
                     NetMessage.SendData(MessageID.WorldData);

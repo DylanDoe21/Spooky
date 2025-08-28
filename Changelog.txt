@@ -115,6 +115,7 @@ Ranged:
 -Buffed venomous crossbow damage from 25 to 32, and renamed it to poison crossbow
 -Ooze magnum giant bile glob that is shot when released at maximum fire rate now explodes into 30 small globs instead of 10
 -Buffed seer damage from 22 to 30
+-Nerfed leaf blower damage from 10 to 5
 
 Magic:
 -Necronomicon volume II heart projectile now shoots a bit more frequently in all size stages

@@ -1546,11 +1546,7 @@ KrampusJobApplication: {
 
 KrampusJumpShoe: {
 	DisplayName: Moon Shoes
-	Tooltip:
-		'''
-		Slightly increases your jump height
-		Grants you a triple jump and allows you to auto-jump
-		'''
+	Tooltip: Grants you a triple jump and allows you to auto-jump
 }
 
 KrampusResolution: {

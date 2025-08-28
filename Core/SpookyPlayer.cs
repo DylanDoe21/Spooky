@@ -1,12 +1,23 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.Localization;
+using Terraria.Audio;
 using ReLogic.Content;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
-using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Fishing;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.SpookFishron;
@@ -14,6 +25,7 @@ using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.Cemetery;
 using Spooky.Content.Projectiles.Minibiomes.Christmas;
+using Spooky.Content.Projectiles.Minibiomes.Desert;
 using Spooky.Content.Projectiles.Minibiomes.Ocean;
 using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -21,18 +33,8 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
-using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Tree;
-using System;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 
 namespace Spooky.Core
 {
@@ -103,6 +105,7 @@ namespace Spooky.Core
         public bool KrampusResolution = false;
         public bool KrampusSack = false;
         public bool KrampusShapeBox = false;
+        public bool HallucigeniaSpine = false;
 
 		//expert accessories
 		public bool FlyAmulet = false;
@@ -314,6 +317,7 @@ namespace Spooky.Core
             KrampusResolution = false;
             KrampusSack = false;
             KrampusShapeBox = false;
+            HallucigeniaSpine = false;
 
 			//expert accessories
 			FlyAmulet = false;
@@ -758,6 +762,20 @@ namespace Spooky.Core
 				}
 			}
 
+            if (HallucigeniaSpine)
+            {
+                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
+                {
+                    int[] Types = { ModContent.ProjectileType<HallucigeniaSpineProj1>(), ModContent.ProjectileType<HallucigeniaSpineProj2>() };
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
+                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), Main.rand.Next(Types), info.Damage / 2, 0, Player.whoAmI);
+                    }
+                }
+            }
+
             //when you get hit, krampus chimney charge resets
             if (KrampusChimney)
             {
@@ -1118,7 +1136,7 @@ namespace Spooky.Core
                 bool PlayerHoldingWeapon = ItemGlobal.ActiveItem(Player).damage > 0 && ItemGlobal.ActiveItem(Player).pick <= 0 && ItemGlobal.ActiveItem(Player).hammer <= 0 && 
 			    ItemGlobal.ActiveItem(Player).axe <= 0 && ItemGlobal.ActiveItem(Player).mountType <= 0;
 
-				if ((!Player.controlUseItem || !PlayerHoldingWeapon) && StonedKidneyCharge < 7.5f)
+				if ((!Player.controlUseItem || !PlayerHoldingWeapon) && StonedKidneyCharge <= 7.5f)
 				{
 					StonedKidneyCharge += 0.05f;
 				}
@@ -1243,6 +1261,11 @@ namespace Spooky.Core
 			{
 				Player.GetDamage(DamageClass.Generic) += (0.02f * SkullFrenzyCharge);
 			}
+
+            if (StonedKidneyCharge >= 7.5f)
+            {
+                Player.GetDamage(DamageClass.Generic) += 0.15f;
+            }
 		}
 
 		public override void SetControls()

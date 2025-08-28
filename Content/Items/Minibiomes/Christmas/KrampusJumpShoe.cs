@@ -25,7 +25,6 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.autoJump = true;
-			player.jumpSpeedBoost += 1.5f;
 			player.GetJumpState<KrampusShoeJump1>().Enable();
 			player.GetJumpState<KrampusShoeJump2>().Enable();
 			player.GetJumpState<KrampusShoeJump3>().Enable();
@@ -34,11 +33,11 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 
 	public class KrampusShoeJump1 : ExtraJump
 	{
-        public static readonly SoundStyle JumpSound = new("Spooky/Content/Sounds/KrampusShoeJump", SoundType.Sound) { Volume = 0.32f };
+        public static readonly SoundStyle JumpSound = new("Spooky/Content/Sounds/KrampusShoeJump", SoundType.Sound) { Volume = 0.3f };
 
 		public override Position GetDefaultPosition() => new Before(CloudInABottle);
 
-		public override float GetDurationMultiplier(Player player) => 1.22f;
+		public override float GetDurationMultiplier(Player player) => 1f;
 
 		public override void OnStarted(Player player, ref bool playSound)
 		{
@@ -67,6 +66,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 
 				Dust dust = Dust.NewDustDirect(player.position + new Vector2(-4, offsetY), player.width + 8, 4, ModContent.DustType<CartoonStar>(), -player.velocity.X * 0.5f, player.velocity.Y * 0.5f, 100, default, 0.5f);
 				dust.velocity = dust.velocity * 0.5f - player.velocity * new Vector2(0.1f, 0.3f);
+				dust.noLight = true;
 			}
 		}
 	}
@@ -74,10 +74,14 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 	public class KrampusShoeJump2 : KrampusShoeJump1
 	{
 		public override Position GetDefaultPosition() => new Before(CloudInABottle);
+
+		public override float GetDurationMultiplier(Player player) => 1.2f;
 	}
 
 	public class KrampusShoeJump3 : KrampusShoeJump1
 	{
 		public override Position GetDefaultPosition() => new Before(CloudInABottle);
+
+		public override float GetDurationMultiplier(Player player) => 1.4f;
 	}
 }

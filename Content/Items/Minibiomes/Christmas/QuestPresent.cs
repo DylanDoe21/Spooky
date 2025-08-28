@@ -45,6 +45,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 			{
 				if (npc.friendly && npc.townNPC && (!npc.immortal && !npc.dontTakeDamage) && npc.Distance(player.Center) <= 100f)
 				{
+					//set downed variables to true properly
 					if (!Flags.KrampusQuest1)
 					{
 						Flags.KrampusQuest1 = true;
@@ -62,6 +63,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 						Flags.KrampusQuest4 = true;
 					}
 
+					//when the gift is used, the quest is no longer in progress
 					Flags.KrampusQuestGiven = false;
 
 					if (Main.netMode == NetmodeID.Server)
@@ -125,6 +127,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 			{
 				if (npc.type == ModContent.NPCType<LittleEye>() && npc.Distance(player.Center) <= 100f)
 				{
+					//set downed variables to true properly
 					if (!Flags.KrampusQuest1)
 					{
 						Flags.KrampusQuest1 = true;
@@ -146,7 +149,14 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 						Flags.KrampusQuest5 = true;
 					}
 
+					//when the gift is used, the quest is no longer in progress
 					Flags.KrampusQuestGiven = false;
+
+					//set daily quest to true if the main questline is done
+					if (Flags.KrampusQuestlineDone)
+					{
+						Flags.KrampusDailyQuestDone = true;
+					}
 
 					if (Main.netMode == NetmodeID.Server)
 					{

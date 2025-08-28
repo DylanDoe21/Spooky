@@ -61,6 +61,7 @@ namespace Spooky.Core
 		public static bool KrampusQuest4 = false;
 		public static bool KrampusQuest5 = false;
 		public static bool KrampusDailyQuest = false;
+		public static bool KrampusDailyQuestDone = false;
 		public static bool KrampusQuestGiven = false;
 		public static bool KrampusQuestlineDone = false;
 		public static bool DrawKrampusMapIcon = false;
@@ -116,6 +117,7 @@ namespace Spooky.Core
 			KrampusQuest4 = false;
 			KrampusQuest5 = false;
 			KrampusDailyQuest = false;
+			KrampusDailyQuestDone = false;
 			KrampusQuestGiven = false;
 			KrampusQuestlineDone = false;
 			DrawKrampusMapIcon = false;
@@ -192,6 +194,7 @@ namespace Spooky.Core
 			tag[nameof(KrampusQuest4)] = KrampusQuest4;
 			tag[nameof(KrampusQuest5)] = KrampusQuest5;
 			tag[nameof(KrampusDailyQuest)] = KrampusDailyQuest;
+			tag[nameof(KrampusDailyQuestDone)] = KrampusDailyQuestDone;
 			tag[nameof(KrampusQuestGiven)] = KrampusQuestGiven;
 			tag[nameof(KrampusQuestlineDone)] = KrampusQuestlineDone;
 			tag[nameof(DrawKrampusMapIcon)] = DrawKrampusMapIcon;
@@ -271,6 +274,7 @@ namespace Spooky.Core
 			KrampusQuest4 = tag.GetBool(nameof(KrampusQuest4));
 			KrampusQuest5 = tag.GetBool(nameof(KrampusQuest5));
 			KrampusDailyQuest = tag.GetBool(nameof(KrampusDailyQuest));
+			KrampusDailyQuestDone = tag.GetBool(nameof(KrampusDailyQuestDone));
 			KrampusQuestGiven = tag.GetBool(nameof(KrampusQuestGiven));
 			KrampusQuestlineDone = tag.GetBool(nameof(KrampusQuestlineDone));
 			DrawKrampusMapIcon = tag.GetBool(nameof(DrawKrampusMapIcon));
@@ -322,7 +326,7 @@ namespace Spooky.Core
 
 			//krampus quests
 			writer.WriteFlags(KrampusQuest1, KrampusQuest2, KrampusQuest3, KrampusQuest4, KrampusQuest5);
-			writer.WriteFlags(KrampusDailyQuest, KrampusQuestGiven, KrampusQuestlineDone, DrawKrampusMapIcon);
+			writer.WriteFlags(KrampusDailyQuest, KrampusDailyQuestDone, KrampusQuestGiven, KrampusQuestlineDone, DrawKrampusMapIcon);
 
 			//misc stuff
 			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard);
@@ -365,7 +369,7 @@ namespace Spooky.Core
 
 			//krampus quests
 			reader.ReadFlags(out KrampusQuest1, out KrampusQuest2, out KrampusQuest3, out KrampusQuest4, out KrampusQuest5);
-			reader.ReadFlags(out KrampusDailyQuest, out KrampusQuestGiven, out KrampusQuestlineDone, out DrawKrampusMapIcon);
+			reader.ReadFlags(out KrampusDailyQuest, out KrampusDailyQuestDone, out KrampusQuestGiven, out KrampusQuestlineDone, out DrawKrampusMapIcon);
 
 			//misc stuff
 			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard);

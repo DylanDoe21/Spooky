@@ -32,6 +32,15 @@ SpookyConfig: {
 			Useful if you want to re-locate the UIs to a specific position and then lock them there
 			'''
 	}
+
+	DialogueSpeed: {
+		Label: Dialogue Speed
+		Tooltip:
+			'''
+			Changes the speed at which spooky mod special NPC dialogue fills in
+			Can be changed between Normal, Fast, and Instant
+			'''
+	}
 }
 
 SpookyServerConfig: {
@@ -102,5 +111,12 @@ ZombieBiomePosEnum: {
 	Random.Label: Random
 	JungleSide.Label: Jungle Side
 	DungeonSide.Label: Dungeon Side
+	Tooltip: ""
+}
+
+DialogueSpeedEnum: {
+	Normal.Label: Normal
+	Fast.Label: Fast
+	Instant.Label: Instant
 	Tooltip: ""
 }

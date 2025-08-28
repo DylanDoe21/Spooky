@@ -29,12 +29,15 @@ namespace Spooky.Content.Items.Debug
 		public override bool? UseItem(Player player)
 		{
 			Flags.KrampusQuest1 = false;
-            Flags.KrampusQuest2 = false;
-            Flags.KrampusQuest3 = false;
-            Flags.KrampusQuest4 = false;
-            Flags.KrampusQuest5 = false;
-            Flags.KrampusDailyQuest = false;
-            Flags.KrampusQuestGiven = false;
+			Flags.KrampusQuest2 = false;
+			Flags.KrampusQuest3 = false;
+			Flags.KrampusQuest4 = false;
+			Flags.KrampusQuest5 = false;
+			Flags.KrampusDailyQuest = false;
+			Flags.KrampusDailyQuestDone = false;
+			Flags.KrampusQuestGiven = false;
+			Flags.KrampusQuestlineDone = false;
+			Flags.DrawKrampusMapIcon = false;
 
 			return true;
 		}

@@ -206,6 +206,24 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.KrampusQuestlineDone:
+                {
+                    Flags.KrampusQuestlineDone = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.KrampusDailyQuestDone:
+                {
+                    Flags.KrampusDailyQuestDone = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.KrampusDailyQuestReset:
+                {
+                    Flags.KrampusDailyQuest = false;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
 				//should never occur I think?
 				default:
                 {
@@ -237,5 +255,8 @@ namespace Spooky
         Bounty3Complete,
         Bounty4Complete,
         KrampusQuestGiven,
+        KrampusQuestlineDone,
+        KrampusDailyQuestDone,
+        KrampusDailyQuestReset
 	}
 }

@@ -368,11 +368,27 @@ KrampusDialogue: {
 	PlayerInvFull-2: Nah I can do it.
 	DialogueInvFull-3: I'll just leave it on the floor for now I guess.
 	PlayerInvFull-3: ...
-	//little eye dialogue
+	//little eye krampus quest dialogue
 	LittleEye1: Whoa! What's this thing?!
 	PlayerLittleEye1: Uhhh, some gift from krampus?
 	LittleEye2: Well whatever it is, it's amazing! I've always wanted a giant teddy bear to keep me company down here!
 	PlayerLittleEye2: So... you like the gift?
 	LittleEye3: Yes of course! This is the most awesome thing ever! I think I'll name him Cornelius!
 	PlayerLittleEye3: Alright... I guess I'll go let krampus know you like it then.
+	//daily quests
+	DailyQuest1-1: Alright kid, I've got a new present I think that little eye guy will quite like!
+	PlayerDailyQuest1-1: How psychotic is it this time?
+	DailyQuest1-2: PSYCHOTIC? Not at all, BAHAHAHAHA! Alright, make sure little eye gets this soon.
+	PlayerDailyQuest1-2: Alright.
+	DailyQuest2-1: Hey kid, I've been mass producing this one toy again! I think it'll be a huge hit in... wherever that eyeball fella lives!
+	PlayerDailyQuest2-1: Uhhh... sure.
+	DailyQuest2-2: Alright kid, I'm relying on you, make sure he gets this one pronto!
+	PlayerDailyQuest2-2: Ok.
+	//daily quest complete
+	DailyQuestComplete: Nice job on the delivery! Here's another reward for your troubles.
+	PlayerDailyQuestComplete: Yay!
+	//no daily quest available
+	NoDailyQuestDay: Sorry kid, still working on the next gift! Come back tonight and it'll be ready.
+	NoDailyQuestNight: Next one's still work in progress, sorry kid. I should have it done tomorrow morning!
+	PlayerNoDailyQuest: Ok.
 }

@@ -31,7 +31,7 @@ namespace Spooky.Content.Items.Cemetery
 			Item.knockBack = 5;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(gold: 3);
-			Item.UseSound = SoundID.DD2_MonkStaffSwing;
+			Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<SpiritSwordSlash>();
         }
 

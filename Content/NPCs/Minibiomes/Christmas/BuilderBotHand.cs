@@ -232,6 +232,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 			return false;
 		}
 
+		public override bool CheckActive()
+        {
+            return false;
+        }
+
 		public override void DrawBehind(int index)
 		{
 			Main.instance.DrawCacheNPCProjectiles.Add(index);

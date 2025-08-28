@@ -22,8 +22,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
         public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 7;
-            Main.projPet[Projectile.type] = true;
-            ProjectileID.Sets.LightPet[Projectile.type] = true;
         }
 
 		public override void SetDefaults()

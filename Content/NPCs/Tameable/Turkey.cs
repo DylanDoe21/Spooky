@@ -328,7 +328,7 @@ namespace Spooky.Content.NPCs.Tameable
 									Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.FoodPiece, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, default, new Color(211, 109, 58), 0.75f);
 								}
 
-								if (numSeedsEaten < 9)
+								if (numSeedsEaten < 5)
 								{
 									numSeedsEaten++;
 								}

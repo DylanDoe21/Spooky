@@ -11,7 +11,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 {
-    public class TubeCoralPink1 : ModTile
+    public class CoralRed1 : ModTile
     {
         public override string Texture => "Spooky/Content/Projectiles/Blank";
 
@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(132, 48, 94));
+            AddMapEntry(new Color(178, 60, 51));
             HitSound = SoundID.Dig;
             DustType = -1;
         }
@@ -45,7 +45,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Ambient/TubeCoralPink");
+			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Ambient/CoralRed");
 			
 			Tile tile = Framing.GetTileSafely(i, j);
 
@@ -53,20 +53,20 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 			if (tile.TileFrameX == 18 && tile.TileFrameY == 36)
 			{
                 //reminder: offset negative numbers are right and down, while positive is left and up
-                Vector2 offset = new Vector2((PlantTexture.Width() / 2) - 4, (PlantTexture.Height() / 3) - 12);
+                Vector2 offset = new Vector2((PlantTexture.Width() / 2) + 1, (PlantTexture.Height() / 3) - 12);
 
-                DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 66 * 0, 62, 64), TileGlobal.TileOffset, offset);
+                DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 106 * 0, 116, 104), TileGlobal.TileOffset, offset);
 			}
 		}
     }
 
-    public class TubeCoralPink2 : TubeCoralPink1
+    public class CoralRed2 : CoralRed1
     {
         private Asset<Texture2D> PlantTexture;
         
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Ambient/TubeCoralPink");
+			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Ambient/CoralRed");
 			
 			Tile tile = Framing.GetTileSafely(i, j);
 
@@ -74,20 +74,20 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 			if (tile.TileFrameX == 18 && tile.TileFrameY == 36)
 			{
                 //reminder: offset negative numbers are right and down, while positive is left and up
-                Vector2 offset = new Vector2((PlantTexture.Width() / 2) - 4, (PlantTexture.Height() / 3) - 12);
+                Vector2 offset = new Vector2((PlantTexture.Width() / 2) + 1, (PlantTexture.Height() / 3) - 12);
 
-                DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 66 * 1, 62, 64), TileGlobal.TileOffset, offset);
+                DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 106 * 1, 116, 104), TileGlobal.TileOffset, offset);
 			}
 		}
     }
 
-    public class TubeCoralPink3 : TubeCoralPink1
+    public class CoralRed3 : CoralRed1
     {
         private Asset<Texture2D> PlantTexture;
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Ambient/TubeCoralPink");
+			PlantTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Ambient/CoralRed");
 			
 			Tile tile = Framing.GetTileSafely(i, j);
 
@@ -95,9 +95,9 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 			if (tile.TileFrameX == 18 && tile.TileFrameY == 36)
 			{
                 //reminder: offset negative numbers are right and down, while positive is left and up
-                Vector2 offset = new Vector2((PlantTexture.Width() / 2) - 4, (PlantTexture.Height() / 3) - 12);
+                Vector2 offset = new Vector2((PlantTexture.Width() / 2) + 1, (PlantTexture.Height() / 3) - 12);
 
-                DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 66 * 2, 62, 64), TileGlobal.TileOffset, offset);
+                DrawPlant(i, j, PlantTexture.Value, new Rectangle(0, 106 * 2, 116, 104), TileGlobal.TileOffset, offset);
 			}
 		}
     }

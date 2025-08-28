@@ -168,7 +168,7 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public static void PlaceDepthsOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool Walls, bool ReplaceOnly)
+		public static void PlaceDepthsOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool Walls, bool ReplaceOnly, bool OnlyPlaceWallsIfTile = false)
 		{
 			int Seed = WorldGen.genRand.Next();
 
@@ -190,6 +190,32 @@ namespace Spooky.Content.Generation
 
 							if (!Main.tileDungeon[tile.TileType] && !Main.wallDungeon[tile.WallType])
 							{
+								if (Walls)
+								{
+									if (OnlyPlaceWallsIfTile && tile.HasTile)
+									{
+										tile.WallType = (ushort)wallType;
+										WorldGen.PlaceWall(PositionX, PositionY, (ushort)wallType);
+									}
+
+									if (!OnlyPlaceWallsIfTile)
+									{
+										WorldGen.KillWall(PositionX, PositionY);
+
+										float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(PositionX / 80f, PositionY / 80f, 5, unchecked(Seed + 1)) * 0.01f;
+										float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(PositionX / 300f, PositionY / 1000f, 5, Seed) + 0.5f + horizontalOffsetNoise;
+										float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(PositionX / 300f, PositionY / 1000f, 5, unchecked(Seed - 1)) + 0.5f;
+										float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
+										float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
+
+										if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
+										{
+											tile.WallType = (ushort)wallType;
+											WorldGen.PlaceWall(PositionX, PositionY, (ushort)wallType);
+										}
+									}
+								}
+
 								if (tileType != -1)
 								{
 									if (ReplaceOnly)
@@ -216,22 +242,7 @@ namespace Spooky.Content.Generation
 									tile.LiquidAmount = 255;
 								}
 
-								if (Walls)
-								{
-									WorldGen.KillWall(PositionX, PositionY);
-
-									float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(PositionX / 80f, PositionY / 80f, 5, unchecked(Seed + 1)) * 0.01f;
-									float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(PositionX / 300f, PositionY / 1000f, 5, Seed) + 0.5f + horizontalOffsetNoise;
-									float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(PositionX / 300f, PositionY / 1000f, 5, unchecked(Seed - 1)) + 0.5f;
-									float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
-									float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
-
-									if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
-									{
-										tile.WallType = (ushort)wallType;
-										WorldGen.PlaceWall(PositionX, PositionY, (ushort)wallType);
-									}
-								}
+								
 							}
 						}
 					}
@@ -423,8 +434,21 @@ namespace Spooky.Content.Generation
 						{
 							if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
 							{
-								int Size = WorldGen.genRand.Next(9, 11); //tragic random numbering
-								PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), Size, Size, 1f, true, true);
+								if (WorldGen.genRand.NextBool(12) && Position.Y < Main.worldSurface)
+								{
+									int RandomSizeX = WorldGen.genRand.Next(22, 31);
+									int RandomSizeY = WorldGen.genRand.Next(12, 16);
+									float RandomThickness = WorldGen.genRand.NextFloat(0.1f, 3f);
+									
+									PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), RandomSizeX, RandomSizeY, RandomThickness, true, true, true);
+									PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, RandomSizeX - 5, RandomSizeY - 5, RandomThickness, false, false, true);
+								}
+								else
+								{
+									int Size = WorldGen.genRand.Next(9, 11);
+									
+									PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), Size, Size, 1f, true, true, true);
+								}
 							}
 						}
 					}
@@ -441,6 +465,7 @@ namespace Spooky.Content.Generation
 						if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
 						{
 							int Size = GoingToSurface ? WorldGen.genRand.Next(5, 7) : WorldGen.genRand.Next(7, 9);
+							
 							PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, Size, Size, 1f, false, false);
 						}
 					}
@@ -667,7 +692,7 @@ namespace Spooky.Content.Generation
 
 		public void TileSloping(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int j = PositionY - SizeY - 100; j < PositionY + SizeY; j++)
+			for (int j = 100; j < PositionY + SizeY; j++)
 			{
 				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
 				{
@@ -706,7 +731,8 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			//place coral tiles first so they are decently plentiful
+			for (int j = 100; j < PositionY + SizeY; j++)
 			{
 				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
 				{
@@ -716,66 +742,28 @@ namespace Spooky.Content.Generation
 						Tile tileAbove = Main.tile[i, j - 1];
 						Tile tileBelow = Main.tile[i, j + 1];
 
-						//place corals
 						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile)
 						{
-							if (WorldGen.genRand.NextBool(3))
+							if (WorldGen.genRand.NextBool(4))
 							{
 								ushort[] Corals = new ushort[] { (ushort)ModContent.TileType<CoralGreen1>(), (ushort)ModContent.TileType<CoralGreen2>(), (ushort)ModContent.TileType<CoralGreen3>(),
 								(ushort)ModContent.TileType<CoralPurple1>(), (ushort)ModContent.TileType<CoralPurple2>(), (ushort)ModContent.TileType<CoralPurple3>(),
-								(ushort)ModContent.TileType<CoralOrange1>(), (ushort)ModContent.TileType<CoralOrange2>(), (ushort)ModContent.TileType<CoralOrange3>(),
+								(ushort)ModContent.TileType<CoralRed1>(), (ushort)ModContent.TileType<CoralRed2>(), (ushort)ModContent.TileType<CoralRed3>(),
 								(ushort)ModContent.TileType<CoralYellow1>(), (ushort)ModContent.TileType<CoralYellow2>(), (ushort)ModContent.TileType<CoralYellow3>(),
 								(ushort)ModContent.TileType<TubeCoralBlue1>(), (ushort)ModContent.TileType<TubeCoralBlue2>(), (ushort)ModContent.TileType<TubeCoralBlue3>(),
-								(ushort)ModContent.TileType<TubeCoralPink1>(), (ushort)ModContent.TileType<TubeCoralPink2>(), (ushort)ModContent.TileType<TubeCoralPink3>(),
+								(ushort)ModContent.TileType<TubeCoralLime1>(), (ushort)ModContent.TileType<TubeCoralLime2>(), (ushort)ModContent.TileType<TubeCoralLime3>(),
 								(ushort)ModContent.TileType<TubeCoralPurple1>(), (ushort)ModContent.TileType<TubeCoralPurple2>(), (ushort)ModContent.TileType<TubeCoralPurple3>(),
 								(ushort)ModContent.TileType<TubeCoralTeal1>(), (ushort)ModContent.TileType<TubeCoralTeal2>(), (ushort)ModContent.TileType<TubeCoralTeal3>() };
 
 								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Corals));
 							}
 						}
-
-						//place fish bones and fossils on both sand and zombie biomass
-						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>()) && !tileAbove.HasTile)
-						{
-							if (WorldGen.genRand.NextBool() && CanPlaceTubeWorm(i, j))
-							{
-								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
-								{
-									TubeWorm.Grow(i, j - 1, 3, 7);
-								}
-							}
-
-							if (WorldGen.genRand.NextBool(9) && CanPlaceFishTree(i, j))
-							{
-								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
-								{
-									BoneFishTree.Grow(i, j - 1, 3, 8);
-
-									if (Main.tile[i, j - 1].TileType == ModContent.TileType<BoneFishTree>())
-									{
-										TryToPlaceHangingFishBone(i, j);
-									}
-								}
-							}
-
-							if (WorldGen.genRand.NextBool(20))
-							{
-								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<LockerTile>());
-							}
-
-							if (WorldGen.genRand.NextBool(4))
-							{
-								ushort[] Skulls = new ushort[] { (ushort)ModContent.TileType<FishFossil1>(), (ushort)ModContent.TileType<FishFossil2>(), 
-								(ushort)ModContent.TileType<FishFossil3>(), (ushort)ModContent.TileType<FishFossil4>(), (ushort)ModContent.TileType<FishFossil5>() };
-
-								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Skulls));
-							}
-						}
 					}
 				}
 			}
 
-			for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
+			//place ambient grasses and stuff on sand, both underground and on the surface tunnel
+			for (int j = 100; j < PositionY + SizeY; j++)
 			{
 				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
 				{
@@ -785,34 +773,6 @@ namespace Spooky.Content.Generation
 						Tile tileAbove = Main.tile[i, j - 1];
 						Tile tileBelow = Main.tile[i, j + 1];
 
-						//zombie tiles
-						if (Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() && !tileAbove.HasTile)
-						{
-							//brains
-							if (WorldGen.genRand.NextBool(5))
-							{
-								ushort[] Brains = new ushort[] { (ushort)ModContent.TileType<Brain1>(), (ushort)ModContent.TileType<Brain2>(),
-								(ushort)ModContent.TileType<Brain3>(), (ushort)ModContent.TileType<Brain4>() };
-
-								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Brains));
-							}
-
-							//fingers
-							if (WorldGen.genRand.NextBool(4))
-							{
-								ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<ZombieFinger1>(), (ushort)ModContent.TileType<ZombieFinger2>() };
-
-								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Fingers));
-							}
-
-							//zomboid piles
-							if (WorldGen.genRand.NextBool())
-							{
-								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<ZombiePiles>(), true, WorldGen.genRand.Next(0, 9));
-							}
-						}
-
-						//sand tiles
 						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile)
 						{
 							//big light plants
@@ -862,6 +822,99 @@ namespace Spooky.Content.Generation
 							int[] ValidTiles = { ModContent.TileType<OceanSand>() };
 
 							SpookyWorldMethods.PlaceVines(i, j, ModContent.TileType<OceanVines>(), ValidTiles);
+						}
+					}
+				}
+			}
+
+			//first, place fishbone trees, fossils, and davy jones lockers underground
+			for (int j = (int)Main.worldSurface; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j, 25))
+					{
+						Tile tile = Main.tile[i, j];
+						Tile tileAbove = Main.tile[i, j - 1];
+						Tile tileBelow = Main.tile[i, j + 1];
+
+						//place fish bones and fossils on both sand and zombie biomass
+						if ((Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() || Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>()) && !tileAbove.HasTile)
+						{
+							if (WorldGen.genRand.NextBool() && CanPlaceTubeWorm(i, j))
+							{
+								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+								{
+									TubeWorm.Grow(i, j - 1, 3, 7);
+								}
+							}
+
+							if (WorldGen.genRand.NextBool(9) && CanPlaceFishTree(i, j))
+							{
+								if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+								{
+									BoneFishTree.Grow(i, j - 1, 3, 8);
+
+									if (Main.tile[i, j - 1].TileType == ModContent.TileType<BoneFishTree>())
+									{
+										TryToPlaceHangingFishBone(i, j);
+									}
+								}
+							}
+
+							if (WorldGen.genRand.NextBool(20))
+							{
+								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<LockerTile>());
+							}
+
+							if (WorldGen.genRand.NextBool(6))
+							{
+								ushort[] Skulls = new ushort[] { (ushort)ModContent.TileType<FishFossil1>(), (ushort)ModContent.TileType<FishFossil2>(), 
+								(ushort)ModContent.TileType<FishFossil3>(), (ushort)ModContent.TileType<FishFossil4>(), (ushort)ModContent.TileType<FishFossil5>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Skulls));
+							}
+						}
+					}
+				}
+			}
+
+			//place the rest of the ambient tiles after the bones and lockers
+			for (int j = (int)Main.worldSurface; j < PositionY + SizeY; j++)
+			{
+				for (int i = PositionX - SizeX; i < PositionX + SizeX; i++)
+				{
+					if (WorldGen.InWorld(i, j, 25))
+					{
+						Tile tile = Main.tile[i, j];
+						Tile tileAbove = Main.tile[i, j - 1];
+						Tile tileBelow = Main.tile[i, j + 1];
+
+						//zombie tiles
+						if (Main.tile[i, j].TileType == ModContent.TileType<OceanBiomass>() && !tileAbove.HasTile)
+						{
+							//brains
+							if (WorldGen.genRand.NextBool(3))
+							{
+								ushort[] Brains = new ushort[] { (ushort)ModContent.TileType<Brain1>(), (ushort)ModContent.TileType<Brain2>(),
+								(ushort)ModContent.TileType<Brain3>(), (ushort)ModContent.TileType<Brain4>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Brains));
+							}
+
+							//fingers
+							if (WorldGen.genRand.NextBool(3))
+							{
+								ushort[] Fingers = new ushort[] { (ushort)ModContent.TileType<ZombieFinger1>(), (ushort)ModContent.TileType<ZombieFinger2>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Fingers));
+							}
+
+							//zomboid piles
+							if (WorldGen.genRand.NextBool())
+							{
+								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<ZombiePiles>(), true, WorldGen.genRand.Next(0, 9));
+							}
 						}
 					}
 				}

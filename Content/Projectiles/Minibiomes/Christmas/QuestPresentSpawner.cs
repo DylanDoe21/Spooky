@@ -74,30 +74,33 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 			{
 				SoundEngine.PlaySound(SoundID.ResearchComplete with { Pitch = 1.5f }, Projectile.Center);
 
-				int TypeToSpawn = ModContent.NPCType<Marble>();
+				if (!Flags.KrampusQuestlineDone)
+				{
+					int TypeToSpawn = ModContent.NPCType<Marble>();
 
-				if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
-				{
-					TypeToSpawn = ModContent.NPCType<JackInTheBox>();
-				}
-				else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
-				{
-					TypeToSpawn = ModContent.NPCType<BuilderBot>();
-				}
-				else if (Flags.KrampusQuest4 && !Flags.KrampusQuest5)
-				{
-					TypeToSpawn = ModContent.NPCType<ChefRobot>();
-				}
-				else if (Flags.KrampusQuest5)
-				{
-					TypeToSpawn = ModContent.NPCType<TeddyBearGiant>();
-				}
+					if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
+					{
+						TypeToSpawn = ModContent.NPCType<JackInTheBox>();
+					}
+					else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
+					{
+						TypeToSpawn = ModContent.NPCType<BuilderBot>();
+					}
+					else if (Flags.KrampusQuest4 && !Flags.KrampusQuest5)
+					{
+						TypeToSpawn = ModContent.NPCType<ChefRobot>();
+					}
+					else if (Flags.KrampusQuest5)
+					{
+						TypeToSpawn = ModContent.NPCType<TeddyBearGiant>();
+					}
 
-				int NPCSpawn = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, TypeToSpawn);
+					int NPCSpawn = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, TypeToSpawn);
 
-				if (Main.netMode == NetmodeID.Server)
-				{
-					NetMessage.SendData(MessageID.SyncNPC, number: NPCSpawn);
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.SyncNPC, number: NPCSpawn);
+					}
 				}
 
 				for (int numGores = 1; numGores <= 12; numGores++)
@@ -110,23 +113,22 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 
 				if (SelectedTownNPC.type == ModContent.NPCType<LittleEye>())
 				{
-					if (!Main.dedServ)
+					if (!Main.dedServ && !Flags.KrampusQuestlineDone)
 					{
 						DialogueChain chain = new();
 						chain.Add(new(SelectedTownNPC,
 						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye1"),
 						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye1"),
-						TalkSound, 0.045f, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
+						TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
 						.Add(new(SelectedTownNPC,
 						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye2"),
 						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye2"),
-						TalkSound, 0.045f, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
+						TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
 						.Add(new(SelectedTownNPC,
 						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye3"),
 						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye3"),
-						TalkSound, 0.045f, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
-						.Add(new(SelectedTownNPC, null, null, 
-						TalkSound, 0.045f, 2f, 0f, modifier, true));
+						TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
+						.Add(new(SelectedTownNPC, null, null, TalkSound, 2f, 0f, modifier, true));
 						chain.OnPlayerResponseTrigger += PlayerResponse;
 						chain.OnEndTrigger += EndDialogue;
 						DialogueUI.Visible = true;
@@ -147,7 +149,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 
 		private void PlayerResponse(Dialogue dialogue, string Text, int ID)
 		{
-			Dialogue newDialogue = new(Main.LocalPlayer, Text, null, SoundID.Item1, 0.01f, 2f, 0f, default, NotPlayer: false);
+			Dialogue newDialogue = new(Main.LocalPlayer, Text, null, SoundID.Item1, 2f, 0f, default, NotPlayer: false);
 			DialogueUI.Visible = true;
 			DialogueUI.Add(newDialogue);
 		}

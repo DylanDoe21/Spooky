@@ -113,6 +113,8 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool PreAI()
 		{
+            Player player = Main.player[Projectile.owner];
+
             if (!SavedKnockback)
             {
                 SaveKnockback = Projectile.knockBack;
@@ -122,6 +124,17 @@ namespace Spooky.Content.Projectiles.Cemetery
             {
                 Projectile.knockBack = 0;
             }
+
+            float num10 = Projectile.rotation + Main.rand.NextFloatDirection() * ((float)Math.PI / 2f) * 0.7f;
+			Vector2 vector2 = Projectile.Center + num10.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 vector3 = (num10 + Projectile.ai[0] * ((float)Math.PI / 2f)).ToRotationVector2();
+
+            if (Main.rand.NextFloat() < Projectile.Opacity) 
+            {
+				Dust dust8 = Dust.NewDustPerfect(Projectile.Center + num10.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), DustID.Shadowflame, vector3 * 2f);
+				dust8.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+				dust8.noGravity = true;
+			}
 
             return true;
         }

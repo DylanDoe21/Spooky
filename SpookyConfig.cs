@@ -22,6 +22,11 @@ namespace Spooky
         [DefaultValue(1f)]
         [Slider]
 		public float ScreenShakeIntensity;
+
+		[BackgroundColor(250, 175, 0, 125)]
+		[DefaultValue(DialogueSpeedEnum.Normal)]
+		[DrawTicks]
+		public DialogueSpeedEnum DialogueSpeed;
 	}
 
 	[BackgroundColor(80, 12, 0, 150)]
@@ -65,5 +70,11 @@ namespace Spooky
 		Random,
 		JungleSide,
 		DungeonSide
+	}
+	public enum DialogueSpeedEnum
+	{
+		Normal,
+		Fast,
+		Instant
 	}
 }

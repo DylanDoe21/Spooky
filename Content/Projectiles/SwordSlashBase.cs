@@ -32,6 +32,20 @@ namespace Spooky.Content.Projectiles
             Projectile.aiStyle = -1;
         }
 
+        private void UpdateEnchantmentVisuals() 
+        {
+			if (Projectile.npcProj) 
+            {
+				return;
+			}
+
+			for (float num = -(float)Math.PI / 4f; num <= (float)Math.PI / 4f; num += (float)Math.PI / 2f) 
+            {
+				Rectangle r = Utils.CenteredRectangle(Projectile.Center + (Projectile.rotation + num).ToRotationVector2() * 70f * Projectile.scale, new Vector2(60f * Projectile.scale, 60f * Projectile.scale));
+				Projectile.EmitEnchantmentVisualsAt(r.TopLeft(), r.Width, r.Height);
+			}
+		}
+
         public override void AI()
         {
             Projectile.localAI[0]++;
@@ -57,6 +71,11 @@ namespace Spooky.Content.Projectiles
             {
                 Projectile.Kill();
             }
+
+            if (!Projectile.noEnchantmentVisuals) 
+            {
+				UpdateEnchantmentVisuals();
+			}
         }
 
         public override bool? CanCutTiles() 

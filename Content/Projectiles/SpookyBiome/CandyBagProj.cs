@@ -16,7 +16,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
-            Main.projPet[Projectile.type] = true;
         }
         
         public override void SetDefaults()

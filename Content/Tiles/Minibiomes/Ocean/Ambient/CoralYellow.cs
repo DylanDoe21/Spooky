@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(232, 173, 75));
+            AddMapEntry(new Color(178, 140, 51));
             HitSound = SoundID.Dig;
             DustType = -1;
         }

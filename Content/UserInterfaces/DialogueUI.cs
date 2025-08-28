@@ -83,7 +83,9 @@ namespace Spooky.Content.UserInterfaces
 					Main.instance.CameraModifiers.Add(new CameraPanning(dialogue.entity.Center, 20));
 				}
 
-				string[] drawnText = FormatText(dialogue.displayingText, FontAssets.MouseText.Value, !dialogue.NotPlayer, out int width, out int height);
+				string TextToUse = ModContent.GetInstance<SpookyConfig>().DialogueSpeed == DialogueSpeedEnum.Instant ? dialogue.text : dialogue.displayingText;
+
+				string[] drawnText = FormatText(TextToUse, FontAssets.MouseText.Value, !dialogue.NotPlayer, out int width, out int height);
 				Vector2 pos = (dialogue.chain == null ? Vector2.Zero : dialogue.chain.modifier) + dialogue.modifier + 
 				(dialogue.entity != null ? dialogue.entity.Center - Main.screenPosition - new Vector2((width - 350f) / 2f, dialogue.entity.height - 15) : 
 				dialogue.chain.anchor != null ? dialogue.chain.anchor.VisualPosition : new Vector2(Main.screenWidth / 2f - width / 2f, Main.screenHeight * 0.8f - height / 2f));
@@ -307,7 +309,7 @@ namespace Spooky.Content.UserInterfaces
 
 		public int NPCType;
 
-		public Dialogue(Entity entity, string text, string playerText, SoundStyle sound, float charTime, float preFadeTime, float fadeTime, 
+		public Dialogue(Entity entity, string text, string playerText, SoundStyle sound, float preFadeTime, float fadeTime, 
 		Vector2 modifier = default, bool IsLastDialogue = false, bool NotPlayer = true, float Expression = -1, int NPCID = -1)
 		{
 			this.entity = entity;
@@ -318,18 +320,29 @@ namespace Spooky.Content.UserInterfaces
 			this.IsLastDialogue = IsLastDialogue;
 			this.NotPlayer = NotPlayer;
 
-			this.charTime = charTime;
-			this.originalCharTime = charTime;
 			this.preFadeTime = preFadeTime;
 			this.fadeTime = fadeTime;
 			this.fadeTimeMax = fadeTime;
 			this.expression = Expression;
 			this.modifier = modifier;
 
-			if (this.charTime < 0)
-			{
+			if (!NotPlayer)
+			{	
 				this.charTime = 0.01f;
 			}
+			else
+			{
+				if (ModContent.GetInstance<SpookyConfig>().DialogueSpeed == DialogueSpeedEnum.Normal)
+				{
+					this.charTime = 0.04f;
+				}
+				if (ModContent.GetInstance<SpookyConfig>().DialogueSpeed == DialogueSpeedEnum.Fast)
+				{
+					this.charTime = 0.01f;
+				}
+			}
+
+			this.originalCharTime = charTime;
 
 			if (!Main.dedServ)
 			{
@@ -338,11 +351,10 @@ namespace Spooky.Content.UserInterfaces
 
 			if (NPCID != -1)
 			{
-				NPCType = NPCID;
+				this.NPCType = NPCID;
 			}
 		}
 
-		public int Timer = 0;
 		public int dialogueSoundTimer = 0;
 
 		public void Update(GameTime gameTime)
@@ -359,16 +371,14 @@ namespace Spooky.Content.UserInterfaces
 					Krampus.Expression = expression;
 				}
 
-				// Measure our progress via a modulo between our char time and
-				// our timer, allowing us to decide how many chars to display
 				if (pauseTime <= 0 && displayingText.Length != text.Length && timer >= charTime)
 				{
 					dialogueSoundTimer++;
-
 					if (displayingText.Length != 0)
 					{
 						char trigger = displayingText[^1];
-						if (!Main.dedServ && dialogueSoundTimer % 3 == 0 && sound != null && (trigger is not '.' and not ',' and not '!' and not '?'))
+						if (!Main.dedServ && ModContent.GetInstance<SpookyConfig>().DialogueSpeed != DialogueSpeedEnum.Instant &&
+						dialogueSoundTimer % 3 == 0 && sound != null && (trigger is not '.' and not ',' and not '!' and not '?'))
 						{
 							SoundEngine.PlaySound((SoundStyle)sound, entity.Center);
 						}
@@ -377,7 +387,7 @@ namespace Spooky.Content.UserInterfaces
 					displayingText += text[displayingText.Length];
 					timer = 0;
 
-					//dont delay punctuation on the player dialogue
+					//dont delay punctuation on player response dialogue
 					if (NotPlayer)
 					{
 						char PunctuationCheck = displayingText[^1];
@@ -387,7 +397,7 @@ namespace Spooky.Content.UserInterfaces
 						}
 						else if (PunctuationCheck == ',')
 						{
-							charTime += 0.05f;
+							charTime = originalCharTime + 0.05f;
 						}
 						else
 						{
@@ -396,8 +406,13 @@ namespace Spooky.Content.UserInterfaces
 					}
 				}
 
-				if (displayingText.Length == text.Length && !textFinished)
+				if ((displayingText.Length == text.Length || ModContent.GetInstance<SpookyConfig>().DialogueSpeed == DialogueSpeedEnum.Instant) && !textFinished)
 				{
+					if (ModContent.GetInstance<SpookyConfig>().DialogueSpeed == DialogueSpeedEnum.Instant && sound != null)
+					{
+						SoundEngine.PlaySound((SoundStyle)sound, entity.Center);
+					}
+
 					textFinished = true;
 
 					if (NotPlayer)

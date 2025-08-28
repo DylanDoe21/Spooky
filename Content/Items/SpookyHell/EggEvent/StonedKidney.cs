@@ -25,11 +25,6 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SpookyPlayer>().StonedKidney = true;
-
-            if (player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge >= 7.5f)
-            {
-                player.GetDamage(DamageClass.Generic) += 0.15f;
-            }
 		}
 	}
 }
