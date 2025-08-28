@@ -634,3 +634,8 @@ StockingMinionBuff: {
 	DisplayName: Krampus' lil Helpers
 	Description: The little helpers will defend you!
 }
+
+YuletideArmorCooldown: {
+	DisplayName: Yuletide ignite Cooldown
+	Description: You cannot ignite yourself
+}

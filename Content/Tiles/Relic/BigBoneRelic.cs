@@ -100,7 +100,7 @@ namespace Spooky.Content.Tiles.Relic
 			// Some math magic to make it smoothly move up and down over time
 			const float TwoPi = (float)Math.PI * 2f;
 			float offset = (float)Math.Sin(Main.GlobalTimeWrappedHourly * TwoPi / 5f);
-			Vector2 drawPos = worldPos - Main.screenPosition + new Vector2(0f, -40f) + new Vector2(0f, offset * 4f);
+			Vector2 drawPos = worldPos - Main.screenPosition + new Vector2(0f, -45f) + new Vector2(0f, offset * 4f);
 
 			// Draw the main texture
 			spriteBatch.Draw(texture, drawPos, frame, color, 0f, origin, 1f, effects, 0f);

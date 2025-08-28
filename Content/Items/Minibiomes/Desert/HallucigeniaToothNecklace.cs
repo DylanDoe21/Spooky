@@ -1,9 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Shaders;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 
@@ -23,7 +20,8 @@ namespace Spooky.Content.Items.Minibiomes.Desert
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.GetModPlayer<SpookyPlayer>().HallucigeniaSpine = true;
-        }
+			player.GetArmorPenetration(DamageClass.Generic) += 10;
+		}
 
 		public override void AddRecipes()
         {

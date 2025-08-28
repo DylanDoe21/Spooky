@@ -419,7 +419,7 @@ namespace Spooky.Core
 			}
 
 			//yuletide combustion
-			if (YuletideSet && YuletideFireTimer <= 0)
+			if (YuletideSet && YuletideFireTimer <= 0 && !Player.HasBuff(ModContent.BuffType<YuletideArmorCooldown>()))
 			{
 				YuletideFireTimer = 300;
 			}
@@ -764,10 +764,10 @@ namespace Spooky.Core
 
             if (HallucigeniaSpine)
             {
+                int[] Types = { ModContent.ProjectileType<HallucigeniaSpineProj1>(), ModContent.ProjectileType<HallucigeniaSpineProj2>() };
+
                 for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
                 {
-                    int[] Types = { ModContent.ProjectileType<HallucigeniaSpineProj1>(), ModContent.ProjectileType<HallucigeniaSpineProj2>() };
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
@@ -1200,6 +1200,11 @@ namespace Spooky.Core
 
 					Projectile.NewProjectile(null, Player.Top, velocity, Main.rand.Next(400, 403), 35, 0, Player.whoAmI);
 				}
+
+                if (YuletideFireTimer == 2)
+                {
+                    Player.AddBuff(ModContent.BuffType<YuletideArmorCooldown>(), 1200);
+                }
 
 				if (Main.rand.NextBool(10))
 				{

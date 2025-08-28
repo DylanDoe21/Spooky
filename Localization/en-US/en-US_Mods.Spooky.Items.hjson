@@ -1660,7 +1660,7 @@ GoldrushPickaxe: {
 
 HallucigeniaSpine: {
 	DisplayName: Hallucigenia Spine
-	Tooltip: Spawns lingering spines around you when you take damage
+	Tooltip: Spawns damaging spines around you when you take damage
 }
 
 HallucigeniaToothNecklace: {
@@ -1668,7 +1668,7 @@ HallucigeniaToothNecklace: {
 	Tooltip:
 		'''
 		Increases armor penetration by 10
-		Spawns lingering spines around you when you take damage
+		Spawns damaging spines around you when you take damage
 		'''
 }
 
