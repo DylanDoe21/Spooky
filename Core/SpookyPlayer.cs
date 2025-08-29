@@ -766,14 +766,26 @@ namespace Spooky.Core
             {
                 int[] Types = { ModContent.ProjectileType<HallucigeniaSpineProj1>(), ModContent.ProjectileType<HallucigeniaSpineProj2>() };
 
-                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
-                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), Main.rand.Next(Types), info.Damage / 2, 0, Player.whoAmI);
-                    }
-                }
+                int MinDamage = 40; //minimum damage
+				float Damage = (info.Damage / 2) < MinDamage ? MinDamage : info.Damage / 2;
+
+				float maxAmount = 3;
+				int currentAmount = 0;
+				while (currentAmount < maxAmount)
+				{
+					Vector2 velocity = new Vector2(3f, 3f);
+					Vector2 Bounds = new Vector2(3f, 3f);
+					float intensity = 3f;
+
+					Vector2 vector12 = Vector2.UnitX * 0f;
+					vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+					vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+					Vector2 ShootVelocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+
+					Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center, ShootVelocity, Main.rand.Next(Types), (int)Damage, 4.5f, Player.whoAmI);
+
+					currentAmount++;
+				}
             }
 
             //when you get hit, krampus chimney charge resets

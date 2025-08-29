@@ -642,6 +642,9 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TeddyBearSnow>(), 0.5f);
 					pool.Add(ModContent.NPCType<ToyRobot>(), 2);
 					pool.Add(ModContent.NPCType<ToyRobotTank>(), 0.5f);
+					pool.Add(ModContent.NPCType<PresentTrapBlue>(), 0.25f);
+					pool.Add(ModContent.NPCType<PresentTrapGreen>(), 0.25f);
+					pool.Add(ModContent.NPCType<PresentTrapRed>(), 0.25f);
 
 					if (Flags.KrampusQuest1)
 					{

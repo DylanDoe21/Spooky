@@ -106,15 +106,9 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
         }
     }
 
-    public class HallucigeniaSpineProj2 : ModProjectile
-    {
+    public class HallucigeniaSpineProj2 : HallucigeniaSpineProj1
+	{
 		private static Asset<Texture2D> ProjTexture;
-
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-        }
 
 		public override void SetDefaults()
 		{
@@ -147,11 +141,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			}
 
 			return true;
-		}
-
-		public override bool? CanDamage()
-		{
-			return Projectile.ai[0] > 40;
 		}
 	}
 }

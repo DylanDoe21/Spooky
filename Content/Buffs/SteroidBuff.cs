@@ -19,7 +19,7 @@ namespace Spooky.Content.Buffs
 
 			if (player.buffTime[buffIndex] <= 1)
             {
-                player.AddBuff(ModContent.BuffType<SteroidWeakness>(), 18000);
+                player.AddBuff(ModContent.BuffType<SteroidWeakness>(), 3600);
             }
 		}
 

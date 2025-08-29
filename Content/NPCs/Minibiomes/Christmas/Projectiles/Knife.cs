@@ -56,22 +56,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas.Projectiles
                 Projectile.rotation += 0f * (float)Projectile.direction;
             }
 		}
-
-		public override void OnKill(int timeLeft)
-		{
-			for (int i = 0; i < 25; i++)
-			{                                                                                  
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 262, 0f, -2f, 0, default(Color), 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-50, 51) * .05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-50, 51) * .05f - 1.5f;
-
-				if (Main.dust[dust].position != Projectile.Center)
-				{
-					Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
-				}
-			}
-		}
     }
 
     public class KnifeCleaver : Knife

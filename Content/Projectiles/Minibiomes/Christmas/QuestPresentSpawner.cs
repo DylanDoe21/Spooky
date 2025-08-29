@@ -49,6 +49,48 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 			SelectedTownNPC.velocity.X = 0;
 
 			Projectile.ai[0]++;
+			if (Projectile.ai[0] == 1)
+			{
+				//set downed variables to true properly
+				if (!Flags.KrampusQuest1)
+				{
+					Flags.KrampusQuest1 = true;
+				}
+				else if (Flags.KrampusQuest1 && !Flags.KrampusQuest2)
+				{
+					Flags.KrampusQuest2 = true;
+				}
+				else if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
+				{
+					Flags.KrampusQuest3 = true;
+				}
+				else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
+				{
+					Flags.KrampusQuest4 = true;
+				}
+
+				if (Projectile.ai[1] == 3)
+				{
+					if (Flags.KrampusQuest4 && !Flags.KrampusQuest5)
+					{
+						Flags.KrampusQuest5 = true;
+					}
+
+					//set daily quest to true if the main questline is done
+					if (Flags.KrampusQuestlineDone)
+					{
+						Flags.KrampusDailyQuestDone = true;
+					}
+				}
+
+				//when the gift is used, the quest is no longer in progress
+				Flags.KrampusQuestGiven = false;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
 			if (Projectile.ai[0] <= 60)
 			{
 				if (Shake)

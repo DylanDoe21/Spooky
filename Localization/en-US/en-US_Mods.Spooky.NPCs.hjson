@@ -455,7 +455,9 @@ BuilderBotHandBack.DisplayName: Builder Bot
 ChefRobot.DisplayName: Chef-Bot 9000
 JackInTheBox.DisplayName: Boxed Jack
 Marble.DisplayName: Giant Marble
-PresentTrapBlue.DisplayName: Present
+PresentTrapBlue.DisplayName: Present Trap
+PresentTrapGreen.DisplayName: Present Trap
+PresentTrapRed.DisplayName: Present Trap
 SockManGreen.DisplayName: Krampus' Helper
 SockManOrange.DisplayName: Krampus' Helper
 SockManRed.DisplayName: Krampus' Helper

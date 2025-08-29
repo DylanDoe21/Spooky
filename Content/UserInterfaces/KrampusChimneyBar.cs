@@ -25,9 +25,6 @@ namespace Spooky.Content.UserInterfaces
                 BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/KrampusChimneyBar", AssetRequestMode.ImmediateLoad);
                 BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/KrampusChimneyBarFill", AssetRequestMode.ImmediateLoad);
 
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
 				Vector2 UIBoxScale = (Vector2.One * 0.85f) * Main.UIScale;
 
 				//UI dragging 
@@ -72,12 +69,6 @@ namespace Spooky.Content.UserInterfaces
 				{
 					spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().ChimneyUIPos, barRectangle, Color.Orange, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 				}
-
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
 			}
 		}
 

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Tiles.Cemetery;
 
@@ -47,6 +48,8 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, catacombChestDrops));
+
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<EMFReaderBroke>(), 2));
 
             //drop vanilla ores
             IItemDropRule[] oreTypes = new IItemDropRule[] 

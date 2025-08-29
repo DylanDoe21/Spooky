@@ -639,3 +639,8 @@ YuletideArmorCooldown: {
 	DisplayName: Yuletide ignite Cooldown
 	Description: You cannot ignite yourself
 }
+
+KrampusShapeBuff: {
+	DisplayName: Krampus Shape Buff
+	Description: Mods.Spooky.Buffs.KrampusShapeBuff.Description
+}

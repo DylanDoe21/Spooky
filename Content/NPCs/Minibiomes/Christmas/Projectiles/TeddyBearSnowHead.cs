@@ -54,7 +54,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas.Projectiles
                     Vector2 velocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(12));
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 15), velocity,
-                    ModContent.ProjectileType<SnowCloud>(), Projectile.damage, 0f, Projectile.owner, Main.myPlayer);
+                    ModContent.ProjectileType<SnowCloud>(), Projectile.damage, 0f, Projectile.owner);
                 }
             }
 

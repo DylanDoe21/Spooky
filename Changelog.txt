@@ -225,6 +225,7 @@ Enemy Changes:
 -Valley of eyes pylon can now be sold by npcs who are happy enough in the eye valley (Little eye will still give you one for free when woken up)
 -Bloom plants now have better map colors and have display names when you hover over them with your mouse
 -Spooky mod music boxes now display the song title in orange in their tooltip, since some of the previous colors were hard to read and having to make specific colors for every music box was a bit annoying
+-Broken EMF reader now drops from catacomb/cemetery crates sometimes to make it renewable
 
 
 

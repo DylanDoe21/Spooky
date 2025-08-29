@@ -1594,8 +1594,8 @@ KrampusShapeBox: {
 	DisplayName: Box 'O Shapes
 	Tooltip:
 		'''
-		Drops random wood shapes on the floor around you sometimes
-		Each shape will grant you a different buff
+		Drops wood shapes when you hit enemies
+		Picking them up will grant you a special buff to boost stats
 		'''
 }
 

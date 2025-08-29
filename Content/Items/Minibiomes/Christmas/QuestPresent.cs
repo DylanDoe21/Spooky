@@ -29,7 +29,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 			{
 				foreach (var npc in Main.ActiveNPCs)
 				{
-					if (npc.friendly && npc.townNPC && (!npc.immortal && !npc.dontTakeDamage) && npc.Distance(player.Center) <= 100f)
+					if (npc.friendly && npc.townNPC && !npc.immortal && !npc.dontTakeDamage && npc.Distance(player.Center) <= 100f)
 					{
 						return true;
 					}
@@ -43,34 +43,8 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
         {
 			foreach (var npc in Main.ActiveNPCs)
 			{
-				if (npc.friendly && npc.townNPC && (!npc.immortal && !npc.dontTakeDamage) && npc.Distance(player.Center) <= 100f)
+				if (npc.friendly && npc.townNPC && !npc.immortal && !npc.dontTakeDamage && npc.Distance(player.Center) <= 100f)
 				{
-					//set downed variables to true properly
-					if (!Flags.KrampusQuest1)
-					{
-						Flags.KrampusQuest1 = true;
-					}
-					else if (Flags.KrampusQuest1 && !Flags.KrampusQuest2)
-					{
-						Flags.KrampusQuest2 = true;
-					}
-					else if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
-					{
-						Flags.KrampusQuest3 = true;
-					}
-					else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
-					{
-						Flags.KrampusQuest4 = true;
-					}
-
-					//when the gift is used, the quest is no longer in progress
-					Flags.KrampusQuestGiven = false;
-
-					if (Main.netMode == NetmodeID.Server)
-					{
-						NetMessage.SendData(MessageID.WorldData);
-					}
-
 					int frame = 0;
 					if (Type == ModContent.ItemType<QuestPresent2>())
 					{
@@ -88,6 +62,8 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 						Projectile.NewProjectile(null, npc.Center + new Vector2(Offset, 5), Vector2.Zero,
 						ModContent.ProjectileType<QuestPresentSpawner>(), 0, 0f, player.whoAmI, ai1: frame, ai2: npc.whoAmI);
 					}
+
+					return true;
 				}
 			}
 
@@ -127,42 +103,6 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 			{
 				if (npc.type == ModContent.NPCType<LittleEye>() && npc.Distance(player.Center) <= 100f)
 				{
-					//set downed variables to true properly
-					if (!Flags.KrampusQuest1)
-					{
-						Flags.KrampusQuest1 = true;
-					}
-					else if (Flags.KrampusQuest1 && !Flags.KrampusQuest2)
-					{
-						Flags.KrampusQuest2 = true;
-					}
-					else if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
-					{
-						Flags.KrampusQuest3 = true;
-					}
-					else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
-					{
-						Flags.KrampusQuest4 = true;
-					}
-					else if (Flags.KrampusQuest4 && !Flags.KrampusQuest5)
-					{
-						Flags.KrampusQuest5 = true;
-					}
-
-					//when the gift is used, the quest is no longer in progress
-					Flags.KrampusQuestGiven = false;
-
-					//set daily quest to true if the main questline is done
-					if (Flags.KrampusQuestlineDone)
-					{
-						Flags.KrampusDailyQuestDone = true;
-					}
-
-					if (Main.netMode == NetmodeID.Server)
-					{
-						NetMessage.SendData(MessageID.WorldData);
-					}
-
 					int frame = 3;
 
 					if (player.ownedProjectileCounts[ModContent.ProjectileType<QuestPresentSpawner>()] < 1)
@@ -170,6 +110,8 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 						Projectile.NewProjectile(null, npc.Center + new Vector2(35, 5), Vector2.Zero,
 						ModContent.ProjectileType<QuestPresentSpawner>(), 0, 0f, player.whoAmI, ai1: frame, ai2: npc.whoAmI);
 					}
+
+					return true;
 				}
 			}
 

@@ -24,7 +24,7 @@ namespace Spooky.Content.Projectiles.Pets
             Projectile.width = 22;
             Projectile.height = 24;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.netImportant = true;
             Projectile.penetrate = -1;

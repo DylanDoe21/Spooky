@@ -25,9 +25,6 @@ namespace Spooky.Content.UserInterfaces
                 BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/StonedKidneyBar", AssetRequestMode.ImmediateLoad);
                 BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/StonedKidneyBarFill", AssetRequestMode.ImmediateLoad);
 
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
 				Vector2 UIBoxScale = (Vector2.One * 0.9f) * Main.UIScale;
 
 				//UI dragging 
@@ -67,12 +64,6 @@ namespace Spooky.Content.UserInterfaces
 				float completionRatio = player.GetModPlayer<SpookyPlayer>().StonedKidneyCharge / 10f;
 				Rectangle barRectangle = new Rectangle(0, 0, BarTexture.Width(), (int)(BarFillTexture.Width() * completionRatio));
 				spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().KidneyUIPos, barRectangle, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
-
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
 			}
 		}
 

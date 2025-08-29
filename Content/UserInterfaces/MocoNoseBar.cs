@@ -25,9 +25,6 @@ namespace Spooky.Content.UserInterfaces
 				BarTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBar", AssetRequestMode.ImmediateLoad);
 				BarFillTexture ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/MocoNoseBarFill", AssetRequestMode.ImmediateLoad);
 				
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
 				Vector2 UIBoxScale = (Vector2.One * 0.9f) * Main.UIScale;
 
 				//UI dragging 
@@ -68,12 +65,6 @@ namespace Spooky.Content.UserInterfaces
 				Rectangle barRectangle = new Rectangle(0, 0, (int)(BarFillTexture.Width() * completionRatio), BarFillTexture.Height());
 
 				spriteBatch.Draw(BarFillTexture.Value, player.GetModPlayer<SpookyPlayer>().MocoNoseUIPos, barRectangle, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
-
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-				spriteBatch.End();
-				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
 			}
 		}
 
