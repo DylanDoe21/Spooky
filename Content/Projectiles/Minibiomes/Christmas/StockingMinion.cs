@@ -139,31 +139,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
                 IdleAI(player);
                 CurrentTarget = null;
             }
-
-            for (int num = 0; num < Main.projectile.Length; num++)
-			{
-				Projectile other = Main.projectile[num];
-
-				if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
-				{
-					const float pushAway = 0.5f;
-
-					if (Projectile.position.X < other.position.X)
-					{
-                        if (Projectile.velocity.X > -2)
-                        {
-						    Projectile.velocity.X -= pushAway;
-                        }
-					}
-					else
-					{
-                        if (Projectile.velocity.X < 2)
-                        {
-						    Projectile.velocity.X += pushAway;
-                        }
-					}
-				}
-			}
         }
 
         public void AttackingAI(NPC target)
@@ -247,6 +222,15 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
             if (!playerFlying)
             {
                 Projectile.rotation = 0;
+
+                int num = 1;
+                for (int k = 0; k < Projectile.whoAmI; k++)
+                {
+                    if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
+                    {
+                        num++;
+                    }
+                }
 
                 Vector2 vector48 = player.Center - Projectile.Center;
                 float playerDistance = vector48.Length();

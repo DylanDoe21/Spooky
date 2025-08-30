@@ -12,19 +12,21 @@ namespace Spooky.Content.Projectiles.Pets
 {
 	public class BigBonePet : ModProjectile
 	{
-        private static Asset<Texture2D> ChainTexture;
+        bool Shake = false;
+
+        private static Asset<Texture2D> ChainTexture1;
+        private static Asset<Texture2D> ChainTexture2;
 
         public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 4;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.LightPet[Projectile.type] = true;
         }
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 46;
-            Projectile.height = 40;
+			Projectile.width = 62;
+            Projectile.height = 38;
             Projectile.netImportant = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -44,7 +46,8 @@ namespace Spooky.Content.Projectiles.Pets
             //only draw if the owner exists
             if (!player.dead)
 			{
-                ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/BigBonePetChain");
+                ChainTexture1 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/BigBonePetStem2");
+                ChainTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Pets/BigBonePetStem3");
                 
                 bool flip = false;
 				if (player.direction == -1)
@@ -52,14 +55,14 @@ namespace Spooky.Content.Projectiles.Pets
 					flip = true;
 				}
 
-				Vector2 drawOrigin = new Vector2(0, ChainTexture.Height() / 2);
+				Vector2 drawOrigin = new Vector2(0, ChainTexture1.Height() / 2);
 				Vector2 myCenter = Projectile.Center - new Vector2(0 * (flip ? -1 : 1), 5).RotatedBy(Projectile.rotation);
 				Vector2 p0 = player.Center;
 				Vector2 p1 = player.Center;
-				Vector2 p2 = myCenter - new Vector2(45 * (flip ? -1 : 1), 75).RotatedBy(Projectile.rotation);
+				Vector2 p2 = myCenter - new Vector2(45 * (flip ? -1 : 1), -75).RotatedBy(Projectile.rotation);
 				Vector2 p3 = myCenter;
 
-				int segments = 32;
+				int segments = 15;
 
 				for (int i = 0; i < segments; i++)
 				{
@@ -73,7 +76,7 @@ namespace Spooky.Content.Projectiles.Pets
 
 					Color color = Lighting.GetColor((int)drawPos2.X / 16, (int)(drawPos2.Y / 16));
 
-					Main.spriteBatch.Draw(ChainTexture.Value, drawPos2 - Main.screenPosition, null, Projectile.GetAlpha(color), rotation, drawOrigin, Projectile.scale * new Vector2((distance + 4) / (float)ChainTexture.Width(), 1), SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ChainTexture1.Value, drawPos2 - Main.screenPosition, null, Projectile.GetAlpha(color), rotation, drawOrigin, Projectile.scale * new Vector2((distance + 4) / (float)ChainTexture1.Width(), 1), SpriteEffects.None, 0f);
 				}
             }
 
@@ -94,21 +97,26 @@ namespace Spooky.Content.Projectiles.Pets
 				Projectile.timeLeft = 2;
             }
 
-            Projectile.frameCounter++;
-			if (Projectile.frameCounter >= 6) 
-			{
-				Projectile.frameCounter = 0;
-				
-                Projectile.frame++;
-				if (Projectile.frame >= 4) 
-				{
-					Projectile.frame = 0;
-				}
-			}
-
-            Projectile.rotation = Projectile.velocity.X * 0.05f;
+            if (Shake)
+            {
+                Projectile.rotation += 0.01f;
+                if (Projectile.rotation > 0.2f)
+                {
+                    Shake = false;
+                }
+            }
+            else
+            {
+                Projectile.rotation -= 0.01f;
+                if (Projectile.rotation < -0.2f)
+                {
+                    Shake = true;
+                }
+            }
             
-            Lighting.AddLight(Projectile.Center, 1.5f, 0.8f, 0f);
+            Projectile.spriteDirection = -player.direction;
+            
+            Lighting.AddLight(Projectile.Center, 1.5f, 1.5f, 1.2f);
 
 			if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
             {
@@ -126,22 +134,14 @@ namespace Spooky.Content.Projectiles.Pets
             Vector2 direction = player.Center - center;
             Projectile.ai[1] = 3600f;
             Projectile.netUpdate = true;
-            int num = 1;
-            for (int k = 0; k < Projectile.whoAmI; k++)
-            {
-                if (Main.projectile[k].active && Main.projectile[k].owner == Projectile.owner && Main.projectile[k].type == Projectile.type)
-                {
-                    num++;
-                }
-            }
-            direction.X += ((10 + num * 40) * player.direction);
+
             direction.Y -= 70f;
             float distanceTo = direction.Length();
-            if (distanceTo > 200f && speed < 30f)
+            if (distanceTo > 100f && speed < 30f)
             {
                 speed = 30f;
             }
-            if (distanceTo < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
+            if (distanceTo < 35f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
             {
                 Projectile.ai[0] = 0f;
                 Projectile.netUpdate = true;
@@ -150,7 +150,7 @@ namespace Spooky.Content.Projectiles.Pets
             {
                 Projectile.Center = player.Center;
             }
-            if (distanceTo > 48f)
+            if (distanceTo > 35f)
             {
                 direction.Normalize();
                 direction *= speed;
@@ -159,14 +159,7 @@ namespace Spooky.Content.Projectiles.Pets
             }
             else
             {
-                Projectile.direction = Main.player[Projectile.owner].direction;
-                Projectile.velocity *= (float)Math.Pow(0.9, 40.0 / 40);
-            }
-
-            if ((double)Math.Abs(Projectile.velocity.X) > 0.2)
-            {
-                Projectile.spriteDirection = -Projectile.direction;
-                return;
+                Projectile.velocity *= 0.75f; //(float)Math.Pow(0.9, 40.0 / 40);
             }
 		}
 	}

@@ -12,7 +12,7 @@ namespace Spooky.Content.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[Projectile.type] = 14;
+			Main.projFrames[Projectile.type] = 10;
 			Main.projPet[Projectile.type] = true;
 
 			ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, Main.projFrames[Projectile.type], 8)
@@ -21,8 +21,8 @@ namespace Spooky.Content.Projectiles.Pets
 
 		public override void SetDefaults()
 		{
-			Projectile.width = 40;
-            Projectile.height = 36;
+			Projectile.width = 24;
+            Projectile.height = 26;
             Projectile.netImportant = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -55,7 +55,7 @@ namespace Spooky.Content.Projectiles.Pets
 				Projectile.frameCounter = 0;
 				
                 Projectile.frame++;
-				if (Projectile.frame >= 14) 
+				if (Projectile.frame >= 10)
 				{
 					Projectile.frame = 0;
 				}
@@ -64,7 +64,7 @@ namespace Spooky.Content.Projectiles.Pets
             Projectile.spriteDirection = player.direction;
 
             Projectile.ai[0]++;
-            Vector2 destination = new Vector2(player.Center.X + 9, player.Center.Y - 60 + (float)Math.Sin(Projectile.ai[0] / 30) * 10);
+            Vector2 destination = new Vector2(player.Center.X, player.Center.Y - 60 + (float)Math.Sin(Projectile.ai[0] / 30) * 10);
             Projectile.Center = destination;
         }
     }

@@ -15,6 +15,8 @@ namespace Spooky.Core
 	{
 		string HeadTexture => string.Empty;
 
+        string HeadFlippedTexture => string.Empty;
+
 		string GlowTexture => string.Empty;
 
 		Vector2 Offset => Vector2.Zero;
@@ -35,17 +37,6 @@ namespace Spooky.Core
             if (drawPlayer.armor[10].type > ItemID.None)
             {
                 headItem = drawPlayer.armor[10];
-            }
-
-			//handle textures for helmets that change with player direction
-			//just checks if the texture path contains "_Flipped" which may not be the best solution but it works
-            if (ModContent.GetModItem(headItem.type) is ISpecialHelmetDraw HelmetDrawer)
-            {
-				//if the helmet texture is a directional texture, then only draw the texture when the player is facing a certain direction
-                if (HelmetDrawer.HeadTexture.Contains("_Flipped"))
-                {
-                    return (drawInfo.shadow == 0f || !drawInfo.drawPlayer.dead) && drawPlayer.direction == -1;
-                }
             }
 
 			//otherwise use normal visibility conditions
@@ -88,6 +79,25 @@ namespace Spooky.Core
 						};
 						drawInfo.DrawDataCache.Add(drawData);
 					}
+
+                    if (HelmetDrawer.HeadFlippedTexture != string.Empty && drawPlayer.direction == -1)
+					{
+                        Texture2D Tex = ModContent.Request<Texture2D>(HelmetDrawer.HeadFlippedTexture).Value;
+
+						Rectangle frame = Tex.Frame(1, 20, 0, drawPlayer.bodyFrame.Y / drawPlayer.bodyFrame.Height);
+						Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - frame.Width / 2, drawPlayer.height - frame.Height + 4f) + drawPlayer.headPosition;
+						drawPos = drawPos.Floor();
+						Vector2 origin = drawInfo.headVect;
+						float rotation = drawPlayer.headRotation;
+
+						Vector2 GravityOffset = drawPlayer.gravDir == 1 ? HelmetDrawer.Offset : -HelmetDrawer.Offset - (HelmetDrawer.Offset.Y == 0 ? Vector2.Zero : new Vector2(0f, 4f));
+
+						DrawData drawData = new DrawData(Tex, drawPos - GravityOffset + origin, frame, drawInfo.colorArmorHead, rotation, origin, 1f, drawInfo.playerEffect, 0)
+						{
+							shader = drawInfo.cHead
+						};
+						drawInfo.DrawDataCache.Add(drawData);
+                    }
 
 					//draw the glowmask texture if a glowmask texture is defined
 					if (HelmetDrawer.GlowTexture != string.Empty)

@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.SpookyBiome
     {
         public override void SetDefaults()
         {
-            Item.damage = 140;
+            Item.damage = 85;
             Item.DamageType = DamageClass.Melee;
             Item.channel = true;
             Item.noMelee = true;

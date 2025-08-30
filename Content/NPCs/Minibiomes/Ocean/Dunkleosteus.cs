@@ -649,7 +649,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					bool PlayerLineOfSight = Collision.CanHitLine(TargetedPlayer.Center - new Vector2(1, 1), 2, 2, NPC.position, NPC.width, NPC.height);
 					if (!PlayerLineOfSight)
 					{
-						PathfindingMovement(TargetedPlayer.Center, Speed, 70, 7000, true);
+						PathfindingMovement(TargetedPlayer.Center, Speed, 150, 7000, true);
 						NPC.noTileCollide = true;
 
 						//decrease aggression
