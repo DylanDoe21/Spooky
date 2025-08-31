@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 			Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
 
 			Main.EntitySpriteDraw(OutlineTexture.Value, Projectile.Center - Main.screenPosition, 
-			new Rectangle(46 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 14), Color.White, 
+			new Rectangle(46 - (int)Projectile.ai[1], Projectile.frame, (int)Projectile.ai[1] + 17, 14), Color.White * 0.25f, 
 			Projectile.rotation, new Vector2(17, 17), 1f, SpriteEffects.None, 0);
 
 			return false;

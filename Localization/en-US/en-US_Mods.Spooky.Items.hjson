@@ -1547,7 +1547,7 @@ KrampusJobApplication: {
 
 KrampusJumpShoe: {
 	DisplayName: Moon Shoes
-	Tooltip: Grants you a triple jump and allows you to auto-jump
+	Tooltip: Allows you to triple jump and auto-jump
 }
 
 KrampusResolution: {
@@ -1590,8 +1590,10 @@ KrampusShapeBox: {
 	DisplayName: Box 'O Shapes
 	Tooltip:
 		'''
-		Drops wood shapes when you hit enemies
-		Picking them up will grant you a special buff to boost stats
+		Drops wood shapes from above you randomly
+		When you pick one up, gain a buff that increases various stats
+		If you pick up another shape while you have the buff, it will increase the stats
+		Stacks up to 5 times, shapes will stop appearing at maximum stacks
 		'''
 }
 

@@ -204,6 +204,9 @@ Enemy Changes:
 -Observing orchids will now only chase you if they have light of sight to you
 -Ear worms movement and behavior is now more natural looking, they now recoil when shooting their sound blast, and they no longer draw behind tiles for better visibility
 -Buffed all mist ghosts health and damage since they are now spawned in the new mysterious gravestone ambushes and not just randomly when they break
+-Tomato zomboids can now drop money trough and shark tooth necklace
+-Ear worm sound projectile is now green for visibility purposes
+-Flesh bolster reworked, it now summons eye tendrils out of the ground instead of buffing other enemies
 
 
 ~Miscellaneous Changes~

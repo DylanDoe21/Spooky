@@ -12,7 +12,6 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.NPCs.Boss.Orroboro.Projectiles;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 using Spooky.Content.Projectiles.Cemetery;
 
@@ -175,7 +174,7 @@ namespace Spooky.Content.NPCs.EggEvent
                     {
                         Vector2 lineDirection = new Vector2(-(Pos1 * Pos2) * 2, 16);
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X, center.Y + 30), Vector2.Zero, ModContent.ProjectileType<FleshPillar>(), NPC.damage, 4.5f, 
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X, center.Y + 30), Vector2.Zero, ModContent.ProjectileType<FleshBolsterPillar>(), NPC.damage, 4.5f, 
                         ai0: lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
                     }
                 }

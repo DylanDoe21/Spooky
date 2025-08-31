@@ -110,6 +110,7 @@ namespace Spooky.Content.Biomes
 
                 int dustPosXWorld = SpawnX / 16;
                 int dustPosYWorld = SpawnY / 16;
+                
                 if (WorldGen.InWorld(dustPosXWorld, dustPosYWorld) && Main.tile[dustPosXWorld, dustPosYWorld] != null && !Main.tile[dustPosXWorld, dustPosYWorld].HasUnactuatedTile && Main.tile[dustPosXWorld, dustPosYWorld].WallType == 0)
                 {
                     int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);

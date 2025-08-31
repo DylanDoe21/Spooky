@@ -21,6 +21,7 @@ namespace Spooky.Content.Items.BossBags.Accessory
 			Item.noMelee = true;
 			Item.consumable = false;
             Item.rare = ItemRarityID.Yellow;
+			Item.value = Item.buyPrice(gold: 50);
 			Item.UseSound = SoundID.Item3;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
 			Item.holdStyle = ItemHoldStyleID.HoldFront;

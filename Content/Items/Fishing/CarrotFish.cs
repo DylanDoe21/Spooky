@@ -11,12 +11,23 @@ namespace Spooky.Content.Items.Fishing
     {
         public override void SetStaticDefaults() 
         {
-            Item.ResearchUnlockCount = 3;
+            Item.ResearchUnlockCount = 2;
         }
 
         public override void SetDefaults() 
         {
-            Item.CloneDefaults(ItemID.Bass);
+            Item.CloneDefaults(ItemID.Batfish);
+        }
+
+        public override bool IsQuestFish() 
+        {
+            return true;
+        }
+
+        public override void AnglerQuestChat(ref string description, ref string catchLocation) 
+        {
+            description = Language.GetTextValue("Mods.Spooky.AnglerQuest.CarrotFish.Description");
+            catchLocation = Language.GetTextValue("Mods.Spooky.AnglerQuest.CarrotFish.CatchLocation");
         }
     }
 }

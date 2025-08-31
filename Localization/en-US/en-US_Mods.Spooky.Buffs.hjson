@@ -641,6 +641,6 @@ YuletideArmorCooldown: {
 }
 
 KrampusShapeBuff: {
-	DisplayName: Krampus Shape Buff
-	Description: Mods.Spooky.Buffs.KrampusShapeBuff.Description
+	DisplayName: Wooden Shape Boost
+	Description: Increases defense, damage, and attack speed
 }

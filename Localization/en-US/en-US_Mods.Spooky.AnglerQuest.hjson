@@ -3,6 +3,16 @@ BoogerFish: {
 	CatchLocation: Caught in the Valley of Eyes
 }
 
+CarrotFish: {
+	Description: The mutated vegetable garden in the underground jungle is so disgusting, I can't stand the smell! Since theres rare vegetable fish down there, you'll go get one!
+	CatchLocation: Caught in the Fetid Farms
+}
+
+DumboOctopoid: {
+	Description: I saw a little octopus in the spooky forest one day. I went to go poke it to see what would happen and it did nothing! Maybe its stupidity needs to be studied, so I want you go to find one for me.
+	CatchLocation: Caught in the Underground Spooky Forest
+}
+
 GourdFish: {
 	Description: The other day, I swore I saw a derpy looking pumpkin in the water... but it had fins and was swimming! I need you to confirm that it's real, so get to it!
 	CatchLocation: Caught in the Spooky Forest

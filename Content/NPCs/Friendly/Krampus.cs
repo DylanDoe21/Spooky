@@ -67,6 +67,7 @@ namespace Spooky.Content.NPCs.Friendly
 			return false;
 		}
 
+		/*
 		public override bool CanChat() 
         {
 			return true;
@@ -79,6 +80,7 @@ namespace Spooky.Content.NPCs.Friendly
 				Main.npcChatText = "";
 			}
 		}
+		*/
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {

@@ -78,6 +78,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ItemID.SharkToothNecklace, 150));
+            npcLoot.Add(ItemDropRule.Common(ItemID.MoneyTrough, 200));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 100));
         }
 

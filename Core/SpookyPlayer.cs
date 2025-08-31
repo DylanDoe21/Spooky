@@ -1,4 +1,4 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -103,7 +103,6 @@ namespace Spooky.Core
         public bool KrampusBricks = false;
         public bool KrampusChimney = false;
         public bool KrampusResolution = false;
-        public bool KrampusSack = false;
         public bool KrampusShapeBox = false;
         public bool HallucigeniaSpine = false;
 
@@ -188,6 +187,7 @@ namespace Spooky.Core
         public int KrampusResolutionTimer = 0;
         public int KrampusChimneyProjTimer = 0;
 		public int YuletideFireTimer = 0;
+        public int KrampusShapeBuffStacks = 0;
 
 		//dashing stuff
 		public const int dashDown = 0;
@@ -208,8 +208,6 @@ namespace Spooky.Core
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
         private static Asset<Texture2D> HazmatArmorBackTex;
-
-		public List<int> KrampusShapeBoxOrbiters = new List<int>();
 
 		//sounds
 		public static readonly SoundStyle CrossBassSound = new("Spooky/Content/Sounds/CrossBass", SoundType.Sound) { Volume = 0.7f };
@@ -315,7 +313,6 @@ namespace Spooky.Core
             KrampusBricks = false;
             KrampusChimney = false;
             KrampusResolution = false;
-            KrampusSack = false;
             KrampusShapeBox = false;
             HallucigeniaSpine = false;
 
@@ -908,9 +905,16 @@ namespace Spooky.Core
                 SkullFrenzyCharge = 0;
             }
 
+            //reset hits if you dont have the nes cartridge equipped
             if (!RedGodzillaCartridge)
             {
                 RedGodzillaCartridgeHits = 0;
+            }
+
+            //reset shape box buffs if you dont have it equipped
+            if (!KrampusShapeBox || !Player.HasBuff(ModContent.BuffType<KrampusShapeBuff>()))
+            {
+                KrampusShapeBuffStacks = 0;
             }
 
             //make player immune to the sandstorm debuff since it still applies it when you're in spooky mod biomes and theres a desert with a sandstorm happening nearby
@@ -1158,6 +1162,25 @@ namespace Spooky.Core
 				StonedKidneyCharge = 0;
 			}
 
+            
+
+			if (DaffodilHairpin)
+            {
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<DaffodilHairpinPetal>()] < 6)
+                {
+                    DaffodilHairpinTimer++;
+                    if (DaffodilHairpinTimer % 17 == 0)
+                    {
+						SoundEngine.PlaySound(SoundID.Grass with { Volume = 0.2f }, Player.Center);
+                        Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<DaffodilHairpinPetal>(), 0, 3f, Player.whoAmI);
+                    }
+                }
+            }
+            else
+            {
+                DaffodilHairpinTimer = 0;
+            }
+
             //handle krampus chimney charge for the UI
 			if (KrampusChimney)
 			{
@@ -1200,6 +1223,7 @@ namespace Spooky.Core
 				KrampusChimneyCharge = 0;
 			}
 
+            //yuletide flaming timer and projectiles
 			if (YuletideSet && YuletideFireTimer > 0)
 			{
 				YuletideFireTimer--;
@@ -1229,21 +1253,33 @@ namespace Spooky.Core
 				}
 			}
 
-			if (DaffodilHairpin)
+            if (KrampusShapeBox && KrampusShapeBuffStacks < 5 && Player.ownedProjectileCounts[ModContent.ProjectileType<ShapeBoxProj>()] <= 0)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<DaffodilHairpinPetal>()] < 6)
+                if (Main.rand.NextBool(225))
                 {
-                    DaffodilHairpinTimer++;
-                    if (DaffodilHairpinTimer % 17 == 0)
+                    float PositionX = Player.Center.X + Main.rand.Next(-250, 251);
+                    float PositionY = Player.Center.Y - 450;
+
+                    int FrameToUse = 0;
+                    if (KrampusShapeBuffStacks == 1)
                     {
-						SoundEngine.PlaySound(SoundID.Grass with { Volume = 0.2f }, Player.Center);
-                        Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<DaffodilHairpinPetal>(), 0, 3f, Player.whoAmI);
+                        FrameToUse = 1;
                     }
+                    if (KrampusShapeBuffStacks == 2)
+                    {
+                        FrameToUse = 2;
+                    }
+                    if (KrampusShapeBuffStacks == 3)
+                    {
+                        FrameToUse = 3;
+                    }
+                    if (KrampusShapeBuffStacks == 4) 
+                    {
+                        FrameToUse = 4;
+                    }
+
+                    Projectile.NewProjectile(null, new Vector2(PositionX, PositionY), Vector2.Zero, ModContent.ProjectileType<ShapeBoxProj>(), 0, 0, Player.whoAmI, ai1: FrameToUse);
                 }
-            }
-            else
-            {
-                DaffodilHairpinTimer = 0;
             }
 
             //sentient cap random dialogue
@@ -1573,8 +1609,7 @@ namespace Spooky.Core
 					{
                         itemDrop = ModContent.ItemType<ZomboidFish>();
                     }
-
-					if (Main.rand.NextBool(3) && attempt.common)
+					if (attempt.questFish == ModContent.ItemType<DumboOctopoid>() && attempt.uncommon && Player.InModBiome<SpookyBiomeUg>())
 					{
 						itemDrop = ModContent.ItemType<DumboOctopoid>();
 					}

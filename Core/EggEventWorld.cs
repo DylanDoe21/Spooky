@@ -12,11 +12,11 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
-using Spooky.Core;
 using Spooky.Content.Biomes;
+using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
 
-namespace Spooky.Content.NPCs.EggEvent
+namespace Spooky.Core
 {
 	public class EggEventWorld : ModSystem
 	{
