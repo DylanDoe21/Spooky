@@ -11,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Minibiomes.Christmas;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
@@ -1355,7 +1356,7 @@ namespace Spooky.Content.Generation
 			List<int> MainItem = new List<int>
 			{
 				ModContent.ItemType<KrampusBricks>(), ModContent.ItemType<KrampusChimney>(), ModContent.ItemType<KrampusJumpShoe>(), 
-				ModContent.ItemType<KrampusResolution>(), ModContent.ItemType<KrampusSack>(), ModContent.ItemType<KrampusShapeBox>()
+				ModContent.ItemType<KrampusResolution>(), ModContent.ItemType<KrampusShapeBox>()
 			};
 
 			List<int> ActualMainItem = new List<int>(MainItem);
@@ -1382,10 +1383,32 @@ namespace Spooky.Content.Generation
 
 						int ItemToPutInChest = WorldGen.genRand.Next(ActualMainItem.Count);
 
+						int[] Bars = new int[] { ItemID.CopperBar, ItemID.TinBar, ItemID.IronBar, ItemID.LeadBar };
+						int[] RangedAmmo = new int[] { ItemID.JestersArrow, ItemID.UnholyArrow };
+						int[] Potions = new int[] { ItemID.PotionOfReturn, ItemID.IronskinPotion, ItemID.ShinePotion };
+
 						//main items
 						chest.item[0].SetDefaults(ActualMainItem[ItemToPutInChest]);
 						chest.item[0].stack = 1;
 						ActualMainItem.RemoveAt(ItemToPutInChest);
+						//iron or lead bars
+						chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+						chest.item[1].stack = WorldGen.genRand.Next(3, 11);
+						//ranged ammos
+						chest.item[2].SetDefaults(WorldGen.genRand.Next(RangedAmmo));
+						chest.item[2].stack = WorldGen.genRand.Next(15, 35);
+						//cranberry jelly
+						chest.item[3].SetDefaults(ModContent.ItemType<CranberryJelly>());
+						chest.item[3].stack = WorldGen.genRand.Next(1, 4);
+						//potions
+						chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions));
+						chest.item[4].stack = WorldGen.genRand.Next(2, 4);
+						//presents
+						chest.item[5].SetDefaults(ItemID.Present);
+						chest.item[5].stack = WorldGen.genRand.Next(1, 3);
+						//coins
+						chest.item[6].SetDefaults(ItemID.GoldCoin);
+						chest.item[6].stack = WorldGen.genRand.Next(1, 4);
 					}
 				}
             }

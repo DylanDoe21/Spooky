@@ -57,7 +57,8 @@ CemeteryPoppy: {
 	DisplayName: Ornamental Poppy
 	Tooltip:
 		'''
-		When you kill an enemy, spawn a poppy that shoots at other nearby enemies for a bit
+		When an enemy dies, spawn a poppy that shoots at other nearby enemies for a bit
+		Only up to 3 poppies can exist at a time
 		5 minute duration
 		'''
 }
@@ -1583,11 +1584,6 @@ KrampusRewardPresent3: {
 		{$CommonItemTooltip.RightClickToOpen}
 		Contains a ton of rewards!
 		'''
-}
-
-KrampusSack: {
-	DisplayName: Sack of Trinkets
-	Tooltip: Throw around random "trinkets" while moving around
 }
 
 KrampusShapeBox: {

@@ -26,6 +26,7 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
+using Spooky.Content.Projectiles.Blooms;
 
 namespace Spooky.Core
 {
@@ -336,6 +337,12 @@ namespace Spooky.Core
 			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().SkullAmulet && !npc.friendly)
 			{
 				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Main.LocalPlayer.whoAmI);
+			}
+
+			//spawn souls when you kill an enemy while wearing the skull amulet
+			if (Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().CemeteryPoppy && Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<CemeteryPoppyProj>()] < 2 && !npc.friendly)
+			{
+				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, new Vector2(0, -12), ModContent.ProjectileType<CemeteryPoppyProj>(), npc.damage, 0, Main.LocalPlayer.whoAmI);
 			}
 
 			base.OnKill(npc);

@@ -42,7 +42,6 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 				ModContent.ItemType<KrampusChimney>(),
 				ModContent.ItemType<KrampusJumpShoe>(),
 				ModContent.ItemType<KrampusResolution>(),
-				ModContent.ItemType<KrampusSack>(),
 				ModContent.ItemType<KrampusShapeBox>()
 			};
 

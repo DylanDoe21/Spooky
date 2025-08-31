@@ -1,17 +1,17 @@
-using Microsoft.Xna.Framework;
-using Spooky.Content.Buffs;
-using Spooky.Content.Buffs.Debuff;
-using Spooky.Content.Dusts;
-using Spooky.Content.NPCs.Boss.SpookFishron.Projectiles;
-using Spooky.Content.Projectiles.Blooms;
-using System;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using System;
+using System.Linq;
+
+using Spooky.Content.Buffs;
+using Spooky.Content.Buffs.Debuff;
+using Spooky.Content.Dusts;
+using Spooky.Content.Projectiles.Blooms;
 
 namespace Spooky.Core
 {
