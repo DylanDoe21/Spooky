@@ -15,7 +15,7 @@ FarmerGlove: {
 
 HerbShaker: {
 	DisplayName: Herbs and Spices
-	Tooltip: Gain a random buff whenever you eat a bloom
+	Tooltip: When you eat a bloom you don't have, gain a random buff for one minute
 }
 
 TheMask: {
@@ -36,7 +36,7 @@ CemeteryLily: {
 	DisplayName: Lily of Rebirth
 	Tooltip:
 		'''
-		Cuts your maximum health down to a third and gives you 3 revives
+		Cuts your maximum health down to a third and gives you 2 revives
 		Upon death you will loose a revive and gain stat buffs for 15 seconds
 		After loosing all revives, this bloom's effect will be removed from you
 		3 minute duration

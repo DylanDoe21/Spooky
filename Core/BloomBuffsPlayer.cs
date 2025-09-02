@@ -74,6 +74,7 @@ namespace Spooky.Core
 		public bool UnlockedSlot4 = false;
 
 		//misc stuff
+		public bool FossilProteaSlammed = false;
 		public int FallSoulPumpkinTimer = 0;
 		public int FallZucchiniTimer = 0;
         public int WinterGooseberryHits = 0;
@@ -89,13 +90,13 @@ namespace Spooky.Core
 		public int FossilBlackPepperTimer = 0;
 		public int FossilBlackPepperStacks = 0;
 		public int CemeteryMarigoldTimer = 0;
-		public bool FossilProteaSlammed = false;
 
 		//accessories
 		public bool Wormy = false;
 		public bool FarmerGlove = false;
 		public bool TheMask = false;
 		public bool DaylightSavings = false;
+		public bool HerbShaker = false;
 
 		//UI default position
 		public Vector2 BloomUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 20f * Main.UIScale);
@@ -151,6 +152,7 @@ namespace Spooky.Core
 			FarmerGlove = false;
 			TheMask = false;
 			DaylightSavings = false;
+			HerbShaker = false;
 		}
 
         //global bool used for each individual bloom item so that they cannot be eaten if all of your slots are filled
@@ -238,6 +240,16 @@ namespace Spooky.Core
 
                 return;
             }
+
+			//herb shaker gives you a random buff when a bloom is eaten
+			//this must be below the above code so eating the same bloom over and over doesnt keep giving you buffs
+			if (HerbShaker)
+			{
+				int[] Types = new int[] { BuffID.Ironskin, BuffID.Swiftness, BuffID.Regeneration, 
+				BuffID.Thorns, BuffID.WaterWalking, BuffID.Hunter, BuffID.Dangersense };
+
+				Player.AddBuff(Main.rand.Next(Types), 3600);
+			}
 
             //if the buff is not already in the players slots, then add the buff to the list by checking each slot to see if its open, and if it is add that buff to that slot
             //only attempt to check beyond the second slot when the player has each unlockable slot unlocked
@@ -460,6 +472,7 @@ namespace Spooky.Core
 						Player.statLife = Player.statLifeMax2;
 
 						CemeteryLilyRevives--;
+
 						ShouldPlayerDie = false;
 					}
 				}
@@ -917,24 +930,13 @@ namespace Spooky.Core
 				Player.maxFallSpeed = 22f;
 			}
 
-			//lily bloom cuts the players health down to 1/3rd
+			//lily bloom cuts the players health down to a third
 			if (CemeteryLily)
 			{
 				Player.statLifeMax2 /= 3;
 				if (Player.statLife > Player.statLifeMax2)
 				{
 					Player.statLife = Player.statLifeMax2;
-				}
-
-				if (CemeteryLilyRevives <= 0)
-				{
-					for (int i = 0; i < BloomBuffSlots.Length; i++) 
-					{
-						if (BloomBuffSlots[i] == "CemeteryLily")
-						{
-							BloomBuffSlots[i] = string.Empty;
-						}
-					}
 				}
 			}
 

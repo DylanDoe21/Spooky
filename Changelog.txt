@@ -185,6 +185,7 @@ Miscellaneous:
 -Cemetery tree saplings can now be planted and grown on catacomb brick moss placed by the player
 -Renamed NES Cartridge to Cursed Cartridge
 -Changed big bone's expert item into Big Bone's Left Shoe, the item gimmick is still the same but with improvements (Listed above)
+-Pumpkin spice latte now has a value of 50 gold
 
 
 ~Enemies & Bosses~

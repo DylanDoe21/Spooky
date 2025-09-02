@@ -18,6 +18,7 @@ using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.NPCs.Catacomb.Layer1;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpiderCave;
@@ -78,6 +79,36 @@ namespace Spooky.Core
 
 			foreach (NPC npc in Main.ActiveNPCs)
 			{
+				if (npc.type == ModContent.NPCType<CatacombGuardian>())
+				{
+					float alphaMult = 1f;
+					Vector2 vec = npc.Center / 16f - mapTopLeft;
+					vec *= mapScale;
+					vec += mapX2Y2AndOff;
+					vec = vec.Floor();
+					bool draw = true;
+					if (mapRect.HasValue)
+					{
+						Rectangle value2 = mapRect.Value;
+						if (!value2.Contains(vec.ToPoint()))
+						{
+							draw = false;
+						}
+					}
+					if (draw)
+					{
+						Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/CatacombGuardianMapIcon").Value;
+
+						Rectangle rectangle = texture.Frame();
+
+						spriteBatch.Draw(texture, vec, rectangle, Color.White * alphaMult, 0f, rectangle.Size() / 2f, drawScale, 0, 0f);
+						Rectangle rectangle2 = Utils.CenteredRectangle(vec, rectangle.Size() * drawScale);
+						if (rectangle2.Contains(Main.MouseScreen.ToPoint()))
+						{
+							mouseTextString = Language.GetTextValue("Mods.Spooky.NPCs.CatacombGuardian.DisplayName");
+						}
+					}
+				}
 				if (npc.GetGlobalNPC<NPCGlobal>().NPCTamed)
 				{
 					float alphaMult = 1f;

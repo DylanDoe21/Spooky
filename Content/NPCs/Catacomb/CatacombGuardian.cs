@@ -16,8 +16,7 @@ using Spooky.Content.NPCs.Boss.BigBone;
 
 namespace Spooky.Content.NPCs.Catacomb
 {
-    [AutoloadBossHead]
-    public class CatacombGuardian : ModNPC  
+    public class CatacombGuardian : ModNPC
     {
         Vector2 SavePlayerPosition;
 

@@ -48,7 +48,7 @@ namespace Spooky.Content.Items.Blooms
             //dont increase the revive amount if the player already has revives to prevent abusing the mechanic
             if (player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives <= 0)
             {
-			    player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives = 3;
+			    player.GetModPlayer<BloomBuffsPlayer>().CemeteryLilyRevives = 2;
             }
 
 			return true;
