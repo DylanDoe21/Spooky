@@ -61,10 +61,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone
         private static Asset<Texture2D> EyeGlowTexture;
         private static Asset<Texture2D> HeatGlowTexture;
 
-        public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl1", SoundType.Sound) { Pitch = 1.35f, PitchVariance = 0.5f };
-        public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl2", SoundType.Sound) { Pitch = 1.35f, PitchVariance = 0.5f };
-        public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl3", SoundType.Sound) { Pitch = 1f, PitchVariance = 0.5f };
-        public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/BigBone/BigBoneLaugh", SoundType.Sound) { Pitch = 0.4f, PitchVariance = 0.5f };
+        public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl1", SoundType.Sound) { Pitch = 1f };
+        public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl2", SoundType.Sound) { Pitch = 1f };
+        public static readonly SoundStyle GrowlSound3 = new("Spooky/Content/Sounds/BigBone/BigBoneGrowl3", SoundType.Sound) { Pitch = 1f };
+        public static readonly SoundStyle LaughSound = new("Spooky/Content/Sounds/BigBone/BigBoneLaugh", SoundType.Sound) { Pitch = 0.4f };
         public static readonly SoundStyle SteamSound = new("Spooky/Content/Sounds/BigBone/BigBoneHeat", SoundType.Sound);
         public static readonly SoundStyle StunnedSound = new("Spooky/Content/Sounds/GoofyStunned", SoundType.Sound);
 

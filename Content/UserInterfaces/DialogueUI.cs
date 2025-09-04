@@ -8,6 +8,7 @@ using Terraria.Audio;
 using ReLogic.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -27,6 +28,8 @@ namespace Spooky.Content.UserInterfaces
 		public Texture2D KrampusBoxTex;
 		public Texture2D LittleEyeBoxTex;
 		public Texture2D PlayerBoxTex;
+		public Texture2D PlayerBoxMouseTex;
+		public Texture2D PlayerBoxMouseButtonTex;
 
 		public override void OnInitialize()
         {
@@ -35,6 +38,8 @@ namespace Spooky.Content.UserInterfaces
 			KrampusBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIKrampus", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			LittleEyeBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			PlayerBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			PlayerBoxMouseTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerMouse", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			PlayerBoxMouseButtonTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerMouseButton", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
 
         public override void Update(GameTime gameTime)
@@ -108,7 +113,7 @@ namespace Spooky.Content.UserInterfaces
 					BoxTextureToUse = PlayerBoxTex;
 				}
 
-				DrawPanel(spriteBatch, BoxTextureToUse, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
+				DrawPanel(spriteBatch, BoxTextureToUse, PlayerBoxMouseTex, PlayerBoxMouseButtonTex, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
 
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -132,7 +137,7 @@ namespace Spooky.Content.UserInterfaces
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
 		}
 
-		public static void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Color color, int width, int height)
+		public static void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Texture2D texture2, Texture2D texture3, Vector2 position, Color color, int width, int height)
         {
             Vector2 topLeftPos = position;
             Rectangle topLeftRect = new(0, 0, 34, 34);
@@ -187,6 +192,28 @@ namespace Spooky.Content.UserInterfaces
 
 			//Bottom Right
             spriteBatch.Draw(texture, bottomRightPos, bottomRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+			bool DrawMouse = false;
+
+			for (int i = 0; i < Dialogue.Count; i++)
+            {
+                Dialogue dialogue = Dialogue[i].Get();
+				
+                if (dialogue.displayingText.Length == 0)
+				{
+                    return;
+				}
+
+				DrawMouse = dialogue.textFinished;
+			}
+
+			if (texture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer").Value && DrawMouse)
+			{
+				spriteBatch.Draw(texture2, bottomRightPos, bottomRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 12f)) / 2f + 0.5f;
+				spriteBatch.Draw(texture3, bottomRightPos, bottomRightRect, color * fade, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			}
         }
 
 		public static string[] FormatText(string text, DynamicSpriteFont font, bool isPlayer, out int width, out int height)
