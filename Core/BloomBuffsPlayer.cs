@@ -637,7 +637,7 @@ namespace Spooky.Core
             //spawn rose thorn projectile on the player
 			if (SpringRose && Player.ownedProjectileCounts[ModContent.ProjectileType<RoseThornRing>()] < 1)
 			{
-				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<RoseThornRing>(), 40, 0, Player.whoAmI);
+				Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<RoseThornRing>(), 1, 0, Player.whoAmI);
 			}
 
             //spawn an orbiting orange

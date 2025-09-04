@@ -19,8 +19,10 @@ namespace Spooky.Core
 
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //creepy candle makes magic projectiles inflict on fire
-            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().MagicCandle && projectile.DamageType == DamageClass.Magic)
+			Player player = Main.player[projectile.owner];
+
+			//creepy candle makes magic projectiles inflict on fire
+			if (player.GetModPlayer<SpookyPlayer>().MagicCandle && projectile.DamageType == DamageClass.Magic)
             {
                 if (Main.rand.NextBool(3))
                 {
@@ -29,15 +31,15 @@ namespace Spooky.Core
             }
 
             //root armor set makes ranged projectiles life-steal sometimes
-            if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().RootSet && Main.LocalPlayer.GetModPlayer<SpookyPlayer>().RootHealCooldown <= 0 && projectile.DamageType == DamageClass.Ranged && damageDone >= 2)
+            if (player.GetModPlayer<SpookyPlayer>().RootSet && player.GetModPlayer<SpookyPlayer>().RootHealCooldown <= 0 && projectile.DamageType == DamageClass.Ranged && damageDone >= 2)
             {
                 if (Main.rand.NextBool(5))
                 {
                     //heal based on how much damage was done
                     int LifeHealed = damageDone > 12 ? 6 : damageDone / 2;
-                    Main.LocalPlayer.statLife += LifeHealed;
-                    Main.LocalPlayer.HealEffect(LifeHealed, true);
-                    Main.LocalPlayer.GetModPlayer<SpookyPlayer>().RootHealCooldown = 300;
+					player.statLife += LifeHealed;
+					player.HealEffect(LifeHealed, true);
+					player.GetModPlayer<SpookyPlayer>().RootHealCooldown = 300;
                 }
             }
         }
@@ -70,17 +72,19 @@ namespace Spooky.Core
                 TileConversionMethods.ConvertSpookyIntoDesert((int)(projectile.position.X + (projectile.width * 0.5f)) / 16, (int)(projectile.position.Y + (projectile.height * 0.5f)) / 16, 2);
             }
 
-			if (Main.player[projectile.owner].GetModPlayer<BloomBuffsPlayer>().VegetableEggplantPaint && projectile.velocity != Vector2.Zero && projectile.DamageType == DamageClass.Ranged && Main.GameUpdateCount % 10 == 0)
+			Player player = Main.player[projectile.owner];
+
+			if (player.GetModPlayer<BloomBuffsPlayer>().VegetableEggplantPaint && projectile.velocity != Vector2.Zero && projectile.DamageType == DamageClass.Ranged && Main.GameUpdateCount % 10 == 0)
 			{
 				Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<EgplantPaint>(), projectile.damage / 3, 0f, Main.LocalPlayer.whoAmI, Main.rand.Next(0, 5));
 			}
 
 			//minions inflict toxic and have toxic cloud dusts with the hazmat armor set
-			if (Main.player[projectile.owner].GetModPlayer<SpookyPlayer>().HazmatSet && projectile.DamageType == DamageClass.Summon && projectile.minionSlots > 0)
+			if (player.GetModPlayer<SpookyPlayer>().HazmatSet && projectile.DamageType == DamageClass.Summon && projectile.minionSlots > 0)
 			{
 				if (Main.rand.NextBool(18))
 				{
-					Color[] colors = new Color[] { Color.Lime, Color.Green };
+					Color[] colors = { Color.Lime, Color.Green };
 
 					int DustEffect = Dust.NewDust(projectile.position, projectile.width, 3, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Main.rand.Next(colors) * 0.5f, Main.rand.NextFloat(0.2f, 0.5f));
 					Main.dust[DustEffect].velocity.X = 0;

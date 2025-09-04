@@ -28,11 +28,6 @@ namespace Spooky.Core
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
-            if (Main.myPlayer != player.whoAmI)
-            {
-                return;
-            }
-
             //manually handle daffodils music box recording if any of her themes are playing, since music boxes cant be assigned more than one song
             if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") || Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))
             {
@@ -74,11 +69,6 @@ namespace Spooky.Core
 
 		public override void UseAnimation(Item item, Player player)
 		{
-			if (Main.myPlayer != player.whoAmI)
-			{
-				return;
-			}
-
 			//check for items that arent tools so that effects meant for weapons dont apply to tools or items that arent weapons
 			if (item.damage > 0 && item.pick <= 0 && item.hammer <= 0 && item.axe <= 0 && item.mountType <= 0)
 			{

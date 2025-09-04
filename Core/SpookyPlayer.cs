@@ -629,6 +629,12 @@ namespace Spooky.Core
 				{
 					target.AddBuff(BuffID.Midas, int.MaxValue);
 				}
+
+				//spawn friendly ghosts on hit with spirit amulet
+				if (SpiritAmulet && Main.rand.NextBool(5) && Player.ownedProjectileCounts[ModContent.ProjectileType<AmuletGhost>()] < 5)
+				{
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), Player.Center, Vector2.Zero, ModContent.ProjectileType<AmuletGhost>(), damageDone, 0, ai2: Main.rand.Next(0, 6));
+				}
             }
         }
 
@@ -697,19 +703,6 @@ namespace Spooky.Core
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<SwarmFly>()] > 0)
                 {
                     Player.AddBuff(ModContent.BuffType<FlyCooldown>(), 1800);
-                }
-            }
-
-            //spawn homing seeds when hit while wearing the spirit amulet
-            if (SpiritAmulet && Main.rand.NextBool())
-            {
-                for (int numProjectiles = 0; numProjectiles < 3; numProjectiles++)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center.X + Main.rand.Next(-25, 25), Player.Center.Y + Main.rand.Next(-25, 25), 
-                        Main.rand.NextFloat(-5f, 5f), Main.rand.NextFloat(-5f, 5f), ModContent.ProjectileType<AmuletSeed>(), 20, 0, Main.myPlayer);
-                    }
                 }
             }
 

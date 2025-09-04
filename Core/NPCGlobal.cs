@@ -228,16 +228,15 @@ namespace Spooky.Core
 
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
+			Player player = Main.player[projectile.owner];
+
 			//whip debuff stuff
 			if (!projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
 			{
-				foreach (Player player in Main.ActivePlayers)
+				//hazmat helmet gives minions 5% chance to critically hit
+				if (player.GetModPlayer<SpookyPlayer>().HazmatSet && Main.rand.NextBool(20))
 				{
-					//hazmat helmet gives minions 5% chance to critically hit
-					if (player.GetModPlayer<SpookyPlayer>().HazmatSet && projectile.owner == player.whoAmI && Main.rand.NextBool(20))
-					{
-						modifiers.SetCrit();
-					}
+					modifiers.SetCrit();
 				}
 
 				//enemies inflicted with the pheromone stinger debuff take increased damage from all spider related minions
@@ -372,16 +371,18 @@ namespace Spooky.Core
 				}
 			}
 
-			//spawn souls when you kill an enemy while wearing the skull amulet
-			if (Main.LocalPlayer.GetModPlayer<SpookyPlayer>().SkullAmulet && !npc.friendly)
-			{
-				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, Main.LocalPlayer.whoAmI);
-			}
+			Player player = Main.LocalPlayer;
 
 			//spawn souls when you kill an enemy while wearing the skull amulet
-			if (Main.LocalPlayer.GetModPlayer<BloomBuffsPlayer>().CemeteryPoppy && Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<CemeteryPoppyProj>()] < 2 && !npc.friendly)
+			if (player.GetModPlayer<SpookyPlayer>().SkullAmulet && !npc.friendly)
 			{
-				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, new Vector2(0, -12), ModContent.ProjectileType<CemeteryPoppyProj>(), npc.damage, 0, Main.LocalPlayer.whoAmI);
+				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SkullAmuletSoul>(), 0, 0, player.whoAmI);
+			}
+
+			//spawn poppies when you have the poppy bloom
+			if (player.GetModPlayer<BloomBuffsPlayer>().CemeteryPoppy && player.ownedProjectileCounts[ModContent.ProjectileType<CemeteryPoppyProj>()] < 2 && !npc.friendly)
+			{
+				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, new Vector2(0, -12), ModContent.ProjectileType<CemeteryPoppyProj>(), npc.damage, 0, player.whoAmI);
 			}
 
 			base.OnKill(npc);

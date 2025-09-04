@@ -90,7 +90,7 @@ Other Random Additions:
 -Added crow critters to the swampy cemetery
 -Added turkies to the spooky forest that can be tamed with rotten seeds
 -Chalupo is back and better than ever
--Added new enemy to the egg incursion, tummyachers, with a new useful drop
+-Added new enemy to the egg incursion, tummy-achers, with a useful new drop
 
 
 Structure Helper is no longer a dependency: 
@@ -125,6 +125,8 @@ Magic:
 -Changed moocher staff projectile to be a giant cursed fire explosion that launches some cursed fireballs upward, it now does more damage, is more useful against flying targets, and visually looks better
 -Arachnid leg wand reworked, it now rapidly fires out short range and short lived spider leg apparitions that can go through blocks, nerfed its damage as a result of this rework
 -Pumpkin spicer flames now actually spawn from the front of the held weapon instead of the player's center and added some randomness to the flames shooting
+-Reworked venom sprayer to be like a flamethrower instead of cloud dusts
+-Venom sprayer and pumpkin spicer now ignore some enemy defense
 
 Summon:
 -Buffed spooky scroll damage from 15 to 20
@@ -155,7 +157,7 @@ Accessory:
 -Arcade cabinet now gives 2% increased critical strike chance per missing swirl charge up to 10% total, and increased the amount of time it takes for one charge to regenerate to 2 seconds
 -Dreadful clarinet no longer has a cooldown for spawning notes on critical hits but you cannot have more than 5 notes at once, also increased their enemy targetting range
 -Strange video game now disables your life regeneration but it will now spawn natures mockery around you constantly to give you lots of healing
--Cursed cartridge now spawns a red apparition every 25 hits instead of being a random rare chance, red apparitions also fade in and charge at enemies much faster now
+-Renamed NES Cartridge to Cursed Cartridge, and it now spawns a red apparition every 25 hits instead of being a random rare chance, red apparitions also fade in and charge at enemies much faster now
 -Glass pyramid now reduces damage taken for 5 hits before shattering instead of 3
 -Samson's cuff no longer decreases movement speed and damage (Applies to both the regular accessory and the amalghoul)
 -Sewing thread now inflicts pierced onto any enemy it hits, pierced enemies will take 2x damage and be inflicted with a damage-over-time debuff for 10 seconds the next time they are hit by any weapon that isnt the thread
@@ -170,10 +172,12 @@ Accessory:
 -Snotty schnoz no longer has a cooldown period after shooting a spread of snot, but the snot projectiles are no longer homing
 -Reworked flower hairpin, it now summons offensive orbiting petals that will chase enemies and deal damage equal to the damage you took when you got hit with a minimum of 40, petals also constantly spawn if you have less than 6 at once
 -Big bone expert accessory now massively increases your movement acceleration and maximum movement speed, and the projectiles now shoot upward if you are running on the ground to prevent them from hitting the floor and dying
+-Changed spike shell basher into a shield accessory that gives 3 defense and gives you a decent thorns effect
 
 Blooms:
 -Pumptergiest projectiles now only spawn if you are holding a weapon, their damage now scales with the damage of that weapon (with a minimum of 30 damage), and reduced the minimum time for a pumpkin to spawn from 6 to 5 seconds
 -Zappy Zucchini lightning now does damage equal to the enemies contact damage instead of being a set value
+-Thorn tipped rose ring now deals damage equal to the hit enemies contact damage instead of having a base damage of 40
 
 Miscellaneous:
 -Lowered drop rate of the putty slime pet to 1% drop chance
@@ -181,34 +185,30 @@ Miscellaneous:
 -Spooky biome dungeon keys now correctly use the "it has been cursed by a powerful jungle creature" tooltip pre-plantera like vanilla biome keys
 -Living flesh armor and weapons now require shadow scales/tissue samples in their crafting recipes instead of demonite/crimtane bars
 -Slightly changed the spooky mod biome compass arrow texture to make it more obvious that its an arrow pointing somewhere
--Changed spike shell basher into a shield accessory that gives 3 defense and causes enemies that hit you to take damage
 -Trap door spider mount is now lower towards the ground so you can fit in smaller spaces, and made its wall/ceiling clinging mechanic way more lenient and much easier to use
 -Cemetery tree saplings can now be planted and grown on catacomb brick moss placed by the player
--Renamed NES Cartridge to Cursed Cartridge
--Changed big bone's expert item into Big Bone's Left Shoe, the item gimmick is still the same but with improvements (Listed above)
 -Pumpkin spice latte now has a value of 50 gold
--Venom sprayer and pumpkin spicer now ignore some enemy defense
 
 
 ~Enemies & Bosses~
 
 Boss Changes:
--Buffed rot gourd max hp from 2200 to 2600
+-Buffed rot gourd max hp from 2200 to 2600 (This is rot gourd's normal health value, not scaled to journey, expert, or master mode)
 -Changed daffodils "hide under the platform" telegraphs to green instead of yellow to prevent confusion between her 2 different telegraphs
 -Orro-boro's floating arrow telegraphs have been removed, and all of their attacks that used these have been tweaked so that they are still readable without these telegraphs so the fight feels more natural
 -Orro-boro's segments now have massively improved following/turning, the segments now move more naturally and look much better when orro-boro makes sharp turns
 -All of orro-boro's body and tail segments are immune to all debuffs (Excluding special debuffs such as whip tag debuffs)
 -Orro's eye and the eyes on its body segments now glow, not only to be visually consistent with the other eye valley enemies having glowing eyes, but also to help with visibility during its fight
--Orro-boro's spit projectiles are now yellow for better visibility in the eye valley (And fun fact: some snake's venom in real life is yellow!)
--Big bone health buffed from 72000 to 75000
+-Orro-boro's spit projectiles are now yellow for better visibility in the eye valley (And a fun fact: some snake's venom in real life is yellow)
+-Big bone health buffed from 72000 to 75000 (This is big bone's normal health value, not scaled to journey, expert, or master mode)
 -Moco's kamikaze mocling projectiles now fly at you horizontally too instead of only vertically
 
 Enemy Changes:
--Observing orchids will now only chase you if they have light of sight to you
+-Observing orchids will now only chase you if they have line of sight to you
 -Ear worms movement and behavior is now more natural looking, they now recoil when shooting their sound blast, and they no longer draw behind tiles for better visibility
+-Ear worm sound projectile is now green for visibility purposes
 -Buffed all mist ghosts health and damage since they are now spawned in the new mysterious gravestone ambushes and not just randomly when they break
 -Tomato zomboids can now drop money trough and shark tooth necklace
--Ear worm sound projectile is now green for visibility purposes
 -Flesh bolster reworked, it now summons eye tendrils out of the ground instead of buffing other enemies
 
 
@@ -228,7 +228,7 @@ Enemy Changes:
 -Removed spooky mod armor bonus hotkey, armor bonuses that used this hotkey before now use "double tap down" like terraria's special armor set bonuses
 -Being in the valley of eyes now disables the heat distortion caused by being in the underworld
 -Dumb zomboid bestiary entry now uses the spooky forest background instead of a blank black background
--Valley of eyes pylon can now be sold by npcs who are happy enough in the eye valley (Little eye will still give you one for free when woken up)
+-Valley of eyes pylon can now be sold by npcs who are happy enough in the eye valley (Little eye will still give you one for free when woken up, this change is just to make it renewable if needed)
 -Bloom plants now have better map colors and have display names when you hover over them with your mouse
 -Spooky mod music boxes now display the song title in orange in their tooltip, since some of the previous colors were hard to read and having to make specific colors for every music box was a bit annoying
 -Broken EMF reader now drops from catacomb/cemetery crates sometimes to make it renewable
@@ -241,8 +241,8 @@ Enemy Changes:
 Fixed all of the following bugs and issues:
 
 -Spooky mod helmets/masks with custom drawing (such as glowmasks and extended helmets) drawing incorrectly when gravity is flipped
--Bug with many spooky mod objects (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
--Bug with many spooky mod custom tiles and special wall drawing (such as custom trees, giant glowshrooms, grass wall leaves, ect) not being affected when painted
+-Many spooky mod objects (such as custom trees, giant glowshrooms, spider grotto old hunter piles, bloom plants, ect) not being in the correct positions when using snapshot mode to take screenshots
+-Many spooky mod custom tiles and special wall drawing (such as custom trees, giant glowshrooms, grass wall leaves, ect) not being affected by paints
 -Issue where spooky biome ambient grass and vines wouldnt be destroyed when converted by clentaminator solutions
 -Brown solution not converting spooky mod biomes into a forest biome
 -Frank the goblin's hands despawning if the player gets too far away from him

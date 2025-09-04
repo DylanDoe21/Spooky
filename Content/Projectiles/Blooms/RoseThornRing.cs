@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -19,7 +18,9 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.width = 98;
             Projectile.height = 92;
             Projectile.DamageType = DamageClass.Generic;
-            Projectile.friendly = true;
+			Projectile.localNPCHitCooldown = 30;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.timeLeft = 5;
@@ -32,10 +33,10 @@ namespace Spooky.Content.Projectiles.Blooms
             return false;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.immune[Projectile.owner] = 35;
-        }
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.FinalDamage *= target.damage; //this projectile is spawned with a base damage of 1, so this makes it deal the same damage as the targets contact damage
+		}
 
         public override bool PreDraw(ref Color lightColor)
 		{

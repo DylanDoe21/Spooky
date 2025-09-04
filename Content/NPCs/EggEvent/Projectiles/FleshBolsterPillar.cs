@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using ReLogic.Content;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
         private static Asset<Texture2D> ProjTexture;
         private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> OutlineTexture;
+
+		public static readonly SoundStyle SpawnSound = new("Spooky/Content/Sounds/EggEvent/FleshTendril", SoundType.Sound);
 
         public override void SetDefaults()
 		{
@@ -84,6 +87,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 			if (Projectile.ai[0] < 60)
 			{
 				Projectile.localAI[1]++;
+
 				if (Projectile.localAI[1] <= 45)
 				{
 					Projectile.ai[1] += 24f;
@@ -92,6 +96,11 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				if (Projectile.localAI[1] > 45 && Projectile.localAI[1] <= 80)
                 {
 					Projectile.ai[1] += Main.rand.NextFloat(-5f, 5f);
+				}
+
+				if (Projectile.localAI[1] == 80)
+				{
+					SoundEngine.PlaySound(SpawnSound, Projectile.Center);
 				}
 
 				if (Projectile.localAI[1] > 80)

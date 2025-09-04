@@ -468,11 +468,7 @@ PumpkinSpiceLatte: {
 
 SpiritAmulet: {
 	DisplayName: Spirit Amulet
-	Tooltip:
-		'''
-		20% increased movement speed
-		When hit, you will sometimes release homing spirit particles around you
-		'''
+	Tooltip: Sometimes summon friendly cemetery ghosts when you attack enemies
 }
 
 BossBagBigBone: {

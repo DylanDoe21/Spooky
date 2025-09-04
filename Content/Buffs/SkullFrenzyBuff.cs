@@ -19,7 +19,7 @@ namespace Spooky.Content.Buffs
 			player.GetAttackSpeed(DamageClass.Melee) += 0.75f;
 			player.GetAttackSpeed(DamageClass.Ranged) += 0.75f;
 			player.GetAttackSpeed(DamageClass.Magic) += 0.75f;
-			player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.75f;
+			player.GetAttackSpeed(DamageClass.Summon) += 0.75f;
 		}
 	}
 }
