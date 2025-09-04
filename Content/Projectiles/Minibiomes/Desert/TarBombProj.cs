@@ -16,7 +16,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			Projectile.height = 42;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.timeLeft = 1000;
             Projectile.penetrate = 1;
 		}
@@ -28,6 +28,10 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
 		public override void AI() 
         {
+			Player player = Main.player[Projectile.owner];
+
+			Projectile.tileCollide = Projectile.Center.Y > player.Center.Y;
+
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 

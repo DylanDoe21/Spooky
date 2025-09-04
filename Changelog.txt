@@ -90,6 +90,7 @@ Other Random Additions:
 -Added crow critters to the swampy cemetery
 -Added turkies to the spooky forest that can be tamed with rotten seeds
 -Chalupo is back and better than ever
+-Added new enemy to the egg incursion, tummyachers, with a new useful drop
 
 
 Structure Helper is no longer a dependency: 
@@ -186,6 +187,7 @@ Miscellaneous:
 -Renamed NES Cartridge to Cursed Cartridge
 -Changed big bone's expert item into Big Bone's Left Shoe, the item gimmick is still the same but with improvements (Listed above)
 -Pumpkin spice latte now has a value of 50 gold
+-Venom sprayer and pumpkin spicer now ignore some enemy defense
 
 
 ~Enemies & Bosses~
@@ -271,6 +273,7 @@ Fixed all of the following bugs and issues:
 -Issue where spooky mod flails launch speed and distance would scale down instead of up based on your melee speed (Skull Emoji)
 -Spook fishron flamethrower projectiles having an unfairly large hitbox
 -Certain spooky mod biomes spawning vanilla enemies and not their own enemies while an invasion is moving towards spawn (When it says "X is approaching from the (west/east)!")
+-Ear worm and candy bag companion counting as pets
 
 
 Fixed all of the following multiplayer bugs and issues:

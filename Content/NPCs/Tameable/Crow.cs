@@ -78,6 +78,7 @@ namespace Spooky.Content.NPCs.Tameable
 			NPC.height = 26;
             NPC.npcSlots = 0.5f;
 			NPC.noGravity = false;
+			NPC.chaseable = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = -1;

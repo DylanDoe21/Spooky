@@ -796,6 +796,7 @@ NineTails: {
 	DisplayName: Cat O' Nine Tails
 	Tooltip:
 		'''
+		5 summon tag damage
 		Your summons will focus struck enemies
 		Swings out multiple short range whips at once
 		'There is no safeword'
@@ -1627,8 +1628,12 @@ QuestPresentLittleEye: {
 }
 
 RobotOven: {
-	DisplayName: Chef Bot's Oven
-	Tooltip: Spews hot flames all over the place
+	DisplayName: Easy Bake Oven
+	Tooltip:
+		'''
+		Spews hot flames
+		Ignores 10 points of enemy Defense
+		'''
 }
 
 SnakeTrombone: {
@@ -2825,7 +2830,11 @@ SpookFishronFlail: {
 
 SpookFishronGun: {
 	DisplayName: Pumpkin Spicer
-	Tooltip: Shoots out a stream of pumpkin spice fire
+	Tooltip:
+		'''
+		Shoots out a stream of pumpkin spice fire
+		Ignores 18 points of enemy Defense
+		'''
 }
 
 SpookFishronStaff: {
@@ -2927,6 +2936,15 @@ GoreLegs: {
 		20% increased movement speed
 		5% increased critical strike chance
 		Enemies are more likely to target you
+		'''
+}
+
+BileGlob: {
+	DisplayName: Bile Glob
+	Tooltip:
+		'''
+		A corrosive glob of bile
+		Can be thrown at the giant egg during the egg incursion to decay it faster
 		'''
 }
 
@@ -3343,7 +3361,11 @@ LeechWhip: {
 
 MouthFlamethrower: {
 	DisplayName: Venom Sprayer
-	Tooltip: Spews out a stream of venomous gas breath
+	Tooltip:
+		'''
+		Spews out a stream of venomous gas breath
+		Ignores 12 points of enemy Defense
+		'''
 }
 
 Scycler: {
@@ -5633,6 +5655,15 @@ KrampusQuestReset: {
 	Tooltip:
 		'''
 		Resets all krampus quest progress
+		Testing Item
+		'''
+}
+
+EggEventDowned: {
+	DisplayName: Egg Event Downed
+	Tooltip:
+		'''
+		Sets the egg incursion event to completed
 		Testing Item
 		'''
 }

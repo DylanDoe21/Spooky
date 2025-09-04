@@ -24,8 +24,11 @@ namespace Spooky.Core
 		public static int EventTimeLeftUI = 0;
 		public static int EnemySpawnTimer = 0;
 		public static bool EggEventActive = false;
-		public static bool HasSpawnedBiojetter = false;
-		public static bool HasSpawnedBolster = false;
+		public static bool HasSpawnedBiojetter1 = false;
+		public static bool HasSpawnedBiojetter2 = false;
+		public static bool HasSpawnedBolster1 = false;
+		public static bool HasSpawnedBolster2 = false;
+		public static bool HasSpawnedBolster3 = false;
 
 		public static int[] list = new int[] { };
 
@@ -40,7 +43,7 @@ namespace Spooky.Core
 				writer.Write(list[i]);
 			}
 
-			writer.WriteFlags(EggEventActive, HasSpawnedBiojetter, HasSpawnedBolster);
+			writer.WriteFlags(EggEventActive, HasSpawnedBiojetter1, HasSpawnedBiojetter2, HasSpawnedBolster1, HasSpawnedBolster2, HasSpawnedBolster3);
 		}
 
 		public override void NetReceive(BinaryReader reader)
@@ -54,7 +57,7 @@ namespace Spooky.Core
 				list[i] = reader.ReadInt32();
 			}
 
-			reader.ReadFlags(out EggEventActive, out HasSpawnedBiojetter, out HasSpawnedBolster);
+			reader.ReadFlags(out EggEventActive, out HasSpawnedBiojetter1, out HasSpawnedBiojetter2, out HasSpawnedBolster1, out HasSpawnedBolster2, out HasSpawnedBolster3);
 		}
 
 		public override void OnWorldLoad()
@@ -63,8 +66,11 @@ namespace Spooky.Core
 			EventTimeLeftUI = 0;
 			EggEventActive = false;
 			EggEventActive = false;
-			HasSpawnedBiojetter = false;
-			HasSpawnedBolster = false;
+			HasSpawnedBiojetter1 = false;
+			HasSpawnedBiojetter2 = false;
+			HasSpawnedBolster1 = false;
+			HasSpawnedBolster2 = false;
+			HasSpawnedBolster3 = false;
 		}
 
 		//select a random player in the event if they are in the eye valley and arent dead/inactive
@@ -202,6 +208,24 @@ namespace Spooky.Core
 
 					break;
 				}
+
+				case 2:
+				{
+					//spawn stomach enemy
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int Biomass = NPC.NewNPC(null, (int)(player.Center.X + Main.rand.Next(-600, 600)), 
+						(int)(Flags.EggPosition.Y + Main.rand.Next(100, 150)), ModContent.NPCType<GiantBiomassOrange>());
+						Main.npc[Biomass].netUpdate = true;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: Biomass);
+						}
+					}
+
+					break;
+				}
 			}
 		}
 
@@ -236,7 +260,7 @@ namespace Spooky.Core
 					EventTimeLeft++;
 					EventTimeLeftUI--;
 
-					//converts the time left to actual seconds, goes up to 360 seconds (or 6 minutes)
+					//timeLeft converts the time left to actual seconds, goes up to 360 seconds (or 6 minutes)
 					//60 = 1 minute in
 					//120 = 2 minutes in
 					//180 = 3 minutes in
@@ -251,53 +275,67 @@ namespace Spooky.Core
 					if (timeLeft >= 180) ChanceToSpawnEnemy = 200;
 					if (timeLeft >= 240) ChanceToSpawnEnemy = 150;
 
+					if (EventTimeLeft == 3600 || EventTimeLeft == 7200 || EventTimeLeft == 10800 || EventTimeLeft == 14400 || EventTimeLeft == 18000)
+					{
+						SpawnEnemy(2, 0, player);
+					}
+
 					//spawn a biojetter a little before 3 minutes and a little after 4 minutes
-					if (timeLeft == 149 || timeLeft == 279)
+					if (!HasSpawnedBiojetter1 && timeLeft >= 150)
 					{
-						HasSpawnedBiojetter = false;
+						SpawnEnemy(0, 2, player);
+
+						HasSpawnedBiojetter1 = true;
 
 						if (Main.netMode == NetmodeID.Server)
 						{
 							NetMessage.SendData(MessageID.WorldData);
 						}
 					}
-					if (timeLeft == 150 || timeLeft == 280)
+					if (!HasSpawnedBiojetter2 && timeLeft >= 280)
 					{
-						if (!HasSpawnedBiojetter)
-						{
-							SpawnEnemy(0, 2, player);
+						SpawnEnemy(0, 2, player);
 
-							HasSpawnedBiojetter = true;
-
-							if (Main.netMode == NetmodeID.Server)
-							{
-								NetMessage.SendData(MessageID.WorldData);
-							}
-						}
-					}
-
-					//spawn a bolster a little before 3 minutes and a little after 4 minutes
-					if (timeLeft == 179 || timeLeft == 239 || timeLeft == 299)
-					{
-						HasSpawnedBolster = false;
+						HasSpawnedBiojetter2 = true;
 
 						if (Main.netMode == NetmodeID.Server)
 						{
 							NetMessage.SendData(MessageID.WorldData);
 						}
 					}
-					if (timeLeft == 180 || timeLeft == 240 || timeLeft == 300)
+
+					//spawn bolsters at 3 minutes, 4 minutes, and 5 minutes in
+					if (!HasSpawnedBolster1 && timeLeft >= 180)
 					{
-						if (!HasSpawnedBolster)
+						SpawnEnemy(1, 5, player);
+
+						HasSpawnedBolster1 = true;
+
+						if (Main.netMode == NetmodeID.Server)
 						{
-							SpawnEnemy(1, 5, player);
+							NetMessage.SendData(MessageID.WorldData);
+						}
+					}
+					if (!HasSpawnedBolster2 && timeLeft >= 240)
+					{
+						SpawnEnemy(1, 5, player);
 
-							HasSpawnedBolster = true;
+						HasSpawnedBolster2 = true;
 
-							if (Main.netMode == NetmodeID.Server)
-							{
-								NetMessage.SendData(MessageID.WorldData);
-							}
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.WorldData);
+						}
+					}
+					if (!HasSpawnedBolster3 && timeLeft >= 300)
+					{
+						SpawnEnemy(1, 5, player);
+
+						HasSpawnedBolster3 = true;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.WorldData);
 						}
 					}
 

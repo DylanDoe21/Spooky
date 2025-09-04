@@ -194,6 +194,7 @@ TinyRat2.DisplayName: Tiny Rat
 ZomboidCasket.DisplayName: Zomboid Casket
 ZomboidGremlin.DisplayName: Zombino
 //egg event
+BileStomach.DisplayName: Tummy-acher
 Biojetter.DisplayName: Biojetter
 BiojetterEye.DisplayName: Biojetter
 CoughLungs.DisplayName: Coughing Lungs
@@ -209,6 +210,7 @@ TongueBiter.DisplayName: Tongue Biter
 OrroboroEgg.DisplayName: ""
 GiantBiomassPurple.DisplayName: ""
 GiantBiomassRed.DisplayName: ""
+GiantBiomassOrange.DisplayName: ""
 //friendly
 DumbZomboid.DisplayName: Dumb Zomboid
 GiantWebAnimationBase.DisplayName: ""

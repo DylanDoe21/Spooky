@@ -27,7 +27,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 45;
         }
 
 		public override bool PreDraw(ref Color lightColor)

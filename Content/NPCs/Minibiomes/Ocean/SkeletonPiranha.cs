@@ -35,6 +35,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.npcSlots = 0.5f;
 			NPC.knockBackResist = 0.35f;
 			NPC.noGravity = true;
+			NPC.chaseable = false;
             NPC.dontTakeDamageFromHostiles = false;
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.DD2_SkeletonHurt;

@@ -24,11 +24,10 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.width = 10;
 			Projectile.height = 10;
 			Projectile.DamageType = DamageClass.Magic;
-			Projectile.localNPCHitCooldown = 60;
-            Projectile.usesLocalNPCImmunity = true;
 			Projectile.friendly = true;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
+			Projectile.ArmorPenetration = 18;
 			Projectile.penetrate = -1;
 			Projectile.MaxUpdates = 4;
 			Projectile.timeLeft = 96;

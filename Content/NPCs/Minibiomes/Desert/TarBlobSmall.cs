@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarSurpriseEgg>(), 30));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarSurpriseEgg>(), 20));
 		}
 
 		public override void HitEffect(NPC.HitInfo hit) 
@@ -84,14 +84,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert
                     int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Asphalt, 0f, -2f, 0, default, 1f);
                     Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
                     Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
-                }
-
-                for (int numGores = 1; numGores <= 2; numGores++)
-                {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/DaddyLongLegsGore" + numGores).Type);
-                    }
                 }
             }
         }

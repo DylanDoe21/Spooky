@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.WhipDebuff;
+
 namespace Spooky.Content.Projectiles.Catacomb
 {
 	public class NineTailsProj : ModProjectile
@@ -29,6 +31,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.75f);
+
+			target.AddBuff(ModContent.BuffType<NineTailsDebuff>(), 240);
 		}
 
         public override bool PreDraw(ref Color lightColor) 

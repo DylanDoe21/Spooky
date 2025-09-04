@@ -33,6 +33,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			Projectile.damage = (int)(damageDone * 0.8f);
 
+			target.AddBuff(ModContent.BuffType<TitanoboaWhipDebuff>(), 240);
 			target.AddBuff(BuffID.Venom, 300);
 		}
 

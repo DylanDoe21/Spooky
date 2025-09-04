@@ -195,22 +195,6 @@ namespace Spooky.Content.NPCs.EggEvent
 				}
 			}
 
-			//spawn vanilla blood dust
-			for (int numDust = 0; numDust < 25; numDust++)
-			{
-				int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 0f, 0f, 100, default, 2f);
-				Main.dust[newDust].velocity.X *= Main.rand.Next(-12, 12);
-				Main.dust[newDust].velocity.Y *= Main.rand.Next(-12, 12);
-				Main.dust[newDust].scale *= Main.rand.NextFloat(1.8f, 2.5f);
-				Main.dust[newDust].noGravity = true;
-
-				if (Main.rand.NextBool(2))
-				{
-					Main.dust[newDust].scale = 0.5f;
-					Main.dust[newDust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
-				}
-			}
-
 			//spawn enemy depending on what ai[2] is set to
 			switch ((int)NPC.ai[2])
 			{

@@ -74,6 +74,11 @@ namespace Spooky.Core
 				spawnRate /= 2;
 				//maxSpawns *= 2;
 			}
+			else if (player.InModBiome(ModContent.GetInstance<TarPitsBiome>()))
+            {
+				spawnRate /= 2;
+				//maxSpawns *= 2;
+			}
 
 			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
 			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || 

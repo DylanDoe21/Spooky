@@ -33,7 +33,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
-                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/FleshBolsterBestiary",
+                //CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/FleshBolsterBestiary",
                 Position = new Vector2(0f, 0f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = 0f

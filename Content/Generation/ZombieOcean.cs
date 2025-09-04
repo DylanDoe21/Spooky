@@ -862,7 +862,7 @@ namespace Spooky.Content.Generation
 								}
 							}
 
-							if (WorldGen.genRand.NextBool(20))
+							if (WorldGen.genRand.NextBool(30))
 							{
 								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<LockerTile>());
 							}

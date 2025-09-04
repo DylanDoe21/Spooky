@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.UI;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
@@ -91,6 +92,7 @@ namespace Spooky.Content.NPCs.Tameable
 			NPC.height = 40;
             NPC.npcSlots = 0.5f;
 			NPC.noGravity = false;
+			NPC.chaseable = false;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = 7;
@@ -238,6 +240,36 @@ namespace Spooky.Content.NPCs.Tameable
 			{
 				NPC.spriteDirection = NPC.direction;
 			}
+
+			if (Main.rand.NextBool(2000))
+            {
+                switch (numSeedsEaten)
+                {
+                    case 0:
+                    {
+                        EmoteBubble.NewBubble(EmoteID.Starving, new WorldUIAnchor(NPC), 200);
+                        break;
+                    }
+                    case 1:
+                    {
+                        goto case 0;
+                    }
+                    case 2:
+                    {
+                    	EmoteBubble.NewBubble(EmoteID.Hungry, new WorldUIAnchor(NPC), 200);
+						break;
+                    }
+                    case 3:
+                    {
+                        goto case 2;
+                    }
+					case 4:
+                    {
+                        EmoteBubble.NewBubble(EmoteID.Peckish, new WorldUIAnchor(NPC), 200);
+						break;
+                    }
+                }
+            }
 
 			//constantly call stepup collision so it doesnt get stuck on blocks
 			Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);

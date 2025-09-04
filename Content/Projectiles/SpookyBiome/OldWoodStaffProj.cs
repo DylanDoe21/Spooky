@@ -55,7 +55,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                     Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 45f;
 
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), playerRelativePoint + Projectile.velocity * 0.8f + muzzleOffset,
-                    Projectile.velocity * 1.5f, ModContent.ProjectileType<OldWoodStaffBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.velocity * 3f, ModContent.ProjectileType<OldWoodStaffBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
 

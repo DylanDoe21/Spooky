@@ -54,6 +54,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 				ModContent.ItemType<JackPack>(),
 				ModContent.ItemType<JacksBag>(),
 				ModContent.ItemType<MarbleJar>(),
+				ModContent.ItemType<RobotOven>(),
 				ModContent.ItemType<SnakeTrombone>(),
 				ModContent.ItemType<SnowBag>(),
 				ModContent.ItemType<StockingStaff>(),

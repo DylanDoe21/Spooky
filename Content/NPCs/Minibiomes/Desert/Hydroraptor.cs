@@ -152,7 +152,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarSurpriseEgg>(), 30));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TarSurpriseEgg>(), 20));
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 

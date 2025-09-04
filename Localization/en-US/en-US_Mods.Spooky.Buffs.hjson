@@ -644,3 +644,13 @@ KrampusShapeBuff: {
 	DisplayName: Wooden Shape Boost
 	Description: Increases defense, damage, and attack speed
 }
+
+NineTailsDebuff: {
+	DisplayName: Nine Tails Debuff
+	Description: ""
+}
+
+TitanoboaWhipDebuff: {
+	DisplayName: Titanoboa Whip Debuff
+	Description: ""
+}

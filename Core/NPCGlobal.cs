@@ -231,12 +231,6 @@ namespace Spooky.Core
 			//whip debuff stuff
 			if (!projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
 			{
-				//eggplant whip gives minions 10% chance to critically hit
-				if (npc.HasBuff<EggplantWhipDebuff>() && Main.rand.NextBool(10))
-				{
-					modifiers.SetCrit();
-				}
-
 				foreach (Player player in Main.ActivePlayers)
 				{
 					//hazmat helmet gives minions 5% chance to critically hit
@@ -264,10 +258,20 @@ namespace Spooky.Core
 					}
 				}
 
+				//eggplant whip gives minions 10% chance to critically hit
+				if (npc.HasBuff<EggplantWhipDebuff>() && Main.rand.NextBool(10))
+				{
+					modifiers.SetCrit();
+				}
+
 				//generic whip tag damage
 				if (npc.HasBuff<ShroomWhipDebuff>())
 				{
 					modifiers.FlatBonusDamage += ShroomWhipDebuff.tagDamage;
+				}
+				if (npc.HasBuff<NineTailsDebuff>())
+				{
+					modifiers.FlatBonusDamage += NineTailsDebuff.tagDamage;
 				}
 				if (npc.HasBuff<LeechWhipDebuff>())
 				{
@@ -280,6 +284,10 @@ namespace Spooky.Core
 				if (npc.HasBuff<NerveWhipDebuff>())
 				{
 					modifiers.FlatBonusDamage += NerveWhipDebuff.tagDamage;
+				}
+				if (npc.HasBuff<TitanoboaWhipDebuff>())
+				{
+					modifiers.FlatBonusDamage += TitanoboaWhipDebuff.tagDamage;
 				}
 			}
 

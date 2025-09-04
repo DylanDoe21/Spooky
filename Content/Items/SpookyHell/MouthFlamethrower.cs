@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = SoundID.Item34;
 			Item.shoot = ModContent.ProjectileType<VenomBreath>();
-			Item.shootSpeed = 2.5f;
+			Item.shootSpeed = 3.25f;
 		}
 
 		public override Vector2? HoldoutOffset()
