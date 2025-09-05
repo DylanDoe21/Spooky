@@ -1284,12 +1284,12 @@ BoogerFish: {
 
 CarrotFish: {
 	DisplayName: Carrot Fish
-	Tooltip: ""
+	Tooltip: "'Caught in Fetid Farms'"
 }
 
 DumboOctopoid: {
 	DisplayName: Dumbo Octopoid
-	Tooltip: ""
+	Tooltip: "'Caught in Underground Spooky Forest'"
 }
 
 OrroEel: {

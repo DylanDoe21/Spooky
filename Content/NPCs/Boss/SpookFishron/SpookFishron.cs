@@ -611,7 +611,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] == 60)
 					{
-						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
+						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1f }, NPC.Center);
 
 						Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 						CurrentFrameX = 1;
@@ -786,7 +786,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					//save npc center
 					if (NPC.localAI[0] == 85)
 					{
-						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1.2f }, NPC.Center);
+						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1f }, NPC.Center);
 
 						SavePosition = NPC.Center;
 
@@ -900,7 +900,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] == 60)
 					{
-						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
+						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1f }, NPC.Center);
 
 						Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 						CurrentFrameX = 1;
@@ -966,7 +966,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 					if (NPC.localAI[0] == 60)
 					{
-						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
+						SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1f }, NPC.Center);
 
 						Screenshake.ShakeScreenWithIntensity(NPC.Center, 12f, 500f);
 						CurrentFrameX = 1;
@@ -1589,7 +1589,7 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 
 						if (NPC.localAI[0] == 60)
 						{
-							SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -2.2f }, NPC.Center);
+							SoundEngine.PlaySound(SoundID.Zombie9 with { Pitch = -1f }, NPC.Center);
 
 							Screenshake.ShakeScreenWithIntensity(NPC.Center, 18f, 500f);
 							CurrentFrameX = 1;
