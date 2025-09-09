@@ -203,7 +203,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
 
             //enraged behavior
-            if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && NPC.localAI[3] > 0)
             {
                 if (NPC.ai[0] != 6)
                 {

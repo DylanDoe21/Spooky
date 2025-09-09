@@ -78,17 +78,17 @@ namespace Spooky.Content.Projectiles.Sentient
 
                 Projectile.ai[0]++;
 
-                int ShootTime = 30 + ItemGlobal.ActiveItem(player).useTime;
+                int ShootTime = 30 + ItemGlobal.ActiveItem(player).useTime / 3;
                 float MaxDistance = 300f;
 
                 if (Projectile.frame == 1)
                 {
-                    ShootTime = 12 + ItemGlobal.ActiveItem(player).useTime;
+                    ShootTime = 20 + ItemGlobal.ActiveItem(player).useTime / 3;
                     MaxDistance = 425f;
                 }
                 if (Projectile.frame == 2) 
                 {
-                    ShootTime = 5 + ItemGlobal.ActiveItem(player).useTime;
+                    ShootTime = 10 + ItemGlobal.ActiveItem(player).useTime / 3;
                     MaxDistance = 550f;
                 }
                 
@@ -147,7 +147,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 //make heart grow every 15 seconds
                 Projectile.ai[2]++;
 
-                if (Projectile.ai[2] >= 900 && Projectile.frame < 2)
+                if (Projectile.ai[2] >= 420 && Projectile.frame < 2)
                 {
                     SoundEngine.PlaySound(SoundID.AbigailAttack, Projectile.Center);
                     SoundEngine.PlaySound(SoundID.Item167 with { Pitch = 0.5f }, Projectile.Center);
