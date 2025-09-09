@@ -24,8 +24,9 @@ namespace Spooky.Content.Projectiles.SpookyHell
             Projectile.height = 24;     
 			Projectile.friendly = true;                               			  		
             Projectile.tileCollide = true;
-            Projectile.ignoreWater = true;  
+            Projectile.ignoreWater = true;
             Projectile.penetrate = 2;
+			Projectile.extraUpdates = 2;
 			Projectile.timeLeft = 300;
             Projectile.alpha = 255;
 		}

@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.SpookyHell
 			Item.rare = ItemRarityID.Blue;
 			Item.ammo = AmmoID.Bullet;
 			Item.shoot = ModContent.ProjectileType<SnotBulletProj>();
-			Item.shootSpeed = 40f;
+			Item.shootSpeed = 5f;
 		}
 
 		public override void AddRecipes()

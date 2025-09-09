@@ -20,7 +20,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
             Projectile.height = 90;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 10000;
         }
