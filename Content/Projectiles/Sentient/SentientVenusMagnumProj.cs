@@ -109,14 +109,11 @@ namespace Spooky.Content.Projectiles.Sentient
 
                     if (Projectile.frame > 3)
                     {
-                        SoundEngine.PlaySound(SoundID.NPCHit21 with { Pitch = 1.25f }, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.NPCHit21 with { Pitch = 1f }, Projectile.Center);
 
                         int ProjType = ProjectileID.Bullet;
-
                         float Speed = 15f;
-
                         float knockBack = ItemGlobal.ActiveItem(player).knockBack;
-
                         player.PickAmmo(ItemGlobal.ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out _);
 
                         ProjType = Main.rand.NextBool(15) ? ModContent.ProjectileType<OozeTooth>() : ModContent.ProjectileType<OozeSmall>();

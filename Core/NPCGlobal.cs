@@ -288,6 +288,10 @@ namespace Spooky.Core
 				{
 					modifiers.FlatBonusDamage += TitanoboaWhipDebuff.tagDamage;
 				}
+				if (npc.HasBuff<EelTagDebuff>())
+				{
+					modifiers.FlatBonusDamage += EelTagDebuff.tagDamage;
+				}
 			}
 
 			//list of every orro & boro segment

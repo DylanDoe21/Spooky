@@ -12,6 +12,8 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(48, 60, 70));
+            DustType = DustID.Iron;
+            HitSound = SoundID.Item52;
         }
     }
 }

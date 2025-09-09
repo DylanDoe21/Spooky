@@ -114,7 +114,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 			}
 			else
 			{
-				SoundEngine.PlaySound(SoundID.ResearchComplete with { Pitch = 1.5f }, Projectile.Center);
+				SoundEngine.PlaySound(SoundID.ResearchComplete with { Pitch = 1f }, Projectile.Center);
 
 				if (!Flags.KrampusQuestlineDone)
 				{

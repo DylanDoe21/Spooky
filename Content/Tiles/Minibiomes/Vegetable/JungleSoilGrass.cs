@@ -59,6 +59,13 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable
 					WorldGen.PlaceObject(i, j + 1, (ushort)ModContent.TileType<JungleVines>(), true);
 					NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
 				}
+
+				//radish
+				if (Main.rand.NextBool(35))
+                {
+                    WorldGen.PlaceObject(i, j + 1, (ushort)ModContent.TileType<RadishHanging>(), true, WorldGen.genRand.Next(0, 2));
+                    NetMessage.SendObjectPlacement(-1, i, j + 1, (ushort)ModContent.TileType<RadishHanging>(), 0, 0, -1, -1);
+                }
             }
 
 			if (!Above.HasTile && Above.TileType != ModContent.TileType<JungleCabbageBoulder>() && Above2.TileType != ModContent.TileType<JungleCabbageBoulder>() &&

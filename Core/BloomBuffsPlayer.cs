@@ -580,7 +580,7 @@ namespace Spooky.Core
                             ShootSpeed.Normalize();
                             ShootSpeed *= 8;
 
-							int Damage = (int)(NPC.damage);
+							int Damage = (int)(NPC.damage / 1.5f);
 
 							Projectile.NewProjectile(null, Player.Center, ShootSpeed, ModContent.ProjectileType<ZucchiniLightning>(), Damage, 3, Player.whoAmI, ShootSpeed.ToRotation());
                         }

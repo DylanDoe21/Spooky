@@ -46,11 +46,17 @@ namespace Spooky.Content.Items.BossBags
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
 			//weapon
-			int[] MainItem1 = new int[] { ModContent.ItemType<EyeFlail>(), ModContent.ItemType<Scycler>(), ModContent.ItemType<EyeRocketLauncher>() };
-			int[] MainItem2 = new int[] { ModContent.ItemType<MouthFlamethrower>(), ModContent.ItemType<LeechStaff>(), ModContent.ItemType<LeechWhip>() };
+			int[] MainItem = new int[] 
+			{ 
+				ModContent.ItemType<EyeFlail>(), 
+				ModContent.ItemType<Scycler>(), 
+				ModContent.ItemType<EyeRocketLauncher>(),
+				ModContent.ItemType<MouthFlamethrower>(), 
+				ModContent.ItemType<LeechStaff>(), 
+				ModContent.ItemType<LeechWhip>() 
+			};
 
-            itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem1));
-            itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem2));
+            itemLoot.Add(ItemDropRule.FewFromOptions(2, 1, MainItem));
 
             //material
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<ArteryPiece>(), 1, 20, 35));

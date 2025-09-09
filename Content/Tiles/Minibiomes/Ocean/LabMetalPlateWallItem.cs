@@ -19,14 +19,12 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 			Item.height = 16;
         }
 
-        /*
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<OceanBiomassWallItem>(), 4)
+            CreateRecipe(4)
+            .AddIngredient(ModContent.ItemType<LabMetalPlateItem>())
             .AddTile(TileID.WorkBenches)
             .Register();
         }
-        */
     }
 }

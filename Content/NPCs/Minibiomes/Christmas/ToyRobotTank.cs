@@ -107,9 +107,17 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
         
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
             NPC.spriteDirection = NPC.direction;
 
-            NPC.localAI[0]++;
+            bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+
+            if (HasLineOfSight || NPC.localAI[0] >= 300)
+            {
+                NPC.localAI[0]++;
+            }
 
             if (NPC.localAI[0] < 300)
             {
@@ -130,6 +138,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 
             if (NPC.localAI[0] >= 300 && NPC.localAI[0] < 360)
             {
+                NPC.velocity.Y = 6;
+
                 int Amount = Main.rand.Next(6, 13);
                 for (int numDusts = 0; numDusts < Amount; numDusts++)
                 {

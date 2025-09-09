@@ -11,7 +11,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable
         {
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(31, 33, 37));
-            DustType = DustID.Dirt;
+            DustType = 109;
         }
     }
 
@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable
         {
             Main.wallHouse[Type] = true;
             AddMapEntry(new Color(31, 33, 37));
-            DustType = DustID.Dirt;
+            DustType = 109;
         }
     }
 }

@@ -17,6 +17,11 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 			Item.rare = ItemRarityID.Blue;
 		}
 
+		public override void UpdateEquip(Player player) 
+		{
+			player.manaCost -= 0.1f;
+		}
+
         public override void AddRecipes()
         {
             CreateRecipe()

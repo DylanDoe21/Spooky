@@ -654,3 +654,8 @@ TitanoboaWhipDebuff: {
 	DisplayName: Titanoboa Whip Debuff
 	Description: ""
 }
+
+EelTagDebuff: {
+	DisplayName: Eel Tag Debuff
+	Description: ""
+}

@@ -36,8 +36,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.value = Item.buyPrice(0, 0, 2, 0);
-            NPC.HitSound = SoundID.Tink with { Volume = 0.75f, Pitch = 1.25f };
-			NPC.DeathSound = SoundID.Shatter with { Pitch = 1.75f };
+            NPC.HitSound = SoundID.Tink with { Volume = 0.75f, Pitch = 1f };
+			NPC.DeathSound = SoundID.Shatter with { Pitch = 1f };
             NPC.aiStyle = 26;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().Type };
         }

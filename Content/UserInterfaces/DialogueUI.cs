@@ -8,6 +8,7 @@ using Terraria.Audio;
 using ReLogic.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -30,6 +31,8 @@ namespace Spooky.Content.UserInterfaces
 		public Texture2D PlayerBoxTex;
 		public Texture2D PlayerBoxMouseTex;
 		public Texture2D PlayerBoxMouseButtonTex;
+		public Texture2D PlayerBoxButtonTex;
+		public Texture2D PlayerBoxButtonATex;
 
 		public override void OnInitialize()
         {
@@ -40,6 +43,8 @@ namespace Spooky.Content.UserInterfaces
 			PlayerBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			PlayerBoxMouseTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerMouse", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			PlayerBoxMouseButtonTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerMouseButton", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			PlayerBoxButtonTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerButton", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			PlayerBoxButtonATex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerButtonA", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
 
         public override void Update(GameTime gameTime)
@@ -113,7 +118,10 @@ namespace Spooky.Content.UserInterfaces
 					BoxTextureToUse = PlayerBoxTex;
 				}
 
-				DrawPanel(spriteBatch, BoxTextureToUse, PlayerBoxMouseTex, PlayerBoxMouseButtonTex, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
+				Texture2D AdvanceTexture = Main.gamePad ? PlayerBoxButtonTex : PlayerBoxMouseTex;
+				Texture2D AdvanceTextureExtra = Main.gamePad ? PlayerBoxButtonATex : PlayerBoxMouseButtonTex;
+
+				DrawPanel(spriteBatch, BoxTextureToUse, AdvanceTexture, AdvanceTextureExtra, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
 
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -456,7 +464,9 @@ namespace Spooky.Content.UserInterfaces
 				}
 			}
 
-			if (textFinished && DialogueUI.DisplayingPlayerResponse && Main.mouseLeft && Main.mouseLeftRelease || !entity.active || IsLastDialogue)
+			bool EndDialogueTrigger = Main.gamePad ? GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed : Main.mouseLeft && Main.mouseLeftRelease;
+
+			if (textFinished && DialogueUI.DisplayingPlayerResponse && EndDialogueTrigger || !entity.active || IsLastDialogue)
 			{
 				if (IsLastDialogue)
 				{

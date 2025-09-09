@@ -472,7 +472,7 @@ namespace Spooky.Core
 				//spawn a stationary smoke cloud with the smoker lung
 				if (SmokerLung && !Player.HasBuff(ModContent.BuffType<SmokerLungCooldown>()))
 				{
-					SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1.2f }, Player.Center);
+					SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1f }, Player.Center);
 
 					Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<CoughSmokeCloud>(), 50, 0f, Player.whoAmI);
 
@@ -761,6 +761,9 @@ namespace Spooky.Core
 
 				float maxAmount = 3;
 				int currentAmount = 0;
+
+                float RandomRotation = MathHelper.ToRadians(Main.rand.NextFloat(0f, 360f));
+
 				while (currentAmount < maxAmount)
 				{
 					Vector2 velocity = new Vector2(3f, 3f);
@@ -770,7 +773,7 @@ namespace Spooky.Core
 					Vector2 vector12 = Vector2.UnitX * 0f;
 					vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
 					vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
-					Vector2 ShootVelocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+					Vector2 ShootVelocity = (velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity).RotatedBy(RandomRotation);
 
 					Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center, ShootVelocity, Main.rand.Next(Types), (int)Damage, 4.5f, Player.whoAmI);
 

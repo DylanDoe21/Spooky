@@ -89,7 +89,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
             {
                 if (NPC.life < NPC.lifeMax || NPC.Distance(player.Center) <= 150)
                 {
-                    SoundEngine.PlaySound(SoundID.Zombie121 with { Pitch = 2.5f, Volume = 0.5f }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie121 with { Pitch = 1f, Volume = 0.5f }, NPC.Center);
                     NPC.ai[1] = 1;
                 }
 

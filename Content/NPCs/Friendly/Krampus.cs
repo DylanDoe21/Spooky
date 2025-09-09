@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.Minibiomes.Christmas;
+using Spooky.Content.Tiles.Pylon;
 using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -66,21 +67,6 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			return false;
 		}
-
-		/*
-		public override bool CanChat() 
-        {
-			return true;
-		}
-
-		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-		{
-			if (firstButton)
-			{
-				Main.npcChatText = "";
-			}
-		}
-		*/
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
@@ -168,6 +154,8 @@ namespace Spooky.Content.NPCs.Friendly
 				{
 					if (Main.mouseRight && Main.mouseRightRelease)
 					{
+						Main.BestiaryTracker.Chats.SetWasChatWithDirectly(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type]);
+
 						PlayerTalkingTo = player;
 
 						if (!Main.dedServ)
@@ -392,6 +380,7 @@ namespace Spooky.Content.NPCs.Friendly
 										.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 										chain.OnPlayerResponseTrigger += PlayerResponse;
 										chain.OnEndTrigger += GivePlayerReward;
+										chain.OnEndTrigger += GivePlayerPylon;
 										chain.OnEndTrigger += SetKrampusQuestlineComplete;
 										chain.OnEndTrigger += EndDialogue;
 										DialogueUI.Visible = true;
@@ -555,6 +544,16 @@ namespace Spooky.Content.NPCs.Friendly
 			if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
 			{
 				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+			}
+		}
+
+		private void GivePlayerPylon(Dialogue dialogue, int ID)
+		{
+			int Pylon = Item.NewItem(NPC.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, ModContent.ItemType<KrampusPylonItem>());
+
+			if (Main.netMode == NetmodeID.MultiplayerClient && Pylon >= 0)
+			{
+				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, Pylon, 1f);
 			}
 		}
 

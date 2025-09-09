@@ -61,7 +61,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 14;
-			NPCID.Sets.TrailCacheLength[NPC.type] = 20;
+			NPCID.Sets.TrailCacheLength[NPC.type] = 10;
 			NPCID.Sets.TrailingMode[NPC.type] = 3;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
@@ -168,12 +168,15 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//draw body
 			Vector2 pos = new Vector2(effects == SpriteEffects.None ? 12 : -12, 7).RotatedBy(NPC.rotation + MathHelper.PiOver2) + NPC.Center;
 			Vector2 drawOrigin = new Vector2(BodyTexture.Width() * 0.5f, (BodyTexture.Height() / 8) * 0.5f);
-			spriteBatch.Draw(BodyTexture.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, NPC.oldRot[NPC.oldPos.Length / 2], drawOrigin, NPC.scale, effects, 0);
+
+			float rotation = NPC.oldRot[NPC.oldPos.Length - 1];
+
+			spriteBatch.Draw(BodyTexture.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, rotation, drawOrigin, NPC.scale, effects, 0);
 
 			//draw extra body texture when its mouth isnt open so it doesnt look odd when rotating while passively swimming
 			if (NPC.ai[1] <= 0 && Aggression <= 0 && !BiteAnimation && !RoarAnimation)
 			{
-				spriteBatch.Draw(BodyTexture2.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, NPC.oldRot[NPC.oldPos.Length - 1], drawOrigin, NPC.scale, effects, 0);
+				spriteBatch.Draw(BodyTexture2.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, rotation, drawOrigin, NPC.scale, effects, 0);
 			}
 
 			//draw head and glowmask
@@ -606,7 +609,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						if (NPC.Distance(PositionGoTo) > 150f)
 						{
-							PathfindingMovement(PositionGoTo, 2.2f, 20, 7000, false);
+							PathfindingMovement(PositionGoTo, 2.65f, 20, 7000, false);
 							NPC.noTileCollide = true;
 						}
 						else

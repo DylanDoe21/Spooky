@@ -23,7 +23,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 			Projectile.height = 20;
 			Projectile.friendly = true;
 			Projectile.tileCollide = true;
-			Projectile.timeLeft = 420;
+			Projectile.timeLeft = 180;
             Projectile.penetrate = 1;
             Projectile.aiStyle = -1;
 		}
@@ -101,6 +101,27 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void OnKill(int timeLeft)
 		{
+            float maxAmount = 3;
+            int currentAmount = 0;
+
+            float RandomRotation = MathHelper.ToRadians(Main.rand.NextFloat(0f, 360f));
+
+            while (currentAmount < maxAmount)
+            {
+                Vector2 velocity = new Vector2(2f, 2f);
+                Vector2 Bounds = new Vector2(1f, 1f);
+                float intensity = 3f;
+
+                Vector2 vector12 = Vector2.UnitX * 0f;
+                vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+                vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+                Vector2 ShootVelocity = (velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity).RotatedBy(RandomRotation);
+
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootVelocity, ModContent.ProjectileType<DaffodilRodPetal>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+
+                currentAmount++;
+            }
+
         	for (int numDusts = 0; numDusts < 25; numDusts++)
 			{                                                                                  
 				int newDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);

@@ -46,7 +46,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 			if (Projectile.soundDelay == 0 && ActualSpeed > 2)
 			{
 				Projectile.soundDelay = 15;
-				SoundEngine.PlaySound(SoundID.Item7, Projectile.position);
+				SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
 			}
 
 			Projectile.ai[0]++;

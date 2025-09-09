@@ -128,10 +128,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[3]];
 
-			//bool Enraged = Parent.localAI[3] > 0;
-
 			//based on the head segment that the wing segment belongs to, set the wings to fold back whenever the head segment this belongs to is using a charging attack
-			//probably doesnt looks nice but whatever, it works
+			//this is very badly hardcoded, but it works so whatever
 			if (Parent.active)
 			{
 				if (Parent.type == ModContent.NPCType<BoroHead>())
@@ -160,6 +158,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 					{
 						IsHeadSegmentCharging = true;
 					}
+					else if (Parent.ai[0] == 6 && Parent.localAI[0] >= 140 && Parent.localAI[0] <= 260)
+					{
+						IsHeadSegmentCharging = true;
+					}
 					else
 					{
 						IsHeadSegmentCharging = false;
@@ -179,6 +181,10 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 						IsHeadSegmentCharging = true;
 					}
 					else if (Parent.ai[0] == 3 && Parent.localAI[0] >= 210 && Parent.localAI[0] <= 260)
+					{
+						IsHeadSegmentCharging = true;
+					}
+					else if (Parent.ai[0] == 6 && Parent.localAI[0] >= 140 && Parent.localAI[0] <= 200)
 					{
 						IsHeadSegmentCharging = true;
 					}

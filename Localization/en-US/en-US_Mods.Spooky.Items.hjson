@@ -38,7 +38,6 @@ CemeteryLily: {
 		'''
 		Cuts your maximum health down to a third and gives you 2 revives
 		Upon death you will loose a revive and gain stat buffs for 15 seconds
-		After loosing all revives, this bloom's effect will be removed from you
 		3 minute duration
 		'''
 }
@@ -468,7 +467,11 @@ PumpkinSpiceLatte: {
 
 SpiritAmulet: {
 	DisplayName: Spirit Amulet
-	Tooltip: Sometimes summon friendly cemetery ghosts when you attack enemies
+	Tooltip:
+		'''
+		Sometimes summon friendly cemetery ghosts when you attack enemies
+		The damage the ghosts deal scales based on how much damage you did
+		'''
 }
 
 BossBagBigBone: {
@@ -1479,17 +1482,17 @@ SharkBoneLegs: {
 
 YuletideBody: {
 	DisplayName: Yuletide Wood Chestplate
-	Tooltip: ""
+	Tooltip: 10% reduced mana usage
 }
 
 YuletideHead: {
 	DisplayName: Yuletide Wood Mask
-	Tooltip: ""
+	Tooltip: 10% increased magic damage
 }
 
 YuletideLegs: {
 	DisplayName: Yuletide Wood Shoes
-	Tooltip: ""
+	Tooltip: 20% increased magic weapon speed
 }
 
 CursedDoll: {
@@ -1766,6 +1769,17 @@ BoomerangFishMetal: {
 		'''
 }
 
+CrustyGunfish: {
+	DisplayName: Crusty Gunfish
+	Tooltip: 
+		'''
+		Converts bullets into a spray of dirty mud
+		Every 5 uses you will throw the gun, causing it to shoot mud everywhere
+		It will still use bullets every time it shoots when in the air
+		'For some reason, this aeon-old creature smells like speculoos'
+		'''
+}
+
 DavyJonesFridge: {
 	DisplayName: Davy Jones' Fridge
 	Tooltip: Rapidly casts out live fish from the ocean
@@ -1793,6 +1807,15 @@ DunkleosteusCannon: {
 DunkleosteusHide: {
 	DisplayName: Rotten Hide
 	Tooltip: A sturdy chunk of big dunk's flesh
+}
+
+EelSushi: {
+	DisplayName: Good Sushi
+	Tooltip:
+		'''
+		10 summon tag damage
+		Channel to control a giant eel that follows your cursor
+		'''
 }
 
 FishboneChunk: {
@@ -4013,6 +4036,16 @@ LabMetalPipeItem: {
 	Tooltip: ""
 }
 
+LabMetalPlateCleanItem: {
+	DisplayName: Metal Plating
+	Tooltip: ""
+}
+
+LabMetalPlateCleanWallItem: {
+	DisplayName: Metal Plating Wall
+	Tooltip: ""
+}
+
 LabMetalPlateItem: {
 	DisplayName: Rusted Plating
 	Tooltip: ""
@@ -4657,6 +4690,15 @@ CemeteryPylonItem: {
 		'''
 }
 
+KrampusPylonItem: {
+	DisplayName: Krampus' Home-made Pylon
+	Tooltip:
+		'''
+		This pylon can be teleported to regardless of how many villagers are nearby it
+		You can only place one per type and in the matching biome
+		'''
+}
+
 SpiderCavePylonItem: {
 	DisplayName: Spider Grotto Pylon
 	Tooltip:
@@ -4990,6 +5032,11 @@ GlowshroomYellowTableItem: {
 
 GlowshroomYellowWorkBenchItem: {
 	DisplayName: Yellow Glowshroom Work Bench
+	Tooltip: ""
+}
+
+LittleBoneStatueItem: {
+	DisplayName: Little Bone Statue
 	Tooltip: ""
 }
 

@@ -202,8 +202,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
             }
 
-            //NPC.localAI[3] = !NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) ? 1 : 0;
-            //bool Enraged = NPC.localAI[3] > 0;
+            //enraged behavior
+            if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
+            {
+                if (NPC.ai[0] != 6)
+                {
+                    NPC.ai[0] = 6;
+                    NPC.localAI[0] = 0;
+                }
+            }
 
             //Make the worm itself
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -727,9 +734,79 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     break;
                 }
 
-                //enraged behavior: go to position, fire off mini-gun of spit, then charge, and repeat
+                //enraged behavior
                 case 6:
                 {
+                    NPC.localAI[0]++;
+
+                    //chase movement
+                    Vector2 GoTo = player.Center;
+                    float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 6f);
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                    if (NPC.localAI[0] == 60)
+                    {
+                        OpenMouth = true;
+                    }
+
+                    //shoot spit when nearby the player
+                    if (NPC.localAI[0] >= 60 && NPC.localAI[0] <= 120)
+                    {
+                        NPC.velocity *= 0.95f;
+
+                        if (NPC.localAI[0] % 12 == 0)
+                        {
+                            SoundEngine.PlaySound(SpitSound, NPC.Center);
+
+                            for (int numProjectiles = 0; numProjectiles <= 2; numProjectiles++)
+                            {
+                                Vector2 ShootSpeed = new Vector2(player.Center.X, player.Center.Y + Main.rand.Next(-50, 50)) - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed.X *= Main.rand.Next(6, 13);
+                                ShootSpeed.Y *= Main.rand.Next(6, 13);
+
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + NPC.velocity.X * 0.5f, NPC.Center.Y + NPC.velocity.Y * 0.5f), 
+                                ShootSpeed, ModContent.ProjectileType<EyeSpit>(), NPC.damage, 4.5f);
+                            }
+                        }
+                    }
+
+                    if (NPC.localAI[0] == 125)
+                    {
+                        SavePlayerPosition = player.Center;
+
+                        NPC.netUpdate = true;
+                    }
+
+                    if (NPC.localAI[0] > 125 && NPC.localAI[0] < 140)
+                    {
+                        DefaultRotation = false;
+
+                        NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
+                        NPC.Center += Main.rand.NextVector2Square(-10, 10);
+                    }
+
+                    if (NPC.localAI[0] == 140)
+                    {
+                        DefaultRotation = true;
+
+                        SoundEngine.PlaySound(HissSound2, NPC.Center);
+
+                        Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
+                        ChargeDirection.Normalize();
+                        ChargeDirection *= 65;
+                        NPC.velocity = ChargeDirection;
+                    }
+
+                    if (NPC.localAI[0] >= 200)
+                    {
+                        OpenMouth = false;
+                        NPC.velocity *= 0.98f;
+
+                        NPC.localAI[0] = 0;
+                        NPC.netUpdate = true;
+                    }
+
                     break;
                 }
             }

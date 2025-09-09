@@ -596,6 +596,10 @@ RobotOvenProj.DisplayName: Easy Bake Oven
 RobotOvenFire.DisplayName: Oven Flames
 StomachBile.DisplayName: Bile Glob
 BileGlobProj.DisplayName: Bile Glob
-AmuletGhost2.DisplayName: Amulet Ghost2
-AmuletGhost3.DisplayName: Amulet Ghost3
 AmuletGhost.DisplayName: Amulet Ghost
+ZombieEelBody.DisplayName: Zombie Eel
+ZombieEelHead.DisplayName: Zombie Eel
+ZombieEelTail.DisplayName: Zombie Eel
+DaffodilRodPetal.DisplayName: Sunflower Petal
+MudSplatter.DisplayName: Mud Splatter
+CrustyGunfishProj.DisplayName: Crusty Gunfish

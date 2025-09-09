@@ -39,7 +39,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 		public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
 			Projectile.ai[0] = 5;
 			ActualSpeed = -ActualSpeed;

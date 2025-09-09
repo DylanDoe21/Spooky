@@ -140,7 +140,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
             if (NPC.localAI[0] == 480)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1.2f }, NPC.Center);
+                SoundEngine.PlaySound(SoundID.NPCHit27 with { Pitch = -1f }, NPC.Center);
 
                 //spawn splatter
                 for (int i = 0; i < 6; i++)

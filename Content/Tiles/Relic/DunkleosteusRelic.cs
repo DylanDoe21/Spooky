@@ -71,7 +71,7 @@ namespace Spooky.Content.Tiles.Relic
 			}
 
 			SoundEngine.PlaySound(PlaceSound with { Pitch = soundPitch }, new Vector2(i * 16, j * 16));
-			SoundEngine.PlaySound(SoundID.ResearchComplete with { Pitch = 1.5f }, new Vector2(i * 16, j * 16));
+			SoundEngine.PlaySound(SoundID.ResearchComplete with { Pitch = 1f }, new Vector2(i * 16, j * 16));
 
 			for (int numGores = 1; numGores <= maxConfetti; numGores++)
 			{

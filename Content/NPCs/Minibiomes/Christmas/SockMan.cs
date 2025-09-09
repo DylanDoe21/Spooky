@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 			NPC.height = 50;
             NPC.npcSlots = 0.5f;
             NPC.noGravity = true;
-			NPC.HitSound = SoundID.DD2_GoblinScream with { Pitch = 1.25f, Volume = 0.4f };
+			NPC.HitSound = SoundID.DD2_GoblinScream with { Pitch = 1f, Volume = 0.4f };
             NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().Type };

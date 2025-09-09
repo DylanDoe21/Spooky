@@ -202,8 +202,15 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 				}
 			}
 
-            //NPC.localAI[3] = !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) ? 1 : 0;
-            //bool Enraged = NPC.localAI[3] > 0;
+            //enraged behavior
+            if (!NPC.AnyNPCs(ModContent.NPCType<OrroHead>()))
+            {
+                if (NPC.ai[0] != 6)
+                {
+                    NPC.ai[0] = 6;
+                    NPC.localAI[0] = 0;
+                }
+            }
 
             //Make the worm itself
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -802,9 +809,61 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     break;
                 }
 
-                //enraged behavior: fire off blood globs at the player, then follow the player slowly, attempt to charge, and repeat
+                //enraged behavior
                 case 6:
                 {
+                    NPC.localAI[0]++;
+
+                    //chase movement
+                    if (NPC.localAI[0] < 140)
+                    {
+                        Vector2 GoTo = player.Center;
+                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 6f);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+
+                        if (NPC.localAI[0] == 75 || NPC.localAI[0] == 85 || NPC.localAI[0] == 95)
+                        {
+                            SoundEngine.PlaySound(SpitSound, NPC.Center);
+
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed.X *= Main.rand.Next(4, 13);
+                            ShootSpeed.Y *= Main.rand.Next(4, 13);
+
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + NPC.velocity.X, NPC.Center.Y + NPC.velocity.Y),
+                            ShootSpeed, ModContent.ProjectileType<BoroBiomatter>(), NPC.damage, 4.5f);
+                        }
+                    }
+
+                    //charge a bunch of times
+                    if (NPC.localAI[0] >= 140 && NPC.localAI[0] <= 260)
+                    {
+                        if (NPC.localAI[0] % 30 == 0)
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
+
+                            Vector2 ChargeDirection = player.Center - NPC.Center;
+                            ChargeDirection.Normalize();
+                                    
+                            ChargeDirection.X *= 28 + Main.rand.Next(-4, 5);
+                            ChargeDirection.Y *= 28 + Main.rand.Next(-4, 5);
+                            NPC.velocity.X = ChargeDirection.X;
+                            NPC.velocity.Y = ChargeDirection.Y;
+
+                            NPC.netUpdate = true;
+                        }
+                        else
+                        {
+                            NPC.velocity *= 0.92f;
+                        }
+                    }
+
+                    if (NPC.localAI[0] >= 280)
+                    {
+                        NPC.localAI[0] = 0;
+                        NPC.netUpdate = true;
+                    }
+                                  
                     break;
                 }
             }
