@@ -1771,7 +1771,7 @@ BoomerangFishMetal: {
 
 CrustyGunfish: {
 	DisplayName: Crusty Gunfish
-	Tooltip: 
+	Tooltip:
 		'''
 		Converts bullets into a spray of dirty mud
 		Every 5 uses you will throw the gun, causing it to shoot mud everywhere
