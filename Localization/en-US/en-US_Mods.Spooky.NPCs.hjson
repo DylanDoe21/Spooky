@@ -439,6 +439,7 @@ RollingPepper.DisplayName: Spicy Jalapeno
 RottenCarrot.DisplayName: Rotten Carrot
 //rotten depths
 Dunkleosteus.DisplayName: Big Dunk
+LittleDunk.DisplayName: Lil' Dunk
 SkeletonFish.DisplayName: Skeletoid Fish
 SkeletonPiranha.DisplayName: Skeletoid Piranha
 SkeletonGar.DisplayName: Skeletoid Gar
@@ -470,14 +471,8 @@ TeddyBearGiant.DisplayName: Cornelius
 TeddyBearSnow.DisplayName: Snow Bear
 ToyRobot.DisplayName: Toy Robot
 ToyRobotTank.DisplayName: Toy Tankbot
-
 //tameable
-Crow: {
-	DisplayName: Crow
-	State1: Crow is Roaming
-	State2: Crow is Following
-	State3: Crow is Staying
-}
+Crow.DisplayName: Crow
 
 Turkey: {
 	DisplayName: Turkey

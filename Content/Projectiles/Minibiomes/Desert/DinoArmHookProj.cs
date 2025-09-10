@@ -20,10 +20,9 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
 		public override void SetDefaults() 
         {
-			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst); // Copies the attributes of the Amethyst hook's projectile.
+			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
 		}
 
-		// Use this hook for hooks that can have multiple hooks mid-flight: Dual Hook, Web Slinger, Fish Hook, Static Hook, Lunar Hook.
 		public override bool? CanUseGrapple(Player player) 
         {
 			int hooksOut = 0;
@@ -63,7 +62,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 		    }
 		}
 
-		// Amethyst Hook is 300, Static Hook is 600.
 		public override float GrappleRange() 
         {
 			return 500f;
@@ -71,20 +69,19 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
 		public override void NumGrappleHooks(Player player, ref int numHooks) 
         {
-			numHooks = 2; // The amount of hooks that can be shot out
+			numHooks = 2;
 		}
 
 		public override void GrappleRetreatSpeed(Player player, ref float speed) 
         {
-			speed = 18f; // How fast the grapple returns to you after meeting its max shoot distance
+			speed = 18f;
 		}
 
 		public override void GrapplePullSpeed(Player player, ref float speed) 
         {
-			speed = 10; // How fast you get pulled to the grappling hook projectile's landing position
+			speed = 10;
 		}
 
-		// Adjusts the position that the player will be pulled towards. This will make them hang 50 pixels away from the tile being grappled.
 		public override void GrappleTargetPoint(Player player, ref float grappleX, ref float grappleY) 
         {
 			Vector2 dirToPlayer = Projectile.DirectionTo(player.Center);
@@ -93,26 +90,23 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			grappleY += dirToPlayer.Y * hangDist;
 		}
 
-		// Can customize what tiles this hook can latch onto, or force/prevent latching altogether, like Squirrel Hook also latching to trees
 		public override bool? GrappleCanLatchOnTo(Player player, int x, int y)
         {
-			// By default, the hook returns null to apply the vanilla conditions for the given tile position (this tile position could be air or an actuated tile!)
-			// If you want to return true here, make sure to check for Main.tile[x, y].HasUnactuatedTile (and Main.tileSolid[Main.tile[x, y].TileType] and/or Main.tile[x, y].HasTile if needed)
-
-			// We make this hook latch onto trees just like Squirrel Hook
-
-			// Tree trunks cannot be actuated so we don't need to check for that here
 			Tile tile = Main.tile[x, y];
 			if (TileID.Sets.IsATreeTrunk[tile.TileType] || tile.TileType == TileID.PalmTree) 
             {
 				return true;
 			}
 
-			// In any other case, behave like a normal hook
+			//prevent hook from grappling out of the world
+			if (!WorldGen.InWorld(x, y, 2))
+			{
+				return false;
+			}
+
 			return null;
 		}
 
-		// Draws the grappling hook's chain.
 		public override bool PreDrawExtras() 
         {
 			Vector2 playerCenter = Main.player[Projectile.owner].MountedCenter;
@@ -123,11 +117,11 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
 			while (distanceToPlayer > 20f && !float.IsNaN(distanceToPlayer)) 
             {
-				directionToPlayer /= distanceToPlayer; // get unit vector
-				directionToPlayer *= chainTexture.Height(); // multiply by chain link length
+				directionToPlayer /= distanceToPlayer; 
+				directionToPlayer *= chainTexture.Height(); 
 
-				center += directionToPlayer; // update draw position
-				directionToPlayer = playerCenter - center; // update distance
+				center += directionToPlayer;
+				directionToPlayer = playerCenter - center; 
 				distanceToPlayer = directionToPlayer.Length();
 
 				Color drawColor = Lighting.GetColor((int)center.X / 16, (int)(center.Y / 16));

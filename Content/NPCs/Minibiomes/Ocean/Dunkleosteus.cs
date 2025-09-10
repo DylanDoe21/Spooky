@@ -64,6 +64,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPCID.Sets.TrailCacheLength[NPC.type] = 10;
 			NPCID.Sets.TrailingMode[NPC.type] = 3;
 			NPCID.Sets.CantTakeLunchMoney[Type] = true;
+			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
@@ -72,8 +73,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
                 PortraitPositionXOverride = -70f,
                 PortraitPositionYOverride = 10f
             };
-
-			NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)
@@ -130,7 +129,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPC.behindTiles = true;
 			NPC.immortal = true;
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
-			NPC.DeathSound = RoarSound with { Pitch = -1.2f };
+			NPC.DeathSound = RoarSound with { Pitch = -1f };
 			NPC.aiStyle = -1;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ZombieOceanBiome>().Type };
 		}

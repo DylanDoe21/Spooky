@@ -76,7 +76,7 @@ Chester: The strongest soul in pandora's box, it wields an unusually powerful cl
 BloatGhost: Very easy to frighten ghosts that puff up when someone gets too close. They can be hazardous when large groups of them are approached.
 FeralRat1: During a blood moon, normally hidden rats wandering around the cemetery get turned into hideous monsters that will chase down anything they see.
 FeralRat2: Giant rabid rodents that quickly scurry across the cemetery during the red moon, attacking anything in their path.
-HungryGhost: A very lazy ghost that floats around the cemetery. Despite it trying to eat living things, its ghostly body allows any living creature to slip through it.
+HungryGhost: A very lazy ghost that waits around until someone or something approaches so it can eat it. It is much faster than it looks!
 MistGhost: Sometimes grave robbing can have deadly results. These ghosts do not like their burials being disturbed, and will attack anyone who does so.
 MistGhostFaces: An amalgamation of souls combined into one after being buried in the cemetery. Their graves being messed with disturbs them and causes this fusion.
 MistGhostSwirl: Erratic ghosts unleashed from their graves, they move around in hypnotic patterns to confuse those who disturb them.
@@ -104,7 +104,7 @@ HoverBrain: A large brain with psychic power that can fire out beams to mess wit
 TongueBiter: A mutated tongue with a large mouth for clamping down on prey. It can use the many tubes coming off of its back as boosters to propel itself through the air.
 //friendly town npcs
 DumbZomboid: A zomboid that got lost. It does not know how to read. Or think.
-Krampus: The real krampus. A lazy yet incomprehensibly powerful demon who created a labyrinth-like workshop deep in the underground tundra. Though he could use his powers to cause wide-spread misfortune, he prefers to try and create toys to spread christmas cheer. Though he seems to having a bit of a difficult time doing that...
+Krampus: The real krampus. A lazy yet incomprehensibly powerful demon who created a labyrinth-like workshop deep in the underground tundra. He could use his powers to cause wide-spread misfortune, he prefers to try and create toys to spread christmas cheer. Though he seems to having a bit of a difficult time doing that.
 LittleBone: A friendly skull plant creature who hangs around in his flower pot. He likes to give advice to passerbys.
 LittleEye: A strange sentient eye stalk with a cool wizard hat. A decently experienced alchemist who prefers using his skills to mess with others, but can be helpful at times.
 Musicman: Alien scientist gone rogue, Musicman has become your personal DJ. He looks like he's trying to communicate...
@@ -214,7 +214,7 @@ WhipSpider: These creatures are actually more related to crustaceans than spider
 NoseBallPurple: A large amalgam of noses fused together with the cult leader's magic. They can jump around off of surfaces by blowing air out of their many noses.
 NoseBallRed: Created by Noseferatu, they chaotically propel themselves around to serve as a distraction. They are formed using parts of other cultists who willingly sacrificed themselves.
 NoseCultistGrunt: Members of the nose cult, they are extremely devoted to their rituals. They also have a constant runny nose which they can use against their enemies.
-NoseCultistGunner: Armed with the cult's own creation, the booger blaster. An important weapon to the cultists, who claim to recive holy telephathic messages from them.
+NoseCultistGunner: Armed with the cult's own creation, the booger blaster. An important weapon to the cultists, who claim to recive holy telepathic messages from them.
 NoseCultistWinged: Higher ups in the cult have mutated and grown wings, which can quickly carry them through the air. They are seen as divine due to this unique ability to fly, like the one they worship.
 NoseCultistMage: Seen as much higher above the grunts of the cult, these cultists are larger and can summon reinforcements with their magical snot.
 NoseCultistBrute: Once grunt cultists, they have been blessed with divine snot magic, turning them into mindless and powerful brutes. Their sticky snot flail takes no effort for them to swing around.
@@ -253,6 +253,7 @@ RollingPepper: Their bodies contain immense heat, which they can channel into en
 RottenCarrot: Hiding in the ground, unsuspecting explorers will be covered in the nasty goo they spit out if they dare to get too close!
 //rotten depths
 Dunkleosteus: An ancient prehistoric fish brought back to life by strange scientists. After breaking containment and destroying everything in its path, the once fruitful study area in the depths is now rotten and infected after a strange zombie plague was released during the destruction.
+LittleDunk: A baby dunkleosteus. It seems to imprint on whoever raises it. It will bring any items it finds to humans when fed its favorite meal.
 SkeletonBoomerang: These small fish didn't have fins while alive, and still don't. They move through the water by waving their entire body back and fourth.
 SkeletonFish: The remains of a collection of many different species of fish, forced to 'live' in fear until the end of time.
 SkeletonGar: A gar that was torn to shreds by an unnatural predator. Despite this, its remains stay tied to each other through a sheer will to survive despite the futility.

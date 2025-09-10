@@ -116,7 +116,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.spriteDirection = NPC.direction;
             
             bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
-            if (player.Distance(NPC.Center) > 400f && HasLineOfSight)
+            if (player.Distance(NPC.Center) > 400f || !HasLineOfSight)
             {
                 NPC.localAI[0] = 0;
 

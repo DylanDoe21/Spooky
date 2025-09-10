@@ -17,7 +17,6 @@ EyeBeamTelegraph.DisplayName: Telegraph
 EyeBolt.DisplayName: Eye Bolt
 PhantomBomb.DisplayName: Skull Bomb
 PhantomExplosion.DisplayName: Phantom Explosion
-PhantomSeed.DisplayName: Phantom Seed
 PhantomSkullProj.DisplayName: Phantom Skull
 CruxAura.DisplayName: Crux Aura
 SalivaBall.DisplayName: Toxic Spit
@@ -603,3 +602,4 @@ ZombieEelTail.DisplayName: Zombie Eel
 DaffodilRodPetal.DisplayName: Sunflower Petal
 MudSplatter.DisplayName: Mud Splatter
 CrustyGunfishProj.DisplayName: Crusty Gunfish
+Phantom.DisplayName: Phantom

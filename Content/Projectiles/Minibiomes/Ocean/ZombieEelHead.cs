@@ -84,6 +84,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
+            Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
 			target.AddBuff(ModContent.BuffType<EelTagDebuff>(), 240);
         }
 
@@ -98,7 +99,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
             if (Projectile.owner == Main.myPlayer && Projectile.Distance(Main.MouseWorld) >= 50f)
             {
-                Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 9;
+                Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 10;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
             }
 

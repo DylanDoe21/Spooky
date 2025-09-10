@@ -12,6 +12,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable
             Main.wallHouse[Type] = false;
             AddMapEntry(new Color(18, 56, 23));
             DustType = DustID.Grass;
+            HitSound = SoundID.Grass;
         }
     }
 

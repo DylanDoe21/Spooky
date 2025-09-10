@@ -203,12 +203,18 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             }
 
             //enraged behavior
-            if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) && NPC.localAI[3] > 0)
+            if (!NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
             {
-                if (NPC.ai[0] != 6)
+                NPC.localAI[3]++;
+                if (NPC.ai[0] != 6 && NPC.localAI[3] > 5)
                 {
+                    Chomp = false;
+                    OpenMouth = false;
+
                     NPC.ai[0] = 6;
                     NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
                 }
             }
 
@@ -774,6 +780,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     if (NPC.localAI[0] == 125)
                     {
                         SavePlayerPosition = player.Center;
+                        SaveNPCPosition = NPC.Center;
 
                         NPC.netUpdate = true;
                     }

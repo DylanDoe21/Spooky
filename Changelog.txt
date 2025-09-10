@@ -92,6 +92,7 @@ Other Random Additions:
 -Added turkies to the spooky forest that can be tamed with rotten seeds
 -Chalupo is back and better than ever
 -Added new enemy to the egg incursion, tummy-achers, with a useful new drop you can get from them
+-Added a few new angler quest fishes
 -And of course all of the new weapons, armors, enemies, and various other pieces of content added to each new biome in this update!
 
 

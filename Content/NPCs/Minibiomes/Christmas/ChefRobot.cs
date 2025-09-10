@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
     {
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle DingSound = new("Spooky/Content/Sounds/ChefRobotDing", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle DingSound = new("Spooky/Content/Sounds/ChefRobotDing", SoundType.Sound) { PitchVariance = 0.2f };
 
         public override void SetStaticDefaults()
         {

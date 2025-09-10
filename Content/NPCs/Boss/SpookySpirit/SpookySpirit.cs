@@ -419,7 +419,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
                             NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60)), 
-                            new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f)), ModContent.ProjectileType<PhantomSeed>(), NPC.damage, 3f);
+                            new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f)), ModContent.ProjectileType<Phantom>(), NPC.damage, 3f);
                         }
                     }
 
@@ -798,7 +798,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                             ShootSpeed = ShootSpeed * -5;
 
                             NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X + Main.rand.Next(-60, 60), NPC.Center.Y + Main.rand.Next(-60, 60)), 
-                            ShootSpeed, ModContent.ProjectileType<PhantomSeed>(), NPC.damage, 4.5f);
+                            ShootSpeed, ModContent.ProjectileType<Phantom>(), NPC.damage, 4.5f);
                         }
                     }
                     //make spirit visible again after spin attack

@@ -66,10 +66,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 				for (int numProjs = 0; numProjs < 5; numProjs++)
 				{
 					Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * Main.rand.NextFloat(30f, 150f);
-					if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-					{
-						position += muzzleOffset;
-					}
+					position += muzzleOffset;
 
 					Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(16));
 

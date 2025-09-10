@@ -176,7 +176,6 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
             {
                 NPC.ai[0] = Orro.ai[0];
                 NPC.localAI[0] = Orro.localAI[0];
-                Orro.localAI[3] = 1;
             }
 
             NPC.TargetClosest(true);
@@ -210,6 +209,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     NPC.ai[0] = 6;
                     NPC.localAI[0] = 0;
+                    NPC.localAI[1] = 0;
+                    NPC.localAI[2] = 0;
                 }
             }
 

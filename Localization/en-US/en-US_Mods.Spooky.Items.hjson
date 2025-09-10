@@ -1723,7 +1723,7 @@ TarFeatherTome: {
 
 TarGun: {
 	DisplayName: HAK-2r
-	Tooltip: Converts bullets into tar spit blobs
+	Tooltip: Converts bullets into tar blobs
 }
 
 TarSurpriseEgg: {
@@ -1814,6 +1814,7 @@ EelSushi: {
 	Tooltip:
 		'''
 		10 summon tag damage
+		Your summons will focus stuck enemies
 		Channel to control a giant eel that follows your cursor
 		'''
 }
