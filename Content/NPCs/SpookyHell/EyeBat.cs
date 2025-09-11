@@ -134,10 +134,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                 Vector2 ChargeDirection = player.Center - NPC.Center;
                 ChargeDirection.Normalize();
                         
-                ChargeDirection.X *= 25;
+                ChargeDirection.X *= 13;
                 NPC.velocity.X = ChargeDirection.X;
-
-                NPC.velocity.Y *= 0.2f;
             }
 
             if (NPC.localAI[0] >= 270)

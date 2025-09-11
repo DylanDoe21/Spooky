@@ -134,7 +134,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                 Vector2 ChargeDirection = player.Center - NPC.Center;
                 ChargeDirection.Normalize();
                         
-                ChargeDirection.X *= 25;
+                ChargeDirection.X *= 18;
                 NPC.velocity.X = ChargeDirection.X;
             }
 
