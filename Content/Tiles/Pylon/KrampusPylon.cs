@@ -25,8 +25,6 @@ namespace Spooky.Content.Tiles.Pylon
 
     public class KrampusPylon : ModPylon
 	{
-		int SoundTimer = 0;
-
 		public const int CrystalVerticalFrameCount = 8;
 
 		public Asset<Texture2D> crystalTexture;
@@ -61,6 +59,11 @@ namespace Spooky.Content.Tiles.Pylon
             AddMapEntry(Color.Teal, name);
             DustType = -1;
 		}
+
+		public override NPCShop.Entry GetNPCShopEntry()
+        {
+            return null;
+        }
 
 		public override bool ValidTeleportCheck_NPCCount(TeleportPylonInfo pylonInfo, int defaultNecessaryNPCCount) 
 		{
