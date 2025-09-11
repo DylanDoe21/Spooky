@@ -137,6 +137,7 @@ Magic:
 Summon:
 -Buffed spooky scroll damage from 15 to 20
 -Increased enemy detection range for the swarm scepter leech minions
+-Brain in a jar damage buffed to 350, reworked brainy explosions to look nicer
 -Spore smacker damage nerfed from 15 to 8 and it now has 3 summon tag damage
 -Cat o' nine tails now has 5 summon tag damage
 -Licker now has 7 summon tag damage
