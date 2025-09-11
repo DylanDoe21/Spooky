@@ -152,7 +152,7 @@ namespace Spooky.Content.NPCs.Friendly
 				if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) &&
 				NPC.Distance(player.Center) <= 150f && !Main.mapFullscreen && Main.myPlayer == player.whoAmI)
 				{
-					if (Main.mouseRight && Main.mouseRightRelease)
+					if (Main.mouseRight && Main.mouseRightRelease && !DialogueUI.Visible)
 					{
 						Main.BestiaryTracker.Chats.SetWasChatWithDirectly(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type]);
 
@@ -161,7 +161,7 @@ namespace Spooky.Content.NPCs.Friendly
 						if (!Main.dedServ)
 						{
 							if (!Flags.KrampusQuestGiven)
-							{ 
+							{
 								//main questline dialogue stuff
 								if (!Flags.KrampusQuestlineDone)
 								{
