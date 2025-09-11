@@ -160,6 +160,19 @@ namespace Spooky.Content.Projectiles.SpookyHell
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Proj.Center, Vector2.Zero, 
                         ModContent.ProjectileType<BrainyExplosion>(), Projectile.damage + Proj.damage, 0f, Projectile.owner);
 
+                        for (int numDusts = 0; numDusts < 15; numDusts++)
+                        {
+                            int dust = Dust.NewDust(Proj.position, Proj.width, Proj.height, 182, 0f, 0f, 100, default, 2f);
+                            Main.dust[dust].velocity *= 35f;
+                            Main.dust[dust].noGravity = true;
+
+                            if (Main.rand.NextBool(2))
+                            {
+                                Main.dust[dust].scale = 0.5f;
+                                Main.dust[dust].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                            }
+                        }
+
                         Proj.Kill();
                     }
                 }
