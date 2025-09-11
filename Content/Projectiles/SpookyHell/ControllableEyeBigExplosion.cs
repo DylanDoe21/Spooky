@@ -1,41 +1,69 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
+using ReLogic.Content;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
     public class ControllableEyeBigExplosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 7;
-        }
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetDefaults()
         {
-            Projectile.width = 98;
-            Projectile.height = 98;
+            Projectile.width = 150;
+            Projectile.height = 150;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 100;
+            Projectile.timeLeft = 600;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override bool PreDraw(ref Color lightColor)
         {
-            target.immune[Projectile.owner] = 7;
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+
+            Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+            Color color1 = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.Blue);
+            Color color2 = new Color(125 - Projectile.alpha, 125 - Projectile.alpha, 125 - Projectile.alpha, 0).MultiplyRGBA(Color.White);
+
+            for (int i = 0; i < 360; i += 90)
+            {
+                Vector2 circular = new Vector2(Main.rand.NextFloat(1f, 2f), Main.rand.NextFloat(1f, 2f)).RotatedBy(MathHelper.ToRadians(i));
+
+                Main.EntitySpriteDraw(ProjTexture.Value, vector + circular, rectangle, color1, Projectile.rotation, drawOrigin, Projectile.ai[0] / 37, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, vector + circular, rectangle, color2, Projectile.rotation, drawOrigin, (Projectile.ai[0] / 37) * 0.75f, SpriteEffects.None, 0);
+            }
+
+            return false;
         }
 
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+    
         public override void AI()
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 3)
+            if (Projectile.ai[0] < 74)
             {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
-                if (Projectile.frame >= 7)
+                Projectile.ai[0] += 20;
+            }
+            else
+            {
+                Projectile.alpha += 25;
+
+                if (Projectile.alpha >= 255)
                 {
-                    Projectile.frame = 0;
                     Projectile.Kill();
                 }
             }

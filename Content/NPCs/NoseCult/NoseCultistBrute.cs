@@ -48,7 +48,7 @@ namespace Spooky.Content.NPCs.NoseCult
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 20, 0);
-            NPC.HitSound = SoundID.NPCHit48 with { Pitch = -2f };
+            NPC.HitSound = SoundID.NPCHit48 with { Pitch = -1f };
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 3;
 			AIType = NPCID.Crab;
