@@ -62,6 +62,7 @@ namespace Spooky.Content.Tiles.Pylon
 
 		public override NPCShop.Entry GetNPCShopEntry()
         {
+			//this pylon should never be sold
             return null;
         }
 

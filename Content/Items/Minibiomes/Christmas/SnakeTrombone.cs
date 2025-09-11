@@ -13,6 +13,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 		public override void SetDefaults()
 		{
 			Item.damage = 25;
+			Item.mana = 12;
 			Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;
 			Item.autoReuse = true;
