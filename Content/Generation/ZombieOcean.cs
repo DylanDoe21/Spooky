@@ -1252,7 +1252,7 @@ namespace Spooky.Content.Generation
 							chest.item[1].stack = 1;
 							//steroids
 							chest.item[2].SetDefaults(ModContent.ItemType<UnstableSteroid>());
-							chest.item[2].stack = WorldGen.genRand.Next(5, 16);
+							chest.item[2].stack = WorldGen.genRand.Next(1, 4);
 							//glowstick
 							chest.item[3].SetDefaults(ItemID.Glowstick);
 							chest.item[3].stack = WorldGen.genRand.Next(10, 21);

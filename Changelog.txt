@@ -35,7 +35,7 @@ New Bigger Eye Rework:
 
 -Bigger eye now has an entirely new set of attacks because the previous fight was very rushed and not very well made
 -Bigger eye now spawns with a magic tome instead of an eye orb, and when the book is damaged enough bigger eye will awaken
--He now uses this book during the fight to cast all of the spells instead of bigger eye just creating projectiles from itself
+-He now uses this book during the fight to cast all of the spells instead of bigger eye just creating projectiles from himself
 
 
 Bloom UI overhaul:
@@ -197,6 +197,7 @@ Miscellaneous:
 -Trap door spider mount is now lower towards the ground so you can fit in smaller spaces, and made its wall/ceiling clinging mechanic way more lenient and much easier to use
 -Cemetery tree saplings can now be planted and grown on catacomb brick moss placed by the player
 -Pumpkin spice latte now has a value of 50 gold
+-Cursed orange gravestones in the cemetery now spawn much more uncommonly
 
 
 ~Enemies & Bosses~

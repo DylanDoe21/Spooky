@@ -56,7 +56,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 			Projectile.rotation = Projectile.velocity.X * 0.1f;
 
 			Projectile.ai[0]++;
-            if (Projectile.ai[0] < 180)
+            if (Projectile.ai[0] < 85)
             {
                 float goToX = (player.Center.X + Main.rand.Next(-15, 15)) - Projectile.Center.X;
                 float goToY = (player.Center.Y + Main.rand.Next(-15, 15)) - Projectile.Center.Y;

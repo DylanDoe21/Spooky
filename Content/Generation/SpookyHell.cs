@@ -281,24 +281,33 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //place clumps of eye blocks throughout the biome after everything else is done
-            for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 1E-05); i++)
+			int seed = WorldGen.genRand.Next();
+
+			//place clumps of eye blocks throughout the biome after everything else is done
+			for (int X = StartPosition - 75; X <= BiomeEdge + 75; X++)
             {
-                int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int Y = WorldGen.genRand.Next((int)Main.worldSurface + 100, Main.maxTilesY - 15);
-
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Y >= Main.maxTilesY - 160)
+				for (int Y = Main.maxTilesY - 250; Y <= Main.maxTilesY - 6; Y++)
                 {
-                    if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>())
-                    {
-                        WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(35, 65), WorldGen.genRand.Next(35, 65), 
-                        ModContent.TileType<EyeBlock>(), false, 0f, 0f, false, true);
-                    }
-                }
-            }
-        }
+					if (WorldGen.InWorld(X, Y, 5))
+					{
+						//generate perlin noise caves
+						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 80f, Y / 80f, 5, unchecked(seed + 1)) * 0.01f;
+						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 600f, Y / 600f, 5, seed) + 0.5f + horizontalOffsetNoise;
+						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 600f, Y / 600f, 5, unchecked(seed - 1)) + 0.5f;
+						float noiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
+						float fleshThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
 
-        public static void PlaceWallPillar(int StartPosition)
+						//kill or place tiles depending on the noise map
+						if (noiseMap * noiseMap <= fleshThreshold && Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>())
+						{
+							Main.tile[X, Y].TileType = (ushort)ModContent.TileType<EyeBlock>();
+						}
+					}
+				}
+            }
+		}
+
+		public static void PlaceWallPillar(int StartPosition)
         {
             for (int Y = Main.maxTilesY - 190; Y <= Main.maxTilesY - 30; Y += 5)
             {

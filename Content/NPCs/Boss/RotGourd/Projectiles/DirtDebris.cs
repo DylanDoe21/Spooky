@@ -14,11 +14,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd.Projectiles
 
         public override void SetDefaults()
         {
-			Projectile.width = 16;                   			 
-            Projectile.height = 16;         
-			Projectile.hostile = true;                                 			  		
+			Projectile.width = 16;
+            Projectile.height = 16;
+			Projectile.hostile = true;
             Projectile.tileCollide = true;
-            Projectile.ignoreWater = false;                					
+            Projectile.ignoreWater = false;
             Projectile.timeLeft = 240;
 		}
 

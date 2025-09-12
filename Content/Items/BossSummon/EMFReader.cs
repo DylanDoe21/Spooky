@@ -6,6 +6,7 @@ using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 using Spooky.Content.NPCs.Cemetery;
@@ -171,7 +172,15 @@ namespace Spooky.Content.Items.BossSummon
 							if (CanSpawn && !NPC.AnyNPCs(ModContent.NPCType<MistGhost>()) && !NPC.AnyNPCs(ModContent.NPCType<MistGhostFaces>()) && !NPC.AnyNPCs(ModContent.NPCType<MistGhostWiggle>()))
 							{
 								SoundEngine.PlaySound(BeepSound2, player.Center);
-								CombatText.NewText(player.getRect(), Color.Orange, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderGhost"));
+
+								if (!Flags.RaveyardHappening)
+								{
+									CombatText.NewText(player.getRect(), Color.Orange, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderGhost"));
+								}
+								else
+								{
+									CombatText.NewText(player.getRect(), Main.DiscoColor, Language.GetTextValue("Mods.Spooky.EventsAndBosses.EMFReaderRaveyard"));
+								}
 
 								int SpawnX = (left * 16) + 16;
 								int SpawnY = (top * 16) + 20;
@@ -179,7 +188,8 @@ namespace Spooky.Content.Items.BossSummon
 								//spawn a mist ghost ambush
 								if (Main.netMode != NetmodeID.MultiplayerClient)
 								{
-									Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY), Vector2.Zero, ModContent.ProjectileType<MistGhostSpawn>(), 0, 0);
+									Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY), Vector2.Zero, 
+									ModContent.ProjectileType<MistGhostSpawn>(), 0, 0, Main.LocalPlayer.whoAmI, ai2: Flags.RaveyardHappening ? 1 : 0);
 								}
 								
 								return;

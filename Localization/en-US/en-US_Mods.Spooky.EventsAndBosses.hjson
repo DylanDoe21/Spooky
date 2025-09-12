@@ -14,6 +14,7 @@ RaveyardStart: A rave has started in the cemetery!
 RaveyardEnd: The rave in the cemetery has ended
 EMFReaderNoGhost: No paranormal energy nearby!
 EMFReaderGhost: Paranormal energy detected!
+EMFReaderRaveyard: Skeletal activity detected!
 EMFReaderSpookySpirit: Powerful paranormal energy detected!
 EMFReaderPandoraBox: Chaotic paranormal energy detected!
 EMFReaderSpiritExists: Extreme paranormal activity occuring!

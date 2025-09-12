@@ -71,7 +71,7 @@ namespace Spooky.Content.Tiles.Cemetery
 					NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
 				}
 
-                if (Main.rand.NextBool(30))
+                if (Main.rand.NextBool(60))
                 {
                     WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<MysteriousTombstone>(), true);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, (ushort)ModContent.TileType<MysteriousTombstone>(), 0, 0, -1, -1);

@@ -241,7 +241,7 @@ namespace Spooky.Content.NPCs.Tameable
 				NPC.spriteDirection = NPC.direction;
 			}
 
-			if (Main.rand.NextBool(2000))
+			if (Main.rand.NextBool(2000) && !NPC.GetGlobalNPC<NPCGlobal>().NPCTamed)
             {
                 switch (numSeedsEaten)
                 {
@@ -345,7 +345,7 @@ namespace Spooky.Content.NPCs.Tameable
 			foreach (Player player in Main.ActivePlayers)
 			{
 				if (RealHitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) &&
-				NPC.Distance(player.Center) <= 65f && !Main.mapFullscreen && Main.myPlayer == player.whoAmI)
+				NPC.Distance(player.Center) <= 100f && !Main.mapFullscreen && Main.myPlayer == player.whoAmI)
 				{
 					if (Main.mouseRight && Main.mouseRightRelease && !RunningFast)
 					{

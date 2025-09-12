@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Cemetery.Projectiles;
@@ -65,10 +66,10 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
 			float glowspeed = Main.GameUpdateCount * 0.035f;
-			float glowbrightness = Main.LocalPlayer.InModBiome(ModContent.GetInstance<RaveyardBiome>()) ? 1f : (float)MathF.Sin(j / 10f - glowspeed);
+			float glowbrightness = Flags.RaveyardHappening ? 1f : (float)MathF.Sin(j / 10f - glowspeed);
 
 			spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16),
-			(Main.LocalPlayer.InModBiome(ModContent.GetInstance<RaveyardBiome>()) ? Main.DiscoColor : Color.OrangeRed) * glowbrightness);
+			(Flags.RaveyardHappening ? Main.DiscoColor : Color.OrangeRed) * glowbrightness);
 		}
 
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)

@@ -439,7 +439,6 @@ RollingPepper.DisplayName: Spicy Jalapeno
 RottenCarrot.DisplayName: Rotten Carrot
 //rotten depths
 Dunkleosteus.DisplayName: Big Dunk
-LittleDunk.DisplayName: Lil' Dunk
 SkeletonFish.DisplayName: Skeletoid Fish
 SkeletonPiranha.DisplayName: Skeletoid Piranha
 SkeletonGar.DisplayName: Skeletoid Gar
@@ -473,6 +472,14 @@ ToyRobot.DisplayName: Toy Robot
 ToyRobotTank.DisplayName: Toy Tankbot
 //tameable
 Crow.DisplayName: Crow
+LittleDunkEggNPC.DisplayName: Strange Egg
+
+LittleDunk: {
+	DisplayName: Lil' Dunk
+	State1: Lil' Dunk is Roaming
+	State2: Lil' Dunk is Following
+	State3: Lil' Dunk is Staying
+}
 
 Turkey: {
 	DisplayName: Turkey

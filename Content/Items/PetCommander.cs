@@ -29,9 +29,8 @@ namespace Spooky.Content.Items
 		{
 			foreach (NPC npc in Main.ActiveNPCs)
 			{
-				Rectangle Hitbox = new Rectangle((int)(npc.Center.X - 20), (int)(npc.Center.Y - 20), 40, 40);
-                if (Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) && npc.Distance(player.Center) <= 150f &&
-                (npc.type == ModContent.NPCType<Turkey>() || npc.type == ModContent.NPCType<Crow>()) && npc.GetGlobalNPC<NPCGlobal>().NPCTamed)
+				Rectangle Hitbox = new Rectangle((int)(npc.Center.X - 30), (int)(npc.Center.Y - 30), 60, 60);
+                if (Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) && npc.Distance(player.Center) <= 150f && npc.GetGlobalNPC<NPCGlobal>().NPCTamed)
                 {
 					npc.localAI[2]++;
                     if (npc.localAI[2] > 2)
@@ -40,7 +39,15 @@ namespace Spooky.Content.Items
                     }
 
 					int StateValue = (int)npc.localAI[2] + 1;
-					CombatText.NewText(npc.getRect(), Color.Lime, Language.GetTextValue("Mods.Spooky.NPCs." + npc.TypeName + ".State" + StateValue.ToString()), false);
+
+                    if (npc.type == ModContent.NPCType<Turkey>())
+                    {
+					    CombatText.NewText(npc.getRect(), Color.Lime, Language.GetTextValue("Mods.Spooky.NPCs.Turkey.State" + StateValue.ToString()), false);
+                    }
+                    if (npc.type == ModContent.NPCType<LittleDunk>())
+                    {
+					    CombatText.NewText(npc.getRect(), Color.Lime, Language.GetTextValue("Mods.Spooky.NPCs.LittleDunk.State" + StateValue.ToString()), false);
+                    }
 				}
             }
 

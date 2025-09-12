@@ -5720,3 +5720,13 @@ PetCommander: {
 		Allows the tamed critter to roam freely, follow you, or stay put
 		'''
 }
+
+LittleDunkEgg: {
+	DisplayName: Strange Egg
+	Tooltip:
+		'''
+		A large egg with an unusual shape
+		Can be hatched into a creature if left underwater 
+		Feeding the creature chum after it hatches will tame it
+		'''
+}

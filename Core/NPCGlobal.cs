@@ -28,6 +28,7 @@ using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Projectiles.Blooms;
+using Spooky.Content.NPCs.Tameable;
 
 namespace Spooky.Core
 {
@@ -127,16 +128,20 @@ namespace Spooky.Core
 					}
 					if (draw)
 					{
-						Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Tameable/" + npc.TypeName + "MapIcon").Value;
+						Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Tameable/TurkeyMapIcon").Value;
+
+						if (npc.type == ModContent.NPCType<Turkey>())
+						{
+							texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Tameable/TurkeyMapIcon").Value;
+						}
+						else if (npc.type == ModContent.NPCType<LittleDunk>())
+						{
+							texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/Tameable/LittleDunkMapIcon").Value;
+						}
 
 						Rectangle rectangle = texture.Frame();
 
 						spriteBatch.Draw(texture, vec, rectangle, Color.White * alphaMult, 0f, rectangle.Size() / 2f, drawScale, 0, 0f);
-						Rectangle rectangle2 = Utils.CenteredRectangle(vec, rectangle.Size() * drawScale);
-						if (rectangle2.Contains(Main.MouseScreen.ToPoint()))
-						{
-							mouseTextString = Language.GetTextValue("Mods.Spooky.NPCs." + npc.TypeName + ".DisplayName");
-						}
 					}
 				}
 			}
