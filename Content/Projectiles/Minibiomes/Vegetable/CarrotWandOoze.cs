@@ -92,6 +92,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 				{
 					int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.YellowGreen * 0.5f, Main.rand.NextFloat(0.1f, 0.2f));
 					Main.dust[DustEffect].position.Y += -10 * 0.05f - 1.5f;
+                    Main.dust[DustEffect].velocity.X *= 0.1f;
 					Main.dust[DustEffect].velocity.Y = -1;
 					Main.dust[DustEffect].alpha = 125;
 				}

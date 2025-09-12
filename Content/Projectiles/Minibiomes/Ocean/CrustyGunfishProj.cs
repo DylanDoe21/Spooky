@@ -57,7 +57,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 				Vector2 position = Projectile.Center;
 				Vector2 velocity = new Vector2(0, -15f).RotatedBy(Projectile.rotation);
 
-				for (int numProjs = 0; numProjs < 5; numProjs++)
+				for (int numProjs = 0; numProjs < 3; numProjs++)
 				{
 					Vector2 muzzleOffset = Vector2.Normalize(velocity) * Main.rand.NextFloat(30f, 150f);
 					position += muzzleOffset;

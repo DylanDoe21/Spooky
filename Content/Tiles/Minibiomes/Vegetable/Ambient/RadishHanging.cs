@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable.Ambient
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
             TileObjectData.newTile.DrawYOffset = -2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(206, 31, 152));
+            AddMapEntry(new Color(181, 75, 154));
 			DustType = 288;
             HitSound = SoundID.Dig;
 		}

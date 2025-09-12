@@ -88,7 +88,7 @@ namespace Spooky.Content.NPCs.Tameable
 			NPC.lifeMax = 150;
 			NPC.damage = 0;
 			NPC.defense = 0;
-			NPC.width = 76;
+			NPC.width = 50;
 			NPC.height = 50;
 			NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
