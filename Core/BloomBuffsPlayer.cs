@@ -980,7 +980,7 @@ namespace Spooky.Core
 				{
 					if (var != string.Empty)
 					{
-						Player.lifeRegen += 2;
+						Player.lifeRegen += 1;
 					}
 				}
 			}
