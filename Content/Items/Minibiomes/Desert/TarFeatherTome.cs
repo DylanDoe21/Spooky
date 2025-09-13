@@ -14,19 +14,19 @@ namespace Spooky.Content.Items.Minibiomes.Desert
 
 		public override void SetDefaults()
         {
-            Item.damage = 15;
-			Item.mana = 10;                        
+            Item.damage = 12;
+			Item.mana = 10;
             Item.DamageType = DamageClass.Magic;
-			Item.noMelee = true;  
-			Item.autoReuse = true;                  
+			Item.noMelee = true;
+			Item.autoReuse = true;
             Item.width = 28;
             Item.height = 30;
             Item.useTime = 12;
             Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-            Item.rare = ItemRarityID.Blue;         
-			Item.value = Item.buyPrice(gold: 2); 
+            Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(gold: 2);
             Item.UseSound = SoundID.Item95 with { Pitch = -1.2f };
             Item.shoot = ModContent.ProjectileType<TarTomeBlob>();
 			Item.shootSpeed = 8f;

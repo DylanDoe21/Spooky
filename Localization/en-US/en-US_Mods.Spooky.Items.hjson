@@ -1824,6 +1824,16 @@ FishboneChunk: {
 	Tooltip: ""
 }
 
+LittleDunkEgg: {
+	DisplayName: Strange Egg
+	Tooltip:
+		'''
+		A large egg with an unusual shape
+		Can be hatched into a creature if left underwater 
+		Feeding the creature chum after it hatches will tame it
+		'''
+}
+
 MineDynamite: {
 	DisplayName: Box of Dynamites
 	Tooltip:
@@ -4299,12 +4309,7 @@ SpookyTownDayBox: {
 
 SpookyTownNightBox: {
 	DisplayName: Music Box (Spooky Town Night)
-	Tooltip: "[c/FF8D00:Hallow's Ween] by BananaLizard"
-}
-
-SpookyBiomeTownNightBox: {
-	DisplayName: Music Box (Spooky Forest Town Night)
-	Tooltip: "[c/FF8D00:Spooky Town Night] by BananaLizard"
+	Tooltip: "[c/FF8D00:Hollow's Ween] by BananaLizard"
 }
 
 TarPitsBox: {
@@ -5718,15 +5723,5 @@ PetCommander: {
 		'''
 		Click on any nearby tamed critter while holding this to give them commands
 		Allows the tamed critter to roam freely, follow you, or stay put
-		'''
-}
-
-LittleDunkEgg: {
-	DisplayName: Strange Egg
-	Tooltip:
-		'''
-		A large egg with an unusual shape
-		Can be hatched into a creature if left underwater 
-		Feeding the creature chum after it hatches will tame it
 		'''
 }

@@ -450,8 +450,7 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY * 2; j < PositionY + SizeY * 2; j += 10)
 				{
-					int[] InvalidTiles = { ModContent.TileType<JungleSoilGrass>(), ModContent.TileType<JungleSoil>(),
-					ModContent.TileType<JungleMoss>() };
+					int[] InvalidTiles = { ModContent.TileType<JungleSoilGrass>(), ModContent.TileType<JungleSoil>(), ModContent.TileType<JungleMoss>() };
 
 					if (WorldGen.InWorld(i, j) && Main.tile[i, j].HasTile && InvalidTiles.Contains(Main.tile[i, j].TileType))
 					{

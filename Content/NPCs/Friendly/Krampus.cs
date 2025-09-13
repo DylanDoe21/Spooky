@@ -152,7 +152,7 @@ namespace Spooky.Content.NPCs.Friendly
 				if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) &&
 				NPC.Distance(player.Center) <= 150f && !Main.mapFullscreen && Main.myPlayer == player.whoAmI)
 				{
-					if (Main.mouseRight && Main.mouseRightRelease && !DialogueUI.Visible)
+					if (Main.mouseRight && Main.mouseRightRelease && PlayerTalkingTo == null)
 					{
 						Main.BestiaryTracker.Chats.SetWasChatWithDirectly(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type]);
 
@@ -675,6 +675,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		private void EndDialogue(Dialogue dialogue, int ID)
 		{
+			PlayerTalkingTo = null;
 			DialogueUI.Visible = false;
 			Expression = 0;
 		}

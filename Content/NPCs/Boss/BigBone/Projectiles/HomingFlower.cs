@@ -50,26 +50,26 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			{
 				case 0:
 				{
-					color1 = new Color(151, 206, 67);
-			 		color2 = new Color(151, 206, 67) * 0.5f;
+					color1 = new Color(163, 205, 65);
+			 		color2 = color1 * 0.5f;
 					break;
 				}
 				case 1:
 				{
-					color1 = new Color(206, 128, 67);
-			 		color2 = new Color(206, 128, 67) * 0.5f;
+					color1 = new Color(106, 92, 208);
+			 		color2 = color1 * 0.5f;
 					break;
 				}
 				case 2:
 				{
-					color1 = new Color(107, 86, 216);
-			 		color2 = new Color(107, 86, 216) * 0.5f;
+					color1 = new Color(251, 46, 114);
+			 		color2 = color1 * 0.5f;
 					break;
 				}
 				case 3:
 				{
-					color1 = new Color(216, 86, 149);
-			 		color2 = new Color(216, 86, 149) * 0.5f;
+					color1 = new Color(250, 122, 70);
+			 		color2 = color1 * 0.5f;
 					break;
 				}
 			}

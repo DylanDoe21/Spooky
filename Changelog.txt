@@ -67,8 +67,9 @@ New Music:
 "Hallow's Ween" by BananaLizard, new town night theme that plays while in any habitable spooky mod biome
 
 
-Other Random Additions:
+Other Miscellaneous Additions:
 
+-Brand new overhaul of spooky mod's custom menu screen, featuring brand new pixel art by Hat in a River! (The menu is functionally the same but includes new art, and features the spider grotto now)
 -Spooky mod biomes now actually increase the little progress bar during worldgen to show that they are generating, this way the game doesnt just look like its frozen
 -Added placeable spooky forest grass walls, cemetery grass walls, and spider grotto grass walls that are sold by the dryad for 10 copper each (like vanilla grass walls)
 -Added spooky dirt walls, swampy mud walls, and damp soil walls. These walls now generate in their respective biomes, and have safe versions you can craft and build with
@@ -227,6 +228,8 @@ Enemy Changes:
 -Made the spider grotto biome size a tiny bit smaller
 -Spider grotto caves are now a bit longer horizontally and a bit shorter vertically
 -Swampy cemetery terrain now generates flatter so structures dont generate weirdly and to make it feel like an actual cemetery a bit more
+-Eye valley eye blocks now have new generation to make them feel more natural instead of random unnatural looking clumps
+-Little eye's house now has doors on it
 -Carved gourd-o-lanterns now count as light source blocks for npc housing
 -Added tile wind swaying for many spooky mod tiles such as hanging ambient tiles, vines, ect, since tmodloader has finally added support for that
 -Spooky mod grasses now immediately turn into their corresponding dirt block when broken like terraria grasses do
@@ -242,6 +245,7 @@ Enemy Changes:
 -Bloom plants now have better map colors and have display names when you hover over them with your mouse
 -Spooky mod music boxes now display the song title in orange in their tooltip, since some of the previous colors were hard to read and having to make specific colors for every music box was a bit annoying
 -Broken EMF reader now drops from catacomb/cemetery crates sometimes to make it renewable
+-Mysterious tombstones in the swampy cemetery now spawn party skeletons during a raveyard when you use an emf reader near them
 
 
 
