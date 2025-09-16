@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.SpookyHell;
@@ -58,6 +59,9 @@ namespace Spooky.Content.Items.BossBags
 
 			//material
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SnotGlob>(), 1, 22, 35));
+
+			//herb accessory
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<HerbShaker>(), 2));
 
 			//boss mask
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<MocoMask>(), 7));

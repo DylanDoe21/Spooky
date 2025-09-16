@@ -13,6 +13,7 @@ namespace Spooky.Core
         private static bool? hasDefeatedDaffodilField;
         private static bool? hasDefeatedOrroboroField;
         private static bool? hasDefeatedBigBoneField;
+        private static bool? hasDefeatedSpookFishronField;
 
         //default file path for the README file
         public static string ReadMeFilePath => $"{Main.SavePath}/SpookyModMenuScreen/README.txt";
@@ -24,6 +25,7 @@ namespace Spooky.Core
         public static string DaffodilSavePath => $"{Main.SavePath}/SpookyModMenuScreen/Daffodil";
         public static string OrroboroSavePath => $"{Main.SavePath}/SpookyModMenuScreen/Orroboro";
         public static string BigBoneSavePath => $"{Main.SavePath}/SpookyModMenuScreen/BigBone";
+        public static string SpookFishronSavePath => $"{Main.SavePath}/SpookyModMenuScreen/SpookFishron";
 
         public override void Load()
         {
@@ -175,6 +177,28 @@ namespace Spooky.Core
                 else
                 {
                     File.Create(BigBoneSavePath);
+                }
+            }
+        }
+
+        public static bool hasDefeatedSpookFishron
+        {
+            get
+            {
+                hasDefeatedSpookFishronField ??= hasDefeatedSpookFishronField = File.Exists(SpookFishronSavePath);
+                return hasDefeatedSpookFishronField.Value;
+            }
+            set
+            {
+                hasDefeatedSpookFishronField = value;
+
+                if (!value)
+                {
+                    File.Delete(SpookFishronSavePath);
+                }
+                else
+                {
+                    File.Create(SpookFishronSavePath);
                 }
             }
         }

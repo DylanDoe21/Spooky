@@ -13,7 +13,7 @@ using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.NPCs.EggEvent;
+using Spooky.Content.NPCs.Tameable;
 
 namespace Spooky
 {
@@ -36,7 +36,10 @@ namespace Spooky
         public static int GiantWebX;
         public static int GiantWebY;
 
-        public static Effect vignetteEffect;
+		public static int TurkeySpawnX;
+		public static int TurkeySpawnY;
+
+		public static Effect vignetteEffect;
         public static Vignette vignetteShader;
 
         public static ModKeybind AccessoryHotkey { get; private set; }
@@ -109,6 +112,12 @@ namespace Spooky
                 {
                     NPC.NewNPC(null, DaffodilSpawnX, DaffodilSpawnY, ModContent.NPCType<DaffodilEye>(), ai0: (Flags.downedDaffodil && Main.rand.NextBool(20)) ? -4 : -1, ai1: DaffodilParent);
                     break;
+                }
+				case SpookyMessageType.SpawnTurkey:
+                {
+                    int Turkey = NPC.NewNPC(null, TurkeySpawnX, TurkeySpawnY, ModContent.NPCType<Turkey>());
+                    Main.npc[Turkey].GetGlobalNPC<NPCGlobal>().NPCTamed = true;
+					break;
                 }
                 case SpookyMessageType.OldHunterHat:
                 {
@@ -224,6 +233,12 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.DrawKrampusMapIconReset:
+                {
+                    Flags.DrawKrampusMapIcon = false;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
 				//should never occur I think?
 				default:
                 {
@@ -240,6 +255,7 @@ namespace Spooky
         SpawnMoco,
         SpawnOrroboro,
         SpawnDaffodilEye,
+		SpawnTurkey,
         OldHunterHat,
         OldHunterSkull,
         OldHunterTorso,
@@ -257,6 +273,7 @@ namespace Spooky
         KrampusQuestGiven,
         KrampusQuestlineDone,
         KrampusDailyQuestDone,
-        KrampusDailyQuestReset
+        KrampusDailyQuestReset,
+        DrawKrampusMapIconReset
 	}
 }

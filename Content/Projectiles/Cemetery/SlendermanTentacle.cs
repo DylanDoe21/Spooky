@@ -13,6 +13,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 {
     public class SlendermanTentacle : ModProjectile
     {
+        private static Asset<Texture2D> ProjTexture;
         private static Asset<Texture2D> ChainTexture;
 
         public override void SetDefaults()
@@ -32,34 +33,44 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override bool PreDraw(ref Color lightColor)
         {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
             ChainTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Cemetery/SlendermanTentacleSegment");
 
-            Rectangle? chainSourceRectangle = null;
-            float chainHeightAdjustment = 0f;
+            Player player = Main.player[Projectile.owner];
 
-            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (ChainTexture.Size() / 2f);
-            Vector2 chainDrawPosition = Main.player[Projectile.owner].Center;
-            Vector2 VectorToPlayer = Projectile.Center.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
-            Vector2 unitVectorToPlayer = VectorToPlayer.SafeNormalize(Vector2.Zero);
-            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : ChainTexture.Height()) + chainHeightAdjustment;
+			if (!player.dead)
+			{
+                bool flip = false;
+                if (player.direction == -1 || Projectile.Center.Y < player.Center.Y)
+                {
+                    flip = true;
+                }
 
-            if (chainSegmentLength == 0)
-            {
-                chainSegmentLength = 10;
-            }
+                Vector2 drawProjOrigin = new Vector2(0, ProjTexture.Height() / 2);
+                Vector2 drawOrigin = new Vector2(0, ChainTexture.Height() / 2);
+				Vector2 myCenter = Projectile.Center;
+				Vector2 p0 = player.Center;
+				Vector2 p1 = player.Center;
+				Vector2 p2 = myCenter;
+				Vector2 p3 = myCenter;
 
-            int chainCount = 0;
-            float chainLengthRemainingToDraw = VectorToPlayer.Length() + chainSegmentLength / 2f;
+                int segments = 12;
 
-            while (chainLengthRemainingToDraw > 0f)
-            {
-                Color chainDrawColor = Lighting.GetColor((int)chainDrawPosition.X / 16, (int)(chainDrawPosition.Y / 16f));
+                for (int i = 0; i < segments; i++)
+                {
+                    float t = i / (float)segments;
+                    Vector2 drawPos2 = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+                    t = (i + 1) / (float)segments;
+                    Vector2 drawPosNext = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+                    Vector2 toNext = (drawPosNext - drawPos2);
+                    float rotation = toNext.ToRotation();
+                    float distance = toNext.Length();
 
-                Main.spriteBatch.Draw(ChainTexture.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, chainDrawColor, Projectile.rotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                    lightColor = Lighting.GetColor((int)drawPos2.X / 16, (int)(drawPos2.Y / 16));
 
-                chainDrawPosition += unitVectorToPlayer * chainSegmentLength;
-                chainCount++;
-                chainLengthRemainingToDraw -= chainSegmentLength;
+                    Main.spriteBatch.Draw(ChainTexture.Value, drawPos2 - Main.screenPosition, null, Projectile.GetAlpha(lightColor), 
+                    rotation, drawOrigin, Projectile.scale * new Vector2((distance + 4) / (float)ChainTexture.Width(), 1), SpriteEffects.None, 0f);
+                }
             }
 
             return true;
@@ -164,7 +175,7 @@ namespace Spooky.Content.Projectiles.Cemetery
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.rand.NextBool(20) && hit.Crit && Main.player[Projectile.owner].GetModPlayer<SpookyPlayer>().SlendermanPageDelay <= 0)
+            if (Main.rand.NextBool(25) && Main.player[Projectile.owner].GetModPlayer<SpookyPlayer>().SlendermanPageDelay <= 0)
             {
                 int itemType = ModContent.ItemType<SlendermanBuffPage>();
                 int newItem = Item.NewItem(target.GetSource_OnHit(target), target.Hitbox, itemType);

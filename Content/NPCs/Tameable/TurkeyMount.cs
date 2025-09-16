@@ -69,15 +69,18 @@ namespace Spooky.Content.NPCs.Tameable
 		public override void Dismount(Player player, ref bool skipDust)
 		{
 			//spawn turkey when dismounting
-			if (Main.netMode != NetmodeID.MultiplayerClient)
+			Spooky.TurkeySpawnX = (int)player.Center.X;
+			Spooky.TurkeySpawnY = (int)player.Center.Y + 26;
+			if (Main.netMode == NetmodeID.Server)
 			{
-				int Turkey = NPC.NewNPC(player.GetSource_ReleaseEntity(), (int)player.Center.X, (int)player.Center.Y + 26, ModContent.NPCType<Turkey>());
+				ModPacket packet = Mod.GetPacket();
+				packet.Write((byte)SpookyMessageType.SpawnTurkey);
+				packet.Send();
+			}
+			else if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				int Turkey = NPC.NewNPC(null, Spooky.TurkeySpawnX, Spooky.TurkeySpawnY, ModContent.NPCType<Turkey>());
 				Main.npc[Turkey].GetGlobalNPC<NPCGlobal>().NPCTamed = true;
-
-				if (Main.netMode == NetmodeID.Server)
-				{
-					NetMessage.SendData(MessageID.SyncNPC, number: Turkey);
-				}
 			}
 		}
 

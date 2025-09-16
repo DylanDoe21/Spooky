@@ -7,6 +7,11 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 	[AutoloadEquip(EquipType.Legs)]
 	public class GoldrushLegs : ModItem
 	{
+		public override void SetStaticDefaults()
+        {
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GoldrushHead>();
+		}
+
 		public override void SetDefaults() 
 		{
 			Item.defense = 3;

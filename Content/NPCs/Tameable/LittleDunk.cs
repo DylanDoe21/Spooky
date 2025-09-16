@@ -198,7 +198,7 @@ namespace Spooky.Content.NPCs.Tameable
 			foreach (Player player in Main.ActivePlayers)
 			{
 				if (RealHitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) &&
-				NPC.Distance(player.Center) <= 100f && !Main.mapFullscreen && Main.myPlayer == player.whoAmI)
+				NPC.Distance(player.Center) <= 100f && !Main.mapFullscreen)
 				{
 					if (Main.mouseRight && Main.mouseRightRelease)
 					{
@@ -213,9 +213,10 @@ namespace Spooky.Content.NPCs.Tameable
 									Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.FoodPiece, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, default, new Color(211, 109, 58), 0.75f);
 								}
 
-								if (numChumEaten < 5)
+								if (numChumEaten < 4)
 								{
 									numChumEaten++;
+									NPC.netUpdate = true;
 								}
 								else
 								{
@@ -335,6 +336,7 @@ namespace Spooky.Content.NPCs.Tameable
 							{
 								SavePreviousPosition = NPC.Center;
 								InitializePosition = true;
+								NPC.netUpdate = true;
 							}
 							else
 							{

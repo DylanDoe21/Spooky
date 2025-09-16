@@ -32,7 +32,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
         {
             CreateRecipe()
 			.AddIngredient(ItemID.HallowedBar, 18)
-            .AddIngredient(ModContent.ItemType<PlantMulch>(), 55)
+            .AddIngredient(ModContent.ItemType<PlantMulch>(), 30)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

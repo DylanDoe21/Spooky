@@ -33,7 +33,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Furniture
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(156, 154, 121));
-            RegisterItemDrop(ModContent.ItemType<LabComputerItem>());
+            RegisterItemDrop(ModContent.ItemType<LabComputerUnsafeItem>());
             DustType = -1;
             HitSound = SoundID.NPCHit53 with { Volume = 0.5f };
         }

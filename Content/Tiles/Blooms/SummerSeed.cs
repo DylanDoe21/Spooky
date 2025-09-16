@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items;
+
 namespace Spooky.Content.Tiles.Blooms
 {
     public class SummerSeed : ModItem
@@ -17,7 +19,7 @@ namespace Spooky.Content.Tiles.Blooms
 			Item.width = 34;
 			Item.height = 42;
 			Item.noUseGraphic = true;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ModContent.RarityType<BloomHMRarity>();
 			Item.placeStyle = Main.rand.Next(0, 4);
 		}
 

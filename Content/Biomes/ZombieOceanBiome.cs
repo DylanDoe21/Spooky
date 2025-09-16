@@ -30,7 +30,7 @@ namespace Spooky.Content.Biomes
 
         public override void OnInBiome(Player player)
         {
-            VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
+            VignettePlayer vignettePlayer = Main.LocalPlayer.GetModPlayer<VignettePlayer>();
             vignettePlayer.SetVignette(1f, 750f, 0.95f, new Color(7, 17, 3), player.Center);
         }
 

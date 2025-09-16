@@ -24,7 +24,7 @@ SharkBoneArmor:
 GourdArmor:
 	'''
 	Weapons may inflict decay on enemies sometimes 
-	Decay damages enemies over time and lowers their attack and defense
+	Decay damages enemies over time and lowers their defense
 	'''
 RootArmor: Your ranged projectiles have a chance to heal you
 SpiderArmor:

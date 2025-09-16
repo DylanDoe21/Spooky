@@ -327,6 +327,8 @@ namespace Spooky.Content.NPCs.Tameable
 					{
 						SoundEngine.PlaySound(FlapSound, NPC.Center);
 						SoundTimer = 15;
+
+						NPC.netUpdate = true;
 					}
 					else
 					{
@@ -345,7 +347,7 @@ namespace Spooky.Content.NPCs.Tameable
 			foreach (Player player in Main.ActivePlayers)
 			{
 				if (RealHitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) &&
-				NPC.Distance(player.Center) <= 100f && !Main.mapFullscreen && Main.myPlayer == player.whoAmI)
+				NPC.Distance(player.Center) <= 100f && !Main.mapFullscreen)
 				{
 					if (Main.mouseRight && Main.mouseRightRelease && !RunningFast)
 					{
@@ -360,9 +362,10 @@ namespace Spooky.Content.NPCs.Tameable
 									Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.FoodPiece, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, default, new Color(211, 109, 58), 0.75f);
 								}
 
-								if (numSeedsEaten < 5)
+								if (numSeedsEaten < 4)
 								{
 									numSeedsEaten++;
+									NPC.netUpdate = true;
 								}
 								else
 								{
@@ -378,6 +381,8 @@ namespace Spooky.Content.NPCs.Tameable
 
 									NPC.GetGlobalNPC<NPCGlobal>().NPCTamed = true;
 								}
+
+								NPC.netUpdate = true;
 							}
 						}
 						else
@@ -386,7 +391,12 @@ namespace Spooky.Content.NPCs.Tameable
 							{
 								player.Center = NPC.Center - new Vector2(0, 15);
 								player.AddBuff(ModContent.BuffType<TurkeyMountBuff>(), 2);
-								NPC.active = false;
+								NPC.life = 0;
+
+								if (Main.netMode == NetmodeID.Server)
+								{
+									NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI, 0f, 0f, 0f, 0);
+								}
 							}
 						}
 					}
@@ -451,6 +461,7 @@ namespace Spooky.Content.NPCs.Tameable
 							{
 								FlyToPlayer = true;
 								NPC.velocity = Vector2.Zero;
+								NPC.netUpdate = true;
 							}
 
 							if (playerDistance > 75f)
@@ -490,6 +501,7 @@ namespace Spooky.Content.NPCs.Tameable
 							if (NPC.Hitbox.Intersects(player.Hitbox))
 							{
 								FlyToPlayer = false;
+								NPC.netUpdate = true;
 							}
 						}
 
@@ -540,6 +552,8 @@ namespace Spooky.Content.NPCs.Tameable
 					{
 						RunningFast = false;
 						RunTimer = 0;
+
+						NPC.netUpdate = true;
 					}
 				}
 			}

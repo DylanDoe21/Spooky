@@ -82,3 +82,8 @@ ZombieOceanBiome: {
 	DisplayName: Rotten Depths
 	TownNPCDialogueName: Rotten Depths
 }
+
+SpookyBiomeUgGlowshroom: {
+	DisplayName: Glowshroom Biome
+	TownNPCDialogueName: Glowshroom Biome
+}

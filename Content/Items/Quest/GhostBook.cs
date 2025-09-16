@@ -50,10 +50,8 @@ namespace Spooky.Content.Items.Quest
 				{
 					player.GetModPlayer<SpookyPlayer>().GhostBookRed = true;
 
-					player.GetDamage(DamageClass.Melee) += 0.12f;
-					player.GetKnockback(DamageClass.Melee) += 0.12f;
-					player.GetDamage(DamageClass.Ranged) += 0.12f;
-					player.GetKnockback(DamageClass.Ranged) += 0.12f;
+					player.GetDamage(DamageClass.Melee) += 0.1f;
+					player.GetDamage(DamageClass.Ranged) += 0.1f;
 
 					bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<BanditBruiserMinion>()] <= 0;
 					if (NotSpawned && player.whoAmI == Main.myPlayer)
@@ -71,9 +69,9 @@ namespace Spooky.Content.Items.Quest
 				{
 					player.GetModPlayer<SpookyPlayer>().GhostBookGreen = true;
 
-					player.GetDamage(DamageClass.Magic) += 0.12f;
-					player.GetDamage(DamageClass.Summon) += 0.12f;
-					player.manaCost -= 0.15f;
+					player.GetDamage(DamageClass.Magic) += 0.1f;
+					player.GetDamage(DamageClass.Summon) += 0.1f;
+					player.manaCost -= 0.1f;
 
 					bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<BanditWizardMinion>()] <= 0;
 					if (NotSpawned && player.whoAmI == Main.myPlayer)
@@ -91,7 +89,7 @@ namespace Spooky.Content.Items.Quest
 				{
 					player.GetModPlayer<SpookyPlayer>().GhostBookBlue = true;
 
-					player.statDefense += 10;
+					player.statDefense += 8;
 					player.lifeRegen += 2;
 
 					bool NotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<BanditPriestMinion>()] <= 0;

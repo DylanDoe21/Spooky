@@ -14,19 +14,10 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 {
     public class ZombieEelHead : ModProjectile
     {
+        bool segmentsSpawned = false;
         bool isAttacking = false;
 
-        Dictionary<int, Projectile> segments = new Dictionary<int, Projectile>();
-
-        private static Asset<Texture2D> HeadTexture;
-        private static Asset<Texture2D> BodyTexture;
-        private static Asset<Texture2D> TailTexture;
-
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 100;
-        }
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetDefaults()
         {
@@ -45,34 +36,15 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
         public override bool PreDraw(ref Color lightColor)
         {
-            HeadTexture ??= ModContent.Request<Texture2D>(Texture);
-            BodyTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Minibiomes/Ocean/ZombieEelBody");
-            TailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Minibiomes/Ocean/ZombieEelTail");
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-            for (var i = segments.Count; i > 0; i--)
-            {
-                if (segments.ContainsKey(i))
-                {
-                    SpriteEffects effects = Math.Abs(segments[i].rotation) > MathHelper.PiOver2 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
 
-                    if (i < segments.Count)
-                    {
-						Vector2 drawOrigin = new(BodyTexture.Width() * 0.5f, Projectile.height * 0.5f);
-						Rectangle rectangle = new(0, BodyTexture.Height() / Main.projFrames[segments[i].type] * segments[i].frame, BodyTexture.Width(), BodyTexture.Height() / Main.projFrames[segments[i].type]);
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
-						Main.EntitySpriteDraw(BodyTexture.Value, segments[i].Center - Main.screenPosition, rectangle, segments[i].GetAlpha(lightColor),
-                        segments[i].rotation + MathHelper.Pi / 2f, drawOrigin, segments[i].scale, effects, 0);
-                    }
-                    else
-                    {
-                        Main.EntitySpriteDraw(TailTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
-                        segments[i].rotation + MathHelper.Pi / 2f, TailTexture.Size() / 2f, segments[i].scale, effects, 0);
-                    }
-                }
-            }
+            var effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(HeadTexture.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation + MathHelper.Pi / 2f,
-            HeadTexture.Size() / 2f, Projectile.scale, Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, effects, 0);
 
             return false;
         }
@@ -97,40 +69,39 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
                 Projectile.timeLeft = 2;
             }
 
+            if (!segmentsSpawned)
+            {
+                int latestSegment = Projectile.whoAmI;
+
+                for (int numSegment = 0; numSegment < 8; numSegment++)
+                {
+                    if (numSegment < 7)
+                    {
+                        latestSegment = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
+                        ModContent.ProjectileType<ZombieEelBody>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 
+                        ai0: Projectile.identity, ai1: latestSegment, ai2: numSegment);
+                    }
+                    else
+                    {
+                        latestSegment = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
+                        ModContent.ProjectileType<ZombieEelTail>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 
+                        ai0: Projectile.identity, ai1: latestSegment);
+                    }
+                }
+
+                segmentsSpawned = true;
+                Projectile.netUpdate = true;
+            }
+
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			Projectile.rotation += 0f * (float)Projectile.direction;
+
+            Projectile.spriteDirection = Projectile.direction = Projectile.velocity.X < 0 ? -1 : 1;
+
             if (Projectile.owner == Main.myPlayer && Projectile.Distance(Main.MouseWorld) >= 50f)
             {
                 Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 10;
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
-            }
-
-            Projectile.rotation = Projectile.velocity.ToRotation();
-
-            segments.Clear();
-            foreach (var projectile in Main.projectile)
-            {
-                if (projectile.type == ModContent.ProjectileType<ZombieEelBody>() && projectile.owner == Projectile.owner && projectile.active && !segments.ContainsKey(projectile.ModProjectile<ZombieEelBody>().segmentIndex))
-                {
-                    segments.Add(projectile.ModProjectile<ZombieEelBody>().segmentIndex, projectile);
-                }
-                if (projectile.type == ModContent.ProjectileType<ZombieEelTail>() && projectile.owner == Projectile.owner && projectile.active && !segments.ContainsKey(projectile.ModProjectile<ZombieEelTail>().segmentIndex))
-                {
-                    segments.Add(projectile.ModProjectile<ZombieEelTail>().segmentIndex, projectile);
-                }
-            }
-            for (var i = 1; i <= segments.Count; i++)
-            {
-                if (i < segments.Count)
-                {
-                    if (segments.ContainsKey(i))
-                    segments[i].ModProjectile<ZombieEelBody>().SegmentMove();
-                }
-                else
-                {
-                    if (segments.ContainsKey(i))
-                    {
-                        segments[i].ModProjectile<ZombieEelTail>().SegmentMove();
-                    }
-                }
             }
         }
     }

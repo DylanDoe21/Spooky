@@ -17,7 +17,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
-			TileID.Sets.Clock[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.newTile.Width = 6;
@@ -27,6 +26,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(143, 97, 86));
             DustType = DustID.WoodFurniture;
+			AdjTiles = new int[] { TileID.HeavyWorkBench };
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) 

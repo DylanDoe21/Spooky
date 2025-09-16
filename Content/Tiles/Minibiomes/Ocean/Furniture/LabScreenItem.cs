@@ -12,5 +12,15 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Furniture
             Item.width = 16;
 			Item.height = 16;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<LabScreenRustedItem>(), 1)
+            .AddIngredient(ItemID.Glass, 5)
+            .AddIngredient(ItemID.Wire, 10)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 }

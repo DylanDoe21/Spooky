@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 
 namespace Spooky.Content.Backgrounds.SpookyBiome
 {
-	public class GlowshroomUndergroundBG : ModUndergroundBackgroundStyle
+	public class GlowshroomBackgroundStyle : ModUndergroundBackgroundStyle
 	{
 		public override void FillTextureArray(int[] textureSlots)
         {

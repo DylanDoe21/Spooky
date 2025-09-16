@@ -17,6 +17,14 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
             Item.width = 16;
 			Item.height = 16;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<ChristmasBrickRedWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 
     public class ChristmasBrickBlueItem : ModItem
@@ -32,6 +40,14 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
             Item.width = 16;
 			Item.height = 16;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<ChristmasBrickBlueWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 
     public class ChristmasBrickGreenItem : ModItem
@@ -46,6 +62,14 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
             Item.DefaultToPlaceableTile(ModContent.TileType<ChristmasBrickGreen>());
             Item.width = 16;
 			Item.height = 16;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<ChristmasBrickGreenWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
         }
     }
 }

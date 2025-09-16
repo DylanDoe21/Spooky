@@ -9,9 +9,9 @@ using Spooky.Core;
 namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class RotGourdMask : ModItem, ISpecialHelmetDraw
+	public class RotGourdMask : ModItem, ISpecialArmorDraw
 	{
-		public string HeadTexture => "Spooky/Content/Items/Costume/RotGourdMask_Top";
+		public string HeadTexture => "Spooky/Content/Items/Costume/RotGourdMaskTop";
 
         public Vector2 Offset => new Vector2(0, 4f);
 

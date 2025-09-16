@@ -334,7 +334,7 @@ namespace Spooky.Content.NPCs.Quest
 
 							Vector2 ShootSpeed = (player.Center + new Vector2(Main.rand.Next(-20, 21), Main.rand.Next(-20, 21))) - NPC.Center;
 							ShootSpeed.Normalize();
-							ShootSpeed *= 35f;
+							ShootSpeed *= 22f;
 
 							Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 75f;
 							Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);

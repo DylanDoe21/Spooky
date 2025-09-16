@@ -107,7 +107,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert
 
             NPC.spriteDirection = NPC.direction;
 
-            if (NPC.velocity.Y == 0)
+            if (NPC.velocity.Y == 0 || NPC.localAI[0] >= 420)
             {
                 NPC.localAI[0]++;
             }

@@ -33,7 +33,7 @@ namespace Spooky.Content.Buffs.Debuff
             }
             else
             {
-                Color color = new Color(125 - npc.alpha, 125 - npc.alpha, 125 - npc.alpha, 0).MultiplyRGBA(Color.OrangeRed);
+                Color color = Color.Red;
                 npc.color = color;
             }
         }

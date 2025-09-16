@@ -10,9 +10,9 @@ using Spooky.Content.Tiles.SpookyHell;
 namespace Spooky.Content.Items.SpookyHell.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class EyeHead : ModItem, ISpecialHelmetDraw
+	public class EyeHead : ModItem, ISpecialArmorDraw
 	{
-		public string GlowTexture => "Spooky/Content/Items/SpookyHell/Armor/EyeHead_Glow";
+		public string GlowTexture => "Spooky/Content/Items/SpookyHell/Armor/EyeHeadGlow";
 
 		public override void SetDefaults() 
 		{

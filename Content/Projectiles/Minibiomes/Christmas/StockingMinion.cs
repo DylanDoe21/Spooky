@@ -32,6 +32,8 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
             Projectile.width = 24;
 			Projectile.height = 36;
             Projectile.DamageType = DamageClass.Summon;
+            Projectile.localNPCHitCooldown = 30;
+            Projectile.usesLocalNPCImmunity = true;
 			Projectile.minion = true;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
@@ -442,6 +444,32 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
                 Projectile.frame = 0;
                 Projectile.frameCounter = 0;
             }
+
+            //prevent projectiles clumping together
+			for (int num = 0; num < Main.projectile.Length; num++)
+			{
+				Projectile other = Main.projectile[num];
+				if (num != Projectile.whoAmI && other.type == Projectile.type && other.active && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+				{
+					const float pushAway = 0.08f;
+					if (Projectile.position.X < other.position.X)
+					{
+						Projectile.velocity.X -= pushAway;
+					}
+					else
+					{
+						Projectile.velocity.X += pushAway;
+					}
+					if (Projectile.position.Y < other.position.Y)
+					{
+						Projectile.velocity.Y -= pushAway;
+					}
+					else
+					{
+						Projectile.velocity.Y += pushAway;
+					}
+				}
+			}
         }
 
         private bool HoleBelow()

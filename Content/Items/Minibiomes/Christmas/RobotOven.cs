@@ -12,7 +12,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 	{
 		public override void SetDefaults()
 		{
-			Item.damage = 20;
+			Item.damage = 12;
 			Item.mana = 20;
 			Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;

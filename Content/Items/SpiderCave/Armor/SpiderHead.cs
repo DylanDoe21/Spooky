@@ -10,9 +10,9 @@ using Spooky.Content.Tiles.SpiderCave;
 namespace Spooky.Content.Items.SpiderCave.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class SpiderHead : ModItem, ISpecialHelmetDraw
+	public class SpiderHead : ModItem, ISpecialArmorDraw
 	{
-		public string GlowTexture => "Spooky/Content/Items/SpiderCave/Armor/SpiderHead_Glow";
+		public string GlowTexture => "Spooky/Content/Items/SpiderCave/Armor/SpiderHeadGlow";
 
 		public override void SetDefaults() 
 		{

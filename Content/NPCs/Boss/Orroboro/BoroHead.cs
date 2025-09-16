@@ -405,7 +405,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
 
                     if (NPC.localAI[0] == 2)
                     {
-                        SavePlayerPosition = new Vector2(NPC.Center.X < player.Center.X ? 600 : -600, Main.rand.Next(-200, 200));
+                        SavePlayerPosition = new Vector2(NPC.Center.X > player.Center.X ? -600 : 600, Main.rand.Next(-200, 200));
                         NPC.netUpdate = true;
                     }
                     

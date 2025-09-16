@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.Blooms
 {
@@ -31,6 +32,11 @@ namespace Spooky.Content.Projectiles.Blooms
         public override bool? CanCutTiles()
         {
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<ThornRoseBleed>(), 240);
         }
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

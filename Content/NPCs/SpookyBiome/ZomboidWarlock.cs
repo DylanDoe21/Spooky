@@ -126,12 +126,16 @@ namespace Spooky.Content.NPCs.SpookyBiome
                     ShootSpeed.Normalize();
                     ShootSpeed *= 4.5f;
                     
-                    int Skull = NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), ModContent.NPCType<WarlockSkull>(), ai1: NPC.whoAmI);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int Skull = NPC.NewNPC(NPC.GetSource_OnHit(NPC), (int)NPC.Center.X + Main.rand.Next(-20, 20), (int)NPC.Center.Y + Main.rand.Next(-10, 5), 
+                        ModContent.NPCType<WarlockSkull>(), ai1: NPC.whoAmI, ai2: player.whoAmI);
 
-					if (Main.netMode != NetmodeID.MultiplayerClient)
-					{
-						NetMessage.SendData(MessageID.SyncNPC, number: Skull);
-					}
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: Skull);
+                        }
+                    }
                 }
             }
 

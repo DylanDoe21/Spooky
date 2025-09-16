@@ -7,6 +7,7 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using System.Linq;
 
 using Spooky.Content.Buffs;
@@ -41,9 +42,18 @@ namespace Spooky.Core
 
         public bool HasVeinChainAttached = false;
         public bool HasGooChompterAttached = false;
-		public bool BeingBuffedByBolster = false;
 
 		public bool NPCTamed = false; //use for all instances of a tameable animal in spooky mod
+
+		public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
+		{
+			binaryWriter.Write(NPCTamed);
+		}
+
+		public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
+		{
+			NPCTamed = binaryReader.ReadBoolean();
+		}
 
 		public override void SaveData(NPC npc, TagCompound tag)
 		{

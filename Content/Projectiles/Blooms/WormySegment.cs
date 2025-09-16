@@ -1,7 +1,12 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 
 using Spooky.Core;
 
@@ -9,12 +14,12 @@ namespace Spooky.Content.Projectiles.Blooms
 {
     public class WormySegment : ModProjectile
     {
-        public int segmentIndex = 1;
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
-			Main.projFrames[Projectile.type] = 5;
-		}	
+            ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+        }
 
         public override void SetDefaults()
         {
@@ -24,10 +29,29 @@ namespace Spooky.Content.Projectiles.Blooms
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
+            Projectile.hide = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 2;
             Projectile.aiStyle = -1;
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+
+            return false;
+        }
+
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			behindProjectiles.Add(index);
+		}
 
         public override bool? CanCutTiles()
         {
@@ -39,18 +63,6 @@ namespace Spooky.Content.Projectiles.Blooms
 			return false;
 		}
 
-		public override void OnSpawn(IEntitySource source)
-        {
-            foreach (var projectile in Main.projectile)
-            {
-                if (projectile.type == ModContent.ProjectileType<WormyTail>() && projectile.owner == Projectile.owner && projectile.active)
-                {
-                    segmentIndex = projectile.ModProjectile<WormyTail>().segmentIndex;
-                    projectile.ModProjectile<WormyTail>().segmentIndex++;
-                }
-            }
-        }
-
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -59,78 +71,34 @@ namespace Spooky.Content.Projectiles.Blooms
 			{
 				Projectile.timeLeft = 2;
 			}
-        }
 
-        public void SegmentMove()
-        {
-            var live = false;
+            //head parent
+            Projectile Parent = Main.projectile[(int)Projectile.ai[0]];
 
-            Projectile nextSegment = new Projectile();
-            WormyHead head = new WormyHead();
-
-            for (int i = 0; i < Main.maxProjectiles; i++)
-            {
-                var projectile = Main.projectile[i];
-                if (projectile.type == Type && projectile.owner == Projectile.owner && projectile.active)
-                {
-                    if (projectile.ModProjectile<WormySegment>().segmentIndex == segmentIndex - 1)
-                    {
-                        live = true;
-                        nextSegment = projectile;
-                    }
-                }
-                if (projectile.type == ModContent.ProjectileType<WormyHead>() && projectile.owner == Projectile.owner && projectile.active)
-                {
-                    if (segmentIndex == 1)
-                    {
-                        live = true;
-                        nextSegment = projectile;
-                    }
-                    
-                    head = projectile.ModProjectile<WormyHead>();
-                }
-            }
-            
-            if (!live) 
+            //kill segment if the head doesnt exist
+			if (!Parent.active || Parent.type != ModContent.ProjectileType<WormyHead>())
             {
                 Projectile.Kill();
             }
 
-            Vector2 destinationOffset = nextSegment.Center + nextSegment.velocity - Projectile.Center;
+            //segment parent
+			Projectile SegmentParent = Main.projectile[(int)Projectile.ai[1]];
 
-            if (nextSegment.rotation != Projectile.rotation)
-            {
-                float angle = MathHelper.WrapAngle(nextSegment.rotation - Projectile.rotation);
-                destinationOffset = destinationOffset.RotatedBy(angle * 0.1f);
-            }
+			Vector2 SegmentCenter = SegmentParent.Center - Projectile.Center;
 
-            Projectile.rotation = destinationOffset.ToRotation();
+			if (SegmentParent.rotation != Projectile.rotation)
+			{
+				float angle = MathHelper.WrapAngle(SegmentParent.rotation - Projectile.rotation);
+				SegmentCenter = SegmentCenter.RotatedBy(angle * 0.1f);
+			}
+
+			Projectile.rotation = SegmentCenter.ToRotation() + 1.57f;
 
 			//how far each segment should be from each other
-            if (destinationOffset != Vector2.Zero)
-            {
-                Projectile.Center = nextSegment.Center + nextSegment.velocity - destinationOffset.SafeNormalize(Vector2.Zero) * 10f;
-            }
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            return false;
-        }
-
-        public override void OnKill(int timeLeft)
-        {
-            if (Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<WormyHead>()] > 0)
-            {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    var projectile = Main.projectile[i];
-                    if (projectile.type == ModContent.ProjectileType<WormyHead>() && projectile.owner == Projectile.owner && projectile.active)
-                    {
-                        projectile.Kill();
-                    }
-                }
-            }
+			if (SegmentCenter != Vector2.Zero)
+			{
+				Projectile.Center = SegmentParent.Center - SegmentCenter.SafeNormalize(Vector2.Zero) * 12f;
+			}
         }
     }
 }

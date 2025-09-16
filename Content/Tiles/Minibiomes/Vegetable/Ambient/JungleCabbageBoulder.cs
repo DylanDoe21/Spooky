@@ -30,8 +30,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable.Ambient
             int SpawnY = j * 16 + 24;
 
             int Damage = Main.masterMode ? 150 / 3 : (Main.expertMode ? 150 / 2 : 150);
-
-            Projectile.NewProjectile(new EntitySource_TileBreak(i * 16, j * 16), SpawnX, SpawnY, 0, -1, ModContent.ProjectileType<JungleCabbageBoulderProj>(), Damage, 10, Main.myPlayer);
+            
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Projectile.NewProjectile(new EntitySource_TileBreak(i * 16, j * 16), SpawnX, SpawnY, 0, -1, ModContent.ProjectileType<JungleCabbageBoulderProj>(), Damage, 10, Main.myPlayer);
+            }
         }
     }
 }

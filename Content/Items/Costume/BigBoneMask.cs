@@ -7,7 +7,7 @@ using Spooky.Core;
 namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class BigBoneMask : ModItem, ISpecialHelmetDraw
+	public class BigBoneMask : ModItem, ISpecialArmorDraw
 	{
 		public string HeadTexture => "Spooky/Content/Items/Costume/BigBoneMask_HeadReal";
 		public string HeadFlippedTexture => "Spooky/Content/Items/Costume/BigBoneMask_Head_RealReal_Flipped";

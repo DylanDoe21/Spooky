@@ -3,11 +3,17 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 
+using Spooky.Content.Items.Blooms.Accessory;
+using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Minibiomes.Christmas;
+using Spooky.Content.Tiles.Painting;
 
 namespace Spooky.Content.Items.Minibiomes.Christmas
 {
-	public class KrampusRewardPresent1 : ModItem
+	[LegacyName("KrampusRewardPresent1")]
+	[LegacyName("KrampusRewardPresent2")]
+	[LegacyName("KrampusRewardPresent3")]
+	public class KrampusRewardPresent : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -42,7 +48,8 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 				ModContent.ItemType<KrampusChimney>(),
 				ModContent.ItemType<KrampusJumpShoe>(),
 				ModContent.ItemType<KrampusResolution>(),
-				ModContent.ItemType<KrampusShapeBox>()
+				ModContent.ItemType<KrampusShapeBox>(),
+				ModContent.ItemType<DaylightSavings>()
 			};
 
 			itemLoot.Add(ItemDropRule.FewFromOptions(2, 1, Accessories));
@@ -60,7 +67,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 				ModContent.ItemType<StockingStaff>(),
 			};
 
-			itemLoot.Add(ItemDropRule.FewFromOptions(3, 1, Weapons));
+			itemLoot.Add(ItemDropRule.FewFromOptions(2, 1, Weapons));
 
 			//bricks
 			IItemDropRule[] KrampusBricks = new IItemDropRule[]
@@ -89,16 +96,38 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
 			//windows
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<ChristmasWindowItem>(), 1, 70, 140));
 
+			//snow bush bloom
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<WinterSeed>(), 2, 1));
+
+			//krampus workshop paintings
+			IItemDropRule[] XmasPaintings = new IItemDropRule[]
+			{
+				ItemDropRule.Common(ModContent.ItemType<XmasAbstractPainting1Item>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasAbstractPainting2Item>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasAbstractPainting3Item>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasAbstractPainting4Item>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasForestPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasNorthStarPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasSnowPillarPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasSnowTownPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasSpiritPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasTiltedHousePaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<XmasTrainPaintingItem>(), 1)
+			};
+			itemLoot.Add(new OneFromRulesRule(3, XmasPaintings));
+
+			//granny paintings
+			IItemDropRule[] GrannyPainting = new IItemDropRule[]
+			{
+				ItemDropRule.Common(ModContent.ItemType<GrandpaPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<GrannyPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<SlendrinaPaintingItem>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<SlendrinaSonPaintingItem>(), 1)
+			};
+			itemLoot.Add(new OneFromRulesRule(5, GrannyPainting));
+
 			//gold coins
-			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ItemID.GoldCoin, 1, 15, 30));
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ItemID.GoldCoin, 1, 4, 8));
 		}
-	}
-
-	public class KrampusRewardPresent2 : KrampusRewardPresent1
-	{
-	}
-
-	public class KrampusRewardPresent3 : KrampusRewardPresent1
-	{
 	}
 }

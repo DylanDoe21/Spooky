@@ -13,8 +13,8 @@ namespace Spooky.Content.Items.Blooms.Accessory
             Item.width = 50;
             Item.height = 44;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.buyPrice(gold: 2);
+            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(gold: 5);
         }
        
         public override void UpdateAccessory(Player player, bool hideVisual)

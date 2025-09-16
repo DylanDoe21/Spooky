@@ -13,19 +13,14 @@ namespace Spooky.Content.Projectiles.Blooms
 {
     public class WormyHead : ModProjectile
     {
+        bool segmentsSpawned = false;
         bool isAttacking = false;
 
-        Dictionary<int, Projectile> segments = new Dictionary<int, Projectile>();
-
-        private static Asset<Texture2D> HeadTexture;
-        private static Asset<Texture2D> BodyTexture;
-        private static Asset<Texture2D> TailTexture;
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionTargettingFeature[Type] = true;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 100;
         }
 
         public override void SetDefaults()
@@ -45,31 +40,13 @@ namespace Spooky.Content.Projectiles.Blooms
 
         public override bool PreDraw(ref Color lightColor)
         {
-			Player player = Main.player[Projectile.owner];
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			HeadTexture ??= ModContent.Request<Texture2D>(Texture);
-            BodyTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/WormySegment");
-            TailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Blooms/WormyTail");
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
 
-            for (var i = segments.Count; i > 0; i--)
-            {
-                if (segments.ContainsKey(i))
-                {
-                    if (i < segments.Count)
-                    {
-						Main.EntitySpriteDraw(BodyTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
-                        segments[i].rotation + MathHelper.Pi / 2f, BodyTexture.Size() / 2f, segments[i].scale, SpriteEffects.None, 0);
-                    }
-                    else
-                    {
-                        Main.EntitySpriteDraw(TailTexture.Value, segments[i].Center - Main.screenPosition, null, segments[i].GetAlpha(lightColor),
-                        segments[i].rotation + MathHelper.Pi / 2f, TailTexture.Size() / 2f, segments[i].scale, SpriteEffects.None, 0);
-                    }
-                }
-            }
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
-            Main.EntitySpriteDraw(HeadTexture.Value, Projectile.Center - Main.screenPosition, null, Projectile.GetAlpha(lightColor), Projectile.rotation + MathHelper.Pi / 2f,
-            HeadTexture.Size() / 2f, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return false;
         }
@@ -92,6 +69,33 @@ namespace Spooky.Content.Projectiles.Blooms
 			{
 				Projectile.timeLeft = 2;
 			}
+
+            if (!segmentsSpawned)
+            {
+                int latestSegment = Projectile.whoAmI;
+
+                for (int numSegment = 0; numSegment < 6; numSegment++)
+                {
+                    if (numSegment < 5)
+                    {
+                        latestSegment = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
+                        ModContent.ProjectileType<WormySegment>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 
+                        ai0: Projectile.identity, ai1: latestSegment);
+                    }
+                    else
+                    {
+                        latestSegment = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
+                        ModContent.ProjectileType<WormyTail>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 
+                        ai0: Projectile.identity, ai1: latestSegment);
+                    }
+                }
+
+                segmentsSpawned = true;
+                Projectile.netUpdate = true;
+            }
+
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			Projectile.rotation += 0f * (float)Projectile.direction;
 
             int AdditionalDamage = 0;
             bool ShouldScaleDamage = false;
@@ -116,8 +120,6 @@ namespace Spooky.Content.Projectiles.Blooms
             }
 
 			Projectile.ai[0]++;
-
-            Projectile.rotation = Projectile.velocity.ToRotation();
 
 			if (Projectile.Distance(player.Center) >= 2000f)
 			{
@@ -155,34 +157,6 @@ namespace Spooky.Content.Projectiles.Blooms
             if (!isAttacking)
             {
                 IdleMovement(player);
-            }
-
-            segments.Clear();
-            foreach (var projectile in Main.projectile)
-            {
-                if (projectile.type == ModContent.ProjectileType<WormySegment>() && projectile.owner == Projectile.owner && projectile.active && !segments.ContainsKey(projectile.ModProjectile<WormySegment>().segmentIndex))
-                {
-                    segments.Add(projectile.ModProjectile<WormySegment>().segmentIndex, projectile);
-                }
-                if (projectile.type == ModContent.ProjectileType<WormyTail>() && projectile.owner == Projectile.owner && projectile.active && !segments.ContainsKey(projectile.ModProjectile<WormyTail>().segmentIndex))
-                {
-                    segments.Add(projectile.ModProjectile<WormyTail>().segmentIndex, projectile);
-                }
-            }
-            for (var i = 1; i <= segments.Count; i++)
-            {
-                if (i < segments.Count)
-                {
-                    if (segments.ContainsKey(i))
-                    segments[i].ModProjectile<WormySegment>().SegmentMove();
-                }
-                else
-                {
-                    if (segments.ContainsKey(i))
-                    {
-                        segments[i].ModProjectile<WormyTail>().SegmentMove();
-                    }
-                }
             }
         }
 

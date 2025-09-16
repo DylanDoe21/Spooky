@@ -65,7 +65,17 @@ namespace Spooky.Content.Generation
 			}
 			else
 			{
-				BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), GenVars.desertHiveLow - (SizeY * 2));
+				int Min = GenVars.desertHiveHigh + (SizeY * 2);
+				int Max = GenVars.desertHiveLow - (SizeY * 2);
+
+				if (Min < Max)
+				{
+					BiomeY = WorldGen.genRand.Next(Min, Max);
+				}
+				else
+				{
+					BiomeY = Max;
+				}
 			}
 
 			//place tar pits amount based on world size
@@ -97,7 +107,17 @@ namespace Spooky.Content.Generation
 						}
 						else
 						{
-							BiomeY = WorldGen.genRand.Next(GenVars.desertHiveHigh + (SizeY * 2), GenVars.desertHiveLow - (SizeY * 2));
+							int Min = GenVars.desertHiveHigh + (SizeY * 2);
+							int Max = GenVars.desertHiveLow - (SizeY * 2);
+
+							if (Min < Max)
+							{
+								BiomeY = WorldGen.genRand.Next(Min, Max);
+							}
+							else
+							{
+								BiomeY = Max;
+							}
 						}
 					}
 					else

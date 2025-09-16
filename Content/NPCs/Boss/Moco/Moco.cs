@@ -14,6 +14,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
@@ -1329,6 +1330,9 @@ namespace Spooky.Content.NPCs.Boss.Moco
 
             //material
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SnotGlob>(), 1, 12, 20));
+
+            //herb accessory
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HerbShaker>(), 2));
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MocoMask>(), 7));

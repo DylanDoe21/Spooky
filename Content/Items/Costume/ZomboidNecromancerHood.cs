@@ -9,9 +9,9 @@ using Spooky.Core;
 namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class ZomboidNecromancerHood : ModItem, ISpecialHelmetDraw
+	public class ZomboidNecromancerHood : ModItem, ISpecialArmorDraw
 	{
-		public string HeadTexture => "Spooky/Content/Items/Costume/ZomboidNecromancerHood_Top";
+		public string HeadTexture => "Spooky/Content/Items/Costume/ZomboidNecromancerHoodTop";
 
 		public Vector2 Offset => new Vector2(0, 4f);
 

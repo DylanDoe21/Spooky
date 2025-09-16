@@ -38,6 +38,8 @@ namespace Spooky
         private static Asset<Texture2D> OrroboroTexture;
         private static Asset<Texture2D> BigBoneTexture;
         private static Asset<Texture2D> OutlineTexture;
+        private static Asset<Texture2D> SpookFishronTexture;
+        private static Asset<Texture2D> SpookFishronOutlineTexture;
 
         public static readonly SoundStyle LogoClickSound1 = new("Spooky/Content/Sounds/MenuLogoClick1", SoundType.Sound);
         public static readonly SoundStyle LogoClickSound2 = new("Spooky/Content/Sounds/MenuLogoClick2", SoundType.Sound);
@@ -58,8 +60,6 @@ namespace Spooky
             //set daytime to true 
             Main.time = 27000;
             Main.dayTime = true;
-
-            logoScale = 0.8f;
 
             //draw the menu background
             MenuTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenu");
@@ -115,14 +115,23 @@ namespace Spooky
                 BigBoneTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockBigBone");
                 spriteBatch.Draw(BigBoneTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
+            if (MenuSaveSystem.hasDefeatedSpookFishron)
+            {
+                SpookFishronTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockSpookFishron");
+                spriteBatch.Draw(SpookFishronTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            }
 
             //outlines for each boss
             OutlineTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/SpookyMenuOutlines");
             spriteBatch.Draw(OutlineTexture.Value, drawOffset, null, Color.White * LogoSquishIntensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            //spook fishron
+            SpookFishronOutlineTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockSpookFishronOutline");
+            spriteBatch.Draw(SpookFishronOutlineTexture.Value, drawOffset, null, Color.White * LogoSquishIntensity, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             //draw the actual menu logo
             logoCenter = logoDrawCenter;
-            Main.EntitySpriteDraw(Logo.Value, logoDrawCenter, new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo)), Color.White, logoRotation, Utils.Size(Logo) / 2f, new Vector2(1f + LogoSquishIntensity, 1f - LogoSquishIntensity), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(Logo.Value, logoDrawCenter, new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo)), Color.White, 
+            logoRotation, Utils.Size(Logo) / 2f, new Vector2(0.85f + LogoSquishIntensity, 0.85f - LogoSquishIntensity), SpriteEffects.None, 0);
 
             return false;
         }

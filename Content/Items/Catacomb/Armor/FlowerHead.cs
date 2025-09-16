@@ -11,9 +11,9 @@ using Spooky.Content.Items.Catacomb.Misc;
 namespace Spooky.Content.Items.Catacomb.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class FlowerHead : ModItem, ISpecialHelmetDraw
+	public class FlowerHead : ModItem, ISpecialArmorDraw
 	{
-		public string HeadTexture => "Spooky/Content/Items/Catacomb/Armor/FlowerHead_RealHead";
+		public string HeadTexture => "Spooky/Content/Items/Catacomb/Armor/FlowerHeadRealHead";
 
         public Vector2 Offset => new Vector2(0, 4f);
 

@@ -659,3 +659,8 @@ EelTagDebuff: {
 	DisplayName: Eel Tag Debuff
 	Description: ""
 }
+
+ThornRoseBleed: {
+	DisplayName: Thorn Rose Bleed
+	Description: ""
+}

@@ -7,9 +7,9 @@ using Spooky.Core;
 namespace Spooky.Content.Items.Costume
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class KrakenHead : ModItem, ISpecialHelmetDraw
+	public class KrakenHead : ModItem, ISpecialArmorDraw
 	{
-		public string GlowTexture => "Spooky/Content/Items/Costume/KrakenHead_Glow";
+		public string GlowTexture => "Spooky/Content/Items/Costume/KrakenHeadGlow";
 
 		public override void SetDefaults()
 		{

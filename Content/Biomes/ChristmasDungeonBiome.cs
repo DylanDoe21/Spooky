@@ -35,6 +35,17 @@ namespace Spooky.Content.Biomes
 			{
 				NetMessage.SendData(MessageID.WorldData);
 			}
+
+            if (Main.netMode != NetmodeID.SinglePlayer)
+			{
+				ModPacket packet = Mod.GetPacket();
+				packet.Write((byte)SpookyMessageType.DrawKrampusMapIconReset);
+				packet.Send();
+			}
+			else
+			{
+				Flags.DrawKrampusMapIcon = false;
+			}
         }
 
 		public override bool IsBiomeActive(Player player)

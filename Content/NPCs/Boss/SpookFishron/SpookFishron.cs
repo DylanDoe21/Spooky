@@ -1699,6 +1699,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			}
 
 			NPC.SetEventFlagCleared(ref Flags.downedSpookFishron, -1);
+
+			if (!MenuSaveSystem.hasDefeatedSpookFishron)
+			{
+				MenuSaveSystem.hasDefeatedSpookFishron = true;
+			}
 		}
 
 		public override void BossLoot(ref string name, ref int potionType)

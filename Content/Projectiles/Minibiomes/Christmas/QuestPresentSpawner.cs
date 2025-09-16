@@ -155,26 +155,40 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 
 				if (SelectedTownNPC.type == ModContent.NPCType<LittleEye>())
 				{
-					if (!Main.dedServ && !Flags.KrampusQuestlineDone)
+					if (!Flags.KrampusQuestlineDone)
 					{
-						DialogueChain chain = new();
-						chain.Add(new(SelectedTownNPC,
-						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye1"),
-						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye1"),
-						TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
-						.Add(new(SelectedTownNPC,
-						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye2"),
-						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye2"),
-						TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
-						.Add(new(SelectedTownNPC,
-						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye3"),
-						Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye3"),
-						TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
-						.Add(new(SelectedTownNPC, null, null, TalkSound, 2f, 0f, modifier, true));
-						chain.OnPlayerResponseTrigger += PlayerResponse;
-						chain.OnEndTrigger += EndDialogue;
-						DialogueUI.Visible = true;
-						DialogueUI.Add(chain);
+						if (!Main.dedServ)
+						{
+							DialogueChain chain = new();
+							chain.Add(new(SelectedTownNPC,
+							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye1"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye1"),
+							TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
+							.Add(new(SelectedTownNPC,
+							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye2"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye2"),
+							TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
+							.Add(new(SelectedTownNPC,
+							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye3"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye3"),
+							TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
+							.Add(new(SelectedTownNPC, null, null, TalkSound, 2f, 0f, modifier, true));
+							chain.OnPlayerResponseTrigger += PlayerResponse;
+							chain.OnEndTrigger += EndDialogue;
+							DialogueUI.Visible = true;
+							DialogueUI.Add(chain);
+						}
+					}
+					else
+					{
+						int[] NPCsList = new int[] { ModContent.NPCType<Marble>(), ModContent.NPCType<JackInTheBox>(), ModContent.NPCType<BuilderBot>(), ModContent.NPCType<ChefRobot>() };
+
+						int NPCSpawn = NPC.NewNPC(Projectile.GetSource_Death(), (int)Projectile.Center.X, (int)Projectile.Center.Y, Main.rand.Next(NPCsList));
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: NPCSpawn);
+						}
 					}
 				}
 				else

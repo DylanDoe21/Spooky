@@ -11,7 +11,7 @@ using Spooky.Content.Items.SpookyBiome.Misc;
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class WizardGangsterHead : ModItem, ISpecialHelmetDraw
+	public class WizardGangsterHead : ModItem, ISpecialArmorDraw
 	{
 		public string HeadTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Hat";
 

@@ -633,7 +633,7 @@ namespace Spooky.Core
 				//spawn friendly ghosts on hit with spirit amulet
 				if (SpiritAmulet && Main.rand.NextBool(5) && Player.ownedProjectileCounts[ModContent.ProjectileType<AmuletGhost>()] < 5)
 				{
-                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), Player.Center, Vector2.Zero, ModContent.ProjectileType<AmuletGhost>(), damageDone, 0, ai2: Main.rand.Next(0, 6));
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), Player.Center, Vector2.Zero, ModContent.ProjectileType<AmuletGhost>(), damageDone / 2, 0, ai2: Main.rand.Next(0, 6));
 				}
             }
         }
@@ -1054,9 +1054,9 @@ namespace Spooky.Core
                 {
                     NPC NPC = Main.npc[i];
 
-                    if (NPC.active && !NPC.friendly && !NPC.immortal && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 450f)
+                    if (NPC.active && !NPC.friendly && !NPC.immortal && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Vector2.Distance(Player.Center, NPC.Center) <= 350f)
                     {
-                        NPC.AddBuff(ModContent.BuffType<HunterScarfMark>(), 5);
+                        NPC.AddBuff(ModContent.BuffType<HunterScarfMark>(), 10);
                     }
                 }
             }

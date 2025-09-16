@@ -869,6 +869,11 @@ namespace Spooky.Content.Generation
 						return false;
 					}
 
+                    if (Main.tile[i, j].LiquidAmount > 0)
+					{
+						return false;
+					}
+
                     if (InvalidTiles.Contains(Main.tile[i, j].TileType))
                     {
                         return false;

@@ -150,7 +150,7 @@ namespace Spooky.Content.NPCs.Friendly
 			foreach (var player in Main.ActivePlayers)
 			{
 				if (NPC.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) &&
-				NPC.Distance(player.Center) <= 150f && !Main.mapFullscreen && Main.myPlayer == player.whoAmI)
+				NPC.Distance(player.Center) <= 150f && !Main.mapFullscreen)
 				{
 					if (Main.mouseRight && Main.mouseRightRelease && PlayerTalkingTo == null)
 					{
@@ -538,8 +538,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		private void GivePlayerReward(Dialogue dialogue, int ID)
 		{
-			int[] Presents = new int[] { ModContent.ItemType<KrampusRewardPresent1>(), ModContent.ItemType<KrampusRewardPresent2>(), ModContent.ItemType<KrampusRewardPresent3>() };
-			int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, Main.rand.Next(Presents));
+			int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, ModContent.ItemType<KrampusRewardPresent>());
 
 			if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
 			{

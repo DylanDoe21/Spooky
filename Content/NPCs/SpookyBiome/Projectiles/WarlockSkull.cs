@@ -6,6 +6,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 using Spooky.Core;
 
@@ -17,6 +18,18 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
         int OffsetY = Main.rand.Next(-65, 66);
 
         private static Asset<Texture2D> NPCTexture;
+        
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(OffsetX);
+            writer.Write(OffsetY);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            OffsetX = reader.ReadInt32();
+            OffsetY = reader.ReadInt32();
+        }
 
         public override void SetStaticDefaults()
         {
@@ -65,13 +78,13 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
         public override void AI()
         {
             NPC Parent = Main.npc[(int)NPC.ai[1]];
+            Player Target = Main.player[(int)NPC.ai[2]];
 
             NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? -1 : 1;
 
             NPC.rotation = NPC.velocity.X * 0.1f;
 
             NPC.ai[0]++;
-
             if (NPC.ai[0] < 75)
             {
                 if (NPC.alpha > 0)
@@ -121,8 +134,10 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 
             if (NPC.ai[0] == 75)
             {
-                double Velocity = Math.Atan2(Main.player[Main.myPlayer].position.Y - NPC.position.Y, Main.player[Main.myPlayer].position.X - NPC.position.X);
+                double Velocity = Math.Atan2(Target.Center.Y - NPC.Center.Y, Target.Center.X - NPC.Center.X);
                 NPC.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 7;
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.ai[0] > 100)

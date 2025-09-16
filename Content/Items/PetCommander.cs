@@ -36,6 +36,10 @@ namespace Spooky.Content.Items
                     if (npc.localAI[2] > 2)
                     {
                         npc.localAI[2] = 0;
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0);
+                        }
                     }
 
 					int StateValue = (int)npc.localAI[2] + 1;

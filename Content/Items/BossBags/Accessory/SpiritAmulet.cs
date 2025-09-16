@@ -21,7 +21,6 @@ namespace Spooky.Content.Items.BossBags.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<SpookyPlayer>().SpiritAmulet = true;
-            player.moveSpeed += 0.2f;
         }
     }
 }

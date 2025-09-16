@@ -23,12 +23,12 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
             Item.useTime = 28;
 			Item.useAnimation = 28;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 5;
+			Item.knockBack = 8;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 30);
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<TonguebladeSlash>();
-			Item.shootSpeed = 0f;
+			Item.shootSpeed = 12f;
         }
 
         public override bool AltFunctionUse(Player player)
@@ -51,12 +51,10 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			if (player.altFunctionUse == 2)
 			{
                 Item.noUseGraphic = true;
-                Item.shootSpeed = 0f;
             }
 			else
 			{
                 Item.noUseGraphic = false;
-				Item.shootSpeed = 0f;
 			}
 		}
 

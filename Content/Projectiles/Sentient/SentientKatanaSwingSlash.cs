@@ -11,8 +11,6 @@ namespace Spooky.Content.Projectiles.Sentient
     {
         public override string Texture => "Spooky/Content/Projectiles/SwordSlashCutter";
 
-        float SaveKnockback;
-        bool SavedKnockback = false;
         bool hasHitSomething = false;
 
         private static Asset<Texture2D> ProjTexture;
@@ -76,36 +74,9 @@ namespace Spooky.Content.Projectiles.Sentient
             return false;
         }
 
-        public override bool PreAI()
-		{
-            if (!SavedKnockback)
-            {
-                SaveKnockback = Projectile.knockBack;
-                SavedKnockback = true;
-            }
-            else
-            {
-                Projectile.knockBack = 0;
-            }
-
-            return true;
-        }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
 		{
             Player player = Main.player[Projectile.owner];
-
-            Projectile.damage = (int)(damageDone * 0.8f);
-
-            //since this projectile is weird and only knocks enemies back in one direction, manually handle knockback here
-            Vector2 Knockback = player.Center - target.Center;
-            Knockback.Normalize();
-            Knockback *= SaveKnockback * 2;
-
-            if (target.knockBackResist > 0)
-            {
-                target.velocity = -Knockback * target.knockBackResist;
-            }
 
             if (!hasHitSomething && target.CanBeChasedBy(this))
             {

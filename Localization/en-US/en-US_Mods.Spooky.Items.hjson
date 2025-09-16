@@ -1027,7 +1027,7 @@ SlendermanPage: {
 	Tooltip:
 		'''
 		Spawns some black tentacles attached to you that will attack nearby enemies
-		Pages that you can pick up will rarely drop when the tentacles critically hit an enemy
+		Pages that you can pick up will rarely drop when the tentacles hit an enemy
 		Picking up these pages will temporarily buff the tentacles
 		'Don't look'
 		'''
@@ -1073,8 +1073,8 @@ Creepypasta: {
 		For each lost spiral charge you gain 2% increased critical strike chance
 		Summons a smiling puppy that will maul nearby enemies
 		Critical hits may spawn orbiting red notes that will attack enemies
-		Summons black tentacles to attack nearby enemies, enemies critically hit by them may drop pages that buff them
-		Damaging enemies has a rare chance to spawn a red apparition to deal massive damage to them
+		Summons black tentacles to attack nearby enemies, enemies hit by them may drop pages that buff them
+		Every 25th time you hit an enemy a high damage red apparition will spawn to attack it
 		Press the Accessory Hotkey to summon lighting that smites enemies and deals lots of damage to bosses
 		'''
 }
@@ -1547,7 +1547,7 @@ KrampusJobApplication: {
 
 KrampusJumpShoe: {
 	DisplayName: Moon Shoes
-	Tooltip: Allows you to triple jump and auto-jump
+	Tooltip: Allows you to quadruple jump and auto-jump
 }
 
 KrampusResolution: {
@@ -1559,25 +1559,7 @@ KrampusResolution: {
 		'''
 }
 
-KrampusRewardPresent1: {
-	DisplayName: Giant Christmas Present
-	Tooltip:
-		'''
-		{$CommonItemTooltip.RightClickToOpen}
-		Contains a ton of rewards!
-		'''
-}
-
-KrampusRewardPresent2: {
-	DisplayName: Giant Christmas Present
-	Tooltip:
-		'''
-		{$CommonItemTooltip.RightClickToOpen}
-		Contains a ton of rewards!
-		'''
-}
-
-KrampusRewardPresent3: {
+KrampusRewardPresent: {
 	DisplayName: Giant Christmas Present
 	Tooltip:
 		'''
@@ -2230,9 +2212,9 @@ GhostBook: {
 		Summons one of the grave-robber's spirits to fight with and protect you
 		The spirit summoned depends on the color of the book's eye
 		Also grants different stat bonuses depending on the eye color
-		Red eye will grant you 12% increased melee and ranged damage and knockback
-		Green eye will grant 12% increased magic and summon damage and 15% reduced mana usage
-		Blue eye will grant you 10 defense and increased life regeneraton
+		Red eye will grant you 10% increased melee and ranged damage
+		Green eye will grant 10% increased magic damage, summon damage, and reduced mana usage
+		Blue eye will grant you 8 defense and increased life regeneraton
 		Use to switch the type of spirit this book summons
 		'''
 }
@@ -3053,6 +3035,7 @@ TotalOrganPackage: {
 		'''
 		Grants the abilities of all organ accessories
 		Hitting enemies may attach a set of goo jaws to them to deal additional damage
+		10% increased critical strike chance
 		Chance on hitting nearby enemies to attach a life-stealing vein that damages them and heals you
 		Hitting enemies will sometimes give them a stomach ache, on death they will explode pink bubbles
 		While not using items you will charge up a kidney rock, at full charge attacking will launch the stone
@@ -3907,6 +3890,21 @@ ChristmasWorkBenchItem: {
 	Tooltip: ""
 }
 
+KrampusDrillStationItem: {
+	DisplayName: Drill Station
+	Tooltip: ""
+}
+
+KrampusGiantWorkBenchItem: {
+	DisplayName: Heavy Yuletide Wood Bench
+	Tooltip: Used for advanced crafting
+}
+
+KrampusSawStationItem: {
+	DisplayName: Saw Station
+	Tooltip: ""
+}
+
 ChristmasBrickRedItem: {
 	DisplayName: Red Yuletide Brick
 	Tooltip: ""
@@ -4019,6 +4017,11 @@ WheelItem: {
 
 LabComputerItem: {
 	DisplayName: Computer
+	Tooltip: ""
+}
+
+LabComputerUnsafeItem: {
+	DisplayName: Lab Email Computer
 	Tooltip: ""
 }
 
@@ -4304,7 +4307,7 @@ SpookySpiritBox: {
 
 SpookyTownDayBox: {
 	DisplayName: Music Box (Spooky Town Day)
-	Tooltip: "[c/FF8D00:Hallow's Eve] by BananaLizard"
+	Tooltip: "[c/FF8D00:Hollow's Eve] by BananaLizard"
 }
 
 SpookyTownNightBox: {
@@ -4319,7 +4322,7 @@ TarPitsBox: {
 
 TurkeyBox: {
 	DisplayName: Music Box (Turkey Riding)
-	Tooltip: "[c/FF8D00:Turkey Time] by BananaLizard"
+	Tooltip: "[c/FF8D00:Turkeytime] by BananaLizard"
 }
 
 VegetableBiomeBox: {

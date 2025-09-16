@@ -11,11 +11,11 @@ using Spooky.Content.Items.SpookyBiome.Misc;
 namespace Spooky.Content.Items.SpookyBiome.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class WizardGangsterHead2 : ModItem, ISpecialHelmetDraw
+	public class WizardGangsterHead2 : ModItem, ISpecialArmorDraw
 	{
-		public string HeadTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead2_Hat";
+		public string HeadTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead2Hat";
 
-		public string GlowTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHead_Glow";
+		public string GlowTexture => "Spooky/Content/Items/SpookyBiome/Armor/WizardGangsterHeadGlow";
 
 		public Vector2 Offset => new Vector2(0, 4f);
 

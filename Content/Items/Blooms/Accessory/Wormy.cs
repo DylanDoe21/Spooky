@@ -24,21 +24,8 @@ namespace Spooky.Content.Items.Blooms.Accessory
             player.GetModPlayer<BloomBuffsPlayer>().Wormy = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<WormyHead>()] <= 0)
 			{
-                SpawnWorm(ModContent.ProjectileType<WormyHead>(), ModContent.ProjectileType<WormySegment>(), ModContent.ProjectileType<WormyTail>(), new Vector2(player.Center.X, player.Center.Y), player, 25, 3);
+                Projectile.NewProjectile(null, player.Center, Vector2.Zero, ModContent.ProjectileType<WormyHead>(), 25, 3, player.whoAmI);
             }
 		}
-
-        public static void SpawnWorm(int head, int body, int tail, Vector2 spawnPos, Player player, int damage, float knockback)
-        {
-            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, head, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, tail, damage, knockback, player.whoAmI);
-
-            for (var i = 0; i < 9; i++)
-            {
-				//ai[0] = Body should animate and have the frames for the seasonal abilities
-				//ai[1] = Current body segment frame
-                Projectile.NewProjectile(null, spawnPos, Vector2.Zero, body, damage, knockback, player.whoAmI);
-            }
-        }
     }
 }

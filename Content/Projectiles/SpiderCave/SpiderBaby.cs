@@ -29,6 +29,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
             Projectile.width = 22;
 			Projectile.height = 18;
             Projectile.DamageType = DamageClass.Summon;
+            Projectile.localNPCHitCooldown = 45;
+            Projectile.usesLocalNPCImmunity = true;
 			Projectile.minion = true;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;

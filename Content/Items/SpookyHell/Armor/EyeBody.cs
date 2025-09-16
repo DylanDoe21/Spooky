@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Tiles.SpookyHell;
 

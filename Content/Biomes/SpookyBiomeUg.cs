@@ -14,8 +14,7 @@ namespace Spooky.Content.Biomes
     {
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.GetInstance<SpookyForestBG>();
 
-        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 250 ? ModContent.GetInstance<GlowshroomUndergroundBG>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
-
+        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 250 ? ModContent.GetInstance<GlowshroomBackgroundStyle>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
 		//set the music to be consistent with vanilla's music priorities
 		public override int Music
 		{
@@ -65,4 +64,15 @@ namespace Spooky.Content.Biomes
             return BiomeCondition && UndergroundCondition;
         }
     }
+
+	public class SpookyBiomeUgGlowshroom : SpookyBiomeUg
+    {
+		public override bool IsBiomeActive(Player player)
+        {
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().glowshroomTiles >= 250;
+            bool UndergroundCondition = (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight) && !player.ZoneDungeon;
+
+            return BiomeCondition && UndergroundCondition;
+        }
+	}
 }

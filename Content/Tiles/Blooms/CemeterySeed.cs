@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Spooky.Content.Items;
+
 namespace Spooky.Content.Tiles.Blooms
 {
     public class CemeterySeed : ModItem
@@ -17,7 +19,7 @@ namespace Spooky.Content.Tiles.Blooms
 			Item.width = 30;
 			Item.height = 46;
 			Item.noUseGraphic = true;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ModContent.RarityType<BloomPreHMRarity>();
 			Item.placeStyle = Main.rand.Next(0, 4);
 		}
 

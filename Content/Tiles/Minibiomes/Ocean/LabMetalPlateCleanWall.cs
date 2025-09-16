@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
     {
         public override void SetStaticDefaults()
         {
-            Main.wallHouse[Type] = false;
+            Main.wallHouse[Type] = true;
             AddMapEntry(new Color(48, 60, 70));
             DustType = DustID.Iron;
             HitSound = SoundID.Item52;

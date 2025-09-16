@@ -14,7 +14,7 @@ namespace Spooky.Content.Items.Minibiomes.Desert
     {
         public override void SetDefaults()
         {
-            Item.damage = 12;
+            Item.damage = 5;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
 			Item.autoReuse = true;

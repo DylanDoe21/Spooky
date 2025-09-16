@@ -11,12 +11,10 @@ using Spooky.Content.Buffs.Debuff;
 namespace Spooky.Core
 {
 	//special helmet drawing stuff
-	public interface ISpecialHelmetDraw
+	public interface ISpecialArmorDraw
 	{
 		string HeadTexture => string.Empty;
-
         string HeadFlippedTexture => string.Empty;
-
 		string GlowTexture => string.Empty;
 
 		Vector2 Offset => Vector2.Zero;
@@ -53,7 +51,7 @@ namespace Spooky.Core
                 headItem = drawPlayer.armor[10];
             }
 
-            if (ModContent.GetModItem(headItem.type) is ISpecialHelmetDraw HelmetDrawer)
+            if (ModContent.GetModItem(headItem.type) is ISpecialArmorDraw HelmetDrawer)
             {
                 string equipSlotName = headItem.ModItem.Name;
                 int equipSlot = EquipLoader.GetEquipSlot(Mod, equipSlotName, EquipType.Head);

@@ -222,7 +222,7 @@ namespace Spooky.Core
 				pool.Add(ModContent.NPCType<LittleSpider>(), 3);
 				pool.Add(ModContent.NPCType<TinyMushroom>(), 2);
 
-                if (ModContent.GetInstance<TileCount>().glowshroomTiles >= 250)
+                if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiomeUgGlowshroom>()))
                 {
                     pool.Add(ModContent.NPCType<ShroomHopper>(), 3);
                 }
@@ -243,7 +243,7 @@ namespace Spooky.Core
 					}
 
                     //mushroom moss mini-biome spawns
-                    if (ModContent.GetInstance<TileCount>().glowshroomTiles >= 250)
+                    if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpookyBiomeUgGlowshroom>()))
                     {
                         pool.Add(ModContent.NPCType<Bungus>(), 3);
                         pool.Add(ModContent.NPCType<Chungus>(), 3);

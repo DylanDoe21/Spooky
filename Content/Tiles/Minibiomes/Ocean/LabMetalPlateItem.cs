@@ -25,6 +25,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
             .AddIngredient(ModContent.ItemType<LabMetalPlateWallItem>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();
+
+            CreateRecipe(2)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 1)
+            .AddTile(TileID.Furnaces)
+            .Register();
         }
     }
 }

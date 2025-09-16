@@ -33,22 +33,11 @@ namespace Spooky.Content.Items.SpookyHell.Armor
 
 			player.GetModPlayer<SpookyPlayer>().GoreArmorEye = true;
 
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<MiniOrroHead>()] <= 0)
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<MiniOrroHead>()] <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<MiniBoroHead>()] <= 0)
 			{
-				SpawnWorm(ModContent.ProjectileType<MiniOrroHead>(), ModContent.ProjectileType<MiniOrroBody>(), ModContent.ProjectileType<MiniOrroTail>(), new Vector2(player.Center.X, player.Center.Y - 50), player, 85, 0);
-			}
-		}
-
-        public static void SpawnWorm(int head, int body, int tail, Vector2 spawnPos, Player player, int damage, float knockback)
-        {
-            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, head, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, tail, damage, knockback, player.whoAmI);
-
-            for (var i = 0; i < 5; i++)
-            {
-                Projectile.NewProjectile(null, spawnPos, Vector2.Zero, body, damage, knockback, player.whoAmI);
+				Projectile.NewProjectile(null, player.Center, Vector2.Zero, ModContent.ProjectileType<MiniOrroHead>(), 85, 0, player.whoAmI);
             }
-        }
+		}
 
 		public override void ArmorSetShadows(Player player)
 		{
