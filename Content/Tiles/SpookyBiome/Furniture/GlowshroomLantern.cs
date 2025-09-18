@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -20,9 +21,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             Main.tileLavaDeath[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);
             TileObjectData.newTile.DrawYOffset = -2;
+            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom | AnchorType.PlanterBox, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.AnchorBottom = AnchorData.Empty;
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.newTile.LavaPlacement = LiquidPlacement.Allowed;
+			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
+			TileObjectData.newAlternate.AnchorTop = new AnchorData(AnchorType.Platform, TileObjectData.newTile.Width, 0);
+			TileObjectData.newAlternate.DrawYOffset = -10;
+			TileObjectData.addAlternate(0);
             TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(122, 72, 203), name);
@@ -31,6 +37,16 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AdjTiles = new int[] { TileID.HangingLanterns };
         }
+
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+		{
+			if ((Framing.GetTileSafely(i, j - 1).HasTile && TileID.Sets.Platforms[Framing.GetTileSafely(i, j - 1).TileType]) ||
+            (Framing.GetTileSafely(i, j - 2).HasTile && TileID.Sets.Platforms[Framing.GetTileSafely(i, j - 2).TileType]) ||
+            (Framing.GetTileSafely(i, j - 3).HasTile && TileID.Sets.Platforms[Framing.GetTileSafely(i, j - 3).TileType]))
+			{
+				offsetY -= 8;
+			}
+		}
 
         public override void NumDust(int i, int j, bool fail, ref int num) 
         {
@@ -88,9 +104,14 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             Main.tileLavaDeath[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);
             TileObjectData.newTile.DrawYOffset = -2;
+            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom | AnchorType.PlanterBox, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.AnchorBottom = AnchorData.Empty;
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.newTile.LavaPlacement = LiquidPlacement.Allowed;
+			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
+			TileObjectData.newAlternate.AnchorTop = new AnchorData(AnchorType.Platform, TileObjectData.newTile.Width, 0);
+			TileObjectData.newAlternate.DrawYOffset = -10;
+			TileObjectData.addAlternate(0);
             TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(179, 128, 50), name);

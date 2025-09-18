@@ -28,7 +28,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.height = 44;
             NPC.friendly = true;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.75f;
+			NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 7;
@@ -63,7 +63,7 @@ namespace Spooky.Content.NPCs.Friendly
         {
             NPC.spriteDirection = NPC.direction;
 
-            NPC.velocity.X *= 0;
+            NPC.velocity.X = 0;
 
             if (Main.rand.NextBool(1500))
             {

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.Boss.BigBone;
 
 namespace Spooky.Content.Items.BossSummon
@@ -36,23 +37,23 @@ namespace Spooky.Content.Items.BossSummon
             return false;
         }
 		
-        public override bool? UseItem(Player player)
+        public override void UseAnimation(Player player)
         {
             SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
-			foreach (var npc in Main.ActiveNPCs)
+            foreach (var npc in Main.ActiveNPCs)
 			{
-				if (npc.type == ModContent.NPCType<BigFlowerPot>())
+				if (npc.type == ModContent.NPCType<BigFlowerPot>() && npc.ai[1] <= 0)
 				{
 					if (npc.Distance(player.Center) <= 320f)
 					{
 						npc.ai[1] = 1;
 						npc.netUpdate = true;
 					}
-				}
-			}
 
-            return true;
+                    break;
+                }
+            }
         }
 
         public override void AddRecipes()

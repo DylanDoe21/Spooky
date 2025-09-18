@@ -33,9 +33,6 @@ namespace Spooky
         public static int OrroboroSpawnX;
         public static int OrroboroSpawnY;
 
-        public static int GiantWebX;
-        public static int GiantWebY;
-
 		public static int TurkeySpawnX;
 		public static int TurkeySpawnY;
 
@@ -106,11 +103,6 @@ namespace Spooky
                 case SpookyMessageType.SpawnOrroboro:
                 {
                     NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>(), ai0: -1);
-                    break;
-                }
-                case SpookyMessageType.SpawnDaffodilEye:
-                {
-                    NPC.NewNPC(null, DaffodilSpawnX, DaffodilSpawnY, ModContent.NPCType<DaffodilEye>(), ai0: (Flags.downedDaffodil && Main.rand.NextBool(20)) ? -4 : -1, ai1: DaffodilParent);
                     break;
                 }
 				case SpookyMessageType.SpawnTurkey:
@@ -239,6 +231,18 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.SpawnDaffodil:
+                {
+                    Flags.SpawnDaffodil = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.SpawnBigBone:
+                {
+                    Flags.SpawnBigBone = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
 				//should never occur I think?
 				default:
                 {
@@ -254,7 +258,6 @@ namespace Spooky
         SpawnSpookySpirit,
         SpawnMoco,
         SpawnOrroboro,
-        SpawnDaffodilEye,
 		SpawnTurkey,
         OldHunterHat,
         OldHunterSkull,
@@ -274,6 +277,8 @@ namespace Spooky
         KrampusQuestlineDone,
         KrampusDailyQuestDone,
         KrampusDailyQuestReset,
-        DrawKrampusMapIconReset
+        DrawKrampusMapIconReset,
+        SpawnDaffodil,
+        SpawnBigBone,
 	}
 }

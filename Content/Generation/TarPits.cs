@@ -471,13 +471,6 @@ namespace Spooky.Content.Generation
 						StructurePoints.Add(new Vector2(i, j));
 					}
 
-					if (WorldGen.genRand.NextBool(5) && CanPlaceStructure(i, j, 10) && BlockTypes.Contains(Main.tile[i, j].TileType))
-					{
-						Vector2 Origin = new Vector2(i - 6, j - 4);
-						StructureHelper.API.Generator.GenerateStructure("Content/Structures/TarPits/BonePile.shstruct", Origin.ToPoint16(), Mod);
-						StructurePoints.Add(new Vector2(i, j));
-					}
-
 					if (WorldGen.genRand.NextBool(5) && CanPlaceStructure(i, j, 15) && BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
 						Vector2 Origin = new Vector2(i - 7, j - 10);

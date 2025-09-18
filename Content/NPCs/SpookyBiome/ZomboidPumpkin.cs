@@ -112,7 +112,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             {
                 for (int j = 1; j <= 3; j++)
                 {
-                    for (int i = -1; i <= 1; i += 2)
+                    for (int i = -2; i <= 2; i += 2)
                     {
                         Vector2 center = new Vector2(NPC.Center.X, NPC.Center.Y + NPC.height / 4);
                         center.X += j * 45 * i; //35 is the distance between each one
@@ -265,7 +265,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
                             break;
                         }
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 4, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraph>(), NPC.damage, 3.5f);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(center.X - 4, center.Y + 20), Vector2.Zero, ModContent.ProjectileType<ZomboidRootThornTelegraphFire>(), NPC.damage, 3.5f);
                     }
                 }
 

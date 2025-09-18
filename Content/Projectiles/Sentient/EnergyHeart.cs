@@ -26,7 +26,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.height = 62;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;

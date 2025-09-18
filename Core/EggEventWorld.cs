@@ -30,32 +30,30 @@ namespace Spooky.Core
 		public static bool HasSpawnedBolster2 = false;
 		public static bool HasSpawnedBolster3 = false;
 
-		public static int[] list = new int[] { };
-
 		public override void NetSend(BinaryWriter writer)
 		{
+			//for (int i = 0; i < list.Length; i++)
+			//{
+				//writer.Write(list[i]);
+			//}
+
 			writer.Write(EventTimeLeft);
 			writer.Write(EventTimeLeftUI);
 			writer.Write(EnemySpawnTimer);
-
-			for (int i = 0; i < list.Length; i++)
-			{
-				writer.Write(list[i]);
-			}
 
 			writer.WriteFlags(EggEventActive, HasSpawnedBiojetter1, HasSpawnedBiojetter2, HasSpawnedBolster1, HasSpawnedBolster2, HasSpawnedBolster3);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
+			//for (int i = 0; i < list.Length; i++)
+			//{
+				//list[i] = reader.ReadInt32();
+			//}
+
 			EventTimeLeft = reader.ReadInt32();
 			EventTimeLeftUI = reader.ReadInt32();
 			EnemySpawnTimer = reader.ReadInt32();
-
-			for (int i = 0; i < list.Length; i++)
-			{
-				list[i] = reader.ReadInt32();
-			}
 
 			reader.ReadFlags(out EggEventActive, out HasSpawnedBiojetter1, out HasSpawnedBiojetter2, out HasSpawnedBolster1, out HasSpawnedBolster2, out HasSpawnedBolster3);
 		}
@@ -64,7 +62,6 @@ namespace Spooky.Core
 		{
 			EventTimeLeft = 0;
 			EventTimeLeftUI = 0;
-			EggEventActive = false;
 			EggEventActive = false;
 			HasSpawnedBiojetter1 = false;
 			HasSpawnedBiojetter2 = false;
@@ -76,6 +73,8 @@ namespace Spooky.Core
 		//select a random player in the event if they are in the eye valley and arent dead/inactive
 		public static int GetRandomPlayerInEvent()
 		{
+			int[] list = new int[] { };
+
 			foreach (Player player in Main.ActivePlayers)
 			{
 				if (!player.dead && !player.ghost && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))

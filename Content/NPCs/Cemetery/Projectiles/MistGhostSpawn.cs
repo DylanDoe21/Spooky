@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Cemetery.Furniture;
@@ -204,6 +205,13 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 			if (Main.rand.NextBool(8))
 			{
 				int DroppedItem = Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, ModContent.ItemType<CemeterySeed>());
+				Main.item[DroppedItem].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, -1));
+			}
+
+			//dissolved bone
+			if (Main.rand.NextBool(15))
+			{
+				int DroppedItem = Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, ModContent.ItemType<DissolvedBone>());
 				Main.item[DroppedItem].velocity = new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, -1));
 			}
 		}

@@ -33,13 +33,6 @@ namespace Spooky.Content.Items.BossSummon
 			Item.shootSpeed = 12f;
         }
 
-        /*
-        public override bool CanUseItem(Player player)
-        {
-            return !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>());
-        }
-        */
-
         public override void AddRecipes()
         {
             CreateRecipe()

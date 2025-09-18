@@ -17,8 +17,6 @@ namespace Spooky.Content.NPCs.Friendly
 {
     public class SuspiciousSkeleton : ModNPC  
     {
-        public const string ShopName = "Shop";
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 9;
@@ -89,16 +87,16 @@ namespace Spooky.Content.NPCs.Friendly
             }
         }
 
-        public override void SetChatButtons(ref string button, ref string button2)
-		{
+        public override void SetChatButtons(ref string button, ref string button2) 
+        {
 			button = Language.GetTextValue("LegacyInterface.28");
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shop) 
-		{
+        {
 			if (firstButton) 
-			{
-				shop = Language.GetTextValue("LegacyInterface.28");
+            {
+				shop = "Shop";
 			}
 		}
 

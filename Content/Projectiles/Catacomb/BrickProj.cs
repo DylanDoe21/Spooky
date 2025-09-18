@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.NPCs.Boss.Daffodil;
 
 namespace Spooky.Content.Projectiles.Catacomb
@@ -34,21 +35,26 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
             }
 
-            for (int k = 0; k < Main.maxNPCs; k++)
+            foreach (var npc in Main.ActiveNPCs)
 			{
-				if (Main.npc[k].active && Main.npc[k].type == ModContent.NPCType<DaffodilBody>()) 
-				{
-                    if (Main.npc[k].Distance(Projectile.Center) <= 100f && !NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
+                if (npc != null && npc.type == ModContent.NPCType<DaffodilBody>() && npc.Distance(Projectile.Center) <= 100f)
+                {
+                    SoundEngine.PlaySound(BonkSound, Projectile.Center);
+
+                    if (Main.netMode != NetmodeID.SinglePlayer)
                     {
-                        SoundEngine.PlaySound(BonkSound, Projectile.Center);
-                        
-                        Main.npc[k].ai[0] = 1;
-                        Main.npc[k].netUpdate = true;
-
-                        Projectile.netUpdate = true;
-
-                        Projectile.Kill();
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.SpawnDaffodil);
+                        packet.Send();
                     }
+                    else
+                    {
+                        Flags.SpawnDaffodil = true;
+                    }
+
+                    Projectile.Kill();
+
+                    break;
                 }
             }
         }

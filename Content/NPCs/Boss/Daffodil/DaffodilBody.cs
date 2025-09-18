@@ -58,6 +58,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                 }
             }
 
+            /*
             //spawn daffodil eye if awakened
             if (NPC.ai[0] == 1)
             {
@@ -68,13 +69,13 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText(text, 171, 64, 255);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                     }
                     else if (Main.netMode == NetmodeID.SinglePlayer)
                     {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        Main.NewText(text, 171, 64, 255);
                     }
-
+                    
                     if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ModPacket packet = Mod.GetPacket();
@@ -91,6 +92,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                 NPC.netUpdate = true;
             }
+            */
         }
     }
 }

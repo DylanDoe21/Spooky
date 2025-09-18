@@ -28,16 +28,17 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
             return player.wet;
         }
 
-        public override bool? UseItem(Player player)
-        {
-            int Egg = NPC.NewNPC(player.GetSource_ItemUse(Item), (int)player.Center.X, (int)player.Center.Y, ModContent.NPCType<LittleDunkEggNPC>());
+        public override void UseAnimation(Player player)
+		{
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+                int Egg = NPC.NewNPC(player.GetSource_ItemUse(Item), (int)player.Center.X, (int)player.Center.Y, ModContent.NPCType<LittleDunkEggNPC>());
 
-            if (Main.netMode != NetmodeID.SinglePlayer)
-            {
-                NetMessage.SendData(MessageID.SyncNPC, number: Egg);
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: Egg);
+                }
             }
-            
-            return true;
         }
     }
 }

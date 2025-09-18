@@ -810,7 +810,7 @@ namespace Spooky.Core
                     ShouldPlayerDie = false;
                 }
 
-                if (KrampusResolution)
+                if (KrampusResolution && KrampusResolutionTimer <= 0)
                 {
                     KrampusResolutionTimer = 300;
                     Player.immuneTime += 300;

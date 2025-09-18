@@ -74,11 +74,8 @@ namespace Spooky.Content.Projectiles.Catacomb
             {
                 Vector2 speed = Speed.RotatedBy(2 * Math.PI / 2 * (numProjectiles + Main.rand.NextDouble() - 0.5));
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, 
-                    ModContent.ProjectileType<GlowBulbThorn>(), Projectile.damage / 2, 0f, Main.myPlayer, 0, 0);
-                }
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, 
+                ModContent.ProjectileType<GlowBulbThorn>(), Projectile.damage / 2, 0f, Main.myPlayer, 0, 0);
             }
         }
 

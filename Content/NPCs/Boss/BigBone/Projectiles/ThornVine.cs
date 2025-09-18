@@ -177,16 +177,19 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		public override void AI()
 		{
 			Player target = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
+			NPC Parent = Main.npc[(int)Projectile.ai[2]];
 
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-			Projectile.timeLeft = 2;
+			//if big bone exists then 
+			if (Parent.active && Parent.type == ModContent.NPCType<BigBone>() && Parent.localAI[0] < 180)
+			{ 
+				Projectile.timeLeft = 2;
+			}
 
 			if (runOnce)
 			{
-				SoundEngine.PlaySound(GrowSound, Projectile.Center);
-
 				for (int i = 0; i < trailLength.Length; i++)
 				{
 					trailLength[i] = Vector2.Zero;
@@ -199,8 +202,12 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Projectile.netUpdate = true;
 			}
 
-			Projectile.ai[2]++;
-			if (Projectile.ai[2] <= 100)
+			Projectile.localAI[2]++;
+			if (Projectile.localAI[2] == 2)
+			{
+				SoundEngine.PlaySound(GrowSound, Projectile.Center);
+			}
+			if (Projectile.localAI[2] <= 100)
 			{
 				int ProjDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WoodFurniture);
 				Main.dust[ProjDust].noGravity = true;
@@ -209,7 +216,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Main.dust[ProjDust].velocity += Projectile.velocity / 2;
 
 				//save previous positions, rotations, and direction
-				if (Projectile.velocity != Vector2.Zero && Projectile.ai[2] % 2 == 0)
+				if (Projectile.velocity != Vector2.Zero && Projectile.localAI[2] % 2 == 0)
 				{
 					Vector2 current = Projectile.Center;
 					float currentRot = Projectile.rotation;
@@ -230,7 +237,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 11;
 				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
 
-				if (Projectile.ai[2] == 1)
+				if (Projectile.localAI[2] == 1)
 				{
 					Projectile.localAI[0] = Main.rand.NextFloat(4f, 9f);
 					Projectile.localAI[1] = Main.rand.NextFloat(4f, 9f);

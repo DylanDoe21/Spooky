@@ -77,13 +77,17 @@ namespace Spooky.Core
         public static bool OldHunterSkull = false;
         public static bool OldHunterTorso = false;
         public static bool OldHunterLegs = false;
-        public static bool KillWeb = false;
         public static bool LittleEyeBounty1 = false; 
         public static bool LittleEyeBounty2 = false;
         public static bool LittleEyeBounty3 = false;
         public static bool LittleEyeBounty4 = false;
         public static bool BountyInProgress = false;
         public static bool encounteredMan = false;
+
+		//bools and misc stuff that doesnt need to be saved/loaded in a world
+		public static bool KillWeb = false;
+		public static bool SpawnDaffodil = false;
+		public static bool SpawnBigBone = false;
 
         public override void ClearWorld()
         {

@@ -20,6 +20,7 @@ namespace Spooky.Content.NPCs.Tameable
 	public class LittleDunk : ModNPC
 	{
 		int numChumEaten = 0;
+		int numChumEatenForFlesh = 0;
 
 		int CurrentFrameX = 0; //0 = swim animation  1 = open mouth animation
 
@@ -52,6 +53,7 @@ namespace Spooky.Content.NPCs.Tameable
 
 			//ints
 			writer.Write(numChumEaten);
+			writer.Write(numChumEatenForFlesh);
 
 			//bools
 			writer.Write(FollowPlayerHoldingFood);
@@ -71,6 +73,7 @@ namespace Spooky.Content.NPCs.Tameable
 
 			//ints
 			numChumEaten = reader.ReadInt32();
+			numChumEatenForFlesh = reader.ReadInt32();
 
 			//bools
 			FollowPlayerHoldingFood = reader.ReadBoolean();

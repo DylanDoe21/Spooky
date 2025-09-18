@@ -93,6 +93,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
+			Projectile.frame = (int)Projectile.ai[2];
+
 			if (Projectile.ai[0] == 0)
 			{
 				double Velocity = Math.Atan2(target.position.Y - Projectile.position.Y, target.position.X - Projectile.position.X);

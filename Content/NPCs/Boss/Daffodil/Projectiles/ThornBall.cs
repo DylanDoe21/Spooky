@@ -90,8 +90,6 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
             if (Projectile.ai[1] >= 320)
 			{
-                SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
-
                 Projectile.Kill();
             }
         }
@@ -116,6 +114,8 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 
         public override void OnKill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
+
             for (int numDust = 0; numDust < 18; numDust++)
             {                                                                                  
                 int dustGore = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Grass, 0f, -2f, 0, default, 1.5f);

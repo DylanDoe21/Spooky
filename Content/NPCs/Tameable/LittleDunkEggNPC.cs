@@ -55,14 +55,22 @@ namespace Spooky.Content.NPCs.Tameable
 				{
 					Main.BestiaryTracker.Chats.SetWasChatWithDirectly(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[ModContent.NPCType<LittleDunk>()]);
 
-					int LittleDunk = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<LittleDunk>());
-
-					if (Main.netMode != NetmodeID.SinglePlayer)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						NetMessage.SendData(MessageID.SyncNPC, number: LittleDunk);
+						int LittleDunk = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<LittleDunk>());
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: LittleDunk);
+						}
 					}
 
-					NPC.active = false;
+					NPC.life = 0;
+
+					if (Main.netMode == NetmodeID.Server) 
+					{
+						NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI, 0f, 0f, 0f, 0);
+					}
 				}
 			}
         }

@@ -81,7 +81,8 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.frameCounter++;
 
             //idle animation
-            if (player.Distance(NPC.Center) > 400f && !NPC.IsABestiaryIconDummy)
+            bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+            if (player.Distance(NPC.Center) > 400f || !HasLineOfSight)
             {
                 if (NPC.frameCounter > 5)
                 {

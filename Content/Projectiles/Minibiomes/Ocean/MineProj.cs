@@ -18,6 +18,11 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 		private Asset<Texture2D> ProjTexture;
 
+		public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 44;
@@ -40,10 +45,11 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
         {
             ProjTexture ??= ModContent.Request<Texture2D>(Texture);
 
-			int frameHeight = ProjTexture.Height() / Main.projFrames[Projectile.type];
-			Rectangle frameBox = new Rectangle(0, frameHeight * Projectile.frame, ProjTexture.Width(), frameHeight);
+			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
 
-			Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Bottom - Main.screenPosition, frameBox, lightColor, Projectile.rotation, new Vector2(ProjTexture.Width() / 2, frameHeight), Projectile.scale, SpriteEffects.None, 0f);
+            Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+
+			Main.EntitySpriteDraw(ProjTexture.Value, Projectile.Center - Main.screenPosition, rectangle, lightColor, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return false;
         }
@@ -80,11 +86,14 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 		public override void OnKill(int timeLeft)
 		{
-			int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Hitbox, ModContent.ItemType<Mine>());
-
-			if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+				int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Hitbox, ModContent.ItemType<Mine>());
+
+				if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+				{
+					NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+				}
 			}
 		}
     }

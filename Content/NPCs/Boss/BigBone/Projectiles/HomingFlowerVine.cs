@@ -15,6 +15,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 	{
 		public override string Texture => "Spooky/Content/NPCs/Boss/BigBone/Projectiles/HomingFlower";
 
+		int TimeBeforeLaunch = 0;
+
 		bool runOnce = true;
 		Vector2[] trailLength = new Vector2[50];
 		float[] rotations = new float[50];
@@ -38,6 +40,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				writer.Write(rotations[i]);
             }
 
+			//ints
+			writer.Write(TimeBeforeLaunch);
+
             //bools
             writer.Write(runOnce);
 
@@ -54,6 +59,9 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
                 trailLength[i] = reader.ReadVector2();
 				rotations[i] = reader.ReadSingle();
             }
+
+			//ints
+			TimeBeforeLaunch = reader.ReadInt32();
 
             //bools
             runOnce = reader.ReadBoolean();
@@ -80,10 +88,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			DrawChain(false);
 
 			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			//bool Condition = Projectile.ai[2] > 35 && Projectile.timeLeft < Projectile.localAI[2] + 40;
-			//float ScaleForTelegraph = Condition ? Projectile.scale * (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f : Projectile.scale;
-			//ScaleForTelegraph = MathHelper.Clamp(ScaleForTelegraph, 1f, 5f);
 
 			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
@@ -144,9 +148,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (Projectile.ai[2] > 5)
+			if (TimeBeforeLaunch > 5)
 			{
-				Projectile.ai[2] = 36;
+				TimeBeforeLaunch = 36;
+				Projectile.netUpdate = true;
 			}
 
 			return false;
@@ -161,6 +166,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
+
+			Projectile.frame = (int)Projectile.ai[2];
 
 			if (runOnce)
 			{
@@ -177,8 +184,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 				Projectile.netUpdate = true;
 			}
 
-			Projectile.ai[2]++;
-			if (Projectile.ai[2] <= 35)
+			TimeBeforeLaunch++;
+			if (TimeBeforeLaunch <= 35)
 			{
 				Projectile.timeLeft = 100;
 
@@ -259,8 +266,8 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int newProj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<HomingFlower>(), Projectile.damage, Projectile.knockBack);
-				Main.projectile[newProj].frame = Projectile.frame;
+				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
+				ModContent.ProjectileType<HomingFlower>(), Projectile.damage, Projectile.knockBack, ai2: (int)Projectile.ai[2]);
 			}
 
 			DrawChain(true);

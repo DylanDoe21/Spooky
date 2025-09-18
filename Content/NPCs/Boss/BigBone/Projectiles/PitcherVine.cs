@@ -165,8 +165,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			if (runOnce)
 			{
-				SoundEngine.PlaySound(GrowSound, Projectile.Center);
-
 				for (int i = 0; i < trailLength.Length; i++)
 				{
 					trailLength[i] = Vector2.Zero;
@@ -180,6 +178,10 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			}
 
 			Projectile.ai[2]++;
+			if (Projectile.ai[2] == 2)
+			{
+				SoundEngine.PlaySound(GrowSound, Projectile.Center);
+			}
 			if (Projectile.ai[2] <= 35)
 			{
 				Projectile.spriteDirection = Projectile.velocity.X < 0 ? -1 : 1;

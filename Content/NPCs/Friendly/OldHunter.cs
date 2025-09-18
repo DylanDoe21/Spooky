@@ -19,8 +19,6 @@ namespace Spooky.Content.NPCs.Friendly
 	[AutoloadHead]
 	public class OldHunter : ModNPC
 	{
-		public const string ShopName = "Shop";
-
         public override void SetStaticDefaults() 
         {
 			Main.npcFrameCount[Type] = 25;
@@ -80,28 +78,16 @@ namespace Spooky.Content.NPCs.Friendly
             return Flags.OldHunterAssembled && !NPC.AnyNPCs(ModContent.NPCType<OldHunterSleeping>()) && !NPC.AnyNPCs(ModContent.NPCType<GiantWebAnimationBase>());
 		}
 
-        public override List<string> SetNPCNameList() 
+		public override void SetChatButtons(ref string button, ref string button2) 
         {
-			return new List<string>() 
-            {
-				"Gerald",
-				"Hunter",
-				"Marrow",
-				"Mike",
-				"Bob"
-			};
-		}
-
-		public override void SetChatButtons(ref string button, ref string button2)
-		{
 			button = Language.GetTextValue("LegacyInterface.28");
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shop) 
-		{
+        {
 			if (firstButton) 
-			{
-				shop = ShopName;
+            {
+				shop = "Shop";
 			}
 		}
 
@@ -153,6 +139,17 @@ namespace Spooky.Content.NPCs.Friendly
 		{
 			multiplier = 12f;
 			randomOffset = 2f;
+		}
+
+		public override void AI()
+        {
+            NPC.localAI[0]++;
+            if (NPC.localAI[0] == 1)
+            {
+                //select a random name for the skeleton when it spawns
+                string[] names = Language.GetTextValue("Mods.Spooky.NPCs.OldHunter.Names").Split(',' + " ");
+                NPC.GivenName = Main.rand.Next(names);
+			}
 		}
     }
 }

@@ -340,13 +340,13 @@ namespace Spooky.Core
 
                     string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
 
-                    if (Main.netMode == NetmodeID.SinglePlayer)
-                    {
-                        Main.NewText(text, 171, 64, 255);
-                    }
                     if (Main.netMode == NetmodeID.Server)
                     {
                         ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText(text, 171, 64, 255);
                     }
                 }
             }
@@ -366,27 +366,114 @@ namespace Spooky.Core
             //because setting the npcs health to zero in the web itself doesnt work or update in mp correctly, doing it here and spawning the animation allows it to spawn correctly
             if (Flags.KillWeb)
             {
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    if (Main.npc[i] != null && Main.npc[i].type == ModContent.NPCType<GiantWeb>())
+                foreach (var npc in Main.ActiveNPCs)
+			    {
+                    if (npc != null && npc.type == ModContent.NPCType<GiantWeb>())
                     {
-                        int Animation = NPC.NewNPC(Main.npc[i].GetSource_FromAI(), (int)Main.npc[i].Center.X, (int)Main.npc[i].Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
+                        int Animation = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
 
                         if (Main.netMode == NetmodeID.Server)
-                        {   
+                        {
                             NetMessage.SendData(MessageID.SyncNPC, number: Animation);
                         }
 
-                        Main.npc[i].life = 0;
+                        npc.life = 0;
 
                         if (Main.netMode == NetmodeID.Server) 
                         {
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, i, 0f, 0f, 0f, 0);
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0);
                         }
                     }
                 }
 
                 Flags.KillWeb = false;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
+            if (Flags.SpawnDaffodil)
+            {
+                foreach (var npc in Main.ActiveNPCs)
+			    {
+                    if (npc != null && npc.type == ModContent.NPCType<DaffodilBody>())
+                    {
+                        //spawn message
+                        if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()))
+                        {
+                            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.DaffodilSpawn");
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                            }
+                            else if (Main.netMode == NetmodeID.SinglePlayer)
+                            {
+                                Main.NewText(text, 171, 64, 255);
+                            }
+                            
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                int Daffodil = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y + 30, 
+                                ModContent.NPCType<DaffodilEye>(), ai0: Main.rand.NextBool(20) && Flags.downedDaffodil ? -4 : -1, ai1: npc.whoAmI);
+
+                                if (Main.netMode == NetmodeID.Server)
+                                {
+                                    NetMessage.SendData(MessageID.SyncNPC, number: Daffodil);
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+                }
+
+                Flags.SpawnDaffodil = false;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
+            if (Flags.SpawnBigBone)
+            {
+                foreach (var npc in Main.ActiveNPCs)
+			    {
+                    if (npc != null && npc.type == ModContent.NPCType<BigFlowerPot>())
+                    {
+                        //spawn message
+                        if (!NPC.AnyNPCs(ModContent.NPCType<BigBone>()))
+                        {
+                            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.BigBoneSpawn");
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                            }
+                            else if (Main.netMode == NetmodeID.SinglePlayer)
+                            {
+                                Main.NewText(text, 171, 64, 255);
+                            }
+                            
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                int BigBone = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<BigBone>(), ai3: npc.whoAmI);
+
+                                if (Main.netMode == NetmodeID.Server)
+                                {
+                                    NetMessage.SendData(MessageID.SyncNPC, number: BigBone);
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+                }
+
+                Flags.SpawnBigBone = false;
 
 				if (Main.netMode == NetmodeID.Server)
 				{

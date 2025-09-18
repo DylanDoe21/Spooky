@@ -75,14 +75,19 @@ namespace Spooky.Core
 				spawnRate /= 2;
 			}
 
+			bool CatcombGuardianSpawning = (player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2);
+
 			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
 			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || 
 			NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<SpookFishron>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
             NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) ||
 			NPC.AnyNPCs(ModContent.NPCType<BanditBook>()) || NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()) || NPC.AnyNPCs(ModContent.NPCType<FrankenGoblin>()) || NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
-            {
-				spawnRate = 0;
-				maxSpawns = 0;
+			{
+				if (!CatcombGuardianSpawning)
+				{
+					spawnRate = 0;
+					maxSpawns = 0;
+				}
 			}
 
 			//remove spawns during the pandora's box event
@@ -508,7 +513,7 @@ namespace Spooky.Core
 				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 				{
 					//quest miniboss
-					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem4>()) && !NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()))
+					if (!spawnInfo.Water && spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem4>()) && !NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()))
 					{
 						pool.Add(ModContent.NPCType<EyeWizard>(), 3);
 					}

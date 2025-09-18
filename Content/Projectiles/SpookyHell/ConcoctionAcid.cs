@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using ReLogic.Content;
@@ -126,6 +127,13 @@ namespace Spooky.Content.Projectiles.SpookyHell
 						{
 							npc.ai[2] += 0.2f;
 						}
+
+						npc.netUpdate = true;
+
+						if (Main.netMode == NetmodeID.Server) 
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0);
+                        }
 
 						Projectile.Kill();
 					}

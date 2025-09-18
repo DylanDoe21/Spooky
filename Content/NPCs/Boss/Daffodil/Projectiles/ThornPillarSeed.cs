@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using ReLogic.Content;
@@ -64,8 +65,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
 			{
                 Vector2 lineDirection = new Vector2(Main.rand.Next(-5, 6), 16);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Vector2.Zero.X, Vector2.Zero.Y,
-                ModContent.ProjectileType<ThornPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Vector2.Zero.X, Vector2.Zero.Y,
+                    ModContent.ProjectileType<ThornPillar>(), Projectile.damage, 0, Main.myPlayer, lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
+                }
             }
 
             if (Projectile.ai[0] >= 90)
@@ -73,10 +77,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil.Projectiles
                 Projectile.alpha += 5;
             }
 
-            if (Projectile.ai[0] >= 140)
+            if (Projectile.ai[0] == 138)
 			{
                 SoundEngine.PlaySound(ThornSpawnSound, Projectile.Center);
-
+            }
+            if (Projectile.ai[0] >= 140)
+			{
                 Projectile.Kill();
             }
         }

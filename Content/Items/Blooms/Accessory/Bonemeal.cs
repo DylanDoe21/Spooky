@@ -36,14 +36,14 @@ namespace Spooky.Content.Items.Blooms.Accessory
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            if (Main.rand.NextBool(350))
+            if (Main.rand.NextBool(2))
             {
                 for (int i = (int)(player.Center.X / 16) - 20; i <= (int)(player.Center.X / 16) + 20; i++)
                 {
                     for (int j = (int)(player.Center.Y / 16) - 20; j <= (int)(player.Center.Y / 16) + 20; j++)
                     {
                         Tile tile = Main.tile[i, j];
-                        if (Main.rand.NextBool(30) && tile.TileFrameX < 216 && Blooms.Contains(tile.TileType))
+                        if ((tile.TileFrameX == 0 || tile.TileFrameX == 54  || tile.TileFrameX == 108 || tile.TileFrameX == 162) && tile.TileFrameY == 0 && Blooms.Contains(tile.TileType))
                         {
                             int left = i - tile.TileFrameX / 18 % 3;
                             int top = j - tile.TileFrameY / 18 % 3;

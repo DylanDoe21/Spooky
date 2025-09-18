@@ -19,10 +19,12 @@ namespace Spooky.Content.Dusts
 
         public override bool Update(Dust dust)
         {
-            dust.scale *= 0.98f;
+            dust.scale *= 0.96f;
 
             if (dust.scale <= 0)
+            {
                 dust.active = false;
+            }
 
             return false;
         }

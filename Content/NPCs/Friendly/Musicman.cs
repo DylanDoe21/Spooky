@@ -72,16 +72,16 @@ namespace Spooky.Content.NPCs.Friendly
 			return true;
 		}
 
-        public override void SetChatButtons(ref string button, ref string button2)
-		{
+        public override void SetChatButtons(ref string button, ref string button2) 
+        {
 			button = Language.GetTextValue("LegacyInterface.28");
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shop) 
-		{
+        {
 			if (firstButton) 
-			{
-				shop = Language.GetTextValue("LegacyInterface.28");
+            {
+				shop = "Shop";
                 SoundEngine.PlaySound(SoundID.Item166, NPC.Center);
 			}
 		}

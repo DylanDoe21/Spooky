@@ -17,8 +17,6 @@ namespace Spooky.Content.Buffs.WhipDebuff
 
 		public override void Update(NPC npc, ref int buffIndex)
         {
-            Main.NewText(npc.defense);
-
             if (!initializeStats && npc.buffTime[buffIndex] >= 5)
             {
                 storedDefense = npc.defense;

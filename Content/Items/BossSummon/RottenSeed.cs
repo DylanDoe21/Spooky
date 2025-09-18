@@ -39,27 +39,25 @@ namespace Spooky.Content.Items.BossSummon
             return false;
         }
 		
-        public override bool? UseItem(Player player)
+        public override void UseAnimation(Player player)
         {
             SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
             int RotGourd = NPC.NewNPC(player.GetSource_ItemUse(Item), (int)player.Center.X, (int)player.Center.Y - 1000, ModContent.NPCType<RotGourd>(), player.whoAmI, -1);
 
+            NetMessage.SendData(MessageID.SyncNPC, number: RotGourd);
+
             //spawn message
             string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RotGourdSpawn");
 
-            if (Main.netMode != NetmodeID.SinglePlayer)
+            if (Main.netMode == NetmodeID.Server)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-
-                NetMessage.SendData(MessageID.SyncNPC, number: RotGourd);
             }
-            else 
+            else if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(text, 171, 64, 255);
             }
-            
-            return true;
         }
     }
 }

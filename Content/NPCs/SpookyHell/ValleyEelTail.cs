@@ -36,11 +36,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.HitSound = SoundID.NPCHit18;
         }
 
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
-        {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.9f * bossAdjustment);
-        }
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
@@ -56,34 +51,39 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         public override bool PreAI()
         {
+            NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+            NPC.spriteDirection = Parent.spriteDirection;
+
             //kill segment if the head doesnt exist
-			if (!Main.npc[(int)NPC.ai[1]].active)
+			if (!Parent.active || Parent.type != ModContent.NPCType<ValleyEelHead>())
             {
                 if (Main.netMode != NetmodeID.Server) 
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyEelTailGore1").Type);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyEelTailGore2").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyEelBodyGore1").Type);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleyEelBodyGore2").Type);
                 }
 
                 NPC.active = false;
             }
-			
-			if (NPC.ai[1] < (double)Main.npc.Length)
-            {
-                Vector2 npcCenter = new(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
-                float dirX = Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)NPC.ai[1]].position.Y + (float)(Main.npc[(int)NPC.ai[1]].height / 2) - npcCenter.Y;
-                NPC.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                float dist = (length - (float)NPC.width) / length;
-                float posX = dirX * dist;
-                float posY = dirY * dist;
- 
-                NPC.spriteDirection = dirX > 0 ? -1 : 1;
-                NPC.velocity = Vector2.Zero;
-                NPC.position.X = NPC.position.X + posX;
-                NPC.position.Y = NPC.position.Y + posY;
-            }
+
+			NPC SegmentParent = Main.npc[(int)NPC.ai[1]];
+
+			Vector2 SegmentCenter = SegmentParent.Center + SegmentParent.velocity - NPC.Center;
+
+			if (SegmentParent.rotation != NPC.rotation)
+			{
+				float angle = MathHelper.WrapAngle(SegmentParent.rotation - NPC.rotation);
+				SegmentCenter = SegmentCenter.RotatedBy(angle * 0.1f);
+			}
+
+			NPC.rotation = SegmentCenter.ToRotation() + 1.57f;
+
+			//how far each segment should be from each other
+			if (SegmentCenter != Vector2.Zero)
+			{
+				NPC.Center = SegmentParent.Center - SegmentCenter.SafeNormalize(Vector2.Zero) * 30f;
+			}
 
 			return false;
         }

@@ -93,12 +93,14 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
-			if (Projectile.ai[2] == 0)
+			Projectile.frame = (int)Projectile.ai[2];
+
+			if (Projectile.ai[1] == 0)
 			{
 				double Velocity = Math.Atan2(target.position.Y - Projectile.position.Y, target.position.X - Projectile.position.X);
 				Projectile.velocity = new Vector2((float)Math.Cos(Velocity), (float)Math.Sin(Velocity)) * 16;
 
-				Projectile.ai[2] = 1;
+				Projectile.ai[1] = 1;
 			}
 
 			Projectile.ai[0]++;
