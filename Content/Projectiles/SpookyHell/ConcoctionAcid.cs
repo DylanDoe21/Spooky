@@ -132,7 +132,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 						if (Main.netMode == NetmodeID.Server) 
                         {
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0);
+                           	NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
                         }
 
 						Projectile.Kill();

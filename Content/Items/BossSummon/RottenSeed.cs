@@ -39,8 +39,8 @@ namespace Spooky.Content.Items.BossSummon
             return false;
         }
 		
-        public override void UseAnimation(Player player)
-        {
+        public override bool? UseItem(Player player)
+		{
             SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
             int RotGourd = NPC.NewNPC(player.GetSource_ItemUse(Item), (int)player.Center.X, (int)player.Center.Y - 1000, ModContent.NPCType<RotGourd>(), player.whoAmI, -1);
@@ -58,6 +58,8 @@ namespace Spooky.Content.Items.BossSummon
             {
                 Main.NewText(text, 171, 64, 255);
             }
+
+            return true;
         }
     }
 }

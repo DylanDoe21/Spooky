@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Content.Buffs.Debuff;
+
 namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 {
     public class BloodGunSplatter : ModProjectile
@@ -73,6 +75,11 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 			return true;
 		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<SpearfishBleed>(), 600);
+        }
 
         public override void AI()
         {

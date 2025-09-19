@@ -1108,7 +1108,7 @@ namespace Spooky.Core
             }
 
 			//shoot skulls with big bones expert item
-            if (FlowerPotShoe)
+            if (FlowerPotShoe && !Player.dead)
             {
                 //do not shoot skulls under 20mph (basically if you are not moving fast enough)
                 if (PlayerSpeedToMPH(Player) >= 20)
@@ -1126,7 +1126,7 @@ namespace Spooky.Core
                         int damage = 80 + ((int)PlayerSpeedToMPH(Player) / 3);
 
                         int newProj = Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, newVelocity.X, newVelocity.Y,
-                        ModContent.ProjectileType<FlowerPotShoeFlower>(), damage, 0f, Main.myPlayer);
+                        ModContent.ProjectileType<FlowerPotShoeFlower>(), damage, 0f, Player.whoAmI);
                         Main.projectile[newProj].frame = Main.rand.Next(0, 4);
 
                         BoneWispTimer = 0;

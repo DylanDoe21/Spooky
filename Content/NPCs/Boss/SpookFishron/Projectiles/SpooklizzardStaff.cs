@@ -7,6 +7,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
 {
@@ -18,6 +19,22 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron.Projectiles
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+        }
+
+		public override void SendExtraAI(BinaryWriter writer)
+        {
+            //floats
+            writer.Write(Projectile.localAI[0]);
+            writer.Write(Projectile.localAI[1]);
+			writer.Write(Projectile.localAI[2]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+			//floats
+            Projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[1] = reader.ReadSingle();
+			Projectile.localAI[2] = reader.ReadSingle();
         }
 
 		public override void SetDefaults()

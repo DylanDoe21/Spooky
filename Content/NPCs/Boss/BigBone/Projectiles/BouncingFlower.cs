@@ -111,7 +111,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.NPCHit7 with { Volume = 0.5f }, Projectile.Center);
 
 			if (Projectile.velocity.X != oldVelocity.X)
 			{

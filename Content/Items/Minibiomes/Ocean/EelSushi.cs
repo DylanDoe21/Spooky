@@ -36,22 +36,10 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 		{
             if (player.ownedProjectileCounts[ModContent.ProjectileType<ZombieEelHead>()] <= 0)
 			{
-                SpawnWorm(ModContent.ProjectileType<ZombieEelHead>(), ModContent.ProjectileType<ZombieEelBody>(), ModContent.ProjectileType<ZombieEelTail>(), 
-                new Vector2(player.Center.X, player.Center.Y - 50), player, Item.damage, 0);
+                Projectile.NewProjectile(source, new Vector2(player.Center.X, player.Center.Y - 50), Vector2.Zero, ModContent.ProjectileType<ZombieEelHead>(), Item.damage, Item.knockBack, player.whoAmI);
             }
 
             return false;
-        }
-
-        public static void SpawnWorm(int head, int body, int tail, Vector2 spawnPos, Player player, int damage, float knockback)
-        {
-            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, head, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(null, spawnPos, Vector2.Zero, tail, damage, knockback, player.whoAmI);
-
-            for (var i = 0; i < 7; i++)
-            {
-                Projectile.NewProjectile(null, spawnPos, Vector2.Zero, body, damage, knockback, player.whoAmI, ai0: i);
-            }
         }
 
         public override Vector2? HoldoutOffset()

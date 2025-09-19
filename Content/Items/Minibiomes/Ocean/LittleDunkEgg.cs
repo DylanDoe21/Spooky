@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
             return player.wet;
         }
 
-        public override void UseAnimation(Player player)
+        public override bool? UseItem(Player player)
 		{
             if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
@@ -39,6 +39,8 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
                     NetMessage.SendData(MessageID.SyncNPC, number: Egg);
                 }
             }
+
+            return true;
         }
     }
 }

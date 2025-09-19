@@ -503,14 +503,6 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                     NPC.active = false;
                 }
 
-                for (int k = 0; k < Main.projectile.Length; k++)
-                {
-                    if (Main.projectile[k].active && Main.projectile[k].hostile) 
-                    {
-                        Main.projectile[k].Kill();
-                    }
-                }
-
                 return;
             }
             else
@@ -594,11 +586,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                         //kill every single hostile projectile to prevent unfair hits or deaths during the death animation
                         if (NPC.localAI[0] <= 5)
                         {
-                            for (int k = 0; k < Main.projectile.Length; k++)
-                            {
-                                if (Main.projectile[k].active && Main.projectile[k].hostile) 
+                            foreach (var Proj in Main.ActiveProjectiles)
+							{
+                                if (Proj != null && Proj.hostile) 
                                 {
-                                    Main.projectile[k].Kill();
+                                    Proj.timeLeft = 2;
                                 }
                             }
                         }
@@ -746,11 +738,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 					//kill every single hostile projectile to prevent unfair hits or deaths during the death animation
                     if (NPC.localAI[2] <= 5)
                     {
-                        for (int k = 0; k < Main.projectile.Length; k++)
+                        foreach (var Proj in Main.ActiveProjectiles)
                         {
-                            if (Main.projectile[k].active && Main.projectile[k].hostile) 
+                            if (Proj != null && Proj.hostile) 
                             {
-                                Main.projectile[k].Kill();
+                                Proj.timeLeft = 2;
                             }
                         }
                     }
@@ -1454,11 +1446,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             GoAboveFlowerPot(150);
                         }
 
-                        if (NPC.localAI[0] == 30)
+                        if (NPC.localAI[0] == 45)
                         {
                             SaveNPCPosition = NPC.Center;
                         }
-                        if (NPC.localAI[0] >= 30 && NPC.localAI[0] <= 85)
+                        if (NPC.localAI[0] >= 45 && NPC.localAI[0] <= 85)
                         {
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
 							NPC.Center += Main.rand.NextVector2Square(-12, 12);
@@ -1608,11 +1600,11 @@ namespace Spooky.Content.NPCs.Boss.BigBone
                             GoAboveFlowerPot(375);
                         }
 
-                        if (NPC.localAI[0] == 30)
+                        if (NPC.localAI[0] == 45)
                         {
                             SaveNPCPosition = NPC.Center;
                         }
-                        if (NPC.localAI[0] >= 30 && NPC.localAI[0] <= 85)
+                        if (NPC.localAI[0] >= 45 && NPC.localAI[0] <= 85)
                         {
                             NPC.Center = new Vector2(SaveNPCPosition.X, SaveNPCPosition.Y);
 							NPC.Center += Main.rand.NextVector2Square(-12, 12);

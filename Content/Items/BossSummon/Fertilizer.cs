@@ -37,8 +37,8 @@ namespace Spooky.Content.Items.BossSummon
             return false;
         }
 		
-        public override void UseAnimation(Player player)
-        {
+        public override bool? UseItem(Player player)
+		{
             SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
             foreach (var npc in Main.ActiveNPCs)
@@ -49,11 +49,18 @@ namespace Spooky.Content.Items.BossSummon
 					{
 						npc.ai[1] = 1;
 						npc.netUpdate = true;
+
+						if (Main.netMode == NetmodeID.Server) 
+                        {
+                           	NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
+                        }
 					}
 
                     break;
                 }
             }
+
+            return true;
         }
 
         public override void AddRecipes()

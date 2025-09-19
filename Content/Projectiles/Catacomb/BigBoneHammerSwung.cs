@@ -146,6 +146,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 				{
 					trailLength[i] = Vector2.Zero;
 				}
+                
 				runOnce = false;
 			}
 
