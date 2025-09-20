@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.Minibiomes.Christmas
             Item.noMelee = true;
             Item.width = 44;
             Item.height = 52;
-            Item.useTime = 28;
+            Item.useTime = 32;
             Item.useAnimation = 32;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.Blue;

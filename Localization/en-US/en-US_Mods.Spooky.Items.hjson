@@ -5049,6 +5049,11 @@ LittleBoneStatueItem: {
 	Tooltip: ""
 }
 
+LittleSpiderJarItem: {
+	DisplayName: Little Spider Jar
+	Tooltip: ""
+}
+
 OldWoodBathtubItem: {
 	DisplayName: Old Wood Bathtub
 	Tooltip: ""

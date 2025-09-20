@@ -94,10 +94,12 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 							dust.velocity += player.velocity;
 						}
 
-                        int Type = Main.rand.NextBool(5) ? ModContent.ProjectileType<TarCannonSlime>() : ModContent.ProjectileType<TarCannonBlob>();
+                        bool CanSpawnSlime = Main.rand.NextBool(5) && player.ownedProjectileCounts[ModContent.ProjectileType<TarCannonSlime>()] < 3;
+
+                        int Type = CanSpawnSlime ? ModContent.ProjectileType<TarCannonSlime>() : ModContent.ProjectileType<TarCannonBlob>();
 
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
-                        ShootSpeed.X, ShootSpeed.Y, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, ai0: Type == ModContent.ProjectileType<TarCannonSlime>() ? Main.rand.Next(0, 3) : 0);
+                        ShootSpeed.X, ShootSpeed.Y, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, ai0: Type == ModContent.ProjectileType<TarCannonSlime>() ? 0 : Main.rand.Next(0, 3));
                     }
     
                     Projectile.localAI[0] = 0;

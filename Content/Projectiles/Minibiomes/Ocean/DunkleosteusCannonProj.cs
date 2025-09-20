@@ -127,8 +127,9 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 							SpawnMuzzleDust(new Vector2(Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y), ShootSpeed * 0.5f);
 
-							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
+							int CannonBall = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y, 
 							ShootSpeed.X, ShootSpeed.Y, ProjectileID.CannonballFriendly, Projectile.damage, Projectile.knockBack, Projectile.owner);
+							Main.projectile[CannonBall].penetrate = 1;
 						}
 						//if the player doesnt have bones fire out weak bubbles
 						else

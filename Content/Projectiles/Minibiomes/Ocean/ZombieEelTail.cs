@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Minibiomes.Ocean;
 
 namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 {
@@ -64,7 +65,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
         {
             Player player = Main.player[Projectile.owner];
 
-			if (player.channel && player.active && !player.dead && !player.noItems && !player.CCed)
+			if (player.channel && player.active && !player.dead && !player.noItems && !player.CCed && ItemGlobal.ActiveItem(player).type == ModContent.ItemType<EelSushi>())
             {
                 Projectile.timeLeft = 2;
             }
