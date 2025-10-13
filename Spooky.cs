@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
+using Terraria.GameContent.Shaders;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
@@ -10,7 +12,6 @@ using Spooky.Content.Backgrounds;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Backgrounds.SpiderCave;
 using Spooky.Content.Backgrounds.SpookyHell;
-using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Tameable;
@@ -110,37 +111,6 @@ namespace Spooky
                     int Turkey = NPC.NewNPC(null, TurkeySpawnX, TurkeySpawnY, ModContent.NPCType<Turkey>());
                     Main.npc[Turkey].GetGlobalNPC<NPCGlobal>().NPCTamed = true;
 					break;
-                }
-                case SpookyMessageType.OldHunterHat:
-                {
-                    Flags.OldHunterHat = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.OldHunterSkull:
-                {
-                    Flags.OldHunterSkull = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.OldHunterTorso:
-                {
-                    Flags.OldHunterTorso = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.OldHunterLegs:
-                {
-                    Flags.OldHunterLegs = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-                }
-                case SpookyMessageType.OldHunterAssembled:
-                {
-                    Flags.OldHunterAssembled = true;
-                    Flags.KillWeb = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
                 }
                 case SpookyMessageType.EggIncursionStart:
                 {
@@ -259,11 +229,6 @@ namespace Spooky
         SpawnMoco,
         SpawnOrroboro,
 		SpawnTurkey,
-        OldHunterHat,
-        OldHunterSkull,
-        OldHunterTorso,
-        OldHunterLegs,
-        OldHunterAssembled,
         EggIncursionStart,
         CatacombKey1,
         CatacombKey2,

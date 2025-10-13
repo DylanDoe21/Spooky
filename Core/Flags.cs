@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace Spooky.Core
@@ -53,6 +52,11 @@ namespace Spooky.Core
         public static bool MinibossBarrierOpen = false;
 		public static bool RaveyardHappening = false;
 		public static bool GuaranteedRaveyard = false;
+		public static bool SporeEventHappening = false;
+		public static int SporeEventTimeLeft;
+		public static int SporeFogColor;
+		public static int SporeFogDotColor;
+		public static float SporeFogIntensity;
 
 		//krampus quests
 		public static bool KrampusQuest1 = false;
@@ -72,11 +76,6 @@ namespace Spooky.Core
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
-        public static bool OldHunterAssembled = false;
-        public static bool OldHunterHat = false;
-        public static bool OldHunterSkull = false;
-        public static bool OldHunterTorso = false;
-        public static bool OldHunterLegs = false;
         public static bool LittleEyeBounty1 = false; 
         public static bool LittleEyeBounty2 = false;
         public static bool LittleEyeBounty3 = false;
@@ -111,8 +110,13 @@ namespace Spooky.Core
             downedMocoIdol5 = false;
             downedMocoIdol6 = false;
             MinibossBarrierOpen = false;
+			RaveyardHappening = false;
 			GuaranteedRaveyard = false;
-			OldHunterAssembled = false;
+			SporeEventHappening = false;
+			SporeEventTimeLeft = 0;
+			SporeFogColor = 0;
+			SporeFogDotColor = 0;
+			SporeFogIntensity = 0f;
 
 			//krampus quests
 			KrampusQuest1 = false;
@@ -132,11 +136,6 @@ namespace Spooky.Core
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
-            RaveyardHappening = false;
-            OldHunterHat = false;
-            OldHunterSkull = false;
-            OldHunterTorso = false;
-            OldHunterLegs = false;
             LittleEyeBounty1 = false; 
             LittleEyeBounty2 = false;
             LittleEyeBounty3 = false;
@@ -190,6 +189,11 @@ namespace Spooky.Core
 			tag[nameof(MinibossBarrierOpen)] = MinibossBarrierOpen;
 			tag[nameof(RaveyardHappening)] = RaveyardHappening;
 			tag[nameof(GuaranteedRaveyard)] = GuaranteedRaveyard;
+			tag[nameof(SporeEventHappening)] = SporeEventHappening;
+			tag[nameof(SporeEventTimeLeft)] = SporeEventTimeLeft;
+			tag[nameof(SporeFogColor)] = SporeFogColor;
+			tag[nameof(SporeFogDotColor)] = SporeFogDotColor;
+			tag[nameof(SporeFogIntensity)] = SporeFogIntensity;
 
 			//krampus quests
 			tag[nameof(KrampusQuest1)] = KrampusQuest1;
@@ -209,11 +213,6 @@ namespace Spooky.Core
 			tag[nameof(CatacombKey1)] = CatacombKey1;
 			tag[nameof(CatacombKey2)] = CatacombKey2;
 			tag[nameof(CatacombKey3)] = CatacombKey3;
-			tag[nameof(OldHunterAssembled)] = OldHunterAssembled;
-			tag[nameof(OldHunterHat)] = OldHunterHat;
-			tag[nameof(OldHunterSkull)] = OldHunterSkull;
-			tag[nameof(OldHunterTorso)] = OldHunterTorso;
-			tag[nameof(OldHunterLegs)] = OldHunterLegs;
 			tag[nameof(LittleEyeBounty1)] = LittleEyeBounty1;
 			tag[nameof(LittleEyeBounty2)] = LittleEyeBounty2;
 			tag[nameof(LittleEyeBounty3)] = LittleEyeBounty3;
@@ -270,6 +269,11 @@ namespace Spooky.Core
 			MinibossBarrierOpen = tag.GetBool(nameof(MinibossBarrierOpen));
 			RaveyardHappening = tag.GetBool(nameof(RaveyardHappening));
 			GuaranteedRaveyard = tag.GetBool(nameof(GuaranteedRaveyard));
+			SporeEventHappening = tag.GetBool(nameof(SporeEventHappening));
+			SporeEventTimeLeft = tag.GetInt(nameof(SporeEventTimeLeft));
+			SporeFogColor = tag.GetInt(nameof(SporeFogColor));
+			SporeFogDotColor = tag.GetInt(nameof(SporeFogDotColor));
+			SporeFogIntensity = tag.GetFloat(nameof(SporeFogIntensity));
 
 			//krampus quests
 			KrampusQuest1 = tag.GetBool(nameof(KrampusQuest1));
@@ -289,11 +293,6 @@ namespace Spooky.Core
 			CatacombKey1 = tag.GetBool(nameof(CatacombKey1));
 			CatacombKey2 = tag.GetBool(nameof(CatacombKey2));
 			CatacombKey3 = tag.GetBool(nameof(CatacombKey3));
-			OldHunterAssembled = tag.GetBool(nameof(OldHunterAssembled));
-			OldHunterHat = tag.GetBool(nameof(OldHunterHat));
-			OldHunterSkull = tag.GetBool(nameof(OldHunterSkull));
-			OldHunterTorso = tag.GetBool(nameof(OldHunterTorso));
-			OldHunterLegs = tag.GetBool(nameof(OldHunterLegs));
 			LittleEyeBounty1 = tag.GetBool(nameof(LittleEyeBounty1));
 			LittleEyeBounty2 = tag.GetBool(nameof(LittleEyeBounty2));
 			LittleEyeBounty3 = tag.GetBool(nameof(LittleEyeBounty3));
@@ -333,10 +332,11 @@ namespace Spooky.Core
 			writer.WriteFlags(KrampusDailyQuest, KrampusDailyQuestDone, KrampusQuestGiven, KrampusQuestlineDone, DrawKrampusMapIcon);
 
 			//misc stuff
-			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard);
-
-			//old hunter stuff
-			writer.WriteFlags(OldHunterAssembled, OldHunterHat, OldHunterSkull, OldHunterTorso, OldHunterLegs);
+			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard, SporeEventHappening);
+			writer.Write(SporeEventTimeLeft);
+			writer.Write(SporeFogColor);
+			writer.Write(SporeFogDotColor);
+			writer.Write(SporeFogIntensity);
 
 			//little eye quest stuff
 			writer.WriteFlags(LittleEyeBounty1, LittleEyeBounty2, LittleEyeBounty3, LittleEyeBounty4, BountyInProgress);
@@ -376,10 +376,11 @@ namespace Spooky.Core
 			reader.ReadFlags(out KrampusDailyQuest, out KrampusDailyQuestDone, out KrampusQuestGiven, out KrampusQuestlineDone, out DrawKrampusMapIcon);
 
 			//misc stuff
-			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard);
-
-			//old hunter stuff
-			reader.ReadFlags(out OldHunterAssembled, out OldHunterHat, out OldHunterSkull, out OldHunterTorso, out OldHunterLegs);
+			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard, out SporeEventHappening);
+			SporeEventTimeLeft = reader.ReadInt32();
+			SporeFogColor = reader.ReadInt32();
+			SporeFogDotColor = reader.ReadInt32();
+			SporeFogIntensity = reader.ReadSingle();
 
 			//little eye quest stuff
 			reader.ReadFlags(out LittleEyeBounty1, out LittleEyeBounty2, out LittleEyeBounty3, out LittleEyeBounty4, out BountyInProgress);

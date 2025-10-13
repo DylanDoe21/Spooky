@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.Cemetery
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(66, 64, 36));
             DustType = DustID.Dirt;
-			MineResist = 0.65f;
+			MineResist = 0.5f;
 		}
 
 		public override void PostTileFrame(int i, int j, int up, int down, int left, int right, int upLeft, int upRight, int downLeft, int downRight)

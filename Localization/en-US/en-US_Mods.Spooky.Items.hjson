@@ -170,7 +170,7 @@ FossilDutchmanPipe: {
 	Tooltip:
 		'''
 		Creates an evil aura around you
-		Enemies inside of this aura will take more damage for your attacks
+		Enemies inside of this aura will take more damage from your attacks
 		5 minute duration
 		'''
 }
@@ -4820,6 +4820,11 @@ DampSoilWallItem: {
 	Tooltip: ""
 }
 
+DampStoneItem: {
+	DisplayName: Damp Stone
+	Tooltip: ""
+}
+
 RootWoodItem: {
 	DisplayName: Root Block
 	Tooltip: ""
@@ -5721,6 +5726,15 @@ EggEventDowned: {
 	Tooltip:
 		'''
 		Sets the egg incursion event to completed
+		Testing Item
+		'''
+}
+
+SporeEventReset: {
+	DisplayName: Spore Event Resetter
+	Tooltip:
+		'''
+		Resets the spore event and deactivates it
 		Testing Item
 		'''
 }

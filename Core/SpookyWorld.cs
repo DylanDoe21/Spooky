@@ -175,22 +175,6 @@ namespace Spooky.Core
                     }
                 }
 
-                //spawn giant cobweb, only if you have not assembled the old hunter npc
-                if (!NPC.AnyNPCs(ModContent.NPCType<GiantWeb>()) && !NPC.AnyNPCs(ModContent.NPCType<GiantWebAnimationBase>()) && Flags.SpiderWebPosition != Vector2.Zero && !Flags.OldHunterAssembled)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-					{
-                        int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
-                        Main.npc[GiantWeb].position.X += 18;
-                        Main.npc[GiantWeb].position.Y += 670;
-
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, number: GiantWeb);
-                        }
-                    }
-                }
-
                 //spawn giant egg
                 if (!NPC.AnyNPCs(ModContent.NPCType<OrroboroEgg>()) && Flags.EggPosition != Vector2.Zero)
                 {
@@ -301,99 +285,117 @@ namespace Spooky.Core
                     }
                 }
 
-                //chance to activate raveyard each night
-                if (DaySwitched && !Main.dayTime && (Main.rand.NextBool(15) || Flags.GuaranteedRaveyard))
+                //handle spore event stuff
+                if (Flags.SporeEventTimeLeft > 0)
                 {
-                    Flags.RaveyardHappening = true;
+                    Flags.SporeEventTimeLeft--;
 
-                    if (Flags.GuaranteedRaveyard)
+                    //increase fog intensity over the first 7 minutes
+                    if (Flags.SporeEventTimeLeft > 50400)
                     {
-                        Flags.GuaranteedRaveyard = false;
+                        Flags.SporeFogIntensity += (0.5f / 25200f);
                     }
+                    //decrease fog intensity over the last 7 minutes
+                    else if (Flags.SporeEventTimeLeft < 25200)
+                    {
+                        Flags.SporeFogIntensity -= (0.5f / 25200f);
+                    }
+                    else
+                    {
+                        Flags.SporeFogIntensity = 1f;
+                    }
+                }
+                //end the spore event when the timer runs out
+                else
+                {
+                    Flags.SporeEventHappening = false;
+                    Flags.SporeFogIntensity = 0f;
 
                     if (Main.netMode == NetmodeID.Server)
                     {
                         NetMessage.SendData(MessageID.WorldData);
                     }
-
-                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardStart");
-
-                    if (Main.netMode == NetmodeID.SinglePlayer)
-                    {
-                        Main.NewText(text, 171, 64, 255);
-                    }
-                    if (Main.netMode == NetmodeID.Server)
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                    }
                 }
 
-                //if a raveyard is happening, end it during the day
-                if (Main.dayTime && Flags.RaveyardHappening)
+                //handle things that happen when day/night switches to the other
+                if (DaySwitched)
                 {
-                    Flags.RaveyardHappening = false;
-
-                    if (Main.netMode == NetmodeID.Server)
+                    if (!Flags.SporeEventHappening && Main.hardMode) //&& Main.rand.NextBool(40))
                     {
-                        NetMessage.SendData(MessageID.WorldData);
-                    }
-
-                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
-
-                    if (Main.netMode == NetmodeID.Server)
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                    }
-                    if (Main.netMode == NetmodeID.SinglePlayer)
-                    {
-                        Main.NewText(text, 171, 64, 255);
-                    }
-                }
-            }
-
-            //krampus daily quests should refresh when it switches to day or night
-            if (DaySwitched && Flags.KrampusQuestlineDone && !Flags.KrampusQuestGiven)
-            {
-                Flags.KrampusDailyQuest = true;
-                Flags.KrampusDailyQuestDone = false;
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.WorldData);
-                }
-            }
-
-            //kill the giant web manually when all pieces are inserted for multiplayer purposes
-            //because setting the npcs health to zero in the web itself doesnt work or update in mp correctly, doing it here and spawning the animation allows it to spawn correctly
-            if (Flags.KillWeb)
-            {
-                foreach (var npc in Main.ActiveNPCs)
-			    {
-                    if (npc != null && npc.type == ModContent.NPCType<GiantWeb>())
-                    {
-                        int Animation = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y + 25, ModContent.NPCType<GiantWebAnimationBase>());
+                        Flags.SporeEventHappening = true;
+                        Flags.SporeEventTimeLeft = 72000; //20 real-life minutes
+                        Flags.SporeFogColor = Main.rand.Next(7);
+                        Flags.SporeFogDotColor = Main.rand.Next(7);
+                        Flags.SporeFogIntensity = 0.5f;
 
                         if (Main.netMode == NetmodeID.Server)
                         {
-                            NetMessage.SendData(MessageID.SyncNPC, number: Animation);
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+                    }
+
+                    //chance to activate raveyard each night
+                    if (!Main.dayTime && (Main.rand.NextBool(15) || Flags.GuaranteedRaveyard))
+                    {
+                        Flags.RaveyardHappening = true;
+
+                        if (Flags.GuaranteedRaveyard)
+                        {
+                            Flags.GuaranteedRaveyard = false;
                         }
 
-                        npc.life = 0;
-
-                        if (Main.netMode == NetmodeID.Server) 
+                        if (Main.netMode == NetmodeID.Server)
                         {
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0);
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+
+                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardStart");
+
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {
+                            Main.NewText(text, 171, 64, 255);
+                        }
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        }
+                    }
+                    //if a raveyard is happening, end it during the day
+                    if (Main.dayTime && Flags.RaveyardHappening)
+                    {
+                        Flags.RaveyardHappening = false;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+
+                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                        }
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {
+                            Main.NewText(text, 171, 64, 255);
+                        }
+                    }
+
+                    //krampus daily quests should refresh when it switches to day or night
+                    if (Flags.KrampusQuestlineDone && !Flags.KrampusQuestGiven)
+                    {
+                        Flags.KrampusDailyQuest = true;
+                        Flags.KrampusDailyQuestDone = false;
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
                         }
                     }
                 }
+            }
 
-                Flags.KillWeb = false;
-
-				if (Main.netMode == NetmodeID.Server)
-				{
-					NetMessage.SendData(MessageID.WorldData);
-				}
-			}
-
+            //spawn bosses with already existing npcs in the world (for multiplayer purposes)
             if (Flags.SpawnDaffodil)
             {
                 foreach (var npc in Main.ActiveNPCs)

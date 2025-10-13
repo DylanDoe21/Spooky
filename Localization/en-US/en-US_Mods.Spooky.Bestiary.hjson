@@ -181,9 +181,14 @@ ValleyMerman: Humanoid fish-like creatures that reside in the blood lake. They c
 //spider cave
 Ant1: Common insects found in the damp spider infested caves. They are decent at blending into the environment.
 Ant2: Uncommon ants with a bright red color rather than brown. They look a bit angry.
+AntSpider1: These spiders have somehow evolved to mimic ants, capable of living among them and eating them.
+AntSpider2: They resemble ants but are actually spiders, they use their long front legs to mimic ant mandibles to trick them.
 BallSpider: These rotund creature's stubby legs only allow for limited movement, but they are adept at weaving webs, allowing them to hang from ceilings and stalk prey.
 Cockroach: Disgusting and hard to get rid of pests. At least they don't usually wander too far out of the caverns where they live.
+CrabSpider1: These watchful spiders have the ability to crawl around really quickly both sideways and backwards when threatened to escape from immediate danger.
+CrabSpider2: Good at hunting, they will quickly run backwards while facing their prey as to not loose track. Then, once far enough, they will quickly lunge at their target.
 DaddyLongLegs: Their long legs allow them to walk across the rough terrain in the grotto. Lacking any other attack besides biting, they are not as intimidating as they might seem.
+Harvestmen: Despite their scary looking legs, these spiders are shy and curious, wandering about the grotto. Don't take advantage of their passive behavior though, as they will retaliate if harmed!
 Inchworm1: Little worms that crawl around in the damp spider infested cave. They are not so good at avoiding the spiders that eat them.
 Inchworm2: Cute and reclusive little worms that live in the damp caverns. They apparently taste good to spiders, which eat them often.
 Inchworm3: These inchworms have miraculously adapted to have a more hostile appearance, making spiders less likely to target them.
@@ -199,6 +204,12 @@ OrbWeaver1: Tiny spiders with a giant shell on their back. Using pressure they s
 OrbWeaver2: The skull-like pattern they have on their shells is a useful trait that helps to ward off intruders, or anything that disturbs them when they sleep.
 OrbWeaver3: A sub-species of orb weaver, their spikes are not as sharp as other orb weaver spiders but are coated in dangerous poison.
 OrbWeaverGiant: These scary mutated orb weavers roam in the grotto very rarely. Those who do see them are usually too captivated by its pretty shell before realizing it is actually a deadly spider.
+PeacockSpider1: Slightly more hostile jumping spiders, these ones seem to be able to run really fast along with their ability to leap.
+PeacockSpider2: The strange and bright patterns on their back are meant to ward off predators, or other spiders from invading their territory.
+PeacockSpider3: Peacock spiders have adapted to have many unique and bright colored patterns on their abdomen. It is said they use it to attract and impress others of its kind.
+SmileSpider: They have the ability to track nearby prey even if they can't see it directly. The smile-like pattern on their back is said to be an adaptation to trick prey.
+SpiderAnt1: In order to avoid ant spiders, these ants have evolved to look like spiders so they do not get hunted.
+SpiderAnt2: The ant spiders disguise backfired, after these ants adapted their appearance to look like spiders.
 TarantulaHawk1: If regular spiders weren't weird enough, these ones can fly. They are one of the more powerful and aggressive species in the grotto.
 TarantulaHawk2: They can carry smaller spiders to their prey with their strong legs, and in exchange they share the food amongst each other. An interesting symbiotic relationship.
 TarantulaHawk3: These tarantula hawks have adapted to take on the appearance of a large fly, which allows them to approach their prey without being noticed.

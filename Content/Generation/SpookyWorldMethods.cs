@@ -154,11 +154,12 @@ namespace Spooky.Content.Generation
 		public static void PlaceVines(int X, int Y, int vineType, int[] ValidTiles)
 		{
 			Tile tileBelow = Framing.GetTileSafely(X, Y + 1);
-			if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
+			if (!tileBelow.HasTile && tileBelow.LiquidType != LiquidID.Lava)
 			{
+				int VineLength = WorldGen.genRand.Next(2, 13);
 				bool PlaceVine = false;
 				int Test = Y;
-				while (Test > Y - 10)
+				while (Test > Y - VineLength)
 				{
 					Tile testTile = Framing.GetTileSafely(X, Test);
 					if (testTile.BottomSlope)

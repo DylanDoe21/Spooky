@@ -91,7 +91,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
             {
                 NPC.spriteDirection = NPC.direction = NPC.velocity.X <= 0 ? -1 : 1;
 
-                //prevents the pet from getting stuck on sloped tiled
+                //prevents the pet from getting stuck on sloped tiles
                 Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
 
                 Vector2 center2 = NPC.Center;

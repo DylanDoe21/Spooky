@@ -1,0 +1,8 @@
+Peacock Mite weaves around and occasionally rushes the player before moving around randomly again (flying)
+Berry Mite floats aimlessly and explodes when killed
+Rust mite moves slowly across the ground creating small gall spikes that grow over time and eventually shrink again and dissapear
+Dust mites jump constantly and rapidly towards the player
+Deer mites stop in place before dashing rapidly towards the player (like a deer)
+Eyelash Mites move like orro borro in the air (worm)
+Beetle Mite are idle but will chase the player away if they get too close
+Most of them inflict bleeding/weak

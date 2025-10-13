@@ -291,8 +291,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             }
 
             //draw the actual tree
-            spriteBatch.Draw(RootTexture.Value, pos + WavyOffset, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), 
-            new Color(col.R, col.G, col.B, 255), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(RootTexture.Value, pos + WavyOffset, new Rectangle(tile.TileFrameX, tile.TileFrameY, frameSize, frameSizeY), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             return false;
         }

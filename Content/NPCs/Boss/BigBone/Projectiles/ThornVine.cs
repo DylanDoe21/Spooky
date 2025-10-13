@@ -183,7 +183,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone.Projectiles
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
 			//if big bone exists then 
-			if (Parent.active && Parent.type == ModContent.NPCType<BigBone>() && ((Parent.ai[0] == 1 && Parent.localAI[0] < 180) || Parent.ai[0] != 1))
+			if (Parent.active && Parent.type == ModContent.NPCType<BigBone>() && (Parent.ai[0] == 1 && Parent.localAI[0] < 180))
 			{
 				Projectile.timeLeft = 2;
 			}

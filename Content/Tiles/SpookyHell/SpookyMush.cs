@@ -19,7 +19,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             AddMapEntry(new Color(95, 33, 129));
 			DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;
-			MineResist = 0.7f;
+			MineResist = 0.5f;
 		}
 	}
 }

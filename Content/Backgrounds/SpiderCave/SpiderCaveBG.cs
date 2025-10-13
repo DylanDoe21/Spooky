@@ -99,7 +99,7 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                     }
 
                     vector2 *= Scale;
-
+                    
                     zero.Y -= num;
                     float num5 = Scale * rectangle.Width;
                     int num6 = (int)((vector.X * vector3.X - vector2.X + zero.X - (Main.screenWidth >> 1)) / num5);
@@ -109,9 +109,9 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
 
                         var frame = rectangle;
-                        var clr = new Color(100, 80, 60) * Transparency;
+                        var clr = (Flags.SporeEventHappening ? new Color(25, 25, 25) : new Color(100, 80, 60)) * Transparency;
 
-                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, zero, Scale, SpriteEffects.None, 0f);
 
                         if (Layers == 2)
                         {
@@ -127,9 +127,9 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                             Texture2D EyesTexture2 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes2").Value;
                             Texture2D EyesTexture3 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes3").Value;
 
-                            Main.spriteBatch.Draw(EyesTexture1, drawPosition, frame, Color.Red * intensity1 * Transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
-                            Main.spriteBatch.Draw(EyesTexture2, drawPosition, frame, Color.Red * intensity2 * Transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
-                            Main.spriteBatch.Draw(EyesTexture3, drawPosition, frame, Color.Red * intensity1 * Transparency, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(EyesTexture1, drawPosition, frame, Color.Red * intensity1 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(EyesTexture2, drawPosition, frame, Color.Red * intensity2 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(EyesTexture3, drawPosition, frame, Color.Red * intensity1 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
                         }
                     }
                 }

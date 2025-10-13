@@ -170,14 +170,14 @@ namespace Spooky.Content.NPCs.Quest
 			if (legs == null)
 			{
 				legs = new List<SpiderLeg>();
-				Vector2[] legbody = { new Vector2(-10, -12), new Vector2(0, -12), new Vector2(10, -12), new Vector2(20, -8) };
-				Vector2[] legbodyExtended = { new Vector2(-12, -64), new Vector2(32, -84), new Vector2(72, -84), new Vector2(100, -80) };
+				Vector2[] Origin = { new Vector2(-10, -12), new Vector2(0, -12), new Vector2(10, -12), new Vector2(20, -8) };
+				Vector2[] Destination = { new Vector2(-12, -64), new Vector2(32, -84), new Vector2(72, -84), new Vector2(100, -80) };
 
 				for (int numLegs = -1; numLegs < 2; numLegs += 2)
 				{
-					for (int i = 0; i < legbodyExtended.Length; i++)
+					for (int i = 0; i < Destination.Length; i++)
 					{
-						legs.Add(new SpiderLeg(new Vector2(legbodyExtended[i].X, legbodyExtended[i].Y * numLegs), new Vector2(legbody[i].X, legbody[i].Y * numLegs), numLegs));
+						legs.Add(new SpiderLeg(new Vector2(Destination[i].X, Destination[i].Y * numLegs), new Vector2(Origin[i].X, Origin[i].Y * numLegs), numLegs));
 					}
 				}
 			}

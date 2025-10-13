@@ -23,15 +23,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<DampGrass>() };
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(104, 86, 25));
+            AddMapEntry(new Color(116, 117, 35));
             DustType = ModContent.DustType<DampGrassDust>();
             HitSound = SoundID.Grass;
         }
 
         public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
         {
-            offsetY = -14;
-            height = 32;
+            offsetY = -26;
+            height = 46;
         }
 
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)

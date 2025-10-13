@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpiderCave
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(134, 116, 55));
+            AddMapEntry(new Color(128, 137, 55));
             RegisterItemDrop(ModContent.ItemType<DampSoilItem>());
             DustType = ModContent.DustType<DampGrassDust>();
 			MineResist = 0.1f;
@@ -62,34 +62,26 @@ namespace Spooky.Content.Tiles.SpiderCave
 			if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow small weeds
-                if (Main.rand.NextBool(8))
+                if (Main.rand.NextBool(4))
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<SpiderCaveWeeds>(), true);
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(16) * 18);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(36) * 18);
 					NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
 				}
 
                 //mushrooms 
-                if (Main.rand.NextBool(18))
+                if (Main.rand.NextBool(50))
                 {
-                    ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue1>(), (ushort)ModContent.TileType<MushroomBlue2>(), 
-                    (ushort)ModContent.TileType<MushroomGreen1>(), (ushort)ModContent.TileType<MushroomGreen2>(), 
-                    (ushort)ModContent.TileType<MushroomRed1>(), (ushort)ModContent.TileType<MushroomRed2>(), 
-                    (ushort)ModContent.TileType<MushroomYellow1>(), (ushort)ModContent.TileType<MushroomYellow2>() };
+                    ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue>(), (ushort)ModContent.TileType<MushroomRedBrown>(),
+                    (ushort)ModContent.TileType<MushroomBrown>(), (ushort)ModContent.TileType<MushroomYellow>(), 
+                    (ushort)ModContent.TileType<MushroomGreen>(), (ushort)ModContent.TileType<MushroomPurple>(),
+                    (ushort)ModContent.TileType<MushroomRed>(), (ushort)ModContent.TileType<MushroomTeal>(), 
+                    (ushort)ModContent.TileType<MushroomWhite>() };
 
                     ushort newObject = Main.rand.Next(Mushrooms);
 
-                    WorldGen.PlaceObject(i, j - 1, newObject, true);
+                    WorldGen.PlaceObject(i, j - 1, newObject, true, WorldGen.genRand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
-                }
-
-                //grow tall mushrooms
-                if (!Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
-                {
-                    if (Main.rand.NextBool(10))
-                    {
-                        Content.Generation.SpiderCave.CanGrowTallMushroom(i, j, ModContent.TileType<TallMushroom>(), 2, 5);
-                    }
                 }
 			}
 

@@ -22,9 +22,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			TileID.Sets.IsVine[Type] = true;
             TileID.Sets.VineThreads[Type] = true;
 			TileID.Sets.MultiTileSway[Type] = true;
-			AddMapEntry(new Color(94, 76, 15));
-			DustType = ModContent.DustType<DampGrassDust>();
-			HitSound = SoundID.Grass;
+			AddMapEntry(new Color(83, 70, 63));
+			DustType = DustID.Mud;
+			HitSound = SoundID.Dig;
 			MineResist = 0.1f;
 		}
 
@@ -78,7 +78,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 					tileBelow.TileType = Type;
 					tileBelow.HasTile = true;
 					WorldGen.SquareTileFrame(i, j + 1, true);
-					if (Main.netMode == NetmodeID.Server) 
+					if (Main.netMode == NetmodeID.Server)
                     {
 						NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
 					}

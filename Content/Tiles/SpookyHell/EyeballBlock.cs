@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.Enums;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -10,7 +11,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 using Spooky.Core;
-using Terraria.GameContent.Drawing;
 
 namespace Spooky.Content.Tiles.SpookyHell
 {

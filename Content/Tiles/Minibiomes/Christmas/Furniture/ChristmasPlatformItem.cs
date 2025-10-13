@@ -5,6 +5,11 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 {
 	public class ChristmasPlatformItem : ModItem
     {
+		public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 200;
+        }
+
 		public override void SetDefaults() 
 		{
 			Item.DefaultToPlaceableTile(ModContent.TileType<ChristmasPlatform>());

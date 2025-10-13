@@ -91,7 +91,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
             if (NPC.ai[1] > 0)
             {
-                if (NPC.ai[0] >= 400)
+                if (NPC.ai[0] >= 180)
                 {
                     SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 

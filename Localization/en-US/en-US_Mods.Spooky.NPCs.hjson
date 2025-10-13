@@ -336,10 +336,15 @@ ValleyMerman.DisplayName: Flesh Merman
 //spider cave
 Ant1.DisplayName: Ant
 Ant2.DisplayName: Ant
+AntSpider1.DisplayName: Ant Spider
+AntSpider2.DisplayName: Ant Spider
 BallSpider.DisplayName: Sphider
 BallSpiderWeb.DisplayName: Sphider Web
 Cockroach.DisplayName: Cockroach
+CrabSpider1.DisplayName: Crab Spider
+CrabSpider2.DisplayName: Crab Spider
 DaddyLongLegs.DisplayName: Daddy Long Legs
+Harvestmen.DisplayName: Harvestmen
 Inchworm1.DisplayName: Inchworm
 Inchworm2.DisplayName: Inchworm
 Inchworm3.DisplayName: Inchworm
@@ -357,6 +362,14 @@ OrbWeaver1.DisplayName: Orb Weaver
 OrbWeaver2.DisplayName: Orb Weaver
 OrbWeaver3.DisplayName: Orb Weaver
 OrbWeaverGiant.DisplayName: Giant Orb Weaver
+PeacockSpider1.DisplayName: Peacock Spider
+PeacockSpider2.DisplayName: Peacock Spider
+PeacockSpider3.DisplayName: Peacock Spider
+PelicanSpider1.DisplayName: Pelican Spider
+PelicanSpider2.DisplayName: Pelican Spider
+SmileSpider.DisplayName: Happy-Face Spider
+SpiderAnt1.DisplayName: Spider Ant
+SpiderAnt2.DisplayName: Spider Ant
 TarantulaHawk1.DisplayName: Tarantula Hawk
 TarantulaHawk2.DisplayName: Tarantula Hawk
 TarantulaHawk3.DisplayName: Tarantula Hawk
@@ -372,6 +385,11 @@ TrapdoorSpiderIdle1.DisplayName: Trapdoor Spider
 TrapdoorSpiderIdle2.DisplayName: Trapdoor Spider
 WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
+WolfSpider.DisplayName: Wolf Spider
+//mushroom spore event
+BerryMite1.DisplayName: Berry Mite
+BerryMite2.DisplayName: Berry Mite
+BerryMite3.DisplayName: Berry Mite
 //nose cult
 MocoIdol1.DisplayName: ""
 MocoIdol2.DisplayName: ""

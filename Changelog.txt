@@ -1,6 +1,1 @@
--Fixed guilded wizard hat texture error
--Fixed zombie eel continuing to exist if you switch weapons while using it
--Fixed opalised cannon tar blobs not using frame variance
--Fixed krampus helper wand incorrectly summoning 2 minions per use
--Opalised cannon can now only have up to 3 baby tar slimes active at once
--Added little spider jar (Thanks to aMilkFiend on github for the PR)
+

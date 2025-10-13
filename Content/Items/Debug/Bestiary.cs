@@ -39,6 +39,7 @@ namespace Spooky.Content.Items.Debug
 				for (int j = 0; j < 50; j++)
                 {
 					Main.BestiaryTracker.Kills.RegisterKill(npc);
+                    Main.BestiaryTracker.Chats.SetWasChatWithDirectly(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[npc.type]);
                 }
 			}
 

@@ -5,6 +5,7 @@ using Terraria.IO;
 using Terraria.GameContent.Generation;
 using Terraria.WorldBuilding;
 using Terraria.Localization;
+using ReLogic.Utilities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -103,107 +104,111 @@ namespace Spooky.Content.Generation
 				}
 			}
 
+			//place dithering around the edge of the oval and blocks inside of the oval
 			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+			{
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+				{
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+					{
+						float percent = dist / constant;
+						float blurPercent = 0.99f;
+
+						if (percent < blurPercent)
+						{
+							Main.tile[X, Y].ClearEverything();
+							WorldGen.PlaceTile(X, Y, ModContent.TileType<DampSoil>());
+							WorldGen.PlaceWall(X, Y, ModContent.WallType<DampSoilWall>());
+						}
+					}
+				}
+			}
+
+            int XIncrement = Main.maxTilesX / 98;
+            int YIncrement = Main.maxTilesY / 36;
+
+			//dig out caves
+			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X += XIncrement)
 			{
 				int StartValue = origin.X - biomeSize - 2;
 				int EndValue = origin.X + biomeSize + 2;
 				progress.Set((X - StartValue) / (EndValue - StartValue));
 
-				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
-                {
-                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
-                    {
-                        float percent = dist / constant;
-                        float blurPercent = 0.99f;
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y += YIncrement)
+				{
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+					{
+						float percent = dist / constant;
+						float blurPercent = 0.99f;
 
-                        if (percent < blurPercent)
-                        {
-                            //clear absolutely everything before generating the caverns
-                            Main.tile[X, Y].ClearEverything();
+						if (percent < blurPercent)
+						{
+							int NewX = X + WorldGen.genRand.Next(-20, 21);
+							int NewY = Y + WorldGen.genRand.Next(-20, 21);
 
-                            //generate perlin noise caves
-                            float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 80f, Y / 80f, 5, unchecked(cavePerlinSeed + 1)) * 0.01f;
-                            float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 1450f, Y / 800f, 5, cavePerlinSeed) + 0.5f + horizontalOffsetNoise;
-                            float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 1450f, Y / 800f, 5, unchecked(cavePerlinSeed - 1)) + 0.5f;
-                            float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
-                            float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
-                            float caveCreationWallThreshold = horizontalOffsetNoise * 3.5f + 0.335f;
-
-                            //kill or place tiles depending on the noise map
-                            if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
-                            {
-                                WorldGen.KillTile(X, Y);
-                            }
-                            else
-                            {
-                                WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<DampSoil>());
-                            }
-
-                            //place a layer of grass walls around blocks
-                            if (caveNoiseMap * caveNoiseMap <= caveCreationWallThreshold)
-                            {
-                                WorldGen.PlaceWall(X, Y, ModContent.WallType<DampSoilWall>());
-                            }
-                        }
-                    }
-                }
-            }
+							CavePatch(NewX, NewY);
+						}
+					}
+				}
+			}
 
             //clean out small floating chunks of blocks
-            //CleanOutSmallClumps();
+            CleanOutSmallClumps(true);
+            //clean out small floating chunks of walls
+            CleanOutSmallClumps(false);
 
-            //place dithering around the edge of the biome
-            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+			//place dithering around the edge of the oval and blocks inside of the oval
+			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+			{
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+				{
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+					{
+						float percent = dist / constant;
+						float blurPercent = 0.99f;
+
+						if (percent >= blurPercent)
+						{
+							if (WorldGen.genRand.NextBool())
+							{
+								if (Main.tile[X, Y].HasTile)
+								{
+									Main.tile[X, Y].TileType = (ushort)ModContent.TileType<DampSoil>();
+								}
+
+								if (Main.tile[X, Y].WallType > 0)
+								{
+									Main.tile[X, Y].WallType = (ushort)ModContent.WallType<DampSoilWall>();
+								}
+							}
+						}
+					}
+				}
+			}
+
+			//place clumps of stone
+			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
 				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
                 {
                     if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
                         float percent = dist / constant;
-                        float blurPercent = 0.99f;
-
-                        if (percent >= blurPercent)
-                        {
-                            if (WorldGen.genRand.NextBool())
-                            {
-                                if (Main.tile[X, Y].HasTile)
-                                {
-                                    Main.tile[X, Y].TileType = (ushort)ModContent.TileType<DampSoil>();
-                                }
-
-                                if (Main.tile[X, Y].WallType > 0)
-                                {
-                                    Main.tile[X, Y].WallType = (ushort)ModContent.WallType<DampSoilWall>();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //place clumps of stone
-            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
-            {
-				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
-                {
-                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
-                    {
-                        float percent = dist / constant;
-                        float blurPercent = 0.95f;
+                        float blurPercent = 0.98f;
 
                         if (percent < blurPercent)
                         {
                             //occasionally place large chunks of stone blocks
                             if (WorldGen.genRand.NextBool(1000) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
                             {
-                                WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(25, 35), ModContent.TileType<SpookyStone>(), false, 0f, 0f, true, true);
+                                WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(20, 28), WorldGen.genRand.Next(20, 28), ModContent.TileType<DampStone>(), false, 0f, 0f, true, true);
                             }
                         }
                     }
                 }
             }
 
-            //after the main biome is done, generate some clumps of web and leaves
+			//place leaf walls around dirt blocks
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
 				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
@@ -215,16 +220,31 @@ namespace Spooky.Content.Generation
 
                         if (percent < blurPercent)
                         {
-                            //place mounds of web blocks on the floor
-                            if (WorldGen.genRand.NextBool(20) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y - 1].HasTile)
+                            if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() &&
+                            (!Main.tile[X - 1, Y].HasTile || !Main.tile[X + 1, Y].HasTile || !Main.tile[X, Y - 1].HasTile || !Main.tile[X, Y + 1].HasTile))
                             {
-                                SpookyWorldMethods.PlaceMound(X, Y + 3, ModContent.TileType<WebBlock>(), WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(6, 10), false);
+                                SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<DampGrassWall>(), 3, false, true);
                             }
+                        }
+                    }
+                }
+            }
+            //place dirt walls around stone blocks
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+            {
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+                    {
+                        float percent = dist / constant;
+                        float blurPercent = 0.98f;
 
-                            //place smaller chunks of web blocks on the ceiling
-                            if (WorldGen.genRand.NextBool(45) && Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y + 1].HasTile)
+                        if (percent < blurPercent)
+                        {
+                            if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<DampStone>() &&
+                            (!Main.tile[X - 1, Y].HasTile || !Main.tile[X + 1, Y].HasTile || !Main.tile[X, Y - 1].HasTile || !Main.tile[X, Y + 1].HasTile))
                             {
-                                SpookyWorldMethods.PlaceCircle(X, Y + 2, TileID.LivingMahoganyLeaves, 0, WorldGen.genRand.Next(2, 6), false, false);
+                                SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<DampSoilWall>(), 3, false, true);
                             }
                         }
                     }
@@ -261,19 +281,17 @@ namespace Spooky.Content.Generation
                             WorldGen.KillTile(X, Y);
                         }
 
+                        //kill one block thick surfaces
+                        if (Main.tile[X, Y].HasTile && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile)
+                        {
+                            WorldGen.KillTile(X, Y);
+                        }
+
                         //kill random single floating walls
                         if (Main.tile[X, Y - 1].WallType <= 0 && Main.tile[X, Y + 1].WallType <= 0 && Main.tile[X - 1, Y].WallType <= 0 && Main.tile[X + 1, Y].WallType <= 0)
                         {
                             WorldGen.KillWall(X, Y);
                         }
-
-						//kill random single floating walls
-						if (Main.tile[X, Y].TileType == TileID.LivingMahoganyLeaves)
-						{
-							Tile tile = Main.tile[X, Y];
-
-							tile.TileColor = PaintID.BrownPaint;
-						}
 
                         //get rid of 1x2 tiles on the ground since it looks weird
                         if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && !Main.tile[X - 2, Y].HasTile && !Main.tile[X + 1, Y].HasTile)
@@ -292,8 +310,6 @@ namespace Spooky.Content.Generation
             }
 
             //place clumps of vanilla ores
-            
-            //determine which ores to place based on the opposite of what ores generate
             ushort OppositeTier1Ore = WorldGen.SavedOreTiers.Copper == TileID.Copper ? TileID.Tin : TileID.Copper;
             ushort OppositeTier2Ore = WorldGen.SavedOreTiers.Iron == TileID.Iron ? TileID.Lead : TileID.Iron;
             ushort OppositeTier3Ore = WorldGen.SavedOreTiers.Silver == TileID.Silver ? TileID.Tungsten : TileID.Silver;
@@ -304,7 +320,7 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<DampStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(8, 12), WorldGen.genRand.Next(8, 12), OppositeTier1Ore, false, 0f, 0f, false, true);
                 }
@@ -315,7 +331,7 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<DampStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(6, 10), WorldGen.genRand.Next(6, 10), OppositeTier2Ore, false, 0f, 0f, false, true);
                 }
@@ -326,7 +342,7 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<DampStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 8), WorldGen.genRand.Next(4, 8), OppositeTier3Ore, false, 0f, 0f, false, true);
                 }
@@ -337,164 +353,9 @@ namespace Spooky.Content.Generation
                 int X = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int Y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
 
-                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>()) 
+                if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<DampStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(4, 6), OppositeTier4Ore, false, 0f, 0f, false, true);
-                }
-            }
-
-            //generate old hunter piece structures
-            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterHat", 12, 8);
-            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY - (Main.maxTilesY / 18), "OldHunterSkull", 12, 8);
-            GenerateOldHunterPile(startPosX - (Main.maxTilesX / 42) + WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 30), "OldHunterTorso", 12, 8);
-            GenerateOldHunterPile(startPosX + (Main.maxTilesX / 42) - WorldGen.genRand.Next(0, 60), startPosY + (Main.maxTilesY / 30), "OldHunterLegs", 12, 8);
-
-            //place giant web in the center of the biome
-            Vector2 giantWebOrigin = new Vector2(origin.X - 40, origin.Y - 61);
-			StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GiantWebHouse", giantWebOrigin.ToPoint16(), Mod);
-
-            Flags.SpiderGrottoCenter = new Vector2(origin.X * 16, origin.Y * 16);
-
-            Flags.SpiderWebPosition = new Vector2(origin.X * 16, origin.Y * 16);
-            int GiantWeb = NPC.NewNPC(null, (int)Flags.SpiderWebPosition.X, (int)Flags.SpiderWebPosition.Y, ModContent.NPCType<GiantWeb>());
-            Main.npc[GiantWeb].position.X += 18;
-            Main.npc[GiantWeb].position.Y += 1518;
-            
-            //generate structures
-            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
-            {
-				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) + 10; Y <= origin.Y + verticalRadius + 3; Y++)
-                {
-                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
-                    {
-                        float percent = dist / constant;
-                        float blurPercent = 0.95f;
-
-                        if (percent < blurPercent)
-                        {
-                            //ground structures
-                            if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X - 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                            Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                            Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
-                            {
-                                if (WorldGen.genRand.NextBool(7) && CanPlaceStructure(X, Y))
-                                {
-                                    switch (WorldGen.genRand.Next(12))
-                                    {
-                                        case 0:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 12, Y - 13);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HouseSmall.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 1:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 13, Y - 25);
-											StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HouseMedium.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 2:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 17, Y - 23);
-											StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HouseLarge.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 3:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 21, Y - 28);
-											StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HouseGiant.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 4:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 12, Y - 14);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GraveSmall.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 5:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 15, Y - 16);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GraveLarge.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 6:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 18, Y - 22);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsSmall.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 7:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 15, Y - 25);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsMedium.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 8:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 12, Y - 23);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/RuinsLarge.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 9:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 9, Y - 20);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/TowerSmall.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 10:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 9, Y - 26);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/TowerLarge.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 11:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 10, Y - 15);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/SmallShrine.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-
-                            //ceiling structures
-                            if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X - 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                            Main.tile[X - 2, Y].TileType == ModContent.TileType<DampSoil>() && Main.tile[X + 1, Y].TileType == ModContent.TileType<DampSoil>() &&
-                            Main.tile[X + 2, Y].TileType == ModContent.TileType<DampSoil>() && !Main.tile[X, Y + 1].HasTile && !Main.tile[X, Y + 2].HasTile)
-                            {
-                                if (WorldGen.genRand.NextBool(35) && CanPlaceStructure(X, Y))
-                                {
-                                    switch (WorldGen.genRand.Next(5))
-                                    {
-                                        case 0:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 7, Y - 4);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerSmall.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 1:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 7, Y - 4);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerLarge.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 2:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 18, Y - 8);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HangingTowerGiant.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                        case 3:
-                                        {
-                                            Vector2 structureOrigin = new Vector2(X - 16, Y - 6);
-                                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/HangingLootWeb.shstruct", structureOrigin.ToPoint16(), Mod);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
 
@@ -510,11 +371,6 @@ namespace Spooky.Content.Generation
                         Tile tileBelow = Main.tile[X, Y + 1];
                         Tile tileLeft = Main.tile[X - 1, Y];
                         Tile tileRight = Main.tile[X + 1, Y];
-
-                        if (tile.WallType == ModContent.WallType<DampSoilWall>() && (!tileAbove.HasTile || !tileBelow.HasTile || !tileLeft.HasTile || !tileRight.HasTile))
-                        {
-                            tile.WallType = (ushort)ModContent.WallType<DampGrassWall>();
-                        }
 
                         //spread grass onto the dirt blocks throughout the biome
                         WorldGen.SpreadGrass(X, Y, ModContent.TileType<DampSoil>(), ModContent.TileType<DampGrass>(), false);
@@ -532,82 +388,72 @@ namespace Spooky.Content.Generation
 						Tile tile = Main.tile[X, Y];
 						Tile tileAbove = Main.tile[X, Y - 1];
 						Tile tileBelow = Main.tile[X, Y + 1];
+                        Tile tileLeft = Main.tile[X - 1, Y];
+						Tile tileRight = Main.tile[X + 1, Y];
 
 						//place ceiling webs
 						if (tile.TileType == ModContent.TileType<WebBlock>())
 						{
-							ushort[] CeilingWebs = new ushort[] { (ushort)ModContent.TileType<CeilingWeb1>(), (ushort)ModContent.TileType<CeilingWeb2>() };
+							WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<HangingWeb>(), true, WorldGen.genRand.Next(0, 6));
+						}
 
-							WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(CeilingWebs));
-							WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(CeilingWebs));
+                        //place stalagmite and stalactite
+						if (tile.TileType == ModContent.TileType<DampStone>())
+						{
+                            if (WorldGen.genRand.NextBool(5))
+							{
+							    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<DampStalagmite>(), true, WorldGen.genRand.Next(0, 6));
+                            }
+
+                            if (WorldGen.genRand.NextBool(5))
+							{
+							    WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<DampStalactite>(), true, WorldGen.genRand.Next(0, 6));
+                            }
 						}
 
 						//place ambient tiles that can spawn on stone and grass
-						if (tile.TileType == ModContent.TileType<DampGrass>() || tile.TileType == ModContent.TileType<SpookyStone>())
+						if (tile.TileType == ModContent.TileType<DampGrass>() || tile.TileType == ModContent.TileType<DampStone>())
 						{
-							if (WorldGen.genRand.NextBool(4))
-							{
-								WorldGen.PlacePot(X, Y - 1, 28, WorldGen.genRand.Next(19, 22));
-							}
-
 							//large hanging roots
-							if (WorldGen.genRand.NextBool())
+							if (WorldGen.genRand.NextBool(5))
 							{
-								ushort[] HangingRoots = new ushort[] { (ushort)ModContent.TileType<HangingRoots1>(), (ushort)ModContent.TileType<HangingRoots2>(),
-								(ushort)ModContent.TileType<HangingRoots3>(), (ushort)ModContent.TileType<HangingRoots4>() };
-
-								WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(HangingRoots));
-								WorldGen.PlaceObject(X, Y + 2, WorldGen.genRand.Next(HangingRoots));
-							}
-
-							//light roots on the ground
-							if (WorldGen.genRand.NextBool(20))
-							{
-								ushort[] LightRoots = new ushort[] { (ushort)ModContent.TileType<LightRoot1>(), (ushort)ModContent.TileType<LightRoot2>(),
-								(ushort)ModContent.TileType<LightRoot3>(), (ushort)ModContent.TileType<LightRoot4>() };
-
-								WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(LightRoots));
-							}
-
-							//light root on the ceiling
-							if (WorldGen.genRand.NextBool(15))
-							{
-								ushort[] LightRoots = new ushort[] { (ushort)ModContent.TileType<HangingLightRoot1>(), (ushort)ModContent.TileType<HangingLightRoot2>(),
-								(ushort)ModContent.TileType<HangingLightRoot3>(), (ushort)ModContent.TileType<HangingLightRoot4>() };
-
-								WorldGen.PlaceObject(X, Y + 1, WorldGen.genRand.Next(LightRoots));
+								WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<HangingRoots>(), true, WorldGen.genRand.Next(0, 2));
 							}
 						}
 
 						//grass only ambient tiles
 						if (tile.TileType == ModContent.TileType<DampGrass>())
 						{
-							if (WorldGen.genRand.NextBool(3) && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+							if (WorldGen.genRand.NextBool(4) && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
 							{
-								CanGrowGiantRoot(X, Y, ModContent.TileType<GiantRoot>(), 6, 12);
-							}
-
-							if (WorldGen.genRand.NextBool(3) && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
-							{
-								CanGrowTallMushroom(X, Y, ModContent.TileType<TallMushroom>(), 2, 5);
+								GrowGiantRoot(X, Y, ModContent.TileType<GiantRoot>(), 3, 10);
 							}
 
 							//mushrooms
-							if (WorldGen.genRand.NextBool(5))
+							if (WorldGen.genRand.NextBool(25))
 							{
-								ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue1>(), (ushort)ModContent.TileType<MushroomBlue2>(),
-								(ushort)ModContent.TileType<MushroomGreen1>(), (ushort)ModContent.TileType<MushroomGreen2>(),
-								(ushort)ModContent.TileType<MushroomRed1>(), (ushort)ModContent.TileType<MushroomRed2>(),
-								(ushort)ModContent.TileType<MushroomYellow1>(), (ushort)ModContent.TileType<MushroomYellow2>() };
+								ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue>(), (ushort)ModContent.TileType<MushroomRedBrown>(),
+                                (ushort)ModContent.TileType<MushroomBrown>(), (ushort)ModContent.TileType<MushroomYellow>(), 
+                                (ushort)ModContent.TileType<MushroomGreen>(), (ushort)ModContent.TileType<MushroomPurple>(),
+                                (ushort)ModContent.TileType<MushroomRed>(), (ushort)ModContent.TileType<MushroomTeal>(), 
+                                (ushort)ModContent.TileType<MushroomWhite>() };
 
-								WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms));
+								WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(Mushrooms), true, WorldGen.genRand.Next(0, 2));
+							}
+
+                            //dead trees
+                            if (WorldGen.genRand.NextBool(12) && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock &&
+                            !tileLeft.LeftSlope && !tileLeft.RightSlope && !tileLeft.IsHalfBlock && 
+                            !tileRight.LeftSlope && !tileRight.RightSlope && !tileRight.IsHalfBlock)
+							{
+								GrowDeadTree(X, Y, 4, 10);
 							}
 
 							//grow weeds
 							if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
 							{
 								WorldGen.PlaceTile(X, Y - 1, (ushort)ModContent.TileType<SpiderCaveWeeds>());
-								tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(16) * 18);
+								tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(36) * 18);
 								WorldGen.SquareTileFrame(X, Y + 1, true);
 								if (Main.netMode == NetmodeID.Server)
 								{
@@ -616,36 +462,28 @@ namespace Spooky.Content.Generation
 							}
 						}
 
-						//place rock piles on mossy stone
-						if (tile.TileType == ModContent.TileType<SpookyStone>())
-						{
-							if (WorldGen.genRand.NextBool(3))
-							{
-								WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<MossyRock>());
-							}
-						}
-
-						//place spider webs on walls
-						if (WorldGen.genRand.NextBool(120) && Main.tile[X, Y].WallType == ModContent.WallType<DampSoilWall>() && !Main.tile[X, Y].HasTile)
-						{
-							ushort[] WallWebs = new ushort[] { (ushort)ModContent.TileType<WallWeb1>(), (ushort)ModContent.TileType<WallWeb2>() };
-
-							WorldGen.PlaceObject(X, Y, WorldGen.genRand.Next(WallWebs));
-						}
-
 						if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() && !Main.tile[X, Y + 1].HasTile)
 						{
-							if (WorldGen.genRand.NextBool(2))
+							if (WorldGen.genRand.NextBool(5))
+							{
+								WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<DampVinesLight>());
+							}
+                            if (WorldGen.genRand.NextBool(2))
 							{
 								WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<DampVines>());
 							}
 						}
+
+                        int[] ValidTiles = { ModContent.TileType<DampGrass>() };
+
 						if (Main.tile[X, Y].TileType == ModContent.TileType<DampVines>())
 						{
-							int[] ValidTiles = { ModContent.TileType<DampGrass>() };
-
 							SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<DampVines>(), ValidTiles);
 						}
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampVinesLight>())
+                        {
+                            SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<DampVinesLight>(), ValidTiles);
+                        }
 					}
                 }
             }
@@ -680,14 +518,136 @@ namespace Spooky.Content.Generation
                         WorldGen.KillWire(X, Y);
                         Main.tile[X, Y].LiquidAmount = 0;
 
-                        if (Main.tile[X, Y].TileType == TileID.PressurePlates || Main.tile[X, Y].TileType == TileID.Traps || Main.tile[X, Y].TileType == TileID.GeyserTrap)
+                        if (Main.tile[X, Y].TileType == TileID.PressurePlates || Main.tile[X, Y].TileType == TileID.GeyserTrap)
                         {
                             WorldGen.KillTile(X, Y);
+                        }
+
+                        if (Main.tile[X, Y].TileType == TileID.Traps)
+                        {
+                            Main.tile[X, Y].TileType = (ushort)ModContent.TileType<DampGrass>();
                         }
                     }
                 }
             }
         }
+
+        public static void CavePatch(int i, int j)
+		{
+			double SizeX = WorldGen.genRand.Next(75, 125);
+			double SizeY = WorldGen.genRand.Next(20, 50);
+			double WorldSizeScale = (double)Main.maxTilesX / 4200;
+
+			SizeX *= WorldSizeScale;
+			SizeY *= WorldSizeScale;
+			double SizeYModified = SizeY - 1.0;
+			double CaveDigThreshold = SizeX;
+			Vector2D val = default(Vector2D);
+			val.X = i;
+			val.Y = (double)j - SizeY * 0.3;
+			Vector2D val2 = default(Vector2D);
+			val2.X = (double)WorldGen.genRand.Next(-100, 101) * 0.005;
+			val2.Y = (double)WorldGen.genRand.Next(-200, -100) * 0.005;
+			while (SizeX > 0.0 && SizeY > 0.0)
+			{
+				SizeX -= (double)WorldGen.genRand.Next(3);
+				SizeY -= 1.0;
+				int XMin = (int)(val.X - SizeX * 0.5);
+				int XMax = (int)(val.X + SizeX * 0.5);
+				int YMin = (int)(val.Y - SizeX * 0.5);
+				int YMax = (int)(val.Y + SizeX * 0.5);
+				if (XMin < 0)
+				{
+					XMin = 0;
+				}
+				if (XMax > Main.maxTilesX)
+				{
+					XMax = Main.maxTilesX;
+				}
+				if (YMin < 0)
+				{
+					YMin = 0;
+				}
+				if (YMax > Main.maxTilesY)
+				{
+					YMax = Main.maxTilesY;
+				}
+
+				CaveDigThreshold = SizeX * (double)WorldGen.genRand.Next(80, 120) * 0.01;
+
+				for (int k = XMin; k < XMax; k++)
+				{
+					for (int l = YMin; l < YMax; l++)
+					{
+						double num10 = Math.Abs((double)k - val.X);
+						double num11 = Math.Abs(((double)l - val.Y) * 2.3);
+						double num12 = Math.Sqrt(num10 * num10 + num11 * num11);
+
+						//dig out caves
+						if (num12 < CaveDigThreshold * 0.2 && (double)l < val.Y)
+						{
+							if (Main.tile[k, l].HasTile && Main.tile[k, l].TileType == ModContent.TileType<DampSoil>())
+							{
+								Tile tile = Main.tile[k, l];
+
+								WorldGen.KillTile(k, l);
+								tile.HasTile = false;
+
+								if (Main.tile[k, l].WallType != WallID.SpiderUnsafe)
+								{
+									WorldGen.KillWall(k, l);
+								}
+							}
+						}
+					}
+				}
+
+				val += val2;
+				val.X += val2.X;
+				val2.X += (double)WorldGen.genRand.Next(-110, 110) * 0.005;
+				val2.Y -= (double)WorldGen.genRand.Next(110) * 0.005;
+				if (val2.X > -0.5 && val2.X < 0.5)
+				{
+					if (val2.X < 0.0)
+					{
+						val2.X = -0.5;
+					}
+					else
+					{
+						val2.X = 0.5;
+					}
+				}
+				if (val2.X > 0.5)
+				{
+					val2.X = 0.5;
+				}
+				if (val2.X < -0.5)
+				{
+					val2.X = -0.5;
+				}
+				if (val2.Y > 0.5)
+				{
+					val2.Y = 0.5;
+				}
+				if (val2.Y < -0.5)
+				{
+					val2.Y = -0.5;
+				}
+				for (int m = 0; m < 2; m++)
+				{
+					int num13 = (int)val.X + WorldGen.genRand.Next(-20, 20);
+					int num14 = (int)val.Y + WorldGen.genRand.Next(0, 20);
+					while (!Main.tile[num13, num14].HasTile && Main.tile[num13, num14].TileType != ModContent.TileType<DampSoil>())
+					{
+						num13 = (int)val.X + WorldGen.genRand.Next(-20, 20);
+						num14 = (int)val.Y + WorldGen.genRand.Next(0, 20);
+					}
+					int num15 = WorldGen.genRand.Next(10, 20);
+					int steps = WorldGen.genRand.Next(10, 20);
+					WorldGen.TileRunner(num13, num14, num15, steps, ModContent.TileType<DampSoil>(), addTile: false, 0.0, 2.0, noYChange: true, ignoreTileType: TileID.Stone);
+				}
+			}
+		}
 
         public void GenerateOldHunterPile(int startX, int startY, string StructureFile, int offsetX, int offsetY)
         {
@@ -710,27 +670,29 @@ namespace Spooky.Content.Generation
         }
 
         //method to clean up small clumps of tiles
-        public static void CleanOutSmallClumps()
+        public static void CleanOutSmallClumps(bool Tiles)
         {
-            List<ushort> blockTileTypes = new()
+            int cutoffLimit = 200;
+
+            List<ushort> BlockTypes = new()
             {
                 (ushort)ModContent.TileType<DampGrass>(),
                 (ushort)ModContent.TileType<DampSoil>(),
-                (ushort)ModContent.TileType<SpookyStone>(),
+                (ushort)ModContent.TileType<DampStone>(),
                 (ushort)ModContent.TileType<WebBlock>(),
             };
             
             void getAttachedPoints(int x, int y, List<Point> points)
             {
                 Tile t = Main.tile[x, y];
-				Point p = new(x, y);
+                Point p = new(x, y);
 
-				if (!WorldGen.InWorld(x, y))
-				{
-					t = new Tile();
-				}
+                if (!WorldGen.InWorld(x, y))
+                {
+                    t = new Tile();
+                }
                 
-                if (!blockTileTypes.Contains(t.TileType) || !t.HasTile || points.Count > 90 || points.Contains(p))
+                if (!BlockTypes.Contains(t.TileType) || !t.HasTile || points.Count > cutoffLimit || points.Contains(p))
                 {
                     return;
                 }
@@ -742,6 +704,35 @@ namespace Spooky.Content.Generation
                 getAttachedPoints(x, y + 1, points);
                 getAttachedPoints(x, y - 1, points);
             }
+
+            List<ushort> WallTypes = new()
+            {
+                (ushort)ModContent.WallType<DampSoilWall>(),
+                (ushort)ModContent.WallType<DampGrassWall>(),
+            };
+
+            void getAttachedWallPoints(int x, int y, List<Point> points)
+			{
+                if (!WorldGen.InWorld(x, y, 10))
+                {
+                    return;
+                }
+
+                Tile tile = Main.tile[x, y];
+                Point point = new(x, y);
+
+                if (!WallTypes.Contains(tile.WallType) || points.Count > cutoffLimit || points.Contains(point))
+                {
+                    return;
+                }
+
+                points.Add(point);
+
+                getAttachedWallPoints(x + 1, y, points);
+                getAttachedWallPoints(x - 1, y, points);
+                getAttachedWallPoints(x, y + 1, points);
+                getAttachedWallPoints(x, y - 1, points);
+			}
 
             Point origin = new Point(startPosX, startPosY);
             Vector2 center = origin.ToVector2() * 16f + new Vector2(8f);
@@ -767,18 +758,38 @@ namespace Spooky.Content.Generation
                 {
                     if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
                     {
-                        List<Point> chunkPoints = new();
-                        getAttachedPoints(X, Y, chunkPoints);
-
-                        int cutoffLimit = 90;
-                        if (chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
+                        if (Tiles)
                         {
-                            foreach (Point p in chunkPoints)
+                            //clean up tiles
+                            List<Point> chunkPoints = new();
+                            getAttachedPoints(X, Y, chunkPoints);
+
+                            if (WorldGen.InWorld(X, Y, 10) && chunkPoints.Count >= 1 && chunkPoints.Count < cutoffLimit)
                             {
-                                WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+                                foreach (Point p in chunkPoints)
                                 {
-                                    new Actions.ClearTile(true)
-                                }));
+                                    WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+                                    {
+                                        new Actions.ClearTile(true)
+                                    }));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //clean up walls
+                            List<Point> WallPoints = new();
+                            getAttachedWallPoints(X, Y, WallPoints);
+
+                            if (WorldGen.InWorld(X, Y, 10) && WallPoints.Count >= 1 && WallPoints.Count <= cutoffLimit)
+                            {
+                                foreach (Point p in WallPoints)
+                                {
+                                    WorldUtils.Gen(p, new Shapes.Rectangle(1, 1), Actions.Chain(new GenAction[]
+                                    {
+                                        new Actions.ClearWall(true)
+                                    }));
+                                }
                             }
                         }
                     }
@@ -827,32 +838,13 @@ namespace Spooky.Content.Generation
             return true;
         }
 
-        //determine if a structure can be placed at a set position
-        public static bool CanPlaceStructure(int X, int Y)
-        {
-            //check a 70 by 70 square for other structures before placing
-            for (int i = X - 35; i < X + 35; i++)
-            {
-                for (int j = Y - 35; j < Y + 35; j++)
-                {
-                    //if any mossy stone bricks are found in the square then another structure is too close, so dont allow it to place
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<SpookyStoneBricks>() || Main.tile[i, j].TileType == ModContent.TileType<RootWood>()))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-
         //determine if a giant root can be grown on a set block
-        public static bool CanGrowGiantRoot(int X, int Y, int tileType, int minSize, int maxSize)
+        public static bool GrowGiantRoot(int X, int Y, int tileType, int minSize, int maxSize)
         {
             //check a 10 by 10 square for other giant roots before placing
-            for (int i = X - 5; i < X + 5; i++)
+            for (int i = X - 2; i < X + 2; i++)
             {
-                for (int j = Y - 5; j < Y + 5; j++)
+                for (int j = Y - 2; j < Y + 2; j++)
                 {
                     if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
                     {
@@ -866,35 +858,41 @@ namespace Spooky.Content.Generation
             return true;
         }
 
-        //determine if a tall mushroom can grow
-        public static bool CanGrowTallMushroom(int X, int Y, int tileType, int minSize, int maxSize)
+        //determine if a giant root can be grown on a set block
+        public static bool GrowDeadTree(int X, int Y, int minSize, int maxSize)
         {
-            //do not allow tall mushrooms to place if another one is too close
-            for (int i = X - 10; i < X + 10; i++)
-            {
-                for (int j = Y - 10; j < Y + 10; j++)
-                {
-                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == tileType)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            //make sure the area is large enough for it to place in both horizontally and vertically
+            //check a 10 by 10 square for other giant roots before placing
             for (int i = X - 2; i < X + 2; i++)
             {
-                for (int j = Y - 12; j < Y - 2; j++)
+                for (int j = Y - 2; j < Y + 2; j++)
                 {
-                    //only check for solid blocks, ambient objects dont matter
-                    if (Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType])
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<DeadTree1>() ||
+                    Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<DeadTree2>() ||
+                    Main.tile[i, j].HasTile && Main.tile[i, j].TileType == ModContent.TileType<DeadTree3>())
                     {
                         return false;
                     }
                 }
             }
 
-            TallMushroom.Grow(X, Y - 1, minSize, maxSize);
+            switch (WorldGen.genRand.Next(3))
+            {
+                case 0:
+                {
+                    DeadTree1.Grow(X, Y - 1, minSize, maxSize, ModContent.TileType<DeadTree1>());
+                    break;
+                }
+                case 1:
+                {
+                    DeadTree2.Grow(X, Y - 1, minSize, maxSize, ModContent.TileType<DeadTree2>());
+                    break;
+                }
+                case 2:
+                {
+                    DeadTree3.Grow(X, Y - 1, minSize, maxSize, ModContent.TileType<DeadTree3>());
+                    break;
+                }
+            }
 
             return true;
         }

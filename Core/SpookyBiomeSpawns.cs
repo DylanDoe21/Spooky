@@ -463,6 +463,8 @@ namespace Spooky.Core
 					//critters
 					pool.Add(ModContent.NPCType<Ant1>(), 1);
 					pool.Add(ModContent.NPCType<Ant2>(), 1);
+					pool.Add(ModContent.NPCType<SpiderAnt1>(), 1);
+					pool.Add(ModContent.NPCType<SpiderAnt2>(), 1);
 					pool.Add(ModContent.NPCType<Cockroach>(), 1);
 					pool.Add(ModContent.NPCType<Inchworm1>(), 1);
 					pool.Add(ModContent.NPCType<Inchworm2>(), 1);
@@ -476,15 +478,24 @@ namespace Spooky.Core
 					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 					{
-						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 3);
-						pool.Add(ModContent.NPCType<JumpingSpider1>(), 3);
-						pool.Add(ModContent.NPCType<JumpingSpider2>(), 3);
+						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 2);
+						pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
+						pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
 						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
 						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver1>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver2>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver3>(), 2);
-						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 3);
+						pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
+						pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
+						pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
+						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 2);
+						pool.Add(ModContent.NPCType<AntSpider1>(), 2);
+						pool.Add(ModContent.NPCType<AntSpider2>(), 2);
+						pool.Add(ModContent.NPCType<CrabSpider1>(), 1);
+						pool.Add(ModContent.NPCType<CrabSpider2>(), 1);
+						pool.Add(ModContent.NPCType<PeacockSpider1>(), 1);
+						pool.Add(ModContent.NPCType<PeacockSpider2>(), 1);
+						pool.Add(ModContent.NPCType<PeacockSpider3>(), 1);
+						pool.Add(ModContent.NPCType<Harvestmen>(), 1);
+						pool.Add(ModContent.NPCType<SmileSpider>(), 1);
 
 						if (Main.hardMode)
 						{

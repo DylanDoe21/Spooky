@@ -75,7 +75,7 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override bool CanTownNPCSpawn(int numTownNPCs) 
         {
-            return Flags.OldHunterAssembled && !NPC.AnyNPCs(ModContent.NPCType<OldHunterSleeping>()) && !NPC.AnyNPCs(ModContent.NPCType<GiantWebAnimationBase>());
+            return false; //Flags.OldHunterAssembled && !NPC.AnyNPCs(ModContent.NPCType<OldHunterSleeping>());
 		}
 
 		public override void SetChatButtons(ref string button, ref string button2) 

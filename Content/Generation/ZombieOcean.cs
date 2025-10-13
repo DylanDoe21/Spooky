@@ -657,7 +657,6 @@ namespace Spooky.Content.Generation
 			{
 				for (int j = PositionY - SizeY; j < PositionY + SizeY; j++)
 				{
-					//clean up floating clumps of tiles in the dungeon
 					List<Point> chunkPoints = new();
 					getAttachedPoints(i, j, chunkPoints);
 
@@ -672,7 +671,6 @@ namespace Spooky.Content.Generation
 						}
 					}
 
-					//clean up floating clumps of tiles in the dungeon
 					List<Point> WallPoints = new();
 					getAttachedWallPoints(i, j, WallPoints);
 
