@@ -1,6 +1,7 @@
--Fixed guilded wizard hat texture error
--Fixed zombie eel continuing to exist if you switch weapons while using it
--Fixed opalised cannon tar blobs not using frame variance
--Fixed krampus helper wand incorrectly summoning 2 minions per use
--Opalised cannon can now only have up to 3 baby tar slimes active at once
--Added little spider jar (Thanks to aMilkFiend on github for the PR)
+-Turkies are now tamed by dropping rotten seeds on the ground at the turkey, this is more interactive and seems to work better in multiplayer
+-Fixed big dunk chase music playing for players outside of the rotten depths biome
+-Fixed rot gourd not landing on sloped blocks correctly
+-Fixed green spooky seeds not being consumable
+-Fixed player-placed festive windows not counting as a housing wall
+-Little dunk & strange egg are now unobtainable, they are both still in the mod but due to their extremely unfinished nature they will be dropped by big dunk again later once this feature is properly complete
+

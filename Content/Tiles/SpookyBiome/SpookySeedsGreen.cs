@@ -17,6 +17,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 		{
 			Item.useTurn = true;
 			Item.autoReuse = true;
+			Item.consumable = true;
             Item.width = 16;
 			Item.height = 16;
 			Item.useTime = 15;

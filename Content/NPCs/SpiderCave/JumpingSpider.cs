@@ -134,10 +134,9 @@ namespace Spooky.Content.NPCs.SpiderCave
                     //actual jumping
                     if (NPC.velocity.X == 0)
                     {
-                        if (NPC.velocity.Y == 0)
+                        if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
                         {
                             NPC.ai[1]++;
-
                             if (NPC.ai[1] == 10)
                             {
                                 velocity.Y -= 0.25f;

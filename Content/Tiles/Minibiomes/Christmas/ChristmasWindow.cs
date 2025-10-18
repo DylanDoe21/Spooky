@@ -71,7 +71,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas
 
         public override void SetStaticDefaults()
         {
-            Main.wallHouse[Type] = false;
+            Main.wallHouse[Type] = true;
 			Main.wallLight[Type] = true;
             DustType = -1;
         }
