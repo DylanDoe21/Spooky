@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
-
+using ReLogic.Content;
 using Spooky.Core;
 using Spooky.Content.Backgrounds.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Furniture;
@@ -19,7 +19,8 @@ namespace Spooky.Content.Biomes
     {
         public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<SpiderCaveUndergroundBG>();
 
-		public static Effect SporeMist;
+		public static Asset<Effect> SporeMist;
+		public static Asset<Texture2D> SwirlyNoise, SwirlyNoiseInv, StarNoise;
 
 		//set the music to be consistent with vanilla's music priorities
 		public override int Music
@@ -68,7 +69,12 @@ namespace Spooky.Content.Biomes
             On_TileLightScanner.GetTileLight += SpiderCaveLighting;
 			On_Main.DrawInfernoRings += SporeFogDraw;
 
-			SporeMist = ModContent.Request<Effect>("Spooky/Effects/MoldMist", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			SporeMist = ModContent.Request<Effect>("Spooky/Effects/MoldMist");
+			
+			// Ebonfly: pls load textures on mod load instead of every time they're used :pray:
+			SwirlyNoise = ModContent.Request<Texture2D>("Spooky/ShaderAssets/swirlyNoise");
+			SwirlyNoiseInv = ModContent.Request<Texture2D>("Spooky/ShaderAssets/swirlyNoiseInverted");
+			StarNoise = ModContent.Request<Texture2D>("Spooky/ShaderAssets/starNoise");
 		}
 
 		float FogAlpha = 0f;
@@ -76,6 +82,11 @@ namespace Spooky.Content.Biomes
 		private void SporeFogDraw(On_Main.orig_DrawInfernoRings orig, Main self)
 		{
 			orig(self);
+			
+			Flags.SporeEventHappening = true;
+			Flags.SporeEventTimeLeft = 666;
+			Flags.SporeFogColor = 0;
+			Flags.SporeFogIntensity = 1f;
 
 			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()) && Flags.SporeEventHappening)
 			{
@@ -92,14 +103,16 @@ namespace Spooky.Content.Biomes
 				}
 			}
 
-			if (FogAlpha > 0f)
+			if (FogAlpha > 0f && Flags.SporeFogIntensity > 0f)
 			{
+				Effect sporeEffect = SporeMist.Value;
+				
 				Main.spriteBatch.End();
-				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.Default, RasterizerState.CullNone, SporeMist, Main.GameViewMatrix.TransformationMatrix);
+				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.Default, RasterizerState.CullNone, sporeEffect, Main.GameViewMatrix.TransformationMatrix);
 
-				Main.graphics.GraphicsDevice.Textures[1] = ModContent.Request<Texture2D>("Spooky/ShaderAssets/swirlyNoise").Value;
-				Main.graphics.GraphicsDevice.Textures[2] = ModContent.Request<Texture2D>("Spooky/ShaderAssets/swirlyNoiseInverted").Value;
-				Main.graphics.GraphicsDevice.Textures[3] = ModContent.Request<Texture2D>("Spooky/ShaderAssets/starNoise").Value;
+				Main.graphics.GraphicsDevice.Textures[1] = SwirlyNoise.Value;
+				Main.graphics.GraphicsDevice.Textures[2] = SwirlyNoiseInv.Value;
+				Main.graphics.GraphicsDevice.Textures[3] = StarNoise.Value;
 
 				Color color1 = new Color(0, 0, 0);
 				Color color2 = new Color(0, 0, 0);
@@ -196,24 +209,46 @@ namespace Spooky.Content.Biomes
 						break;
 					}
 				}
+				
+				// Ebonfly: the math here kinda reeks so don't make the offset too drastic 
+                void DrawFog(Texture2D tex, Vector2 offset)
+                {
+                    for (int i = -1; i < 2; i += 2)
+                    for (int j = -1; j < 2; j += 2)
+                    {
+                        Vector2 origPos = Main.LocalPlayer.Center - new Vector2(Main.screenWidth * i,  Main.screenHeight * j) * 0.5f;
 
-				//first, draw the top layer of mostly visible fog
-				SporeMist.Parameters["uOpacityTotal"].SetValue((0.6f * Flags.SporeFogIntensity) * FogAlpha);
-				SporeMist.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 40);
-				SporeMist.Parameters["uColor"].SetValue(color1.ToVector4());
-				Main.spriteBatch.Draw(ModContent.Request<Texture2D>("Spooky/ShaderAssets/swirlyNoise").Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+                        Vector2 pos = new Vector2(MathF.Floor(origPos.X / (Main.screenWidth)), MathF.Floor(origPos.Y / (Main.screenHeight))) 
+                            * new Vector2(Main.screenWidth, Main.screenHeight) - Main.screenPosition + offset;
 
-				//draw second layer of slightly more transparent fog
-				SporeMist.Parameters["uOpacityTotal"].SetValue((0.45f * Flags.SporeFogIntensity) * FogAlpha);
-				SporeMist.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly / 50);
-				SporeMist.Parameters["uColor"].SetValue(color1.ToVector4());
-				Main.spriteBatch.Draw(ModContent.Request<Texture2D>("Spooky/ShaderAssets/swirlyNoiseInverted").Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+                        Rectangle rect = new Rectangle((int)pos.X, (int)pos.Y, Main.screenWidth, Main.screenHeight);
+                        if (!rect.Intersects(new Rectangle(0,0, Main.screenWidth, Main.screenHeight)))
+                            continue;
+                        
+                        Main.spriteBatch.Draw(tex, rect, Color.White);
+                    }
+                }
 
-				//draw star texture to look like spores are in the air
-				SporeMist.Parameters["uOpacityTotal"].SetValue((1f * Flags.SporeFogIntensity) * FogAlpha);
-				SporeMist.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 120);
-				SporeMist.Parameters["uColor"].SetValue(color2.ToVector4());
-				Main.spriteBatch.Draw(ModContent.Request<Texture2D>("Spooky/ShaderAssets/starNoise").Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+                //first, draw the top layer of mostly visible fog
+                sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f*(0.6f * Flags.SporeFogIntensity) * FogAlpha);
+                sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 40);
+                sporeEffect.Parameters["uColor"].SetValue(color1.ToVector4());
+                sporeEffect.Parameters["uExponent"].SetValue(3f);
+                for (int i = -1; i < 2; i+=2)
+                    DrawFog(SwirlyNoise.Value, new Vector2(Main.screenWidth , Main.screenHeight*1.5f)* 0.125f*i);
+
+                //draw second layer of slightly more transparent fog
+                sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f*(0.45f * Flags.SporeFogIntensity) * FogAlpha);
+                sporeEffect.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly / 50);
+                sporeEffect.Parameters["uColor"].SetValue(color1.ToVector4());
+                DrawFog(SwirlyNoiseInv.Value, Vector2.Zero);
+
+                //draw star texture to look like spores are in the air
+                sporeEffect.Parameters["uOpacityTotal"].SetValue(2*(1f * Flags.SporeFogIntensity) * FogAlpha);
+                sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 120);
+                sporeEffect.Parameters["uColor"].SetValue(color2.ToVector4());
+                sporeEffect.Parameters["uExponent"].SetValue(2f);
+                DrawFog(StarNoise.Value, Vector2.Zero);
 			}
         }
 
