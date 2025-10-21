@@ -1,0 +1,44 @@
+BossAchievementRotGourd: {
+	FriendlyName: It Smells Bad
+	Description: Defeat Rot Gourd, the giant moldy produce smelling up the spooky forest
+}
+
+BossAchievementDaffodil: {
+	FriendlyName: Weedwhacked
+	Description: Defeat Daffodil, the lazy floral guardian of the deeper catacombs.
+}
+
+BossAchievementOrroboro: {
+	FriendlyName: The All Is None
+	Description: Defeat Orro & Boro, the hungry serpent duo hatched from the giant egg.
+}
+
+BossAchievementSpookFishron: {
+	FriendlyName: Fish Out of Pumpkin Spice
+	Description: Defeat Spook Fishron, the even more mutant terror of the pumpkin moon.
+}
+
+BossAchievementSpookFishronIce: {
+	FriendlyName: Fish Out of Ice
+	Description: Defeat Spook Fishron during the wrong holiday moon. Please go outside.
+}
+
+BossAchievementBigBone: {
+	FriendlyName: Skull Issue
+	Description: Defeat Big Bone, the botanical brute locked away in the deepest depths of the catacombs.
+}
+
+MinibossAchievementBigDunk: {
+	FriendlyName: Tummy Troubles
+	Description: Feed the sea mine to Big Dunk, sending him to re-extinction.
+}
+
+MiscAchievementTurkeyTamed: {
+	FriendlyName: First Thank Giving
+	Description: Tame a wild turkey using rotten seeds from the spooky forest. It is very friendly!
+}
+
+MiscAchievementGourdCarve: {
+	FriendlyName: Rot-O'-Lantern
+	Description: Carve one of the nasty moldy gourds in the spooky forest. Even though it still smells putrid, at least it has the halloween spirit!
+}

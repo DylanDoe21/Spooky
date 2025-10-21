@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -109,6 +110,8 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
                 {
                     NetMessage.SendTileSquare(-1, left, top, 12);
                 }
+
+                ModContent.GetInstance<MiscAchievementGourdCarve>().CarvedRottenGourdCondition.Complete();
             }
 
             return true;

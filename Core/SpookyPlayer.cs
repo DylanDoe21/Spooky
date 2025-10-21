@@ -1671,7 +1671,7 @@ namespace Spooky.Core
 			}
 
             //alternate blood moon enemy catches
-            if (Player.InModBiome<SpookyHellBiome>())	
+            if (Player.InModBiome<SpookyHellBiome>())
             {
                 //random blocks and junk normally fished out of the blood lake
                 int[] BloodLakeItems = { ModContent.ItemType<EyeBlockItem>(), ModContent.ItemType<LivingFleshItem>(),

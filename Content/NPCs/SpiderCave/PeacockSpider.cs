@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpiderCave.Misc;
 
 namespace Spooky.Content.NPCs.SpiderCave
@@ -189,7 +190,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                         float speed = MathHelper.Clamp(velocity.Length() / 36, 12, 22);
 
                         //actual jumping
-                        if (NPC.velocity.Y == 0)
+                        if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
                         {
                             NPC.ai[2]++;
                             if (NPC.ai[2] == 10)

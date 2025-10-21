@@ -87,3 +87,8 @@ SpookyBiomeUgGlowshroom: {
 	DisplayName: Glowshroom Biome
 	TownNPCDialogueName: Glowshroom Biome
 }
+
+SporeEventBiome: {
+	DisplayName: Trippy Sporestorm
+	TownNPCDialogueName: Trippy Sporestorm
+}

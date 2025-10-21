@@ -189,6 +189,7 @@ CrabSpider1: These watchful spiders have the ability to crawl around really quic
 CrabSpider2: Good at hunting, they will quickly run backwards while facing their prey as to not loose track. Then, once far enough, they will quickly lunge at their target.
 DaddyLongLegs: Their long legs allow them to walk across the rough terrain in the grotto. Lacking any other attack besides biting, they are not as intimidating as they might seem.
 Harvestmen: Despite their scary looking legs, these spiders are shy and curious, wandering about the grotto. Don't take advantage of their passive behavior though, as they will retaliate if harmed!
+FishingSpider: Adapted to live in both water and land, their bodies look like a fish from a distance, after which they will jump out and attack whatever thought they were a harmless fish.
 Inchworm1: Little worms that crawl around in the damp spider infested cave. They are not so good at avoiding the spiders that eat them.
 Inchworm2: Cute and reclusive little worms that live in the damp caverns. They apparently taste good to spiders, which eat them often.
 Inchworm3: These inchworms have miraculously adapted to have a more hostile appearance, making spiders less likely to target them.
@@ -221,6 +222,8 @@ TinySpider5: These spiders adapted to come in lots of colors so they can trick o
 TrapdoorSpider1: These juvenile spiders have very thin legs they can easily dig into the ground with, allowing them to disguise themselves and jump out at unsuspecting prey.
 TrapdoorSpider2: These fully grown trapdoor spiders are even more deadly. The extra legs they have grown in maturity allow them to burrow and chase prey even more efficiently.
 WhipSpider: These creatures are actually more related to crustaceans than spiders. They have a long whip-like tongue coated in pheromones that increase the aggression of other spiders.
+WolfSpider: One of the only species of spiders to carry their young on their back. Despite the babies smaller size, the mother will allow them to hunt so they can learn to live on their own.
+WolfSpiderBaby: They can camouflage by waiting on their mother's back, and attacking if themselves or their mother is in danger.
 //nose cultists
 NoseBallPurple: A large amalgam of noses fused together with the cult leader's magic. They can jump around off of surfaces by blowing air out of their many noses.
 NoseBallRed: Created by Noseferatu, they chaotically propel themselves around to serve as a distraction. They are formed using parts of other cultists who willingly sacrificed themselves.

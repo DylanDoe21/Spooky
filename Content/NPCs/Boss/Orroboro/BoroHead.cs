@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
@@ -951,6 +952,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     MenuSaveSystem.hasDefeatedOrroboro = true;
                 }
+
+                ModContent.GetInstance<BossAchievementOrroboro>().EitherOrroBoroDead.Complete();
             }
         }
 

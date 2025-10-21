@@ -290,26 +290,22 @@ namespace Spooky.Core
                 {
                     Flags.SporeEventTimeLeft--;
 
-                    //increase fog intensity over the first 7 minutes
-                    if (Flags.SporeEventTimeLeft > 50400)
+                    //increase fog intensity over the first 5 minutes
+                    if (Flags.SporeEventTimeLeft > 18000 && Flags.SporeFogIntensity < 1f)
                     {
-                        Flags.SporeFogIntensity += (0.5f / 25200f);
+                        Flags.SporeFogIntensity += 0.5f / 18000f;
                     }
-                    //decrease fog intensity over the last 7 minutes
-                    else if (Flags.SporeEventTimeLeft < 25200)
+                    //decrease fog intensity over the last 5 minutes
+                    else if (Flags.SporeEventTimeLeft < 18000)
                     {
-                        Flags.SporeFogIntensity -= (0.5f / 25200f);
-                    }
-                    else
-                    {
-                        Flags.SporeFogIntensity = 1f;
+                        Flags.SporeFogIntensity -= 0.5f / 18000f;
                     }
                 }
                 //end the spore event when the timer runs out
                 else
                 {
                     Flags.SporeEventHappening = false;
-                    Flags.SporeFogIntensity = 0f;
+                    Flags.SporeEventTimeLeft = 0;
 
                     if (Main.netMode == NetmodeID.Server)
                     {
@@ -320,12 +316,10 @@ namespace Spooky.Core
                 //handle things that happen when day/night switches to the other
                 if (DaySwitched)
                 {
-                    if (!Flags.SporeEventHappening && Main.hardMode) //&& Main.rand.NextBool(40))
+                    if (!Flags.SporeEventHappening && Main.hardMode && Main.rand.NextBool(35))
                     {
                         Flags.SporeEventHappening = true;
-                        Flags.SporeEventTimeLeft = 72000; //20 real-life minutes
-                        Flags.SporeFogColor = Main.rand.Next(7);
-                        Flags.SporeFogDotColor = Main.rand.Next(7);
+                        Flags.SporeEventTimeLeft = 54000; //15 real-life minutes=
                         Flags.SporeFogIntensity = 0.5f;
 
                         if (Main.netMode == NetmodeID.Server)

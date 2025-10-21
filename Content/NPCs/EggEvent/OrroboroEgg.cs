@@ -255,7 +255,7 @@ namespace Spooky.Content.NPCs.EggEvent
                 {
                     SoundEngine.PlaySound(EggCrackSound2, NPC.Center);
 
-                    if (!NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()))
+                    if (OrroboroDoesNotExist)
                     {
                         //spawn message
                         string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OrroboroSpawn");

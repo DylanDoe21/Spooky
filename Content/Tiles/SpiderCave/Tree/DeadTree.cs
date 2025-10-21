@@ -64,7 +64,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
             int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; k++)
             {
-                if (SolidTile(i, j - k - 9))
+                if (SolidTile(i, j - k - 1) || SolidTile(i, j - k - 2) || SolidTile(i, j - k - 3) || SolidTile(i, j - k - 4) || SolidTile(i, j - k - 5))
                 {
                     height = k - 2;
                     break;

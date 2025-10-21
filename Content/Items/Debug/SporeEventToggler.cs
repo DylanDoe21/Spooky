@@ -10,7 +10,7 @@ using Spooky.Core;
 
 namespace Spooky.Content.Items.Debug
 {
-    public class SporeEventReset : ModItem
+    public class SporeEventToggler : ModItem
     {
         public override string Texture => "Spooky/Content/Items/BossSummon/CowBell";
 
@@ -28,11 +28,17 @@ namespace Spooky.Content.Items.Debug
 
 		public override bool? UseItem(Player player)
 		{
-			Flags.SporeEventHappening = false;
-			Flags.SporeEventTimeLeft = 0;
-			Flags.SporeFogColor = 0;
-			Flags.SporeFogColor = 0;
-			Flags.SporeFogIntensity = 0f;
+            if (Flags.SporeEventHappening)
+            {
+                Flags.SporeEventHappening = false;
+                Flags.SporeEventTimeLeft = 0;
+            }
+            else
+            {
+                Flags.SporeEventHappening = true;
+                Flags.SporeEventTimeLeft = 54000; //15 real-life minutes=
+                Flags.SporeFogIntensity = 0.5f;
+            }
 
 			return true;
 		}

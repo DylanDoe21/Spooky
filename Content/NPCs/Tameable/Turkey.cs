@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Dusts;
 using Spooky.Content.Buffs.Mounts;
 using Spooky.Content.Items.BossSummon;
@@ -342,62 +343,71 @@ namespace Spooky.Content.NPCs.Tameable
 				SoundTimer = 0;
 			}
 
-			//right click functionality
-			Rectangle RealHitbox = new Rectangle((int)(NPC.Center.X - 34), (int)NPC.position.Y, 68, NPC.height);
-			foreach (Player player in Main.ActivePlayers)
+			float time = Main.GameUpdateCount % 60 / 60f;
+
+			//taming functionality
+			if (!NPC.GetGlobalNPC<NPCGlobal>().NPCTamed)
 			{
-				if (RealHitbox.Intersects(new Rectangle((int)Main.MouseWorld.X - 1, (int)Main.MouseWorld.Y - 1, 1, 1)) &&
-				NPC.Distance(player.Center) <= 100f && !Main.mapFullscreen)
+				foreach (var item in Main.ActiveItems)
 				{
-					if (Main.mouseRight && Main.mouseRightRelease && !RunningFast)
+					if (item.type == ModContent.ItemType<RottenSeed>() && item.Distance(NPC.Center) <= 50)
 					{
-						if (!NPC.GetGlobalNPC<NPCGlobal>().NPCTamed)
+						Vector2 desiredVelocity = item.DirectionTo(NPC.Center) * 7;
+						item.velocity = Vector2.Lerp(item.velocity, desiredVelocity, 1f / 20);
+
+						if (item.Hitbox.Intersects(NPC.Hitbox) && numSeedsEaten < 5)
 						{
-							if (ItemGlobal.ActiveItem(player).type == ModContent.ItemType<RottenSeed>() && player.ConsumeItem(ModContent.ItemType<RottenSeed>()))
+							if (time % 20 == 0)
 							{
 								SoundEngine.PlaySound(SoundID.Item2, NPC.Center);
 
-								for (int i = 0; i < 20; i++)
+								for (int numDusts = 0; numDusts < 20; numDusts++)
 								{
 									Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.FoodPiece, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f, default, new Color(211, 109, 58), 0.75f);
 								}
 
-								if (numSeedsEaten < 4)
-								{
-									numSeedsEaten++;
-									NPC.netUpdate = true;
-								}
-								else
-								{
-									SoundEngine.PlaySound(SoundID.ResearchComplete with { Volume = 0.5f }, NPC.Center);
+								item.stack--;
 
-									for (int i = 0; i < 20; i++)
-									{
-										int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<CartoonHeart>(), 0f, -2f, 0, default, 0.5f);
-										Main.dust[newDust].velocity.X = Main.rand.NextFloat(-1.5f, 1.5f);
-										Main.dust[newDust].velocity.Y = Main.rand.NextFloat(-0.2f, -0.02f);
-										Main.dust[newDust].noGravity = true;
-									}
-
-									NPC.GetGlobalNPC<NPCGlobal>().NPCTamed = true;
-								}
-
+								numSeedsEaten++;
 								NPC.netUpdate = true;
 							}
 						}
-						else
-						{
-							if (!player.HasBuff(ModContent.BuffType<TurkeyMountBuff>()))
-							{
-								player.Center = NPC.Center - new Vector2(0, 15);
-								player.AddBuff(ModContent.BuffType<TurkeyMountBuff>(), 2);
-								NPC.life = 0;
+					}
+				}
 
-								if (Main.netMode == NetmodeID.Server)
-								{
-									NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI, 0f, 0f, 0f, 0);
-								}
-							}
+				if (numSeedsEaten >= 5)
+				{
+					SoundEngine.PlaySound(SoundID.ResearchComplete with { Volume = 0.5f }, NPC.Center);
+
+					for (int i = 0; i < 20; i++)
+					{
+						int newDust = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<CartoonHeart>(), 0f, -2f, 0, default, 0.5f);
+						Main.dust[newDust].velocity.X = Main.rand.NextFloat(-1.5f, 1.5f);
+						Main.dust[newDust].velocity.Y = Main.rand.NextFloat(-0.2f, -0.02f);
+						Main.dust[newDust].noGravity = true;
+					}
+
+					NPC.GetGlobalNPC<NPCGlobal>().NPCTamed = true;
+					NPC.netUpdate = true;
+
+					ModContent.GetInstance<MiscAchievementTurkeyTamed>().TamedTurkeyCondition.Complete();
+				}
+			}
+			else
+			{
+				foreach (var player in Main.ActivePlayers)
+				{
+					Rectangle mouseRect = new Rectangle((int)(Main.MouseWorld.X - 1), (int)(Main.MouseWorld.Y - 1), 2, 2);
+
+					if (player.Distance(NPC.Center) <= 150 && mouseRect.Intersects(NPC.Hitbox) && Main.mouseRight && Main.mouseRightRelease && !player.HasBuff(ModContent.BuffType<TurkeyMountBuff>()))
+					{
+						player.Center = NPC.Center - new Vector2(0, 15);
+						player.AddBuff(ModContent.BuffType<TurkeyMountBuff>(), 2);
+						NPC.life = 0;
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI, 0f, 0f, 0f, 0);
 						}
 					}
 				}

@@ -362,7 +362,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.height = 60;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 0, 25, 0);
+            NPC.value = Item.buyPrice(0, 0, 5, 0);
             NPC.noGravity = false;
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.NPCDeath32;

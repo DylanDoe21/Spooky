@@ -9,9 +9,8 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Dusts;
-using Spooky.Content.Items.BossSummon;
 
-namespace Spooky.Content.NPCs.Tameable
+namespace Spooky.Content.NPCs.Cemetery
 {
 	public class Crow : ModNPC
 	{

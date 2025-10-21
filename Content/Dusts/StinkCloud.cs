@@ -22,7 +22,6 @@ namespace Spooky.Content.Dusts
 		public override bool Update(Dust dust)
 		{
 			dust.alpha += 1;
-
 			if (dust.alpha % 10 == 0)
 			{
 				dust.frame.Y += 48;

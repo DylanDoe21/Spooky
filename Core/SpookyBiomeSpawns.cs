@@ -27,6 +27,7 @@ using Spooky.Content.NPCs.Minibiomes.Ocean;
 using Spooky.Content.NPCs.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Quest;
 using Spooky.Content.NPCs.SpiderCave;
+using Spooky.Content.NPCs.SpiderCave.SporeEvent;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
 using Spooky.Content.NPCs.Tameable;
@@ -449,10 +450,8 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				int[] InvalidTiles = { ModContent.TileType<SpookyStoneBricks>() };
-
-				//do not allow spider grotto enemies to spawn inside of the structures in the biome
-				if (!InvalidTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				//regular spiders should not spawn during a spore fog event if the fog intensity is at its maximum
+				if (!Flags.SporeEventHappening || (Flags.SporeEventHappening && Flags.SporeFogIntensity < 1f))
 				{
 					//quest miniboss
 					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem3>()) && !NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
@@ -499,15 +498,34 @@ namespace Spooky.Core
 
 						if (Main.hardMode)
 						{
+							pool.Add(ModContent.NPCType<FishingSpider>(), 1);
 							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
 							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
 							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 2);
 							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 1);
-							pool.Add(ModContent.NPCType<WhipSpider>(), 2);
+							pool.Add(ModContent.NPCType<WhipSpider>(), 1);
+							pool.Add(ModContent.NPCType<WolfSpider>(), 2);
 						}
 					}
+				}
+				
+				//spore fog event enemies
+				if (Flags.SporeEventHappening)
+				{
+					pool.Add(ModContent.NPCType<BeetleMite1>(), 2);
+					pool.Add(ModContent.NPCType<BeetleMite2>(), 2);
+					pool.Add(ModContent.NPCType<BerryMite1>(), 2);
+					pool.Add(ModContent.NPCType<BerryMite2>(), 2);
+					pool.Add(ModContent.NPCType<BerryMite3>(), 2);
+					pool.Add(ModContent.NPCType<DeerMite>(), 2);
+					pool.Add(ModContent.NPCType<DustMite1>(), 2);
+					pool.Add(ModContent.NPCType<DustMite2>(), 2);
+					pool.Add(ModContent.NPCType<EyelashMiteBlueHead>(), 2);
+					pool.Add(ModContent.NPCType<EyelashMitePurpleHead>(), 2);
+					pool.Add(ModContent.NPCType<PeacockMite>(), 2);
+					pool.Add(ModContent.NPCType<RustMite>(), 2);
 				}
 			}
 

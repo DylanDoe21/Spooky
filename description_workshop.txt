@@ -1,8 +1,8 @@
-Spooky mod is a fairly large content mod that adds in silly content with lots of personality, with a vague theme of halloween and spookiness
+Spooky mod is a large content mod that adds in content with lots of personality, with a general theme of halloween and other spooky stuff
 
 Currently the mod has:
 
--Many new biomes and a giant underground structure to explore, all of which filled with new content to discover
+-Many new biomes and structures to explore, all of which filled with new content to discover
 -Many new bosses and new events to fight
 -Tons of other usual content such as weapons, armor sets, accessories, pets, enemies, blocks, and whatever else
 -Banger soundtracks for all of the biomes, events, and bosses

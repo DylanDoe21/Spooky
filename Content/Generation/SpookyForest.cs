@@ -1307,7 +1307,7 @@ namespace Spooky.Content.Generation
 
 			List<int> ActualMainItem = new List<int>(MainItem);
 
-			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
+			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
             {
 				Chest chest = Main.chest[chestIndex];
 

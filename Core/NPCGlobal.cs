@@ -458,7 +458,7 @@ namespace Spooky.Core
 
 		//use for when npcs do special things when colliding with tiles but dont use tileCollide
 		//also useful for npcs that should only collide with solid tiles excluding platforms, planter boxes, ect
-		public static bool IsColliding(this Terraria.NPC npc)
+		public static bool IsColliding(NPC npc)
 		{
 			int minTilePosX = (int)(npc.position.X / 16) - 1;
 			int maxTilePosX = (int)((npc.position.X + npc.width) / 16) + 1;
@@ -481,9 +481,9 @@ namespace Spooky.Core
 				maxTilePosY = Main.maxTilesY;
 			}
 
-			for (int i = minTilePosX; i < maxTilePosX; ++i)
+			for (int i = minTilePosX; i < maxTilePosX; i++)
 			{
-				for (int j = minTilePosY; j < maxTilePosY; ++j)
+				for (int j = minTilePosY; j < maxTilePosY; j++)
 				{
 					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated &&
 					Main.tileSolid[(int)Main.tile[i, j].TileType] && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType])
@@ -492,6 +492,52 @@ namespace Spooky.Core
 						vector2.X = (float)(i * 16);
 						vector2.Y = (float)(j * 16);
 						if (npc.position.X + npc.width > vector2.X && npc.position.X < vector2.X + 16.0 && (npc.position.Y + npc.height > (double)vector2.Y && npc.position.Y < vector2.Y + 16.0))
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
+		}
+
+		//use for when npcs do special things when colliding with the ground by checking at the bottom of the npc
+		public static bool IsCollidingWithFloor(NPC npc)
+		{
+			int minTilePosX = (int)(npc.position.X / 16) - 1;
+			int maxTilePosX = (int)((npc.position.X + npc.width) / 16) + 1;
+			int minTilePosY = (int)(npc.Bottom.Y / 16) - 1;
+			int maxTilePosY = (int)(npc.Bottom.Y / 16) + 1;
+			if (minTilePosX < 0)
+			{
+				minTilePosX = 0;
+			}
+			if (maxTilePosX > Main.maxTilesX)
+			{
+				maxTilePosX = Main.maxTilesX;
+			}
+			if (minTilePosY < 0)
+			{
+				minTilePosY = 0;
+			}
+			if (maxTilePosY > Main.maxTilesY)
+			{
+				maxTilePosY = Main.maxTilesY;
+			}
+
+			for (int i = minTilePosX; i < maxTilePosX; i++)
+			{
+				for (int j = minTilePosY; j < maxTilePosY; j++)
+				{
+					bool ValidTile = Main.tileSolid[(int)Main.tile[i, j].TileType] || Main.tile[i, j].LeftSlope || Main.tile[i, j].RightSlope || Main.tile[i, j].TopSlope || Main.tile[i, j].BottomSlope;
+
+					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType] && ValidTile)
+					{
+						Vector2 vector2;
+						vector2.X = (float)(i * 16);
+						vector2.Y = (float)(j * 16);
+						if (npc.position.X + npc.width > vector2.X && npc.position.X < vector2.X + 16.0 && (npc.Bottom.Y + 1 > (double)vector2.Y && npc.Bottom.Y < vector2.Y + 16.0))
 						{
 							return true;
 						}
@@ -512,40 +558,33 @@ namespace Spooky.Core
 				case NPCID.EaterofWorldsHead:
 				case NPCID.EaterofWorldsBody:
 				case NPCID.EaterofWorldsTail:
-
 				//skeletron hand and dungeon guardian
 				case NPCID.SkeletronHand:
 				case NPCID.DungeonGuardian:
-
 				//skeletron prime hands
 				case NPCID.PrimeCannon:
 				case NPCID.PrimeLaser:
 				case NPCID.PrimeSaw:
 				case NPCID.PrimeVice:
-
 				//golem pieces
 				case NPCID.GolemHead:
 				case NPCID.GolemHeadFree:
 				case NPCID.GolemFistLeft:
 				case NPCID.GolemFistRight:
-
 				//martian saucer
 				case NPCID.MartianSaucerCore:
 				case NPCID.MartianSaucerCannon:
 				case NPCID.MartianSaucerTurret:
 				case NPCID.MartianSaucer:
-
 				//flying dutchman
 				case NPCID.PirateShip:
                 case NPCID.PirateShipCannon:
-
 				//frost moon and pumpkin moon minibosses
 				case NPCID.IceQueen:
 				case NPCID.SantaNK1:
 				case NPCID.Everscream:
 				case NPCID.Pumpking:
 				case NPCID.MourningWood:
-
 				//old ones army minibosses
 				case NPCID.DD2Betsy:
 				case NPCID.DD2DarkMageT1:

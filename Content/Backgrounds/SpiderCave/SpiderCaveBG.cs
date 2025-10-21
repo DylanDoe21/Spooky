@@ -109,7 +109,7 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
 
                         var frame = rectangle;
-                        var clr = (Flags.SporeEventHappening ? new Color(25, 25, 25) : new Color(100, 80, 60)) * Transparency;
+                        var clr = (Flags.SporeEventHappening ? new Color(25, 25, 25) : new Color(70, 57, 44)) * Transparency;
 
                         Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, zero, Scale, SpriteEffects.None, 0f);
 

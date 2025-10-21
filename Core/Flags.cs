@@ -54,8 +54,6 @@ namespace Spooky.Core
 		public static bool GuaranteedRaveyard = false;
 		public static bool SporeEventHappening = false;
 		public static int SporeEventTimeLeft;
-		public static int SporeFogColor;
-		public static int SporeFogDotColor;
 		public static float SporeFogIntensity;
 
 		//krampus quests
@@ -114,8 +112,6 @@ namespace Spooky.Core
 			GuaranteedRaveyard = false;
 			SporeEventHappening = false;
 			SporeEventTimeLeft = 0;
-			SporeFogColor = 0;
-			SporeFogDotColor = 0;
 			SporeFogIntensity = 0f;
 
 			//krampus quests
@@ -191,8 +187,6 @@ namespace Spooky.Core
 			tag[nameof(GuaranteedRaveyard)] = GuaranteedRaveyard;
 			tag[nameof(SporeEventHappening)] = SporeEventHappening;
 			tag[nameof(SporeEventTimeLeft)] = SporeEventTimeLeft;
-			tag[nameof(SporeFogColor)] = SporeFogColor;
-			tag[nameof(SporeFogDotColor)] = SporeFogDotColor;
 			tag[nameof(SporeFogIntensity)] = SporeFogIntensity;
 
 			//krampus quests
@@ -271,8 +265,6 @@ namespace Spooky.Core
 			GuaranteedRaveyard = tag.GetBool(nameof(GuaranteedRaveyard));
 			SporeEventHappening = tag.GetBool(nameof(SporeEventHappening));
 			SporeEventTimeLeft = tag.GetInt(nameof(SporeEventTimeLeft));
-			SporeFogColor = tag.GetInt(nameof(SporeFogColor));
-			SporeFogDotColor = tag.GetInt(nameof(SporeFogDotColor));
 			SporeFogIntensity = tag.GetFloat(nameof(SporeFogIntensity));
 
 			//krampus quests
@@ -334,8 +326,6 @@ namespace Spooky.Core
 			//misc stuff
 			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard, SporeEventHappening);
 			writer.Write(SporeEventTimeLeft);
-			writer.Write(SporeFogColor);
-			writer.Write(SporeFogDotColor);
 			writer.Write(SporeFogIntensity);
 
 			//little eye quest stuff
@@ -378,8 +368,6 @@ namespace Spooky.Core
 			//misc stuff
 			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard, out SporeEventHappening);
 			SporeEventTimeLeft = reader.ReadInt32();
-			SporeFogColor = reader.ReadInt32();
-			SporeFogDotColor = reader.ReadInt32();
 			SporeFogIntensity = reader.ReadSingle();
 
 			//little eye quest stuff

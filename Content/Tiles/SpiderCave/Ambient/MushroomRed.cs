@@ -9,6 +9,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.SpiderCave.Ambient
@@ -46,6 +47,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             int yOffset = TileObjectData.GetTileData(tile).DrawYOffset;
             spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16 + yOffset) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.1f);
         }
+
+		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+		{
+			if (Flags.SporeEventHappening && Main.rand.NextBool(50) && !Main.tile[i, j - 1].HasTile && !Main.gamePaused && Main.instance.IsActive)
+			{
+				int newDust = Dust.NewDust(new Vector2((i) * 16, (j + 1) * 16), 1, 1, ModContent.DustType<MushroomSpore>());
+				Main.dust[newDust].color = new Color(186, 40, 15);
+			}
+		}
 	}
 
 	public class MushroomTeal : ModTile
@@ -81,6 +91,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             int yOffset = TileObjectData.GetTileData(tile).DrawYOffset;
             spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16 + yOffset) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.1f);
         }
+
+		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+		{
+			if (Flags.SporeEventHappening && Main.rand.NextBool(50) && !Main.tile[i, j - 1].HasTile && !Main.gamePaused && Main.instance.IsActive)
+			{
+				int newDust = Dust.NewDust(new Vector2((i) * 16, (j + 1) * 16), 1, 1, ModContent.DustType<MushroomSpore>());
+				Main.dust[newDust].color = new Color(93, 184, 154);
+			}
+		}
 	}
 
 	public class MushroomWhite : ModTile
@@ -116,5 +135,14 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             int yOffset = TileObjectData.GetTileData(tile).DrawYOffset;
             spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16 + yOffset) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White * 0.1f);
         }
+
+		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+		{
+			if (Flags.SporeEventHappening && Main.rand.NextBool(50) && !Main.tile[i, j - 1].HasTile && !Main.gamePaused && Main.instance.IsActive)
+			{
+				int newDust = Dust.NewDust(new Vector2((i) * 16, (j + 1) * 16), 1, 1, ModContent.DustType<MushroomSpore>());
+				Main.dust[newDust].color = new Color(153, 174, 163);
+			}
+		}
 	}
 }

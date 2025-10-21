@@ -3,9 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.SpiderCave.Misc;
 
 namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 {
@@ -14,6 +15,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
         
         public override void SetDefaults()
@@ -24,15 +27,15 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
             NPC.width = 50;
 			NPC.height = 72;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.75f;
+			NPC.knockBackResist = 0.25f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.HitSound = SoundID.NPCHit31;
+            NPC.HitSound = SoundID.NPCHit33;
 			NPC.DeathSound = SoundID.NPCDeath63 with { Pitch = -0.5f };
             NPC.aiStyle = 125;
 			AIType = NPCID.BoundTownSlimePurple;
-            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SporeEventBiome>().Type };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
@@ -40,7 +43,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BerryMite1"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SporeEventBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -66,16 +69,26 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
             NPC.velocity.X *= 0.95f;
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MiteMandibles>(), 3, 1, 3));
+        }
+
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
+                for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/AntSpiderBrownGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, -2)), ModContent.Find<ModGore>("Spooky/BerryMiteMediumGore" + numGores).Type);
                     }
+                }
+
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BerryMiteMediumGore5").Type);
                 }
             }
         }
@@ -88,7 +101,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BerryMite2"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SporeEventBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -96,12 +109,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
+                for (int numGores = 1; numGores <= 3; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/AntSpiderRedGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, -2)), ModContent.Find<ModGore>("Spooky/BerryMiteSmallGore" + numGores).Type);
                     }
+                }
+
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BerryMiteSmallGore4").Type);
                 }
             }
         }
@@ -114,7 +132,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BerryMite3"),
-				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SporeEventBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
 
@@ -122,12 +140,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
         {
             if (NPC.life <= 0) 
             {
-                for (int numGores = 1; numGores <= 2; numGores++)
+                for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/AntSpiderRedGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, -2)), ModContent.Find<ModGore>("Spooky/BerryMiteBigGore" + numGores).Type);
                     }
+                }
+
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/BerryMiteBigGore5").Type);
                 }
             }
         }

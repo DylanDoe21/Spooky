@@ -786,7 +786,7 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                     break;
                 }
 
-                //grapple to surface with tongue, then slam down and spawn thorns
+                //slam down and spawn thorns
                 case 5:
                 {
                     NPC.localAI[0]++;

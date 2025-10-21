@@ -198,6 +198,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 			NPC.rotation = NPC.velocity.X * 0.02f;
 
+			bool CollidingWithGround = NPCGlobalHelper.IsCollidingWithFloor(NPC);
+
 			//despawn if the player dies
             if (player.dead)
             {
@@ -310,7 +312,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					{
 						NPC.noGravity = true;
 
-						NPC.velocity.X *= 0;
+						NPC.velocity.X = 0;
 						NPC.velocity.Y = 35;
 					}
 
@@ -324,11 +326,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					}
 
 					//slam the ground
-					if (NPC.localAI[0] >= 20 && NPC.localAI[1] == 0 && NPC.velocity.Y <= 0.1f)
+					if (NPC.localAI[0] >= 20 && NPC.localAI[1] == 0 && (CollidingWithGround || NPC.velocity.Y == 0))
 					{
 						NPC.noGravity = false;
 
-						NPC.velocity.X *= 0;
+						NPC.velocity.X = 0;
 
 						Screenshake.ShakeScreenWithIntensity(NPC.Center, 7f, 350f);
 
@@ -413,7 +415,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 						if (NPC.localAI[0] == 115)
 						{
-							NPC.velocity.X *= 0;
+							NPC.velocity.X = 0;
 						}
 
 						//slam down
@@ -435,11 +437,11 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						}
 
 						//slam the ground
-						if (NPC.localAI[0] >= 125 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
+						if (NPC.localAI[0] >= 125 && NPC.localAI[2] == 0 && (CollidingWithGround || NPC.velocity.Y == 0))
 						{
 							NPC.noGravity = false;
 
-							NPC.velocity.X *= 0;
+							NPC.velocity.X = 0;
 
 							Screenshake.ShakeScreenWithIntensity(NPC.Center, 5f, 350f);
 
@@ -566,7 +568,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 							}
 						}
 
-						NPC.velocity *= 0;
+						NPC.velocity = Vector2.Zero;
 					}
 
 					if (NPC.localAI[0] >= 75 && NPC.localAI[0] <= 80)
@@ -587,7 +589,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 					}
 
 					//slam the ground
-					if (NPC.localAI[0] >= 75 && NPC.localAI[1] == 0 && NPC.velocity.Y <= 0.1f)
+					if (NPC.localAI[0] >= 75 && NPC.localAI[1] == 0 && (CollidingWithGround || NPC.velocity.Y == 0))
 					{
 						NPC.noGravity = false;
 
@@ -653,6 +655,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						velocity.Y -= 0.25f;
 						velocity.X *= 1.2f;
 						NPC.velocity = velocity * speed * 1.1f;
+
+						NPC.netUpdate = true;
 					}
 
 					//change fly ai to charging
@@ -757,7 +761,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 						}
 
 						//slam the ground
-						if (NPC.localAI[0] >= 90 && NPC.localAI[2] == 0 && NPC.velocity.Y <= 0.1f)
+						if (NPC.localAI[0] >= 90 && NPC.localAI[2] == 0 && (CollidingWithGround || NPC.velocity.Y == 0))
 						{
 							NPC.noGravity = false;
 

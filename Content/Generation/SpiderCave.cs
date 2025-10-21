@@ -430,7 +430,7 @@ namespace Spooky.Content.Generation
 							}
 
 							//mushrooms
-							if (WorldGen.genRand.NextBool(25))
+							if (WorldGen.genRand.NextBool(15))
 							{
 								ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue>(), (ushort)ModContent.TileType<MushroomRedBrown>(),
                                 (ushort)ModContent.TileType<MushroomBrown>(), (ushort)ModContent.TileType<MushroomYellow>(), 
@@ -590,8 +590,8 @@ namespace Spooky.Content.Generation
 							{
 								Tile tile = Main.tile[k, l];
 
+                                tile.HasTile = false;
 								WorldGen.KillTile(k, l);
-								tile.HasTile = false;
 
 								if (Main.tile[k, l].WallType != WallID.SpiderUnsafe)
 								{
@@ -648,26 +648,6 @@ namespace Spooky.Content.Generation
 				}
 			}
 		}
-
-        public void GenerateOldHunterPile(int startX, int startY, string StructureFile, int offsetX, int offsetY)
-        {
-            bool placed = false;
-            int attempts = 0;
-            while (!placed && attempts++ < 100000)
-            {
-                while (!WorldGen.SolidTile(startX, startY) || (WorldGen.SolidTile(startX, startY) && WorldGen.SolidTile(startX, startY - 1)))
-				{
-					startY++;
-				}
-                if (WorldGen.SolidTile(startX, startY) && !WorldGen.SolidTile(startX, startY - 1))
-                {
-                    Vector2 origin = new Vector2(startX - offsetX, startY - offsetY);
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/" + StructureFile + ".shstruct", origin.ToPoint16(), Mod);
-                }
-
-                placed = true;
-            }
-        }
 
         //method to clean up small clumps of tiles
         public static void CleanOutSmallClumps(bool Tiles)

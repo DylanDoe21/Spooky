@@ -83,7 +83,10 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 		{
             SoundEngine.PlaySound(SoundID.Item54 with { Pitch = -1f }, Projectile.Center);
 
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<CornSentryPopcorn>(), Projectile.damage, 0, Main.myPlayer, Main.rand.Next(0, 3));
-		}
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Projectile.velocity * 2, ModContent.ProjectileType<CornSentryPopcorn>(), Projectile.damage, 0, Main.myPlayer, Main.rand.Next(0, 3));
+            }
+        }
     }
 }

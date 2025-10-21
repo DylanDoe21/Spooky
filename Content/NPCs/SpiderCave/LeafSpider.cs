@@ -36,7 +36,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.width = 58;
 			NPC.height = 102;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.75f;
+			NPC.knockBackResist = 0.15f;
             NPC.value = Item.buyPrice(0, 0, 2, 0);
             NPC.noTileCollide = true;
             NPC.noGravity = true;
@@ -79,6 +79,8 @@ namespace Spooky.Content.NPCs.SpiderCave
             {
                 SoundEngine.PlaySound(SoundID.Zombie76, NPC.Center);
 
+                NPC.knockBackResist = 0f;
+
                 NPC.ai[2] = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<LeafSpiderWeb>(), ai2: NPC.whoAmI);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -94,6 +96,8 @@ namespace Spooky.Content.NPCs.SpiderCave
                 if (NPC.ai[0] >= 180)
                 {
                     SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
+
+                    NPC.knockBackResist = 0.15f;
 
                     for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
                     {

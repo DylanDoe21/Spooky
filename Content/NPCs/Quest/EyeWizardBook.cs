@@ -143,6 +143,11 @@ namespace Spooky.Content.NPCs.Quest
 			return false;
 		}
 
+		public override bool CheckActive()
+        {
+            return false;
+        }
+
 		public override void AI()
 		{
 			NPC Parent = Main.npc[(int)NPC.ai[0]];

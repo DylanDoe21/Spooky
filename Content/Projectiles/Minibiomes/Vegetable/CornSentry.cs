@@ -15,10 +15,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
     {
         public bool isAttacking = false;
 
-        private static Asset<Texture2D> AuraTexture;
-        private static Asset<Texture2D> PupilTexture;
-        private static Asset<Texture2D> PupilLargeTexture;
-
         public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 8;
@@ -122,7 +118,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
             isAttacking = true;
 
             Projectile.ai[0]++;
-			if (Projectile.ai[0] >= 45)
+			if (Projectile.ai[0] == 45)
 			{
 				SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 
@@ -131,10 +127,14 @@ namespace Spooky.Content.Projectiles.Minibiomes.Vegetable
 				float rotation = (float)Math.Atan2(vector.Y - (target.position.Y + (target.height * 0.5f)), vector.X - (target.position.X + (target.width * 0.5f)));
 				Vector2 perturbedSpeed = new Vector2((float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1));
 
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 12,
-				perturbedSpeed.X, Main.rand.Next(-6, 1), ModContent.ProjectileType<CornSentryKernel>(), Projectile.damage, 0f, Projectile.owner);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+			    {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 12,
+                    perturbedSpeed.X, Main.rand.Next(-6, 1), ModContent.ProjectileType<CornSentryKernel>(), Projectile.damage, 0f, Projectile.owner);
+                }
 
                 Projectile.ai[0] = 0;
+                Projectile.netUpdate = true;
             }
 		}
     }

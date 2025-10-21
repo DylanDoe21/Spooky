@@ -66,7 +66,7 @@ namespace Spooky.Content.Buffs.Debuff
 							ShootSpeed.Normalize();
 							ShootSpeed *= 6f;
 
-							int FinalDamage = NPC.damage > 250 ? 250 : NPC.damage;
+							int FinalDamage = NPC.damage > 250 ? 125 : NPC.damage / 2;
 
 							Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, ShootSpeed, ModContent.ProjectileType<PepperFlame>(), FinalDamage, 0f, Main.LocalPlayer.whoAmI, ai1: npc.whoAmI);
 

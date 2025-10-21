@@ -14,6 +14,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.SpookyBiome;
@@ -374,7 +375,9 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 					catch
 					{
 						if (!Main.ignoreErrors)
+						{
 							throw;
+						}
 					}
 				}
 			}
@@ -1703,6 +1706,11 @@ namespace Spooky.Content.NPCs.Boss.SpookFishron
 			if (!MenuSaveSystem.hasDefeatedSpookFishron)
 			{
 				MenuSaveSystem.hasDefeatedSpookFishron = true;
+			}
+
+			if (SpawnedDuringFrostMoon)
+			{
+				ModContent.GetInstance<BossAchievementSpookFishronIce>().FrostMoonCondition.Complete();
 			}
 		}
 

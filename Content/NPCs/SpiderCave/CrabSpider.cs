@@ -155,7 +155,7 @@ namespace Spooky.Content.NPCs.SpiderCave
                     Vector2 vector48 = player.Center - center2;
                     float CenterDistance = vector48.Length();
 
-                    if (NPC.velocity.Y == 0 && HoleBelow() && CenterDistance > 100f)
+                    if (NPCGlobalHelper.IsCollidingWithFloor(NPC) && HoleBelow() && CenterDistance > 100f)
                     {
                         NPC.velocity.Y = -15f;
                         NPC.netUpdate = true;
@@ -163,7 +163,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
                     if ((NPC.velocity.X < 0f && NPC.direction == 1) || (NPC.velocity.X > 0f && NPC.direction == -1))
                     {
-                        if (NPC.velocity.Y == 0 && Collision.SolidTilesVersatile((int)(NPC.Center.X / 16f), (int)(NPC.Center.X + NPC.spriteDirection * -50) / 16, (int)NPC.Top.Y / 16, (int)NPC.Bottom.Y / 16 - 3))
+                        if (NPCGlobalHelper.IsCollidingWithFloor(NPC) && Collision.SolidTilesVersatile((int)(NPC.Center.X / 16f), (int)(NPC.Center.X + NPC.spriteDirection * -50) / 16, (int)NPC.Top.Y / 16, (int)NPC.Bottom.Y / 16 - 3))
                         {
                             NPC.velocity.Y = -15f;
                             NPC.netUpdate = true;
