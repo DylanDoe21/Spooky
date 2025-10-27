@@ -127,8 +127,6 @@ namespace Spooky.Content.Projectiles.Sentient
 			}
 			else
 			{
-                //SoundEngine.PlaySound(SoundID.NPCHit13 with { Pitch = 1.25f }, Projectile.Center);
-
                 if (Projectile.velocity.X != oldVelocity.X)
                 {
                     Projectile.position.X = Projectile.position.X + Projectile.velocity.X;

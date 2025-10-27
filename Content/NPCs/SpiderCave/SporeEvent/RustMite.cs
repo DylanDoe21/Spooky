@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
             NPC.damage = 70;
             NPC.defense = 25;
             NPC.width = 58;
-			NPC.height = 72;
+			NPC.height = 44;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);

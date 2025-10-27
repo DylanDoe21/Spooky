@@ -21,6 +21,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;
+            Projectile.DamageType = DamageClass.Magic;
 			Projectile.friendly = true;
 			Projectile.tileCollide = true;
 			Projectile.timeLeft = 180;

@@ -10,7 +10,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 {
 	public class CrustyGunfish : ModItem
 	{
-		int numUses = -1;
+		int numUses = 0;
 
 		public override void SetDefaults()
         {

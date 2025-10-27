@@ -48,7 +48,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
             }
 
             Projectile.ai[0]++;
-
             if (Projectile.ai[0] == 1)
             {
                 Projectile.localAI[0] = Main.rand.Next(35, 120);

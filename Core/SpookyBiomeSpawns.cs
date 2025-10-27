@@ -354,7 +354,9 @@ namespace Spooky.Core
                 pool.Clear();
 
 				//do not allow catacomb enemies to spawn when not behind catacomb brick wall
-				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall1>() && !TileID.Sets.Platforms[Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType])
+				if ((Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall1>() || 
+				Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY - 1].WallType == ModContent.WallType<CatacombBrickWall1>()) &&
+				!TileID.Sets.Platforms[Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType])
 				{
 					if (Flags.CatacombKey1)
 					{
@@ -387,7 +389,9 @@ namespace Spooky.Core
                 pool.Clear();
 
                 //do not allow catacomb enemies to spawn when not behind catacomb brick wall
-				if (Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall2>() && !TileID.Sets.Platforms[Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType])
+				if ((Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].WallType == ModContent.WallType<CatacombBrickWall2>() || 
+				Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY - 1].WallType == ModContent.WallType<CatacombBrickWall2>()) &&
+				!TileID.Sets.Platforms[Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType])
 				{
 					if (Flags.CatacombKey2)
 					{

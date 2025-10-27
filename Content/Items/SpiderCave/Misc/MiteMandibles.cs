@@ -15,8 +15,8 @@ namespace Spooky.Content.Items.SpiderCave.Misc
 
 		public override void SetDefaults()
         {
-            Item.width = 26;
-            Item.height = 32;
+            Item.width = 28;
+            Item.height = 38;
             Item.maxStack = 9999;
             Item.rare = ItemRarityID.Blue;  
             Item.value = Item.buyPrice(silver: 1);

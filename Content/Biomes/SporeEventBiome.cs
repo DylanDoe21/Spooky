@@ -171,7 +171,7 @@ namespace Spooky.Content.Biomes
 
         public override bool IsBiomeActive(Player player)
         {
-            return Flags.SporeEventHappening && player.InModBiome(ModContent.GetInstance<SpookyHellBiome>());
+            return Flags.SporeEventHappening && player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>());
         }
     }
 }

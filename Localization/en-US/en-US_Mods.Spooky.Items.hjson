@@ -2348,24 +2348,9 @@ InchwormOrangeItem: {
 	Tooltip: ""
 }
 
-OldHunterHat: {
-	DisplayName: Old Hunter's Hat
-	Tooltip: A hat belonging to a once living hunter
-}
-
-OldHunterLegs: {
-	DisplayName: Old Hunter's Legs
-	Tooltip: Old tatterted pants with skeleton legs in them
-}
-
-OldHunterSkull: {
-	DisplayName: Old Hunter's Skull
-	Tooltip: A decaying skull of an ancient person
-}
-
-OldHunterTorso: {
-	DisplayName: Old Hunter's Torso
-	Tooltip: A shirt with an entire skeletal torso inside
+MiteMandibles: {
+	DisplayName: Mite Mandibles
+	Tooltip: "'Don't stick your fingers in them!'"
 }
 
 SpiderChitin: {
@@ -2422,6 +2407,48 @@ LegalShotgun: {
 RustedBullet: {
 	DisplayName: Rusted Bullet
 	Tooltip: Splits into shrapnel on impact
+}
+
+MiteClaws: {
+	DisplayName: Thousandth Claw
+	Tooltip:
+		'''
+		Creates a claw swipe nearby you that shreds enemies
+		Has a chance to bleed enemies
+		'''
+}
+
+MiteGun: {
+	DisplayName: Tick Tommygun
+	Tooltip: Has a 50% chance to shoot out ticks that stick to enemies
+}
+
+MiteShovel: {
+	DisplayName: Mighty Shovel
+	Tooltip: Spawn a stationary mite den that spawns mites to attack enemies
+}
+
+MiteSword: {
+	DisplayName: Ravenous Scimiter
+	Tooltip: Creates spores and bouncing mites
+}
+
+MiteTome: {
+	DisplayName: Tome of Smite-ing
+	Tooltip:
+		'''
+		Cast out mite lighting to smite enemies
+		Lightning can sometimes spawn additional mites to attack on hit
+		'''
+}
+
+MiteVacuum: {
+	DisplayName: Devil Duster
+	Tooltip:
+		'''
+		Fires out a stream of spore fog
+		Sometimes shoots out mites that can bounce between enemies
+		'''
 }
 
 OrbWeaverBoomerang: {
@@ -2507,6 +2534,25 @@ SpiderSummonEgg: {
 SpiderSword: {
 	DisplayName: Spider Stabber
 	Tooltip: Can sometimes inflict enemies with venom
+}
+
+SporeBall: {
+	DisplayName: Sporbus
+	Tooltip: Throw out a magic ball of fungus that sprays damaging spores around it
+}
+
+SporeTome: {
+	DisplayName: Mold Testament
+	Tooltip: Casts out mushrooms that all have different effects
+}
+
+SporeWand: {
+	DisplayName: Mycollonizer Rod
+	Tooltip:
+		'''
+		Creates spiked spores that attach themselves to enemies
+		While attached to an enemy, the spore will sometimes spawn lingering spore clouds
+		'''
 }
 
 TarantulaHawkBow: {
@@ -5746,9 +5792,4 @@ PetCommander: {
 		Click on any nearby tamed critter while holding this to give them commands
 		Allows the tamed critter to roam freely, follow you, or stay put
 		'''
-}
-
-MiteMandibles: {
-	DisplayName: Mite Mandibles
-	Tooltip: ""
 }

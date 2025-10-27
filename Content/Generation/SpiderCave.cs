@@ -154,7 +154,6 @@ namespace Spooky.Content.Generation
 
             //clean out small floating chunks of blocks
             CleanOutSmallClumps(true);
-            //clean out small floating chunks of walls
             CleanOutSmallClumps(false);
 
 			//place dithering around the edge of the oval and blocks inside of the oval
@@ -250,6 +249,35 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+
+            //noise dirt walls
+            int Seed = WorldGen.genRand.Next();
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+            {
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+                    {
+                        float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 550f, Y / 550f, 5, Seed) * 0.5f;
+                        float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 550f, Y / 550f, 5, Seed) + 0.5f + horizontalOffsetNoise;
+                        float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 550f, Y / 550f, 5, Seed) + 0.5f;
+                        float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
+						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
+
+                        if (caveNoiseMap * caveNoiseMap < caveCreationThreshold)
+						{
+                            if (!Main.tile[X, Y].HasTile)
+                            {
+                                WorldGen.PlaceWall(X, Y, ModContent.WallType<WebBlockWall>());
+                                Main.tile[X, Y].WallType = (ushort)ModContent.WallType<WebBlockWall>();
+                            }
+                        }
+                    }
+                }
+            }
+
+            //clean out small floating chunks of walls
+            CleanOutSmallClumps(false);
 
             //some small last minute things, mainly clean up before ambient tiles are placed
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
@@ -689,6 +717,7 @@ namespace Spooky.Content.Generation
             {
                 (ushort)ModContent.WallType<DampSoilWall>(),
                 (ushort)ModContent.WallType<DampGrassWall>(),
+                (ushort)ModContent.WallType<WebBlockWall>()
             };
 
             void getAttachedWallPoints(int x, int y, List<Point> points)

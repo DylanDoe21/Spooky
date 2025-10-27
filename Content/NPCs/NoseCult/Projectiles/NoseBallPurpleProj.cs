@@ -1,12 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Drawing;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-using Terraria.GameContent.Drawing;
 
 namespace Spooky.Content.NPCs.NoseCult.Projectiles
 {

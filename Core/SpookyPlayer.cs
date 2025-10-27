@@ -19,6 +19,7 @@ using Spooky.Content.Dusts;
 using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.SpookyBiome.Misc;
+using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpookyHell.Sentient;
 using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.SpookyHell;
@@ -29,6 +30,7 @@ using Spooky.Content.Projectiles.Minibiomes.Desert;
 using Spooky.Content.Projectiles.Minibiomes.Ocean;
 using Spooky.Content.Projectiles.Minibiomes.Vegetable;
 using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Projectiles.SpiderCave;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
@@ -207,6 +209,7 @@ namespace Spooky.Core
         public Vector2 ChimneyUIPos = new Vector2(Main.screenWidth / 2 * Main.UIScale, Main.screenHeight / 1.75f * Main.UIScale);
 
 		private static Asset<Texture2D> SentientLeafBlowerBackTex;
+        private static Asset<Texture2D> MiteVacuumBackTex;
         private static Asset<Texture2D> HazmatArmorBackTex;
 
 		//sounds
@@ -1554,6 +1557,26 @@ namespace Spooky.Core
                     drawInfo.colorArmorBody,
                     drawInfo.drawPlayer.bodyRotation,
                     new Vector2(SentientLeafBlowerBackTex.Width() / 2, SentientLeafBlowerBackTex.Height() / 2),
+                    1f, 
+                    spriteEffects, 
+                    0);
+
+                    PlayerBack.shader = 0;
+                    drawInfo.DrawDataCache.Add(PlayerBack);
+                }
+
+                if (ItemGlobal.ActiveItem(drawInfo.drawPlayer).type == ModContent.ItemType<MiteVacuum>() && drawInfo.drawPlayer.ownedProjectileCounts[ModContent.ProjectileType<MiteVacuumProj>()] > 0)
+                {
+                    MiteVacuumBackTex ??= ModContent.Request<Texture2D>("Spooky/Content/Items/SpiderCave/MiteVacuumBack");
+
+                    int xOffset = 10;
+
+                    DrawData PlayerBack = new DrawData(MiteVacuumBackTex.Value,
+					new Vector2((int)(drawInfo.drawPlayer.MountedCenter.X - Main.screenPosition.X - (xOffset * drawInfo.drawPlayer.direction)) - 4f * drawInfo.drawPlayer.direction, (int)(drawInfo.drawPlayer.MountedCenter.Y - Main.screenPosition.Y + 2f * drawInfo.drawPlayer.gravDir - 8f * drawInfo.drawPlayer.gravDir + drawInfo.drawPlayer.gfxOffY)),
+					new Rectangle(0, 0, MiteVacuumBackTex.Width(), MiteVacuumBackTex.Height()),
+                    drawInfo.colorArmorBody,
+                    drawInfo.drawPlayer.bodyRotation,
+                    new Vector2(MiteVacuumBackTex.Width() / 2, MiteVacuumBackTex.Height() / 2),
                     1f, 
                     spriteEffects, 
                     0);

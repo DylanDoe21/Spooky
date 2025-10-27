@@ -37,31 +37,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			return hooksOut <= 2;
 		}
 
-		//kill the oldest hook when this is used if max grappling hooks are active
-	    public override void UseGrapple(Player player, ref int type) 
-        {
-			int hooksOut = 0;
-			int oldestHookIndex = -1;
-			int oldestHookTimeLeft = 100000;
-			foreach (var otherProjectile in Main.ActiveProjectiles)
-            {
-				if (otherProjectile.owner == player.whoAmI && otherProjectile.type == type) 
-                {
-					hooksOut++;
-					if (otherProjectile.timeLeft < oldestHookTimeLeft) 
-                    {
-						oldestHookIndex = otherProjectile.whoAmI;
-						oldestHookTimeLeft = otherProjectile.timeLeft;
-					}
-				}
-			}
-
-			if (hooksOut > 1) 
-            {
-				Main.projectile[oldestHookIndex].Kill();
-		    }
-		}
-
 		public override float GrappleRange() 
         {
 			return 500f;
@@ -79,7 +54,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
 		public override void GrapplePullSpeed(Player player, ref float speed) 
         {
-			speed = 10;
+			speed = 12;
 		}
 
 		public override void GrappleTargetPoint(Player player, ref float grappleX, ref float grappleY) 
@@ -96,12 +71,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			if (TileID.Sets.IsATreeTrunk[tile.TileType] || tile.TileType == TileID.PalmTree) 
             {
 				return true;
-			}
-
-			//prevent hook from grappling out of the world
-			if (!WorldGen.InWorld(x, y, 2))
-			{
-				return false;
 			}
 
 			return null;

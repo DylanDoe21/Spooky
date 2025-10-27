@@ -34,7 +34,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		{	
 			SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
 
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<CannonSpider>(), Projectile.damage / 2, 0, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<CannonSpider>(), Projectile.damage / 2, 0, Projectile.owner);
 
 			for (int numDusts = 0; numDusts < 10; numDusts++)
 			{
