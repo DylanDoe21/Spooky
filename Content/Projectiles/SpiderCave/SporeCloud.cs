@@ -22,7 +22,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
         {
             Projectile.width = 32;
             Projectile.height = 34;
-            Projectile.DamageType = DamageClass.Magic;
             Projectile.localNPCHitCooldown = 40;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.friendly = true;

@@ -137,7 +137,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 Projectile.localAI[0]++;
                 if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime)
                 {
-                    SoundEngine.PlaySound(SoundID.Item34 with { Pitch = -0.75f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item34 with { Volume = 0.5f, Pitch = -0.75f }, Projectile.Center);
 
                     if (Projectile.owner == Main.myPlayer)
                     {
@@ -155,11 +155,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
                             Main.projectile[newMite].ai[0] = Main.rand.Next(5, 7);
                             Main.projectile[newMite].ai[2] = 3;
                             Main.projectile[newMite].penetrate = 3;
-                            Main.projectile[newMite].localNPCHitCooldown = 30;
+                            Main.projectile[newMite].localNPCHitCooldown = 20;
                             Main.projectile[newMite].usesLocalNPCImmunity = true;
                         }
                         else
-                        {   
+                        {
                             Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y);
                             ShootSpeed.Normalize();
                             ShootSpeed *= Main.rand.NextFloat(15f, 25f);

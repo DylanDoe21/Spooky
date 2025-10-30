@@ -185,6 +185,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 						int newProj = Projectile.NewProjectile(Projectile.GetSource_Death(), player.Center, newVelocity, 
                         ModContent.ProjectileType<SporeCloud>(), Projectile.damage / 2, 0, ai0: 2);
+						Main.projectile[newProj].DamageType = DamageClass.Melee;
                         Main.projectile[newProj].alpha = 125;
 					}
 

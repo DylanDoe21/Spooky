@@ -103,10 +103,11 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (target.active && !target.dontTakeDamage) 
                 {
                     Projectile.Center = target.Center;
-                    target.takenDamageMultiplier = 1.5f;
+                    target.takenDamageMultiplier = 1.18f;
                 }
                 else 
                 {
+                    target.takenDamageMultiplier = 1f;
                     Projectile.Kill();
                 }
 			}

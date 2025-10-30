@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 		private static Asset<Texture2D> ChainTexture;
 
-		public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/EggEvent/EarWormScreech", SoundType.Sound) { Volume = 1.35f };
+		public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/EggEvent/EarWormScreech", SoundType.Sound) { Volume = 0.35f };
 
         public override void SetStaticDefaults()
 		{

@@ -185,6 +185,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     {
                         int newProj = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-7, 8), Main.rand.Next(-7, 8), 
                         ModContent.ProjectileType<SporeCloud>(), Projectile.damage / 3, Projectile.knockBack, ai0: 1);
+                        Main.projectile[newProj].DamageType = DamageClass.Magic;
                         Main.projectile[newProj].alpha = 125;
                     }
                 }

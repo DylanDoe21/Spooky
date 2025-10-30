@@ -564,10 +564,10 @@ namespace Spooky.Content.Generation
 		{
 			double SizeX = WorldGen.genRand.Next(75, 125);
 			double SizeY = WorldGen.genRand.Next(20, 50);
-			double WorldSizeScale = (double)Main.maxTilesX / 4200;
+			double CaveSize = (double)1.52380952381;
 
-			SizeX *= WorldSizeScale;
-			SizeY *= WorldSizeScale;
+			SizeX *= CaveSize;
+			SizeY *= CaveSize;
 			double SizeYModified = SizeY - 1.0;
 			double CaveDigThreshold = SizeX;
 			Vector2D val = default(Vector2D);

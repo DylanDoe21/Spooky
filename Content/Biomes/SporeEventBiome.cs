@@ -14,7 +14,7 @@ namespace Spooky.Content.Biomes
     public class SporeEventBiome : ModBiome
     {
 		//set the music to be consistent with vanilla's music priorities
-		public override int Music => MusicID.Eerie;
+		public override int Music => MusicID.Graveyard;
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 

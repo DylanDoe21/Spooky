@@ -60,7 +60,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable
 				}
 
                 //radish
-				if (Main.rand.NextBool(35))
+				if (Main.rand.NextBool(55))
                 {
                     WorldGen.PlaceObject(i, j + 1, (ushort)ModContent.TileType<RadishHanging>(), true, WorldGen.genRand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j + 1, (ushort)ModContent.TileType<RadishHanging>(), 0, 0, -1, -1);

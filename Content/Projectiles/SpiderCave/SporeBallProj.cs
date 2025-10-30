@@ -104,7 +104,10 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
                 Vector2 ShootVelocity = (velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity).RotatedBy(RandomRotation);
 
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootVelocity, ModContent.ProjectileType<SporeCloud>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, ai0: Main.rand.Next(0, 2));
+                int newProj = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ShootVelocity, 
+				ModContent.ProjectileType<SporeCloud>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, ai0: Main.rand.Next(0, 2));
+				Main.projectile[newProj].DamageType = DamageClass.Magic;
+				Main.projectile[newProj].alpha = 125;
             }
         }
 

@@ -10,7 +10,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
 {
     public class MiteProjectile : ModProjectile
     {
-        public int WaveTimer = 0;
         public bool IsStickingToTarget = false;
 
         private static Asset<Texture2D> ProjTexture;
@@ -25,7 +24,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
         {
             Projectile.width = 16;
             Projectile.height = 16;
-            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 240;
@@ -135,7 +133,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                         Vector2 ChargeDirection = NPC.Center - target.Center;
                         ChargeDirection.Normalize();
-                        ChargeDirection *= 35f;
+                        ChargeDirection *= 22f;
                         Projectile.velocity = ChargeDirection;
 
                         break;
@@ -240,41 +238,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 case 3:
                 {
                     Projectile.tileCollide = true;
-
-                    float WaveIntensity = 5f;
-                    float Wave = 8f;
-
-                    WaveTimer++;
-                    if (Projectile.ai[1] == 0)
-                    {
-                        if (WaveTimer > Wave * 0.5f)
-                        {
-                            WaveTimer = 0;
-                            Projectile.ai[1] = 1;
-                        }
-                        else
-                        {
-                            Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                            Projectile.velocity = perturbedSpeed;
-                        }
-                    }
-                    else
-                    {
-                        if (WaveTimer <= Wave)
-                        {
-                            Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
-                            Projectile.velocity = perturbedSpeed;
-                        }
-                        else
-                        {
-                            Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
-                            Projectile.velocity = perturbedSpeed;
-                        }
-                        if (WaveTimer >= Wave * 2)
-                        {
-                            WaveTimer = 0;
-                        }
-                    }
 
                     break;
                 }

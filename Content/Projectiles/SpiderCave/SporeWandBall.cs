@@ -50,13 +50,16 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 {
                     int newProj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
                     ModContent.ProjectileType<SporeCloud>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai0: 2);
+                    Main.projectile[newProj].DamageType = DamageClass.Magic;
                     Main.projectile[newProj].alpha = 125;
                 }
 
                 int npcTarget = (int)Projectile.ai[1];
                 if (npcTarget < 0 || npcTarget >= 200) 
-                {
-                    Projectile.Kill();
+                {   
+                    Projectile.velocity = Vector2.Zero;
+                    Projectile.tileCollide = true;
+                    IsStickingToTarget = false;
                 }
                 else if (Main.npc[npcTarget].active && !Main.npc[npcTarget].dontTakeDamage) 
                 {
@@ -65,7 +68,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 }
                 else 
                 {
-                    Projectile.Kill();
+                    Projectile.velocity = Vector2.Zero;
+                    Projectile.tileCollide = true;
+                    IsStickingToTarget = false;
                 }
 			}
 			else 

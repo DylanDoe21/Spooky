@@ -170,7 +170,7 @@ FossilDutchmanPipe: {
 	Tooltip:
 		'''
 		Creates an evil aura around you
-		Enemies inside of this aura will take more damage from your attacks
+		Enemies inside of this aura will take 10% more damage from attacks
 		5 minute duration
 		'''
 }
@@ -815,7 +815,7 @@ PandoraAmalgam: {
 		Spawns blobs of ectoplasm when you restore mana that deal more damage the more you restore
 		Press the Accessory hotkey to release sound that damages you and enemies
 		You will spawn hands every few seconds that will home in on you and heal you when hit
-		Occasionally fire out a cuff at a nearby enemy, enemies attatched to it will take more damage
+		Occasionally fire out a cuff at a nearby enemy, enemies attatched to it will take 18% more damage
 		'''
 }
 
@@ -846,7 +846,7 @@ PandoraCuffs: {
 	Tooltip:
 		'''
 		Every 15 seconds, a chain will attach itself to a nearby enemy for 5 seconds
-		Enemies attached to the chain will take 50% more damage
+		Enemies attached to the chain will take 18% more damage
 		The chain will also prioritize bosses over normal enemies
 		'Suffering builds character'
 		'''
@@ -2224,7 +2224,7 @@ MagicEyeOrb: {
 	Tooltip:
 		'''
 		Summons a glass eye that will look at a nearby enemy
-		The enemy being looked at will take 25% more damage
+		The enemy being looked at will take 15% more damage
 		'''
 }
 
@@ -2391,7 +2391,7 @@ HunterScarf: {
 	Tooltip:
 		'''
 		Enemies nearby you will be marked 
-		Marked enemies will take more damage from your ranged weapons
+		Marked enemies will take 10% more damage from your ranged weapons
 		'''
 }
 

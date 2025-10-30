@@ -326,7 +326,7 @@ namespace Spooky.Core
 			//enemies inflicted with the hunter mark debuff take more damage from ranged weapons
 			if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()) && modifiers.DamageType == DamageClass.Ranged)
 			{
-				modifiers.FinalDamage *= 1.2f;
+				modifiers.FinalDamage *= 1.1f;
 			}
 
 			//enemies inflicted with pierced should take 2x damage and be bled for 10 seconds
@@ -349,10 +349,14 @@ namespace Spooky.Core
 
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
-			//if the glass eye is staring at an enemy multiply the damage they take from attacks, dutchmans pipe bloom aura also does the same thing
-			if (npc.HasBuff(ModContent.BuffType<GlassEyeDebuff>()) || npc.HasBuff(ModContent.BuffType<DutchmanPipeDebuff>()))
+			//if the glass eye is staring at an enemy multiply the damage they take from attacks
+			if (npc.HasBuff(ModContent.BuffType<GlassEyeDebuff>()))
 			{
-				modifiers.FinalDamage *= 1.25f;
+				modifiers.FinalDamage *= 1.15f;
+			}
+			if (npc.HasBuff(ModContent.BuffType<DutchmanPipeDebuff>()))
+			{
+				modifiers.FinalDamage *= 1.1f;
 			}
 		}
 
@@ -380,17 +384,17 @@ namespace Spooky.Core
 				}
 			}
 
+			Player player = Main.LocalPlayer;
+
 			//ememies with stomach ache explode into pepto bubbles
 			if (npc.HasBuff(ModContent.BuffType<PeptoDebuff>()))
 			{
 				for (int numProjectiles = 0; numProjectiles < Main.rand.Next(4, 8); numProjectiles++)
 				{
 					Projectile.NewProjectile(npc.GetSource_Death(), npc.Center.X, npc.Center.Y, Main.rand.NextFloat(-12f, 12f),
-					Main.rand.NextFloat(-2f, 0f), ModContent.ProjectileType<PeptoBubble>(), npc.damage, 0, Main.myPlayer);
+					Main.rand.NextFloat(-2f, 0f), ModContent.ProjectileType<PeptoBubble>(), npc.damage, 0, player.whoAmI);
 				}
 			}
-
-			Player player = Main.LocalPlayer;
 
 			//spawn souls when you kill an enemy while wearing the skull amulet
 			if (player.GetModPlayer<SpookyPlayer>().SkullAmulet && !npc.friendly)
