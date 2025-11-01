@@ -1,7 +1,3 @@
--Turkies are now tamed by dropping rotten seeds on the ground at the turkey, this is more interactive and seems to work better in multiplayer
--Fixed big dunk chase music playing for players outside of the rotten depths biome
--Fixed rot gourd not landing on sloped blocks correctly
--Fixed green spooky seeds not being consumable
--Fixed player-placed festive windows not counting as a housing wall
--Little dunk & strange egg are now unobtainable, they are both still in the mod but due to their extremely unfinished nature they will be dropped by big dunk again later once this feature is properly complete
+-Fixed issue with tmod preview breaking tar pits water (this will be properly fixed later)
+-Fixed big bone thorns not dying when he enters phase 2
 

@@ -101,22 +101,58 @@ SpookyWorldgenConfig: {
 }
 
 EyeValleyPosEnum: {
-	Random.Label: Random
-	JungleSide.Label: Jungle Side
-	DungeonSide.Label: Dungeon Side
+	Random: {
+		Label: Random
+		Tooltip: ""
+	}
+
+	JungleSide: {
+		Label: Jungle Side
+		Tooltip: ""
+	}
+
+	DungeonSide: {
+		Label: Dungeon Side
+		Tooltip: ""
+	}
+
 	Tooltip: ""
 }
 
 ZombieBiomePosEnum: {
-	Random.Label: Random
-	JungleSide.Label: Jungle Side
-	DungeonSide.Label: Dungeon Side
+	Random: {
+		Label: Random
+		Tooltip: ""
+	}
+
+	JungleSide: {
+		Label: Jungle Side
+		Tooltip: ""
+	}
+
+	DungeonSide: {
+		Label: Dungeon Side
+		Tooltip: ""
+	}
+
 	Tooltip: ""
 }
 
 DialogueSpeedEnum: {
-	Normal.Label: Normal
-	Fast.Label: Fast
-	Instant.Label: Instant
+	Normal: {
+		Label: Normal
+		Tooltip: ""
+	}
+
+	Fast: {
+		Label: Fast
+		Tooltip: ""
+	}
+
+	Instant: {
+		Label: Instant
+		Tooltip: ""
+	}
+
 	Tooltip: ""
 }

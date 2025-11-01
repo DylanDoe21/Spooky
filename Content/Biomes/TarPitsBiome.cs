@@ -52,6 +52,7 @@ namespace Spooky.Content.Biomes
 
 		public override int BiomeTorchItemType => ItemID.DesertTorch;
 
+		/*
 		public override void Load()
 		{
 			IL_LiquidRenderer.DrawNormalLiquids += WaterOpacityChanger;
@@ -67,6 +68,7 @@ namespace Spooky.Content.Biomes
 			IL_TileDrawing.DrawTile_LiquidBehindTile -= WaterSlopeOpacityChanger;
 			On_WaterfallManager.GetAlpha -= WaterfallOpacityChanger;
 		}
+		*/
 
 		//water opacity amount used for all il edits below
 		float WaterOpacity = 0.88f;
@@ -76,7 +78,7 @@ namespace Spooky.Content.Biomes
 		{
 			ILCursor c = new(il);
 			c.GotoNext(MoveType.After, i => i.MatchMul(), i => i.MatchStloc(7)); //match to saving of num at the line float num = ptr2->Opacity * (isBackgroundDraw ? 1f : DEFAULT_OPACITY[ptr2->Type]);
-			c.EmitLdloca(7); 
+			c.EmitLdloca(7);
 			//parse through num with a reference through the delegate
 			//Ldloc2 or ptr2 is a pointer, (pointers are just accesses to fields through memory) which means that we can't parse them through a delegate by themselves
 			//Here we parse through the pointer (ptr2) value for Type and Opacity since thats the only LiquidDrawCache values we use
