@@ -1,3 +1,3 @@
--Fixed issue with tmod preview breaking tar pits water (this will be properly fixed later)
--Fixed big bone thorns not dying when he enters phase 2
+-Fixed tar pits water (for real this time)
+-Fixed spider grotto lighting not applying correctly
 
