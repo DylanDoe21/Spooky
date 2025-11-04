@@ -128,7 +128,6 @@ namespace Spooky.Content.NPCs.SpiderCave
 			//passive behavior, move towards random position and run away from the player
 			if (NPC.ai[1] == 0)
 			{
-				
 				if (NPC.ai[0] == 0)
 				{
 					if (NPC.Distance(player.Center) <= 150f)

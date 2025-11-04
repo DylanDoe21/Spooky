@@ -389,6 +389,15 @@ WhipSpider.DisplayName: Whip Spider
 WhipSpiderTongue.DisplayName: Whip Spider
 WolfSpider.DisplayName: Wolf Spider
 WolfSpiderBaby.DisplayName: Baby Wolf Spider
+//spider war
+CamelColonel.DisplayName: Camel Colonel
+CamelColonelTail.DisplayName: ""
+CamelColonelTailSniper.DisplayName: Camel Colonel
+CorklidQueen.DisplayName: Corklid Queen
+EmporerMortar.DisplayName: Emporer Mortar
+EmporerMortarSegment.DisplayName: Emporer Mortar
+EmpressJoro.DisplayName: Empress Joro
+OgreKing.DisplayName: Ogre King
 //mushroom spore event
 BeetleMite1.DisplayName: Beetle Mite
 BeetleMite2.DisplayName: Beetle Mite

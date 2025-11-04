@@ -3,9 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Light;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
 
@@ -127,23 +125,24 @@ namespace Spooky.Content.Biomes
         {
             if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()) && Main.BackgroundEnabled)
             {
-                return 0.1f;
+			    return 0.1f;
             }
-            else
-            {
-                return orig;
-            }
+
+            return orig;
         }
 
         private void ChangeBlackThreshold(ILContext il)
-        {
-            var c = new ILCursor(il);
-            c.TryGotoNext(n => n.MatchLdloc(6), n => n.MatchStloc(13)); //beginning of the loop, local 11 is a looping variable
-            c.Index++; //this is kinda goofy since I dont think you could actually ever write c# to compile to the resulting IL from emitting here.
-            c.Emit(OpCodes.Ldloc, 3); //pass the original value so we can set that instead if we dont want to change the threshold
-            c.EmitDelegate<Func<float, float>>(NewThreshold); //check if were in the biome to set, else set the original value
-            c.Emit(OpCodes.Stloc, 3); //num2 in vanilla, controls minimum threshold to turn a tile black
-        }
+		{
+			ILCursor val = new ILCursor(il);
+            val.TryGotoNext(
+            (Instruction n) => ILPatternMatchingExt.MatchLdloc(n, 8),
+            (Instruction n) => ILPatternMatchingExt.MatchStloc(n, 12));
+            int index = val.Index;
+            val.Index = index + 1;
+            val.Emit(OpCodes.Ldloc, 3);
+            val.EmitDelegate(NewThreshold);
+            val.Emit(OpCodes.Stloc, 3);
+		}
 
         //bestiary stuff
         public override string BestiaryIcon => "Spooky/Content/Biomes/SpiderCaveBiomeIcon";

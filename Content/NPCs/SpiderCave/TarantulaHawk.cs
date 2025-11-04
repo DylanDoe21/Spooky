@@ -245,7 +245,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
                     if (NPC.localAI[1] == 60)
                     {
-                        NPC.velocity *= 0;
+                        NPC.velocity = Vector2.Zero;
                     }
 
                     if (NPC.localAI[1] == 65)

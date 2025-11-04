@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Liquid;
 using Microsoft.Xna.Framework;
-using System.Reflection;
 using MonoMod.Cil;
 
 using Spooky.Core;
@@ -75,26 +74,26 @@ namespace Spooky.Content.Biomes
 		private void WaterOpacityChanger(ILContext il)
 		{
 			ILCursor c = new(il);
-			c.GotoNext(MoveType.After, i => i.MatchMul(), i => i.MatchStloc(7)); //match to saving of num at the line float num = ptr2->Opacity * (isBackgroundDraw ? 1f : DEFAULT_OPACITY[ptr2->Type]);
-			c.EmitLdloca(7); 
-			//parse through num with a reference through the delegate
+
+			int pointer_varNum = -1; //To save the local variable index of the pointer used for drawing liquids
+			int opacityNum_varNum = -1; //To save the local variable index of the alpha for the liquid
+
+			c.GotoNext(MoveType.After, i => i.MatchLdloc(out pointer_varNum), i => i.MatchLdfld<LiquidRenderer.LiquidDrawCache>("Type"), i => i.MatchLdelemR4(), i => i.MatchBr(out _), i => i.MatchLdcR4(1), i => i.MatchMul(), i => i.MatchStloc(out opacityNum_varNum)); //match to saving of num at the line float num = ptr2->Opacity * (isBackgroundDraw ? 1f : DEFAULT_OPACITY[ptr2->Type]);
+			c.EmitLdloca(opacityNum_varNum); //parse through num with a reference through the delegate
 			//Ldloc2 or ptr2 is a pointer, (pointers are just accesses to fields through memory) which means that we can't parse them through a delegate by themselves
 			//Here we parse through the pointer (ptr2) value for Type and Opacity since thats the only LiquidDrawCache values we use
-
-			c.EmitLdloc2();
-			c.EmitLdfld(typeof(LiquidRenderer).GetNestedType("LiquidDrawCache", BindingFlags.NonPublic).GetField("Opacity")); //we get ptr2.Opacity by parsing throgh both ptr2 and the Opacity field
-			c.EmitLdloc2();
-			c.EmitLdfld(typeof(LiquidRenderer).GetNestedType("LiquidDrawCache", BindingFlags.NonPublic).GetField("Type")); //we get ptr2.Opacity by parsing throgh both ptr2 and the Type field
+			c.EmitLdloc(pointer_varNum);
+			c.EmitLdfld(typeof(LiquidRenderer.LiquidDrawCache).GetField("Opacity")); //we get ptr2.Opacity by parsing throgh both ptr2 and the Opacity field
+			c.EmitLdloc(pointer_varNum);
+			c.EmitLdfld(typeof(LiquidRenderer.LiquidDrawCache).GetField("Type")); //we get ptr2.Opacity by parsing throgh both ptr2 and the Type field
 			c.EmitLdarg(5);
 			c.EmitDelegate((ref float num, float ptr2Opacity, byte ptr2Type, bool isBackgroundDraw) =>
 			{
 				//Anything placed in this delegate is like calling a new method 
-				float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f
-				bool opacityCondition = ptr2Type == LiquidID.Water && Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot;
-				//the condition for when our opacity should be applied
+				float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f, here we set the color to 50% opacity
+				bool opacityCondition = ptr2Type == LiquidID.Water && Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot; //the condition for when our opacity should be applied
 				//This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
 				//We set num (or the opacity of the draw liquid) to either the original value or our value depending on the condition above
-
 				num = opacityCondition ? ptr2Opacity * (isBackgroundDraw ? 1f : LiquidOpacity) : num;
 			});
 		}
@@ -102,16 +101,21 @@ namespace Spooky.Content.Biomes
 		private void OldWaterOpacityChanger(ILContext il)
 		{
 			ILCursor c = new(il);
-			c.GotoNext(MoveType.After, i => i.MatchLdcR4(out _), i => i.MatchStloc(17)); //After num9 is initiated with 0.5f, due to this that means this only works with Water
-			c.EmitLdloca(17); //parse through num9 with a reference through the delegate
-			c.EmitLdloc(11); //parse through y/j 
-			c.EmitLdloc(12); //parse through x/i
+			int alpha_varNum = -1; //The local variable index for the alpha variable
+			int x_varNum = -1; //The local variable index for the x tile position variable
+			int y_varNum = -1; //The local variable index for the y tile position variable
+
+			c.GotoNext(MoveType.After, i => i.MatchLdsflda<Main>("tile"), i => i.MatchLdloc(out x_varNum), i => i.MatchLdloc(out y_varNum)); //Here, we dynamically get the X and Y variable number, we do this so that when tmodloader updates adding more local variables to the method, this edit doesn't break
+			c.GotoNext(MoveType.After, i => i.MatchLdsfld<Main>("drewLava"), i => i.MatchBrtrue(out _), i => i.MatchLdcR4(0.5f), i => i.MatchStloc(out alpha_varNum)); //After num9 is initiated with 0.5f, due to this that means this only works with Water
+			c.EmitLdloca(alpha_varNum); //parse through num9 with a reference through the delegate
+			c.EmitLdloc(y_varNum); //parse through y/j 
+			c.EmitLdloc(x_varNum); //parse through x/i
 			c.EmitDelegate((ref float num9, int j, int i) =>
 			{
 				Tile tile = Main.tile[i, j]; //use x and y to get the tile position
-				float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f
+				float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f, here we set the color to 50% opacity
 				bool opacityCondition = tile.LiquidType == LiquidID.Water && Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot; //the condition for when our opacity should be applied
-				//This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
+																																				 //This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
 				num9 = opacityCondition ? LiquidOpacity : num9; //we get the opacity and using the condition deciide whether to use the normal opacity or use our opacity
 			});
 		}
@@ -119,26 +123,27 @@ namespace Spooky.Content.Biomes
 		private void WaterSlopeOpacityChanger(ILContext il)
 		{
 			ILCursor c = new(il);
-			c.GotoNext(MoveType.After, i => i.MatchLdcR4(out _), i => i.MatchStloc(18)); //After num6 is initiated with 0.5f, due to this that means this only works with Water
-			c.EmitLdloca(18); //parse through num6 with a reference through the delegate
+			int alpha_varNum = -1; //The local variable index for the alpha variable
+
+			c.GotoNext(MoveType.After, i => i.MatchLdcR4(0.5f), i => i.MatchStloc(out alpha_varNum)); //After num6 is initiated with 0.5f, due to this that means this only works with Water
+			c.EmitLdloca(alpha_varNum); //parse through num6 with a reference through the delegate
 			c.EmitLdarg(6); //parse through the method's tileX argument
 			c.EmitLdarg(7); //parse through the method's tileY argument
 			c.EmitDelegate((ref float num6, int tileX, int tileY) =>
 			{
 				Tile tile = Main.tile[tileX, tileY]; //use x and y to get the tile position
-				float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f
+				float LiquidOpacity = WaterOpacity;
 				bool opacityCondition = tile.LiquidType == LiquidID.Water && Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot; //the condition for when our opacity should be applied
-				//This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
+																																				 //This gets the liquid type water and gets the water style for our liquid, this can be changed to anything boolean related
 				num6 = opacityCondition ? LiquidOpacity : num6; //we get the opacity and using the condition deciide whether to use the normal opacity or use our opacity
 			});
 		}
 
 		private float WaterfallOpacityChanger(On_WaterfallManager.orig_GetAlpha orig, float Alpha, int maxSteps, int waterfallType, int y, int s, Tile tileCache)
 		{
-			float LiquidOpacity = WaterOpacity; //ranges from 1f to 0f
-			bool opacityCondition = waterfallType == ModContent.GetInstance<TarWaterfallStyle>().Slot; 
-			//the condition for when our opacity should be applied
-			//This gets just our waterfall type
+			float LiquidOpacity = WaterOpacity;
+			bool opacityCondition = waterfallType == ModContent.GetInstance<TarWaterfallStyle>().Slot; //the condition for when our opacity should be applied
+																									   //This gets just our waterfall type
 			if (opacityCondition)
 			{
 				float num = LiquidOpacity * Alpha; //multiply our opacity with alpha so liquid transitions still work
@@ -148,7 +153,6 @@ namespace Spooky.Content.Biomes
 				}
 				return num;
 			}
-
 			return orig.Invoke(Alpha, maxSteps, waterfallType, y, s, tileCache);
 		}
 

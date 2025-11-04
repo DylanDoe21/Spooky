@@ -613,5 +613,8 @@ SporeWandBall.DisplayName: Spiked Spore
 MiteClawSlash.DisplayName: Mite Claw Slash
 MiteDen.DisplayName: Mite Den
 MiteSwordProj.DisplayName: Ravenous Scimiter
-MiteVacuumProj.DisplayName: Mite Vacuum Proj
-MiteVacuumSpore.DisplayName: Mite Vacuum Spore
+MiteVacuumProj.DisplayName: Devil Duster
+MiteVacuumSpore.DisplayName: Spore Cloud
+CamelSniperBolt.DisplayName: Sniper Bolt
+CamelVenomBolt.DisplayName: Venom Bolt
+MortarRocket.DisplayName: Mortar Rocket

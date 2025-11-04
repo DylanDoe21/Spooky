@@ -124,8 +124,8 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-            int XIncrement = Main.maxTilesX / 98;
-            int YIncrement = Main.maxTilesY / 36;
+            int XIncrement = 6400  / 98;
+            int YIncrement = 1800 / 36;
 
 			//dig out caves
 			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X += XIncrement)
@@ -564,10 +564,10 @@ namespace Spooky.Content.Generation
 		{
 			double SizeX = WorldGen.genRand.Next(75, 125);
 			double SizeY = WorldGen.genRand.Next(20, 50);
-			double CaveSize = (double)1.52380952381;
+			double WorldSizeScale = 1.5; //(double)Main.maxTilesX / 4200;
 
-			SizeX *= CaveSize;
-			SizeY *= CaveSize;
+			SizeX *= WorldSizeScale;
+			SizeY *= WorldSizeScale;
 			double SizeYModified = SizeY - 1.0;
 			double CaveDigThreshold = SizeX;
 			Vector2D val = default(Vector2D);
@@ -717,7 +717,7 @@ namespace Spooky.Content.Generation
             {
                 (ushort)ModContent.WallType<DampSoilWall>(),
                 (ushort)ModContent.WallType<DampGrassWall>(),
-                (ushort)ModContent.WallType<WebBlockWall>()
+                (ushort)ModContent.WallType<WebBlockWall>(),
             };
 
             void getAttachedWallPoints(int x, int y, List<Point> points)
