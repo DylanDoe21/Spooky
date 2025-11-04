@@ -57,6 +57,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 		public override bool PreAI()
         {
             NPC Parent = Main.npc[(int)NPC.ai[3]];
+            Player player = Main.player[Parent.target];
 
             NPC.alpha = Parent.alpha;
 
@@ -181,6 +182,23 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                 //top segment
                 case 5:
                 {
+                    if (Parent.ai[0] == 3) 
+                    {
+                        if (Parent.localAI[0] % 20 == 0)
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath with { Volume = 0.65f }, NPC.Center);
+                        }
+
+                        if (Parent.localAI[0] % 3 == 0)
+                        {
+                            Vector2 ShootSpeed = player.Center - NPC.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= 5f;
+
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<MortarFire>(), NPC.damage, 4.5f);
+                        }
+                    }
+
                     break;
                 }
             }

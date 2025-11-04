@@ -243,7 +243,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					if (NPC.localAI[0] >= 300)
 					{
 						NPC.localAI[0] = 0;
-						NPC.ai[0] = 2;
+						NPC.ai[0] = Main.rand.NextBool() ? 2 : 3;
 						NPC.netUpdate = true;
 					}
 
@@ -285,7 +285,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				{
 					NPC.localAI[0]++;
 
-					if (NPC.localAI[0] >= 300)
+					if (NPC.localAI[0] >= 180)
 					{
 						NPC.localAI[0] = 0;
 						NPC.ai[0] = 0;
