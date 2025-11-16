@@ -543,26 +543,23 @@ namespace Spooky.Content.Generation
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];
 
-					if (chestTile.TileFrameX == 15 * 36 && (chest.item[0].type == ItemID.BladedGlove || chest.item[0].type == ItemID.BloodyMachete))
+					if (chestTile.TileFrameX == 5 * 36 && chest.item[0].type == ModContent.ItemType<EMFReaderBroke>())
 					{
 						int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
 						int[] Potions = new int[] { ModContent.ItemType<CranberryJelly>(), ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };
 
-                        //broken emf reader
-						chest.item[1].SetDefaults(ModContent.ItemType<EMFReaderBroke>());
-						chest.item[1].stack = 1;
 						//iron or lead bars
-						chest.item[2].SetDefaults(WorldGen.genRand.Next(Bars));
-						chest.item[2].stack = WorldGen.genRand.Next(8, 15);
+						chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
+						chest.item[1].stack = WorldGen.genRand.Next(8, 15);
 						//light sources
-						chest.item[3].SetDefaults(ModContent.ItemType<CemeteryBiomeTorchItem>());
-						chest.item[3].stack = WorldGen.genRand.Next(3, 8);
+						chest.item[2].SetDefaults(ModContent.ItemType<CemeteryBiomeTorchItem>());
+						chest.item[2].stack = WorldGen.genRand.Next(3, 8);
 						//potions
-						chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions));
-						chest.item[4].stack = WorldGen.genRand.Next(3, 5);
+						chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions));
+						chest.item[3].stack = WorldGen.genRand.Next(3, 5);
 						//coins
-						chest.item[5].SetDefaults(ItemID.GoldCoin);
-						chest.item[5].stack = WorldGen.genRand.Next(1, 2);
+						chest.item[4].SetDefaults(ItemID.GoldCoin);
+						chest.item[4].stack = WorldGen.genRand.Next(1, 2);
 					}
 				}
             }

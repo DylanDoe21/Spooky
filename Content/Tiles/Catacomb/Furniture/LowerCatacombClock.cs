@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ObjectData;
+using Terraria.GameContent.ObjectInteractions;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,6 +34,11 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 		public override void NumDust(int i, int j, bool fail, ref int num) 
         {
             num = fail ? 1 : 3;
+        }
+
+		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
+        {
+            return true;
         }
 
 		public override bool RightClick(int x, int y)
