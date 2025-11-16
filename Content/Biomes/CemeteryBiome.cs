@@ -95,11 +95,7 @@ namespace Spooky.Content.Biomes
         {
             //graveyard visuals
             player.ZoneGraveyard = true;
-
-            if (Main.rand.NextBool(1200) && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()))
-            {
-                Main.NewLightning();
-            }
+            Main.GraveyardVisualIntensity = 0.1f;
         }
 
         //conditions to be in the biome

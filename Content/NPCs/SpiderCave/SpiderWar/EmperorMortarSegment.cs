@@ -11,7 +11,7 @@ using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
 namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 {
-    public class EmporerMortarSegment : ModNPC
+    public class EmperorMortarSegment : ModNPC
     {
         public float HeatMaskAlpha = 0f;
 
@@ -71,7 +71,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             NPC.alpha = Parent.alpha;
 
             //kill segment if the head doesnt exist
-			if (!Parent.active || Parent.type != ModContent.NPCType<EmporerMortar>())
+			if (!Parent.active || Parent.type != ModContent.NPCType<EmperorMortar>())
             {
                 NPC.active = false;
             }

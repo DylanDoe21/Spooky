@@ -41,6 +41,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             NPC.aiStyle = -1;
         }
 
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
+		}
+
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
 			NPC Parent = Main.npc[(int)NPC.ai[3]];

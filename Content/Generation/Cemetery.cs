@@ -301,45 +301,6 @@ namespace Spooky.Content.Generation
             int XMiddle = Catacombs.PositionX;
             int XEdge = Catacombs.PositionX + (BiomeWidth / 2);
 
-            for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X += 30)
-            {
-                for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
-                {
-                    if (WorldGen.genRand.NextBool(3))
-                    {
-                        for (int TombstoneX = X - 10; TombstoneX <= X + 10; TombstoneX++)
-                        {
-                            for (int TombstoneY = Y - 6; TombstoneY <= Y + 6; TombstoneY++)
-                            {
-                                Tile tile = Main.tile[TombstoneX, TombstoneY];
-                                if ((tile.TileType == (ushort)ModContent.TileType<CemeteryDirt>() || tile.TileType == (ushort)ModContent.TileType<CemeteryStone>()) && !WorldGen.SolidTile(TombstoneX, TombstoneY - 1))
-                                {
-                                    WorldGen.PlaceWall(TombstoneX, TombstoneY - 2, WallID.WroughtIronFence);
-                                    WorldGen.PlaceWall(TombstoneX, TombstoneY - 1, WallID.WroughtIronFence);
-                                    WorldGen.PlaceWall(TombstoneX, TombstoneY, WallID.WroughtIronFence);
-
-                                    if (WorldGen.SolidTile(TombstoneX, TombstoneY) && WorldGen.genRand.NextBool())
-                                    {
-                                        if (WorldGen.genRand.NextBool(12))
-                                        {
-                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<MysteriousTombstone>(), true, WorldGen.genRand.Next(0, 3));
-                                        }
-                                        else if (WorldGen.genRand.NextBool(6))
-                                        {
-                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<TombstoneCracked>(), true, WorldGen.genRand.Next(0, 3));
-                                        }
-                                        else if (WorldGen.genRand.NextBool(3))
-                                        {
-                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X++)
             {
                 for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
@@ -364,6 +325,45 @@ namespace Spooky.Content.Generation
                             if (Main.netMode == NetmodeID.Server)
                             {
                                 NetMessage.SendTileSquare(-1, X, Y - 1, 1, TileChangeType.None);
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X += 30)
+            {
+                for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
+                {
+                    if (WorldGen.genRand.NextBool(3))
+                    {
+                        for (int TombstoneX = X - 10; TombstoneX <= X + 10; TombstoneX++)
+                        {
+                            for (int TombstoneY = Y - 6; TombstoneY <= Y + 6; TombstoneY++)
+                            {
+                                Tile tile = Main.tile[TombstoneX, TombstoneY];
+                                if ((tile.TileType == (ushort)ModContent.TileType<CemeteryGrass>() || tile.TileType == (ushort)ModContent.TileType<CemeteryStone>()) && !WorldGen.SolidTile(TombstoneX, TombstoneY - 1))
+                                {
+                                    WorldGen.PlaceWall(TombstoneX, TombstoneY - 2, WallID.WroughtIronFence);
+                                    WorldGen.PlaceWall(TombstoneX, TombstoneY - 1, WallID.WroughtIronFence);
+                                    WorldGen.PlaceWall(TombstoneX, TombstoneY, WallID.WroughtIronFence);
+
+                                    if (WorldGen.SolidTile(TombstoneX, TombstoneY) && WorldGen.genRand.NextBool())
+                                    {
+                                        if (WorldGen.genRand.NextBool(12))
+                                        {
+                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<MysteriousTombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                        }
+                                        else if (WorldGen.genRand.NextBool(6))
+                                        {
+                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<TombstoneCracked>(), true, WorldGen.genRand.Next(0, 3));
+                                        }
+                                        else if (WorldGen.genRand.NextBool(3))
+                                        {
+                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

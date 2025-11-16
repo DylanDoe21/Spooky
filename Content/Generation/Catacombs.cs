@@ -61,7 +61,7 @@ namespace Spooky.Content.Generation
 				int EndValue = XMiddle + layer1Width + 40;
 				progress.Set((float)(X - StartValue) / (EndValue - StartValue));
 
-				for (int Y = (int)Main.worldSurface - 35; Y <= (int)Main.worldSurface + layer1Depth + 45; Y++)
+				for (int Y = (int)Main.worldSurface - 32; Y <= (int)Main.worldSurface + layer1Depth + 45; Y++)
                 {
                     Main.tile[X, Y].ClearEverything();
                     WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick1>());

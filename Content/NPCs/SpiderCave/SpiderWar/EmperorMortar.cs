@@ -16,7 +16,7 @@ using System;
 
 namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 {
-	public class EmporerMortar : ModNPC
+	public class EmperorMortar : ModNPC
 	{
 		bool SpawnedSegments = false;
 
@@ -43,6 +43,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			//SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
+		}
+
 		/*
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
@@ -50,7 +55,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Harvestmen"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.EmperorMortar"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -93,7 +98,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					int latestNPC = NPC.whoAmI;
 					for (int numSegments = 0; numSegments < 6; numSegments++)
 					{
-						latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<EmporerMortarSegment>(), NPC.whoAmI, 0, latestNPC);
+						latestNPC = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + (NPC.width / 2), (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<EmperorMortarSegment>(), NPC.whoAmI, 0, latestNPC);
 						Main.npc[latestNPC].lifeMax = NPC.lifeMax;
 						Main.npc[latestNPC].realLife = NPC.whoAmI;
 						Main.npc[latestNPC].ai[2] = numSegments;

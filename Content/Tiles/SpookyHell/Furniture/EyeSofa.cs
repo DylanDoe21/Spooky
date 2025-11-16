@@ -24,6 +24,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
+			TileID.Sets.HasOutlines[Type] = true;
 			TileID.Sets.CanBeSatOnForPlayers[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
 			TileObjectData.newTile.Origin = new Point16(1, 1);
@@ -52,7 +53,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
 		{
-			return settings.player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance);
+			return true;
 		}
 
 		public override void ModifySittingTargetInfo(int i, int j, ref TileRestingInfo info)

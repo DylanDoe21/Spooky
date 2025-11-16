@@ -13,5 +13,5 @@ Items:
 -Lowered volume on ear parasite companion screeching
 
 Random Stuff:
--Reduced frequency of lightning sounds in the swampy cemetery
--Reduced graveyard desaturation effect in the swampy cemetery and catacombs
+-Removed random lightning in the swampy cemetery
+-Reduced graveyard desaturation effect in the swampy cemetery a bit
