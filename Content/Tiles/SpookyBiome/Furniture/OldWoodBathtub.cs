@@ -19,8 +19,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(93, 62, 39), name);
+			AddMapEntry(new Color(93, 62, 39), Lang.GetItemName(ItemID.Bathtub));
 			DustType = DustID.WoodFurniture;
 			AdjTiles = new int[] { TileID.Bathtubs };
 		}

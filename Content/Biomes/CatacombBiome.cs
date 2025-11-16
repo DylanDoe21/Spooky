@@ -45,7 +45,6 @@ namespace Spooky.Content.Biomes
 
             //graveyard visuals
             player.ZoneGraveyard = true;
-            Main.GraveyardVisualIntensity = 0.12f;
         }
 
         public override bool IsBiomeActive(Player player)

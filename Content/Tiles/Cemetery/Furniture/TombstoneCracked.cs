@@ -7,7 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
-    public class TombstoneCracked1 : ModTile
+    [LegacyName("TombstoneCracked1")]
+    [LegacyName("TombstoneCracked2")]
+    public class TombstoneCracked : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -17,9 +19,14 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.UsesCustomCanPlace = true;
+            TileObjectData.newTile.CoordinateWidth = 16;
+            TileObjectData.newTile.CoordinatePadding = 2;
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.RandomStyleRange = 3;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(39, 39, 49));
-            DustType = DustID.Ash;
+            AddMapEntry(new Color(53, 68, 60));
+            DustType = DustID.Stone;
             HitSound = SoundID.Tink;
         }
 
@@ -27,9 +34,5 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<CemeteryStoneItem>(), Main.rand.Next(3, 10));
         }
-    }
-
-    public class TombstoneCracked2 : TombstoneCracked1
-    {
     }
 }

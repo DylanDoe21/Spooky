@@ -25,8 +25,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(98, 67, 82), name);
+			AddMapEntry(new Color(98, 67, 82), Lang.GetItemName(ItemID.Sofa));
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			DustType = DustID.Stone;
 			AdjTiles = new int[] { TileID.Benches };

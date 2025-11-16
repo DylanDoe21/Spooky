@@ -22,8 +22,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(114, 13, 39), name);
+			AddMapEntry(new Color(114, 13, 39), Lang.GetItemName(ItemID.Bathtub));
 			DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Bathtubs };
 		}

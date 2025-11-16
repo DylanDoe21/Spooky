@@ -13,7 +13,10 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 {
     public class EmporerMortarSegment : ModNPC
     {
+        public float HeatMaskAlpha = 0f;
+
         private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> HeatGlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -48,8 +51,14 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            HeatGlowTexture ??= ModContent.Request<Texture2D>(Texture + "HeatGlow");
 
             Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+
+            if (HeatMaskAlpha > 0)
+            {
+                Main.EntitySpriteDraw(HeatGlowTexture.Value, NPC.Center - screenPos, NPC.frame, NPC.GetAlpha(Color.White * HeatMaskAlpha), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, SpriteEffects.None, 0);
+            }
 
             return false;
         }
@@ -135,7 +144,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                                 dust.velocity += NPC.velocity;
                             }
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarRocket>(), NPC.damage, 1f);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarRocket>(), NPC.damage, 1f, ai1: Main.rand.Next(0, 3));
                         }
                     }
 
@@ -184,18 +193,32 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                 {
                     if (Parent.ai[0] == 3) 
                     {
-                        if (Parent.localAI[0] % 20 == 0)
+                        if (HeatMaskAlpha < 1)
                         {
-                            SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath with { Volume = 0.65f }, NPC.Center);
+                            HeatMaskAlpha += 0.1f;
                         }
-
-                        if (Parent.localAI[0] % 3 == 0)
+                        else
                         {
-                            Vector2 ShootSpeed = player.Center - NPC.Center;
-                            ShootSpeed.Normalize();
-                            ShootSpeed *= 5f;
+                            if (Parent.localAI[0] % 20 == 0)
+                            {
+                                SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath with { Volume = 0.65f }, NPC.Center);
+                            }
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<MortarFire>(), NPC.damage, 4.5f);
+                            if (Parent.localAI[0] % 5 == 0)
+                            {
+                                Vector2 ShootSpeed = player.Center - NPC.Center;
+                                ShootSpeed.Normalize();
+                                ShootSpeed *= 5f;
+
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, ShootSpeed, ModContent.ProjectileType<MortarFire>(), NPC.damage, 4.5f);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (HeatMaskAlpha > 0)
+                        {
+                            HeatMaskAlpha -= 0.02f;
                         }
                     }
 

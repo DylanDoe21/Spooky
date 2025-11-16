@@ -19,6 +19,7 @@ using Spooky.Content.NPCs.PandoraBox;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Content.Generation
@@ -28,20 +29,10 @@ namespace Spooky.Content.Generation
         int chosenRoom = 0;
         int switchRoom = 0;
 
-        int[] RoomPatternLayer1 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-        int[] RoomPatternLayer2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-
         public static int EntranceY = 0;
         public static int EntranceBottomY = 0;
         public static int PositionX = 0;
 
-        bool placedLootRoom1 = false;
-        bool placedLootRoom2 = false;
-        bool placedLootRoom3 = false;
-        bool placedLootRoom4 = false;
-        bool placedRareSecretRoom = false;
-
-        Vector2[] Layer2LootRooms = new Vector2[3];
 		Vector2 PandoraRoomPosition;
 
 		private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
@@ -63,212 +54,95 @@ namespace Spooky.Content.Generation
             //235 = large worlds (6 rooms deep), 190 = medium worlds (5 rooms deep), 145 = small worlds (4 rooms deep)
             int layer1Depth = Main.maxTilesY >= 2400 ? 235 : (Main.maxTilesY >= 1800 ? 190 : 145);
 
-            placedLootRoom1 = false;
-            placedLootRoom2 = false;
-            placedLootRoom3 = false;
-            placedLootRoom4 = false;
-            placedRareSecretRoom = false;
-
-            //first, place a circle of bricks where each catacomb room will be
-            for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
+            //first, place giant square where the catacombs will be
+            for (int X = XMiddle - layer1Width - 40; X <= XMiddle + layer1Width + 40; X++)
             {
-				int StartValue = XMiddle - layer1Width;
-				int EndValue = XMiddle + layer1Width;
+				int StartValue = XMiddle - layer1Width - 40;
+				int EndValue = XMiddle + layer1Width + 40;
 				progress.Set((float)(X - StartValue) / (EndValue - StartValue));
 
-				for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
+				for (int Y = (int)Main.worldSurface - 35; Y <= (int)Main.worldSurface + layer1Depth + 45; Y++)
                 {
-                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), ModContent.WallType<CatacombBrickWall1>(), 40, true, true);
+                    Main.tile[X, Y].ClearEverything();
+                    WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick1>());
+                    WorldGen.PlaceWall(X, Y, ModContent.WallType<CatacombBrickWall1>());
                 }
             }
 
-            //randomize room pattern
-            RoomPatternLayer1 = RoomPatternLayer1.OrderBy(x => WorldGen.genRand.Next()).ToArray();
+            int DaffodilArenaY = (int)Main.worldSurface + layer1Depth + 55;
 
-            //place the actual rooms
+            //place square of brick around where daffodils arena will generate
+            for (int X = XMiddle - layer1Width - 40; X <= XMiddle + layer1Width + 40; X++)
+            {
+                for (int Y = DaffodilArenaY - 30; Y <= DaffodilArenaY + 30; Y++)
+                {
+                    Main.tile[X, Y].ClearEverything();
+                    
+                    //place the first layer bricks around the top half of the arena
+                    if (Y <= DaffodilArenaY)
+                    {
+                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick1>());
+                        WorldGen.PlaceWall(X, Y, ModContent.WallType<CatacombBrickWall1>());
+                    }
+                    else if (Y > DaffodilArenaY && Y <= DaffodilArenaY + 10)
+                    {
+                        if (WorldGen.genRand.NextBool())
+                        {
+                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick2>());
+                            WorldGen.PlaceWall(X, Y, ModContent.WallType<CatacombBrickWall2>());
+                        }
+                        else
+                        {
+                            WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick1>());
+                            WorldGen.PlaceWall(X, Y, ModContent.WallType<CatacombBrickWall1>());
+                        }
+                    }
+                    //on the bottom half, place the second layer bricks
+                    else
+                    {
+                        WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick2>());
+                        WorldGen.PlaceWall(X, Y, ModContent.WallType<CatacombBrickWall2>());
+                    }
+                }
+            }
+
+            bool PlacedMoyaiRoom = false;
+
+            //place the actual rooms in a grid
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
             {
 				for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
                 {
-                    chosenRoom = RoomPatternLayer1[switchRoom];
-
-                    switchRoom++;
-
-                    if (switchRoom >= RoomPatternLayer1.Length)
-                    {
-                        switchRoom = 0;
-                    }
-
                     //origin offset for each room so it places at the center of the position its placed at
                     Vector2 origin = new Vector2(X - 18, Y - 18);
 
-                    //first row
-                    if (Y == (int)Main.worldSurface + 10)
-                    {
-                        //randomly place the loot room, or place it automatically if it reaches the edge
-                        //do not place the first loot room in the middle where the entrance is either
-                        if (!placedLootRoom1 && X != XMiddle && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
-                        {
-							StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-1.shstruct", origin.ToPoint16(), Mod);
-                            placedLootRoom1 = true;
-                        }
-                        else 
-                        {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
-                            {
-								//only one treasure room can be placed in a world
-								StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            else
-                            {
-								StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                        }
+                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room" + WorldGen.genRand.Next(1, 21) + ".shstruct", origin.ToPoint16(), Mod);
 
-                        //place entrance room in the top row in the center
-                        if (X == XMiddle)
-                        {
-							StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/EntranceRoom.shstruct", origin.ToPoint16(), Mod);
-                        }
-                    }
-
-                    //second row
-                    if (Y == (int)Main.worldSurface + 55)
+                    if (WorldGen.genRand.NextBool(50) && !PlacedMoyaiRoom)
                     {
-                        //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom2 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-2.shstruct", origin.ToPoint16(), Mod);
-                            placedLootRoom2 = true;
-                        }
-                        else
-                        {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
-                            {
-                                //only one treasure room can be placed in a world
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(12))
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4) + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                        }
-                    }
-
-                    //third row
-                    if (Y == (int)Main.worldSurface + 100)
-                    {
-                        //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom3 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-3.shstruct", origin.ToPoint16(), Mod);
-                            placedLootRoom3 = true;
-                        }
-                        else
-                        {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
-                            {
-                                //only one treasure room can be placed in a world
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(10))
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4) + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                        }
-                    }
-
-                    //fourth row
-                    if (Y == (int)Main.worldSurface + 145)
-                    {
-                        //randomly place the first loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom4 && (WorldGen.genRand.NextBool(5) || X == XMiddle + layer1Width))
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/LootRoom-4.shstruct", origin.ToPoint16(), Mod);
-                            placedLootRoom4 = true;
-                        }
-                        else
-                        {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
-                            {
-                                //only one treasure room can be placed in a world
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            //place trap rooms sometimes
-                            else if (WorldGen.genRand.NextBool(10))
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4) + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                        }
-                    }
-
-                    //fifth row
-                    if (Y == (int)Main.worldSurface + 190)
-                    {
-                        //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
-                        {
-                            //only one treasure room can be placed in a world
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
-                            placedRareSecretRoom = true;
-                        }
-                        //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(10))
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4) + ".shstruct", origin.ToPoint16(), Mod);
-                        }
-                        else
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                        }
-                    }
-
-                    //sixth row
-                    if (Y == (int)Main.worldSurface + 235)
-                    {
-                        //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(200) && !placedRareSecretRoom)
-                        {
-                            //only one treasure room can be placed in a world
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
-                            placedRareSecretRoom = true;
-                        }
-                        //place trap rooms sometimes
-                        else if (WorldGen.genRand.NextBool(10))
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom-" + WorldGen.genRand.Next(1, 4) + ".shstruct", origin.ToPoint16(), Mod);
-                        }
-                        else
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                        }
+                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
+                        PlacedMoyaiRoom = true;
                     }
                 }
             }
 
             //place hallways
+            bool PlaceVerticalHall = true;
+            bool PlaceAdditionalHorizontalHall = false;
+
+            List<int> GuaranteedVerticalHallPositions = new() { };
+
+            for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
+            {
+                GuaranteedVerticalHallPositions.Add(X);
+            }
+            for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth - 45; Y += 45)
+            {
+                //place at least one vertical hall per row
+                Vector2 guaranteedVerticalHallOrigin = new Vector2(WorldGen.genRand.Next(GuaranteedVerticalHallPositions) - 7, Y + 15);
+                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall.shstruct", guaranteedVerticalHallOrigin.ToPoint16(), Mod);
+            }
+
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
             {
                 for (int Y = (int)Main.worldSurface + 10; Y <= (int)Main.worldSurface + layer1Depth; Y += 45)
@@ -280,25 +154,65 @@ namespace Spooky.Content.Generation
                     //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
                     if (Y < (int)Main.worldSurface + layer1Depth)
                     {
-                        //dont place a hall on the last room
-                        if (X < XMiddle + layer1Width)
+                        //randomly place a vertical hall, otherwise place a horizontal hall
+                        if (WorldGen.genRand.NextBool(3))
                         {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall.shstruct", verticalHallOrigin.ToPoint16(), Mod);
+                            PlaceVerticalHall = true;
+                        }
+                        else
+                        {
+                            //dont place a hall on the last room
+                            if (X < XMiddle + layer1Width)
+                            {
+                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                            }
+                            else
+                            {
+                                if (WorldGen.genRand.NextBool())
+                                {
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall.shstruct", verticalHallOrigin.ToPoint16(), Mod);
+                                }
+                                else
+                                {
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16() - new Vector2(50, 0).ToPoint16(), Mod);
+                                }
+                            }
                         }
 
-                        //place a vertical hall randomly under any room
-                        if (WorldGen.genRand.NextBool())
+                        //swap between placing a guaranteed vertical or horizontal hall, which adds randomness
+                        //this is done after the code above to ensure that every single room in the catacombs is accessible
+                        if (!PlaceVerticalHall)
                         {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", verticalHallOrigin.ToPoint16(), Mod);
+                            PlaceVerticalHall = true;
+                        }
+                        else
+                        {
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/VerticalHall.shstruct", verticalHallOrigin.ToPoint16(), Mod);
+
+                            if (!PlaceAdditionalHorizontalHall)
+                            {
+                                PlaceAdditionalHorizontalHall = true;
+                            }
+                            else
+                            {
+                                if (X < XMiddle + layer1Width)
+                                {
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                                }
+
+                                PlaceAdditionalHorizontalHall = false;
+                            }
+
+                            PlaceVerticalHall = false;
                         }
                     }
                     //on the bottom row of rooms, only place horizontal halls
                     else
                     {
-                        //dont place a hall on the last room
                         if (X < XMiddle + layer1Width)
                         {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16(), Mod);
                         }
                     }
                 }
@@ -309,17 +223,6 @@ namespace Spooky.Content.Generation
 
 			progress.Message = Language.GetOrRegister("Mods.Spooky.WorldgenTasks.Catacombs2").Value;
 
-			//reset the room pattern stuff
-			switchRoom = 0;
-            chosenRoom = 0;
-
-            //reset the loot room bools
-            placedLootRoom1 = false;
-            placedLootRoom2 = false;
-            placedLootRoom3 = false;
-            placedLootRoom4 = false;
-            placedRareSecretRoom = false;
-
             //sets the width for the catacombs second layer (how many rooms it has horizontally)
             //240 = large worlds (9 rooms wide), 160 = medium worlds (5 rooms wide), 80 = small worlds (3 rooms wide)
             int layer2Width = Main.maxTilesX >= 8400 ? 240 : (Main.maxTilesX >= 6400 ? 160 : 80);
@@ -328,35 +231,34 @@ namespace Spooky.Content.Generation
             //350 = large worlds (6 rooms deep), 300 = medium worlds (5 rooms deep), 250 = small worlds (4 rooms deep)
             int layer2Depth = Main.maxTilesY >= 2400 ? 350 : (Main.maxTilesY >= 1800 ? 300 : 250);
 
-            //randomize room pattern
-            RoomPatternLayer2 = RoomPatternLayer2.OrderBy(x => WorldGen.genRand.Next()).ToArray();
-
             int layer2Start = (int)Main.worldSurface + layer1Depth + 118;
 
-            //again, place a circle of bricks where each catacomb room will be
-            //since the rooms in layer 2 are wider, place two circles side by side
-            for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
+            //first, place giant square where the catacombs will be
+            for (int X = XMiddle - layer2Width - 60; X <= XMiddle + layer2Width + 60; X++)
             {
-				int StartValue = XMiddle - layer2Width;
-				int EndValue = XMiddle + layer2Width;
+				int StartValue = XMiddle - layer2Width - 60;
+				int EndValue = XMiddle + layer2Width + 60;
 				progress.Set((float)(X - StartValue) / (EndValue - StartValue));
 
-				for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
+				for (int Y = layer2Start - 45; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth + 30; Y++)
                 {
-                    SpookyWorldMethods.PlaceCircle(X - 20, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 40, true, true);
-                    SpookyWorldMethods.PlaceCircle(X + 20, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 40, true, true);
+                    Main.tile[X, Y].ClearEverything();
+                    WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick2>());
+                    WorldGen.PlaceWall(X, Y, ModContent.WallType<CatacombBrickWall2>());
                 }
             }
 
-            //place circles around where the big bone arena will generate
+            //place box around where the big bone arena will generate
             //this is done before generating the layer two rooms so it doesnt destroy them
             int BigBoneArenaY = (int)Main.worldSurface + layer1Depth + layer2Depth + 50;
 
-            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 10)
+            for (int X = XMiddle - 100; X <= XMiddle + 100; X++)
             {
-                for (int Y = BigBoneArenaY - 35; Y <= BigBoneArenaY + 45; Y += 10)
+                for (int Y = BigBoneArenaY - 35; Y <= BigBoneArenaY + 70; Y++)
                 {
-                    SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 10, true, true);
+                    Main.tile[X, Y].ClearEverything();
+                    WorldGen.PlaceTile(X, Y, ModContent.TileType<CatacombBrick2>());
+                    WorldGen.PlaceWall(X, Y, ModContent.WallType<CatacombBrickWall2>());
                 }
             }
 
@@ -365,204 +267,35 @@ namespace Spooky.Content.Generation
             {
 				for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
                 {
-					chosenRoom = RoomPatternLayer2[switchRoom];
-
-                    switchRoom++;
-
-                    if (switchRoom >= RoomPatternLayer2.Length)
-                    {
-                        switchRoom = 0;
-                    }
-
                     //origin offset for each room so it places at the center
                     Vector2 origin = new Vector2(X - 35, Y - 18);
 
-                    //first row
-                    if (Y == layer2Start)
-                    {
-                        //randomly place the loot room, or place it automatically if it reaches the edge
-                        //do not place this loot room in the middle of the catacombs as this is where the entrance room generates
-                        if (!placedLootRoom1 && X != XMiddle && (!IsSmallWorld && WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width) || (IsSmallWorld && X == XMiddle - layer2Width))
-                        {
-							StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-1.shstruct", origin.ToPoint16(), Mod);
-                            placedLootRoom1 = true;
-                        }
-                        else
-                        {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
-                            {
-								//only one treasure room can be placed in a world
-								StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            //place puzzle rooms sometimes
-                            else if (WorldGen.genRand.NextBool(10))
-                            {
-								StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-								StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                        }
+                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room" + WorldGen.genRand.Next(1, 19) + ".shstruct", origin.ToPoint16(), Mod);
 
-                        //place entrance room in the top row in the center
-                        if (X == XMiddle)
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/EntranceRoom.shstruct", origin.ToPoint16(), Mod);
-                        }
-                    }
-
-                    //second row
-                    if (Y == layer2Start + 42)
+                    if (X == XMiddle && Y == layer2Start + 84)
                     {
-                        //randomly place the loot room, or place it automatically if it reaches the edge
-                        if (!placedLootRoom2 && (!IsSmallWorld && WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width) || (IsSmallWorld && X == XMiddle - layer2Width))
-                        {
-                            Layer2LootRooms[0] = new Vector2(origin.X, origin.Y);
-                            placedLootRoom2 = true;
-                        }
-                        else
-                        {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
-                            {
-                                //only one treasure room can be placed in a world
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            //place puzzle rooms sometimes
-                            else if (WorldGen.genRand.NextBool(10))
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                        }
-                    }
-
-                    //third row
-                    if (Y == layer2Start + 84)
-                    {
-                        //randomly place the loot room, or place it automatically if it reaches the edge
-                        //do not place this loot room in the middle of the catacombs as this is where pandoras box room generates
-                        if (!placedLootRoom3 && X != XMiddle && (!IsSmallWorld && WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width) || (IsSmallWorld && X == XMiddle - layer2Width))
-                        {
-                            Layer2LootRooms[1] = new Vector2(origin.X, origin.Y);
-                            placedLootRoom3 = true;
-                        }
-                        else if (X == XMiddle)
-                        {
-                            PandoraRoomPosition = new Vector2(origin.X, origin.Y);
-                        }
-                        else
-                        {
-                            //rare chance to place a golden treasure room
-                            if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
-                            {
-                                //only one treasure room can be placed in a world
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
-                                placedRareSecretRoom = true;
-                            }
-                            //place puzzle rooms sometimes
-                            else if (WorldGen.genRand.NextBool(10))
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                            }
-                        }
-                    }
-
-                    //fourth row
-                    if (Y == layer2Start + 126)
-                    {
-                        //randomly place the loot room, or place it automatically if it reaches the edge
-                        //do not place this loot room in the middle of the catacombs as this is where the fishing room and the entrance to big bones arena generates (except on large worlds)
-                        if (!placedLootRoom4 && X != XMiddle && (!IsSmallWorld && WorldGen.genRand.NextBool(4) || X == XMiddle + layer2Width) || (IsSmallWorld && X == XMiddle - layer2Width))
-                        {
-                            Layer2LootRooms[2] = new Vector2(origin.X, origin.Y);
-                            placedLootRoom4 = true;
-                        }
-                        else
-                        {
-                            //place fishing room in the middle of the fourth row
-                            if (X == XMiddle)
-                            {
-                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/FishingRoom.shstruct", origin.ToPoint16(), Mod);
-                            }
-                            else
-                            {
-                                //rare chance to place a golden treasure room
-                                if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
-                                {
-                                    //only one treasure room can be placed in a world
-                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
-                                    placedRareSecretRoom = true;
-                                }
-                                //place puzzle rooms sometimes
-                                else if (WorldGen.genRand.NextBool(10))
-                                {
-                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
-                                }
-                                else
-                                {
-                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                                }
-                            }
-                        }
-                    }
-
-                    //fifth row
-                    if (Y == layer2Start + 168)
-                    {
-                        //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
-                        {
-                            //only one treasure room can be placed in a world
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
-                            placedRareSecretRoom = true;
-                        }
-                        //place puzzle rooms sometimes
-                        else if (WorldGen.genRand.NextBool(10))
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
-                        }
-                        else
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                        }
-                    }
-
-                    //sixth row
-                    if (Y == layer2Start + 210)
-                    {
-                        //rare chance to place a golden treasure room
-                        if (WorldGen.genRand.NextBool(150) && !placedRareSecretRoom)
-                        {
-                            //only one treasure room can be placed in a world
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
-                            placedRareSecretRoom = true;
-                        }
-                        //place puzzle rooms sometimes
-                        else if (WorldGen.genRand.NextBool(10))
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom-" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
-                        }
-                        else
-                        {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room-" + chosenRoom + ".shstruct", origin.ToPoint16(), Mod);
-                        }
+                        PandoraRoomPosition = origin;
                     }
                 }
             }
 
             //place hallways
+            PlaceVerticalHall = false;
+            PlaceAdditionalHorizontalHall = false;
+
+            GuaranteedVerticalHallPositions.Clear();
+
+            for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
+            {
+                GuaranteedVerticalHallPositions.Add(X);
+            }
+            for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth - 42; Y += 42)
+            {
+                //place at least one vertical hall per row
+                Vector2 guaranteedVerticalHallOrigin = new Vector2(WorldGen.genRand.Next(GuaranteedVerticalHallPositions) - 7, Y + 15);
+                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall.shstruct", guaranteedVerticalHallOrigin.ToPoint16(), Mod);
+            }
+
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
                 for (int Y = layer2Start; Y <= (int)Main.worldSurface + layer1Depth + layer2Depth; Y += 42)
@@ -574,66 +307,72 @@ namespace Spooky.Content.Generation
                     //for all rows besides the bottom, place horizontal halls between each room, which a chance to place a vertical hall on the bottom
                     if (Y < (int)Main.worldSurface + layer1Depth + layer2Depth - 40)
                     {
-                        //dont place a hall on the last room
-                        if (X < XMiddle + layer2Width)
+                        //always place a vertical hall below the pandora box room
+                        if (X == XMiddle && (Y == layer2Start + 42 || Y == layer2Start + 84))
                         {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall.shstruct", verticalHallOrigin.ToPoint16(), Mod);
                         }
 
-                        //place a vertical hall randomly under any room except for the pandoras box room
-                        if (X != XMiddle || (Y != layer2Start + 84 && Y != layer2Start + 42))
+                        //randomly place a vertical hall, otherwise place a horizontal hall
+                        if (WorldGen.genRand.NextBool(3))
                         {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", verticalHallOrigin.ToPoint16(), Mod);
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall.shstruct", verticalHallOrigin.ToPoint16(), Mod);
+
+                            PlaceVerticalHall = true;
+                        }
+                        else
+                        {
+                            //dont place a hall on the last room
+                            if (X < XMiddle + layer2Width)
+                            {
+                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                            }
+                            else
+                            {
+                                if (WorldGen.genRand.NextBool())
+                                {
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/VerticalHall.shstruct", verticalHallOrigin.ToPoint16(), Mod);
+                                }
+                                else
+                                {
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16() - new Vector2(80, 0).ToPoint16(), Mod);
+                                }
+                            }
+                        }
+
+                        //swap between placing a guaranteed vertical or horizontal hall, which adds randomness
+                        //this is done after the code above to ensure that every single room in the catacombs is accessible
+                        if (!PlaceVerticalHall)
+                        {
+                            PlaceVerticalHall = true;
+                        }
+                        else
+                        {
+                            if (!PlaceAdditionalHorizontalHall)
+                            {
+                                PlaceAdditionalHorizontalHall = true;
+                            }
+                            else
+                            {
+                                if (X < XMiddle + layer2Width)
+                                {
+                                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                                }
+
+                                PlaceAdditionalHorizontalHall = false;
+                            }
+
+                            PlaceVerticalHall = false;
                         }
                     }
                     //on the bottom row of rooms, only place horizontal halls
                     else
                     {
-                        //dont place a hall on the last room
                         if (X < XMiddle + layer2Width)
                         {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOrigin.ToPoint16(), Mod);
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall.shstruct", horizontalHallOrigin.ToPoint16(), Mod);
                         }
                     }
-                }
-            }
-
-            //place loot rooms for the second layer
-            for (int numPoints = 0; numPoints < Layer2LootRooms.Length; numPoints++)
-            {
-                if (numPoints == 0)
-                {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-2.shstruct", Layer2LootRooms[numPoints].ToPoint16(), Mod);
-                }
-                if (numPoints == 1)
-                {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-3.shstruct", Layer2LootRooms[numPoints].ToPoint16(), Mod);
-                }
-                if (numPoints == 2)
-                {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/LootRoom-4.shstruct", Layer2LootRooms[numPoints].ToPoint16(), Mod);
-                }
-
-                Vector2 horizontalHallOriginLeft = new Vector2(Layer2LootRooms[numPoints].X - 11, Layer2LootRooms[numPoints].Y + 21);
-                Vector2 horizontalHallOriginRight = new Vector2(Layer2LootRooms[numPoints].X + 69, Layer2LootRooms[numPoints].Y + 21);
-
-                //manually place hallways since the loot rooms here only have one entrance
-
-                //if the room is placed at the very left of the catacombs, place a horizontal hall on the right side
-                if (Layer2LootRooms[numPoints].X <= XMiddle - layer2Width - 35)
-                {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOriginRight.ToPoint16(), Mod);
-                }
-                //if the room is placed at the very right of the catacombs, place a horizontal hall on the left side
-                if (Layer2LootRooms[numPoints].X >= XMiddle + layer2Width - 35)
-                {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOriginLeft.ToPoint16(), Mod);
-                }
-                //otherwise place horizontal halls on both sides of the room
-                if (Layer2LootRooms[numPoints].X > XMiddle - layer2Width - 35 && Layer2LootRooms[numPoints].X < XMiddle + layer2Width - 35)
-                {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOriginLeft.ToPoint16(), Mod);
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/HorizontalHall-" + WorldGen.genRand.Next(1, 5) + ".shstruct", horizontalHallOriginRight.ToPoint16(), Mod);
                 }
             }
 
@@ -660,30 +399,9 @@ namespace Spooky.Content.Generation
                 }
             }
 
-
-            //place the daffodil arena below the first layer
-            int DaffodilArenaY = (int)Main.worldSurface + layer1Depth + 55;
+            //place the daffodil arena
             Vector2 DaffodilArenaOrigin = new Vector2(XMiddle - 52, DaffodilArenaY - 21);
 
-            //place circles of brick around where the arena will generate
-            for (int X = XMiddle - 100; X <= XMiddle + 100; X += 20)
-            {
-                for (int Y = DaffodilArenaY - 21; Y <= DaffodilArenaY + 21; Y += 3)
-                {
-                    //place the first layer bricks around the top half of the arena
-                    if (Y <= DaffodilArenaY + 10)
-                    {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick1>(), ModContent.WallType<CatacombBrickWall1>(), 10, true, true);
-                    }
-                    //on the bottom half, place the second layer bricks
-                    else
-                    {
-                        SpookyWorldMethods.PlaceCircle(X, Y, ModContent.TileType<CatacombBrick2>(), ModContent.WallType<CatacombBrickWall2>(), 10, true, true);
-                    }
-                }
-            }
-
-            //place the daffodil arena
             StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/DaffodilArena.shstruct", DaffodilArenaOrigin.ToPoint16(), Mod);
 
             //spawn daffodil itself in the arena
@@ -787,20 +505,285 @@ namespace Spooky.Content.Generation
                 }
             }
 
-            //ambient tiles and grass walls
             for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
             {
-				for (int Y = (int)Main.worldSurface - 10; Y <= Main.maxTilesY - 200; Y++)
+                //furniture tiles for layer 1
+				for (int Y = (int)Main.worldSurface - 10; Y <= DaffodilArenaY - 20; Y++)
 				{
 					Tile tile = Main.tile[X, Y];
 					Tile tileAbove = Main.tile[X, Y - 1];
 					Tile tileBelow = Main.tile[X, Y + 1];
 
-					//place grass walls
-					if (!tile.HasTile && Y <= DaffodilArenaY - 40 && tile.WallType == ModContent.WallType<CatacombBrickWall1>() && WorldGen.genRand.NextBool(250))
-					{
-						SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<CatacombGrassWall1>(), WorldGen.genRand.Next(4, 9), false, true);
-					}
+                    if (tile.WallType == ModContent.WallType<CatacombBrickWall1>())
+                    {
+                        //place grass walls
+                        if (WorldGen.genRand.NextBool(350) && !tile.HasTile && Y < BigBoneArenaY - 50)
+                        {
+                            int[] ValidTiles = { ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombFlooring>() };
+
+                            SpookyWorldMethods.PlaceOval(X, Y, ModContent.TileType<CatacombBrick1Grass>(), ModContent.WallType<CatacombGrassWall1>(),
+                            WorldGen.genRand.Next(5, 9), WorldGen.genRand.Next(5, 9), 1f, true, false, true, ValidTiles);
+                        }
+
+                        //tables and chairs with candles/candelabras on them
+                        if (WorldGen.genRand.NextBool() && CanPlaceFurniture(X, Y, 10))
+                        {
+                            switch (WorldGen.genRand.Next(7))
+                            {
+                                //two tables with chairs and sometimes candles/candelabras on the tables
+                                case 0:
+                                {
+                                    WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<UpperCatacombTable>());
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<UpperCatacombCandelabra>() : ModContent.TileType<UpperCatacombCandle>();
+                                        WorldGen.PlaceObject(X - 3, Y - 3, Type);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X - 5, Y - 1, ModContent.TileType<UpperCatacombChair>(), direction: 1);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X - 1, Y - 1, ModContent.TileType<UpperCatacombChair>(), direction: -1);
+                                    }
+
+                                    WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<UpperCatacombTable>());
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<UpperCatacombCandelabra>() : ModContent.TileType<UpperCatacombCandle>();
+                                        WorldGen.PlaceObject(X + 3, Y - 3, Type);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X + 5, Y - 1, ModContent.TileType<UpperCatacombChair>(), direction: -1);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X + 1, Y - 1, ModContent.TileType<UpperCatacombChair>(), direction: 1);
+                                    }
+                                    break;
+                                }
+                                //bookcases with lamps on either side of them
+                                case 1:
+                                {
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<UpperCatacombBookcase>());
+                                        WorldGen.PlaceObject(X - 6, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                                    }
+                                    else
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                                    }
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombBookcase>());
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<UpperCatacombBookcase>());
+                                        WorldGen.PlaceObject(X + 6, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                                    }
+                                    else
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                                    }
+                                    break;
+                                }
+                                //bed with some dressers and candle
+                                case 2:
+                                {
+                                    WorldGen.PlaceObject(X - 5, Y - 1, (ushort)ModContent.TileType<UpperCatacombBed>(), direction: 1);
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<UpperCatacombDresser>());
+                                        WorldGen.PlaceObject(X, Y - 3, (ushort)ModContent.TileType<UpperCatacombCandle>());
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceChest(X + 3, Y - 1, (ushort)ModContent.TileType<UpperCatacombDresser>());
+                                        WorldGen.PlaceObject(X + 5, Y - 1, (ushort)ModContent.TileType<UpperCatacombChair>());
+                                    }
+                                    break;
+                                }
+                                //piano and tables with stuff on them
+                                case 3:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombPiano>());
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<UpperCatacombTable>());
+                                        for (int tableLength = X + 2; tableLength <= X + 4; tableLength++)
+                                        {
+                                            if (WorldGen.genRand.NextBool(6))
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.ClayPot);
+                                            }
+                                            else
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.Books, true, WorldGen.genRand.Next(5));
+                                            }
+                                        }
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<UpperCatacombTable>());
+                                        for (int tableLength = X - 4; tableLength <= X - 2; tableLength++)
+                                        {
+                                            if (WorldGen.genRand.NextBool(6))
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.ClayPot);
+                                            }
+                                            else
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.Books, true, WorldGen.genRand.Next(5));
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                                //clock and tables
+                                case 4:
+                                {
+                                    WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<UpperCatacombTable>());
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombClock>());
+                                    WorldGen.PlaceObject(X + 4, Y - 1, ModContent.TileType<UpperCatacombTable>());
+                                    break;
+                                }
+                                //bathtub and sink
+                                case 5:
+                                {
+                                    WorldGen.PlaceObject(X + 1, Y - 1, ModContent.TileType<UpperCatacombBathtub>());
+                                    WorldGen.PlaceObject(X - 1, Y - 1, ModContent.TileType<UpperCatacombSink>());
+                                    break;
+                                }
+                                //sofa and lamps
+                                case 6:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombSofa>());
+
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                                    }
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+
+                        //lamps
+                        if (WorldGen.genRand.NextBool(120))
+                        {
+                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                        }
+                        //candelabras
+                        if (WorldGen.genRand.NextBool(140))
+                        {
+                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombCandelabra>());
+                        }
+                        //lanterns
+                        if (WorldGen.genRand.NextBool(130))
+                        {
+                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<UpperCatacombLantern>());
+                        }
+                        //chandeliers
+                        if (WorldGen.genRand.NextBool(160))
+                        {
+                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<UpperCatacombChandelier>());
+                        }
+                        //place skeletoid wall catacombs
+                        if (WorldGen.genRand.NextBool(100) && !tile.HasTile)
+                        {
+                            WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb1>(), true, WorldGen.genRand.Next(8));
+                        }
+                        //place loot chests
+                        if (WorldGen.genRand.NextBool(75) && CanPlaceChest(X, Y))
+                        {
+                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<UpperCatacombChest>());
+                        }
+
+                        //place rows of caskets and tombs
+                        if (WorldGen.genRand.NextBool() && CanPlaceFurniture(X, Y, 9))
+                        {
+                            switch (WorldGen.genRand.Next(4))
+                            {
+                                //row of caskets
+                                case 0:
+                                {
+                                    List<int> TombDecorations = new() { ModContent.TileType<Casket1>(), ModContent.TileType<Casket2>(), ModContent.TileType<Casket3>(), ModContent.TileType<Casket4>() };
+                                    WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(TombDecorations));
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, WorldGen.genRand.Next(TombDecorations));
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, WorldGen.genRand.Next(TombDecorations));
+                                    }
+
+                                    break;
+                                }
+
+                                //row of tombstones
+                                case 1:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                    }
+
+                                    break;
+                                }
+
+                                //row of giant coffins
+                                case 2:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffin>());
+
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                    }
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                    }
+
+                                    break;
+                                }
+
+                                //row of large burial caskets
+                                case 3:
+                                {
+                                    List<int> TombDecorations = new() { ModContent.TileType<BurialCasket1>(), ModContent.TileType<BurialCasket2>() };
+
+                                    WorldGen.PlaceObject(X - 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
+                                    WorldGen.PlaceObject(X + 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //ambient tiles for layer 1
+				for (int Y = (int)Main.worldSurface - 10; Y <= DaffodilArenaY - 20; Y++)
+				{
+                    Tile tile = Main.tile[X, Y];
+					Tile tileAbove = Main.tile[X, Y - 1];
+					Tile tileBelow = Main.tile[X, Y + 1];
 
 					//catacomb vines and weeds
 					if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>() || tile.TileType == ModContent.TileType<CatacombBrick1GrassArena>())
@@ -833,25 +816,290 @@ namespace Spooky.Content.Generation
 
 					if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>() || tile.TileType == ModContent.TileType<CatacombBrick1GrassArena>() || tile.TileType == ModContent.TileType<CatacombFlooring>())
 					{
-						if (WorldGen.genRand.NextBool(12))
+						if (WorldGen.genRand.NextBool(50))
 						{
 							WorldGen.PlaceChest(X, Y - 1, 21, false, 5);
 						}
 					}
 				}
 
+                //furniture tiles for layer 2
+                for (int Y = DaffodilArenaY + 50; Y <= BigBoneArenaY - 30; Y++)
+                {
+                    Tile tile = Main.tile[X, Y];
+					Tile tileAbove = Main.tile[X, Y - 1];
+					Tile tileBelow = Main.tile[X, Y + 1];
+
+                    if (tile.WallType == ModContent.WallType<CatacombBrickWall2>())
+                    {
+                        //place grass walls
+                        if (WorldGen.genRand.NextBool(250) && !tile.HasTile && Y < BigBoneArenaY - 50)
+                        {
+                            int[] ValidTiles = { ModContent.TileType<CatacombBrick2>(), ModContent.TileType<GildedBrick>() };
+
+                            SpookyWorldMethods.PlaceOval(X, Y, ModContent.TileType<CatacombBrick2Grass>(), ModContent.WallType<CatacombGrassWall2>(),
+                            WorldGen.genRand.Next(7, 13), WorldGen.genRand.Next(7, 13), 1f, true, false, true, ValidTiles);
+                        }
+
+                        //tables and chairs with candles/candelabras on them
+                        if (WorldGen.genRand.NextBool() && CanPlaceFurniture(X, Y, 10))
+                        {
+                            switch (WorldGen.genRand.Next(7))
+                            {
+                                //two tables with chairs and sometimes candles/candelabras on the tables
+                                case 0:
+                                {
+                                    WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<LowerCatacombTable>());
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<LowerCatacombCandelabra>() : ModContent.TileType<LowerCatacombCandle>();
+                                        WorldGen.PlaceObject(X - 3, Y - 3, Type);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X - 5, Y - 1, ModContent.TileType<LowerCatacombChair>(), direction: 1);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X - 1, Y - 1, ModContent.TileType<LowerCatacombChair>(), direction: -1);
+                                    }
+
+                                    WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<LowerCatacombTable>());
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        int Type = WorldGen.genRand.NextBool() ? ModContent.TileType<LowerCatacombCandelabra>() : ModContent.TileType<LowerCatacombCandle>();
+                                        WorldGen.PlaceObject(X + 3, Y - 3, Type);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X + 5, Y - 1, ModContent.TileType<LowerCatacombChair>(), direction: -1);
+                                    }
+                                    if (WorldGen.genRand.NextBool()) 
+                                    {
+                                        WorldGen.PlaceObject(X + 1, Y - 1, ModContent.TileType<LowerCatacombChair>(), direction: 1);
+                                    }
+                                    break;
+                                }
+                                //bookcases with lamps on either side of them
+                                case 1:
+                                {
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<LowerCatacombBookcase>());
+                                        WorldGen.PlaceObject(X - 6, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                                    }
+                                    else
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                                    }
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombBookcase>());
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<LowerCatacombBookcase>());
+                                        WorldGen.PlaceObject(X + 6, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                                    }
+                                    else
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                                    }
+                                    break;
+                                }
+                                //bed with some dressers and candle
+                                case 2:
+                                {
+                                    WorldGen.PlaceObject(X - 5, Y - 1, (ushort)ModContent.TileType<LowerCatacombBed>(), direction: 1);
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<LowerCatacombDresser>());
+                                        WorldGen.PlaceObject(X, Y - 3, (ushort)ModContent.TileType<LowerCatacombCandle>());
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceChest(X + 3, Y - 1, (ushort)ModContent.TileType<LowerCatacombDresser>());
+                                        WorldGen.PlaceObject(X + 5, Y - 1, (ushort)ModContent.TileType<LowerCatacombChair>());
+                                    }
+                                    break;
+                                }
+                                //piano and tables with stuff on them
+                                case 3:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombPiano>());
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<LowerCatacombTable>());
+                                        for (int tableLength = X + 2; tableLength <= X + 4; tableLength++)
+                                        {
+                                            if (WorldGen.genRand.NextBool(6))
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.ClayPot);
+                                            }
+                                            else
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.Books, true, WorldGen.genRand.Next(5));
+                                            }
+                                        }
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<LowerCatacombTable>());
+                                        for (int tableLength = X - 4; tableLength <= X - 2; tableLength++)
+                                        {
+                                            if (WorldGen.genRand.NextBool(6))
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.ClayPot);
+                                            }
+                                            else
+                                            {
+                                                WorldGen.PlaceObject(tableLength, Y - 3, TileID.Books, true, WorldGen.genRand.Next(5));
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                                //clock and tables
+                                case 4:
+                                {
+                                    WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<LowerCatacombTable>());
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombClock>());
+                                    WorldGen.PlaceObject(X + 4, Y - 1, ModContent.TileType<LowerCatacombTable>());
+                                    break;
+                                }
+                                //bathtub and sink
+                                case 5:
+                                {
+                                    WorldGen.PlaceObject(X + 1, Y - 1, ModContent.TileType<LowerCatacombBathtub>());
+                                    WorldGen.PlaceObject(X - 1, Y - 1, ModContent.TileType<LowerCatacombSink>());
+                                    break;
+                                }
+                                //sofa and lamps
+                                case 6:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombBench>());
+
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                                    }
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+
+                        //lamps
+                        if (WorldGen.genRand.NextBool(120))
+                        {
+                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                        }
+                        //candelabras
+                        if (WorldGen.genRand.NextBool(140))
+                        {
+                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombCandelabra>());
+                        }
+                        //lanterns
+                        if (WorldGen.genRand.NextBool(130))
+                        {
+                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<LowerCatacombLantern>());
+                        }
+                        //chandeliers
+                        if (WorldGen.genRand.NextBool(160))
+                        {
+                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<LowerCatacombChandelier>());
+                        }
+                        //place skeletoid wall catacombs
+                        if (WorldGen.genRand.NextBool(100) && !tile.HasTile)
+                        {
+                            WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb2>(), true, WorldGen.genRand.Next(8));
+                        }
+                        //place loot chests
+                        if (WorldGen.genRand.NextBool(75) && CanPlaceChest(X, Y))
+                        {
+                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<LowerCatacombChest>());
+                        }
+
+                        //place rows of caskets and tombs
+                        if (WorldGen.genRand.NextBool() && CanPlaceFurniture(X, Y, 9))
+                        {
+                            switch (WorldGen.genRand.Next(4))
+                            {
+                                //row of caskets
+                                case 0:
+                                {
+                                    List<int> TombDecorations = new() { ModContent.TileType<Casket1>(), ModContent.TileType<Casket2>(), ModContent.TileType<Casket3>(), ModContent.TileType<Casket4>() };
+                                    WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(TombDecorations));
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, WorldGen.genRand.Next(TombDecorations));
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, WorldGen.genRand.Next(TombDecorations));
+                                    }
+
+                                    break;
+                                }
+
+                                //row of tombstones
+                                case 1:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                    }
+
+                                    break;
+                                }
+
+                                //row of giant coffins
+                                case 2:
+                                {
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffin>());
+
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                    }
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                    }
+
+                                    break;
+                                }
+
+                                //row of large burial caskets
+                                case 3:
+                                {
+                                    List<int> TombDecorations = new() { ModContent.TileType<BurialCasket1>(), ModContent.TileType<BurialCasket2>() };
+
+                                    WorldGen.PlaceObject(X - 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
+                                    WorldGen.PlaceObject(X + 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 //ambient tiles for layer 2
-                for (int Y = DaffodilArenaY + 50; Y <= Main.maxTilesY - 100; Y++)
+                for (int Y = DaffodilArenaY + 50; Y <= BigBoneArenaY - 30; Y++)
                 {
                     Tile tile = Main.tile[X, Y];
                     Tile tileAbove = Main.tile[X, Y - 1];
                     Tile tileBelow = Main.tile[X, Y + 1];
-
-                    //place grass walls
-                    if (!tile.HasTile && Y < BigBoneArenaY - 50 && tile.WallType == ModContent.WallType<CatacombBrickWall2>() && WorldGen.genRand.NextBool(250))
-                    {
-                        SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<CatacombGrassWall2>(), WorldGen.genRand.Next(7, 13), false, true);
-                    }
  
                     //catacomb vines and weeds
                     if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>() || tile.TileType == ModContent.TileType<CatacombBrick2GrassArena>())
@@ -886,17 +1134,51 @@ namespace Spooky.Content.Generation
 
                         SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
                     }
-
-					if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>() || tile.TileType == ModContent.TileType<CatacombBrick2GrassArena>() || tile.TileType == ModContent.TileType<GildedBrick>())
-					{
-						if (WorldGen.genRand.NextBool(12))
-						{
-							WorldGen.PlaceChest(X, Y - 1, 21, false, 5);
-						}
-					}
 				}
             }
         }
+
+        //determine if theres no chests nearby another chest thats about to place
+        public static bool CanPlaceChest(int X, int Y)
+        {
+            for (int i = X - 70; i < X + 70; i++)
+            {
+                for (int j = Y - 40; j < Y + 40; j++)
+                {
+                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<UpperCatacombChest>() || Main.tile[i, j].TileType == ModContent.TileType<LowerCatacombChest>()))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        //check for a flat surface in the dungeon that also has no tiles above the entire flat space
+		//use to check for a specific width to place individual pieces of furniture, or in other cases multiple pieces of furniture (such as tables with chairs next to them)
+		public bool CanPlaceFurniture(int PositionX, int PositionY, int Width, bool Ceiling = false)
+		{
+			if (!Ceiling)
+			{
+				for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
+				{
+					//check specifically for UpperCatacomb carpet since the entire floor will be made out of that
+					if ((Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombBrick1>() || Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombBrick2>() ||
+                    Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombFlooring>() || Main.tile[x, PositionY].TileType == ModContent.TileType<GildedBrick>()) && 
+                    !Main.tile[x, PositionY - 1].HasTile)
+					{
+						continue;
+					}
+					else
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
 
         //determine if theres no jungle blocks nearby so the biome doesnt place in the jungle biome
         public static bool NoJungleNearby(int X, int Y)
@@ -973,173 +1255,6 @@ namespace Spooky.Content.Generation
 				if (WorldGen.InWorld(chest.x, chest.y, 20))
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];
-
-					//place loot in the first layer chests
-					if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall1>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall1>()))
-					{
-						//place stuff in barrels
-						if (chestTile.TileFrameX == 5 * 36)
-						{
-							int[] RareItem = new int[] { ModContent.ItemType<SkullAmulet>(), ModContent.ItemType<RustyRing>() };
-
-							int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
-
-							if (WorldGen.genRand.NextBool(15))
-							{
-								chest.item[0].SetDefaults(WorldGen.genRand.Next(RareItem));
-							}
-							else if (WorldGen.genRand.NextBool(5))
-							{
-								chest.item[0].SetDefaults(ItemID.GoodieBag);
-								chest.item[0].stack = WorldGen.genRand.Next(1, 3);
-							}
-							else
-							{
-								chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
-								chest.item[0].stack = WorldGen.genRand.Next(10, 21);
-							}
-
-							chest.item[1].SetDefaults(ItemID.SilverCoin);
-							chest.item[1].stack = WorldGen.genRand.Next(2, 16);
-						}
-
-						//place stuff in pumpkin chests, do not put stuff in the gas trapped chests
-						if (chestTile.TileFrameX == 45 * 36 && chest.item[0].type != ItemID.GasTrap)
-						{
-							//potions
-							int[] Potions1 = new int[] { ItemID.FeatherfallPotion, ItemID.NightOwlPotion, ItemID.WaterWalkingPotion,
-							ItemID.ArcheryPotion, ItemID.PotionOfReturn, ItemID.SwiftnessPotion };
-
-							//more potions
-							int[] Potions2 = new int[] { ItemID.IronskinPotion, ItemID.RegenerationPotion, ItemID.HunterPotion,
-							ItemID.InvisibilityPotion, ItemID.RagePotion, ItemID.WrathPotion };
-
-							//ammos
-							int[] Ammo = new int[] { ItemID.MusketBall, ItemID.WoodenArrow, ItemID.Flare };
-
-							//demonite or crimtane bar depending on crimson or corruption worlds
-							int Bars = !WorldGen.crimson ? ItemID.DemoniteBar : ItemID.CrimtaneBar;
-
-							//bars
-							chest.item[1].SetDefaults(Bars);
-							chest.item[1].stack = WorldGen.genRand.Next(5, 11);
-							//torches
-							chest.item[2].SetDefaults(ModContent.ItemType<CatacombTorch1Item>());
-							chest.item[2].stack = WorldGen.genRand.Next(12, 19);
-							//potions
-							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions1));
-							chest.item[3].stack = WorldGen.genRand.Next(1, 3);
-							//even more potions
-							chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions2));
-							chest.item[4].stack = WorldGen.genRand.Next(1, 3);
-							//ammo
-							chest.item[5].SetDefaults(WorldGen.genRand.Next(Ammo));
-							chest.item[5].stack = WorldGen.genRand.Next(20, 41);
-							//goodie bags
-							chest.item[6].SetDefaults(ItemID.GoodieBag);
-							chest.item[6].stack = WorldGen.genRand.Next(1, 3);
-							//gold coins
-							chest.item[7].SetDefaults(ItemID.GoldCoin);
-							chest.item[7].stack = WorldGen.genRand.Next(1, 6);
-						}
-					}
-
-					//place loot in the second layer chests
-					if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall2>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall2>()))
-					{
-						//place stuff in barrels
-						if (chestTile.TileFrameX == 5 * 36)
-						{
-							int[] Ammo = new int[] { ItemID.VenomArrow, ModContent.ItemType<RustedBullet>() };
-
-							if (chest.item[0].type != ModContent.ItemType<Fertilizer>())
-							{
-								if (WorldGen.genRand.NextBool(5))
-								{
-									chest.item[0].SetDefaults(ItemID.GoodieBag);
-									chest.item[0].stack = WorldGen.genRand.Next(1, 3);
-								}
-								else
-								{
-									chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
-									chest.item[0].stack = WorldGen.genRand.Next(10, 21);
-								}
-							}
-
-							chest.item[1].SetDefaults(ItemID.SilverCoin);
-							chest.item[1].stack = WorldGen.genRand.Next(2, 16);
-						}
-
-						//place stuff in pumpkin chests
-						if (chestTile.TileFrameX == 45 * 36)
-						{
-							//potions
-							int[] Potions1 = new int[] { ItemID.AmmoReservationPotion, ItemID.BattlePotion, ItemID.CratePotion, ItemID.EndurancePotion };
-
-							//more potions
-							int[] Potions2 = new int[] { ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.ShinePotion, ItemID.LifeforcePotion };
-
-							//recorvery potions
-							int[] RecoveryPotions = new int[] { ItemID.GreaterHealingPotion, ItemID.GreaterManaPotion };
-
-							//ammos
-							int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.HellfireArrow };
-
-							//bars
-							int[] Bars = new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar };
-
-							//bars
-							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-							chest.item[1].stack = WorldGen.genRand.Next(10, 23);
-                            //torches
-							chest.item[2].SetDefaults(ModContent.ItemType<CatacombTorch2Item>());
-							chest.item[2].stack = WorldGen.genRand.Next(12, 19);
-							//potions
-							chest.item[3].SetDefaults(WorldGen.genRand.Next(Potions1));
-							chest.item[3].stack = WorldGen.genRand.Next(1, 3);
-							//even more potions
-							chest.item[4].SetDefaults(WorldGen.genRand.Next(Potions2));
-							chest.item[4].stack = WorldGen.genRand.Next(1, 3);
-							//ammo
-							chest.item[5].SetDefaults(WorldGen.genRand.Next(Ammo));
-							chest.item[5].stack = WorldGen.genRand.Next(20, 41);
-							//recovery potions
-							chest.item[6].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
-							chest.item[6].stack = WorldGen.genRand.Next(3, 7);
-							//goodie bags
-							chest.item[7].SetDefaults(ItemID.GoodieBag);
-							chest.item[7].stack = WorldGen.genRand.Next(1, 3);
-							//gold coins
-							chest.item[8].SetDefaults(ItemID.GoldCoin);
-							chest.item[8].stack = WorldGen.genRand.Next(1, 6);
-						}
-
-						//place stuff in bone chests
-						if (chestTile.TileFrameX == 41 * 36)
-						{
-							//recorvery potions
-							int[] RecoveryPotions = new int[] { ItemID.GreaterHealingPotion, ItemID.GreaterManaPotion };
-
-							//ammos
-							int[] Ammo = new int[] { ItemID.GoldenBullet, ItemID.JestersArrow };
-
-							//bars
-							int[] Bars = new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar };
-
-                            //cross charm
-							chest.item[0].SetDefaults(ModContent.ItemType<CrossCharm>());
-                            chest.item[0].stack = 1;
-							//bars
-							chest.item[1].SetDefaults(WorldGen.genRand.Next(Bars));
-							chest.item[1].stack = WorldGen.genRand.Next(3, 11);
-							//recovery potions
-							chest.item[2].SetDefaults(WorldGen.genRand.Next(RecoveryPotions));
-							chest.item[2].stack = WorldGen.genRand.Next(1, 4);
-							//ammos
-							chest.item[3].SetDefaults(WorldGen.genRand.Next(Ammo));
-							chest.item[3].stack = WorldGen.genRand.Next(8, 16);
-						}
-					}
 				}
             }
         }

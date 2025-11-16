@@ -25,11 +25,12 @@ namespace Spooky.Content.NPCs.Catacomb
         public float SaveRotation;
 
         private static Asset<Texture2D> EyeGlowTexture;
+        private static Asset<Texture2D> EyeTrailTexture;
 
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 2;
-            NPCID.Sets.TrailCacheLength[NPC.type] = 10;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 8;
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
@@ -87,17 +88,20 @@ namespace Spooky.Content.NPCs.Catacomb
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             EyeGlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/CatacombGuardianGlow");
+            EyeTrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Catacomb/CatacombGuardianTrail");
 
-            Vector2 drawOrigin = new(EyeGlowTexture.Width() * 0.5f, NPC.height * 0.5f);
+            Vector2 drawOrigin = new(EyeTrailTexture.Width() * 0.5f, NPC.height * 0.5f);
+
+            var effects = attackPattern == 2 && NPC.localAI[0] >= 360 ? (SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) : (NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
             for (int oldPos = 0; oldPos < NPC.oldPos.Length; oldPos++)
             {
-                var effects = attackPattern == 2 && NPC.localAI[0] >= 360 ? (SaveDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) : (NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-
                 Vector2 drawPos = NPC.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY + 4);
-                Color color = NPC.GetAlpha(Color.Red) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
-                spriteBatch.Draw(EyeGlowTexture.Value, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
+                Color color = NPC.GetAlpha(Color.White) * (float)(((float)(NPC.oldPos.Length - oldPos) / (float)NPC.oldPos.Length) / 2);
+                spriteBatch.Draw(EyeTrailTexture.Value, drawPos, NPC.frame, color, NPC.rotation, drawOrigin, NPC.scale, effects, 0f);
             }
+
+            Main.spriteBatch.Draw(EyeGlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY + 4), NPC.frame, Color.White, NPC.rotation, drawOrigin, NPC.scale, effects, 0);
 		}
 
         public override void FindFrame(int frameHeight)

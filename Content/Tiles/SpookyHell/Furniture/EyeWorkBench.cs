@@ -26,8 +26,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.CoordinateHeights = new[] { 18 };
 			TileObjectData.newTile.DrawYOffset = -2;
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(114, 13, 39), name);
+			AddMapEntry(new Color(114, 13, 39), Lang.GetItemName(ItemID.WorkBench));
             DustType = DustID.Blood;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			AdjTiles = new int[] { TileID.WorkBenches };

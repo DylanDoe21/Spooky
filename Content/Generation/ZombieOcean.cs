@@ -241,8 +241,6 @@ namespace Spooky.Content.Generation
 									tile.LiquidType = LiquidID.Water;
 									tile.LiquidAmount = 255;
 								}
-
-								
 							}
 						}
 					}
@@ -1179,9 +1177,9 @@ namespace Spooky.Content.Generation
 
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
-			//Create Ocean Caves is the gen step right before shimmer
+			//Gravitating Sand is the gen step right before shimmer
 			//This is to decide the position of the biome first because the shimmer needs to be moved based on what side of the world it will generate on to prevent the shimmer from being destroyed
-			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Create Ocean Caves"));
+			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Gravitating Sand"));
 			if (GenIndex1 == -1)
 			{
 				return;

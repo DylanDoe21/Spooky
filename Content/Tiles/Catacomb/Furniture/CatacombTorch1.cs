@@ -87,9 +87,9 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
             {
                 float divide = 300f;
 
-                r = 166f / divide;
-                g = 125f / divide;
-                b = 217f / divide;
+                r = 200f / divide;
+                g = 255f / divide;
+                b = 0f / divide;
             }
         }
 

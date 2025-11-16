@@ -5,7 +5,6 @@ using Terraria.Localization;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 using Spooky.Core;
 

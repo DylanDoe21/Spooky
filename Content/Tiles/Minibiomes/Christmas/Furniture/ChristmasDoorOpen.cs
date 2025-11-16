@@ -64,8 +64,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceLeft;
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(143, 97, 86), name);
+            AddMapEntry(new Color(143, 97, 86), Language.GetText("MapObject.Door"));
             RegisterItemDrop(ModContent.ItemType<ChristmasDoorItem>());
             DustType = DustID.WoodFurniture;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);

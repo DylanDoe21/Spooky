@@ -24,8 +24,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(98, 67, 82), name);
+			AddMapEntry(new Color(98, 67, 82), Lang.GetItemName(ItemID.Bed));
             DustType = DustID.Stone;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			AdjTiles = new int[]{ TileID.Beds };

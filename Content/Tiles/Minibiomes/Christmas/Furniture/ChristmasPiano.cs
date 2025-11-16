@@ -21,8 +21,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.newTile.DrawYOffset = 2;
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(143, 97, 86), name);
+			AddMapEntry(new Color(143, 97, 86), Lang.GetItemName(ItemID.Piano));
             DustType = DustID.Stone;
 			AdjTiles = new int[] { TileID.Pianos };
 		}

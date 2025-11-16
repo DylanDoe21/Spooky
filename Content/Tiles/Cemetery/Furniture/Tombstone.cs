@@ -8,7 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace Spooky.Content.Tiles.Cemetery.Furniture
 {
-    public class Tombstone1 : ModTile
+    [LegacyName("Tombstone1")]
+    [LegacyName("Tombstone2")]
+    public class Tombstone : ModTile
     {
         public override void SetStaticDefaults()
         {
@@ -20,12 +22,15 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			TileObjectData.newTile.Origin = new Point16(0, 2);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
-			TileObjectData.newTile.CoordinateWidth = 16;
-			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.UsesCustomCanPlace = true;
+            TileObjectData.newTile.CoordinateWidth = 16;
+            TileObjectData.newTile.CoordinatePadding = 2;
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.RandomStyleRange = 3;
 			TileObjectData.addTile(Type);
-            AddMapEntry(new Color(39, 39, 49));
-            DustType = DustID.Ash;
+            AddMapEntry(new Color(53, 68, 60));
+            DustType = DustID.Stone;
             HitSound = SoundID.Tink;
         }
 
@@ -33,9 +38,5 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<CemeteryStoneItem>(), Main.rand.Next(3, 10));
         }
-    }
-
-    public class Tombstone2 : Tombstone1
-    {
     }
 }

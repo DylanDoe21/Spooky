@@ -34,8 +34,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(122, 72, 203), name);
+			AddMapEntry(new Color(122, 72, 203), Language.GetText("MapObject.Chair"));
             DustType = DustID.Slush;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			AdjTiles = new int[] { TileID.Chairs };
@@ -122,8 +121,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(179, 128, 50), name);
+			AddMapEntry(new Color(179, 128, 50), Language.GetText("MapObject.Chair"));
             DustType = DustID.Slush;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			AdjTiles = new int[] { TileID.Chairs };

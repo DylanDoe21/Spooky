@@ -65,6 +65,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 		{
 			topTextureFrameWidth = 228;
             topTextureFrameHeight = 136;
+			xoffset = 36;
             floorY = 2;
 		}
 

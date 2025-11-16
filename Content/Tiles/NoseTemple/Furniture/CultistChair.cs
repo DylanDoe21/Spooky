@@ -34,8 +34,7 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(98, 67, 82), name);
+			AddMapEntry(new Color(98, 67, 82), Language.GetText("MapObject.Chair"));
             DustType = DustID.Stone;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			AdjTiles = new int[] { TileID.Chairs };

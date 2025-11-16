@@ -22,8 +22,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.CoordinateHeights = new int[] { 18 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(122, 72, 203), name);
+			AddMapEntry(new Color(122, 72, 203), Lang.GetItemName(ItemID.Candle));
             RegisterItemDrop(ModContent.ItemType<GlowshroomCandleItem>());
             DustType = DustID.Slush;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
@@ -87,8 +86,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.CoordinateHeights = new int[] { 18 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(179, 128, 50), name);
+			AddMapEntry(new Color(179, 128, 50), Lang.GetItemName(ItemID.Candle));
             RegisterItemDrop(ModContent.ItemType<GlowshroomYellowCandleItem>());
             DustType = DustID.Slush;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

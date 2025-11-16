@@ -31,24 +31,10 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
 		{
 			if (!player.wet)
 			{
-				if (Main.rand.NextBool(player.itemAnimation > 0 ? 7 : 30))
-				{
-					//Dust dust = Dust.NewDustDirect(new Vector2(player.itemLocation.X + (player.direction == -1 ? -16f : 6f) , player.itemLocation.Y - 14f * player.gravDir), 4, 4, HeldDustType, 0f, 0f, 100);
-
-					//if (!Main.rand.NextBool(3))
-					//{
-						//dust.noGravity = true;
-					//}
-
-					//dust.velocity *= 0.3f;
-					//dust.velocity.Y -= 1.5f;
-					//dust.position = player.RotatedRelativePoint(dust.position);
-				}
-
 				Vector2 position = player.RotatedRelativePoint(new Vector2(player.itemLocation.X + 12f * player.direction + player.velocity.X, player.itemLocation.Y - 14f + player.velocity.Y), true);
 				
 				float divide = 300f;
-				Lighting.AddLight(position, new Vector3(222f / divide, 183f / divide, 52f / divide));
+				Lighting.AddLight(position, new Vector3(255f / divide, 196f / divide, 0f / divide));
 			}
 		}
 
@@ -57,7 +43,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
 			if (!Item.wet)
 			{
 				float divide = 300f;
-				Lighting.AddLight(Item.Center, new Vector3(222f / divide, 183f / divide, 52f / divide));
+				Lighting.AddLight(Item.Center, new Vector3(255f / divide, 196f / divide, 0f / divide));
 			}
 		}
 

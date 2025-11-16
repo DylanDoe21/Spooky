@@ -19,8 +19,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
             Main.tileLavaDeath[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(143, 97, 86), name);
+			AddMapEntry(new Color(143, 97, 86), Lang.GetItemName(ItemID.Bookcase));
             DustType = DustID.WoodFurniture;
             AdjTiles = new int[] { TileID.Bookcases };
         }

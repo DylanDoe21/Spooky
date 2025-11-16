@@ -32,9 +32,12 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			TileObjectData.newTile.Origin = new Point16(0, 2);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
-			TileObjectData.newTile.CoordinateWidth = 16;
-			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.DrawYOffset = 2;
+			TileObjectData.newTile.UsesCustomCanPlace = true;
+            TileObjectData.newTile.CoordinateWidth = 16;
+            TileObjectData.newTile.CoordinatePadding = 2;
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.RandomStyleRange = 3;
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(244, 84, 16), name);
@@ -65,8 +68,8 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
             Tile tile = Framing.GetTileSafely(i, j);
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
 
-			float glowspeed = Main.GameUpdateCount * 0.035f;
-			float glowbrightness = Flags.RaveyardHappening ? 1f : (float)MathF.Sin(j / 10f - glowspeed);
+			float glowspeed = Main.GameUpdateCount * 0.02f;
+			float glowbrightness = Flags.RaveyardHappening ? 1f : (float)MathF.Sin(i / 10f - glowspeed);
 
 			spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16),
 			(Flags.RaveyardHappening ? Main.DiscoColor : Color.OrangeRed) * glowbrightness);

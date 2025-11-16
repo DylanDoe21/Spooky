@@ -26,11 +26,11 @@ namespace Spooky.Content.UserInterfaces
 		public static bool DisplayPlayerResponse = false;
 		public static bool DisplayingPlayerResponse = false;
 
-		public Texture2D KrampusBoxTex;
-		public Texture2D LittleEyeBoxTex;
 		public Texture2D PlayerBoxTex;
 		public Texture2D PlayerBoxMouseTex;
 		public Texture2D PlayerBoxMouseButtonTex;
+		public Texture2D PlayerBoxMouseRightTex;
+		public Texture2D PlayerBoxMouseRightButtonTex;
 		public Texture2D PlayerBoxButtonTex;
 		public Texture2D PlayerBoxButtonATex;
 
@@ -38,8 +38,6 @@ namespace Spooky.Content.UserInterfaces
         {
             Dialogue = new();
 
-			KrampusBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIKrampus", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-			LittleEyeBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			PlayerBoxTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			PlayerBoxMouseTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerMouse", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			PlayerBoxMouseButtonTex = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayerMouseButton", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -102,26 +100,17 @@ namespace Spooky.Content.UserInterfaces
 
 				Vector2 PlayerOffset = dialogue.NotPlayer ? new Vector2(0, 0) : new Vector2(-200f, 65f);
 
-				Texture2D BoxTextureToUse;
-
-				if (dialogue.NotPlayer)
-				{
-					BoxTextureToUse = KrampusBoxTex;
-
-					if (dialogue.NPCType == ModContent.NPCType<LittleEye>())
-					{
-						BoxTextureToUse = LittleEyeBoxTex;
-					}
-				}
-				else
-				{
-					BoxTextureToUse = PlayerBoxTex;
-				}
-
 				Texture2D AdvanceTexture = Main.gamePad ? PlayerBoxButtonTex : PlayerBoxMouseTex;
 				Texture2D AdvanceTextureExtra = Main.gamePad ? PlayerBoxButtonATex : PlayerBoxMouseButtonTex;
 
-				DrawPanel(spriteBatch, BoxTextureToUse, AdvanceTexture, AdvanceTextureExtra, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
+				Texture2D tex = dialogue.texToUse;
+
+				if (!dialogue.NotPlayer)
+				{
+					//tex = PlayerBoxTex;
+				}
+
+				DrawPanel(spriteBatch, tex, AdvanceTexture, AdvanceTextureExtra, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
 
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -145,7 +134,7 @@ namespace Spooky.Content.UserInterfaces
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
 		}
 
-		public static void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Texture2D texture2, Texture2D texture3, Vector2 position, Color color, int width, int height)
+		public static void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Texture2D mouseTexture, Texture2D mouseButtonTexture, Vector2 position, Color color, int width, int height)
         {
             Vector2 topLeftPos = position;
             Rectangle topLeftRect = new(0, 0, 34, 34);
@@ -189,17 +178,17 @@ namespace Spooky.Content.UserInterfaces
             //Bottom Middle
             spriteBatch.Draw(texture, bottomMiddlePos, bottomMiddleRect, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 
-            //Top Left
-            spriteBatch.Draw(texture, topLeftPos, topLeftRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
-			//Top Right
-            spriteBatch.Draw(texture, topRightPos, topRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
 			//Bottom Left
             spriteBatch.Draw(texture, bottomLeftPos, bottomLeftRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			//Bottom Right
             spriteBatch.Draw(texture, bottomRightPos, bottomRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+			//Top Right
+            spriteBatch.Draw(texture, topRightPos, topRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+			//Top Left
+            spriteBatch.Draw(texture, topLeftPos, topLeftRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			bool DrawMouse = false;
 
@@ -215,12 +204,12 @@ namespace Spooky.Content.UserInterfaces
 				DrawMouse = dialogue.textFinished;
 			}
 
-			if (texture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer").Value && DrawMouse)
+			if (DrawMouse && texture == ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer").Value)
 			{
-				spriteBatch.Draw(texture2, bottomRightPos, bottomRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
 				float fade = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.4f / 2.4f * 12f)) / 2f + 0.5f;
-				spriteBatch.Draw(texture3, bottomRightPos, bottomRightRect, color * fade, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+				spriteBatch.Draw(mouseTexture, bottomRightPos, bottomRightRect, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(mouseButtonTexture, bottomRightPos, bottomRightRect, color * fade, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			}
         }
 
@@ -319,6 +308,8 @@ namespace Spooky.Content.UserInterfaces
 		public delegate void EndTrigger(Dialogue dialogue, int id);
 		public event EndTrigger OnEndTrigger;
 
+		public Texture2D texToUse;
+
 		public Entity entity;
 		public SoundStyle? sound;
 
@@ -344,7 +335,7 @@ namespace Spooky.Content.UserInterfaces
 
 		public int NPCType;
 
-		public Dialogue(Entity entity, string text, string playerText, SoundStyle sound, float preFadeTime, float fadeTime, 
+		public Dialogue(Texture2D texToUse, Entity entity, string text, string playerText, SoundStyle sound, float preFadeTime, float fadeTime, 
 		Vector2 modifier = default, bool IsLastDialogue = false, bool NotPlayer = true, float Expression = -1, int NPCID = -1)
 		{
 			this.entity = entity;
@@ -382,6 +373,7 @@ namespace Spooky.Content.UserInterfaces
 			if (!Main.dedServ)
 			{
 				this.sound = NotPlayer ? sound : null;
+				this.texToUse = texToUse;
 			}
 
 			if (NPCID != -1)

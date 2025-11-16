@@ -24,8 +24,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(114, 13, 39), name);
+            AddMapEntry(new Color(114, 13, 39), Lang.GetItemName(ItemID.Candelabra));
             RegisterItemDrop(ModContent.ItemType<EyeCandelabraItem>());
             DustType = DustID.Blood;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

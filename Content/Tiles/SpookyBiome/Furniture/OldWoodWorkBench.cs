@@ -25,8 +25,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.DrawYOffset = -2;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(93, 62, 39), name);
+			AddMapEntry(new Color(93, 62, 39), Lang.GetItemName(ItemID.WorkBench));
             DustType = DustID.WoodFurniture;
 			AdjTiles = new int[] { TileID.WorkBenches };
 		}

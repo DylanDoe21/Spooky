@@ -77,6 +77,14 @@ namespace Spooky.Content.UserInterfaces
                     return true;
                 },
                 InterfaceScaleType.None));
+
+				//little eye bounty UI
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Little Eye Dialogue Choice UI", () =>
+                {
+                    LittleEyeDialogueChoiceUI.Draw(Main.spriteBatch);
+                    return true;
+                },
+                InterfaceScaleType.None));
 			}
 
             int inGameOptionsIndex = layers.FindIndex(layer => layer.Name == "Vanilla: Ingame Options");
@@ -98,8 +106,8 @@ namespace Spooky.Content.UserInterfaces
                 },
                 InterfaceScaleType.None));
 
-				//krampus dialogue UI
-				layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Krampus Dialogue UI",
+				//dialogue UI
+				layers.Insert(inGameOptionsIndex, new LegacyGameInterfaceLayer("Dialogue UI",
 				delegate
 				{
 					if (DialogueUI.Visible)

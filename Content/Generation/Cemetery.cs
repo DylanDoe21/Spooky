@@ -128,14 +128,6 @@ namespace Spooky.Content.Generation
                         tile.TileType = (ushort)ModContent.TileType<CemeteryDirt>();
                         WorldGen.PlaceTile(X, Y, ModContent.TileType<CemeteryDirt>());
                     }
-
-                    /*
-					//place block clusters right above the world surface to prevent the cemetery from generating too low
-					for (int FillY = (int)Main.worldSurface - 50; FillY <= Main.worldSurface; FillY += 3)
-					{
-						SpookyWorldMethods.PlaceCircle(X, FillY, ModContent.TileType<CemeteryDirt>(), 0, WorldGen.genRand.Next(2, 3), true, true);
-					}
-                    */
 				}
 
                 for (int Y = (int)heightLimit; Y <= Main.worldSurface; Y++)
@@ -303,11 +295,50 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		private void CemeteryGrassAndTrees(GenerationProgress progress, GameConfiguration configuration)
+		private void CemeteryAmbience(GenerationProgress progress, GameConfiguration configuration)
         {
             int XStart = Catacombs.PositionX - (BiomeWidth / 2);
             int XMiddle = Catacombs.PositionX;
             int XEdge = Catacombs.PositionX + (BiomeWidth / 2);
+
+            for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X += 30)
+            {
+                for (int Y = PositionY - 75; Y <= Main.worldSurface; Y++)
+                {
+                    if (WorldGen.genRand.NextBool(3))
+                    {
+                        for (int TombstoneX = X - 10; TombstoneX <= X + 10; TombstoneX++)
+                        {
+                            for (int TombstoneY = Y - 6; TombstoneY <= Y + 6; TombstoneY++)
+                            {
+                                Tile tile = Main.tile[TombstoneX, TombstoneY];
+                                if ((tile.TileType == (ushort)ModContent.TileType<CemeteryDirt>() || tile.TileType == (ushort)ModContent.TileType<CemeteryStone>()) && !WorldGen.SolidTile(TombstoneX, TombstoneY - 1))
+                                {
+                                    WorldGen.PlaceWall(TombstoneX, TombstoneY - 2, WallID.WroughtIronFence);
+                                    WorldGen.PlaceWall(TombstoneX, TombstoneY - 1, WallID.WroughtIronFence);
+                                    WorldGen.PlaceWall(TombstoneX, TombstoneY, WallID.WroughtIronFence);
+
+                                    if (WorldGen.SolidTile(TombstoneX, TombstoneY) && WorldGen.genRand.NextBool())
+                                    {
+                                        if (WorldGen.genRand.NextBool(12))
+                                        {
+                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<MysteriousTombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                        }
+                                        else if (WorldGen.genRand.NextBool(6))
+                                        {
+                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<TombstoneCracked>(), true, WorldGen.genRand.Next(0, 3));
+                                        }
+                                        else if (WorldGen.genRand.NextBool(3))
+                                        {
+                                            WorldGen.PlaceObject(TombstoneX, TombstoneY - 1, ModContent.TileType<Tombstone>(), true, WorldGen.genRand.Next(0, 3));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             for (int X = XMiddle - (BiomeWidth / 2) - 100; X <= XMiddle + (BiomeWidth / 2) + 100; X++)
             {
@@ -348,45 +379,14 @@ namespace Spooky.Content.Generation
 
             int StartPosY = PositionY - 100;
 
-			//structures
-			if (Main.maxTilesX >= 6400)
-            {
-                GenerateStructure((XStart + XMiddle) / 2 - 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-                GenerateStructure((XStart + XMiddle) / 2 - 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-                GenerateStructure((XStart + XMiddle) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
+            //first ruined house
+            GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse1", 14, 20);
 
-                //first ruined house
-                GenerateStructure((XStart + XMiddle) / 2, StartPosY, "RuinedHouse1", 14, 20);
+            //catacomb entrance
+            GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 28);
 
-                //lake
-                GenerateStructure((XStart + XMiddle) / 2 + 35, StartPosY, "FishingLake", 15, 5);
-
-                //catacomb entrance
-                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 28);
-
-                //second ruined house
-                GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse2", 14, 20);
-
-                //graveyards
-                GenerateStructure((XMiddle + XEdge) / 2 - 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 14, 8);
-                GenerateStructure((XMiddle + XEdge) / 2 + 35, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-                GenerateStructure((XMiddle + XEdge) / 2 + 72, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-                GenerateStructure((XMiddle + XEdge) / 2 + 95, StartPosY, "Graveyard-" + Main.rand.Next(1, 7), 12, 8);
-            }
-            else
-            {
-                //first ruined house
-                GenerateStructure((XStart + XMiddle) / 2 - 40, StartPosY, "RuinedHouse1", 14, 20);
-
-                //lake
-                GenerateStructure((XStart + XMiddle) / 2, StartPosY, "FishingLake", 15, 11);
-
-                //catacomb entrance
-                GenerateStructure(XMiddle, StartPosY, "CemeteryEntrance", 38, 28);
-
-                //second ruined house
-                GenerateStructure((XMiddle + XEdge) / 2 + 40, StartPosY, "RuinedHouse2", 14, 20);
-            }
+            //second ruined house
+            GenerateStructure((XMiddle + XEdge) / 2, StartPosY, "RuinedHouse2", 14, 20);
         }
 
         //method for finding a valid surface and placing the structure on it
@@ -524,8 +524,8 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Cemetery", PlaceCemetery));
 			tasks.Insert(GenIndex1 + 2, new PassLegacy("Cemetery Flattening", CemeteryFlattening));
-			tasks.Insert(GenIndex1 + 3, new PassLegacy("Cemetery Structures", GenerateCemeteryStructures));
-            tasks.Insert(GenIndex1 + 4, new PassLegacy("Cemetery Trees", CemeteryGrassAndTrees));
+            tasks.Insert(GenIndex1 + 3, new PassLegacy("Cemetery Ambience", CemeteryAmbience));
+			tasks.Insert(GenIndex1 + 4, new PassLegacy("Cemetery Structures", GenerateCemeteryStructures));
         }
 
         public override void PostWorldGen()

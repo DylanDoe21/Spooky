@@ -35,8 +35,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;
             TileObjectData.newTile.LavaPlacement = LiquidPlacement.NotAllowed;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(122, 72, 203), name);
+            AddMapEntry(new Color(122, 72, 203), Language.GetText("MapObject.FloorLamp"));
             RegisterItemDrop(ModContent.ItemType<GlowshroomLampItem>());
             DustType = DustID.Slush;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
@@ -113,8 +112,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;
             TileObjectData.newTile.LavaPlacement = LiquidPlacement.NotAllowed;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(179, 128, 50), name);
+            AddMapEntry(new Color(179, 128, 50), Language.GetText("MapObject.FloorLamp"));
             RegisterItemDrop(ModContent.ItemType<GlowshroomYellowLampItem>());
             DustType = DustID.Slush;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

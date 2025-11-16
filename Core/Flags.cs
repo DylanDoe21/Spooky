@@ -79,6 +79,7 @@ namespace Spooky.Core
         public static bool LittleEyeBounty3 = false;
         public static bool LittleEyeBounty4 = false;
         public static bool BountyInProgress = false;
+		public static bool BountyIntro = false;
         public static bool encounteredMan = false;
 
 		//bools and misc stuff that doesnt need to be saved/loaded in a world
@@ -137,6 +138,7 @@ namespace Spooky.Core
             LittleEyeBounty3 = false;
             LittleEyeBounty4 = false;
             BountyInProgress = false;
+			BountyIntro = false;
             encounteredMan = false;
 		}
 
@@ -212,6 +214,7 @@ namespace Spooky.Core
 			tag[nameof(LittleEyeBounty3)] = LittleEyeBounty3;
 			tag[nameof(LittleEyeBounty4)] = LittleEyeBounty4;
 			tag[nameof(BountyInProgress)] = BountyInProgress;
+			tag[nameof(BountyIntro)] = BountyIntro;
 			tag[nameof(encounteredMan)] = encounteredMan;
         }
 
@@ -290,6 +293,7 @@ namespace Spooky.Core
 			LittleEyeBounty3 = tag.GetBool(nameof(LittleEyeBounty3));
 			LittleEyeBounty4 = tag.GetBool(nameof(LittleEyeBounty4));
 			BountyInProgress = tag.GetBool(nameof(BountyInProgress));
+			BountyIntro = tag.GetBool(nameof(BountyIntro));
 			encounteredMan = tag.GetBool(nameof(encounteredMan));
 		}
 
@@ -329,7 +333,7 @@ namespace Spooky.Core
 			writer.Write(SporeFogIntensity);
 
 			//little eye quest stuff
-			writer.WriteFlags(LittleEyeBounty1, LittleEyeBounty2, LittleEyeBounty3, LittleEyeBounty4, BountyInProgress);
+			writer.WriteFlags(LittleEyeBounty1, LittleEyeBounty2, LittleEyeBounty3, LittleEyeBounty4, BountyInProgress, BountyIntro);
 
 			//entity (more will probably be added here in the future)
 			writer.WriteFlags(encounteredMan);
@@ -371,7 +375,7 @@ namespace Spooky.Core
 			SporeFogIntensity = reader.ReadSingle();
 
 			//little eye quest stuff
-			reader.ReadFlags(out LittleEyeBounty1, out LittleEyeBounty2, out LittleEyeBounty3, out LittleEyeBounty4, out BountyInProgress);
+			reader.ReadFlags(out LittleEyeBounty1, out LittleEyeBounty2, out LittleEyeBounty3, out LittleEyeBounty4, out BountyInProgress, out BountyIntro);
 
 			//entity (more will probably be added here in the future)
 			reader.ReadFlags(out encounteredMan);

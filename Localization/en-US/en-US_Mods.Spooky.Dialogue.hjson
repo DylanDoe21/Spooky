@@ -68,32 +68,6 @@ LittleBone: {
 	Button2: Transport
 }
 
-LittleEye: {
-	Awaken: Whoa there, I was trying to take a nap! You must be a pretty curious adventurer to have found your way down here. Anyway, make yourself at home I guess, I've given up on trying to repair this giant lab of mine. Oh and take this weird crystal doohickey I found, It might be of use to you.
-	Default1: This place is really funky. I love watching those weird floating flesh creatures crash into stuff!
-	Default2: Did you know there's a strange giant egg somewhere around here? That'd make enough scrambled eggs to last for weeks!
-	Default3: You may call me an alchemist, I call it making nasty concoctions that I give to others for laughs.
-	Default4: You may use my magic cauldron, under the condition that you say the magic word... alright fine, you can use it whenever.
-	Default5: My cauldron is pretty crazy. Last guy wanted to make a fire elixir to fight some giant bee, but instead he comically exploded.
-	Default6: The alchemy I do down here is not really science. Nothing says alchemy more than throwing random things into a cauldron and saying gibberish afterward!
-	Default7: If your alchemy creation doesn't completely blow up in your face, you're probably doing something wrong.
-	Default8: Have you seen that giant pit of blood over there? I've seen some nasty things in there, but you can't just use any regular fishing rod in it.
-	OrroBoro: Hey, there's like a giant worm chasing you right now. Maybe go deal with that?
-	Upgrades: So, you've never heard about my cauldron? Well, if you obtain a sentient heart, you can combine it with specific weapons to turn them into something a little crazy. Sentient hearts are dropped by large and strong creatures, so make sure to look out for them! I have also heard rumors that killing a pair of serpents will also attract a strong creature in the blood lake which possesses them.
-	Quest1Accepted: Ok, so if you want to find the goblin it'll probably be hungry. Take this yummy scrumptious slice of cake I've saved and hopefully you'll be able to lure it out.
-	Quest2Accepted: With this bag of gold you should be able to attract those devious ghost bandits. Find them and show them what happens when you cause minor property damage to the lab I spent so much time making!
-	Quest3Accepted: Alright, since my sewing project is partially a spider, this dead fungus-covered beetle should do the trick! Just wait around and it'll probably smell it... or maybe detect it with whatever computer I put inside of it.
-	Quest4Accepted: Here's a container of my favorite eye drops, and since my clone is just me it should attract him as well. Be quick, I want him as dead as possible, as soon as possible.
-	Quest5Accepted: Take this special flask I made, which is constructed with materials you couldn't begin to comprehend. This should hopefully revert the barrier spell on the egg, but there's no telling what might happen when you use it. Always prepare for the worst!
-	Quest1Complete: You found that giant goblin much faster than expected! Also yay you survived somehow too! Anyways, here's this thread I used to sew the goblin together. I think it might be cursed so there's no telling what'll happen. I'm sure you'll get more use out of it anyway though.
-	Quest2Complete: Wow those chocola... I mean real gold coins worked! Anyways this book really scares me and spook-bay won't let me refund it, so I think maybe you should take it... and please don't bring it back here.
-	Quest3Complete: Yay you've managed to bring back my expensive felt I ho... What do you mean this is the only piece that didn't get destroyed? Ugh this is so small, I can't get anything from this... ok, here's this cloak I just made in a second for you, hope it can somehow help you in your adventures.
-	Quest4Complete: You have finally killed that dastardly evil-doer. For your efforts, please take this magical crystal ball to ponder and increase your power.
-	//buttons
-	Button1: Bounties
-	Button2: Cauldron
-}
-
 OldHunter: {
 	Awaken: Huh? What the hell is this? And who the hell are you!? What even happened, how long was I asleep for? Eh whatever, it probably don't matter. You look decently strong, you wanna buy some of my crazy weapons?
 	Default1: Y'know, if ya want guns you've come to the right place! I've got some classic weapons ain't no one can top!
@@ -391,4 +365,86 @@ KrampusDialogue: {
 	NoDailyQuestDay: Sorry kid, still working on the next gift! Come back tonight and it'll be ready.
 	NoDailyQuestNight: Next one's still work in progress, sorry kid. I should have it done tomorrow morning!
 	PlayerNoDailyQuest: Ok.
+}
+
+LittleEyeDialogue: {
+	//intro dialogue
+	Intro1: Oh me, oh my! A visitor? A guest? A guinea pig? A gift from the valley, so kind!
+	IntroPlayerResponse1: Huh what?
+	Intro2: Oh me, I'm sorry, I'm a little eye, the little eye! A humble witch, I won't bite! You look for power, is that right?
+	IntroPlayerResponse2: Hell no, I'm not getting cursed by your muju juju.
+	Intro3: Oh my, you misunderstand! I curse not you, but what you have! Your tools and trinkets, they are weak and frail! I can breathe new life into them with a cauldron's spell!
+	IntroPlayerResponse3: Ok, and then what? The items curse me or something?
+	Intro4: Uh, no I curse them and they get stronger that's the whole, the whole thing I just explained!
+	IntroPlayerResponse4: Oh... why didn't you just say that?
+	Intro5: It was pretty clear to me, just told in rhymes. That's no easy task, I'm sure you understand.
+	IntroPlayerResponse5: Sure yeah whatever you say dude.
+	//cauldron dialogue
+	Cauldron1: Eager are we? But not so fast, for this to work, I'll need a beating heart!
+	CauldronPlayerResponse1: Dude I'm not giving you my heart.
+	Cauldron2: Not yours, my guinea pig, yours is frail! I need monstrous heart, one that weeps and flails!
+	CauldronPlayerResponse2: And how do I get one? Also if you call me that again I will poke your eye.
+	Cauldron3: Well my guest, they are not easy to find, a heart so monstrous belongs to something vile. Vile things hide beneath the valley's veil, and their power is one to be feared as well!
+	CauldronPlayerResponse3: ...
+	Cauldron4: But oh me, oh my, are they worth the tears! Mixed with your weapons, their power will run free! So go on my guest, find a monstrous heart, a weapon you value, and in the cauldron as one they'll rise!
+	CauldronPlayerResponse4: Alright.
+	//bounty mission intro
+	BountyIntro1: ...
+	BountyIntroPlayerResponse1: So... you do anything else?
+	BountyIntro2: Oh my, of course! I do many things... although, most of them run far far away... hmph.
+	BountyIntroPlayerResponse2: I meant like, anything normal.
+	BountyIntro3: Now that you mention it, perhaps you and your weapons could be of use. I'd reward you of course, given my requests would be so obtuse.
+	BountyIntroPlayerResponse3: I did not mention requests at all.
+	BountyIntro4: Here, guest, I've made a list for you! My creations that have ran far from view! They hide from me, oh me oh my. I need you to slime them.
+	BountyIntroPlayerResponse4: Sorry, what?
+	BountyIntro5: I'll tell you more once you pick! Surprises are more fun after all! but... but yeah I will need you to kill all of them.
+	BountyIntroPlayerResponse5: Dude...
+	BountyIntro6: Teehee!
+	BountyIntroPlayerResponse6: ...
+	//frank the goblin quest
+	Quest1-1: One time, I ripped the skin clean off of thirty goblins!
+	PlayerQuest1-1: Who starts a conversation like that?
+	Quest1-2: I needed a guardian for my humble home, but he proved too hard too control! he ran-
+	PlayerQuest1-2: I'm not letting you try and rhyme after that. Just tell me what to do.
+	Quest1-3: Oh... but, but it was a cool rhyme, you would have loved it!
+	PlayerQuest1-3: I do not like being around you.
+	Quest1-4: Oh my... fine, off to the spooky forest he went! Use red velvet cake, frank will catch its scent! with a slash and a snip, cut off his toungue! bring it back to me, while the day is young!
+	PlayerQuest1-4: Whatever.
+	//frank the goblin quest complete
+	QuestComplete1-1: There you are, my guest!
+	PlayerQuestComplete1-1: I got the toungue, you freak.
+	QuestComplete1-2: Hurray! You've saved the day, my friend! As promised, I gift you needle and thread! Be careful, its sharp, and laced with bacteria! One poke and your enemies will catch tetanus!
+	PlayerQuestComplete1-2: That one didn't even rhyme.
+	QuestComplete1-3: You try and rhyme tetanus with anything then.
+	PlayerQuestComplete1-3: You have tetanus, and uh... uranus...
+	QuestComplete1-4: See?
+	PlayerQuestComplete1-4: Fine, point proven.
+	//frank the goblin rematch
+	QuestRematch1: Luckily for you my guest, another piece of red velvet cake!
+	PlayerQuestRematch1: Ok.
+	//tome of spirits quest
+	Quest2-1: This one differs from the others, in many ways! It's something I didn't make! A book I ordered off of a shady site, and it was filled with ghosts inside! I need them gone so I may read the tome, and unlock the secrets within its folds!
+	PlayerQuest2-1: So how exactly do I find this book?
+	Quest2-2: You can bait the ghosts with money!
+	PlayerQuest2-2: Oh... wait why?
+	Quest2-3: Use the money to bait the ghosts!
+	PlayerQuest2-3: Yeah but how does that work?
+	Quest2-4: Ghosts love money! They'll go for it, for sure!
+	PlayerQuest2-4: The way you talk makes me annoyed in a primordial way.
+	//tome of spirits quest complete
+	QuestComplete2-1: Greetings!
+	PlayerQuestComplete2-1: Alright, here's the book, tome, whatever you called it.
+	QuestComplete2-2: I called it both things actually, I felt a little silly that day!
+	PlayerQuestComplete2-2: You are actually brain damaged.
+	QuestComplete2-3: Let's see here... oh me, oh my! Finally I'll glimpse what this manuscript hides!
+	PlayerQuestComplete2-3: Uh-huh.
+	QuestComplete2-4: ...
+	PlayerQuestComplete2-4: So uh...
+	QuestComplete2-5: Eh, I've read better here you can have it.
+	PlayerQuestComplete2-5: Dude what?
+	QuestComplete2-6: Here I'll even bring back the ghosts in it so they can help you or something I guess. I wasn't really planning on giving you a reward for this one so it works out!
+	PlayerQuestComplete2-6: Sure, yeah, whatever I guess.
+	//tome of spirits rematch
+	QuestRematch2: Here's some more gold in a bag for ghosts!
+	PlayerQuestRematch2: Ok.
 }

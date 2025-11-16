@@ -25,8 +25,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16, 16, 16 };
 			TileObjectData.newTile.Origin = new Point16(0, 4);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(143, 97, 86), name);
+			AddMapEntry(new Color(143, 97, 86), Lang.GetItemName(ItemID.GrandfatherClock));
 			DustType = DustID.WoodFurniture;
 			AdjTiles = new int[] { TileID.GrandfatherClocks };
 		}

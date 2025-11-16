@@ -30,8 +30,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newAlternate.DrawYOffset = -10;
 			TileObjectData.addAlternate(0);
             TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(122, 72, 203), name);
+            AddMapEntry(new Color(122, 72, 203), Language.GetText("MapObject.Lantern"));
             RegisterItemDrop(ModContent.ItemType<GlowshroomLanternItem>());
             DustType = DustID.Slush;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
@@ -113,8 +112,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newAlternate.DrawYOffset = -10;
 			TileObjectData.addAlternate(0);
             TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(179, 128, 50), name);
+            AddMapEntry(new Color(179, 128, 50), Language.GetText("MapObject.Lantern"));
             RegisterItemDrop(ModContent.ItemType<GlowshroomYellowLanternItem>());
             DustType = DustID.Slush;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

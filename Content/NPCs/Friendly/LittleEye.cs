@@ -4,31 +4,36 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.Localization;
+using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.Food;
-using Spooky.Content.Items.Pets;
-using Spooky.Content.Items.Quest;
-using Spooky.Content.Items.SpookyHell;
-using Spooky.Content.Items.SpookyHell.Sentient;
-using Spooky.Content.NPCs.Boss.Orroboro;
-using Spooky.Content.Tiles.Painting;
 using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
 {
-    [AutoloadHead]
+	[AutoloadHead]
 	public class LittleEye : ModNPC
 	{
-		public static int ChosenQuestForToday = 0;
+		public Vector2 modifier = new(-200, -75);
 
-        private static int ShimmerHeadIndex;
+		public static readonly SoundStyle TalkSound = new("Spooky/Content/Sounds/Krampus/Talk", SoundType.Sound) { Volume = 0.35f, Pitch = 1.5f, PitchVariance = 0.75f };
+
+		private static Asset<Texture2D> UITexture;
+
+		private static int ShimmerHeadIndex;
         private static Profiles.StackedNPCProfile NPCProfile;
 
-        public override void SetStaticDefaults()
+		public override void Load()
+		{
+			UITexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye");
+			ShimmerHeadIndex = Mod.AddNPCHeadTexture(Type, Texture + "_Shimmer_Head");
+		}
+
+		public override void SetStaticDefaults()
 		{
             NPCID.Sets.ActsLikeTownNPC[Type] = true;
             NPCID.Sets.ShimmerTownTransform[Type] = true;
@@ -36,11 +41,6 @@ namespace Spooky.Content.NPCs.Friendly
             Main.npcFrameCount[NPC.type] = 5;
 
             NPCProfile = new Profiles.StackedNPCProfile(new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture)), new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIndex));
-        }
-
-        public override void Load()
-        {
-            ShimmerHeadIndex = Mod.AddNPCHeadTexture(Type, Texture + "_Shimmer_Head");
         }
 
         public override ITownNPCProfile TownNPCProfile()
@@ -60,10 +60,9 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
 			NPC.dontCountMe = true;
-            TownNPCStayingHomeless = true;
+			TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.knockBackResist = 0f;
             NPC.aiStyle = 7;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type };
 		}
@@ -101,293 +100,30 @@ namespace Spooky.Content.NPCs.Friendly
 			return true;
 		}
 
-        public override void SetChatButtons(ref string button, ref string button2)
-		{
-			button = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Button1");
-			button2 = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Button2");
-		}
-
-		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-		{
-			//quest button
-			if (firstButton) 
-            {
-				Player player = Main.LocalPlayer;
-
-				if (player.ConsumeItem(ModContent.ItemType<BountyItem1>()))
-				{
-					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest1Complete");
-
-					bool IsLastQuest = !Flags.LittleEyeBounty1 && Flags.LittleEyeBounty2 && Flags.LittleEyeBounty3 && Flags.LittleEyeBounty4;
-
-					if (IsLastQuest)
-					{
-						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<SewingThread>(), 1);
-
-					if (Main.rand.NextBool())
-					{
-						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<IconPainting1Item>(), 1);
-
-					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
-
-					if (Main.rand.NextBool())
-					{
-						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
-
-						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.ObsidianLockbox, 1);
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.BloodMoonStarter, 1);
-					}
-
-					if (Main.rand.NextBool(20))
-					{
-						SpawnItem(ModContent.ItemType<BrownieOrange>(), 1);
-					}
-
-					SpawnItem(ItemID.GoldCoin, 10);
-
-					if (Main.netMode != NetmodeID.SinglePlayer)
-					{
-						ModPacket packet = Mod.GetPacket();
-						packet.Write((byte)SpookyMessageType.Bounty1Complete);
-						packet.Send();
-					}
-					else
-					{
-						Flags.LittleEyeBounty1 = true;
-						Flags.BountyInProgress = false;
-					}
-				}
-				else if (player.ConsumeItem(ModContent.ItemType<BountyItem2>()))
-				{
-					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest2Complete");
-
-					bool IsLastQuest = !Flags.LittleEyeBounty2 && Flags.LittleEyeBounty1 && Flags.LittleEyeBounty3 && Flags.LittleEyeBounty4;
-
-					if (IsLastQuest)
-					{
-						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<GhostBook>(), 1);
-
-					if (Main.rand.NextBool())
-					{
-						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<IconPainting2Item>(), 1);
-
-					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
-
-					if (Main.rand.NextBool())
-					{
-						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
-
-						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.ObsidianLockbox, 1);
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.BloodMoonStarter, 1);
-					}
-
-					if (Main.rand.NextBool(20))
-					{
-						SpawnItem(ModContent.ItemType<BrownieGhost>(), 1);
-					}
-
-					SpawnItem(ItemID.GoldCoin, 10);
-
-					if (Main.netMode != NetmodeID.SinglePlayer)
-					{
-						ModPacket packet = Mod.GetPacket();
-						packet.Write((byte)SpookyMessageType.Bounty2Complete);
-						packet.Send();
-					}
-					else
-					{
-						Flags.LittleEyeBounty2 = true;
-						Flags.BountyInProgress = false;
-					}
-				}
-				else if (player.ConsumeItem(ModContent.ItemType<BountyItem3>()))
-				{
-					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest3Complete");
-
-					bool IsLastQuest = !Flags.LittleEyeBounty3 && Flags.LittleEyeBounty1 && Flags.LittleEyeBounty2 && Flags.LittleEyeBounty4;
-
-					if (IsLastQuest)
-					{
-						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<StitchedCloak>(), 1);
-
-					if (Main.rand.NextBool())
-					{
-						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<IconPainting3Item>(), 1);
-
-					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
-
-					if (Main.rand.NextBool())
-					{
-						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
-
-						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.ObsidianLockbox, 1);
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.BloodMoonStarter, 1);
-					}
-
-					if (Main.rand.NextBool(20))
-					{
-						SpawnItem(ModContent.ItemType<BrownieBone>(), 1);
-					}
-
-					SpawnItem(ItemID.GoldCoin, 10);
-
-					if (Main.netMode != NetmodeID.SinglePlayer)
-					{
-						ModPacket packet = Mod.GetPacket();
-						packet.Write((byte)SpookyMessageType.Bounty3Complete);
-						packet.Send();
-					}
-					else
-					{
-						Flags.LittleEyeBounty3 = true;
-						Flags.BountyInProgress = false;
-					}
-				}
-				else if (player.ConsumeItem(ModContent.ItemType<BountyItem4>()))
-				{
-					Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Quest4Complete");
-
-					bool IsLastQuest = !Flags.LittleEyeBounty4 && Flags.LittleEyeBounty1 && Flags.LittleEyeBounty2 && Flags.LittleEyeBounty3;
-
-					if (IsLastQuest)
-					{
-						SpawnItem(ModContent.ItemType<SentientChumCaster>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<MagicEyeOrb>(), 1);
-
-					if (Main.rand.NextBool())
-					{
-						SpawnItem(ModContent.ItemType<SnotMedication>(), 1);
-					}
-
-					SpawnItem(ModContent.ItemType<LittleEyeHat>(), 1);
-					SpawnItem(ModContent.ItemType<IconPainting4Item>(), 1);
-
-					SpawnItem(ItemID.GoodieBag, Main.rand.Next(1, 5));
-
-					if (Main.rand.NextBool())
-					{
-						int[] Foods = new int[] { ModContent.ItemType<BlackLicorice>(), ModContent.ItemType<EyeChocolate>(), ModContent.ItemType<GoofyPretzel>() };
-
-						SpawnItem(Main.rand.Next(Foods), Main.rand.Next(1, 3));
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.ObsidianLockbox, 1);
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						SpawnItem(ItemID.BloodMoonStarter, 1);
-					}
-
-					if (Main.rand.NextBool(20))
-					{
-						SpawnItem(ModContent.ItemType<BrownieOrganic>(), 1);
-					}
-
-					SpawnItem(ItemID.GoldCoin, 10);
-
-					if (Main.netMode != NetmodeID.SinglePlayer)
-					{
-						ModPacket packet = Mod.GetPacket();
-						packet.Write((byte)SpookyMessageType.Bounty4Complete);
-						packet.Send();
-					}
-					else
-					{
-						Flags.LittleEyeBounty4 = true;
-						Flags.BountyInProgress = false;
-					}
-				}
-				else
-				{
-					LittleEyeQuestUI.LittleEye = NPC.whoAmI;
-					LittleEyeQuestUI.UIOpen = true;
-				}
-			}
-			//cauldron button
-			else
-			{
-				Main.npcChatText = Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Upgrades");
-			}
-		}
-
-        public void SpawnItem(int Type, int Amount)
-        {
-            int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, Type, Amount);
-
-			if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-			{
-				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-			}
-        }
-
 		public override string GetChat()
 		{
-			if (NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()))
-            {
-				return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.OrroBoro");
-			}
+			LittleEyeDialogueChoiceUI.LittleEye = NPC.whoAmI;
+			LittleEyeDialogueChoiceUI.UIOpen = true;
+            return string.Empty;
+		}
 
-			return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Default" + Main.rand.Next(1, 9));
+		public override bool CheckActive()
+		{
+			return false;
+		}
+
+		public override bool NeedSaving()
+		{
+			return true;
 		}
 
 		public override void AI()
 		{
 			NPC.TargetClosest(true);
-            Player player = Main.player[NPC.target];
-			
+
 			NPC.spriteDirection = NPC.direction;
 
 			NPC.velocity.X = 0;
 		}
-    }
+	}
 }

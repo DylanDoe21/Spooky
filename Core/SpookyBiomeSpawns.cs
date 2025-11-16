@@ -455,7 +455,7 @@ namespace Spooky.Core
 				pool.Clear();
 
 				//regular spiders should not spawn during a spore fog event if the fog intensity is at its maximum
-				if (!Flags.SporeEventHappening || (Flags.SporeEventHappening && Flags.SporeFogIntensity < 1f))
+				if (!Flags.SporeEventHappening || (Flags.SporeEventHappening && Flags.SporeFogIntensity < 0.75f))
 				{
 					//quest miniboss
 					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem3>()) && !NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))

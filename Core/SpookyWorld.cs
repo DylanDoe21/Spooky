@@ -302,7 +302,7 @@ namespace Spooky.Core
                     }
                 }
                 //end the spore event when the timer runs out
-                else
+                if (Flags.SporeEventTimeLeft == 2)
                 {
                     Flags.SporeEventHappening = false;
                     Flags.SporeEventTimeLeft = 0;
@@ -311,12 +311,23 @@ namespace Spooky.Core
                     {
                         NetMessage.SendData(MessageID.WorldData);
                     }
+
+                    string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SporeEventEnd");
+
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText(text, 171, 64, 255);
+                    }
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                    }
                 }
 
                 //handle things that happen when day/night switches to the other
                 if (DaySwitched)
                 {
-                    if (!Flags.SporeEventHappening && Main.hardMode && Main.rand.NextBool(35))
+                    if (!Flags.SporeEventHappening && Main.hardMode && Main.rand.NextBool(30))
                     {
                         Flags.SporeEventHappening = true;
                         Flags.SporeEventTimeLeft = 54000; //15 real-life minutes=
@@ -325,6 +336,17 @@ namespace Spooky.Core
                         if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.SendData(MessageID.WorldData);
+                        }
+
+                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.SporeEventStart");
+
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {
+                            Main.NewText(text, 171, 64, 255);
+                        }
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                         }
                     }
 
@@ -354,27 +376,6 @@ namespace Spooky.Core
                             ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
                         }
                     }
-                    //if a raveyard is happening, end it during the day
-                    if (Main.dayTime && Flags.RaveyardHappening)
-                    {
-                        Flags.RaveyardHappening = false;
-
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            NetMessage.SendData(MessageID.WorldData);
-                        }
-
-                        string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
-
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
-                        }
-                        if (Main.netMode == NetmodeID.SinglePlayer)
-                        {
-                            Main.NewText(text, 171, 64, 255);
-                        }
-                    }
 
                     //krampus daily quests should refresh when it switches to day or night
                     if (Flags.KrampusQuestlineDone && !Flags.KrampusQuestGiven)
@@ -386,6 +387,28 @@ namespace Spooky.Core
                             NetMessage.SendData(MessageID.WorldData);
                         }
                     }
+                }
+            }
+
+            //if a raveyard is happening, end it during the day
+            if (Main.dayTime && Flags.RaveyardHappening)
+            {
+                Flags.RaveyardHappening = false;
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData);
+                }
+
+                string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.RaveyardEnd");
+
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                }
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Main.NewText(text, 171, 64, 255);
                 }
             }
 

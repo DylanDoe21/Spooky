@@ -37,8 +37,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
             TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;
             TileObjectData.newTile.LavaPlacement = LiquidPlacement.NotAllowed;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(114, 13, 39), name);
+            AddMapEntry(new Color(114, 13, 39), Language.GetText("MapObject.FloorLamp"));
             RegisterItemDrop(ModContent.ItemType<EyeLampItem>());
             DustType = DustID.Blood;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

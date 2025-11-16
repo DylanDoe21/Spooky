@@ -11,5 +11,13 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             Item.width = 16;
 			Item.height = 16;
 		}
+
+		public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.StoneBlock, 50)
+            .AddTile(TileID.HeavyWorkBench)
+            .Register();
+        }
 	}
 }

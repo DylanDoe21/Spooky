@@ -2,14 +2,29 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.Tiles.Pylon;
+using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
 {
 	public class LittleEyeSleeping : ModNPC
 	{
+		public Vector2 modifier = new(-200, -75);
+		
+		private static Asset<Texture2D> UITexture;
+
+		public static readonly SoundStyle TalkSound = new("Spooky/Content/Sounds/Krampus/Talk", SoundType.Sound) { Volume = 0.35f, Pitch = 1.5f, PitchVariance = 0.75f };
+
+		public override void Load()
+		{
+			UITexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye");
+		}
+
 		public override void SetStaticDefaults()
 		{
 			NPCID.Sets.ActsLikeTownNPC[Type] = true;
@@ -49,7 +64,47 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override string GetChat()
 		{
-			return Language.GetTextValue("Mods.Spooky.Dialogue.LittleEye.Awaken");
+			DialogueChain chain = new();
+			chain.Add(new(UITexture.Value, NPC,
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Intro1"),
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.IntroPlayerResponse1"),
+			TalkSound, 2f, 0f, modifier, NPCID: NPC.type))
+			.Add(new(UITexture.Value, NPC,
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Intro2"),
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.IntroPlayerResponse2"),
+			TalkSound, 2f, 0f, modifier, NPCID: NPC.type))
+			.Add(new(UITexture.Value, NPC,
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Intro3"),
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.IntroPlayerResponse3"),
+			TalkSound, 2f, 0f, modifier, NPCID: NPC.type))
+			.Add(new(UITexture.Value, NPC,
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Intro4"),
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.IntroPlayerResponse4"),
+			TalkSound, 2f, 0f, modifier, NPCID: NPC.type))
+			.Add(new(UITexture.Value, NPC,
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Intro5"),
+			Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.IntroPlayerResponse5"),
+			TalkSound, 2f, 0f, modifier, NPCID: NPC.type))
+			.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+			chain.OnPlayerResponseTrigger += PlayerResponse;
+			chain.OnEndTrigger += EndDialogue;
+			DialogueUI.Visible = true;
+			DialogueUI.Add(chain);
+
+			return string.Empty;
+		}
+
+		public static void PlayerResponse(Dialogue dialogue, string Text, int ID)
+		{
+			Dialogue newDialogue = new(ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer").Value, Main.LocalPlayer,
+			Text, null, SoundID.Item1, 2f, 0f, default, NotPlayer: false);
+			DialogueUI.Visible = true;
+			DialogueUI.Add(newDialogue);
+		}
+
+		public static  void EndDialogue(Dialogue dialogue, int ID)
+		{
+			DialogueUI.Visible = false;
 		}
 
         public override void AI()

@@ -13,8 +13,7 @@ namespace Spooky.Content.Biomes
 {
     public class SporeEventBiome : ModBiome
     {
-		//set the music to be consistent with vanilla's music priorities
-		public override int Music => MusicID.Graveyard;
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SporeEvent");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -100,16 +99,17 @@ namespace Spooky.Content.Biomes
 					InitializedColors = true;
 				}
 
-				void DrawFog(Texture2D tex, Vector2 offset)
+				void DrawFog(Texture2D tex, Vector2 offset, bool usePosOffset = false)
 				{
 					for (int i = -1; i < 2; i += 2)
 					{
 						for (int j = -1; j < 2; j += 2)
 						{
-							Vector2 origPos = Main.LocalPlayer.Center - new Vector2(Main.screenWidth * i, Main.screenHeight * j) * 0.5f;
+							Vector2 origPosOffset = usePosOffset ? new Vector2(offset.X, offset.Y) : Vector2.Zero;
 
-							Vector2 pos = new Vector2(MathF.Floor(origPos.X / (Main.screenWidth)), MathF.Floor(origPos.Y / (Main.screenHeight)))
-								* new Vector2(Main.screenWidth, Main.screenHeight) - Main.screenPosition + offset;
+							Vector2 origPos = Main.LocalPlayer.Center - origPosOffset - new Vector2(Main.screenWidth * i, Main.screenHeight * j) * 0.5f;
+
+							Vector2 pos = new Vector2(MathF.Floor(origPos.X / (Main.screenWidth)), MathF.Floor(origPos.Y / (Main.screenHeight))) * new Vector2(Main.screenWidth, Main.screenHeight) - Main.screenPosition + offset;
 
 							Rectangle rect = new Rectangle((int)pos.X, (int)pos.Y, Main.screenWidth, Main.screenHeight);
 							if (!rect.Intersects(new Rectangle(0, 0, Main.screenWidth, Main.screenHeight)))
@@ -132,14 +132,20 @@ namespace Spooky.Content.Biomes
 				sporeEffect.Parameters["uColor"].SetValue(color1.ToVector4());
 				sporeEffect.Parameters["uExponent"].SetValue(3f);
 				for (int i = -1; i < 2; i += 2)
+				{
 					DrawFog(SwirlyNoise.Value, new Vector2(Main.screenWidth, Main.screenHeight * 1.5f) * 0.125f * i);
+					DrawFog(SwirlyNoise.Value, new Vector2(Main.screenWidth * 3f, Main.screenHeight * 3f) * 0.125f * -i, true);
+				}
 
 				//draw second layer of slightly more transparent fog
 				sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f * (0.45f * Flags.SporeFogIntensity) * FogAlpha);
 				sporeEffect.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly / 50);
 				sporeEffect.Parameters["uColor"].SetValue(color1.ToVector4());
 				for (int i = -1; i < 2; i += 2)
+				{
 					DrawFog(SwirlyNoiseInv.Value, new Vector2(Main.screenWidth, Main.screenHeight * 1.5f) * 0.125f * -i);
+					DrawFog(SwirlyNoiseInv.Value, new Vector2(Main.screenWidth * 3f, Main.screenHeight * 3f) * 0.125f * i, true);
+				}
 
 				//draw star texture to look like spores are in the air
 				sporeEffect.Parameters["uOpacityTotal"].SetValue(2 * (1f * Flags.SporeFogIntensity) * FogAlpha);

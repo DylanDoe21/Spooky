@@ -23,8 +23,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
 			TileObjectData.newTile.CoordinateHeights = new[] { 18 };
 			TileObjectData.newTile.DrawYOffset = -2;
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(143, 97, 86), name);
+			AddMapEntry(new Color(143, 97, 86), Lang.GetItemName(ItemID.WorkBench));
             DustType = DustID.WoodFurniture;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			AdjTiles = new int[] { TileID.WorkBenches };

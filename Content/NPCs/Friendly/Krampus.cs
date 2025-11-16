@@ -30,6 +30,12 @@ namespace Spooky.Content.NPCs.Friendly
 		private static Asset<Texture2D> AngryTexture;
 		private static Asset<Texture2D> SadTexture;
 		private static Asset<Texture2D> EarHideTexture;
+		private static Asset<Texture2D> UITexture;
+
+		public override void Load()
+		{
+			UITexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIKrampus");
+		}
 
 		public override void SetStaticDefaults()
         {
@@ -58,7 +64,6 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.dontCountMe = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.knockBackResist = 0f;
             NPC.aiStyle = -1;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.ChristmasDungeonBiome>().Type };
         }
@@ -128,7 +133,7 @@ namespace Spooky.Content.NPCs.Friendly
 			for (int i = 0; i < Main.InventorySlotsTotal; i++)
 			{
 				//if theres any empty slots at all then inventory is not full
-				if (player.inventory[i].type < 1)
+				if (player.inventory[i].IsAir)
 				{
 					return false;
 				}
@@ -169,27 +174,27 @@ namespace Spooky.Content.NPCs.Friendly
 									if (!Flags.KrampusQuest1)
 									{
 										DialogueChain chain = new();
-										chain.Add(new(NPC,
+										chain.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue1-1"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse1-1"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue1-2"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse1-2"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue1-3"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse1-3"),
 										TalkSound, 2f, 0f, modifier, Expression: 3, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue1-4"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse1-4"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue1-5"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse1-5"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 										chain.OnPlayerResponseTrigger += PlayerResponse;
 										chain.OnEndTrigger += SetKrampusQuestGiven;
 										chain.OnEndTrigger += GivePlayerPresent;
@@ -201,31 +206,31 @@ namespace Spooky.Content.NPCs.Friendly
 									else if (Flags.KrampusQuest1 && !Flags.KrampusQuest2)
 									{	
 										DialogueChain chain = new();
-										chain.Add(new(NPC,
+										chain.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue2-1"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse2-1"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue2-2"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse2-2"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue2-3"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse2-3"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue2-4"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse2-4"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue2-5"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse2-5"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue2-6"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse2-6"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 										chain.OnPlayerResponseTrigger += PlayerResponse;
 										chain.OnEndTrigger += SetKrampusQuestGiven;
 										chain.OnEndTrigger += GivePlayerPresent;
@@ -238,31 +243,31 @@ namespace Spooky.Content.NPCs.Friendly
 									else if (Flags.KrampusQuest2 && !Flags.KrampusQuest3)
 									{
 										DialogueChain chain = new();
-										chain.Add(new(NPC,
+										chain.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue3-1"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse3-1"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue3-2"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse3-2"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue3-3"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse3-3"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue3-4"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse3-4"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue3-5"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse3-5"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue3-6"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse3-6"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 										chain.OnPlayerResponseTrigger += PlayerResponse;
 										chain.OnEndTrigger += SetKrampusQuestGiven;
 										chain.OnEndTrigger += GivePlayerPresent;
@@ -275,31 +280,31 @@ namespace Spooky.Content.NPCs.Friendly
 									else if (Flags.KrampusQuest3 && !Flags.KrampusQuest4)
 									{
 										DialogueChain chain = new();
-										chain.Add(new(NPC,
+										chain.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue4-1"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse4-1"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue4-2"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse4-2"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue4-3"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse4-3"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue4-4"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse4-4"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue4-5"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse4-5"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue4-6"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse4-6"),
 										TalkSound, 2f, 0f, modifier, Expression: 3, NPCID: NPC.type))
-										.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 										chain.OnPlayerResponseTrigger += PlayerResponse;
 										chain.OnEndTrigger += SetKrampusQuestGiven;
 										chain.OnEndTrigger += GivePlayerPresent;
@@ -312,31 +317,31 @@ namespace Spooky.Content.NPCs.Friendly
 									else if (Flags.KrampusQuest4 && !Flags.KrampusQuest5)
 									{
 										DialogueChain chain = new();
-										chain.Add(new(NPC,
+										chain.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue5-1"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse5-1"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue5-2"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse5-2"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue5-3"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse5-3"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue5-4"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse5-4"),
 										TalkSound, 2f, 0f, modifier, Expression: 3, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue5-5"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse5-5"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue5-6"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse5-6"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 										chain.OnPlayerResponseTrigger += PlayerResponse;
 										chain.OnEndTrigger += SetKrampusQuestGiven;
 										chain.OnEndTrigger += GivePlayerPresent;
@@ -349,35 +354,35 @@ namespace Spooky.Content.NPCs.Friendly
 									else if (Flags.KrampusQuest5)
 									{
 										DialogueChain chain = new();
-										chain.Add(new(NPC,
+										chain.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue6-1"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse6-1"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue6-2"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse6-2"),
 										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue6-3"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse6-3"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue6-4"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse6-4"),
 										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue6-5"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse6-5"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue6-6"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse6-6"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC,
+										.Add(new(UITexture.Value, NPC,
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.Dialogue6-7"),
 										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerResponse6-7"),
 										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-										.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 										chain.OnPlayerResponseTrigger += PlayerResponse;
 										chain.OnEndTrigger += GivePlayerReward;
 										chain.OnEndTrigger += GivePlayerPylon;
@@ -399,15 +404,15 @@ namespace Spooky.Content.NPCs.Friendly
 											int DialogueID = Main.rand.Next(1, 3);
 
 											DialogueChain chain = new();
-											chain.Add(new(NPC,
+											chain.Add(new(UITexture.Value, NPC,
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DailyQuest" + DialogueID + "-1"),
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerDailyQuest" + DialogueID + "-1"),
 											TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-											.Add(new(NPC,
+											.Add(new(UITexture.Value, NPC,
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DailyQuest" + DialogueID + "-2"),
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerDailyQuest" + DialogueID + "-2"),
 											TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-											.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+											.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 											chain.OnPlayerResponseTrigger += PlayerResponse;
 											chain.OnEndTrigger += SetKrampusQuestGiven;
 											chain.OnEndTrigger += GivePlayerPresent;
@@ -419,11 +424,11 @@ namespace Spooky.Content.NPCs.Friendly
 										else
 										{
 											DialogueChain chain = new();
-											chain.Add(new(NPC,
+											chain.Add(new(UITexture.Value, NPC,
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DailyQuestComplete"),
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerDailyQuestComplete"),
 											TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-											.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+											.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 											chain.OnPlayerResponseTrigger += PlayerResponse;
 											chain.OnEndTrigger += GivePlayerReward;
 											chain.OnEndTrigger += SetDailyQuestComplete;
@@ -438,11 +443,11 @@ namespace Spooky.Content.NPCs.Friendly
 										if (Main.dayTime)
 										{
 											DialogueChain chain = new();
-											chain.Add(new(NPC,
+											chain.Add(new(UITexture.Value, NPC,
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.NoDailyQuestDay"),
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoDailyQuest"),
 											TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-											.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+											.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 											chain.OnPlayerResponseTrigger += PlayerResponse;
 											chain.OnEndTrigger += EndDialogue;
 											DialogueUI.Visible = true;
@@ -451,11 +456,11 @@ namespace Spooky.Content.NPCs.Friendly
 										else
 										{
 											DialogueChain chain = new();
-											chain.Add(new(NPC,
+											chain.Add(new(UITexture.Value, NPC,
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.NoDailyQuestNight"),
 											Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoDailyQuest"),
 											TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-											.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+											.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 											chain.OnPlayerResponseTrigger += PlayerResponse;
 											chain.OnEndTrigger += EndDialogue;
 											DialogueUI.Visible = true;
@@ -472,51 +477,92 @@ namespace Spooky.Content.NPCs.Friendly
 								!PlayerTalkingTo.HasItem(ModContent.ItemType<QuestPresent3>()) &&
 								!PlayerTalkingTo.HasItem(ModContent.ItemType<QuestPresentLittleEye>()))
 								{
-									DialogueChain chain = new();
-									chain.Add(new(NPC,
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-1"),
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-1"),
-									TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-									.Add(new(NPC,
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-2"),
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-2"),
-									TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-									.Add(new(NPC,
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-3"),
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-3"),
-									TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-									.Add(new(NPC,
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-4"),
-									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-4"),
-									TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-									.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
-									chain.OnPlayerResponseTrigger += PlayerResponse;
-									chain.OnEndTrigger += GivePlayerPresent;
-									chain.OnEndTrigger += EndDialogue;
-									DialogueUI.Visible = true;
-									DialogueUI.Add(chain);
+									if (!InventoryFull(PlayerTalkingTo))
+									{
+										DialogueChain chain = new();
+										chain.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-1"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-1"),
+										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-2"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-2"),
+										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-3"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-3"),
+										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-4"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-4"),
+										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										chain.OnPlayerResponseTrigger += PlayerResponse;
+										chain.OnEndTrigger += GivePlayerPresent;
+										chain.OnEndTrigger += EndDialogue;
+										DialogueUI.Visible = true;
+										DialogueUI.Add(chain);
+									}
+									else
+									{
+										DialogueChain chain = new();
+										chain.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-1"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-1"),
+										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-2"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-2"),
+										TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-3"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-3"),
+										TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueNoPresent-4"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerNoPresent-4"),
+										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueInvFull-1"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerInvFull-1"),
+										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueInvFull-2"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerInvFull-2"),
+										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC,
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueInvFull-3"),
+										Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerInvFull-3"),
+										TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
+										.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+										chain.OnPlayerResponseTrigger += PlayerResponse;
+										chain.OnEndTrigger += GivePlayerPresent;
+										chain.OnEndTrigger += EndDialogue;
+										DialogueUI.Visible = true;
+										DialogueUI.Add(chain);
+									}
 								}
 								//if you have a present, then krampus tells you to go deliver it
 								else
 								{
 									DialogueChain chain = new();
-									chain.Add(new(NPC,
+									chain.Add(new(UITexture.Value, NPC,
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialoguePresent-1"),
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerPresent-1"),
 									TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: NPC.type))
-									.Add(new(NPC,
+									.Add(new(UITexture.Value, NPC,
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialoguePresent-2"),
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerPresent-2"),
 									TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-									.Add(new(NPC,
+									.Add(new(UITexture.Value, NPC,
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialoguePresent-3"),
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerPresent-3"),
 									TalkSound, 2f, 0f, modifier, Expression: 0, NPCID: NPC.type))
-									.Add(new(NPC,
+									.Add(new(UITexture.Value, NPC,
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialoguePresent-4"),
 									Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerPresent-4"),
 									TalkSound, 2f, 0f, modifier, Expression: 2, NPCID: NPC.type))
-									.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
+									.Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
 									chain.OnPlayerResponseTrigger += PlayerResponse;
 									chain.OnEndTrigger += EndDialogue;
 									DialogueUI.Visible = true;
@@ -531,7 +577,7 @@ namespace Spooky.Content.NPCs.Friendly
 
 		private void PlayerResponse(Dialogue dialogue, string Text, int ID)
 		{
-			Dialogue newDialogue = new(PlayerTalkingTo, Text, null, SoundID.Item1, 2f, 0f, default, NotPlayer: false);
+			Dialogue newDialogue = new(ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer").Value, PlayerTalkingTo, Text, null, SoundID.Item1, 2f, 0f, default, NotPlayer: false);
 			DialogueUI.Visible = true;
 			DialogueUI.Add(newDialogue);
 		}
@@ -558,62 +604,14 @@ namespace Spooky.Content.NPCs.Friendly
 
 		private void GivePlayerPresent(Dialogue dialogue, int ID)
 		{
-			if (InventoryFull(PlayerTalkingTo))
-			{
-				DialogueChain chain = new();
-				chain.Add(new(NPC,
-				Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueInvFull-1"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerInvFull-1"),
-				TalkSound, 2f, 0f, modifier, Expression: 0))
-				.Add(new(NPC,
-				Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueInvFull-2"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerInvFull-2"),
-				TalkSound, 2f, 0f, modifier, Expression: 0))
-				.Add(new(NPC,
-				Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.DialogueInvFull-3"),
-				Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerInvFull-3"),
-				TalkSound, 2f, 0f, modifier, Expression: 0))
-				.Add(new(NPC, null, null, TalkSound, 2f, 0f, modifier, true));
-				chain.OnPlayerResponseTrigger += PlayerResponse;
-				chain.OnEndTrigger += GivePlayerPresentWithoutInvCheck;
-				DialogueUI.Visible = true;
-				DialogueUI.Add(chain);
-			}
-			else
-			{
-				int[] Items = new int[] { ModContent.ItemType<QuestPresent1>(), ModContent.ItemType<QuestPresent2>(), ModContent.ItemType<QuestPresent3>() };
-
-				int Type = Flags.KrampusQuest4 ? ModContent.ItemType<QuestPresentLittleEye>() : Main.rand.Next(Items);
-				int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), PlayerTalkingTo.Hitbox, Type, 1);
-
-				if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-				{
-					NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-				}
-			}
-		}
-
-		private void GivePlayerPresentWithoutInvCheck(Dialogue dialogue, int ID)
-		{
 			int[] Items = new int[] { ModContent.ItemType<QuestPresent1>(), ModContent.ItemType<QuestPresent2>(), ModContent.ItemType<QuestPresent3>() };
 
 			int Type = Flags.KrampusQuest4 ? ModContent.ItemType<QuestPresentLittleEye>() : Main.rand.Next(Items);
-			int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, Type, 1);
+			int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), PlayerTalkingTo.Hitbox, Type, 1);
 
 			if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
 			{
 				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-			}
-
-			if (Main.netMode != NetmodeID.SinglePlayer)
-			{
-				ModPacket packet = Mod.GetPacket();
-				packet.Write((byte)SpookyMessageType.KrampusQuestGiven);
-				packet.Send();
-			}
-			else
-			{
-				Flags.KrampusQuestGiven = true;
 			}
 		}
 

@@ -146,7 +146,7 @@ namespace Spooky.Content.Projectiles.Pets
                 Projectile.ai[0] = 0f;
                 Projectile.netUpdate = true;
             }
-            if (distanceTo > 2000f)
+            if (distanceTo > 1200f)
             {
                 Projectile.Center = player.Center;
             }

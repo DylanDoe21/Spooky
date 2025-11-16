@@ -46,7 +46,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.knockBackResist = 0f;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
 			NPC.noGravity = true;
-			NPC.noTileCollide = false;
+			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit29;
 			NPC.DeathSound = SoundID.NPCDeath31 with { Pitch = 0.65f };
 			NPC.aiStyle = -1;
@@ -156,7 +156,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 				SavePosition = Vector2.Zero;
 
 				Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 3;
-            	NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+				NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 			}
 		}
 

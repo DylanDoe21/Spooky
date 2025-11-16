@@ -24,8 +24,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
             TileObjectData.newTile.CoordinateHeights = new int[] { 18 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(72, 88, 88), name);
+			AddMapEntry(new Color(72, 88, 88), Lang.GetItemName(ItemID.Candle));
             RegisterItemDrop(ModContent.ItemType<ChristmasCandleItem>());
             DustType = DustID.WoodFurniture;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

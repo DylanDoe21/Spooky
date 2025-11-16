@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
 using Spooky.Content.NPCs.Friendly;
@@ -160,19 +161,19 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 						if (!Main.dedServ)
 						{
 							DialogueChain chain = new();
-							chain.Add(new(SelectedTownNPC,
+							chain.Add(new(ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye").Value, SelectedTownNPC,
 							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye1"),
 							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye1"),
-							TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
-							.Add(new(SelectedTownNPC,
+							TalkSound, 2f, 0f, modifier))
+							.Add(new(ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye").Value, SelectedTownNPC,
 							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye2"),
 							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye2"),
-							TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
-							.Add(new(SelectedTownNPC,
+							TalkSound, 2f, 0f, modifier))
+							.Add(new(ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye").Value, SelectedTownNPC,
 							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.LittleEye3"),
 							Language.GetTextValue("Mods.Spooky.Dialogue.KrampusDialogue.PlayerLittleEye3"),
-							TalkSound, 2f, 0f, modifier, NPCID: SelectedTownNPC.type))
-							.Add(new(SelectedTownNPC, null, null, TalkSound, 2f, 0f, modifier, true));
+							TalkSound, 2f, 0f, modifier))
+							.Add(new(ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye").Value, SelectedTownNPC, null, null, TalkSound, 2f, 0f, modifier, true));
 							chain.OnPlayerResponseTrigger += PlayerResponse;
 							chain.OnEndTrigger += EndDialogue;
 							DialogueUI.Visible = true;
@@ -205,7 +206,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 
 		private void PlayerResponse(Dialogue dialogue, string Text, int ID)
 		{
-			Dialogue newDialogue = new(Main.LocalPlayer, Text, null, SoundID.Item1, 2f, 0f, default, NotPlayer: false);
+			Dialogue newDialogue = new(ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUIPlayer").Value, Main.LocalPlayer, Text, null, SoundID.Item1, 2f, 0f, default, NotPlayer: false);
 			DialogueUI.Visible = true;
 			DialogueUI.Add(newDialogue);
 		}

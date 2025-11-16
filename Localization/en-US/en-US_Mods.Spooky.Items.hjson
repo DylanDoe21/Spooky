@@ -2214,7 +2214,7 @@ GhostBook: {
 		Also grants different stat bonuses depending on the eye color
 		Red eye will grant you 10% increased melee and ranged damage
 		Green eye will grant 10% increased magic damage, summon damage, and reduced mana usage
-		Blue eye will grant you 8 defense and increased life regeneraton
+		Blue eye will grant you 8 defense and increased life regeneration
 		Use to switch the type of spirit this book summons
 		'''
 }
@@ -3737,6 +3737,101 @@ GoldStatue4Item: {
 	Tooltip: ""
 }
 
+LowerCatacombBathtubItem: {
+	DisplayName: Overgrown Bathtub
+	Tooltip: ""
+}
+
+LowerCatacombBedItem: {
+	DisplayName: Plant Bed
+	Tooltip: ""
+}
+
+LowerCatacombBenchItem: {
+	DisplayName: Flower Bench
+	Tooltip: ""
+}
+
+LowerCatacombBookcaseItem: {
+	DisplayName: Overgrown Bookcase
+	Tooltip: ""
+}
+
+LowerCatacombCandelabraItem: {
+	DisplayName: Pitcher Plant Candelabra
+	Tooltip: ""
+}
+
+LowerCatacombCandleItem: {
+	DisplayName: Pitcher Plant Candle
+	Tooltip: ""
+}
+
+LowerCatacombChairItem: {
+	DisplayName: Flower Chair
+	Tooltip: ""
+}
+
+LowerCatacombChandelierItem: {
+	DisplayName: Flower Chandelier
+	Tooltip: ""
+}
+
+LowerCatacombChestItem: {
+	DisplayName: Overgrown Chest
+	Tooltip: ""
+}
+
+LowerCatacombClockItem: {
+	DisplayName: Flower Clock
+	Tooltip: ""
+}
+
+LowerCatacombDoorItem: {
+	DisplayName: Lower Catacomb Door
+	Tooltip: ""
+}
+
+LowerCatacombDresserItem: {
+	DisplayName: Overgrown Dresser
+	Tooltip: ""
+}
+
+LowerCatacombLampItem: {
+	DisplayName: Pitcher Plant Lamp
+	Tooltip: ""
+}
+
+LowerCatacombLanternItem: {
+	DisplayName: Seedling Lantern
+	Tooltip: ""
+}
+
+LowerCatacombPianoItem: {
+	DisplayName: Overgrown Piano
+	Tooltip: ""
+}
+
+LowerCatacombSinkItem: {
+	DisplayName: Overgrown Sink
+	Tooltip: ""
+}
+
+LowerCatacombTableItem: {
+	DisplayName: Flower Table
+	Tooltip: ""
+}
+
+LowerCatacombToiletItem: {
+	DisplayName: Overgrown Toilet
+	Tooltip: ""
+}
+
+LowerCatacombWorkBenchItem: {
+	DisplayName: Overgrown Work Bench
+	Tooltip: ""
+}
+
 MoyaiItem: {
 	DisplayName: Golden Moyai
 	Tooltip: ""
@@ -3759,6 +3854,111 @@ PottedPlant3Item: {
 
 PottedPlant4Item: {
 	DisplayName: Potted Skull Plant
+	Tooltip: ""
+}
+
+SkeletoidCatacomb1Item: {
+	DisplayName: Skeletoid Catacomb
+	Tooltip: ""
+}
+
+SkeletoidCatacomb2Item: {
+	DisplayName: Muerto Skeletoid Catacomb
+	Tooltip: ""
+}
+
+UpperCatacombBathtubItem: {
+	DisplayName: Catacomb Bathtub
+	Tooltip: ""
+}
+
+UpperCatacombBookcaseItem: {
+	DisplayName: Catacomb Bookcase
+	Tooltip: ""
+}
+
+UpperCatacombBedItem: {
+	DisplayName: Catacomb Bed
+	Tooltip: ""
+}
+
+UpperCatacombCandelabraItem: {
+	DisplayName: Catacomb Candelabra
+	Tooltip: ""
+}
+
+UpperCatacombCandleItem: {
+	DisplayName: Catacomb Candle
+	Tooltip: ""
+}
+
+UpperCatacombChairItem: {
+	DisplayName: Catacomb Chair
+	Tooltip: ""
+}
+
+UpperCatacombChandelierItem: {
+	DisplayName: Catacomb Chandelier
+	Tooltip: ""
+}
+
+UpperCatacombChestItem: {
+	DisplayName: Catacomb Chest
+	Tooltip: ""
+}
+
+UpperCatacombClockItem: {
+	DisplayName: Catacomb Clock
+	Tooltip: ""
+}
+
+UpperCatacombDoorItem: {
+	DisplayName: Catacomb Door
+	Tooltip: ""
+}
+
+UpperCatacombDresserItem: {
+	DisplayName: Catacomb Dresser
+	Tooltip: ""
+}
+
+UpperCatacombLampItem: {
+	DisplayName: Catacomb Lamp
+	Tooltip: ""
+}
+
+UpperCatacombLanternItem: {
+	DisplayName: Catacomb Lantern
+	Tooltip: ""
+}
+
+UpperCatacombPianoItem: {
+	DisplayName: Catacomb Piano
+	Tooltip: ""
+}
+
+UpperCatacombSinkItem: {
+	DisplayName: Catacomb Sink
+	Tooltip: ""
+}
+
+UpperCatacombSofaItem: {
+	DisplayName: Catacomb Sofa
+	Tooltip: ""
+}
+
+UpperCatacombTableItem: {
+	DisplayName: Catacomb Table
+	Tooltip: ""
+}
+
+UpperCatacombToiletItem: {
+	DisplayName: Catacomb Toilet
+	Tooltip: ""
+}
+
+UpperCatacombWorkBenchItem: {
+	DisplayName: Catacomb Work Bench
 	Tooltip: ""
 }
 
@@ -4359,6 +4559,11 @@ SpookyTownDayBox: {
 SpookyTownNightBox: {
 	DisplayName: Music Box (Spooky Town Night)
 	Tooltip: "[c/FF8D00:Hollow's Ween] by BananaLizard"
+}
+
+SporeEventBox: {
+	DisplayName: Music Box (Sporestorm)
+	Tooltip: "[c/FF8D00:The Fog Is Coming] by BananaLizard"
 }
 
 TarPitsBox: {
@@ -5785,6 +5990,15 @@ SporeEventToggler: {
 		'''
 }
 
+LittleEyeQuestReset: {
+	DisplayName: Little Eye Bounty Reset
+	Tooltip:
+		'''
+		Resets all little eye bounty progress
+		Testing Item
+		'''
+}
+
 PetCommander: {
 	DisplayName: Pet Command Whistle
 	Tooltip:
@@ -5792,4 +6006,34 @@ PetCommander: {
 		Click on any nearby tamed critter while holding this to give them commands
 		Allows the tamed critter to roam freely, follow you, or stay put
 		'''
+}
+
+SporeBody: {
+	DisplayName: Spore Monk Chestmail
+	Tooltip: ""
+}
+
+SporeHeadSummon: {
+	DisplayName: Spore Monk Jester Hat
+	Tooltip: ""
+}
+
+SporeHeadRanged: {
+	DisplayName: Spore Monk Cowl
+	Tooltip: ""
+}
+
+SporeHeadMelee: {
+	DisplayName: Spore Monk Crown
+	Tooltip: ""
+}
+
+SporeHeadMagic: {
+	DisplayName: Spore Monk Hood
+	Tooltip: ""
+}
+
+SporeLegs: {
+	DisplayName: Spore Monk Robes
+	Tooltip: ""
 }

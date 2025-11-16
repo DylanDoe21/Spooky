@@ -24,8 +24,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             TileObjectData.newTile.CoordinateHeights = new int[] { 18 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(93, 62, 39), name);
+			AddMapEntry(new Color(93, 62, 39), Lang.GetItemName(ItemID.Candle));
             RegisterItemDrop(ModContent.ItemType<OldWoodCandleItem>());
             DustType = DustID.WoodFurniture;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

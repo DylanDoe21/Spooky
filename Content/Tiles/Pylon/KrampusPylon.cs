@@ -56,7 +56,7 @@ namespace Spooky.Content.Tiles.Pylon
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.CountsAsPylon);
             LocalizedText name = CreateMapEntryName();
-            AddMapEntry(Color.Teal, name);
+            AddMapEntry(Color.Gray, name);
             DustType = -1;
 		}
 

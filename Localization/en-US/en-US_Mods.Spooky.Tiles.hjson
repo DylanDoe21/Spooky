@@ -43,6 +43,16 @@ GlowshroomYellowDresser: {
 	MapEntry: Dresser
 }
 
+UpperCatacombDresser: {
+	ContainerName: Catacomb Dresser
+	MapEntry: Dresser
+}
+
+LowerCatacombDresser: {
+	ContainerName: Overgrown Dresser
+	MapEntry: Dresser
+}
+
 SpiritAltar.MapEntry: Spirit Altar
 CemeterySapling.MapEntry: Sapling
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
@@ -52,40 +62,12 @@ SpookyHellPylon.MapEntry: Eye Valley Pylon
 KrampusPylon.MapEntry: Krampus' Home-made Pylon
 FlyBigJar.MapEntry: Big Fly Jar
 FlySmallJar.MapEntry: Fly Jar
-OldWoodBathtub.MapEntry: Bathtub
-OldWoodBed.MapEntry: Bed
-OldWoodBookcase.MapEntry: Bookcase
-OldWoodCandle.MapEntry: Candle
-OldWoodChair.MapEntry: Chair
 OldWoodChest.MapEntry: Old Wood Chest
-OldWoodDoorClosed.MapEntry: Door
-OldWoodDoorOpen.MapEntry: Door
-OldWoodOrgan.MapEntry: Organ
-OldWoodSofa.MapEntry: Sofa
-OldWoodTable.MapEntry: Table
-OldWoodWorkBench.MapEntry: Work Bench
 GiantShroom.MapEntry: Giant Glowshroom
 SpookySapling.MapEntry: Sapling
 SpookySaplingGreen.MapEntry: Sapling
 Cauldron.MapEntry: Creepy Cauldron
-EyeBathtub.MapEntry: Bathtub
-EyeBed.MapEntry: Bed
-EyeBookcase.MapEntry: Bookcase
-EyeCandelabra.MapEntry: Candelabra
-EyeCandle.MapEntry: Candle
-EyeChair.MapEntry: Chair
-EyeChandelier.MapEntry: Chandelier
 EyeChest.MapEntry: Monster Chest
-EyeClock.MapEntry: Clock
-EyeDoorClosed.MapEntry: Door
-EyeDoorOpen.MapEntry: Door
-EyeLamp.MapEntry: Lamp
-EyeLantern.MapEntry: Lantern
-EyePiano.MapEntry: Piano
-EyeSink.MapEntry: Sink
-EyeSofa.MapEntry: Sofa
-EyeTable.MapEntry: Table
-EyeWorkBench.MapEntry: Work Bench
 EyeSapling.MapEntry: Stalk Sapling
 EyeTree.MapEntry: Eye Stalk
 BigFlower.MapEntry: Big Flower
@@ -95,23 +77,7 @@ GraveShovelTile.MapEntry: Grave Shovel Tile
 TallMushroom.MapEntry: Tall Mushroom
 TinyGhostJar.MapEntry: Tiny Ghost Jar
 TinyMushroomCage.MapEntry: Tiny Mushroom Cage
-CultistBathtub.MapEntry: Bathtub
-CultistBed.MapEntry: Bed
-CultistBookcase.MapEntry: Bookcase
-CultistCandelabra.MapEntry: Candelabra
-CultistCandle.MapEntry: Candle
-CultistChair.MapEntry: Chair
-CultistChandelier.MapEntry: Chandelier
 CultistChest.MapEntry: Occultist Chest
-CultistClock.MapEntry: Clock
-CultistDoorClosed.MapEntry: Door
-CultistDoorOpen.MapEntry: Door
-CultistLamp.MapEntry: Lamp
-CultistLantern.MapEntry: Lantern
-CultistSink.MapEntry: Sink
-CultistSofa.MapEntry: Sofa
-CultistTable.MapEntry: Table
-CultistWorkBench.MapEntry: Work Bench
 TempleTrapdoor.MapEntry: Temple Trapdoor
 CatacombTrapdoor1.MapEntry: Locked Trapdoor
 CatacombTrapdoor2.MapEntry: Locked Trapdoor
@@ -119,60 +85,9 @@ CatacombTrapdoor3.MapEntry: Locked Trapdoor
 Broccoli.MapEntry: Giant Broccoli
 GiantShroomYellow.MapEntry: Giant Glowshroom
 TarPitCactus.MapEntry: Cactus
-ChristmasBed.MapEntry: Bed
-ChristmasCandelabra.MapEntry: Candelabra
-ChristmasCandle.MapEntry: Candle
-ChristmasChair.MapEntry: Chair
-ChristmasChandelier.MapEntry: Chandelier
 ChristmasChest.MapEntry: Yuletide Chest
-ChristmasDoorClosed.MapEntry: Door
-ChristmasDoorOpen.MapEntry: Door
-ChristmasLamp.MapEntry: Lamp
-ChristmasLantern.MapEntry: Lantern
-ChristmasSofa.MapEntry: Sofa
-ChristmasTable.MapEntry: Table
-ChristmasWorkBench.MapEntry: Work Bench
-ChristmasBathtub.MapEntry: Bathtub
-ChristmasBookcase.MapEntry: Bookcase
-ChristmasClock.MapEntry: Clock
-ChristmasPiano.MapEntry: Piano
-ChristmasSink.MapEntry: Sink
-GlowshroomBathtub.MapEntry: Bathtub
-GlowshroomBed.MapEntry: Bed
-GlowshroomBench.MapEntry: Bench
-GlowshroomBookcase.MapEntry: Bookcase
-GlowshroomCandelabra.MapEntry: Candelabra
-GlowshroomCandle.MapEntry: Candle
-GlowshroomChair.MapEntry: Chair
-GlowshroomChandelier.MapEntry: Chandelier
 GlowshroomChest.MapEntry: Glowshroom Chest
-GlowshroomClock.MapEntry: Clock
-GlowshroomDoorClosed.MapEntry: Door
-GlowshroomDoorOpen.MapEntry: Door
-GlowshroomLamp.MapEntry: Lamp
-GlowshroomLantern.MapEntry: Lantern
-GlowshroomPiano.MapEntry: Piano
-GlowshroomSink.MapEntry: Sink
-GlowshroomTable.MapEntry: Table
-GlowshroomWorkBench.MapEntry: Work Bench
-GlowshroomYellowBathtub.MapEntry: Bathtub
-GlowshroomYellowBench.MapEntry: Bench
-GlowshroomYellowBed.MapEntry: Bed
-GlowshroomYellowBookcase.MapEntry: Bookcase
-GlowshroomYellowCandelabra.MapEntry: Candelabra
-GlowshroomYellowCandle.MapEntry: Candle
-GlowshroomYellowChair.MapEntry: Chair
-GlowshroomYellowChandelier.MapEntry: Chandelier
 GlowshroomYellowChest.MapEntry: Glowshroom Chest
-GlowshroomYellowClock.MapEntry: Clock
-GlowshroomYellowDoorClosed.MapEntry: Door
-GlowshroomYellowDoorOpen.MapEntry: Door
-GlowshroomYellowLamp.MapEntry: Lamp
-GlowshroomYellowLantern.MapEntry: Lantern
-GlowshroomYellowPiano.MapEntry: Piano
-GlowshroomYellowSink.MapEntry: Sink
-GlowshroomYellowTable.MapEntry: Table
-GlowshroomYellowWorkBench.MapEntry: Work Bench
 SinisterSnailCage.MapEntry: Sinister Snail Cage
 BoneFishTree.MapEntry: Fish Spine
 BoneFishTreeHanging.MapEntry: Fish Spine
@@ -190,6 +105,10 @@ WinterBloomPlant.MapEntry: Berry Bush Bloom
 LabSafe.MapEntry: Rusty Safe
 EyeTreeShort.MapEntry: Eye Stalk
 LittleSpiderJar.MapEntry: Little Spider Jar
-DeadTree1.MapEntry: Dead Tree
-DeadTree2.MapEntry: Dead Tree
-DeadTree3.MapEntry: Dead Tree
+GrottoTree1.MapEntry: Grotto Tree
+GrottoTree2.MapEntry: Grotto Tree
+GrottoTree3.MapEntry: Grotto Tree
+UpperCatacombChest.MapEntry: Catacomb Chest
+LowerCatacombChest.MapEntry: Overgrown Chest
+GrottoTreeSapling.MapEntry: Grotto Tree Sapling
+SporeShroomTreeSapling.MapEntry: Spore Shroom Sapling

@@ -35,7 +35,7 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly, bool DestroyOnly)
+		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly, bool DestroyOnly, bool SpreadGrass = false, int[] TypeToSpreadOn = null)
 		{
 			float scale = radiusY / (float)radius;
 			float invertScale = (float)radius / radiusY;
@@ -49,6 +49,14 @@ namespace Spooky.Content.Generation
 						int PositionX = X + x;
 						int PositionY = Y + (int)(y * scale);
 						Tile tile = Framing.GetTileSafely(PositionX, PositionY);
+						Tile left = Framing.GetTileSafely(PositionX - 1, PositionY);
+						Tile right = Framing.GetTileSafely(PositionX + 1, PositionY);
+						Tile up = Framing.GetTileSafely(PositionX, PositionY - 1);
+						Tile down = Framing.GetTileSafely(PositionX, PositionY + 1);
+						Tile topLeft = Framing.GetTileSafely(PositionX - 1, PositionY - 1);
+						Tile topRight = Framing.GetTileSafely(PositionX + 1, PositionY - 1);
+						Tile bottomLeft = Framing.GetTileSafely(PositionX - 1, PositionY + 1);
+						Tile bottomRight = Framing.GetTileSafely(PositionX + 1, PositionY + 1);
 
 						if (!ReplaceOnly)
 						{
@@ -71,15 +79,31 @@ namespace Spooky.Content.Generation
 								tile.LiquidAmount = 0;
 							}
 						}
-						else if (ReplaceOnly && tile.HasTile)
+						else if (ReplaceOnly)
 						{
-							if (tileType > -1)
+							if (WorldGen.SolidOrSlopedTile(PositionX, PositionY))
 							{
-								tile.TileType = (ushort)tileType;
-							}
-							else
-							{
-								WorldGen.KillTile(PositionX, PositionY);
+								if (SpreadGrass)
+								{
+									if (!left.HasTile || !right.HasTile || !up.HasTile || !down.HasTile || !topLeft.HasTile || !topRight.HasTile || !bottomLeft.HasTile || !bottomRight.HasTile)
+									{
+										if (TypeToSpreadOn.Contains(tile.TileType))
+										{
+											tile.TileType = (ushort)tileType;
+										}
+									}
+								}
+								else
+								{
+									if (tileType > -1)
+									{
+										tile.TileType = (ushort)tileType;
+									}
+									else
+									{
+										WorldGen.KillTile(PositionX, PositionY);
+									}
+								}
 							}
 
 							if (wallType > 0 && tile.WallType > 0)

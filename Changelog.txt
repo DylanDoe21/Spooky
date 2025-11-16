@@ -2,10 +2,16 @@ Spider grotto rework:
 
 New fog event:
 
-Changes to existing stuff:
+~Changes to existing stuff~
+
+Items:
 -Nerfed glass eye damage increase from 25% to 15%
 -Nerfed old hunter scarf damage increase from 20% to 10%
 -Nerfed dutchman pipe damage increase from 25% to 10%
 -Nerfed samson's cuff damage multiplier from 50% to 18%
 -Lowered volume on EMF reader sounds
 -Lowered volume on ear parasite companion screeching
+
+Random Stuff:
+-Reduced frequency of lightning sounds in the swampy cemetery
+-Reduced graveyard desaturation effect in the swampy cemetery and catacombs

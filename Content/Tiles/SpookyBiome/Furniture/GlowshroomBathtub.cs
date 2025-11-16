@@ -19,8 +19,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(122, 72, 203), name);
+			AddMapEntry(new Color(122, 72, 203), Lang.GetItemName(ItemID.Bathtub));
 			DustType = DustID.Slush;
 			AdjTiles = new int[] { TileID.Bathtubs };
 		}
@@ -41,8 +40,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
 			TileObjectData.newTile.Origin = new Point16(1, 1);
 			TileObjectData.addTile(Type);
-			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(179, 128, 50), name);
+			AddMapEntry(new Color(179, 128, 50), Lang.GetItemName(ItemID.Bathtub));
 			DustType = DustID.Slush;
 			AdjTiles = new int[] { TileID.Bathtubs };
 		}

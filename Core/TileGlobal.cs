@@ -7,11 +7,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 
+using Spooky.Content.Dusts;
 using Spooky.Content.Items.Minibiomes.Desert;
 using Spooky.Content.NPCs.Minibiomes.Desert.Projectiles;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.Pylon;
+using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.Water;
 
@@ -58,6 +60,22 @@ namespace Spooky.Core
             return base.Slope(i, j, type);
         }
 
+		public override void NearbyEffects(int i, int j, int type, bool closer)
+		{
+			//spawn autumn leaves from spider grotto trees
+			if (Main.rand.NextBool(120) && !Main.gamePaused && Main.instance.IsActive && closer)
+			{
+				if (!Main.tile[i, j - 1].HasTile && Main.tile[i, j].TileType == TileID.Trees && Main.tile[i, j + 1].TileType == TileID.Trees &&
+				Main.tile[i, j + 2].TileType == TileID.Trees && Main.tile[i, j + 3].TileType == TileID.Trees)
+				{
+					if (GetTileTreeIsOn(i, j) == ModContent.TileType<DampGrass>())
+					{
+						Dust.NewDustPerfect(new Vector2((i * 16) + Main.rand.Next(-50, 55), (j * 16) + Main.rand.Next(-75, -25)), ModContent.DustType<GrottoTreeLeaf>());
+					}
+				}
+			}
+		}
+
 		public override void DrawEffects(int i, int j, int type, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
 		{
 			//create bubbles while in the tar pits biome
@@ -96,6 +114,32 @@ namespace Spooky.Core
 					}
 				}
 			}
+		}
+
+		public int GetTileTreeIsOn(int i, int j)
+		{
+			int x = i;
+			int y = j;
+
+			if (Framing.GetTileSafely(x - 1, y).TileType == TileID.Trees && Framing.GetTileSafely(x, y + 1).TileType != TileID.Trees && Framing.GetTileSafely(x, y - 1).TileType != TileID.Trees)
+			{
+				x--;
+			}
+			if (Framing.GetTileSafely(x + 1, y).TileType == TileID.Trees && Framing.GetTileSafely(x, y + 1).TileType != TileID.Trees && Framing.GetTileSafely(x, y - 1).TileType != TileID.Trees)
+			{
+				x++;
+			}
+
+			while (WorldGen.InWorld(x, y) && Framing.GetTileSafely(x, y).TileType == TileID.Trees && Framing.GetTileSafely(x, y).HasTile)
+			{
+   				y++;
+			}
+
+			if (!Framing.GetTileSafely(x, y).HasTile)
+			{
+				return -1;
+			}
+			return Framing.GetTileSafely(x, y).TileType;
 		}
 
 		//use for items in spooky mod that should be locked from shimmer with custom conditions, return true if it should be locked

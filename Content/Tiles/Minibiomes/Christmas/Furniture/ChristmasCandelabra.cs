@@ -24,8 +24,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            LocalizedText name = CreateMapEntryName();
-            AddMapEntry(new Color(72, 88, 88), name);
+            AddMapEntry(new Color(72, 88, 88), Lang.GetItemName(ItemID.Candelabra));
             RegisterItemDrop(ModContent.ItemType<ChristmasCandelabraItem>());
             DustType = DustID.Blood;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);

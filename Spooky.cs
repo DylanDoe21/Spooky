@@ -2,8 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Graphics.Effects;
-using Terraria.GameContent.Shaders;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
@@ -85,9 +83,7 @@ namespace Spooky
         public override void Unload()
         {
             subworldLibrary = null;
-
             AccessoryHotkey = null;
-
 			mod = null;
 		}
 
@@ -171,6 +167,12 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.BountyIntro:
+                {
+                    Flags.BountyIntro = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 case SpookyMessageType.KrampusQuestGiven:
                 {
                     Flags.KrampusQuestGiven = true;
@@ -212,7 +214,7 @@ namespace Spooky
                     Flags.SpawnBigBone = true;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
-                }
+				}
 				//should never occur I think?
 				default:
                 {
@@ -238,6 +240,7 @@ namespace Spooky
         Bounty2Complete,
         Bounty3Complete,
         Bounty4Complete,
+        BountyIntro,
         KrampusQuestGiven,
         KrampusQuestlineDone,
         KrampusDailyQuestDone,

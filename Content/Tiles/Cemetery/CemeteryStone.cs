@@ -17,7 +17,7 @@ namespace Spooky.Content.Tiles.Cemetery
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(47, 59, 55));
+            AddMapEntry(new Color(65, 79, 88));
             DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
 			MineResist = 0.85f;
