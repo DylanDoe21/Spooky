@@ -175,6 +175,11 @@ namespace Spooky.Content.Biomes
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
 
+		public override void OnInBiome(Player player)
+		{
+			Lighting.GlobalBrightness = 1f; //same as when you have blindness in vanilla
+		}
+
         public override bool IsBiomeActive(Player player)
         {
             return Flags.SporeEventHappening && player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>());

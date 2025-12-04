@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.Quest
 			NPC.defense = 15;
 			NPC.width = 32;
 			NPC.height = 42;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 8f;
 			NPC.knockBackResist = 0f;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;

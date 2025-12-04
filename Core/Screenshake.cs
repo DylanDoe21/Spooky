@@ -22,18 +22,18 @@ namespace Spooky.Core
 
 		public override void ModifyScreenPosition()
 		{
-			float ExtraMultiplier = ModContent.GetInstance<SpookyConfig>().ScreenShakeIntensity;
+			float ConfigMultiplier = ModContent.GetInstance<SpookyConfig>().ScreenShakeIntensity;
 
-			if (!Main.gameMenu && ExtraMultiplier > 0)
+			if (!Main.gameMenu && ConfigMultiplier > 0)
 			{
-				PunchCameraModifier modifier = new PunchCameraModifier(Position, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), ShakeIntensity * ExtraMultiplier, 1f, 1, 650f + AdditionalFalloff, null);
+				PunchCameraModifier modifier = new PunchCameraModifier(Position, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), ShakeIntensity * ConfigMultiplier, 1f, 1, 650f + AdditionalFalloff, null);
 				Main.instance.CameraModifiers.Add(modifier);
 
-				if (ShakeIntensity * ExtraMultiplier >= 0)
+				if (ShakeIntensity * ConfigMultiplier >= 0)
 				{
 					ShakeIntensity -= 0.2f;
 				}
-				if (ShakeIntensity * ExtraMultiplier < 0)
+				if (ShakeIntensity * ConfigMultiplier < 0)
 				{
 					ShakeIntensity = 0;
 				}

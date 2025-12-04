@@ -15,3 +15,7 @@ Items:
 Random Stuff:
 -Removed random lightning in the swampy cemetery
 -Reduced graveyard desaturation effect in the swampy cemetery a bit
+
+Fixes:
+-Spooky mod couches and clocks not having highlights
+-Spooky mod pet items spawning the pet and buff when you throw them on the ground

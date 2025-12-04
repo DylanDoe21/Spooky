@@ -58,7 +58,6 @@ namespace Spooky.Content.NPCs.EggEvent
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit9;
             NPC.DeathSound = SoundID.NPCDeath22;
-            NPC.aiStyle = 66;
 			SpawnModBiomes = new int[2] { ModContent.GetInstance<Biomes.SpookyHellBiome>().Type, ModContent.GetInstance<Biomes.SpookyHellEventBiome>().Type };
 		}
 
@@ -171,7 +170,14 @@ namespace Spooky.Content.NPCs.EggEvent
 
             float speed = MathHelper.Clamp(velocity.Length() / 36, 10, JumpSpeed);
 
-            NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
+            if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
+            {
+                NPC.velocity.X = 0;
+            }
+            else
+            {
+                NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
+            }
 
             //actual jumping
             if (NPC.ai[0] >= TimeBeforeNextJump)

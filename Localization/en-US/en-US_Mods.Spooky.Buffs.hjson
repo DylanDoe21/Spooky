@@ -664,3 +664,8 @@ ThornRoseBleed: {
 	DisplayName: Thorn Rose Bleed
 	Description: ""
 }
+
+MushroomFriendPetBuff: {
+	DisplayName: Mushroom Friend
+	Description: A beautiful fungal friendship!
+}

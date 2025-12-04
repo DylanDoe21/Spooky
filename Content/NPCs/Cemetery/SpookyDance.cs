@@ -51,7 +51,7 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC.position.Y = NPC.ai[0] + (float)Math.Sin(NPC.ai[1] / 30) * 30;
         }
 
-        public override void HitEffect(NPC.HitInfo hit) 
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0) 
             {

@@ -83,7 +83,7 @@ namespace Spooky.Content.NPCs.Quest
             NPC.defense = 20;
             NPC.width = 142;
 			NPC.height = 158;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 8f;
 			NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.NPCHit52 with { Pitch = 1f, Volume = 2f };
 			NPC.DeathSound = SoundID.NPCDeath5 with { Pitch = 1f };

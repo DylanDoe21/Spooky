@@ -1,22 +1,31 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
+using Terraria.DataStructures;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 
 using Spooky.Core;
+using Spooky.Content.Dusts;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
 
 namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 {
     public class EmperorMortarSegment : ModNPC
     {
-        public float HeatMaskAlpha = 0f;
+        float HeatMaskAlpha = 0f;
 
-        private static Asset<Texture2D> NPCTexture;
+		bool SpawnedFirefly = false;
+
+		private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> HeatGlowTexture;
+
+        public static readonly SoundStyle SteamSound = new("Spooky/Content/Sounds/BigBone/BigBoneHeat", SoundType.Sound) { Pitch = 0.5f, Volume = 0.7f };
 
         public override void SetStaticDefaults()
         {
@@ -24,6 +33,28 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
+
+        public override void SendExtraAI(BinaryWriter writer)
+		{
+			//bools
+			writer.Write(SpawnedFirefly);
+
+			//floats
+			writer.Write(NPC.localAI[0]);
+			writer.Write(NPC.localAI[1]);
+			writer.Write(NPC.localAI[2]);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			//bools
+			SpawnedFirefly = reader.ReadBoolean();
+
+			//floats
+			NPC.localAI[0] = reader.ReadSingle();
+			NPC.localAI[1] = reader.ReadSingle();
+			NPC.localAI[2] = reader.ReadSingle();
+		}
 
         public override void SetDefaults()
         {
@@ -39,7 +70,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             NPC.noGravity = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
-            NPC.HitSound = SoundID.NPCHit29 with { Pitch = 0.4f };
+			NPC.HitSound = SoundID.NPCHit29 with { Pitch = 0.4f };
             NPC.aiStyle = -1;
         }
 
@@ -73,6 +104,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             //kill segment if the head doesnt exist
 			if (!Parent.active || Parent.type != ModContent.NPCType<EmperorMortar>())
             {
+                SpawnGores((int)NPC.ai[2] + 1, NPC.ai[2] == 5 ? 1 : 2);
+
                 NPC.active = false;
             }
 
@@ -105,25 +138,73 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				NPC.Center = SegmentParent.Center - SegmentCenter.SafeNormalize(Vector2.Zero) * Mult;
 			}
 
-            //different projectile behavior for each different mortat segment
+            bool AnotherMinibossPresent = SpiderWarWorld.EventActiveNPCCount() > 1;
+
+            //different projectile behavior for each different mortar segment
             switch ((int)NPC.ai[2])
             {
                 //first bottom segment
                 case 0:
                 {
+                    if (Parent.ai[0] == 1)
+                    {
+                        NPC.localAI[0]++;
+                        NPC.localAI[1]++;
+
+                        if (NPC.localAI[0] == 2)
+                        {
+                            int MinDelay = AnotherMinibossPresent ? 30 : 15;
+                            NPC.localAI[2] = Main.rand.Next(MinDelay, 61);
+                        }
+
+                        if (NPC.localAI[0] > 2 && NPC.localAI[1] >= NPC.localAI[2])
+                        {
+                            SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
+
+                            int Side = Main.rand.NextBool() ? -1 : 1;
+
+                            int ShootFromX = 45;
+                            int ShootFromY = 2;
+
+                            Vector2 Position = NPC.Center + new Vector2(ShootFromX * Side, ShootFromY).RotatedBy(NPC.rotation);
+                            Vector2 ShootSpeed = new Vector2(Main.rand.Next(2, 26) * Side, 0).RotatedBy(NPC.rotation);
+
+                            for (int numDusts = 0; numDusts < 6; numDusts++)
+                            {
+                                Dust dust = Dust.NewDustPerfect(Position, DustID.Smoke, ShootSpeed + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)));
+                                dust.noGravity = true;
+                                dust.scale = 1.2f;
+                                dust.velocity += NPC.velocity;
+
+                                Dust dust2 = Dust.NewDustPerfect(Position, DustID.Torch, ShootSpeed + new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 6)));
+                                dust2.noGravity = true;
+                                dust2.scale = 1.2f;
+                                dust2.velocity += NPC.velocity;
+                            }
+
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarMine>(), NPC.damage * 2, 4.5f);
+
+                            NPC.localAI[0] = 0;
+                            NPC.localAI[1] = 0;
+                        }
+                    }
+
                     break;
                 }
 
                 //second bottom segment
                 case 1:
                 {
-                    break;
+                    goto case 0;
                 }
 
                 //first middle segment
                 case 2:
                 {
-                    if (Parent.ai[0] == 2 && Parent.localAI[0] % 20 == 0)
+                    int Frequency = AnotherMinibossPresent ? 40 : 20;
+
+                    if (Parent.ai[0] == 2 && Parent.localAI[0] % Frequency == 0)
                     {
                         SoundEngine.PlaySound(SoundID.Item42, NPC.Center);
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
@@ -144,7 +225,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                                 dust.velocity += NPC.velocity;
                             }
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarRocket>(), NPC.damage, 1f, ai1: Main.rand.Next(0, 3));
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarRocket>(), NPC.damage, 4.5f, ai1: Main.rand.Next(0, 3));
                         }
                     }
 
@@ -154,7 +235,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                 //second middle segment
                 case 3:
                 {
-                    if (Parent.ai[0] == 2 && Parent.localAI[0] % 20 == 0)
+                    int Frequency = AnotherMinibossPresent ? 40 : 20;
+
+                    if (Parent.ai[0] == 2 && Parent.localAI[0] % Frequency == 0)
                     {
                         SoundEngine.PlaySound(SoundID.Item42, NPC.Center);
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, NPC.Center);
@@ -175,7 +258,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                                 dust.velocity += NPC.velocity;
                             }
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarRocket>(), NPC.damage, 1f, ai1: Main.rand.Next(0, 3));
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarRocket>(), NPC.damage, 4.5f, ai1: Main.rand.Next(0, 3));
                         }
                     }
 
@@ -191,14 +274,43 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                 //top segment
                 case 5:
                 {
+					if (!SpawnedFirefly)
+					{
+						int NewNPC = NPC.NewNPC(NPC.GetSource_ReleaseEntity(), (int)NPC.Center.X, (int)NPC.Center.Y - 1000, ModContent.NPCType<SpotlightFirefly>(), ai3: NPC.ai[3]);
+						if (Main.netMode == NetmodeID.Server)
+						{
+							NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+						}
+
+						SpawnedFirefly = true;
+					}
+
                     if (Parent.ai[0] == 3) 
                     {
                         if (HeatMaskAlpha < 1)
                         {
-                            HeatMaskAlpha += 0.1f;
+                            HeatMaskAlpha += 0.015f;
+
+                            if (NPC.ai[0] == 0)
+                            {
+                                SoundEngine.PlaySound(SteamSound, NPC.Center);
+                                NPC.ai[0]++;
+                            }
+
+                            int Smoke = Dust.NewDust(NPC.Center, 0, 0, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Gray * 0.5f, 0.2f);
+                            Main.dust[Smoke].noGravity = true;
+                            Main.dust[Smoke].position = NPC.Center;
+                            Main.dust[Smoke].velocity = new Vector2(0, -2);
                         }
                         else
                         {
+                            if (NPC.ai[0] == 1)
+                            {
+                                SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, NPC.Center);
+                                SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, NPC.Center);
+                                NPC.ai[0]++;
+                            }
+
                             if (Parent.localAI[0] % 20 == 0)
                             {
                                 SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath with { Volume = 0.65f }, NPC.Center);
@@ -216,6 +328,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                     }
                     else
                     {
+                        NPC.ai[0] = 0;
+
                         if (HeatMaskAlpha > 0)
                         {
                             HeatMaskAlpha -= 0.02f;
@@ -229,10 +343,14 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			return false;
         }
 
-        public override void HitEffect(NPC.HitInfo hit)
+        public void SpawnGores(int type, int amount)
         {
-            if (NPC.life <= 0) 
+            for (int numGores = 1; numGores <= amount; numGores++)
             {
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/EmperorMortarSegment" + type + "Gore" + numGores).Type);
+                }
             }
         }
 

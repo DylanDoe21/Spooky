@@ -66,6 +66,7 @@ namespace Spooky.Content.Biomes
 		}
 
 		private static float mult = 0.8f;
+		private static float fade = 0f;
 
         private void SpiderCaveLighting(On_TileLightScanner.orig_GetTileLight orig, TileLightScanner self, int x, int y, out Vector3 outputColor)
         {
@@ -106,6 +107,36 @@ namespace Spooky.Content.Biomes
                         outputColor.Y += (1 - mult * mult) * progress * 0.2f;
                     }
                 }
+
+				//during the spider war, change every tile that produces light to only produce pure white light
+				if (SpiderWarWorld.SpiderWarActive) 
+				{
+					if (!tileBlock && lit)
+					{
+						int yOff = y - (int)(Main.LocalPlayer.position.Y / 16);
+
+						if (mult > 1)
+						{
+							mult = 1;
+						}
+
+						float progress = 0.5f + yOff / (int)(Main.LocalPlayer.position.Y / 16) * 0.7f;
+						progress = MathHelper.Max(0.5f, progress);
+
+						float WhiteColor = ((Lighting.GetColor(x, y).R + Lighting.GetColor(x, y).G + Lighting.GetColor(x, y).B) / 3);
+
+						fade += 0.01f;
+						float timeRatio = Utils.GetLerpValue(0f, 100f, fade);
+
+						outputColor = Color.Lerp(new Color(outputColor.X, outputColor.Y, outputColor.Z),
+						new Color(WhiteColor, WhiteColor, WhiteColor),
+						Utils.GetLerpValue(0f, 1f, timeRatio)).ToVector3() * progress * mult;
+					}
+				}
+				else
+				{
+					fade = 0f;
+				}
             }
         }
 

@@ -8,9 +8,11 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
+using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookFishron;
+using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky.Content.Achievements
 {
@@ -20,6 +22,24 @@ namespace Spooky.Content.Achievements
         {
 			Achievement.SetCategory(AchievementCategory.Slayer);
             AddNPCKilledCondition(ModContent.NPCType<RotGourd>());
+        }
+    }
+
+	public class BossAchievementSpookySpirit : ModAchievement
+    {
+        public override void SetStaticDefaults()
+        {
+			Achievement.SetCategory(AchievementCategory.Slayer);
+            AddNPCKilledCondition(ModContent.NPCType<SpookySpirit>());
+        }
+    }
+
+	public class BossAchievementMoco : ModAchievement
+    {
+        public override void SetStaticDefaults()
+        {
+			Achievement.SetCategory(AchievementCategory.Slayer);
+            AddNPCKilledCondition(ModContent.NPCType<Moco>());
         }
     }
 

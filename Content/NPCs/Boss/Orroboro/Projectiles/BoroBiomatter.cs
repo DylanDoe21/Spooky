@@ -142,11 +142,9 @@ namespace Spooky.Content.NPCs.Boss.Orroboro.Projectiles
 
             int Damage = Main.masterMode ? 135 : Main.expertMode ? 85 : 50;
 
-            for (int i = 0; i < Main.maxPlayers; i++)
+            foreach (var player in Main.ActivePlayers)
 			{
-				Player player = Main.player[i];
-
-				if (player.active && !player.dead && player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
+				if (!player.dead && player.Distance(Projectile.Center) <= Projectile.localAI[1] + time)
 				{
                     player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.BiomassExplosion").ToNetworkText(player.name)), Damage + Main.rand.Next(-10, 30), 0);
                 }

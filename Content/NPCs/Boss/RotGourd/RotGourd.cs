@@ -91,6 +91,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
             NPC.defense = 12;
             NPC.width = 72;
             NPC.height = 130;
+			NPC.npcSlots = 8f;
             NPC.knockBackResist = 0f;
 			NPC.value = Item.buyPrice(0, 2, 0, 0);
             NPC.lavaImmune = true;

@@ -707,14 +707,19 @@ namespace Spooky.Content.Generation
 		//place the biome if there isnt already another tar pits biome nearby
 		public bool CanPlaceBiome(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
+			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
 			{
-				for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
 					int[] InvalidTiles = { ModContent.TileType<DesertSand>(), ModContent.TileType<DesertSandstone>(),
 					ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick2>(), };
 
 					if (WorldGen.InWorld(i, j) && InvalidTiles.Contains(Main.tile[i, j].TileType))
+					{
+						return false;
+					}
+
+					if (!GenVars.structures.CanPlace(new Rectangle(i, j, 1, 1), 1))
 					{
 						return false;
 					}

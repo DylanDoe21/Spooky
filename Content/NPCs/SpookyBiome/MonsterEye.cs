@@ -44,7 +44,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.noTileCollide = false;
 			NPC.HitSound = SoundID.Item177;
 			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = 66;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
@@ -128,7 +127,14 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
             float speed = MathHelper.Clamp(velocity.Length() / 36, 10, JumpSpeed);
 
-            NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
+            if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
+            {
+                NPC.velocity.X = 0;
+            }
+            else
+            {
+                NPC.velocity.X *= NPC.velocity.Y <= 0 ? 0.98f : 0.95f;
+            }
 
             //actual jumping
             if (NPC.ai[0] >= TimeBeforeNextJump)

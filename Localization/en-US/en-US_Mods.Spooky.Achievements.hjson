@@ -3,6 +3,16 @@ BossAchievementRotGourd: {
 	Description: Defeat Rot Gourd, the giant moldy produce smelling up the spooky forest
 }
 
+BossAchievementSpookySpirit: {
+	FriendlyName: Dead Again
+	Description: Defeat Spooky Spirit, the powerful paranormal soul possessing the strange cemetery statue.
+}
+
+BossAchievementMoco: {
+	FriendlyName: Sniffler's Need
+	Description: Defeat Moco, the powerful mocling given unnatural power by the nose cult's ritual.
+}
+
 BossAchievementDaffodil: {
 	FriendlyName: Weedwhacked
 	Description: Defeat Daffodil, the lazy floral guardian of the deeper catacombs.

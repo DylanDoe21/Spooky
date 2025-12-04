@@ -19,12 +19,14 @@ namespace Spooky.Content.Items.Pets
 			Item.buffType = ModContent.BuffType<PetscopBuff>();
 		}
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+        public override bool? UseItem(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer)
             {
                 player.AddBuff(Item.buffType, 2, true);
             }
+
+			return true;
         }
     }
 
@@ -40,8 +42,12 @@ namespace Spooky.Content.Items.Pets
 		}
 
         public override bool? UseItem(Player player)
-        {
-			player.AddBuff(Item.buffType, 2);
+		{
+			if (player.whoAmI == Main.myPlayer)
+            {
+                player.AddBuff(Item.buffType, 2, true);
+            }
+
 			return true;
         }
     }
@@ -57,9 +63,13 @@ namespace Spooky.Content.Items.Pets
 			Item.buffType = ModContent.BuffType<PetscopTiaraBuff>();
 		}
 
-        public override bool? UseItem(Player player)
-        {
-			player.AddBuff(Item.buffType, 2);
+		public override bool? UseItem(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer)
+            {
+                player.AddBuff(Item.buffType, 2, true);
+            }
+
 			return true;
         }
     }

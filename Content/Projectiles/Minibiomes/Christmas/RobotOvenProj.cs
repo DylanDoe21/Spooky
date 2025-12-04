@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System.IO;
 
 using Spooky.Core;
 
@@ -16,6 +17,20 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 		{
             Main.projFrames[Projectile.type] = 3;
 		}
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            //floats
+            writer.Write(Projectile.localAI[0]);
+            writer.Write(Projectile.localAI[1]);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            //floats
+            Projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[1] = reader.ReadSingle();
+        }
 
 		public override void SetDefaults()
 		{
@@ -45,6 +60,11 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
             Player player = Main.player[Projectile.owner];
 
             if (!player.active || player.dead || player.noItems || player.CCed) 
+            {
+                Projectile.Kill();
+            }
+
+            if (!player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
             {
                 Projectile.Kill();
             }
@@ -112,7 +132,10 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
                 {
                     SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, Projectile.Center);
 
-                    player.statMana -= ItemGlobal.ActiveItem(player).mana;
+                    if (Projectile.localAI[1] > 0 && player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+                    {
+                        player.statMana -= ItemGlobal.ActiveItem(player).mana;
+                    }
                 }
 
                 if (Projectile.timeLeft >= 5 && Projectile.timeLeft <= 30 && Projectile.timeLeft % 5 == 0)
@@ -132,15 +155,20 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 
                 if (Projectile.timeLeft < 5)
                 {
-                    if (!player.channel || !player.CheckMana(ItemGlobal.ActiveItem(player), ItemGlobal.ActiveItem(player).mana, false, false))
+                    if (!player.channel)
                     {
                         Projectile.Kill();
                     }
-                    else
+
+                    if (Projectile.localAI[1] <= 0)
                     {
-                        Projectile.frame = 0;
-                        Projectile.ai[2] = 0;
+                        Projectile.localAI[1]++;
                     }
+
+                    Projectile.frame = 0;
+                    Projectile.ai[2] = 0;
+
+                    Projectile.netUpdate = true;
                 }
 			}
 

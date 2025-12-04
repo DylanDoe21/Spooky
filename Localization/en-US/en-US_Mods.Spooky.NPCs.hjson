@@ -397,7 +397,12 @@ CorklidQueen.DisplayName: Corklid Queen
 EmperorMortar.DisplayName: Emperor Mortar
 EmperorMortarSegment.DisplayName: Emperor Mortar
 EmpressJoro.DisplayName: Empress Joro
+JoroFly.DisplayName: Joro Fly
+JoroBaby.DisplayName: Explosive Joro
 OgreKing.DisplayName: Ogre King
+TrumpetSpider.DisplayName: Trumpet Spider
+SpotlightFirefly.DisplayName: ""
+SpotlightSpiderFloor.DisplayName: ""
 //mushroom spore event
 BeetleMite1.DisplayName: Beetle Mite
 BeetleMite2.DisplayName: Beetle Mite
@@ -532,3 +537,5 @@ Turkey: {
 	State2: Turkey is Following
 	State3: Turkey is Staying
 }
+
+ArchdukeSpider.DisplayName: Archduke Spider

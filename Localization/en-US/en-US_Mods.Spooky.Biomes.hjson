@@ -92,3 +92,8 @@ SporeEventBiome: {
 	DisplayName: Sporestorm
 	TownNPCDialogueName: Sporestorm
 }
+
+SpiderWarBiome: {
+	DisplayName: Spider War Biome
+	TownNPCDialogueName: the Spider War Biome
+}

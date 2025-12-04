@@ -262,6 +262,8 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            bool PlacedAvariceRoom = false;
+
             //place the actual rooms
             for (int X = XMiddle - layer2Width; X <= XMiddle + layer2Width; X += 80)
             {
@@ -275,6 +277,14 @@ namespace Spooky.Content.Generation
                     if (X == XMiddle && Y == layer2Start + 84)
                     {
                         PandoraRoomPosition = origin;
+                    }
+                    else
+                    {
+                        if (WorldGen.genRand.NextBool(45) && !PlacedAvariceRoom)
+                        {
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
+                            PlacedAvariceRoom = true;
+                        }
                     }
                 }
             }

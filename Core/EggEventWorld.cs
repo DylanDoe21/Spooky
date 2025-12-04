@@ -32,11 +32,6 @@ namespace Spooky.Core
 
 		public override void NetSend(BinaryWriter writer)
 		{
-			//for (int i = 0; i < list.Length; i++)
-			//{
-				//writer.Write(list[i]);
-			//}
-
 			writer.Write(EventTimeLeft);
 			writer.Write(EventTimeLeftUI);
 			writer.Write(EnemySpawnTimer);
@@ -46,11 +41,6 @@ namespace Spooky.Core
 
 		public override void NetReceive(BinaryReader reader)
 		{
-			//for (int i = 0; i < list.Length; i++)
-			//{
-				//list[i] = reader.ReadInt32();
-			//}
-
 			EventTimeLeft = reader.ReadInt32();
 			EventTimeLeftUI = reader.ReadInt32();
 			EnemySpawnTimer = reader.ReadInt32();

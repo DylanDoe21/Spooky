@@ -20,12 +20,14 @@ namespace Spooky.Content.Items.Pets
 			Item.buffType = ModContent.BuffType<ZombieCultistPetBuff>();
 		}
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+        public override bool? UseItem(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer)
             {
                 player.AddBuff(Item.buffType, 2, true);
             }
+
+			return true;
         }
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

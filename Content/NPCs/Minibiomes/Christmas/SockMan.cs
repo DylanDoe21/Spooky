@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Core;
+
 namespace Spooky.Content.NPCs.Minibiomes.Christmas
 {
 	public class SockManGreen : ModNPC
@@ -111,7 +113,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 
 				if ((NPC.velocity.X < 0f && NPC.direction == -1) || (NPC.velocity.X > 0f && NPC.direction == 1))
 				{
-                    if (NPC.velocity.Y == 0 && Collision.SolidTilesVersatile((int)(NPC.Center.X / 16f), (int)(NPC.Center.X + NPC.spriteDirection * 35) / 16, (int)NPC.Top.Y / 16, (int)NPC.Bottom.Y / 16 - 3))
+                    if (NPCGlobalHelper.IsCollidingWithFloor(NPC) && Collision.SolidTilesVersatile((int)(NPC.Center.X / 16f), (int)(NPC.Center.X + NPC.spriteDirection * 35) / 16, (int)NPC.Top.Y / 16, (int)NPC.Bottom.Y / 16 - 3))
 					{
 						NPC.velocity.Y = -8f;
 						NPC.netUpdate = true;

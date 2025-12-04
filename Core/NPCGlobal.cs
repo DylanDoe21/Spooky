@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Localization;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -21,6 +22,9 @@ using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Catacomb;
 using Spooky.Content.NPCs.Catacomb.Layer1;
+using Spooky.Content.NPCs.SpiderCave.SpiderWar;
+using Spooky.Content.NPCs.Tameable;
+using Spooky.Content.Projectiles.Blooms;
 using Spooky.Content.Projectiles.Catacomb;
 using Spooky.Content.Projectiles.SpiderCave;
 using Spooky.Content.Projectiles.SpookyBiome;
@@ -28,8 +32,7 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
-using Spooky.Content.Projectiles.Blooms;
-using Spooky.Content.NPCs.Tameable;
+
 
 namespace Spooky.Core
 {
@@ -458,6 +461,83 @@ namespace Spooky.Core
 				int NewProj = Projectile.NewProjectile(npc.GetSource_FromAI(), position, velocity, projType, damage, knockback, Main.myPlayer, ai0, ai1, ai2);
 				Main.projectile[NewProj].frame = Frame;
 			}
+		}
+
+		//modified version of NPC.AI_AttemptToFindTeleportSpot from vanilla, but modified a bunch specifically to have a line of sight check to the player
+		public static bool TeleportToSpot(NPC npc, Player player, ref Vector2 chosenTile, int targetTileX, int targetTileY, int rangeFromTargetTile, int telefragPreventionDistanceInTiles, bool UseLOSCheck = true)
+		{
+			int solidTileCheckFluff = 1;
+			int PositionX = (int)npc.Center.X / 16;
+			int PositionY = (int)npc.Center.Y / 16;
+			int Attempts = 0;
+			bool CanTeleport = false;
+			float VelocityMultiplier = 30f;
+			
+			if (Math.Abs(PositionX * 16 - targetTileX * 16) + Math.Abs(PositionY * 16 - targetTileY * 16) > 2000)
+			{
+				Attempts = 100;
+				CanTeleport = false;
+			}
+			while (!CanTeleport && Attempts < 100)
+			{
+				Attempts++;
+				int RandomX = Main.rand.Next(targetTileX - rangeFromTargetTile, targetTileX + rangeFromTargetTile + 1);
+				for (int i = Main.rand.Next(targetTileY - rangeFromTargetTile, targetTileY + rangeFromTargetTile + 1); i < targetTileY + rangeFromTargetTile; i++)
+				{
+					if ((i >= PositionY - 1 && i <= PositionY + 1 && RandomX >= PositionX - 1 && RandomX <= PositionX + 1) || !Main.tile[RandomX, i].HasTile)
+					{
+						continue;
+					}
+					bool IsPositionValid = true;
+					if (Main.tile[RandomX, i - 1].LiquidType == LiquidID.Lava && Main.tile[RandomX, i - 1].LiquidAmount <= 0)
+					{
+						IsPositionValid = false;
+					}
+					bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, new Vector2(RandomX, i - 1) * 16, 2, 2);
+					if (!HasLineOfSight && UseLOSCheck)
+					{
+						IsPositionValid = false;
+					}
+					if (!IsPositionValid || !Main.tileSolid[Main.tile[RandomX, i].TileType])
+					{
+						continue;
+					}
+					if (Collision.SolidTiles(RandomX - solidTileCheckFluff, RandomX + solidTileCheckFluff, i - 3 - solidTileCheckFluff, i - 1))
+					{
+						continue;
+					}
+
+					//prevent npc from teleporting too close to the player
+					Rectangle rectangle = new Rectangle(RandomX * 16, i * 16, 16, 16);
+					rectangle.Inflate(telefragPreventionDistanceInTiles * 16, telefragPreventionDistanceInTiles * 16);
+					for (int j = 0; j < Main.player.Length; j++)
+					{
+						Player playerToCheck = Main.player[j];
+						if (playerToCheck != null && playerToCheck.active && !playerToCheck.DeadOrGhost)
+						{
+							Rectangle value = playerToCheck.Hitbox;
+							Rectangle value2 = value.Modified((int)(playerToCheck.velocity.X * VelocityMultiplier), (int)(playerToCheck.velocity.Y * VelocityMultiplier), 0, 0);
+							Rectangle.Union(ref value2, ref value, out value2);
+							if (value2.Intersects(rectangle))
+							{
+								IsPositionValid = false;
+								CanTeleport = false;
+								break;
+							}
+						}
+					}
+
+					if (IsPositionValid)
+					{
+						chosenTile = new Vector2(RandomX, i);
+						CanTeleport = true;
+					}
+
+					break;
+				}
+			}
+
+			return CanTeleport;
 		}
 
 		//use for when npcs do special things when colliding with tiles but dont use tileCollide

@@ -112,6 +112,7 @@ namespace Spooky.Content.NPCs.Boss.Moco
             NPC.defense = 25;
             NPC.width = 78;
             NPC.height = 128;
+            NPC.npcSlots = 8f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.lavaImmune = true;

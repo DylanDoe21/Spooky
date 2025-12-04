@@ -27,6 +27,7 @@ using Spooky.Content.NPCs.Minibiomes.Ocean;
 using Spooky.Content.NPCs.Minibiomes.Vegetable;
 using Spooky.Content.NPCs.Quest;
 using Spooky.Content.NPCs.SpiderCave;
+using Spooky.Content.NPCs.SpiderCave.SpiderWar;
 using Spooky.Content.NPCs.SpiderCave.SporeEvent;
 using Spooky.Content.NPCs.SpookyBiome;
 using Spooky.Content.NPCs.SpookyHell;
@@ -69,26 +70,18 @@ namespace Spooky.Core
 			}
 			else if (player.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()))
             {
-				spawnRate /= 2;
+				if (!SpiderWarWorld.SpiderWarActive)
+				{
+					spawnRate /= 2;
+				}
+				else
+				{
+					spawnRate /= 5;
+				}
 			}
 			else if (player.InModBiome(ModContent.GetInstance<TarPitsBiome>()))
             {
 				spawnRate /= 2;
-			}
-
-			bool CatcombGuardianSpawning = (player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2);
-
-			//remove spawns if any spooky mod boss is alive (basically just a QoL change)
-			if (NPC.AnyNPCs(ModContent.NPCType<RotGourd>()) || NPC.AnyNPCs(ModContent.NPCType<SpookySpirit>()) || NPC.AnyNPCs(ModContent.NPCType<Moco>()) || 
-			NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) || NPC.AnyNPCs(ModContent.NPCType<SpookFishron>()) || NPC.AnyNPCs(ModContent.NPCType<BigBone>()) ||
-            NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) || NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) || NPC.AnyNPCs(ModContent.NPCType<BoroHead>()) ||
-			NPC.AnyNPCs(ModContent.NPCType<BanditBook>()) || NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()) || NPC.AnyNPCs(ModContent.NPCType<FrankenGoblin>()) || NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
-			{
-				if (!CatcombGuardianSpawning)
-				{
-					spawnRate = 0;
-					maxSpawns = 0;
-				}
 			}
 
 			//remove spawns during the pandora's box event
@@ -454,82 +447,239 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				//regular spiders should not spawn during a spore fog event if the fog intensity is at its maximum
-				if (!Flags.SporeEventHappening || (Flags.SporeEventHappening && Flags.SporeFogIntensity < 0.75f))
+				//quest miniboss
+				if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem3>()) && !NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
 				{
-					//quest miniboss
-					if (spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem3>()) && !NPC.AnyNPCs(ModContent.NPCType<StitchSpider>()))
+					pool.Add(ModContent.NPCType<StitchSpider>(), 3);
+				}
+
+				//regular spawns
+				if (!spawnInfo.Player.InModBiome(ModContent.GetInstance<SpiderWarBiome>()))
+				{
+					//regular spiders/critters should not spawn during a spore fog event if the fog intensity is at or close to its maximum
+					if (!Flags.SporeEventHappening || (Flags.SporeEventHappening && Flags.SporeFogIntensity < 0.75f))
 					{
-						pool.Add(ModContent.NPCType<StitchSpider>(), 3);
-					}
+						//critters
+						pool.Add(ModContent.NPCType<Ant1>(), 1);
+						pool.Add(ModContent.NPCType<Ant2>(), 1);
+						pool.Add(ModContent.NPCType<SpiderAnt1>(), 1);
+						pool.Add(ModContent.NPCType<SpiderAnt2>(), 1);
+						pool.Add(ModContent.NPCType<Cockroach>(), 1);
+						pool.Add(ModContent.NPCType<Inchworm1>(), 1);
+						pool.Add(ModContent.NPCType<Inchworm2>(), 1);
+						pool.Add(ModContent.NPCType<Inchworm3>(), 1);
+						pool.Add(ModContent.NPCType<Mosquito1>(), 1);
+						pool.Add(ModContent.NPCType<Mosquito2>(), 1);
+						pool.Add(ModContent.NPCType<Mosquito3>(), 1);
+						pool.Add(ModContent.NPCType<Moth1>(), 1);
+						pool.Add(ModContent.NPCType<Moth2>(), 1);
 
-					//critters
-					pool.Add(ModContent.NPCType<Ant1>(), 1);
-					pool.Add(ModContent.NPCType<Ant2>(), 1);
-					pool.Add(ModContent.NPCType<SpiderAnt1>(), 1);
-					pool.Add(ModContent.NPCType<SpiderAnt2>(), 1);
-					pool.Add(ModContent.NPCType<Cockroach>(), 1);
-					pool.Add(ModContent.NPCType<Inchworm1>(), 1);
-					pool.Add(ModContent.NPCType<Inchworm2>(), 1);
-					pool.Add(ModContent.NPCType<Inchworm3>(), 1);
-					pool.Add(ModContent.NPCType<Mosquito1>(), 1);
-					pool.Add(ModContent.NPCType<Mosquito2>(), 1);
-					pool.Add(ModContent.NPCType<Mosquito3>(), 1);
-					pool.Add(ModContent.NPCType<Moth1>(), 1);
-					pool.Add(ModContent.NPCType<Moth2>(), 1);
-
-					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
-					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
-					{
-						pool.Add(ModContent.NPCType<DaddyLongLegs>(), 2);
-						pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
-						pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
-						pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
-						pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
-						pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
-						pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
-						pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
-						pool.Add(ModContent.NPCType<TinySpiderEgg>(), 2);
-						pool.Add(ModContent.NPCType<AntSpider1>(), 2);
-						pool.Add(ModContent.NPCType<AntSpider2>(), 2);
-						pool.Add(ModContent.NPCType<CrabSpider1>(), 1);
-						pool.Add(ModContent.NPCType<CrabSpider2>(), 1);
-						pool.Add(ModContent.NPCType<PeacockSpider1>(), 1);
-						pool.Add(ModContent.NPCType<PeacockSpider2>(), 1);
-						pool.Add(ModContent.NPCType<PeacockSpider3>(), 1);
-						pool.Add(ModContent.NPCType<Harvestmen>(), 1);
-						pool.Add(ModContent.NPCType<SmileSpider>(), 1);
-
-						if (Main.hardMode)
+						//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
+						if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 						{
-							pool.Add(ModContent.NPCType<FishingSpider>(), 1);
-							pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
-							pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
-							pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
-							pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 2);
-							pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 1);
-							pool.Add(ModContent.NPCType<WhipSpider>(), 1);
-							pool.Add(ModContent.NPCType<WolfSpider>(), 2);
+							pool.Add(ModContent.NPCType<DaddyLongLegs>(), 2);
+							pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
+							pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
+							pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
+							pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
+							pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
+							pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
+							pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
+							pool.Add(ModContent.NPCType<TinySpiderEgg>(), 2);
+							pool.Add(ModContent.NPCType<AntSpider1>(), 2);
+							pool.Add(ModContent.NPCType<AntSpider2>(), 2);
+							pool.Add(ModContent.NPCType<CrabSpider1>(), 1);
+							pool.Add(ModContent.NPCType<CrabSpider2>(), 1);
+							pool.Add(ModContent.NPCType<PeacockSpider1>(), 1);
+							pool.Add(ModContent.NPCType<PeacockSpider2>(), 1);
+							pool.Add(ModContent.NPCType<PeacockSpider3>(), 1);
+							pool.Add(ModContent.NPCType<Harvestmen>(), 1);
+							pool.Add(ModContent.NPCType<SmileSpider>(), 1);
+
+							if (Main.hardMode)
+							{
+								pool.Add(ModContent.NPCType<FishingSpider>(), 1);
+								pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
+								pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
+								pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
+								pool.Add(ModContent.NPCType<TarantulaHawk3>(), 1);
+								pool.Add(ModContent.NPCType<TrapdoorSpiderIdle1>(), 2);
+								pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 1);
+								pool.Add(ModContent.NPCType<WhipSpider>(), 1);
+								pool.Add(ModContent.NPCType<WolfSpider>(), 2);
+							}
 						}
 					}
+					
+					//spore fog event enemies
+					if (Flags.SporeEventHappening)
+					{
+						pool.Add(ModContent.NPCType<BeetleMite1>(), 2);
+						pool.Add(ModContent.NPCType<BeetleMite2>(), 2);
+						pool.Add(ModContent.NPCType<BerryMite1>(), 2);
+						pool.Add(ModContent.NPCType<BerryMite2>(), 2);
+						pool.Add(ModContent.NPCType<BerryMite3>(), 2);
+						pool.Add(ModContent.NPCType<DeerMite>(), 2);
+						pool.Add(ModContent.NPCType<DustMite1>(), 2);
+						pool.Add(ModContent.NPCType<DustMite2>(), 2);
+						pool.Add(ModContent.NPCType<EyelashMiteBlueHead>(), 2);
+						pool.Add(ModContent.NPCType<EyelashMitePurpleHead>(), 2);
+						pool.Add(ModContent.NPCType<PeacockMite>(), 2);
+						pool.Add(ModContent.NPCType<RustMite>(), 2);
+					}
 				}
-				
-				//spore fog event enemies
-				if (Flags.SporeEventHappening)
+
+				//spider war spawns, based on current wave
+				if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpiderWarBiome>()) && SpiderWarWorld.SpiderWarPoints < SpiderWarWorld.SpiderWarMaxPoints)
 				{
-					pool.Add(ModContent.NPCType<BeetleMite1>(), 2);
-					pool.Add(ModContent.NPCType<BeetleMite2>(), 2);
-					pool.Add(ModContent.NPCType<BerryMite1>(), 2);
-					pool.Add(ModContent.NPCType<BerryMite2>(), 2);
-					pool.Add(ModContent.NPCType<BerryMite3>(), 2);
-					pool.Add(ModContent.NPCType<DeerMite>(), 2);
-					pool.Add(ModContent.NPCType<DustMite1>(), 2);
-					pool.Add(ModContent.NPCType<DustMite2>(), 2);
-					pool.Add(ModContent.NPCType<EyelashMiteBlueHead>(), 2);
-					pool.Add(ModContent.NPCType<EyelashMitePurpleHead>(), 2);
-					pool.Add(ModContent.NPCType<PeacockMite>(), 2);
-					pool.Add(ModContent.NPCType<RustMite>(), 2);
+					if (SpiderWarWorld.EventActiveSpotlightCount() < 3)
+					{
+						pool.Add(ModContent.NPCType<SpotlightSpiderFloor>(), 0.1f);
+					}
+
+					switch (SpiderWarWorld.SpiderWarWave)
+					{
+						case 0:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<TrumpetSpider>()))
+							{
+								pool.Add(ModContent.NPCType<TrumpetSpider>(), 2);
+							}
+							break;
+						}
+						case 1:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
+							{
+								pool.Add(ModContent.NPCType<OgreKing>(), 2);
+							}
+							break;
+						}
+						case 2:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+							{
+								pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+							}
+							break;
+						}
+						case 3:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<CorklidQueen>()))
+							{
+								pool.Add(ModContent.NPCType<CorklidQueen>(), 2);
+							}
+							break;
+						}
+						case 4:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
+							{
+								pool.Add(ModContent.NPCType<OgreKing>(), 2);
+							}
+							if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+							{
+								pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+							}
+							break;
+						}
+						case 5:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<CamelColonel>()))
+							{
+								pool.Add(ModContent.NPCType<CamelColonel>(), 2);
+							}
+							break;
+						}
+						case 6:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
+							{
+								pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+							}
+							break;
+						}
+						case 7:
+						{
+							if (!NPC.AnyNPCs(ModContent.NPCType<CamelColonel>()))
+							{
+								pool.Add(ModContent.NPCType<CamelColonel>(), 2);
+							}
+							if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
+							{
+								pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+							}
+							break;
+						}
+						case 8:
+						{
+							if (SpiderWarWorld.EventActiveNPCCount() < 3)
+							{
+								if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
+								{
+									pool.Add(ModContent.NPCType<OgreKing>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+								{
+									pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<CamelColonel>()))
+								{
+									pool.Add(ModContent.NPCType<CamelColonel>(), 2);
+								}
+							}
+							break;
+						}
+						case 9:
+						{
+							if (SpiderWarWorld.EventActiveNPCCount() < 3)
+							{
+								if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+								{
+									pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<CorklidQueen>()))
+								{
+									pool.Add(ModContent.NPCType<CorklidQueen>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
+								{
+									pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+								}
+							}
+							break;
+						}
+						case 10:
+						{
+							int MaxSpawns = SpiderWarWorld.SpiderWarPoints >= 20 ? 4 : 3;
+
+							if (SpiderWarWorld.EventActiveNPCCount() < MaxSpawns)
+							{
+								if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
+								{
+									pool.Add(ModContent.NPCType<OgreKing>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+								{
+									pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<CorklidQueen>()))
+								{
+									pool.Add(ModContent.NPCType<CorklidQueen>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<CamelColonel>()))
+								{
+									pool.Add(ModContent.NPCType<CamelColonel>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
+								{
+									pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+								}
+							}
+
+							break;
+						}
+					}
 				}
 			}
 
@@ -698,7 +848,7 @@ namespace Spooky.Core
 			}
 
 			//dumb zomboid can spawn anywhere super rarely
-			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()) && !spawnInfo.Water)
+			if (!NPC.AnyNPCs(ModContent.NPCType<DumbZomboid>()) && !spawnInfo.Player.InModBiome(ModContent.GetInstance<SpiderWarBiome>()) && !NoEventsHappening && !spawnInfo.Water)
 			{
 				pool.Add(ModContent.NPCType<DumbZomboid>(), 0.0001f);
 			}

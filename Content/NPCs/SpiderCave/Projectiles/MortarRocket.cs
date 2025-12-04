@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-using Spooky.Content.Buffs.Minion;
+using Spooky.Core;
 
 namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 {
@@ -43,7 +43,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 			ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame,
 			ProjTexture.Width() / 3, ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
-			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
 		}
@@ -66,17 +66,28 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            if (Projectile.ai[2] == 0)
+            if (Projectile.timeLeft <= 60)
             {
-                Projectile.ai[2] = Main.rand.Next(1, 100);
-                Projectile.netUpdate = true;
+                Projectile.velocity *= 0.95f;
             }
-
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= Projectile.ai[2])
+            else
             {
-                Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 7;
-                Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                if (Projectile.ai[2] == 0)
+                {
+                    Projectile.ai[2] = Main.rand.Next(1, 100);
+                    Projectile.netUpdate = true;
+                }
+
+                Projectile.ai[0]++;
+                if (Projectile.ai[0] >= Projectile.ai[2])
+                {
+                    bool AnotherMinibossPresent = SpiderWarWorld.EventActiveNPCCount() > 1;
+
+                    int Speed = AnotherMinibossPresent ? 6 : 7;
+
+                    Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * Speed;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+                }
             }
 
             Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity);

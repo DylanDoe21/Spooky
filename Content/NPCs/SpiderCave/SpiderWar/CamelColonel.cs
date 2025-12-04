@@ -32,27 +32,52 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
-                //CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/OgreKingBestiary",
-				//Position = new Vector2(0f, 22f),
-              	//PortraitPositionYOverride = 18f
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/CamelColonelBestiary",
+				Position = new Vector2(0f, -55f),
+              	PortraitPositionXOverride = 0f,
+              	PortraitPositionYOverride = -30f
             };
         }
 
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			//bools
+			writer.Write(SpawnedSegments);
+
+			//floats
+			writer.Write(SaveRotation);
+			writer.Write(NPC.localAI[0]);
+			writer.Write(NPC.localAI[1]);
+			writer.Write(NPC.localAI[2]);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			//bools
+			SpawnedSegments = reader.ReadBoolean();
+
+			//floats
+			SaveRotation = reader.ReadSingle();
+			NPC.localAI[0] = reader.ReadSingle();
+			NPC.localAI[1] = reader.ReadSingle();
+			NPC.localAI[2] = reader.ReadSingle();
+		}
+
 		public override void SetDefaults()
 		{
-            NPC.lifeMax = 23000;
-            NPC.damage = 70;
-			NPC.defense = 40;
+            NPC.lifeMax = 13000;
+            NPC.damage = 50;
+			NPC.defense = 32;
 			NPC.width = 86;
 			NPC.height = 92;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
-			NPC.HitSound = SoundID.NPCHit29 with { Pitch = 0.4f };
-			NPC.DeathSound = SoundID.NPCDeath36 with { Pitch = 0.4f };
+			NPC.HitSound = SoundID.NPCHit12 with { Volume = 0.35f, Pitch = 1f };
+			NPC.DeathSound = SoundID.NPCDeath29 with { Pitch = -0.7f };
 			NPC.aiStyle = -1;
-            //SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
+            SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -60,18 +85,21 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
 		}
 
-		/*
+		public override bool CheckActive()
+		{
+			return !SpiderWarWorld.SpiderWarActive;
+		}
+
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type], quickUnlock: true);
 
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.Harvestmen"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.CamelColonel"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-		*/
 
 		public override void FindFrame(int frameHeight)
         {
@@ -144,6 +172,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 			UpdateSpiderLegs();
 
+			bool AnotherMinibossPresent = SpiderWarWorld.EventActiveNPCCount() > 1;
+
 			if (Main.netMode != NetmodeID.MultiplayerClient)
             {
 				if (!SpawnedSegments)
@@ -208,25 +238,37 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				{
 					NPC.localAI[0]++;
 
-					if (NPC.localAI[0] < 5)
-					{
-						Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 2;
-						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+					int Repeats = AnotherMinibossPresent ? 3 : 4;
 
-						SaveRotation = NPC.rotation;
+                    if (NPC.localAI[1] < Repeats)
+                    {
+						if (NPC.localAI[0] < 5)
+						{
+							Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 2;
+							NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+
+							SaveRotation = NPC.rotation;
+						}
+						else
+						{
+							NPC.rotation = SaveRotation;
+							NPC.velocity = Vector2.Zero;
+						}
+
+						if (NPC.localAI[0] >= 80)
+						{
+							NPC.localAI[0] = 40;
+							NPC.localAI[1]++;
+							NPC.netUpdate = true;
+						}
 					}
 					else
-					{
-						NPC.rotation = SaveRotation;
-						NPC.velocity = Vector2.Zero;
-					}
-
-					if (NPC.localAI[0] >= 180)
 					{
 						SaveRotation = 0;
 
 						NPC.localAI[0] = 0;
-                        NPC.ai[0] = 0;
+						NPC.localAI[1] = 0;
+						NPC.ai[0] = 0;
 						NPC.netUpdate = true;
 					}
 
@@ -296,7 +338,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					}
 					if (NPC.localAI[0] >= 30 && NPC.localAI[0] <= 60)
 					{
-						Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 15;
+						int Speed = AnotherMinibossPresent ? 12 : 15;
+
+						Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * Speed;
 						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 					}
 
@@ -309,15 +353,6 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					break;
 				}
 			}
-
-			/*
-			attack ideas:
-
-			1) Spawn line telegraph that locks onto the player, then stops in place for like a super short time and shoots a super high damage poison sniper bolt
-			2) Shoot out spreads of venom darts with line telegraphs, randomized spreads of like 3 to 6 per spread
-			3) If the player gets too close, shoot out clouds of poison gas and then retreat away from the player to create distance
-			4) If the tail is destroyed, continously try and charge at the player and move super fast
-			*/
 		}
 
 		public override void HitEffect(NPC.HitInfo hit) 
@@ -329,6 +364,19 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			//on death destroy the rest of the legs
 			if (NPC.life <= 0)
             {
+				if (SpiderWarWorld.SpiderWarActive)
+				{
+					SpiderWarWorld.SpiderWarPoints++;
+				}
+
+				foreach (var npc in Main.ActiveNPCs)
+				{
+					if (npc.type == ModContent.NPCType<SpotlightFirefly>() && npc.ai[3] == NPC.whoAmI)
+					{
+						npc.ai[0]++;
+					}
+				}
+
 				legs[0].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
 				legs[1].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);
 				legs[2].Draw(NPC.Center, NPC.rotation, true, Main.spriteBatch, NPC);

@@ -563,7 +563,11 @@ CowBell: {
 
 EMFReader: {
 	DisplayName: EMF Reader
-	Tooltip: A device used to find and unleash paranormal entities
+	Tooltip:
+		'''
+		A device used to find paranormal entities
+		Use nearby strange objects in the world to unleash them
+		'''
 }
 
 EMFReaderBroke: {
@@ -2024,6 +2028,11 @@ DissolvedBone: {
 ExpiredCheese: {
 	DisplayName: Expired Cheese
 	Tooltip: Summons a pet albino rat
+}
+
+FriendlyShroom: {
+	DisplayName: Friendly Shroom
+	Tooltip: Summons a mushroom friend companion
 }
 
 FuzzBall: {
@@ -4941,6 +4950,61 @@ XmasTrainPaintingItem: {
 	Tooltip: "'Tortilla'"
 }
 
+SmilingFriendsPaintingItem: {
+	DisplayName: That's What Would Happen
+	Tooltip: "'Astrobit'"
+}
+
+ShoebillPaintingItem: {
+	DisplayName: Gaming is Alive
+	Tooltip: "'Waasephi'"
+}
+
+GravestonePaintingItem: {
+	DisplayName: Lonely Gravestone
+	Tooltip: "'Waasephi'"
+}
+
+GrannyWitchPaintingItem: {
+	DisplayName: Witch Granny
+	Tooltip: "'Astrobit'"
+}
+
+GrannySkeletonPaintingItem: {
+	DisplayName: Granny's Skeleton
+	Tooltip: "'Astrobit'"
+}
+
+GrannyBatPaintingItem: {
+	DisplayName: Granny's Bat
+	Tooltip: "'Astrobit'"
+}
+
+BaxterWitchPaintingItem: {
+	DisplayName: Witch Baxter
+	Tooltip: "'Waasephi'"
+}
+
+AlienPaintingItem: {
+	DisplayName: Hello! I am an Alien
+	Tooltip: "'Astrobit'"
+}
+
+SurprisedSkullPaintingItem: {
+	DisplayName: Surprised Skull
+	Tooltip: "'Waasephi'"
+}
+
+TheKillerPaintingItem: {
+	DisplayName: The Murderer
+	Tooltip: "'Astrobit'"
+}
+
+ZomboidThinkPaintingItem: {
+	DisplayName: Thinking Zomboid
+	Tooltip: "'Astrobit'"
+}
+
 CemeteryPylonItem: {
 	DisplayName: Swampy Cemetery Pylon
 	Tooltip:
@@ -5995,6 +6059,15 @@ LittleEyeQuestReset: {
 	Tooltip:
 		'''
 		Resets all little eye bounty progress
+		Testing Item
+		'''
+}
+
+SpiderWarStarter: {
+	DisplayName: Spider War Starter
+	Tooltip:
+		'''
+		Begins the spider war event
 		Testing Item
 		'''
 }

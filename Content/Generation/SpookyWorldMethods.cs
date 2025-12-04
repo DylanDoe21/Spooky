@@ -35,7 +35,7 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly, bool DestroyOnly, bool SpreadGrass = false, int[] TypeToSpreadOn = null)
+		public static void PlaceOval(int X, int Y, int tileType, int wallType, int radius, int radiusY, float thickMult, bool ReplaceOnly, bool DestroyOnly, bool SpreadOnSpecificTiles = false, int[] TypeToSpreadOn = null)
 		{
 			float scale = radiusY / (float)radius;
 			float invertScale = (float)radius / radiusY;
@@ -79,11 +79,11 @@ namespace Spooky.Content.Generation
 								tile.LiquidAmount = 0;
 							}
 						}
-						else if (ReplaceOnly)
+						else
 						{
 							if (WorldGen.SolidOrSlopedTile(PositionX, PositionY))
 							{
-								if (SpreadGrass)
+								if (SpreadOnSpecificTiles)
 								{
 									if (!left.HasTile || !right.HasTile || !up.HasTile || !down.HasTile || !topLeft.HasTile || !topRight.HasTile || !bottomLeft.HasTile || !bottomRight.HasTile)
 									{

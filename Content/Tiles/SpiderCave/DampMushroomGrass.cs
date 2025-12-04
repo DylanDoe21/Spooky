@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpiderCave.Tree;
@@ -96,7 +97,16 @@ namespace Spooky.Content.Tiles.SpiderCave
 
                     ushort newObject = Main.rand.Next(Mushrooms);
 
-                    WorldGen.PlaceObject(i, j - 1, newObject, true, WorldGen.genRand.Next(0, 2));
+                    WorldGen.PlaceObject(i, j - 1, newObject);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+
+                //friend mushroom
+                if (Main.rand.NextBool(50) && Flags.SporeEventHappening)
+                {
+                    ushort newObject = (ushort)ModContent.TileType<MushroomFriendTile>();
+
+                    WorldGen.PlaceObject(i, j - 1, newObject);
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 			}

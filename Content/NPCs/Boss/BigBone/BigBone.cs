@@ -170,6 +170,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             NPC.defense = 50;
             NPC.width = 130;
             NPC.height = 130;
+            NPC.npcSlots = 8f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 30, 0, 0);
             NPC.lavaImmune = true;

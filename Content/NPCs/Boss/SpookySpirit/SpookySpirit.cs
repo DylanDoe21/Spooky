@@ -133,6 +133,7 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
             NPC.defense = 12;
             NPC.width = 116;
             NPC.height = 112;
+            NPC.npcSlots = 8f;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.lavaImmune = true;
@@ -277,23 +278,23 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit
                     NPC.localAI[0]++;
 
                     //flies to players X position
-                    if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -55) 
+                    if (NPC.Center.X >= player.Center.X && MoveSpeedX >= -40) 
                     {
-                        MoveSpeedX -= 2;
+                        MoveSpeedX--;
                     }
-                    else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 55)
+                    else if (NPC.Center.X <= player.Center.X && MoveSpeedX <= 40)
                     {
-                        MoveSpeedX += 2;
+                        MoveSpeedX++;
                     }
 
                     NPC.velocity.X = MoveSpeedX * 0.1f;
                     
                     //flies to players Y position
-                    if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -35)
+                    if (NPC.Center.Y >= player.Center.Y - 60f && MoveSpeedY >= -30)
                     {
                         MoveSpeedY--;
                     }
-                    else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 35)
+                    else if (NPC.Center.Y <= player.Center.Y - 60f && MoveSpeedY <= 30)
                     {
                         MoveSpeedY++;
                     }

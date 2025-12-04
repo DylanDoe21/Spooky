@@ -615,7 +615,20 @@ MiteDen.DisplayName: Mite Den
 MiteSwordProj.DisplayName: Ravenous Scimiter
 MiteVacuumProj.DisplayName: Devil Duster
 MiteVacuumSpore.DisplayName: Spore Cloud
+MushroomFriendPet.DisplayName: Mushroom Friend
 CamelSniperBolt.DisplayName: Sniper Bolt
 CamelVenomBolt.DisplayName: Venom Bolt
 MortarRocket.DisplayName: Mortar Rocket
-MortarFire.DisplayName: Mortar Fire
+MortarFire.DisplayName: Mortar Flames
+MortarMine.DisplayName: Web Mine
+MortarMineExplosion.DisplayName: Explosion
+CorklidQueenDebris.DisplayName: Debris
+CorklidRocket.DisplayName: Corklid Rocket
+CorklidNuke.DisplayName: Corklid Nuke
+OgreKingWeb.DisplayName: Trap Web
+OgreKingWebEffect.DisplayName: Web Particle
+OgreKingWebTrail.DisplayName: Web String
+EmpressJoroWebEgg.DisplayName: Web Egg
+JoroBabyDrop.DisplayName: Joro Baby
+CamelSniperReticle.DisplayName: Reticle
+MortarWebTrail.DisplayName: Mortar Web
