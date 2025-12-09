@@ -148,7 +148,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             //kill the tree if there are no tiles below it
             if (!Framing.GetTileSafely(i, j + 1).HasTile)
             {
-                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ItemID.Cactus);
+                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16), ModContent.ItemType<TarPitCactusBlockItem>());
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
                 {

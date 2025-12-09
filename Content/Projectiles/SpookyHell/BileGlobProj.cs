@@ -72,8 +72,17 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 {
                     SoundEngine.PlaySound(EggDecaySound, Projectile.Center);
 
-                    EggEventWorld.EventTimeLeft += 720;
-                    EggEventWorld.EventTimeLeftUI -= 720;
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                    {
+                        ModPacket packet = Mod.GetPacket();
+                        packet.Write((byte)SpookyMessageType.EggIncursionTimeReduce);
+                        packet.Send();
+                    }
+                    else
+                    {
+                        EggEventWorld.EventTimeLeft += 720;
+                        EggEventWorld.EventTimeLeftUI -= 720;
+                    }
 
                     Projectile.Kill();
                 }

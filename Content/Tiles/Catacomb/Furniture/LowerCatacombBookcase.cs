@@ -13,7 +13,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
     {
 		public override void SetStaticDefaults()
 		{
-            Main.tileSolidTop[Type] = true;
+            Main.tileSolidTop[Type] = false;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;

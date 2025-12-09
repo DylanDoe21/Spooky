@@ -27,7 +27,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             TileObjectData.newTile.DrawYOffset = -2;
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(154, 80, 36));
-            DustType = DustID.Sand;
+            DustType = DustID.YellowStarfish;
             HitSound = SoundID.Dig;
         }
     }

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -20,6 +21,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 3;
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
 
         public override void SetDefaults()

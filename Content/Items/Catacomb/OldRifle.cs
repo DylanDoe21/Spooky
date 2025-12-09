@@ -5,8 +5,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Dusts;
-using Spooky.Content.Projectiles;
-using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Projectiles.Catacomb;
  
 namespace Spooky.Content.Items.Catacomb
 {

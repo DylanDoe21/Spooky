@@ -103,13 +103,14 @@ namespace Spooky.Content.Projectiles.Sentient
                     {
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
-                        ShootSpeed.X *= Main.rand.Next(15, 25);
-                        ShootSpeed.Y *= Main.rand.Next(15, 25);
+                        ShootSpeed *= Main.rand.Next(15, 25);
+
+                        Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(30));
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
 
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X + muzzleOffset.X, Projectile.Center.Y + muzzleOffset.Y - playerCenterOffset, 
-                        ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<EyeMine>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        newVelocity.X, newVelocity.Y, ModContent.ProjectileType<EyeMine>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
 

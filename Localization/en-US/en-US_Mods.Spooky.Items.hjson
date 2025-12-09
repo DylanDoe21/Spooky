@@ -2545,6 +2545,38 @@ SpiderSword: {
 	Tooltip: Can sometimes inflict enemies with venom
 }
 
+SpiderWarDreamcatcher: {
+	DisplayName: Web Catcher
+	Tooltip: Creates lingering webs around you that damage and slow enemies
+}
+
+SpiderWarFlail: {
+	DisplayName: Tsar Throwah
+	Tooltip:
+		'''
+		Rapidly shoots missiles while being swung
+		When dropped, creates a devestating ground slam that sends debris everywhere
+		'''
+}
+
+SpiderWarRemote: {
+	DisplayName: Fly Carpetbomber
+	Tooltip:
+		'''
+		Left click to summon some small flies that take up half a minion slot each
+		Right click to summon a large explosive spider minion that takes up 2 minion slots
+		'''
+}
+
+SpiderWarSniper: {
+	DisplayName: Scorpion Deathblow
+	Tooltip:
+		'''
+		Left click to fire out a powerful poison sniper bolt
+		Right click to fire out a spread of weaker venom bolts
+		'''
+}
+
 SporeBall: {
 	DisplayName: Sporbus
 	Tooltip: Throw out a magic ball of fungus that sprays damaging spores around it
@@ -4265,6 +4297,11 @@ PlantFossilItem: {
 	Tooltip: Can be extractinated into something more useful
 }
 
+TarPitCactusBlockItem: {
+	DisplayName: Tar Pit Cactus
+	Tooltip: Ouchy!
+}
+
 WheelItem: {
 	DisplayName: Metal Wheel
 	Tooltip: ""
@@ -5136,8 +5173,8 @@ DampSoilWallItem: {
 }
 
 DampStoneItem: {
-	DisplayName: Damp Stone
-	Tooltip: ""
+	DisplayName: Not So Mossy Stone
+	Tooltip: Like regular stone, but without moss!
 }
 
 RootWoodItem: {
@@ -5943,6 +5980,31 @@ SpookySpiritTrophyItem: {
 	Tooltip: ""
 }
 
+OgreKingTrophyItem: {
+	DisplayName: Ogre King Trophy
+	Tooltip: ""
+}
+
+EmpressJoroTrophyItem: {
+	DisplayName: Empress Joro Trophy
+	Tooltip: ""
+}
+
+EmperorMortarTrophyItem: {
+	DisplayName: Emperor Mortar Trophy
+	Tooltip: ""
+}
+
+CorklidQueenTrophyItem: {
+	DisplayName: Corklid Queen Trophy
+	Tooltip: ""
+}
+
+CamelColonelTrophyItem: {
+	DisplayName: Camel Colonel Trophy
+	Tooltip: ""
+}
+
 CatacombTorch1Item: {
 	DisplayName: Creepy Catacombs Torch
 	Tooltip: ""
@@ -6081,32 +6143,17 @@ PetCommander: {
 		'''
 }
 
-SporeBody: {
-	DisplayName: Spore Monk Chestmail
+SporeShroomBody: {
+	DisplayName: Chestplate-Shaped Mushroom
 	Tooltip: ""
 }
 
-SporeHeadSummon: {
-	DisplayName: Spore Monk Jester Hat
+SporeShroomHead: {
+	DisplayName: Helmet-Shaped Mushroom
 	Tooltip: ""
 }
 
-SporeHeadRanged: {
-	DisplayName: Spore Monk Cowl
-	Tooltip: ""
-}
-
-SporeHeadMelee: {
-	DisplayName: Spore Monk Crown
-	Tooltip: ""
-}
-
-SporeHeadMagic: {
-	DisplayName: Spore Monk Hood
-	Tooltip: ""
-}
-
-SporeLegs: {
-	DisplayName: Spore Monk Robes
+SporeShroomLegs: {
+	DisplayName: Legging-Shaped Mushroom
 	Tooltip: ""
 }

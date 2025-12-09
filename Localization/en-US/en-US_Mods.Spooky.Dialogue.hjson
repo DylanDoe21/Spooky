@@ -68,15 +68,6 @@ LittleBone: {
 	Button2: Transport
 }
 
-OldHunter: {
-	Awaken: Huh? What the hell is this? And who the hell are you!? What even happened, how long was I asleep for? Eh whatever, it probably don't matter. You look decently strong, you wanna buy some of my crazy weapons?
-	Default1: Y'know, if ya want guns you've come to the right place! I've got some classic weapons ain't no one can top!
-	Default2: Hunting is a great sport! You ever try to snipe one of them weird lil' spider creatures from far away?
-	Default3: Fantasy swords? Crazy magic weapons? Why not use a good ol' gun like a normal person?
-	Default4: Didja know that the grotto used to not be infested by spiders? We used to get visitors all time but apparently spiders are too scary for some people.
-	Default5: Ya ever used a slingshot before? Well I doubt you ever used one of my state-of-the-art high-velocity ones!
-}
-
 PartySkeleton: {
 	Dialogue1: Bro I'm dead.
 	Dialogue2: Dance till you drop dead!

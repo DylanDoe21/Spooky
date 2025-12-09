@@ -115,6 +115,13 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.EggIncursionTimeReduce:
+                {
+                    EggEventWorld.EventTimeLeft += 720;
+                    EggEventWorld.EventTimeLeftUI -= 720;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 case SpookyMessageType.CatacombKey1:
                 {
                     Flags.CatacombKey1 = true;
@@ -232,6 +239,7 @@ namespace Spooky
         SpawnOrroboro,
 		SpawnTurkey,
         EggIncursionStart,
+        EggIncursionTimeReduce,
         CatacombKey1,
         CatacombKey2,
         CatacombKey3,

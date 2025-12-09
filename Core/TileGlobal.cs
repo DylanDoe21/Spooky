@@ -78,7 +78,7 @@ namespace Spooky.Core
 
 		public override void DrawEffects(int i, int j, int type, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
 		{
-			//create bubbles while in the tar pits biome
+			//create bubbles in water while in the tar pits biome
 			if (Main.waterStyle == ModContent.GetInstance<TarWaterStyle>().Slot)
 			{
 				if (Main.rand.NextBool(750) && !Main.gamePaused && Main.instance.IsActive)

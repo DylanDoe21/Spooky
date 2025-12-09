@@ -15,6 +15,7 @@ using Spooky.Content.Items;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Friendly;
+using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Minibiomes.Christmas.Furniture;
 using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
@@ -124,6 +125,22 @@ namespace Spooky.Content.Generation
 					{
 						WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(12, 22), WorldGen.genRand.Next(12, 22),
 						ModContent.TileType<SpookyStone>(), false, 0f, 0f, false, true);
+					}
+				}
+			}
+
+			//place clumps of bloom soil throughout the surface
+			for (int Rocks = 0; Rocks < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 8E-05); Rocks++)
+			{
+				int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+				int Y = WorldGen.genRand.Next(0, Main.maxTilesY / 2);
+
+				if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile)
+				{
+					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>())
+					{
+						WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(6, 13), WorldGen.genRand.Next(6, 13),
+						ModContent.TileType<BloomSoil>(), false, 0f, 0f, false, true);
 					}
 				}
 			}

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -17,6 +18,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         private static Asset<Texture2D> NPCLightTexture;
         private static Asset<Texture2D> NPCLightGlowTexture;
 		private static Asset<Texture2D> SpotlightTexture;
+
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
+        }
 
         public override void SetDefaults()
         {

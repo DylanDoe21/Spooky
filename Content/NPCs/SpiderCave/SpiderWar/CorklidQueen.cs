@@ -1,21 +1,23 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.GameContent;
+using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.Audio;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
+using System;
+using System.IO;
+using System.Collections.Generic;
+
+using Spooky.Core;
 using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
-using Spooky.Core;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 {
@@ -276,6 +278,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
             NPC.spriteDirection = NPC.direction;
 
+			bool AnotherMinibossPresent = SpiderWarWorld.EventActiveNPCCount() > 1;
+
 			switch ((int)NPC.ai[0])
 			{
 				//walk at player, dig into ground and teleport if line of sight is lost
@@ -316,7 +320,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 							Screenshake.ShakeScreenWithIntensity(NPC.Center, 10f, 450f);
 
 							//shoot debris
-							for (int numProjs = 0; numProjs <= 8; numProjs++)
+							int MaxDebris = AnotherMinibossPresent ? 5 : 8;
+							for (int numProjs = 0; numProjs < MaxDebris; numProjs++)
 							{
 								Vector2 PosToShootTo = new Vector2(NPC.Center.X + Main.rand.Next(-30, 31), NPC.Center.Y - 30);
 
@@ -463,7 +468,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 						NPC.velocity.X = 0;
 
 						NPC.localAI[0]++;
-						if (NPC.localAI[0] >= 25 && NPC.localAI[0] <= 120 && NPC.localAI[0] % 5 == 0)
+
+						int Frequency = AnotherMinibossPresent ? 10 : 5;
+						if (NPC.localAI[0] >= 25 && NPC.localAI[0] <= 120 && NPC.localAI[0] % Frequency == 0)
 						{
 							SoundEngine.PlaySound(SoundID.Item73, NPC.Center);
 
@@ -486,8 +493,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 							}
 						}
 
-						if (NPC.localAI[0] >= 180 && NPC.localAI[0] <= 275 && NPC.localAI[0] % 5 == 0)
+						if (NPC.localAI[0] >= 180 && NPC.localAI[0] <= 275 && NPC.localAI[0] % Frequency == 0)
 						{
+							NPCGlobalHelper.ShootHostileProjectile(NPC, player.Center, Vector2.Zero, ModContent.ProjectileType<CorklidMissileReticle>(), NPC.damage, 1f);
 							NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y - 1000), Vector2.Zero, ModContent.ProjectileType<CorklidRocket>(), NPC.damage, 4.5f, ai0: 1);
 						}
 
@@ -639,6 +647,12 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				}
 			}
 		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarFlail>()));
+			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<CorklidQueenTrophyItem>()));
+        }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {

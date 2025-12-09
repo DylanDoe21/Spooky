@@ -188,6 +188,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
                         SavePlayerPosition = player.Center + player.velocity * Multiplier;
 
+                        SaveRotation = NPC.rotation;
+
                         NPCGlobalHelper.ShootHostileProjectile(NPC, SavePlayerPosition, Vector2.Zero, ModContent.ProjectileType<CamelSniperReticle>(), NPC.damage, 1f);
                     }
 
@@ -195,8 +197,6 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                     {
                         SoundEngine.PlaySound(SoundID.Item167, NPC.Center);
                         SoundEngine.PlaySound(SoundID.Item63 with { Pitch = -0.5f }, NPC.Center);
-
-                        SaveRotation = NPC.rotation;
 
                         Vector2 ShootSpeed = SavePlayerPosition - NPC.Center;
 						ShootSpeed.Normalize();
@@ -207,7 +207,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                         NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center + muzzleOffset, ShootSpeed, ModContent.ProjectileType<CamelSniperBolt>(), NPC.damage, 1f);
                     }
 
-                    if (Parent.localAI[0] >= 60 && Parent.localAI[0] <= 80)
+                    if (Parent.localAI[0] >= 42 && Parent.localAI[0] <= 80)
                     {
                         NPC.rotation = SaveRotation;
                     }

@@ -12,7 +12,9 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpiderCave.Misc;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 {
@@ -354,6 +356,12 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				}
 			}
 		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarSniper>()));
+			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<CamelColonelTrophyItem>()));
+        }
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {

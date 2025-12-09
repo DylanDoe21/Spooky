@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb;
-using Spooky.Content.Items.SpiderCave.OldHunter;
+using Spooky.Content.Items.SpookyBiome;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.PandoraBox;
@@ -389,6 +390,76 @@ namespace Spooky.Content.Generation
 
             //EXTRA STUFF
 
+            //place catacomb platform shelves
+            for (int X = XMiddle - 300; X <= XMiddle + 300; X++)
+            {
+                for (int Y = (int)Main.worldSurface - 10; Y <= BigBoneArenaY - 30; Y++)
+				{
+					//place wooden platform shelves
+					if (WorldGen.genRand.NextBool(20))
+					{
+						int Length = WorldGen.genRand.Next(3, 5);
+
+						if (!Main.tile[X + 1, Y].HasTile && Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile)
+						{
+							if (CanPlacePlatform(X, Y, Length, false))
+							{
+								for (int x = X + 1; x <= X + Length; x++)
+								{
+									WorldGen.PlaceTile(x, Y, Main.tile[x, Y].WallType == ModContent.WallType<CatacombBrickWall1>() ? ModContent.TileType<CatacombBrickPlatform1>() : ModContent.TileType<CatacombBrickPlatform2>());
+
+                                    if (WorldGen.genRand.NextBool(10))
+									{
+										int Type = Main.tile[x, Y].WallType == ModContent.WallType<CatacombBrickWall1>() ? ModContent.TileType<UpperCatacombCandle>() : ModContent.TileType<LowerCatacombCandle>();
+										WorldGen.PlaceObject(x, Y - 1, Type);
+									}
+									else if (WorldGen.genRand.NextBool(5))
+									{
+										WorldGen.PlaceObject(x, Y - 1, TileID.ClayPot);
+										WorldGen.PlaceObject(x, Y - 2, TileID.BloomingHerbs, true, WorldGen.genRand.Next(0, 7));
+									}
+									else
+									{	
+										WorldGen.PlaceObject(x, Y - 1, TileID.Books, true, WorldGen.genRand.Next(0, 5));
+									}
+								}
+							}
+						}
+					}
+
+					if (WorldGen.genRand.NextBool(20))
+					{
+						int Length = WorldGen.genRand.Next(3, 5);
+
+						if (!Main.tile[X - 1, Y].HasTile && Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile)
+						{
+							if (CanPlacePlatform(X, Y, Length, true))
+							{
+								for (int x = X - Length; x <= X - 1; x++)
+								{
+									WorldGen.PlaceTile(x, Y, Main.tile[x, Y].WallType == ModContent.WallType<CatacombBrickWall1>() ? ModContent.TileType<CatacombBrickPlatform1>() : ModContent.TileType<CatacombBrickPlatform2>());
+
+									if (WorldGen.genRand.NextBool(10))
+									{
+                                        int Type = Main.tile[x, Y].WallType == ModContent.WallType<CatacombBrickWall1>() ? ModContent.TileType<UpperCatacombCandle>() : ModContent.TileType<LowerCatacombCandle>();
+										WorldGen.PlaceObject(x, Y - 1, Type);
+									}
+									else if (WorldGen.genRand.NextBool(5))
+									{
+										WorldGen.PlaceObject(x, Y - 1, TileID.ClayPot);
+										WorldGen.PlaceObject(x, Y - 2, TileID.BloomingHerbs, true, WorldGen.genRand.Next(0, 7));
+									}
+									else
+									{	
+										WorldGen.PlaceObject(x, Y - 1, TileID.Books, true, WorldGen.genRand.Next(0, 5));
+									}
+								}
+							}
+						}
+					}
+                }
+            }
+
             //place the entrance to the catacombs from the bottom of the cemetery crypt building
             int EntranceX = XMiddle - 5;
 
@@ -441,6 +512,12 @@ namespace Spooky.Content.Generation
                             if (tunnelY == Y + 15)
                             {
                                 WorldGen.PlaceTile(tunnelX, tunnelY, ModContent.TileType<OldWoodPlatform>());
+
+                                //in the middle of the tunnel, place a chain that goes down
+                                if (tunnelX == X - 1)
+                                {
+                                    WorldGen.PlaceTile(tunnelX, tunnelY - 1, TileID.Chain);
+                                }
                             }
                             //place stuff in the tunnel
                             else
@@ -503,6 +580,12 @@ namespace Spooky.Content.Generation
                     if (tunnelY == (int)Main.worldSurface + layer1Depth + layer2Depth + extraDepthForEntrance)
                     {
                         WorldGen.PlaceTile(tunnelX, tunnelY, ModContent.TileType<OldWoodPlatform>());
+
+                        //place chain above the middle of the platform
+                        if (tunnelX == XMiddle - 1)
+                        {
+                            WorldGen.PlaceTile(tunnelX, tunnelY - 1, TileID.Chain);
+                        }
                     }
                     else
                     {
@@ -711,7 +794,7 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb1>(), true, WorldGen.genRand.Next(8));
                         }
                         //place loot chests
-                        if (WorldGen.genRand.NextBool(75) && CanPlaceChest(X, Y))
+                        if (WorldGen.genRand.NextBool(45) && CanPlaceChest(X, Y))
                         {
                             WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<UpperCatacombChest>());
                         }
@@ -1027,7 +1110,7 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb2>(), true, WorldGen.genRand.Next(8));
                         }
                         //place loot chests
-                        if (WorldGen.genRand.NextBool(75) && CanPlaceChest(X, Y))
+                        if (WorldGen.genRand.NextBool(45) && CanPlaceChest(X, Y))
                         {
                             WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<LowerCatacombChest>());
                         }
@@ -1148,6 +1231,39 @@ namespace Spooky.Content.Generation
             }
         }
 
+        //if a catacomb platform can be placed off of the side of a block
+        public bool CanPlacePlatform(int PositionX, int PositionY, int Length, bool LeftSide)
+		{
+			if (LeftSide)
+			{
+				for (int x = PositionX - Length; x <= PositionX - 1; x++)
+				{
+					for (int y = PositionY - 2; y <= PositionY + 1; y++)
+					{
+						if (Main.tile[x, y].HasTile || (Main.tile[x, y].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[x, y].WallType != ModContent.WallType<CatacombBrickWall2>()))
+						{
+							return false;
+						}
+					}
+				}
+			}
+			else
+			{
+				for (int x = PositionX + 1; x <= PositionX + Length; x++)
+				{
+					for (int y = PositionY - 1; y <= PositionY + 1; y++)
+					{
+						if (Main.tile[x, y].HasTile || (Main.tile[x, y].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[x, y].WallType != ModContent.WallType<CatacombBrickWall2>()))
+						{
+							return false;
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
         //determine if theres no chests nearby another chest thats about to place
         public static bool CanPlaceChest(int X, int Y)
         {
@@ -1250,22 +1366,127 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Creepy Catacombs", PlaceCatacomb));
 		}
 
-		//place items in chests
-		public override void PostWorldGen()
+		//post worldgen to place items in the spooky biome chests
+        public override void PostWorldGen()
 		{
-			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
+			List<int> MainItem1 = new List<int>
 			{
+				ModContent.ItemType<BoneBow>(), ModContent.ItemType<GraveCrossbow>(), ModContent.ItemType<HarvesterScythe>(), 
+                ModContent.ItemType<HighVelocitySlingshot>(), ModContent.ItemType<HunterScarf>(), 
+                ModContent.ItemType<NineTails>(), ModContent.ItemType<ThornStaff>()
+			};
+
+			List<int> ActualMainItem1 = new List<int>(MainItem1);
+
+            List<int> MainItem2 = new List<int>
+			{
+				ModContent.ItemType<CrossCharm>(), ModContent.ItemType<FlameIdol>(), ModContent.ItemType<GlowBulb>(), 
+				ModContent.ItemType<GodGun>(), ModContent.ItemType<HunterSoulScepter>(), 
+                ModContent.ItemType<LegalShotgun>(), ModContent.ItemType<OldRifle>()
+			};
+
+			List<int> ActualMainItem2 = new List<int>(MainItem2);
+
+			List<int> Potions = new List<int>
+			{
+				ItemID.IronskinPotion, ItemID.SwiftnessPotion, ItemID.RegenerationPotion, ItemID.ManaRegenerationPotion,
+				ItemID.ShinePotion, ItemID.ThornsPotion, ItemID.ArcheryPotion, ItemID.GravitationPotion 
+			};
+
+			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
+            {
 				Chest chest = Main.chest[chestIndex];
 
-				if (chest == null)
-				{
+				if (chest == null) 
+                {
 					continue;
 				}
 
-				if (WorldGen.InWorld(chest.x, chest.y, 20))
+				if (WorldGen.InWorld(chest.x, chest.y))
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];
-				}
+
+                    //layer 1 chests
+					if (chestTile.TileType == ModContent.TileType<UpperCatacombChest>())
+					{
+                        if (ActualMainItem1.Count == 0)
+						{
+							ActualMainItem1 = new List<int>(MainItem1);
+						}
+
+						int ItemToPutInChest = WorldGen.genRand.Next(ActualMainItem1.Count);
+
+                        //demonite or crimtane bar depending on corruption or crimson worlds
+						int Bars = !WorldGen.crimson ? ItemID.DemoniteBar : ItemID.CrimtaneBar;
+                        
+						//main items
+						chest.item[0].SetDefaults(ActualMainItem1[ItemToPutInChest]);
+						chest.item[0].stack = 1;
+						ActualMainItem1.RemoveAt(ItemToPutInChest);
+                        //chance to place eye valley compass instead of bars
+                        if (WorldGen.genRand.NextBool(3))
+                        {
+                            chest.item[1].SetDefaults(ModContent.ItemType<EyeValleyCompass>());
+						    chest.item[1].stack = 1;
+                        }
+						//bars
+						else
+						{
+							chest.item[1].SetDefaults(Bars);
+							chest.item[1].stack = WorldGen.genRand.Next(3, 7);
+						}
+						chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions));
+						chest.item[2].stack = WorldGen.genRand.Next(1, 4);
+						//torches
+						chest.item[3].SetDefaults(ModContent.ItemType<CatacombTorch1Item>());
+						chest.item[3].stack = WorldGen.genRand.Next(12, 19);
+						//gold coins
+						chest.item[4].SetDefaults(ItemID.GoldCoin);
+						chest.item[4].stack = WorldGen.genRand.Next(1, 3);
+                    }
+
+					//layer 1 barrels
+					if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall1>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall1>()))
+					{
+						//place stuff in barrels
+						if (chestTile.TileFrameX == 5 * 36)
+						{
+							int[] RareItem = new int[] { ModContent.ItemType<SkullAmulet>(), ModContent.ItemType<RustyRing>() };
+							int[] Ammo = new int[] { ModContent.ItemType<RustedBullet>(), ModContent.ItemType<OldWoodArrow>(), ModContent.ItemType<MossyPebble>() };
+
+							if (WorldGen.genRand.NextBool(15))
+							{
+								chest.item[0].SetDefaults(WorldGen.genRand.Next(RareItem));
+							}
+							else if (WorldGen.genRand.NextBool(5))
+							{
+								chest.item[0].SetDefaults(ItemID.GoodieBag);
+								chest.item[0].stack = WorldGen.genRand.Next(1, 3);
+							}
+							else
+							{
+								chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
+								chest.item[0].stack = WorldGen.genRand.Next(10, 21);
+							}
+						}
+                    }
+
+                    //layer 2 chests
+                    if (chestTile.TileType == ModContent.TileType<LowerCatacombChest>())
+					{
+                        if (ActualMainItem2.Count == 0)
+						{
+							ActualMainItem2 = new List<int>(MainItem2);
+						}
+
+						int ItemToPutInChest = WorldGen.genRand.Next(ActualMainItem2.Count);
+                        
+						//main items
+						chest.item[0].SetDefaults(ActualMainItem2[ItemToPutInChest]);
+						chest.item[0].stack = 1;
+						ActualMainItem2.RemoveAt(ItemToPutInChest);
+                    }
+                }
             }
         }
     }

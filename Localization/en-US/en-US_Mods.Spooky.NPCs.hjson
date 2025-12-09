@@ -235,31 +235,6 @@ PartySkeleton.Names: Boney, Tony, Jeff, McRib, Clemmence, Hans Flabberghast, Car
 SkeletonBouncer.DisplayName: Skeleton Bouncer
 SuspiciousSkeleton.DisplayName: Suspicious Skeleton
 LabComputerDummy.DisplayName: ""
-OldHunterSleeping.DisplayName: Old Hunter
-
-OldHunter: {
-	DisplayName: Old Hunter
-	Names: Gerald, Hunter, Marrow, Mike, Bob
-
-	TownNPCMood: {
-		Content: I am content.
-		NoHome: You know, I was wonderin' if you had a cozy place to live.
-		FarFromHome: I am too far from home.
-		LoveSpace: The amount of space here is real nice!
-		DislikeCrowded: Ain't liking how many people are around me right now.
-		HateCrowded: It's too damn crowded here. Way too much yip-yapping!
-		LoveBiome: Ahh the good ol' {BiomeName}. Still love this place despite them ugly ass spiders wandering around!
-		LikeBiome: The {BiomeName} is my type of biome. Nothin' says home quite like fending off venomous bugs and bats!
-		DislikeBiome: Not really likin' {BiomeName}, too peaceful and calm for me.
-		HateBiome: What the hell is this so-called Hallowed? I ain't gonna live in some fairytale land!
-		LoveNPC: "{NPCName} is awesome! Glad there's some hard-core dudes out there!"
-		LikeNPC: I like {NPCName}. Honestly I'm just glad I got someone old to talk with haha!
-		DislikeNPC: "{NPCName}? Seems way too hoity-toity for me."
-		HateNPC: "{NPCName} can screw off. Don't think I ever seen such a terrible attitude before!"
-		Princess_LovesNPC: ""
-		LikeNPC_Princess: ""
-	}
-}
 
 GiantWeb: {
 	DisplayName: Giant Web
@@ -390,6 +365,7 @@ WhipSpiderTongue.DisplayName: Whip Spider
 WolfSpider.DisplayName: Wolf Spider
 WolfSpiderBaby.DisplayName: Baby Wolf Spider
 //spider war
+ArchdukeSpider.DisplayName: Archduke Trigon Tarbida
 CamelColonel.DisplayName: Camel Colonel
 CamelColonelTail.DisplayName: ""
 CamelColonelTailSniper.DisplayName: Camel Colonel
@@ -537,5 +513,3 @@ Turkey: {
 	State2: Turkey is Following
 	State3: Turkey is Staying
 }
-
-ArchdukeSpider.DisplayName: Archduke Spider

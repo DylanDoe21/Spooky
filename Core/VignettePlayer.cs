@@ -33,9 +33,19 @@ namespace Spooky.Core
 			IsActive = true;
 		}
 
-		public override void PostUpdateMiscEffects()
+		public override void UpdateDead() 
 		{
-			if (Main.netMode == NetmodeID.Server)
+			UpdateVisuals();
+		}
+
+		public override void PostUpdate() 
+		{
+			UpdateVisuals();
+		}
+
+		private void UpdateVisuals() 
+		{
+			if (Player.whoAmI != Main.myPlayer || Main.netMode == NetmodeID.Server)
 			{
 				return;
 			}

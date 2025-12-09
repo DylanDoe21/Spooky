@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
@@ -35,7 +36,10 @@ namespace Spooky.Content.Biomes
             if (!NPC.AnyNPCs(ModContent.NPCType<DaffodilEye>()) && !NPC.AnyNPCs(ModContent.NPCType<BigBone>()) && !PandoraBoxWorld.PandoraEventActive && !Flags.downedBigBone)
             {
                 VignettePlayer vignettePlayer = Main.LocalPlayer.GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(0f, 650f, 1f, Color.Black, player.Center);
+                if (Main.netMode != NetmodeID.Server) 
+                {
+                    vignettePlayer.SetVignette(0f, 650f, 1f, Color.Black, player.Center);
+                }
             }
 
             if (!Flags.downedBigBone)

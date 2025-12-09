@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpiderCave.Ambient;
 using Spooky.Content.Tiles.SpiderCave.Furniture;
@@ -247,6 +248,22 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+
+            //place clumps of bloom soil throughout the biome
+			for (int Rocks = 0; Rocks < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 8E-05); Rocks++)
+			{
+				int X = WorldGen.genRand.Next(0, Main.maxTilesX);
+				int Y = WorldGen.genRand.Next(0, Main.maxTilesY - 200);
+
+				if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile)
+				{
+					if (Main.tile[X, Y].TileType == ModContent.TileType<DampSoil>())
+					{
+						WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(6, 13), WorldGen.genRand.Next(6, 13),
+						ModContent.TileType<BloomSoil>(), false, 0f, 0f, false, true);
+					}
+				}
+			}
 
 			//place leaf walls around dirt blocks and dirt walls around stone blocks
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)

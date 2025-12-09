@@ -1,6 +1,22 @@
 Spider grotto rework:
 
 New fog event:
+-New naturally occuring weather event where fog and spores take over the grotto
+-During this event, a new set of mite enemies will begin spawning alongside the normal enemies
+-The fog intensity increases over time, and when intense enough the spiders will stop spawning and only mites can be found
+-Towards the end of the event, the fog intensity will decrease until the event actually ends
+-Mite enemies drop a new unique material which can be used to craft lots of fun new items
+-You can also find pieces of a new armor set growing on the ground while this event is happening
+
+New spider war event:
+-New wave-based miniboss rush fought in the spider grotto post-golem
+(Include more info later)
+
+New tar pits content:
+-Tar pits biome is now larger than before, but only one generates per world
+-Added new unique tar pits cactus block, dropped by tar pit cactuses instead of normal cactus
+(Include more info later)
+
 
 ~Changes to existing stuff~
 
@@ -10,12 +26,19 @@ Items:
 -Nerfed dutchman pipe damage increase from 25% to 10%
 -Nerfed samson's cuff damage multiplier from 50% to 18%
 -Lowered volume on EMF reader sounds
--Lowered volume on ear parasite companion screeching
+-Lowered volume on ear parasite companion screeching a lot
+
+Enemy/Boss:
+-Buffed orro-boro phase 1 hp to 65000 (Which is technically 32500 in gameplay, since it goes into phase 2 at half hp), and phase 2 hp for both worms to 32000
 
 Random Stuff:
--Removed random lightning in the swampy cemetery
--Reduced graveyard desaturation effect in the swampy cemetery a bit
+-Removed random lightning flash/sounds in the swampy cemetery
+-Reduced graveyard desaturation effect in the swampy cemetery a little bit
+-Bloom soil now generates in clumps in various spooky mod biomes, it still can be crafted, but finding it in the world makes it easier to find, and more intuitive for players to get into the blooms mechanic
 
 Fixes:
 -Spooky mod couches and clocks not having highlights
--Spooky mod pet items spawning the pet and buff when you throw them on the ground
+-Spooky mod pet items spawning the pet and buff when you throw them on the ground by right clicking
+
+Multiplayer Fixes:
+-Bile glob not properly syncing the egg incursion time reduction across all clients

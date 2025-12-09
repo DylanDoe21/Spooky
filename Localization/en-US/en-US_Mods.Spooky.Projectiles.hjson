@@ -631,4 +631,10 @@ OgreKingWebTrail.DisplayName: Web String
 EmpressJoroWebEgg.DisplayName: Web Egg
 JoroBabyDrop.DisplayName: Joro Baby
 CamelSniperReticle.DisplayName: Reticle
+CorklidMissileReticle.DisplayName: Reticle
 MortarWebTrail.DisplayName: Mortar Web
+SniperBoltPurple.DisplayName: Venom Bolt
+SniperBoltGreen.DisplayName: Poison Bolt
+SpiderWarFlailProj.DisplayName: Tsar Throwah
+SpiderWarFlailRocket.DisplayName: Explosive Rocket
+SpiderWarFlailDebris.DisplayName: Debris

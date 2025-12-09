@@ -331,6 +331,40 @@ namespace Spooky.Core
             }
         }
 
+        //special condition for the spider war, if the current spider war wave is below 10 then have a 10% chance to drop items, and at wave 10 guarantee drops
+        public class SpiderWarItemDropCondition : IItemDropRuleCondition
+        {
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation) 
+                {
+                    if (SpiderWarWorld.SpiderWarActive)
+                    {
+                        if (SpiderWarWorld.SpiderWarWave >= 10)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return Main.rand.NextBool(10);
+                        }
+                    }
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return true;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return null;
+            }
+        }
+
 
         //all the conditions below this point exist because with orro & boro, only the last worm alive should drop items
         //item drop conditions was basically the only way i could get it working (at least that i could think of)

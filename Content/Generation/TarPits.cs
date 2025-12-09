@@ -39,114 +39,34 @@ namespace Spooky.Content.Generation
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
-			int SizeXInt = Main.maxTilesX < 6400 ? 36 : 48;
-			int SizeYInt = Main.maxTilesY < 1800 ? 14 : 17;
+			int SizeXInt = Main.maxTilesX < 6400 ? 17 : 22;
+			int SizeYInt = Main.maxTilesY < 1800 ? 14 : 19;
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
 
 			bool IsSmallWorld = Main.maxTilesX < 6400 && Main.maxTilesY < 1800;
 
-			//define positions
-			int BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-			int BiomeY = 0;
-			if (!IsSmallWorld)
-			{
-				int Min = GenVars.desertHiveHigh + (SizeY * 2);
-				int Max = (Main.maxTilesY / 2) - (SizeY * 2);
+			//define positions, just the middle of the desert
+			int BiomeX = (GenVars.desertHiveLeft + GenVars.desertHiveRight) / 2;
+			int BiomeY = (int)((GenVars.desertHiveHigh + GenVars.desertHiveLow) / 1.75f);
 
-				if (Min < Max)
-				{
-					BiomeY = WorldGen.genRand.Next(Min, Max);
-				}
-				else
-				{
-					BiomeY = Max;
-				}
-			}
-			else
-			{
-				int Min = GenVars.desertHiveHigh + (SizeY * 2);
-				int Max = GenVars.desertHiveLow - (SizeY * 2);
-
-				if (Min < Max)
-				{
-					BiomeY = WorldGen.genRand.Next(Min, Max);
-				}
-				else
-				{
-					BiomeY = Max;
-				}
-			}
-
-			//place tar pits amount based on world size
-			int maxBiomes = !IsSmallWorld ? 2 : 1;
-
-			for (int numBiomesPlaced = 0; numBiomesPlaced < maxBiomes; numBiomesPlaced++)
-			{
-				//if the positions above are not valid, continue to try and place tar pits elsewhere in the underground desert
-				int attempts = 0;
-				while (!CanPlaceBiome(BiomeX, BiomeY, SizeX, SizeY) && attempts++ < 200)
-				{
-					if (numBiomesPlaced == 0)
-					{
-						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-
-						if (!IsSmallWorld)
-						{
-							int Min = GenVars.desertHiveHigh + (SizeY * 2);
-							int Max = (Main.maxTilesY / 2) - (SizeY * 2);
-
-							if (Min < Max)
-							{
-								BiomeY = WorldGen.genRand.Next(Min, Max);
-							}
-							else
-							{
-								BiomeY = Max;
-							}
-						}
-						else
-						{
-							int Min = GenVars.desertHiveHigh + (SizeY * 2);
-							int Max = GenVars.desertHiveLow - (SizeY * 2);
-
-							if (Min < Max)
-							{
-								BiomeY = WorldGen.genRand.Next(Min, Max);
-							}
-							else
-							{
-								BiomeY = Max;
-							}
-						}
-					}
-					else
-					{
-						BiomeX = WorldGen.genRand.Next(GenVars.desertHiveLeft + SizeX, GenVars.desertHiveRight - SizeX);
-						BiomeY = WorldGen.genRand.Next((Main.maxTilesY / 2), GenVars.desertHiveLow - SizeY);
-					}
-				}
-
-				SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);
-				DigOutCaves(progress, BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
-
-				for (double i = numBiomesPlaced * 0.5; i < (numBiomesPlaced == 1 ? 1 : 0.5); i += 0.00001)
-				{
-					progress.Set(i);
-				}
-
-				BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
-				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
-				PlaceStructures(BiomeX, BiomeY, SizeX, SizeY);
-				BiomeAmbience(BiomeX, BiomeY, SizeX, SizeY);
-			}
+			SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);
+			DigOutCaves(progress, BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
+			BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
+			CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
+			PlaceStructures(BiomeX, BiomeY, SizeX, SizeY);
+			BiomeAmbience(BiomeX, BiomeY, SizeX, SizeY);
 		}
 
 		//dig out caverns inside of the area of ovals
 		public void DigOutCaves(GenerationProgress progress, int PositionX, int PositionY, int SizeX, int SizeY, int Seed)
 		{
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
+				int StartValue = PositionX - SizeX + (SizeX / 2);
+				int EndValue = PositionX + SizeX - (SizeX / 2);
+				progress.Set((float)(i - StartValue) / (EndValue - StartValue));
+
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
 					//generate caves by using noise
@@ -172,7 +92,7 @@ namespace Spooky.Content.Generation
 			}
 
 			//place actual tar pits
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
@@ -183,7 +103,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
@@ -205,7 +125,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
@@ -226,7 +146,7 @@ namespace Spooky.Content.Generation
 			}
 
 			//place plant matter ore
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
@@ -243,7 +163,7 @@ namespace Spooky.Content.Generation
 
 		public void BiomePolish(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
@@ -254,7 +174,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
@@ -311,12 +231,21 @@ namespace Spooky.Content.Generation
 
 		public void BiomeAmbience(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
 					if (Main.tile[i, j].TileType == ModContent.TileType<DesertSand>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>())
 					{
+						//rusty waste tiles
+						if (WorldGen.genRand.NextBool(12))
+						{
+							ushort[] WasteTiles = new ushort[] { (ushort)ModContent.TileType<RustedBarrel>(),
+							(ushort)ModContent.TileType<RustedPump1>(), (ushort)ModContent.TileType<RustedPump2>() };
+
+							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(WasteTiles));
+						}
+
 						//big piles
 						if (WorldGen.genRand.NextBool(6))
 						{
@@ -391,7 +320,7 @@ namespace Spooky.Content.Generation
 				getAttachedPoints(x, y - 1, points);
 			}
 
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
@@ -419,7 +348,7 @@ namespace Spooky.Content.Generation
 			//place only one mineshaft entrance at the edge of the biome
 			for (int j = PositionY - 35; j < PositionY + 35; j++)
 			{
-				for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+				for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 				{
 					if (BlockTypes.Contains(Main.tile[i, j].TileType) && CanPlaceMinecartEntrance(i, j) && !PlacedMinecartEntrance)
 					{
@@ -448,7 +377,7 @@ namespace Spooky.Content.Generation
 			//place other random structures
 			for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 			{
-				for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+				for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 				{
 					if (WorldGen.genRand.NextBool(10) && CanPlaceStructure(i, j, 20) && BlockTypes.Contains(Main.tile[i, j].TileType))
 					{
@@ -707,7 +636,7 @@ namespace Spooky.Content.Generation
 		//place the biome if there isnt already another tar pits biome nearby
 		public bool CanPlaceBiome(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
-			for (int i = PositionX - SizeX + (SizeX / 3); i < PositionX + SizeX - (SizeX / 3); i++)
+			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{

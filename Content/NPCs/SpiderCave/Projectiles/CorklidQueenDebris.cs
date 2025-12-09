@@ -24,7 +24,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
             Projectile.hostile = true;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 1200;
+            Projectile.timeLeft = 120;
 			Projectile.penetrate = -1;
         }
 

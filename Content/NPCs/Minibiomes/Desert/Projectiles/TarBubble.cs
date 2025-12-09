@@ -82,9 +82,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert.Projectiles
 		{
 			if (Main.LocalPlayer.Distance(Projectile.Center) <= 200f)
 			{
-				float ActualVolume = Main.LocalPlayer.Distance(Projectile.Center);
-
-				SoundEngine.PlaySound(SoundID.Item95.WithVolumeScale(1f).WithPitchOffset(1.2f), Projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item95 with { Volume = 0.75f, Pitch = 1f }, Projectile.Center);
 			}
 		}
 	}

@@ -41,7 +41,7 @@ namespace Spooky.Content.Items.Cemetery.Contraband
                     if (!spawnedTentacle[i])
                     {
                         Vector2 vel = new Vector2(Main.rand.Next(-13, 14), Main.rand.Next(-13, 14)) * 0.25f;
-                        Projectile.NewProjectile(null, player.Center, vel, ModContent.ProjectileType<SlendermanTentacle>(), 55, 0f, Main.myPlayer, Main.rand.Next(120), i + 3);
+                        Projectile.NewProjectile(null, player.Center, vel, ModContent.ProjectileType<SlendermanTentacle>(), 35, 0f, player.whoAmI, Main.rand.Next(120), i + 3);
                     }
                 }
             }

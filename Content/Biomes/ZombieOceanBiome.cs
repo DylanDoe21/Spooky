@@ -31,7 +31,10 @@ namespace Spooky.Content.Biomes
         public override void OnInBiome(Player player)
         {
             VignettePlayer vignettePlayer = Main.LocalPlayer.GetModPlayer<VignettePlayer>();
-            vignettePlayer.SetVignette(1f, 750f, 0.95f, new Color(7, 17, 3), player.Center);
+            if (Main.netMode != NetmodeID.Server) 
+            {
+                vignettePlayer.SetVignette(1f, 750f, 0.95f, new Color(7, 17, 3), player.Center);
+            }
         }
 
 		public override bool IsBiomeActive(Player player)

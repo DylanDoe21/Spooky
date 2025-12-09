@@ -13,7 +13,7 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 
         public override void SetDefaults()
         {
-            Item.DefaultToPlaceableTile(ModContent.TileType<CatacombBrickPlatform1Safe>());
+            Item.DefaultToPlaceableTile(ModContent.TileType<CatacombBrickPlatform1>());
             Item.width = 16;
 			Item.height = 16;
         }
