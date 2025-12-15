@@ -77,12 +77,18 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
         {
             Projectile.velocity = Vector2.Zero;
 
+            if (Projectile.ai[0] == 0)
+            {
+                Projectile.rotation = Main.rand.Next(0, 361);
+                Projectile.ai[0]++;
+            }
+
             if (Scale < 1f)
             {
                 Scale += 0.02f;
                 Projectile.rotation += 0.1f;
 
-                if (Main.rand.NextBool())
+                if (Main.rand.NextBool(15))
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

@@ -40,7 +40,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override bool WingUpdate(Player player, bool inUse)
 		{
-			if (player.controlJump)
+			if (player.controlJump && player.velocity.Y != 0)
 			{
 				int PlayerPosOffset = 8;
 

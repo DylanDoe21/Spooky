@@ -258,7 +258,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 				//play sound
 				if (NPC.ai[2] == 60)
 				{
-					NPC.noTileCollide = false;
+					NPC.noTileCollide = true;
 					SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, NPC.Center);
 				}
 

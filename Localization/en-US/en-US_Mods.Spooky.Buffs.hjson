@@ -669,3 +669,23 @@ MushroomFriendPetBuff: {
 	DisplayName: Mushroom Friend
 	Description: A beautiful fungal friendship!
 }
+
+SpiderWarRemoteFlyBuff: {
+	DisplayName: Joro Fly
+	Description: The joro flies will assist you
+}
+
+SpiderWarRemoteNukeBuff: {
+	DisplayName: Explosive Joro
+	Description: The explosive joro will assist you
+}
+
+BluegillSparkleDebuff: {
+	DisplayName: Bluegill Sparkle Debuff
+	Description: ""
+}
+
+DevilToothDebuff: {
+	DisplayName: Devil Tooth Debuff
+	Description: ""
+}

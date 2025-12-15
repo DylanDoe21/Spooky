@@ -68,6 +68,7 @@ namespace Spooky.Core
 			NPCTamed = tag.GetBool(nameof(NPCTamed));
 		}
 
+		/*
 		public override void Load()
 		{
 			On_Main.DrawMiscMapIcons += DrawTamedMapIcons;
@@ -159,6 +160,7 @@ namespace Spooky.Core
 				}
 			}
 		}
+		*/
 
 		public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -326,8 +328,8 @@ namespace Spooky.Core
 				}
 			}
 
-			//enemies inflicted with the hunter mark debuff take more damage from ranged weapons
-			if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()) && modifiers.DamageType == DamageClass.Ranged)
+			//enemies inflicted with the hunter mark debuff take 10% more damage
+			if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()))
 			{
 				modifiers.FinalDamage *= 1.1f;
 			}
@@ -409,6 +411,13 @@ namespace Spooky.Core
 			if (player.GetModPlayer<BloomBuffsPlayer>().CemeteryPoppy && player.ownedProjectileCounts[ModContent.ProjectileType<CemeteryPoppyProj>()] < 2 && !npc.friendly)
 			{
 				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, new Vector2(0, -12), ModContent.ProjectileType<CemeteryPoppyProj>(), npc.damage, 0, player.whoAmI);
+			}
+
+			//spawn tooth ball if if the enemy has the devil tooth fungus debuff
+			if (npc.HasBuff(ModContent.BuffType<DevilToothDebuff>()))
+			{
+				Vector2 Velocity = new Vector2(0, Main.rand.Next(-12, -6)).RotatedByRandom(MathHelper.ToRadians(40));
+				Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Velocity, ModContent.ProjectileType<BloodToothBall>(), npc.damage, 0, player.whoAmI);
 			}
 
 			base.OnKill(npc);

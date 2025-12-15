@@ -481,7 +481,7 @@ namespace Spooky.Content.Generation
 
 			int AmountOfTilesNeeded = (SizeX * SizeY) / 8;
 
-			if (numJungleTiles > AmountOfTilesNeeded)
+			if (numJungleTiles >= AmountOfTilesNeeded)
 			{
 				return true;
 			}

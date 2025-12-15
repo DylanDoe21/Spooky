@@ -1,14 +1,17 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 {
     public class RustMiteSpike : ModProjectile
     {
-        public bool isAttacking = false;
+        private static Asset<Texture2D> ProjTexture;
 
         public override void SetStaticDefaults()
 		{
@@ -31,6 +34,22 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             behindNPCsAndTiles.Add(index);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+
+            Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
+            Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+            Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
+            
+            Color color = new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 0).MultiplyRGBA(Color.Orange);
+
+            Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, Projectile.GetAlpha(Color.White * 0.2f), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+
+            return false;
         }
 
         public override void AI()

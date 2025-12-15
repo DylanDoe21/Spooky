@@ -14,6 +14,8 @@ namespace Spooky.Content.Projectiles.Blooms
     {
         public override string Texture => "Spooky/Content/Items/Blooms/SummerOrange";
 
+        float distance = 70f;
+
         private static Asset<Texture2D> ProjTexture;
 
 		public override void SetDefaults()
@@ -86,7 +88,17 @@ namespace Spooky.Content.Projectiles.Blooms
 
 			Projectile.ai[0] += MovementScale == 0 ? 0.5f : (MovementScale / 2.5f) * 0.5f;
             double rad = Projectile.ai[0] * (Math.PI / 180);
-            float distance = 70f + MovementScale * 5;
+
+            float distanceWithScaling = 70f + MovementScale * 5;
+            if (distance > distanceWithScaling)
+            {
+                distance -= 3;
+            }
+            if (distance < distanceWithScaling)
+            {
+                distance += 3;
+            }
+
             Projectile.position.X = player.Center.X - ((float)Math.Cos(rad) * distance) - Projectile.width / 2;
             Projectile.position.Y = player.Center.Y - ((float)Math.Sin(rad) * distance) - Projectile.height / 2;
 

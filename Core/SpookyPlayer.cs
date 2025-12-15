@@ -57,6 +57,7 @@ namespace Spooky.Core
         public bool GoreArmorEye = false;
         public bool GoreArmorMouth = false;
         public bool HazmatSet = false;
+        public bool MortarSet = false;
         public bool HazmatMinionCrit = false;
         public bool DrawHazmatBack = false;
         public bool SentientCap = false;
@@ -271,6 +272,7 @@ namespace Spooky.Core
             GoreArmorEye = false;
             GoreArmorMouth = false;
             HazmatSet = false;
+            MortarSet = false;
             HazmatMinionCrit = false;
             SentientCap = false;
             DrawHazmatBack = false;
@@ -640,6 +642,17 @@ namespace Spooky.Core
 				{
                     Projectile.NewProjectile(target.GetSource_OnHurt(Player), Player.Center, Vector2.Zero, ModContent.ProjectileType<AmuletGhost>(), damageDone / 2, 0, ai2: Main.rand.Next(0, 6));
 				}
+
+                //spawn rockets on hit with mortar armor
+                if (MortarSet && Main.rand.NextBool(5) && Player.ownedProjectileCounts[ModContent.ProjectileType<MortarArmorRocket>()] < 5)
+                {
+                    SoundEngine.PlaySound(SoundID.Item42 with { Volume = 0.5f }, Player.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 0.5f }, Player.Center);
+
+                    Vector2 Velocity = new Vector2(0, Main.rand.Next(-18, -7)).RotatedByRandom(MathHelper.ToRadians(40));
+
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), Player.Center, Velocity, ModContent.ProjectileType<MortarArmorRocket>(), damageDone, 0, Player.whoAmI);
+                }
             }
         }
 

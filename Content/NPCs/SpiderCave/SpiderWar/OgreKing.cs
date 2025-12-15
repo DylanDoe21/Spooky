@@ -459,7 +459,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarDreamcatcher>()));
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarDreamcatcher>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<OgreKingTrophyItem>()));
         }
 

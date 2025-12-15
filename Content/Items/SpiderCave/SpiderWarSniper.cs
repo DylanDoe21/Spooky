@@ -47,11 +47,7 @@ namespace Spooky.Content.Items.SpiderCave
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(velocity) * 65f;
-
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
+			position += muzzleOffset;
 
 			//right click shoots a spread of purple bolts
 			if (player.altFunctionUse == 2)

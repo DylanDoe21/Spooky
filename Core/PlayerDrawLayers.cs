@@ -121,6 +121,39 @@ namespace Spooky.Core
         }
     }
 
+    public class MortarWingsDraw : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Wings);
+
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.wings == EquipLoader.GetEquipSlot(Mod, "MortarWings", EquipType.Wings);
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            Player drawPlayer = drawInfo.drawPlayer;
+
+            if (drawPlayer.dead)
+            {
+                return;
+            }
+
+            Texture2D tex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpiderCave/MortarWings_RealWings").Value;
+            Texture2D glowTex = ModContent.Request<Texture2D>("Spooky/Content/Items/SpiderCave/MortarWings_RealWingsGlow").Value;
+            Vector2 Position = drawInfo.Position;
+            Vector2 pos = new Vector2((int)(Position.X - Main.screenPosition.X + (drawPlayer.width / 2) - (11 * drawPlayer.direction)), (int)(Position.Y - Main.screenPosition.Y + (drawPlayer.height / 2) - 2f * drawPlayer.gravDir));
+            Color lightColor = Lighting.GetColor((int)drawPlayer.Center.X / 16, (int)drawPlayer.Center.Y / 16, Color.White);
+            Color color = lightColor * (1 - drawInfo.shadow);
+            Color glowColor = Color.White * (1 - drawInfo.shadow);
+            
+            DrawData newData = new DrawData(tex, pos, tex.Frame(1, 7, 0, drawInfo.drawPlayer.wingFrame), color, 0f, new Vector2(tex.Width / 2, tex.Height / 14), 1f, drawInfo.playerEffect, 0);
+			newData.shader = drawInfo.drawPlayer.cWings;
+            DrawData newDataGlow = new DrawData(glowTex, pos, tex.Frame(1, 7, 0, drawInfo.drawPlayer.wingFrame), glowColor, 0f, new Vector2(tex.Width / 2, tex.Height / 14), 1f, drawInfo.playerEffect, 0);
+			newData.shader = drawInfo.drawPlayer.cWings;
+
+            drawInfo.DrawDataCache.Add(newData);
+            drawInfo.DrawDataCache.Add(newDataGlow);
+        }
+    }
+
 	public class HeadUrchin : PlayerDrawLayer
 	{
 		public float addedStretch = 0f;

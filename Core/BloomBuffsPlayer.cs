@@ -68,6 +68,10 @@ namespace Spooky.Core
 		public bool CemeteryMarigold = false;
 		public bool CemeteryPoppy = false;
 		public bool CemeteryRose = false;
+		public bool FungusBluePinkgill = false;
+		public bool FungusDevilTooth = false;
+		public bool FungusInkCap = false;
+		public bool FungusRedCage = false;
 
 		//slot unlocks
 		public bool UnlockedSlot3 = false;
@@ -314,6 +318,10 @@ namespace Spooky.Core
 			CemeteryMarigold = BloomBuffSlots.Contains("CemeteryMarigold");
 			CemeteryPoppy = BloomBuffSlots.Contains("CemeteryPoppy");
 			CemeteryRose = BloomBuffSlots.Contains("CemeteryRose");
+			FungusBluePinkgill = BloomBuffSlots.Contains("FungusBluePinkgill");
+			FungusDevilTooth = BloomBuffSlots.Contains("FungusDevilTooth");
+			FungusInkCap = BloomBuffSlots.Contains("FungusInkCap");
+			FungusRedCage = BloomBuffSlots.Contains("FungusRedCage");
         }
 
         //handler for the buffs duration decreasing over time and setting each buff slot back to blank if the duration of that buff slot runs out
@@ -1056,6 +1064,16 @@ namespace Spooky.Core
 			if (VegetablePepper && Main.rand.NextBool(15) && hit.DamageType == DamageClass.Melee)
 			{
 				target.AddBuff(ModContent.BuffType<PepperSpice>(), 600);
+			}
+
+			if (FungusBluePinkgill && Main.rand.NextBool(25) && !target.HasBuff(ModContent.BuffType<BluegillSparkleDebuff>()))
+			{
+				target.AddBuff(ModContent.BuffType<BluegillSparkleDebuff>(), 600);
+			}
+
+			if (FungusDevilTooth && Main.rand.NextBool(30) && !target.HasBuff(ModContent.BuffType<DevilToothDebuff>()))
+			{
+				target.AddBuff(ModContent.BuffType<DevilToothDebuff>(), 600);
 			}
 		}
 

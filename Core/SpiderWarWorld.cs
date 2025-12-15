@@ -212,7 +212,7 @@ namespace Spooky.Core
 							}
 							case 5:
 							{
-								SpiderWarMaxPoints = 2;
+								SpiderWarMaxPoints = 3;
 								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.CamelColonel.DisplayName"));
 								break;

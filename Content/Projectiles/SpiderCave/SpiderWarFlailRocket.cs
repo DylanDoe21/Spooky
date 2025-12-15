@@ -114,7 +114,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		{
 			SoundEngine.PlaySound(SoundID.Item89 with { Volume = 0.5f }, Projectile.Center);
 
-            float maxAmount = 30;
+            float maxAmount = 10;
             int currentAmount = 0;
             while (currentAmount <= maxAmount)
             {

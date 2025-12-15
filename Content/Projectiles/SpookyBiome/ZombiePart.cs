@@ -9,7 +9,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
     public class ZombiePart1 : ModProjectile
     {
 		int Bounces = 0;
-		int foundTarget = 0;
+		int foundTarget = -1;
 
         public override void SetDefaults()
         {

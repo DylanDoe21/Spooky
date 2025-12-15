@@ -118,7 +118,7 @@ namespace Spooky.Content.UserInterfaces
 
 			//get the texture and display name based on the name of the bloom string in the slot to check for
 			//this is probably not the greatest way to do it, but this always assumes that the string in the slot to check for matches the exact display name of the bloom item
-			//the same goes for that blooms corresponding icon, where its file name is the exact file name as the bloom item + "Icon"
+			//the same goes for that blooms corresponding icon, where its file name is the exact same file name as the bloom item + "Icon"
 			Texture2D IconTexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/BloomIcons/" + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + "Icon").Value;
 			string BuffDisplayName = Language.GetTextValue("Mods.Spooky.Items." + player.GetModPlayer<BloomBuffsPlayer>().BloomBuffSlots[SlotToCheckFor] + ".DisplayName");
 

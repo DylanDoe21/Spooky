@@ -53,6 +53,19 @@ LowerCatacombDresser: {
 	MapEntry: Dresser
 }
 
+//blooms
+CemeteryBloomPlant.MapEntry: Withered Bloom
+DandelionBloomPlant.MapEntry: Dandelion Bloom
+DragonfruitBloomPlant.MapEntry: Diva Bloom
+FallBloomPlant.MapEntry: Pumpkin Bloom
+FossilBloomPlant.MapEntry: Fossil Bloom
+SeaBloomPlant.MapEntry: Depths Bloom
+SpringBloomPlant.MapEntry: Pollen Bloom
+SummerBloomPlant.MapEntry: Solar Bloom
+VegetableBloomPlant.MapEntry: Genetically-Modified Bloom
+WinterBloomPlant.MapEntry: Berry Bush Bloom
+FungusBloomPlant.MapEntry: Fungus Bloom
+//other tiles
 SpiritAltar.MapEntry: Spirit Altar
 CemeterySapling.MapEntry: Sapling
 CemeteryPylon.MapEntry: Swampy Cemetery Pylon
@@ -92,16 +105,6 @@ SinisterSnailCage.MapEntry: Sinister Snail Cage
 BoneFishTree.MapEntry: Fish Spine
 BoneFishTreeHanging.MapEntry: Fish Spine
 TubeWorm.MapEntry: Tube Worm
-CemeteryBloomPlant.MapEntry: Withered Bloom
-DandelionBloomPlant.MapEntry: Dandelion Bloom
-DragonfruitBloomPlant.MapEntry: Diva Bloom
-FallBloomPlant.MapEntry: Pumpkin Bloom
-FossilBloomPlant.MapEntry: Fossil Bloom
-SeaBloomPlant.MapEntry: Depths Bloom
-SpringBloomPlant.MapEntry: Pollen Bloom
-SummerBloomPlant.MapEntry: Solar Bloom
-VegetableBloomPlant.MapEntry: Genetically-Modified Bloom
-WinterBloomPlant.MapEntry: Berry Bush Bloom
 LabSafe.MapEntry: Rusty Safe
 EyeTreeShort.MapEntry: Eye Stalk
 LittleSpiderJar.MapEntry: Little Spider Jar

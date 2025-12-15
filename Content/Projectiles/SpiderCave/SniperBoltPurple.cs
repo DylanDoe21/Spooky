@@ -50,6 +50,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
             return true;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Venom, 600);
+        }
+
         public override void AI()       
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;

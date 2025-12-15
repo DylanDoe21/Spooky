@@ -219,7 +219,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         ShootSpeed *= -8f;
 
 						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ShootSpeed, 
-						ModContent.ProjectileType<SpiderWarFlailRocket>(), Projectile.damage / 3, Projectile.knockBack, Projectile.owner);
+						ModContent.ProjectileType<SpiderWarFlailRocket>(), (int)(Projectile.damage / 2.25f), Projectile.knockBack, Projectile.owner);
 
 						for (int numDusts = 0; numDusts < 12; numDusts++)
 						{
@@ -507,15 +507,12 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 						Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(center.X, center.Y - 10), Vector2.Zero,
 						ModContent.ProjectileType<PufferfishFlailMetalSmash>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-					}
 
-					//shoot debris
-					for (int numProjs = 0; numProjs <= 8; numProjs++)
-					{
+						//shoot debris
 						Vector2 Velocity = new Vector2(0, Main.rand.Next(-18, -7)).RotatedByRandom(MathHelper.ToRadians(40));
 
-						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Velocity,
-						ModContent.ProjectileType<SpiderWarFlailDebris>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(center.X, center.Y - 10), Velocity,
+						ModContent.ProjectileType<SpiderWarFlailDebris>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
 					}
 
 					HasSlammed = true;

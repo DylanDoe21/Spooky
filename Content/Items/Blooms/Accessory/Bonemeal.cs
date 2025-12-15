@@ -18,6 +18,7 @@ namespace Spooky.Content.Items.Blooms.Accessory
 			(ushort)ModContent.TileType<DragonfruitBloomPlant>(),
             (ushort)ModContent.TileType<FallBloomPlant>(),
             (ushort)ModContent.TileType<FossilBloomPlant>(),
+            (ushort)ModContent.TileType<FungusBloomPlant>(),
             (ushort)ModContent.TileType<SeaBloomPlant>(),
             (ushort)ModContent.TileType<SpringBloomPlant>(),
             (ushort)ModContent.TileType<SummerBloomPlant>(),
@@ -36,7 +37,7 @@ namespace Spooky.Content.Items.Blooms.Accessory
        
         public override void UpdateAccessory(Player player, bool hideVisual)
         { 
-            if (Main.rand.NextBool(350))
+            if (Main.rand.NextBool(320))
             {
                 for (int i = (int)(player.Center.X / 16) - 20; i <= (int)(player.Center.X / 16) + 20; i++)
                 {

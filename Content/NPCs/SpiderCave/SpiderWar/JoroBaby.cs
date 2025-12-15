@@ -30,6 +30,13 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 7;
+
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+				Position = new Vector2(10f, 10f),
+              	PortraitPositionXOverride = 0f,
+              	PortraitPositionYOverride = 10f
+            };
 		}
 
 		public override void SetDefaults()
@@ -104,14 +111,14 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			AuraTexture ??= ModContent.Request<Texture2D>(Texture + "Aura");
 			FlashTexture ??= ModContent.Request<Texture2D>(Texture + "Flash");
 
-			Color AuraColor = new Color(125, 125, 125, 0).MultiplyRGBA(Color.DarkRed);
-
 			var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			Vector2 vector = NPC.Center - screenPos;
 
 			if (NPC.ai[0] >= 300 && NPC.ai[0] <= 420)
 			{
+				Color AuraColor = new Color(125, 125, 125, 0).MultiplyRGBA(Color.DarkRed);
+
 				float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
                 float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
@@ -119,7 +126,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                 {
                     Vector2 circular = Vector2.One.RotatedBy(MathHelper.ToRadians(i));
 
-                    Main.EntitySpriteDraw(AuraTexture.Value, vector + circular, NPC.frame, AuraColor * 0.5f, NPC.rotation + i, NPC.frame.Size() / 2, NPC.ai[1] / 37 + (NPC.ai[1] < 420 ? time : time2), SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(AuraTexture.Value, vector + circular, NPC.frame, AuraColor * 0.1f, NPC.rotation + i, NPC.frame.Size() / 2, NPC.ai[1] / 37 + (NPC.ai[1] < 420 ? time : time2), SpriteEffects.None, 0);
                 }
 			}
 
@@ -294,7 +301,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				else
 				{
 					NPC.ai[2]++;
-					if (NPC.ai[2] % 10 == 0)
+					if (NPC.ai[2] % 15 == 0)
 					{
 						FlashOpacity = 1f;
 					}
@@ -358,11 +365,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         {
             if (NPC.life <= 0)
             {
-				for (int numGores = 1; numGores <= 8; numGores++)
+				for (int numGores = 1; numGores <= 4; numGores++)
                 {
 					if (Main.netMode != NetmodeID.Server) 
 					{
-						//Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/JoroBabyGore" + numGores).Type);
+						Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/JoroBabyGore" + numGores).Type);
 					}
 				}
             }

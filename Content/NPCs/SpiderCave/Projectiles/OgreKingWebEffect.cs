@@ -26,7 +26,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 			Projectile.width = 18;
             Projectile.height = 18;
 			Projectile.friendly = false;
-			Projectile.hostile = true;
+			Projectile.hostile = false;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = false;
 			Projectile.hide = true;
@@ -56,7 +56,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
 
-				Color color = Color.LightGray * scale;
+				Color color = new Color(147, 174, 164) * scale;
                 color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)

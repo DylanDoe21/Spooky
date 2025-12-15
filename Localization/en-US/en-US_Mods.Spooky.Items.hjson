@@ -196,6 +196,47 @@ FossilProtea: {
 		'''
 }
 
+FungusBluePinkgill: {
+	DisplayName: Spectral Bluegill
+	Tooltip:
+		'''
+		Hitting enemies may inflict them with spectral spores
+		This debuff makes enemies spawn homing magic spores every second
+		3 minute duration
+		'''
+}
+
+FungusDevilTooth: {
+	DisplayName: Bleeding Gums Fungus
+	Tooltip:
+		'''
+		Hitting enemies may inflict them with fungal gingivitis
+		This debuff makes enemies spawn bloody teeth globs when killed
+		When toucehd, these globs will explode and fire off teeth
+		3 minute duration
+		'''
+}
+
+FungusInkCap: {
+	DisplayName: Inky Toadstool
+	Tooltip:
+		'''
+		Hitting enemies may inflict them with ink spores
+		This debuff makes enemies spawn lingering ink spores when damaged
+		3 minute duration
+		'''
+}
+
+FungusRedCage: {
+	DisplayName: Red Cage Fungus
+	Tooltip:
+		'''
+		Hitting enemies may attach a chain to them that slows them down
+		Chains will remain attached as long as you are close enough, and only 4 can exist at once
+		3 minute duration
+		'''
+}
+
 SeaBarnacle: {
 	DisplayName: Giant Barnacle
 	Tooltip:
@@ -611,7 +652,7 @@ FlowerHead: {
 	DisplayName: Flower Mask
 	Tooltip:
 		'''
-		15% reduced mana usage
+		15% reduced mana cost
 		Increases your max number of minions by 2
 		Increases your max number of sentries by 1
 		'''
@@ -897,6 +938,52 @@ ThornStaff: {
 		Enemies cannot be ensnared again for 15 seconds
 		Bosses will be poisoned for longer
 		'''
+}
+
+BoneBow: {
+	DisplayName: Bone Bender
+	Tooltip: Fires piercing bones that ignore 50% of enemy defense
+}
+
+GodGun: {
+	DisplayName: Holy Fire
+	Tooltip:
+		'''
+		Using it for too long will cause the gun to overheat and explode
+		'God's chosen weapon'
+		'''
+}
+
+HighVelocitySlingshot: {
+	DisplayName: High-Velocity Slingshot
+	Tooltip:
+		'''
+		Hold down to pull back the slingshot, then release to fling ammo
+		Fires Mossy Pebbles at an extremely high velocity
+		'''
+}
+
+HunterScarf: {
+	DisplayName: Old Hunter's Scarf
+	Tooltip:
+		'''
+		Enemies nearby you will be marked 
+		Marked enemies will take 10% more damage from your attacks
+		'''
+}
+
+LegalShotgun: {
+	DisplayName: Totally Legal Shotgun
+	Tooltip:
+		'''
+		Shoots out a spread of bullets and has obnoxious recoil
+		'It's probably illegal...'
+		'''
+}
+
+RustedBullet: {
+	DisplayName: Rusted Bullet
+	Tooltip: Splits into shrapnel on impact
 }
 
 SpiritHorsemanBody: {
@@ -1486,7 +1573,7 @@ SharkBoneLegs: {
 
 YuletideBody: {
 	DisplayName: Yuletide Wood Chestplate
-	Tooltip: 10% reduced mana usage
+	Tooltip: 10% reduced mana cost
 }
 
 YuletideHead: {
@@ -1496,7 +1583,7 @@ YuletideHead: {
 
 YuletideLegs: {
 	DisplayName: Yuletide Wood Shoes
-	Tooltip: 20% increased magic weapon speed
+	Tooltip: 10% increased magic weapon speed
 }
 
 CursedDoll: {
@@ -2222,7 +2309,7 @@ GhostBook: {
 		The spirit summoned depends on the color of the book's eye
 		Also grants different stat bonuses depending on the eye color
 		Red eye will grant you 10% increased melee and ranged damage
-		Green eye will grant 10% increased magic damage, summon damage, and reduced mana usage
+		Green eye will grant 10% increased magic damage, summon damage, and reduced mana cost
 		Blue eye will grant you 8 defense and increased life regeneration
 		Use to switch the type of spirit this book summons
 		'''
@@ -2292,6 +2379,36 @@ SummonItem4: {
 		'''
 		Soothes an irritated eye
 		Attracts a creature in the valley of eyes while in your inventory
+		'''
+}
+
+MortarBody: {
+	DisplayName: Weaver Shellplate
+	Tooltip:
+		'''
+		15% increased damage
+		10% chance to save ammo
+		5% increased damage reduction
+		'''
+}
+
+MortarHead: {
+	DisplayName: Weaver Shellmet
+	Tooltip:
+		'''
+		10% increased critical strike chance
+		8% reduced mana cost
+		5% increased damage reduction
+		'''
+}
+
+MortarLegs: {
+	DisplayName: Weaver Shellegs
+	Tooltip:
+		'''
+		Increases your max minions and sentries by 1
+		7% increased attack speed
+		5% increased damage reduction
 		'''
 }
 
@@ -2372,52 +2489,6 @@ SpiderKey: {
 	Tooltip: Unlocks a spider chest in the dungeon
 }
 
-BoneBow: {
-	DisplayName: Bone Bender
-	Tooltip: Fires piercing bones that ignore 50% of enemy defense
-}
-
-GodGun: {
-	DisplayName: Holy Fire
-	Tooltip:
-		'''
-		Using it for too long will cause the gun to overheat and explode
-		'God's chosen weapon'
-		'''
-}
-
-HighVelocitySlingshot: {
-	DisplayName: High-Velocity Slingshot
-	Tooltip:
-		'''
-		Hold down to pull back the slingshot, then release to fling ammo
-		Fires Mossy Pebbles at an extremely high velocity
-		'''
-}
-
-HunterScarf: {
-	DisplayName: Old Hunter's Scarf
-	Tooltip:
-		'''
-		Enemies nearby you will be marked 
-		Marked enemies will take 10% more damage from your ranged weapons
-		'''
-}
-
-LegalShotgun: {
-	DisplayName: Totally Legal Shotgun
-	Tooltip:
-		'''
-		Shoots out a spread of bullets and has obnoxious recoil
-		'It's probably illegal...'
-		'''
-}
-
-RustedBullet: {
-	DisplayName: Rusted Bullet
-	Tooltip: Splits into shrapnel on impact
-}
-
 MiteClaws: {
 	DisplayName: Thousandth Claw
 	Tooltip:
@@ -2457,6 +2528,15 @@ MiteVacuum: {
 		'''
 		Fires out a stream of spore fog
 		Sometimes shoots out mites that can bounce between enemies
+		'''
+}
+
+MortarWings: {
+	DisplayName: Mortar Jetpack
+	Tooltip:
+		'''
+		Allows flight and slow fall
+		Hold Down to hover
 		'''
 }
 
@@ -2563,8 +2643,9 @@ SpiderWarRemote: {
 	DisplayName: Fly Carpetbomber
 	Tooltip:
 		'''
-		Left click to summon some small flies that take up half a minion slot each
-		Right click to summon a large explosive spider minion that takes up 2 minion slots
+		Left click to call down a bomb that spawns a small joro fly to swarm individual enemies
+		Right click to call down explosive joros that deal massive damage to all surrounding enemies
+		Explosive joro minions take up 2 minion slots each
 		'''
 }
 
@@ -2572,8 +2653,8 @@ SpiderWarSniper: {
 	DisplayName: Scorpion Deathblow
 	Tooltip:
 		'''
-		Left click to fire out a powerful poison sniper bolt
-		Right click to fire out a spread of weaker venom bolts
+		Left click to fire out a poison sniper bolt that pierces enemies
+		Right click to fire out a spread of weaker venom bolts 
 		'''
 }
 
@@ -3011,7 +3092,7 @@ GoreHoodEye: {
 	Tooltip:
 		'''
 		20% increased magic and summon damage
-		10% reduced mana usage 
+		10% reduced mana cost 
 		Increases your max minions by 2
 		Enemies are more likely to target you
 		'''
@@ -3678,6 +3759,15 @@ FossilSeed: {
 	Tooltip:
 		'''
 		Places a plant that grows various prehistoric rock blooms
+		Requires a flat ground of Bloom Soil to be planted on
+		'''
+}
+
+FungusSeed: {
+	DisplayName: Mushblooms
+	Tooltip:
+		'''
+		Places a plant that grows various fungal blooms
 		Requires a flat ground of Bloom Soil to be planted on
 		'''
 }
@@ -6130,6 +6220,15 @@ SpiderWarStarter: {
 	Tooltip:
 		'''
 		Begins the spider war event
+		Testing Item
+		'''
+}
+
+BloomGrower: {
+	DisplayName: Bloom Grower
+	Tooltip:
+		'''
+		Grows all nearby blooms immediately
 		Testing Item
 		'''
 }

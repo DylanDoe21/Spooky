@@ -19,7 +19,7 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
-			player.GetAttackSpeed(DamageClass.Magic) += 0.2f;
+			player.GetAttackSpeed(DamageClass.Magic) += 0.1f;
 		}
 
 		public override void AddRecipes()

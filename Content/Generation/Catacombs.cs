@@ -21,6 +21,7 @@ using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Cemetery.Furniture;
+using Spooky.Content.Tiles.Painting;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Content.Generation
@@ -108,6 +109,7 @@ namespace Spooky.Content.Generation
             }
 
             bool PlacedMoyaiRoom = false;
+            bool PlacedMineRoom = false;
 
             //place the actual rooms in a grid
             for (int X = XMiddle - layer1Width; X <= XMiddle + layer1Width; X += 50)
@@ -117,8 +119,69 @@ namespace Spooky.Content.Generation
                     //origin offset for each room so it places at the center of the position its placed at
                     Vector2 origin = new Vector2(X - 18, Y - 18);
 
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room" + WorldGen.genRand.Next(1, 21) + ".shstruct", origin.ToPoint16(), Mod);
+                    //painting room
+                    if (WorldGen.genRand.NextBool(15))
+                    {
+                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/PaintingRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
 
+                        //place paintings in the room
+                        for (int paintingX = (int)origin.X + 4; paintingX <= (int)origin.X + 32; paintingX++)
+                        {
+                            int UpperY = (int)origin.Y + 12;
+                            int LowerY = (int)origin.Y + 28;
+
+                            List<ushort> Paintings = new()
+                            {
+                                (ushort)ModContent.TileType<AlienPainting>(),
+                                (ushort)ModContent.TileType<BaxterWitchPainting>(),
+                                (ushort)ModContent.TileType<DavePainting>(),
+                                (ushort)ModContent.TileType<GrannyBatPainting>(),
+                                (ushort)ModContent.TileType<GrannySkeletonPainting>(),
+                                (ushort)ModContent.TileType<GrannyWitchPainting>(),
+                                (ushort)ModContent.TileType<GravestonePainting>(),
+                                (ushort)ModContent.TileType<HogPainting>(),
+                                (ushort)ModContent.TileType<HorsePainting>(),
+                                (ushort)ModContent.TileType<ShoebillPainting>(),
+                                (ushort)ModContent.TileType<SmilingFriendsPainting>(),
+                                (ushort)ModContent.TileType<SurprisedSkullPainting>(),
+                                (ushort)ModContent.TileType<TheKillerPainting>(),
+                                (ushort)ModContent.TileType<ZomboidThinkPainting>()
+                            };
+
+                            if (!Main.tile[paintingX, UpperY].HasTile)
+                            {
+                                if (WorldGen.genRand.NextBool())
+                                {
+                                    WorldGen.PlaceObject(paintingX, UpperY + WorldGen.genRand.Next(-1, 3), WorldGen.genRand.Next(Paintings));
+                                }
+                            }
+                            if (!Main.tile[paintingX, LowerY].HasTile)
+                            {
+                                if (WorldGen.genRand.NextBool())
+                                {
+                                    WorldGen.PlaceObject(paintingX, LowerY + WorldGen.genRand.Next(-1, 3), WorldGen.genRand.Next(Paintings));
+                                }
+                            }
+                        }
+                    }
+                    //trap rooms
+                    else if (WorldGen.genRand.NextBool(7))
+                    {
+                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
+                    }
+                    else
+                    {
+                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room" + WorldGen.genRand.Next(1, 21) + ".shstruct", origin.ToPoint16(), Mod);
+                    }
+
+                    //mine room
+                    if (WorldGen.genRand.NextBool(10) && !PlacedMineRoom)
+                    {
+                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MineRoom.shstruct", origin.ToPoint16(), Mod);
+                        PlacedMineRoom = true;
+                    }
+
+                    //rare moyai room
                     if (WorldGen.genRand.NextBool(50) && !PlacedMoyaiRoom)
                     {
                         StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
@@ -395,12 +458,39 @@ namespace Spooky.Content.Generation
             {
                 for (int Y = (int)Main.worldSurface - 10; Y <= BigBoneArenaY - 30; Y++)
 				{
-					//place wooden platform shelves
+                    //randomly place paintings in the catacombs
+                    if (WorldGen.genRand.NextBool(400) && !Main.tile[X, Y].HasTile)
+					{
+                        List<ushort> Paintings = new()
+                        {
+                            (ushort)ModContent.TileType<AlienPainting>(),
+                            (ushort)ModContent.TileType<BaxterWitchPainting>(),
+                            (ushort)ModContent.TileType<DavePainting>(),
+                            (ushort)ModContent.TileType<GrannyBatPainting>(),
+                            (ushort)ModContent.TileType<GrannySkeletonPainting>(),
+                            (ushort)ModContent.TileType<GrannyWitchPainting>(),
+                            (ushort)ModContent.TileType<GravestonePainting>(),
+                            (ushort)ModContent.TileType<HogPainting>(),
+                            (ushort)ModContent.TileType<HorsePainting>(),
+                            (ushort)ModContent.TileType<ShoebillPainting>(),
+                            (ushort)ModContent.TileType<SmilingFriendsPainting>(),
+                            (ushort)ModContent.TileType<SurprisedSkullPainting>(),
+                            (ushort)ModContent.TileType<TheKillerPainting>(),
+                            (ushort)ModContent.TileType<ZomboidThinkPainting>(),
+                        };
+
+                        if (CanPlacePainting(X, Y, Paintings, true))
+                        {
+						    WorldGen.PlaceObject(X, Y, WorldGen.genRand.Next(Paintings));
+                        }
+					}
+
+					//place catacomb platform shelves with stuff on them
 					if (WorldGen.genRand.NextBool(20))
 					{
 						int Length = WorldGen.genRand.Next(3, 5);
 
-						if (!Main.tile[X + 1, Y].HasTile && Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile)
+						if (WorldGen.SolidTile(X, Y) && !Main.tile[X + 1, Y].HasTile && Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile)
 						{
 							if (CanPlacePlatform(X, Y, Length, false))
 							{
@@ -431,7 +521,7 @@ namespace Spooky.Content.Generation
 					{
 						int Length = WorldGen.genRand.Next(3, 5);
 
-						if (!Main.tile[X - 1, Y].HasTile && Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile)
+						if (WorldGen.SolidTile(X, Y) && !Main.tile[X - 1, Y].HasTile && Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile)
 						{
 							if (CanPlacePlatform(X, Y, Length, true))
 							{
@@ -789,7 +879,7 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<UpperCatacombChandelier>());
                         }
                         //place skeletoid wall catacombs
-                        if (WorldGen.genRand.NextBool(100) && !tile.HasTile)
+                        if (WorldGen.genRand.NextBool(175) && !tile.HasTile)
                         {
                             WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb1>(), true, WorldGen.genRand.Next(8));
                         }
@@ -1105,7 +1195,7 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<LowerCatacombChandelier>());
                         }
                         //place skeletoid wall catacombs
-                        if (WorldGen.genRand.NextBool(100) && !tile.HasTile)
+                        if (WorldGen.genRand.NextBool(175) && !tile.HasTile)
                         {
                             WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb2>(), true, WorldGen.genRand.Next(8));
                         }
@@ -1260,6 +1350,38 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+
+			return true;
+		}
+
+        //if a painting can place
+        public bool CanPlacePainting(int PositionX, int PositionY, List<ushort> PaintingsToCheckFor, bool DoCheckForNearbyPaintings)
+		{
+			//first check for enough walls
+			for (int i = PositionX - 3; i <= PositionX + 3; i++)
+			{
+				for (int j = PositionY - 3; j <= PositionY + 3; j++)
+				{
+					if (Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall1>() && Main.tile[i, j].WallType != ModContent.WallType<CatacombBrickWall2>())
+					{
+						return false;
+					}
+				}
+			}
+
+            if (DoCheckForNearbyPaintings)
+            {
+                for (int i = PositionX - 6; i <= PositionX + 6; i++)
+                {
+                    for (int j = PositionY - 6; j <= PositionY + 6; j++)
+                    {	
+                        if (PaintingsToCheckFor.Contains(Main.tile[i, j].TileType))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
 
 			return true;
 		}

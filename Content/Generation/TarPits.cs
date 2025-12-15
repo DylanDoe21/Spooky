@@ -40,7 +40,7 @@ namespace Spooky.Content.Generation
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
 			int SizeXInt = Main.maxTilesX < 6400 ? 17 : 22;
-			int SizeYInt = Main.maxTilesY < 1800 ? 14 : 19;
+			int SizeYInt = Main.maxTilesY < 1800 ? 12 : 17;
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
 
@@ -50,12 +50,21 @@ namespace Spooky.Content.Generation
 			int BiomeX = (GenVars.desertHiveLeft + GenVars.desertHiveRight) / 2;
 			int BiomeY = (int)((GenVars.desertHiveHigh + GenVars.desertHiveLow) / 1.75f);
 
-			SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);
-			DigOutCaves(progress, BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
-			BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
-			CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
-			PlaceStructures(BiomeX, BiomeY, SizeX, SizeY);
-			BiomeAmbience(BiomeX, BiomeY, SizeX, SizeY);
+			if (!CanPlaceBiome(BiomeX, BiomeY, SizeX, SizeY))
+			{
+				BiomeY += 20;
+			}
+			else
+			{
+				SpookyWorldMethods.PlaceOval(BiomeX, BiomeY, ModContent.TileType<DesertSandstone>(), ModContent.WallType<DesertSandstoneWall>(), SizeX / 2, SizeY, 2f, false, false);
+				DigOutCaves(progress, BiomeX, BiomeY, SizeX, SizeY, CaveNoiseSeed);
+				BiomePolish(BiomeX, BiomeY, SizeX, SizeY);
+				CleanOutSmallClumps(BiomeX, BiomeY, SizeX, SizeY);
+				PlaceStructures(BiomeX, BiomeY, SizeX, SizeY);
+				BiomeAmbience(BiomeX, BiomeY, SizeX, SizeY);
+
+				return;
+			}
 		}
 
 		//dig out caverns inside of the area of ovals
@@ -633,29 +642,42 @@ namespace Spooky.Content.Generation
 			return true;
 		}
 
-		//place the biome if there isnt already another tar pits biome nearby
+		//attempt to find valid spot for the tar pits
 		public bool CanPlaceBiome(int PositionX, int PositionY, int SizeX, int SizeY)
 		{
+			int numDesertTiles = 0;
+
 			for (int i = PositionX - SizeX + (SizeX / 2); i < PositionX + SizeX - (SizeX / 2); i++)
 			{
 				for (int j = PositionY - SizeY - (SizeY / 2); j < PositionY + SizeY + (SizeY / 2); j++)
 				{
-					int[] InvalidTiles = { ModContent.TileType<DesertSand>(), ModContent.TileType<DesertSandstone>(),
-					ModContent.TileType<CatacombBrick1>(), ModContent.TileType<CatacombBrick2>(), };
+					int[] ValidTiles = { TileID.Sand, TileID.Sandstone, TileID.HardenedSand };
 
-					if (WorldGen.InWorld(i, j) && InvalidTiles.Contains(Main.tile[i, j].TileType))
+					if (WorldGen.InWorld(i, j) && ValidTiles.Contains(Main.tile[i, j].TileType))
+					{
+						numDesertTiles++;
+					}
+
+					/*
+					//do not place near protected structures ever
+					if (!GenVars.structures.CanPlace(new Rectangle(i, j, 1, 1), 15))
 					{
 						return false;
 					}
-
-					if (!GenVars.structures.CanPlace(new Rectangle(i, j, 1, 1), 1))
-					{
-						return false;
-					}
+					*/
 				}
 			}
 
-			return true;
+			int AmountOfTilesNeeded = (SizeX * SizeY) / 4;
+
+			if (numDesertTiles >= AmountOfTilesNeeded)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)

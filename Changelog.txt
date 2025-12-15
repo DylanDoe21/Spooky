@@ -10,7 +10,10 @@ New fog event:
 
 New spider war event:
 -New wave-based miniboss rush fought in the spider grotto post-golem
-(Include more info later)
+-There is a total of 5 unique minibosses in the event
+-Total of 10 waves, and the final wave will consist of an onslaught of minibosses until you get 30 kills
+-Each miniboss has a trophy and other unique drops, with the drop rate being dependant on the wave (Before final wave, 10% drop chance, and during wave 10 guaranteed drops)
+-The event will automatically count as complete just by making it to the final wave, but you do not have to continue past that unless you want more loot
 
 New tar pits content:
 -Tar pits biome is now larger than before, but only one generates per world
@@ -25,6 +28,7 @@ Items:
 -Nerfed old hunter scarf damage increase from 20% to 10%
 -Nerfed dutchman pipe damage increase from 25% to 10%
 -Nerfed samson's cuff damage multiplier from 50% to 18%
+-Nerfed yuletide wood leggings magic attack speed increase from 20% to 10%
 -Lowered volume on EMF reader sounds
 -Lowered volume on ear parasite companion screeching a lot
 
@@ -39,6 +43,9 @@ Random Stuff:
 Fixes:
 -Spooky mod couches and clocks not having highlights
 -Spooky mod pet items spawning the pet and buff when you throw them on the ground by right clicking
+-Rot gourd colliding with tiles when despawning if all players are dead
+-Spook fishron wings producing dusts if you continued holding jump while on the ground after running out of flight time
+-Angry orange orbiting projectile immediately teleporting to its desired position if the players velocity slowed down quickly/instantly
 
 Multiplayer Fixes:
 -Bile glob not properly syncing the egg incursion time reduction across all clients

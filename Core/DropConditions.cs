@@ -3,13 +3,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.GameContent.ItemDropRules;
+using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Boss.Daffodil;
-using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
-using System;
 
 namespace Spooky.Core
 {
@@ -364,6 +363,72 @@ namespace Spooky.Core
                 return null;
             }
         }
+
+        public class OneFromOptionsForSpiderWar : IItemDropRule
+		{
+			public List<IItemDropRuleChainAttempt> ChainedRules { get; }
+
+			private int chanceDenominator;
+			private int chanceNumerator;
+			private (int itemID, int minAmount, int maxAmount)[] itemData;
+
+			public OneFromOptionsForSpiderWar(int chanceDenominator = 1, int chanceNumerator = 1, params (int itemID, int minAmount, int maxAmount)[] itemData)
+			{
+				this.chanceDenominator = chanceDenominator;
+				this.chanceNumerator = chanceNumerator;
+				this.itemData = itemData;
+
+				ChainedRules = new List<IItemDropRuleChainAttempt>();
+			}
+
+			public bool CanDrop(DropAttemptInfo info)
+			{
+				if (!info.IsInSimulation)
+				{
+					if (SpiderWarWorld.SpiderWarActive)
+					{
+						if (SpiderWarWorld.SpiderWarWave >= 10)
+						{
+							return true;
+						}
+						else
+						{
+							return Main.rand.NextBool(10);
+						}
+					}
+				}
+
+				return false;
+			}
+
+			public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
+			{
+				float num = chanceNumerator / (float)chanceDenominator;
+				float num2 = num * ratesInfo.parentDroprateChance;
+				float dropRate = 1f / itemData.Length * num2;
+				for (int i = 0; i < itemData.Length; i++)
+				{
+					drops.Add(new DropRateInfo(itemData[i].itemID, itemData[i].minAmount, itemData[i].maxAmount, dropRate, ratesInfo.conditions));
+				}
+				Chains.ReportDroprates(ChainedRules, num, drops, ratesInfo);
+			}
+
+			public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+			{
+				ItemDropAttemptResult result;
+				if (info.rng.Next(chanceDenominator) < chanceNumerator)
+				{
+					int i = info.rng.Next(itemData.Length);
+					CommonCode.DropItem(info, itemData[i].itemID, Main.rand.Next(itemData[i].minAmount, itemData[i].maxAmount + 1));
+					result = default(ItemDropAttemptResult);
+					result.State = ItemDropAttemptResultState.Success;
+					return result;
+				}
+				result = default(ItemDropAttemptResult);
+				result.State = ItemDropAttemptResultState.FailedRandomRoll;
+				return result;
+			}
+		}
 
 
         //all the conditions below this point exist because with orro & boro, only the last worm alive should drop items
