@@ -1066,14 +1066,27 @@ namespace Spooky.Core
 				target.AddBuff(ModContent.BuffType<PepperSpice>(), 600);
 			}
 
+			//fungus debuffs
 			if (FungusBluePinkgill && Main.rand.NextBool(25) && !target.HasBuff(ModContent.BuffType<BluegillSparkleDebuff>()))
 			{
 				target.AddBuff(ModContent.BuffType<BluegillSparkleDebuff>(), 600);
 			}
-
 			if (FungusDevilTooth && Main.rand.NextBool(30) && !target.HasBuff(ModContent.BuffType<DevilToothDebuff>()))
 			{
 				target.AddBuff(ModContent.BuffType<DevilToothDebuff>(), 600);
+			}
+			if (FungusInkCap)
+			{
+				if (Main.rand.NextBool(25) && !target.HasBuff(ModContent.BuffType<InkyCapDebuff>()))
+				{
+					target.AddBuff(ModContent.BuffType<InkyCapDebuff>(), 120);
+				}
+
+				if (target.HasBuff(ModContent.BuffType<InkyCapDebuff>()))
+				{
+					Vector2 Velocity = new Vector2(0, Main.rand.Next(-12, -6)).RotatedByRandom(MathHelper.ToRadians(40));
+					Projectile.NewProjectile(target.GetSource_OnHit(Player), target.Center, Velocity, ModContent.ProjectileType<InkSpore>(), hit.Damage, hit.Knockback, Player.whoAmI, Main.rand.Next(0, 3));
+				}
 			}
 		}
 

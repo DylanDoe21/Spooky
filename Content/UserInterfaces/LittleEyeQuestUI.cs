@@ -405,6 +405,25 @@ namespace Spooky.Content.UserInterfaces
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20)
                     {
+						DialogueChain chain = new();
+						chain.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest3-1"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest3-1"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest3-2"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest3-2"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest3-3"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest3-3"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+						chain.OnPlayerResponseTrigger += PlayerResponse;
+						chain.OnEndTrigger += EndDialogueQuestAccept3;
+						DialogueUI.Visible = true;
+						DialogueUI.Add(chain);
+
                         UIOpen = false;
                     }
                 }

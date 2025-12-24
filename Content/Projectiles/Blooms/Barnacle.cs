@@ -12,8 +12,6 @@ namespace Spooky.Content.Projectiles.Blooms
     {
         private static Asset<Texture2D> ProjTexture;
 
-        public static readonly SoundStyle BiteSound = new("Spooky/Content/Sounds/Bite", SoundType.Sound) { PitchVariance = 0.7f, Volume = 0.5f };
-
         public override void SetDefaults()
         {
 			Projectile.width = 26;

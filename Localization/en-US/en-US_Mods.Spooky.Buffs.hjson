@@ -689,3 +689,8 @@ DevilToothDebuff: {
 	DisplayName: Devil Tooth Debuff
 	Description: ""
 }
+
+InkyCapDebuff: {
+	DisplayName: Inky Cap Debuff
+	Description: ""
+}

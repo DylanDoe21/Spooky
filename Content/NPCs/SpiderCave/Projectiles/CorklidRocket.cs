@@ -74,19 +74,12 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
             }
             else
             {
-                Projectile.ai[1]++;
-                if (Projectile.ai[1] == 1)
-                {
-                    Vector2 Velocity = new Vector2(0, 25).RotatedByRandom(MathHelper.ToRadians(5));
-                    Projectile.velocity = Velocity;
-                }
-
                 bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, Projectile.position, Projectile.width, Projectile.height);
                 if (HasLineOfSight)
                 {
-                    Projectile.ai[2]++;
+                    Projectile.ai[1]++;
                 }
-                if (Projectile.ai[2] >= 5)
+                if (Projectile.ai[1] >= 5)
                 {
                     Projectile.tileCollide = true;
                 }

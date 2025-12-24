@@ -20,7 +20,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
             }
             else if (!skyActive && opacity > 0f)
             {
-                opacity -= 0.1f;
+                opacity -= 0.025f;
             }
         }
 
@@ -31,9 +31,9 @@ namespace Spooky.Content.Backgrounds.Cemetery
             if (maxDepth >= 3E+38f && minDepth < 3E+38f && !Main.gameMenu)
             {
                 //Draw the sky box texture
-                spriteBatch.Draw(SkyTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), 
-                Main.ColorOfTheSkies * 0.9f * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * opacity));
-            }
+                spriteBatch.Draw(SkyTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
+				Main.ColorOfTheSkies * 0.9f * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * opacity));
+			}
 
             //deactivate the sky if in the menu
             if (Main.gameMenu || !Main.LocalPlayer.active)  

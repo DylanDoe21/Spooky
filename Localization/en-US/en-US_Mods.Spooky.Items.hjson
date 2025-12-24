@@ -5237,8 +5237,113 @@ StitchSpiderRelicItem: {
 	Tooltip: ""
 }
 
+BirchBathtubItem: {
+	DisplayName: Old Birch Bathtub
+	Tooltip: ""
+}
+
+BirchBedItem: {
+	DisplayName: Old Birch Bed
+	Tooltip: ""
+}
+
+BirchBookcaseItem: {
+	DisplayName: Old Birch Bookcase
+	Tooltip: ""
+}
+
+BirchCandelabraItem: {
+	DisplayName: Old Birch Candelabra
+	Tooltip: ""
+}
+
+BirchCandleItem: {
+	DisplayName: Old Birch Candle
+	Tooltip: ""
+}
+
+BirchChairItem: {
+	DisplayName: Old Birch Chair
+	Tooltip: ""
+}
+
+BirchChandelierItem: {
+	DisplayName: Old Birch Chandelier
+	Tooltip: ""
+}
+
+BirchChestItem: {
+	Tooltip: ""
+	DisplayName: Old Birch Chest
+}
+
+BirchClockItem: {
+	DisplayName: Old Birch Clock
+	Tooltip: ""
+}
+
+BirchDoorItem: {
+	DisplayName: Old Birch Door
+	Tooltip: ""
+}
+
+BirchDresserItem: {
+	DisplayName: Old Birch Dresser
+	Tooltip: ""
+}
+
+BirchLampItem: {
+	DisplayName: Old Birch Lamp
+	Tooltip: ""
+}
+
+BirchLanternItem: {
+	DisplayName: Old Birch Lantern
+	Tooltip: ""
+}
+
+BirchPlatformItem: {
+	DisplayName: Old Birch Platform
+	Tooltip: ""
+}
+
+BirchSinkItem: {
+	DisplayName: Old Birch Sink
+	Tooltip: ""
+}
+
+BirchSofaItem: {
+	DisplayName: Old Birch Sofa
+	Tooltip: ""
+}
+
+BirchPianoItem: {
+	DisplayName: Old Birch Piano
+	Tooltip: ""
+}
+
+BirchTableItem: {
+	DisplayName: Old Birch Table
+	Tooltip: ""
+}
+
+BirchWorkBenchItem: {
+	DisplayName: Old Birch Work Bench
+	Tooltip: ""
+}
+
 SpiderCaveChestItem: {
 	DisplayName: Spider Grotto Chest
+	Tooltip: ""
+}
+
+BirchWoodItem: {
+	DisplayName: Old Birch Wood
+	Tooltip: ""
+}
+
+BirchWoodWallItem: {
+	DisplayName: Old Birch Wood Wall
 	Tooltip: ""
 }
 
@@ -5250,6 +5355,11 @@ DampGrassSeeds: {
 DampGrassWallItem: {
 	DisplayName: Damp Grass Wall
 	Tooltip: ""
+}
+
+DampMushroomGrassSeeds: {
+	DisplayName: Mycelium Seeds
+	Tooltip: Plants mycelium grass on Damp Soil
 }
 
 DampSoilItem: {
@@ -5265,6 +5375,16 @@ DampSoilWallItem: {
 DampStoneItem: {
 	DisplayName: Not So Mossy Stone
 	Tooltip: Like regular stone, but without moss!
+}
+
+DampStoneBricksItem: {
+	DisplayName: Not So Mossy Stone Brick
+	Tooltip: ""
+}
+
+DampStoneBricksWallItem: {
+	DisplayName: Not So Mossy Stone Brick Wall
+	Tooltip: ""
 }
 
 RootWoodItem: {
@@ -6254,5 +6374,10 @@ SporeShroomHead: {
 
 SporeShroomLegs: {
 	DisplayName: Legging-Shaped Mushroom
+	Tooltip: ""
+}
+
+Converter: {
+	DisplayName: Converter
 	Tooltip: ""
 }

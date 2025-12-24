@@ -25,6 +25,8 @@ namespace Spooky.Content.Generation
 
 		static int initialStartPosX;
 
+        public static WorldGen.GrowTreeSettings TreeSettings;
+
         //place a giant dirt area for the graveyard to generate on
         private void PlaceCemetery(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -314,7 +316,20 @@ namespace Spooky.Content.Generation
                     if (tile.TileType == (ushort)ModContent.TileType<CemeteryGrass>())
                     {
                         //grow trees
-                        WorldGen.GrowTree(X, Y - 1);
+						if (WorldGen.genRand.NextBool(6))
+						{
+							TreeSettings = new WorldGen.GrowTreeSettings
+							{
+								GroundTest = (_) => true,
+								WallTest = (_) => true,
+								TreeHeightMax = 10,
+								TreeHeightMin = 5,
+								TreeTileType = TileID.Trees,
+								TreeTopPaddingNeeded = 4,
+							};
+
+							WorldGen.GrowTreeWithSettings(X, Y - 1, TreeSettings);
+						}
 
                         //grow cemetery weeds
                         if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)

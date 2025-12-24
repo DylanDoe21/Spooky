@@ -23,6 +23,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         public override void SetStaticDefaults()
         {
 			Main.npcFrameCount[NPC.type] = 8;
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         }
 
         public override void SetDefaults()
@@ -57,11 +58,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
             if (NPC.ai[0] > 1 && NPC.ai[0] < 350)
             {
-                if (NPC.frameCounter > 6)
+                if (NPC.frameCounter > 2)
                 {
                     NPC.frame.Y = NPC.frame.Y + frameHeight;
                     NPC.frameCounter = 0;
                 }
+
+                if (NPC.frame.Y < frameHeight * 4)
+                {
+                    NPC.frame.Y = 4 * frameHeight;
+                }
+
                 if (NPC.frame.Y >= frameHeight * 8)
                 {
                     NPC.frame.Y = 4 * frameHeight;

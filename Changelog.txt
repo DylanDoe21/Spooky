@@ -24,6 +24,7 @@ New tar pits content:
 ~Changes to existing stuff~
 
 Items:
+-Buffed licker damage from 48 to 55
 -Nerfed glass eye damage increase from 25% to 15%
 -Nerfed old hunter scarf damage increase from 20% to 10%
 -Nerfed dutchman pipe damage increase from 25% to 10%
@@ -33,19 +34,20 @@ Items:
 -Lowered volume on ear parasite companion screeching a lot
 
 Enemy/Boss:
--Buffed orro-boro phase 1 hp to 65000 (Which is technically 32500 in gameplay, since it goes into phase 2 at half hp), and phase 2 hp for both worms to 32000
+-Buffed orro-boro phase 1 hp to 65000 (Which is 32500 in gameplay since it goes into phase 2 at half hp), and phase 2 hp for both worms to 32000
 
 Random Stuff:
 -Removed random lightning flash/sounds in the swampy cemetery
 -Reduced graveyard desaturation effect in the swampy cemetery a little bit
--Bloom soil now generates in clumps in various spooky mod biomes, it still can be crafted, but finding it in the world makes it easier to find, and more intuitive for players to get into the blooms mechanic
+-Bloom soil now generates in clumps in various spooky mod biomes, it still can be crafted but finding it in the world makes it easier to find, and more intuitive for players to get into the blooms mechanic
 
-Fixes:
--Spooky mod couches and clocks not having highlights
+Bug/Issue Fixes:
+-Spooky mod couches, benches, and clocks not having highlights
 -Spooky mod pet items spawning the pet and buff when you throw them on the ground by right clicking
 -Rot gourd colliding with tiles when despawning if all players are dead
 -Spook fishron wings producing dusts if you continued holding jump while on the ground after running out of flight time
 -Angry orange orbiting projectile immediately teleporting to its desired position if the players velocity slowed down quickly/instantly
+-Spooky mod grasses turning into their corresponding dirt instead of fully breaking when exploded
 
 Multiplayer Fixes:
 -Bile glob not properly syncing the egg incursion time reduction across all clients

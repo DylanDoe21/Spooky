@@ -233,7 +233,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 					}
 
-					//select random attack
+					//circle the player with web strand
 					if (NPC.localAI[0] >= 180)
 					{
 						NPC.localAI[0] = 0;
@@ -268,7 +268,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 						NPC.netUpdate = true;
 					}
 
-					//select random attack
+					//place down web mines
 					if (NPC.localAI[0] >= 240)
 					{
 						NPC.localAI[0] = 0;
@@ -461,6 +461,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         {
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarDreamcatcher>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<OgreKingTrophyItem>()));
+
+			var parameters = new DropOneByOne.Parameters() 
+			{
+				ChanceNumerator = 1,
+				ChanceDenominator = 1,
+				MinimumStackPerChunkBase = 1,
+				MaximumStackPerChunkBase = 1,
+				MinimumItemDropsCount = 4,
+				MaximumItemDropsCount = 8,
+			};
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

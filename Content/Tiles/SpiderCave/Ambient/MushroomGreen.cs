@@ -23,8 +23,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
-			Main.tileLighted[Type] = true;
-			TileID.Sets.MultiTileSway[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };
@@ -66,8 +64,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
-			Main.tileLighted[Type] = true;
-			TileID.Sets.MultiTileSway[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };

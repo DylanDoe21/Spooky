@@ -57,7 +57,11 @@ namespace Spooky.Content.Projectiles.Catacomb
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.25f;
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 30)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
+            }
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

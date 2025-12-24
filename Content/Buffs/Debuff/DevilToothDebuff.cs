@@ -23,7 +23,7 @@ namespace Spooky.Content.Buffs.Debuff
             {
 				if (Main.rand.NextBool(10))
 				{
-					Dust.NewDust(npc.position, npc.width, npc.height, DustID.SomethingRed, npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f, default, default, 1.5f);
+					Dust.NewDust(npc.position, npc.width, npc.height, DustID.Crimson, npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f, default, default, 1.5f);
 				}
 
 				if (npc.lifeRegen > 0)

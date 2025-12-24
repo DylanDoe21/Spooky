@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Spooky.Content.Gores.Misc;
 using Spooky.Content.Items.Pets;
 using Spooky.Content.Tiles.SpiderCave;
-using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Content.Tiles.SpiderCave.Tree
 {
@@ -41,7 +40,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
 		//drop wood
 		public override int DropWood()
 		{
-			return ModContent.ItemType<SpookyWoodItem>();
+			return ModContent.ItemType<BirchWoodItem>();
 		}
 
 		//get the tree trunk texture
@@ -77,7 +76,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Tree
 
         public override int CreateDust()
         {
-            return 121; //shadewood dust
+            return DustID.Web;
         }
 
         public override bool Shake(int x, int y, ref bool createLeaves)

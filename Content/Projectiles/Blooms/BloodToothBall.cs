@@ -44,6 +44,11 @@ namespace Spooky.Content.Projectiles.Blooms
 			return false;
 		}
 
+        public override bool? CanDamage()
+		{
+			return Projectile.velocity.Y >= 0;
+		}
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //explode into teeth

@@ -424,7 +424,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					//dig in ground and teleport to player if line of sight is lost for too long
 					else
 					{
-						TeleportToPlayer(player);
+						TeleportToPlayer(player, true);
 						
 						if (JustTeleported)
 						{
@@ -446,7 +446,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					{
 						if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
 						{
-							TeleportToPlayer(player);
+							TeleportToPlayer(player, true);
 								
 							if (JustTeleported)
 							{
@@ -496,7 +496,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 						if (NPC.localAI[0] >= 180 && NPC.localAI[0] <= 275 && NPC.localAI[0] % Frequency == 0)
 						{
 							NPCGlobalHelper.ShootHostileProjectile(NPC, player.Center, Vector2.Zero, ModContent.ProjectileType<CorklidMissileReticle>(), NPC.damage, 1f);
-							NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y - 1000), Vector2.Zero, ModContent.ProjectileType<CorklidRocket>(), NPC.damage, 4.5f, ai0: 1);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(player.Center.X, player.Center.Y - 1000), new Vector2(0, 25), ModContent.ProjectileType<CorklidRocket>(), NPC.damage, 4.5f, ai0: 1);
+						}
+
+						//teleport to player if they are to far away, with no animation change
+						if (NPC.localAI[0] > 120)
+						{
+							bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+							if (!HasLineOfSight)
+							{
+								TeleportToPlayer(player, false);
+							}
 						}
 
 						if (NPC.localAI[0] >= 360)
@@ -517,7 +527,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					{
 						if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
 						{
-							TeleportToPlayer(player);
+							TeleportToPlayer(player, true);
 								
 							if (JustTeleported)
 							{
@@ -560,6 +570,16 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 							}
 						}
 
+						//teleport to player if they are to far away, with no animation change
+						if (NPC.localAI[0] >= 40)
+						{
+							bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+							if (!HasLineOfSight)
+							{
+								TeleportToPlayer(player, false);
+							}
+						}
+
 						if (NPC.localAI[0] >= 460)
 						{
 							NPC.ai[0] = 0;
@@ -573,7 +593,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			}
 		}
 
-		public void TeleportToPlayer(Player player)
+		public void TeleportToPlayer(Player player, bool UseAnimation)
 		{
 			if (!NPCGlobalHelper.IsCollidingWithFloor(NPC))
 			{
@@ -587,17 +607,20 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			{
 				NPC.velocity.X = 0;
 
-				CurrentFrameX = 0;
+				if (UseAnimation)
+				{
+					CurrentFrameX = 0;
 
-				TeleportFrameTimer++;
-				if (TeleportFrameTimer <= 5)
-				{
-					IdleFrameToUse = 5;
-					CurrentAnimation = AnimationState.StayStill;
-				}
-				else
-				{
-					CurrentAnimation = AnimationState.GoInGround;
+					TeleportFrameTimer++;
+					if (TeleportFrameTimer <= 5)
+					{
+						IdleFrameToUse = 5;
+						CurrentAnimation = AnimationState.StayStill;
+					}
+					else
+					{
+						CurrentAnimation = AnimationState.GoInGround;
+					}
 				}
 
 				TeleportTimer++;
@@ -652,6 +675,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         {
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarFlail>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<CorklidQueenTrophyItem>()));
+
+			var parameters = new DropOneByOne.Parameters() 
+			{
+				ChanceNumerator = 1,
+				ChanceDenominator = 1,
+				MinimumStackPerChunkBase = 1,
+				MaximumStackPerChunkBase = 1,
+				MinimumItemDropsCount = 4,
+				MaximumItemDropsCount = 8,
+			};
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

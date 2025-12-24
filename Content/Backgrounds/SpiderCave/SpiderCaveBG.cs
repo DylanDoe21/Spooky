@@ -61,9 +61,9 @@ namespace Spooky.Content.Backgrounds.SpiderCave
             {
                 Vector2 vector = Main.screenPosition + new Vector2((Main.screenWidth >> 1), (Main.screenHeight >> 1));
                 float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;
-                float Scale = 0.95f;
+                float Scale = 1.5f;
 
-                for (int Layers = 3; Layers >= 0; Layers--)
+                for (int Layers = 4; Layers >= 0; Layers--)
                 {
                     //get each background texture
                     Texture2D BGTexture = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBG" + Layers).Value;
@@ -78,20 +78,25 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                     {
                         case 0:
                         {
-                            zero.Y += 165f;
+                            zero.Y -= 550f;
                             break;
                         }
                         case 1:
                         {
-                            zero.Y += 30f;
+                            zero.Y -= 70f;
                             break;
                         }
                         case 2:
                         {
-                            zero.Y += 35f;
+                            zero.Y += 350f;
                             break;
                         }
                         case 3:
+                        {
+                            zero.Y += 0f;
+                            break;
+                        }
+                        case 4:
                         {
                             zero.Y -= 20f;
                             break;
@@ -101,6 +106,7 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                     vector2 *= Scale;
                     
                     zero.Y -= num;
+					zero.Y += 50f;
                     float num5 = Scale * rectangle.Width;
                     int num6 = (int)((vector.X * vector3.X - vector2.X + zero.X - (Main.screenWidth >> 1)) / num5);
 
@@ -109,10 +115,11 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
 
                         var frame = rectangle;
-                        var clr = (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive ? new Color(25, 25, 25) : new Color(70, 57, 44)) * Transparency;
+						var clr = (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive ? new Color(25, 25, 25) : new Color(70, 57, 44)) * Transparency;
 
                         Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, zero, Scale, SpriteEffects.None, 0f);
 
+                        /*
                         if (Layers == 2)
                         {
                             float time = Main.GameUpdateCount * 0.01f;
@@ -131,6 +138,7 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                             Main.spriteBatch.Draw(EyesTexture2, drawPosition, frame, Color.Red * intensity2 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
                             Main.spriteBatch.Draw(EyesTexture3, drawPosition, frame, Color.Red * intensity1 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
                         }
+                        */
 
 						//reused raveyard sky beams, lazy but it looks good anyways
 						if (SpiderWarWorld.SpiderWarActive)
@@ -148,49 +156,19 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                             }
                         }
 
-                        if (WarLightBeamOpacity > 0f)
+                        if (WarLightBeamOpacity > 0f && Layers != 0)
                         {
 							float Rotation = Main.GlobalTimeWrappedHourly * 0.12f * (Layers % 2 == 0 ? -1 : 1);
 
+							Vector2 drawPositionBeam = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2;
+
 							Texture2D BeamTextureTop = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam").Value;
 
-							Main.spriteBatch.Draw(BeamTextureTop, drawPosition + new Vector2(0, 1620 + (Layers * 10)), null, Color.White * WarLightBeamOpacity * 0.25f,
+							Main.spriteBatch.Draw(BeamTextureTop, drawPositionBeam + new Vector2(0, 1620 - zero.Y), null, Color.White * WarLightBeamOpacity * 0.25f,
 							MathF.Sin(Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), 1f, SpriteEffects.None, 0f);
 						}
 					}
                 }
-
-                /*
-                //get each background texture
-                Texture2D BGFrontTexture = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderGrottoBGFront").Value;
-
-                Vector2 vector2 = new Vector2(BGFrontTexture.Width, BGFrontTexture.Height) * 0.5f;
-                float num2 = 1f; //(0 * 2 + 3f);
-                Vector2 vector3 = new Vector2(1f / num2);
-                Rectangle rectangle = new Rectangle(0, 0, BGFrontTexture.Width, BGFrontTexture.Height);
-                Vector2 zero = Vector2.Zero;
-                vector2 *= Scale;
-                
-                zero.Y -= num;
-                float num5 = Scale * rectangle.Width;
-                int num6 = (int)((vector.X * vector3.X - vector2.X + zero.X - (Main.screenWidth >> 1)) / num5);
-
-                float num7 = Scale * rectangle.Height;
-                int num8 = (int)((vector.Y * vector3.Y - vector2.Y + zero.Y - (Main.screenHeight >> 1)) / num7);
-
-                for (int i = num8 - 2; i < num8 + 4 + (int)(Main.screenHeight / num7); i++)
-                {
-                    for (int j = num6 - 2; j < num6 + 4 + (int)(Main.screenWidth / num5); j++)
-                    {
-                        Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), i * Scale * (rectangle.Height / vector3.Y)) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
-
-                        var frame = rectangle;
-                        var clr = (Flags.SporeEventHappening ? new Color(25, 25, 25) : new Color(70, 57, 44)) * Transparency;
-
-                        Main.spriteBatch.Draw(BGFrontTexture, drawPosition, frame, clr, 0f, zero, Scale, SpriteEffects.None, 0f);
-                    }
-                }
-                */
             }
         }
     }

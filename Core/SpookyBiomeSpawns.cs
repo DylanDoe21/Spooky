@@ -485,7 +485,11 @@ namespace Spooky.Core
 							pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
 							pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
 							pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
-							pool.Add(ModContent.NPCType<TinySpiderEgg>(), 2);
+							pool.Add(ModContent.NPCType<TinySpider1>(), 1);
+							pool.Add(ModContent.NPCType<TinySpider2>(), 1);
+							pool.Add(ModContent.NPCType<TinySpider3>(), 1);
+							pool.Add(ModContent.NPCType<TinySpider4>(), 1);
+							pool.Add(ModContent.NPCType<TinySpider5>(), 1);
 							pool.Add(ModContent.NPCType<AntSpider1>(), 2);
 							pool.Add(ModContent.NPCType<AntSpider2>(), 2);
 							pool.Add(ModContent.NPCType<CrabSpider1>(), 1);
@@ -539,6 +543,7 @@ namespace Spooky.Core
 
 					switch (SpiderWarWorld.SpiderWarWave)
 					{
+						//1 point
 						case 0:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<TrumpetSpider>()))
@@ -547,6 +552,7 @@ namespace Spooky.Core
 							}
 							break;
 						}
+						//1 point
 						case 1:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
@@ -555,6 +561,7 @@ namespace Spooky.Core
 							}
 							break;
 						}
+						//1 point
 						case 2:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
@@ -563,6 +570,7 @@ namespace Spooky.Core
 							}
 							break;
 						}
+						//1 points
 						case 3:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<CorklidQueen>()))
@@ -571,15 +579,21 @@ namespace Spooky.Core
 							}
 							break;
 						}
+						//2 points
 						case 4:
 						{
-							if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
+							//prevent multiple enemies from spawning if only one more needs to be killed
+							if ((SpiderWarWorld.SpiderWarPoints < 1 && SpiderWarWorld.EventActiveNPCCount() < 2) ||
+							(SpiderWarWorld.SpiderWarPoints >= 1 && SpiderWarWorld.EventActiveNPCCount() < 1))
 							{
-								pool.Add(ModContent.NPCType<OgreKing>(), 2);
-							}
-							if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
-							{
-								pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+								if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
+								{
+									pool.Add(ModContent.NPCType<OgreKing>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+								{
+									pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+								}
 							}
 							break;
 						}
@@ -601,19 +615,27 @@ namespace Spooky.Core
 						}
 						case 7:
 						{
-							if (!NPC.AnyNPCs(ModContent.NPCType<CamelColonel>()))
+							//prevent multiple enemies from spawning if only one more needs to be killed
+							if ((SpiderWarWorld.SpiderWarPoints < 2 && SpiderWarWorld.EventActiveNPCCount() < 2) ||
+							(SpiderWarWorld.SpiderWarPoints >= 2 && SpiderWarWorld.EventActiveNPCCount() < 1))
 							{
-								pool.Add(ModContent.NPCType<CamelColonel>(), 2);
-							}
-							if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
-							{
-								pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+								if (!NPC.AnyNPCs(ModContent.NPCType<CamelColonel>()))
+								{
+									pool.Add(ModContent.NPCType<CamelColonel>(), 2);
+								}
+								if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
+								{
+									pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+								}
 							}
 							break;
 						}
 						case 8:
 						{
-							if (SpiderWarWorld.EventActiveNPCCount() < 3)
+							//prevent multiple enemies from spawning depending on how many points are needed
+							if ((SpiderWarWorld.SpiderWarPoints < 3 && SpiderWarWorld.EventActiveNPCCount() < 3) ||
+							(SpiderWarWorld.SpiderWarPoints == 3 && SpiderWarWorld.EventActiveNPCCount() < 2) ||
+							(SpiderWarWorld.SpiderWarPoints >= 4 && SpiderWarWorld.EventActiveNPCCount() < 1))
 							{
 								if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
 								{
@@ -632,19 +654,25 @@ namespace Spooky.Core
 						}
 						case 9:
 						{
-							if (SpiderWarWorld.EventActiveNPCCount() < 3)
+							//prevent multiple enemies from spawning depending on how many points are needed
+							if ((SpiderWarWorld.SpiderWarPoints < 3 && SpiderWarWorld.EventActiveNPCCount() < 3) ||
+							(SpiderWarWorld.SpiderWarPoints == 3 && SpiderWarWorld.EventActiveNPCCount() < 2) ||
+							(SpiderWarWorld.SpiderWarPoints >= 4 && SpiderWarWorld.EventActiveNPCCount() < 1))
 							{
-								if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+								if (SpiderWarWorld.EventActiveNPCCount() < 3)
 								{
-									pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
-								}
-								if (!NPC.AnyNPCs(ModContent.NPCType<CorklidQueen>()))
-								{
-									pool.Add(ModContent.NPCType<CorklidQueen>(), 2);
-								}
-								if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
-								{
-									pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+									if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
+									{
+										pool.Add(ModContent.NPCType<EmperorMortar>(), 2);
+									}
+									if (!NPC.AnyNPCs(ModContent.NPCType<CorklidQueen>()))
+									{
+										pool.Add(ModContent.NPCType<CorklidQueen>(), 2);
+									}
+									if (!NPC.AnyNPCs(ModContent.NPCType<EmpressJoro>()))
+									{
+										pool.Add(ModContent.NPCType<EmpressJoro>(), 2);
+									}
 								}
 							}
 							break;

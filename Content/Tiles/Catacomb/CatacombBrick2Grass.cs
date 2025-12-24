@@ -196,6 +196,12 @@ namespace Spooky.Content.Tiles.Catacomb
 			MineResist = 0.1f;
 		}
 
+		public override bool CanExplode(int i, int j)
+		{
+			WorldGen.KillTile(i, j, false, false, true); //Makes the tile completely go away instead of reverting to dirt
+			return true;
+		}
+
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
 			if (!fail && !WorldGen.gen)

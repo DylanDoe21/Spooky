@@ -168,6 +168,32 @@ namespace Spooky.Content.UserInterfaces
                         DialogueUI.Visible = true;
                         DialogueUI.Add(chain);
                     }
+					//third bounty completed
+                    else if (player.HasItem(ModContent.ItemType<BountyItem3>()))
+                    {
+                        DialogueChain chain = new();
+                        chain.Add(new(UITexture.Value, Main.npc[LittleEye],
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete3-1"),
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete3-1"),
+                        TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+                        .Add(new(UITexture.Value, Main.npc[LittleEye],
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete3-2"),
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete3-2"),
+                        TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+                        .Add(new(UITexture.Value, Main.npc[LittleEye],
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete3-3"),
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete3-3"),
+                        TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+                        .Add(new(UITexture.Value, Main.npc[LittleEye],
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete3-4"),
+                        Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete3-4"),
+                        TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+                        .Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+                        chain.OnPlayerResponseTrigger += PlayerResponse;
+                        chain.OnEndTrigger += EndDialogueMissionEnd;
+                        DialogueUI.Visible = true;
+                        DialogueUI.Add(chain);
+                    }
                     else
                     {
 						if (!Flags.BountyIntro)

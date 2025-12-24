@@ -11,6 +11,8 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 {
     public class MortarWebTrail : ModProjectile
     {
+        public override string Texture => "Spooky/Content/NPCs/SpiderCave/Projectiles/OgreKingWebTrail";
+
         private static Asset<Texture2D> ProjTexture;
 
         public override void SetDefaults()
@@ -34,7 +36,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 			Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y) - Main.screenPosition + new Vector2(0, Projectile.gfxOffY);
 			Rectangle rectangle = new(0, ProjTexture.Height() / Main.projFrames[Projectile.type] * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
 
-            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(Color.White), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(ProjTexture.Value, vector, rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 
             return false;
         }

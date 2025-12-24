@@ -10,7 +10,7 @@ namespace Spooky.Content.Tiles.SpiderCave
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
-            AddMapEntry(new Color(133, 101, 56));
+            AddMapEntry(new Color(94, 79, 57));
             DustType = DustID.Web;
         }
     }

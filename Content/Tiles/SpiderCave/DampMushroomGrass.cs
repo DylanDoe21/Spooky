@@ -26,9 +26,8 @@ namespace Spooky.Content.Tiles.SpiderCave
 			Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
-			Main.tileLighted[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(146, 135, 165));
+            AddMapEntry(new Color(204, 223, 216));
             RegisterItemDrop(ModContent.ItemType<DampSoilItem>());
             DustType = DustID.Smoke;
 			MineResist = 0.1f;
@@ -39,12 +38,11 @@ namespace Spooky.Content.Tiles.SpiderCave
 			return true;
 		}
 
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
-        {
-            r = 0.25f;
-            g = 0.25f;
-            b = 0.25f;
-        }
+        public override bool CanExplode(int i, int j)
+		{
+			WorldGen.KillTile(i, j, false, false, true); //Makes the tile completely go away instead of reverting to dirt
+			return true;
+		}
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{

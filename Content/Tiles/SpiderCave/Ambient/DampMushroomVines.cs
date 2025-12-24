@@ -22,7 +22,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			TileID.Sets.IsVine[Type] = true;
             TileID.Sets.VineThreads[Type] = true;
 			TileID.Sets.MultiTileSway[Type] = true;
-			AddMapEntry(new Color(106, 94, 126));
+			AddMapEntry(new Color(160, 185, 176));
 			DustType = DustID.Smoke;
 			HitSound = SoundID.Grass;
 			MineResist = 0.1f;

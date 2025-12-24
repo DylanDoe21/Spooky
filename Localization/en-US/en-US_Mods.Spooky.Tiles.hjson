@@ -53,6 +53,11 @@ LowerCatacombDresser: {
 	MapEntry: Dresser
 }
 
+BirchDresser: {
+	ContainerName: Old Birch Dresser
+	MapEntry: Dresser
+}
+
 //blooms
 CemeteryBloomPlant.MapEntry: Withered Bloom
 DandelionBloomPlant.MapEntry: Dandelion Bloom
@@ -113,5 +118,6 @@ GrottoTree2.MapEntry: Grotto Tree
 GrottoTree3.MapEntry: Grotto Tree
 UpperCatacombChest.MapEntry: Catacomb Chest
 LowerCatacombChest.MapEntry: Overgrown Chest
-GrottoTreeSapling.MapEntry: Grotto Tree Sapling
-SporeShroomTreeSapling.MapEntry: Spore Shroom Sapling
+GrottoTreeSapling.MapEntry: Sapling
+SporeShroomTreeSapling.MapEntry: Sapling
+BirchChest.MapEntry: Old Birch Chest

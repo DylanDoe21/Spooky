@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<DampMushroomGrass>() };
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(106, 94, 126));
+            AddMapEntry(new Color(160, 185, 176));
             DustType = DustID.Smoke;
             HitSound = SoundID.Grass;
         }

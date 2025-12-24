@@ -254,7 +254,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 						else
 						{
 							NPC.rotation = SaveRotation;
-							NPC.velocity = Vector2.Zero;
+							NPC.velocity *= 0.975f;
 						}
 
 						if (NPC.localAI[0] >= 80)
@@ -292,7 +292,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					else
 					{
 						NPC.rotation = SaveRotation;
-						NPC.velocity = Vector2.Zero;
+						NPC.velocity *= 0.975f;
 					}
 
 					if (NPC.localAI[0] >= 180)
@@ -361,6 +361,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         {
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarSniper>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<CamelColonelTrophyItem>()));
+
+			var parameters = new DropOneByOne.Parameters() 
+			{
+				ChanceNumerator = 1,
+				ChanceDenominator = 1,
+				MinimumStackPerChunkBase = 1,
+				MaximumStackPerChunkBase = 1,
+				MinimumItemDropsCount = 4,
+				MaximumItemDropsCount = 8,
+			};
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

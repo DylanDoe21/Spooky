@@ -213,7 +213,7 @@ namespace Spooky.Content.Generation
                         Tile tile = Main.tile[X, Y];
                         Tile tileAbove = Main.tile[X, Y - 1];
 
-                        if (WorldGen.genRand.NextBool(180) && tile.TileType == ModContent.TileType<DampGrass>() && !tileAbove.HasTile)
+                        if (WorldGen.genRand.NextBool(200) && tile.TileType == ModContent.TileType<DampGrass>() && !tileAbove.HasTile)
                         {
                             int SizeX = WorldGen.genRand.Next(30, 36);
                             int SizeY = WorldGen.genRand.Next(30, 36);
@@ -424,6 +424,87 @@ namespace Spooky.Content.Generation
                 if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType == ModContent.TileType<DampStone>()) 
                 {
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(4, 6), OppositeTier4Ore, false, 0f, 0f, false, true);
+                }
+            }
+
+            //place structures in the biome
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+			{
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+				{
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+					{
+                        if (Main.tile[X, Y].HasTile && !Main.tile[X, Y - 1].HasTile && CanPlaceStructure(X, Y))
+                        {
+                            //chance for ruins or house
+                            if (WorldGen.genRand.NextBool())
+                            {
+                                switch (WorldGen.genRand.Next(4))
+                                {
+                                    case 0:
+                                    {
+                                        Vector2 HouseOrigin = new Vector2(X - 12, Y - 12);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoHouse1.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 1:
+                                    {
+                                        Vector2 HouseOrigin = new Vector2(X - 13, Y - 23);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoHouse2.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 2:
+                                    {
+                                        Vector2 HouseOrigin = new Vector2(X - 17, Y - 25);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoHouse3.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 3:
+                                    {
+                                        Vector2 HouseOrigin = new Vector2(X - 21, Y - 32);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoHouse4.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                switch (WorldGen.genRand.Next(5))
+                                {
+                                    case 0:
+                                    {   
+                                        Vector2 HouseOrigin = new Vector2(X - 18, Y - 21);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoRuins1.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 1:
+                                    {   
+                                        Vector2 HouseOrigin = new Vector2(X - 12, Y - 22);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoRuins2.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 2:
+                                    {   
+                                        Vector2 HouseOrigin = new Vector2(X - 15, Y - 24);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoRuins3.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 3:
+                                    {   
+                                        Vector2 HouseOrigin = new Vector2(X - 12, Y - 13);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoRuins4.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                    case 4:
+                                    {   
+                                        Vector2 HouseOrigin = new Vector2(X - 15, Y - 15);
+                                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/GrottoRuins5.shstruct", HouseOrigin.ToPoint16(), Mod);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -930,6 +1011,35 @@ namespace Spooky.Content.Generation
     
             return true;
         }
+
+        //check for a flat surface when placing structures
+		public bool CanPlaceStructure(int PositionX, int PositionY)
+		{
+			for (int x = PositionX - 45; x <= PositionX + 45; x++)
+			{
+				for (int y = PositionY - 45; y <= PositionY + 45; y++)
+				{
+					if (Main.tile[x, y].TileType == ModContent.TileType<BirchWood>() || Main.tile[x, y].TileType == ModContent.TileType<DampStoneBricks>())
+					{
+						return false;
+					}
+				}
+			}
+
+			for (int x = PositionX - 22; x <= PositionX + 22; x++)
+			{
+				if (Main.tile[x, PositionY].HasTile && !Main.tile[x, PositionY - 1].HasTile && !Main.tile[x, PositionY - 2].HasTile && !Main.tile[x, PositionY - 3].HasTile && !Main.tile[x, PositionY - 4].HasTile)
+				{
+					continue;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
 
         //determine if a giant root can be grown on a set block
         public static bool GrowGiantRoot(int X, int Y, int tileType, int minSize, int maxSize)

@@ -363,7 +363,7 @@ LittleEyeDialogue: {
 	Intro1: Oh me, oh my! A visitor? A guest? A guinea pig? A gift from the valley, so kind!
 	IntroPlayerResponse1: Huh what?
 	Intro2: Oh me, I'm sorry, I'm a little eye, the little eye! A humble witch, I won't bite! You look for power, is that right?
-	IntroPlayerResponse2: Hell no, I'm not getting cursed by your muju juju.
+	IntroPlayerResponse2: I'm not getting cursed by your muju juju.
 	Intro3: Oh my, you misunderstand! I curse not you, but what you have! Your tools and trinkets, they are weak and frail! I can breathe new life into them with a cauldron's spell!
 	IntroPlayerResponse3: Ok, and then what? The items curse me or something?
 	Intro4: Uh, no I curse them and they get stronger that's the whole, the whole thing I just explained!
@@ -388,7 +388,7 @@ LittleEyeDialogue: {
 	BountyIntroPlayerResponse3: I did not mention requests at all.
 	BountyIntro4: Here, guest, I've made a list for you! My creations that have ran far from view! They hide from me, oh me oh my. I need you to slime them.
 	BountyIntroPlayerResponse4: Sorry, what?
-	BountyIntro5: I'll tell you more once you pick! Surprises are more fun after all! but... but yeah I will need you to kill all of them.
+	BountyIntro5: I'll tell you more once you pick! Surprises are more fun after all! but... I will need you to kill all of them.
 	BountyIntroPlayerResponse5: Dude...
 	BountyIntro6: Teehee!
 	BountyIntroPlayerResponse6: ...
@@ -399,11 +399,11 @@ LittleEyeDialogue: {
 	PlayerQuest1-2: I'm not letting you try and rhyme after that. Just tell me what to do.
 	Quest1-3: Oh... but, but it was a cool rhyme, you would have loved it!
 	PlayerQuest1-3: I do not like being around you.
-	Quest1-4: Oh my... fine, off to the spooky forest he went! Use red velvet cake, frank will catch its scent! with a slash and a snip, cut off his toungue! bring it back to me, while the day is young!
+	Quest1-4: Oh my... fine, off to the spooky forest he went! Use red velvet cake, frank will catch its scent! with a slash and a snip, cut off his tongue! bring it back to me, while the day is young!
 	PlayerQuest1-4: Whatever.
 	//frank the goblin quest complete
 	QuestComplete1-1: There you are, my guest!
-	PlayerQuestComplete1-1: I got the toungue, you freak.
+	PlayerQuestComplete1-1: I got the tongue, you freak.
 	QuestComplete1-2: Hurray! You've saved the day, my friend! As promised, I gift you needle and thread! Be careful, its sharp, and laced with bacteria! One poke and your enemies will catch tetanus!
 	PlayerQuestComplete1-2: That one didn't even rhyme.
 	QuestComplete1-3: You try and rhyme tetanus with anything then.
@@ -438,4 +438,20 @@ LittleEyeDialogue: {
 	//tome of spirits rematch
 	QuestRematch2: Here's some more gold in a bag for ghosts!
 	PlayerQuestRematch2: Ok.
+	//stitches quest
+	Quest3-1: You asked me what else I could do, beyond my malevolent witches' brew. And tell you I will! I've started to knit! But my craft has started a coup!
+	PlayerQuest3-1: Uh-huh.
+	Quest3-2: Deep in the dark, where the spiders lurk, my creation marks it's domain! Lure in it like a shark, with this beetle in view, and its escape will have been in vain!
+	PlayerQuest3-2: You kinda scare me.
+	Quest3-3: Tehee!
+	PlayerQuest3-3: I dislike you.
+	//stitches quest complete
+	QuestComplete3-1: Hi!
+	PlayerQuestComplete3-1: I got the stitching from that abomination you made.
+	QuestComplete3-2: I can't believe you are actually alive!
+	PlayerQuestComplete3-2: What?
+	QuestComplete3-3: I didn't think you would make it! I thought you'd die, I admit.
+	PlayerQuestComplete3-3: That spider thing wasn't even that bad.
+	QuestComplete3-4: Oh... well perhaps you are stronger than I once believed!
+	PlayerQuestComplete3-4: ...
 }

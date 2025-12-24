@@ -480,6 +480,17 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         {
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarRemote>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<EmpressJoroTrophyItem>()));
+
+			var parameters = new DropOneByOne.Parameters() 
+			{
+				ChanceNumerator = 1,
+				ChanceDenominator = 1,
+				MinimumStackPerChunkBase = 1,
+				MaximumStackPerChunkBase = 1,
+				MinimumItemDropsCount = 4,
+				MaximumItemDropsCount = 8,
+			};
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

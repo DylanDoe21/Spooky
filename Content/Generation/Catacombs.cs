@@ -22,6 +22,7 @@ using Spooky.Content.Tiles.Catacomb.Ambient;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.Painting;
+using Spooky.Content.Tiles.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Content.Generation
@@ -36,6 +37,24 @@ namespace Spooky.Content.Generation
         public static int PositionX = 0;
 
 		Vector2 PandoraRoomPosition;
+
+        public static List<ushort> Paintings = new()
+        {
+            (ushort)ModContent.TileType<AlienPainting>(),
+            (ushort)ModContent.TileType<BaxterWitchPainting>(),
+            (ushort)ModContent.TileType<DavePainting>(),
+            (ushort)ModContent.TileType<GrannyBatPainting>(),
+            (ushort)ModContent.TileType<GrannySkeletonPainting>(),
+            (ushort)ModContent.TileType<GrannyWitchPainting>(),
+            (ushort)ModContent.TileType<GravestonePainting>(),
+            (ushort)ModContent.TileType<HogPainting>(),
+            (ushort)ModContent.TileType<HorsePainting>(),
+            (ushort)ModContent.TileType<ShoebillPainting>(),
+            (ushort)ModContent.TileType<SmilingFriendsPainting>(),
+            (ushort)ModContent.TileType<SurprisedSkullPainting>(),
+            (ushort)ModContent.TileType<TheKillerPainting>(),
+            (ushort)ModContent.TileType<ZomboidThinkPainting>()
+        };
 
 		private void PlaceCatacomb(GenerationProgress progress, GameConfiguration configuration)
         {
@@ -119,63 +138,92 @@ namespace Spooky.Content.Generation
                     //origin offset for each room so it places at the center of the position its placed at
                     Vector2 origin = new Vector2(X - 18, Y - 18);
 
-                    //painting room
-                    if (WorldGen.genRand.NextBool(15))
+                    int WoodenRoomChance = Main.maxTilesY >= 2400 ? 7 : (Main.maxTilesY >= 1800 ? 6 : 5);
+                    int TrapRoomChance = Main.maxTilesY >= 2400 ? 6 : (Main.maxTilesY >= 1800 ? 5 : 4);
+                    int MineRoomChance = Main.maxTilesY >= 2400 ? 8 : (Main.maxTilesY >= 1800 ? 7 : 6);
+
+                    //painting or library room room
+                    if (WorldGen.genRand.NextBool(WoodenRoomChance))
                     {
-                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/PaintingRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
-
-                        //place paintings in the room
-                        for (int paintingX = (int)origin.X + 4; paintingX <= (int)origin.X + 32; paintingX++)
+                        if (WorldGen.genRand.NextBool())
                         {
-                            int UpperY = (int)origin.Y + 12;
-                            int LowerY = (int)origin.Y + 28;
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/PaintingRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
 
-                            List<ushort> Paintings = new()
-                            {
-                                (ushort)ModContent.TileType<AlienPainting>(),
-                                (ushort)ModContent.TileType<BaxterWitchPainting>(),
-                                (ushort)ModContent.TileType<DavePainting>(),
-                                (ushort)ModContent.TileType<GrannyBatPainting>(),
-                                (ushort)ModContent.TileType<GrannySkeletonPainting>(),
-                                (ushort)ModContent.TileType<GrannyWitchPainting>(),
-                                (ushort)ModContent.TileType<GravestonePainting>(),
-                                (ushort)ModContent.TileType<HogPainting>(),
-                                (ushort)ModContent.TileType<HorsePainting>(),
-                                (ushort)ModContent.TileType<ShoebillPainting>(),
-                                (ushort)ModContent.TileType<SmilingFriendsPainting>(),
-                                (ushort)ModContent.TileType<SurprisedSkullPainting>(),
-                                (ushort)ModContent.TileType<TheKillerPainting>(),
-                                (ushort)ModContent.TileType<ZomboidThinkPainting>()
-                            };
+                            List<ushort> ActualPainting = new List<ushort>(Paintings);
 
-                            if (!Main.tile[paintingX, UpperY].HasTile)
+                            //place paintings in the room
+                            for (int paintingX = (int)origin.X + 4; paintingX <= (int)origin.X + 32; paintingX++)
                             {
-                                if (WorldGen.genRand.NextBool())
+                                for (int paintingY = (int)origin.Y + 4; paintingY <= (int)origin.Y + 32; paintingY++)
                                 {
-                                    WorldGen.PlaceObject(paintingX, UpperY + WorldGen.genRand.Next(-1, 3), WorldGen.genRand.Next(Paintings));
+                                    if (WorldGen.genRand.NextBool(15))
+                                    {
+                                        if (ActualPainting.Count == 0)
+                                        {
+                                            ActualPainting = new List<ushort>(Paintings);
+                                        }
+
+                                        int PaintingToPlace = WorldGen.genRand.Next(ActualPainting.Count);
+                                        bool Success = WorldGen.PlaceObject(paintingX, paintingY, ActualPainting[PaintingToPlace]);
+                                        if (Success)
+                                        {
+                                            ActualPainting.RemoveAt(PaintingToPlace);
+                                        }
+                                    }
                                 }
                             }
-                            if (!Main.tile[paintingX, LowerY].HasTile)
+                        }
+                        else
+                        {
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/LibraryRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
+
+                            //place furniture in the room
+                            for (int furnitureX = (int)origin.X; furnitureX <= (int)origin.X + 36; furnitureX++)
                             {
-                                if (WorldGen.genRand.NextBool())
+                                for (int furnitureY = (int)origin.Y; furnitureY <= (int)origin.Y + 36; furnitureY++)
                                 {
-                                    WorldGen.PlaceObject(paintingX, LowerY + WorldGen.genRand.Next(-1, 3), WorldGen.genRand.Next(Paintings));
+                                    if (CanPlaceFurniture(furnitureX, furnitureY, 7, CheckWood: true))
+                                    {
+                                        switch (WorldGen.genRand.Next(2))
+                                        {
+                                            case 0:
+                                            {
+                                                WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodBookcase>());
+                                                break;
+                                            }
+                                            case 1:
+                                            {
+                                                if (WorldGen.genRand.NextBool())
+                                                {
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodTable>());
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 3, ModContent.TileType<OldWoodCandle>());
+                                                }
+                                                else
+                                                {
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodWorkBench>());
+                                                }
+
+                                                break;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                     //trap rooms
-                    else if (WorldGen.genRand.NextBool(7))
+                    else if (WorldGen.genRand.NextBool(TrapRoomChance))
                     {
                         StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/TrapRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
                     }
+                    //default room
                     else
                     {
                         StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room" + WorldGen.genRand.Next(1, 21) + ".shstruct", origin.ToPoint16(), Mod);
                     }
 
                     //mine room
-                    if (WorldGen.genRand.NextBool(10) && !PlacedMineRoom)
+                    if (WorldGen.genRand.NextBool(MineRoomChance) && !PlacedMineRoom)
                     {
                         StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MineRoom.shstruct", origin.ToPoint16(), Mod);
                         PlacedMineRoom = true;
@@ -336,15 +384,117 @@ namespace Spooky.Content.Generation
                     //origin offset for each room so it places at the center
                     Vector2 origin = new Vector2(X - 35, Y - 18);
 
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room" + WorldGen.genRand.Next(1, 19) + ".shstruct", origin.ToPoint16(), Mod);
-
                     if (X == XMiddle && Y == layer2Start + 84)
                     {
                         PandoraRoomPosition = origin;
                     }
                     else
                     {
-                        if (WorldGen.genRand.NextBool(45) && !PlacedAvariceRoom)
+                        int WoodenRoomChance = Main.maxTilesY >= 2400 ? 7 : (Main.maxTilesY >= 1800 ? 6 : 5);
+                        int PuzzleRoomChance = Main.maxTilesY >= 2400 ? 6 : (Main.maxTilesY >= 1800 ? 5 : 4);
+                        int MineRoomChance = Main.maxTilesY >= 2400 ? 8 : (Main.maxTilesY >= 1800 ? 7 : 6);
+
+                        //library or living quarters room
+                        if (WorldGen.genRand.NextBool(WoodenRoomChance))
+                        {
+                            if (WorldGen.genRand.NextBool())
+                            {
+                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/LibraryRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
+
+                                //place furniture in the room
+                                for (int furnitureX = (int)origin.X; furnitureX <= (int)origin.X + 69; furnitureX++)
+                                {
+                                    for (int furnitureY = (int)origin.Y; furnitureY <= (int)origin.Y + 35; furnitureY++)
+                                    {
+                                        if (CanPlaceFurniture(furnitureX, furnitureY, 7, CheckWood: true))
+                                        {
+                                            switch (WorldGen.genRand.Next(2))
+                                            {
+                                                case 0:
+                                                {
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodBookcase>());
+                                                    break;
+                                                }
+                                                case 1:
+                                                {
+                                                    //table with candle and chairs
+                                                    if (WorldGen.genRand.NextBool(3))
+                                                    {
+                                                        WorldGen.PlaceObject(furnitureX - 2, furnitureY - 1, ModContent.TileType<OldWoodChair>(), direction: 1);
+                                                        WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodTable>());
+                                                        WorldGen.PlaceObject(furnitureX, furnitureY - 3, ModContent.TileType<OldWoodCandle>());
+                                                        WorldGen.PlaceObject(furnitureX + 2, furnitureY - 1, ModContent.TileType<OldWoodChair>(), direction: -1);
+                                                    }
+                                                    //table with books
+                                                    else if (WorldGen.genRand.NextBool())
+                                                    {
+                                                        WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodTable>());
+                                                        WorldGen.PlaceObject(furnitureX - 1, furnitureY - 3, TileID.Books, true, WorldGen.genRand.Next(0, 5));
+                                                        WorldGen.PlaceObject(furnitureX, furnitureY - 3, TileID.Books, true, WorldGen.genRand.Next(0, 5));
+                                                        WorldGen.PlaceObject(furnitureX + 1, furnitureY - 3, TileID.Books, true, WorldGen.genRand.Next(0, 5));
+                                                    }
+                                                    //workbench
+                                                    else
+                                                    {
+                                                        WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodWorkBench>());
+                                                    }
+                                                    
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/LivingQuarterRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
+
+                                //place furniture in the room
+                                for (int furnitureX = (int)origin.X; furnitureX <= (int)origin.X + 69; furnitureX++)
+                                {
+                                    for (int furnitureY = (int)origin.Y; furnitureY <= (int)origin.Y + 35; furnitureY++)
+                                    {
+                                        if (CanPlaceFurniture(furnitureX, furnitureY, 7, CheckWood: true))
+                                        {
+                                            switch (WorldGen.genRand.Next(3))
+                                            {
+                                                case 0:
+                                                {
+                                                    WorldGen.PlaceObject(furnitureX - 2, furnitureY - 1, ModContent.TileType<OldWoodChair>(), direction: 1);
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodTable>());
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 3, ModContent.TileType<OldWoodCandle>());
+                                                    WorldGen.PlaceObject(furnitureX + 2, furnitureY - 1, ModContent.TileType<OldWoodChair>(), direction: -1);
+                                                    break;
+                                                }
+                                                case 1:
+                                                {
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodSofa>());
+                                                    break;
+                                                }
+                                                case 2:
+                                                {
+                                                    WorldGen.PlaceObject(furnitureX, furnitureY - 1, ModContent.TileType<OldWoodBed>(), direction: WorldGen.genRand.NextBool() ? -1 : 1);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //puzzle rooms
+                        else if (WorldGen.genRand.NextBool(PuzzleRoomChance))
+                        {
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/PuzzleRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
+                        }
+                        //default room
+                        else
+                        {
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room" + WorldGen.genRand.Next(1, 19) + ".shstruct", origin.ToPoint16(), Mod);
+                        }
+
+                        if (WorldGen.genRand.NextBool(25) && !PlacedAvariceRoom)
                         {
                             StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/AvaricePotRoom.shstruct", origin.ToPoint16(), Mod);
                             PlacedAvariceRoom = true;
@@ -459,26 +609,8 @@ namespace Spooky.Content.Generation
                 for (int Y = (int)Main.worldSurface - 10; Y <= BigBoneArenaY - 30; Y++)
 				{
                     //randomly place paintings in the catacombs
-                    if (WorldGen.genRand.NextBool(400) && !Main.tile[X, Y].HasTile)
+                    if (WorldGen.genRand.NextBool(550) && !Main.tile[X, Y].HasTile)
 					{
-                        List<ushort> Paintings = new()
-                        {
-                            (ushort)ModContent.TileType<AlienPainting>(),
-                            (ushort)ModContent.TileType<BaxterWitchPainting>(),
-                            (ushort)ModContent.TileType<DavePainting>(),
-                            (ushort)ModContent.TileType<GrannyBatPainting>(),
-                            (ushort)ModContent.TileType<GrannySkeletonPainting>(),
-                            (ushort)ModContent.TileType<GrannyWitchPainting>(),
-                            (ushort)ModContent.TileType<GravestonePainting>(),
-                            (ushort)ModContent.TileType<HogPainting>(),
-                            (ushort)ModContent.TileType<HorsePainting>(),
-                            (ushort)ModContent.TileType<ShoebillPainting>(),
-                            (ushort)ModContent.TileType<SmilingFriendsPainting>(),
-                            (ushort)ModContent.TileType<SurprisedSkullPainting>(),
-                            (ushort)ModContent.TileType<TheKillerPainting>(),
-                            (ushort)ModContent.TileType<ZomboidThinkPainting>(),
-                        };
-
                         if (CanPlacePainting(X, Y, Paintings, true))
                         {
 						    WorldGen.PlaceObject(X, Y, WorldGen.genRand.Next(Paintings));
@@ -506,7 +638,10 @@ namespace Spooky.Content.Generation
 									else if (WorldGen.genRand.NextBool(5))
 									{
 										WorldGen.PlaceObject(x, Y - 1, TileID.ClayPot);
-										WorldGen.PlaceObject(x, Y - 2, TileID.BloomingHerbs, true, WorldGen.genRand.Next(0, 7));
+										if (WorldGen.genRand.NextBool(3))
+                                        {
+										    WorldGen.PlaceObject(x, Y - 2, TileID.BloomingHerbs, true, WorldGen.genRand.Next(0, 7));
+                                        }
 									}
 									else
 									{	
@@ -537,7 +672,10 @@ namespace Spooky.Content.Generation
 									else if (WorldGen.genRand.NextBool(5))
 									{
 										WorldGen.PlaceObject(x, Y - 1, TileID.ClayPot);
-										WorldGen.PlaceObject(x, Y - 2, TileID.BloomingHerbs, true, WorldGen.genRand.Next(0, 7));
+                                        if (WorldGen.genRand.NextBool(3))
+                                        {
+										    WorldGen.PlaceObject(x, Y - 2, TileID.BloomingHerbs, true, WorldGen.genRand.Next(0, 7));
+                                        }
 									}
 									else
 									{	
@@ -858,28 +996,32 @@ namespace Spooky.Content.Generation
                             }
                         }
 
-                        //lamps
-                        if (WorldGen.genRand.NextBool(120))
+                        if (tile.TileType != ModContent.TileType<SpookyWood>())
                         {
-                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                            //lamps
+                            if (WorldGen.genRand.NextBool(120))
+                            {
+                                WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombLamp>());
+                            }
+                            //candelabras
+                            if (WorldGen.genRand.NextBool(140))
+                            {
+                                WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombCandelabra>());
+                            }
+                            //lanterns
+                            if (WorldGen.genRand.NextBool(130))
+                            {
+                                WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<UpperCatacombLantern>());
+                            }
+                            //chandeliers
+                            if (WorldGen.genRand.NextBool(160))
+                            {
+                                WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<UpperCatacombChandelier>());
+                            }
                         }
-                        //candelabras
-                        if (WorldGen.genRand.NextBool(140))
-                        {
-                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<UpperCatacombCandelabra>());
-                        }
-                        //lanterns
-                        if (WorldGen.genRand.NextBool(130))
-                        {
-                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<UpperCatacombLantern>());
-                        }
-                        //chandeliers
-                        if (WorldGen.genRand.NextBool(160))
-                        {
-                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<UpperCatacombChandelier>());
-                        }
+
                         //place skeletoid wall catacombs
-                        if (WorldGen.genRand.NextBool(175) && !tile.HasTile)
+                        if (WorldGen.genRand.NextBool(150) && !tile.HasTile)
                         {
                             WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb1>(), true, WorldGen.genRand.Next(8));
                         }
@@ -1174,28 +1316,32 @@ namespace Spooky.Content.Generation
                             }
                         }
 
-                        //lamps
-                        if (WorldGen.genRand.NextBool(120))
+                        if (tile.TileType != ModContent.TileType<SpookyWood>())
                         {
-                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                            //lamps
+                            if (WorldGen.genRand.NextBool(120))
+                            {
+                                WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombLamp>());
+                            }
+                            //candelabras
+                            if (WorldGen.genRand.NextBool(140))
+                            {
+                                WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombCandelabra>());
+                            }
+                            //lanterns
+                            if (WorldGen.genRand.NextBool(130))
+                            {
+                                WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<LowerCatacombLantern>());
+                            }
+                            //chandeliers
+                            if (WorldGen.genRand.NextBool(160))
+                            {
+                                WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<LowerCatacombChandelier>());
+                            }
                         }
-                        //candelabras
-                        if (WorldGen.genRand.NextBool(140))
-                        {
-                            WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<LowerCatacombCandelabra>());
-                        }
-                        //lanterns
-                        if (WorldGen.genRand.NextBool(130))
-                        {
-                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<LowerCatacombLantern>());
-                        }
-                        //chandeliers
-                        if (WorldGen.genRand.NextBool(160))
-                        {
-                            WorldGen.PlaceObject(X, Y + 1, ModContent.TileType<LowerCatacombChandelier>());
-                        }
+
                         //place skeletoid wall catacombs
-                        if (WorldGen.genRand.NextBool(175) && !tile.HasTile)
+                        if (WorldGen.genRand.NextBool(150) && !tile.HasTile)
                         {
                             WorldGen.PlaceObject(X, Y, ModContent.TileType<SkeletoidCatacomb2>(), true, WorldGen.genRand.Next(8));
                         }
@@ -1405,23 +1551,38 @@ namespace Spooky.Content.Generation
 
         //check for a flat surface in the dungeon that also has no tiles above the entire flat space
 		//use to check for a specific width to place individual pieces of furniture, or in other cases multiple pieces of furniture (such as tables with chairs next to them)
-		public bool CanPlaceFurniture(int PositionX, int PositionY, int Width, bool Ceiling = false)
+		public bool CanPlaceFurniture(int PositionX, int PositionY, int Width, bool Ceiling = false, bool CheckWood = false)
 		{
 			if (!Ceiling)
 			{
 				for (int x = PositionX - (Width / 2); x <= PositionX + (Width / 2); x++)
 				{
-					//check specifically for UpperCatacomb carpet since the entire floor will be made out of that
-					if ((Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombBrick1>() || Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombBrick2>() ||
-                    Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombFlooring>() || Main.tile[x, PositionY].TileType == ModContent.TileType<GildedBrick>()) && 
-                    !Main.tile[x, PositionY - 1].HasTile)
-					{
-						continue;
-					}
-					else
-					{
-						return false;
-					}
+                    if (!CheckWood)
+                    {
+                        //check specifically for both catacomb flooring blocks
+                        if ((Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombBrick1>() || Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombBrick2>() ||
+                        Main.tile[x, PositionY].TileType == ModContent.TileType<CatacombFlooring>() || Main.tile[x, PositionY].TileType == ModContent.TileType<GildedBrick>()) && 
+                        !Main.tile[x, PositionY - 1].HasTile)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        //check specifically for both catacomb flooring blocks
+                        if ((Main.tile[x, PositionY].TileType == ModContent.TileType<SpookyWood>() || Main.tile[x, PositionY].TileType == ModContent.TileType<OldWoodPlatform>()) && !Main.tile[x, PositionY - 1].HasTile)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
 				}
 			}
 

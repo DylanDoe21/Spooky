@@ -16,7 +16,6 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
-			Main.tileLighted[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.Width = 2;
