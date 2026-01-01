@@ -55,9 +55,6 @@ namespace Spooky.Content.Projectiles.Catacomb
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Screenshake.ShakeScreenWithIntensity(target.Center, 2f, 400f);
-
-            //return to the player upon hitting an enemy
-            Projectile.ai[0] = 8;
         }
 
         public override void AI()

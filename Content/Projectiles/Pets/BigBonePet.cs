@@ -116,7 +116,7 @@ namespace Spooky.Content.Projectiles.Pets
             
             Projectile.spriteDirection = -player.direction;
             
-            Lighting.AddLight(Projectile.Center, 1.5f, 1.5f, 1.2f);
+            Lighting.AddLight(Projectile.Center, 1.5f, 1.5f, 1f);
 
 			if (!Collision.CanHitLine(Projectile.Center, 1, 1, player.Center, 1, 1))
             {

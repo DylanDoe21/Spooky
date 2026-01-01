@@ -817,6 +817,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     NPC.localAI[0]++;
 
+                    DefaultRotation = true;
+
                     //chase movement
                     if (NPC.localAI[0] < 140)
                     {

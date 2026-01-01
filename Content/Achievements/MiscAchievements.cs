@@ -10,25 +10,25 @@ using Spooky.Content.NPCs.Minibiomes.Ocean;
 
 namespace Spooky.Content.Achievements
 {
-	public class MiscAchievementTurkeyTamed : ModAchievement
+    public class MiscAchievementTurkeyTamed : ModAchievement
     {
-		public CustomFlagCondition TamedTurkeyCondition { get; private set; }
+        public CustomFlagCondition TamedTurkeyCondition { get; private set; }
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
             Achievement.SetCategory(AchievementCategory.Explorer);
-			TamedTurkeyCondition = AddCondition();
-		}
+            TamedTurkeyCondition = AddCondition();
+        }
     }
 
     public class MiscAchievementGourdCarve : ModAchievement
     {
-		public CustomFlagCondition CarvedRottenGourdCondition { get; private set; }
+        public CustomFlagCondition CarvedRottenGourdCondition { get; private set; }
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
             Achievement.SetCategory(AchievementCategory.Explorer);
-			CarvedRottenGourdCondition = AddCondition();
-		}
+            CarvedRottenGourdCondition = AddCondition();
+        }
     }
 }

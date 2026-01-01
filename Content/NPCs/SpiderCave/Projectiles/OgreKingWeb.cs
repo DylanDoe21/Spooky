@@ -103,7 +103,6 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
                     if (!player.dead && Projectile.Hitbox.Intersects(player.Hitbox))
                     {   
                         player.velocity *= 0.1f;
-                        Projectile.timeLeft -= 2;
                     }
                 }
             }

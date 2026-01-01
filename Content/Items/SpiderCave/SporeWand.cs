@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.buyPrice(gold: 15);
-            Item.UseSound = SoundID.Item69;
+            Item.UseSound = SoundID.Item8;
             Item.shoot = ModContent.ProjectileType<SporeWandBall>();
             Item.shootSpeed = 12f;
         }
@@ -35,8 +35,7 @@ namespace Spooky.Content.Items.SpiderCave
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<MiteMandibles>(), 10)
-            .AddRecipeGroup("SpookyMod:AdamantiteBars", 8)
+            .AddIngredient(ModContent.ItemType<MiteMandibles>(), 25)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

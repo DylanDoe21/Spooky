@@ -13,24 +13,13 @@ namespace Spooky.Content.Tiles.Water
 
 		public override int GetSplashDust() => DustID.Blood;
 
-		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/SpookyWaterDroplet").Type;
-
-		//just define a rain style, it will never actually be seen in game
-		public override Asset<Texture2D> GetRainTexture() 
-		{
-			return ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpookyRain");
-		}
-		
-		public override byte GetRainVariant() 
-		{
-			return (byte)Main.rand.Next(3);
-		}
+		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/BloodWaterDroplet").Type;
 
 		public override void LightColorMultiplier(ref float r, ref float g, ref float b)
 		{
-			r = 1f;
-			g = 1f;
-			b = 1f;
+			r = 0.98f;
+			g = 0.92f;
+			b = 0.92f;
 		}
 
 		public override Color BiomeHairColor() => Color.Red;

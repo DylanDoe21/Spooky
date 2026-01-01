@@ -32,7 +32,7 @@ using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.SpiderCave;
 using Spooky.Content.Tiles.SpookyBiome;
-
+using Spooky.Content.Tiles.Water;
 
 namespace Spooky.Core
 {
@@ -229,6 +229,19 @@ namespace Spooky.Core
 				shop.Add<SpookyHellSolution>();
 			}
 
+			//add spooky mod's water fountains to the witch doctor shop
+			if (shop.NpcType == NPCID.WitchDoctor)
+			{
+				var SpookFishronDowned = new Condition("Mods.Spooky.Conditions.SpookFishronDowned", () => Flags.downedSpookFishron);
+
+				shop.Add<WaterFountainSpookyItem>();
+				shop.Add<WaterFountainRaveItem>();
+				shop.Add<WaterFountainEyeValleyItem>();
+				shop.Add<WaterFountainTarItem>();
+				shop.Add<WaterFountainZombieItem>();
+				shop.Add<WaterFountainSpookFishronItem>(SpookFishronDowned);
+			}
+
 			if (shop.NpcType == NPCID.Dryad)
 			{
 				shop.Add(new Item(ModContent.ItemType<SpookyGrassWallItem>())
@@ -328,13 +341,7 @@ namespace Spooky.Core
 				}
 			}
 
-			//enemies inflicted with the hunter mark debuff take 10% more damage
-			if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()))
-			{
-				modifiers.FinalDamage *= 1.1f;
-			}
-
-			//enemies inflicted with pierced should take 2x damage and be bled for 10 seconds
+			//enemies inflicted with pierced take double damage and are bled for 10 seconds
 			if (npc.HasBuff(ModContent.BuffType<PiercedDebuff>()) && projectile.type != ModContent.ProjectileType<SewingNeedle>())
 			{
 				modifiers.FinalDamage *= 2f;
@@ -344,24 +351,34 @@ namespace Spooky.Core
 				int buffIndex = npc.FindBuffIndex(ModContent.BuffType<PiercedDebuff>());
 				npc.DelBuff(buffIndex);
 			}
+		}
 
+		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+		{
+			//if the glass eye is staring at an enemy they take 15% more damage
+			if (npc.HasBuff(ModContent.BuffType<GlassEyeDebuff>()))
+			{
+				modifiers.FinalDamage *= 1.15f;
+			}
+			//dutchman pipe causes enemies to take 10% more damage
+			if (npc.HasBuff(ModContent.BuffType<DutchmanPipeDebuff>()))
+			{
+				modifiers.FinalDamage *= 1.1f;
+			}
 			//enemies inflicted with the cursed doll effect take 15% more damage from magic attacks
 			if (npc.HasBuff(ModContent.BuffType<CursedDollDebuff>()) && modifiers.DamageType == DamageClass.Magic)
 			{
 				modifiers.FinalDamage *= 1.15f;
 			}
-		}
-
-		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
-		{
-			//if the glass eye is staring at an enemy multiply the damage they take from attacks
-			if (npc.HasBuff(ModContent.BuffType<GlassEyeDebuff>()))
-			{
-				modifiers.FinalDamage *= 1.15f;
-			}
-			if (npc.HasBuff(ModContent.BuffType<DutchmanPipeDebuff>()))
+			//enemies inflicted with hunter mark take 10% more damage
+			if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()))
 			{
 				modifiers.FinalDamage *= 1.1f;
+			}
+			//samsons cuff makes enemies take 18% more damage
+			if (npc.HasBuff(ModContent.BuffType<SamsonCuffDebuff>()))
+			{
+				modifiers.FinalDamage *= 1.18f;
 			}
 		}
 

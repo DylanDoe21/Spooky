@@ -17,6 +17,7 @@ using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Fishing;
+using Spooky.Content.Items.Fishing.Crate;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpiderCave;
@@ -1652,6 +1653,21 @@ namespace Spooky.Core
 					if (attempt.uncommon && attempt.crate)
 					{
 						itemDrop = ModContent.ItemType<SpookyCrate>();
+                    }
+                }
+
+                if (Player.InModBiome<SpiderCaveBiome>())
+                {
+                    //quest fishes
+                    if (attempt.questFish == ModContent.ItemType<SphiderFish>() && attempt.uncommon)
+					{
+                        itemDrop = ModContent.ItemType<SphiderFish>();
+                    }
+
+					//crate
+					if (attempt.uncommon && attempt.crate)
+					{
+						itemDrop = ModContent.ItemType<GrottoCrate>();
                     }
                 }
 

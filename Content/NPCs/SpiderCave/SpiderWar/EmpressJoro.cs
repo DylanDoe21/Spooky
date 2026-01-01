@@ -79,7 +79,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 15000;
-            NPC.damage = 70;
+            NPC.damage = 50;
 			NPC.defense = 30;
 			NPC.width = 230;
 			NPC.height = 110;
@@ -174,6 +174,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			return false;
 		}
 
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return NPC.ai[0] == 3 && NPC.localAI[0] >= 100;
+		}
+
 		public override void AI()
 		{
 			NPC.TargetClosest(true);
@@ -216,7 +221,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 						}
 					}
 
-					if (NPC.localAI[0] >= 360)
+					if (NPC.localAI[0] >= 300)
 					{
 						NPC.localAI[0] = 0;
 						NPC.localAI[1] = 0;

@@ -746,6 +746,8 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 {
                     NPC.localAI[0]++;
 
+                    DefaultRotation = true;
+
                     //chase movement
                     Vector2 GoTo = player.Center;
                     float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 1f, 6f);

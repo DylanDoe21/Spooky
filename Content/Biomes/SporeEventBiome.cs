@@ -71,17 +71,21 @@ namespace Spooky.Content.Biomes
 				{
 					List<Color> ColorList1 = new List<Color>
 					{
-						new Color(255, 19, 0), new Color(255, 197, 0),
-						new Color(94, 215, 35), new Color(52, 239, 185),
-						new Color(47, 65, 233), new Color(162, 90, 250),
-						new Color(219, 255, 245)
+						new Color(167, 0, 255),
+						new Color(229, 93, 11),
+						new Color(0, 212, 136), 
+						new Color(23, 84, 255),
+						new Color(245, 0, 6),
+						new Color(122, 147, 132)
 					};
 					List<Color> ColorList2 = new List<Color>
 					{
-						new Color(255, 19, 0), new Color(255, 197, 0),
-						new Color(94, 215, 35), new Color(52, 239, 185),
-						new Color(47, 65, 233), new Color(162, 90, 250),
-						new Color(219, 255, 245)
+						new Color(167, 0, 255),
+						new Color(229, 93, 11),
+						new Color(0, 212, 136),
+						new Color(23, 84, 255),
+						new Color(245, 0, 6),
+						new Color(122, 147, 132)
 					};
 
 					for (int i = 0; i < 3; i++)
@@ -126,32 +130,34 @@ namespace Spooky.Content.Biomes
 				Color color1 = Color.Lerp(FogColorList[index], FogColorList[(index + 1) % 3], fade);
 				Color color2 = Color.Lerp(SporeColorList[index], SporeColorList[(index + 1) % 3], fade);
 
-				//first, draw the top layer of mostly visible fog
-				sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f * (0.6f * Flags.SporeFogIntensity) * FogAlpha);
-				sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 40);
+				//draw the top layer of fog
+				sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f * (0.8f * Flags.SporeFogIntensity) * FogAlpha);
+				sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 60);
 				sporeEffect.Parameters["uColor"].SetValue(color1.ToVector4());
 				sporeEffect.Parameters["uExponent"].SetValue(3f);
+				sporeEffect.Parameters["uScale"].SetValue(1f);
 				for (int i = -1; i < 2; i += 2)
 				{
-					DrawFog(SwirlyNoise.Value, new Vector2(Main.screenWidth, Main.screenHeight * 1.5f) * 0.125f * i);
-					DrawFog(SwirlyNoise.Value, new Vector2(Main.screenWidth * 3f, Main.screenHeight * 3f) * 0.125f * -i, true);
+					sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * i / 60);
+					DrawFog(SwirlyNoise.Value, new Vector2(Main.screenWidth * 3f, Main.screenHeight * 3f) * 0.125f * i, true);
 				}
 
-				//draw second layer of slightly more transparent fog
-				sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f * (0.45f * Flags.SporeFogIntensity) * FogAlpha);
-				sporeEffect.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly / 50);
+				//draw second layer of slower moving fog
+				sporeEffect.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly / 90);
 				sporeEffect.Parameters["uColor"].SetValue(color1.ToVector4());
+				sporeEffect.Parameters["uScale"].SetValue(2f);
 				for (int i = -1; i < 2; i += 2)
 				{
-					DrawFog(SwirlyNoiseInv.Value, new Vector2(Main.screenWidth, Main.screenHeight * 1.5f) * 0.125f * -i);
-					DrawFog(SwirlyNoiseInv.Value, new Vector2(Main.screenWidth * 3f, Main.screenHeight * 3f) * 0.125f * i, true);
+					sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * i / 90);
+					DrawFog(SwirlyNoiseInv.Value, new Vector2(Main.screenWidth, Main.screenHeight * 1.5f) * 0.125f * i);
 				}
 
 				//draw star texture to look like spores are in the air
-				sporeEffect.Parameters["uOpacityTotal"].SetValue(2 * (1f * Flags.SporeFogIntensity) * FogAlpha);
+				sporeEffect.Parameters["uOpacityTotal"].SetValue(2 * (1.5f * Flags.SporeFogIntensity) * FogAlpha);
 				sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 120);
 				sporeEffect.Parameters["uColor"].SetValue(color2.ToVector4());
 				sporeEffect.Parameters["uExponent"].SetValue(2f);
+				sporeEffect.Parameters["uScale"].SetValue(1f);
 				DrawFog(StarNoise.Value, Vector2.Zero);
 			}
 			else

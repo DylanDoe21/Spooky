@@ -214,7 +214,7 @@ namespace Spooky.Content.Projectiles.Sentient
             if (Projectile.ai[2] >= 615)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, 
-                ModContent.ProjectileType<WingedBiomassFalling>(), Projectile.damage * 5, Projectile.knockBack, Projectile.owner, target.whoAmI);
+                ModContent.ProjectileType<WingedBiomassFalling>(), Projectile.damage * 12, Projectile.knockBack, Projectile.owner, target.whoAmI);
                 
                 for (int numGores = 1; numGores <= 6; numGores++)
                 {

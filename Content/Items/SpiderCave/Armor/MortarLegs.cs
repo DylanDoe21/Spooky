@@ -30,7 +30,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 			player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.07f;
 			player.maxMinions += 1;
 			player.maxTurrets += 1;
-			player.endurance += 0.05f;
+			player.endurance += 0.03f;
 		}
 	}
 }

@@ -49,8 +49,7 @@ namespace Spooky.Content.Items.SpiderCave
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<MiteMandibles>(), 10)
-            .AddRecipeGroup("SpookyMod:AdamantiteBars", 8)
+            .AddIngredient(ModContent.ItemType<MiteMandibles>(), 25)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

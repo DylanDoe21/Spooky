@@ -109,9 +109,30 @@ namespace Spooky.Content.Projectiles.Sentient
                                 NPC NPC = Main.npc[i];
                                 if (NPC.active && NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && Projectile.Distance(NPC.Center) <= MaxDistance)
                                 {
+                                    float ProjSpeed = 15f;
+
+                                    switch (Projectile.frame)
+                                    {
+                                        case 0:
+                                        {
+                                            ProjSpeed = 15f;
+                                            break;
+                                        }
+                                        case 1:
+                                        {
+                                            ProjSpeed = 22f;
+                                            break;
+                                        }
+                                        case 2:
+                                        {
+                                            ProjSpeed = 30f;
+                                            break;
+                                        }
+                                    }
+
                                     Vector2 ShootSpeed = NPC.Center - Projectile.Center;
                                     ShootSpeed.Normalize();
-                                    ShootSpeed *= 15f;
+                                    ShootSpeed *= ProjSpeed;
 
                                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, 
                                     ModContent.ProjectileType<EnergyHeartBolt>(), Projectile.damage, 0, Projectile.owner, ShootSpeed.ToRotation());

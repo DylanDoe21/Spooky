@@ -208,7 +208,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 //play a bell sound when fully charged
                 if (Projectile.ai[0] == 120)
                 {
-                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = SoundID.DD2_DarkMageHealImpact.Volume * 100f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact with { Volume = 2.5f }, Projectile.Center);
                 }
 
                 SetProjectilePosition(player);
@@ -228,7 +228,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     ShootSpeed *= 55;
                             
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 
-                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage, 12f, Projectile.owner);
+                    ShootSpeed.X, ShootSpeed.Y, ModContent.ProjectileType<BigBoneHammerProj2>(), Projectile.damage * 2, 12f, Projectile.owner);
                 }
 
                 Projectile.Kill();

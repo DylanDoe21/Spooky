@@ -113,7 +113,7 @@ namespace Spooky.Content.Biomes
                 
                 if (WorldGen.InWorld(dustPosXWorld, dustPosYWorld) && Main.tile[dustPosXWorld, dustPosYWorld] != null && !Main.tile[dustPosXWorld, dustPosYWorld].HasUnactuatedTile && Main.tile[dustPosXWorld, dustPosYWorld].WallType == 0)
                 {
-                    int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
+                    int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Main.rand.Next(Leaves), Scale);
                     Main.gore[LeafGore].rotation = 0f;
                     Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(0.5f, 3.5f);
                     Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);
@@ -130,7 +130,7 @@ namespace Spooky.Content.Biomes
                 int dustPosYWorld = SpawnY / 16;
                 if (WorldGen.InWorld(dustPosXWorld, dustPosYWorld) && Main.tile[dustPosXWorld, dustPosYWorld] != null && !Main.tile[dustPosXWorld, dustPosYWorld].HasUnactuatedTile && Main.tile[dustPosXWorld, dustPosYWorld].WallType == 0)
                 {
-                    int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Leaves[Main.rand.Next(3)], Scale);
+                    int LeafGore = Gore.NewGore(null, new Vector2(SpawnX, SpawnY), Vector2.Zero, Main.rand.Next(Leaves), Scale);
                     Main.gore[LeafGore].rotation = 0f;
                     Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-0.5f, -3.5f);
                     Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.5f, 1.2f);

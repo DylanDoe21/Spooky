@@ -65,7 +65,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             NPC.damage = 50;
 			NPC.defense = 40;
 			NPC.width = 104;
-			NPC.height = 46;
+			NPC.height = 42;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
 			NPC.noGravity = true;
@@ -128,6 +128,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			{
 				NPC.frame.Y = 0 * frameHeight;
 			}
+		}
+
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return false;
 		}
 
         public override void AI()

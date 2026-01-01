@@ -122,15 +122,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
 				}
             }
 
-			if (!isAttacking && Projectile.Distance(new Vector2(player.Center.X, player.Center.Y - 100)) >= 50)
+			if (!isAttacking)
             {
                 IdleAI(player);
-            }
-
-            //teleport to the player if they get too far
-            if (Projectile.Distance(player.Center) > 1200f)
-            {
-                Projectile.position = player.Center;
             }
 
             //prevent Projectiles clumping together
@@ -174,6 +168,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
         public void IdleAI(Player player)
 		{
             Vector2 PlayerGoTo = new Vector2(player.Center.X, player.Center.Y - 100);
+
+            if (Projectile.Distance(player.Center) > 2000f)
+            {
+                Projectile.Center = player.Center;
+            }
 
             if (Projectile.Distance(PlayerGoTo) <= 50f)
             {

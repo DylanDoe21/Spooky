@@ -32,7 +32,6 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.behindTiles = true;
             NPC.HitSound = SoundID.NPCHit18;
         }
 

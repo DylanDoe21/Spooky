@@ -23,15 +23,15 @@ namespace Spooky.Content.Items.SpookyHell.Sentient
 			Item.channel = true;
 			Item.width = 62;
 			Item.height = 56;
-			Item.useTime = 20;
-			Item.useAnimation = 20;
+			Item.useTime = 16;
+			Item.useAnimation = 16;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 8;
             Item.rare = ModContent.RarityType<SentientRarity>();
             Item.value = Item.buyPrice(gold: 30);
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<SentientKeybrandProj>();
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 20f;
         }
 
 		public override bool MeleePrefix() 

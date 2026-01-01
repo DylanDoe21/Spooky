@@ -502,7 +502,6 @@ namespace Spooky.Core
 
 							if (Main.hardMode)
 							{
-								pool.Add(ModContent.NPCType<FishingSpider>(), 1);
 								pool.Add(ModContent.NPCType<OrbWeaverGiant>(), 1);
 								pool.Add(ModContent.NPCType<TarantulaHawk1>(), 1);
 								pool.Add(ModContent.NPCType<TarantulaHawk2>(), 1);
@@ -511,6 +510,11 @@ namespace Spooky.Core
 								pool.Add(ModContent.NPCType<TrapdoorSpiderIdle2>(), 1);
 								pool.Add(ModContent.NPCType<WhipSpider>(), 1);
 								pool.Add(ModContent.NPCType<WolfSpider>(), 2);
+
+								if (spawnInfo.Water)
+								{
+									pool.Add(ModContent.NPCType<FishingSpider>(), 3);
+								}
 							}
 						}
 					}

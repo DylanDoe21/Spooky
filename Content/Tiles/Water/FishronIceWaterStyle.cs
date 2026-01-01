@@ -13,11 +13,11 @@ namespace Spooky.Content.Tiles.Water
 
 		public override int GetSplashDust() => DustID.ToxicBubble;
 
-		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/SpookyWaterDroplet").Type;
+		public override int GetDropletGore() => ModContent.Find<ModGore>("Spooky/FishronIceWaterDroplet").Type;
 
 		public override Asset<Texture2D> GetRainTexture() 
 		{
-			return ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/FishronIceRain");
+			return ModContent.Request<Texture2D>("Spooky/Content/Tiles/Water/FishronIceRain");
 		}
 		
 		public override byte GetRainVariant() 
@@ -27,8 +27,8 @@ namespace Spooky.Content.Tiles.Water
 
 		public override void LightColorMultiplier(ref float r, ref float g, ref float b)
 		{
-			r = 1f;
-			g = 1f;
+			r = 0.94f;
+			g = 0.96f;
 			b = 1f;
 		}
 

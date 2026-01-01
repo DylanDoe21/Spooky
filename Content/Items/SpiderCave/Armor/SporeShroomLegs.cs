@@ -9,6 +9,11 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 	[AutoloadEquip(EquipType.Legs)]
 	public class SporeShroomLegs : ModItem
 	{
+		public override void SetStaticDefaults()
+        {
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SporeShroomHead>();
+		}
+
 		public override void SetDefaults() 
 		{
 			Item.defense = 10;

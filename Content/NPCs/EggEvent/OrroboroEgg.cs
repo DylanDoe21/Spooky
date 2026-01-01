@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Orroboro;
 
@@ -351,6 +352,8 @@ namespace Spooky.Content.NPCs.EggEvent
                         {
                             NetMessage.SendData(MessageID.WorldData);
                         }
+
+                        ModContent.GetInstance<EventAchievementEggEvent>().EggEventCondition.Complete();
 
                         NPC.ai[3] = 0;
 

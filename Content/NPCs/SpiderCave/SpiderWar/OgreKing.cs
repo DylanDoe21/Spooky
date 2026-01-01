@@ -209,6 +209,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			}
 		}
 
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return NPC.ai[0] == 1;
+		}
+
 		public override void AI()
 		{
 			NPC.TargetClosest(true);

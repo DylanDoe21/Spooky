@@ -891,7 +891,7 @@ PandoraCuffs: {
 	Tooltip:
 		'''
 		Every 15 seconds, a chain will attach itself to a nearby enemy for 5 seconds
-		Enemies attached to the chain will take 18% more damage
+		Enemies attached to the chain will take 20% more damage
 		The chain will also prioritize bosses over normal enemies
 		'Suffering builds character'
 		'''
@@ -1404,6 +1404,11 @@ GourdFish: {
 HibiscusFish: {
 	DisplayName: Swimming Hibiscus
 	Tooltip: "'Caught in Creepy Catacombs'"
+}
+
+SphiderFish: {
+	DisplayName: Sphider Fish
+	Tooltip: "'Caught in Spider Grotto'"
 }
 
 SpookySpiritFish: {
@@ -2383,7 +2388,7 @@ SummonItem4: {
 }
 
 MortarBody: {
-	DisplayName: Weaver Shellplate
+	DisplayName: Mortar Shellplate
 	Tooltip:
 		'''
 		15% increased damage
@@ -2393,22 +2398,22 @@ MortarBody: {
 }
 
 MortarHead: {
-	DisplayName: Weaver Shellmet
+	DisplayName: Mortar Shellmet
 	Tooltip:
 		'''
 		10% increased critical strike chance
 		8% reduced mana cost
-		5% increased damage reduction
+		2% increased damage reduction
 		'''
 }
 
 MortarLegs: {
-	DisplayName: Weaver Shellegs
+	DisplayName: Mortar Shellegs
 	Tooltip:
 		'''
 		Increases your max minions and sentries by 1
 		7% increased attack speed
-		5% increased damage reduction
+		3% increased damage reduction
 		'''
 }
 
@@ -2452,6 +2457,21 @@ SpiderLegs: {
 		15% increased movement speed
 		Increases your movement acceleration and jump height
 		'''
+}
+
+SporeShroomBody: {
+	DisplayName: Chestplate-Shaped Mushroom
+	Tooltip: ""
+}
+
+SporeShroomHead: {
+	DisplayName: Helmet-Shaped Mushroom
+	Tooltip: ""
+}
+
+SporeShroomLegs: {
+	DisplayName: Legging-Shaped Mushroom
+	Tooltip: ""
 }
 
 GrottoCompass: {
@@ -3351,8 +3371,8 @@ SentientKeybrand: {
 	DisplayName: Molar Mauler
 	Tooltip:
 		'''
-		Swing twice, then throw the mauler as a boomerang
-		Hitting enemies may permanently lower their defense by one point, up to 15 total
+		Swing twice, then throw it as a boomerang
+		Hitting enemies may permanently lower their defense by 1, up to 15 total
 		Deals more damage to enemies below half health
 		'Should be brought to a dentist regularly'
 		'''
@@ -6362,22 +6382,47 @@ PetCommander: {
 		'''
 }
 
-SporeShroomBody: {
-	DisplayName: Chestplate-Shaped Mushroom
-	Tooltip: ""
-}
-
-SporeShroomHead: {
-	DisplayName: Helmet-Shaped Mushroom
-	Tooltip: ""
-}
-
-SporeShroomLegs: {
-	DisplayName: Legging-Shaped Mushroom
-	Tooltip: ""
-}
-
 Converter: {
 	DisplayName: Converter
+	Tooltip: ""
+}
+
+WaterFountainEyeValleyItem: {
+	Tooltip: ""
+	DisplayName: Eye Valley Water Fountain
+}
+
+WaterFountainRaveItem: {
+	DisplayName: Raveyard Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainSpookFishronItem: {
+	DisplayName: Spook Fishron Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainSpookFishronXmasItem: {
+	DisplayName: Spook Fishron Frost Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainSpookyItem: {
+	DisplayName: Spooky Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainTarItem: {
+	DisplayName: Tar Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainZombieItem: {
+	DisplayName: Rotten Depths Water Fountain
+	Tooltip: ""
+}
+
+GrottoCrate: {
+	DisplayName: Grotto Crate
 	Tooltip: ""
 }

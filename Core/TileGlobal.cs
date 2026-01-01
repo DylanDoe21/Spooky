@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 
 using Spooky.Content.Dusts;
+using Spooky.Content.Gores.Misc;
 using Spooky.Content.Items.Minibiomes.Desert;
 using Spooky.Content.NPCs.Minibiomes.Desert.Projectiles;
 using Spooky.Content.Tiles.Catacomb;
@@ -62,16 +63,34 @@ namespace Spooky.Core
 
 		public override void NearbyEffects(int i, int j, int type, bool closer)
 		{
-			//spawn autumn leaves from spider grotto trees
-			if (Main.rand.NextBool(120) && !Main.gamePaused && Main.instance.IsActive && closer)
+			//tree stuff
+			if (!Main.gamePaused && Main.instance.IsActive && closer)
 			{
-				if (!Main.tile[i, j - 1].HasTile && Main.tile[i, j].TileType == TileID.Trees && Main.tile[i, j + 1].TileType == TileID.Trees &&
-				Main.tile[i, j + 2].TileType == TileID.Trees && Main.tile[i, j + 3].TileType == TileID.Trees)
+				Tile tile = Framing.GetTileSafely(i, j);
+
+				//spawn autumn leaves from spider grotto trees
+				if (Main.rand.NextBool(50))
 				{
-					if (GetTileTreeIsOn(i, j) == ModContent.TileType<DampGrass>())
+					if (tile.TileType == TileID.Trees && GetTileTreeIsOn(i, j) == ModContent.TileType<DampGrass>() && tile.TileFrameX >= 22 && tile.TileFrameX < 44 && tile.TileFrameY >= 198)
 					{
-						Dust.NewDustPerfect(new Vector2((i * 16) + Main.rand.Next(-50, 55), (j * 16) + Main.rand.Next(-75, -25)), ModContent.DustType<GrottoTreeLeaf>());
+						int[] Leaves = new int[] { ModContent.GoreType<LeafGrottoRed>(), ModContent.GoreType<LeafGrottoOrange>(), ModContent.GoreType<LeafGrottoYellow>() };
+
+						int LeafGore = Gore.NewGore(null, new Vector2((i * 16) + Main.rand.Next(-50, 55), (j * 16) + Main.rand.Next(-75, -25)), Vector2.Zero, Main.rand.Next(Leaves), 1f);
+						Main.gore[LeafGore].velocity.X = Main.rand.NextFloat(-3.5f, 3.5f);
+						Main.gore[LeafGore].velocity.Y = Main.rand.NextFloat(0.05f, 1.2f);
 					}
+				}
+
+				//grotto mushroom trees produce red light at the top
+				if (tile.TileType == TileID.Trees && GetTileTreeIsOn(i, j) == ModContent.TileType<DampMushroomGrass>() && tile.TileFrameX >= 22 && tile.TileFrameY >= 198)
+				{
+					float divide = 300f;
+
+					float r = 255f / divide;
+					float g = 111f / divide;
+					float b = 111f / divide;
+
+					Lighting.AddLight(new Vector2(i, j) * 16, new Vector3(r, g, b));
 				}
 			}
 		}
@@ -139,6 +158,7 @@ namespace Spooky.Core
 			{
 				return -1;
 			}
+
 			return Framing.GetTileSafely(x, y).TileType;
 		}
 

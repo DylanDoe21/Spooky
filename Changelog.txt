@@ -24,12 +24,16 @@ New tar pits content:
 ~Changes to existing stuff~
 
 Items:
--Buffed licker damage from 48 to 55
--Nerfed glass eye damage increase from 25% to 15%
--Nerfed old hunter scarf damage increase from 20% to 10%
--Nerfed dutchman pipe damage increase from 25% to 10%
--Nerfed samson's cuff damage multiplier from 50% to 18%
+-Nerfed glass eye damage increase against enemies from 25% to 15%
+-Nerfed old hunter scarf damage increase against enemies from 20% to 10%
+-Nerfed dutchman pipe damage increase against enemies from 25% to 10%
+-Nerfed samson's cuff damage increase against enemies from 50% to 20%
 -Nerfed yuletide wood leggings magic attack speed increase from 20% to 10%
+-Skull smasher left click now goes through enemies instead of immediately returning to you when hitting an enemy
+-Buffed damage done by skull smashed right click when you throw the hammer
+-Buffed licker damage from 48 to 55
+-Living caduceus minions now deal way more damage when they explode themselves after targetting an enemy for long enough
+-Molar mauler swing speed increased, and when thrown it now travels faster and returns to you faster
 -Lowered volume on EMF reader sounds
 -Lowered volume on ear parasite companion screeching a lot
 
@@ -40,6 +44,7 @@ Random Stuff:
 -Removed random lightning flash/sounds in the swampy cemetery
 -Reduced graveyard desaturation effect in the swampy cemetery a little bit
 -Bloom soil now generates in clumps in various spooky mod biomes, it still can be crafted but finding it in the world makes it easier to find, and more intuitive for players to get into the blooms mechanic
+-Spooky mod biome chests no longer generate in the dungeon, they are now in a room in second layer in the catacombs
 
 Bug/Issue Fixes:
 -Spooky mod couches, benches, and clocks not having highlights

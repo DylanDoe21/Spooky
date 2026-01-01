@@ -137,4 +137,28 @@ namespace Spooky.Content.Gores.Misc
 			return false;
 		}
 	}
+
+	public class ZombieWaterDroplet : SpookyWaterDroplet
+	{
+	}
+
+	public class TarWaterDroplet : SpookyWaterDroplet
+	{
+	}
+
+	public class LeanWaterDroplet : SpookyWaterDroplet
+	{
+	}
+
+	public class FishronWaterDroplet : SpookyWaterDroplet
+	{
+	}
+
+	public class FishronIceWaterDroplet : SpookyWaterDroplet
+	{
+	}
+
+	public class BloodWaterDroplet : SpookyWaterDroplet
+	{
+	}
 }

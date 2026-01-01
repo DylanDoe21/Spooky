@@ -54,12 +54,12 @@ namespace Spooky.Content.Items.SpiderCave
 			{
 				for (int numProjs = 0; numProjs < 5; numProjs++)
 				{
-					Vector2 newVelocity = new Vector2(velocity.X / Main.rand.NextFloat(2f, 3f), velocity.Y / Main.rand.NextFloat(2f, 3f)).RotatedByRandom(MathHelper.ToRadians(25));
+					Vector2 newVelocity = new Vector2(velocity.X / Main.rand.NextFloat(1f, 1.15f), velocity.Y / Main.rand.NextFloat(1f, 1.15f)).RotatedByRandom(MathHelper.ToRadians(12));
 
 					Projectile.NewProjectile(source, position, newVelocity, ModContent.ProjectileType<SniperBoltPurple>(), damage / 3, knockback, player.whoAmI, ai0: Main.rand.Next(0, 9));
 				}
 			}
-			//left click shoots a fast 
+			//left click shoots a fast sniper bolt
 			else
 			{
 				Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SniperBoltGreen>(), damage, knockback, player.whoAmI);

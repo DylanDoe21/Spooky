@@ -105,12 +105,12 @@ namespace Spooky.Content.Projectiles.Sentient
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] >= 20 && Projectile.ai[0] < 60)
+            if (Projectile.ai[0] >= 20 && Projectile.ai[0] < 30)
             {
-                Projectile.velocity *= 0.95f;
+                Projectile.velocity *= 0.8f;
             }
 
-            if (Projectile.ai[0] >= 60)
+            if (Projectile.ai[0] >= 30)
             {
                 //remove knockback here so the projectile doesnt fling enemies directly towards you when returning
                 Projectile.knockBack = 0;

@@ -87,9 +87,9 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
             {
                 float divide = 300f;
 
-                r = 255f / divide;
-                g = 196f / divide;
-                b = 0f / divide;
+                r = 227f / divide;
+                g = 171f / divide;
+                b = 13f / divide;
             }
         }
 

@@ -27,11 +27,21 @@ namespace Spooky.Content.Tiles.SpiderCave
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
+            Main.tileLighted[Type] = true;
             AddMapEntry(new Color(204, 223, 216));
             RegisterItemDrop(ModContent.ItemType<DampSoilItem>());
             DustType = DustID.Smoke;
 			MineResist = 0.1f;
 		}
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			float divide = 700f;
+
+			r = 204f / divide;
+			g = 223f / divide;
+			b = 216f / divide;
+        }
 
         public override bool HasWalkDust() 
         {
@@ -64,23 +74,13 @@ namespace Spooky.Content.Tiles.SpiderCave
 			Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);
 
-			if (!Below.HasTile && Below.LiquidAmount <= 0 && !Tile.BottomSlope) 
-            {
-                //grow vines
-                if (Main.rand.NextBool(15)) 
-                {
-                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<DampMushroomVines>(), true);
-					NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
-				}
-            }
-
 			if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow small weeds
                 if (Main.rand.NextBool(4))
                 {
                     WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<DampMushroomWeeds>(), true);
-                    Above.TileFrameX = (short)(WorldGen.genRand.Next(9) * 18);
+                    Above.TileFrameX = (short)(WorldGen.genRand.Next(21) * 18);
 					NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
 				}
 
@@ -88,10 +88,8 @@ namespace Spooky.Content.Tiles.SpiderCave
                 if (Main.rand.NextBool(25))
                 {
                     ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue>(), (ushort)ModContent.TileType<MushroomRedBrown>(),
-                    (ushort)ModContent.TileType<MushroomBrown>(), (ushort)ModContent.TileType<MushroomYellow>(), 
-                    (ushort)ModContent.TileType<MushroomGreen>(), (ushort)ModContent.TileType<MushroomPurple>(),
-                    (ushort)ModContent.TileType<MushroomRed>(), (ushort)ModContent.TileType<MushroomTeal>(), 
-                    (ushort)ModContent.TileType<MushroomWhite>() };
+                    (ushort)ModContent.TileType<MushroomYellow>(), (ushort)ModContent.TileType<MushroomGreen>(), (ushort)ModContent.TileType<MushroomPurple>(),
+                    (ushort)ModContent.TileType<MushroomRed>(), (ushort)ModContent.TileType<MushroomTeal>() };
 
                     ushort newObject = Main.rand.Next(Mushrooms);
 
@@ -100,11 +98,21 @@ namespace Spooky.Content.Tiles.SpiderCave
                 }
 
                 //friend mushroom
-                if (Main.rand.NextBool(50) && Flags.SporeEventHappening)
+                if (Main.rand.NextBool(35) && Flags.SporeEventHappening)
                 {
                     ushort newObject = (ushort)ModContent.TileType<MushroomFriendTile>();
 
                     WorldGen.PlaceObject(i, j - 1, newObject);
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+                //mushroom armor
+                if (Main.rand.NextBool(20) && Flags.SporeEventHappening)
+                {
+                    ushort[] ArmorMushrooms = new ushort[] { (ushort)ModContent.TileType<SporeShroomBodyTile>(), (ushort)ModContent.TileType<SporeShroomHeadTile>(), (ushort)ModContent.TileType<SporeShroomLegsTile>() };
+
+                    ushort newObject = Main.rand.Next(ArmorMushrooms);
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true, WorldGen.genRand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
                 }
 			}

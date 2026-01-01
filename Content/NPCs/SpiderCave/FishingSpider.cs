@@ -20,8 +20,6 @@ namespace Spooky.Content.NPCs.SpiderCave
 	{
 		List<FishingSpiderLeg> legs;
 
-		Vector2 SavePosition = Vector2.Zero;
-
 		private static Asset<Texture2D> NPCTexture;
 		private static Asset<Texture2D> GlowTexture;
 
@@ -64,7 +62,7 @@ namespace Spooky.Content.NPCs.SpiderCave
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			if (legs != null)
+			if (legs != null && NPC.localAI[0] > 0)
 			{
 				for (int i = 0; i < legs.Count; i++)
 				{
@@ -108,17 +106,35 @@ namespace Spooky.Content.NPCs.SpiderCave
 
 		public override void AI()
 		{
-			NPC.TargetClosest(true);
-            Player player = Main.player[NPC.target];
-
 			NPC.rotation = NPC.velocity.ToRotation();
 
-			UpdateSpiderLegs();
+			if (NPC.localAI[0] <= 0)
+			{
+				Player player = Main.LocalPlayer;
 
-			SavePosition = Vector2.Zero;
+				NPC.aiStyle = 16;
+				AIType = NPCID.Goldfish;
+				NPC.noTileCollide = false;
 
-			Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
-			NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+				bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+				if ((HasLineOfSight && player.Distance(NPC.Center) <= 350f) || NPC.life < NPC.lifeMax)
+				{
+					NPC.localAI[0]++;
+				}
+			}
+			else
+			{
+				NPC.TargetClosest(true);
+            	Player player = Main.player[NPC.target];
+
+				NPC.aiStyle = -1;
+				NPC.noTileCollide = true;
+
+				UpdateSpiderLegs();
+
+				Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
+				NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+			}
 		}
 
 		public override void HitEffect(NPC.HitInfo hit) 

@@ -694,3 +694,8 @@ InkyCapDebuff: {
 	DisplayName: Inky Cap Debuff
 	Description: ""
 }
+
+SamsonCuffDebuff: {
+	DisplayName: Samson Cuff Debuff
+	Description: ""
+}

@@ -16,6 +16,11 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 
 		public Vector2 Offset => new Vector2(-3f, 20f);
 
+		public override void SetStaticDefaults()
+        {
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SporeShroomBody>();
+		}
+
 		public override void SetDefaults() 
 		{
 			Item.defense = 12;

@@ -38,13 +38,18 @@ BossAchievementBigBone: {
 	Description: Defeat Big Bone, the botanical brute locked away in the deepest depths of the catacombs.
 }
 
+EventAchievementEggEvent: {
+	FriendlyName: Over Not-So Easy
+	Description: Survive the egg incursion's onslaught of fleshy abominations.
+}
+
 MinibossAchievementBigDunk: {
 	FriendlyName: Tummy Troubles
 	Description: Feed the sea mine to Big Dunk, sending him to re-extinction.
 }
 
 MiscAchievementTurkeyTamed: {
-	FriendlyName: First Thank Giving
+	FriendlyName: First Thanksgiving
 	Description: Tame a wild turkey using rotten seeds from the spooky forest. It is very friendly!
 }
 

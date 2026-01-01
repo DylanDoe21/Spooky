@@ -30,4 +30,16 @@ namespace Spooky.Content.Gores.Misc
 	public class LeafTeal : LeafGreen
 	{
 	}
+
+	public class LeafGrottoRed : LeafGreen
+	{
+	}
+
+	public class LeafGrottoOrange : LeafGreen
+	{
+	}
+
+	public class LeafGrottoYellow : LeafGreen
+	{
+	}
 }

@@ -94,6 +94,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             return false;
         }
 
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return false;
+		}
+
 		public override bool PreAI()
         {
             NPC Parent = Main.npc[(int)NPC.ai[3]];

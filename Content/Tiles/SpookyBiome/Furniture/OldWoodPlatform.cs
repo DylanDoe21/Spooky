@@ -10,7 +10,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 	{
 		public override void SetStaticDefaults() 
         {
-			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
 			Main.tileSolid[Type] = true;

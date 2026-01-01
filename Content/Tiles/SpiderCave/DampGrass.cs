@@ -25,7 +25,7 @@ namespace Spooky.Content.Tiles.SpiderCave
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(200, 169, 103));
+            AddMapEntry(new Color(139, 138, 74));
             RegisterItemDrop(ModContent.ItemType<DampSoilItem>());
             DustType = ModContent.DustType<DampGrassDust>();
 			MineResist = 0.1f;
@@ -81,10 +81,8 @@ namespace Spooky.Content.Tiles.SpiderCave
                 if (Main.rand.NextBool(50))
                 {
                     ushort[] Mushrooms = new ushort[] { (ushort)ModContent.TileType<MushroomBlue>(), (ushort)ModContent.TileType<MushroomRedBrown>(),
-                    (ushort)ModContent.TileType<MushroomBrown>(), (ushort)ModContent.TileType<MushroomYellow>(), 
-                    (ushort)ModContent.TileType<MushroomGreen>(), (ushort)ModContent.TileType<MushroomPurple>(),
-                    (ushort)ModContent.TileType<MushroomRed>(), (ushort)ModContent.TileType<MushroomTeal>(), 
-                    (ushort)ModContent.TileType<MushroomWhite>() };
+                    (ushort)ModContent.TileType<MushroomYellow>(), (ushort)ModContent.TileType<MushroomGreen>(), (ushort)ModContent.TileType<MushroomPurple>(),
+                    (ushort)ModContent.TileType<MushroomRed>(), (ushort)ModContent.TileType<MushroomTeal>() };
 
                     ushort newObject = Main.rand.Next(Mushrooms);
 
@@ -93,9 +91,19 @@ namespace Spooky.Content.Tiles.SpiderCave
                 }
 
                 //friend mushroom
-                if (Main.rand.NextBool(50) && Flags.SporeEventHappening)
+                if (Main.rand.NextBool(45) && Flags.SporeEventHappening)
                 {
                     ushort newObject = (ushort)ModContent.TileType<MushroomFriendTile>();
+
+                    WorldGen.PlaceObject(i, j - 1, newObject, true, WorldGen.genRand.Next(0, 2));
+                    NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+                }
+                //mushroom armor
+                if (Main.rand.NextBool(20) && Flags.SporeEventHappening)
+                {
+                    ushort[] ArmorMushrooms = new ushort[] { (ushort)ModContent.TileType<SporeShroomBodyTile>(), (ushort)ModContent.TileType<SporeShroomHeadTile>(), (ushort)ModContent.TileType<SporeShroomLegsTile>() };
+
+                    ushort newObject = Main.rand.Next(ArmorMushrooms);
 
                     WorldGen.PlaceObject(i, j - 1, newObject, true, WorldGen.genRand.Next(0, 2));
                     NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);

@@ -43,7 +43,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
 			if (!Item.wet)
 			{
 				float divide = 300f;
-				Lighting.AddLight(Item.Center, new Vector3(255f / divide, 196f / divide, 0f / divide));
+				Lighting.AddLight(Item.Center, new Vector3(227f / divide, 171f / divide, 13f / divide));
 			}
 		}
 

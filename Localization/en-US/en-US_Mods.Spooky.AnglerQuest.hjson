@@ -42,3 +42,8 @@ ZomboidFish: {
 	Description: Those stupid brain-dead zomboids that walk around in the spooky forest are really ugly. What's even uglier is the elusive zomboid fish, which I think you should find for me!
 	CatchLocation: Caught in the Spooky Forest
 }
+
+SphiderFish: {
+	Description: I've heard that there's a large grotto with a bunch of really dumb spiders that have all sorts of adaptations! The others don't believe me when I told them there's one that swims in the water. Get one for me so I can scare them with it!
+	CatchLocation: Caught in the Spider grotto
+}

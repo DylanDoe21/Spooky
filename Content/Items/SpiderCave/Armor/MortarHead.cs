@@ -39,7 +39,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		{
             player.GetCritChance(DamageClass.Generic) += 10;
 			player.manaCost -= 0.08f;
-			player.endurance += 0.05f;
+			player.endurance += 0.02f;
         }
 	}
 }

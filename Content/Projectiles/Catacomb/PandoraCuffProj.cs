@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Content.Buffs.Debuff;
+
 namespace Spooky.Content.Projectiles.Catacomb
 {
     public class PandoraCuffProj : ModProjectile
@@ -93,7 +95,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (!IsStickingToTarget && Projectile.Hitbox.Intersects(target.Hitbox))
             {
-                Projectile.velocity *= 0;
+                Projectile.velocity = Vector2.Zero;
                 IsStickingToTarget = true;
                 Projectile.netUpdate = true;
             }
@@ -103,11 +105,10 @@ namespace Spooky.Content.Projectiles.Catacomb
                 if (target.active && !target.dontTakeDamage) 
                 {
                     Projectile.Center = target.Center;
-                    target.takenDamageMultiplier = 1.18f;
+                    target.AddBuff(ModContent.BuffType<SamsonCuffDebuff>(), 2);
                 }
                 else 
                 {
-                    target.takenDamageMultiplier = 1f;
                     Projectile.Kill();
                 }
 			}

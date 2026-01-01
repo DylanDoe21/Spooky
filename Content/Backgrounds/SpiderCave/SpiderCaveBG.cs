@@ -63,7 +63,7 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                 float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;
                 float Scale = 1.5f;
 
-                for (int Layers = 4; Layers >= 0; Layers--)
+                for (int Layers = 5; Layers >= 0; Layers--)
                 {
                     //get each background texture
                     Texture2D BGTexture = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBG" + Layers).Value;
@@ -74,31 +74,44 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                     Rectangle rectangle = new Rectangle(0, 0, BGTexture.Width, BGTexture.Height);
                     Vector2 zero = Vector2.Zero;
 
+					Color drawColor = Color.White;
+
                     switch (Layers)
                     {
                         case 0:
                         {
-                            zero.Y -= 550f;
+							drawColor = new Color(30, 30, 30);
+                            zero.Y -= 400f;
                             break;
                         }
                         case 1:
                         {
-                            zero.Y -= 70f;
+							drawColor = new Color(30, 30, 30);
+                            zero.Y += 20f;
                             break;
                         }
                         case 2:
                         {
-                            zero.Y += 350f;
+							drawColor = new Color(60, 60, 60);
+                            zero.Y += 220f;
                             break;
                         }
                         case 3:
                         {
+							drawColor = new Color(80, 80, 80);
                             zero.Y += 0f;
                             break;
                         }
                         case 4:
                         {
-                            zero.Y -= 20f;
+							drawColor = new Color(120, 120, 120);
+                            zero.Y += 150f;
+                            break;
+                        }
+                        case 5:
+                        {
+							drawColor = Color.DimGray * 0.5f;
+                            zero.Y -= 150f;
                             break;
                         }
                     }
@@ -115,9 +128,9 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
 
                         var frame = rectangle;
-						var clr = (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive ? new Color(25, 25, 25) : new Color(70, 57, 44)) * Transparency;
+						var color = (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive ? new Color(25, 25, 25) : drawColor) * Transparency;
 
-                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, clr, 0f, zero, Scale, SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, color, 0f, zero, Scale, SpriteEffects.None, 0f);
 
                         /*
                         if (Layers == 2)
@@ -158,14 +171,14 @@ namespace Spooky.Content.Backgrounds.SpiderCave
 
                         if (WarLightBeamOpacity > 0f && Layers != 0)
                         {
-							float Rotation = Main.GlobalTimeWrappedHourly * 0.12f * (Layers % 2 == 0 ? -1 : 1);
+							float Rotation = Main.GlobalTimeWrappedHourly * 0.15f * (Layers % 2 == 0 ? -1 : 1);
 
 							Vector2 drawPositionBeam = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2;
 
-							Texture2D BeamTextureTop = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam").Value;
+							Texture2D BeamTexture = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderWarLightCone").Value;
 
-							Main.spriteBatch.Draw(BeamTextureTop, drawPositionBeam + new Vector2(0, 1620 - zero.Y), null, Color.White * WarLightBeamOpacity * 0.25f,
-							MathF.Sin(Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), 1f, SpriteEffects.None, 0f);
+							Main.spriteBatch.Draw(BeamTexture, drawPositionBeam + new Vector2(0, 1350 - zero.Y), null, new Color(255, 255, 255, 0) * WarLightBeamOpacity * 0.25f,
+							MathF.Sin(Rotation), new Vector2(BeamTexture.Width / 2, BeamTexture.Height), 1f, SpriteEffects.None, 0f);
 						}
 					}
                 }

@@ -23,6 +23,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
+			Main.tileLighted[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
             TileObjectData.newTile.Width = 3;
 			TileObjectData.newTile.Height = 3;
@@ -37,6 +38,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			DustType = 288;
             HitSound = SoundID.Dig;
 		}
+		
+		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			float divide = 450f;
+
+			r = 112f / divide;
+			g = 117f / divide;
+			b = 200f / divide;
+        }
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
@@ -50,10 +60,10 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 
 		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
 		{
-			if (Flags.SporeEventHappening && Main.rand.NextBool(50) && !Main.tile[i, j - 1].HasTile && !Main.gamePaused && Main.instance.IsActive)
+			if (Flags.SporeEventHappening && Main.rand.NextBool(75) && !Main.tile[i, j - 1].HasTile && !Main.gamePaused && Main.instance.IsActive)
 			{
 				int newDust = Dust.NewDust(new Vector2((i) * 16, (j + 1) * 16), 1, 1, ModContent.DustType<MushroomSpore>());
-				Main.dust[newDust].color = new Color(118, 97, 217);
+				Main.dust[newDust].color = new Color(0, 114, 255);
 			}
 		}
 	}
@@ -67,6 +77,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 			Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
+			Main.tileLighted[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
             TileObjectData.newTile.Width = 3;
 			TileObjectData.newTile.Height = 3;
@@ -82,6 +93,15 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             HitSound = SoundID.Dig;
 		}
 
+		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			float divide = 450f;
+
+			r = 255f / divide;
+			g = 137f / divide;
+			b = 96f / divide;
+        }
+
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpiderCave/Ambient/MushroomRedBrownGlow");
@@ -94,10 +114,10 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 
 		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
 		{
-			if (Flags.SporeEventHappening && Main.rand.NextBool(50) && !Main.tile[i, j - 1].HasTile && !Main.gamePaused && Main.instance.IsActive)
+			if (Flags.SporeEventHappening && Main.rand.NextBool(75) && !Main.tile[i, j - 1].HasTile && !Main.gamePaused && Main.instance.IsActive)
 			{
 				int newDust = Dust.NewDust(new Vector2((i) * 16, (j + 1) * 16), 1, 1, ModContent.DustType<MushroomSpore>());
-				Main.dust[newDust].color = new Color(156, 97, 77);
+				Main.dust[newDust].color = new Color(217, 121, 62);
 			}
 		}
 	}
