@@ -652,7 +652,9 @@ namespace Spooky.Core
 
                     Vector2 Velocity = new Vector2(0, Main.rand.Next(-18, -7)).RotatedByRandom(MathHelper.ToRadians(40));
 
-                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), Player.Center, Velocity, ModContent.ProjectileType<MortarArmorRocket>(), damageDone, 0, Player.whoAmI);
+                    int RealDamage = damageDone < 50 ? 50 : damageDone;
+
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), Player.Center, Velocity, ModContent.ProjectileType<MortarArmorRocket>(), RealDamage, 0, Player.whoAmI);
                 }
             }
         }
