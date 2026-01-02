@@ -57,3 +57,8 @@ MiscAchievementGourdCarve: {
 	FriendlyName: Rot-O'-Lantern
 	Description: Carve one of the nasty moldy gourds in the spooky forest. Even though it still smells putrid, at least it has the halloween spirit!
 }
+
+MiscAchievementKrampusHired: {
+	FriendlyName: You're Hired!
+	Description: Meet krampus and get hired by him to deliver his presents to townsfolk.
+}

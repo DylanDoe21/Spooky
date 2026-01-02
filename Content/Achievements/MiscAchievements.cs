@@ -31,4 +31,15 @@ namespace Spooky.Content.Achievements
             CarvedRottenGourdCondition = AddCondition();
         }
     }
+
+    public class MiscAchievementKrampusHired : ModAchievement
+    {
+        public CustomFlagCondition KrampusHiredCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            KrampusHiredCondition = AddCondition();
+        }
+    }
 }

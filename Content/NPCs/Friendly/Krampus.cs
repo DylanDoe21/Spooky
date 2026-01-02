@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Items.Minibiomes.Christmas;
 using Spooky.Content.Tiles.Pylon;
 using Spooky.Content.UserInterfaces;
@@ -671,6 +672,11 @@ namespace Spooky.Content.NPCs.Friendly
 
 		private void EndDialogue(Dialogue dialogue, int ID)
 		{
+			if (!Flags.KrampusQuest1)
+			{
+				ModContent.GetInstance<MiscAchievementKrampusHired>().KrampusHiredCondition.Complete();
+			}
+
 			PlayerTalkingTo = null;
 			DialogueUI.Visible = false;
 			Expression = 0;
