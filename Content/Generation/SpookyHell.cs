@@ -391,15 +391,6 @@ namespace Spooky.Content.Generation
 									}
 								}
 							}
-							else
-							{
-								if (WorldGen.genRand.NextBool(3) && Y >= WaterHeightLimit + 25)
-								{
-									double RootAngle = Y / 3.0 * 2.0 + 0.57075;
-									WorldUtils.Gen(new Point(X, Y), new ShapeRoot((int)RootAngle, WorldGen.genRand.Next(80, 120), WorldGen.genRand.Next(5, 8)),
-									Actions.Chain(new Actions.ClearTile(), new Actions.ClearWall(), new Actions.PlaceWall((ushort)ModContent.WallType<SpookyMushLakeWall>(), true)));
-								}
-							}
 						}
 					}
 				}
@@ -526,7 +517,8 @@ namespace Spooky.Content.Generation
             {
                 for (int j = Y - 5; j < Y + 5; j++)
                 {
-                    if (Main.tile[i, j].HasTile && (Main.tile[i, j].TileType == ModContent.TileType<EyeTree>() || Main.tile[i, j].TileType == ModContent.TileType<EyeTreeShort>()))
+                    if (Main.tile[i, j].HasTile && Main.tile[i, j].WallType != ModContent.WallType<SpookyMushLakeWall>() &&
+                    (Main.tile[i, j].TileType == ModContent.TileType<EyeTree>() || Main.tile[i, j].TileType == ModContent.TileType<EyeTreeShort>()))
                     {
                         return false;
                     }
@@ -739,8 +731,8 @@ namespace Spooky.Content.Generation
                 for (int Y = Main.maxTilesY - 200; Y <= Main.maxTilesY - 50; Y++)
                 {
                     //ground structures
-                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && 
-                    Main.tile[X + 1, Y].HasTile && Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile)
+                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && Main.tile[X + 1, Y].HasTile && 
+                    Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y - 2].HasTile && Main.tile[X, Y - 1].WallType != ModContent.WallType<SpookyMushLakeWall>())
                     {
                         if (WorldGen.genRand.NextBool(15) && CanPlaceStructure(X, Y))
                         {
@@ -775,8 +767,8 @@ namespace Spooky.Content.Generation
                     }
 
                     //ceiling structures
-                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && 
-                    Main.tile[X + 1, Y].HasTile && Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X, Y + 2].HasTile)
+                    if (Main.tile[X, Y].HasTile && Main.tile[X - 1, Y].HasTile && Main.tile[X - 2, Y].HasTile && Main.tile[X + 1, Y].HasTile && 
+                    Main.tile[X + 2, Y].HasTile && !Main.tile[X, Y + 1].HasTile && !Main.tile[X, Y + 2].HasTile && Main.tile[X, Y + 1].WallType != ModContent.WallType<SpookyMushLakeWall>())
                     {
                         if (WorldGen.genRand.NextBool(18) && CanPlaceStructure(X, Y))
                         {

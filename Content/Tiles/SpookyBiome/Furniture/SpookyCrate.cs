@@ -36,7 +36,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			return true;
 		}
 
-		public override void ModifyItemLoot(ItemLoot itemLoot) 
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
 			//main items
 			int[] spookyChestDrops = new int[] 
@@ -47,7 +47,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 				ModContent.ItemType<CreepyCandle>(),
 				ModContent.ItemType<CandyBag>(),
 				ModContent.ItemType<AutumnLeaf>(),
-				ModContent.ItemType<EggCarton>()
+				ModContent.ItemType<EggCarton>(),
+				ModContent.ItemType<WarlockWalkers>(),
+				ModContent.ItemType<MoldJar>()
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, spookyChestDrops));

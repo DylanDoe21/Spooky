@@ -13,6 +13,8 @@ using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Tameable;
+using Spooky.Content.UserInterfaces;
+using Spooky.Effects;
 
 namespace Spooky
 {
@@ -140,37 +142,55 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
-                case SpookyMessageType.BountyAccepted:
+                case SpookyMessageType.BountyAccepted1:
                 {
-                    Flags.BountyInProgress = true;
+                    Flags.BountyInProgress1 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.BountyAccepted2:
+                {
+                    Flags.BountyInProgress2 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.BountyAccepted3:
+                {
+                    Flags.BountyInProgress3 = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.BountyAccepted4:
+                {
+                    Flags.BountyInProgress4 = true;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
                 case SpookyMessageType.Bounty1Complete:
                 {
                     Flags.LittleEyeBounty1 = true;
-                    Flags.BountyInProgress = false;
+                    Flags.BountyInProgress1 = false;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
                 case SpookyMessageType.Bounty2Complete:
                 {
                     Flags.LittleEyeBounty2 = true;
-                    Flags.BountyInProgress = false;
+                    Flags.BountyInProgress2 = false;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
                 case SpookyMessageType.Bounty3Complete:
                 {
                     Flags.LittleEyeBounty3 = true;
-                    Flags.BountyInProgress = false;
+                    Flags.BountyInProgress3 = false;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
                 case SpookyMessageType.Bounty4Complete:
                 {
                     Flags.LittleEyeBounty4 = true;
-                    Flags.BountyInProgress = false;
+                    Flags.BountyInProgress4 = false;
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
@@ -243,7 +263,10 @@ namespace Spooky
         CatacombKey1,
         CatacombKey2,
         CatacombKey3,
-        BountyAccepted,
+        BountyAccepted1,
+        BountyAccepted2,
+        BountyAccepted3,
+        BountyAccepted4,
         Bounty1Complete,
         Bounty2Complete,
         Bounty3Complete,

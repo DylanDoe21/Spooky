@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Content.NPCs.Boss.SpookFishron;
-using System;
-using Terraria.ID;
 
 namespace Spooky.Content.Backgrounds
 {

@@ -68,11 +68,10 @@ namespace Spooky.Content.Tiles.SpookyHell
             }
 
             //spawn water infront of the wall
-            if ((tile.LiquidAmount == 0 || tile.LiquidType != LiquidID.Water) && !WorldGen.SolidTile(i, j))
+            if ((tile.LiquidAmount == 0 || tile.LiquidType == LiquidID.Water) && !tile.HasTile)
             {
                 tile.Get<LiquidData>().LiquidType = LiquidID.Water;
                 tile.LiquidAmount = byte.MaxValue;
-                WorldGen.SquareTileFrame(i, j);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient && Main.netMode != NetmodeID.SinglePlayer)
                 {

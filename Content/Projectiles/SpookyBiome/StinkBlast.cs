@@ -70,7 +70,7 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-3, 3), Main.rand.Next(-3, 3), 
-                ModContent.ProjectileType<DecayDebuffFly>(), 0, 0f, Main.myPlayer, 0, 0);
+                ModContent.ProjectileType<DecayDebuffFly>(), 0, 0f, Projectile.owner);
             }
         }
     }

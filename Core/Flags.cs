@@ -68,18 +68,23 @@ namespace Spooky.Core
 		public static bool KrampusQuestlineDone = false;
 		public static bool DrawKrampusMapIcon = false;
 
+		//little eye quests
+		public static bool LittleEyeBounty1 = false; 
+        public static bool LittleEyeBounty2 = false;
+        public static bool LittleEyeBounty3 = false;
+        public static bool LittleEyeBounty4 = false;
+        public static bool BountyInProgress1 = false;
+		public static bool BountyInProgress2 = false;
+		public static bool BountyInProgress3 = false;
+		public static bool BountyInProgress4 = false;
+		public static bool BountyIntro = false;
+
 		//misc stuff
 		public static bool SpookyBackgroundAlt = false;
 		public static bool CemeteryBackgroundAlt = false;
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
-        public static bool LittleEyeBounty1 = false; 
-        public static bool LittleEyeBounty2 = false;
-        public static bool LittleEyeBounty3 = false;
-        public static bool LittleEyeBounty4 = false;
-        public static bool BountyInProgress = false;
-		public static bool BountyIntro = false;
         public static bool encounteredMan = false;
 
 		//bools and misc stuff that doesnt need to be saved/loaded in a world
@@ -127,18 +132,23 @@ namespace Spooky.Core
 			KrampusQuestlineDone = false;
 			DrawKrampusMapIcon = false;
 
+			//little eye quests
+			LittleEyeBounty1 = false; 
+            LittleEyeBounty2 = false;
+            LittleEyeBounty3 = false;
+            LittleEyeBounty4 = false;
+            BountyInProgress1 = false;
+			BountyInProgress2 = false;
+			BountyInProgress3 = false;
+			BountyInProgress4 = false;
+			BountyIntro = false;
+
 			//misc stuff
 			SpookyBackgroundAlt = false;
 			CemeteryBackgroundAlt = false;
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
-            LittleEyeBounty1 = false; 
-            LittleEyeBounty2 = false;
-            LittleEyeBounty3 = false;
-            LittleEyeBounty4 = false;
-            BountyInProgress = false;
-			BountyIntro = false;
             encounteredMan = false;
 		}
 
@@ -203,18 +213,23 @@ namespace Spooky.Core
 			tag[nameof(KrampusQuestlineDone)] = KrampusQuestlineDone;
 			tag[nameof(DrawKrampusMapIcon)] = DrawKrampusMapIcon;
 
+			//little eye quests
+			tag[nameof(LittleEyeBounty1)] = LittleEyeBounty1;
+			tag[nameof(LittleEyeBounty2)] = LittleEyeBounty2;
+			tag[nameof(LittleEyeBounty3)] = LittleEyeBounty3;
+			tag[nameof(LittleEyeBounty4)] = LittleEyeBounty4;
+			tag[nameof(BountyInProgress1)] = BountyInProgress1;
+			tag[nameof(BountyInProgress2)] = BountyInProgress2;
+			tag[nameof(BountyInProgress3)] = BountyInProgress3;
+			tag[nameof(BountyInProgress4)] = BountyInProgress4;
+			tag[nameof(BountyIntro)] = BountyIntro;
+
 			//misc stuff
 			tag[nameof(SpookyBackgroundAlt)] = SpookyBackgroundAlt;
 			tag[nameof(CemeteryBackgroundAlt)] = CemeteryBackgroundAlt;
 			tag[nameof(CatacombKey1)] = CatacombKey1;
 			tag[nameof(CatacombKey2)] = CatacombKey2;
 			tag[nameof(CatacombKey3)] = CatacombKey3;
-			tag[nameof(LittleEyeBounty1)] = LittleEyeBounty1;
-			tag[nameof(LittleEyeBounty2)] = LittleEyeBounty2;
-			tag[nameof(LittleEyeBounty3)] = LittleEyeBounty3;
-			tag[nameof(LittleEyeBounty4)] = LittleEyeBounty4;
-			tag[nameof(BountyInProgress)] = BountyInProgress;
-			tag[nameof(BountyIntro)] = BountyIntro;
 			tag[nameof(encounteredMan)] = encounteredMan;
         }
 
@@ -282,18 +297,23 @@ namespace Spooky.Core
 			KrampusQuestlineDone = tag.GetBool(nameof(KrampusQuestlineDone));
 			DrawKrampusMapIcon = tag.GetBool(nameof(DrawKrampusMapIcon));
 
+			//little eye quests
+			LittleEyeBounty1 = tag.GetBool(nameof(LittleEyeBounty1));
+			LittleEyeBounty2 = tag.GetBool(nameof(LittleEyeBounty2));
+			LittleEyeBounty3 = tag.GetBool(nameof(LittleEyeBounty3));
+			LittleEyeBounty4 = tag.GetBool(nameof(LittleEyeBounty4));
+			BountyInProgress1 = tag.GetBool(nameof(BountyInProgress1));
+			BountyInProgress2 = tag.GetBool(nameof(BountyInProgress2));
+			BountyInProgress3 = tag.GetBool(nameof(BountyInProgress3));
+			BountyInProgress4 = tag.GetBool(nameof(BountyInProgress4));
+			BountyIntro = tag.GetBool(nameof(BountyIntro));
+
 			//misc stuff
 			SpookyBackgroundAlt = tag.GetBool(nameof(SpookyBackgroundAlt));
 			CemeteryBackgroundAlt = tag.GetBool(nameof(CemeteryBackgroundAlt));
 			CatacombKey1 = tag.GetBool(nameof(CatacombKey1));
 			CatacombKey2 = tag.GetBool(nameof(CatacombKey2));
 			CatacombKey3 = tag.GetBool(nameof(CatacombKey3));
-			LittleEyeBounty1 = tag.GetBool(nameof(LittleEyeBounty1));
-			LittleEyeBounty2 = tag.GetBool(nameof(LittleEyeBounty2));
-			LittleEyeBounty3 = tag.GetBool(nameof(LittleEyeBounty3));
-			LittleEyeBounty4 = tag.GetBool(nameof(LittleEyeBounty4));
-			BountyInProgress = tag.GetBool(nameof(BountyInProgress));
-			BountyIntro = tag.GetBool(nameof(BountyIntro));
 			encounteredMan = tag.GetBool(nameof(encounteredMan));
 		}
 
@@ -327,13 +347,14 @@ namespace Spooky.Core
 			writer.WriteFlags(KrampusQuest1, KrampusQuest2, KrampusQuest3, KrampusQuest4, KrampusQuest5);
 			writer.WriteFlags(KrampusDailyQuest, KrampusDailyQuestDone, KrampusQuestGiven, KrampusQuestlineDone, DrawKrampusMapIcon);
 
+			//little eye quest stuff
+			writer.WriteFlags(LittleEyeBounty1, LittleEyeBounty2, LittleEyeBounty3, LittleEyeBounty4);
+			writer.WriteFlags(BountyInProgress1, BountyInProgress2, BountyInProgress3, BountyInProgress4, BountyIntro);
+
 			//misc stuff
 			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard, SporeEventHappening);
 			writer.Write(SporeEventTimeLeft);
 			writer.Write(SporeFogIntensity);
-
-			//little eye quest stuff
-			writer.WriteFlags(LittleEyeBounty1, LittleEyeBounty2, LittleEyeBounty3, LittleEyeBounty4, BountyInProgress, BountyIntro);
 
 			//entity (more will probably be added here in the future)
 			writer.WriteFlags(encounteredMan);
@@ -369,13 +390,14 @@ namespace Spooky.Core
 			reader.ReadFlags(out KrampusQuest1, out KrampusQuest2, out KrampusQuest3, out KrampusQuest4, out KrampusQuest5);
 			reader.ReadFlags(out KrampusDailyQuest, out KrampusDailyQuestDone, out KrampusQuestGiven, out KrampusQuestlineDone, out DrawKrampusMapIcon);
 
+			//little eye quest stuff
+			reader.ReadFlags(out LittleEyeBounty1, out LittleEyeBounty2, out LittleEyeBounty3, out LittleEyeBounty4);
+			reader.ReadFlags(out BountyInProgress1, out BountyInProgress2, out BountyInProgress3, out BountyInProgress4, out BountyIntro);
+
 			//misc stuff
 			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard, out SporeEventHappening);
 			SporeEventTimeLeft = reader.ReadInt32();
 			SporeFogIntensity = reader.ReadSingle();
-
-			//little eye quest stuff
-			reader.ReadFlags(out LittleEyeBounty1, out LittleEyeBounty2, out LittleEyeBounty3, out LittleEyeBounty4, out BountyInProgress, out BountyIntro);
 
 			//entity (more will probably be added here in the future)
 			reader.ReadFlags(out encounteredMan);

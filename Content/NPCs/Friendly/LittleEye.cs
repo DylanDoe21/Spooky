@@ -20,8 +20,6 @@ namespace Spooky.Content.NPCs.Friendly
 	{
 		public Vector2 modifier = new(-200, -75);
 
-		public static readonly SoundStyle TalkSound = new("Spooky/Content/Sounds/Krampus/Talk", SoundType.Sound) { Volume = 0.35f, Pitch = 1.5f, PitchVariance = 0.75f };
-
 		private static Asset<Texture2D> UITexture;
 
 		private static int ShimmerHeadIndex;

@@ -132,6 +132,15 @@ namespace Spooky.Content.Backgrounds.SpiderCave
 
                         Main.spriteBatch.Draw(BGTexture, drawPosition, frame, color, 0f, zero, Scale, SpriteEffects.None, 0f);
 
+                        if (Layers <= 1)
+                        {
+                            Texture2D BGTextureGlow = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBG" + Layers + "Glow").Value;
+
+                            var glowColor = (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive ? new Color(25, 25, 25) : new Color(50, 50, 50)) * Transparency;
+
+                            Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, glowColor, 0f, zero, Scale, SpriteEffects.None, 0f);
+                        }
+
                         /*
                         if (Layers == 2)
                         {

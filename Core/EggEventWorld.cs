@@ -450,6 +450,11 @@ namespace Spooky.Core
 						}
 					}
 				}
+				else
+				{
+					EventTimeLeft = 21600;
+					EventTimeLeftUI = 0;
+				}
 			}
 		}
 

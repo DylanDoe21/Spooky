@@ -70,6 +70,7 @@ namespace Spooky.Content.UserInterfaces
 
 			Main.LocalPlayer.mouseInterface = true;
 			Main.LocalPlayer.GetModPlayer<SpookyPlayer>().DisablePlayerControls = true;
+			Main.LocalPlayer.GetModPlayer<SpookyPlayer>().AlsoDisableEscapeKey = true;
 
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -104,11 +105,6 @@ namespace Spooky.Content.UserInterfaces
 				Texture2D AdvanceTextureExtra = Main.gamePad ? PlayerBoxButtonATex : PlayerBoxMouseButtonTex;
 
 				Texture2D tex = dialogue.texToUse;
-
-				if (!dialogue.NotPlayer)
-				{
-					//tex = PlayerBoxTex;
-				}
 
 				DrawPanel(spriteBatch, tex, AdvanceTexture, AdvanceTextureExtra, pos + PlayerOffset - new Vector2(9f, 12f), Color.White, width, height);
 

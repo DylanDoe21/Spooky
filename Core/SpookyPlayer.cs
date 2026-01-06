@@ -10,7 +10,6 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
@@ -161,9 +160,10 @@ namespace Spooky.Core
 		public bool NoseCultistDisguise2 = false;
 		public bool NoseBlessingBuff = false;
         public bool DisablePlayerControls = false;
+		public bool AlsoDisableEscapeKey = false;
 
 		//misc timers
-        public float SpiderStealthAlpha = 0f;
+		public float SpiderStealthAlpha = 0f;
 		public float YuletideFireAlpha = 0f;
 		public float StonedKidneyCharge = 0f;
         public float KrampusChimneyCharge = 0f;
@@ -373,9 +373,10 @@ namespace Spooky.Core
 			NoseCultistDisguise2 = false;
 			NoseBlessingBuff = false;
             DisablePlayerControls = false;
+			AlsoDisableEscapeKey = false;
 
 			//dashing stuff
-            if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
+			if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)
 			{
 				dashDir = dashUp;
 			}
@@ -1349,13 +1350,17 @@ namespace Spooky.Core
 				Player.controlDown = false;
 				Player.controlJump = false;
 				Player.controlHook = false;
-				Player.controlInv = false;
 				Player.controlUseItem = false;
 				Player.controlUseTile = false;
 				Player.controlMap = false;
 				Player.controlMount = false;
 				Player.immuneNoBlink = true;
                 Player.immuneTime = 30;
+
+				if (AlsoDisableEscapeKey)
+				{
+					Player.controlInv = false;
+				}
 			}
 		}
 

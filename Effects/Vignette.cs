@@ -3,10 +3,13 @@ using Terraria.ModLoader;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
 
-[Autoload(Side = ModSide.Client)]
-public class Vignette : ScreenShaderData
+namespace Spooky.Effects
 {
-	public Vignette(Effect effect, string pass) : base(new Ref<Effect>(effect), pass)
+	[Autoload(Side = ModSide.Client)]
+	public class Vignette : ScreenShaderData
 	{
+		public Vignette(Effect effect, string pass) : base(new Ref<Effect>(effect), pass)
+		{
+		}
 	}
 }

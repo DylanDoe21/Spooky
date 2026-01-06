@@ -2560,6 +2560,11 @@ MortarWings: {
 		'''
 }
 
+OldHunterSoul: {
+	DisplayName: Old Hunter Soul
+	Tooltip: Belongs to the dead old hunter, can be returned to his body
+}
+
 OrbWeaverBoomerang: {
 	DisplayName: Weaverang
 	Tooltip:
@@ -2932,6 +2937,15 @@ LeafBlower: {
 		'''
 }
 
+MoldJar: {
+	DisplayName: Mold in a Jar
+	Tooltip:
+		'''
+		Allows the holder to double jump
+		'It smells awful!'
+		'''
+}
+
 MossyPebble: {
 	DisplayName: Mossy Pebble
 	Tooltip: Used as ammo with slingshots
@@ -3075,6 +3089,20 @@ WarlockRobe: {
 		'''
 		Increases your max number of minions by 1
 		5% increased movement speed
+		'''
+}
+
+WarlockWalkers: {
+	DisplayName: Warlock Walkers
+	Tooltip: The wearer can run super fast
+}
+
+WarlockJesterBoots: {
+	DisplayName: Spooky Striders
+	Tooltip:
+		'''
+		The wearer can run super fast
+		Allows you to quadruple jump and auto-jump
 		'''
 }
 

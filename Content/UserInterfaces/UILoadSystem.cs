@@ -1,10 +1,7 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 using Terraria.UI;
-using System;
+using Terraria.ModLoader;
 using System.Collections.Generic;
-
-using Spooky.Core;
 
 namespace Spooky.Content.UserInterfaces
 {
@@ -23,7 +20,7 @@ namespace Spooky.Content.UserInterfaces
 
 		public override void ClearWorld()
 		{
-			if (!Main.dedServ && DialogueUI.Visible)
+			if (!Main.dedServ)
 			{
 				DialogueUI.Clear();
 			}

@@ -540,7 +540,7 @@ namespace Spooky.Core
 				//spider war spawns, based on current wave
 				if (spawnInfo.Player.InModBiome(ModContent.GetInstance<SpiderWarBiome>()) && SpiderWarWorld.SpiderWarPoints < SpiderWarWorld.SpiderWarMaxPoints)
 				{
-					if (SpiderWarWorld.EventActiveSpotlightCount() < 3)
+					if (!spawnInfo.Water && SpiderWarWorld.EventActiveSpotlightCount() < 3)
 					{
 						pool.Add(ModContent.NPCType<SpotlightSpiderFloor>(), 0.1f);
 					}

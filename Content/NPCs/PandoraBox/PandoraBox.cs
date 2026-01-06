@@ -14,6 +14,7 @@ using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.SpiderCave;
 
 namespace Spooky.Content.NPCs.PandoraBox
 {
@@ -523,6 +524,12 @@ namespace Spooky.Content.NPCs.PandoraBox
                             if (Main.netMode == NetmodeID.Server)
                             {
                                 NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                            }
+
+                            int oldHunterSoul = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<OldHunterSoul>());
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, oldHunterSoul, 1f);
                             }
 
                             //chance to drop the funny bean

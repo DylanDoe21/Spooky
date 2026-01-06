@@ -1318,8 +1318,8 @@ namespace Spooky.Content.Generation
 			List<int> MainItem = new List<int>
 			{
 				ModContent.ItemType<ToiletPaper>(), ModContent.ItemType<LeafBlower>(), ModContent.ItemType<NecromancyTome>(), 
-				ModContent.ItemType<AutumnLeaf>(), ModContent.ItemType<EggCarton>(),
-				ModContent.ItemType<CreepyCandle>(), ModContent.ItemType<CandyBag>()
+				ModContent.ItemType<AutumnLeaf>(), ModContent.ItemType<EggCarton>(), ModContent.ItemType<CreepyCandle>(), 
+				ModContent.ItemType<CandyBag>(), ModContent.ItemType<WarlockWalkers>(), ModContent.ItemType<MoldJar>()
 			};
 
 			List<int> ActualMainItem = new List<int>(MainItem);

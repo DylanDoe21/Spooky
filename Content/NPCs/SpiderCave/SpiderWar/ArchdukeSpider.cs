@@ -23,7 +23,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 250;
+            NPC.lifeMax = 500;
 			NPC.damage = 0;
 			NPC.defense = 25;
             NPC.width = 20;
@@ -33,13 +33,13 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			NPC.dontCountMe = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.aiStyle = 7;
+            NPC.aiStyle = 0;
 		}
 
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;
-            if (NPC.frameCounter > 6)
+            if (NPC.frameCounter > 7)
             {
                 NPC.frame.Y = NPC.frame.Y + frameHeight;
                 NPC.frameCounter = 0;
@@ -68,14 +68,13 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             {	
 				for (int numGores = 1; numGores <= 4; numGores++)
                 {
-                    if (Main.netMode != NetmodeID.Server) 
+                    if (Main.netMode != NetmodeID.Server)
                     {
                         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ArchdukeSpiderGore" + numGores).Type);
                     }
                 }
 
 				SpiderWarWorld.SpiderWarActive = true;
-
 				if (Main.netMode == NetmodeID.Server)
 				{
 					NetMessage.SendData(MessageID.WorldData);

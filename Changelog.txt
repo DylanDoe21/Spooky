@@ -5,20 +5,22 @@ New fog event:
 -During this event, a new set of mite enemies will begin spawning alongside the normal enemies
 -The fog intensity increases over time, and when intense enough the spiders will stop spawning and only mites can be found
 -Towards the end of the event, the fog intensity will decrease until the event actually ends
--Mite enemies drop a new unique material which can be used to craft lots of fun new items
--You can also find pieces of a new armor set growing on the ground while this event is happening
+-Mite enemies drop a new unique material which can be used to craft lots of fun new items, and a new bloom seed
+-You can also find pieces of a new armor set growing on the ground while this event is happening, and a funny new pet
 
 New spider war event:
--New wave-based miniboss rush fought in the spider grotto post-golem
+-New wave-based miniboss rush in the spider grotto post-golem
 -There is a total of 5 unique minibosses in the event
 -Total of 10 waves, and the final wave will consist of an onslaught of minibosses until you get 30 kills
 -Each miniboss has a trophy and other unique drops, with the drop rate being dependant on the wave (Before final wave, 10% drop chance, and during wave 10 guaranteed drops)
 -The event will automatically count as complete just by making it to the final wave, but you do not have to continue past that unless you want more loot
 
-New tar pits content:
--Tar pits biome is now larger than before, but only one generates per world
--Added new unique tar pits cactus block, dropped by tar pit cactuses instead of normal cactus
-(Include more info later)
+Dialogue Overhaul:
+-The dialogue UI used on krampus is now used across many friendly npcs in spooky mod, like little eye, and more
+-Also a lot of dialogue in the mod has been re-written to be better and have interactions with your player responding to them
+
+Random New Stuff:
+-Added new double jump bottle and hermes boots alternative to the underground spooky forest cabin chests
 
 
 ~Changes to existing stuff~
@@ -45,6 +47,9 @@ Random Stuff:
 -Reduced graveyard desaturation effect in the swampy cemetery a little bit
 -Bloom soil now generates in clumps in various spooky mod biomes, it still can be crafted but finding it in the world makes it easier to find, and more intuitive for players to get into the blooms mechanic
 -Spooky mod biome chests no longer generate in the dungeon, they are now in a room in second layer in the catacombs
+-Tar pits biome is now larger than before, but only one generates per world
+-Added new unique tar pits cactus block, dropped by tar pit cactuses instead of normal cactus
+-Thrown bile glob no longer has gravity and travels in a straight line
 
 Bug/Issue Fixes:
 -Spooky mod couches, benches, and clocks not having highlights

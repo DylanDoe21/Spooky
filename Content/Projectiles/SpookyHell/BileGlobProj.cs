@@ -64,8 +64,6 @@ namespace Spooky.Content.Projectiles.SpookyHell
                 Projectile.alpha -= 20;
             }
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
-
             foreach (var npc in Main.ActiveNPCs)
             {
                 if (npc.type == ModContent.NPCType<OrroboroEgg>() && npc.Hitbox.Intersects(Projectile.Hitbox) && EggEventWorld.EggEventActive)

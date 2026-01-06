@@ -32,7 +32,10 @@ namespace Spooky.Content.Items.Debug
             Flags.LittleEyeBounty2 = false;
             Flags.LittleEyeBounty3 = false;
             Flags.LittleEyeBounty4 = false;
-            Flags.BountyInProgress = false;
+            Flags.BountyInProgress1 = false;
+            Flags.BountyInProgress2 = false;
+            Flags.BountyInProgress3 = false;
+            Flags.BountyInProgress4 = false;
             Flags.BountyIntro = false;
 
 			return true;

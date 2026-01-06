@@ -410,6 +410,15 @@ LittleEyeDialogue: {
 	PlayerQuestComplete1-3: You have tetanus, and uh... uranus...
 	QuestComplete1-4: See?
 	PlayerQuestComplete1-4: Fine, point proven.
+	//frank the goblin lost item
+	QuestNewItem1-1: ...
+	PlayerQuestNewItem1-1: Hey do you have any more of that red velvet cake?
+	QuestNewItem1-2: Oh me! how rude of me, have some my guest, it is free!
+	PlayerQuestNewItem1-2: I am not eating it, I do not trust you.
+	QuestNewItem1-3: Oh.
+	PlayerQuestNewItem1-3: I lost the cake you gave me and I need another one.
+	QuestNewItem1-4: Alright, I have a lot of it, if you ever change your mind! It tastes very good, it'd be rude to decline.
+	PlayerQuestNewItem1-4: ...
 	//frank the goblin rematch
 	QuestRematch1: Luckily for you my guest, another piece of red velvet cake!
 	PlayerQuestRematch1: Ok.
@@ -421,7 +430,7 @@ LittleEyeDialogue: {
 	Quest2-3: Use the money to bait the ghosts!
 	PlayerQuest2-3: Yeah but how does that work?
 	Quest2-4: Ghosts love money! They'll go for it, for sure!
-	PlayerQuest2-4: The way you talk makes me annoyed in a primordial way.
+	PlayerQuest2-4: The way you talk annoys me.
 	//tome of spirits quest complete
 	QuestComplete2-1: Greetings!
 	PlayerQuestComplete2-1: Alright, here's the book, tome, whatever you called it.
@@ -435,6 +444,15 @@ LittleEyeDialogue: {
 	PlayerQuestComplete2-5: Dude what?
 	QuestComplete2-6: Here I'll even bring back the ghosts in it so they can help you or something I guess. I wasn't really planning on giving you a reward for this one so it works out!
 	PlayerQuestComplete2-6: Sure, yeah, whatever I guess.
+	//tome of spirits lost item
+	QuestNewItem2-1: ...
+	PlayerQuestNewItem2-1: Hey I lost that gold you gave me earlier.
+	QuestNewItem2-2: Oh my, don't worry, I've got plenty to spare! If you ever need some yourself, I'm ready to share!
+	PlayerQuestNewItem2-2: Wait you'd share the gold? Hell yeah give me some.
+	QuestNewItem2-3: I mean, do you really need extra gold right now?
+	PlayerQuestNewItem2-3: Maybe.
+	QuestNewItem2-4: ...
+	PlayerQuestNewItem2-4: Ok fine, just give me the gold I need for the ghosts.
 	//tome of spirits rematch
 	QuestRematch2: Here's some more gold in a bag for ghosts!
 	PlayerQuestRematch2: Ok.
@@ -447,11 +465,20 @@ LittleEyeDialogue: {
 	PlayerQuest3-3: I dislike you.
 	//stitches quest complete
 	QuestComplete3-1: Hi!
-	PlayerQuestComplete3-1: I got the stitching from that abomination you made.
-	QuestComplete3-2: I can't believe you are actually alive!
+	PlayerQuestComplete3-1: Alright its done.
+	QuestComplete3-2: You are back! Oh joy! you've subdued my beast! have you brought it here, back to me?
 	PlayerQuestComplete3-2: What?
-	QuestComplete3-3: I didn't think you would make it! I thought you'd die, I admit.
-	PlayerQuestComplete3-3: That spider thing wasn't even that bad.
-	QuestComplete3-4: Oh... well perhaps you are stronger than I once believed!
-	PlayerQuestComplete3-4: ...
+	QuestComplete3-3: You know, bring it back here... like I said, in the rhyme earlier, the one about the beetle and not escaping your grasp!
+	PlayerQuestComplete3-3: Oh I wasn't supposed to kill it?
+	QuestComplete3-4: W-what?! That cannot be! D-do you have any idea how long it took me to sew stitches together?!
+	PlayerQuestComplete3-4: No.
+	QuestComplete3-5: Ugh, I suppose you did at least bring back part of him. I'll salvage what I can into something you can drag along with you, but don't brag, in the end it'll just be tattered rags.
+	PlayerQuestComplete3-5: Ok.
+	//stitches lost item
+	QuestNewItem3-1: ...
+	PlayerQuestNewItem3-1: That weird ass beetle flew away I need another one.
+	QuestNewItem3-2: Oh don't worry I've got quite a few of these!
+	PlayerQuestNewItem3-2: Uh-huh.
+	QuestNewItem3-3: You know, I have a farm of them. I have hobbies beyond witch stuff!
+	PlayerQuestNewItem3-3: Have mercy on those poor bugs.
 }

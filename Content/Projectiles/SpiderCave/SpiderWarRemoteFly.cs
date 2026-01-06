@@ -122,7 +122,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 				}
             }
 
-			if (!isAttacking)
+            Vector2 PlayerGoTo = new Vector2(player.Center.X, player.Center.Y - 100);
+            if (!isAttacking && Projectile.Distance(PlayerGoTo) >= 50f)
             {
                 IdleAI(player);
             }
