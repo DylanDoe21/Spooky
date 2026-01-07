@@ -591,6 +591,22 @@ namespace Spooky.Content.UserInterfaces
 							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest4-1"),
 							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest4-1"),
 							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest4-2"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest4-2"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest4-3"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest4-3"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest4-4"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest4-4"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest4-5"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest4-5"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
 							.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
 							chain.OnPlayerResponseTrigger += PlayerResponse;
 							chain.OnEndTrigger += EndDialogueQuestAccept4;
@@ -604,6 +620,22 @@ namespace Spooky.Content.UserInterfaces
 							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
 							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestNewItem4-1"),
 							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestNewItem4-1"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestNewItem4-2"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestNewItem4-2"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestNewItem4-3"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestNewItem4-3"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestNewItem4-4"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestNewItem4-4"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestNewItem4-5"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestNewItem4-5"),
 							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
 							.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
 							chain.OnPlayerResponseTrigger += PlayerResponse;

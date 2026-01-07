@@ -481,4 +481,35 @@ LittleEyeDialogue: {
 	PlayerQuestNewItem3-2: Uh-huh.
 	QuestNewItem3-3: You know, I have a farm of them. I have hobbies beyond witch stuff!
 	PlayerQuestNewItem3-3: Have mercy on those poor bugs.
+	//bigger eye quest
+	Quest4-1: ...
+	PlayerQuest4-1: Alright what do you need me to do now?
+	Quest4-2: I need you to KILL ME!
+	PlayerQuest4-2: Oh sweet.
+	Quest4-3: No no! Not me, the other me.
+	PlayerQuest4-3: Aaauuugh...
+	Quest4-4: Oh me, I was just tired of working so hard, I needed someone to give me a hand! But then I thought, if there was just another me, I could rest and watch him work away with glee! but something went wrong, and now he's gone mad, thinking he's better than me! He's nothing but a fad!
+	PlayerQuest4-4: Who could have seen that coming?
+	Quest4-5: He calls himself bigger eye too! Oh me oh my, that just won't do. Draw him in with these drops, he'll fall for them fast. Off with his head! he won't even have a chance! Muahahahaha!
+	PlayerQuest4-5: Sure, I guess.
+	//bigger eye quest complete
+	QuestComplete4-1: Did you get him!?
+	PlayerQuestComplete4-1: Yeah, I got him.
+	QuestComplete4-2: I knew he was lesser, but his magic was still strong. With his stinky ugly head, I could make an orb!
+	PlayerQuestComplete4-2: Uh... ok?
+	QuestComplete4-3: Here! its for you!
+	PlayerQuestComplete4-3: Why is it slimy what the hell?!
+	QuestComplete4-4: It's freshly made!
+	PlayerQuestComplete4-4: Bro I hope your goofy ass gets a cataract.
+	//bigger eye lost item
+	QuestNewItem4-1: Did you need something?
+	PlayerQuestNewItem4-1: Hey uh, do you have any more eye drops?
+	QuestNewItem4-2: What?
+	PlayerQuestNewItem4-2: What do you mean, what?
+	QuestNewItem4-3: I'm, I'm litteraly called little eye.
+	PlayerQuestNewItem4-3: Yeah but...
+	QuestNewItem4-4: I get asking me if I had more of the other stuff but, did you think I'd give away my only eye drops?
+	PlayerQuestNewItem4-4: You are going to make me pop a vein.
+	QuestNewItem4-5: Ok here's the eye drops bye bye!
+	PlayerQuestNewItem4-5: ...
 }
