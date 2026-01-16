@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 
 using Spooky.Core;
+using Spooky.Content.NPCs.Friendly;
 
 namespace Spooky.Content.Items.Debug
 {
@@ -37,6 +38,7 @@ namespace Spooky.Content.Items.Debug
             Flags.BountyInProgress3 = false;
             Flags.BountyInProgress4 = false;
             Flags.BountyIntro = false;
+            Flags.PokedLittleEye = false;
 
 			return true;
 		}

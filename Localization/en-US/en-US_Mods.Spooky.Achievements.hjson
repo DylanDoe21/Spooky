@@ -43,6 +43,11 @@ EventAchievementEggEvent: {
 	Description: Survive the egg incursion's onslaught of fleshy abominations.
 }
 
+EventAchievementPandoraBox: {
+	FriendlyName: You Moron...
+	Description: Open pandora's box and defeat all of the mischevious spirits trapped inside.
+}
+
 MinibossAchievementBigDunk: {
 	FriendlyName: Tummy Troubles
 	Description: Feed the sea mine to Big Dunk, sending him to re-extinction.
@@ -61,4 +66,29 @@ MiscAchievementGourdCarve: {
 MiscAchievementKrampusHired: {
 	FriendlyName: You're Hired!
 	Description: Meet krampus and get hired to deliver his presents to townsfolk.
+}
+
+MiscAchievementSentientItem: {
+	FriendlyName: It's Alive!
+	Description: Combine a sentient heart and a weapon at little eye's cauldron to give it the gift of life. dubious moral implications included!
+}
+
+MiscAchievementNoseCultist: {
+	FriendlyName: An Impostor Among Us
+	Description: Use a cultist's robes to blend in among the fanatics in the temple of moco.
+}
+
+MiscAchievementBigDunkEat: {
+	FriendlyName: Breakfast With The Dead
+	Description: Say hello to the undead fish in the depths, and see how he responds!
+}
+
+MiscAchievementLittleEyeQuest: {
+	FriendlyName: Eye Sore
+	Description: Complete little eye's mission for an omelette.
+}
+
+EventAchievementSpore: {
+	FriendlyName: Choking Fumes
+	Description: Visit the spider grotto when the mushroom spores are everywhere.
 }

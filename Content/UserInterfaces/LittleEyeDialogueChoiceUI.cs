@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Food;
@@ -100,6 +101,27 @@ namespace Spooky.Content.UserInterfaces
 
                 if (Main.mouseLeft && Main.mouseLeftRelease)
                 {
+					if (Flags.downedOrroboro)
+					{
+						if (Flags.PokedLittleEye)
+						{
+							DialogueChain chain = new();
+							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyePoked"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyePoked"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+							chain.OnPlayerResponseTrigger += PlayerResponse;
+							chain.OnEndTrigger += EndDialogue;
+							DialogueUI.Visible = true;
+							DialogueUI.Add(chain);
+						}
+					}
+					else
+					{
+
+					}
+
                     LittleEye = -1;
                     UIOpen = false;
                 }
@@ -118,7 +140,7 @@ namespace Spooky.Content.UserInterfaces
 					//first bounty completed
                     if (player.HasItem(ModContent.ItemType<BountyItem1>()))
                     {
-						if (!Flags.LittleEyeBounty1)
+						if (!Flags.LittleEyeBounty1 && !Flags.PokedLittleEye)
 						{
 							DialogueChain chain = new();
 							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
@@ -151,7 +173,7 @@ namespace Spooky.Content.UserInterfaces
 					//second bounty completed
                     else if (player.HasItem(ModContent.ItemType<BountyItem2>()))
                     {
-						if (!Flags.LittleEyeBounty2)
+						if (!Flags.LittleEyeBounty2 && !Flags.PokedLittleEye)
 						{
 							DialogueChain chain = new();
 							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
@@ -192,7 +214,7 @@ namespace Spooky.Content.UserInterfaces
 					//third bounty completed
                     else if (player.HasItem(ModContent.ItemType<BountyItem3>()))
                     {
-						if (!Flags.LittleEyeBounty3)
+						if (!Flags.LittleEyeBounty3 && !Flags.PokedLittleEye)
 						{
 							DialogueChain chain = new();
 							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
@@ -229,7 +251,7 @@ namespace Spooky.Content.UserInterfaces
 					//fourth bounty completed
 					else if (player.HasItem(ModContent.ItemType<BountyItem4>()))
                     {
-						if (!Flags.LittleEyeBounty4)
+						if (!Flags.LittleEyeBounty4 && !Flags.PokedLittleEye)
 						{
 							DialogueChain chain = new();
 							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
@@ -259,6 +281,44 @@ namespace Spooky.Content.UserInterfaces
 							GiveRewardAndSetComplete();
 						}
                     }
+					//if little eye is not poked and you have finished the orroboro fight
+					else if (Flags.downedOrroboro && !Flags.PokedLittleEye)
+					{
+						DialogueChain chain = new();
+						chain.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete5-1"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete5-1"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete5-2"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete5-2"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete5-3"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete5-3"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete5-4"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete5-4"),
+						TalkSound, 2f, 0f, modifier, Expression: 1, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete5-5"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete5-5"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete5-6"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete5-6"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestComplete5-7"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestComplete5-7"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+						chain.OnPlayerResponseTrigger += PlayerResponse;
+						chain.OnEndTrigger += EndDialoguePokedLittleEye;
+						DialogueUI.Visible = true;
+						DialogueUI.Add(chain);
+					}
                     else
                     {
 						if (!Flags.BountyIntro)
@@ -401,12 +461,12 @@ namespace Spooky.Content.UserInterfaces
 			DialogueUI.Add(newDialogue);
 		}
 
-        public static  void EndDialogue(Dialogue dialogue, int ID)
+        public static void EndDialogue(Dialogue dialogue, int ID)
 		{
 			DialogueUI.Visible = false;
 		}
 
-		public static  void EndDialogueBountyIntro(Dialogue dialogue, int ID)
+		public static void EndDialogueBountyIntro(Dialogue dialogue, int ID)
 		{
 			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
@@ -418,6 +478,13 @@ namespace Spooky.Content.UserInterfaces
 			{
 				Flags.BountyIntro = true;
 			}
+
+			DialogueUI.Visible = false;
+		}
+
+		public static void EndDialoguePokedLittleEye(Dialogue dialogue, int ID)
+		{
+			ModContent.GetInstance<MiscAchievementLittleEyeQuest>().LittleEyeQuestCondition.Complete();
 
 			DialogueUI.Visible = false;
 		}

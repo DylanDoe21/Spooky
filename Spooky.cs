@@ -200,6 +200,12 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
+                case SpookyMessageType.PokedLittleEye:
+                {
+                    Flags.PokedLittleEye = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
                 case SpookyMessageType.KrampusQuestGiven:
                 {
                     Flags.KrampusQuestGiven = true;
@@ -272,6 +278,7 @@ namespace Spooky
         Bounty3Complete,
         Bounty4Complete,
         BountyIntro,
+        PokedLittleEye,
         KrampusQuestGiven,
         KrampusQuestlineDone,
         KrampusDailyQuestDone,

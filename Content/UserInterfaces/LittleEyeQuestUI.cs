@@ -260,7 +260,7 @@ namespace Spooky.Content.UserInterfaces
                 {
                     DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
                 }
-				else if (Flags.LittleEyeBounty1)
+				else if (Flags.LittleEyeBounty1 || Flags.PokedLittleEye)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, Color.Lime);
 
@@ -268,11 +268,7 @@ namespace Spooky.Content.UserInterfaces
 					if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20 && !player.HasItem(ModContent.ItemType<SummonItem1>()))
 					{
 						DialogueChain chain = new();
-						chain.Add(new(UITexture.Value, Main.npc[LittleEye],
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestRematch1"),
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestRematch1"),
-						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
-						.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+						chain.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
 						chain.OnPlayerResponseTrigger += PlayerResponse;
 						chain.OnEndTrigger += EndDialogueQuestAccept1;
 						DialogueUI.Visible = true;
@@ -361,7 +357,7 @@ namespace Spooky.Content.UserInterfaces
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
 				}
-				else if (Flags.LittleEyeBounty2)
+				else if (Flags.LittleEyeBounty2 || Flags.PokedLittleEye)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, Color.Lime);
 
@@ -369,11 +365,7 @@ namespace Spooky.Content.UserInterfaces
 					if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20 && !player.HasItem(ModContent.ItemType<SummonItem2>()))
 					{
 						DialogueChain chain = new();
-						chain.Add(new(UITexture.Value, Main.npc[LittleEye],
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestRematch2"),
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestRematch2"),
-						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
-						.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+						chain.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
 						chain.OnPlayerResponseTrigger += PlayerResponse;
 						chain.OnEndTrigger += EndDialogueQuestAccept2;
 						DialogueUI.Visible = true;
@@ -462,7 +454,7 @@ namespace Spooky.Content.UserInterfaces
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
 				}
-				else if (Flags.LittleEyeBounty3)
+				else if (Flags.LittleEyeBounty3 || Flags.PokedLittleEye)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, Color.Lime);
 
@@ -470,11 +462,7 @@ namespace Spooky.Content.UserInterfaces
 					if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20 && !player.HasItem(ModContent.ItemType<SummonItem3>()))
 					{
 						DialogueChain chain = new();
-						chain.Add(new(UITexture.Value, Main.npc[LittleEye],
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestRematch3"),
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestRematch3"),
-						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
-						.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+						chain.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
 						chain.OnPlayerResponseTrigger += PlayerResponse;
 						chain.OnEndTrigger += EndDialogueQuestAccept3;
 						DialogueUI.Visible = true;
@@ -555,7 +543,7 @@ namespace Spooky.Content.UserInterfaces
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestAcceptedText, string.Empty, string.Empty, Color.Red);
 				}
-				else if (Flags.LittleEyeBounty4)
+				else if (Flags.LittleEyeBounty4 || Flags.PokedLittleEye)
 				{
 					DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, Color.Lime);
 
@@ -563,11 +551,7 @@ namespace Spooky.Content.UserInterfaces
 					if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20 && !player.HasItem(ModContent.ItemType<SummonItem3>()))
 					{
 						DialogueChain chain = new();
-						chain.Add(new(UITexture.Value, Main.npc[LittleEye],
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.QuestRematch4"),
-						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuestRematch4"),
-						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
-						.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+						chain.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
 						chain.OnPlayerResponseTrigger += PlayerResponse;
 						chain.OnEndTrigger += EndDialogueQuestAccept4;
 						DialogueUI.Visible = true;
@@ -672,94 +656,157 @@ namespace Spooky.Content.UserInterfaces
 					if (Flags.downedOrroboro)
 					{
 						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestCompleteText, QuestCompleteRematchText, string.Empty, Color.Lime);
+
+						if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20 && !player.HasItem(ModContent.ItemType<Concoction>()))
+						{
+							DialogueChain chain = new();
+							chain.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+							chain.OnPlayerResponseTrigger += PlayerResponse;
+							chain.OnEndTrigger += EndDialogueQuestAccept5;
+							DialogueUI.Visible = true;
+							DialogueUI.Add(chain);
+
+							UIOpen = false;
+						}
 					}
 					//display the actual quest text if you havent killed orro-boro but you killed the mechs
 					else
 					{
 						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest5ConditionText, Quest5AcceptText, Quest5WarningText, Color.Magenta);
-					}
 
-					//accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
-					if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20 && !player.HasItem(ModContent.ItemType<Concoction>()))
-					{
-						UIOpen = false;
+						//accept bounty (this specific bounty does not need to set the bounty accepted bool to true)
+						if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20)
+						{
+							//quest accept dialogue
+							if (!Flags.downedOrroboro)
+							{
+								DialogueChain chain = new();
+								chain.Add(new(UITexture.Value, Main.npc[LittleEye],
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest5-1"),
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest5-1"),
+								TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+								.Add(new(UITexture.Value, Main.npc[LittleEye],
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest5-2"),
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest5-2"),
+								TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+								.Add(new(UITexture.Value, Main.npc[LittleEye],
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest5-3"),
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest5-3"),
+								TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+								.Add(new(UITexture.Value, Main.npc[LittleEye],
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest5-4"),
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest5-4"),
+								TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+								.Add(new(UITexture.Value, Main.npc[LittleEye],
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.Quest5-5"),
+								Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerQuest5-5"),
+								TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+								.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+								chain.OnPlayerResponseTrigger += PlayerResponse;
+								chain.OnEndTrigger += EndDialogueQuestAccept5;
+								DialogueUI.Visible = true;
+								DialogueUI.Add(chain);
+							}
+
+							UIOpen = false;
+						}
 					}
 				}
             }
         }
 
-		public static  void EndDialogueQuestAccept1(Dialogue dialogue, int ID)
+		public static void EndDialogueQuestAccept1(Dialogue dialogue, int ID)
 		{
 			int newItem = Item.NewItem(Main.LocalPlayer.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, ModContent.ItemType<SummonItem1>());
 			NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
 
-            if (Main.netMode != NetmodeID.SinglePlayer)
+			if (!Flags.LittleEyeBounty1)
 			{
-				ModPacket packet = Mod.GetPacket();
-				packet.Write((byte)SpookyMessageType.BountyAccepted1);
-				packet.Send();
-			}
-			else
-			{
-				Flags.BountyInProgress1 = true;
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)SpookyMessageType.BountyAccepted1);
+					packet.Send();
+				}
+				else
+				{
+					Flags.BountyInProgress1 = true;
+				}
 			}
 
 			DialogueUI.Visible = false;
 		}
 
-		public static  void EndDialogueQuestAccept2(Dialogue dialogue, int ID)
+		public static void EndDialogueQuestAccept2(Dialogue dialogue, int ID)
 		{
 			int newItem = Item.NewItem(Main.LocalPlayer.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, ModContent.ItemType<SummonItem2>());
 			NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
 
-            if (Main.netMode != NetmodeID.SinglePlayer)
+			if (!Flags.LittleEyeBounty2)
 			{
-				ModPacket packet = Mod.GetPacket();
-				packet.Write((byte)SpookyMessageType.BountyAccepted2);
-				packet.Send();
-			}
-			else
-			{
-				Flags.BountyInProgress2 = true;
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)SpookyMessageType.BountyAccepted2);
+					packet.Send();
+				}
+				else
+				{
+					Flags.BountyInProgress2 = true;
+				}
 			}
 
 			DialogueUI.Visible = false;
 		}
 
-		public static  void EndDialogueQuestAccept3(Dialogue dialogue, int ID)
+		public static void EndDialogueQuestAccept3(Dialogue dialogue, int ID)
 		{
 			int newItem = Item.NewItem(Main.LocalPlayer.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, ModContent.ItemType<SummonItem3>());
 			NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
 
-            if (Main.netMode != NetmodeID.SinglePlayer)
+			if (!Flags.LittleEyeBounty3)
 			{
-				ModPacket packet = Mod.GetPacket();
-				packet.Write((byte)SpookyMessageType.BountyAccepted3);
-				packet.Send();
-			}
-			else
-			{
-				Flags.BountyInProgress3 = true;
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)SpookyMessageType.BountyAccepted3);
+					packet.Send();
+				}
+				else
+				{
+					Flags.BountyInProgress3 = true;
+				}
 			}
 
 			DialogueUI.Visible = false;
 		}
 
-		public static  void EndDialogueQuestAccept4(Dialogue dialogue, int ID)
+		public static void EndDialogueQuestAccept4(Dialogue dialogue, int ID)
 		{
 			int newItem = Item.NewItem(Main.LocalPlayer.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, ModContent.ItemType<SummonItem4>());
 			NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
 
-            if (Main.netMode != NetmodeID.SinglePlayer)
+			if (!Flags.LittleEyeBounty4)
 			{
-				ModPacket packet = Mod.GetPacket();
-				packet.Write((byte)SpookyMessageType.BountyAccepted4);
-				packet.Send();
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)SpookyMessageType.BountyAccepted4);
+					packet.Send();
+				}
+				else
+				{
+					Flags.BountyInProgress4 = true;
+				}
 			}
-			else
-			{
-				Flags.BountyInProgress4 = true;
-			}
+
+			DialogueUI.Visible = false;
+		}
+
+		public static void EndDialogueQuestAccept5(Dialogue dialogue, int ID)
+		{
+			int newItem = Item.NewItem(Main.LocalPlayer.GetSource_DropAsItem(), Main.LocalPlayer.Hitbox, ModContent.ItemType<Concoction>());
+			NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
 
 			DialogueUI.Visible = false;
 		}

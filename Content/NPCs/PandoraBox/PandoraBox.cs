@@ -11,6 +11,7 @@ using System;
 using System.IO;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Pets;
@@ -508,12 +509,12 @@ namespace Spooky.Content.NPCs.PandoraBox
                 {
                     NPC.rotation = 0;
 
-                    SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, NPC.Center);
-
                     PlayAnimation = true;
 
                     if (NPC.ai[1] >= 115)
                     {
+                        SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, NPC.Center);
+                        
                         //drop one of the pandora accessories
                         int[] Accessories = new int[] { ModContent.ItemType<PandoraChalice>(), ModContent.ItemType<PandoraCross>(), 
                         ModContent.ItemType<PandoraCuffs>(), ModContent.ItemType<PandoraRosary>() };
@@ -550,6 +551,8 @@ namespace Spooky.Content.NPCs.PandoraBox
                         {
                             NetMessage.SendData(MessageID.WorldData);
                         }
+
+                        ModContent.GetInstance<EventAchievementPandoraBox>().PandoraBoxCondition.Complete();
 
                         NPC.ai[1] = 0;
 

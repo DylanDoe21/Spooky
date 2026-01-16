@@ -350,14 +350,14 @@ namespace Spooky.Content.NPCs.Tameable
 			{
 				foreach (var item in Main.ActiveItems)
 				{
-					if (item.type == ModContent.ItemType<RottenSeed>() && item.Distance(NPC.Center) <= 50)
+					if (item.type == ModContent.ItemType<RottenSeed>() && item.stack > 0 && item.Distance(NPC.Center) <= 50)
 					{
 						Vector2 desiredVelocity = item.DirectionTo(NPC.Center) * 7;
 						item.velocity = Vector2.Lerp(item.velocity, desiredVelocity, 1f / 20);
 
 						if (item.Hitbox.Intersects(NPC.Hitbox) && numSeedsEaten < 5)
 						{
-							if (time % 20 == 0)
+							if (time % 10 == 0)
 							{
 								SoundEngine.PlaySound(SoundID.Item2, NPC.Center);
 

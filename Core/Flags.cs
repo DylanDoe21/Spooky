@@ -78,6 +78,7 @@ namespace Spooky.Core
 		public static bool BountyInProgress3 = false;
 		public static bool BountyInProgress4 = false;
 		public static bool BountyIntro = false;
+		public static bool PokedLittleEye = false;
 
 		//misc stuff
 		public static bool SpookyBackgroundAlt = false;
@@ -142,6 +143,7 @@ namespace Spooky.Core
 			BountyInProgress3 = false;
 			BountyInProgress4 = false;
 			BountyIntro = false;
+			PokedLittleEye = false;
 
 			//misc stuff
 			SpookyBackgroundAlt = false;
@@ -223,6 +225,7 @@ namespace Spooky.Core
 			tag[nameof(BountyInProgress3)] = BountyInProgress3;
 			tag[nameof(BountyInProgress4)] = BountyInProgress4;
 			tag[nameof(BountyIntro)] = BountyIntro;
+			tag[nameof(PokedLittleEye)] = PokedLittleEye;
 
 			//misc stuff
 			tag[nameof(SpookyBackgroundAlt)] = SpookyBackgroundAlt;
@@ -307,6 +310,7 @@ namespace Spooky.Core
 			BountyInProgress3 = tag.GetBool(nameof(BountyInProgress3));
 			BountyInProgress4 = tag.GetBool(nameof(BountyInProgress4));
 			BountyIntro = tag.GetBool(nameof(BountyIntro));
+			PokedLittleEye = tag.GetBool(nameof(PokedLittleEye));
 
 			//misc stuff
 			SpookyBackgroundAlt = tag.GetBool(nameof(SpookyBackgroundAlt));
@@ -349,7 +353,7 @@ namespace Spooky.Core
 
 			//little eye quest stuff
 			writer.WriteFlags(LittleEyeBounty1, LittleEyeBounty2, LittleEyeBounty3, LittleEyeBounty4);
-			writer.WriteFlags(BountyInProgress1, BountyInProgress2, BountyInProgress3, BountyInProgress4, BountyIntro);
+			writer.WriteFlags(BountyInProgress1, BountyInProgress2, BountyInProgress3, BountyInProgress4, BountyIntro, PokedLittleEye);
 
 			//misc stuff
 			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard, SporeEventHappening);
@@ -392,7 +396,7 @@ namespace Spooky.Core
 
 			//little eye quest stuff
 			reader.ReadFlags(out LittleEyeBounty1, out LittleEyeBounty2, out LittleEyeBounty3, out LittleEyeBounty4);
-			reader.ReadFlags(out BountyInProgress1, out BountyInProgress2, out BountyInProgress3, out BountyInProgress4, out BountyIntro);
+			reader.ReadFlags(out BountyInProgress1, out BountyInProgress2, out BountyInProgress3, out BountyInProgress4, out BountyIntro, out PokedLittleEye);
 
 			//misc stuff
 			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard, out SporeEventHappening);

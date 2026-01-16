@@ -161,6 +161,8 @@ namespace Spooky.Core
 		public bool NoseBlessingBuff = false;
         public bool DisablePlayerControls = false;
 		public bool AlsoDisableEscapeKey = false;
+		public bool RaveyardMonolithEquipped = false;
+		public bool SporeMonolithEquipped = false;
 
 		//misc timers
 		public float SpiderStealthAlpha = 0f;
@@ -374,6 +376,8 @@ namespace Spooky.Core
 			NoseBlessingBuff = false;
             DisablePlayerControls = false;
 			AlsoDisableEscapeKey = false;
+			RaveyardMonolithEquipped = false;
+			SporeMonolithEquipped = false;
 
 			//dashing stuff
 			if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[dashUp] < 15)

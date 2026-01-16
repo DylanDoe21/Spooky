@@ -566,7 +566,7 @@ namespace Spooky.Core
 			return CanTeleport;
 		}
 
-		//use for when npcs do special things when colliding with tiles but dont use tileCollide
+		//use for when npcs should do special things when colliding with tiles, but dont use NPC.tileCollide
 		//also useful for npcs that should only collide with solid tiles excluding platforms, planter boxes, ect
 		public static bool IsColliding(NPC npc)
 		{

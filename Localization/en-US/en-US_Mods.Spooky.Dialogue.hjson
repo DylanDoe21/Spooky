@@ -382,7 +382,7 @@ LittleEyeDialogue: {
 	//bounty mission intro
 	BountyIntro1: ...
 	BountyIntroPlayerResponse1: So... you do anything else?
-	BountyIntro2: Oh my, of course! I do many things... although, most of them run far far away... hmph.
+	BountyIntro2: Oh my, of course! I do many things. Although, most of them run far far away, hmph.
 	BountyIntroPlayerResponse2: I meant like, anything normal.
 	BountyIntro3: Now that you mention it, perhaps you and your weapons could be of use. I'd reward you of course, given my requests would be so obtuse.
 	BountyIntroPlayerResponse3: I did not mention requests at all.
@@ -419,9 +419,6 @@ LittleEyeDialogue: {
 	PlayerQuestNewItem1-3: I lost the cake you gave me and I need another one.
 	QuestNewItem1-4: Alright, I have a lot of it, if you ever change your mind! It tastes very good, it'd be rude to decline.
 	PlayerQuestNewItem1-4: ...
-	//frank the goblin rematch
-	QuestRematch1: Luckily for you my guest, another piece of red velvet cake!
-	PlayerQuestRematch1: Ok.
 	//tome of spirits quest
 	Quest2-1: This one differs from the others, in many ways! It's something I didn't make! A book I ordered off of a shady site, and it was filled with ghosts inside! I need them gone so I may read the tome, and unlock the secrets within its folds!
 	PlayerQuest2-1: So how exactly do I find this book?
@@ -453,9 +450,6 @@ LittleEyeDialogue: {
 	PlayerQuestNewItem2-3: Maybe.
 	QuestNewItem2-4: ...
 	PlayerQuestNewItem2-4: Ok fine, just give me the gold I need for the ghosts.
-	//tome of spirits rematch
-	QuestRematch2: Here's some more gold in a bag for ghosts!
-	PlayerQuestRematch2: Ok.
 	//stitches quest
 	Quest3-1: You asked me what else I could do, beyond my malevolent witches' brew. And tell you I will! I've started to knit! But my craft has started a coup!
 	PlayerQuest3-1: Uh-huh.
@@ -487,10 +481,10 @@ LittleEyeDialogue: {
 	Quest4-2: I need you to KILL ME!
 	PlayerQuest4-2: Oh sweet.
 	Quest4-3: No no! Not me, the other me.
-	PlayerQuest4-3: Aaauuugh...
+	PlayerQuest4-3: Ugh...
 	Quest4-4: Oh me, I was just tired of working so hard, I needed someone to give me a hand! But then I thought, if there was just another me, I could rest and watch him work away with glee! but something went wrong, and now he's gone mad, thinking he's better than me! He's nothing but a fad!
 	PlayerQuest4-4: Who could have seen that coming?
-	Quest4-5: He calls himself bigger eye too! Oh me oh my, that just won't do. Draw him in with these drops, he'll fall for them fast. Off with his head! he won't even have a chance! Muahahahaha!
+	Quest4-5: He calls himself bigger eye too! Oh me oh my, that just won't do. Draw him in with these drops, he'll fall for them fast. Off with his head! he won't even have a chance!
 	PlayerQuest4-5: Sure, I guess.
 	//bigger eye quest complete
 	QuestComplete4-1: Did you get him!?
@@ -500,16 +494,45 @@ LittleEyeDialogue: {
 	QuestComplete4-3: Here! its for you!
 	PlayerQuestComplete4-3: Why is it slimy what the hell?!
 	QuestComplete4-4: It's freshly made!
-	PlayerQuestComplete4-4: Bro I hope your goofy ass gets a cataract.
+	PlayerQuestComplete4-4: I hope you get a cataract.
 	//bigger eye lost item
 	QuestNewItem4-1: Did you need something?
 	PlayerQuestNewItem4-1: Hey uh, do you have any more eye drops?
 	QuestNewItem4-2: What?
 	PlayerQuestNewItem4-2: What do you mean, what?
-	QuestNewItem4-3: I'm, I'm litteraly called little eye.
+	QuestNewItem4-3: I'm called little eye.
 	PlayerQuestNewItem4-3: Yeah but...
-	QuestNewItem4-4: I get asking me if I had more of the other stuff but, did you think I'd give away my only eye drops?
+	QuestNewItem4-4: I have the other stuff, but did you think I'd give away my only eye drops?
 	PlayerQuestNewItem4-4: You are going to make me pop a vein.
 	QuestNewItem4-5: Ok here's the eye drops bye bye!
 	PlayerQuestNewItem4-5: ...
+	//egg incursion quest
+	Quest5-1: Hey can you make me an omelette?
+	PlayerQuest5-1: I am not making you an omelette.
+	Quest5-2: Oh me, oh my, but it's special you see! Made from that giant egg, not too far from here!
+	PlayerQuest5-2: I'm not convinced.
+	Quest5-3: Ah, but you see, this egg holds a prize! Riches that would let you settle down for life! The valley protects it, so it won't go down with ease; but I'll let you keep the riches, as long as you give the egg to me!
+	PlayerQuest5-3: That doesn't sound too bad actually.
+	Quest5-4: Once the valley tires its many offenses, use this vial of acid to breach the egg's defenses! There's enough in there, so no need to come back, not until you've seen what's inside the egg once it cracks!
+	PlayerQuest5-4: Alright, I'll do it.
+	Quest5-5: Hip hip hooray! You won't regret it, friend!
+	PlayerQuest5-5: ...
+	//egg incursion quest complete
+	QuestComplete5-1: Oh, you are back? What a pleasant surprise! I didn-
+	PlayerQuestComplete5-1: You lying dumbass, that egg did NOT hold riches of any kind.
+	QuestComplete5-2: Now hold on-
+	PlayerQuestComplete5-2: It didn't even have any yolk. You sent me on a suicide mission!
+	QuestComplete5-3: Oh I would never, not without reason. You were bound to win, your power precedes you! And rewards you did get, after slaying the beast, so there's no need to complain my guinea p-
+	PlayerQuestComplete5-3: ...
+	QuestComplete5-4: AAAAUAAUUUGH!!!!
+	PlayerQuestComplete5-4: I told you I would do that if you called me that.
+	QuestComplete5-5: OH MY GOD OH MY EYE! OW OW OW OW!
+	PlayerQuestComplete5-5: ...
+	QuestComplete5-6: OH MY GOD I CAN'T SEE! I CAN'T SEE IT BURNS SO BAD!
+	PlayerQuestComplete5-6: Anyways I'll see you later when I need another sentient weapon.
+	QuestComplete5-7: AGH, OH MY GOD IT HURTS AAAAAGH!
+	PlayerQuestComplete5-7: ...
+	//little eye is poked
+	LittleEyePoked: AGH, IT HURTS...
+	PlayerLittleEyePoked: ...
 }

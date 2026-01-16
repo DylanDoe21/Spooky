@@ -25,6 +25,7 @@ namespace Spooky.Core
         public override void Load()
         {
 			//melee
+			AddTransformation(ItemID.Ruler, ModContent.ItemType<SentientRuler>());
 			AddTransformation(ItemID.Katana, ModContent.ItemType<SentientKatana>());
 			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
 			AddTransformation(ItemID.Bladetongue, ModContent.ItemType<SentientBladeTongue>());
@@ -39,6 +40,8 @@ namespace Spooky.Core
 			AddTransformation(ItemID.ProximityMineLauncher, ModContent.ItemType<SentientMineLauncher>());
 
 			//magic
+			AddTransformation(ItemID.BeeGun, ModContent.ItemType<SentientBeeGun>());
+			AddTransformation(ItemID.WeatherPain, ModContent.ItemType<SentientWeatherPain>());
 			AddTransformation(ItemID.BookofSkulls, ModContent.ItemType<SentientSkullBook>());
 			AddTransformation(ItemID.ClingerStaff, ModContent.ItemType<SentientClingerStaff>());
 			AddTransformation(ItemID.SoulDrain, ModContent.ItemType<SentientLifeDrain>());

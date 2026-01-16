@@ -10,6 +10,7 @@ using System;
 using System.IO;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Biomes;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 
@@ -222,19 +223,26 @@ namespace Spooky.Content.NPCs.NoseCult
 
 			bool playerDisguised = player.GetModPlayer<SpookyPlayer>().NoseCultistDisguise1 && player.GetModPlayer<SpookyPlayer>().NoseCultistDisguise2;
 
-			if (AnyPlayersInRange() && NPC.ai[1] == 0 && !playerDisguised)
+			if (AnyPlayersInRange() && NPC.ai[1] == 0)
             {
-                //activate every single nose cultist attatched to this altar
-                NPC.ai[1] = 1;
-                
-                NoseCultAmbushWorld.AmbushActive = true;
-
-                if (Main.netMode == NetmodeID.Server)
+                if (playerDisguised)
                 {
-                    NetMessage.SendData(MessageID.WorldData);
+                    ModContent.GetInstance<MiscAchievementNoseCultist>().NoseCultistCondition.Complete();
                 }
+                else
+                {
+                    //activate every single nose cultist attatched to this altar
+                    NPC.ai[1] = 1;
+                    
+                    NoseCultAmbushWorld.AmbushActive = true;
 
-                NPC.netUpdate = true;
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
+
+                    NPC.netUpdate = true;
+                }
             }
 
             if (NPC.ai[1] > 0 && NoseCultAmbushWorld.AmbushActive)

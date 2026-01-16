@@ -28,9 +28,9 @@ namespace Spooky.Content.Items.SpiderCave
 			{
 				Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Lerp(Color.White, Color.Cyan, i / 30));
 
-				Vector2 circular = new Vector2(Main.rand.NextFloat(0f, 2f), 0).RotatedBy(MathHelper.ToRadians(i));
+				Vector2 circular = new Vector2(Main.rand.NextFloat(0f, 3f), 0).RotatedBy(MathHelper.ToRadians(i));
 
-				Main.spriteBatch.Draw(GlowTexture.Value, position + circular, null, color, 0f, drawOrigin, scale, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(GlowTexture.Value, position + circular, null, color * 0.5f, 0f, drawOrigin, scale, SpriteEffects.None, 0f);
 			}
 
 			return true;
@@ -46,9 +46,9 @@ namespace Spooky.Content.Items.SpiderCave
 			{
 				Color color = new Color(125, 125, 125, 0).MultiplyRGBA(Color.Lerp(Color.White, Color.Cyan, i / 30));
 
-				Vector2 circular = new Vector2(Main.rand.NextFloat(0f, 2f), 0).RotatedBy(MathHelper.ToRadians(i));
+				Vector2 circular = new Vector2(Main.rand.NextFloat(0f, 3f), 0).RotatedBy(MathHelper.ToRadians(i));
 
-				Main.spriteBatch.Draw(GlowTexture.Value, Item.Center - Main.screenPosition + circular, null, color, rotation, drawOrigin, scale, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(GlowTexture.Value, Item.Center - Main.screenPosition + circular, null, color * 0.5f, rotation, drawOrigin, scale, SpriteEffects.None, 0f);
 			}
 
 			return true;

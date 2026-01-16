@@ -10,10 +10,6 @@ namespace Spooky
 
         [BackgroundColor(250, 175, 0, 125)]
         [DefaultValue(true)]
-        public bool OldHunterDramaticLight { get; set; }
-
-        [BackgroundColor(250, 175, 0, 125)]
-        [DefaultValue(true)]
         public bool DraggableUI { get; set; }
 
         [BackgroundColor(250, 175, 0, 125)]

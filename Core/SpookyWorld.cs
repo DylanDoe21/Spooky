@@ -46,9 +46,9 @@ namespace Spooky.Core
                     continue;
                 }
 
-                bool anySubworldForMod = (Spooky.Instance.subworldLibrary.Call("AnyActive", mod) as bool?) ?? false;
+                bool anySubworldFromMod = (Spooky.Instance.subworldLibrary.Call("AnyActive", mod) as bool?) ?? false;
 
-                if (anySubworldForMod)
+                if (anySubworldFromMod)
                 {
                     return true;
                 }

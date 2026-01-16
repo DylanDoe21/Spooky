@@ -197,7 +197,7 @@ namespace Spooky.Content.Generation
 
                         if (tile.TileType == ModContent.TileType<DampGrass>() && !tileAbove.HasTile)
                         {
-                            if (WorldGen.genRand.NextBool(125) && CheckForFlatSurface(X, Y, 6, 1))
+                            if (WorldGen.genRand.NextBool(135) && CheckForFlatSurface(X, Y, 6, 1))
                             {
                                 int SizeX = WorldGen.genRand.Next(35, 41);
                                 int SizeY = WorldGen.genRand.Next(35, 41);
@@ -208,6 +208,54 @@ namespace Spooky.Content.Generation
                                 SizeX, SizeY, 1f, true, false, true, ValidTiles, false);
                             }
                         }
+                    }
+                }
+            }
+
+            //place mushroom gnome village
+			int MushroomSizeX = Main.maxTilesX / 70;
+			int MushroomSizeY = Main.maxTilesY / 37;
+
+            int GnomePositionY = startPosY + (Main.maxTilesY / 18);
+
+			SpookyWorldMethods.PlaceOval(startPosX, GnomePositionY, ModContent.TileType<DampMushroomGrass>(), 0, MushroomSizeX, MushroomSizeY, 2f, false, false);
+
+            //dig out noise caves in the gnome area
+			int Seed = WorldGen.genRand.Next();
+
+            for (int X = startPosX - MushroomSizeX; X <= startPosX + MushroomSizeX; X++)
+            {
+                for (int Y = GnomePositionY - MushroomSizeY; Y <= GnomePositionY + MushroomSizeY; Y++)
+                {
+                    if (Main.tile[X, Y].TileType == ModContent.TileType<DampMushroomGrass>())
+                    {
+                        //generate perlin noise caves
+                        float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 1500f, Y / 325f, 5, Seed + 1) * 0.5f;
+                        float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 1500f, Y / 325f, 5, Seed) + 0.5f + horizontalOffsetNoise;
+                        float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 1500f, Y / 325f, 5, Seed - 1) + 0.5f;
+                        float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
+                        float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
+
+                        //kill or place tiles depending on the noise map
+                        if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
+                        {
+                            WorldGen.KillTile(X, Y);
+                        }
+                    }
+                }
+            }
+            
+            //place gnome houses
+            for (int X = startPosX - MushroomSizeX; X <= startPosX + MushroomSizeX; X++)
+            {
+                for (int Y = GnomePositionY - MushroomSizeY; Y <= GnomePositionY + MushroomSizeY; Y++)
+                {
+                    if (WorldGen.genRand.NextBool(7))
+                    {
+                        ushort[] MushroomHouses = new ushort[] { (ushort)ModContent.TileType<GnomeHouse1>(), (ushort)ModContent.TileType<GnomeHouse2>(),
+                        (ushort)ModContent.TileType<GnomeHouse3>(), (ushort)ModContent.TileType<GnomeHouse4>() };
+
+                        WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(MushroomHouses), true, WorldGen.genRand.Next(0, 2));
                     }
                 }
             }
@@ -279,7 +327,6 @@ namespace Spooky.Content.Generation
             }
 
             //noise spider web walls
-            int Seed = WorldGen.genRand.Next();
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
 				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
@@ -590,6 +637,7 @@ namespace Spooky.Content.Generation
                             }
                         }
 
+                        /*
                         //get rid of mushroom grass thats under terrain, only if the block above is solid and isnt mushroom grass
                         if (tile.TileType == ModContent.TileType<DampMushroomGrass>())
                         {
@@ -598,6 +646,7 @@ namespace Spooky.Content.Generation
                                 tile.TileType = (ushort)ModContent.TileType<DampGrass>();
                             }
                         }
+                        */
 
 						//grow grotto trees
 						if (WorldGen.genRand.NextBool() && tile.TileType == ModContent.TileType<DampGrass>())
@@ -728,8 +777,16 @@ namespace Spooky.Content.Generation
 								WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<DampVines>());
 							}
 						}
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampMushroomGrass>() && !Main.tile[X, Y + 1].HasTile)
+						{
+							if (WorldGen.genRand.NextBool(3))
+							{
+								WorldGen.PlaceTile(X, Y + 1, (ushort)ModContent.TileType<DampMushroomVines>());
+							}
+						}
 
                         int[] ValidTiles = { ModContent.TileType<DampGrass>() };
+                        int[] ValidTilesMushroom = { ModContent.TileType<DampMushroomGrass>() };
 
 						if (Main.tile[X, Y].TileType == ModContent.TileType<DampVines>())
 						{
@@ -738,6 +795,10 @@ namespace Spooky.Content.Generation
                         if (Main.tile[X, Y].TileType == ModContent.TileType<DampVinesLight>())
                         {
                             SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<DampVinesLight>(), ValidTiles);
+                        }
+                        if (Main.tile[X, Y].TileType == ModContent.TileType<DampMushroomVines>())
+                        {
+                            SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<DampMushroomVines>(), ValidTilesMushroom);
                         }
 					}
                 }

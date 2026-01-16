@@ -16,6 +16,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Biomes;
 using Spooky.Content.Dusts;
 using Spooky.Content.Items.Minibiomes.Ocean;
@@ -291,6 +292,14 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		{
 			//big dunk damage ignores all player defense
 			modifiers.ScalingArmorPenetration += 1f;
+		}
+
+		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+		{
+			if (hurtInfo.Damage >= target.statLife)
+			{
+				ModContent.GetInstance<MiscAchievementBigDunkEat>().BigDunkEatCondition.Complete();
+			}
 		}
 
 		public override bool CheckActive()
@@ -864,8 +873,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			npcLoot.Add(new DropOneByOne(ModContent.ItemType<DunkleosteusHide>(), parameters));
 
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SeaSeed>(), 1, 1, 2));
-
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LittleDunkEgg>()));
 
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DunkleosteusRelicItem>()));
 		}

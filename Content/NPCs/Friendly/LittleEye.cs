@@ -18,16 +18,18 @@ namespace Spooky.Content.NPCs.Friendly
 	[AutoloadHead]
 	public class LittleEye : ModNPC
 	{
-		public Vector2 modifier = new(-200, -75);
-
-		private static Asset<Texture2D> UITexture;
+		bool PlaySound = false;
 
 		private static int ShimmerHeadIndex;
         private static Profiles.StackedNPCProfile NPCProfile;
 
+		private static Asset<Texture2D> NPCTexture;
+		private static Asset<Texture2D> CryTexture;
+
+		public static readonly SoundStyle PokeSound = new("Spooky/Content/Sounds/SpearfishPoke", SoundType.Sound);
+
 		public override void Load()
 		{
-			UITexture = ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/DialogueUILittleEye");
 			ShimmerHeadIndex = Mod.AddNPCHeadTexture(Type, Texture + "_Shimmer_Head");
 		}
 
@@ -72,6 +74,29 @@ namespace Spooky.Content.NPCs.Friendly
 				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.LittleEye"),
 				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyHellBiome>().ModBiomeBestiaryInfoElement)
 			});
+		}
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+			CryTexture ??= ModContent.Request<Texture2D>(Texture + "Cry");
+
+			Vector2 drawOrigin = new(NPCTexture.Width() * 0.5f, NPC.height * 0.5f);
+			Vector2 drawPos = NPC.Center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY + 3);
+
+			var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+			//crying after eye poke
+			if (Flags.PokedLittleEye)
+			{
+				Main.EntitySpriteDraw(CryTexture.Value, drawPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+			}
+			else
+			{
+				Main.EntitySpriteDraw(NPCTexture.Value, drawPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+			}
+
+			return NPC.IsABestiaryIconDummy;
 		}
 
         public override void FindFrame(int frameHeight)
@@ -122,6 +147,12 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.spriteDirection = NPC.direction;
 
 			NPC.velocity.X = 0;
+
+			if (Flags.PokedLittleEye && !PlaySound)
+			{
+				SoundEngine.PlaySound(PokeSound, NPC.Center);
+				PlaySound = true;
+			}
 		}
 	}
 }

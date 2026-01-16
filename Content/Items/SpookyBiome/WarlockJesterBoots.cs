@@ -51,7 +51,7 @@ namespace Spooky.Content.Items.SpookyBiome
 
 	public class WarlockJesterBootJump1 : ExtraJump
 	{
-        public static readonly SoundStyle JumpSound = new("Spooky/Content/Sounds/KrampusShoeJump", SoundType.Sound) { Volume = 0.3f };
+        public static readonly SoundStyle JumpSound = new("Spooky/Content/Sounds/WarlockBootJump", SoundType.Sound) { Volume = 0.3f };
 
 		public override Position GetDefaultPosition() => new Before(CloudInABottle);
 

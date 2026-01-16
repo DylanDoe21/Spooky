@@ -97,3 +97,8 @@ SpiderWarBiome: {
 	DisplayName: Spider War Biome
 	TownNPCDialogueName: the Spider War Biome
 }
+
+RaveyardVisualBiome: {
+	TownNPCDialogueName: the Raveyard Visual Biome
+	DisplayName: Raveyard Visual Biome
+}

@@ -23,11 +23,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
 
             public float Depth;
 
-            public float SinOffset;
-
-            public float AlphaFrequency;
-
-            public float AlphaAmplitude;
+            public float Opacity;
         }
 
         private LightPillar[] lightPillar;
@@ -49,12 +45,12 @@ namespace Spooky.Content.Backgrounds.Cemetery
             }
         }
 
-        public override Color OnTileColor(Color inColor)
-        {
-            return Main.DiscoColor * 0.5f * opacity;
-        }
+		public override Color OnTileColor(Color inColor)
+		{
+			return Main.dayTime ? inColor : Main.DiscoColor * 0.5f * opacity;
+		}
 
-        public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
+		public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
             float fade = Main.GameUpdateCount % 60 / 60f;
             int index = (int)(Main.GameUpdateCount / 60 % 3);
@@ -139,11 +135,19 @@ namespace Spooky.Content.Backgrounds.Cemetery
                     Vector2 Depth = new Vector2(1f / backgroundPillar[i].Depth, 1f / backgroundPillar[i].Depth);
                     Vector2 position = (backgroundPillar[i].Position - ScreenPos) * Depth + ScreenPos - Main.screenPosition;
 
-                    if (rectangle.Contains((int)position.X, (int)position.Y))
-                    {
-                        float PillarIntensity = (float)Math.Sin(backgroundPillar[i].AlphaFrequency * Main.GlobalTimeWrappedHourly + backgroundPillar[i].SinOffset) * backgroundPillar[i].AlphaAmplitude + backgroundPillar[i].AlphaAmplitude;
-                        PillarIntensity = MathHelper.Clamp(PillarIntensity, 0f, 1f);
+                    float individualPillarOpacity = backgroundPillar[i].Opacity;
 
+                    if (rectangle.Contains((int)position.X, (int)position.Y) && backgroundPillar[i].Opacity < 1)
+                    {
+                        backgroundPillar[i].Opacity += 0.05f;
+                    }
+                    else
+                    {
+                        backgroundPillar[i].Opacity -= 0.05f;
+                    }
+
+                    if (backgroundPillar[i].Opacity > 0)
+                    {
                         //two color lists for pillar color variance
                         Color[] BeamColors = new Color[]
                         {
@@ -158,18 +162,15 @@ namespace Spooky.Content.Backgrounds.Cemetery
                             new Color(148, 80, 0)
                         };
 
-                        float Rotation = Main.GlobalTimeWrappedHourly * 0.3f;
+                        float Rotation = Main.GlobalTimeWrappedHourly * 0.1f;
 
-                        Texture2D BeamTextureTop = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam").Value;
-                        Texture2D BeamTextureBottom = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeam2").Value;
+                        Texture2D BeamTextureTop = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/Cemetery/RaveyardSkyBeamTall").Value;
 
-                        spriteBatch.Draw(BeamTextureTop, position + new Vector2(0, 1620), null, 
-                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.55f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.5f * opacity,
-                        i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), (Depth.X * 0.5f + 0.5f) * PillarIntensity * 1.35f , SpriteEffects.None, 0f);
-
-                        spriteBatch.Draw(BeamTextureBottom, position + new Vector2(0, 1620), null, 
-                        i % 2 == 0 ? Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.55f * opacity : Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.5f * opacity,
-                        i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureBottom.Width / 2, 0), (Depth.X * 0.5f + 0.5f) * PillarIntensity * 1.35f, SpriteEffects.None, 0f);
+						//draw the beam texture
+                        spriteBatch.Draw(BeamTextureTop, position + new Vector2(0, 2000), null, 
+                        i % 2 == 0 ? (Color.Lerp(BeamColors2[index], BeamColors2[(index + 1) % 3], fade) * 0.55f * opacity) * backgroundPillar[i].Opacity : 
+                        (Color.Lerp(BeamColors[index], BeamColors[(index + 1) % 3], fade) * 0.5f * opacity) * backgroundPillar[i].Opacity,
+                        i % 2 == 0 ? MathF.Sin(Rotation) : MathF.Sin(-Rotation), new Vector2(BeamTextureTop.Width / 2, BeamTextureTop.Height), (Depth.X * 0.5f + 0.5f) * 1.35f , SpriteEffects.None, 0f);
                     }
                 }
             }
@@ -231,9 +232,7 @@ namespace Spooky.Content.Backgrounds.Cemetery
                     backgroundPillar[currentPillar].Position.X = XAmount * (float)Main.maxTilesX * 16f;
                     backgroundPillar[currentPillar].Position.Y = YAmount * ((float)Main.worldSurface * 16f + 3000f) - 1000f;
                     backgroundPillar[currentPillar].Depth = randomValue.NextFloat() * 8f + 2f;
-                    backgroundPillar[currentPillar].SinOffset = randomValue.NextFloat() * 6.28f;
-                    backgroundPillar[currentPillar].AlphaAmplitude = randomValue.NextFloat() * 5f;
-                    backgroundPillar[currentPillar].AlphaFrequency = randomValue.NextFloat() + 1f;
+                    backgroundPillar[currentPillar].Opacity = 0f;
                     currentPillar++;
                 }
             }

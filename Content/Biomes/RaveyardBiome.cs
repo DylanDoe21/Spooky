@@ -19,6 +19,9 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
+            isActive = (ModContent.GetInstance<TileCount>().raveyardMonolith >= 4 || 
+            (player.InModBiome(ModContent.GetInstance<CemeteryBiome>()) && Flags.RaveyardHappening) ||
+            player.GetModPlayer<SpookyPlayer>().RaveyardMonolithEquipped) && player.ZoneOverworldHeight;
             player.ManageSpecialBiomeVisuals("Spooky:RaveyardSky", isActive, player.Center);
         }
 

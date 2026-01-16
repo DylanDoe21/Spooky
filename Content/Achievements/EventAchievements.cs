@@ -16,6 +16,17 @@ using Spooky.Content.NPCs.Boss.SpookySpirit;
 
 namespace Spooky.Content.Achievements
 {
+    public class EventAchievementPandoraBox : ModAchievement
+    {
+        public CustomFlagCondition PandoraBoxCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Slayer);
+            PandoraBoxCondition = AddCondition();
+        }
+    }
+
     public class EventAchievementEggEvent : ModAchievement
     {
         public CustomFlagCondition EggEventCondition { get; private set; }
@@ -24,6 +35,17 @@ namespace Spooky.Content.Achievements
         {
             Achievement.SetCategory(AchievementCategory.Slayer);
             EggEventCondition = AddCondition();
+        }
+    }
+
+    public class EventAchievementSpore : ModAchievement
+    {
+        public CustomFlagCondition SporeCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            SporeCondition = AddCondition();
         }
     }
 }

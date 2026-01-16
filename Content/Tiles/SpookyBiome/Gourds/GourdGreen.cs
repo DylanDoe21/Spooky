@@ -170,6 +170,28 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
 
         private Asset<Texture2D> GlowTexture;
 
+        public override void SetStaticDefaults()
+        {
+            Main.tileSolid[Type] = false;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            Main.tileLighted[Type] = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
+            TileObjectData.newTile.Origin = new Point16(1, 1);
+            TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.StyleWrapLimit = 2;
+            TileObjectData.newTile.StyleMultiplier = 2;
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
+            TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
+            TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
+            TileObjectData.addAlternate(1);
+            TileObjectData.addTile(Type);
+            AddMapEntry(new Color(25, 197, 87));
+            DustType = 288;
+            HitSound = SoundID.Dig;
+        }
+
         public override void MouseOver(int i, int j)
 		{
             Player player = Main.LocalPlayer;
@@ -187,10 +209,17 @@ namespace Spooky.Content.Tiles.SpookyBiome.Gourds
             return false;
         }
 
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			float divide = 250f;
+
+			r = 247f / divide;
+			g = 211f / divide;
+			b = 134f / divide;
+        }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch) 
 		{
-            Lighting.AddLight(new Vector2(i * 16, j * 16), Color.Coral.ToVector3());
-
             GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Gourds/GourdGreenCarvedGlow");
 
             Tile tile = Framing.GetTileSafely(i, j);

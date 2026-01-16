@@ -42,4 +42,48 @@ namespace Spooky.Content.Achievements
             KrampusHiredCondition = AddCondition();
         }
     }
+
+    public class MiscAchievementNoseCultist : ModAchievement
+    {
+        public CustomFlagCondition NoseCultistCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            NoseCultistCondition = AddCondition();
+        }
+    }
+
+    public class MiscAchievementSentientItem : ModAchievement
+    {
+        public CustomFlagCondition SentientCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            SentientCondition = AddCondition();
+        }
+    }
+
+    public class MiscAchievementBigDunkEat : ModAchievement
+    {
+        public CustomFlagCondition BigDunkEatCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            BigDunkEatCondition = AddCondition();
+        }
+    }
+
+    public class MiscAchievementLittleEyeQuest : ModAchievement
+    {
+        public CustomFlagCondition LittleEyeQuestCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            LittleEyeQuestCondition = AddCondition();
+        }
+    }
 }

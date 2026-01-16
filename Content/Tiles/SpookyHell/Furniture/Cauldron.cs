@@ -14,6 +14,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.Tiles.SpookyHell.Furniture
@@ -209,6 +210,8 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 					{
 						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
 					}
+
+					ModContent.GetInstance<MiscAchievementSentientItem>().SentientCondition.Complete();
 
 					Projectile.Kill();
 					return;

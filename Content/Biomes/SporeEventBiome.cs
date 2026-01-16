@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 
 namespace Spooky.Content.Biomes
 {
@@ -41,7 +41,8 @@ namespace Spooky.Content.Biomes
 		{
 			orig(self);
 
-			if (Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>()) && Flags.SporeEventHappening)
+			if ((Flags.SporeEventHappening && Main.LocalPlayer.InModBiome(ModContent.GetInstance<SpiderCaveBiome>())) || 
+			ModContent.GetInstance<TileCount>().sporeMonolith >= 4 || Main.LocalPlayer.GetModPlayer<SpookyPlayer>().SporeMonolithEquipped)
 			{
 				if (FogAlpha < 1f)
 				{
@@ -130,8 +131,10 @@ namespace Spooky.Content.Biomes
 				Color color1 = Color.Lerp(FogColorList[index], FogColorList[(index + 1) % 3], fade);
 				Color color2 = Color.Lerp(SporeColorList[index], SporeColorList[(index + 1) % 3], fade);
 
+				float IntensityToUse = (ModContent.GetInstance<TileCount>().sporeMonolith >= 4 || Main.LocalPlayer.GetModPlayer<SpookyPlayer>().SporeMonolithEquipped) ? 1f : Flags.SporeFogIntensity;
+
 				//draw the top layer of fog
-				sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f * (0.8f * Flags.SporeFogIntensity) * FogAlpha);
+				sporeEffect.Parameters["uOpacityTotal"].SetValue(1.5f * (0.8f * IntensityToUse) * FogAlpha);
 				sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 60);
 				sporeEffect.Parameters["uColor"].SetValue(color1.ToVector4());
 				sporeEffect.Parameters["uExponent"].SetValue(3f);
@@ -153,7 +156,7 @@ namespace Spooky.Content.Biomes
 				}
 
 				//draw star texture to look like spores are in the air
-				sporeEffect.Parameters["uOpacityTotal"].SetValue(2 * (1.5f * Flags.SporeFogIntensity) * FogAlpha);
+				sporeEffect.Parameters["uOpacityTotal"].SetValue(2 * (1.5f * IntensityToUse) * FogAlpha);
 				sporeEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly / 120);
 				sporeEffect.Parameters["uColor"].SetValue(color2.ToVector4());
 				sporeEffect.Parameters["uExponent"].SetValue(2f);
@@ -184,6 +187,8 @@ namespace Spooky.Content.Biomes
 		public override void OnInBiome(Player player)
 		{
 			Lighting.GlobalBrightness = 1f; //same as when you have blindness in vanilla
+
+			ModContent.GetInstance<EventAchievementSpore>().SporeCondition.Complete();
 		}
 
         public override bool IsBiomeActive(Player player)

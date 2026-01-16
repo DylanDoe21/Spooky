@@ -74,6 +74,16 @@ namespace Spooky.Content.Tiles.SpiderCave
 			Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);
 
+            if (!Below.HasTile && Below.LiquidAmount <= 0 && !Tile.BottomSlope) 
+            {
+                //grow vines
+                if (Main.rand.NextBool(15)) 
+                {
+                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<DampMushroomVines>(), true);
+					NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
+				}
+            }
+
 			if (!Above.HasTile && Above.LiquidAmount <= 0 && !Tile.BottomSlope && !Tile.TopSlope && !Tile.IsHalfBlock) 
             {
                 //grow small weeds

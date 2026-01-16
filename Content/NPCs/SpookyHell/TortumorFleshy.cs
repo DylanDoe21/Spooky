@@ -23,8 +23,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech1", SoundType.Sound) { Volume = 0.6f, PitchVariance = 0.6f };
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/TortumorDeath", SoundType.Sound) { Volume = 0.6f };
+        public static readonly SoundStyle ScreechSound = new("Spooky/Content/Sounds/TumorScreech2", SoundType.Sound) { Volume = 0.4f, PitchVariance = 0.6f };
+        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/TortumorDeath", SoundType.Sound) { Volume = 0.5f };
 
 		public override void SetStaticDefaults()
         {

@@ -5,6 +5,7 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 
 namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 {
@@ -84,6 +85,14 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         public override void AI()
 		{
             NPC Parent = Main.npc[(int)NPC.ai[3]];
+
+            int[] EventNPCs = new int[] { ModContent.NPCType<CamelColonel>(), ModContent.NPCType<CorklidQueen>(), 
+			ModContent.NPCType<EmperorMortar>(), ModContent.NPCType<EmpressJoro>(), ModContent.NPCType<OgreKing>() };
+
+            if (!EventNPCs.Contains(Parent.type) && NPC.ai[0] <= 0)
+            {
+                NPC.ai[0] = 1;
+            }
 
 			Lighting.AddLight(NPC.Center, 0.5f, 0.5f, 0.5f);
 

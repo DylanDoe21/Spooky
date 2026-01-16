@@ -1,16 +1,6 @@
 SpookyConfig: {
 	DisplayName: Spooky Mod Client Config
 
-	OldHunterDramaticLight: {
-		Label: Old Hunter Dramatic Light
-		Tooltip:
-			'''
-			When the old hunter is assembled, his spawn animation causes the screen to constantly get brighter before he spawns
-			Turn this option off to disable the screen brightness during his spawn animation
-			Especially important to turn this off if you are sensitive to bright light
-			'''
-	}
-
 	ScreenShakeIntensity: {
 		Label: Screen Shake Intensity Multiplier
 		Tooltip:

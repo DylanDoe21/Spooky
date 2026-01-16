@@ -6293,6 +6293,41 @@ SpookyHellTorchItem: {
 	Tooltip: ""
 }
 
+WaterFountainEyeValleyItem: {
+	DisplayName: Eye Valley Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainRaveItem: {
+	DisplayName: Raveyard Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainSpookFishronItem: {
+	DisplayName: Spook Fishron Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainSpookFishronXmasItem: {
+	DisplayName: Spook Fishron Frost Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainSpookyItem: {
+	DisplayName: Spooky Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainTarItem: {
+	DisplayName: Tar Water Fountain
+	Tooltip: ""
+}
+
+WaterFountainZombieItem: {
+	DisplayName: Rotten Depths Water Fountain
+	Tooltip: ""
+}
+
 RaveStarter: {
 	DisplayName: Rave Starter
 	Tooltip:
@@ -6321,19 +6356,19 @@ Bestiary: {
 }
 
 DownedReset: {
-	DisplayName: Downed Reset
+	DisplayName: Boss Downed Reset
 	Tooltip:
 		'''
-		Sets all spooky mod boss downed variables to false
+		Sets all spooky mod bosses as not defeated
 		Testing Item
 		'''
 }
 
 DownedRedowner: {
-	DisplayName: Downed Redowner
+	DisplayName: Boss Downer
 	Tooltip:
 		'''
-		Sets all spooky mod boss downed variables to true
+		Sets all spooky mod bosses as defeated
 		Testing Item
 		'''
 }
@@ -6415,42 +6450,45 @@ Converter: {
 	Tooltip: ""
 }
 
-WaterFountainEyeValleyItem: {
-	Tooltip: ""
-	DisplayName: Eye Valley Water Fountain
-}
-
-WaterFountainRaveItem: {
-	DisplayName: Raveyard Water Fountain
-	Tooltip: ""
-}
-
-WaterFountainSpookFishronItem: {
-	DisplayName: Spook Fishron Water Fountain
-	Tooltip: ""
-}
-
-WaterFountainSpookFishronXmasItem: {
-	DisplayName: Spook Fishron Frost Water Fountain
-	Tooltip: ""
-}
-
-WaterFountainSpookyItem: {
-	DisplayName: Spooky Water Fountain
-	Tooltip: ""
-}
-
-WaterFountainTarItem: {
-	DisplayName: Tar Water Fountain
-	Tooltip: ""
-}
-
-WaterFountainZombieItem: {
-	DisplayName: Rotten Depths Water Fountain
-	Tooltip: ""
-}
-
 GrottoCrate: {
 	DisplayName: Grotto Crate
 	Tooltip: ""
+}
+
+SporeMonolithItem: {
+	DisplayName: Spore Monolith
+	Tooltip: Surrounds the area with spore fog
+}
+
+RaveyardMonolithItem: {
+	DisplayName: Raveyard Monolith
+	Tooltip: Creates party beams and colors
+}
+
+SentientBeeGun: {
+	DisplayName: Eyesore
+	Tooltip:
+		'''
+		Fires out eye tadpoles that chase enemies but don't deal contact damage
+		Right click while holding this to detonate all tadpoles, dealing a lot of damage
+		'It's always laying eggs'
+		'''
+}
+
+SentientRuler: {
+	DisplayName: Foot
+	Tooltip:
+		'''
+		Stab enemies with its toenails
+		'Is it a foot long though?'
+		'''
+}
+
+SentientWeatherPain: {
+	DisplayName: Weather Rooster
+	Tooltip:
+		'''
+		Fires out giant lingering tornados that can pull enemies in and fling them around
+		'Really good at waking people up in the morning'
+		'''
 }

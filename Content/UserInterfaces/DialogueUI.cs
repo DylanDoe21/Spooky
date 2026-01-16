@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using Terraria.Enums;
@@ -360,7 +361,7 @@ namespace Spooky.Content.UserInterfaces
 				}
 				if (ModContent.GetInstance<SpookyConfig>().DialogueSpeed == DialogueSpeedEnum.Fast)
 				{
-					this.charTime = 0.01f;
+					this.charTime = 0.02f;
 				}
 			}
 
@@ -391,7 +392,25 @@ namespace Spooky.Content.UserInterfaces
 			{
 				if (NotPlayer && expression != -1)
 				{
-					Krampus.Expression = expression;
+					if (NPCType == ModContent.NPCType<Krampus>())
+					{
+						Krampus.Expression = expression;
+					}
+					if (NPCType == ModContent.NPCType<LittleEye>())
+					{
+						Mod Mod = Spooky.mod;
+
+						if (Main.netMode != NetmodeID.SinglePlayer)
+						{
+							ModPacket packet = Mod.GetPacket();
+							packet.Write((byte)SpookyMessageType.PokedLittleEye);
+							packet.Send();
+						}
+						else
+						{
+							Flags.PokedLittleEye = true;
+						}
+					}
 				}
 
 				if (pauseTime <= 0 && displayingText.Length != text.Length && timer >= charTime)
