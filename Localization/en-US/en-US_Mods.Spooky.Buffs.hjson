@@ -699,3 +699,13 @@ SamsonCuffDebuff: {
 	DisplayName: Samson Cuff Debuff
 	Description: ""
 }
+
+SentientChainKnifeBleed: {
+	DisplayName: Sentient Chain Knife Bleed
+	Description: ""
+}
+
+SentientHarpoonSlow: {
+	DisplayName: Sentient Harpoon Slow
+	Description: ""
+}

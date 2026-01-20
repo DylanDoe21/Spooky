@@ -1686,12 +1686,6 @@ namespace Spooky.Content.Generation
 
 			List<int> ActualMainItem2 = new List<int>(MainItem2);
 
-			List<int> Potions = new List<int>
-			{
-				ItemID.IronskinPotion, ItemID.SwiftnessPotion, ItemID.RegenerationPotion, ItemID.ManaRegenerationPotion,
-				ItemID.ShinePotion, ItemID.ThornsPotion, ItemID.ArcheryPotion, ItemID.GravitationPotion 
-			};
-
 			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++) 
             {
 				Chest chest = Main.chest[chestIndex];
@@ -1708,6 +1702,12 @@ namespace Spooky.Content.Generation
                     //layer 1 chests
 					if (chestTile.TileType == ModContent.TileType<UpperCatacombChest>())
 					{
+                        List<int> Potions = new List<int>
+                        {
+                            ItemID.IronskinPotion, ItemID.SwiftnessPotion, ItemID.RegenerationPotion, ItemID.ManaRegenerationPotion,
+                            ItemID.ShinePotion, ItemID.ThornsPotion, ItemID.ArcheryPotion, ItemID.GravitationPotion 
+                        };
+
                         if (ActualMainItem1.Count == 0)
 						{
 							ActualMainItem1 = new List<int>(MainItem1);
@@ -1773,6 +1773,17 @@ namespace Spooky.Content.Generation
                     //layer 2 chests
                     if (chestTile.TileType == ModContent.TileType<LowerCatacombChest>())
 					{
+                        List<int> Potions = new List<int>
+                        {
+                            ItemID.IronskinPotion, ItemID.SwiftnessPotion, ItemID.RegenerationPotion, ItemID.ManaRegenerationPotion,
+                            ItemID.ShinePotion, ItemID.ThornsPotion, ItemID.ArcheryPotion, ItemID.GravitationPotion 
+                        };
+
+                        List<int> Bars = new List<int>
+                        {
+                            ItemID.MythrilBar, ItemID.OrichalcumBar, ItemID.AdamantiteBar, ItemID.TitaniumBar 
+                        };
+                        
                         if (ActualMainItem2.Count == 0)
 						{
 							ActualMainItem2 = new List<int>(MainItem2);
@@ -1784,6 +1795,18 @@ namespace Spooky.Content.Generation
 						chest.item[0].SetDefaults(ActualMainItem2[ItemToPutInChest]);
 						chest.item[0].stack = 1;
 						ActualMainItem2.RemoveAt(ItemToPutInChest);
+                        //bars
+                        chest.item[1].SetDefaults(Main.rand.Next(Bars));
+						chest.item[1].stack = WorldGen.genRand.Next(8, 16);
+                        //potions
+						chest.item[2].SetDefaults(WorldGen.genRand.Next(Potions));
+						chest.item[2].stack = WorldGen.genRand.Next(1, 4);
+						//torches
+						chest.item[3].SetDefaults(ModContent.ItemType<CatacombTorch2Item>());
+						chest.item[3].stack = WorldGen.genRand.Next(12, 19);
+						//gold coins
+						chest.item[4].SetDefaults(ItemID.GoldCoin);
+						chest.item[4].stack = WorldGen.genRand.Next(2, 4);
                     }
 
                     //spooky mod biome chest loot

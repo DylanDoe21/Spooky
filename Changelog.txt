@@ -36,8 +36,9 @@ Items:
 -Buffed licker damage from 48 to 55
 -Living caduceus minions now deal way more damage when they explode themselves after targetting an enemy for long enough
 -Molar mauler swing speed increased, and when thrown it now travels faster and returns to you faster
--Lowered volume on EMF reader sounds
--Lowered volume on ear parasite companion screeching a lot
+-Lowered volume on the EMF reader beeping sounds
+-Lowered volume on the ear parasite companion screeching sound
+-Lowered volume on the moocher staff flame pillar explosion sound
 
 Enemy/Boss:
 -Buffed orro-boro phase 1 hp to 65000 (Which is 32500 in gameplay since it goes into phase 2 at half hp), and phase 2 hp for both worms to 32000

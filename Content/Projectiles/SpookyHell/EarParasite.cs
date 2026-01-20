@@ -56,8 +56,8 @@ namespace Spooky.Content.Projectiles.SpookyHell
 
 				Vector2 drawOrigin = new Vector2(0, ChainTexture.Height() / 2);
 				Vector2 myCenter = Projectile.Center - new Vector2(12 * (flip ? -1 : 1), 2).RotatedBy(Projectile.rotation);
-				Vector2 p0 = player.Center;
-				Vector2 p1 = player.Center;
+				Vector2 p0 = player.MountedCenter;
+				Vector2 p1 = player.MountedCenter;
 				Vector2 p2 = myCenter - new Vector2(20 * (flip ? -1 : 1), 2).RotatedBy(Projectile.rotation);
 				Vector2 p3 = myCenter;
 

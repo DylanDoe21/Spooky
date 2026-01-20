@@ -25,6 +25,7 @@ namespace Spooky.Core
         public override void Load()
         {
 			//melee
+			AddTransformation(ItemID.ChainKnife, ModContent.ItemType<SentientChainKnife>());
 			AddTransformation(ItemID.Ruler, ModContent.ItemType<SentientRuler>());
 			AddTransformation(ItemID.Katana, ModContent.ItemType<SentientKatana>());
 			AddTransformation(ItemID.Chik, ModContent.ItemType<SentientChik>());
@@ -33,6 +34,8 @@ namespace Spooky.Core
 			AddTransformation(ItemID.Keybrand, ModContent.ItemType<SentientKeybrand>());
 
 			//ranged
+			AddTransformation(ItemID.PainterPaintballGun, ModContent.ItemType<SentientPaintballGun>());
+			AddTransformation(ItemID.Harpoon, ModContent.ItemType<SentientHarpoon>());
 			AddTransformation(ItemID.BloodRainBow, ModContent.ItemType<SentientBloodRainBow>());
 			AddTransformation(ItemID.Gatligator, ModContent.ItemType<SentientGatligator>());
 			AddTransformation(ItemID.Toxikarp, ModContent.ItemType<SentientToxikarp>());

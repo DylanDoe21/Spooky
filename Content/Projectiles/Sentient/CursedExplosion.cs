@@ -75,7 +75,7 @@ namespace Spooky.Content.Projectiles.Sentient
             Projectile.ai[0]++;
             if (Projectile.ai[0] == 1 && Projectile.scale > 0.8f)
             {
-                SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 0.25f, Pitch = -0.5f }, Projectile.Center);
 
                 int newExplosion = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 75), 
                 Vector2.Zero, ModContent.ProjectileType<CursedExplosion>(), Projectile.damage, 0f, Projectile.owner);

@@ -2510,7 +2510,7 @@ SpiderKey: {
 }
 
 MiteClaws: {
-	DisplayName: Thousandth Claw
+	DisplayName: Shred Claw
 	Tooltip:
 		'''
 		Creates a claw swipe nearby you that shreds enemies
@@ -2656,7 +2656,7 @@ SpiderWarDreamcatcher: {
 }
 
 SpiderWarFlail: {
-	DisplayName: Tsar Throwah
+	DisplayName: Tsar Thrower
 	Tooltip:
 		'''
 		Rapidly shoots missiles while being swung
@@ -6490,5 +6490,34 @@ SentientWeatherPain: {
 		'''
 		Fires out giant lingering tornados that can pull enemies in and fling them around
 		'Really good at waking people up in the morning'
+		'''
+}
+
+SentientChainKnife: {
+	DisplayName: Puncturing Hornsnake
+	Tooltip:
+		'''
+		Throw out a long returning serpent chain
+		The serpent will stick in enemies and inflict bleeding while holding down left click
+		If it has been in an enemy for long enough, releasing left click will hemorrhage the enemy
+		'Stabbing things with its horn makes it happy'
+		'''
+}
+
+SentientHarpoon: {
+	DisplayName: Frogpoon
+	Tooltip:
+		'''
+		Licks enemies, causing them to be slowed a bit
+		'May be genetically related to the licker'
+		'''
+}
+
+SentientPaintballGun: {
+	DisplayName: Dairy Homunculus
+	Tooltip:
+		'''
+		Shoots out milk from its utters
+		'Do NOT drink its milk'
 		'''
 }

@@ -20,7 +20,7 @@ namespace Spooky.Content.UserInterfaces
 
 		public override void ClearWorld()
 		{
-			if (!Main.dedServ)
+			if (!Main.dedServ || !DialogueUI.Visible)
 			{
 				DialogueUI.Clear();
 			}
