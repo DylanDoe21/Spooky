@@ -20,6 +20,7 @@ Dialogue Overhaul:
 -Also a lot of dialogue in the mod has been re-written to be better and have interactions with your player responding to them
 
 Random New Stuff:
+-Finally added achievements to spooky mod, so far there are achievements for killing each spooky mod boss and a bunch of miscellaneous ones, more may be added in the future
 -Added new double jump bottle and hermes boots alternative to the underground spooky forest cabin chests
 
 

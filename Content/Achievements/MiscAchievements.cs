@@ -86,4 +86,15 @@ namespace Spooky.Content.Achievements
             LittleEyeQuestCondition = AddCondition();
         }
     }
+
+    public class MiscAchievementBloomHarvest : ModAchievement
+    {
+        public CustomFlagCondition BloomHarvestCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            BloomHarvestCondition = AddCondition();
+        }
+    }
 }

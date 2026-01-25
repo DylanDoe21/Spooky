@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.Catacomb.Misc
 			Item.width = 14;
 			Item.height = 24;
 			Item.rare = ItemRarityID.Blue;
-            Item.maxStack = 1;
+            Item.maxStack = 9999;
 		}
 
 		public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) 

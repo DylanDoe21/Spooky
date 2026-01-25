@@ -92,3 +92,8 @@ EventAchievementSpore: {
 	FriendlyName: Choking Fumes
 	Description: Visit the spider grotto when the mushroom spores are everywhere.
 }
+
+MiscAchievementBloomHarvest: {
+	FriendlyName: Bountiful Harvest
+	Description: Harvest a fully grown bloom plant.
+}

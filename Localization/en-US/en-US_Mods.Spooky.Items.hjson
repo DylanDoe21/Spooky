@@ -3309,6 +3309,16 @@ SpookyHellSolution: {
 		'''
 }
 
+SentientBeeGun: {
+	DisplayName: Eyesore
+	Tooltip:
+		'''
+		Fires out eye tadpoles that chase enemies but don't deal contact damage
+		Right click while holding this to detonate all tadpoles, dealing a lot of damage
+		'It's always laying eggs'
+		'''
+}
+
 SentientBladeTongue: {
 	DisplayName: Tongueblade
 	Tooltip:
@@ -3334,6 +3344,17 @@ SentientCap: {
 		'''
 		Will sometimes talk to you and make horrible noises while worn
 		'You better not be capping'
+		'''
+}
+
+SentientChainKnife: {
+	DisplayName: Puncturing Hornsnake
+	Tooltip:
+		'''
+		Throw out a long returning serpent chain
+		The serpent will stick in enemies and inflict bleeding while holding down left click
+		If it has been in an enemy for long enough, releasing left click will hemorrhage the enemy
+		'Stabbing things with its horn makes it happy'
 		'''
 }
 
@@ -3373,6 +3394,15 @@ SentientGatligator: {
 		Will sometimes vomit out meat giblets that explode when they hit enemies
 		33% chance to save ammo
 		'Half aligator, half gun, and has a mind of its own'
+		'''
+}
+
+SentientHarpoon: {
+	DisplayName: Frogpoon
+	Tooltip:
+		'''
+		Licks enemies, causing them to be slowed a bit
+		'May be genetically related to the licker'
 		'''
 }
 
@@ -3456,6 +3486,15 @@ SentientMineLauncher: {
 		'''
 }
 
+SentientPaintballGun: {
+	DisplayName: Dairy Homunculus
+	Tooltip:
+		'''
+		Shoots out milk from its utters
+		'Do NOT drink its milk'
+		'''
+}
+
 SentientPaladinsHammer: {
 	DisplayName: Dave & Mike
 	Tooltip:
@@ -3473,6 +3512,15 @@ SentientRavenStaff: {
 		Summons Billy-Bone the raven to fight with you
 		Only one can exist, and he requires 3 minion slots to summon
 		'Its heart is beating slowly'
+		'''
+}
+
+SentientRuler: {
+	DisplayName: Foot
+	Tooltip:
+		'''
+		Stab enemies with its toenails
+		'Is it a foot long though?'
 		'''
 }
 
@@ -3521,6 +3569,15 @@ SentientVenusMagnum: {
 		Fires out bile and piercing teeth abhorrently slowly, but speeds up the longer it is used
 		Releasing while at maximum fire rate will shoot a giant explosive glob of bile
 		'It oozes with power'
+		'''
+}
+
+SentientWeatherPain: {
+	DisplayName: Weather Rooster
+	Tooltip:
+		'''
+		Fires out giant lingering tornados that can pull enemies in and fling them around
+		'Really good at waking people up in the morning'
 		'''
 }
 
@@ -3917,52 +3974,52 @@ GoldStatue4Item: {
 }
 
 LowerCatacombBathtubItem: {
-	DisplayName: Overgrown Bathtub
+	DisplayName: Lower Catacomb Bathtub
 	Tooltip: ""
 }
 
 LowerCatacombBedItem: {
-	DisplayName: Plant Bed
+	DisplayName: Lower Catacomb Bed
 	Tooltip: ""
 }
 
 LowerCatacombBenchItem: {
-	DisplayName: Flower Bench
+	DisplayName: Lower Catacomb Bench
 	Tooltip: ""
 }
 
 LowerCatacombBookcaseItem: {
-	DisplayName: Overgrown Bookcase
+	DisplayName: Lower Catacomb Bookcase
 	Tooltip: ""
 }
 
 LowerCatacombCandelabraItem: {
-	DisplayName: Pitcher Plant Candelabra
+	DisplayName: Lower Catacomb Candelabra
 	Tooltip: ""
 }
 
 LowerCatacombCandleItem: {
-	DisplayName: Pitcher Plant Candle
+	DisplayName: Lower Catacomb Candle
 	Tooltip: ""
 }
 
 LowerCatacombChairItem: {
-	DisplayName: Flower Chair
+	DisplayName: Lower Catacomb Chair
 	Tooltip: ""
 }
 
 LowerCatacombChandelierItem: {
-	DisplayName: Flower Chandelier
+	DisplayName: Lower Catacomb Chandelier
 	Tooltip: ""
 }
 
 LowerCatacombChestItem: {
-	DisplayName: Overgrown Chest
+	DisplayName: Lower Catacomb Chest
 	Tooltip: ""
 }
 
 LowerCatacombClockItem: {
-	DisplayName: Flower Clock
+	DisplayName: Lower Catacomb Clock
 	Tooltip: ""
 }
 
@@ -3972,42 +4029,42 @@ LowerCatacombDoorItem: {
 }
 
 LowerCatacombDresserItem: {
-	DisplayName: Overgrown Dresser
+	DisplayName: Lower Catacomb Dresser
 	Tooltip: ""
 }
 
 LowerCatacombLampItem: {
-	DisplayName: Pitcher Plant Lamp
+	DisplayName: Lower Catacomb Lamp
 	Tooltip: ""
 }
 
 LowerCatacombLanternItem: {
-	DisplayName: Seedling Lantern
+	DisplayName: Lower Catacomb Lantern
 	Tooltip: ""
 }
 
 LowerCatacombPianoItem: {
-	DisplayName: Overgrown Piano
+	DisplayName: Lower Catacomb Piano
 	Tooltip: ""
 }
 
 LowerCatacombSinkItem: {
-	DisplayName: Overgrown Sink
+	DisplayName: Lower Catacomb Sink
 	Tooltip: ""
 }
 
 LowerCatacombTableItem: {
-	DisplayName: Flower Table
+	DisplayName: Lower Catacomb Table
 	Tooltip: ""
 }
 
 LowerCatacombToiletItem: {
-	DisplayName: Overgrown Toilet
+	DisplayName: Lower Catacomb Toilet
 	Tooltip: ""
 }
 
 LowerCatacombWorkBenchItem: {
-	DisplayName: Overgrown Work Bench
+	DisplayName: Lower Catacomb Work Bench
 	Tooltip: ""
 }
 
@@ -4017,22 +4074,22 @@ MoyaiItem: {
 }
 
 PottedPlant1Item: {
-	DisplayName: Potted Mouth Flower
+	DisplayName: Potted Orchid
 	Tooltip: ""
 }
 
 PottedPlant2Item: {
-	DisplayName: Potted Petal Plant
+	DisplayName: Potted Lily
 	Tooltip: ""
 }
 
 PottedPlant3Item: {
-	DisplayName: Potted Eye Flower
+	DisplayName: Potted Flytrap
 	Tooltip: ""
 }
 
 PottedPlant4Item: {
-	DisplayName: Potted Skull Plant
+	DisplayName: Potted Sunflower
 	Tooltip: ""
 }
 
@@ -6463,61 +6520,4 @@ SporeMonolithItem: {
 RaveyardMonolithItem: {
 	DisplayName: Raveyard Monolith
 	Tooltip: Creates party beams and colors
-}
-
-SentientBeeGun: {
-	DisplayName: Eyesore
-	Tooltip:
-		'''
-		Fires out eye tadpoles that chase enemies but don't deal contact damage
-		Right click while holding this to detonate all tadpoles, dealing a lot of damage
-		'It's always laying eggs'
-		'''
-}
-
-SentientRuler: {
-	DisplayName: Foot
-	Tooltip:
-		'''
-		Stab enemies with its toenails
-		'Is it a foot long though?'
-		'''
-}
-
-SentientWeatherPain: {
-	DisplayName: Weather Rooster
-	Tooltip:
-		'''
-		Fires out giant lingering tornados that can pull enemies in and fling them around
-		'Really good at waking people up in the morning'
-		'''
-}
-
-SentientChainKnife: {
-	DisplayName: Puncturing Hornsnake
-	Tooltip:
-		'''
-		Throw out a long returning serpent chain
-		The serpent will stick in enemies and inflict bleeding while holding down left click
-		If it has been in an enemy for long enough, releasing left click will hemorrhage the enemy
-		'Stabbing things with its horn makes it happy'
-		'''
-}
-
-SentientHarpoon: {
-	DisplayName: Frogpoon
-	Tooltip:
-		'''
-		Licks enemies, causing them to be slowed a bit
-		'May be genetically related to the licker'
-		'''
-}
-
-SentientPaintballGun: {
-	DisplayName: Dairy Homunculus
-	Tooltip:
-		'''
-		Shoots out milk from its utters
-		'Do NOT drink its milk'
-		'''
 }

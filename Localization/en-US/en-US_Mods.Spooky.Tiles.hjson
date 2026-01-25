@@ -117,7 +117,7 @@ GrottoTree1.MapEntry: Grotto Tree
 GrottoTree2.MapEntry: Grotto Tree
 GrottoTree3.MapEntry: Grotto Tree
 UpperCatacombChest.MapEntry: Catacomb Chest
-LowerCatacombChest.MapEntry: Overgrown Chest
+LowerCatacombChest.MapEntry: Lower Catacomb Chest
 GrottoTreeSapling.MapEntry: Sapling
 SporeShroomTreeSapling.MapEntry: Sapling
 BirchChest.MapEntry: Old Birch Chest

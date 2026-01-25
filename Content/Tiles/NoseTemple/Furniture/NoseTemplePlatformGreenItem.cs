@@ -20,6 +20,10 @@ namespace Spooky.Content.Tiles.NoseTemple.Furniture
 		public override void AddRecipes()
         {
             CreateRecipe(2)
+            .AddIngredient(ModContent.ItemType<NoseTempleBrickGreenItem>())
+            .Register();
+
+            CreateRecipe(2)
             .AddIngredient(ModContent.ItemType<NoseTempleFancyBrickGreenItem>())
             .Register();
         }

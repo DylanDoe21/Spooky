@@ -1040,10 +1040,10 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<UpperCatacombChest>());
                         }
 
-                        //place rows of caskets and tombs
+                        //place rows of caskets, tombs, and decorative flower pots
                         if (WorldGen.genRand.NextBool() && CanPlaceFurniture(X, Y, 9))
                         {
-                            switch (WorldGen.genRand.Next(4))
+                            switch (WorldGen.genRand.Next(5))
                             {
                                 //row of caskets
                                 case 0:
@@ -1104,6 +1104,26 @@ namespace Spooky.Content.Generation
 
                                     WorldGen.PlaceObject(X - 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
                                     WorldGen.PlaceObject(X + 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
+
+                                    break;
+                                }
+
+                                //row of flower pots
+                                case 4:
+                                {
+                                    List<int> PottedPlants = new() { ModContent.TileType<PottedPlant1>(), ModContent.TileType<PottedPlant2>(), 
+                                    ModContent.TileType<PottedPlant3>(), ModContent.TileType<PottedPlant4>() };
+
+                                    WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(PottedPlants));
+
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, WorldGen.genRand.Next(PottedPlants));
+                                    }
+                                    if (WorldGen.genRand.NextBool(3))
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, WorldGen.genRand.Next(PottedPlants));
+                                    }
 
                                     break;
                                 }
@@ -1360,10 +1380,10 @@ namespace Spooky.Content.Generation
                             WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<LowerCatacombChest>());
                         }
 
-                        //place rows of caskets and tombs
+                        //place rows of caskets, tombs, and decorative flower pots
                         if (WorldGen.genRand.NextBool() && CanPlaceFurniture(X, Y, 9))
                         {
-                            switch (WorldGen.genRand.Next(4))
+                            switch (WorldGen.genRand.Next(5))
                             {
                                 //row of caskets
                                 case 0:
@@ -1424,6 +1444,26 @@ namespace Spooky.Content.Generation
 
                                     WorldGen.PlaceObject(X - 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
                                     WorldGen.PlaceObject(X + 2, Y - 1, WorldGen.genRand.Next(TombDecorations));
+
+                                    break;
+                                }
+
+                                //row of flower pots
+                                case 4:
+                                {
+                                    List<int> PottedPlants = new() { ModContent.TileType<PottedPlant1>(), ModContent.TileType<PottedPlant2>(), 
+                                    ModContent.TileType<PottedPlant3>(), ModContent.TileType<PottedPlant4>() };
+
+                                    WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(PottedPlants));
+
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X - 3, Y - 1, WorldGen.genRand.Next(PottedPlants));
+                                    }
+                                    if (WorldGen.genRand.NextBool())
+                                    {
+                                        WorldGen.PlaceObject(X + 3, Y - 1, WorldGen.genRand.Next(PottedPlants));
+                                    }
 
                                     break;
                                 }
@@ -1668,6 +1708,7 @@ namespace Spooky.Content.Generation
 		//post worldgen to place items in the spooky biome chests
         public override void PostWorldGen()
 		{
+            //upper catacomb main items
 			List<int> MainItem1 = new List<int>
 			{
 				ModContent.ItemType<BoneBow>(), ModContent.ItemType<GraveCrossbow>(), ModContent.ItemType<HarvesterScythe>(), 
@@ -1677,6 +1718,7 @@ namespace Spooky.Content.Generation
 
 			List<int> ActualMainItem1 = new List<int>(MainItem1);
 
+            //lower catacomb main items
             List<int> MainItem2 = new List<int>
 			{
 				ModContent.ItemType<CrossCharm>(), ModContent.ItemType<FlameIdol>(), ModContent.ItemType<GlowBulb>(), 
@@ -1705,7 +1747,7 @@ namespace Spooky.Content.Generation
                         List<int> Potions = new List<int>
                         {
                             ItemID.IronskinPotion, ItemID.SwiftnessPotion, ItemID.RegenerationPotion, ItemID.ManaRegenerationPotion,
-                            ItemID.ShinePotion, ItemID.ThornsPotion, ItemID.ArcheryPotion, ItemID.GravitationPotion 
+                            ItemID.ShinePotion, ItemID.ThornsPotion, ItemID.GravitationPotion, ItemID.PotionOfReturn
                         };
 
                         if (ActualMainItem1.Count == 0)
@@ -1775,8 +1817,8 @@ namespace Spooky.Content.Generation
 					{
                         List<int> Potions = new List<int>
                         {
-                            ItemID.IronskinPotion, ItemID.SwiftnessPotion, ItemID.RegenerationPotion, ItemID.ManaRegenerationPotion,
-                            ItemID.ShinePotion, ItemID.ThornsPotion, ItemID.ArcheryPotion, ItemID.GravitationPotion 
+                            ItemID.LuckPotion, ItemID.InfernoPotion, ItemID.LifeforcePotion, ItemID.RagePotion, 
+                            ItemID.SummoningPotion, ItemID.TitanPotion, ItemID.WrathPotion, ItemID.PotionOfReturn
                         };
 
                         List<int> Bars = new List<int>

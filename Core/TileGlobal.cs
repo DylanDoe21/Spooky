@@ -6,11 +6,14 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
+using System.Collections.Generic;
 
+using Spooky.Content.Achievements;
 using Spooky.Content.Dusts;
 using Spooky.Content.Gores.Misc;
 using Spooky.Content.Items.Minibiomes.Desert;
 using Spooky.Content.NPCs.Minibiomes.Desert.Projectiles;
+using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Catacomb;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.Pylon;
@@ -22,6 +25,21 @@ namespace Spooky.Core
 {
     public class TileGlobal : GlobalTile
     {
+		public static List<ushort> Blooms = new()
+		{
+			(ushort)ModContent.TileType<CemeteryBloomPlant>(),
+			(ushort)ModContent.TileType<DandelionBloomPlant>(),
+			(ushort)ModContent.TileType<DragonfruitBloomPlant>(),
+            (ushort)ModContent.TileType<FallBloomPlant>(),
+            (ushort)ModContent.TileType<FossilBloomPlant>(),
+            (ushort)ModContent.TileType<FungusBloomPlant>(),
+            (ushort)ModContent.TileType<SeaBloomPlant>(),
+            (ushort)ModContent.TileType<SpringBloomPlant>(),
+            (ushort)ModContent.TileType<SummerBloomPlant>(),
+            (ushort)ModContent.TileType<VegetableBloomPlant>(),
+            (ushort)ModContent.TileType<WinterBloomPlant>()
+		};
+
 		public static Vector2 TileOffset => Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
 		public static Vector2 TileCustomPosition(int i, int j, Vector2 off = default) => (new Vector2(i, j) * 16) - Main.screenPosition - off + TileOffset;
 
@@ -32,6 +50,11 @@ namespace Spooky.Core
 
 		public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
+			if (Blooms.Contains(Main.tile[i, j].TileType))
+			{
+				ModContent.GetInstance<MiscAchievementBloomHarvest>().BloomHarvestCondition.Complete();
+			}
+
 			if (Main.tile[i, j].TileType == TileID.Stone && Main.rand.NextBool(40) && ItemGlobal.ActiveItem(Main.LocalPlayer).type == ModContent.ItemType<GoldrushPickaxe>())
 			{
 				int[] Items = new int[] { ItemID.CopperOre, ItemID.TinOre, ItemID.IronOre, ItemID.LeadOre, ItemID.SilverOre, ItemID.TungstenOre, ItemID.GoldOre, ItemID.PlatinumOre,
