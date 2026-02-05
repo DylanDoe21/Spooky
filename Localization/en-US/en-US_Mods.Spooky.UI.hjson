@@ -27,6 +27,12 @@ LittleEyeDialogueChoice: {
 	CauldronChoice: Cauldron?
 }
 
+OldHunterDialogueChoice: {
+	TalkChoice: Talk
+	RareItemChoice: Rare Items
+	RematchChoice: Rematch
+}
+
 RottenDepthsTerminal: {
 	Inbox: Doohickey Labs Inc. Mail Inbox
 	Sender: Sender

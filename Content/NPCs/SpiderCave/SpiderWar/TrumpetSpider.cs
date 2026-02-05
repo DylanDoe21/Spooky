@@ -93,6 +93,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			return !SpiderWarWorld.SpiderWarActive;
 		}
 
+		public override Color? GetAlpha(Color drawColor)
+		{
+			return Color.White;
+		}
+
         public override void AI()
         {
             NPC.TargetClosest(true);
@@ -105,7 +110,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
             if (NPC.ai[0] == 0)
             {
-                Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 7;
+                Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 13;
                 NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 
                 SaveRotation = NPC.rotation;

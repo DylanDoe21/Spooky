@@ -1,7 +1,14 @@
-Spider grotto rework:
+~New stuff~
 
-New fog event:
--New naturally occuring weather event where fog and spores take over the grotto
+New spider grotto changes:
+-Spider grotto caves are now way more open, giving you more room to explore and allowing for better structure placement
+-Spider grotto caves are also now really flat, as the caves generation before did not work well, especially with how some of the spider grotto enemies behave 
+-Added clusters of mycelium grass, which give off faint white light and grow new red mushroom trees (Because spooky mod didnt have enough mushrooms already)
+-Added many block resprites, new blocks, new ambient tiles/objects, and other stuff to enhance the spider grotto's aesthetic more
+-Added new old birch trees which drop ambient leaves, and have their own new wood block and furniture set
+
+New spider grotto fog event:
+-New naturally occuring weather event where fog and spores take over the grotto in hardmode
 -During this event, a new set of mite enemies will begin spawning alongside the normal enemies
 -The fog intensity increases over time, and when intense enough the spiders will stop spawning and only mites can be found
 -Towards the end of the event, the fog intensity will decrease until the event actually ends
@@ -9,19 +16,36 @@ New fog event:
 -You can also find pieces of a new armor set growing on the ground while this event is happening, and a funny new pet
 
 New spider war event:
--New wave-based miniboss rush in the spider grotto post-golem
+-New wave-based miniboss rush in the spider grotto you can do after defeating golem
 -There is a total of 5 unique minibosses in the event
--Total of 10 waves, and the final wave will consist of an onslaught of minibosses until you get 30 kills
+-Has a total of 10 waves, and the final wave will consist of an onslaught of minibosses until you get 30 kills
 -Each miniboss has a trophy and other unique drops, with the drop rate being dependant on the wave (Before final wave, 10% drop chance, and during wave 10 guaranteed drops)
--The event will automatically count as complete just by making it to the final wave, but you do not have to continue past that unless you want more loot
+-The event will automatically count as complete just by making it to wave 10, so you do not have to continue past that unless you want more loot
+
+New old hunter revamp:
+-The old hunter was a lackluster town npc, and has been revamped to be more unique and also be present in hardmode, where the mod has less content
+-Old hunter is now revived by finding his corpse deep in the spider grotto, and bringing back his soul which has been locked away in the lower catacombs in a certain ghostly chest
+-Old hunter is no longer locked behind a poorly made scavenger hunt, and because of this the giant cobweb and all of the old hunter pieces have been removed from the mod
+-Old hunter no longer moves into houses like regular town npcs, you will now need to visit him in his ruined spider grotto house
+-In hardmode, you can find various rare powerful enemies that spawn in the different spooky mod biomes, which drop a special item you can give to the old hunter for unique rewards
+-These special materials do not work like little eyes quests, you can just find the enemies as soon as you get into hardmode, kill them, and give the special items to the old hunter whenever you like
 
 Dialogue Overhaul:
--The dialogue UI used on krampus is now used across many friendly npcs in spooky mod, like little eye, and more
--Also a lot of dialogue in the mod has been re-written to be better and have interactions with your player responding to them
+-The dialogue UI that was added to be used for krampus in the last major update is now used across every friendly npc you can talk with in spooky mod
+-Also a lot of dialogue in the mod has been re-written to be better and have interactions with your player responding to them just like with krampus
+
+New catacombs improvements:
+-The entire catacombs no longer consists of rooms that have the exact same layouts, the rooms themselves are still pre-built but all of the furniture, loot, and special rare rooms are all randomized
+-Even though the individual rooms are still pre-built, there are more than double the number of room variants as there was before, meaning the catacombs should feel a lot more natural now with less repition in room variety
+-The pathways throughout the catacombs have also been made to be more random, meaning the catacombs now feels like a proper labyrinth for players to explore instead of just running across the whole thing horizontally
+-Added new upper catacomb special rooms: Art gallery rooms filled with new unique paintings, library rooms which utilize some old wood blocks, bookcases, and tables with candles
+-Added new lower catacomb special rooms: Library rooms like the first layer, living quarters with small old wood rooms with various pieces of old wood furniture, and puzzle rooms with switches that open walls
 
 Random New Stuff:
--Finally added achievements to spooky mod, so far there are achievements for killing each spooky mod boss and a bunch of miscellaneous ones, more may be added in the future
--Added new double jump bottle and hermes boots alternative to the underground spooky forest cabin chests
+-Added lots of achievements to spooky mod, so far there are achievements for killing each spooky mod boss and a bunch of other ones for events and discovering stuff in the world (More will probably be added in the future too!)
+-Added new double jump bottle and hermes boots alternative to the underground spooky forest cabin chests to give you early game mobility (The new hermes boots alternative can also be used to craft spectre boots)
+-Added multiple new furniture sets: Upper catacombs furniture, lower catacombs furniture, and old birch wood furniture
+
 
 
 ~Changes to existing stuff~
@@ -33,16 +57,17 @@ Items:
 -Nerfed samson's cuff damage increase against enemies from 50% to 20%
 -Nerfed yuletide wood leggings magic attack speed increase from 20% to 10%
 -Skull smasher left click now goes through enemies instead of immediately returning to you when hitting an enemy
--Buffed damage done by skull smashed right click when you throw the hammer
+-Buffed damage done by skull smasher right click when you throw the hammer
 -Buffed licker damage from 48 to 55
--Living caduceus minions now deal way more damage when they explode themselves after targetting an enemy for long enough
+-Living caduceus minion now deals way more damage when they suicide-bomb enemies after targeting that enemy for too long
 -Molar mauler swing speed increased, and when thrown it now travels faster and returns to you faster
+-Carrion chunker projectiles now have a delay before they become affected by gravity so you can aim them much better
 -Lowered volume on the EMF reader beeping sounds
 -Lowered volume on the ear parasite companion screeching sound
 -Lowered volume on the moocher staff flame pillar explosion sound
 
 Enemy/Boss:
--Buffed orro-boro phase 1 hp to 65000 (Which is 32500 in gameplay since it goes into phase 2 at half hp), and phase 2 hp for both worms to 32000
+-Buffed orro-boro phase 1 hp to 65000 (Which is technically 32500 in gameplay since it goes into phase 2 at half hp), and phase 2 hp for both worms to 32000
 
 Random Stuff:
 -Removed random lightning flash/sounds in the swampy cemetery
@@ -52,14 +77,17 @@ Random Stuff:
 -Tar pits biome is now larger than before, but only one generates per world
 -Added new unique tar pits cactus block, dropped by tar pit cactuses instead of normal cactus
 -Thrown bile glob no longer has gravity and travels in a straight line
+-Occultist platforms can now be crafted with both their corresponding brick and slab blocks
+-Upper catacomb torches are now green to match the new upper catacombs furniture set
 
 Bug/Issue Fixes:
--Spooky mod couches, benches, and clocks not having highlights
+-Spooky mod couches, benches, and clocks not having smart cursor highlights
 -Spooky mod pet items spawning the pet and buff when you throw them on the ground by right clicking
--Rot gourd colliding with tiles when despawning if all players are dead
+-Rot gourd colliding with tiles and getting stuck while despawning if all players are dead
 -Spook fishron wings producing dusts if you continued holding jump while on the ground after running out of flight time
--Angry orange orbiting projectile immediately teleporting to its desired position if the players velocity slowed down quickly/instantly
+-Angry orange orbiter projectile immediately teleporting to its desired position if the players velocity slowed down quickly/instantly
 -Spooky mod grasses turning into their corresponding dirt instead of fully breaking when exploded
+-Nolegams no longer display that they drop hearts in the bestiary (They still drop hearts in game, this was just done for consistency with terraria enemies)
 
 Multiplayer Fixes:
 -Bile glob not properly syncing the egg incursion time reduction across all clients

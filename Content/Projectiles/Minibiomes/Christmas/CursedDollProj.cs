@@ -91,7 +91,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
                     int Amount = Main.rand.Next(1, 3);
                     for (int numDusts = 0; numDusts < Amount; numDusts++)
                     {
-                        //create dust rings for debugging
                         for (int i = 0; i < 20; i++)
                         {
                             Vector2 offset = new Vector2();

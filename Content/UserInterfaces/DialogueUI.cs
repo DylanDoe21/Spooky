@@ -19,6 +19,7 @@ using Spooky.Content.NPCs.Friendly;
 namespace Spooky.Content.UserInterfaces
 {
 	//dialogue code referenced from Mod of redemption dialogue system: https://github.com/Hallam9K/RedemptionAlpha/tree/3b2349a6be8d1e64929c84c4777b7fb0776752d0/UI/ChatUI
+	[Autoload(Side = ModSide.Client)]
     public class DialogueUI : UIState
     {
         public static List<IDialogue> Dialogue;

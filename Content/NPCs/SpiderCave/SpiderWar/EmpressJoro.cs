@@ -8,13 +8,11 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.SpiderCave;
-using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.NPCs.SpiderCave.Projectiles;
 using Spooky.Content.Tiles.Trophy;
 
@@ -486,7 +484,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarRemote>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<EmpressJoroTrophyItem>()));
 
-			var parameters = new DropOneByOne.Parameters() 
+			LeadingConditionRule NoBestiaryCondition = new LeadingConditionRule(new DropConditions.HideBestiaryCondition());
+
+			var parameters = new DropOneByOne.Parameters()
 			{
 				ChanceNumerator = 1,
 				ChanceDenominator = 1,
@@ -495,8 +495,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				MinimumItemDropsCount = 4,
 				MaximumItemDropsCount = 8,
 			};
-			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
-        }
+
+			NoBestiaryCondition.OnSuccess(new DropOneByOne(ItemID.Heart, parameters));
+		}
 
 		public override void HitEffect(NPC.HitInfo hit) 
         {

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 
+using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Tiles.SpookyBiome;
 
 namespace Spooky.Core
@@ -17,6 +18,7 @@ namespace Spooky.Core
             RecipeGroup wood = RecipeGroup.recipeGroups[RecipeGroupID.Wood];
             wood.ValidItems.Add(ModContent.ItemType<SpookyWoodItem>());
 
+            //custom recipe groups
 			RecipeGroup BaseGroup(object GroupName, object GroupName2, int[] Items)
 			{
 				string Name = "";
@@ -59,6 +61,13 @@ namespace Spooky.Core
             furnaceRecipe.AddIngredient(ItemID.Torch, 3);
             furnaceRecipe.AddTile(TileID.WorkBenches);
             furnaceRecipe.Register();
+
+            //spectre boots can be made with warlock walkers
+            Recipe spectreBootsRecipe = Recipe.Create(ItemID.SpectreBoots);
+            spectreBootsRecipe.AddIngredient(ModContent.ItemType<WarlockWalkers>(), 1);
+            spectreBootsRecipe.AddIngredient(ItemID.RocketBoots, 1);
+            spectreBootsRecipe.AddTile(TileID.TinkerersWorkbench);
+            spectreBootsRecipe.Register();
         }
     }
 }

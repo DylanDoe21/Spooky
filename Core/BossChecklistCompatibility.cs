@@ -9,16 +9,19 @@ using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.OldHunter;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookFishron;
 using Spooky.Content.NPCs.Boss.SpookySpirit;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.PandoraBox;
+using Spooky.Content.NPCs.SpiderCave.SpiderWar;
 using Spooky.Content.Tiles.MusicBox;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;
@@ -238,6 +241,32 @@ namespace Spooky.Core
 			);
 
 
+			//Old Hunter
+			var OldHunterPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) => 
+            {
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/OldHunterBossChecklist").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			bossChecklistMod.Call(
+				"LogBoss", 
+				Mod,
+				nameof(OldHunterBoss),
+				8.03f,
+				() => Flags.downedOldHunter,
+				ModContent.NPCType<OldHunterBoss>(),
+				new Dictionary<string, object>() 
+				{
+					["spawnItems"] = ModContent.ItemType<OldHunterSoul>(),
+					["collectibles"] = new List<int>() { },
+					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.OldHunterBoss.BossChecklistIntegration.SpawnInfo"),
+					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.OldHunterBoss.BossChecklistIntegration.DespawnMessage"),
+					["customPortrait"] = OldHunterPortrait,
+				}
+			);
+
+
 			//Egg Incursion
 			List<int> EggEventEnemies = new List<int>()
 			{
@@ -317,6 +346,47 @@ namespace Spooky.Core
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.SpawnInfo"),
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.OrroHead.BossChecklistIntegration.DespawnMessage"),
 					["customPortrait"] = OrroboroPortrait,
+				}
+			);
+
+
+			//Spider War
+			List<int> SpiderWarEnemies = new List<int>()
+			{
+				ModContent.NPCType<OgreKing>(), 
+				ModContent.NPCType<EmperorMortar>(), 
+				ModContent.NPCType<CorklidQueen>(), 
+				ModContent.NPCType<CamelColonel>(),
+				ModContent.NPCType<EmpressJoro>(), 
+			};
+
+			var SpiderWarPortrait = (SpriteBatch spriteBatch, Rectangle rect, Color color) =>
+			{
+				Texture2D texture = ModContent.Request<Texture2D>("Spooky/Content/NPCs/NPCDisplayTextures/SpiderWarBossChecklist").Value;
+				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				spriteBatch.Draw(texture, centered, color);
+			};
+
+			List<string> SpiderWarIcon = new List<string>()
+			{
+				"Spooky/Content/Biomes/SpiderCaveBiomeIcon"
+			};
+
+			bossChecklistMod.Call(
+				"LogEvent", 
+				Mod,
+				"SpiderWar",
+				13.01f,
+				() => Flags.downedSpiderWar,
+				SpiderWarEnemies,
+				new Dictionary<string, object>()
+				{
+					//["spawnItems"] = EggEventItems,
+					//["collectibles"] = ModContent.ItemType<EggEventBox>(),
+					["displayName"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.SpiderWar.EntryName"),
+					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.BossChecklistIntegration.SpiderWar.SpawnInfo"),
+					["overrideHeadTextures"] = SpiderWarIcon,
+					["customPortrait"] = SpiderWarPortrait,
 				}
 			);
 

@@ -14,9 +14,9 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.tileFrameImportant[Type] = true;
-            Main.tileLighted[Type] = true;
 			Main.tileSolid[Type] = false;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Width = 3;
 			TileObjectData.newTile.Height = 4;	
@@ -25,11 +25,11 @@ namespace Spooky.Content.Tiles.Catacomb.Furniture
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.DrawYOffset = 2;
-			TileObjectData.newTile.StyleWrapLimit = 2;
+            TileObjectData.newTile.StyleWrapLimit = 2;
             TileObjectData.newTile.StyleMultiplier = 2;
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
+            TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
             TileObjectData.addAlternate(1);

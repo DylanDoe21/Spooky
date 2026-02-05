@@ -2,8 +2,8 @@ RotGourdSpawn: Rot Gourd has awoken!
 SpookySpiritSpawn: Spooky Spirit has awoken!
 MocoSpawn: Moco has awoken!
 DaffodilSpawn: Daffodil has awoken!
+OldHunterSpawn: The Old Hunter has awoken!
 OrroboroSpawn: Orro & Boro have awoken!
-BigBulbSpawn: A Big Bulb has grown...
 BigBoneSpawn: Big Bone has awoken!
 BigBoneDefeat: The curse of the catacombs has been lifted!
 DunkleosteusDefeat: Big Dunk is now gone!
@@ -20,4 +20,5 @@ EMFReaderPandoraBox: Chaotic paranormal energy detected!
 EMFReaderSpiritExists: Extreme paranormal activity occuring!
 SporeEventStart: A sporestorm is happening in the grotto!
 SporeEventEnd: The sporestorm in the grotto has calmed down
-SpiderWarWave: Wave:
+SpiderWarWave: Wave
+SpiderWarFinalWave: Final Wave

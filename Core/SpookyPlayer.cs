@@ -58,6 +58,7 @@ namespace Spooky.Core
         public bool GoreArmorMouth = false;
         public bool HazmatSet = false;
         public bool MortarSet = false;
+        public bool SporeShroomSet = false;
         public bool HazmatMinionCrit = false;
         public bool DrawHazmatBack = false;
         public bool SentientCap = false;
@@ -276,6 +277,7 @@ namespace Spooky.Core
             GoreArmorMouth = false;
             HazmatSet = false;
             MortarSet = false;
+            SporeShroomSet = false;
             HazmatMinionCrit = false;
             SentientCap = false;
             DrawHazmatBack = false;

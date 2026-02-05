@@ -33,8 +33,11 @@ namespace Spooky.Content.Items.Debug
             Flags.downedMoco = false;
             Flags.downedDaffodil = false;
             Flags.downedPandoraBox = false;
+            Flags.downedOldHunter = false;
+            Flags.OldHunterRevived = false;
             Flags.downedEggEvent = false;
             Flags.downedOrroboro = false;
+            Flags.downedSpiderWar = false;
             Flags.downedBigBone = false;
             Flags.downedSpookFishron = false;
 

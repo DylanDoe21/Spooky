@@ -7,3 +7,8 @@ EggEvent: {
 	EntryName: Egg Incursion
 	SpawnInfo: Use the [i:Spooky/Concoction] to pour acid on the giant egg in the valley of eyes if you haven't completed the event yet. Use a [i:Spooky/StrangeCyst] nearby the giant egg if you have completed the event already.
 }
+
+SpiderWar: {
+	EntryName: Spider War
+	SpawnInfo: Assassinate the archduke spider in the spider grotto, who spawns after golem has been defeated.
+}

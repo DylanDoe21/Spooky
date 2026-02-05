@@ -36,8 +36,8 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		
 		public override void UpdateArmorSet(Player player) 
 		{
-			//player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.SporeShroomArmor");
-			//player.GetModPlayer<SpookyPlayer>().SporeShroomSet = true;
+			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.SporeShroomArmor");
+			player.GetModPlayer<SpookyPlayer>().SporeShroomSet = true;
 		}
 
 		public override void UpdateEquip(Player player) 

@@ -14,6 +14,30 @@ namespace Spooky.Core
 {
     public class DropConditions
     {
+        //useful drop rule for enemy drops that should not be displayed on the bestiary and/or boss checklist
+        public class HideBestiaryCondition : IItemDropRuleCondition
+        {
+			public bool CanDrop(DropAttemptInfo info)
+            {
+                if (!info.IsInSimulation) 
+                {
+                    return true;
+                }
+                
+                return false;
+            }
+
+            public bool CanShowItemDropInUI() 
+            {
+                return false;
+            }
+
+            public string GetConditionDescription() 
+            {
+                return "";
+            }
+		}
+
         //underworld condition workaround so eye valley enemies dont drop living fire blocks or the hel-fire
         public class UnderworldDropCondition : IItemDropRuleCondition
         {

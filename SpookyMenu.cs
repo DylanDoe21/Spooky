@@ -35,6 +35,7 @@ namespace Spooky
         private static Asset<Texture2D> SpookySpiritTexture;
         private static Asset<Texture2D> MocoTexture;
         private static Asset<Texture2D> DaffodilTexture;
+        private static Asset<Texture2D> OldHunterTexture;
         private static Asset<Texture2D> OrroboroTexture;
         private static Asset<Texture2D> BigBoneTexture;
         private static Asset<Texture2D> OutlineTexture;
@@ -104,6 +105,11 @@ namespace Spooky
             {
                 DaffodilTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockDaffodil");
                 spriteBatch.Draw(DaffodilTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            }
+            if (MenuSaveSystem.hasDefeatedOldHunter)
+            {
+                OldHunterTexture ??= ModContent.Request<Texture2D>("Spooky/MenuAssets/UnlockOldHunter");
+                spriteBatch.Draw(OldHunterTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             }
             if (MenuSaveSystem.hasDefeatedOrroboro)
             {

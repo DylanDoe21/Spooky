@@ -294,14 +294,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			modifiers.ScalingArmorPenetration += 1f;
 		}
 
-		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-		{
-			if (hurtInfo.Damage >= target.statLife)
-			{
-				ModContent.GetInstance<MiscAchievementBigDunkEat>().BigDunkEatCondition.Complete();
-			}
-		}
-
 		public override bool CheckActive()
         {
             return !AnyPlayersInBiome();
@@ -519,6 +511,9 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						{
 							TargetedPlayer = player;
 							NPC.ai[1] = 1;
+
+							ModContent.GetInstance<MiscAchievementBigDunkEat>().BigDunkEatCondition.Complete();
+
 							NPC.netUpdate = true;
 						}
 					}

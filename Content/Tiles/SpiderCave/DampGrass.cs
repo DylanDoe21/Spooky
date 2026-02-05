@@ -62,7 +62,7 @@ namespace Spooky.Content.Tiles.SpiderCave
                 //grow vines
                 if (Main.rand.NextBool(15)) 
                 {
-                    WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<DampVines>(), true);
+                    WorldGen.PlaceTile(i, j + 1, Main.rand.NextBool(3) ? (ushort)ModContent.TileType<DampVinesLight>() : (ushort)ModContent.TileType<DampVines>(), true);
 					NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);
 				}
             }

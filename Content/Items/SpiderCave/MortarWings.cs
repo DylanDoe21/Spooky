@@ -41,7 +41,7 @@ namespace Spooky.Content.Items.SpiderCave
 		public override bool WingUpdate(Player player, bool inUse)
 		{
 			//only use the custom animation if you are flying and your wing time hasnt run out
-			if (player.controlJump && player.velocity.Y != 0 && player.grappling[0] == -1)
+			if (player.controlJump && player.velocity.Y != 0 && player.grappling[0] < 0)
 			{
 				int EffectRate = 2;
 

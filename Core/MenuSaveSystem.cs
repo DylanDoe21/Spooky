@@ -11,6 +11,7 @@ namespace Spooky.Core
         private static bool? hasDefeatedSpookySpiritField;
         private static bool? hasDefeatedMocoField;
         private static bool? hasDefeatedDaffodilField;
+        private static bool? hasDefeatedOldHunterField;
         private static bool? hasDefeatedOrroboroField;
         private static bool? hasDefeatedBigBoneField;
         private static bool? hasDefeatedSpookFishronField;
@@ -23,6 +24,7 @@ namespace Spooky.Core
         public static string SpookySpiritSavePath => $"{Main.SavePath}/SpookyModMenuScreen/SpookySpirit";
         public static string MocoSavePath => $"{Main.SavePath}/SpookyModMenuScreen/Moco";
         public static string DaffodilSavePath => $"{Main.SavePath}/SpookyModMenuScreen/Daffodil";
+        public static string OldHunterSavePath => $"{Main.SavePath}/SpookyModMenuScreen/OldHunter";
         public static string OrroboroSavePath => $"{Main.SavePath}/SpookyModMenuScreen/Orroboro";
         public static string BigBoneSavePath => $"{Main.SavePath}/SpookyModMenuScreen/BigBone";
         public static string SpookFishronSavePath => $"{Main.SavePath}/SpookyModMenuScreen/SpookFishron";
@@ -133,6 +135,28 @@ namespace Spooky.Core
                 else
                 {
                     File.Create(DaffodilSavePath);
+                }
+            }
+        }
+
+        public static bool hasDefeatedOldHunter
+        {
+            get
+            {
+                hasDefeatedOldHunterField ??= hasDefeatedOldHunterField = File.Exists(OldHunterSavePath);
+                return hasDefeatedOldHunterField.Value;
+            }
+            set
+            {
+                hasDefeatedOldHunterField = value;
+
+                if (!value)
+                {
+                    File.Delete(OldHunterSavePath);
+                }
+                else
+                {
+                    File.Create(OldHunterSavePath);
                 }
             }
         }

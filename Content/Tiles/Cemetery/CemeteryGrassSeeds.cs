@@ -29,8 +29,13 @@ namespace Spooky.Content.Tiles.Cemetery
 			Item.maxStack = 9999;
 		}
 
-        public override bool? UseItem(Player player)
+        public override void UseAnimation(Player player)
 		{
+            if (Main.myPlayer != player.whoAmI)
+			{
+				return;
+			}
+
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
             if (tile.HasTile && tile.TileType == ModContent.TileType<CemeteryDirt>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
@@ -38,8 +43,6 @@ namespace Spooky.Content.Tiles.Cemetery
                 Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CemeteryGrass>();
 
                 SoundEngine.PlaySound(SoundID.Dig, player.Center);
-
-                return true;
             }
 
 			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick1Safe>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
@@ -47,8 +50,6 @@ namespace Spooky.Content.Tiles.Cemetery
                 Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CatacombBrick1GrassSafe>();
 
                 SoundEngine.PlaySound(SoundID.Dig, player.Center);
-
-                return true;
             }
 
 			if (tile.HasTile && tile.TileType == ModContent.TileType<CatacombBrick2Safe>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
@@ -56,11 +57,7 @@ namespace Spooky.Content.Tiles.Cemetery
                 Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<CatacombBrick2GrassSafe>();
 
                 SoundEngine.PlaySound(SoundID.Dig, player.Center);
-
-                return true;
             }
-
-            return false;
 		}
     }
 }

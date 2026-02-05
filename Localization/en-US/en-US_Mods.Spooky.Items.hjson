@@ -530,6 +530,11 @@ BossBagMoco: {
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
+BossBagOldHunter: {
+	DisplayName: Treasure Bag (Old Hunter)
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
 BossBagOrroboro: {
 	DisplayName: Treasure Bag (Orro & Boro)
 	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
@@ -622,6 +627,15 @@ Fertilizer: {
 		'''
 		A smelly bag of dirt and bones
 		Summons Big Bone when used when nearby the giant flower pot
+		'''
+}
+
+OldHunterSoul: {
+	DisplayName: Old Hunter's Soul
+	Tooltip: 
+		'''
+		Belongs to the dead old hunter
+		Use nearby his corpse to return this soul to his body
 		'''
 }
 
@@ -1364,6 +1378,36 @@ ZomboidNecromancerHood: {
 ZomboidPyromancerHood: {
 	DisplayName: Pyromancer Hood
 	Tooltip: "'Legalize nuclear bombs!'"
+}
+
+CatacombCrate: {
+	DisplayName: Bone Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+CatacombCrate2: {
+	DisplayName: Skull Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+GrottoCrate: {
+	DisplayName: Grotto Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+SpookyCrate: {
+	DisplayName: Spooky Wood Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+SpookyHellCrate: {
+	DisplayName: Living Flesh Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+SpookyHellCrate2: {
+	DisplayName: Biomass Crate
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
 BigBoneBobber: {
@@ -2461,17 +2505,25 @@ SpiderLegs: {
 
 SporeShroomBody: {
 	DisplayName: Chestplate-Shaped Mushroom
-	Tooltip: ""
+	Tooltip:
+		'''
+		10% increased damage
+		Spawn damaging spore gas around you when you get hit
+		'''
 }
 
 SporeShroomHead: {
 	DisplayName: Helmet-Shaped Mushroom
-	Tooltip: ""
+	Tooltip: 10% increased critical strike chance
 }
 
 SporeShroomLegs: {
 	DisplayName: Legging-Shaped Mushroom
-	Tooltip: ""
+	Tooltip:
+		'''
+		12% increased movement speed
+		Attacking can sometimes fire out small lingering spores
+		'''
 }
 
 GrottoCompass: {
@@ -2558,11 +2610,6 @@ MortarWings: {
 		Allows flight and slow fall
 		Hold Down to hover
 		'''
-}
-
-OldHunterSoul: {
-	DisplayName: Old Hunter Soul
-	Tooltip: Belongs to the dead old hunter, can be returned to his body
 }
 
 OrbWeaverBoomerang: {
@@ -3933,16 +3980,6 @@ CatacombBrickPlatform2Item: {
 	Tooltip: ""
 }
 
-CatacombCrate: {
-	DisplayName: Bone Crate
-	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
-}
-
-CatacombCrate2: {
-	DisplayName: Skull Crate
-	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
-}
-
 GiantCoffinItem: {
 	DisplayName: Old Wood Casket
 	Tooltip: ""
@@ -5087,6 +5124,11 @@ MonalumboItem: {
 	Tooltip: "'Waasephi'"
 }
 
+OldHunterPaintingItem: {
+	DisplayName: The War
+	Tooltip: "'Dawnables'"
+}
+
 RedMistPaintingItem: {
 	DisplayName: Red Mist
 	Tooltip: "'RocketLauncher'"
@@ -5322,6 +5364,11 @@ OrroboroRelicItem: {
 	Tooltip: ""
 }
 
+OldHunterRelicItem: {
+	DisplayName: Old Hunter Relic
+	Tooltip: ""
+}
+
 RotGourdRelicItem: {
 	DisplayName: Rot Gourd Relic
 	Tooltip: ""
@@ -5478,17 +5525,17 @@ DampSoilWallItem: {
 }
 
 DampStoneItem: {
-	DisplayName: Not So Mossy Stone
-	Tooltip: Like regular stone, but without moss!
+	DisplayName: Mossless Stone
+	Tooltip: Like regular stone, but without moss
 }
 
 DampStoneBricksItem: {
-	DisplayName: Not So Mossy Stone Brick
+	DisplayName: Mossless Stone Brick
 	Tooltip: ""
 }
 
 DampStoneBricksWallItem: {
-	DisplayName: Not So Mossy Stone Brick Wall
+	DisplayName: Mossless Stone Brick Wall
 	Tooltip: ""
 }
 
@@ -5800,11 +5847,6 @@ SpookyBiomeChestItem: {
 	Tooltip: ""
 }
 
-SpookyCrate: {
-	DisplayName: Spooky Wood Crate
-	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
-}
-
 SwoleMushroomStatueItem: {
 	DisplayName: Mushroom God Statue
 	Tooltip: ""
@@ -6113,16 +6155,6 @@ EyeChestItem: {
 SpookyHellChestItem: {
 	DisplayName: Eye Valley Chest
 	Tooltip: ""
-}
-
-SpookyHellCrate: {
-	DisplayName: Living Flesh Crate
-	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
-}
-
-SpookyHellCrate2: {
-	DisplayName: Biomass Crate
-	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 }
 
 EyeBathtubItem: {
@@ -6507,11 +6539,6 @@ Converter: {
 	Tooltip: ""
 }
 
-GrottoCrate: {
-	DisplayName: Grotto Crate
-	Tooltip: ""
-}
-
 SporeMonolithItem: {
 	DisplayName: Spore Monolith
 	Tooltip: Surrounds the area with spore fog
@@ -6520,4 +6547,24 @@ SporeMonolithItem: {
 RaveyardMonolithItem: {
 	DisplayName: Raveyard Monolith
 	Tooltip: Creates party beams and colors
+}
+
+GnomeHouse1Item: {
+	DisplayName: Yellow Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
+}
+
+GnomeHouse2Item: {
+	DisplayName: Blue Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
+}
+
+GnomeHouse3Item: {
+	DisplayName: Red Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
+}
+
+GnomeHouse4Item: {
+	DisplayName: Green Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
 }

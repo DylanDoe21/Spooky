@@ -59,6 +59,7 @@ namespace Spooky.Core
 
             //spider cave
             AddMusic("Content/Sounds/Music/SpiderCave", Language.GetTextValue("Mods.Spooky.MusicDisplay.SpiderCave"), "BananaLizard");
+            AddMusic("Content/Sounds/Music/SporeEvent", Language.GetTextValue("Mods.Spooky.MusicDisplay.SporeEvent"), "BananaLizard");
 
             //minibiomes
             AddMusic("Content/Sounds/Music/TarPits", Language.GetTextValue("Mods.Spooky.MusicDisplay.TarPits"), "BananaLizard");

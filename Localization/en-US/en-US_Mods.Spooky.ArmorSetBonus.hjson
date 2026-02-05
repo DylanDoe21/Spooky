@@ -45,6 +45,11 @@ FlowerArmor:
 	Double tap Down to summon clumps of pollen to attack your enemies
 	This ability has a 30 second cooldown before it can be used again
 	'''
+SporeShroomArmor:
+	'''
+	Double tap Down to spawn a stationary mushroom 
+	The mushroom creates spores around it that damage enemies
+	'''
 HazmatArmor:
 	'''
 	Gain a toxic goo friend for each bloom buff you have

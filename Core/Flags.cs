@@ -22,6 +22,7 @@ namespace Spooky.Core
         public static Vector2 MocoIdolPosition4 = Vector2.Zero;
         public static Vector2 MocoIdolPosition5 = Vector2.Zero;
         public static Vector2 LeaderIdolPositon = Vector2.Zero;
+		public static Vector2 OldHunterPosition = Vector2.Zero;
 
         //compass positions
         public static Vector2 SpiderGrottoCenter = Vector2.Zero;
@@ -35,9 +36,11 @@ namespace Spooky.Core
         public static bool downedSpookySpirit = false;
         public static bool downedMoco = false;
         public static bool downedDaffodil = false;
+		public static bool downedOldHunter = false;
         public static bool downedPandoraBox = false;
         public static bool downedEggEvent = false;
         public static bool downedOrroboro = false;
+		public static bool downedSpiderWar = false;
         public static bool downedBigBone = false;
         public static bool downedSpookFishron = false;
 		public static bool downedDunkleosteus = false;
@@ -86,12 +89,14 @@ namespace Spooky.Core
         public static bool CatacombKey1 = false; 
         public static bool CatacombKey2 = false;
         public static bool CatacombKey3 = false;
+		public static bool OldHunterRevived = false;
         public static bool encounteredMan = false;
 
 		//bools and misc stuff that doesnt need to be saved/loaded in a world
 		public static bool KillWeb = false;
 		public static bool SpawnDaffodil = false;
 		public static bool SpawnBigBone = false;
+		public static bool SpawnOldHunter = false;
 
         public override void ClearWorld()
         {
@@ -100,7 +105,9 @@ namespace Spooky.Core
             downedSpookySpirit = false;
             downedMoco = false;
             downedDaffodil = false;
+			downedOldHunter = false;
             downedOrroboro = false;
+			downedSpiderWar = false;
             downedBigBone = false;
             downedSpookFishron = false;
 			downedDunkleosteus = false;
@@ -151,6 +158,7 @@ namespace Spooky.Core
             CatacombKey1 = false; 
             CatacombKey2 = false;
             CatacombKey3 = false;
+			OldHunterRevived = false;
             encounteredMan = false;
 		}
 
@@ -169,6 +177,7 @@ namespace Spooky.Core
 			tag[nameof(MocoIdolPosition4)] = MocoIdolPosition4;
 			tag[nameof(MocoIdolPosition5)] = MocoIdolPosition5;
 			tag[nameof(LeaderIdolPositon)] = LeaderIdolPositon;
+			tag[nameof(OldHunterPosition)] = OldHunterPosition;
 
 			//biome positions for compasses
             tag[nameof(SpiderGrottoCenter)] = SpiderGrottoCenter;
@@ -182,7 +191,9 @@ namespace Spooky.Core
 			tag[nameof(downedSpookySpirit)] = downedSpookySpirit;
 			tag[nameof(downedMoco)] = downedMoco;
 			tag[nameof(downedDaffodil)] = downedDaffodil;
+			tag[nameof(downedOldHunter)] = downedOldHunter;
 			tag[nameof(downedOrroboro)] = downedOrroboro;
+			tag[nameof(downedSpiderWar)] = downedSpiderWar;
 			tag[nameof(downedBigBone)] = downedBigBone;
 			tag[nameof(downedSpookFishron)] = downedSpookFishron;
 			tag[nameof(downedDunkleosteus)] = downedDunkleosteus;
@@ -233,6 +244,7 @@ namespace Spooky.Core
 			tag[nameof(CatacombKey1)] = CatacombKey1;
 			tag[nameof(CatacombKey2)] = CatacombKey2;
 			tag[nameof(CatacombKey3)] = CatacombKey3;
+			tag[nameof(OldHunterRevived)] = OldHunterRevived;
 			tag[nameof(encounteredMan)] = encounteredMan;
         }
 
@@ -251,6 +263,7 @@ namespace Spooky.Core
 			MocoIdolPosition4 = tag.Get<Vector2>(nameof(MocoIdolPosition4));
 			MocoIdolPosition5 = tag.Get<Vector2>(nameof(MocoIdolPosition5));
 			LeaderIdolPositon = tag.Get<Vector2>(nameof(LeaderIdolPositon));
+			OldHunterPosition = tag.Get<Vector2>(nameof(OldHunterPosition)); 
 
 			//world positions for compasses
 			SpiderGrottoCenter = tag.Get<Vector2>(nameof(SpiderGrottoCenter));
@@ -267,7 +280,9 @@ namespace Spooky.Core
 			downedSpookySpirit = tag.GetBool(nameof(downedSpookySpirit));
 			downedMoco = tag.GetBool(nameof(downedMoco));
 			downedDaffodil = tag.GetBool(nameof(downedDaffodil));
+			downedOldHunter = tag.GetBool(nameof(downedOldHunter));
 			downedOrroboro = tag.GetBool(nameof(downedOrroboro));
+			downedSpiderWar = tag.GetBool(nameof(downedSpiderWar));
 			downedBigBone = tag.GetBool(nameof(downedBigBone));
 			downedSpookFishron = tag.GetBool(nameof(downedSpookFishron));
 		 	downedDunkleosteus = tag.GetBool(nameof(downedDunkleosteus));
@@ -318,6 +333,7 @@ namespace Spooky.Core
 			CatacombKey1 = tag.GetBool(nameof(CatacombKey1));
 			CatacombKey2 = tag.GetBool(nameof(CatacombKey2));
 			CatacombKey3 = tag.GetBool(nameof(CatacombKey3));
+			OldHunterRevived = tag.GetBool(nameof(OldHunterRevived));
 			encounteredMan = tag.GetBool(nameof(encounteredMan));
 		}
 
@@ -335,14 +351,15 @@ namespace Spooky.Core
             writer.WriteVector2(MocoIdolPosition4);
             writer.WriteVector2(MocoIdolPosition5);
             writer.WriteVector2(LeaderIdolPositon);
+			writer.WriteVector2(OldHunterPosition);
             writer.WriteVector2(SpiderGrottoCenter);
             writer.WriteVector2(EyeValleyCenter);
 
 			//downed bosses
-			writer.WriteFlags(downedRotGourd, downedSpookySpirit, downedMoco, downedDaffodil, downedOrroboro, downedBigBone, downedSpookFishron, downedDunkleosteus);
+			writer.WriteFlags(downedRotGourd, downedSpookySpirit, downedMoco, downedDaffodil, downedOldHunter, downedOrroboro, downedBigBone, downedSpookFishron);
 
-			//downed events
-			writer.WriteFlags(downedPandoraBox, downedEggEvent);
+			//downed events/misc
+			writer.WriteFlags(downedPandoraBox, downedEggEvent, downedSpiderWar, downedDunkleosteus);
 
 			//downed moco temple stuff
 			writer.WriteFlags(downedMocoIdol1, downedMocoIdol2, downedMocoIdol3, downedMocoIdol4, downedMocoIdol5, downedMocoIdol6, MinibossBarrierOpen);
@@ -357,11 +374,9 @@ namespace Spooky.Core
 
 			//misc stuff
 			writer.WriteFlags(SpookyBackgroundAlt, CemeteryBackgroundAlt, CatacombKey1, CatacombKey2, CatacombKey3, RaveyardHappening, GuaranteedRaveyard, SporeEventHappening);
+			writer.WriteFlags(OldHunterRevived, encounteredMan);
 			writer.Write(SporeEventTimeLeft);
 			writer.Write(SporeFogIntensity);
-
-			//entity (more will probably be added here in the future)
-			writer.WriteFlags(encounteredMan);
         }
 
         public override void NetReceive(BinaryReader reader)
@@ -378,14 +393,15 @@ namespace Spooky.Core
             MocoIdolPosition4 = reader.ReadVector2();
             MocoIdolPosition5 = reader.ReadVector2();
             LeaderIdolPositon = reader.ReadVector2();
+			OldHunterPosition = reader.ReadVector2();
             SpiderGrottoCenter = reader.ReadVector2();
             EyeValleyCenter = reader.ReadVector2();
 
 			//downed bosses
-			reader.ReadFlags(out downedRotGourd, out downedSpookySpirit, out downedMoco, out downedDaffodil, out downedOrroboro, out downedBigBone, out downedSpookFishron, out downedDunkleosteus);
+			reader.ReadFlags(out downedRotGourd, out downedSpookySpirit, out downedMoco, out downedDaffodil, out downedOldHunter, out downedOrroboro, out downedBigBone, out downedSpookFishron);
 
-			//downed events
-			reader.ReadFlags(out downedPandoraBox, out downedEggEvent);
+			//downed events/misc
+			reader.ReadFlags(out downedPandoraBox, out downedEggEvent, out downedSpiderWar, out downedDunkleosteus);
 
 			//downed moco temple stuff
 			reader.ReadFlags(out downedMocoIdol1, out downedMocoIdol2, out downedMocoIdol3, out downedMocoIdol4, out downedMocoIdol5, out downedMocoIdol6, out MinibossBarrierOpen);
@@ -400,11 +416,9 @@ namespace Spooky.Core
 
 			//misc stuff
 			reader.ReadFlags(out SpookyBackgroundAlt, out CemeteryBackgroundAlt, out CatacombKey1, out CatacombKey2, out CatacombKey3, out RaveyardHappening, out GuaranteedRaveyard, out SporeEventHappening);
+			reader.ReadFlags(out OldHunterRevived, out encounteredMan);
 			SporeEventTimeLeft = reader.ReadInt32();
 			SporeFogIntensity = reader.ReadSingle();
-
-			//entity (more will probably be added here in the future)
-			reader.ReadFlags(out encounteredMan);
 		}
     }
 }

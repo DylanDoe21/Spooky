@@ -146,20 +146,15 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] >= 40 && !IsStickingToTarget)
+            {
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
+            }
+
             //different behaviors for each different variant
             switch (Projectile.frame)
             {
-                //normal, just flies in one direction
-                case 0:
-                {
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
-                    break;
-                }
-                //same as the first frame
-                case 1:
-                {
-                    goto case 0;
-                }
                 //eye variant can home in on enemies
                 case 2:
                 {
@@ -171,8 +166,6 @@ namespace Spooky.Content.Projectiles.Sentient
                         Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
                     }
 
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
-
                     break;
                 }
                 //mouth variant accelerates for a bit
@@ -180,23 +173,6 @@ namespace Spooky.Content.Projectiles.Sentient
                 {
                     Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
                     Projectile.velocity *= 1.01f;
-
-                    break;
-                }
-                //artery variant bounces between enemies on hit
-                case 4:
-                {
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
-                    
-                    break;
-                }
-                //tooth variant sticks to enemies for a bit and damages them
-                case 5:
-                {
-                    if (!IsStickingToTarget)
-                    {
-                        Projectile.velocity.Y = Projectile.velocity.Y + 0.22f;
-                    }
 
                     break;
                 }
@@ -208,7 +184,7 @@ namespace Spooky.Content.Projectiles.Sentient
                 Projectile.tileCollide = false;
 
                 int npcTarget = (int)Projectile.ai[1];
-                if (npcTarget < 0 || npcTarget >= 200) 
+                if (npcTarget < 0 || npcTarget >= 200)
                 {
                     Projectile.Kill();
                 }

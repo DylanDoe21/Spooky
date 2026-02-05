@@ -12,6 +12,7 @@ using Spooky.Content.Backgrounds.SpiderCave;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.Tameable;
 using Spooky.Content.UserInterfaces;
 using Spooky.Effects;
@@ -36,6 +37,9 @@ namespace Spooky
 
 		public static int TurkeySpawnX;
 		public static int TurkeySpawnY;
+
+        public static int MushGnomeSpawnX;
+		public static int MushGnomeSpawnY;
 
 		public static Effect vignetteEffect;
         public static Vignette vignetteShader;
@@ -104,6 +108,24 @@ namespace Spooky
                     NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>(), ai0: -1);
                     break;
                 }
+                case SpookyMessageType.SpawnDaffodil:
+                {
+                    Flags.SpawnDaffodil = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+                }
+                case SpookyMessageType.SpawnBigBone:
+                {
+                    Flags.SpawnBigBone = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+				}
+                case SpookyMessageType.SpawnOldHunter:
+                {
+                    Flags.SpawnOldHunter = true;
+                    NetMessage.SendData(MessageID.WorldData);
+                    break;
+				}
 				case SpookyMessageType.SpawnTurkey:
                 {
                     int Turkey = NPC.NewNPC(null, TurkeySpawnX, TurkeySpawnY, ModContent.NPCType<Turkey>());
@@ -236,18 +258,13 @@ namespace Spooky
                     NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
-                case SpookyMessageType.SpawnDaffodil:
+                case SpookyMessageType.SpawnMushGnome:
                 {
-                    Flags.SpawnDaffodil = true;
-                    NetMessage.SendData(MessageID.WorldData);
+                    int[] Gnomes = new int[] { ModContent.NPCType<MushGnome1>(), ModContent.NPCType<MushGnome2>(), ModContent.NPCType<MushGnome3>(), ModContent.NPCType<MushGnome4>() };
+                    int Gnome = NPC.NewNPC(null, MushGnomeSpawnX, MushGnomeSpawnY, Main.rand.Next(Gnomes));
+                    Main.npc[Gnome].velocity.X = Main.rand.NextBool() ? -1 : 1;
                     break;
                 }
-                case SpookyMessageType.SpawnBigBone:
-                {
-                    Flags.SpawnBigBone = true;
-                    NetMessage.SendData(MessageID.WorldData);
-                    break;
-				}
 				//should never occur I think?
 				default:
                 {
@@ -263,6 +280,9 @@ namespace Spooky
         SpawnSpookySpirit,
         SpawnMoco,
         SpawnOrroboro,
+        SpawnDaffodil,
+        SpawnBigBone,
+        SpawnOldHunter,
 		SpawnTurkey,
         EggIncursionStart,
         EggIncursionTimeReduce,
@@ -284,7 +304,6 @@ namespace Spooky
         KrampusDailyQuestDone,
         KrampusDailyQuestReset,
         DrawKrampusMapIconReset,
-        SpawnDaffodil,
-        SpawnBigBone,
+        SpawnMushGnome
 	}
 }

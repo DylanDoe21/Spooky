@@ -40,10 +40,14 @@ namespace Spooky.Content.NPCs.Tameable
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 			NPCID.Sets.TakesDamageFromHostilesWithoutBeingFriendly[NPC.type] = true;
 
+			/*
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/LittleDunkBestiary"
             };
+			*/
+			
+			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)

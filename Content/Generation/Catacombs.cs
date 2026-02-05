@@ -1083,15 +1083,15 @@ namespace Spooky.Content.Generation
                                 //row of giant coffins
                                 case 2:
                                 {
-                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffin>());
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffin>(), true, WorldGen.genRand.Next(0, 2));
 
                                     if (WorldGen.genRand.NextBool(3))
                                     {
-                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffin>(), true, WorldGen.genRand.Next(0, 2));
                                     }
                                     if (WorldGen.genRand.NextBool(3))
                                     {
-                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffin>(), true, WorldGen.genRand.Next(0, 2));
                                     }
 
                                     break;

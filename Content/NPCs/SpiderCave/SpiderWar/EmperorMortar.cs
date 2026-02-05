@@ -366,7 +366,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<MortarWings>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<EmperorMortarTrophyItem>()));
 
-			var parameters = new DropOneByOne.Parameters() 
+			LeadingConditionRule NoBestiaryCondition = new LeadingConditionRule(new DropConditions.HideBestiaryCondition());
+
+			var parameters = new DropOneByOne.Parameters()
 			{
 				ChanceNumerator = 1,
 				ChanceDenominator = 1,
@@ -375,8 +377,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				MinimumItemDropsCount = 4,
 				MaximumItemDropsCount = 8,
 			};
-			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
-        }
+
+			NoBestiaryCondition.OnSuccess(new DropOneByOne(ItemID.Heart, parameters));
+		}
 
         public override void HitEffect(NPC.HitInfo hit)
         {

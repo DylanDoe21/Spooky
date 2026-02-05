@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
+using Spooky.Content.Achievements;
 using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.SpiderCave.SpiderWar;
 
@@ -50,6 +51,7 @@ namespace Spooky.Core
 			SpiderWarPoints = 0;
 			SpiderWarWave = 0;
 			SpiderWarMaxPoints = 1;
+			SpiderWarDisplayPoints = 0f;
 			SpiderWarActive = false;
 		}
 
@@ -139,19 +141,44 @@ namespace Spooky.Core
 			if (!SpiderWarActive)
 			{
 				SpiderWarPoints = 0;
-				SpiderWarDisplayPoints = 0f;
 				SpiderWarWave = 0;
+				SpiderWarMaxPoints = 1;
+				SpiderWarDisplayPoints = 0f;
 			}
 
 			if (SpiderWarActive)
 			{
-				//end the event and reset everything if you die, or if you leave the valley of eyes
+				if (SpiderWarWave >= 10 && !Flags.downedSpiderWar)
+				{
+					Flags.downedSpiderWar = true;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+
+				//end the event and reset everything if all players die, or if all players leave the spider grotto
 				if (!AnyPlayersInBiome())
 				{
 					SpiderWarPoints = 0;
 					SpiderWarDisplayPoints = 0f;
 					SpiderWarWave = 0;
 					SpiderWarActive = false;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						NetMessage.SendData(MessageID.WorldData);
+					}
+				}
+				else if (SpiderWarWave >= 10 && SpiderWarPoints >= 30)
+				{
+					SpiderWarPoints = 0;
+					SpiderWarDisplayPoints = 0f;
+					SpiderWarWave = 0;
+					SpiderWarActive = false;
+
+					ModContent.GetInstance<EventAchievementSpiderWarEnd>().SpiderWarEndCondition.Complete();
 
 					if (Main.netMode == NetmodeID.Server)
 					{
@@ -187,56 +214,56 @@ namespace Spooky.Core
 							case 1:
 							{
 								SpiderWarMaxPoints = 1;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.OgreKing.DisplayName"), TextColor);
 								break;
 							}
 							case 2:
 							{
 								SpiderWarMaxPoints = 1;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.EmperorMortar.DisplayName"), TextColor);
 								break;
 							}
 							case 3:
 							{
 								SpiderWarMaxPoints = 1;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.CorklidQueen.DisplayName"), TextColor);
 								break;
 							}
 							case 4:
 							{
 								SpiderWarMaxPoints = 2;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.OgreKing.DisplayName") + ", " + Language.GetTextValue("Mods.Spooky.NPCs.EmperorMortar.DisplayName"), TextColor);
 								break;
 							}
 							case 5:
 							{
 								SpiderWarMaxPoints = 2;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.CamelColonel.DisplayName"), TextColor);
 								break;
 							}
 							case 6:
 							{
 								SpiderWarMaxPoints = 2;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.EmpressJoro.DisplayName"), TextColor);
 								break;
 							}
 							case 7:
 							{
 								SpiderWarMaxPoints = 3;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.CamelColonel.DisplayName") + ", " + Language.GetTextValue("Mods.Spooky.NPCs.EmpressJoro.DisplayName"), TextColor);
 								break;
 							}
 							case 8:
 							{
 								SpiderWarMaxPoints = 5;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.OgreKing.DisplayName") + ", " + Language.GetTextValue("Mods.Spooky.NPCs.EmperorMortar.DisplayName") + ", " +
 								Language.GetTextValue("Mods.Spooky.NPCs.CamelColonel.DisplayName"), TextColor);
 								break;
@@ -244,7 +271,7 @@ namespace Spooky.Core
 							case 9:
 							{
 								SpiderWarMaxPoints = 5;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarWave") + " " + SpiderWarWave + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.EmperorMortar.DisplayName") + ", " + Language.GetTextValue("Mods.Spooky.NPCs.CorklidQueen.DisplayName") + ", " +
 								Language.GetTextValue("Mods.Spooky.NPCs.EmpressJoro.DisplayName"), TextColor);
 								break;
@@ -252,10 +279,13 @@ namespace Spooky.Core
 							case 10:
 							{
 								SpiderWarMaxPoints = int.MaxValue;
-								Main.NewText("Wave" + " " + SpiderWarWave + ": " + 
+								Main.NewText(Language.GetTextValue("Mods.Spooky.EventsAndBosses.SpiderWarFinalWave") + ": " + 
 								Language.GetTextValue("Mods.Spooky.NPCs.OgreKing.DisplayName") + ", " + Language.GetTextValue("Mods.Spooky.NPCs.EmperorMortar.DisplayName") + ", " +
 								Language.GetTextValue("Mods.Spooky.NPCs.CorklidQueen.DisplayName") + ", " + Language.GetTextValue("Mods.Spooky.NPCs.CamelColonel.DisplayName") + ", " +
 								Language.GetTextValue("Mods.Spooky.NPCs.EmpressJoro.DisplayName"), TextColor);
+
+								ModContent.GetInstance<EventAchievementSpiderWar>().SpiderWarCondition.Complete();
+								
 								break;
 							}
 						}

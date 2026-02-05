@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
             TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<DampGrass>() };
+            TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<DampGrass>(), ModContent.TileType<OldHunterBrick>() };
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(106, 110, 56));
             DustType = ModContent.DustType<DampGrassDust>();

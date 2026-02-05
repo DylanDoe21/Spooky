@@ -3,12 +3,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.Chat;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
+using Spooky.Content.NPCs.Boss.OldHunter;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.NoseCult;
@@ -203,6 +205,33 @@ namespace Spooky.Core
                             NetMessage.SendData(MessageID.SyncNPC, number: Krampus);
                         }
 					}
+                }
+
+                //spawn dead old hunter or the npc depending on if you have revived him already
+				if (!NPC.AnyNPCs(ModContent.NPCType<OldHunterDead>()) && !NPC.AnyNPCs(ModContent.NPCType<OldHunter>()) && 
+                !NPC.AnyNPCs(ModContent.NPCType<OldHunterBoss>()) && Flags.OldHunterPosition != Vector2.Zero)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+                        if (!Flags.OldHunterRevived)
+                        {
+                            int OldHunter = NPC.NewNPC(null, (int)Flags.OldHunterPosition.X, (int)Flags.OldHunterPosition.Y, ModContent.NPCType<OldHunterDead>());
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: OldHunter);
+                            }
+                        }
+                        else
+                        {
+                            int OldHunter = NPC.NewNPC(null, (int)Flags.OldHunterPosition.X, (int)Flags.OldHunterPosition.Y, ModContent.NPCType<OldHunter>());
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: OldHunter);
+                            }
+                        }
+                    }
                 }
                 
                 //spawn moco idols in each ambush room
@@ -493,6 +522,56 @@ namespace Spooky.Core
                 }
 
                 Flags.SpawnBigBone = false;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+			}
+
+            if (Flags.SpawnOldHunter)
+            {
+                foreach (var npc in Main.ActiveNPCs)
+			    {
+                    if (npc != null && (npc.type == ModContent.NPCType<OldHunterDead>() || npc.type == ModContent.NPCType<OldHunter>()))
+                    {
+                        //spawn message
+                        if (!NPC.AnyNPCs(ModContent.NPCType<OldHunterBoss>()))
+                        {
+                            SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, npc.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton, npc.Center);
+
+                            string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OldHunterSpawn");
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), new Color(171, 64, 255));
+                            }
+                            else if (Main.netMode == NetmodeID.SinglePlayer)
+                            {
+                                Main.NewText(text, 171, 64, 255);
+                            }
+                            
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                int OldHunter = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X - 5, (int)npc.Center.Y + (npc.height / 2), ModContent.NPCType<OldHunterBoss>(), ai0: -1);
+                                Main.npc[OldHunter].alpha = 255;
+
+                                if (Main.netMode == NetmodeID.Server)
+                                {
+                                    NetMessage.SendData(MessageID.SyncNPC, number: OldHunter);
+                                }
+                            }
+                        }
+
+                        npc.active = false;
+
+                        break;
+                    }
+                }
+
+                Flags.SpawnOldHunter = false;
+                Flags.OldHunterRevived = true;
 
 				if (Main.netMode == NetmodeID.Server)
 				{

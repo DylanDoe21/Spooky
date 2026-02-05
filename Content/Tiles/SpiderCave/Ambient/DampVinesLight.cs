@@ -47,7 +47,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
-			int[] ValidTiles = { ModContent.TileType<DampVinesLight>(), ModContent.TileType<DampGrass>() };
+			int[] ValidTiles = { ModContent.TileType<DampVinesLight>(), ModContent.TileType<DampGrass>(), ModContent.TileType<OldHunterBrick>() };
 
 			if (!ValidTiles.Contains(Main.tile[i, j - 1].TileType))
 			{
@@ -71,7 +71,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Ambient
                     {
 						break;
 					}
-					else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<DampGrass>()) 
+					else if (!testTile.HasTile || (testTile.TileType != ModContent.TileType<DampGrass>() && testTile.TileType != ModContent.TileType<OldHunterBrick>())) 
                     {
 						Test--;
 						continue;

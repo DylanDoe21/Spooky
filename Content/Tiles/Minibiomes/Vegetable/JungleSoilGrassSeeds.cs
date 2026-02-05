@@ -26,8 +26,13 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable
 			Item.maxStack = 9999;
 		}
 
-        public override bool? UseItem(Player player)
+        public override void UseAnimation(Player player)
 		{
+			if (Main.myPlayer != player.whoAmI)
+			{
+				return;
+			}
+
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
             if (tile.HasTile && tile.TileType == ModContent.TileType<JungleSoil>() && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple))
@@ -35,11 +40,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable
                 Main.tile[Player.tileTargetX, Player.tileTargetY].TileType = (ushort)ModContent.TileType<JungleSoilGrass>();
 
                 SoundEngine.PlaySound(SoundID.Dig, player.Center);
-
-                return true;
             }
-
-			return false;
 		}
     }
 }

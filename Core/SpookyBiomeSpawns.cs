@@ -547,7 +547,6 @@ namespace Spooky.Core
 
 					switch (SpiderWarWorld.SpiderWarWave)
 					{
-						//1 point
 						case 0:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<TrumpetSpider>()))
@@ -556,7 +555,6 @@ namespace Spooky.Core
 							}
 							break;
 						}
-						//1 point
 						case 1:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
@@ -565,7 +563,6 @@ namespace Spooky.Core
 							}
 							break;
 						}
-						//1 point
 						case 2:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<EmperorMortar>()))
@@ -574,7 +571,6 @@ namespace Spooky.Core
 							}
 							break;
 						}
-						//1 points
 						case 3:
 						{
 							if (!NPC.AnyNPCs(ModContent.NPCType<CorklidQueen>()))
@@ -583,7 +579,6 @@ namespace Spooky.Core
 							}
 							break;
 						}
-						//2 points
 						case 4:
 						{
 							//prevent multiple enemies from spawning if only one more needs to be killed
@@ -685,7 +680,13 @@ namespace Spooky.Core
 						{
 							int MaxSpawns = SpiderWarWorld.SpiderWarPoints >= 20 ? 4 : 3;
 
-							if (SpiderWarWorld.EventActiveNPCCount() < MaxSpawns)
+							//prevent multiple enemies from spawning depending on how many points are needed
+							if ((SpiderWarWorld.SpiderWarPoints < 25 && SpiderWarWorld.EventActiveNPCCount() < MaxSpawns) ||
+							(SpiderWarWorld.SpiderWarPoints == 25 && SpiderWarWorld.EventActiveNPCCount() < 5) ||
+							(SpiderWarWorld.SpiderWarPoints == 26 && SpiderWarWorld.EventActiveNPCCount() < 4) ||
+							(SpiderWarWorld.SpiderWarPoints == 27 && SpiderWarWorld.EventActiveNPCCount() < 3) ||
+							(SpiderWarWorld.SpiderWarPoints == 28 && SpiderWarWorld.EventActiveNPCCount() < 2) ||
+							(SpiderWarWorld.SpiderWarPoints == 29 && SpiderWarWorld.EventActiveNPCCount() < 1))
 							{
 								if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
 								{

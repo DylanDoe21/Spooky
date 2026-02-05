@@ -8,7 +8,7 @@ namespace Spooky.Content.Biomes
 {
     public class SpiderWarBiome : ModBiome
     {
-		public override int Music => MusicID.Boss5; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpiderWar");
+		public override int Music => MusicID.Boss1; //MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpiderWar");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 

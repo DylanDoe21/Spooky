@@ -75,10 +75,18 @@ namespace Spooky.Content.UserInterfaces
                 },
                 InterfaceScaleType.None));
 
-				//little eye bounty UI
+				//little eye dialogue UI
 				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Little Eye Dialogue Choice UI", () =>
                 {
                     LittleEyeDialogueChoiceUI.Draw(Main.spriteBatch);
+                    return true;
+                },
+                InterfaceScaleType.None));
+
+				//old hunter dialogue UI
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("Old Hunter Dialogue Choice UI", () =>
+                {
+                    OldHunterDialogueChoiceUI.Draw(Main.spriteBatch);
                     return true;
                 },
                 InterfaceScaleType.None));

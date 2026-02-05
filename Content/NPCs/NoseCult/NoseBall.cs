@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
+using static Spooky.Core.DropConditions;
+
 namespace Spooky.Content.NPCs.NoseCult
 {
     public class NoseBallPurple : ModNPC  
@@ -91,18 +94,20 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-			var parameters = new DropOneByOne.Parameters() 
+			LeadingConditionRule NoBestiaryCondition = new LeadingConditionRule(new DropConditions.HideBestiaryCondition());
+
+			var parameters = new DropOneByOne.Parameters()
 			{
 				ChanceNumerator = 1,
 				ChanceDenominator = 1,
 				MinimumStackPerChunkBase = 1,
 				MaximumStackPerChunkBase = 1,
-				MinimumItemDropsCount = 2,
-				MaximumItemDropsCount = 4,
+				MinimumItemDropsCount = 4,
+				MaximumItemDropsCount = 8,
 			};
 
-			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
-        }
+			NoBestiaryCondition.OnSuccess(new DropOneByOne(ItemID.Heart, parameters));
+		}
     }
 
     public class NoseBallRed : NoseBallPurple  

@@ -244,21 +244,6 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-            
-            //place gnome houses
-            for (int X = startPosX - MushroomSizeX; X <= startPosX + MushroomSizeX; X++)
-            {
-                for (int Y = GnomePositionY - MushroomSizeY; Y <= GnomePositionY + MushroomSizeY; Y++)
-                {
-                    if (WorldGen.genRand.NextBool(7))
-                    {
-                        ushort[] MushroomHouses = new ushort[] { (ushort)ModContent.TileType<GnomeHouse1>(), (ushort)ModContent.TileType<GnomeHouse2>(),
-                        (ushort)ModContent.TileType<GnomeHouse3>(), (ushort)ModContent.TileType<GnomeHouse4>() };
-
-                        WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(MushroomHouses), true, WorldGen.genRand.Next(0, 2));
-                    }
-                }
-            }
 
 			//place clumps of stone
 			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
@@ -610,6 +595,26 @@ namespace Spooky.Content.Generation
                 }
             }
 
+            //place old hunter arena
+            Vector2 ArenaOrigin = new Vector2(startPosX - 50, (GnomePositionY + MushroomSizeY) - 25);
+            StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/OldHunterArena.shstruct", ArenaOrigin.ToPoint16(), Mod);
+            Flags.OldHunterPosition = new Vector2(startPosX * 16, (GnomePositionY + MushroomSizeY + 13) * 16);
+
+            //place gnome houses
+            for (int X = startPosX - MushroomSizeX; X <= startPosX + MushroomSizeX; X++)
+            {
+                for (int Y = GnomePositionY - MushroomSizeY; Y <= GnomePositionY + MushroomSizeY; Y++)
+                {
+                    if (WorldGen.genRand.NextBool(7))
+                    {
+                        ushort[] MushroomHouses = new ushort[] { (ushort)ModContent.TileType<GnomeHouse1>(), (ushort)ModContent.TileType<GnomeHouse2>(),
+                        (ushort)ModContent.TileType<GnomeHouse3>(), (ushort)ModContent.TileType<GnomeHouse4>() };
+
+                        WorldGen.PlaceObject(X, Y - 1, WorldGen.genRand.Next(MushroomHouses));
+                    }
+                }
+            }
+
             //place ambient tiles
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
@@ -631,22 +636,12 @@ namespace Spooky.Content.Generation
                         //remove grass thats entirely surrounded by tiles due to the lakes generating after grass spreads
                         if (tile.TileType == ModContent.TileType<DampGrass>() || tile.TileType == ModContent.TileType<DampMushroomGrass>())
                         {
-                            if (WorldGen.SolidOrSlopedTile(X - 1, Y) && WorldGen.SolidOrSlopedTile(X + 1, Y) && WorldGen.SolidOrSlopedTile(X, Y - 1) && WorldGen.SolidOrSlopedTile(X, Y + 1))
+                            if (WorldGen.SolidOrSlopedTile(X - 1, Y) && WorldGen.SolidOrSlopedTile(X + 1, Y) && WorldGen.SolidOrSlopedTile(X, Y - 1) && WorldGen.SolidOrSlopedTile(X, Y + 1) &&
+                            WorldGen.SolidOrSlopedTile(X - 1, Y - 1) && WorldGen.SolidOrSlopedTile(X + 1, Y + 1) && WorldGen.SolidOrSlopedTile(X - 1, Y + 1) && WorldGen.SolidOrSlopedTile(X + 1, Y - 1))
                             {
                                 tile.TileType = (ushort)ModContent.TileType<DampSoil>();
                             }
                         }
-
-                        /*
-                        //get rid of mushroom grass thats under terrain, only if the block above is solid and isnt mushroom grass
-                        if (tile.TileType == ModContent.TileType<DampMushroomGrass>())
-                        {
-                            if (WorldGen.SolidOrSlopedTile(X, Y - 1) && tileAbove.TileType != ModContent.TileType<DampMushroomGrass>())
-                            {
-                                tile.TileType = (ushort)ModContent.TileType<DampGrass>();
-                            }
-                        }
-                        */
 
 						//grow grotto trees
 						if (WorldGen.genRand.NextBool() && tile.TileType == ModContent.TileType<DampGrass>())
@@ -766,7 +761,7 @@ namespace Spooky.Content.Generation
                         }
 
                         //vines
-						if (Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() && !Main.tile[X, Y + 1].HasTile)
+						if ((Main.tile[X, Y].TileType == ModContent.TileType<DampGrass>() || Main.tile[X, Y].TileType == ModContent.TileType<OldHunterBrick>()) && !Main.tile[X, Y + 1].HasTile)
 						{
 							if (WorldGen.genRand.NextBool(3))
 							{
@@ -785,7 +780,7 @@ namespace Spooky.Content.Generation
 							}
 						}
 
-                        int[] ValidTiles = { ModContent.TileType<DampGrass>() };
+                        int[] ValidTiles = { ModContent.TileType<DampGrass>(), ModContent.TileType<OldHunterBrick>() };
                         int[] ValidTilesMushroom = { ModContent.TileType<DampMushroomGrass>() };
 
 						if (Main.tile[X, Y].TileType == ModContent.TileType<DampVines>())

@@ -90,10 +90,20 @@ MiscAchievementLittleEyeQuest: {
 
 EventAchievementSpore: {
 	FriendlyName: Choking Fumes
-	Description: Visit the spider grotto when the mushroom spores are everywhere.
+	Description: Visit the spider grotto during a sporestorm, where mushrooms emit their trippy colorful spores and mites come out to hunt.
 }
 
 MiscAchievementBloomHarvest: {
 	FriendlyName: Bountiful Harvest
 	Description: Harvest a fully grown bloom plant.
+}
+
+EventAchievementSpiderWar: {
+	FriendlyName: Purple Heart
+	Description: Stand your ground valiantly against the powerhouses of the spider army.
+}
+
+EventAchievementSpiderWarEnd: {
+	FriendlyName: Tide Turning Titan
+	Description: Cause the surrender of the arachnid military by killing enough enemies in the final wave.
 }

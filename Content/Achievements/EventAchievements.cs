@@ -48,4 +48,26 @@ namespace Spooky.Content.Achievements
             SporeCondition = AddCondition();
         }
     }
+
+    public class EventAchievementSpiderWar : ModAchievement
+    {
+        public CustomFlagCondition SpiderWarCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            SpiderWarCondition = AddCondition();
+        }
+    }
+
+    public class EventAchievementSpiderWarEnd : ModAchievement
+    {
+        public CustomFlagCondition SpiderWarEndCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            SpiderWarEndCondition = AddCondition();
+        }
+    }
 }

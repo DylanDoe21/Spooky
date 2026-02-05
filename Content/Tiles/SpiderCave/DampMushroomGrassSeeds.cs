@@ -26,11 +26,11 @@ namespace Spooky.Content.Tiles.SpiderCave
 			Item.maxStack = 9999;
 		}
 
-        public override bool? UseItem(Player player)
+        public override void UseAnimation(Player player)
 		{
 			if (Main.myPlayer != player.whoAmI)
 			{
-				return false;
+				return;
 			}
 
 			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
@@ -45,8 +45,6 @@ namespace Spooky.Content.Tiles.SpiderCave
 					NetMessage.SendTileSquare(player.whoAmI, Player.tileTargetX, Player.tileTargetY);
 				}
 			}
-
-			return null;
 		}
     }
 }
