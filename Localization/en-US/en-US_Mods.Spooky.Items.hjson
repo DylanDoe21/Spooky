@@ -632,7 +632,7 @@ Fertilizer: {
 
 OldHunterSoul: {
 	DisplayName: Old Hunter's Soul
-	Tooltip: 
+	Tooltip:
 		'''
 		Belongs to the dead old hunter
 		Use nearby his corpse to return this soul to his body

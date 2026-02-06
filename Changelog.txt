@@ -31,7 +31,7 @@ New old hunter revamp:
 -These special materials do not work like little eyes quests, you can just find the enemies as soon as you get into hardmode, kill them, and give the special items to the old hunter whenever you like
 
 Dialogue Overhaul:
--The dialogue UI that was added to be used for krampus in the last major update is now used across every friendly npc you can talk with in spooky mod
+-The dialogue UI that was added and used for krampus in the last major update is now used across every friendly npc you can talk with in spooky mod
 -Also a lot of dialogue in the mod has been re-written to be better and have interactions with your player responding to them just like with krampus
 
 New catacombs improvements:
@@ -40,10 +40,13 @@ New catacombs improvements:
 -The pathways throughout the catacombs have also been made to be more random, meaning the catacombs now feels like a proper labyrinth for players to explore instead of just running across the whole thing horizontally
 -Added new upper catacomb special rooms: Art gallery rooms filled with new unique paintings, library rooms which utilize some old wood blocks, bookcases, and tables with candles
 -Added new lower catacomb special rooms: Library rooms like the first layer, living quarters with small old wood rooms with various pieces of old wood furniture, and puzzle rooms with switches that open walls
+-Catacomb loot chests are also now scattered around the catacombs randomly instead of the catacombs only having 4 pre-made loot rooms (Applies to both layers)
+-All of the items that the old hunter used to sell are now catacomb loot chest items, some of which are in the upper catacombs and some in the lower catacombs
+-Added new boulder trap and venom dart trap rooms into the catacombs because im kinda an asshole
 
 Random New Stuff:
--Added lots of achievements to spooky mod, so far there are achievements for killing each spooky mod boss and a bunch of other ones for events and discovering stuff in the world (More will probably be added in the future too!)
--Added new double jump bottle and hermes boots alternative to the underground spooky forest cabin chests to give you early game mobility (The new hermes boots alternative can also be used to craft spectre boots)
+-Added lots of achievements to spooky mod, there are now achievements for killing each spooky mod boss and a bunch of other ones for events and discovering stuff in the world (More will probably be added in the future too!)
+-Added new double jump bottle and hermes boots alternatives to the underground spooky forest cabin chests to give you early game mobility (The new hermes boots alternative can also be used to craft spectre boots)
 -Added multiple new furniture sets: Upper catacombs furniture, lower catacombs furniture, and old birch wood furniture
 
 
@@ -79,6 +82,7 @@ Random Stuff:
 -Thrown bile glob no longer has gravity and travels in a straight line
 -Occultist platforms can now be crafted with both their corresponding brick and slab blocks
 -Upper catacomb torches are now green to match the new upper catacombs furniture set
+-Spook fishron boss checklist entry is no longer hidden behind defeating him, and his entry now mentions where sinister snails spawn
 
 Bug/Issue Fixes:
 -Spooky mod couches, benches, and clocks not having smart cursor highlights

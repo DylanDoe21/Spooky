@@ -37,7 +37,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			if (Projectile.ai[1] == 0)
 			{
-				Projectile.timeLeft = 180;
+				Projectile.timeLeft = 120;
 
 				Vector2 vector = new Vector2(Projectile.Center.X, Projectile.Center.Y);
 				float RotateX = player.Center.X - vector.X;
@@ -83,7 +83,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 		private int HomeOnTarget()
 		{
-			const float homingMaximumRangeInPixels = 300;
+			const float homingMaximumRangeInPixels = 500;
 
 			int selectedTarget = -1;
 			for (int i = 0; i < Main.maxNPCs; i++)

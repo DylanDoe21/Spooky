@@ -539,7 +539,7 @@ LittleEyeDialogue: {
 
 OldHunterDialogue: {
 	//corpse hint dialogue
-	OldHunterCorpse: It's an old skeletal corpse, somehow his clothing is all in tact. Perhaps it can be revived if his soul is found.
+	OldHunterCorpse: It's an old skeletal corpse, somehow his clothing is still in tact. Perhaps he can be revived if his soul is found.
 	//normal talking
 	OldHunterTalk1-1: This is my normal talking dialogue!
 	PlayerOldHunterTalk1-1: Ok.

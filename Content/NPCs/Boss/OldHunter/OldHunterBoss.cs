@@ -28,6 +28,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 	{
         int CurrentFrameX = 0;
         int AmmoType = 0;
+        int AmmoForPlatformJumpAttack = 0;
 
         bool Phase2 = false;
 
@@ -66,6 +67,11 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            //ints
+            writer.Write(CurrentFrameX);
+            writer.Write(AmmoType);
+            writer.Write(AmmoForPlatformJumpAttack);
+
             //bools
             writer.Write(Phase2);
 
@@ -78,6 +84,11 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            //ints
+            CurrentFrameX = reader.ReadInt32();
+            AmmoType = reader.ReadInt32();
+            AmmoForPlatformJumpAttack = reader.ReadInt32();
+
             //bools
             Phase2 = reader.ReadBoolean();
 
@@ -318,8 +329,13 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                 {
                     NPC.spriteDirection = -NPC.direction;
 
-                    NPC.localAI[0]++;
+                    NPC.velocity.X *= 0.75f;
+                    NPC.rotation = 0;
 
+                    CurrentFrameX = 0;
+                    CurrentAnimation = NPCGlobalHelper.IsCollidingWithFloor(NPC) ? AnimationState.Idle : AnimationState.Jumping;
+
+                    NPC.localAI[0]++;
                     if (NPC.localAI[0] == 1)
                     {
                         NPC.immortal = true;
@@ -342,7 +358,10 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         NPC.dontTakeDamage = false;
 
                         NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
+                        NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
+                        NPC.localAI[3] = 0;
+                        NPC.ai[0] = 0;
 
                         NPC.netUpdate = true;
                     }
@@ -480,7 +499,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         {
                             NPC.spriteDirection = -NPC.direction;
 
-                            AmmoType = Main.rand.Next(2);
+                            AmmoType = AmmoForPlatformJumpAttack;
 
                             NPC.velocity = Vector2.Zero;
                             NPC.localAI[1]++;
@@ -489,8 +508,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         }
                     }
                     //shooting projectile with animations and stuff
-                    int Repeats = Phase2 ? 3 : 2;
-                    if (NPC.localAI[1] >= Repeats)
+                    if (NPC.localAI[1] > 1)
                     {
                         NPC.spriteDirection = -NPC.direction;
 
@@ -503,7 +521,8 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         }
 
                         //repet 3 times shooting either an ice or sticky spike ammo
-                        if (NPC.localAI[3] <= 2)
+                        int Repeats = Phase2 ? 3 : 2;
+                        if (NPC.localAI[3] <= Repeats)
                         {
                             //begin shooting animation and sound
                             if (NPC.localAI[0] == 60)
@@ -580,6 +599,15 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                             {
                                 CurrentFrameX = 0;
                                 CurrentAnimation = AnimationState.Idle;
+
+                                if (AmmoForPlatformJumpAttack == 0)
+                                {
+                                    AmmoForPlatformJumpAttack = 1;
+                                }
+                                else
+                                {
+                                    AmmoForPlatformJumpAttack = 0;
+                                }
 
                                 NPC.localAI[0] = 0;
                                 NPC.localAI[1] = 0;
@@ -778,7 +806,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     position += Offset;
                                 }
 
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<SlingshotGrenade>(), NPC.damage, 4.5f);
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SlingshotGrenade>(), NPC.damage, 4.5f);
 
                                 NPC.localAI[0] = 59;
                                 NPC.localAI[3]++;
@@ -810,180 +838,6 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                 //jump up to platform, then jump between platforms and fire special ammos
                 case 5:
                 {
-                    //jump towards the desired location
-                    if (NPC.localAI[1] == 0)
-                    {
-                        SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack with { Pitch = -0.5f }, NPC.Center);
-
-                        CurrentAnimation = AnimationState.Jumping;
-                        
-                        NPC.spriteDirection = NPC.direction = NPC.velocity.X >= 0 ? -1 : 1;
-
-                        Vector2 offset = Vector2.Zero;
-
-                        //randomize the platform to jump to depending on where the player is
-                        if (player.Center.X >= ArenaOriginPosition.X)
-                        {
-                            switch (Main.rand.Next(2))
-                            {
-                                case 0:
-                                {
-                                    offset = PlatformOffset1;
-                                    break;
-                                }
-                                case 1:
-                                {
-                                    offset = PlatformOffset2;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            switch (Main.rand.Next(2))
-                            {
-                                case 0:
-                                {
-                                    offset = PlatformOffset2;
-                                    break;
-                                }
-                                case 1:
-                                {
-                                    offset = PlatformOffset3;
-                                    break;
-                                }
-                            }
-                        }
-
-                        Vector2 GoTo = ArenaOriginPosition + offset;
-
-                        NPC.velocity = NPCGlobalHelper.GetArcVelocity(NPC, GoTo, 0.3f, 320, 350, maxXvel: 12);
-
-                        NPC.localAI[1]++;
-
-                        NPC.netUpdate = true;
-                    }
-                    //land and then start shooting behavior
-                    if (NPC.localAI[1] == 1)
-                    {
-                        NPC.spriteDirection = NPC.direction = NPC.velocity.X >= 0 ? -1 : 1;
-
-                        NPC.localAI[2]++;
-                        if ((NPCGlobalHelper.IsCollidingWithFloor(NPC) || (NPC.velocity.Y > 0 && NPC.collideY)) && NPC.localAI[2] >= 10)
-                        {
-                            NPC.spriteDirection = -NPC.direction;
-
-                            AmmoType = Main.rand.Next(2);
-
-                            NPC.velocity = Vector2.Zero;
-                            NPC.localAI[1]++;
-
-                            NPC.netUpdate = true;
-                        }
-                    }
-                    //shooting projectile with animations and stuff
-                    if (NPC.localAI[1] >= 2)
-                    {
-                        NPC.spriteDirection = -NPC.direction;
-
-                        NPC.localAI[0]++;
-
-                        //hold ammo for a second before shooting
-                        if (NPC.localAI[0] < 59)
-                        {
-                            CurrentAnimation = AnimationState.HoldAmmo;
-                        }
-
-                        //repet 3 times shooting either an ice or sticky spike ammo
-                        if (NPC.localAI[3] <= 2)
-                        {
-                            //begin shooting animation and sound
-                            if (NPC.localAI[0] == 60)
-                            {
-                                SoundEngine.PlaySound(UseSound, NPC.Center);
-
-                                NPC.frame.Y = 0;
-                                CurrentFrameX = 1;
-                                CurrentAnimation = AnimationState.Shoot;
-                            }
-
-                            //shoot projectile
-                            if (NPC.localAI[0] == 140)
-                            {
-                                SoundEngine.PlaySound(ShootSound, NPC.Center);
-
-                                CurrentFrameX = 1;
-                                CurrentAnimation = AnimationState.ShotProjectile;
-
-                                int AmmoToShoot = 0;
-                                float ProjSpeed = 0f;
-
-                                switch (AmmoType)
-                                {
-                                    case 0:
-                                    {
-                                        AmmoToShoot = ModContent.ProjectileType<SlingshotIceBall>();
-                                        ProjSpeed = 18f;
-                                        break;
-                                    }
-                                    case 1:
-                                    {
-                                        AmmoToShoot = ModContent.ProjectileType<SlingshotLingerBall>();
-                                        ProjSpeed = 9f;
-                                        break;
-                                    }
-                                }
-
-                                Vector2 ShootSpeed = player.Center - NPC.Center;
-                                ShootSpeed.Normalize();
-                                ShootSpeed *= ProjSpeed;
-
-                                Vector2 Offset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 40f;
-                                Vector2 position = NPC.Center;
-
-                                if (Collision.CanHit(position, 0, 0, position + Offset, 0, 0))
-                                {
-                                    position += Offset;
-                                }
-
-                                if (AmmoToShoot == ModContent.ProjectileType<SlingshotLingerBall>())
-                                {
-                                    for (int numProjs = 0; numProjs <= 3; numProjs++)
-                                    {
-                                        Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(42));
-
-                                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, newVelocity, AmmoToShoot, NPC.damage, 4.5f);
-                                    }
-                                }
-                                else
-                                {
-                                    NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, AmmoToShoot, NPC.damage, 4.5f);
-                                }
-
-                                NPC.localAI[0] = 59;
-                                NPC.localAI[3]++;
-
-                                NPC.netUpdate = true;
-                            }
-                        }
-                        else
-                        {
-                            if (NPC.localAI[0] >= 30)
-                            {
-                                CurrentFrameX = 0;
-                                CurrentAnimation = AnimationState.Idle;
-
-                                NPC.localAI[0] = 0;
-                                NPC.localAI[1] = 0;
-                                NPC.localAI[2] = 0;
-                                NPC.localAI[3] = 0;
-                                NPC.ai[0]++;
-                                
-                                NPC.netUpdate = true;
-                            }
-                        }
-                    }
-
                     break;
                 }
             }
@@ -1065,6 +919,12 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
         {
             if (NPC.life <= 0) 
             {
+                int OldHunter = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<NPCs.Friendly.OldHunter>());
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: OldHunter);
+                }
+
                 for (int numGores = 1; numGores <= 4; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

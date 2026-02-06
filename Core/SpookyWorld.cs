@@ -538,9 +538,6 @@ namespace Spooky.Core
                         //spawn message
                         if (!NPC.AnyNPCs(ModContent.NPCType<OldHunterBoss>()))
                         {
-                            SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, npc.Center);
-                            SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton, npc.Center);
-
                             string text = Language.GetTextValue("Mods.Spooky.EventsAndBosses.OldHunterSpawn");
 
                             if (Main.netMode == NetmodeID.Server)
@@ -571,7 +568,6 @@ namespace Spooky.Core
                 }
 
                 Flags.SpawnOldHunter = false;
-                Flags.OldHunterRevived = true;
 
 				if (Main.netMode == NetmodeID.Server)
 				{

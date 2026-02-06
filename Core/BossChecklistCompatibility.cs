@@ -408,7 +408,7 @@ namespace Spooky.Core
 				ModContent.NPCType<SpookFishron>(),
 				new Dictionary<string, object>() 
 				{
-					["availability"] = () => Flags.downedSpookFishron,
+					//["availability"] = () => Flags.downedSpookFishron,
 					["spawnItems"] = ModContent.ItemType<SinisterSnailItem>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<SpookFishronTrophyItem>(), ModContent.ItemType<SpookFishronMask>(),
 					ModContent.ItemType<SpookFishronRelicItem>(), ModContent.ItemType<SinisterShell>(), ModContent.ItemType<SpookFishronBox>() },

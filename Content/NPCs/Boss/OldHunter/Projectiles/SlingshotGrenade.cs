@@ -7,7 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
+using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
 namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 {
@@ -87,14 +89,29 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
         {
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
-			Projectile.ai[0]++;
-			if (Projectile.ai[0] >= 30)
+			Projectile.velocity.Y += 0.3f;
+			if (Projectile.velocity.Y > 2f)
 			{
-				Projectile.velocity.Y += 0.12f;
-				if (Projectile.velocity.Y > 16f)
-				{
-					Projectile.velocity.Y = 16f;
-				}
+				Projectile.velocity.Y += 0.6f;
+			}
+
+			if (Projectile.ai[0] == 0)
+			{
+				Player target = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
+
+				Vector2 ArenaOriginPosition = Flags.OldHunterPosition;
+
+				float PositionY = target.Center.Y <= ArenaOriginPosition.Y - 185 ? ArenaOriginPosition.Y - 185 : target.Center.Y;
+				Vector2 GrenadeGoTo = new Vector2(target.Center.X + (target.velocity.X / 20), PositionY);
+
+				int MaxHeight = Projectile.Center.Y <= ArenaOriginPosition.Y ? 150 : 250;
+				//int MaxVelocityX = Projectile.Center.Y <= ArenaOriginPosition.Y ? 15 : 12;
+				Projectile.velocity = NPCGlobalHelper.GetArcVelocity(Projectile, GrenadeGoTo, 0.35f, MaxHeight, MaxHeight + 1, maxXvel: 15);
+
+				//Projectile.NewProjectile(Projectile.GetSource_Death(), GrenadeGoTo, Vector2.Zero, 
+                //ModContent.ProjectileType<SolarDeathbeamTelegraph>(), Projectile.damage, Projectile.knockBack);
+
+				Projectile.ai[0]++;
 			}
 
 			if (runOnce)

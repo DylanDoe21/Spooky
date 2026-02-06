@@ -34,6 +34,18 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 0;
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
+        {
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[Type], quickUnlock: true);
+
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
+            {
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.ArchdukeSpider"),
+				new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
+			});
 		}
 
         public override void FindFrame(int frameHeight)

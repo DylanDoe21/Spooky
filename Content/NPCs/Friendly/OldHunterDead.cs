@@ -19,6 +19,8 @@ namespace Spooky.Content.NPCs.Friendly
 
 		public override void SetStaticDefaults()
 		{
+            NPCID.Sets.NoTownNPCHappiness[Type] = true;
+
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
@@ -86,11 +88,30 @@ namespace Spooky.Content.NPCs.Friendly
 			return false;
 		}
 
+        public override bool CanChat()
+        {
+            return NPC.ai[1] <= 0;
+        }
+
+        public override string GetChat()
+		{
+            return Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterDialogue.OldHunterCorpse");
+        }
+
         public override void AI()
 		{
 			if (NPC.ai[1] == 1)
             {
                 NPC.ai[0]++;
+                if (NPC.ai[0] == 1)
+                {
+                    Flags.OldHunterRevived = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData);
+                    }
+                }
                 if (NPC.ai[0] % 25 == 0)
                 {
                     int Distance = Main.rand.Next(125, 251);
@@ -115,6 +136,9 @@ namespace Spooky.Content.NPCs.Friendly
 
                 if (NPC.ai[0] >= 240)
                 {
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageSummonSkeleton, NPC.Center);
+
                     if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         ModPacket packet = Mod.GetPacket();

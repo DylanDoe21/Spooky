@@ -154,12 +154,4 @@ namespace Spooky.Core
             return base.PreKill(projectile, timeLeft);
         }
     }
-
-	public static partial class ProjectileUtil
-	{
-		public static T ModProjectile<T>(this Projectile projectile) where T : ModProjectile
-		{
-			return projectile.ModProjectile as T;
-		}
-	}
 }
