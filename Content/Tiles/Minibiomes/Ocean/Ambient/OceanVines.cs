@@ -90,7 +90,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
-            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Ocean/Ambient/OceanVinesGlow");
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
 
             Tile tile = Framing.GetTileSafely(i, j);
 			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);

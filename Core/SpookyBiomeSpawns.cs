@@ -516,6 +516,14 @@ namespace Spooky.Core
 									pool.Add(ModContent.NPCType<FishingSpider>(), 3);
 								}
 							}
+
+							if (NPC.downedGolemBoss)
+							{
+								if (!NPC.AnyNPCs(ModContent.NPCType<ArchdukeSpider>()))
+								{
+									pool.Add(ModContent.NPCType<ArchdukeSpider>(), 0.35f);
+								}
+							}
 						}
 					}
 					

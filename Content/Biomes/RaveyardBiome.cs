@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Backgrounds.Cemetery;
 using Spooky.Content.Tiles.Water;
 
@@ -30,6 +31,11 @@ namespace Spooky.Content.Biomes
         public override string MapBackground => BackgroundPath;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
+
+        public override void OnInBiome(Player player)
+		{
+			ModContent.GetInstance<EventAchievementRaveyard>().RaveyardCondition.Complete();
+		}
 
         public override bool IsBiomeActive(Player player)
         {

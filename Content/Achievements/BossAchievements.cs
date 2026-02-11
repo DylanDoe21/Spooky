@@ -65,8 +65,6 @@ namespace Spooky.Content.Achievements
 
 	public class BossAchievementSpookFishron : ModAchievement
 	{
-		public override bool Hidden => true;
-
 		public override void SetStaticDefaults()
 		{
 			Achievement.SetCategory(AchievementCategory.Slayer);

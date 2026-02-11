@@ -9,7 +9,7 @@ using System;
 
 namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 {
-    public class SlingshotLingerBall : ModProjectile
+    public class SlingshotRotBall : ModProjectile
     {
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
@@ -18,10 +18,10 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
         public override void SetDefaults()
         {
-			Projectile.width = 24;
-            Projectile.height = 20;
+			Projectile.width = 28;
+            Projectile.height = 26;
 			Projectile.friendly = false;
-            Projectile.hostile = true;
+			Projectile.hostile = true;
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.penetrate = 1;
@@ -50,7 +50,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
 
-				Color color = Color.Green;
+				Color color = Color.OrangeRed;
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -67,7 +67,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.65f, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.65f, Projectile.rotation, drawOrigin, scale * 1.3f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -76,32 +76,14 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 			return true;
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			Projectile.ai[0]++;
-
-			return false;
-		}
-
         public override void AI()
         {
-			Projectile.rotation += Projectile.velocity.X * 0.1f;
-
-			if (Projectile.ai[0] > 0)
-            {
-                Projectile.velocity = Vector2.Zero;
-            }
-			else
+			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.025f * (float)Projectile.direction;
+			
+			Projectile.velocity.Y += 0.15f;
+			if (Projectile.velocity.Y > 16f)
 			{
-				Projectile.ai[1]++;
-				if (Projectile.ai[1] >= 50)
-				{
-					Projectile.velocity.Y += 0.3f;
-					if (Projectile.velocity.Y > 16f)
-					{
-						Projectile.velocity.Y = 16f;
-					}
-				}
+				Projectile.velocity.Y = 16f;
 			}
 
             if (runOnce)
@@ -126,6 +108,14 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 		public override void OnKill(int timeLeft)
 		{
             SoundEngine.PlaySound(SoundID.NPCDeath11, Projectile.Center);
+
+			//split into a spread of chunks
+			for (int numProjs = 0; numProjs <= 4; numProjs++)
+			{
+				Vector2 UpVelocity = new Vector2(0, Main.rand.Next(-8, -4));
+				Vector2 ActualVelocity = UpVelocity.RotatedByRandom(MathHelper.ToRadians(55));
+				Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ActualVelocity, ModContent.ProjectileType<SlingshotRotChunk>(), Projectile.damage, Projectile.knockBack);
+			}
 		}
     }
 }

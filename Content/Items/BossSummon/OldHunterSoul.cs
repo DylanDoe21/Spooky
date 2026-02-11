@@ -20,7 +20,7 @@ namespace Spooky.Content.Items.BossSummon
         {
             Item.width = 44;
             Item.height = 54;
-			Item.consumable = false;
+			Item.consumable = true;
 			Item.noUseGraphic = true;
             Item.useTime = 45;
             Item.useAnimation = 45;
@@ -135,6 +135,10 @@ namespace Spooky.Content.Items.BossSummon
                         {
                            	NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
                         }
+					}
+					else
+					{
+						return false;
 					}
 
                     break;

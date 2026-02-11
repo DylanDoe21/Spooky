@@ -15,9 +15,10 @@ using Spooky.Content.Biomes;
 using Spooky.Content.Buffs;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
+using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Fishing;
 using Spooky.Content.Items.Fishing.Crate;
-using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Pets;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpookyHell.Sentient;
@@ -1769,6 +1770,12 @@ namespace Spooky.Core
 				{
 					itemDrop = Main.hardMode ? ModContent.ItemType<SpookyHellCrate2>() : ModContent.ItemType<SpookyHellCrate>();
 				}
+
+                //the sludge
+                if (attempt.legendary)
+                {
+                    itemDrop = ModContent.ItemType<TheSludge>();
+                }
 
 				//do not allow blood lake enemy catches if any of the enemies already exist in the world
 				bool BloodFishingEnemiesExist = NPC.AnyNPCs(ModContent.NPCType<ValleyFish>()) || NPC.AnyNPCs(ModContent.NPCType<ValleyMerman>()) || 

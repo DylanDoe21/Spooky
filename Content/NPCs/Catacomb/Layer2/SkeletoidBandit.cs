@@ -129,7 +129,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                         NPC.localAI[1]++;
                     }
 
-                    if (NPC.localAI[1] >= 300)
+                    if (NPC.localAI[1] >= 180)
                     {
                         NPC.localAI[1] = 0;
                         NPC.localAI[0]++;
@@ -143,7 +143,6 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
                     NPC.aiStyle = 0;
                     
                     NPC.localAI[1]++;
-
                     if (NPC.localAI[1] == 60)
                     {
                         Vector2 ShootSpeed = player.Center - NPC.Center;

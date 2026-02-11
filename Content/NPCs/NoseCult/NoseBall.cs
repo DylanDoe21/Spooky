@@ -94,8 +94,6 @@ namespace Spooky.Content.NPCs.NoseCult
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-			LeadingConditionRule NoBestiaryCondition = new LeadingConditionRule(new DropConditions.HideBestiaryCondition());
-
 			var parameters = new DropOneByOne.Parameters()
 			{
 				ChanceNumerator = 1,
@@ -106,7 +104,7 @@ namespace Spooky.Content.NPCs.NoseCult
 				MaximumItemDropsCount = 8,
 			};
 
-			NoBestiaryCondition.OnSuccess(new DropOneByOne(ItemID.Heart, parameters));
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
 		}
     }
 

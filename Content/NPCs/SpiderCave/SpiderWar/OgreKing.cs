@@ -466,8 +466,6 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<SpiderWarDreamcatcher>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<OgreKingTrophyItem>()));
 
-			LeadingConditionRule NoBestiaryCondition = new LeadingConditionRule(new DropConditions.HideBestiaryCondition());
-
 			var parameters = new DropOneByOne.Parameters()
 			{
 				ChanceNumerator = 1,
@@ -478,7 +476,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				MaximumItemDropsCount = 8,
 			};
 
-			NoBestiaryCondition.OnSuccess(new DropOneByOne(ItemID.Heart, parameters));
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
 		}
 
 		public override void HitEffect(NPC.HitInfo hit) 

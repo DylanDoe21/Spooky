@@ -489,43 +489,6 @@ namespace Spooky.Core
 			}
 		}
 
-		public static Vector2 GetArcVelocity(Vector2 startingPos, Vector2 targetPos, float gravity, float? minArcHeight = null, float? maxArcHeight = null, float? maxXvel = null, float? heightabovetarget = null, float downwardsYVelMult = 1f)
-        {
-            Vector2 DistanceToTravel = targetPos - startingPos;
-            float MaxHeight = DistanceToTravel.Y - (heightabovetarget ?? 0);
-            if (minArcHeight != null)
-                MaxHeight = Math.Min(MaxHeight, -(float)minArcHeight);
-
-            if (maxArcHeight != null)
-                MaxHeight = Math.Max(MaxHeight, -(float)maxArcHeight);
-
-            float TravelTime;
-            float neededYvel;
-            if (MaxHeight <= 0)
-            {
-                neededYvel = -(float)Math.Sqrt(-2 * gravity * MaxHeight);
-                TravelTime = (float)Math.Sqrt(-2 * MaxHeight / gravity) + (float)Math.Sqrt(2 * Math.Max(DistanceToTravel.Y - MaxHeight, 0) / gravity); //time up, then time down
-            }
-
-            else
-            {
-                neededYvel = Vector2.Normalize(DistanceToTravel).Y * downwardsYVelMult;
-                TravelTime = (-neededYvel + (float)Math.Sqrt(Math.Pow(neededYvel, 2) - (4 * -DistanceToTravel.Y * gravity / 2))) / (gravity); //time down
-            }
-
-            if (maxXvel != null)
-            {
-                return new Vector2(MathHelper.Clamp(DistanceToTravel.X / TravelTime, -(float)maxXvel, (float)maxXvel), neededYvel);
-            }
-
-            return new Vector2(DistanceToTravel.X / TravelTime, neededYvel);
-        }
-
-        public static Vector2 GetArcVelocity(this Entity ent, Vector2 targetPos, float gravity, float? minArcHeight = null, float? maxArcHeight = null, float? maxXvel = null, float? heightabovetarget = null, float downwardsYVelMult = 1f) 
-		{
-			return GetArcVelocity(ent.Center, targetPos, gravity, minArcHeight, maxArcHeight, maxXvel, heightabovetarget, downwardsYVelMult);
-		}
-
 		//modified version of NPC.AI_AttemptToFindTeleportSpot from vanilla, but modified a bunch specifically to have a line of sight check to the player
 		public static bool TeleportToSpot(NPC npc, Player player, ref Vector2 chosenTile, int targetTileX, int targetTileY, int rangeFromTargetTile, int telefragPreventionDistanceInTiles, bool UseLOSCheck = true)
 		{
@@ -650,7 +613,7 @@ namespace Spooky.Core
 		}
 
 		//use for when npcs do special things when colliding with the ground by checking at the bottom of the npc
-		public static bool IsCollidingWithFloor(NPC npc)
+		public static bool IsCollidingWithFloor(NPC npc, bool countPlatforms = false)
 		{
 			int minTilePosX = (int)(npc.position.X / 16) - 1;
 			int maxTilePosX = (int)((npc.position.X + npc.width) / 16) + 1;
@@ -678,8 +641,9 @@ namespace Spooky.Core
 				for (int j = minTilePosY; j < maxTilePosY; j++)
 				{
 					bool ValidTile = Main.tileSolid[(int)Main.tile[i, j].TileType] || Main.tile[i, j].LeftSlope || Main.tile[i, j].RightSlope || Main.tile[i, j].TopSlope || Main.tile[i, j].BottomSlope;
+					bool ValidPlatform = countPlatforms && TileID.Sets.Platforms[(int)Main.tile[i, j].TileType] && Main.tileSolidTop[(int)Main.tile[i, j].TileType] && npc.velocity.Y >= 1;
 
-					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && !TileID.Sets.Platforms[(int)Main.tile[i, j].TileType] && ValidTile)
+					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && (ValidPlatform || ValidTile))
 					{
 						Vector2 vector2;
 						vector2.X = (float)(i * 16);

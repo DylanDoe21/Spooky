@@ -83,16 +83,22 @@ namespace Spooky.Content.UserInterfaces
             Vector2 UITopLeft2 = UITopLeft + new Vector2(0, -150 + (BarTexture.Height() / 2 * UIBoxScale.Y));
             Vector2 UITopLeft3 = UITopLeft + new Vector2(0, -100 + (BarTexture.Height() / 2 * UIBoxScale.Y) * 2);
 
-            spriteBatch.Draw(BarTexture.Value, UITopLeft1, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
-            spriteBatch.Draw(BarTexture.Value, UITopLeft2, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
-            spriteBatch.Draw(BarTexture.Value, UITopLeft3, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+			Vector2 RematchBarPosition = Flags.downedOldHunter ? UITopLeft3 : UITopLeft2;
+
+			//top 2 UI bars shouldnt be accessible until after you beat the old hunter
+			if (Flags.downedOldHunter)
+			{
+				spriteBatch.Draw(BarTexture.Value, UITopLeft1, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(BarTexture.Value, UITopLeft2, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+			}
+            spriteBatch.Draw(BarTexture.Value, RematchBarPosition, null, Color.White, 0f, BarTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
             Color textColor1 = Color.White;
             Color textColor2 = Color.White;
             Color textColor3 = Color.White;
 
             //regular talk dialogue
-            if (IsMouseOverUI(UITopLeft1, BarTexture.Value, UIBoxScale))
+            if (IsMouseOverUI(UITopLeft1, BarTexture.Value, UIBoxScale) && Flags.downedOldHunter)
             {
 				spriteBatch.Draw(BarHoverTexture.Value, UITopLeft1, null, Color.White, 0f, BarHoverTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
@@ -118,7 +124,7 @@ namespace Spooky.Content.UserInterfaces
             }
 
 			//dialogue and rewards for rare enemy items
-			if (IsMouseOverUI(UITopLeft2, BarTexture.Value, UIBoxScale))
+			if (IsMouseOverUI(UITopLeft2, BarTexture.Value, UIBoxScale) && Flags.downedOldHunter)
             {
 				spriteBatch.Draw(BarHoverTexture.Value, UITopLeft2, null, Color.White, 0f, BarHoverTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
@@ -144,9 +150,9 @@ namespace Spooky.Content.UserInterfaces
             }
 
 			//old hunter boss rematch
-			if (IsMouseOverUI(UITopLeft3, BarTexture.Value, UIBoxScale))
+			if (IsMouseOverUI(RematchBarPosition, BarTexture.Value, UIBoxScale))
             {
-				spriteBatch.Draw(BarHoverTexture.Value, UITopLeft3, null, Color.White, 0f, BarHoverTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(BarHoverTexture.Value, RematchBarPosition, null, Color.White, 0f, BarHoverTexture.Size() / 2, UIBoxScale, SpriteEffects.None, 0f);
 
                 textColor3 = Color.Gold;
                 player.mouseInterface = true;
@@ -169,9 +175,12 @@ namespace Spooky.Content.UserInterfaces
                 }
             }
 
-            DrawTextDescription(spriteBatch, UITopLeft1 + new Vector2(-50f, -10f), Choice1, textColor1);
-            DrawTextDescription(spriteBatch, UITopLeft2 + new Vector2(-50f, -10f), Choice2, textColor2);
-			DrawTextDescription(spriteBatch, UITopLeft3 + new Vector2(-50f, -10f), Choice3, textColor3);
+			if (Flags.downedOldHunter)
+			{
+				DrawTextDescription(spriteBatch, UITopLeft1 + new Vector2(-50f, -10f), Choice1, textColor1);
+				DrawTextDescription(spriteBatch, UITopLeft2 + new Vector2(-50f, -10f), Choice2, textColor2);
+			}
+			DrawTextDescription(spriteBatch, RematchBarPosition + new Vector2(-50f, -10f), Choice3, textColor3);
         }
 
         public static bool InRangeOfNPC()

@@ -250,7 +250,10 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 10;
 					NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 
-					NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Bottom + (NPC.velocity * 5), Vector2.Zero, ModContent.ProjectileType<MortarWebTrail>(), 0, 0f, ai0: NPC.velocity.ToRotation());
+					if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
+					{
+						NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Bottom + (NPC.velocity * 5), Vector2.Zero, ModContent.ProjectileType<MortarWebTrail>(), 0, 0f, ai0: NPC.velocity.ToRotation());
+					}
 				}
 				else if (Collision.SolidCollision(NPCCollisionPos, CollideWidth, CollideHeight))
 				{
@@ -366,8 +369,6 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<MortarWings>()));
 			npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.SpiderWarItemDropCondition(), ModContent.ItemType<EmperorMortarTrophyItem>()));
 
-			LeadingConditionRule NoBestiaryCondition = new LeadingConditionRule(new DropConditions.HideBestiaryCondition());
-
 			var parameters = new DropOneByOne.Parameters()
 			{
 				ChanceNumerator = 1,
@@ -378,7 +379,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 				MaximumItemDropsCount = 8,
 			};
 
-			NoBestiaryCondition.OnSuccess(new DropOneByOne(ItemID.Heart, parameters));
+			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
 		}
 
         public override void HitEffect(NPC.HitInfo hit)

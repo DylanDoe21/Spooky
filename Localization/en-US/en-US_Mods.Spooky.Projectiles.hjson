@@ -661,3 +661,9 @@ SlingshotIceExplosion.DisplayName: Ice Explosion
 SlingshotLingerBall.DisplayName: Spiked Fungal Ball
 SlingshotGrenade.DisplayName: Grenade
 SlingshotGrenadeExplosion.DisplayName: Explosion
+SlingshotGrenadeCluster.DisplayName: Grenade Cluster
+SlingshotRotBall.DisplayName: Rot Ball
+SlingshotRotChunk.DisplayName: Rot Chunk
+SlingshotRotFly.DisplayName: Rot Fly
+SlingshotSpikeBall.DisplayName: Spike Ball
+SlingshotBomb.DisplayName: Bomb

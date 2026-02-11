@@ -60,7 +60,7 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 				}
 			}
 
-			if (inUse)
+			if (player.controlJump && player.velocity.Y != 0 && player.grappling[0] < 0)
 			{
 				int EffectRate = 6;
 
@@ -119,6 +119,10 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 						dust2.shader = GameShaders.Armor.GetSecondaryShader(player.cWings, player);
 					}
 				}
+			}
+			else
+			{
+				player.wingFrame = 0;
 			}
 
 			return true;

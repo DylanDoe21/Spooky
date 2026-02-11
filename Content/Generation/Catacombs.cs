@@ -235,7 +235,7 @@ namespace Spooky.Content.Generation
                     }
 
                     //rare moyai room
-                    if (WorldGen.genRand.NextBool(50) && !PlacedMoyaiRoom)
+                    if (WorldGen.genRand.NextBool(35) && !PlacedMoyaiRoom)
                     {
                         StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/MoyaiRoom.shstruct", origin.ToPoint16(), Mod);
                         PlacedMoyaiRoom = true;

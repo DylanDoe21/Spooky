@@ -53,29 +53,32 @@ namespace Spooky.Content.Items.SpiderCave
 					//hovering stuff
 					if (player.controlDown)
 					{
-						player.wingFrameCounter++;
-						if (player.wingFrameCounter % frameRate == 0)
+						if (player.wings == player.wingsLogic)
 						{
-							player.wingFrame++;
-						}
-						if (player.wingFrame <= 4)
-						{
-							player.wingFrame = 4;
-						}
-						if (player.wingFrame >= 7)
-						{
-							player.wingFrameCounter = 0;
-							player.wingFrame = 4;
-						}
+							player.wingFrameCounter++;
+							if (player.wingFrameCounter % frameRate == 0)
+							{
+								player.wingFrame++;
+							}
+							if (player.wingFrame <= 4)
+							{
+								player.wingFrame = 4;
+							}
+							if (player.wingFrame >= 7)
+							{
+								player.wingFrameCounter = 0;
+								player.wingFrame = 4;
+							}
 
-						player.velocity.Y *= 0.0001f;
+							player.velocity.Y *= 0.0001f;
 
-						if (player.controlLeft) player.velocity.X -= 0.5f;
-						if (player.controlRight) player.velocity.X += 0.5f;
-						
-						player.velocity.X = MathHelper.Clamp(player.velocity.X, -15, 15);
+							if (player.controlLeft) player.velocity.X -= 0.5f;
+							if (player.controlRight) player.velocity.X += 0.5f;
+							
+							player.velocity.X = MathHelper.Clamp(player.velocity.X, -15, 15);
 
-						EffectRate = 4;
+							EffectRate = 4;
+						}
 					}
 					else
 					{
@@ -117,14 +120,16 @@ namespace Spooky.Content.Items.SpiderCave
 				//produce flames
 				if (player.miscCounter % EffectRate == 0)
 				{
-					int XOffset = (player.controlDown && player.wingTime > 0) ? 25 : 15;
-					int YOffset = (player.controlDown && player.wingTime > 0) ? 0 : 16;
+					bool IsHovering = player.wings == player.wingsLogic && player.controlDown && player.wingTime > 0;
+
+					int XOffset = (IsHovering) ? 25 : 15;
+					int YOffset = (IsHovering) ? 0 : 16;
 
 					Vector2 playerVelocity = player.velocity * 0.4f + Vector2.UnitY * player.gravDir * 5;
 					Vector2 playerOffset = player.Center + new Vector2(XOffset * -player.direction, YOffset * player.gravDir);
 					Vector2 playerOffset2 = player.Center + new Vector2(9 * player.direction, YOffset * player.gravDir);
 
-					if (player.controlDown)
+					if (IsHovering)
 					{
 						if ((player.direction == -1 && player.velocity.X > 0) || (player.direction == 1 && player.velocity.X < 0))
 						{
@@ -136,7 +141,7 @@ namespace Spooky.Content.Items.SpiderCave
 					{
 						//left side
 						Vector2 position = -Vector2.UnitY.RotatedBy(MathHelper.TwoPi) * new Vector2(1f, 0.25f);
-						Vector2 velocity = new Vector2(playerVelocity.X, (player.controlDown && player.wingTime > 0) ? 0 : playerVelocity.Y) + position * 1.25f;
+						Vector2 velocity = new Vector2(playerVelocity.X, IsHovering ? 0 : playerVelocity.Y) + position * 1.25f;
 						position = position * 8 + playerOffset;
 						Dust dust = Dust.NewDustPerfect(position, DustID.Torch, velocity);
 						dust.noGravity = true;
@@ -144,7 +149,7 @@ namespace Spooky.Content.Items.SpiderCave
 						dust.scale = 1.5f;
 						dust.shader = GameShaders.Armor.GetSecondaryShader(player.cWings, player);
 
-						if (!player.controlDown)
+						if (!IsHovering)
 						{
 							//right side
 							Vector2 position2 = -Vector2.UnitY.RotatedBy(MathHelper.TwoPi) * new Vector2(1f, 0.25f);

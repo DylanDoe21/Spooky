@@ -551,7 +551,8 @@ namespace Spooky.Core
                             
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                int OldHunter = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X - 5, (int)npc.Center.Y + (npc.height / 2), ModContent.NPCType<OldHunterBoss>(), ai0: -1);
+                                int OldHunter = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X - 5, (int)npc.Center.Y + (npc.height / 2), 
+                                ModContent.NPCType<OldHunterBoss>(), ai0: npc.type == ModContent.NPCType<OldHunterDead>() ? -1 : 0);
                                 Main.npc[OldHunter].alpha = 255;
 
                                 if (Main.netMode == NetmodeID.Server)

@@ -2304,6 +2304,15 @@ StickyEye: {
 	Tooltip: Summons a sticky eye ball that glows in the dark
 }
 
+TheSludge: {
+	DisplayName: The Sludge
+	Tooltip:
+		'''
+		An elusive rare creature from the lake of blood
+		Summons a pet sludge to follow you
+		'''
+}
+
 ValleyNautilusShell: {
 	DisplayName: Claret Shell
 	Tooltip: Summons a baby cephalopod pet

@@ -535,6 +535,64 @@ LittleEyeDialogue: {
 	//little eye is poked
 	LittleEyePoked: AGH, IT HURTS...
 	PlayerLittleEyePoked: ...
+	//normal dialogue 1
+	LittleEyeTalk1-1: ...
+	PlayerLittleEyeTalk1-1: Have you ever left this place before?
+	LittleEyeTalk1-2: Oh me, I do! I often visit the blood pit, and the snot temple too!
+	PlayerLittleEyeTalk1-2: No I mean this entire area.
+	LittleEyeTalk1-3: Oh my, why would I? I have everything I need here!
+	PlayerLittleEyeTalk1-3: I guess, just think its weird.
+	LittleEyeTalk1-4: That is called culture shock my friend!
+	PlayerLittleEyeTalk1-4: I just don’t see any of you freaks anywhere else
+	LittleEyeTalk1-5: Huh... I guess that is quite odd, my friend!
+	PlayerLittleEyeTalk1-5: Whatever.
+	//normal dialogue 2
+	LittleEyeTalk2-1: Have you ever wondered, or pondered, the name? Why do we call it the eye valley, a title of fame!
+	PlayerLittleEyeTalk2-1: It's called the eye valley?
+	LittleEyeTalk2-2: Uhh, yeah? I thought you knew that? It's pretty well known!
+	PlayerLittleEyeTalk2-2: Oh I've just been calling it the purple.
+	LittleEyeTalk2-3: ...Just purple?
+	PlayerLittleEyeTalk2-3: Yeah! I'll just say "Yo, I'm headed to the purple" and they'll know.
+	LittleEyeTalk2-4: My my, you are quite strange, you know that?
+	PlayerLittleEyeTalk2-4: That's rich coming from you.
+	//normal dialogue 3
+	LittleEyeTalk3-1: Hello there!
+	PlayerLittleEyeTalk3-1: So what's up with that weird temple?
+	LittleEyeTalk3-2: My friend, If you are wise, follow my advice. Stay far from that temple, or you'll be torn apart! They worship a false god, a mere common pest, but their numbers, and madness, even I cannot contest!
+	PlayerLittleEyeTalk3-2: I mean if they are just monsters It should be no big deal.
+	LittleEyeTalk3-3: Oh no no, They are no mere monsters born of the valley's mold. They are intruders who have carved into its form! With their foreign magic, they refuse to rot! And now their obsession has turned them to snot!
+	PlayerLittleEyeTalk3-3: Oh hell nah, don't tell me they are booger nose things!
+	LittleEyeTalk3-4: Yeah. They are really gross. Unless you really want their admittedly strong magic, I'd steer clear from that place.
+	PlayerLittleEyeTalk3-4: Gross. Noted.
+	//normal dialogue 4
+	LittleEyeTalk4-1: ...
+	PlayerLittleEyeTalk4-1: I think I'm going to seal up that weird ass blood pit.
+	LittleEyeTalk4-2: What?! You can't!
+	PlayerLittleEyeTalk4-2: Dude its so weird. I do not want to even think about what's in there.
+	LittleEyeTalk4-3: Oh me, oh my, you misunderstand! Do you not see the opportunity at hand? Yes, monstrous things lurk in the pit... but their power could be yours, all you need to do is fish!
+	PlayerLittleEyeTalk4-3: Huh, never thought about that.
+	LittleEyeTalk4-4: You can even catch the sludge!
+	PlayerLittleEyeTalk4-4: The what?
+	LittleEyeTalk4-5: ...
+	PlayerLittleEyeTalk4-5: Ok I guess.
+	//normal dialogue 5
+	LittleEyeTalk5-1: ...
+	PlayerLittleEyeTalk5-1: How come not every monster has a monster heart?
+	LittleEyeTalk5-2: A monster in my eye is not a mere beast! A monster has power from which it feasts! Their hearts beat a million times a minute at least. An important distinction, for my alchemical lists!
+	PlayerLittleEyeTalk5-2: Yeah but isn’t that kind of subjective?
+	LittleEyeTalk5-3: Subjective?! Oh me! That it could never be. Witchcraft this precise requires a key! Knowledge beyond a mediocre degree. And all of this knowledge? It all comes from me.
+	PlayerLittleEyeTalk5-3: ..So, the definition is just up to you?
+	LittleEyeTalk5-4: Yes! This is called a monopoly. I am the only alchemist down here!
+	PlayerLittleEyeTalk5-4: Whatever man.
+	//normal dialogue 6
+	LittleEyeTalk6-1: Hey have you seen any fleshy storage-like creature around?
+	PlayerLittleEyeTalk6-1: No and I don't want to.
+	LittleEyeTalk6-2: Are you sure? Kinda looks like your weird containers made of wood.
+	PlayerLittleEyeTalk6-2: Oh those, yeah I've seen one. Why?
+	LittleEyeTalk6-3: I stored some extra materials in them and was wondering if you had taken a peek or two at the flesh chest at all.
+	PlayerLittleEyeTalk6-3: No I haven't touched at all.
+	LittleEyeTalk6-4: Oh my, thank goodness. If you happen to see who might have stolen from me, let me know! I have been looking to try a curse of eternal flesh discomfort for a while but haven't found a flimsy-enough excuse to do it.
+	PlayerLittleEyeTalk6-4: Yeah sure you got it buddy.
 }
 
 OldHunterDialogue: {

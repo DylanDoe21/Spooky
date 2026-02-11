@@ -55,6 +55,10 @@ namespace Spooky.Content.Items.BossSummon
                            	NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
                         }
 					}
+                    else
+					{
+						return false;
+					}
 
                     break;
                 }

@@ -26,8 +26,8 @@ New old hunter revamp:
 -The old hunter was a lackluster town npc, and has been revamped to be more unique and also be present in hardmode, where the mod has less content
 -Old hunter is now revived by finding his corpse deep in the spider grotto, and bringing back his soul which has been locked away in the lower catacombs in a certain ghostly chest
 -Old hunter is no longer locked behind a poorly made scavenger hunt, and because of this the giant cobweb and all of the old hunter pieces have been removed from the mod
--Old hunter no longer moves into houses like regular town npcs, you will now need to visit him in his ruined spider grotto house
--In hardmode, you can find various rare powerful enemies that spawn in the different spooky mod biomes, which drop a special item you can give to the old hunter for unique rewards
+-Old hunter no longer moves into houses like regular town npcs, you will now need to visit him in his ruined house at the bottom of the spider grotto
+-In hardmode, you can find various rare powerful enemies that spawn in the different spooky mod biomes, which each drop a special item you can give to the old hunter for unique rewards
 -These special materials do not work like little eyes quests, you can just find the enemies as soon as you get into hardmode, kill them, and give the special items to the old hunter whenever you like
 
 Dialogue Overhaul:
@@ -36,8 +36,8 @@ Dialogue Overhaul:
 
 New catacombs improvements:
 -The entire catacombs no longer consists of rooms that have the exact same layouts, the rooms themselves are still pre-built but all of the furniture, loot, and special rare rooms are all randomized
--Even though the individual rooms are still pre-built, there are more than double the number of room variants as there was before, meaning the catacombs should feel a lot more natural now with less repition in room variety
--The pathways throughout the catacombs have also been made to be more random, meaning the catacombs now feels like a proper labyrinth for players to explore instead of just running across the whole thing horizontally
+-Even though the individual rooms are still pre-built, there is now more than double the number of room variants as there was before, meaning the catacombs should feel a lot more natural now with less repition in room variety
+-The pathways throughout the catacombs have also been made to be more random, meaning the catacombs now feels like a proper maze for players to explore instead of just exploring by running across the whole thing horizontally
 -Added new upper catacomb special rooms: Art gallery rooms filled with new unique paintings, library rooms which utilize some old wood blocks, bookcases, and tables with candles
 -Added new lower catacomb special rooms: Library rooms like the first layer, living quarters with small old wood rooms with various pieces of old wood furniture, and puzzle rooms with switches that open walls
 -Catacomb loot chests are also now scattered around the catacombs randomly instead of the catacombs only having 4 pre-made loot rooms (Applies to both layers)
@@ -45,9 +45,10 @@ New catacombs improvements:
 -Added new boulder trap and venom dart trap rooms into the catacombs because im kinda an asshole
 
 Random New Stuff:
--Added lots of achievements to spooky mod, there are now achievements for killing each spooky mod boss and a bunch of other ones for events and discovering stuff in the world (More will probably be added in the future too!)
+-Added lots of achievements to spooky mod, there are now achievements for killing each spooky mod boss, and a bunch of other ones for things like events and discovering stuff in the world (More will probably be added in the future too!)
 -Added new double jump bottle and hermes boots alternatives to the underground spooky forest cabin chests to give you early game mobility (The new hermes boots alternative can also be used to craft spectre boots)
--Added multiple new furniture sets: Upper catacombs furniture, lower catacombs furniture, and old birch wood furniture
+-Added some new furniture sets: Upper catacombs furniture, lower catacombs furniture, and old birch wood furniture
+-Added new tall kelp plants to the rotten depths
 
 
 
@@ -59,8 +60,8 @@ Items:
 -Nerfed dutchman pipe damage increase against enemies from 25% to 10%
 -Nerfed samson's cuff damage increase against enemies from 50% to 20%
 -Nerfed yuletide wood leggings magic attack speed increase from 20% to 10%
--Skull smasher left click now goes through enemies instead of immediately returning to you when hitting an enemy
--Buffed damage done by skull smasher right click when you throw the hammer
+-Skull smasher's left-click short range throw now goes through enemies instead of immediately returning to you when hitting an enemy
+-Buffed damage done by skull smasher's right-click when you throw the hammer
 -Buffed licker damage from 48 to 55
 -Living caduceus minion now deals way more damage when they suicide-bomb enemies after targeting that enemy for too long
 -Molar mauler swing speed increased, and when thrown it now travels faster and returns to you faster
@@ -92,6 +93,7 @@ Bug/Issue Fixes:
 -Angry orange orbiter projectile immediately teleporting to its desired position if the players velocity slowed down quickly/instantly
 -Spooky mod grasses turning into their corresponding dirt instead of fully breaking when exploded
 -Nolegams no longer display that they drop hearts in the bestiary (They still drop hearts in game, this was just done for consistency with terraria enemies)
+-Freaky fertilizer being consumed on use even if you were too far away from big bones flower pot
 
 Multiplayer Fixes:
 -Bile glob not properly syncing the egg incursion time reduction across all clients

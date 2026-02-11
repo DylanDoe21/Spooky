@@ -32,7 +32,7 @@ namespace Spooky.Content.UserInterfaces
         public static Vector2 modifier = new(-200, -75);
         public static readonly Vector2 UITopLeft = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
 
-        public static readonly SoundStyle TalkSound = new("Spooky/Content/Sounds/LittleEye/Talk", SoundType.Sound) { PitchVariance = 0.75f };
+        public static readonly SoundStyle TalkSound = new("Spooky/Content/Sounds/LittleEye/Talk", SoundType.Sound) { Volume = 2f, PitchVariance = 0.75f };
 
         private static Asset<Texture2D> BarTexture;
 		private static Asset<Texture2D> BarHoverTexture;
@@ -101,14 +101,47 @@ namespace Spooky.Content.UserInterfaces
 
                 if (Main.mouseLeft && Main.mouseLeftRelease)
                 {
-					if (Flags.downedOrroboro)
+					int DialogueChoice = Main.rand.Next(1, 7);
+
+					if (Flags.PokedLittleEye)
 					{
-						if (Flags.PokedLittleEye)
+						DialogueChain chain = new();
+						chain.Add(new(UITexture.Value, Main.npc[LittleEye],
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyePoked"),
+						Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyePoked"),
+						TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+						.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+						chain.OnPlayerResponseTrigger += PlayerResponse;
+						chain.OnEndTrigger += EndDialogue;
+						DialogueUI.Visible = true;
+						DialogueUI.Add(chain);
+					}
+					else
+					{
+						bool HasFifthOption = DialogueChoice == 1 || DialogueChoice == 4;
+
+						if (HasFifthOption)
 						{
 							DialogueChain chain = new();
 							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
-							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyePoked"),
-							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyePoked"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-1"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-1"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-2"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-2"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-3"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-3"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-4"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-4"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-5"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-5"),
 							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
 							.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
 							chain.OnPlayerResponseTrigger += PlayerResponse;
@@ -116,10 +149,31 @@ namespace Spooky.Content.UserInterfaces
 							DialogueUI.Visible = true;
 							DialogueUI.Add(chain);
 						}
-					}
-					else
-					{
-
+						else
+						{
+							DialogueChain chain = new();
+							chain.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-1"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-1"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-2"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-2"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-3"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-3"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye],
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.LittleEyeTalk" + DialogueChoice + "-4"),
+							Language.GetTextValue("Mods.Spooky.Dialogue.LittleEyeDialogue.PlayerLittleEyeTalk" + DialogueChoice + "-4"),
+							TalkSound, 2f, 0f, modifier, NPCID: Main.npc[LittleEye].type))
+							.Add(new(UITexture.Value, Main.npc[LittleEye], null, null, TalkSound, 2f, 0f, modifier, true));
+							chain.OnPlayerResponseTrigger += PlayerResponse;
+							chain.OnEndTrigger += EndDialogue;
+							DialogueUI.Visible = true;
+							DialogueUI.Add(chain);
+						}
 					}
 
                     LittleEye = -1;

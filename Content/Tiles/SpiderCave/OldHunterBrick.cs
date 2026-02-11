@@ -21,6 +21,7 @@ namespace Spooky.Content.Tiles.SpiderCave
 			AddMapEntry(new Color(62, 54, 59));
 			DustType = DustID.Stone;
 			HitSound = SoundID.Tink;
+			MinPick = int.MaxValue;
 		}
 
 		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)

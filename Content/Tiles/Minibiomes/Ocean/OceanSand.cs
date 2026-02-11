@@ -39,10 +39,17 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 			Tile Below = Framing.GetTileSafely(i, j + 1);
             Tile Above = Framing.GetTileSafely(i, j - 1);
 
+            // Place sunken kelp
+            if (WorldGen.genRand.NextBool(3) && !Above.HasTile && Above.LiquidAmount > 0 && !Tile.LeftSlope && !Tile.RightSlope && !Tile.IsHalfBlock)
+            {
+                WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<OceanKelp>(), true);
+                NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
+            }
+
 			if (!Below.HasTile && Below.LiquidAmount >= 255 && !Tile.BottomSlope) 
             {
                 //grow vines
-                if (Main.rand.NextBool(15)) 
+                if (Main.rand.NextBool(15))
                 {
                     WorldGen.PlaceTile(i, j + 1, (ushort)ModContent.TileType<OceanVines>(), true);
                     NetMessage.SendTileSquare(-1, i, j + 1, 1, TileChangeType.None);

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using System;
 
 using Spooky.Core;
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.NPCs.Boss.Daffodil;
 
 namespace Spooky.Content.Projectiles.Catacomb
@@ -52,7 +53,15 @@ namespace Spooky.Content.Projectiles.Catacomb
                         Flags.SpawnDaffodil = true;
                     }
 
-                    Projectile.Kill();
+                    for (int numGores = 1; numGores <= 2; numGores++)
+                    {
+                        if (Main.netMode != NetmodeID.Server) 
+                        {
+                            Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.Find<ModGore>("Spooky/BrickGore" + numGores).Type);
+                        }
+                    }
+
+                    Projectile.active = false;
 
                     break;
                 }
@@ -61,13 +70,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override void OnKill(int timeLeft)
 		{
-            for (int numGores = 1; numGores <= 2; numGores++)
-            {
-                if (Main.netMode != NetmodeID.Server) 
-                {
-                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.Find<ModGore>("Spooky/BrickGore" + numGores).Type);
-                }
-            }
+            Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.position, Projectile.Size, ModContent.ItemType<Brick>());
         }
     }
 }

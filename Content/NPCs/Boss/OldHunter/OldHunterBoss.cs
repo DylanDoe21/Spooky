@@ -31,10 +31,11 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
         int AmmoForPlatformJumpAttack = 0;
 
         bool Phase2 = false;
+        bool ForcePlatformCollision = false;
 
         public enum AnimationState
 		{
-			Idle, Walking, WalkBackwards, Jumping, HoldAmmo, Shoot, ShotProjectile, JumpShoot
+			Idle, Walking, Jumping, HoldAmmo, Shoot, ShotProjectile, JumpShoot
 		}
 
         private AnimationState CurrentAnimation
@@ -74,6 +75,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
             //bools
             writer.Write(Phase2);
+            writer.Write(ForcePlatformCollision);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -91,6 +93,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
             //bools
             Phase2 = reader.ReadBoolean();
+            ForcePlatformCollision = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
@@ -169,7 +172,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             {
                 Rectangle AmmoFrame = new Rectangle(0, 28 * AmmoType, 28, 28);
 
-                Vector2 drawOrigin = new Vector2(AmmoHoldTexture.Width() * 0.5f, (AmmoHoldTexture.Height() / 7) * 0.5f);
+                Vector2 drawOrigin = new Vector2(AmmoHoldTexture.Width() * 0.5f, (AmmoHoldTexture.Height() / 8) * 0.5f);
 
                 spriteBatch.Draw(AmmoHoldTexture.Value, NPC.Center - screenPos + new Vector2(25 * -NPC.spriteDirection, NPC.gfxOffY - 4), 
 				AmmoFrame, NPC.GetAlpha(drawColor), NPC.rotation, drawOrigin, NPC.scale, effects, 0);
@@ -205,20 +208,6 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                 if (NPC.frame.Y >= frameHeight * 7)
                 {
                     NPC.frame.Y = 1 * frameHeight;
-                }
-            }
-            else if (CurrentAnimation == AnimationState.WalkBackwards)
-			{
-                NPC.frameCounter++;
-                if (NPC.frameCounter > 6 - (NPC.velocity.X > 0 ? NPC.velocity.X : -NPC.velocity.X))
-                {
-                    NPC.frame.Y = NPC.frame.Y - frameHeight;
-                    NPC.frameCounter = 0;
-                }
-
-                if (NPC.frame.Y <= frameHeight * 0)
-                {
-                    NPC.frame.Y = 6 * frameHeight;
                 }
             }
             else if (CurrentAnimation == AnimationState.Jumping)
@@ -307,13 +296,63 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                 NPC.netUpdate = true;
             }
 
+            bool ShootingGrenades = NPC.ai[0] == 4;
+
 			//old hunter should have gravity but manually because of his jumping behavior
-            if (!NPCGlobalHelper.IsCollidingWithFloor(NPC))
+            bool PlatformCollide = NPC.Center.Y >= player.Center.Y + 15 && !ShootingGrenades;
+            if (!NPCGlobalHelper.IsCollidingWithFloor(NPC, ForcePlatformCollision ? true : PlatformCollide))
             {
                 NPC.velocity.Y += 0.3f;
-                if (NPC.velocity.Y > 2f)
+                if (NPC.velocity.Y > 4f)
                 {
-                    NPC.velocity.Y += 0.6f;
+                    NPC.velocity.Y += 0.3f;
+                }
+            }
+            //y-velocity should immediately be slowed when on the ground to prevent old hunter from clipping into it due to fast falling speeds
+            else
+            {
+                NPC.velocity.Y *= 0.2f;
+
+                NPC.noTileCollide = false;
+            }
+
+            if (ShootingGrenades)
+            {
+                ForcePlatformCollision = false;
+
+                if (NPC.Center.Y < ArenaOriginPosition.Y - 170)
+                {
+                    NPC.noTileCollide = true;
+                }
+                else
+                {
+                    NPC.noTileCollide = false;
+                }
+            }
+            else
+            {
+                if (NPC.Center.Y > ArenaOriginPosition.Y - 100)
+                {
+                    ForcePlatformCollision = false;
+                    NPC.noTileCollide = false;
+                }
+                else
+                {
+                    if (ForcePlatformCollision)
+                    {
+                        NPC.noTileCollide = false;
+                    }
+                    else
+                    {
+                        if (!PlatformCollide)
+                        {
+                            NPC.noTileCollide = true;
+                        }
+                        else
+                        {
+                            NPC.noTileCollide = false;
+                        }
+                    }
                 }
             }
 
@@ -333,7 +372,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                     NPC.rotation = 0;
 
                     CurrentFrameX = 0;
-                    CurrentAnimation = NPCGlobalHelper.IsCollidingWithFloor(NPC) ? AnimationState.Idle : AnimationState.Jumping;
+                    CurrentAnimation = AnimationState.Idle;
 
                     NPC.localAI[0]++;
                     if (NPC.localAI[0] == 1)
@@ -356,6 +395,9 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                     {
                         NPC.immortal = false;
                         NPC.dontTakeDamage = false;
+
+                        AmmoType = 0;
+                        AmmoForPlatformJumpAttack = 5;
 
                         NPC.localAI[0] = 0;
                         NPC.localAI[1] = 0;
@@ -420,7 +462,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
                     NPC.spriteDirection = NPC.direction = NPC.velocity.X >= 0 ? -1 : 1;
 
-                    WalkTowardsTarget(player.Center, 2f, 0.15f, 50, false);
+                    WalkTowardsTarget(player.Center, 2f, 0.15f, 50);
 
                     if (NPC.localAI[0] >= 180)
                     {
@@ -483,7 +525,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
                         Vector2 GoTo = ArenaOriginPosition + offset;
 
-                        NPC.velocity = NPCGlobalHelper.GetArcVelocity(NPC, GoTo, 0.3f, 320, 350, maxXvel: 12);
+                        NPC.velocity = ArcVelocityHelper.GetArcVelocity(NPC, GoTo, 0.3f, 320, 350, maxXvel: 14);
 
                         NPC.localAI[1]++;
 
@@ -494,8 +536,10 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                     {
                         NPC.spriteDirection = NPC.direction = NPC.velocity.X >= 0 ? -1 : 1;
 
+                        ForcePlatformCollision = true;
+
                         NPC.localAI[2]++;
-                        if ((NPCGlobalHelper.IsCollidingWithFloor(NPC) || (NPC.velocity.Y > 0 && NPC.collideY)) && NPC.localAI[2] >= 10)
+                        if (NPC.localAI[2] >= 5 && NPCGlobalHelper.IsCollidingWithFloor(NPC, true))
                         {
                             NPC.spriteDirection = -NPC.direction;
 
@@ -515,17 +559,30 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         NPC.localAI[0]++;
 
                         //hold ammo for a second before shooting
-                        if (NPC.localAI[0] < 59)
+                        int TimeBeforeShoot = Phase2 ? 48 : 58;
+                        if (NPC.localAI[0] < TimeBeforeShoot)
                         {
                             CurrentAnimation = AnimationState.HoldAmmo;
                         }
 
-                        //repet 3 times shooting either an ice or sticky spike ammo
-                        int Repeats = Phase2 ? 3 : 2;
+                        //how many times to loop the shooting attack
+                        int Repeats = 2;
+                        if (AmmoForPlatformJumpAttack == 5)
+                        {
+                            Repeats = 3;
+                        }
+                        if (AmmoForPlatformJumpAttack == 6)
+                        {
+                            Repeats = 6;
+                        }
+
                         if (NPC.localAI[3] <= Repeats)
                         {
+                            int TimeForSound = Phase2 ? 50 : 60;
+                            int TimeForShooting = AmmoForPlatformJumpAttack == 6 ? 80 : (Phase2 ? 110 : 140);
+
                             //begin shooting animation and sound
-                            if (NPC.localAI[0] == 60)
+                            if (NPC.localAI[0] == TimeForSound)
                             {
                                 SoundEngine.PlaySound(UseSound, NPC.Center);
 
@@ -535,7 +592,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                             }
 
                             //shoot projectile
-                            if (NPC.localAI[0] == 140)
+                            if (NPC.localAI[0] >= TimeForShooting)
                             {
                                 SoundEngine.PlaySound(ShootSound, NPC.Center);
 
@@ -550,13 +607,25 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     case 0:
                                     {
                                         AmmoToShoot = ModContent.ProjectileType<SlingshotIceBall>();
-                                        ProjSpeed = Phase2 ? 20f : 16f;
+                                        ProjSpeed = 16f;
                                         break;
                                     }
                                     case 1:
                                     {
                                         AmmoToShoot = ModContent.ProjectileType<SlingshotLingerBall>();
-                                        ProjSpeed = Phase2 ? 11f : 8f;
+                                        ProjSpeed = 8f;
+                                        break;
+                                    }
+                                    case 5:
+                                    {
+                                        AmmoToShoot = ModContent.ProjectileType<SlingshotRotBall>();
+                                        ProjSpeed = 8f;
+                                        break;
+                                    }
+                                    case 6:
+                                    {
+                                        AmmoToShoot = ModContent.ProjectileType<SlingshotSpikeBall>();
+                                        ProjSpeed = 12f;
                                         break;
                                     }
                                 }
@@ -587,7 +656,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, AmmoToShoot, NPC.damage, 4.5f);
                                 }
 
-                                NPC.localAI[0] = 59;
+                                NPC.localAI[0] = TimeForSound - 1;
                                 NPC.localAI[3]++;
 
                                 NPC.netUpdate = true;
@@ -600,13 +669,26 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                 CurrentFrameX = 0;
                                 CurrentAnimation = AnimationState.Idle;
 
+                                ForcePlatformCollision = false;
+
+                                //phase 1 values
                                 if (AmmoForPlatformJumpAttack == 0)
                                 {
                                     AmmoForPlatformJumpAttack = 1;
                                 }
-                                else
+                                else if (AmmoForPlatformJumpAttack == 1)
                                 {
                                     AmmoForPlatformJumpAttack = 0;
+                                }
+
+                                //phase 2 values
+                                if (AmmoForPlatformJumpAttack == 5)
+                                {
+                                    AmmoForPlatformJumpAttack = 6;
+                                }
+                                else if (AmmoForPlatformJumpAttack == 6)
+                                {
+                                    AmmoForPlatformJumpAttack = 5;
                                 }
 
                                 NPC.localAI[0] = 0;
@@ -641,7 +723,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         NPC.localAI[2]++;
                         if (NPC.localAI[2] <= 1)
                         {
-                            AmmoType = 2; //bouncy ammo
+                            AmmoType = Phase2 ? 7 : 2; //bouncy ammo
                         }
                         if (NPC.localAI[2] > 1 && NPC.localAI[2] < 60)
                         {
@@ -662,14 +744,22 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         CurrentFrameX = 1;
                         CurrentAnimation = AnimationState.JumpShoot;
 
-                        NPC.velocity = NPCGlobalHelper.GetArcVelocity(NPC, new Vector2(player.Center.X, ArenaOriginPosition.Y), 0.3f, 325, 350, maxXvel: 12);
+                        int MinHeight = 325;
+                        int MaxHeight = 350;
+                        if (NPC.Center.Y <= ArenaOriginPosition.Y - 170)
+                        {
+                            MinHeight = 125;
+                            MaxHeight = 150;
+                        }
+
+                        NPC.velocity = ArcVelocityHelper.GetArcVelocity(NPC, new Vector2(player.Center.X, ArenaOriginPosition.Y), 0.3f, MinHeight, MaxHeight, maxXvel: 14);
 
                         NPC.localAI[1]++;
 
                         NPC.netUpdate = true;
                     }
                     //shooting projectile with animations and stuff
-                    if (NPC.localAI[1] >= 2)
+                    if (NPC.localAI[1] > 1)
                     {
                         NPC.localAI[0]++;
 
@@ -678,7 +768,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                             SoundEngine.PlaySound(UseSound, NPC.Center);
                         }
 
-                        if (NPC.localAI[0] < 50)
+                        if (NPC.localAI[0] < 45)
                         {
                             Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
                             float RotateX = player.Center.X - vector.X;
@@ -686,24 +776,21 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                             NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + (NPC.spriteDirection == 1 ? MathHelper.Pi : MathHelper.TwoPi);
                         }
 
-                        if (NPC.localAI[0] > 30 && NPC.localAI[0] < 50)
+                        if (NPC.localAI[0] > 30 && NPC.localAI[0] < 45)
                         {
                             NPC.velocity *= 0.98f;
                         }
 
-                        if (NPC.localAI[0] == 50)
+                        if (NPC.localAI[0] == 45)
                         {
                             SoundEngine.PlaySound(ShootSound, NPC.Center);
 
                             CurrentFrameX = 0;
                             CurrentAnimation = AnimationState.Jumping;
-
+                            
                             NPC.rotation = 0;
 
-                            int AmmoToShoot = 0;
-                            float ProjSpeed = 0f;
-
-                            AmmoToShoot = ModContent.ProjectileType<SlingshotBouncyBall>();
+                            int AmmoToShoot = Phase2 ? ModContent.ProjectileType<SlingshotBomb>() : ModContent.ProjectileType<SlingshotBouncyBall>();
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
@@ -720,16 +807,30 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                             NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, AmmoToShoot, NPC.damage, 4.5f);
                         }
 
-                        if (NPC.localAI[0] >= 80)
+                        if (NPC.localAI[0] > 45)
                         {
-                            CurrentAnimation = AnimationState.Idle;
+                            if (NPCGlobalHelper.IsCollidingWithFloor(NPC, true))
+                            {
+                                CurrentAnimation = AnimationState.Walking;
+                                NPC.rotation = 0;
 
-                            NPC.localAI[0] = 0;
-                            NPC.localAI[1] = 0;
-                            NPC.localAI[2] = 0;
-                            NPC.ai[0]++;
-                            
-                            NPC.netUpdate = true;
+                                //the bomb in phase 2 needs time to explode, so walk towards the player for a bit
+                                if (Phase2)
+                                {
+                                    WalkTowardsTarget(player.Center, 2f, 0.15f, 50);
+                                }
+
+                                int EndTime = Phase2 ? 130 : 45;
+                                if (NPC.localAI[0] > EndTime)
+                                {
+                                    NPC.localAI[0] = 0;
+                                    NPC.localAI[1] = 0;
+                                    NPC.localAI[2] = 0;
+                                    NPC.ai[0]++;
+                                    
+                                    NPC.netUpdate = true;
+                                }
+                            }
                         }
                     }
 
@@ -741,14 +842,14 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                 {
                     //walk at the target for a bit
                     if (NPC.localAI[1] == 0)
-                    {   
+                    {
                         AmmoType = 3; //grenade
 
                         CurrentAnimation = AnimationState.Walking;
 
                         NPC.spriteDirection = NPC.direction = NPC.velocity.X >= 0 ? -1 : 1;
                         
-                        WalkTowardsTarget(player.Center, 2f, 0.15f, 50, false);
+                        WalkTowardsTarget(player.Center, 2f, 0.15f, 50);
 
                         NPC.localAI[2]++;
                         if (NPC.localAI[2] >= 45)
@@ -768,16 +869,21 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         NPC.localAI[0]++;
 
                         //hold ammo for a second before shooting
-                        if (NPC.localAI[0] < 59)
+                        int TimeBeforeShoot = Phase2 ? 38 : 58;
+                        if (NPC.localAI[0] < TimeBeforeShoot)
                         {
                             CurrentAnimation = AnimationState.HoldAmmo;
                         }
 
                         //repet 2 times shooting a grenade (or grenade bundle in phase 2)
-                        if (NPC.localAI[3] <= 3)
+                        int Repeats = Phase2 ? 4 : 3;
+                        if (NPC.localAI[3] <= Repeats)
                         {
+                            int TimeForSound = Phase2 ? 40 : 60;
+                            int TimeForShooting = Phase2 ? 80 : 110;
+
                             //begin shooting animation and sound
-                            if (NPC.localAI[0] == 60)
+                            if (NPC.localAI[0] == TimeForSound)
                             {
                                 SoundEngine.PlaySound(UseSound, NPC.Center);
 
@@ -787,7 +893,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                             }
 
                             //shoot projectile
-                            if (NPC.localAI[0] == 110)
+                            if (NPC.localAI[0] == TimeForShooting)
                             {
                                 SoundEngine.PlaySound(ShootSound, NPC.Center);
 
@@ -806,9 +912,12 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     position += Offset;
                                 }
 
-                                NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, ModContent.ProjectileType<SlingshotGrenade>(), NPC.damage, 4.5f);
+                                //in phase 2, fire a grenade cluster on the final shot
+                                int Type = NPC.localAI[3] == 4 ? ModContent.ProjectileType<SlingshotGrenadeCluster>() : ModContent.ProjectileType<SlingshotGrenade>();
 
-                                NPC.localAI[0] = 59;
+                                NPCGlobalHelper.ShootHostileProjectile(NPC, position, Vector2.Zero, Type, NPC.damage, 4.5f);
+
+                                NPC.localAI[0] = TimeForSound - 1;
                                 NPC.localAI[3]++;
 
                                 NPC.netUpdate = true;
@@ -834,16 +943,10 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
                     break;
                 }
-
-                //jump up to platform, then jump between platforms and fire special ammos
-                case 5:
-                {
-                    break;
-                }
             }
         }
 
-        public void WalkTowardsTarget(Vector2 Center, float MaxSpeed, float Acceleration, int Distance, bool Backwards)
+        public void WalkTowardsTarget(Vector2 Center, float MaxSpeed, float Acceleration, int Distance)
         {
             Player player = Main.player[NPC.target];
 
@@ -854,63 +957,25 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             Vector2 vector48 = Center - center2;
             float CenterDistance = vector48.Length();
 
-            if ((NPC.velocity.X < 0f && NPC.direction == -1) || (NPC.velocity.X > 0f && NPC.direction == 1))
-            {
-                if (NPC.velocity.Y == 0 && Collision.SolidTilesVersatile((int)(NPC.Center.X / 16f), (int)(NPC.Center.X + NPC.spriteDirection * 65) / 16, (int)NPC.Top.Y / 16, (int)NPC.Bottom.Y / 16 - 3))
-                {
-                    NPC.velocity.Y = -10f;
-                    NPC.netUpdate = true;
-                }
-            }
-
             if (NPC.collideX)
             {
                 NPC.velocity.X = -NPC.velocity.X;
             }
 
-            NPC.velocity.Y += 0.15f;
-
-            if (NPC.velocity.Y > 10f)
+            if (center2.X < player.Center.X)
             {
-                NPC.velocity.Y = 10f;
-            }
-
-            if (!Backwards)
-            {
-                if (center2.X < player.Center.X)
+                NPC.velocity.X += Acceleration;
+                if (NPC.velocity.X > MaxSpeed)
                 {
-                    NPC.velocity.X += Acceleration;
-                    if (NPC.velocity.X > MaxSpeed)
-                    {
-                        NPC.velocity.X = MaxSpeed;
-                    }
-                }
-                else
-                {
-                    NPC.velocity.X -= Acceleration;
-                    if (NPC.velocity.X < -MaxSpeed)
-                    {
-                        NPC.velocity.X = -MaxSpeed;
-                    }
+                    NPC.velocity.X = MaxSpeed;
                 }
             }
             else
             {
-                if (center2.X < player.Center.X)
+                NPC.velocity.X -= Acceleration;
+                if (NPC.velocity.X < -MaxSpeed)
                 {
-                    NPC.velocity.X -= Acceleration;
-                    if (NPC.velocity.X < -MaxSpeed)
-                    {
-                        NPC.velocity.X = -MaxSpeed;
-                    }
-                }
-                else
-                {
-                    NPC.velocity.X += Acceleration;
-                    if (NPC.velocity.X > MaxSpeed)
-                    {
-                        NPC.velocity.X = MaxSpeed;
-                    }
+                    NPC.velocity.X = -MaxSpeed;
                 }
             }
         }

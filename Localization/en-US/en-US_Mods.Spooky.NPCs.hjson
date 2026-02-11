@@ -66,7 +66,7 @@ SpookFishron: {
 	DisplayName: Spook Fishron
 
 	BossChecklistIntegration: {
-		SpawnInfo: Fish in the ocean at night during a pumpkin moon while using [i:Spooky/SinisterSnailItem] as bait. Sinister snails spawn in the underground spooky forest in hardmode.
+		SpawnInfo: Fish in the ocean at night during a pumpkin moon while using a [i:Spooky/SinisterSnailItem] as bait. Sinister snails spawn in the underground spooky forest in hardmode.
 		DespawnMessage: Every player has been turned into bad sushi
 	}
 }

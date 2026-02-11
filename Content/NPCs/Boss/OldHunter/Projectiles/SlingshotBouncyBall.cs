@@ -66,7 +66,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.5f, Projectile.rotation, drawOrigin, scale * 0.75f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.5f, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -90,7 +90,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				Projectile.velocity.Y = -oldVelocity.Y;
 			}
 
-			return false;
+			return Projectile.ai[0] > 0;
 		}
 
         public override void AI()       

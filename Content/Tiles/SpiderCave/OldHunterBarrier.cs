@@ -26,7 +26,7 @@ namespace Spooky.Content.Tiles.Catacomb
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			AddMapEntry(Color.Lime);
+			AddMapEntry(Color.YellowGreen);
 			MinPick = int.MaxValue;
 			HitSound = SoundID.Dig;
 			DustType = -1;

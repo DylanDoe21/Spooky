@@ -70,4 +70,15 @@ namespace Spooky.Content.Achievements
             SpiderWarEndCondition = AddCondition();
         }
     }
+
+    public class EventAchievementRaveyard : ModAchievement
+    {
+        public CustomFlagCondition RaveyardCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            RaveyardCondition = AddCondition();
+        }
+    }
 }

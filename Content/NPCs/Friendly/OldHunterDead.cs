@@ -163,6 +163,7 @@ namespace Spooky.Content.NPCs.Friendly
                         vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
                         int num104 = Dust.NewDust(NPC.Center, 0, 0, DustID.UltraBrightTorch, 0f, 0f, 100, default, 3f);
                         Main.dust[num104].noGravity = true;
+                        Main.dust[num104].noLight = true;
                         Main.dust[num104].position = NPC.Center + vector12;
                         Main.dust[num104].velocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
                         currentAmount++;

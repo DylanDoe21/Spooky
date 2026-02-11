@@ -12,7 +12,7 @@ using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 {
-    public class SlingshotGrenade : ModProjectile
+    public class SlingshotGrenadeCluster : ModProjectile
     {
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
@@ -21,12 +21,12 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 12;
-            Projectile.height = 16;
+            Projectile.width = 26;
+            Projectile.height = 18;
             Projectile.friendly = false;
-            Projectile.hostile = true;
+			Projectile.hostile = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 30;
             Projectile.penetrate = 1;
         }
 
@@ -52,7 +52,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
                 float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
 
-				Color color = Color.YellowGreen;
+				Color color = Color.Chocolate;
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -69,7 +69,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.5f, Projectile.rotation, drawOrigin, scale * 0.9f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.5f, Projectile.rotation, drawOrigin, scale * 1.2f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -78,12 +78,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 			return true;
 		}
 
-		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-		{
-			Projectile.Kill();
-		}
-
-        public override void AI()
+        public override void AI()       
         {
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.025f * (float)Projectile.direction;
 
@@ -99,19 +94,9 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
 				Vector2 ArenaOriginPosition = Flags.OldHunterPosition;
 
-				Vector2 GrenadeGoTo = new Vector2(target.Center.X, target.Center.Y);
+				Vector2 GrenadeGoTo = new Vector2(target.Center.X, ArenaOriginPosition.Y - 180);
 
-				int ShootHeight = 145;
-				float VelocityIncreaseX = (target.Distance(Projectile.Center) / 200);
-
-				if (target.Center.Y <= ArenaOriginPosition.Y - 125)
-				{
-					float DistanceY = (target.Center.Y - (ArenaOriginPosition.Y - 180)) * 0.95f;
-
-					ShootHeight = 145 + (int)(-DistanceY);
-				}
-
-				Projectile.velocity = ArcVelocityHelper.GetArcVelocity(Projectile, GrenadeGoTo, 0.35f, ShootHeight, ShootHeight + 1, maxXvel: 13 + VelocityIncreaseX);
+				Projectile.velocity = ArcVelocityHelper.GetArcVelocity(Projectile, GrenadeGoTo, 0.35f, 145, 145, maxXvel: 13 + (target.Distance(Projectile.Center) / 150));
 
 				Projectile.ai[0]++;
 				Projectile.netUpdate = true;
@@ -138,9 +123,12 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
         public override void OnKill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-
-			Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SlingshotGrenadeExplosion>(), Projectile.damage, Projectile.knockBack);
+			for (int numProjectiles = -2; numProjectiles <= 2; numProjectiles++)
+			{
+				Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, 
+				10f * Projectile.DirectionTo(new Vector2(Projectile.Center.X, Projectile.Center.Y - 30)).RotatedBy(MathHelper.ToRadians(17) * numProjectiles), 
+				ModContent.ProjectileType<SlingshotGrenade>(), Projectile.damage, Projectile.knockBack, ai0: 1);
+			}
 
 			float maxAmount = 15;
 			int currentAmount = 0;

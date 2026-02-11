@@ -769,7 +769,7 @@ namespace Spooky.Content.Generation
 						Tile tileAbove = Main.tile[i, j - 1];
 						Tile tileBelow = Main.tile[i, j + 1];
 
-						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile)
+						if (tile.TileType == ModContent.TileType<OceanSand>() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
 						{
 							//big light plants
 							if (WorldGen.genRand.NextBool(3))
@@ -793,10 +793,21 @@ namespace Spooky.Content.Generation
 							{
 								WorldGen.PlaceObject(i, j - 1, (ushort)ModContent.TileType<OceanWeeds>(), true, WorldGen.genRand.Next(0, 12));
 							}
+							else
+							{
+								int RandomHeight = WorldGen.genRand.Next(6, 15);
+								for (int KelpY = j - 1; KelpY >= j - RandomHeight; KelpY--)
+								{
+									if (!Main.tile[i, KelpY - 1].HasTile && Main.tile[i, KelpY - 1].LiquidAmount > 0)
+									{
+										WorldGen.PlaceTile(i, KelpY, (ushort)ModContent.TileType<OceanKelp>());
+									}
+								}
+							}
 						}
 
 						//ceiling tiles
-						if (Main.tile[i, j].TileType == ModContent.TileType<OceanSand>() && !tileBelow.HasTile)
+						if (tile.TileType == ModContent.TileType<OceanSand>() && !tileBelow.HasTile)
 						{
 							//hanging light plants
 							if (WorldGen.genRand.NextBool(6))
@@ -813,7 +824,7 @@ namespace Spooky.Content.Generation
 						}
 
 						//grow vines
-						if (Main.tile[i, j].TileType == ModContent.TileType<OceanVines>())
+						if (tile.TileType == ModContent.TileType<OceanVines>())
 						{
 							int[] ValidTiles = { ModContent.TileType<OceanSand>() };
 

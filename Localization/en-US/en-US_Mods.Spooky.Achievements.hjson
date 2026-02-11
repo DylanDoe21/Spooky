@@ -107,3 +107,8 @@ EventAchievementSpiderWarEnd: {
 	FriendlyName: Tide Turning Titan
 	Description: Cause the surrender of the arachnid military by killing enough enemies in the final wave.
 }
+
+EventAchievementRaveyard: {
+	FriendlyName: Dance 'till You Drop Dead
+	Description: Attend one of the many raves that can happen in the cemetery at night.
+}
