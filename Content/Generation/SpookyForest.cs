@@ -302,7 +302,8 @@ namespace Spooky.Content.Generation
 				{
 					if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>())
 					{
-						if (Main.tile[X - 1, Y].HasTile && Main.tile[X + 1, Y].HasTile && Main.tile[X, Y - 1].HasTile && Main.tile[X, Y + 1].HasTile)
+						if (WorldGen.SolidOrSlopedTile(X - 1, Y) && WorldGen.SolidOrSlopedTile(X + 1, Y) && WorldGen.SolidOrSlopedTile(X, Y - 1) && WorldGen.SolidOrSlopedTile(X, Y + 1) &&
+						WorldGen.SolidOrSlopedTile(X - 1, Y - 1) && WorldGen.SolidOrSlopedTile(X + 1, Y + 1) && WorldGen.SolidOrSlopedTile(X - 1, Y + 1) && WorldGen.SolidOrSlopedTile(X + 1, Y - 1))
 						{
 							Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
 						}
@@ -769,7 +770,7 @@ namespace Spooky.Content.Generation
             while (!placed && attempts++ < 100000)
             {
                 //place starter house
-                int x = PositionX <= (Main.maxTilesX / 2) ? PositionX + ((Main.maxTilesX / 12) / 6) : PositionX - ((Main.maxTilesX / 12) / 6);
+                int x = PositionX <= (Main.maxTilesX / 2) ? PositionX + ((Main.maxTilesX / 12) / 12) : PositionX - ((Main.maxTilesX / 12) / 12);
                 int y = PositionY; //start here to not touch floating islands
 
                 while ((!WorldGen.SolidTile(x, y) || Main.tile[x, y].WallType <= 0 || !Cemetery.NoFloatingIsland(x, y)) && y <= Main.worldSurface)
@@ -809,9 +810,9 @@ namespace Spooky.Content.Generation
 			{
 				for (int Y = (int)Main.worldSurface + 15; Y <= Main.maxTilesY / 2 + 50; Y++)
 				{
-					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() && WorldGen.genRand.NextBool(45))
+					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
 					{
-						if (CanPlaceLootCabin(X, Y))
+						if (CanPlaceLootCabin(X, Y) && WorldGen.genRand.NextBool(40))
 						{
 							Vector2 CabinOrigin = new Vector2(X - 12, Y - 6);
 							StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestCabin" + WorldGen.genRand.Next(1, 7) + ".shstruct", CabinOrigin.ToPoint16(), Mod);
@@ -865,10 +866,13 @@ namespace Spooky.Content.Generation
 
 		public bool CanPlaceLootCabin(int PositionX, int PositionY)
 		{
+			//change the distance between cabins based on worldsize so each worldsize has a generally equal amount of loot cabins
+			int Distance = Main.maxTilesX / 140;
+
 			//dont allow loot cabins to place too close to each other
-			for (int i = PositionX - 65; i < PositionX + 65; i++)
+			for (int i = PositionX - Distance; i < PositionX + Distance; i++)
 			{
-				for (int j = PositionY - 50; j < PositionY + 50; j++)
+				for (int j = PositionY - Distance; j < PositionY + Distance; j++)
 				{
 					if (Main.tile[i, j].TileType == ModContent.TileType<SpookyWood>() || Main.tile[i, j].TileType == ModContent.TileType<OldWoodChest>() ||
 					(Main.tile[i, j].TileType == ModContent.TileType<MushroomMoss>() && j < PositionY + 25) || Main.tileDungeon[Main.tile[i, j].TileType])

@@ -19,15 +19,15 @@ namespace Spooky.Content.Items.SpookyHell
             Item.autoReuse = true;             
             Item.width = 60;
             Item.height = 44;
-            Item.useTime = 20;     
-            Item.useAnimation = 20;
+            Item.useTime = 30;     
+            Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 2;
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(gold: 20);   
             Item.UseSound = SoundID.Item1; 
             Item.shoot = ModContent.ProjectileType<ScyclerProj>();  
-            Item.shootSpeed = 25f;
+            Item.shootSpeed = 1f;
         }
         
         public override void AddRecipes()

@@ -41,8 +41,8 @@ namespace Spooky.Content.Biomes
         {
             Point point = player.Center.ToTileCoordinates();
             
-            bool InOceanZone = point.X < 380 || point.X > Main.maxTilesX - 380;
-            bool BiomeCondition = ModContent.GetInstance<TileCount>().zombieOceanTiles > 600;
+            bool InOceanZone = true; //point.X < 380 || point.X > Main.maxTilesX - 380;
+            bool BiomeCondition = ModContent.GetInstance<TileCount>().zombieOceanTiles > 1600;
             bool UndergroundCondition = player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight;
 
             return InOceanZone && BiomeCondition && UndergroundCondition && !player.ZoneDungeon;

@@ -105,8 +105,8 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 		public override void SetDefaults()
 		{
             NPC.lifeMax = 25500;
-            NPC.damage = 52;
-			NPC.defense = 5;
+            NPC.damage = 45;
+			NPC.defense = 10;
 			NPC.width = 50;
 			NPC.height = 56;
             NPC.npcSlots = 8f;

@@ -39,12 +39,10 @@ namespace Spooky.Content.Generation
 
 			int CaveNoiseSeed = WorldGen.genRand.Next();
 
-			int SizeXInt = Main.maxTilesX < 6400 ? 17 : 22;
-			int SizeYInt = Main.maxTilesY < 1800 ? 12 : 17;
+			int SizeXInt = Main.maxTilesX < 6400 ? 18 : 22;
+			int SizeYInt = Main.maxTilesY < 1800 ? 13 : 17;
 			int SizeX = Main.maxTilesX / SizeXInt;
 			int SizeY = Main.maxTilesY / SizeYInt;
-
-			bool IsSmallWorld = Main.maxTilesX < 6400 && Main.maxTilesY < 1800;
 
 			//define positions, just the middle of the desert
 			int BiomeX = (GenVars.desertHiveLeft + GenVars.desertHiveRight) / 2;

@@ -12,7 +12,7 @@ namespace Spooky.Content.Items
 
     public class BloomPreHMRarity : ModRarity
     {
-        public override Color RarityColor => new Color(0, 255, 0);
+		public override Color RarityColor => new Color(0, 255, 0);
     }
 
     public class BloomHMRarity : ModRarity

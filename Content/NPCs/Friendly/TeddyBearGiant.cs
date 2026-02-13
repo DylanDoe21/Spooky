@@ -3,17 +3,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace Spooky.Content.NPCs.Minibiomes.Christmas
+namespace Spooky.Content.NPCs.Friendly
 {
 	public class TeddyBearGiant : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{
-            NPCID.Sets.ActsLikeTownNPC[Type] = true;
-            NPCID.Sets.ShimmerTownTransform[Type] = false;
-            NPCID.Sets.NoTownNPCHappiness[Type] = true;
-			Main.npcFrameCount[NPC.type] = 1;
-
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
@@ -25,13 +20,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 			NPC.width = 68;
 			NPC.height = 78;
             NPC.npcSlots = 0.5f;
-            NPC.townNPC = true;
 			NPC.friendly = true;
 			NPC.immortal = true;
             NPC.noGravity = false;
 			NPC.dontTakeDamage = true;
 			NPC.dontCountMe = true;
-            TownNPCStayingHomeless = true;
 			NPC.HitSound = SoundID.DD2_GoblinScream with { Pitch = 1.25f, Volume = 0.4f };
             NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.aiStyle = -1;
@@ -42,8 +35,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Christmas
 			return false;
 		}
 
-		public override bool CanChat() 
-        {
+		public override bool CheckActive()
+		{
 			return false;
 		}
 

@@ -4,8 +4,8 @@ BossAchievementRotGourd: {
 }
 
 BossAchievementSpookySpirit: {
-	FriendlyName: Dead Again
-	Description: Defeat Spooky Spirit, the powerful paranormal soul possessing the strange cemetery statue.
+	FriendlyName: Who You Gonna Call?
+	Description: Defeat Spooky Spirit, an angry poltergeist warding off unwanted guests.
 }
 
 BossAchievementMoco: {
@@ -70,7 +70,7 @@ MiscAchievementKrampusHired: {
 
 MiscAchievementSentientItem: {
 	FriendlyName: It's Alive!
-	Description: Combine a sentient heart and a weapon at little eye's cauldron to give it the gift of life. dubious moral implications included!
+	Description: Combine a sentient heart and a weapon at little eye's cauldron to give it the gift of life.
 }
 
 MiscAchievementNoseCultist: {
@@ -90,7 +90,7 @@ MiscAchievementLittleEyeQuest: {
 
 EventAchievementSpore: {
 	FriendlyName: Choking Fumes
-	Description: Visit the spider grotto during a sporestorm, where mushrooms emit their trippy colorful spores and mites come out to hunt.
+	Description: Visit the spider grotto during a sporestorm, where mushrooms emit their spores and mites come out to hunt.
 }
 
 MiscAchievementBloomHarvest: {
@@ -111,4 +111,14 @@ EventAchievementSpiderWarEnd: {
 EventAchievementRaveyard: {
 	FriendlyName: Dance 'till You Drop Dead
 	Description: Attend one of the many raves that can happen in the cemetery at night.
+}
+
+MiscAchievementBloomSeeds: {
+	FriendlyName: Horticulturalist
+	Description: Become a successful farmer by planting one of every bloom seed type.
+}
+
+MiscAchievementContrabandAcc: {
+	FriendlyName: Hyperrealistic Achievement
+	Description: Combine a set of the suspicious skeleton's contraband together into a powerful object.
 }

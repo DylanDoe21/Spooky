@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Spooky.Content.Projectiles.SpookyHell
 {
@@ -57,33 +58,25 @@ namespace Spooky.Content.Projectiles.SpookyHell
         {
             Player player = Main.player[Projectile.owner];
 
-            Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0f ? 1 : -1;
-            Projectile.rotation += 0.5f * (float)Projectile.direction;
+            Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.025f * (float)Projectile.direction;
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] <= 30)
+            if (Projectile.ai[0] <= 45)
             {
-                if (Projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer && Projectile.Distance(Main.MouseWorld) > 20)
                 {
-                    Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                    ShootSpeed.Normalize();
-                    ShootSpeed *= 35;
-                    Projectile.velocity = ShootSpeed;
-
-                    if (Projectile.Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5)))
-                    {
-                        Projectile.ai[0] = 30;
-                    }
+                    Vector2 desiredVelocity = Projectile.DirectionTo(Main.MouseWorld) * 25;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 5);
                 }
 
-                //spam net update because the projectile velocityollowing needs to be synced
-                if (Projectile.ai[0] % 2 == 0)
+                //spam net update because the projectile cursor following needs to be synced
+                if (Projectile.ai[0] % 5 == 0)
                 {
                     Projectile.netUpdate = true;
                 }
             }
-            if (Projectile.ai[0] > 30)
+            else
             {
                 Vector2 ReturnSpeed = player.Center - Projectile.Center;
                 ReturnSpeed.Normalize();

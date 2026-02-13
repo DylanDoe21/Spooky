@@ -612,7 +612,7 @@ namespace Spooky.Core
 			return false;
 		}
 
-		//use for when npcs do special things when colliding with the ground by checking at the bottom of the npc
+		//useful for when npcs should do special things when colliding with the ground by checking at the bottom of the npc
 		public static bool IsCollidingWithFloor(NPC npc, bool countPlatforms = false)
 		{
 			int minTilePosX = (int)(npc.position.X / 16) - 1;

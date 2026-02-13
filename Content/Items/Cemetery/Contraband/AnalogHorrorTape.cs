@@ -1,8 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Projectiles.Cemetery;
 
@@ -50,7 +52,15 @@ namespace Spooky.Content.Items.Cemetery.Contraband
 			}
         }
 
-        public override void AddRecipes()
+		public override void OnCreated(ItemCreationContext context)
+		{
+			if (context is RecipeItemCreationContext)
+			{
+				ModContent.GetInstance<MiscAchievementContrabandAcc>().ContrabandAccCondition.Complete();
+			}
+		}
+
+		public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<GeminiEntertainmentGame>())

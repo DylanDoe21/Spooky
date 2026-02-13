@@ -12,8 +12,21 @@ namespace Spooky.Content.Tiles.SpookyHell
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = false;
-            AddMapEntry(new Color(93, 30, 26));
-            DustType = DustID.Blood;
+            AddMapEntry(new Color(63, 31, 110));
+            DustType = ModContent.DustType<SpookyHellPurpleDust>();
+            HitSound = SoundID.Dig;
+        }
+    }
+
+    public class SpookyMushWallSafe : ModWall 
+    {
+        public override string Texture => "Spooky/Content/Tiles/SpookyHell/SpookyMushWall";
+
+        public override void SetStaticDefaults()
+        {
+            Main.wallHouse[Type] = true;
+            AddMapEntry(new Color(63, 31, 110));
+            DustType = ModContent.DustType<SpookyHellPurpleDust>();
             HitSound = SoundID.Dig;
         }
     }

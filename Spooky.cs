@@ -24,6 +24,8 @@ namespace Spooky
         internal static Spooky Instance;
         
         internal Mod subworldLibrary = null;
+        internal Mod thoriumMod = null;
+        internal Mod calamityMod = null;
 
         public static int MocoSpawnX;
         public static int MocoSpawnY;
@@ -59,6 +61,8 @@ namespace Spooky
             Instance = this;
             
             ModLoader.TryGetMod("SubworldLibrary", out subworldLibrary);
+            ModLoader.TryGetMod("ThoriumMod", out thoriumMod);
+            ModLoader.TryGetMod("CalamityMod", out calamityMod);
 
             AccessoryHotkey = KeybindLoader.RegisterKeybind(this, "AccessoryHotkey", "E");
 
@@ -89,6 +93,9 @@ namespace Spooky
         public override void Unload()
         {
             subworldLibrary = null;
+            thoriumMod = null;
+            calamityMod = null;
+
             AccessoryHotkey = null;
 			mod = null;
 		}

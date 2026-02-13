@@ -96,7 +96,8 @@ namespace Spooky.Content.NPCs.SpookyHell
 		{
             Player player = Main.player[NPC.target];
 
-            if (NPC.Distance(player.Center) <= 450f || NPC.localAI[0] >= 180)
+            bool HasLineOfSight = NPC.Distance(player.Center) <= 450 && Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
+            if (HasLineOfSight || NPC.localAI[0] >= 180)
             {
                 NPC.localAI[0]++;
             }

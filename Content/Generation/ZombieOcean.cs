@@ -41,25 +41,37 @@ namespace Spooky.Content.Generation
 		public static int StartPositionY;
 
 		int LabsPlaced = 0;
+		int SurfaceTileType = 0;
 
 		private void DecideZombieOceanPosition(GenerationProgress progress, GameConfiguration configuration)
 		{
 			LabsPlaced = 0;
 
-			//random worldside (default option)
-			if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.Random)
+			//account for calamity and thorium being enabled at the same time
+			//this will always place it next to the sulphur sea, as it is probably the safest option without actively destroying any other world generation from other mods
+			//calamity also makes the dungeon moved away from the abyss, so this is even better to prevent the rotten depths from destroying stuff
+			if (Spooky.Instance.thoriumMod != null && Spooky.Instance.calamityMod != null)
 			{
-				StartPositionX = !WorldGen.genRand.NextBool() ? 185 : Main.maxTilesX - 175;
+				StartPositionX = GenVars.dungeonSide < 0 ? (int)(185 * 2.5f) : Main.maxTilesX - (int)(175 * 2.5f);
 			}
-			//jungle side position
-			if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.JungleSide)
+			//otherwise use position based on config options
+			else
 			{
-				StartPositionX = GenVars.JungleX < (Main.maxTilesX / 2) ? 185 : Main.maxTilesX - 175;
-			}
-			//dungeon side position
-			if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.DungeonSide)
-			{
-				StartPositionX = GenVars.dungeonSide < 0 ? 185 : Main.maxTilesX - 175;
+				//random worldside (default option)
+				if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.Random)
+				{
+					StartPositionX = !WorldGen.genRand.NextBool() ? 185 : Main.maxTilesX - 175;
+				}
+				//jungle side position
+				if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.JungleSide || (Spooky.Instance.thoriumMod == null && Spooky.Instance.calamityMod != null))
+				{
+					StartPositionX = GenVars.JungleX < (Main.maxTilesX / 2) ? 185 : Main.maxTilesX - 175;
+				}
+				//dungeon side position
+				if (ModContent.GetInstance<SpookyWorldgenConfig>().ZombieBiomeWorldside == ZombieBiomePosEnum.DungeonSide || (Spooky.Instance.thoriumMod != null && Spooky.Instance.calamityMod == null))
+				{
+					StartPositionX = GenVars.dungeonSide < 0 ? 185 : Main.maxTilesX - 175;
+				}
 			}
 		}
 
@@ -76,9 +88,43 @@ namespace Spooky.Content.Generation
 			int SizeX = 300;
 			int SizeY = 150;
 
+			bool UnderSulphurSea = Spooky.Instance.thoriumMod != null && Spooky.Instance.calamityMod != null;
+
+			//increase the max-X distance for the box of blocks to place above the rotten depths since it gets moved over a lot more if you have calamity + thorium 
+			int MaximumFillInX = UnderSulphurSea ? 520 : 260;
+
 			//first place a box of sand under the ocean so the rotten depths circle doesnt look out of place
-			int Start = StartPositionX < Main.maxTilesX / 2 ? 10 : Main.maxTilesX - 260;
-			int End = StartPositionX < Main.maxTilesX / 2 ? 260 : Main.maxTilesX - 10;
+			int Start = StartPositionX < Main.maxTilesX / 2 ? 10 : Main.maxTilesX - MaximumFillInX;
+			int End = StartPositionX < Main.maxTilesX / 2 ? MaximumFillInX : Main.maxTilesX - 10;
+
+			//dig tunnel from surface to rotten depths
+			bool FoundSurface = false;
+            int attempts = 0;
+            while (!FoundSurface && attempts++ < 100000)
+            {
+				int TunnelX = StartPositionX + (UnderSulphurSea ? (GenVars.dungeonSide < 0 ? -135 : 135) : 0);
+				int TunnelY = 10;
+
+				while (!WorldGen.SolidTile(TunnelX, TunnelY) && TunnelY <= Main.worldSurface)
+				{
+					TunnelY++;
+				}
+				if (WorldGen.SolidTile(TunnelX, TunnelY))
+				{
+					//do not allow shell piles to be selected, if it is then just use regular sand
+					if (Main.tile[TunnelX, TunnelY].TileType == TileID.ShellPile)
+					{
+						SurfaceTileType = TileID.Sand;
+					}
+					//otherwise save the tile type at the surface for the sake of mod compatibility (mostly for calamity sulphur sea)
+					else
+					{
+						SurfaceTileType = Main.tile[TunnelX, TunnelY].TileType;
+					}
+
+					FoundSurface = true;
+				}
+			}
 
 			for (int i = Start; i <= End; i++)
 			{
@@ -87,26 +133,26 @@ namespace Spooky.Content.Generation
 					Tile tile = Framing.GetTileSafely(i, j);
 
 					if (!Main.tileDungeon[tile.TileType] && !Main.wallDungeon[tile.WallType] && tile.TileType != TileID.ShellPile &&
-					tile.TileType != TileID.BeachPiles && tile.TileType != TileID.Coral)
+					tile.TileType != TileID.BeachPiles && tile.TileType != TileID.Coral && tile.TileType < TileID.Count && tile.WallType < WallID.Count)
 					{
 						if (j < Main.worldSurface)
 						{
 							if (WorldGen.SolidTile(i, j) || tile.WallType > 0)
 							{
-								tile.TileType = TileID.Sand;
+								tile.TileType = (ushort)SurfaceTileType;
 								tile.HasTile = true;
 							}
 						}
 						else
 						{
-							tile.TileType = TileID.Sand;
+							tile.TileType = (ushort)SurfaceTileType;
 							tile.HasTile = true;
 						}
 					}
 				}
 			}
 
-			PlaceDepthsOval(StartPositionX, StartPositionY, TileID.Sand, 0, (SizeXInt + 3) * 5, (SizeYInt + 3) * 3, 1f, false, false);
+			PlaceDepthsOval(StartPositionX, StartPositionY, SurfaceTileType, 0, (SizeXInt + 3) * 5, (SizeYInt + 3) * 3, 1f, false, false);
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
 			progress.Set(0.5);
 			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
@@ -367,7 +413,8 @@ namespace Spooky.Content.Generation
             int attempts = 0;
             while (!placed && attempts++ < 100000)
             {
-				int TunnelX = StartPositionX; // + (StartPositionX < (Main.maxTilesX / 2) ? 0 : 0);
+				bool UnderSulphurSea = Spooky.Instance.thoriumMod != null && Spooky.Instance.calamityMod != null;
+				int TunnelX = StartPositionX + (UnderSulphurSea ? (GenVars.dungeonSide < 0 ? -135 : 135) : 0);
 				int TunnelY = 10;
 
 				while (!WorldGen.SolidTile(TunnelX, TunnelY) && TunnelY <= Main.worldSurface)
@@ -430,41 +477,47 @@ namespace Spooky.Content.Generation
 
 						if (i % 3 == 0 && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 						{
+							int Size = WorldGen.genRand.Next(9, 11);
+							int CaveSize = Size - 4;
+
+							//randomly increase the pit size for variance
+							if (WorldGen.genRand.NextBool(10) && Position.Y < Main.worldSurface)
+							{
+								Size = WorldGen.genRand.Next(16, 26);
+								CaveSize = Size - 4;
+							}
+
 							if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
 							{
-								if (WorldGen.genRand.NextBool(12) && Position.Y < Main.worldSurface)
-								{
-									int RandomSizeX = WorldGen.genRand.Next(22, 31);
-									int RandomSizeY = WorldGen.genRand.Next(12, 16);
-									float RandomThickness = WorldGen.genRand.NextFloat(0.1f, 3f);
-									
-									PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), RandomSizeX, RandomSizeY, RandomThickness, true, true, true);
-									PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, RandomSizeX - 5, RandomSizeY - 5, RandomThickness, false, false, true);
-								}
-								else
-								{
-									int Size = WorldGen.genRand.Next(9, 11);
-									
-									PlaceDepthsOval((int)Position.X, (int)Position.Y, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), Size, Size, 1f, true, true, true);
-								}
+								bool UnderSulphurSea = Spooky.Instance.thoriumMod != null && Spooky.Instance.calamityMod != null;
+								int TileTypeToUse = UnderSulphurSea ? SurfaceTileType : ModContent.TileType<OceanSand>();
+
+								PlaceDepthsOval((int)Position.X, (int)Position.Y, TileTypeToUse, ModContent.WallType<OceanSandWall>(), Size, Size, 1f, true, true, true);
+							}
+
+							if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
+							{
+								PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, CaveSize, CaveSize, 1f, false, false);
 							}
 						}
 					}
 				}
-
-				for (int i = 0; i < segments; i++)
+				else
 				{
-					float t = i / (float)segments;
-					Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
-					t = (i + 1) / (float)segments;
-
-					if (i % 3 == 0 && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
+					for (int i = 0; i < segments; i++)
 					{
-						if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
+						float t = i / (float)segments;
+						Vector2 Position = BezierCurveUtil.CalculateBezierPoint(t, p0, p1, p2, p3);
+						t = (i + 1) / (float)segments;
+
+						if (i % 3 == 0 && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 						{
-							int Size = GoingToSurface ? WorldGen.genRand.Next(5, 7) : WorldGen.genRand.Next(7, 9);
-							
-							PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, Size, Size, 1f, false, false);
+							if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
+							{
+								int Size = WorldGen.genRand.Next(7, 9);
+
+								PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, Size, Size, 1f, false, false);
+							}
 						}
 					}
 				}

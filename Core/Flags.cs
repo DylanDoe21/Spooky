@@ -23,6 +23,7 @@ namespace Spooky.Core
         public static Vector2 MocoIdolPosition5 = Vector2.Zero;
         public static Vector2 LeaderIdolPositon = Vector2.Zero;
 		public static Vector2 OldHunterPosition = Vector2.Zero;
+		public static Vector2 LittleEyePosition = Vector2.Zero;
 
         //compass positions
         public static Vector2 SpiderGrottoCenter = Vector2.Zero;
@@ -178,6 +179,7 @@ namespace Spooky.Core
 			tag[nameof(MocoIdolPosition5)] = MocoIdolPosition5;
 			tag[nameof(LeaderIdolPositon)] = LeaderIdolPositon;
 			tag[nameof(OldHunterPosition)] = OldHunterPosition;
+			tag[nameof(LittleEyePosition)] = LittleEyePosition;
 
 			//biome positions for compasses
             tag[nameof(SpiderGrottoCenter)] = SpiderGrottoCenter;
@@ -264,6 +266,7 @@ namespace Spooky.Core
 			MocoIdolPosition5 = tag.Get<Vector2>(nameof(MocoIdolPosition5));
 			LeaderIdolPositon = tag.Get<Vector2>(nameof(LeaderIdolPositon));
 			OldHunterPosition = tag.Get<Vector2>(nameof(OldHunterPosition)); 
+			LittleEyePosition = tag.Get<Vector2>(nameof(LittleEyePosition)); 
 
 			//world positions for compasses
 			SpiderGrottoCenter = tag.Get<Vector2>(nameof(SpiderGrottoCenter));
@@ -352,6 +355,7 @@ namespace Spooky.Core
             writer.WriteVector2(MocoIdolPosition5);
             writer.WriteVector2(LeaderIdolPositon);
 			writer.WriteVector2(OldHunterPosition);
+			writer.WriteVector2(LittleEyePosition);
             writer.WriteVector2(SpiderGrottoCenter);
             writer.WriteVector2(EyeValleyCenter);
 
@@ -394,6 +398,7 @@ namespace Spooky.Core
             MocoIdolPosition5 = reader.ReadVector2();
             LeaderIdolPositon = reader.ReadVector2();
 			OldHunterPosition = reader.ReadVector2();
+			LittleEyePosition = reader.ReadVector2();
             SpiderGrottoCenter = reader.ReadVector2();
             EyeValleyCenter = reader.ReadVector2();
 

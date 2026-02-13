@@ -1,10 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.Items.Cemetery.Contraband
@@ -68,7 +69,15 @@ namespace Spooky.Content.Items.Cemetery.Contraband
             }
         }
 
-        public override void AddRecipes()
+		public override void OnCreated(ItemCreationContext context)
+		{
+			if (context is RecipeItemCreationContext)
+			{
+				ModContent.GetInstance<MiscAchievementContrabandAcc>().ContrabandAccCondition.Complete();
+			}
+		}
+
+		public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<PolybiusArcadeGame>())

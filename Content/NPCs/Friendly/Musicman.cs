@@ -2,14 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Biomes;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Tiles.MusicBox;
 using Spooky.Content.Tiles.Painting;
@@ -36,11 +34,11 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
+			TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
             NPC.aiStyle = 7;
-			TownNPCStayingHomeless = true;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.RaveyardBiome>().Type };
 		}
 
@@ -67,7 +65,22 @@ namespace Spooky.Content.NPCs.Friendly
             }
         }
 
-        public override bool CanChat() 
+		public override bool CanBeHitByNPC(NPC attacker)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			return false;
+		}
+
+		public override bool CanChat() 
         {
 			return true;
 		}

@@ -24,10 +24,24 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.accessory = true;
 		}
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.noFallDmg = true;
-        }
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			player.noFallDmg = true;
+
+			//hovering logic
+			if (player.wings == player.wingsLogic && player.controlJump && player.controlDown && player.grappling[0] < 0 && player.wingTime > 0)
+			{
+				player.position.Y += -0.001f;
+				float num = player.gravity * player.gravDir;
+				player.position.Y -= player.velocity.Y;
+				player.velocity.Y = num;
+
+				if (player.controlLeft) player.velocity.X -= 0.5f;
+				if (player.controlRight) player.velocity.X += 0.5f;
+
+				player.velocity.X = MathHelper.Clamp(player.velocity.X, -10, 10);
+			}
+		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
 		{
@@ -69,13 +83,6 @@ namespace Spooky.Content.Items.SpiderCave
 								player.wingFrameCounter = 0;
 								player.wingFrame = 4;
 							}
-
-							player.velocity.Y *= 0.0001f;
-
-							if (player.controlLeft) player.velocity.X -= 0.5f;
-							if (player.controlRight) player.velocity.X += 0.5f;
-							
-							player.velocity.X = MathHelper.Clamp(player.velocity.X, -15, 15);
 
 							EffectRate = 4;
 						}

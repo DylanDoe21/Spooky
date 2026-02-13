@@ -55,7 +55,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Slayer);
             SpiderWarCondition = AddCondition();
         }
     }
@@ -66,7 +66,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Slayer);
             SpiderWarEndCondition = AddCondition();
         }
     }

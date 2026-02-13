@@ -29,11 +29,26 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
 			NPC.dontCountMe = true;
-            TownNPCStayingHomeless = true;
+			TownNPCStayingHomeless = true;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
             NPC.aiStyle = -1;
+		}
+
+		public override bool CanBeHitByNPC(NPC attacker)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			return false;
 		}
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

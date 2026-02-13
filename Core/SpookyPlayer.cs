@@ -30,8 +30,9 @@ using Spooky.Content.Projectiles.Minibiomes.Christmas;
 using Spooky.Content.Projectiles.Minibiomes.Desert;
 using Spooky.Content.Projectiles.Minibiomes.Ocean;
 using Spooky.Content.Projectiles.Minibiomes.Vegetable;
-using Spooky.Content.Projectiles.SpookyBiome;
+using Spooky.Content.Projectiles.Sentient;
 using Spooky.Content.Projectiles.SpiderCave;
+using Spooky.Content.Projectiles.SpookyBiome;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.Catacomb.Furniture;
 using Spooky.Content.Tiles.SpookyBiome.Furniture;
@@ -1575,7 +1576,7 @@ namespace Spooky.Core
 
                 SpriteEffects spriteEffects = drawInfo.drawPlayer.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-                if (ItemGlobal.ActiveItem(drawInfo.drawPlayer).type == ModContent.ItemType<SentientLeafBlower>())
+                if (ItemGlobal.ActiveItem(drawInfo.drawPlayer).type == ModContent.ItemType<SentientLeafBlower>() && drawInfo.drawPlayer.ownedProjectileCounts[ModContent.ProjectileType<SentientLeafBlowerProj>()] > 0)
                 {
                     SentientLeafBlowerBackTex ??= ModContent.Request<Texture2D>("Spooky/Content/Items/SpookyHell/Sentient/SentientLeafBlowerBack");
                     

@@ -85,6 +85,21 @@ namespace Spooky.Content.NPCs.Friendly
             }
         }
 
+		public override bool CanBeHitByNPC(NPC attacker)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			return false;
+		}
+
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			return false;

@@ -17,5 +17,13 @@ namespace Spooky.Content.Tiles.SpookyHell
             Item.width = 16;
 			Item.height = 16;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<EyeBlockWallItem>(), 4)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+        }
     }
 }

@@ -51,21 +51,5 @@ namespace Spooky.Content.Tiles.SpookyHell
             dustType = DustID.Blood;
             makeDust = true;
         }
-
-        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
-        {
-            bool isPlayerNear = WorldGen.PlayerLOS(i, j);
-            Tile Above = Framing.GetTileSafely(i, j - 1);
-
-            if (!Main.gamePaused && Main.instance.IsActive && !Above.HasTile && isPlayerNear)
-            {
-                if (Main.rand.NextBool(550))
-                {
-                    int newDust = Dust.NewDust(new Vector2((i) * 16, (j - 1) * 16), 5, 5, ModContent.DustType<SpookyHellParticle>());
-
-                    Main.dust[newDust].velocity.Y += 0.09f;
-                }
-            }
-        }
     }
 }

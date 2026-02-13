@@ -207,6 +207,35 @@ namespace Spooky.Core
 					}
                 }
 
+                //spawn little eye
+                if (!NPC.AnyNPCs(ModContent.NPCType<LittleEyeSleeping>()) && !NPC.AnyNPCs(ModContent.NPCType<LittleEye>()) && Flags.LittleEyePosition != Vector2.Zero)
+                {
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int LittleEye = NPC.NewNPC(null, (int)Flags.LittleEyePosition.X, (int)Flags.LittleEyePosition.Y, ModContent.NPCType<LittleEye>());
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: LittleEye);
+                        }
+					}
+                }
+
+                //spawn little eyes teddy bear
+                if (!NPC.AnyNPCs(ModContent.NPCType<TeddyBearGiant>()) && Flags.KrampusQuest5 && Flags.LittleEyePosition != Vector2.Zero)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+                        int OffsetX = Flags.LittleEyePosition.X >= Main.maxTilesX / 2 ? -15 : 15;
+						int TeddyBear = NPC.NewNPC(null, (int)Flags.LittleEyePosition.X + OffsetX, (int)Flags.LittleEyePosition.Y, ModContent.NPCType<TeddyBearGiant>());
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, number: TeddyBear);
+                        }
+					}
+                }
+
                 //spawn dead old hunter or the npc depending on if you have revived him already
 				if (!NPC.AnyNPCs(ModContent.NPCType<OldHunterDead>()) && !NPC.AnyNPCs(ModContent.NPCType<OldHunter>()) && 
                 !NPC.AnyNPCs(ModContent.NPCType<OldHunterBoss>()) && Flags.OldHunterPosition != Vector2.Zero)

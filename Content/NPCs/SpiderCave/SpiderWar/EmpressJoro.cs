@@ -41,6 +41,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 		public override void SetStaticDefaults()
         {
 			Main.npcFrameCount[NPC.type] = 9;
+			NPCID.Sets.ShouldBeCountedAsBoss[NPC.type] = true;
 
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {

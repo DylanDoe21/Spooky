@@ -11,12 +11,14 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.NoseTemple;
 using Spooky.Content.Tiles.NoseTemple.Furniture;
 using Spooky.Content.Tiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell.Ambient;
+using Spooky.Content.Tiles.SpookyHell.Furniture;
 using Spooky.Content.Tiles.SpookyHell.Tree;
 
 namespace Spooky.Content.Generation
@@ -107,7 +109,7 @@ namespace Spooky.Content.Generation
                     if (Y > terrainContour[X] && WorldGen.InWorld(X, Y))
                     {
                         WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
-                        Main.tile[X, Y + 5].WallType = (ushort)ModContent.WallType<SpookyMushWall>();
+                        Main.tile[X, Y + 3].WallType = (ushort)ModContent.WallType<SpookyMushWall>();
                     }
                 }
 			}
@@ -298,9 +300,16 @@ namespace Spooky.Content.Generation
 						float fleshThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
 
 						//kill or place tiles depending on the noise map
-						if (noiseMap * noiseMap <= fleshThreshold && Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>())
+						if (noiseMap * noiseMap <= fleshThreshold)
 						{
-							Main.tile[X, Y].TileType = (ushort)ModContent.TileType<EyeBlock>();
+                            if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>())
+                            {
+							    Main.tile[X, Y].TileType = (ushort)ModContent.TileType<EyeBlock>();
+                            }
+                            if (Main.tile[X, Y].WallType == ModContent.WallType<SpookyMushWall>())
+                            {
+                                Main.tile[X, Y].WallType = (ushort)ModContent.WallType<EyeBlockWall>();
+                            }
 						}
 					}
 				}
@@ -718,10 +727,6 @@ namespace Spooky.Content.Generation
 
             int StartPosY = Main.maxTilesY - 150;
 
-            ///place little eye's house
-            int HouseX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
-            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
-
             //place orroboro nest
             GenerateStructure(XMiddle, StartPosY, "OrroboroNest", 23, 23);
 
@@ -803,6 +808,10 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
+
+            ///place little eye's house last so it doesnt get nuked by other structures
+            int HouseX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
+            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
         }
 
         //method for finding a valid surface and placing the structure on it
@@ -826,7 +835,8 @@ namespace Spooky.Content.Generation
 
                 if (StructureFile == "LittleEyeHouse")
                 {
-                    NPC.NewNPC(null, (startX - 12) * 16, (startY) * 16, ModContent.NPCType<LittleEyeSleeping>());
+                    NPC.NewNPC(null, (startX - 14) * 16, (startY + 8) * 16, ModContent.NPCType<LittleEyeSleeping>());
+                    Flags.LittleEyePosition = new Vector2((startX - 14) * 16, (startY + 8) * 16);
                 }
 
                 if (StructureFile == "OrroboroNest")
@@ -1254,6 +1264,59 @@ namespace Spooky.Content.Generation
             tasks.Insert(GenIndex + 6, new PassLegacy("Eye Valley Grass", SpreadSpookyHellGrass));
             tasks.Insert(GenIndex + 7, new PassLegacy("Eye Valley Trees", SpookyHellTrees));
             tasks.Insert(GenIndex + 8, new PassLegacy("Eye Valley Ambience", SpookyHellAmbience));
+        }
+
+        public override void PostWorldGen()
+		{
+			List<int> Herbs = new List<int>
+			{
+				ItemID.Blinkroot, ItemID.Moonglow, ItemID.Daybloom, ItemID.Deathweed, ItemID.Waterleaf, ItemID.Fireblossom, ItemID.Shiverthorn
+			};
+
+			List<int> ActualHerb = new List<int>(Herbs);
+
+			for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
+            {
+				Chest chest = Main.chest[chestIndex];
+
+				if (chest == null) 
+                {
+					continue;
+				}
+
+				if (WorldGen.InWorld(chest.x, chest.y))
+				{
+					Tile chestTile = Main.tile[chest.x, chest.y];
+
+					if (chestTile.TileType == ModContent.TileType<EyeChest>())
+					{
+						if (ActualHerb.Count == 0)
+						{
+							ActualHerb = new List<int>(Herbs);
+						}
+
+						//herbs
+                        int ItemToPutInChest = WorldGen.genRand.Next(ActualHerb.Count);
+						chest.item[0].SetDefaults(ActualHerb[ItemToPutInChest]);
+						chest.item[0].stack = WorldGen.genRand.Next(6, 13);
+						ActualHerb.RemoveAt(ItemToPutInChest);
+
+                        ItemToPutInChest = WorldGen.genRand.Next(ActualHerb.Count);
+						chest.item[1].SetDefaults(ActualHerb[ItemToPutInChest]);
+						chest.item[1].stack = WorldGen.genRand.Next(6, 13);
+						ActualHerb.RemoveAt(ItemToPutInChest);
+
+                        ItemToPutInChest = WorldGen.genRand.Next(ActualHerb.Count);
+						chest.item[2].SetDefaults(ActualHerb[ItemToPutInChest]);
+						chest.item[2].stack = WorldGen.genRand.Next(6, 13);
+						ActualHerb.RemoveAt(ItemToPutInChest);
+
+                        //monster meat
+                        chest.item[3].SetDefaults(ModContent.ItemType<CreepyChunk>());
+						chest.item[3].stack = WorldGen.genRand.Next(15, 31);
+					}
+				}
+            }
         }
     }
 }

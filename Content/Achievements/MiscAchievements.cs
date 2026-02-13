@@ -97,4 +97,26 @@ namespace Spooky.Content.Achievements
             BloomHarvestCondition = AddCondition();
         }
     }
+
+    public class MiscAchievementBloomSeeds : ModAchievement
+    {
+        public CustomFlagCondition BloomSeedsCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            BloomSeedsCondition = AddCondition();
+        }
+    }
+
+    public class MiscAchievementContrabandAcc : ModAchievement
+    {
+        public CustomFlagCondition ContrabandAccCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            ContrabandAccCondition = AddCondition();
+        }
+    }
 }

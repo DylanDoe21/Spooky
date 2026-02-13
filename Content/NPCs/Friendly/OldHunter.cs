@@ -1,17 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Bestiary;
-using Terraria.Localization;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using System.Collections.Generic;
 
 using Spooky.Core;
-using Spooky.Content.Items.Costume;
-using Spooky.Content.Items.Cemetery.Contraband;
-using Spooky.Content.Items.Pets;
 using Spooky.Content.UserInterfaces;
 
 namespace Spooky.Content.NPCs.Friendly
@@ -68,7 +60,22 @@ namespace Spooky.Content.NPCs.Friendly
             }
         }
 
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		public override bool CanBeHitByNPC(NPC attacker)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			return false;
+		}
+
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			return false;
+		}
+
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			return false;
 		}

@@ -163,15 +163,12 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-            //clean out small floating chunks of blocks and walls
-            CleanOutSmallClumps(true);
-            CleanOutSmallClumps(false);
-
             //place mushroom gnome village
 			int MushroomSizeX = Main.maxTilesX / 70;
 			int MushroomSizeY = Main.maxTilesY / 37;
 
-            int GnomePositionY = startPosY + (Main.maxTilesY / 18);
+            int GnomeDivideY = Main.maxTilesY >= 2400 ? 25 : 18;
+            int GnomePositionY = startPosY + (Main.maxTilesY / GnomeDivideY);
 
 			SpookyWorldMethods.PlaceOval(startPosX, GnomePositionY, ModContent.TileType<DampMushroomGrass>(), 0, MushroomSizeX, MushroomSizeY, 2f, false, false);
 
