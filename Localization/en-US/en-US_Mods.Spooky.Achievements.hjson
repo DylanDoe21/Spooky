@@ -124,6 +124,6 @@ MiscAchievementContrabandAcc: {
 }
 
 MiscAchievementDumbZomboid: {
-	FriendlyName: Misc Achievement Dumb Zomboid
-	Description: Mods.Spooky.Achievements.MiscAchievementDumbZomboid.Description
+	FriendlyName: How Did You Get Here?
+	Description: Encounter the lost zomboid wandering around your world.
 }
