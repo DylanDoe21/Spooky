@@ -503,8 +503,8 @@ namespace Spooky.Content.Generation
                 {
                     if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyMushGrass>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<EyeBlock>()))
                     {
-                        if (WorldGen.genRand.NextBool(7) && (Main.tile[X, Y - 1].WallType <= 0 || Main.tile[X, Y - 1].WallType == ModContent.WallType<SpookyMushWall>()) && 
-                        !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
+                        if (WorldGen.genRand.NextBool(7) && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock &&
+                        (Main.tile[X, Y - 1].WallType <= 0 || Main.tile[X, Y - 1].WallType == ModContent.WallType<SpookyMushWall>() || Main.tile[X, Y - 1].WallType == ModContent.WallType<EyeBlockWall>()))
                         {
                             if (WorldGen.genRand.NextBool(3) && CanPlaceTree(X, Y, 2))
                             {

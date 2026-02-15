@@ -5,6 +5,7 @@ using Terraria.GameContent.ItemDropRules;
 
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Slingshots;
 using Spooky.Content.Tiles.Cemetery;
 
 namespace Spooky.Content.Items.Fishing.Crate

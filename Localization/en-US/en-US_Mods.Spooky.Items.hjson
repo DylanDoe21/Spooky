@@ -560,7 +560,7 @@ CranberryJelly: {
 	Tooltip:
 		'''
 		Will be consumed automatically if you fall below half health
-		Has half the sickness duration than regular healing potions
+		Has half the sickness duration of regular healing potions
 		'''
 }
 
@@ -569,7 +569,7 @@ CranberryJuice: {
 	Tooltip:
 		'''
 		Will be consumed automatically if you fall below half health
-		Has half the sickness duration than regular healing potions
+		Has half the sickness duration of regular healing potions
 		'''
 }
 
@@ -968,15 +968,6 @@ GodGun: {
 		'''
 }
 
-HighVelocitySlingshot: {
-	DisplayName: High-Velocity Slingshot
-	Tooltip:
-		'''
-		Hold down to pull back the slingshot, then release to fling ammo
-		Fires Mossy Pebbles at an extremely high velocity
-		'''
-}
-
 HunterScarf: {
 	DisplayName: Old Hunter's Scarf
 	Tooltip:
@@ -1233,15 +1224,6 @@ SpiritScroll: {
 		'''
 		Conjures pumpkin heads that will charge at nearby enemies
 		They do not take up minion slots, but you cannot have more than 5 at once
-		'''
-}
-
-SpiritSlingshot: {
-	DisplayName: Ghostly Slingshot
-	Tooltip:
-		'''
-		Hold down to pull back the slingshot, then release to fling ammo
-		Converts Mossy Pebbles into ghastly orbs that wildly ricochet off of surfaces and enemies
 		'''
 }
 
@@ -2693,15 +2675,6 @@ SpiderLegStaff: {
 	Tooltip: Rapidly cast out short-lived magic spider legs
 }
 
-SpiderSlingshot: {
-	DisplayName: Web Flinger
-	Tooltip:
-		'''
-		Hold down to pull back the slingshot, then release to fling ammo
-		Converts Mossy Pebbles into web balls that slow enemies
-		'''
-}
-
 SpiderSummonEgg: {
 	DisplayName: Strange Spider Egg
 	Tooltip:
@@ -2980,15 +2953,6 @@ GourdFlail: {
 		'''
 }
 
-GourdSlingshot: {
-	DisplayName: Stinky Slinger
-	Tooltip:
-		'''
-		Hold down to pull back the slingshot, then release to fling ammo
-		Converts Mossy Pebbles into moldy pellets that create flies on impact
-		'''
-}
-
 GourdStaff: {
 	DisplayName: Branch of Gourd
 	Tooltip: Summons gourd goobers that will slam on enemies
@@ -3010,11 +2974,6 @@ MoldJar: {
 		Allows the holder to double jump
 		'It smells awful!'
 		'''
-}
-
-MossyPebble: {
-	DisplayName: Mossy Pebble
-	Tooltip: Used as ammo with slingshots
 }
 
 NecromancyTome: {
@@ -3049,15 +3008,6 @@ OldWoodGreatsword: {
 OldWoodHammer: {
 	DisplayName: Old Wood Hammer
 	Tooltip: ""
-}
-
-OldWoodSlingshot: {
-	DisplayName: Old Wood Slingshot
-	Tooltip:
-		'''
-		Hold down to pull back the slingshot, then release to fling ammo
-		Uses Mossy Pebbles as ammo
-		'''
 }
 
 OldWoodStaff: {
@@ -4299,6 +4249,11 @@ CemeteryBiomeChestItem: {
 	Tooltip: ""
 }
 
+RaveyardMonolithItem: {
+	DisplayName: Raveyard Monolith
+	Tooltip: Creates party beams and colors
+}
+
 CemeteryDirtItem: {
 	DisplayName: Swampy Mud
 	Tooltip: ""
@@ -4636,6 +4591,11 @@ OceanSandItem: {
 OceanSandWallItem: {
 	DisplayName: Deep Sea Sand Wall
 	Tooltip: ""
+}
+
+BroccoliSaplingItem: {
+	DisplayName: Broccoli Sapling
+	Tooltip: Plants broccoli saplings
 }
 
 JungleMossItem: {
@@ -5503,9 +5463,34 @@ BirchWorkBenchItem: {
 	Tooltip: ""
 }
 
+GnomeHouse1Item: {
+	DisplayName: Yellow Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
+}
+
+GnomeHouse2Item: {
+	DisplayName: Blue Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
+}
+
+GnomeHouse3Item: {
+	DisplayName: Red Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
+}
+
+GnomeHouse4Item: {
+	DisplayName: Green Gnome Home
+	Tooltip: Sometimes spawns mush gnomes
+}
+
 SpiderCaveChestItem: {
 	DisplayName: Spider Grotto Chest
 	Tooltip: ""
+}
+
+SporeMonolithItem: {
+	DisplayName: Spore Monolith
+	Tooltip: Surrounds the area with spore fog
 }
 
 BirchWoodItem: {
@@ -6578,32 +6563,58 @@ Converter: {
 	Tooltip: ""
 }
 
-SporeMonolithItem: {
-	DisplayName: Spore Monolith
-	Tooltip: Surrounds the area with spore fog
+BottomlessPebbleBag: {
+	Tooltip: ""
+	DisplayName: Bottomless Pebble Bag
 }
 
-RaveyardMonolithItem: {
-	DisplayName: Raveyard Monolith
-	Tooltip: Creates party beams and colors
+BouncyBall: {
+	DisplayName: Bouncy Ball
+	Tooltip: Bounces off of surfaces
 }
 
-GnomeHouse1Item: {
-	DisplayName: Yellow Gnome Home
-	Tooltip: Sometimes spawns mush gnomes
+MoldyPellet: {
+	DisplayName: Moldy Pellet
+	Tooltip: Creates nasty flies on impact
 }
 
-GnomeHouse2Item: {
-	DisplayName: Blue Gnome Home
-	Tooltip: Sometimes spawns mush gnomes
+MossyPebble: {
+	DisplayName: Mossy Pebble
+	Tooltip: ""
 }
 
-GnomeHouse3Item: {
-	DisplayName: Red Gnome Home
-	Tooltip: Sometimes spawns mush gnomes
+BaseSlingshot: {
+	DisplayName: Base Slingshot
+	Tooltip: Testing Item
 }
 
-GnomeHouse4Item: {
-	DisplayName: Green Gnome Home
-	Tooltip: Sometimes spawns mush gnomes
+GourdSlingshot: {
+	DisplayName: Stinky Slinger
+	Tooltip: Converts Mossy Pebbles into mold pellets that spawn flies
 }
+
+HighVelocitySlingshot: {
+	DisplayName: High-Velocity Slingshot
+	Tooltip: Fires Mossy Pebbles and other ammo at high velocity
+}
+
+OldWoodSlingshot: {
+	DisplayName: Old Wood Slingshot
+	Tooltip: A basic wooden slingshot
+}
+
+SpiderSlingshot: {
+	DisplayName: Web Flinger
+	Tooltip: Converts Mossy Pebbles into webs that slow enemies
+}
+
+SpiritSlingshot: {
+	DisplayName: Ghostly Slingshot
+	Tooltip:
+		'''
+		Converts Mossy Pebbles into homing souls
+		Every 3 shots the soul will split into ghastly bolts on hit
+		'''
+}
+
+SlingshotAmmoTooltip: Used as ammo with slingshots

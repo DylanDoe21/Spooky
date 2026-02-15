@@ -67,7 +67,6 @@ namespace Spooky.Content.Projectiles.SpookyBiome
             Main.dust[ProjDust].velocity -= Projectile.velocity;
 
             Projectile.ai[0]++;
-
             if (Projectile.ai[0] > 20)
             {
                 int foundTarget = FindTarget();

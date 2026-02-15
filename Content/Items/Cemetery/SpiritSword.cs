@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Core;
+using Spooky.Content.Items.Slingshots;
 using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.Items.Cemetery

@@ -12,6 +12,7 @@ using Spooky.Content.Backgrounds.SpiderCave;
 using Spooky.Content.Backgrounds.SpookyHell;
 using Spooky.Content.NPCs.Boss.Moco;
 using Spooky.Content.NPCs.Boss.Orroboro;
+using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.Tameable;
 using Spooky.Content.UserInterfaces;

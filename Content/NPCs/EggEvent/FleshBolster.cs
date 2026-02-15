@@ -12,8 +12,8 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.NPCs.EggEvent.Projectiles;
-using Spooky.Content.Projectiles.Cemetery;
 
 namespace Spooky.Content.NPCs.EggEvent
 {
@@ -168,6 +168,11 @@ namespace Spooky.Content.NPCs.EggEvent
                     ai0: lineDirection.ToRotation() + MathHelper.Pi, -16 * 60);
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DropConditions.PostOrroboroCondition(), ModContent.ItemType<ArteryPiece>(), 5, 1, 3));
         }
 		
 		public override void HitEffect(NPC.HitInfo hit) 

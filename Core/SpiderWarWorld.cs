@@ -171,7 +171,7 @@ namespace Spooky.Core
 						NetMessage.SendData(MessageID.WorldData);
 					}
 				}
-				else if (SpiderWarWave >= 10 && SpiderWarPoints >= 30)
+				else if (SpiderWarWave >= 10 && SpiderWarPoints >= 20)
 				{
 					SpiderWarPoints = 0;
 					SpiderWarDisplayPoints = 0f;

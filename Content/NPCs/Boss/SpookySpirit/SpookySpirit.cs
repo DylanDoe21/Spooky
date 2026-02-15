@@ -19,6 +19,7 @@ using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Cemetery.Armor;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.Slingshots;
 using Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles;
 using Spooky.Content.Tiles.Relic;
 using Spooky.Content.Tiles.Trophy;

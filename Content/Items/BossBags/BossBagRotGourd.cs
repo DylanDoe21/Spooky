@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Slingshots;
 using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.RotGourd;

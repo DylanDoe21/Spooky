@@ -37,7 +37,6 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
 			TileObjectData.addTile(Type);
 			AdjTiles = new int[]{ TileID.Saplings };
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Sapling");
 			AddMapEntry(new Color(200, 200, 200), name);
             DustType = -1;
 			HitSound = SoundID.Dig;

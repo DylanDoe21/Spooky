@@ -62,11 +62,6 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             }
         }
 
-		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-		{
-			return false;
-		}
-
 		public override void AI()
 		{
 			NPC.TargetClosest(true);

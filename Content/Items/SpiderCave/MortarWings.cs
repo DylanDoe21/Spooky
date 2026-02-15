@@ -39,7 +39,7 @@ namespace Spooky.Content.Items.SpiderCave
 				if (player.controlLeft) player.velocity.X -= 0.5f;
 				if (player.controlRight) player.velocity.X += 0.5f;
 
-				player.velocity.X = MathHelper.Clamp(player.velocity.X, -10, 10);
+				player.velocity.X = MathHelper.Clamp(player.velocity.X, -15, 15);
 			}
 		}
 

@@ -548,9 +548,9 @@ namespace Spooky.Content.Generation
             }
 
             //place old hunter arena
-            Vector2 ArenaOrigin = new Vector2(startPosX - 50, (GnomePositionY + MushroomSizeY) - 25);
+            Vector2 ArenaOrigin = new Vector2(startPosX - 50, (GnomePositionY + (MushroomSizeY / 2)) - 25);
             StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/OldHunterArena.shstruct", ArenaOrigin.ToPoint16(), Mod);
-            Flags.OldHunterPosition = new Vector2(startPosX * 16, (GnomePositionY + MushroomSizeY + 13) * 16);
+            Flags.OldHunterPosition = new Vector2(startPosX * 16, (GnomePositionY + (MushroomSizeY / 2) + 13) * 16);
 
             //spread grass
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)

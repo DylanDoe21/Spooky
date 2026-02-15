@@ -80,7 +80,7 @@ namespace Spooky.Content.Achievements
 
 		public override void SetStaticDefaults()
         {
-			Achievement.SetCategory(AchievementCategory.Slayer);
+			Achievement.SetCategory(AchievementCategory.Challenger);
 			FrostMoonCondition = AddCondition();
 		}
     }

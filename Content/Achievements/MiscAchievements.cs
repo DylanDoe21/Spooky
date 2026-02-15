@@ -16,7 +16,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Challenger);
             TamedTurkeyCondition = AddCondition();
         }
     }
@@ -27,7 +27,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Challenger);
             CarvedRottenGourdCondition = AddCondition();
         }
     }
@@ -49,7 +49,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Challenger);
             NoseCultistCondition = AddCondition();
         }
     }
@@ -60,7 +60,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Collector);
             SentientCondition = AddCondition();
         }
     }
@@ -82,7 +82,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Challenger);
             LittleEyeQuestCondition = AddCondition();
         }
     }
@@ -93,7 +93,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Collector);
             BloomHarvestCondition = AddCondition();
         }
     }
@@ -104,7 +104,7 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Collector);
             BloomSeedsCondition = AddCondition();
         }
     }
@@ -115,8 +115,19 @@ namespace Spooky.Content.Achievements
 
         public override void SetStaticDefaults()
         {
-            Achievement.SetCategory(AchievementCategory.Explorer);
+            Achievement.SetCategory(AchievementCategory.Collector);
             ContrabandAccCondition = AddCondition();
+        }
+    }
+
+    public class MiscAchievementDumbZomboid : ModAchievement
+    {
+        public CustomFlagCondition DumbZomboidCondition { get; private set; }
+
+        public override void SetStaticDefaults()
+        {
+            Achievement.SetCategory(AchievementCategory.Explorer);
+            DumbZomboidCondition = AddCondition();
         }
     }
 }

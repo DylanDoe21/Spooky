@@ -15,6 +15,7 @@ using Spooky.Content.Items.Blooms.Accessory;
 using Spooky.Content.Items.BossBags;
 using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.Slingshots;
 using Spooky.Content.Items.SpiderCave.Misc;
 using Spooky.Content.Items.SpookyBiome.Misc;
 using Spooky.Content.NPCs.Boss.RotGourd.Projectiles;
@@ -306,7 +307,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 				{
 					NPC.localAI[0]++;
 
-					NPC.velocity.X *= 0;
+					NPC.velocity.X = 0;
 
 					//charge down
 					if (NPC.localAI[0] == 20)

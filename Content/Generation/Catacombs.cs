@@ -13,6 +13,8 @@ using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Cemetery;
+using Spooky.Content.Items.Slingshots;
+using Spooky.Content.Items.Slingshots.Ammo;
 using Spooky.Content.Items.SpiderCave;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.Items.SpookyHell;

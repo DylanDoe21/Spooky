@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Localization;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -55,8 +56,19 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable.Tree
             return Framing.GetTileSafely(i, j).HasTile && (Main.tileSolidTop[Framing.GetTileSafely(i, j).TileType] || Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
         }
 
-        public static bool Grow(int i, int j, int minSize, int maxSize)
+        public static bool Grow(int i, int j, int minSize, int maxSize, bool saplingExists = false)
         {
+            if (saplingExists)
+            {
+                WorldGen.KillTile(i, j, false, false, true);
+                WorldGen.KillTile(i, j - 1, false, false, true);
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 2, 1, TileChangeType.None);
+				}
+			}
+
             int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; k++)
             {
@@ -71,25 +83,6 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable.Tree
             {
                 return false;
             }
-
-			/*
-			//make sure the block is valid for the tree to place on
-			if ((SolidTopTile(i, j + 1) || SolidTile(i, j + 1)) && !Framing.GetTileSafely(i, j).HasTile)
-			{
-				WorldGen.PlaceTile(i, j, ModContent.TileType<Broccoli>(), true);
-				Framing.GetTileSafely(i, j).TileFrameY = (short)(WorldGen.genRand.Next(3) * 18);
-
-				if (Main.netMode != NetmodeID.SinglePlayer)
-				{
-					NetMessage.SendTileSquare(-1, i, j, 1, 1, TileChangeType.None);
-				}
-			}
-			//otherwise dont allow the tree to grow
-			else
-			{
-				return false;
-			}
-			*/
 
 			//preform a loop where the tree will grow and check to make sure no tiles are above it
 			//if there are tiles blocking the way, dont allow the tree to grow
@@ -177,15 +170,17 @@ namespace Spooky.Content.Tiles.Minibiomes.Vegetable.Tree
 
             if (tile.TileFrameX == 36)
             {
-                /*
-                SoundEngine.PlaySound(SoundID.NPCHit20, (new Vector2(i, j) * 16));
-
-                if (Main.netMode != NetmodeID.Server) 
+                //spawn a seed from the tree
+                if (Main.rand.NextBool())
                 {
-                    Gore.NewGore(new EntitySource_TileBreak(i, j), (new Vector2(i, j - 2) * 16),
-                    new Vector2(Main.rand.Next(-3, 3), Main.rand.Next(-3, 3)), ModContent.Find<ModGore>("Spooky/EyeTreeGore3").Type);
+                    int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-22, 22), Main.rand.Next(-22, 22)), 
+                    ModContent.ItemType<BroccoliSaplingItem>(), Main.rand.Next(1, 3));
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
+					{
+						NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
+					}
                 }
-                */
             }
         }
 

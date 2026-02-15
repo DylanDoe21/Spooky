@@ -1,21 +1,22 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.IO;
-using Terraria.WorldBuilding;
-using Terraria.GameContent.Generation;
-using Terraria.Localization;
+using Iced.Intel;
+using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
-using Spooky.Core;
 using Spooky.Content.Items.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Ambient;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Furniture;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Tree;
+using Spooky.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.GameContent.Generation;
+using Terraria.ID;
+using Terraria.IO;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace Spooky.Content.Generation
 {
@@ -155,7 +156,8 @@ namespace Spooky.Content.Generation
 			PlaceDepthsOval(StartPositionX, StartPositionY, SurfaceTileType, 0, (SizeXInt + 3) * 5, (SizeYInt + 3) * 3, 1f, false, false);
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
 			progress.Set(0.5);
-			DigOutCaves(StartPositionX, StartPositionY, SizeX, SizeY);
+			PlaceDepthsCaves(StartPositionX, StartPositionY, SizeXInt * 5, SizeYInt * 3, 15f);
+			DigOutTunnels(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
 
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
@@ -294,85 +296,64 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		//dig out caverns inside of the area of ovals
-		public void DigOutCaves(int PositionX, int PositionY, int SizeX, int SizeY)
+		public void PlaceDepthsCaves(int X, int Y, int radius, int radiusY, float thickMult)
 		{
-			int StartX = PositionX > (Main.maxTilesX / 2) ? PositionX - SizeX : PositionX + SizeX;
-			int EndX = PositionX > (Main.maxTilesX / 2) ? PositionX + SizeX : PositionX - SizeX;
-			int Increment = PositionX > (Main.maxTilesX / 2) ? 5 : -5;
-
-			float MinDistanceBetweenCaves = 60;
-			int ValidTileCheckDistance = 35;
-
-			for (int j = PositionY - SizeY; j < PositionY + SizeY; j += 5)
+			float scale = radiusY / (float)radius;
+			float invertScale = (float)radius / radiusY;
+			for (float j = -radius; j <= radius; j += (invertScale * 0.85f))
 			{
-				for (int i = StartX; PositionX > (Main.maxTilesX / 2) ? i < EndX : i > EndX; i += Increment)
+				for (int i = -radius; i <= radius; i++)
 				{
-					if (WorldGen.InWorld(i, j, 40))
+					if (Math.Sqrt(i * i + j * j) <= radius + 0.5)
 					{
-						Tile tile = Framing.GetTileSafely(i, j);
+						int PositionX = X + i;
+						int PositionY = Y + (int)(j * scale);
 
-						if (!BlockTypes.Contains(tile.TileType))
+						if (WorldGen.InWorld(PositionX, PositionY, 80))
 						{
-							continue;
-						}
-
-						bool DontPlace = false;
-						for (int x = i - ValidTileCheckDistance; x <= i + ValidTileCheckDistance; x++)
-						{
-							if (!BlockTypes.Contains(Framing.GetTileSafely(x, j).TileType))
+							//only place caves within the circle, and not too close to the center
+							float radialMod1 = WorldGen.genRand.NextFloat(2.5f, 4.5f) * thickMult;
+							float radialMod2 = WorldGen.genRand.NextFloat(2.5f, 4.5f) * (thickMult * 1.7f);
+							if (Math.Sqrt(i * i + j * j) < radius - radialMod1 && Math.Sqrt(i * i + j * j) >= radius - radialMod2)
 							{
-								DontPlace = true;
-								break;
+								float MinDistanceBetweenCaves = 55;
+
+								Tile tile = Framing.GetTileSafely(PositionX, PositionY);
+
+								//too close to other points
+								Vector2 PositionToCheck = new Vector2(PositionX, PositionY);
+								bool tooClose = false;
+
+								foreach (var ExistingPosition in Flags.ZombieBiomePositions)
+								{
+									if (Vector2.DistanceSquared(PositionToCheck, ExistingPosition) < MinDistanceBetweenCaves * MinDistanceBetweenCaves)
+									{
+										tooClose = true;
+									}
+								}
+
+								if (NoDungeonBlocksNearby(PositionX, PositionY, 20, false) && !tooClose)
+								{
+									int OvalSizeX = WorldGen.genRand.Next(16, 19);
+									int OvalSizeY = WorldGen.genRand.Next(8, 14);
+
+									int YOffset = WorldGen.genRand.Next(-10, 11);
+
+									SpookyWorldMethods.PlaceOval(PositionX, PositionY + YOffset, -1, 0, OvalSizeX, OvalSizeY, 1f, true, false);
+									PlaceDepthsOval(PositionX, PositionY + YOffset, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), OvalSizeX + 2, OvalSizeY + 2, 1f, true, true);
+
+									Flags.ZombieBiomePositions.Add(new Vector2(PositionX, PositionY + YOffset));
+								}
 							}
-						}
-						for (int y = j - ValidTileCheckDistance; y <= j + ValidTileCheckDistance; y++)
-						{
-							if (!BlockTypes.Contains(Framing.GetTileSafely(i, y).TileType))
-							{
-								DontPlace = true;
-								break;
-							}
-						}
-						if (DontPlace)
-						{
-							continue;
-						}
-
-						//too close to other points
-						Vector2 PositionToCheck = new Vector2(i, j);
-						bool tooClose = false;
-
-						foreach (var ExistingPosition in Flags.ZombieBiomePositions)
-						{
-							if (Vector2.DistanceSquared(PositionToCheck, ExistingPosition) < MinDistanceBetweenCaves * MinDistanceBetweenCaves)
-							{
-								tooClose = true;
-								break;
-							}
-						}
-
-						if (tooClose)
-						{
-							continue;
-						}
-
-						if (WorldGen.InWorld(i, j, 80) && NoDungeonBlocksNearby(i, j, 20, false))
-						{
-							int OvalSizeX = WorldGen.genRand.Next(16, 19);
-							int OvalSizeY = WorldGen.genRand.Next(8, 14);
-
-							int YOffset = WorldGen.genRand.Next(-10, 11);
-
-							SpookyWorldMethods.PlaceOval(i, j + YOffset, -1, 0, OvalSizeX, OvalSizeY, 1f, true, false);
-							PlaceDepthsOval(i, j + YOffset, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), OvalSizeX + 2, OvalSizeY + 2, 1f, true, true);
-
-							Flags.ZombieBiomePositions.Add(new Vector2(i, j + YOffset));
 						}
 					}
 				}
 			}
+		}
 
+		//dig out caverns inside of the area of ovals
+		public void DigOutTunnels(int PositionX, int PositionY, int SizeX, int SizeY)
+		{
 			//connect all cave points in the biome in the order they were placed
 			for (int i = 0; i < Flags.ZombieBiomePositions.Count; i++)
 			{
@@ -478,13 +459,18 @@ namespace Spooky.Content.Generation
 						if (i % 3 == 0 && NoDungeonBlocksNearby((int)Position.X, (int)Position.Y, 6, false))
 						{
 							int Size = WorldGen.genRand.Next(9, 11);
+							int SizeY = 0;
+
 							int CaveSize = Size - 4;
+							int CaveSizeY = 0;
 
 							//randomly increase the pit size for variance
 							if (WorldGen.genRand.NextBool(10) && Position.Y < Main.worldSurface)
 							{
 								Size = WorldGen.genRand.Next(16, 26);
+								SizeY = WorldGen.genRand.Next(10, 13);
 								CaveSize = Size - 4;
+								CaveSizeY = SizeY - 4;
 							}
 
 							if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
@@ -492,12 +478,12 @@ namespace Spooky.Content.Generation
 								bool UnderSulphurSea = Spooky.Instance.thoriumMod != null && Spooky.Instance.calamityMod != null;
 								int TileTypeToUse = UnderSulphurSea ? SurfaceTileType : ModContent.TileType<OceanSand>();
 
-								PlaceDepthsOval((int)Position.X, (int)Position.Y, TileTypeToUse, ModContent.WallType<OceanSandWall>(), Size, Size, 1f, true, true, true);
+								PlaceDepthsOval((int)Position.X, (int)Position.Y, TileTypeToUse, ModContent.WallType<OceanSandWall>(), Size, SizeY == 0 ? Size : SizeY, 1f, true, true, true);
 							}
 
 							if (CanPlaceCave((int)Position.X, (int)Position.Y, 12))
 							{
-								PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, CaveSize, CaveSize, 1f, false, false);
+								PlaceDepthsOval((int)Position.X, (int)Position.Y, -1, 0, CaveSize, CaveSizeY == 0 ? CaveSize : CaveSizeY, 1f, false, false);
 							}
 						}
 					}
@@ -1242,7 +1228,7 @@ namespace Spooky.Content.Generation
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			//Gravitating Sand is the gen step right before shimmer
-			//This is to decide the position of the biome first because the shimmer needs to be moved based on what side of the world it will generate on to prevent the shimmer from being destroyed
+			//Deciding the position of the biome needs to be done before shimmer because thee shimmer needs to be moved based on what side of the world it will generate on to prevent the shimmer from being destroyed
 			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Gravitating Sand"));
 			if (GenIndex1 == -1)
 			{

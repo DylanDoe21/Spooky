@@ -15,12 +15,17 @@ namespace Spooky.Content.Dusts
             dust.fadeIn = 12f;
             dust.scale *= Main.rand.NextFloat(0.8f, 1f);
             dust.frame = new Rectangle(0, 0, 14, 22);
+            dust.rotation = Main.rand.NextFloat(-0.35f, 0.35f);
+        }
+
+        public override Color? GetAlpha(Dust dust, Color lightColor)
+        {
+            return Color.White * (1f - (dust.alpha / 255f));
         }
 
         public override bool Update(Dust dust)
         {
-            dust.alpha += 6;
-
+            dust.alpha += 10;
             if (dust.alpha > 255)
             {
                 dust.active = false;

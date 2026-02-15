@@ -148,7 +148,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                     }
                 }
 
-                Projectile.frame = 0;
+                Projectile.frame = 3;
                 Projectile.rotation = SaveRotation;
                 player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);

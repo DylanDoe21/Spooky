@@ -686,15 +686,15 @@ namespace Spooky.Core
 						}
 						case 10:
 						{
-							int MaxSpawns = SpiderWarWorld.SpiderWarPoints >= 20 ? 4 : 3;
+							int MaxSpawns = SpiderWarWorld.SpiderWarPoints > 10 ? 4 : 3;
 
 							//prevent multiple enemies from spawning depending on how many points are needed
-							if ((SpiderWarWorld.SpiderWarPoints < 25 && SpiderWarWorld.EventActiveNPCCount() < MaxSpawns) ||
-							(SpiderWarWorld.SpiderWarPoints == 25 && SpiderWarWorld.EventActiveNPCCount() < 5) ||
-							(SpiderWarWorld.SpiderWarPoints == 26 && SpiderWarWorld.EventActiveNPCCount() < 4) ||
-							(SpiderWarWorld.SpiderWarPoints == 27 && SpiderWarWorld.EventActiveNPCCount() < 3) ||
-							(SpiderWarWorld.SpiderWarPoints == 28 && SpiderWarWorld.EventActiveNPCCount() < 2) ||
-							(SpiderWarWorld.SpiderWarPoints == 29 && SpiderWarWorld.EventActiveNPCCount() < 1))
+							if ((SpiderWarWorld.SpiderWarPoints < 15 && SpiderWarWorld.EventActiveNPCCount() < MaxSpawns) ||
+							(SpiderWarWorld.SpiderWarPoints == 15 && SpiderWarWorld.EventActiveNPCCount() < 5) ||
+							(SpiderWarWorld.SpiderWarPoints == 16 && SpiderWarWorld.EventActiveNPCCount() < 4) ||
+							(SpiderWarWorld.SpiderWarPoints == 17 && SpiderWarWorld.EventActiveNPCCount() < 3) ||
+							(SpiderWarWorld.SpiderWarPoints == 18 && SpiderWarWorld.EventActiveNPCCount() < 2) ||
+							(SpiderWarWorld.SpiderWarPoints == 19 && SpiderWarWorld.EventActiveNPCCount() < 1))
 							{
 								if (!NPC.AnyNPCs(ModContent.NPCType<OgreKing>()))
 								{
@@ -742,13 +742,13 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<EyeWizard>(), 3);
 					}
 
-					pool.Add(ModContent.NPCType<EyeBat>(), 3);
+					pool.Add(ModContent.NPCType<EyeBat>(), 2);
 					pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<MrHandy>(), 3);
+					pool.Add(ModContent.NPCType<MrHandy>(), 2);
 					pool.Add(ModContent.NPCType<MrHandyFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<ManHole>(), 3);
+					pool.Add(ModContent.NPCType<ManHole>(), 2);
 					pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<Tortumor>(), 3);
+					pool.Add(ModContent.NPCType<Tortumor>(), 2);
 					pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.8f);
 
 					//do not spawn mocling swarms if one exists
@@ -766,7 +766,7 @@ namespace Spooky.Core
 					//do not spawn giant fleshy tortumors if one already exists
 					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
 					{
-						pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), 0.55f);
+						pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), 0.5f);
 					}
 				}
             }

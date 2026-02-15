@@ -109,7 +109,7 @@ namespace Spooky.Content.Projectiles.Catacomb
                 player.direction = -1;
             }
 
-			if (Projectile.frame <= 2 && Projectile.ai[2] == 0)
+			if (Projectile.frame <= 2)
             {
                 Projectile.timeLeft = 20;
 
@@ -151,7 +151,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                     {
                         player.PickAmmo(ItemGlobal.ActiveItem(player), out _, out _, out _, out _, out _);
                         Projectile.frame = 0;
-                        Projectile.ai[2] = 0;
                     }
                 }
 			}

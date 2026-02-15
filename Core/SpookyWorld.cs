@@ -222,12 +222,11 @@ namespace Spooky.Core
                 }
 
                 //spawn little eyes teddy bear
-                if (!NPC.AnyNPCs(ModContent.NPCType<TeddyBearGiant>()) && Flags.KrampusQuest5 && Flags.LittleEyePosition != Vector2.Zero)
+                if (!NPC.AnyNPCs(ModContent.NPCType<TeddyBearGiant>()) && Flags.KrampusQuestlineDone && Flags.LittleEyePosition != Vector2.Zero)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-                        int OffsetX = Flags.LittleEyePosition.X >= Main.maxTilesX / 2 ? -15 : 15;
-						int TeddyBear = NPC.NewNPC(null, (int)Flags.LittleEyePosition.X + OffsetX, (int)Flags.LittleEyePosition.Y, ModContent.NPCType<TeddyBearGiant>());
+						int TeddyBear = NPC.NewNPC(null, (int)Flags.LittleEyePosition.X + 35, (int)Flags.LittleEyePosition.Y, ModContent.NPCType<TeddyBearGiant>());
 
                         if (Main.netMode == NetmodeID.Server)
                         {

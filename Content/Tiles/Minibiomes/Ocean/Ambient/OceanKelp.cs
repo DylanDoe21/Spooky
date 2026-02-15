@@ -13,7 +13,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
 {
     public class OceanKelp : ModTile
     {
-        private const int MaxChainLength = 18;
+        private const int MaxChainLength = 15;
         private static readonly ushort[] ValidAnchors = new ushort[] { (ushort)ModContent.TileType<OceanSand>() };
 
         private const short FrameBottom = 0;
@@ -67,15 +67,18 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             if (!IsSupportedFromBelow(i, j))
                 return;
 
-            if (GetChainLengthUpward(i, j) >= MaxChainLength)
+            if (GetChainLengthDownward(i, j) >= MaxChainLength)
                 return;
 
-            bool placed = WorldGen.PlaceTile(i, j - 1, Type, mute: true, forced: true);
-            if (placed)
+            if (Main.tile[i, j - 1].LiquidAmount > 0)
             {
-                SetFrame(i, j - 1, FrameTop);
-                SetFrame(i, j, FrameMid);
-                UpdateBaseSegment(i, j + GetChainLengthDownward(i, j));
+                bool placed = WorldGen.PlaceTile(i, j - 1, Type, mute: true, forced: true);
+                if (placed)
+                {
+                    SetFrame(i, j - 1, FrameTop);
+                    SetFrame(i, j, FrameMid);
+                    UpdateBaseSegment(i, j + GetChainLengthDownward(i, j));
+                }
             }
         }
 
@@ -137,8 +140,12 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             {
                 length++;
                 y--;
-                if (length > MaxChainLength) break;
+                if (length > MaxChainLength) 
+                {
+                    break;
+                }
             }
+            
             return length;
         }
 
@@ -151,6 +158,10 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Ambient
             {
                 length++;
                 y++;
+                if (length > MaxChainLength) 
+                {
+                    break;
+                }
             }
             return length;
         }

@@ -8,6 +8,12 @@ using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Projectiles.Blooms;
+using Spooky.Content.Tiles.Cemetery.Tree;
+using Spooky.Content.Tiles.Minibiomes.Ocean.Tree;
+using Spooky.Content.Tiles.Minibiomes.Vegetable.Tree;
+using Spooky.Content.Tiles.SpiderCave.Tree;
+using Spooky.Content.Tiles.SpookyBiome.Tree;
+using Spooky.Content.Tiles.SpookyHell.Tree;
 
 namespace Spooky.Core
 {
@@ -104,7 +110,90 @@ namespace Spooky.Core
 			return base.PreAI(projectile);
 		}
 
-        public override bool PreKill(Projectile projectile, int timeLeft)
+		public override void AI(Projectile projectile)
+		{
+			//fertilizer stuff for spooky mod trees
+			if (projectile.aiStyle == 6)
+			{
+				bool IsOwnerValid = Main.myPlayer == projectile.owner;
+				if (projectile.type == ProjectileID.Fertilizer)
+				{
+					IsOwnerValid = Main.netMode != NetmodeID.MultiplayerClient;
+				}
+				if (IsOwnerValid && projectile.type == ProjectileID.Fertilizer)
+				{
+					int num988 = (int)(projectile.position.X / 16f) - 1;
+					int num999 = (int)((projectile.position.X + (float)projectile.width) / 16f) + 2;
+					int num1010 = (int)(projectile.position.Y / 16f) - 1;
+					int num1021 = (int)((projectile.position.Y + (float)projectile.height) / 16f) + 2;
+					if (num988 < 0)
+					{
+						num988 = 0;
+					}
+					if (num999 > Main.maxTilesX)
+					{
+						num999 = Main.maxTilesX;
+					}
+					if (num1010 < 0)
+					{
+						num1010 = 0;
+					}
+					if (num1021 > Main.maxTilesY)
+					{
+						num1021 = Main.maxTilesY;
+					}
+					Vector2 vector57 = default(Vector2);
+					for (int i = num988; i < num999; i++)
+					{
+						for (int j = num1010; j < num1021; j++)
+						{
+							vector57.X = i * 16;
+							vector57.Y = j * 16;
+							if (!(projectile.position.X + (float)projectile.width > vector57.X) || !(projectile.position.X < vector57.X + 16f) ||
+							!(projectile.position.Y + (float)projectile.height > vector57.Y) || !(projectile.position.Y < vector57.Y + 16f) || !Main.tile[i, j].HasTile)
+							{
+								continue;
+							}
+
+							Tile tile = Main.tile[i, j];
+
+							if (tile.TileType == ModContent.TileType<EyeSapling>())
+							{
+								if (Main.rand.NextBool())
+								{
+									EyeTreeShort.Grow(i, j + 1, 8, 15, true);
+								}
+								else
+								{
+									EyeTree.Grow(i, j + 1, 12, 35, true);
+								}
+							}
+
+							if (tile.TileType == ModContent.TileType<BroccoliSapling>())
+							{
+								Broccoli.Grow(i, j + 1, 5, 9, true);
+							}
+
+							if (tile.TileType == ModContent.TileType<SpookySapling>() || tile.TileType == ModContent.TileType<SpookySaplingGreen>() ||
+							tile.TileType == ModContent.TileType<GrottoTreeSapling>() || tile.TileType == ModContent.TileType<SporeShroomTreeSapling>() ||
+							tile.TileType == ModContent.TileType<CemeterySapling>())
+							{
+								bool isPlayerNear = WorldGen.PlayerLOS(i, j);
+								bool success = WorldGen.GrowTree(i, j);
+								if (success && isPlayerNear)
+								{
+									WorldGen.TreeGrowFXCheck(i, j);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			base.AI(projectile);
+		}
+
+		public override bool PreKill(Projectile projectile, int timeLeft)
         {
 			if (projectile.type == ProjectileID.WorldGlobe) 
             {

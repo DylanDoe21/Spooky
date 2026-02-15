@@ -6,8 +6,6 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Spooky.Content.Dusts;
-
 namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class StomachBile : ModProjectile

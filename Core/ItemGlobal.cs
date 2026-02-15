@@ -1,8 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Projectiles.Blooms;
@@ -18,7 +20,12 @@ namespace Spooky.Core
 
         public static readonly SoundStyle SneezeSound = new("Spooky/Content/Sounds/Moco/MocoSneeze1", SoundType.Sound) { Volume = 0.75f, Pitch = 0.9f };
 
-        public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
+		//ItemID sets for slingshot weapons and slingshot ammos
+		public static bool[] IsSlingshot = ItemID.Sets.Factory.CreateBoolSet();
+		public static bool[] IsSlingshotAmmo = ItemID.Sets.Factory.CreateBoolSet();
+
+		//get the item that the player is currently holding
+		public static Item ActiveItem(Player player) => Main.mouseItem.IsAir ? player.HeldItem : Main.mouseItem;
 
 		public static bool WithinPlacementRange(Player player, int x, int y) =>
 		player.position.X / 16f - Player.tileRangeX - player.inventory[player.selectedItem].tileBoost - player.blockRange <= x
@@ -26,7 +33,17 @@ namespace Spooky.Core
 		&& player.position.Y / 16f - Player.tileRangeY - player.inventory[player.selectedItem].tileBoost - player.blockRange <= y
 		&& (player.position.Y + player.height) / 16f + Player.tileRangeY + player.inventory[player.selectedItem].tileBoost - 2f + player.blockRange >= y;
 
-        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+		{
+			//replace the tooltip on slingshot ammos to mention they are used with slingshots instead of just saying "ammo"
+			int index = tooltips.FindIndex(line => line.Mod == "Terraria" && line.Text == Language.GetTextValue("LegacyInterface.27"));
+			if (index > -1 && IsSlingshotAmmo[item.type])
+			{
+				tooltips[index].Text = Language.GetTextValue("Mods.Spooky.Items.SlingshotAmmoTooltip");
+			}
+		}
+
+		public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             //manually handle daffodils music box recording if any of her themes are playing, since music boxes cant be assigned more than one song
             if (item.type == ItemID.MusicBox && Main.rand.NextBool(540) && (Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro1") || Main.curMusic == MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/DaffodilWithIntro2")))

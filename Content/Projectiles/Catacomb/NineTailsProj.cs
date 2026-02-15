@@ -48,32 +48,21 @@ namespace Spooky.Content.Projectiles.Catacomb
 
 			for (int i = 0; i < list.Count - 1; i++) 
             {
-				Rectangle frame = new Rectangle(0, 0, 14, 18);
+				Rectangle frame = new Rectangle(0, 0, 10, 10);
 				Vector2 origin = new Vector2(7, 7);
 				float scale = 1;
 
 				//tip of the whip
 				if (i == list.Count - 2) 
                 {
-					frame.Y = 58;
-					frame.Height = 18;
+					frame.Y = 38;
+					frame.Height = 10;
 				}
-				//two body segments
-				else if (i > 10) 
-                {
-					frame.Y = 46;
-					frame.Height = 12;
-				}
-				else if (i > 5) 
-                {
-					frame.Y = 34;
-					frame.Height = 12;
-				}
-				//bottom segment
-				else if (i > 0) 
-                {
-					frame.Y = 22;
-					frame.Height = 22;
+				//body segment
+				else
+				{
+					frame.Y = 26;
+					frame.Height = 10;
 				}
 
 				Vector2 element = list[i];

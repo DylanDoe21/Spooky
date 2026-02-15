@@ -251,7 +251,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 					Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 10;
 					NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
 
-					if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
+					if (!NPCGlobalHelper.IsCollidingWithFloor(NPC))
 					{
 						NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Bottom + (NPC.velocity * 5), Vector2.Zero, ModContent.ProjectileType<MortarWebTrail>(), 0, 0f, ai0: NPC.velocity.ToRotation());
 					}

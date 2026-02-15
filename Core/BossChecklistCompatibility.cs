@@ -376,7 +376,7 @@ namespace Spooky.Core
 				"LogEvent", 
 				Mod,
 				"SpiderWar",
-				13.01f,
+				13.531f,
 				() => Flags.downedSpiderWar,
 				SpiderWarEnemies,
 				new Dictionary<string, object>()

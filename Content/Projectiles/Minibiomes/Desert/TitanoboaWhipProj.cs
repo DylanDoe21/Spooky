@@ -50,7 +50,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
 			for (int i = 0; i < list.Count - 1; i++) 
             {
-				Rectangle frame = new Rectangle(0, 0, 14, 14);
+				Rectangle frame = new Rectangle(0, 0, 14, 20);
 				Vector2 origin = new Vector2(7, 7);
 				float scale = 1;
 
@@ -72,7 +72,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 					frame.Height = 12;
 				}
 				//the held part of the whip
-				else if (i > 0) 
+				else if (i == 0) 
 				{
 					frame.Y = 0;
 					frame.Height = 20;

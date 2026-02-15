@@ -21,7 +21,7 @@ namespace Spooky.Content.Tiles.SpookyHell
         public override void AddRecipes()
         {
             CreateRecipe(4)
-            .AddIngredient(ModContent.ItemType<EyeBlockItem>(), 1)
+            .AddIngredient(ModContent.ItemType<SpookyMushItem>(), 1)
             .AddTile(TileID.WorkBenches)
             .Register();
         }

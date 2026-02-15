@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Achievements;
 
 namespace Spooky.Content.NPCs.Friendly
 {
@@ -56,6 +57,8 @@ namespace Spooky.Content.NPCs.Friendly
 
         public override string GetChat()
 		{
+            ModContent.GetInstance<MiscAchievementDumbZomboid>().DumbZomboidCondition.Complete();
+
 			return Language.GetTextValue("Mods.Spooky.Dialogue.DumbZomboid.Dialogue" + Main.rand.Next(1, 4));
 		}
 

@@ -42,7 +42,6 @@ AmuletSeed.DisplayName: Spirit Bolt
 PumpkinHead.DisplayName: Pumpkin Head
 PumpkinHeadBolt.DisplayName: Spooky Bolt
 ScrollPumpkin.DisplayName: Magic Pumpkin
-SlingshotBall.DisplayName: Ghastly Ball
 SpiritHand.DisplayName: Spirit Hand
 SpiritScrollHoldout.DisplayName: Spooky Scroll
 SpiritSlingshotProj.DisplayName: Ghostly Slingshot
@@ -127,7 +126,6 @@ Columbo.DisplayName: Columbo
 ColumboFinger.DisplayName: Columbo
 ShroomWhipProj.DisplayName: Spore Smacker
 ShroomWhipSpore.DisplayName: Shroom Spore
-GhastlyOrbProj.DisplayName: Ghastly Orb
 ChlorophyllFlower.DisplayName: Chlorophyll Flower
 FleshPillarTelegraph.DisplayName: Telegraph
 FleshPillar.DisplayName: Flesh Pillar
@@ -667,3 +665,8 @@ SlingshotRotChunk.DisplayName: Rot Chunk
 SlingshotRotFly.DisplayName: Rot Fly
 SlingshotSpikeBall.DisplayName: Spike Ball
 SlingshotBomb.DisplayName: Bomb
+SludgePet.DisplayName: The Sludge
+SlingshotBaseProj.DisplayName: Slingshot Base Proj
+BouncyBallProj.DisplayName: Bouncy Ball
+SpiritSlingshotGhost.DisplayName: Soul
+SpiritSlingshotGhostBolt.DisplayName: Soul Bolt

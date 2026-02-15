@@ -37,7 +37,7 @@ namespace Spooky.Core
             (ushort)ModContent.TileType<SpringBloomPlant>(),
             (ushort)ModContent.TileType<SummerBloomPlant>(),
             (ushort)ModContent.TileType<VegetableBloomPlant>(),
-            (ushort)ModContent.TileType<WinterBloomPlant>()
+            (ushort)ModContent.TileType<WinterBloomPlant>(),
 		};
 
 		public static Vector2 TileOffset => Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
@@ -48,9 +48,75 @@ namespace Spooky.Core
 			On_ShimmerTransforms.IsItemTransformLocked += CustomShimmerLockConditions;
 		}
 
+		public override void PlaceInWorld(int i, int j, int type, Item item)
+		{
+			if (Blooms.Contains((ushort)type))
+			{
+				if (type == Blooms[0])
+				{
+					Flags.BloomsPlanted[0] = true;
+				}
+				if (type == Blooms[1])
+				{
+					Flags.BloomsPlanted[1] = true;
+				}
+				if (type == Blooms[2])
+				{
+					Flags.BloomsPlanted[2] = true;
+				}
+				if (type == Blooms[3])
+				{
+					Flags.BloomsPlanted[3] = true;
+				}
+				if (type == Blooms[4])
+				{
+					Flags.BloomsPlanted[4] = true;
+				}
+				if (type == Blooms[5])
+				{
+					Flags.BloomsPlanted[5] = true;
+				}
+				if (type == Blooms[6])
+				{
+					Flags.BloomsPlanted[6] = true;
+				}
+				if (type == Blooms[7])
+				{
+					Flags.BloomsPlanted[7] = true;
+				}
+				if (type == Blooms[8])
+				{
+					Flags.BloomsPlanted[8] = true;
+				}
+				if (type == Blooms[9])
+				{
+					Flags.BloomsPlanted[9] = true;
+				}
+				if (type == Blooms[10])
+				{
+					Flags.BloomsPlanted[10] = true;
+				}
+
+				bool CanGetAchievement = true;
+				foreach (bool var in Flags.BloomsPlanted)
+				{
+					if (var == false)
+					{
+						CanGetAchievement = false;
+						break;
+					}
+				}
+
+				if (CanGetAchievement)
+				{
+					ModContent.GetInstance<MiscAchievementBloomSeeds>().BloomSeedsCondition.Complete();
+				}
+			}
+		}
+
 		public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
-			if (Blooms.Contains(Main.tile[i, j].TileType))
+			if (Blooms.Contains(Main.tile[i, j].TileType) && Main.tile[i, j].TileFrameX >= 216)
 			{
 				ModContent.GetInstance<MiscAchievementBloomHarvest>().BloomHarvestCondition.Complete();
 			}

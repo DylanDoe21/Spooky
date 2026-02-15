@@ -32,6 +32,12 @@ namespace Spooky.Core
 		//list of rotten depths biome positions for big dunk to travel between
 		public static List<Vector2> ZombieBiomePositions = new List<Vector2>();
 
+		//blooms planted for achievement, there are currently 11 blooms
+		public static List<bool> BloomsPlanted = new List<bool>()
+		{
+			false, false, false, false, false, false, false, false, false, false, false
+		};
+
 		//bosses
 		public static bool downedRotGourd = false;
         public static bool downedSpookySpirit = false;
@@ -188,6 +194,9 @@ namespace Spooky.Core
 			//list of zombie biome positions
 			tag[nameof(ZombieBiomePositions)] = ZombieBiomePositions;
 
+			//blooms planted for achievement
+			tag[nameof(BloomsPlanted)] = BloomsPlanted;
+
 			//bosses
 			tag[nameof(downedRotGourd)] = downedRotGourd;
 			tag[nameof(downedSpookySpirit)] = downedSpookySpirit;
@@ -276,6 +285,12 @@ namespace Spooky.Core
 			if (tag.ContainsKey(nameof(ZombieBiomePositions)))
 			{
 				ZombieBiomePositions = tag.Get<List<Vector2>>(nameof(ZombieBiomePositions));
+			}
+
+			//list of blooms planted for achievement
+			if (tag.ContainsKey(nameof(BloomsPlanted)))
+			{
+				BloomsPlanted = tag.Get<List<bool>>(nameof(BloomsPlanted));
 			}
 
 			//bosses

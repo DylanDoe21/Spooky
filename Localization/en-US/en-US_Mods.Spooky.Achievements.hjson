@@ -90,7 +90,7 @@ MiscAchievementLittleEyeQuest: {
 
 EventAchievementSpore: {
 	FriendlyName: Choking Fumes
-	Description: Visit the spider grotto during a sporestorm, where mushrooms emit their spores and mites come out to hunt.
+	Description: Visit the spider grotto during a sporestorm, where mushrooms emit trippy spores and mites come out to hunt.
 }
 
 MiscAchievementBloomHarvest: {
@@ -105,20 +105,25 @@ EventAchievementSpiderWar: {
 
 EventAchievementSpiderWarEnd: {
 	FriendlyName: Tide Turning Titan
-	Description: Cause the surrender of the arachnid military by killing enough enemies in the final wave.
+	Description: Cause the surrender of the arachnid military by killing 20 enemies in the final wave.
 }
 
 EventAchievementRaveyard: {
 	FriendlyName: Dance 'till You Drop Dead
-	Description: Attend one of the many raves that can happen in the cemetery at night.
+	Description: Attend one of the many raves that can happen in the swampy cemetery at night.
 }
 
 MiscAchievementBloomSeeds: {
 	FriendlyName: Horticulturalist
-	Description: Become a successful farmer by planting one of every bloom seed type.
+	Description: Become a true farmer by planting one of every different type of bloom seed.
 }
 
 MiscAchievementContrabandAcc: {
 	FriendlyName: Hyperrealistic Achievement
 	Description: Combine a set of the suspicious skeleton's contraband together into a powerful object.
+}
+
+MiscAchievementDumbZomboid: {
+	FriendlyName: Misc Achievement Dumb Zomboid
+	Description: Mods.Spooky.Achievements.MiscAchievementDumbZomboid.Description
 }
