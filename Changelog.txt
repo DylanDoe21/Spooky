@@ -49,9 +49,11 @@ Other New Stuff:
 -Added a bunch of achievements, there are now achievements for things like killing spooky mod bosses, events, getting items, discovering stuff in the world, ect (More may be added in the future as well)
 -Added new double jump bottle and hermes boots alternatives to the underground spooky forest cabin chests to give you early game mobility (The new hermes boots alternative can also be used to craft spectre boots)
 -Added eye block walls, eye bricks, eye brick walls, resprited organic mush walls to look like organic mush blocks, and added a safe version of organic mush walls you can craft and build houses with
--Added new tar pits cactus block, dropped by tar pit cactuses instead of normal cactus
+-Added new tar pits cactus block dropped by tar pit cactuses along with a new set of weapons and armor you can craft with them
+-Added raveyard monolith that allows you to activate the raveyard visual effects, and a spore monolith for the visual effects that can be seen in the new spore event
 -Added some new furniture sets: Upper catacombs furniture, lower catacombs furniture, and old birch wood furniture
 -Added spider grotto fishing crates, and a spooky forest hardmode crate
+-Added new spider grotto angler quest fish
 -Added tall kelp plants to the rotten depths
 -Added the sludge
 

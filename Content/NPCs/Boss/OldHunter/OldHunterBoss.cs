@@ -119,7 +119,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             NPC.boss = true;
 			NPC.HitSound = SoundID.NPCHit2;
 			NPC.aiStyle = -1;
-            Music = MusicID.Boss1;
+            Music = MusicID.Boss5;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 

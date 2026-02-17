@@ -1078,7 +1078,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 								SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 							}
                                 
-							if (NPC.localAI[0] % 3 == 0)
+							if (NPC.localAI[0] % 5 == 0)
 							{
                                 for (int numPoints = 0; numPoints < SavePoint.Length; numPoints++)
                                 {
@@ -1223,7 +1223,7 @@ namespace Spooky.Content.NPCs.Boss.BigBone
 								SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
 							}
                                 
-							if (NPC.localAI[0] % 3 == 0)
+							if (NPC.localAI[0] % 5 == 0)
 							{
                                 for (float numProjectiles = 0; numProjectiles < ProjAmount; numProjectiles++)
                                 {

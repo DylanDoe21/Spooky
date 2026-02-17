@@ -2,12 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
 using Spooky.Core;
+using Spooky.Content.Items.Slingshots;
 
 namespace Spooky.Content.NPCs.Minibiomes.Desert
 {
@@ -127,6 +129,11 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert
                 }
             }
         }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OpalSlingshot>(), 10));
+		}
 
         public override void HitEffect(NPC.HitInfo hit) 
         {

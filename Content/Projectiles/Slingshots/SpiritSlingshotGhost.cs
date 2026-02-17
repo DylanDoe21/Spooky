@@ -50,7 +50,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 			{
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 
-				Color color = Projectile.GetAlpha(Color.Lerp(Color.Black, Color.MediumPurple, scale));
+				Color color = Projectile.GetAlpha(Color.Lerp(Color.MediumPurple, Color.White, scale));
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -67,7 +67,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color, Projectile.rotation, drawTrailOrigin, scale * 0.75f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color, Projectile.rotation, drawTrailOrigin, scale * 0.5f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;

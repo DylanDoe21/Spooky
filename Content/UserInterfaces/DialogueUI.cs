@@ -51,6 +51,7 @@ namespace Spooky.Content.UserInterfaces
         {
 			if (!Visible || Dialogue.Count == 0)
 			{
+				Clear();
 				return;
 			}
 

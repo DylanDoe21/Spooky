@@ -11,6 +11,11 @@ WizardGangsterArmor2:
 	'''
 BroccoliArmor: Minions will sometimes plant damaging broccoli on enemies
 GoldrushArmor: All of your attacks inflict midas, causing enemies to drop more money
+TarCactusArmor:
+	'''
+	Attackers take lots of damage from your spines
+	Getting hit will also spawn cactus thorns out of your body
+	'''
 YuletideArmor:
 	'''
 	Double tap Down to combust and scatter damaging embers
@@ -47,8 +52,8 @@ FlowerArmor:
 	'''
 SporeShroomArmor:
 	'''
-	Double tap Down to spawn a stationary mushroom 
-	The mushroom creates spores around it that damage enemies
+	You will spawn damaging spores whenever you get hit
+	Sometimes fire out lingering spores when using weapons
 	'''
 HazmatArmor:
 	'''

@@ -32,7 +32,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 			Projectile.ai[0]++;
 			if (Projectile.ai[0] >= 30)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.5f; 
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.15f; 
             }
         }
 

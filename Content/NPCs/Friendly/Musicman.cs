@@ -9,6 +9,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Tiles.Cemetery.Furniture;
 using Spooky.Content.Tiles.MusicBox;
 using Spooky.Content.Tiles.Painting;
 
@@ -116,6 +117,8 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<RaveyardPurpleBox>()
             .Add<RaveyardLimeBox>()
             .Add<RaveyardCyanBox>()
+            .Add<RaveyardMonolithItem>()
+            .Add<AlbumPosterPaintingItem>()
             .Add<DylanDoeHead>()
             .Add<KrakenHead>()
             .Add<TortillaHead>()
@@ -123,8 +126,7 @@ namespace Spooky.Content.NPCs.Friendly
             .Add<SeasaltHead>()
             .Add<WaasephiHead>()
             .Add<DandyHead>()
-            .Add<HatHead>()
-            .Add<AlbumPosterPaintingItem>();
+            .Add<HatHead>();
 
             npcShop.Register();
         }

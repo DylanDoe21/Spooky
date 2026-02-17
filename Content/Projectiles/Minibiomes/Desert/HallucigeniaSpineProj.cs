@@ -53,7 +53,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
         public override bool? CanDamage()
         {
-            return Projectile.ai[0] > 40;
+            return Projectile.ai[0] > 20;
         }
 
         public override void AI()
@@ -67,12 +67,12 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			}
 
             Projectile.ai[0]++;
-            if (Projectile.ai[0] < 40)
+            if (Projectile.ai[0] < 20)
 			{
 				Projectile.velocity *= 0.98f;
 			}
 			
-			if (Projectile.ai[0] > 40)
+			if (Projectile.ai[0] > 20)
 			{
 				int foundTarget = HomeOnTarget();
 				if (foundTarget != -1)
@@ -86,7 +86,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 
 		private int HomeOnTarget()
         {
-            const float homingMaximumRangeInPixels = 350;
+            const float homingMaximumRangeInPixels = 500;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)

@@ -24,6 +24,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 
 		public override void UpdateEquip(Player player) 
 		{
+			player.moveSpeed += 0.12f;
         }
 	}
 }

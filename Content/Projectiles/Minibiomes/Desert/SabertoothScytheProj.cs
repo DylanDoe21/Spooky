@@ -134,13 +134,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.HitDirectionOverride = Math.Sign(direction.X);
-
-			Projectile.damage = (int)(Projectile.damage * 0.7f);
-
-			if (target.life <= target.lifeMax * 0.35f)
-			{
-				modifiers.FinalDamage *= 1.5f;
-			}
 		}
 
 		public override void AI()

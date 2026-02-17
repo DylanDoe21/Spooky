@@ -1612,6 +1612,21 @@ SharkBoneLegs: {
 		'''
 }
 
+TarCactusBody: {
+	DisplayName: Tar Cactus Chestplate
+	Tooltip: ""
+}
+
+TarCactusHead: {
+	DisplayName: Tar Cactus Mask
+	Tooltip: ""
+}
+
+TarCactusLegs: {
+	DisplayName: Tar Cactus Leggings
+	Tooltip: ""
+}
+
 YuletideBody: {
 	DisplayName: Yuletide Wood Chestplate
 	Tooltip: 10% reduced mana cost
@@ -1762,6 +1777,26 @@ SnowBag: {
 StockingStaff: {
 	DisplayName: Krampus' Helper Wand
 	Tooltip: Summons little krampus helpers to fight with you
+}
+
+CactusClub: {
+	DisplayName: Cactus Club
+	Tooltip: Flings around poison thorns on enemy hits
+}
+
+CactusGlove: {
+	DisplayName: Glove of a Thousand Pricks
+	Tooltip: Conjures a flurry of cactus needles
+}
+
+CactusPrickler: {
+	DisplayName: Prickler
+	Tooltip: Shoots out long-range cactus needles
+}
+
+CactusSentry: {
+	DisplayName: Deployable Cactoid
+	Tooltip: Deploy a cactoid sentry that fires out needles around it
 }
 
 DinoArmHook: {
@@ -2506,11 +2541,7 @@ SpiderLegs: {
 
 SporeShroomBody: {
 	DisplayName: Chestplate-Shaped Mushroom
-	Tooltip:
-		'''
-		10% increased damage
-		Spawn damaging spore gas around you when you get hit
-		'''
+	Tooltip: 10% increased damage
 }
 
 SporeShroomHead: {
@@ -2520,11 +2551,7 @@ SporeShroomHead: {
 
 SporeShroomLegs: {
 	DisplayName: Legging-Shaped Mushroom
-	Tooltip:
-		'''
-		12% increased movement speed
-		Attacking can sometimes fire out small lingering spores
-		'''
+	Tooltip: 12% increased movement speed
 }
 
 GrottoCompass: {
@@ -4541,6 +4568,11 @@ LabScreenItem: {
 LabScreenRustedItem: {
 	DisplayName: Rusty Lab Screen
 	Tooltip: "'Surely it can be repaired with some tape and glue'"
+}
+
+TubeWormSaplingItem: {
+	DisplayName: Tube Worm Polyp
+	Tooltip: Plants tube worm saplings
 }
 
 LabMetalPipeItem: {
@@ -6598,6 +6630,15 @@ HighVelocitySlingshot: {
 	Tooltip: Fires Mossy Pebbles and other ammo at high velocity
 }
 
+OpalSlingshot: {
+	DisplayName: Opalised Slinger
+	Tooltip:
+		'''
+		Consumes 3 ammo to fire out 3 consecutive projectiles on use
+		Converts Mossy Pebbles into opalised bones that bounce off things
+		'''
+}
+
 OldWoodSlingshot: {
 	DisplayName: Old Wood Slingshot
 	Tooltip: A basic wooden slingshot
@@ -6615,6 +6656,11 @@ SpiritSlingshot: {
 		Converts Mossy Pebbles into homing souls
 		Every 3 shots the soul will split into ghastly bolts on hit
 		'''
+}
+
+TarFlinger: {
+	DisplayName: Tar Flinger
+	Tooltip: Converts Mossy Pebbles into tar that slows all nearby enemies
 }
 
 SlingshotAmmoTooltip: Used as ammo with slingshots

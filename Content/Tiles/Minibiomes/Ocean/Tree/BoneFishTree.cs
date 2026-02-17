@@ -60,8 +60,19 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
             Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
         }
 
-        public static bool Grow(int i, int j, int minSize, int maxSize)
+        public static bool Grow(int i, int j, int minSize, int maxSize, bool saplingExists = false)
         {
+            if (saplingExists)
+            {
+                WorldGen.KillTile(i, j, false, false, true);
+                WorldGen.KillTile(i, j - 1, false, false, true);
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 2, 1, TileChangeType.None);
+				}
+			}
+
             int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; k++)
             {

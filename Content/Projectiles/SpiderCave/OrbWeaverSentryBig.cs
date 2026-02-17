@@ -130,7 +130,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X - 10, Projectile.Center.Y), 
                             Velocity * Projectile.DirectionTo(new Vector2(Projectile.Center.X, Projectile.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                            ModContent.ProjectileType<OrbWeaverSentryBigSpike>(), Projectile.damage, 3f, Main.myPlayer);
+                            ModContent.ProjectileType<OrbWeaverSentryBigSpike>(), Projectile.damage, 3f, Projectile.owner);
                         }
                     }
 
@@ -140,7 +140,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X + 10, Projectile.Center.Y), 
                             Velocity * Projectile.DirectionTo(new Vector2(Projectile.Center.X, Projectile.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                            ModContent.ProjectileType<OrbWeaverSentryBigSpike>(), Projectile.damage, 3f, Main.myPlayer);
+                            ModContent.ProjectileType<OrbWeaverSentryBigSpike>(), Projectile.damage, 3f, Projectile.owner);
                         }
                     }
                 }

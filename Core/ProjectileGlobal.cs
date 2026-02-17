@@ -169,6 +169,11 @@ namespace Spooky.Core
 								}
 							}
 
+							if (tile.TileType == ModContent.TileType<TubeWormSapling>())
+							{
+								TubeWorm.Grow(i, j + 1, 3, 7, true);
+							}
+							
 							if (tile.TileType == ModContent.TileType<BroccoliSapling>())
 							{
 								Broccoli.Grow(i, j + 1, 5, 9, true);

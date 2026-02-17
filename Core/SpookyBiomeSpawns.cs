@@ -83,6 +83,24 @@ namespace Spooky.Core
             {
 				spawnRate /= 2;
 			}
+			else if (player.InModBiome(ModContent.GetInstance<SpookyHellBiome>()))
+            {
+				//lower spawn rates if little eye is nearby
+				bool LowerValleySpawns = false;
+				foreach (NPC npc in Main.ActiveNPCs)
+				{
+					if (npc.type == ModContent.NPCType<LittleEye>() && npc.Distance(player.Center) <= 420f)
+					{
+						LowerValleySpawns = true;
+						break;
+					}
+				}
+
+				if (LowerValleySpawns)
+				{
+					spawnRate *= 2;
+				}
+			}
 
 			//remove spawns during the pandora's box event
 			if (player.InModBiome(ModContent.GetInstance<PandoraBoxBiome>()))

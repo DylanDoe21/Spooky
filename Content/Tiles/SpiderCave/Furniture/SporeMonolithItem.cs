@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Spooky.Core;
+using Spooky.Content.Items.SpiderCave.Misc;
 
 namespace Spooky.Content.Tiles.SpiderCave.Furniture
 {
@@ -26,6 +27,14 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
         public override void UpdateVanity(Player player) 
         {
             UpdateAccessory(player, false);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<MiteMandibles>(), 50)
+            .AddTile(TileID.WorkBenches)
+            .Register();
         }
     }
 }

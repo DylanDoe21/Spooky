@@ -16,6 +16,7 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
             Item.accessory = true;
             Item.vanity = true;
             Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(gold: 50);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

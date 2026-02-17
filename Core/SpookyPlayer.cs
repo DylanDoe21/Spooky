@@ -61,6 +61,8 @@ namespace Spooky.Core
         public bool HazmatSet = false;
         public bool MortarSet = false;
         public bool SporeShroomSet = false;
+        public bool SporeShroomHitEffect = false;
+        public bool TarCactusSet = false;
         public bool HazmatMinionCrit = false;
         public bool DrawHazmatBack = false;
         public bool SentientCap = false;
@@ -281,9 +283,11 @@ namespace Spooky.Core
             HazmatSet = false;
             MortarSet = false;
             SporeShroomSet = false;
+            SporeShroomHitEffect = false;
+            TarCactusSet = false;
             HazmatMinionCrit = false;
-            SentientCap = false;
             DrawHazmatBack = false;
+            SentientCap = false;
 
             //accessories
             BustlingGlowshroom = false;
@@ -813,6 +817,20 @@ namespace Spooky.Core
 				}
             }
 
+            if (TarCactusSet)
+            {
+				int MinDamage = 20;
+				float Damage = info.Damage < MinDamage ? MinDamage : info.Damage;
+
+				for (int numProjectiles = -3; numProjectiles <= 3; numProjectiles++)
+				{
+					int Needle = Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Top, 
+                    5f * Player.DirectionTo(Player.Top).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
+					ModContent.ProjectileType<CactusNeedle>(), (int)Damage, 4.5f, Player.whoAmI);
+                    Main.projectile[Needle].DamageType = DamageClass.Generic;
+				}
+            }
+
             //when you get hit, krampus chimney charge resets
             if (KrampusChimney)
             {
@@ -1189,8 +1207,6 @@ namespace Spooky.Core
 			{
 				StonedKidneyCharge = 0;
 			}
-
-            
 
 			if (DaffodilHairpin)
             {

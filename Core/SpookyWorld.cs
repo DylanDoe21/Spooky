@@ -382,7 +382,7 @@ namespace Spooky.Core
                 }
 
                 //handle things that happen when day/night switches to the other
-                if (DaySwitched)
+                if (DaySwitched && !Main.gameMenu)
                 {
                     if (!Flags.SporeEventHappening && Main.hardMode && Main.rand.NextBool(30))
                     {
@@ -626,17 +626,20 @@ namespace Spooky.Core
                 Main.forceHalloweenForToday = storedHalloweenForToday;
             }
 
-            //for when day and night switch
-            if (Main.dayTime != LastTime)
+            if (!Main.gameMenu)
             {
-                DaySwitched = true;
-            }
-            else
-            {
-                DaySwitched = false;
-            }
+                //for when day and night switch
+                if (Main.dayTime != LastTime)
+                {
+                    DaySwitched = true;
+                }
+                else
+                {
+                    DaySwitched = false;
+                }
 
-            LastTime = Main.dayTime;
+                LastTime = Main.dayTime;
+            }
         }
 
 		public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)

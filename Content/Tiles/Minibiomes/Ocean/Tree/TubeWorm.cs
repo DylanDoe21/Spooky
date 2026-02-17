@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Localization;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -53,8 +54,19 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
             Main.tileSolid[Framing.GetTileSafely(i, j).TileType]);
         }
 
-        public static bool Grow(int i, int j, int minSize, int maxSize)
+        public static bool Grow(int i, int j, int minSize, int maxSize, bool saplingExists = false)
         {
+            if (saplingExists)
+            {
+                WorldGen.KillTile(i, j, false, false, true);
+                WorldGen.KillTile(i, j - 1, false, false, true);
+
+				if (Main.netMode != NetmodeID.SinglePlayer)
+				{
+					NetMessage.SendTileSquare(-1, i, j, 2, 1, TileChangeType.None);
+				}
+			}
+
             int height = WorldGen.genRand.Next(minSize, maxSize);
             for (int k = 1; k < height; k++)
             {
@@ -152,6 +164,18 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean.Tree
             if (belowFrame == 0)
             {
                 Framing.GetTileSafely(i, j + 1).TileFrameX = 18;
+            }
+
+            if (tile.TileFrameX == 18)
+            {
+                //spawn a seed from the tree
+                int NewItem = Item.NewItem(new EntitySource_TileBreak(i, j), (new Vector2(i, j) * 16) + new Vector2(Main.rand.Next(-22, 22), Main.rand.Next(-22, 22)), 
+                ModContent.ItemType<TubeWormSaplingItem>(), Main.rand.Next(1, 3));
+
+                if (Main.netMode == NetmodeID.MultiplayerClient && NewItem >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, NewItem, 1f);
+                }
             }
         }
 

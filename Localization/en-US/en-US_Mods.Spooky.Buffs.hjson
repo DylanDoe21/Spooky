@@ -714,3 +714,8 @@ SludgePetBuff: {
 	DisplayName: The Sludge
 	Description: The sludge slithers with you
 }
+
+TarFlingerSlow: {
+	DisplayName: Tar Flinger Slow
+	Description: ""
+}

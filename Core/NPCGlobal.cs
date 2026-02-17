@@ -337,7 +337,7 @@ namespace Spooky.Core
 			{
 				if (projectile.penetrate <= -1 || projectile.penetrate >= 2)
 				{
-					modifiers.FinalDamage /= 1.5f;
+					modifiers.FinalDamage /= 1.25f;
 				}
 			}
 

@@ -122,7 +122,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 5), 
                         Velocity * Projectile.DirectionTo(new Vector2(Projectile.Center.X, Projectile.Center.Y - 100)).RotatedBy(MathHelper.ToRadians(10) * numProjectiles),
-                        ModContent.ProjectileType<OrbWeaverSentrySmallSpike>(), Projectile.damage, 2f, Main.myPlayer);
+                        ModContent.ProjectileType<OrbWeaverSentrySmallSpike>(), Projectile.damage, 2f, Projectile.owner);
                     }
                 }
             }
