@@ -18,14 +18,12 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
 			Item.height = 16;
         }
 
-        /*
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<TarPitCactusWallItem>(), 1)
+            .AddIngredient(ModContent.ItemType<TarPitCactusWallItem>(), 4)
             .AddTile(TileID.WorkBenches)
             .Register();
         }
-        */
     }
 }

@@ -719,3 +719,8 @@ TarFlingerSlow: {
 	DisplayName: Tar Flinger Slow
 	Description: ""
 }
+
+SentientOpticStaffBuff: {
+	DisplayName: Retina Chomper
+	Description: The retina chompers protect you
+}

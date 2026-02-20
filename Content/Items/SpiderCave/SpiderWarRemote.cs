@@ -16,7 +16,7 @@ namespace Spooky.Content.Items.SpiderCave
 
 		public override void SetDefaults()
 		{
-			Item.damage = 20;
+			Item.damage = 200;
 			Item.mana = 20;
 			Item.DamageType = DamageClass.Summon;
 			Item.noMelee = true;
@@ -57,7 +57,7 @@ namespace Spooky.Content.Items.SpiderCave
 			//left click spawns little joro flies in a bomb
 			else
 			{
-				Projectile.NewProjectile(source, new Vector2(player.Center.X, player.Center.Y - 700), Vector2.Zero, ModContent.ProjectileType<SpiderWarRemoteEgg>(), damage, knockback, player.whoAmI);
+				Projectile.NewProjectile(source, new Vector2(player.Center.X, player.Center.Y - 700), Vector2.Zero, ModContent.ProjectileType<SpiderWarRemoteEgg>(), damage / 10, knockback, player.whoAmI);
 			}
 
 			return false;

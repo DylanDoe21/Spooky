@@ -22,8 +22,8 @@ namespace Spooky.Content.Items.Slingshots
 
         public override void SetDefaults()
         {
-            Item.damage = 50;
-			Item.crit = 10;
+            Item.damage = 120;
+			Item.crit = 50;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.autoReuse = false;
@@ -31,16 +31,16 @@ namespace Spooky.Content.Items.Slingshots
 			Item.channel = true;
 			Item.width = 22;
             Item.height = 32;
-			Item.useTime = 60;
-			Item.useAnimation = 60;
+			Item.useTime = 100;
+			Item.useAnimation = 100;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 8;
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.buyPrice(gold: 10);
 			Item.UseSound = UseSound;
-			//Item.shoot = ModContent.ProjectileType<HighVelocitySlingshotProj>();
-			//Item.useAmmo = ModContent.ItemType<MossyPebble>();
-			//Item.shootSpeed = 35f;
+			Item.shoot = ModContent.ProjectileType<HighVelocitySlingshotProj>();
+			Item.useAmmo = ModContent.ItemType<MossyPebble>();
+			Item.shootSpeed = 40f;
         }
 
 		public override bool CanConsumeAmmo(Item ammo, Player player)
@@ -48,7 +48,6 @@ namespace Spooky.Content.Items.Slingshots
 			return player.ItemUsesThisAnimation != 0;
 		}
 
-		/*
 		public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[Item.shoot] < 1;
@@ -60,6 +59,5 @@ namespace Spooky.Content.Items.Slingshots
 
 			return false;
 		}
-		*/
 	}
 }

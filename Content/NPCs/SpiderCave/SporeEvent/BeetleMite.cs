@@ -3,7 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -14,6 +16,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 {
 	public class BeetleMite1 : ModNPC
 	{
+        private static Asset<Texture2D> GlowTexture;
+
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 5;
@@ -45,10 +49,20 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BeetleMite"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.BeetleMite1"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SporeEventBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+        }
         
         public override void FindFrame(int frameHeight)
 		{
@@ -210,6 +224,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 
     public class BeetleMite2 : BeetleMite1
 	{
+        private static Asset<Texture2D> GlowTexture;
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -218,6 +234,16 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SporeEventBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+        }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {

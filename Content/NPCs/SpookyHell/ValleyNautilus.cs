@@ -25,12 +25,13 @@ namespace Spooky.Content.NPCs.SpookyHell
         float SpinMultiplier = 0f;
 
         bool Charging = false;
+        bool AfterImages = false;
 
         Vector2 SavePosition;
         Vector2 SavePlayerPosition;
 
-        private static Asset<Texture2D> GlowTexture;
         private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> GlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -118,7 +119,7 @@ namespace Spooky.Content.NPCs.SpookyHell
         
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-			if (NPC.ai[0] == 0 || (NPC.ai[0] == 2 && NPC.localAI[0] >= 120))
+			if (AfterImages)
 			{
                 NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 
@@ -176,33 +177,34 @@ namespace Spooky.Content.NPCs.SpookyHell
 
             NPC.spriteDirection = NPC.direction;
 
-            if (NPC.ai[0] != 3 || (NPC.ai[0] == 3 && (NPC.localAI[0] < 100 || NPC.localAI[0] > 350)))
+            //set rotation while charging
+            if (Charging)
             {
-                //set rotation while charging
-                if (Charging)
-                {
-                    NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? -1 : 1;
-                
-                    NPC.rotation = NPC.velocity.ToRotation();
+                NPC.direction = NPC.spriteDirection = NPC.velocity.X > 0f ? -1 : 1;
+            
+                NPC.rotation = NPC.velocity.ToRotation();
 
-                    if (NPC.spriteDirection == 1)
-                    {
-                        NPC.rotation += MathHelper.Pi;
-                    }
-                }
-                //otherwise use EoC style rotation
-                else
+                if (NPC.spriteDirection == 1)
                 {
-                    Vector2 vector = new Vector2(NPC.Center.X, NPC.Center.Y);
-                    float RotateX = player.Center.X - vector.X;
-                    float RotateY = player.Center.Y - vector.Y;
-                    NPC.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
+                    NPC.rotation += MathHelper.Pi;
                 }
+            }
+            //otherwise rotate towards the player
+            else
+            {
+                Vector2 RotateTowards = player.Center - NPC.Center;
+
+                float RotateDirection = (float)Math.Atan2(RotateTowards.Y, RotateTowards.X) + 4.71f;
+                float RotateSpeed = 0.05f;
+
+                NPC.rotation = NPC.rotation.AngleTowards(RotateDirection - MathHelper.TwoPi, RotateSpeed);
             }
 
             //despawn if all players are dead
             if (player.dead)
             {
+                NPC.rotation = 0;
+
                 NPC.localAI[2]++;
 
                 NPC.ai[0] = -1;
@@ -227,18 +229,22 @@ namespace Spooky.Content.NPCs.SpookyHell
                     //fly up quickly
                     if (NPC.localAI[0] == 2)
                     {
-                        NPC.velocity.Y = -35;
+                        AfterImages = true;
+
+                        NPC.velocity.Y = -20;
                     }
 
                     //slow down
                     if (NPC.localAI[0] >= 12)
                     {
-                        NPC.velocity *= 0.35f;
+                        NPC.velocity *= 0.85f;
                     }
 
                     //go to attacks
                     if (NPC.localAI[0] >= 100)
                     {
+                        AfterImages = false;
+
                         NPC.localAI[0] = 0;
                         NPC.ai[0]++;
 
@@ -300,9 +306,9 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                             Vector2 ShootSpeed = player.Center - NPC.Center;
                             ShootSpeed.Normalize();
-                            ShootSpeed *= 5;
+                            ShootSpeed *= 6.5f;
 
-                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
+                            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 60f;
                             Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
 
                             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -358,7 +364,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         {
                             SoundEngine.PlaySound(SoundID.Item170, NPC.Center);
 
-                            NPC.velocity *= 0;
+                            NPC.velocity = Vector2.Zero;
 
                             SavePosition = NPC.Center;
                         }
@@ -380,6 +386,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         if (NPC.localAI[0] == 120)
                         {
                             Charging = true;
+                            AfterImages = true;
 
                             SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, NPC.Center);
 
@@ -387,13 +394,19 @@ namespace Spooky.Content.NPCs.SpookyHell
                             ChargeDirection.Normalize();
                             ChargeDirection *= 55;
                             NPC.velocity = ChargeDirection;
+                        }
 
-                            for (int numDust = 0; numDust < 45; numDust++)
+                        if (NPC.localAI[0] > 120 && NPC.localAI[0] <= 130)
+                        {
+                            int MaxDusts = 5;
+                            for (int j = 0; j < MaxDusts; j++)
                             {
-                                int newDust = Dust.NewDust(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.Blood, 0f, 0f, 100, default, 1f);
-                                Main.dust[newDust].velocity = ChargeDirection * -45;
-                                Main.dust[newDust].scale *= Main.rand.NextFloat(2.8f, 3.8f);
-                                Main.dust[newDust].noGravity = true;
+                                Vector2 vector4 = (Vector2.Normalize(NPC.velocity) * new Vector2((float)(NPC.width + 10) / 2f, NPC.height) * 0.75f).RotatedBy((double)(j - (MaxDusts / 2 - 1)) * Math.PI / (double)(float)MaxDusts) + NPC.Center;
+                                Vector2 vector5 = ((float)(Main.rand.NextDouble() * 3.14) - (float)Math.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
+                                int num29 = Dust.NewDust(vector4 + vector5, 0, 0, ModContent.DustType<CauldronBubble>(), vector5.X * 2f, vector5.Y * 2f, 100, Color.Red, 1.5f);
+                                Main.dust[num29].noGravity = true;
+                                Main.dust[num29].velocity /= 4f;
+                                Main.dust[num29].velocity -= NPC.velocity * 0.25f;
                             }
                         }
 
@@ -423,6 +436,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     else
                     {
                         Charging = false;
+                        AfterImages = false;
 
                         NPC.velocity *= 0.85f;
 
@@ -458,10 +472,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     {
                         SoundEngine.PlaySound(SoundID.Item170, NPC.Center);
 
-                        //use localAI[1] for the bubble shoot chance
-                        NPC.localAI[1] = 30;
-
-                        NPC.velocity *= 0;
+                        NPC.velocity = Vector2.Zero;
 
                         SavePosition = NPC.Center;
                     }
@@ -476,17 +487,10 @@ namespace Spooky.Content.NPCs.SpookyHell
                     //make spin speed accelerate and deaccelerate when needed
                     if (NPC.localAI[0] > 100 && NPC.localAI[0] < 200)
                     {
-                        if (NPC.localAI[1] > 2)
-                        {
-                            NPC.localAI[1] -= 0.2f;
-                        }
-
                         SpinMultiplier += 0.005f;
                     }
                     if (NPC.localAI[0] > 250)
                     {
-                        NPC.localAI[1] += 0.2f;
-
                         SpinMultiplier -= 0.005f;
                     }
 
@@ -508,13 +512,20 @@ namespace Spooky.Content.NPCs.SpookyHell
                             NPC.velocity *= 0.2f;
                         }
 
-                        if (Main.rand.NextBool((int)NPC.localAI[1]))
+                        NPC.localAI[1]++;
+                        if (NPC.localAI[1] >= 60 && NPC.localAI[0] % 10 == 0)
                         {
                             SoundEngine.PlaySound(SoundID.Item95, NPC.Center);
 
                             int[] Types = new int[] { ModContent.ProjectileType<NautilusBubble1>(), ModContent.ProjectileType<NautilusBubble2>() };
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-20, 20)), Main.rand.Next(Types), NPC.damage, 0f);
+                            Vector2 projPos = NPC.Center + new Vector2(0, 90).RotatedBy(NPC.rotation);
+
+                            Vector2 ShootSpeed = NPC.Center - projPos;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= -15f;
+
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, projPos, ShootSpeed, Main.rand.Next(Types), NPC.damage, 4.5f);
                         }
                     }
 
@@ -559,7 +570,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     {
                         SoundEngine.PlaySound(SoundID.Item170, NPC.Center);
 
-                        NPC.velocity *= 0;
+                        NPC.velocity = Vector2.Zero;
 
                         SavePosition = NPC.Center;
                     }
@@ -582,8 +593,7 @@ namespace Spooky.Content.NPCs.SpookyHell
 
                         Vector2 ShootSpeed = player.Center - NPC.Center;
                         ShootSpeed.Normalize();
-                        ShootSpeed.X *= Main.rand.Next(3, 5);
-                        ShootSpeed.Y *= Main.rand.Next(3, 5);
+                        ShootSpeed *= 7f;
 
                         Vector2 muzzleOffset = Vector2.Normalize(new Vector2(ShootSpeed.X, ShootSpeed.Y)) * 70f;
                         Vector2 position = new Vector2(NPC.Center.X, NPC.Center.Y);
@@ -593,7 +603,8 @@ namespace Spooky.Content.NPCs.SpookyHell
                             position += muzzleOffset;
                         }
 
-                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, ModContent.ProjectileType<NautilusBiomass>(), 0, 0f);
+                        int Biomass = NPC.NewNPC(NPC.GetSource_Death(), (int)position.X, (int)position.Y, ModContent.NPCType<ValleyNautilusBiomass>());
+                        Main.npc[Biomass].velocity = ShootSpeed;
                     }
                     
                     if (NPC.localAI[0] > 100)

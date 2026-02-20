@@ -109,7 +109,7 @@ namespace Spooky.Content.Generation
                     if (Y > terrainContour[X] && WorldGen.InWorld(X, Y))
                     {
                         WorldGen.PlaceTile(X, Y, (ushort)ModContent.TileType<SpookyMush>());
-                        Main.tile[X, Y + 3].WallType = (ushort)ModContent.WallType<SpookyMushWall>();
+                        WorldGen.KillWall(X, Y);
                     }
                 }
 			}
@@ -812,6 +812,37 @@ namespace Spooky.Content.Generation
             ///place little eye's house last so it doesnt get nuked by other structures
             int HouseX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
             GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
+
+            //place walls after structures and stuff so that theres no random clusters of walls poking through after structure generation
+            int extraClearStart = (GenVars.JungleX < Main.maxTilesX / 2) ? 50 : 0;
+            int extraClearEnd = (GenVars.JungleX > Main.maxTilesX / 2) ? 50 : 0;
+            for (int X = StartPosition - extraClearStart; X <= BiomeEdge + extraClearEnd; X++)
+            {
+                for (int Y = Main.maxTilesY - 200; Y < Main.maxTilesY - 15; Y++)
+                {
+                    if (WorldGen.InWorld(X, Y, 5))
+					{
+                        bool TileSurrounded = WorldGen.SolidOrSlopedTile(X - 1, Y) && WorldGen.SolidOrSlopedTile(X + 1, Y) && WorldGen.SolidOrSlopedTile(X, Y - 1) && WorldGen.SolidOrSlopedTile(X, Y + 1) &&
+                        WorldGen.SolidOrSlopedTile(X - 1, Y - 1) && WorldGen.SolidOrSlopedTile(X + 1, Y + 1) && WorldGen.SolidOrSlopedTile(X - 1, Y + 1) && WorldGen.SolidOrSlopedTile(X + 1, Y - 1);
+
+                        bool AdjacentLakeWall = Main.tile[X - 1, Y].WallType == ModContent.WallType<SpookyMushLakeWall>() || Main.tile[X + 1, Y].WallType == ModContent.WallType<SpookyMushLakeWall>() ||
+                        Main.tile[X, Y - 1].WallType == ModContent.WallType<SpookyMushLakeWall>() || Main.tile[X, Y + 1].WallType == ModContent.WallType<SpookyMushLakeWall>();
+
+                        if (TileSurrounded || AdjacentLakeWall)
+                        {
+                            if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyMush>())
+                            {
+                                Main.tile[X, Y].WallType = (ushort)ModContent.WallType<SpookyMushWall>();
+                            }
+                            
+                            if (Main.tile[X, Y].TileType == ModContent.TileType<EyeBlock>())
+                            {
+                                Main.tile[X, Y].WallType = (ushort)ModContent.WallType<EyeBlockWall>();
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         //method for finding a valid surface and placing the structure on it

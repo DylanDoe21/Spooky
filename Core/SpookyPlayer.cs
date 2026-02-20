@@ -822,12 +822,22 @@ namespace Spooky.Core
 				int MinDamage = 20;
 				float Damage = info.Damage < MinDamage ? MinDamage : info.Damage;
 
-				for (int numProjectiles = -3; numProjectiles <= 3; numProjectiles++)
+                float maxAmount = 12;
+				int currentAmount = 0;
+                while (currentAmount <= maxAmount)
 				{
-					int Needle = Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Top, 
-                    5f * Player.DirectionTo(Player.Top).RotatedBy(MathHelper.ToRadians(12) * numProjectiles),
-					ModContent.ProjectileType<CactusNeedle>(), (int)Damage, 4.5f, Player.whoAmI);
-                    Main.projectile[Needle].DamageType = DamageClass.Generic;
+					Vector2 velocity = new Vector2(Main.rand.NextFloat(2f, 25f), Main.rand.NextFloat(2f, 25f));
+                    Vector2 Bounds = new Vector2(Main.rand.NextFloat(2f, 25f), Main.rand.NextFloat(2f, 25f));
+                    float intensity = Main.rand.NextFloat(2f, 25f);
+
+					Vector2 vector12 = Vector2.UnitX * 0f;
+					vector12 += -Vector2.UnitY.RotatedBy((double)(currentAmount * (6f / maxAmount)), default) * Bounds;
+					vector12 = vector12.RotatedBy(velocity.ToRotation(), default);
+					Vector2 ShootVelocity = velocity * 0f + vector12.SafeNormalize(Vector2.UnitY) * intensity;
+
+					Projectile.NewProjectile(Player.GetSource_OnHurt(info.DamageSource), Player.Center, ShootVelocity, ModContent.ProjectileType<CactusNeedle>(), (int)Damage, 4.5f, Player.whoAmI);
+
+					currentAmount++;
 				}
             }
 

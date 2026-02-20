@@ -39,6 +39,8 @@ namespace Spooky.Content.Generation
         int chosenRoom = 0;
         int switchRoom = 0;
 
+        public static int TotalRoomVariants1 = 20;
+        public static int TotalRoomVariants2 = 18;
         public static int EntranceY = 0;
         public static int EntranceBottomY = 0;
         public static int PositionX = 0;
@@ -226,7 +228,7 @@ namespace Spooky.Content.Generation
                     //default room
                     else
                     {
-                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room" + WorldGen.genRand.Next(1, 21) + ".shstruct", origin.ToPoint16(), Mod);
+                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/Room" + WorldGen.genRand.Next(1, TotalRoomVariants1 + 1) + ".shstruct", origin.ToPoint16(), Mod);
                     }
 
                     //mine room
@@ -497,7 +499,7 @@ namespace Spooky.Content.Generation
                     //default room
                     else
                     {
-                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room" + WorldGen.genRand.Next(1, 19) + ".shstruct", origin.ToPoint16(), Mod);
+                        StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Room" + WorldGen.genRand.Next(1, TotalRoomVariants2 + 1) + ".shstruct", origin.ToPoint16(), Mod);
                     }
 
                     if (WorldGen.genRand.NextBool(25) && !PlacedAvariceRoom)

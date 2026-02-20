@@ -2734,7 +2734,7 @@ SpiderWarRemote: {
 	DisplayName: Fly Carpetbomber
 	Tooltip:
 		'''
-		Left click to call down a bomb that spawns a small joro fly to swarm individual enemies
+		Left click to call down a small low damage joro fly that can rapidly hit individual enemies
 		Right click to call down explosive joros that deal massive damage to all surrounding enemies
 		Explosive joro minions take up 2 minion slots each
 		'''
@@ -3463,7 +3463,7 @@ SentientKatana: {
 	DisplayName: Conscious Cutter
 	Tooltip:
 		'''
-		Creates slashes at your cursor upon hitting enemies
+		Hitting an enemy creates slashes on all enemies nearby you
 		'It's a mystery how it doesn't get whiplash'
 		'''
 }
@@ -3526,6 +3526,16 @@ SentientMineLauncher: {
 		Fires out a giant spread of eye mines that linger on the ground and explode on contact
 		Eye mines deal significantly more damage if they are detonated while on the ground
 		'Takes great pride in its eyelashes'
+		'''
+}
+
+SentientOpticStaff: {
+	DisplayName: Retina Chomper Rod
+	Tooltip:
+		'''
+		Summons eye mouths in a circle around you to shoot tears at enemies
+		Sometimes they can shoot cursed tears that inflict cursed flames
+		'Don't stick your finger in it!'
 		'''
 }
 
@@ -4532,7 +4542,12 @@ PlantFossilItem: {
 
 TarPitCactusBlockItem: {
 	DisplayName: Tar Pit Cactus
-	Tooltip: Ouchy!
+	Tooltip: ""
+}
+
+TarPitCactusWallItem: {
+	DisplayName: Tar Pit Cactus Wall
+	Tooltip: ""
 }
 
 WheelItem: {
@@ -6602,12 +6617,17 @@ BottomlessPebbleBag: {
 
 BouncyBall: {
 	DisplayName: Bouncy Ball
-	Tooltip: Bounces off of surfaces
+	Tooltip: Bounces off of surfaces and enemies
 }
 
 MoldyPellet: {
 	DisplayName: Moldy Pellet
 	Tooltip: Creates nasty flies on impact
+}
+
+MossyBoulder: {
+	DisplayName: Mossy Boulder
+	Tooltip: An even larger mossy pebble
 }
 
 MossyPebble: {
@@ -6626,8 +6646,12 @@ GourdSlingshot: {
 }
 
 HighVelocitySlingshot: {
-	DisplayName: High-Velocity Slingshot
-	Tooltip: Fires Mossy Pebbles and other ammo at high velocity
+	DisplayName: Crossbow Slingshot
+	Tooltip:
+		'''
+		A heavy slingshot that takes a while to pull back
+		Fires ammo at extremely high velocities
+		'''
 }
 
 OpalSlingshot: {
@@ -6656,6 +6680,11 @@ SpiritSlingshot: {
 		Converts Mossy Pebbles into homing souls
 		Every 3 shots the soul will split into ghastly bolts on hit
 		'''
+}
+
+StickyHand: {
+	DisplayName: Sticky Hand Slinger
+	Tooltip: ""
 }
 
 TarFlinger: {

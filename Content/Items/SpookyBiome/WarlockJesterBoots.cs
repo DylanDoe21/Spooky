@@ -24,6 +24,7 @@ namespace Spooky.Content.Items.SpookyBiome
 		{
 			player.autoJump = true;
 			player.accRunSpeed = 6.5f;
+			player.maxRunSpeed = 6.5f;
 			player.GetJumpState<WarlockJesterBootJump1>().Enable();
 			player.GetJumpState<WarlockJesterBootJump2>().Enable();
 			player.GetJumpState<WarlockJesterBootJump3>().Enable();

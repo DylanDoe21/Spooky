@@ -227,7 +227,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 {
                     if (npc.active && npc.CanBeChasedBy(this) && !npc.friendly && !npc.dontTakeDamage && !NPCID.Sets.CountsAsCritter[npc.type] && npc.Distance(Projectile.Center) <= Projectile.ai[1] * 0.65f + time)
                     {
-                        player.ApplyDamageToNPC(npc, Projectile.damage * 10, 0, 0, false, null, true);
+                        player.ApplyDamageToNPC(npc, Projectile.damage, 0, 0, false, null, true);
                     }
                 }
 

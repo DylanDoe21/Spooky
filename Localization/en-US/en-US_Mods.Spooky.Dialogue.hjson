@@ -134,12 +134,6 @@ SuspiciousSkeleton: {
 	Dialogue21: The real horror would be not buying the goods while ye got the chance to.
 }
 
-DumbZomboid: {
-	Dialogue1: Uurrgghh...
-	Dialogue2: Gurhhh?
-	Dialogue3: Huurgg?!
-}
-
 Daffodil: {
 	PreDefeatIntro1: !!!!!!
 	PreDefeatIntro2: Just who do you think you are waking me?!
@@ -604,4 +598,13 @@ OldHunterDialogue: {
 	//rare items
 	OldHunterNoItem: You don't seem to have any of the rare items I need.
 	PlayerOldHunterNoItem: Alright.
+}
+
+DumbZomboidDialogue: {
+	Dialogue1: Uurrgghh...
+	DialoguePlayer1: What?
+	Dialogue2: Gurhhh?
+	DialoguePlayer2: Huh?
+	Dialogue3: Huurgg?!
+	DialoguePlayer3: Who even are you?
 }

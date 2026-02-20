@@ -21,6 +21,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
         private bool segmentsSpawned;
 
         private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> GlowTexture;
 
         public override void SetStaticDefaults()
         {
@@ -77,12 +78,14 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
 
             var effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Rectangle frame = new Rectangle(0, NPC.frame.Y, NPCTexture.Width(), NPCTexture.Height() / Main.npcFrameCount[NPC.type]);
             Vector2 origin = new Vector2(NPCTexture.Width() * 0.5f, NPCTexture.Height() / Main.npcFrameCount[NPC.type] * 0.5f);
             Main.spriteBatch.Draw(NPCTexture.Value, NPC.Center - Main.screenPosition, frame, drawColor, NPC.rotation, origin, NPC.scale, effects, 0);
+            Main.spriteBatch.Draw(GlowTexture.Value, NPC.Center - Main.screenPosition, frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
 
             return false;
         }

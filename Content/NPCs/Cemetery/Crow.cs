@@ -345,23 +345,13 @@ namespace Spooky.Content.NPCs.Cemetery
         {
             if (NPC.life <= 0) 
             {
-				/*
-                for (int numGores = 1; numGores <= 3; numGores++)
+                for (int numGores = 1; numGores <= 2; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TurkeyGore" + numGores).Type);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/CrowGore" + numGores).Type);
                     }
                 }
-
-                for (int numGores = 1; numGores <= 6; numGores++)
-                {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TurkeyFeatherGore").Type);
-                    }
-                }
-				*/
             }
         }
 	}

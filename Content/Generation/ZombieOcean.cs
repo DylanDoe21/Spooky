@@ -156,7 +156,7 @@ namespace Spooky.Content.Generation
 			PlaceDepthsOval(StartPositionX, StartPositionY, SurfaceTileType, 0, (SizeXInt + 3) * 5, (SizeYInt + 3) * 3, 1f, false, false);
 			PlaceDepthsOval(StartPositionX, StartPositionY, ModContent.TileType<OceanSand>(), ModContent.WallType<OceanSandWall>(), SizeXInt * 5, SizeYInt * 3, 1f, true, false);
 			progress.Set(0.5);
-			PlaceDepthsCaves(StartPositionX, StartPositionY, SizeXInt * 5, SizeYInt * 3, 15f);
+			PlaceDepthsCaves(StartPositionX, StartPositionY, SizeXInt * 5, SizeYInt * 3);
 			DigOutTunnels(StartPositionX, StartPositionY, SizeX, SizeY);
 			BiomePolish(StartPositionX, StartPositionY, SizeX, SizeY);
 
@@ -296,7 +296,7 @@ namespace Spooky.Content.Generation
 			}
 		}
 
-		public void PlaceDepthsCaves(int X, int Y, int radius, int radiusY, float thickMult)
+		public void PlaceDepthsCaves(int X, int Y, int radius, int radiusY)
 		{
 			float scale = radiusY / (float)radius;
 			float invertScale = (float)radius / radiusY;
@@ -312,11 +312,11 @@ namespace Spooky.Content.Generation
 						if (WorldGen.InWorld(PositionX, PositionY, 80))
 						{
 							//only place caves within the circle, and not too close to the center
-							float radialMod1 = WorldGen.genRand.NextFloat(2.5f, 4.5f) * thickMult;
-							float radialMod2 = WorldGen.genRand.NextFloat(2.5f, 4.5f) * (thickMult * 1.7f);
+							float radialMod1 = WorldGen.genRand.NextFloat(2.5f, 4.5f) * 15f;
+							float radialMod2 = WorldGen.genRand.NextFloat(2.5f, 4.5f) * (15f * 1.8f);
 							if (Math.Sqrt(i * i + j * j) < radius - radialMod1 && Math.Sqrt(i * i + j * j) >= radius - radialMod2)
 							{
-								float MinDistanceBetweenCaves = 55;
+								float MinDistanceBetweenCaves = 48;
 
 								Tile tile = Framing.GetTileSafely(PositionX, PositionY);
 

@@ -19,6 +19,7 @@ LittleEyeBounties: {
 	BountyAccepted: You cannot select another bounty until you complete your current one
 	BountyCompleted: You have completed this bounty!
 	BountyCompletedItem: Click this button to get the item to summon this monster if you'd like to rematch it
+	BountyNewItem: Click this button to get another item to spawn this monster in case you've lost it
 }
 
 LittleEyeDialogueChoice: {

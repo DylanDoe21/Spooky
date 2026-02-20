@@ -384,6 +384,16 @@ namespace Spooky.Core
                 //handle things that happen when day/night switches to the other
                 if (DaySwitched && !Main.gameMenu)
                 {
+                    if (Flags.PokedLittleEye)
+                    {
+                        Flags.PokedLittleEye = false;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+                    }
+
                     if (!Flags.SporeEventHappening && Main.hardMode && Main.rand.NextBool(30))
                     {
                         Flags.SporeEventHappening = true;

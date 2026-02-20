@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -78,17 +79,20 @@ namespace Spooky.Content.Projectiles.Sentient
 		{
             Player player = Main.player[Projectile.owner];
 
-            if (!hasHitSomething && target.CanBeChasedBy(this))
+            if (!hasHitSomething)
             {
-                hasHitSomething = true;
-
-                float divide = 1.75f;
-
-                if (Projectile.owner == Main.myPlayer)
+                foreach (var NPC in Main.ActiveNPCs)
                 {
-                    Projectile.NewProjectile(player.GetSource_OnHit(target), Main.MouseWorld, Vector2.Zero, 
-                    ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Projectile.damage / (int)divide, Projectile.knockBack, player.whoAmI);
+                    if (NPC.CanBeChasedBy(this) && !NPC.friendly && !NPC.dontTakeDamage && !NPCID.Sets.CountsAsCritter[NPC.type] && NPC.Distance(player.Center) <= 450f)
+                    {
+                        float divide = 1.75f;
+
+                        Projectile.NewProjectile(player.GetSource_OnHit(target), NPC.Center, Vector2.Zero, 
+                        ModContent.ProjectileType<SentientKatanaSlashSpawner>(), Projectile.damage / (int)divide, Projectile.knockBack, player.whoAmI);
+                    }
                 }
+
+                hasHitSomething = true;
             }
         }
     }

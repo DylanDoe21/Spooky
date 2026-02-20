@@ -63,12 +63,15 @@ namespace Spooky.Content.Projectiles.Slingshots
 
 		public override void OnKill(int timeLeft)
 		{
+            Player player = Main.player[Projectile.owner];
+
 			SoundEngine.PlaySound(SoundID.Item126, Projectile.Center);
 
             foreach (NPC target in Main.ActiveNPCs)
             {
-                if (target.Distance(Projectile.Center) <= 170f && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type])
+                if (target.Distance(Projectile.Center) <= 120f && target.CanBeChasedBy(this) && !target.friendly && !target.dontTakeDamage && !NPCID.Sets.CountsAsCritter[target.type])
 				{
+                    player.ApplyDamageToNPC(target, Projectile.damage, 0, 0, false, null, true);
                     target.AddBuff(ModContent.BuffType<TarFlingerSlow>(), 180);
                 }
             }

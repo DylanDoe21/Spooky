@@ -19,7 +19,8 @@ namespace Spooky.Content.Items.SpookyBiome
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.accRunSpeed = 5f;
+			player.accRunSpeed = 5.25f;
+			player.maxRunSpeed = 5.25f;
 
 			if (!hideVisual && !player.sleeping.isSleeping && player.velocity.Y == 0 && player.velocity.X != 0)
 			{

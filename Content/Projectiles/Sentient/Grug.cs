@@ -77,7 +77,7 @@ namespace Spooky.Content.Projectiles.Sentient
         {
             if (UsingMagic)
             {
-                GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Sentient/GrugMagicGlow");
+                GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
 
                 var spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 int height = GlowTexture.Height() / Main.projFrames[Projectile.type];

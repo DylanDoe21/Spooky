@@ -19,7 +19,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 
 			if (Projectile.frame < 3)
 			{
-				Projectile.timeLeft = 20;
+				Projectile.timeLeft = 40;
 
 				Projectile.localAI[0]++;
 
@@ -33,7 +33,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 			{
 				Projectile.frame = 3;
 
-				if (Projectile.timeLeft == 19 || Projectile.timeLeft == 14 || Projectile.timeLeft == 9)
+				if (Projectile.timeLeft == 39 || Projectile.timeLeft == 29 || Projectile.timeLeft == 19)
 				{
 					SoundEngine.PlaySound(ShootSound, Projectile.Center);
 

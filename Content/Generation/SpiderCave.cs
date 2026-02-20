@@ -235,7 +235,52 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			//place leaf walls around dirt blocks and dirt walls around stone blocks
+            //spread grass
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+            {
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+                    {
+                        Tile tile = Main.tile[X, Y];
+                        Tile tileAbove = Main.tile[X, Y - 1];
+                        Tile tileBelow = Main.tile[X, Y + 1];
+                        Tile tileLeft = Main.tile[X - 1, Y];
+                        Tile tileRight = Main.tile[X + 1, Y];
+
+                        //spread grass onto the dirt blocks throughout the biome
+                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<DampSoil>(), ModContent.TileType<DampGrass>(), false);
+                    }
+                }
+            }
+            //place clusters of mushroom grass
+            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+            {
+				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+                    {
+                        Tile tile = Main.tile[X, Y];
+                        Tile tileAbove = Main.tile[X, Y - 1];
+
+                        if (tile.TileType == ModContent.TileType<DampGrass>() && !tileAbove.HasTile)
+                        {
+                            if (WorldGen.genRand.NextBool(135) && CheckForFlatSurface(X, Y, 6, 1))
+                            {
+                                int SizeX = WorldGen.genRand.Next(35, 41);
+                                int SizeY = WorldGen.genRand.Next(35, 41);
+
+                                int[] ValidTiles = { ModContent.TileType<DampGrass>() };
+
+                                SpookyWorldMethods.PlaceOval(X, Y - 10, ModContent.TileType<DampMushroomGrass>(), ModContent.WallType<DampSoilWall>(),
+                                SizeX, SizeY, 1f, true, false, true, ValidTiles, false);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //place leaf walls around dirt blocks and dirt walls around stone blocks
             for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
             {
 				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
@@ -253,7 +298,7 @@ namespace Spooky.Content.Generation
                                 SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<DampGrassWall>(), WorldGen.genRand.Next(2, 5), false, true);
                             }
 
-                            if (Main.tile[X, Y].HasTile && (Main.tile[X, Y].TileType == ModContent.TileType<DampStone>() || Main.tile[X, Y].TileType == ModContent.TileType<DampMushroomGrass>()) &&
+                            if (Main.tile[X, Y].HasTile && Main.tile[X, Y].TileType != ModContent.TileType<DampGrass>() &&
                             (!Main.tile[X - 1, Y].HasTile || !Main.tile[X + 1, Y].HasTile || !Main.tile[X, Y - 1].HasTile || !Main.tile[X, Y + 1].HasTile))
                             {
                                 SpookyWorldMethods.PlaceCircle(X, Y, -1, ModContent.WallType<DampSoilWall>(), WorldGen.genRand.Next(2, 5), false, true);
@@ -546,56 +591,11 @@ namespace Spooky.Content.Generation
                     }
                 }
             }
-
+            
             //place old hunter arena
             Vector2 ArenaOrigin = new Vector2(startPosX - 50, (GnomePositionY + (MushroomSizeY / 2)) - 25);
             StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/OldHunterArena.shstruct", ArenaOrigin.ToPoint16(), Mod);
             Flags.OldHunterPosition = new Vector2(startPosX * 16, (GnomePositionY + (MushroomSizeY / 2) + 13) * 16);
-
-            //spread grass
-            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
-            {
-				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
-                {
-                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
-                    {
-                        Tile tile = Main.tile[X, Y];
-                        Tile tileAbove = Main.tile[X, Y - 1];
-                        Tile tileBelow = Main.tile[X, Y + 1];
-                        Tile tileLeft = Main.tile[X - 1, Y];
-                        Tile tileRight = Main.tile[X + 1, Y];
-
-                        //spread grass onto the dirt blocks throughout the biome
-                        WorldGen.SpreadGrass(X, Y, ModContent.TileType<DampSoil>(), ModContent.TileType<DampGrass>(), false);
-                    }
-                }
-            }
-            //place clusters of mushroom grass
-            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
-            {
-				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
-                {
-                    if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
-                    {
-                        Tile tile = Main.tile[X, Y];
-                        Tile tileAbove = Main.tile[X, Y - 1];
-
-                        if (tile.TileType == ModContent.TileType<DampGrass>() && !tileAbove.HasTile)
-                        {
-                            if (WorldGen.genRand.NextBool(135) && CheckForFlatSurface(X, Y, 6, 1))
-                            {
-                                int SizeX = WorldGen.genRand.Next(35, 41);
-                                int SizeY = WorldGen.genRand.Next(35, 41);
-
-                                int[] ValidTiles = { ModContent.TileType<DampGrass>() };
-
-                                SpookyWorldMethods.PlaceOval(X, Y - 10, ModContent.TileType<DampMushroomGrass>(), ModContent.WallType<DampSoilWall>(),
-                                SizeX, SizeY, 1f, true, false, true, ValidTiles, false);
-                            }
-                        }
-                    }
-                }
-            }
 
             //place gnome houses
             for (int X = startPosX - MushroomSizeX; X <= startPosX + MushroomSizeX; X++)

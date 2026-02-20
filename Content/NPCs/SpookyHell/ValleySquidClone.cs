@@ -162,8 +162,15 @@ namespace Spooky.Content.NPCs.SpookyHell
                     {
                         Vector2 GoTo = SavePlayerPosition;
 
-                        float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(8, 15));
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        if (NPC.Distance(GoTo) >= 50)
+                        {
+                            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 6, Main.rand.Next(8, 15));
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+                        }
+                        else
+                        {
+                            NPC.velocity *= 0.95f;
+                        }
                     }
 
                     if (NPC.localAI[0] >= 150)
@@ -249,7 +256,15 @@ namespace Spooky.Content.NPCs.SpookyHell
                 BestiaryParent.SetDefaults(ModContent.NPCType<ValleySquid>());
                 Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
 
-                for (int numGores = 1; numGores <= 5; numGores++)
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ValleySquidCloneGore" + numGores).Type);
+                    }
+                }
+
+                for (int numGores = 3; numGores <= 5; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
                     {

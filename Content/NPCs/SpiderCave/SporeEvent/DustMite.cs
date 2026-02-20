@@ -3,7 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using ReLogic.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
@@ -14,6 +16,8 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 {
 	public class DustMite1 : ModNPC
 	{
+        private static Asset<Texture2D> GlowTexture;
+
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 3;
@@ -27,7 +31,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
             NPC.damage = 55;
             NPC.defense = 10;
 			NPC.width = 46;
-			NPC.height = 34;
+			NPC.height = 46;
             NPC.npcSlots = 1f;
 			NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 1, 0);
@@ -47,6 +51,16 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SporeEventBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+        }
         
         public override void FindFrame(int frameHeight)
         {
@@ -149,6 +163,26 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 
     public class DustMite2 : DustMite1
 	{
+        private static Asset<Texture2D> GlowTexture;
+
+        public override void SetDefaults()
+		{
+            NPC.lifeMax = 320;
+            NPC.damage = 55;
+            NPC.defense = 10;
+			NPC.width = 46;
+			NPC.height = 50;
+            NPC.npcSlots = 1f;
+			NPC.knockBackResist = 0f;
+            NPC.value = Item.buyPrice(0, 0, 1, 0);
+            NPC.noGravity = false;
+			NPC.HitSound = SoundID.NPCHit38 with { Pitch = 0.5f, Volume = 0.5f };
+			NPC.DeathSound = SoundID.NPCDeath16;
+            NPC.aiStyle = 66;
+			AIType = NPCID.Worm;
+			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SporeEventBiome>().Type };
+		}
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -157,6 +191,16 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SporeEventBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
+
+            var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+            NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, effects, 0);
+        }
 
         public override void HitEffect(NPC.HitInfo hit) 
         {

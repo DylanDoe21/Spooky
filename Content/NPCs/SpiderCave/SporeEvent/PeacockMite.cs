@@ -26,6 +26,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 		Rectangle[] trailHitboxes = new Rectangle[35];
 
 		private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> TailTexture;
 
         public override void SetStaticDefaults()
@@ -154,8 +155,10 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
 
 			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(GlowTexture.Value, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 		}
 
         public override void AI()

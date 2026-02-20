@@ -13,7 +13,7 @@ namespace Spooky.Content.Items.Minibiomes.Desert
     {
         public override void SetDefaults()
         {
-            Item.damage = 8;
+            Item.damage = 5;
             Item.mana = 5;
 			Item.DamageType = DamageClass.Magic;
             Item.autoReuse = true;
@@ -21,8 +21,8 @@ namespace Spooky.Content.Items.Minibiomes.Desert
 			Item.noUseGraphic = true;
             Item.width = 28;
             Item.height = 30;
-            Item.useTime = 10;
-			Item.useAnimation = 10;
+            Item.useTime = 5;
+			Item.useAnimation = 5;
 			Item.useStyle = ItemUseStyleID.Rapier;
 			Item.knockBack = 1;
             Item.rare = ItemRarityID.Blue;

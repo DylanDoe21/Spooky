@@ -14,6 +14,8 @@ namespace Spooky.Content.Projectiles.Sentient
 	{
 		public float shift = 0;
 
+		Vector2 CursorSavePosition;
+
         private static Asset<Texture2D> ProjTexture;
         private static Asset<Texture2D> EyeTexture;
 
@@ -185,7 +187,23 @@ namespace Spooky.Content.Projectiles.Sentient
 				}
 			}
 
-			Projectile.velocity *= 0.95f;
+			if (Projectile.ai[2] == 0)
+			{
+				if (Projectile.owner == Main.myPlayer)
+				{
+					CursorSavePosition = Main.MouseWorld;
+				}
+
+				Projectile.ai[2]++;
+				Projectile.netUpdate = true;
+			}
+			else
+			{
+				if (Projectile.Distance(CursorSavePosition) <= 75)
+				{
+					Projectile.velocity *= 0.75f;
+				}
+			}
 
 			foreach (NPC npc in Main.ActiveNPCs)
 			{

@@ -47,11 +47,12 @@ New Catacombs Improvements:
 
 Other New Stuff:
 -Added a bunch of achievements, there are now achievements for things like killing spooky mod bosses, events, getting items, discovering stuff in the world, ect (More may be added in the future as well)
+-Added new sentient items to equally fill each class, which now all have the same amount of sentient items in every point of progression (3 prehardmode, 2 hardmode, and 2 post platera each)
 -Added new double jump bottle and hermes boots alternatives to the underground spooky forest cabin chests to give you early game mobility (The new hermes boots alternative can also be used to craft spectre boots)
 -Added eye block walls, eye bricks, eye brick walls, resprited organic mush walls to look like organic mush blocks, and added a safe version of organic mush walls you can craft and build houses with
 -Added new tar pits cactus block dropped by tar pit cactuses along with a new set of weapons and armor you can craft with them
 -Added raveyard monolith that allows you to activate the raveyard visual effects, and a spore monolith for the visual effects that can be seen in the new spore event
--Added some new furniture sets: Upper catacombs furniture, lower catacombs furniture, and old birch wood furniture
+-Added some new furniture sets: Upper catacombs, lower catacombs, old birch wood
 -Added spider grotto fishing crates, and a spooky forest hardmode crate
 -Added new spider grotto angler quest fish
 -Added tall kelp plants to the rotten depths
@@ -73,14 +74,18 @@ Weapons/Accessories:
 -Living caduceus minion now deals way more damage when they suicide-bomb enemies after targeting that enemy for too long
 -Molar mauler swing speed increased, and when thrown it now travels faster and returns to you faster
 -Carrion chunker projectiles now have a delay before they become affected by gravity so you can aim them much better
+-Conscious cutter now spawns slashes on all nearby enemies when you hit something instead of on your cursor
 -Scycler projectiles now follow your cursor for a set time before returning instead of immediately returning when they touch your mouse, and nerfed its use speed
--Lowered the volumes of the EMF reader beeping sounds, ear parasite companion screeching sound, and moocher staff flame pillar explosion sound
+-Lowered the volumes of the EMF reader beeping sounds, ear companion screeching sound, and moocher staff flame pillar explosion sound
 
 Enemy/Boss:
 -Increased orro-boro phase 1 health from 32000 -> 50000 (Which is technically 16000 -> 25000 in gameplay since it goes into phase 2 at half health)
 -Increased orro-boro phase 2 health from 15000 -> 25000 (For both worms)
 -Spook fishron boss checklist entry is no longer hidden behind defeating him, and his entry now mentions where sinister snails can be found
 -Hover brain beam projectile now has a sprite and improved the question-mark particles it produces for better visibility
+-Red clot squids spawned by claret cephalopods now use their own red gores instead of the purple ones
+-Improved claret cephalopod rotation, gave it a new bubble dust effect when dashing, and improved its biomass projectile visuals
+-Claret cephalopod biomass now spawns 4 clot squids instead of 2
 
 World Generation:
 -Rotten depths now accounts for having both calamity and thorium on at the same time, if both are on the rotten depths will generate next to the sulphur sea, with its tunnel connecting to the sulphur sea caves
@@ -91,9 +96,13 @@ World Generation:
 -Little eyes lab is now made out of the new eye brick blocks to feel more fitting in the eye valley
 -Spooky mod biome chests no longer generate in the dungeon, they are now in a special room in the lower catacombs right above big bone's arena
 -Bloom soil now generates in clumps in various spooky mod biomes, it still can be crafted but finding it in the world makes it way more intuitive for players to get into the blooms mechanic
+-Slightly reduced the amount of green grass that generates on the surface of the spooky forest
+-Polished eye valley generation to prevent walls from being where they arent supposed to, generating behind structures, ect
 
 Miscellaneous Changes:
--Fertilizer now works with spooky mod trees (Includes custom trees too)
+-Terraria's fertilizer now works with spooky mod trees (Includes custom trees too)
+-Exposed nerve tile now has a glowing outline to make it easier to find
+-Being nearby little eye now lowers spawn rates
 -Removed random lightning flash/sounds in the swampy cemetery
 -Reduced graveyard desaturation effect in the swampy cemetery a little bit
 -Thrown bile glob no longer has gravity and travels in a straight line

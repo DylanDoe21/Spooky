@@ -215,6 +215,7 @@ namespace Spooky.Content.UserInterfaces
 
 			string QuestCompleteText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyCompleted");
             string QuestCompleteRematchText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyCompletedItem");
+			string QuestNewItemText = Language.GetTextValue("Mods.Spooky.UI.LittleEyeBounties.BountyNewItem");
 
             //actual icon textures
             BountyIcon1Done ??= ModContent.Request<Texture2D>("Spooky/Content/UserInterfaces/LittleEyeQuestIcons/BountyIcon1Done");
@@ -279,7 +280,14 @@ namespace Spooky.Content.UserInterfaces
 				}
                 else
                 {
-				    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest1ConditionText, QuestAcceptText, QuestWarningText, Color.OrangeRed);
+					if (!Flags.BountyInProgress1)
+					{
+				    	DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest1ConditionText, QuestAcceptText, QuestWarningText, Color.OrangeRed);
+					}
+					else
+					{
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestNewItemText, string.Empty, string.Empty, Color.White);
+					}
 
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20)
@@ -376,7 +384,14 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else
                 {
-                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest2ConditionText, QuestAcceptText, QuestWarningText, Color.SeaGreen);
+					if (!Flags.BountyInProgress2)
+					{
+				    	DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest2ConditionText, QuestAcceptText, QuestWarningText, Color.SeaGreen);
+					}
+					else
+					{
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestNewItemText, string.Empty, string.Empty, Color.White);
+					}
 
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20)
@@ -473,7 +488,14 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else
                 {
-                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest3ConditionText, QuestAcceptText, QuestWarningText, Color.Chocolate);
+					if (!Flags.BountyInProgress3)
+					{
+				    	DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest3ConditionText, QuestAcceptText, QuestWarningText, Color.Chocolate);
+					}
+					else
+					{
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestNewItemText, string.Empty, string.Empty, Color.White);
+					}
 
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20)
@@ -562,7 +584,14 @@ namespace Spooky.Content.UserInterfaces
 				}
 				else
                 {
-                    DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest4ConditionText, QuestAcceptText, QuestWarningText, Color.HotPink);
+					if (!Flags.BountyInProgress4)
+					{
+				    	DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, Quest4ConditionText, QuestAcceptText, QuestWarningText, Color.HotPink);
+					}
+					else
+					{
+						DrawTextDescription(spriteBatch, UITopLeft + new Vector2(-257f, -30f) * UIBoxScale, QuestNewItemText, string.Empty, string.Empty, Color.White);
+					}
 
                     //accept bounty
                     if (Main.mouseLeftRelease && Main.mouseLeft && Delay > 20)

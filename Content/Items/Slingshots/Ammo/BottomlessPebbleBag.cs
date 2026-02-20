@@ -38,7 +38,7 @@ namespace Spooky.Content.Items.Slingshots.Ammo
 		public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<MossyPebble>(), 9999)
+            .AddIngredient(ModContent.ItemType<MossyPebble>(), 3996)
 			.AddTile(TileID.CrystalBall)
             .Register();
         }

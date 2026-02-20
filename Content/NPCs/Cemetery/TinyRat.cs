@@ -75,6 +75,20 @@ namespace Spooky.Content.NPCs.Cemetery
                 NPC.Transform(ModContent.NPCType<FeralRat1>());
             }
         }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TinyRatGrayGore" + numGores).Type);
+                    }
+                }
+            }
+        }
 	}
 
     public class TinyRat2 : TinyRat1
@@ -95,6 +109,20 @@ namespace Spooky.Content.NPCs.Cemetery
             if (Main.bloodMoon)
             {
                 NPC.Transform(ModContent.NPCType<FeralRat2>());
+            }
+        }
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+			if (NPC.life <= 0) 
+            {
+                for (int numGores = 1; numGores <= 2; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/TinyRatTanGore" + numGores).Type);
+                    }
+                }
             }
         }
     }

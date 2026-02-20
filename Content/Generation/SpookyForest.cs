@@ -90,7 +90,7 @@ namespace Spooky.Content.Generation
 			}
 
 			//place clumps of green grass using a temporary dirt tile clone that will be replaced later in generation
-			for (int moss = 0; moss < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); moss++)
+			for (int greenGrass = 0; greenGrass < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); greenGrass++)
 			{
 				int X = WorldGen.genRand.Next(0, Main.maxTilesX);
 				int Y = WorldGen.genRand.Next(0, Main.maxTilesY);
@@ -100,7 +100,7 @@ namespace Spooky.Content.Generation
 					//surface clumps
 					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt>())
 					{
-						WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(15, 28), WorldGen.genRand.Next(15, 28),
+						WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(15, 19), WorldGen.genRand.Next(15, 19),
 						ModContent.TileType<SpookyDirt2>(), false, 0f, 0f, false, true);
 					}
 
@@ -469,7 +469,7 @@ namespace Spooky.Content.Generation
                     if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>()) &&
                     !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                     {
-                        if (WorldGen.genRand.NextBool(18))
+                        if (WorldGen.genRand.NextBool(15))
                         {
                             GrowGiantMushroom(X, Y, 5, 8);
                         }
@@ -477,7 +477,7 @@ namespace Spooky.Content.Generation
 
                     if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<MushroomMoss>() && !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                     {
-                        if (WorldGen.genRand.NextBool(5))
+                        if (WorldGen.genRand.NextBool(4))
                         {
                             GrowGiantMushroom(X, Y, 6, 10);
                         }
@@ -920,19 +920,6 @@ namespace Spooky.Content.Generation
 				for (int RopeY = CurrentY - 3; RopeY <= IncrementY; RopeY++)
 				{
 					WorldGen.PlaceTile(CurrentX, RopeY, TileID.Rope);
-
-					/*
-					if (IncrementY == CurrentY || IncrementY == CurrentY + 50)
-					{
-						for (int ropeY = IncrementY - 3; ropeY <= IncrementY + 5; ropeY++)
-						{
-							if (!Main.tile[CurrentX, ropeY].HasTile && !Main.tile[CurrentX - 1, ropeY].HasTile && !Main.tile[CurrentX + 1, ropeY].HasTile)
-							{
-								WorldGen.PlaceTile(CurrentX, ropeY, TileID.Rope);
-							}
-						}
-					}
-					*/
 				}
 
 				//save the Y-position so the next tunnel starts from the bottom of the previous one
@@ -1238,7 +1225,7 @@ namespace Spooky.Content.Generation
 				}
 			}
 
-			if (WorldGen.genRand.NextBool(8))
+			if (WorldGen.genRand.NextBool(5))
 			{
 				GiantShroomYellow.Grow(X, Y - 1, minSize, maxSize, false);
 			}

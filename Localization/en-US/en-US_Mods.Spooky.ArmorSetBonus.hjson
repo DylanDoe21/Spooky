@@ -11,11 +11,7 @@ WizardGangsterArmor2:
 	'''
 BroccoliArmor: Minions will sometimes plant damaging broccoli on enemies
 GoldrushArmor: All of your attacks inflict midas, causing enemies to drop more money
-TarCactusArmor:
-	'''
-	Attackers take lots of damage from your spines
-	Getting hit will also spawn cactus thorns out of your body
-	'''
+TarCactusArmor: Retaliate by flinging cactus thorns when you take damage
 YuletideArmor:
 	'''
 	Double tap Down to combust and scatter damaging embers

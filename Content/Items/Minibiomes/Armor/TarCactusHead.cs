@@ -28,7 +28,6 @@ namespace Spooky.Content.Items.Minibiomes.Armor
 		{
 			player.setBonus = Language.GetTextValue("Mods.Spooky.ArmorSetBonus.TarCactusArmor");
 			player.GetModPlayer<SpookyPlayer>().TarCactusSet = true;
-			player.thorns += 0.75f;
 		}
 
 		public override void UpdateEquip(Player player) 

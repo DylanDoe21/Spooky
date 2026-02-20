@@ -50,7 +50,7 @@ namespace Spooky.Content.Generation
 
 			if (!CanPlaceBiome(BiomeX, BiomeY, SizeX, SizeY))
 			{
-				BiomeY += 20;
+				BiomeY -= 20;
 			}
 			else
 			{
