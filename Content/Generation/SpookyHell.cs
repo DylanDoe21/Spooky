@@ -343,17 +343,17 @@ namespace Spooky.Content.Generation
 			float angle = MathHelper.Pi * 0.15f;
 			float otherAngle = MathHelper.PiOver2 - angle;
 
-			int InitialSize = 80;
-			int biomeSize = InitialSize + (Main.maxTilesX / 180);
-			float actualSize = biomeSize * 16f;
+			int InitialSize = Main.maxTilesX / 75;
+			int lakeSize = InitialSize + (Main.maxTilesX / 180);
+			float actualSize = lakeSize * 16f;
 			float constant = actualSize * 2f / (float)Math.Sin(angle);
 
 			float biomeSpacing = actualSize * (float)Math.Sin(otherAngle) / (float)Math.Sin(angle);
 			int verticalRadius = (int)(constant / 16f);
 
-			Vector2 biomeOffset = Vector2.UnitY * biomeSpacing;
-			Vector2 biomeTop = center - biomeOffset;
-			Vector2 biomeBottom = center + biomeOffset;
+			Vector2 LakeOffset = Vector2.UnitY * biomeSpacing;
+			Vector2 LakeTop = center - LakeOffset;
+			Vector2 LakeBottom = center + LakeOffset;
 
             //attempt to find a valid position for the biome to place in
             bool foundValidPosition = false;
@@ -371,18 +371,23 @@ namespace Spooky.Content.Generation
                 if (!WorldGen.SolidTile(origin.X, WaterHeightLimit))
                 {
                     //increase the water level limit to be lower so it doesnt reach over the top of the terrain
-                    WaterHeightLimit += 15;
+                    WaterHeightLimit += 10;
                     foundValidPosition = true;
                 }
             }
 
 			//place an oval and fill it with the water producing walls based on where the water height limit is
-			for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
+			for (int X = origin.X - lakeSize - 2; X <= origin.X + lakeSize + 2; X++)
 			{
 				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
 				{
-					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist, false))
+					if (CheckInsideOval(new Point(X, Y), LakeTop, LakeBottom, constant, center, out float dist))
 					{
+                        if (Y < WaterHeightLimit && Y >= WaterHeightLimit - 15)
+                        {
+                            WorldGen.KillTile(X, Y);
+                        }
+
 						if (Y <= Main.maxTilesY - 60)
 						{
 							float percent = dist / constant;
@@ -404,59 +409,17 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
-
-            //reset everything for the circle clearing
-            bool IsSmallWorld = Main.maxTilesX < 6400;
-            bool IsMediumWorld = Main.maxTilesX < 8400 && Main.maxTilesX > 6400;
-
-            origin = new Point(LakeX, WaterHeightLimit - (IsSmallWorld ? 25 : (IsMediumWorld ? 28 : 34)));
-			center = origin.ToVector2() * 16f + new Vector2(8f);
-
-			angle = MathHelper.Pi * 0.15f;
-			otherAngle = MathHelper.PiOver2 - angle;
-
-			InitialSize = 32;
-			biomeSize = InitialSize + (Main.maxTilesX / 180);
-			actualSize = biomeSize * 16f;
-			constant = actualSize * 2f / (float)Math.Sin(angle);
-
-			biomeSpacing = actualSize * (float)Math.Sin(otherAngle) / (float)Math.Sin(angle);
-			verticalRadius = (int)(constant / 16f);
-
-			biomeOffset = Vector2.UnitY * biomeSpacing;
-			biomeTop = center - biomeOffset;
-			biomeBottom = center + biomeOffset;
-
-            //make another circle at the water level of the lake and clear an ellipse of tiles to make the surface around it dip down into it
-            for (int X = origin.X - biomeSize - 2; X <= origin.X + biomeSize + 2; X++)
-			{
-				for (int Y = (int)(origin.Y - verticalRadius * 0.4f) - 3; Y <= origin.Y + verticalRadius + 3; Y++)
-				{
-					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist, true))
-					{
-                        WorldGen.KillTile(X, Y);
-                    }
-                }
-            }
 		}
 
 		//method to make sure things only generate in the biome's circle
-		public static bool CheckInsideOval(Point tile, Vector2 focus1, Vector2 focus2, float distanceConstant, Vector2 center, out float distance, bool stretch)
+		public static bool CheckInsideOval(Point tile, Vector2 focus1, Vector2 focus2, float distanceConstant, Vector2 center, out float distance)
 		{
 			Vector2 point = tile.ToWorldCoordinates();
 
-            if (!stretch)
-            {
-                float distX = center.X - point.X;
-                point.X -= distX * 3f;
-                float distY = center.Y - point.Y;
-                point.Y -= distY * 3f;
-            }
-            else
-            {
-                float distY = center.Y - point.Y;
-                point.Y -= distY * 4f;
-            }
+            float distX = center.X - point.X;
+            point.X -= distX * 3f;
+            float distY = center.Y - point.Y;
+            point.Y -= distY * 3f;
 
             float distance1 = Vector2.Distance(point, focus1);
             float distance2 = Vector2.Distance(point, focus2);

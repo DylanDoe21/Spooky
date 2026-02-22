@@ -22,6 +22,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 
         private static Asset<Texture2D> BranchLeftTexture;
 		private static Asset<Texture2D> BranchRightTexture;
+        private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> TileTexture;
 
 		public override void SetStaticDefaults()
@@ -33,9 +34,23 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
             Main.tileSolid[Type] = false;
             Main.tileLighted[Type] = false;
             Main.tileBlockLight[Type] = false;
+            Main.tileLighted[Type] = true;
             LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(59, 100, 52), name);
             DustType = DustID.Grass;
+        }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+            Tile tile = Main.tile[i, j];
+            if (tile.TileFrameX >= 54)
+            {
+                float divide = 450f;
+
+                r = 255f / divide;
+                g = 134f / divide;
+                b = 0f / divide;
+            }
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -215,6 +230,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 		{
 			BranchLeftTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Desert/Ambient/TarPitCactusBranchLeft");
 			BranchRightTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/Minibiomes/Desert/Ambient/TarPitCactusBranchRight");
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
 			TileTexture ??= ModContent.Request<Texture2D>(Texture);
 
 			Tile tile = Framing.GetTileSafely(i, j);
@@ -257,6 +273,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert.Ambient
 
 			//draw the actual tree
 			spriteBatch.Draw(TileTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), col, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(GlowTexture.Value, pos, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			return false;
 		}

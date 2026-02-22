@@ -67,9 +67,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             {
                 float divide = 400f;
 
-                r = 122f / divide;
-                g = 72f / divide;
-                b = 203f / divide;
+                r = 155f / divide;
+                g = 83f / divide;
+                b = 250f / divide;
             }
         }
     }
@@ -108,9 +108,9 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             {
                 float divide = 400f;
 
-                r = 204f / divide;
-                g = 164f / divide;
-                b = 63f / divide;
+                r = 255f / divide;
+                g = 186f / divide;
+                b = 0f / divide;
             }
         }
     }

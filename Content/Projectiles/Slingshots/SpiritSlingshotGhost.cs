@@ -6,6 +6,8 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Slingshots
 {
     public class SpiritSlingshotGhost : ModProjectile
@@ -19,6 +21,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 		public override void SetStaticDefaults()
         {
 			Main.projFrames[Projectile.type] = 4;
+			ProjectileGlobal.IsSlingshotAmmoProj[Projectile.type] = true;
         }
 
 		public override void SetDefaults()

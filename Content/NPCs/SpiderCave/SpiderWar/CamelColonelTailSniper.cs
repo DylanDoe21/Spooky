@@ -136,6 +136,16 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 			Main.instance.DrawCacheNPCProjectiles.Add(index);
 		}
 
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return false;
+		}
+
+        public override bool CheckActive()
+        {
+            return false;
+        }
+
 		public override bool PreAI()
         {
             NPC Parent = Main.npc[(int)NPC.ai[3]];
@@ -267,11 +277,6 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                     }
                 }
             }
-        }
-
-        public override bool CheckActive()
-        {
-            return false;
         }
     }
 }

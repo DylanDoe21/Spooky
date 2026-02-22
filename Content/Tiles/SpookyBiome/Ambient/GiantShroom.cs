@@ -33,9 +33,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            r = 0.25f;
-            g = 0.15f;
-            b = 0.25f;
+            float divide = 400f;
+
+            r = 155f / divide;
+            g = 83f / divide;
+            b = 250f / divide;
         }
 
         public static void DrawMushroomCap(int i, int j, Texture2D tex, Rectangle? source, Vector2 scaleVec, Vector2? offset = null, Vector2? origin = null)

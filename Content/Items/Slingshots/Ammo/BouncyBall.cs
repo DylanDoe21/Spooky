@@ -18,16 +18,16 @@ namespace Spooky.Content.Items.Slingshots.Ammo
 
 		public override void SetDefaults() 
         {
-			Item.damage = 5;
+			Item.damage = 8;
 			Item.DamageType = DamageClass.Ranged; 
             Item.ammo = Item.type;
             Item.consumable = true;
             Item.width = 14;
-			Item.height = 12;
+			Item.height = 14;
 			Item.knockBack = 2f;
             Item.maxStack = 9999;
 			Item.value = Item.buyPrice(copper: 35);
-			Item.rare = ItemRarityID.White; 
+			Item.rare = ItemRarityID.Blue;
 			Item.shoot = ModContent.ProjectileType<BouncyBallProj>();
 		}
 

@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
 using Spooky.Content.Items.SpookyHell.Misc;
 using Spooky.Content.Projectiles.SpookyHell;
 using Spooky.Content.Tiles.SpookyHell;
@@ -43,7 +44,7 @@ namespace Spooky.Content.Items.SpookyHell
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
@@ -51,13 +52,21 @@ namespace Spooky.Content.Items.SpookyHell
 
             if (numUses >= 10)
 			{
-				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<BowEye>(), damage, knockback, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<BowEye>(), damage, knockback, player.whoAmI);
 
 				numUses = 0;
 			}
 			else
 			{
-				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<FleshBowChunk1>(), damage, knockback, player.whoAmI, 0f, 0f);
+				int TypeToShoot = -1;
+				player.PickAmmo(Item, out TypeToShoot, out _, out _, out _, out _);
+
+				if (TypeToShoot == ProjectileID.WoodenArrowFriendly)
+				{
+					TypeToShoot = ModContent.ProjectileType<FleshBowChunk1>();
+				}
+
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, TypeToShoot, damage, knockback, player.whoAmI);
 			}
 			
 			numUses++;

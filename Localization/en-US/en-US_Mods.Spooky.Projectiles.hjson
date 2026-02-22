@@ -29,8 +29,7 @@ BowThornFlower.DisplayName: Thorn Flower
 FireBeam.DisplayName: Fire Beam
 GlowBulbProj.DisplayName: Glow Bulb
 GlowBulbThorn.DisplayName: Bulb Thorn
-GraveCrossbowArrow.DisplayName: Crossbow Arrow
-GraveCrossbowProj.DisplayName: Grave Crossbow
+GraveCrossbowProj.DisplayName: Old Hunter's Crossbow
 NineTailsProj.DisplayName: Nine Tails
 SkullTotem.DisplayName: Skull Totem
 SoulBolt.DisplayName: Soul Bolt
@@ -683,3 +682,8 @@ SentientOpticStaffMouth.DisplayName: Retina Chomper
 SentientOpticStaffTear1.DisplayName: Tear
 SentientOpticStaffTear2.DisplayName: Cursed Tear
 MossyBoulderProj.DisplayName: Mossy Boulder
+SeedAmmoProj.DisplayName: Pokey Seed Ball
+SeedAmmoSplit.DisplayName: Small Seed Ball
+EyeballAmmoProj.DisplayName: Flingable Eye
+SlingshotHit.DisplayName: Slingshot Hit
+SlingshotHitCrit.DisplayName: Slingshot Hit

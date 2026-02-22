@@ -56,6 +56,8 @@ Other New Stuff:
 -Added spider grotto fishing crates, and a spooky forest hardmode crate
 -Added new spider grotto angler quest fish
 -Added tall kelp plants to the rotten depths
+-Added glowing flowering cactus to the tar pits
+-Added glowing radioactive bulbs to the fetid farms
 -Added the sludge
 
 
@@ -63,11 +65,12 @@ Other New Stuff:
 ~Changes To Existing Stuff~
 
 Weapons/Accessories:
--Nerfed glass eye damage increase against enemies from 25% to 15%
--Nerfed old hunter scarf damage increase against enemies from 20% to 10%
--Nerfed dutchman pipe damage increase against enemies from 25% to 10%
--Nerfed samson's cuff damage increase against enemies from 50% to 20%
--Nerfed yuletide wood leggings magic attack speed increase from 20% to 10%
+-Nerfed glass eye damage increase against enemies from 25% -> 15%
+-Nerfed old hunter scarf damage increase against enemies from 20% -> 10%
+-Nerfed dutchman pipe damage increase against enemies from 25% -> 10%
+-Nerfed samson's cuff damage increase against enemies from 50% -> 20%
+-Nerfed yuletide wood leggings magic attack speed increase from 20% -> 10%
+-Nerfed bottomless snow bag damage from 15 -> 10
 -Skull smasher's left-click short range throw now goes through enemies instead of immediately returning to you when hitting an enemy
 -Buffed damage done by skull smasher's right-click when you throw the hammer
 -Buffed licker damage from 48 to 55
@@ -76,14 +79,22 @@ Weapons/Accessories:
 -Carrion chunker projectiles now have a delay before they become affected by gravity so you can aim them much better
 -Conscious cutter now spawns slashes on all nearby enemies when you hit something instead of on your cursor
 -Scycler projectiles now follow your cursor for a set time before returning instead of immediately returning when they touch your mouse, and nerfed its use speed
--Lowered the volumes of the EMF reader beeping sounds, ear companion screeching sound, and moocher staff flame pillar explosion sound
+-Fly shot is no longer a charge item, it now just has a set use time and fires out a spread of 5 projectiles 
+-Lowered the volume for the EMF reader beeping sounds, ear companion screeching sound, and moocher staff flame pillar explosion sound
+
+Ranged Item Ammo Changes:
+-All spooky mod ranged bows and guns now have proper ammo conversion like vanilla ranged items do
+-Spooky mod bows and guns that converted all ammo into a unique projectile now only do so with their basic ammos (Musket balls for guns, Wooden arrows for bows) and non basic ammos will just shoot their own projectile
+This applies to the following items: 
+Flower Shot, Bone Bender, Seer, Living Seer, Fly Shot, Old Hunters Crossbow, Old Hunters Rifle, Old Moss Bow, 
+Spider-Wing Longbow, Firestorm Monsoon, Crusty Gunfish, Celery Blaster, HAK-2r, Poison Crossbow, and Ooze Magnum
 
 Enemy/Boss:
 -Increased orro-boro phase 1 health from 32000 -> 50000 (Which is technically 16000 -> 25000 in gameplay since it goes into phase 2 at half health)
 -Increased orro-boro phase 2 health from 15000 -> 25000 (For both worms)
 -Spook fishron boss checklist entry is no longer hidden behind defeating him, and his entry now mentions where sinister snails can be found
 -Hover brain beam projectile now has a sprite and improved the question-mark particles it produces for better visibility
--Red clot squids spawned by claret cephalopods now use their own red gores instead of the purple ones
+-Red clot squids spawned by claret cephalopods now use their own red gores instead of reusing the purple ones
 -Improved claret cephalopod rotation, gave it a new bubble dust effect when dashing, and improved its biomass projectile visuals
 -Claret cephalopod biomass now spawns 4 clot squids instead of 2
 
@@ -91,18 +102,21 @@ World Generation:
 -Rotten depths now accounts for having both calamity and thorium on at the same time, if both are on the rotten depths will generate next to the sulphur sea, with its tunnel connecting to the sulphur sea caves
 -Rotten depths now automatically adjusts if you have either thorium or calamity on individually (If just calamity is on it will generate on the jungle side, or if just thorium is on it will generate on the dungeon side)
 -Rotten depths caves generation has been changed so that the biome feels more open and has way less empty/unused space
--Tar pits biome is now larger than before, but only one generates per world and it is now limited to the lower half of the underground desert
+-Polished eye valley generation to prevent walls from being where they arent supposed to, generating behind structures, ect (This does not include the wall pillars that are supposed to generate!)
+-Tar pits biome is now larger than before, but only one generates per world now and it is now limited to the lower half of the underground desert
 -Spooky forest little eye house now generates way closer to the center of the spooky forest 
 -Little eyes lab is now made out of the new eye brick blocks to feel more fitting in the eye valley
 -Spooky mod biome chests no longer generate in the dungeon, they are now in a special room in the lower catacombs right above big bone's arena
 -Bloom soil now generates in clumps in various spooky mod biomes, it still can be crafted but finding it in the world makes it way more intuitive for players to get into the blooms mechanic
 -Slightly reduced the amount of green grass that generates on the surface of the spooky forest
--Polished eye valley generation to prevent walls from being where they arent supposed to, generating behind structures, ect
+-Increased the growth rate of yellow glowshroom trees both during world generation and in-game
 
 Miscellaneous Changes:
 -Terraria's fertilizer now works with spooky mod trees (Includes custom trees too)
 -Exposed nerve tile now has a glowing outline to make it easier to find
+-Glowshroom related tiles now have improved glowing colors
 -Being nearby little eye now lowers spawn rates
+-Bloom plants no longer get destroyed by water
 -Removed random lightning flash/sounds in the swampy cemetery
 -Reduced graveyard desaturation effect in the swampy cemetery a little bit
 -Thrown bile glob no longer has gravity and travels in a straight line
@@ -125,6 +139,7 @@ Bug, Issue, and Oversight Fixes:
 -Biothrusters hovering not working if you were wearing a different pair of wings in your vanity and moving you upward super slowly instead of moving you in a straight line with no vertical change
 -Flesh bolsters not dropping living arteries after orro-boro have been defeated
 -Little eye randomly disappearing for some players
+-Terrazinosaurus arm teleporting the player out of the world
 
 Multiplayer Fixes:
 -Bile glob not properly syncing the egg incursion time reduction across all clients

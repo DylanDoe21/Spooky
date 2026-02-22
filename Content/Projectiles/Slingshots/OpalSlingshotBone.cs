@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Slingshots
 {
     public class OpalSlingshotBone : ModProjectile
@@ -13,6 +15,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 		public override void SetStaticDefaults()
         {
 			Main.projFrames[Projectile.type] = 3;
+			ProjectileGlobal.IsSlingshotAmmoProj[Projectile.type] = true;
         }
 
         public override void SetDefaults()

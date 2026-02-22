@@ -42,7 +42,7 @@ namespace Spooky.Content.Projectiles.Catacomb
             return false;
         }
 
-		public override void AI()
+        public override void AI()
 		{
             Player player = Main.player[Projectile.owner];
 
@@ -72,90 +72,104 @@ namespace Spooky.Content.Projectiles.Catacomb
                 Projectile.rotation = direction.ToRotation() + 1.57f * (float)Projectile.direction;
             }
 
-            Projectile.position = new Vector2(player.MountedCenter.X - 1 - Projectile.width / 2, player.MountedCenter.Y - Projectile.height / 2);
+            player.itemRotation = Projectile.rotation;
 
-			if (player.channel && Projectile.ai[2] == 0) 
+            player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+
+            switch (Projectile.frame)
+            {
+                case 0:
+                {
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
+                    break;
+                }
+                case 1:
+                {
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.ThreeQuarters, player.itemRotation);
+                    break;
+                }
+                case 2:
+                {
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
+                    break;
+                }
+                case 3:
+                {
+                    player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
+                    break;
+                }
+            }
+
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 2 - Projectile.height / 2);
+
+            if (direction.X > 0) 
+            {
+                player.direction = 1;
+            }
+            else 
+            {
+                player.direction = -1;
+            }
+
+			if (Projectile.frame <= 1)
             {
                 Projectile.timeLeft = 20;
 
-                player.itemRotation = Projectile.rotation;
-                player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-                
-                switch (Projectile.frame)
-                {
-                    case 0:
-                    {
-                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.itemRotation);
-                        break;
-                    }
-                    case 1:
-                    {
-                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.ThreeQuarters, player.itemRotation);
-                        break;
-                    }
-                    case 2:
-                    {
-                        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, player.itemRotation);
-                        break;
-                    }
-                }
-
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime && Projectile.frame < 2)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3)
                 {
                     Projectile.frame++;
 
                     Projectile.localAI[0] = 0;
                 }
-
-                if (direction.X > 0) 
-                {
-					player.direction = 1;
-				}
-				else 
-                {
-					player.direction = -1;
-				}
 			}
 			else 
             {
+                Projectile.frame = 2;
+
                 if (Projectile.timeLeft >= 19)
                 {
-                    SaveRotation = Projectile.rotation;
-
-                    //set ai[2] to 1 so it cannot shoot again
-                    Projectile.ai[2] = 1;
-
-                    float VolumePitch = Projectile.frame == 2 ? 0f : (Projectile.frame == 1 ? 0.33f : 0.66f);
-                    SoundEngine.PlaySound(SoundID.Item5 with { Pitch = SoundID.Item5.Pitch - VolumePitch }, Projectile.Center);
-                    SoundEngine.PlaySound(FlySound, Projectile.Center);
-
-                    int MaxProjectiles = Projectile.frame == 2 ? 6 : (Projectile.frame == 1 ? 3 : 1);
+                    SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
 
                     if (Projectile.owner == Main.myPlayer)
                     {
+                        int TypeToShoot = -1;
+			            player.PickAmmo(ItemGlobal.ActiveItem(player), out TypeToShoot, out _, out _, out _, out _);
+
+                        if (TypeToShoot == ProjectileID.WoodenArrowFriendly)
+                        {
+                            TypeToShoot = ModContent.ProjectileType<DaffodilBowFly>();
+                        }
+
                         Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
                         ShootSpeed.Normalize();
+                        ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
 
-                        ShootSpeed *= Projectile.frame == 2 ? 16 : (Projectile.frame == 1 ? 13 : 10);
-
-                        for (int numProjectiles = 0; numProjectiles < MaxProjectiles; numProjectiles++)
+                        for (int numProjs = 0; numProjs < 5; numProjs++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X + Main.rand.Next(-5, 6), 
-                            ShootSpeed.Y + Main.rand.Next(-5, 6), ModContent.ProjectileType<DaffodilBowFly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(22));
+
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, TypeToShoot, Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                     }
                 }
 
-                Projectile.frame = 3;
-                Projectile.rotation = SaveRotation;
-                player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, SaveRotation);
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Quarter, SaveRotation);
+                if (Projectile.timeLeft < 5)
+                {
+                    if (!player.channel || !player.HasAmmo(ItemGlobal.ActiveItem(player)))
+                    {
+                        Projectile.Kill();
+                    }
+                    else
+                    {
+                        Projectile.frame = 0;
+                    }
+                }
 			}
 
             player.heldProj = Projectile.whoAmI;
             player.SetDummyItemTime(2);
         }
-	}
+    }
 }

@@ -8,6 +8,7 @@ using Spooky.Content.Buffs.Debuff;
 using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Projectiles.Blooms;
+using Spooky.Content.Projectiles.Slingshots;
 using Spooky.Content.Tiles.Cemetery.Tree;
 using Spooky.Content.Tiles.Minibiomes.Ocean.Tree;
 using Spooky.Content.Tiles.Minibiomes.Vegetable.Tree;
@@ -23,9 +24,27 @@ namespace Spooky.Core
 
 		public bool SpongeAbsorbAttempt = false;
 
+		//ProjectileID set for slingshot ammo projectiles since they will spawn funny effects and play sounds on hit
+		public static bool[] IsSlingshotAmmoProj = ProjectileID.Sets.Factory.CreateBoolSet();
+
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Player player = Main.player[projectile.owner];
+
+			//slingshot cartoon hit effects
+			if (IsSlingshotAmmoProj[projectile.type])
+			{
+				if (hit.Crit)
+				{
+					Screenshake.ShakeScreenWithIntensity(projectile.Center, 2f, 350f);
+					Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SlingshotHitCrit>(), 0, 0f, player.whoAmI);
+				}
+				else
+				{
+					Screenshake.ShakeScreenWithIntensity(projectile.Center, 1f, 350f);
+					Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SlingshotHit>(), 0, 0f, player.whoAmI, Main.rand.Next(0, 3));
+				}
+			}
 
 			//creepy candle makes magic projectiles inflict on fire
 			if (player.GetModPlayer<SpookyPlayer>().MagicCandle && projectile.DamageType == DamageClass.Magic)
@@ -82,7 +101,8 @@ namespace Spooky.Core
 
 			if (player.GetModPlayer<BloomBuffsPlayer>().VegetableEggplantPaint && projectile.velocity != Vector2.Zero && projectile.DamageType == DamageClass.Ranged && Main.GameUpdateCount % 10 == 0)
 			{
-				Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<EgplantPaint>(), projectile.damage / 3, 0f, Main.LocalPlayer.whoAmI, Main.rand.Next(0, 5));
+				Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, 
+				ModContent.ProjectileType<EgplantPaint>(), projectile.damage / 3, 0f, player.whoAmI, Main.rand.Next(0, 5));
 			}
 
 			//minions inflict toxic and have toxic cloud dusts with the hazmat armor set

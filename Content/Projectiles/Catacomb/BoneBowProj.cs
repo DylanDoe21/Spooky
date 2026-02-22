@@ -51,7 +51,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -132,12 +132,19 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                     if (Projectile.owner == Main.myPlayer)
                     {
-                        Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= 18;
+                        int TypeToShoot = -1;
+			            player.PickAmmo(ItemGlobal.ActiveItem(player), out TypeToShoot, out _, out _, out _, out _);
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<BoneBowArrow>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        if (TypeToShoot == ProjectileID.WoodenArrowFriendly)
+                        {
+                            TypeToShoot = ModContent.ProjectileType<BoneBowArrow>();
+                        }
+
+                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
+
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, TypeToShoot, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
 
@@ -149,7 +156,6 @@ namespace Spooky.Content.Projectiles.Catacomb
                     }
                     else
                     {
-                        player.PickAmmo(ItemGlobal.ActiveItem(player), out _, out _, out _, out _, out _);
                         Projectile.frame = 0;
                     }
                 }

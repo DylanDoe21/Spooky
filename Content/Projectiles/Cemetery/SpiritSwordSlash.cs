@@ -29,10 +29,12 @@ namespace Spooky.Content.Projectiles.Cemetery
 			SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
 			float CurrentAI = Projectile.localAI[0] / Projectile.ai[1];
 			float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
-			Color SlashColor1 = Color.Lerp(Color.DarkViolet, Color.MediumPurple, Intensity);
-			Color SlashColor2 = Color.Lerp(Color.DarkViolet, Color.Indigo, Intensity);
-            Color SlashColor3 = Color.Lerp(Color.DarkViolet, Color.Purple, Intensity);
-            Color SlashColor4 = Color.Lerp(Color.DarkViolet, Color.DarkViolet, Intensity);
+            Color color1 = new Color(135, 121, 185);
+            Color color2 = new Color(91, 67, 132);
+			Color SlashColor1 = Color.Lerp(color2, color2, Intensity);
+			Color SlashColor2 = Color.Lerp(color2, color2, Intensity);
+            Color SlashColor3 = Color.Lerp(color1, color1, Intensity);
+            Color SlashColor4 = Color.Lerp(color1, color1, Intensity);
 
             //these are the slash textures themselves
             Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation + Projectile.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - CurrentAI), origin, Scale, effects, 0f);
@@ -43,17 +45,17 @@ namespace Spooky.Content.Projectiles.Cemetery
             //draw extra lines on top of each slash
             Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), Color.DarkOrange * 0.6f * Intensity, Projectile.rotation + Projectile.ai[0] * 0.01f, origin, Scale, effects, 0f);
 			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), Color.Orange * 0.5f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.05f, origin, Scale * 0.8f, effects, 0f);
-			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), Color.Gold * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.6f, effects, 0f);
+			Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)ProjTexture.Frame(1, 2, 0, 1), Color.Orange * 0.4f * Intensity, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, Scale * 0.6f, effects, 0f);
 			
             //draw star sparkle and trail on top of the slashes
             for (float Repeats = 0f; Repeats < 8f; Repeats += 1f) 
             {
 				float Fade = Projectile.rotation + Projectile.ai[0] * Repeats * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(CurrentAI, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0];
 				Vector2 drawpos = vector + Fade.ToRotationVector2() * ((float)ProjTexture.Width() * 0.5f - 6f) * Scale * 1.02f;
-				DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos, Color.Gold * Intensity, Color.Gold * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, Fade, new Vector2(0f, Utils.Remap(CurrentAI, 0f, 1f, 3f, 0f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
+				DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos, Color.Orange * Intensity, Color.Orange * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, Fade, new Vector2(0f, Utils.Remap(CurrentAI, 0f, 1f, 3f, 0f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
 			
                 Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(CurrentAI, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0]).ToRotationVector2() * ((float)ProjTexture.Width() * 0.5f - 4f) * Scale;
-			    DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos2, Color.Gold * Intensity, Color.Gold * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(CurrentAI, 0f, 1f, 4f, 1f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
+			    DrawPrettyStarSparkle(Projectile.Opacity, (SpriteEffects)0, drawpos2, Color.Orange * Intensity, Color.Orange * Intensity, CurrentAI, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(CurrentAI, 0f, 1f, 4f, 1f)) * Scale * 0.75f, Vector2.One * Scale * 0.75f);
             }
 
             return false;

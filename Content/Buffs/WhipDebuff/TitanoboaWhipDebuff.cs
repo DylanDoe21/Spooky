@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spooky.Content.Buffs.WhipDebuff
@@ -11,6 +12,7 @@ namespace Spooky.Content.Buffs.WhipDebuff
 		public override void SetStaticDefaults()
 		{
 			Main.debuff[Type] = true;
+			BuffID.Sets.IsATagBuff[Type] = true;
 		}
     }
 }

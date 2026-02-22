@@ -34,9 +34,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            r = 255f / 450f;
-            g = 185f / 450f;
-            b = 0f;
+            float divide = 400f;
+
+            r = 255f / divide;
+            g = 186f / divide;
+            b = 0f / divide;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

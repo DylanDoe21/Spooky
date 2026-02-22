@@ -49,9 +49,11 @@ namespace Spooky.Content.Tiles.SpookyBiome.Tree
             //create light at the top of the tree
             if (Framing.GetTileSafely(i, j).TileFrameX == 36)
 			{
-                r = 255f / 450f;
-                g = 185f / 450f;
-                b = 0f;
+                float divide = 350f;
+
+                r = 255f / divide;
+                g = 186f / divide;
+                b = 0f / divide;
             }
         }
 

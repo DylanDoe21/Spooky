@@ -6,10 +6,14 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Slingshots
 {
     public class BouncyBallProj : ModProjectile
     {
+		public override string Texture => "Spooky/Content/Items/Slingshots/Ammo/BouncyBall";
+
 		int Bounces = 0;
 
         bool runOnce = true;
@@ -19,14 +23,15 @@ namespace Spooky.Content.Projectiles.Slingshots
 
         public override void SetStaticDefaults()
 		{
+			ProjectileGlobal.IsSlingshotAmmoProj[Projectile.type] = true;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
 		
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 10;
+            Projectile.width = 14;
+            Projectile.height = 14;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
@@ -140,21 +145,5 @@ namespace Spooky.Content.Projectiles.Slingshots
 				current = previousPosition;
 			}
         }
-
-		public override void OnKill(int timeLeft)
-		{
-			for (int numDust = 0; numDust < 10; numDust++)
-			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0f, -2f, 0, default, 1.5f);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].position.X += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
-				Main.dust[dust].position.Y += Main.rand.Next(-25, 25) * 0.05f - 1.5f;
-
-				if (Main.dust[dust].position != Projectile.Center)
-				{
-					Main.dust[dust].velocity = Projectile.DirectionTo(Main.dust[dust].position) * 2f;
-				}
-			}
-		}
     }
 }

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System;
 
 using Spooky.Content.Buffs.Minion;
 
@@ -25,7 +26,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Christmas
 
         public override void AI()
         {
-			Projectile.rotation += 0.25f * (float)Projectile.direction;
+			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
 
             Projectile.velocity.Y = Projectile.velocity.Y + 0.35f;
         }

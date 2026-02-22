@@ -32,6 +32,17 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
 			{
 				TarPitCactus.Grow(i, j - 1, 5, 12);
 			}
+
+			//grow giant cactuses
+			if (Main.rand.NextBool(20))
+			{
+				ushort[] Cactuses = new ushort[] { (ushort)ModContent.TileType<TarPitsGiantCactus1>(), (ushort)ModContent.TileType<TarPitsGiantCactus2>() };
+
+				ushort newObject = Main.rand.Next(Cactuses);
+
+				WorldGen.PlaceObject(i, j - 1, newObject);
+				NetMessage.SendObjectPlacement(-1, i, j - 1, newObject, 0, 0, -1, -1);
+			}
 		}
 	}
 }

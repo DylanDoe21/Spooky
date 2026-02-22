@@ -9,7 +9,8 @@ namespace Spooky.Content.Projectiles.Slingshots
 {
 	public class GourdSlingshotProj : SlingshotBaseProj
 	{
-		public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
+		public static readonly SoundStyle UseSound = new("Spooky/Content/Sounds/SlingshotDraw", SoundType.Sound);
+        public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
 
 		public override void AI()
 		{
@@ -35,7 +36,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 
 				if (Projectile.timeLeft >= 19)
 				{
-					SoundEngine.PlaySound(ShootSound, Projectile.Center);
+					SoundEngine.PlaySound(ShootSound, player.Center);
 
 					int Type = GetProjectileToShoot(player, ModContent.ProjectileType<MoldyPelletProj>());
 
@@ -57,9 +58,10 @@ namespace Spooky.Content.Projectiles.Slingshots
 					}
 					else
 					{
+						SoundEngine.PlaySound(UseSound, player.Center);
+
 						player.PickAmmo(ItemGlobal.ActiveItem(player), out _, out _, out _, out _, out _);
 						Projectile.frame = 0;
-						Projectile.ai[2] = 0;
 					}
 				}
 			}

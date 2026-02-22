@@ -368,6 +368,16 @@ namespace Spooky.Content.Generation
 						}
                     }
 
+					if (Main.tile[i, j].WallType == ModContent.WallType<JungleSoilWall>() || Main.tile[i, j].WallType == ModContent.WallType<JungleMossWall>())
+                    {
+						if (WorldGen.genRand.NextBool(150))
+						{
+							ushort[] Bulbs = new ushort[] { (ushort)ModContent.TileType<RadioactiveBulb>(), (ushort)ModContent.TileType<RadioactiveBulbSmall>() };
+
+							WorldGen.PlaceObject(i, j, WorldGen.genRand.Next(Bulbs));
+						}
+					}
+
                     if (Main.tile[i, j].TileType == ModContent.TileType<JungleVines>())
                     {
 						int[] ValidTiles = { ModContent.TileType<JungleSoilGrass>(), ModContent.TileType<JungleMoss>() };

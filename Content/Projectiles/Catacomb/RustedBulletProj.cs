@@ -111,7 +111,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, ModContent.ProjectileType<RustedBulletShrapnel>(), Projectile.damage / 2, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, speed, ModContent.ProjectileType<RustedBulletShrapnel>(), Projectile.damage / 2, 0f, Projectile.owner);
                 }
             }
         }

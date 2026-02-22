@@ -23,7 +23,7 @@ namespace Spooky.Content.Items.Slingshots
 
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 25;
 			Item.crit = 10;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
@@ -32,8 +32,8 @@ namespace Spooky.Content.Items.Slingshots
 			Item.channel = true;
 			Item.width = 26;
             Item.height = 38;
-			Item.useTime = 45;
-			Item.useAnimation = 45;
+			Item.useTime = 50;
+			Item.useAnimation = 50;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.White;

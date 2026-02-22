@@ -244,6 +244,23 @@ namespace Spooky.Content.Generation
 				{
 					if (Main.tile[i, j].TileType == ModContent.TileType<DesertSand>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>())
 					{
+						//grow cactuses
+						if (!Main.tile[i, j - 1].HasTile && Main.tile[i, j - 1].LiquidAmount <= 0)
+						{
+							if (WorldGen.genRand.NextBool(4) && CanPlaceCactus(i, j) && !Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
+							{
+								TarPitCactus.Grow(i, j - 1, 5, 9);
+							}
+							
+							//grow giant cactuses
+							if (WorldGen.genRand.NextBool(4))
+							{
+								ushort[] Cactuses = new ushort[] { (ushort)ModContent.TileType<TarPitsGiantCactus1>(), (ushort)ModContent.TileType<TarPitsGiantCactus2>() };
+
+								WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Cactuses));
+							}
+						}
+
 						//rusty waste tiles
 						if (WorldGen.genRand.NextBool(12))
 						{
@@ -283,16 +300,6 @@ namespace Spooky.Content.Generation
 							ushort[] Stalagmites = new ushort[] { (ushort)ModContent.TileType<DesertStalagmite1>(), (ushort)ModContent.TileType<DesertStalagmite2>(), (ushort)ModContent.TileType<DesertStalagmite3>() };
 
 							WorldGen.PlaceObject(i, j - 1, WorldGen.genRand.Next(Stalagmites));
-						}
-					}
-
-					if ((Main.tile[i, j].TileType == ModContent.TileType<DesertSand>() || Main.tile[i, j].TileType == ModContent.TileType<DesertSandstone>()) && 
-					!Main.tile[i, j - 1].HasTile && Main.tile[i, j - 1].LiquidAmount <= 0)
-					{
-						//grow cactuses
-						if (WorldGen.genRand.NextBool() && CanPlaceCactus(i, j) && !Main.tile[i, j].LeftSlope && !Main.tile[i, j].RightSlope && !Main.tile[i, j].IsHalfBlock)
-						{
-							TarPitCactus.Grow(i, j - 1, 5, 9);
 						}
 					}
 				}

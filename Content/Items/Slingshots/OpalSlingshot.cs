@@ -19,7 +19,6 @@ namespace Spooky.Content.Items.Slingshots
 		public override void SetStaticDefaults()
         {
 			ItemGlobal.IsSlingshot[Item.type] = true;
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpiritHandStaff>();
         }
 
         public override void SetDefaults()

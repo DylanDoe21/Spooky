@@ -32,7 +32,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.UseSound = UseSound;
 			Item.shoot = ModContent.ProjectileType<BoneBowProj>();
 			Item.useAmmo = AmmoID.Arrow;
-			Item.shootSpeed = 0f;
+			Item.shootSpeed = 18f;
 		}
 
 		public override bool CanUseItem(Player player)

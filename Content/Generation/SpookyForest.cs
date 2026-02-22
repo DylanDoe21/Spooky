@@ -469,7 +469,7 @@ namespace Spooky.Content.Generation
                     if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>()) &&
                     !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                     {
-                        if (WorldGen.genRand.NextBool(15))
+                        if (WorldGen.genRand.NextBool(25))
                         {
                             GrowGiantMushroom(X, Y, 5, 8);
                         }

@@ -9,6 +9,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 {
 	public class SlingshotBaseProj : ModProjectile
 	{
+        public static readonly SoundStyle UseSound = new("Spooky/Content/Sounds/SlingshotDraw", SoundType.Sound);
         public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
 
 		public override void SetStaticDefaults()
@@ -85,9 +86,10 @@ namespace Spooky.Content.Projectiles.Slingshots
 					}
 					else
 					{
+						SoundEngine.PlaySound(UseSound, player.Center);
+
 						player.PickAmmo(ItemGlobal.ActiveItem(player), out _, out _, out _, out _, out _);
 						Projectile.frame = 0;
-						Projectile.ai[2] = 0;
 					}
 				}
 			}

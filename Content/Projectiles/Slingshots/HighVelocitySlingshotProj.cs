@@ -9,7 +9,8 @@ namespace Spooky.Content.Projectiles.Slingshots
 {
 	public class HighVelocitySlingshotProj : SlingshotBaseProj
 	{
-		public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
+		public static readonly SoundStyle UseSound = new("Spooky/Content/Sounds/SlingshotDraw", SoundType.Sound);
+        public static readonly SoundStyle ShootSound = new("Spooky/Content/Sounds/SlingshotShoot", SoundType.Sound);
 
 		public override void AI()
 		{
@@ -38,16 +39,6 @@ namespace Spooky.Content.Projectiles.Slingshots
 					SoundEngine.PlaySound(ShootSound, Projectile.Center);
 
 					int Type = GetProjectileToShoot(player);
-					
-					int NumShotsForEffect = 3;
-					if (Projectile.ai[2] < NumShotsForEffect)
-					{
-						Projectile.ai[2]++;
-					}
-					else
-					{
-						Projectile.ai[2] = 0;
-					}
 
 					if (Projectile.owner == Main.myPlayer)
 					{
@@ -55,8 +46,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 						ShootSpeed.Normalize();
 						ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
 
-						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, Type, Projectile.damage, 
-						Projectile.knockBack, Projectile.owner, ai1: Projectile.ai[2] >= NumShotsForEffect ? 1 : 0);
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
 					}
 				}
 
@@ -68,6 +58,8 @@ namespace Spooky.Content.Projectiles.Slingshots
 					}
 					else
 					{
+						SoundEngine.PlaySound(UseSound, player.Center);
+
 						player.PickAmmo(ItemGlobal.ActiveItem(player), out _, out _, out _, out _, out _);
 						Projectile.frame = 0;
 					}

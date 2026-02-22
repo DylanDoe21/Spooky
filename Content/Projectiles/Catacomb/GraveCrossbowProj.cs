@@ -147,10 +147,15 @@ namespace Spooky.Content.Projectiles.Catacomb
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
 
-                        ShootSpeed *= Projectile.frame == 2 ? 25 : (Projectile.frame == 1 ? 15 : 10);
+                        float ItemSpeed = ItemGlobal.ActiveItem(player).shootSpeed;
+                        float ItemSpeedDivide = Projectile.frame == 2 ? 1 : (Projectile.frame == 1 ? 2 : 3);
+                        ShootSpeed *= ItemSpeed / ItemSpeedDivide;
+
+                        int TypeToShoot = -1;
+			            player.PickAmmo(ItemGlobal.ActiveItem(player), out TypeToShoot, out _, out _, out _, out _);
 
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<GraveCrossbowArrow>(), Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
+                        TypeToShoot, Projectile.damage + extraDamage, Projectile.knockBack, Projectile.owner);
                     }
                 }
 

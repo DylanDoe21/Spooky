@@ -724,9 +724,10 @@ BigBoneBow: {
 	DisplayName: Flower Shot
 	Tooltip:
 		'''
-		Left click to rapidly fire piercing roses that can slightly home on enemies
+		Left click to fire the bow normally
 		Right click to shoot a stationary thorn flower that inflicts thorn mark on enemies
 		Enemies with the thorn mark debuff will take more damage from this weapon
+		Converts wooden arrows into piercing roses than can slightly home in on enemies
 		10% chance to save ammo
 		'''
 }
@@ -778,8 +779,8 @@ DaffodilBow: {
 	DisplayName: Fly Shot
 	Tooltip:
 		'''
-		Hold down to charge the bow and shoot out flies
-		The longer you charge it, the more flies it shoots
+		A slow bow that fires out a spread of arrows
+		Converts wooden arrows into homing flies
 		'''
 }
 
@@ -826,8 +827,8 @@ GraveCrossbow: {
 	DisplayName: Old Hunter's Crossbow
 	Tooltip:
 		'''
-		Charge the crossbow to shoot a high velocity piercing arrow
-		The longer you charge it, the more the arrow's speed and damage increases
+		Can be held down to charge pull the crossbow back
+		The longer you hold down, the more the arrow's speed and damage increases
 		'''
 }
 
@@ -956,7 +957,7 @@ ThornStaff: {
 
 BoneBow: {
 	DisplayName: Bone Bender
-	Tooltip: Fires piercing bones that ignore 50% of enemy defense
+	Tooltip: Converts wooden arrows into piercing bones that ignore 50% of enemy defense
 }
 
 GodGun: {
@@ -3244,7 +3245,7 @@ GooChompers: {
 		'''
 		Increases critical strike chance by 10%
 		Hitting enemies may attach a set of goo jaws to deal additional damage
-		The goo jaws damage is the same as the damage of the hit that spawned it
+		The goo jaws deal the same amount of damage as the hit that spawned it
 		'''
 }
 
@@ -3293,11 +3294,11 @@ TotalOrganPackage: {
 	Tooltip:
 		'''
 		Grants the abilities of all organ accessories
-		Hitting enemies may attach a set of goo jaws to them to deal additional damage
 		10% increased critical strike chance
+		Hitting enemies may attach a set of goo jaws to them to deal additional damage
 		Chance on hitting nearby enemies to attach a life-stealing vein that damages them and heals you
 		Hitting enemies will sometimes give them a stomach ache, on death they will explode pink bubbles
-		While not using items you will charge up a kidney rock, at full charge attacking will launch the stone
+		While not using items you will charge up a kidney rock, at full charge attacking will launch stones
 		Press the Accessory Hotkey to cough up a lingering cloud of smoke
 		Enemies caught in the smoke will also cough smoke clouds randomly for a short time
 		Summons an ear companion that shoots out damaging sound blasts while you attack
@@ -3732,8 +3733,8 @@ FleshBow: {
 	DisplayName: Seer
 	Tooltip:
 		'''
-		Converts arrows into clots of blood
-		Every 10th shot will fire out a homing eye
+		Converts wooden arrows into clots of blood
+		Every 10 shots will fire out a homing eye
 		'''
 }
 
@@ -3769,8 +3770,8 @@ LivingFleshBow: {
 	DisplayName: Living Seer
 	Tooltip:
 		'''
-		Converts arrows into clots of blood
-		Every 20th shot will fire multiple homing eyes
+		Converts wooden arrows into clots of blood
+		Every 20 shots will fire out multiple homing eyes
 		'''
 }
 
@@ -4643,6 +4644,16 @@ OceanSandWallItem: {
 BroccoliSaplingItem: {
 	DisplayName: Broccoli Sapling
 	Tooltip: Plants broccoli saplings
+}
+
+RadioactiveBulbItem: {
+	DisplayName: Large Radioactive Bulb
+	Tooltip: ""
+}
+
+RadioactiveBulbSmallItem: {
+	DisplayName: Small Radioactive Bulb
+	Tooltip: ""
 }
 
 JungleMossItem: {
@@ -6333,6 +6344,11 @@ LivingFleshWallItem: {
 	Tooltip: ""
 }
 
+ScleraBlockItem: {
+	DisplayName: Sclera Block
+	Tooltip: ""
+}
+
 SpookyMushItem: {
 	DisplayName: Organic Mush
 	Tooltip: ""
@@ -6620,6 +6636,11 @@ BouncyBall: {
 	Tooltip: Bounces off of surfaces and enemies
 }
 
+EyeballAmmo: {
+	DisplayName: Flingable Eye
+	Tooltip: Can chase enemies close to it
+}
+
 MoldyPellet: {
 	DisplayName: Moldy Pellet
 	Tooltip: Creates nasty flies on impact
@@ -6635,9 +6656,23 @@ MossyPebble: {
 	Tooltip: ""
 }
 
+SeedAmmo: {
+	DisplayName: Pokey Seed Ball
+	Tooltip: Explodes into smaller seeds
+}
+
 BaseSlingshot: {
 	DisplayName: Base Slingshot
 	Tooltip: Testing Item
+}
+
+EyeSlingshot: {
+	DisplayName: Dualeye Slingshot
+	Tooltip:
+		'''
+		Only uses one ammo and fires out 2 projectiles at once
+		Converts Mossy Pebbles into mini orro-boros
+		'''
 }
 
 GourdSlingshot: {
@@ -6650,7 +6685,7 @@ HighVelocitySlingshot: {
 	Tooltip:
 		'''
 		A heavy slingshot that takes a while to pull back
-		Fires ammo at extremely high velocities
+		Fires ammo at extremely high speeds
 		'''
 }
 
@@ -6689,7 +6724,7 @@ StickyHand: {
 
 TarFlinger: {
 	DisplayName: Tar Flinger
-	Tooltip: Converts Mossy Pebbles into tar that slows all nearby enemies
+	Tooltip: Converts Mossy Pebbles into tar that damages and slows all nearby enemies
 }
 
 SlingshotAmmoTooltip: Used as ammo with slingshots

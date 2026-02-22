@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Items.Catacomb.Misc;
@@ -13,6 +14,8 @@ namespace Spooky.Content.Items.Catacomb
 {
 	public class DaffodilBow : ModItem
 	{
+		public static readonly SoundStyle UseSound = new("Spooky/Content/Sounds/CrossbowCharge", SoundType.Sound);
+
 		public override void SetDefaults()
 		{
 			Item.damage = 45;
@@ -23,15 +26,16 @@ namespace Spooky.Content.Items.Catacomb
 			Item.channel = true;
 			Item.width = 26;
 			Item.height = 38;
-			Item.useTime = 20;
-			Item.useAnimation = 20;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.buyPrice(gold: 15);
+			Item.UseSound = UseSound;
 			Item.shoot = ModContent.ProjectileType<DaffodilBowProj>();
 			Item.useAmmo = AmmoID.Arrow;
-			Item.shootSpeed = 0f;
+			Item.shootSpeed = 15f;
 		}
 
 		public override bool CanUseItem(Player player)

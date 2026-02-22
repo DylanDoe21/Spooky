@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
 using Spooky.Content.Buffs.Debuff;
 
 namespace Spooky.Content.Projectiles.Slingshots
@@ -17,6 +18,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 
         public override void SetStaticDefaults()
         {
+            ProjectileGlobal.IsSlingshotAmmoProj[Projectile.type] = true;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }

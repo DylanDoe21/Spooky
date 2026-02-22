@@ -14,7 +14,7 @@ namespace Spooky.Content.Biomes
     {
         public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.GetInstance<SpookyForestBG>();
 
-        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 250 ? ModContent.GetInstance<GlowshroomBackgroundStyle>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
+        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<TileCount>().glowshroomTiles >= 300 ? ModContent.GetInstance<GlowshroomBackgroundStyle>() : ModContent.GetInstance<SpookyUndergroundBackgroundStyle>();
 		//set the music to be consistent with vanilla's music priorities
 		public override int Music
 		{

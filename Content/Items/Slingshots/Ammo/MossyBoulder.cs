@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.Slingshots.Ammo
 			Item.knockBack = 4f;
             Item.maxStack = 9999;
 			Item.value = Item.buyPrice(silver: 1);
-			Item.rare = ItemRarityID.White; 
+			Item.rare = ItemRarityID.Orange;
 			Item.shoot = ModContent.ProjectileType<MossyBoulderProj>();
 		}
 

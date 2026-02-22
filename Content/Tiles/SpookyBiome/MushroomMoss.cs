@@ -46,9 +46,11 @@ namespace Spooky.Content.Tiles.SpookyBiome
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            r = 0.35f;
-            g = 0.2f;
-            b = 0.35f;
+            float divide = 500f;
+
+            r = 155f / divide;
+            g = 83f / divide;
+            b = 250f / divide;
         }
 
         public override void RandomUpdate(int i, int j)

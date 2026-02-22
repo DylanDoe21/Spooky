@@ -18,23 +18,9 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 			chainTexture = ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Minibiomes/Desert/DinoArmHookChain");
 		}
 
-		public override void SetDefaults() 
-        {
-			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
-		}
-
-		public override bool? CanUseGrapple(Player player) 
-        {
-			int hooksOut = 0;
-			foreach (var projectile in Main.ActiveProjectiles) 
-            {
-				if (projectile.owner == Main.myPlayer && projectile.type == Projectile.type) 
-                {
-					hooksOut++;
-				}
-			}
-
-			return hooksOut <= 2;
+		public override void SetDefaults()
+		{
+			Projectile.CloneDefaults(ProjectileID.SquirrelHook);
 		}
 
 		public override float GrappleRange() 
@@ -55,14 +41,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Desert
 		public override void GrapplePullSpeed(Player player, ref float speed) 
         {
 			speed = 12;
-		}
-
-		public override void GrappleTargetPoint(Player player, ref float grappleX, ref float grappleY) 
-        {
-			Vector2 dirToPlayer = Projectile.DirectionTo(player.Center);
-			float hangDist = 10f;
-			grappleX += dirToPlayer.X * hangDist;
-			grappleY += dirToPlayer.Y * hangDist;
 		}
 
 		public override bool? GrappleCanLatchOnTo(Player player, int x, int y)

@@ -6,6 +6,8 @@ using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Projectiles.Slingshots
 {
     public class MossyBoulderProj : ModProjectile
@@ -16,6 +18,11 @@ namespace Spooky.Content.Projectiles.Slingshots
 		Vector2[] trailLength = new Vector2[8];
 
         private static Asset<Texture2D> TrailTexture;
+
+		public override void SetStaticDefaults()
+		{
+			ProjectileGlobal.IsSlingshotAmmoProj[Projectile.type] = true;
+		}
 
         public override void SetDefaults()
         {
