@@ -25,7 +25,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
             Projectile.tileCollide = true;
             Projectile.ignoreWater = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 180;
 		}
 
         public override Color? GetAlpha(Color lightColor)
@@ -48,9 +48,8 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 			for (int k = 0; k < trailLength.Length; k++)
 			{
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
-				scale *= 1f;
 
-				Color color = Color.Green;
+				Color color = Color.Lerp(Color.Purple, Color.SkyBlue, scale);
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -67,7 +66,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.65f, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.5f, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -76,32 +75,13 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 			return true;
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			Projectile.ai[0]++;
-
-			return false;
-		}
-
         public override void AI()
         {
 			Projectile.rotation += Projectile.velocity.X * 0.1f;
 
-			if (Projectile.ai[0] > 0)
-            {
-                Projectile.velocity = Vector2.Zero;
-            }
-			else
+			if (Projectile.timeLeft <= 60)
 			{
-				Projectile.ai[1]++;
-				if (Projectile.ai[1] >= 50)
-				{
-					Projectile.velocity.Y += 0.3f;
-					if (Projectile.velocity.Y > 16f)
-					{
-						Projectile.velocity.Y = 16f;
-					}
-				}
+				Projectile.velocity *= 0.85f;
 			}
 
             if (runOnce)

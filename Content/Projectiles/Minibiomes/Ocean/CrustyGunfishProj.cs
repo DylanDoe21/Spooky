@@ -47,12 +47,10 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 			if (Projectile.ai[0] % 5 == 0 && player.HasAmmo(ItemGlobal.ActiveItem(player)))
 			{
-				SoundEngine.PlaySound(SoundID.Item95, Projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
 
-				int ProjType = ProjectileID.Bullet;
-				float Speed = 15f;
-				float knockBack = ItemGlobal.ActiveItem(player).knockBack;
-				player.PickAmmo(ItemGlobal.ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out _);
+				int TypeToShoot = -1;
+				player.PickAmmo(ItemGlobal.ActiveItem(player), out TypeToShoot, out _, out _, out _, out _);
 
 				Vector2 position = Projectile.Center;
 				Vector2 velocity = new Vector2(0, -15f).RotatedBy(Projectile.rotation);
@@ -65,7 +63,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 					Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(35));
 
 					Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, newVelocity, 
-					ModContent.ProjectileType<MudSplatter>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+					TypeToShoot, Projectile.damage, Projectile.knockBack, Projectile.owner);
 
 					position -= muzzleOffset;
 				}

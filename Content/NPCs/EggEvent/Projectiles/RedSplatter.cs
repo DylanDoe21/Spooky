@@ -9,7 +9,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class RedSplatter : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
+        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
 
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[8];
@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.5f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;

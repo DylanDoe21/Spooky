@@ -4,30 +4,31 @@ using Terraria.ModLoader;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
-namespace Spooky.Content.Projectiles.Minibiomes.Ocean
+namespace Spooky.Content.NPCs.Cemetery.Projectiles
 {
-    public class MudSplatter : ModProjectile
+    public class HaroldBolt : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
+        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
+
+		int target;
 
         bool runOnce = true;
-		Vector2[] trailLength = new Vector2[8];
+		Vector2[] trailLength = new Vector2[6];
 
 		private static Asset<Texture2D> ProjTexture;
 		
         public override void SetDefaults()
         {
-			Projectile.width = 12;
-            Projectile.height = 12;
-			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.width = 18;
+            Projectile.height = 18;
 			Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            Projectile.timeLeft = 45;
+            Projectile.ignoreWater = false;
+            Projectile.timeLeft = 300;
             Projectile.alpha = 255;
-			Projectile.penetrate = 1;
 		}
 
         public override bool PreDraw(ref Color lightColor)
@@ -47,7 +48,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 				scale *= 1f;
 
-				Color color = Color.SaddleBrown.MultiplyRGBA(lightColor);
+				Color color = Color.White;
                 color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)
@@ -65,7 +66,7 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 1.2f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.5f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -74,10 +75,18 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 			return true;
 		}
 
+		public override bool? CanDamage()
+        {
+			return false;
+        }
+
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
         public override void AI()
         {
-            Projectile.velocity.Y += 0.08f;
-
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
             if (runOnce)
@@ -86,7 +95,6 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 				{
 					trailLength[i] = Vector2.Zero;
 				}
-
 				runOnce = false;
 			}
 
@@ -100,12 +108,26 @@ namespace Spooky.Content.Projectiles.Minibiomes.Ocean
 
 			if (Main.rand.NextBool(3))
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Mud, 0f, -2f, 0, default, 1f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SilverFlame, 0f, -2f, 0, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity = -Projectile.velocity * 0.5f;
                 Main.dust[dust].position.X += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
                 Main.dust[dust].position.Y += Main.rand.Next(-50, 50) * 0.05f - 1.5f;
             }
+
+			Projectile.ai[1]++;
+			if (Projectile.ai[1] < 80)
+			{
+				Projectile.velocity.Y = Projectile.velocity.Y - 0.5f;
+			}
+
+			if (Projectile.ai[1] >= 80)
+			{	
+				Player player = Main.player[Player.FindClosest(Projectile.Center, Projectile.width, Projectile.height)];
+					
+				Vector2 desiredVelocity = Projectile.DirectionTo(player.Center) * 8;
+				Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
+			}
 		}
     }
 }

@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using System;
 
 using Spooky.Core;
 
@@ -52,7 +53,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Vector2 ProjDirection = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
+                Vector2 ProjDirection = Main.MouseWorld - Projectile.Center;
                 ProjDirection.Normalize();
                 Projectile.ai[0] = ProjDirection.X;
 				Projectile.ai[1] = ProjDirection.Y;
@@ -110,77 +111,63 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 player.direction = -1;
             }
 
-			if (player.channel) 
+			if (Projectile.frame <= 2)
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 20;
 
                 Projectile.localAI[0]++;
+                int animationSpeed = Math.Min((int)Projectile.localAI[0] / 40, 3);
+                int initialShootDelay = ItemGlobal.ActiveItem(player).useTime / 3;
+                int shootDelayAdjustmentRate = 5;
 
-                if (Projectile.localAI[0] >= (ItemGlobal.ActiveItem(player).useTime / 3) - ExtraUseTime && Projectile.frame < 3)
+                Projectile.localAI[1]++;
+                if (Projectile.localAI[1] >= initialShootDelay - (shootDelayAdjustmentRate * animationSpeed))
                 {
                     Projectile.frame++;
-
-                    Projectile.localAI[0] = 0;
-                }
-
-                if (Projectile.frame > 2)
-                {
-                    Projectile.localAI[1]++;
-
-                    if (Projectile.localAI[2] == 0)
-                    {
-                        //set ai[2] to 1 so it cannot shoot again
-                        Projectile.localAI[2] = 1;
-                        
-                        SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
-
-                        int ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
-
-                        float Speed = 20f;
-
-                        float knockBack = ItemGlobal.ActiveItem(player).knockBack;
-
-                        player.PickAmmo(ItemGlobal.ActiveItem(player), out ProjType, out Speed, out Projectile.damage, out knockBack, out AmmoID.Arrow);
-
-                        //ProjType must be reset so it shoots the correct projectile
-                        ProjType = ModContent.ProjectileType<TarantulaHawkArrow>();
-                        knockBack = player.GetWeaponKnockback(ItemGlobal.ActiveItem(player), knockBack);
-                        
-                        if (Projectile.owner == Main.myPlayer)
-                        {
-                            Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
-                            ShootSpeed.Normalize();
-                            ShootSpeed *= 20;
-
-                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y,
-                            ProjType, Projectile.damage, knockBack, Projectile.owner);
-                        }
-                    }
-                }
-
-                //reset the ai values so the bow shoots again
-                if (Projectile.localAI[1] >= 20)
-                {
-                    if (ExtraUseTime < (ItemGlobal.ActiveItem(player).useTime / 3) - 2)
-                    {
-                        ExtraUseTime++;
-                    }
-
-                    Projectile.frame = 0;
-                    Projectile.localAI[0] = 0;
                     Projectile.localAI[1] = 0;
-                    Projectile.localAI[2] = 0;
+                }
+			}
+			else 
+            {
+                Projectile.frame = 3;
+
+                if (Projectile.timeLeft >= 19)
+                {
+                    SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
+
+                    if (Projectile.owner == Main.myPlayer)
+                    {
+                        int TypeToShoot = -1;
+			            player.PickAmmo(ItemGlobal.ActiveItem(player), out TypeToShoot, out _, out _, out _, out _);
+
+                        if (TypeToShoot == ProjectileID.WoodenArrowFriendly)
+                        {
+                            TypeToShoot = ModContent.ProjectileType<TarantulaHawkArrow>();
+                        }
+
+                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                        ShootSpeed.Normalize();
+                        ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
+
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, TypeToShoot, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    }
                 }
 
-                //kill this holdout projectile if the player has no more arrows
-                if (!player.HasAmmo(ItemGlobal.ActiveItem(player)))
+                if (Projectile.timeLeft < 5)
                 {
-                    Projectile.Kill();
+                    if (!player.channel || !player.HasAmmo(ItemGlobal.ActiveItem(player)))
+                    {
+                        Projectile.Kill();
+                    }
+                    else
+                    {
+                        Projectile.frame = 0;
+                    }
                 }
 			}
 
             player.heldProj = Projectile.whoAmI;
-            player.SetDummyItemTime(2);
+            player.SetDummyItemTime(2);   
         }
 	}
 }

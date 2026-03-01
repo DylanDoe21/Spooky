@@ -40,6 +40,11 @@ namespace Spooky.Content.Projectiles.SpiderCave
 		
 		public override void AI()
         {
+            if (Projectile.timeLeft <= 60)
+            {
+                Projectile.alpha += 5;
+            }
+
             if (IsStickingToTarget) 
             {
 				Projectile.ignoreWater = true;

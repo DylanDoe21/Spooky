@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.UseSound = SoundID.Item36;
 			Item.shoot = ModContent.ProjectileType<RustedBulletProj>();
 			Item.useAmmo = AmmoID.Bullet;
-			Item.shootSpeed = 12f;
+			Item.shootSpeed = 16f;
 		}
 
 		public override Vector2? HoldoutOffset()
@@ -44,7 +44,15 @@ namespace Spooky.Content.Items.Catacomb
                 position += muzzleOffset;
             }
 
-			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<RustedBulletProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			int TypeToShoot = -1;
+			player.PickAmmo(Item, out TypeToShoot, out _, out _, out _, out _);
+
+			if (TypeToShoot == ProjectileID.Bullet)
+			{
+				TypeToShoot = ModContent.ProjectileType<RustedBulletProj>();
+			}
+
+			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, TypeToShoot, damage, knockback, player.whoAmI);
 
 			return false;
 		}

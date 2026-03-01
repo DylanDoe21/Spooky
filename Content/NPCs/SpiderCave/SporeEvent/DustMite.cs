@@ -94,6 +94,15 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
             NPC.spriteDirection = NPC.direction;
 
             NPC.rotation = NPC.velocity.Y * 0.01f;
+
+            if (NPC.wet)
+            {
+                NPC.aiStyle = 1;
+            }
+            else
+            {
+                NPC.aiStyle = 66;
+            }
                 
             NPC.ai[0]++;
             if (NPC.ai[0] >= 2)

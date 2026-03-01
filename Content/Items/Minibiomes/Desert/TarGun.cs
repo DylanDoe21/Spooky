@@ -45,7 +45,15 @@ namespace Spooky.Content.Items.Minibiomes.Desert
                 position += muzzleOffset;
             }
 
-			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<TarGunBlob>(), damage, knockback, player.whoAmI);
+            int TypeToShoot = -1;
+			player.PickAmmo(Item, out TypeToShoot, out _, out _, out _, out _);
+
+			if (TypeToShoot == ProjectileID.Bullet)
+			{
+                TypeToShoot = ModContent.ProjectileType<TarGunBlob>();
+            }
+
+			Projectile.NewProjectile(source, position, velocity, TypeToShoot, damage, knockback, player.whoAmI);
 
 			return false;
 		}

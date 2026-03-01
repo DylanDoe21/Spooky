@@ -864,7 +864,7 @@ NineTails: {
 
 OldRifle: {
 	DisplayName: Old Hunter's Rifle
-	Tooltip: Shoots out rusty bullets that split on impact
+	Tooltip: Converts basic bullets into rusty bullets that split on impact
 }
 
 PandoraAmalgam: {
@@ -1873,7 +1873,7 @@ TarFeatherTome: {
 
 TarGun: {
 	DisplayName: HAK-2r
-	Tooltip: Converts bullets into tar blobs
+	Tooltip: Converts regular bullets into tar blobs
 }
 
 TarSurpriseEgg: {
@@ -1923,8 +1923,7 @@ CrustyGunfish: {
 	DisplayName: Crusty Gunfish
 	Tooltip:
 		'''
-		Converts bullets into a spray of dirty mud
-		Every 5 uses you will throw the gun, causing it to shoot mud everywhere
+		Every 5 uses you will throw the gun, causing it to shoot everywhere
 		It will still use bullets every time it shoots when in the air
 		'For some reason, this aeon-old creature smells like speculoos'
 		'''
@@ -2083,7 +2082,7 @@ CarrotWand: {
 
 CeleryGun: {
 	DisplayName: Celery Blaster
-	Tooltip: Converts bullets into celery
+	Tooltip: Converts regular bullets into celery
 }
 
 CornStaff: {
@@ -2615,7 +2614,7 @@ MiteSword: {
 }
 
 MiteTome: {
-	DisplayName: Tome of Smite-ing
+	DisplayName: Tome of Smiteing
 	Tooltip:
 		'''
 		Cast out mite lighting to smite enemies
@@ -2686,7 +2685,7 @@ SphiderFlail: {
 
 SpiderCrossbow: {
 	DisplayName: Poison Crossbow
-	Tooltip: Converts arrows into piercing poisonous darts
+	Tooltip: Converts wooden arrows into piercing poisonous darts
 }
 
 SpiderEggCannon: {
@@ -2735,7 +2734,7 @@ SpiderWarRemote: {
 	DisplayName: Fly Carpetbomber
 	Tooltip:
 		'''
-		Left click to call down a small low damage joro fly that can rapidly hit individual enemies
+		Left click to call down low damage joro flies that rapidly hit individual enemies
 		Right click to call down explosive joros that deal massive damage to all surrounding enemies
 		Explosive joro minions take up 2 minion slots each
 		'''
@@ -2773,7 +2772,7 @@ TarantulaHawkBow: {
 	DisplayName: Spider-Wing Longbow
 	Tooltip:
 		'''
-		Shoots winged arrows that can slightly track enemies
+		Converts wooden arrows into winged arrows that chase enemies
 		The longer you use it, the faster it shoots
 		'''
 }
@@ -3074,7 +3073,11 @@ SkullWispStaff: {
 
 SpookFishronBow: {
 	DisplayName: Firestorm Monsoon
-	Tooltip: Fires out a barrage of homing greek fire bolts
+	Tooltip:
+		'''
+		Fires out a barrage of arrows
+		Converts wooden arrows into homing firebolts 
+		'''
 }
 
 SpookFishronFlail: {
@@ -6661,6 +6664,11 @@ SeedAmmo: {
 	Tooltip: Explodes into smaller seeds
 }
 
+SkullAmmo: {
+	DisplayName: Slingshot Skull
+	Tooltip: ""
+}
+
 BaseSlingshot: {
 	DisplayName: Base Slingshot
 	Tooltip: Testing Item
@@ -6687,6 +6695,11 @@ HighVelocitySlingshot: {
 		A heavy slingshot that takes a while to pull back
 		Fires ammo at extremely high speeds
 		'''
+}
+
+MiteSlingshot: {
+	DisplayName: Festering Slingshot
+	Tooltip: Converts Mossy Pebbles into mites that bounce and chase enemies
 }
 
 OpalSlingshot: {

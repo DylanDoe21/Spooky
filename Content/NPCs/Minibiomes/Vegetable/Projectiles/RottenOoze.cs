@@ -57,9 +57,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles
 		{
             if (Projectile.ai[0] == 0)
             {
-                //SoundEngine.PlaySound(SplatSound, Projectile.Center);
-
-                Projectile.velocity.X *= 0;
+                Projectile.velocity.X = 0;
 
                 Projectile.ai[0]++;
             }
@@ -86,7 +84,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Vegetable.Projectiles
                 if (Main.rand.NextBool(10))
 				{
 					int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.YellowGreen * 0.5f, Main.rand.NextFloat(0.1f, 0.2f));
-					Main.dust[DustEffect].position.Y += -10 * 0.05f - 1.5f;
 					Main.dust[DustEffect].velocity.Y = -1;
 					Main.dust[DustEffect].alpha = 125;
 				}

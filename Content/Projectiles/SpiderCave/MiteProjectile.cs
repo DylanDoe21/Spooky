@@ -234,7 +234,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                     break;
                 }
-                //move in a wave pattern
+                //basic behavior
                 case 3:
                 {
                     Projectile.tileCollide = true;

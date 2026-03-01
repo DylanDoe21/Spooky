@@ -32,17 +32,17 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.UseSound = UseSound;
 			Item.shoot = ModContent.ProjectileType<TarantulaHawkBowProj>();
 			Item.useAmmo = AmmoID.Arrow;
-			Item.shootSpeed = 0f;
+			Item.shootSpeed = 20f;
 		}
 
 		public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[ModContent.ProjectileType<TarantulaHawkBowProj>()] < 1;
+			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, ModContent.ProjectileType<TarantulaHawkBowProj>(), damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, Item.shoot, damage, knockback, player.whoAmI);
 
 			return false;
 		}

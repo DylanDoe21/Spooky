@@ -324,6 +324,12 @@ namespace Spooky.Core
 							pool.Add(ModContent.NPCType<FeralRat1>(), 2);
 							pool.Add(ModContent.NPCType<FeralRat2>(), 2);
 						}
+
+						//do not spawn triplets if they already exist
+						if (Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<Harold>()))
+						{
+							pool.Add(ModContent.NPCType<Harold>(), 0.35f);
+						}
 					}
                 }
 			}
@@ -747,44 +753,54 @@ namespace Spooky.Core
 			{ 
                 pool.Clear();
 
-				int[] NoseTempleTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(), ModContent.TileType<NoseTempleBrickRed>(),
-				ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(), ModContent.TileType<NoseTempleFancyBrickRed>(),
-				ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(), ModContent.TileType<NoseTemplePlatformRed>() };
-
-				//do not allow eye valley enemies to spawn inside of the nose temple
-				if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
+				//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
+				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					//quest miniboss
-					if (!spawnInfo.Water && spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem4>()) && !NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()))
-					{
-						pool.Add(ModContent.NPCType<EyeWizard>(), 3);
-					}
+					int[] NoseTempleTiles = { ModContent.TileType<NoseTempleBrickGray>(), ModContent.TileType<NoseTempleBrickGreen>(), ModContent.TileType<NoseTempleBrickPurple>(), ModContent.TileType<NoseTempleBrickRed>(),
+					ModContent.TileType<NoseTempleFancyBrickGray>(), ModContent.TileType<NoseTempleFancyBrickGreen>(), ModContent.TileType<NoseTempleFancyBrickPurple>(), ModContent.TileType<NoseTempleFancyBrickRed>(),
+					ModContent.TileType<NoseTemplePlatformGray>(), ModContent.TileType<NoseTemplePlatformGreen>(), ModContent.TileType<NoseTemplePlatformPurple>(), ModContent.TileType<NoseTemplePlatformRed>() };
 
-					pool.Add(ModContent.NPCType<EyeBat>(), 2);
-					pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<MrHandy>(), 2);
-					pool.Add(ModContent.NPCType<MrHandyFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<ManHole>(), 2);
-					pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.8f);
-					pool.Add(ModContent.NPCType<Tortumor>(), 2);
-					pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.8f);
-
-					//do not spawn mocling swarms if one exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<MoclingSwarm>()))
+					//do not allow eye valley enemies to spawn inside of the nose temple
+					if (!NoseTempleTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType))
 					{
-						pool.Add(ModContent.NPCType<MoclingSwarm>(), 1);
-					}
+						//quest miniboss
+						if (!spawnInfo.Water && spawnInfo.Player.HasItem(ModContent.ItemType<SummonItem4>()) && !NPC.AnyNPCs(ModContent.NPCType<EyeWizard>()))
+						{
+							pool.Add(ModContent.NPCType<EyeWizard>(), 3);
+						}
 
-					//do not spawn giant tortumors if one already exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
-					{
-						pool.Add(ModContent.NPCType<TortumorGiant>(), 0.7f);
-					}
+						pool.Add(ModContent.NPCType<EyeBat>(), 2);
+						pool.Add(ModContent.NPCType<EyeBatFleshy>(), 0.8f);
+						pool.Add(ModContent.NPCType<MrHandy>(), 2);
+						pool.Add(ModContent.NPCType<MrHandyFleshy>(), 0.8f);
+						pool.Add(ModContent.NPCType<ManHole>(), 2);
+						pool.Add(ModContent.NPCType<ManHoleFleshy>(), 0.8f);
+						pool.Add(ModContent.NPCType<Tortumor>(), 2);
+						pool.Add(ModContent.NPCType<TortumorFleshy>(), 0.8f);
 
-					//do not spawn giant fleshy tortumors if one already exists
-					if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
-					{
-						pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), 0.5f);
+						//do not spawn mocling swarms if one exists
+						if (!NPC.AnyNPCs(ModContent.NPCType<MoclingSwarm>()))
+						{
+							pool.Add(ModContent.NPCType<MoclingSwarm>(), 1);
+						}
+
+						//do not spawn giant tortumors if one already exists
+						if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiant>()))
+						{
+							pool.Add(ModContent.NPCType<TortumorGiant>(), 0.7f);
+						}
+
+						//do not spawn giant fleshy tortumors if one already exists
+						if (!NPC.AnyNPCs(ModContent.NPCType<TortumorGiantFleshy>()))
+						{
+							pool.Add(ModContent.NPCType<TortumorGiantFleshy>(), 0.5f);
+						}
+
+						//do not spawn triplets if they already exist
+						if (Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<TripletsBody>()))
+						{
+							pool.Add(ModContent.NPCType<TripletsBody>(), 0.35f);
+						}
 					}
 				}
             }
@@ -794,28 +810,32 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				if (spawnInfo.Water)
+				//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
+				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<Tarblimp>(), 5);
-					pool.Add(ModContent.NPCType<Tarrar>(), 5);
-				}
-				else
-				{
-					pool.Add(ModContent.NPCType<TarSlime1>(), 2);
-					pool.Add(ModContent.NPCType<TarSlime2>(), 2);
-					pool.Add(ModContent.NPCType<TarBlobSmall>(), 1);
-					pool.Add(ModContent.NPCType<Hydroraptor>(), 2);
-
-					if (Main.hardMode)
+					if (spawnInfo.Water)
 					{
-						pool.Add(ModContent.NPCType<OpalHandDino>(), 1);
-						pool.Add(ModContent.NPCType<OpalTarDinoSpawner>(), 2);
-						pool.Add(ModContent.NPCType<OpalTarSnail>(), 2);
-						pool.Add(ModContent.NPCType<TarSlimeSpiked>(), 2);
+						pool.Add(ModContent.NPCType<Tarblimp>(), 5);
+						pool.Add(ModContent.NPCType<Tarrar>(), 5);
+					}
+					else
+					{
+						pool.Add(ModContent.NPCType<TarSlime1>(), 2);
+						pool.Add(ModContent.NPCType<TarSlime2>(), 2);
+						pool.Add(ModContent.NPCType<TarBlobSmall>(), 1);
+						pool.Add(ModContent.NPCType<Hydroraptor>(), 2);
 
-						if (!NPC.AnyNPCs(ModContent.NPCType<OpalTarCrawlerBall>()) && !NPC.AnyNPCs(ModContent.NPCType<OpalTarCrawler>()))
+						if (Main.hardMode)
 						{
-							pool.Add(ModContent.NPCType<OpalTarCrawlerBall>(), 1);
+							pool.Add(ModContent.NPCType<OpalHandDino>(), 1);
+							pool.Add(ModContent.NPCType<OpalTarDinoSpawner>(), 2);
+							pool.Add(ModContent.NPCType<OpalTarSnail>(), 2);
+							pool.Add(ModContent.NPCType<TarSlimeSpiked>(), 2);
+
+							if (!NPC.AnyNPCs(ModContent.NPCType<OpalTarCrawlerBall>()) && !NPC.AnyNPCs(ModContent.NPCType<OpalTarCrawler>()))
+							{
+								pool.Add(ModContent.NPCType<OpalTarCrawlerBall>(), 1);
+							}
 						}
 					}
 				}
@@ -826,23 +846,27 @@ namespace Spooky.Core
 			{
 				pool.Clear();
 
-				pool.Add(ModContent.NPCType<HoppingPotato1>(), 1);
-				pool.Add(ModContent.NPCType<HoppingPotato2>(), 1);
-				pool.Add(ModContent.NPCType<HoppingPotato3>(), 1);
-				pool.Add(ModContent.NPCType<HoppingPotato4>(), 1);
-				pool.Add(ModContent.NPCType<OozeGarlic>(), 2);
-				pool.Add(ModContent.NPCType<RollingPepper>(), 2);
-				pool.Add(ModContent.NPCType<RottenCarrot>(), 2);
-				pool.Add(ModContent.NPCType<EggplantSpawner>(), 2);
-
-				if (Main.hardMode)
+				//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
+				if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 				{
-					pool.Add(ModContent.NPCType<CornMage1>(), 0.5f);
-					pool.Add(ModContent.NPCType<CornMage2>(), 0.5f);
+					pool.Add(ModContent.NPCType<HoppingPotato1>(), 1);
+					pool.Add(ModContent.NPCType<HoppingPotato2>(), 1);
+					pool.Add(ModContent.NPCType<HoppingPotato3>(), 1);
+					pool.Add(ModContent.NPCType<HoppingPotato4>(), 1);
+					pool.Add(ModContent.NPCType<OozeGarlic>(), 2);
+					pool.Add(ModContent.NPCType<RollingPepper>(), 2);
+					pool.Add(ModContent.NPCType<RottenCarrot>(), 2);
+					pool.Add(ModContent.NPCType<EggplantSpawner>(), 2);
 
-					if (!NPC.AnyNPCs(ModContent.NPCType<GhostPepper>()))
+					if (Main.hardMode)
 					{
-						pool.Add(ModContent.NPCType<GhostPepper>(), 1);
+						pool.Add(ModContent.NPCType<CornMage1>(), 0.5f);
+						pool.Add(ModContent.NPCType<CornMage2>(), 0.5f);
+
+						if (!NPC.AnyNPCs(ModContent.NPCType<GhostPepper>()))
+						{
+							pool.Add(ModContent.NPCType<GhostPepper>(), 1);
+						}
 					}
 				}
 			}

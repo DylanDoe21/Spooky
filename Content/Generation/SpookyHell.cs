@@ -337,13 +337,13 @@ namespace Spooky.Content.Generation
 
 			int LakeX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 : (XMiddle + BiomeEdge) / 2;
 
-			Point origin = new Point(LakeX, Main.maxTilesY - 80);
+			Point origin = new Point(LakeX, Main.maxTilesY - 90);
 			Vector2 center = origin.ToVector2() * 16f + new Vector2(8f);
 
 			float angle = MathHelper.Pi * 0.15f;
 			float otherAngle = MathHelper.PiOver2 - angle;
 
-			int InitialSize = Main.maxTilesX / 75;
+			int InitialSize = 85;
 			int lakeSize = InitialSize + (Main.maxTilesX / 180);
 			float actualSize = lakeSize * 16f;
 			float constant = actualSize * 2f / (float)Math.Sin(angle);
@@ -774,7 +774,7 @@ namespace Spooky.Content.Generation
 
             ///place little eye's house last so it doesnt get nuked by other structures
             int HouseX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
-            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 46, 45);
+            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 51, 48);
 
             //place walls after structures and stuff so that theres no random clusters of walls poking through after structure generation
             int extraClearStart = (GenVars.JungleX < Main.maxTilesX / 2) ? 50 : 0;
@@ -829,8 +829,8 @@ namespace Spooky.Content.Generation
 
                 if (StructureFile == "LittleEyeHouse")
                 {
-                    NPC.NewNPC(null, (startX - 14) * 16, (startY + 8) * 16, ModContent.NPCType<LittleEyeSleeping>());
-                    Flags.LittleEyePosition = new Vector2((startX - 14) * 16, (startY + 8) * 16);
+                    NPC.NewNPC(null, (startX - 8) * 16, (startY + 6) * 16, ModContent.NPCType<LittleEyeSleeping>());
+                    Flags.LittleEyePosition = new Vector2((startX - 8) * 16, (startY + 6) * 16);
                 }
 
                 if (StructureFile == "OrroboroNest")

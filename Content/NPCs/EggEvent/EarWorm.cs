@@ -230,13 +230,15 @@ namespace Spooky.Content.NPCs.EggEvent
 				//fade in and go up
 				if (NPC.ai[1] < 340)
 				{
-					NPC.ai[0] += 0.05f;
+					Vector2 ParentPosition = Parent.Center + new Vector2(0, -300);
+					Vector2 destination = ParentPosition + (MathHelper.TwoPi - MathHelper.PiOver2 + NPC.localAI[0]).ToRotationVector2() * 35f;
+					NPC.localAI[0] -= MathHelper.ToRadians(3f);
 
-					Vector2 offset = new Vector2(Parent.direction).RotatedBy((float)Math.PI * 20f * (NPC.ai[0] / 60f));
-					Vector2 GoTo = new Vector2(Parent.Center.X, Parent.Center.Y - 300) + offset * 15f;
-
-					Vector2 desiredVelocity = NPC.DirectionTo(GoTo) * 3;
-					NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+					if (NPC.Distance(destination) >= 10f)
+					{
+						Vector2 desiredVelocity = NPC.DirectionTo(destination) * 4;
+						NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
+					}
 
 					SaveRotation = NPC.rotation;
 
@@ -471,12 +473,14 @@ namespace Spooky.Content.NPCs.EggEvent
 						destinationX = 0f;
 						destinationY = 0f;
 
-						SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
+						SoundEngine.PlaySound(SoundID.Dig, NPC.Center);
+                    	SoundEngine.PlaySound(SoundID.NPCDeath12, NPC.Center);
 
-						for (int numDusts = 0; numDusts < 15; numDusts++)
+						for (int numDusts = 0; numDusts < 25; numDusts++)
 						{
-							Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 24), NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f), 50, default, 2.5f);
+							Dust dust = Dust.NewDustPerfect(NPC.Center, DustID.Blood, new Vector2(Main.rand.NextFloat(-4f, 4f), Main.rand.NextFloat(-12f, -8f)));
 							dust.noGravity = true;
+							dust.scale = 3f;
 						}
 
 						Main.npc[(int)NPC.ai[0]].Center = NPC.Center;

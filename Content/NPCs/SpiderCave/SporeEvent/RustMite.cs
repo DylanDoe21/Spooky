@@ -83,7 +83,19 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 
         public override void AI()
 		{
+            NPC.TargetClosest(true);
+            Player player = Main.player[NPC.target];
+
 			NPC.spriteDirection = NPC.direction;
+
+            if (NPC.wet)
+            {
+                NPC.aiStyle = 1;
+            }
+            else
+            {
+                NPC.aiStyle = 3;
+            }
 
             if (NPCGlobalHelper.IsCollidingWithFloor(NPC))
             {

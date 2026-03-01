@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
@@ -20,27 +21,35 @@ namespace Spooky.Content.Buffs.Debuff
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            if (!npc.boss && !npc.IsTechnicallyBoss())
+            if (!npc.friendly)
             {
-                npc.velocity.X *= 0.9f;
-                npc.velocity.Y += !npc.noTileCollide ? 0.10f : 0.01f;
-            }
+				if (Main.rand.NextBool(10))
+				{
+					Dust.NewDust(npc.position, npc.width, npc.height, DustID.Asphalt, npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f, default, default, 1.5f);
+				}
 
-            if (!initializeStats && npc.buffTime[buffIndex] >= 5)
-            {
-                storedColor = npc.color;
+                if (!npc.boss && !npc.IsTechnicallyBoss())
+                {
+                    npc.velocity.X *= 0.9f;
+                    npc.velocity.Y += !npc.noTileCollide ? 0.10f : 0.01f;
+                }
 
-                initializeStats = true;
-            }
+                if (!initializeStats && npc.buffTime[buffIndex] >= 5)
+                {
+                    storedColor = npc.color;
 
-            if (npc.buffTime[buffIndex] < 5)
-            {
-                npc.color = storedColor;
-            }
-            else
-            {
-                Color color = npc.GetAlpha(Color.Black);
-                npc.color = color;
+                    initializeStats = true;
+                }
+
+                if (npc.buffTime[buffIndex] < 5)
+                {
+                    npc.color = storedColor;
+                }
+                else
+                {
+                    Color color = npc.GetAlpha(Color.Black);
+                    npc.color = color;
+                }
             }
         }
     }

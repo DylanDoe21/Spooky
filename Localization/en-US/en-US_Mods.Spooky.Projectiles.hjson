@@ -597,7 +597,6 @@ ZombieEelBody.DisplayName: Zombie Eel
 ZombieEelHead.DisplayName: Zombie Eel
 ZombieEelTail.DisplayName: Zombie Eel
 DaffodilRodPetal.DisplayName: Sunflower Petal
-MudSplatter.DisplayName: Mud Splatter
 CrustyGunfishProj.DisplayName: Crusty Gunfish
 Phantom.DisplayName: Phantom
 RustMiteSpike.DisplayName: Mite Spine
@@ -687,3 +686,13 @@ SeedAmmoSplit.DisplayName: Small Seed Ball
 EyeballAmmoProj.DisplayName: Flingable Eye
 SlingshotHit.DisplayName: Slingshot Hit
 SlingshotHitCrit.DisplayName: Slingshot Hit
+EyeSlingshotProj.DisplayName: Dualeye Slingshot
+EyeWormTail.DisplayName: Eye Worm
+EyeWormHead2.DisplayName: Eye Worm
+EyeWormHead1.DisplayName: Eye Worm
+EyeWormBody.DisplayName: Eye Worm
+TripletsLaser.DisplayName: Eye Laser
+MiteSlingshotProj.DisplayName: Festering Slingshot
+SlingshotMite.DisplayName: Mite
+OrangeSplatter.DisplayName: Bile
+HaroldBolt.DisplayName: Harold Bolt

@@ -60,13 +60,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.rotation += 0f * (float)Projectile.direction;
 
-            int ProjDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, 0f, 0f, 100, Color.Orange, 1f);
-            Main.dust[ProjDust].noGravity = true;
-            Main.dust[ProjDust].noLight = true;
-            Main.dust[ProjDust].velocity /= 4f;
-            Main.dust[ProjDust].velocity -= Projectile.velocity;
-
             Projectile.ai[0]++;
+            if (Projectile.ai[0] > 8)
+            {
+                int ProjDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, 0f, 0f, 100, Color.Orange, 1f);
+                Main.dust[ProjDust].noGravity = true;
+                Main.dust[ProjDust].noLight = true;
+                Main.dust[ProjDust].velocity /= 4f;
+                Main.dust[ProjDust].velocity -= Projectile.velocity;
+            }
+
             if (Projectile.ai[0] > 20)
             {
                 int foundTarget = FindTarget();

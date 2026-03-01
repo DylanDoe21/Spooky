@@ -39,7 +39,7 @@ namespace Spooky.Content.NPCs.EggEvent
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/BiojetterBestiary",
-                Position = new Vector2(0f, -20f),
+                Position = new Vector2(0f, -45f),
                 PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = -20f
             };

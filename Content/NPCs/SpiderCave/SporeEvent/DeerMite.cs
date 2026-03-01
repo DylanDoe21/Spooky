@@ -112,6 +112,15 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
+            if (NPC.wet)
+            {
+                NPC.aiStyle = 1;
+            }
+            else
+            {
+                NPC.aiStyle = 26;
+            }
+
             //collide with walls and play a sound
             if (!hasCollidedWithWall && (NPC.oldVelocity.X >= 5 || NPC.oldVelocity.X <= -5) && NPC.collideX)
             {

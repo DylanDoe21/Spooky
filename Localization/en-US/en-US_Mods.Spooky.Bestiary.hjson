@@ -96,7 +96,7 @@ BileStomach: These living stomachs have a special and extremely corrosive bile i
 Biojetter: A creature with multiple extendable eyes that allow it to see from multiple angles and directions, along with biothrusters which allow it to fly by expelling nasty organic goo. It stores tons of this goo in its body, making it very volatile.
 CoughLungs: Filled with a nasty ichor gas, it can cough it up to create lingering clouds that are harmful when breathed in.
 CruxBat: A strange flying brain-like creature. With constant power being pumped into it from its heart, it can use psychic power to conjure auras that weaken their foes.
-EarWorm: It is unknown if these are actually burrowing worms or if they are perpetually attached to the ground. They can attack by emitting high-frequency screams in the form of a powerful sound blast.
+EarWorm: They latch onto the ground and can burrow through the biomass the eye valley is made out of. They can attack by emitting high-frequency screams in the form of a powerful sound blast.
 ExplodingAppendix: While not exactly powerful, these sacks of flesh can explode themselves as an attack to release the harmful ichor that they store inside of them.
 FleshBolster: Using their tendrils attached to the ground, they can create large flesh tendrils from below to attack unsuspecting foes.
 GooSlug: Hungry and brainless, they will attempt to eat anything they can bite or fit in their mouth. Luckily though they are picky eaters, and will spit things out if they taste bad.
@@ -172,6 +172,7 @@ Tortumor: These weirdly non-hostile blobs of flesh have a special gas in their b
 TortumorGiant: Rarely these mutated tortumors can be spotted floating around aimlessly in the eye valley. The gas in their body is extremely volatile and will combust if the tortumor is injured enough.
 TortumorFleshy: The first known creatures created by the eye valley. Before it learned how to mimic other life forms, the eye valley could only create these disorganized clumps of flesh and bone.
 TortumorGiantFleshy: It is unknown why the eye valley continues to create these primitive creatures. The flesh they are made from allows them to easily grow smaller tortumors inside of them, which they can use to attack prey.
+Triplets: A group of three eyes attached to veins, they travel attached to each other and can each sync up their special laser attack.
 ValleyFish: A small fleshy fish commonly found in the blood lake. Though small, its fast mobility can overwhelm those who aren't prepared.
 ValleyNautilus: A powerful mutant nautilus that lurks in the blood lake. It can use blood and oxygen stored in its chambered body to float and shoot out various harmful projectiles
 ValleySquid: They can use their gas filled heads to float, and even fly out of blood. They can shoot out globs of bloody ink that slow down its prey.
@@ -214,11 +215,7 @@ SpiderAnt2: The ant spiders disguise backfired, after these ants adapted their a
 TarantulaHawk1: If regular spiders weren't weird enough, these ones can fly. They are one of the more powerful and aggressive species in the grotto.
 TarantulaHawk2: They can carry smaller spiders to their prey with their strong legs, and in exchange they share the food amongst each other. An interesting symbiotic relationship.
 TarantulaHawk3: These tarantula hawks have adapted to take on the appearance of a large fly, which allows them to approach their prey without being noticed.
-TinySpider1: These spiders are incredibly weak, but in groups can become more deadly. They are also very hard to spot in the darkness of the grotto.
-TinySpider2: Hiding inside of egg-like silk cocoons, these spiders can scare unsuspecting explorers by popping out of them.
-TinySpider3: These spiders are actually very smart. They create a cocoon of silk resembling an egg, only to burst out and attack when something tries to mess with it.
-TinySpider4: If you see a large egg in the grotto it's likely one of these is inside, make sure not to go near it.
-TinySpider5: These spiders adapted to come in lots of colors so they can trick other species into thinking they are its own children, to leech resources from the unsuspecting parent.
+TinySpider: These baby spiders can be found wandering around the grotto. They are also very hard to spot in the dark, and despite their size will not hesitate to attack threats.
 TrapdoorSpider1: These juvenile spiders have very thin legs they can easily dig into the ground with, allowing them to disguise themselves and jump out at unsuspecting prey.
 TrapdoorSpider2: These fully grown trapdoor spiders are even more deadly. The extra legs they have grown in maturity allow them to burrow and chase prey even more efficiently.
 WhipSpider: These creatures are actually more related to crustaceans than spiders. They have a long whip-like tongue coated in pheromones that increase the aggression of other spiders.

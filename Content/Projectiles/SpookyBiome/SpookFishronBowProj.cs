@@ -136,8 +136,16 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                         ShootSpeed.Normalize();
                         ShootSpeed *= 18;
 
+                        int TypeToShoot = -1;
+			            player.PickAmmo(ItemGlobal.ActiveItem(player), out TypeToShoot, out _, out _, out _, out _);
+
+                        if (TypeToShoot == ProjectileID.WoodenArrowFriendly)
+                        {
+                            TypeToShoot = ModContent.ProjectileType<SpookFishronBowBolt>();
+                        }
+
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<SpookFishronBowBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        TypeToShoot, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
 

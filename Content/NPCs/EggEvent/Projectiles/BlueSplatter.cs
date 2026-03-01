@@ -9,7 +9,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 {
     public class BlueSplatter : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailSquare";
+        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
 
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
@@ -41,7 +41,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 
 			for (int k = 0; k < trailLength.Length; k++)
 			{
-				Color color = Color.Blue.MultiplyRGBA(lightColor);
+				Color color = Color.BlueViolet.MultiplyRGBA(lightColor);
                 color *= (Projectile.timeLeft) / 90f;
 
 				if (trailLength[k] == Vector2.Zero)
@@ -59,7 +59,7 @@ namespace Spooky.Content.NPCs.EggEvent.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.5f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;

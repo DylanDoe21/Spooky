@@ -1225,8 +1225,10 @@ namespace Spooky.Core
                     DaffodilHairpinTimer++;
                     if (DaffodilHairpinTimer % 17 == 0)
                     {
+                        int PetalType = ModContent.ProjectileType<DaffodilHairpinPetal>();
+
 						SoundEngine.PlaySound(SoundID.Grass with { Volume = 0.2f }, Player.Center);
-                        Projectile.NewProjectile(null, Player.Center, Vector2.Zero, ModContent.ProjectileType<DaffodilHairpinPetal>(), 0, 3f, Player.whoAmI);
+                        Projectile.NewProjectile(null, Player.Center, Vector2.Zero, PetalType, 0, 3f, Player.whoAmI, ai0: Player.ownedProjectileCounts[PetalType]);
                     }
                 }
             }

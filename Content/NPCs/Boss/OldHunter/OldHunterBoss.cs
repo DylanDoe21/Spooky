@@ -644,7 +644,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
                                 if (AmmoToShoot == ModContent.ProjectileType<SlingshotLingerBall>())
                                 {
-                                    for (int numProjs = 0; numProjs <= 3; numProjs++)
+                                    for (int numProjs = 1; numProjs <= 2; numProjs++)
                                     {
                                         Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(42));
 

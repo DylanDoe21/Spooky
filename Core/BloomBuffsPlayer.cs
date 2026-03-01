@@ -819,6 +819,8 @@ namespace Spooky.Core
 			//dutchman pipe gives nearby enemies in the aura a debuff so they take more damage
 			if (FossilDutchmanPipe)
 			{
+				Lighting.AddLight(Player.Center, Color.Red.ToVector3());
+
 				for (int i = 0; i < Main.maxNPCs; i++)
 				{
 					NPC NPC = Main.npc[i];

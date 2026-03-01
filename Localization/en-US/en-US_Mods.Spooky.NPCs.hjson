@@ -186,6 +186,9 @@ BloatGhostSmall.DisplayName: Bloat Ghost
 Crow.DisplayName: Crow
 FeralRat1.DisplayName: Feral Rat
 FeralRat2.DisplayName: Feral Rat
+Harold.DisplayName: Haunting Harold
+HaroldHandRight.DisplayName: ""
+HaroldHandLeft.DisplayName: ""
 HungryGhost.DisplayName: Hungry Ghost
 MistGhost.DisplayName: Mist Ghost
 MistGhostFaces.DisplayName: Mist Ghost
@@ -211,6 +214,8 @@ CoughLungs.DisplayName: Coughing Lungs
 CruxBat.DisplayName: Crux Bat
 EarWorm.DisplayName: Ear Worm
 EarWormBase.DisplayName: ""
+EarWormFallingBody.DisplayName: Ear Worm
+EarWormFalling.DisplayName: Ear Worm
 ExplodingAppendix.DisplayName: Exploding Appendix
 FleshBolster.DisplayName: Flesh Bolster
 GooSlug.DisplayName: Goo Slug
@@ -306,6 +311,10 @@ Tortumor.DisplayName: Tortumor
 TortumorFleshy.DisplayName: Tortumor
 TortumorGiant.DisplayName: Giant Tortumor
 TortumorGiantFleshy.DisplayName: Giant Tortumor
+TripletsBody.DisplayName: The Triplets
+TripletsEyeGreen.DisplayName: Cornealius
+TripletsEyeRed.DisplayName: Macule
+TripletsEyePurple.DisplayName: Vitreous Bobby
 Mocling.DisplayName: Mocling
 MoclingSwarm.DisplayName: ""
 ValleyFish.DisplayName: Peeper Fish

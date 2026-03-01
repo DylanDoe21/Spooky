@@ -49,7 +49,7 @@ Other New Stuff:
 -Added a bunch of achievements, there are now achievements for things like killing spooky mod bosses, events, getting items, discovering stuff in the world, ect (More may be added in the future as well)
 -Added new sentient items to equally fill each class, which now all have the same amount of sentient items in every point of progression (3 prehardmode, 2 hardmode, and 2 post platera each)
 -Added new double jump bottle and hermes boots alternatives to the underground spooky forest cabin chests to give you early game mobility (The new hermes boots alternative can also be used to craft spectre boots)
--Added eye block walls, eye bricks, eye brick walls, resprited organic mush walls to look like organic mush blocks, and added a safe version of organic mush walls you can craft and build houses with
+-Added eye block walls, eye bricks, eye brick walls, sclera blocks, resprited organic mush walls to look like organic mush blocks, and added a safe version of organic mush walls you can craft and build houses with
 -Added new tar pits cactus block dropped by tar pit cactuses along with a new set of weapons and armor you can craft with them
 -Added raveyard monolith that allows you to activate the raveyard visual effects, and a spore monolith for the visual effects that can be seen in the new spore event
 -Added some new furniture sets: Upper catacombs, lower catacombs, old birch wood
@@ -79,15 +79,18 @@ Weapons/Accessories:
 -Carrion chunker projectiles now have a delay before they become affected by gravity so you can aim them much better
 -Conscious cutter now spawns slashes on all nearby enemies when you hit something instead of on your cursor
 -Scycler projectiles now follow your cursor for a set time before returning instead of immediately returning when they touch your mouse, and nerfed its use speed
--Fly shot is no longer a charge item, it now just has a set use time and fires out a spread of 5 projectiles 
+-Fly shot is no longer a charge item, it now just has a set use time and fires out a spread of 5 projectiles
+-Spider-wing longbow now increases its shoot frequency quicker, and made its maximum shoot frequency higher
+-Crusty gunfish no longer shoots mud and now just shoots whatever bullet you are using as ammo
+-Increased old hunter's rifle shoot speed
 -Lowered the volume for the EMF reader beeping sounds, ear companion screeching sound, and moocher staff flame pillar explosion sound
 
 Ranged Item Ammo Changes:
 -All spooky mod ranged bows and guns now have proper ammo conversion like vanilla ranged items do
 -Spooky mod bows and guns that converted all ammo into a unique projectile now only do so with their basic ammos (Musket balls for guns, Wooden arrows for bows) and non basic ammos will just shoot their own projectile
-This applies to the following items: 
-Flower Shot, Bone Bender, Seer, Living Seer, Fly Shot, Old Hunters Crossbow, Old Hunters Rifle, Old Moss Bow, 
-Spider-Wing Longbow, Firestorm Monsoon, Crusty Gunfish, Celery Blaster, HAK-2r, Poison Crossbow, and Ooze Magnum
+-Changed the tooltips for many of these items to reflect that they only convert regular basic ammos
+-This applies to the following items: 
+Flower Shot, Bone Bender, Seer, Living Seer, Fly Shot, Old Hunters Crossbow, Old Hunters Rifle, Spider-Wing Longbow, Firestorm Monsoon, Crusty Gunfish, Celery Blaster, HAK-2r, Poison Crossbow
 
 Enemy/Boss:
 -Increased orro-boro phase 1 health from 32000 -> 50000 (Which is technically 16000 -> 25000 in gameplay since it goes into phase 2 at half health)
@@ -97,12 +100,13 @@ Enemy/Boss:
 -Red clot squids spawned by claret cephalopods now use their own red gores instead of reusing the purple ones
 -Improved claret cephalopod rotation, gave it a new bubble dust effect when dashing, and improved its biomass projectile visuals
 -Claret cephalopod biomass now spawns 4 clot squids instead of 2
+-Ear worms now spawn from purple biomass instead of appearing on the ground
 
 World Generation:
 -Rotten depths now accounts for having both calamity and thorium on at the same time, if both are on the rotten depths will generate next to the sulphur sea, with its tunnel connecting to the sulphur sea caves
 -Rotten depths now automatically adjusts if you have either thorium or calamity on individually (If just calamity is on it will generate on the jungle side, or if just thorium is on it will generate on the dungeon side)
 -Rotten depths caves generation has been changed so that the biome feels more open and has way less empty/unused space
--Polished eye valley generation to prevent walls from being where they arent supposed to, generating behind structures, ect (This does not include the wall pillars that are supposed to generate!)
+-Polished eye valley generation to prevent walls from being where they arent supposed to, generating behind structures, ect (This does not include the wall pillars as those are supposed to generate)
 -Tar pits biome is now larger than before, but only one generates per world now and it is now limited to the lower half of the underground desert
 -Spooky forest little eye house now generates way closer to the center of the spooky forest 
 -Little eyes lab is now made out of the new eye brick blocks to feel more fitting in the eye valley
@@ -112,14 +116,14 @@ World Generation:
 -Increased the growth rate of yellow glowshroom trees both during world generation and in-game
 
 Miscellaneous Changes:
--Terraria's fertilizer now works with spooky mod trees (Includes custom trees too)
+-Terraria's fertilizer now works with spooky mod trees (Includes spooky mod custom trees too)
 -Exposed nerve tile now has a glowing outline to make it easier to find
 -Glowshroom related tiles now have improved glowing colors
--Being nearby little eye now lowers spawn rates
+-Being nearby little eye now lowers eye valley spawn rates
 -Bloom plants no longer get destroyed by water
 -Removed random lightning flash/sounds in the swampy cemetery
 -Reduced graveyard desaturation effect in the swampy cemetery a little bit
--Thrown bile glob no longer has gravity and travels in a straight line
+-Thrown bile glob no longer has gravity and now travels in a straight line
 -Upper catacomb torches are now green to match the new upper catacombs furniture set
 -Occultist platforms can now be crafted with both their corresponding brick and slab blocks
 -Catacomb keys are now stackable to 9999
@@ -129,7 +133,7 @@ Miscellaneous Changes:
 ~Bugs And Other Fixes~
 
 Bug, Issue, and Oversight Fixes:
--Spooky mod couches, benches, and clocks not having smart cursor highlights
+-Spooky mod sofas/benches and clocks not having smart cursor highlights
 -Spooky mod pet items spawning the pet and buff when you throw them on the ground by right clicking
 -Rot gourd colliding with tiles and getting stuck while despawning if all players are dead
 -Spook fishron wings producing dusts if you continued holding jump while on the ground after running out of flight time
@@ -140,7 +144,8 @@ Bug, Issue, and Oversight Fixes:
 -Flesh bolsters not dropping living arteries after orro-boro have been defeated
 -Little eye randomly disappearing for some players
 -Terrazinosaurus arm teleporting the player out of the world
+-Poison crossbow consuming 2 ammo per use
 
 Multiplayer Fixes:
 -Bile glob not properly syncing the egg incursion time reduction across all clients
--Rot gourd vanishing in multiplayer
+-Rot gourd vanishing in multiplayer (I think?)

@@ -39,7 +39,15 @@ namespace Spooky.Content.Items.Minibiomes.Vegetable
 		
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 7), velocity, ModContent.ProjectileType<Celery>(), damage, knockback, player.whoAmI);
+            int TypeToShoot = -1;
+			player.PickAmmo(Item, out TypeToShoot, out _, out _, out _, out _);
+
+			if (TypeToShoot == ProjectileID.Bullet)
+			{
+                TypeToShoot = ModContent.ProjectileType<Celery>();
+            }
+
+			Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 7), velocity, TypeToShoot, damage, knockback, player.whoAmI);
 
 			return false;
 		}

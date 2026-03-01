@@ -159,7 +159,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                 NPC.active = false;
             }
 
-			if (!SpawnedFirefly)
+			if (!SpawnedFirefly && SpiderWarWorld.SpiderWarActive)
 			{
 				int NewNPC = NPC.NewNPC(NPC.GetSource_ReleaseEntity(), (int)NPC.Center.X, (int)NPC.Center.Y - 1000, ModContent.NPCType<SpotlightFirefly>(), ai3: NPC.ai[3]);
 				if (Main.netMode == NetmodeID.Server)

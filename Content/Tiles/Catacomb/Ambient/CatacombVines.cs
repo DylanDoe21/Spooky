@@ -40,10 +40,12 @@ namespace Spooky.Content.Tiles.Catacomb.Ambient
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
-		{
-			r = 0.4f;
-			g = 0.32f;
-			b = 0f;
+        {
+            float divide = 500f;
+
+            r = 245f / divide;
+            g = 177f / divide;
+            b = 51f / divide;
         }
 
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

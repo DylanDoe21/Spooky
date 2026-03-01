@@ -108,10 +108,13 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			int NewNPC = NPC.NewNPC(source, (int)NPC.Center.X, (int)NPC.Center.Y - 1000, ModContent.NPCType<SpotlightFirefly>(), ai3: NPC.whoAmI);
-			if (Main.netMode == NetmodeID.Server)
+			if (SpiderWarWorld.SpiderWarActive)
 			{
-				NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+				int NewNPC = NPC.NewNPC(source, (int)NPC.Center.X, (int)NPC.Center.Y - 1000, ModContent.NPCType<SpotlightFirefly>(), ai3: NPC.whoAmI);
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.SyncNPC, number: NewNPC);
+				}
 			}
 		}
 

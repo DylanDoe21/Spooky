@@ -131,12 +131,20 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
                     if (Projectile.owner == Main.myPlayer)
 				    {
+                        int TypeToShoot = -1;
+			            player.PickAmmo(ItemGlobal.ActiveItem(player), out TypeToShoot, out _, out _, out _, out _);
+
+                        if (TypeToShoot == ProjectileID.WoodenArrowFriendly)
+                        {
+                            TypeToShoot = ModContent.ProjectileType<SpiderCrossbowDart>();
+                        }
+
                         Vector2 ShootSpeed = Main.MouseWorld - new Vector2(Projectile.Center.X, Projectile.Center.Y - playerCenterOffset);
                         ShootSpeed.Normalize();
-                        ShootSpeed *= 20;
+                        ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
 
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y - playerCenterOffset, ShootSpeed.X, ShootSpeed.Y, 
-                        ModContent.ProjectileType<SpiderCrossbowDart>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        TypeToShoot, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                 }
 
@@ -148,7 +156,6 @@ namespace Spooky.Content.Projectiles.SpiderCave
                     }
                     else
                     {
-                        player.PickAmmo(ItemGlobal.ActiveItem(player), out _, out _, out _, out _, out _);
                         Projectile.frame = 0;
                         Projectile.ai[2] = 0;
                     }

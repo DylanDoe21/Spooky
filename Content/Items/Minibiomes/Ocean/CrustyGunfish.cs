@@ -26,8 +26,8 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			Item.knockBack = 4;
             Item.rare = ItemRarityID.Yellow;
 			Item.value = Item.buyPrice(gold: 20);
-			Item.UseSound = SoundID.Item95;
-			Item.shoot = ModContent.ProjectileType<MudSplatter>();
+			Item.UseSound = SoundID.Item11;
+			Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Bullet;
 			Item.shootSpeed = 12f;
 		}
@@ -70,7 +70,10 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 
 					Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(16));
 
-					Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X, newVelocity.Y, ModContent.ProjectileType<MudSplatter>(), damage, knockback, player.whoAmI);
+					int TypeToShoot = -1;
+					player.PickAmmo(Item, out TypeToShoot, out _, out _, out _, out _);
+
+					Projectile.NewProjectile(source, position.X, position.Y, newVelocity.X, newVelocity.Y, TypeToShoot, damage, knockback, player.whoAmI);
 
 					position -= muzzleOffset;
 				}

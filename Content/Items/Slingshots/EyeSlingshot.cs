@@ -39,12 +39,11 @@ namespace Spooky.Content.Items.Slingshots
 			Item.rare = ItemRarityID.LightPurple;
 			Item.value = Item.buyPrice(gold: 20);
 			Item.UseSound = UseSound;
-			//Item.shoot = ModContent.ProjectileType<EyeSlingshotProj>();
-			//Item.useAmmo = ModContent.ItemType<MossyPebble>();
-			//Item.shootSpeed = 16f;
+			Item.shoot = ModContent.ProjectileType<EyeSlingshotProj>();
+			Item.useAmmo = ModContent.ItemType<MossyPebble>();
+			Item.shootSpeed = 16f;
         }
 
-		/*
 		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
 			return player.ItemUsesThisAnimation != 0;
@@ -57,11 +56,10 @@ namespace Spooky.Content.Items.Slingshots
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, Item.shoot, damage, knockback, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, position.X, position.Y, 0, 0, Item.shoot, damage, knockback, player.whoAmI);
 
 			return false;
 		}
-		*/
 
 		public override void AddRecipes()
         {

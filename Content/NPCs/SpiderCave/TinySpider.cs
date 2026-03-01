@@ -12,6 +12,11 @@ namespace Spooky.Content.NPCs.SpiderCave
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 3;
+
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/TinySpiderBestiary",
+            };
 		}
 
 		public override void SetDefaults()
@@ -35,7 +40,7 @@ namespace Spooky.Content.NPCs.SpiderCave
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
             {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinySpider1"),
+				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinySpider"),
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
@@ -76,19 +81,20 @@ namespace Spooky.Content.NPCs.SpiderCave
 
     public class TinySpider2 : TinySpider1
 	{
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
-        {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
-            {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinySpider2"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
-			});
+        public override void SetStaticDefaults()
+		{
+			Main.npcFrameCount[NPC.type] = 3;
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<TinySpider1>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
                 for (int numGores = 1; numGores <= 2; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -102,19 +108,20 @@ namespace Spooky.Content.NPCs.SpiderCave
 
     public class TinySpider3 : TinySpider1
 	{
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
-        {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
-            {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinySpider3"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
-			});
+        public override void SetStaticDefaults()
+		{
+			Main.npcFrameCount[NPC.type] = 3;
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<TinySpider1>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
                 for (int numGores = 1; numGores <= 2; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -128,19 +135,20 @@ namespace Spooky.Content.NPCs.SpiderCave
 
     public class TinySpider4 : TinySpider1
 	{
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
-        {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
-            {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinySpider4"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
-			});
+        public override void SetStaticDefaults()
+		{
+			Main.npcFrameCount[NPC.type] = 3;
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<TinySpider1>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
                 for (int numGores = 1; numGores <= 2; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -154,19 +162,20 @@ namespace Spooky.Content.NPCs.SpiderCave
 
     public class TinySpider5 : TinySpider1
 	{
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
-        {
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
-            {
-				new FlavorTextBestiaryInfoElement("Mods.Spooky.Bestiary.TinySpider5"),
-                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpiderCaveBiome>().ModBiomeBestiaryInfoElement)
-			});
+        public override void SetStaticDefaults()
+		{
+			Main.npcFrameCount[NPC.type] = 3;
+            NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 
         {
             if (NPC.life <= 0) 
             {
+                NPC BestiaryParent = new();
+                BestiaryParent.SetDefaults(ModContent.NPCType<TinySpider1>());
+                Main.BestiaryTracker.Kills.RegisterKill(BestiaryParent);
+
                 for (int numGores = 1; numGores <= 2; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

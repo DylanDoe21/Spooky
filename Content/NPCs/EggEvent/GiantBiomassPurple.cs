@@ -93,7 +93,7 @@ namespace Spooky.Content.NPCs.EggEvent
 					{
 						if (Main.netMode != NetmodeID.MultiplayerClient)
 						{
-							Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-8, 9), Main.rand.Next(-8, -4), ModContent.ProjectileType<RedSplatter>(), 0, 0);
+							NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, new Vector2(Main.rand.Next(-8, 9), Main.rand.Next(-8, -4)), ModContent.ProjectileType<RedSplatter>(), 0, 0f);
 						}
 					}
 
@@ -158,10 +158,13 @@ namespace Spooky.Content.NPCs.EggEvent
 			//spawn blood splatter
 			for (int i = 0; i < 8; i++)
 			{
-				if (Main.netMode != NetmodeID.MultiplayerClient)
-				{
-					Projectile.NewProjectile(NPC.GetSource_Death(), NPC.Center.X, NPC.Center.Y, Main.rand.Next(-8, 9), Main.rand.Next(-8, 5), ModContent.ProjectileType<RedSplatter>(), 0, 0);
-				}
+				Vector2 NPCPosition = NPC.Center + new Vector2(0, 15).RotatedByRandom(360);
+
+                Vector2 ShootSpeed = NPC.Center - NPCPosition;
+                ShootSpeed.Normalize();
+                ShootSpeed *= -Main.rand.NextFloat(5f, 9f);
+
+				NPCGlobalHelper.ShootHostileProjectile(NPC, NPCPosition, ShootSpeed, ModContent.ProjectileType<BlueSplatter>(), 0, 0f);
 			}
 
 			//spawn blood explosion clouds
@@ -195,6 +198,12 @@ namespace Spooky.Content.NPCs.EggEvent
 				}
 
 				case 2:
+				{
+					SpawnNPC(ModContent.NPCType<EarWormFalling>());
+					break;
+				}
+
+				case 3:
 				{
 					SpawnNPC(ModContent.NPCType<Biojetter>());
 					break;

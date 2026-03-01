@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
 using Spooky.Content.Biomes;
@@ -27,6 +28,9 @@ namespace Spooky.Core
 		//ProjectileID set for slingshot ammo projectiles since they will spawn funny effects and play sounds on hit
 		public static bool[] IsSlingshotAmmoProj = ProjectileID.Sets.Factory.CreateBoolSet();
 
+		public static readonly SoundStyle SlingshotHitSound = new("Spooky/Content/Sounds/SlingshotHit", SoundType.Sound);
+        public static readonly SoundStyle SlingshotCritSound = new("Spooky/Content/Sounds/SlingshotHitCrit", SoundType.Sound);
+
 		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Player player = Main.player[projectile.owner];
@@ -36,11 +40,15 @@ namespace Spooky.Core
 			{
 				if (hit.Crit)
 				{
+					SoundEngine.PlaySound(SlingshotCritSound, projectile.Center);
+
 					Screenshake.ShakeScreenWithIntensity(projectile.Center, 2f, 350f);
 					Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SlingshotHitCrit>(), 0, 0f, player.whoAmI);
 				}
 				else
 				{
+					SoundEngine.PlaySound(SlingshotHitSound, projectile.Center);
+
 					Screenshake.ShakeScreenWithIntensity(projectile.Center, 1f, 350f);
 					Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SlingshotHit>(), 0, 0f, player.whoAmI, Main.rand.Next(0, 3));
 				}

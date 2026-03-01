@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 using Spooky.Content.Generation;
 using Spooky.Content.Tiles.SpookyBiome.Ambient;
@@ -63,10 +64,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
                 {
                     MergeTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/SpookyGrassBlend");
 
-                    Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-
-                    spriteBatch.Draw(MergeTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-                    new Rectangle(Main.tile[i, j].TileFrameX, Main.tile[i, j].TileFrameY, 16, 16), Lighting.GetColor(i, j));
+                    TileGlobal.PostDrawTileWithSlopes(i, j, MergeTexture.Value, Lighting.GetColor(i, j), Vector2.Zero);
                 }
             }
         }

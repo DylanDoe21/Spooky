@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Core;
+
 namespace Spooky.Content.Tiles.SpookyHell
 {
 	public class ScleraBlock : ModTile
@@ -29,11 +31,7 @@ namespace Spooky.Content.Tiles.SpookyHell
             GlowTexture ??= ModContent.Request<Texture2D>(Texture);
 
             Tile tile = Framing.GetTileSafely(i, j);
-
-			Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-
-			spriteBatch.Draw(GlowTexture.Value, new Vector2(i * 16, j * 16) - Main.screenPosition + zero, 
-			new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White.MultiplyRGBA(WorldGen.paintColor(Main.tile[i, j].TileColor)) * 0.15f);
+			TileGlobal.PostDrawTileWithSlopes(i, j, GlowTexture.Value, Color.White.MultiplyRGBA(WorldGen.paintColor(tile.TileColor)) * 0.15f, Vector2.Zero);
 		}
 	}
 }

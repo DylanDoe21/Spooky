@@ -44,8 +44,8 @@ namespace Spooky.Content.Projectiles.Catacomb
 				float RotateY = player.Center.Y - vector.Y;
 				Projectile.rotation = (float)Math.Atan2((double)RotateY, (double)RotateX) + 4.71f;
 
-				Projectile.Center = player.Center + Projectile.ai[0].ToRotationVector2() * 50f;
-				Projectile.ai[0] -= MathHelper.ToRadians(3.5f);
+				Vector2 destination = player.Center + (MathHelper.TwoPi * (Projectile.ai[0] / player.ownedProjectileCounts[Type]) - MathHelper.PiOver2).ToRotationVector2() * 50f;
+				Projectile.position = destination - (Projectile.Size / 2);
 			}
 			else
 			{

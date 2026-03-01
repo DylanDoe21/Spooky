@@ -105,7 +105,7 @@ namespace Spooky.Core
 			{
 				NPC Enemy = Main.npc[i];
 
-				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(),
+				int[] EventNPCs = new int[] { ModContent.NPCType<Biojetter>(), ModContent.NPCType<CoughLungs>(), ModContent.NPCType<CruxBat>(), ModContent.NPCType<EarWorm>(), ModContent.NPCType<EarWormFalling>(),
 				ModContent.NPCType<ExplodingAppendix>(), ModContent.NPCType<GooSlug>(), ModContent.NPCType<HoppingHeart>(), ModContent.NPCType<HoverBrain>(), ModContent.NPCType<TongueBiter>() };
 
 				if (Enemy.active && EventNPCs.Contains(Enemy.type))
@@ -159,7 +159,8 @@ namespace Spooky.Core
 					//Types:
 					//0 = GooSlug
 					//1 = CruxBat
-					//2 = Biojetter
+					//2 = Earworm
+					//3 = Biojetter
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
 						int Biomass = NPC.NewNPC(null, (int)(player.Center.X + Main.rand.Next(-600, 600)), 
@@ -272,7 +273,7 @@ namespace Spooky.Core
 					//spawn a biojetter a little before 3 minutes and a little after 4 minutes
 					if (!HasSpawnedBiojetter1 && timeLeft >= 150)
 					{
-						SpawnEnemy(0, 2, player);
+						SpawnEnemy(0, 3, player);
 
 						HasSpawnedBiojetter1 = true;
 
@@ -283,7 +284,7 @@ namespace Spooky.Core
 					}
 					if (!HasSpawnedBiojetter2 && timeLeft >= 280)
 					{
-						SpawnEnemy(0, 2, player);
+						SpawnEnemy(0, 3, player);
 
 						HasSpawnedBiojetter2 = true;
 
@@ -332,7 +333,6 @@ namespace Spooky.Core
 					if (EventActiveNPCCount() <= 1)
 					{
 						EnemySpawnTimer++;
-
 						if (EnemySpawnTimer >= 240)
 						{
 							for (int numEnemies = 0; numEnemies <= 5; numEnemies++)
@@ -349,44 +349,8 @@ namespace Spooky.Core
 								}
 								if (timeLeft >= 180)
 								{
-									//chance to spawn an ear worm manually
-									if (Main.rand.NextBool(7) && EarWormCount() < 4)
-									{
-										Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
-
-										center.X += Main.rand.Next(-500, 500);
-
-										int numtries = 0;
-										int x = (int)(center.X / 16);
-										int y = (int)(center.Y / 16);
-
-										while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
-										{
-											y++;
-											center.Y = y * 16;
-										}
-										while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
-										{
-											numtries++;
-											y--;
-											center.Y = y * 16;
-										}
-
-										if (Main.netMode != NetmodeID.MultiplayerClient)
-										{
-											int EarWorm = NPC.NewNPC(null, (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
-
-											if (Main.netMode == NetmodeID.Server)
-											{
-												NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
-											}
-										}
-									}
-									else
-									{
-										int BiomassType = Main.rand.Next(0, 2);
-										SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5), player);
-									}
+									int BiomassType = Main.rand.Next(0, 2);
+									SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 3) : Main.rand.Next(0, 5), player);
 								}
 							}
 
@@ -409,44 +373,8 @@ namespace Spooky.Core
 						}
 						if (timeLeft >= 180)
 						{
-							//chance to spawn an ear worm manually
-							if (Main.rand.NextBool(8) && EarWormCount() < 4)
-							{
-								Vector2 center = new Vector2(player.Center.X, player.Center.Y - 100);
-
-								center.X += Main.rand.Next(-500, 500);
-
-								int numtries = 0;
-								int x = (int)(center.X / 16);
-								int y = (int)(center.Y / 16);
-
-								while (y < Main.maxTilesY - 10 && Main.tile[x, y] != null && !WorldGen.SolidTile2(x, y) && Main.tile[x - 1, y] != null && !WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 1, y] != null && !WorldGen.SolidTile2(x + 1, y))
-								{
-									y++;
-									center.Y = y * 16;
-								}
-								while ((WorldGen.SolidOrSlopedTile(x, y) || WorldGen.SolidTile2(x, y)) && numtries < 10)
-								{
-									numtries++;
-									y--;
-									center.Y = y * 16;
-								}
-
-								if (Main.netMode != NetmodeID.MultiplayerClient)
-								{
-									int EarWorm = NPC.NewNPC(null, (int)center.X, (int)center.Y + 20, ModContent.NPCType<EarWormBase>());
-
-									if (Main.netMode == NetmodeID.Server)
-									{
-										NetMessage.SendData(MessageID.SyncNPC, number: EarWorm);
-									}
-								}
-							}
-							else
-							{
-								int BiomassType = Main.rand.Next(0, 2);
-								SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 2) : Main.rand.Next(0, 5), player);
-							}
+							int BiomassType = Main.rand.Next(0, 2);
+							SpawnEnemy(BiomassType, BiomassType == 0 ? Main.rand.Next(0, 3) : Main.rand.Next(0, 5), player);
 						}
 					}
 				}
