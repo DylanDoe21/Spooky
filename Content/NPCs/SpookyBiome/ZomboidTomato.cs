@@ -16,8 +16,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
     public class ZomboidTomato : ModNPC  
     {
-        public static readonly SoundStyle DeathSound = new("Spooky/Content/Sounds/Splat", SoundType.Sound);
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 7;
@@ -31,10 +29,10 @@ namespace Spooky.Content.NPCs.SpookyBiome
             NPC.width = 36;
 			NPC.height = 48;
             NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0.75f;
+			NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 3;
 			AIType = NPCID.GiantWalkingAntlion;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
@@ -87,14 +85,8 @@ namespace Spooky.Content.NPCs.SpookyBiome
         {
             if (NPC.life <= 0) 
             {
-                SoundEngine.PlaySound(DeathSound, NPC.Center);
-
-                int NumProjectiles = Main.rand.Next(4, 7);
-                for (int i = 0; i < NumProjectiles; i++)
-                {
-                    NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 10), 
-                    new Vector2(Main.rand.NextFloat(-2f, 3f), Main.rand.NextFloat(-4f, -2f)), ModContent.ProjectileType<TomatoGlob>(), NPC.damage, 0f);
-                }
+                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 10), new Vector2(0, Main.rand.Next(-15, -9)), 
+                ModContent.ProjectileType<ZomboidTomatoHead>(), NPC.damage, 4.5f, ai0: 0);
 
                 for (int numGores = 2; numGores <= 6; numGores++)
                 {
@@ -118,5 +110,22 @@ namespace Spooky.Content.NPCs.SpookyBiome
 				new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeBloodMoon_Background", Color.White)
 			});
 		}
+
+        public override void HitEffect(NPC.HitInfo hit) 
+        {
+            if (NPC.life <= 0) 
+            {
+                NPCGlobalHelper.ShootHostileProjectile(NPC, new Vector2(NPC.Center.X, NPC.Center.Y - 10), new Vector2(0, Main.rand.Next(-15, -9)), 
+                ModContent.ProjectileType<ZomboidTomatoHead>(), NPC.damage, 4.5f, ai0: 1);
+
+                for (int numGores = 2; numGores <= 6; numGores++)
+                {
+                    if (Main.netMode != NetmodeID.Server) 
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/ZomboidThornGore" + numGores).Type);
+                    }
+                }
+            }
+        }
     }
 }

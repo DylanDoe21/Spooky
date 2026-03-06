@@ -170,6 +170,12 @@ namespace Spooky.Core
 						{
 							pool.Add(ModContent.NPCType<PuttyPumpkin>(), 2);
 							pool.Add(ModContent.NPCType<ScarecrowShotgunner>(), 1);
+
+							//do not spawn putty amalgams if it already exists
+							if (!NPC.AnyNPCs(ModContent.NPCType<PuttyAmalgam>()))
+							{
+								pool.Add(ModContent.NPCType<PuttyAmalgam>(), 0.35f);
+							}
 						}
 					}
 				}
@@ -325,7 +331,7 @@ namespace Spooky.Core
 							pool.Add(ModContent.NPCType<FeralRat2>(), 2);
 						}
 
-						//do not spawn triplets if they already exist
+						//do not spawn harold if he already exists
 						if (Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<Harold>()))
 						{
 							pool.Add(ModContent.NPCType<Harold>(), 0.35f);

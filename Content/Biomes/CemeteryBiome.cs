@@ -23,37 +23,29 @@ namespace Spooky.Content.Biomes
 
                 if (!Main.bloodMoon && !Main.eclipse)
                 {
-                    if (!Main.IsItStorming)
+                    //play town music if enough town npcs exist
+                    if (Main.LocalPlayer.townNPCs > 2f)
                     {
-						//play town music if enough town npcs exist
-						if (Main.LocalPlayer.townNPCs > 2f)
-						{
-							if (Main.dayTime)
-							{
-								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
-							}
-							else
-							{
-								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
-							}
-						}
-						//play normal music
-						else
-						{
-							if (Main.dayTime)
-							{
-								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
-							}
-							else
-							{
-								music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/CemeteryNight");
-							}
-						}
+                        if (Main.dayTime)
+                        {
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownDay");
+                        }
+                        else
+                        {
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/SpookyTownNight");
+                        }
                     }
-                    //play monsoon theme during a storm
-                    else if (Main.IsItStorming)
+                    //play normal music
+                    else
                     {
-                        music = MusicID.Monsoon;
+                        if (Main.dayTime)
+                        {
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/Cemetery");
+                        }
+                        else
+                        {
+                            music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/CemeteryNight");
+                        }
                     }
                 }
                 //blood moon theme takes priority over everything

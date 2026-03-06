@@ -42,7 +42,7 @@ namespace Spooky.Content.NPCs.SpookyHell
             NPC.defense = 10;
             NPC.width = 28;
             NPC.height = 34;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 0f;
             NPC.knockBackResist = 0f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;

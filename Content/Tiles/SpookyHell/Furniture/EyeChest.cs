@@ -44,7 +44,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			AddMapEntry(new Color(255, 55, 41), name);
+			AddMapEntry(new Color(114, 13, 39), name);
 			RegisterItemDrop(ModContent.ItemType<EyeChestItem>());
 			DustType = DustID.Blood;
 			AdjTiles = new int[] { TileID.Containers };

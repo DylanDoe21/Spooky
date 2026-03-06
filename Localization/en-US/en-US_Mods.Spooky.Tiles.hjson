@@ -58,6 +58,16 @@ BirchDresser: {
 	MapEntry: Dresser
 }
 
+TarCactusDresser: {
+	ContainerName: Tar Cactus Dresser
+	MapEntry: Dresser
+}
+
+OldWoodDresser: {
+	ContainerName: Old Wood Dresser
+	MapEntry: Dresser
+}
+
 //blooms
 CemeteryBloomPlant.MapEntry: Withered Bloom
 DandelionBloomPlant.MapEntry: Dandelion Bloom
@@ -123,3 +133,4 @@ SporeShroomTreeSapling.MapEntry: Sapling
 BirchChest.MapEntry: Old Birch Chest
 BroccoliSapling.MapEntry: Broccoli Sapling
 TubeWormSapling.MapEntry: Tube Worm Polyp
+TarCactusChest.MapEntry: Tar Cactus Chest

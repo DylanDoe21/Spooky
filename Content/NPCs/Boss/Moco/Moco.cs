@@ -1307,12 +1307,12 @@ namespace Spooky.Content.NPCs.Boss.Moco
         }
 
         //Loot and stuff
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
-            //treasure bag
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagMoco>()));
+			//treasure bag
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagMoco>()));
 
             //master relic and pet
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<MocoRelicItem>()));
@@ -1349,18 +1349,14 @@ namespace Spooky.Content.NPCs.Boss.Moco
             //drop a sentient heart for each active player in the world
             if (!Flags.downedMoco)
             {
-                for (int numPlayer = 0; numPlayer <= Main.maxPlayers; numPlayer++)
-                {
-                    if (Main.player[numPlayer].active)
+				foreach (Player player in Main.ActivePlayers)
+				{
+					int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
-
-                        if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-                        {
-                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                        }
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                     }
-                }
+				}
 
                 Flags.GuaranteedRaveyard = true;
 

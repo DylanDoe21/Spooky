@@ -37,6 +37,8 @@ namespace Spooky.Content.NPCs.Cemetery
 
             NPC.spriteDirection = Parent.direction;
 
+            NPC.alpha = Parent.alpha;
+
             if (!Parent.active || Parent.type != ModContent.NPCType<Harold>())
             {
                 NPC.active = false;
@@ -63,6 +65,8 @@ namespace Spooky.Content.NPCs.Cemetery
             NPC Parent = Main.npc[(int)NPC.ai[3]];
 
             NPC.spriteDirection = Parent.direction;
+
+            NPC.alpha = Parent.alpha;
 
             if (!Parent.active || Parent.type != ModContent.NPCType<Harold>()) 
             {

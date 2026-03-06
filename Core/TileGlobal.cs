@@ -48,6 +48,24 @@ namespace Spooky.Core
 			On_ShimmerTransforms.IsItemTransformLocked += CustomShimmerLockConditions;
 		}
 
+		//use for items in spooky mod that should be locked from shimmer with custom conditions, return true if it should be locked
+		//note to self so i dont forget: type refers to the item being thrown into the shimmer, not the item that results from the transformation
+		private bool CustomShimmerLockConditions(On_ShimmerTransforms.orig_IsItemTransformLocked orig, int type)
+		{
+			//dont allow catacomb brick walls to be shimmered into their unsafe variants if that respective layers boss hasnt been defeated yet
+			if (type == ModContent.ItemType<CatacombBrickWall1Item>() && !Flags.downedDaffodil)
+			{
+				return true;
+			}
+			if (type == ModContent.ItemType<CatacombBrickWall2Item>() && !Flags.downedBigBone)
+			{
+				return true;
+			}
+
+			//orig MUST be returned by default in order for vanillas own shimmer locking conditions to apply
+			return orig(type);
+		}
+
 		public override void PlaceInWorld(int i, int j, int type, Item item)
 		{
 			if (Blooms.Contains((ushort)type))
@@ -251,24 +269,6 @@ namespace Spooky.Core
 			return Framing.GetTileSafely(x, y).TileType;
 		}
 
-		//use for items in spooky mod that should be locked from shimmer with custom conditions, return true if it should be locked
-		//note to self so i dont forget: type refers to the item being thrown into the shimmer, not the item that results from the transformation
-		private bool CustomShimmerLockConditions(On_ShimmerTransforms.orig_IsItemTransformLocked orig, int type)
-		{
-			//dont allow catacomb brick walls to be shimmered into their unsafe variants if that respective layers boss hasnt been defeated yet
-			if (type == ModContent.ItemType<CatacombBrickWall1Item>() && !Flags.downedDaffodil)
-			{
-				return true;
-			}
-			if (type == ModContent.ItemType<CatacombBrickWall2Item>() && !Flags.downedBigBone)
-			{
-				return true;
-			}
-
-			//orig MUST be returned by default in order for vanillas own shimmer locking conditions to apply
-			return orig(type);
-		}
-
 		public static void PostDrawTileWithSlopes(int i, int j, Texture2D texture, Color drawColor, Vector2 positionOffset, bool overrideFrame = false)
 		{
 			Tile tile = Main.tile[i, j];
@@ -397,6 +397,40 @@ namespace Spooky.Core
             color.B = (byte)(paintCol.B / 255f * color.B);
 			color.A = (byte)(paintCol.A / 255f * color.A);
 			return color;
+        }
+
+		public static List<Point> OpenAdjacents(int i, int j, int type)
+        {
+            var tileList = new List<Point>();
+
+            for (int k = -1; k <= 1; k++)
+            {
+                for (int l = -1; l <= 1; l++)
+                {
+                    if (!(l == 0 && k == 0) && Framing.GetTileSafely(i + k, j + l).HasTile && Framing.GetTileSafely(i + k, j + l).TileType == type)
+                    {
+                        tileList.Add(new Point(i + k, j + l));
+                    }
+                }
+            }
+
+            return tileList;
+        }
+
+        public static bool HasOpening(int i, int j)
+        {
+            for (int k = -1; k <= 1; k++)
+            {
+                for (int l = -1; l <= 1; l++)
+                {
+					if (!(WorldGen.SolidOrSlopedTile(i + k, j + l) || WorldGen.SolidTile2(i + k, j + l)))
+                    {
+                        return true;
+                    }
+                }
+            }
+                    
+            return false;
         }
 
 		//custom copied version of vanilla SolidCollision but with a list of specific tiles

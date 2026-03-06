@@ -170,7 +170,7 @@ namespace Spooky.Content.NPCs.EggEvent
 			//spawn blood explosion clouds
 			for (int numExplosion = 0; numExplosion < 8; numExplosion++)
 			{
-				int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.Purple * 0.65f, Main.rand.NextFloat(1f, 1.2f));
+				int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, Color.BlueViolet * 0.65f, Main.rand.NextFloat(1f, 1.2f));
 				Main.dust[DustGore].velocity.X *= Main.rand.NextFloat(-3f, 3f);
 				Main.dust[DustGore].velocity.Y *= Main.rand.NextFloat(-3f, 0f);
 				Main.dust[DustGore].noGravity = true;

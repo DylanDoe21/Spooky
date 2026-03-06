@@ -46,6 +46,41 @@ namespace Spooky.Content.Projectiles.Slingshots
             {
                 Projectile.alpha += 5;
             }
+
+            float WaveIntensity = 10f;
+            float Wave = 8f;
+
+            Projectile.ai[0]++;
+            if (Projectile.ai[1] == 0)
+            {
+                if (Projectile.ai[0] > Wave * 0.5f)
+                {
+                    Projectile.ai[0] = 0;
+                    Projectile.ai[1] = 1;
+                }
+                else
+                {
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
+                    Projectile.velocity = perturbedSpeed;
+                }
+            }
+            else
+            {
+                if (Projectile.ai[0] <= Wave)
+                {
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
+                    Projectile.velocity = perturbedSpeed;
+                }
+                else
+                {
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
+                    Projectile.velocity = perturbedSpeed;
+                }
+                if (Projectile.ai[0] >= Wave * 2)
+                {
+                    Projectile.ai[0] = 0;
+                }
+            }
         }
 
         public override void OnKill(int timeLeft)
@@ -82,6 +117,41 @@ namespace Spooky.Content.Projectiles.Slingshots
             if (Projectile.timeLeft <= 60)
             {
                 Projectile.alpha += 5;
+            }
+
+            float WaveIntensity = 10f;
+            float Wave = 8f;
+
+            Projectile.ai[0]++;
+            if (Projectile.ai[1] == 0)
+            {
+                if (Projectile.ai[0] > Wave * 0.5f)
+                {
+                    Projectile.ai[0] = 0;
+                    Projectile.ai[1] = 1;
+                }
+                else
+                {
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
+                    Projectile.velocity = perturbedSpeed;
+                }
+            }
+            else
+            {
+                if (Projectile.ai[0] <= Wave)
+                {
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-WaveIntensity));
+                    Projectile.velocity = perturbedSpeed;
+                }
+                else
+                {
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(WaveIntensity));
+                    Projectile.velocity = perturbedSpeed;
+                }
+                if (Projectile.ai[0] >= Wave * 2)
+                {
+                    Projectile.ai[0] = 0;
+                }
             }
         }
     }

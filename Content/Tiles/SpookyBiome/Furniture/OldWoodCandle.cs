@@ -67,15 +67,17 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
             Tile tile = Framing.GetTileSafely(i, j);
             if (tile.TileFrameX < 18)
             {
-                r = 0.75f;
-                g = 0.58f;
-                b = 0.32f;
+                float divide = 400f;
+
+                r = 250f / divide;
+                g = 172f / divide;
+                b = 49f / divide;
             }
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch) 
 		{
-            GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Tiles/SpookyBiome/Furniture/OldWoodCandleGlow");
+            GlowTexture ??= ModContent.Request<Texture2D>(Texture + "Glow");
 
             SpriteEffects effects = SpriteEffects.None;
 

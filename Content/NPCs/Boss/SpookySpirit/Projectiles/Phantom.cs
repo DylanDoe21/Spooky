@@ -24,8 +24,6 @@ namespace Spooky.Content.NPCs.Boss.SpookySpirit.Projectiles
 		public override void SetStaticDefaults()
         {
 			Main.projFrames[Projectile.type] = 4;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
 		public override void SetDefaults()

@@ -11,24 +11,26 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 {
     public class HaroldBolt : ModProjectile
     {
-        public override string Texture => "Spooky/Content/Projectiles/TrailCircle";
-
 		int target;
 
         bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
 
-		private static Asset<Texture2D> ProjTexture;
+		private static Asset<Texture2D> TrailTexture;
+
+		public override void SetStaticDefaults()
+        {
+			Main.projFrames[Projectile.type] = 4;
+        }
 		
         public override void SetDefaults()
         {
-			Projectile.width = 18;
-            Projectile.height = 18;
+			Projectile.width = 14;
+            Projectile.height = 22;
 			Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = false;
             Projectile.timeLeft = 300;
-            Projectile.alpha = 255;
 		}
 
         public override bool PreDraw(ref Color lightColor)
@@ -38,9 +40,9 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 				return false;
 			}
 
-			ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+			TrailTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/TrailCircle");
 
-			Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, ProjTexture.Height() * 0.5f);
+			Vector2 drawOrigin = new(TrailTexture.Width() * 0.5f, TrailTexture.Height() * 0.5f);
 			Vector2 previousPosition = Projectile.Center;
 
 			for (int k = 0; k < trailLength.Length; k++)
@@ -66,7 +68,7 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(ProjTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.5f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color, Projectile.rotation, drawOrigin, scale * 0.5f, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;
@@ -87,6 +89,17 @@ namespace Spooky.Content.NPCs.Cemetery.Projectiles
 
         public override void AI()
         {
+			Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 4)
+            {
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+                if (Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
             if (runOnce)

@@ -54,14 +54,14 @@ namespace Spooky.Content.NPCs.Cemetery
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 3200;
+            NPC.lifeMax = 3500;
             NPC.damage = 55;
             NPC.defense = 10;
             NPC.width = 80;
 			NPC.height = 168;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 2f;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 0, 5, 0);
+            NPC.value = Item.buyPrice(0, 0, 10, 0);
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit54 with { Pitch = -1f };
@@ -104,7 +104,8 @@ namespace Spooky.Content.NPCs.Cemetery
             var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			//draw npc manually for stretching
-			spriteBatch.Draw(NPCTexture.Value, new Vector2(NPC.Center.X, NPC.Center.Y + 80) - screenPos, NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
+			spriteBatch.Draw(NPCTexture.Value, new Vector2(NPC.Center.X, NPC.Center.Y + 80) - screenPos, NPC.frame, NPC.GetAlpha(drawColor), 
+            NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
 
 			return false;
 		}
@@ -164,7 +165,27 @@ namespace Spooky.Content.NPCs.Cemetery
                 NPC.netUpdate = true;
             }
 
-            NPC.ai[0]++;
+            if (player.Distance(NPC.Center) <= 600f)
+            {
+                NPC.dontTakeDamage = false;
+
+                if (NPC.alpha > 0)
+                {
+                    NPC.alpha -= 5;
+                }
+
+                NPC.ai[0]++;
+            }
+            else
+            {
+                NPC.dontTakeDamage = true;
+
+                if (NPC.alpha < 200)
+                {
+                    NPC.alpha += 5;
+                }
+            }
+
             if (NPC.ai[0] <= 360)
             {
                 float lifeRatio = (float)(NPC.lifeMax / NPC.life);

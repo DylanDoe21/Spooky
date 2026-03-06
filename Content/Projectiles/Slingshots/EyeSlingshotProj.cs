@@ -46,20 +46,16 @@ namespace Spooky.Content.Projectiles.Slingshots
 						ShootSpeed.Normalize();
 						ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
 
-						Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(25));
-
 						if (Type == ModContent.ProjectileType<EyeWormHead1>())
 						{
-							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, ModContent.ProjectileType<EyeWormHead1>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-							
-							newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(25));
-							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, ModContent.ProjectileType<EyeWormHead2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<EyeWormHead1>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, ModContent.ProjectileType<EyeWormHead2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 						}
 						else
 						{
 							for (int numProjs = 0; numProjs <= 1; numProjs++)
 							{
-								newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(25));
+								Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(25));
 								Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
 							}
 						}

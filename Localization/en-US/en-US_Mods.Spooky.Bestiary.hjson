@@ -172,7 +172,6 @@ Tortumor: These weirdly non-hostile blobs of flesh have a special gas in their b
 TortumorGiant: Rarely these mutated tortumors can be spotted floating around aimlessly in the eye valley. The gas in their body is extremely volatile and will combust if the tortumor is injured enough.
 TortumorFleshy: The first known creatures created by the eye valley. Before it learned how to mimic other life forms, the eye valley could only create these disorganized clumps of flesh and bone.
 TortumorGiantFleshy: It is unknown why the eye valley continues to create these primitive creatures. The flesh they are made from allows them to easily grow smaller tortumors inside of them, which they can use to attack prey.
-Triplets: A group of three eyes attached to veins, they travel attached to each other and can each sync up their special laser attack.
 ValleyFish: A small fleshy fish commonly found in the blood lake. Though small, its fast mobility can overwhelm those who aren't prepared.
 ValleyNautilus: A powerful mutant nautilus that lurks in the blood lake. It can use blood and oxygen stored in its chambered body to float and shoot out various harmful projectiles
 ValleySquid: They can use their gas filled heads to float, and even fly out of blood. They can shoot out globs of bloody ink that slow down its prey.
@@ -313,3 +312,7 @@ EyelashMiteBlue: Their flexible bodies allow them to silently move through the s
 EyelashMitePurple: Eyelash mites can grow in varying sizes, it is said that the longer eyelash mites are seen as higher up over shorter ones.
 PeacockMite: They take in spores through their face, and turn it into a harmful substance they trail out of their abdomen, allowing them to catch prey from behind.
 RustMite: Wandering slowly through the spore fog, they feed on whatever is left behind by other mites on the ground and turn the leftovers into spike-like objects.
+//old hunter enemies
+PuttyAmalgam: In rare circumstances, putty slimes can merge together and increase their power by traveling together as one. Their ability to jump has been enhanced, as well as being able to melt their body and reform elsewhere.
+Harold: An unknown being that wears a giant ghost costume sheet. He flies around the cemetery at night and can summon small ghosts to assist him.
+Triplets: A group of three eyes attached to veins, they travel attached to each other and can sync up their special laser attack.

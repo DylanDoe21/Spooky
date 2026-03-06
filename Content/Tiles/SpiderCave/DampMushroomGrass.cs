@@ -128,12 +128,12 @@ namespace Spooky.Content.Tiles.SpiderCave
 			}
 
             //spread grass
-            List<Point> adjacents = OpenAdjacents(i, j, ModContent.TileType<DampSoil>());
+            List<Point> adjacents = TileGlobal.OpenAdjacents(i, j, ModContent.TileType<DampSoil>());
 
             if (adjacents.Count > 0)
             {
                 Point tilePoint = adjacents[Main.rand.Next(adjacents.Count)];
-                if (HasOpening(tilePoint.X, tilePoint.Y))
+                if (TileGlobal.HasOpening(tilePoint.X, tilePoint.Y))
                 {
                     Framing.GetTileSafely(tilePoint.X, tilePoint.Y).TileType = (ushort)ModContent.TileType<DampMushroomGrass>();
 
@@ -144,39 +144,5 @@ namespace Spooky.Content.Tiles.SpiderCave
                 }
             }
 		}
-
-        private List<Point> OpenAdjacents(int i, int j, int type)
-        {
-            var tileList = new List<Point>();
-
-            for (int k = -1; k < 2; ++k)
-            {
-                for (int l = -1; l < 2; ++l)
-                {
-                    if (!(l == 0 && k == 0) && Framing.GetTileSafely(i + k, j + l).HasTile && Framing.GetTileSafely(i + k, j + l).TileType == type)
-                    {
-                        tileList.Add(new Point(i + k, j + l));
-                    }
-                }
-            }
-
-            return tileList;
-        }
-
-        private bool HasOpening(int i, int j)
-        {
-            for (int k = -1; k < 2; k++)
-            {
-                for (int l = -1; l < 2; l++)
-                {
-                    if (!Framing.GetTileSafely(i + k, j + l).HasTile)
-                    {
-                        return true;
-                    }
-                }
-            }
-                    
-            return false;
-        }
 	}
 }

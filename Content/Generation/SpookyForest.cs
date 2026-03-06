@@ -78,11 +78,8 @@ namespace Spooky.Content.Generation
 
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, false);
 
-			//place mushroom minibiomes in the underground
-			int MushroomSizeX = Main.maxTilesX / 60;
-			int MushroomSizeY = Main.maxTilesY / 30;
-
-			SpookyWorldMethods.PlaceOval(PositionX, (int)Main.worldSurface + (Main.maxTilesY / 7), ModContent.TileType<MushroomMoss>(), 0, MushroomSizeX, MushroomSizeY, 2f, false, false);
+			//position where the glowshroom minibiome begins
+			int GlowshroomPosY = (int)Main.worldSurface + (Main.maxTilesY / 9);
 
 			for (double i = 0; i < 0.25; i += 0.00001)
 			{
@@ -90,10 +87,10 @@ namespace Spooky.Content.Generation
 			}
 
 			//place clumps of green grass using a temporary dirt tile clone that will be replaced later in generation
-			for (int greenGrass = 0; greenGrass < (int)((double)(Main.maxTilesX * Main.maxTilesY * 27) * 15E-05); greenGrass++)
+			for (int greenGrass = 0; greenGrass < (int)((double)(Main.maxTilesX * GlowshroomPosY * 27) * 15E-05); greenGrass++)
 			{
 				int X = WorldGen.genRand.Next(0, Main.maxTilesX);
-				int Y = WorldGen.genRand.Next(0, Main.maxTilesY);
+				int Y = WorldGen.genRand.Next(0, GlowshroomPosY);
 
 				if (Main.tile[X, Y] != null && Main.tile[X, Y].HasTile)
 				{
@@ -189,7 +186,8 @@ namespace Spooky.Content.Generation
 
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
-				for (int Y = (int)Main.worldSurface + 10; Y < Main.maxTilesY - 200; Y++)
+				//default cave generation above where the glowshroom section is
+				for (int Y = (int)Main.worldSurface + 10; Y < GlowshroomPosY; Y++)
 				{
 					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>())
 					{
@@ -206,8 +204,12 @@ namespace Spooky.Content.Generation
 							WorldGen.KillTile(X, Y);
 						}
 					}
+				}
 
-					if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>())
+				//glowshroom special cave generation
+				for (int Y = GlowshroomPosY; Y < Main.maxTilesY - 200; Y++)
+				{
+					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
 					{
 						//generate perlin noise caves
 						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 2000f, Y / 350f, 5, Seed + 1) * 0.5f;
@@ -222,7 +224,11 @@ namespace Spooky.Content.Generation
 							WorldGen.KillTile(X, Y);
 						}
 					}
+				}
 
+				//generate special wall noise in the entire biome
+				for (int Y = (int)Main.worldSurface + 10; Y < Main.maxTilesY - 200; Y++)
+				{
 					if (Main.tile[X, Y].WallType == ModContent.WallType<SpookyStoneWall>())
 					{
 						//generate perlin noise caves
@@ -240,6 +246,60 @@ namespace Spooky.Content.Generation
 					}
 				}
 			}
+
+			for (double i = 0.5; i < 0.75; i += 0.00001)
+			{
+				progress.Set(i);
+			}
+
+			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
+			{
+				for (int Y = GlowshroomPosY - 5; Y < Main.maxTilesY - 200; Y++)
+				{
+					WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomMoss>(), false);
+				}
+			}
+
+			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
+			{
+				for (int Y = 100; Y < (int)Main.worldSurface + 10; Y++)
+				{
+					if (Main.tile[X, Y].HasTile && Main.tile[X, Y].WallType == ModContent.WallType<SpookyStoneWall>())
+					{
+						Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
+						Main.tile[X - 1, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
+						Main.tile[X + 1, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
+						Main.tile[X, Y - 1].TileType = (ushort)ModContent.TileType<SpookyStone>();
+						Main.tile[X, Y + 1].TileType = (ushort)ModContent.TileType<SpookyStone>();
+					}
+				}
+			}
+
+			bool PlacedMineshaft = false;
+			int MineshaftAttempts = 0;
+			while (!PlacedMineshaft && MineshaftAttempts++ < 100000)
+			{
+				//place starter house
+				int x = PositionX > (Main.maxTilesX / 2) ? PositionX + ((Main.maxTilesX / 12) / 6) : PositionX - ((Main.maxTilesX / 12) / 6);
+				int y = PositionY; //start here to not touch floating islands
+
+				while ((!WorldGen.SolidTile(x, y) || !Cemetery.NoFloatingIsland(x, y)) && y <= Main.worldSurface)
+				{
+					y++;
+				}
+				if (WorldGen.SolidTile(x, y) && Cemetery.NoFloatingIsland(x, y))
+				{
+					PlaceMineshaft(x, y);
+
+					Vector2 MineshaftOrigin = new Vector2(x - 26, y - 24);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/MineshaftEntrance.shstruct", MineshaftOrigin.ToPoint16(), Mod);
+
+					PlacedMineshaft = true;
+				}
+			}
+
+			//clean out small clusters of tiles
+			CleanOutSmallClumps();
 
 			//place ores in mossy stone
             ushort OppositeTier1Ore = WorldGen.SavedOreTiers.Copper == TileID.Copper ? TileID.Tin : TileID.Copper;
@@ -290,67 +350,6 @@ namespace Spooky.Content.Generation
                     WorldGen.TileRunner(X, Y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(4, 6), OppositeTier4Ore, false, 0f, 0f, false, true);
                 }
             }
-
-			for (double i = 0.5; i < 0.75; i += 0.00001)
-			{
-				progress.Set(i);
-			}
-
-			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
-			{
-				for (int Y = (int)Main.worldSurface + 10; Y < Main.maxTilesY - 200; Y++)
-				{
-					if (Main.tile[X, Y].TileType == ModContent.TileType<MushroomMoss>())
-					{
-						if (WorldGen.SolidOrSlopedTile(X - 1, Y) && WorldGen.SolidOrSlopedTile(X + 1, Y) && WorldGen.SolidOrSlopedTile(X, Y - 1) && WorldGen.SolidOrSlopedTile(X, Y + 1) &&
-						WorldGen.SolidOrSlopedTile(X - 1, Y - 1) && WorldGen.SolidOrSlopedTile(X + 1, Y + 1) && WorldGen.SolidOrSlopedTile(X - 1, Y + 1) && WorldGen.SolidOrSlopedTile(X + 1, Y - 1))
-						{
-							Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
-						}
-					}
-				}
-			}
-
-			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
-			{
-				for (int Y = 100; Y < (int)Main.worldSurface + 10; Y++)
-				{
-					if (Main.tile[X, Y].HasTile && Main.tile[X, Y].WallType == ModContent.WallType<SpookyStoneWall>())
-					{
-						Main.tile[X, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
-						Main.tile[X - 1, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
-						Main.tile[X + 1, Y].TileType = (ushort)ModContent.TileType<SpookyStone>();
-						Main.tile[X, Y - 1].TileType = (ushort)ModContent.TileType<SpookyStone>();
-						Main.tile[X, Y + 1].TileType = (ushort)ModContent.TileType<SpookyStone>();
-					}
-				}
-			}
-
-			bool PlacedMineshaft = false;
-			int MineshaftAttempts = 0;
-			while (!PlacedMineshaft && MineshaftAttempts++ < 100000)
-			{
-				//place starter house
-				int x = PositionX > (Main.maxTilesX / 2) ? PositionX + ((Main.maxTilesX / 12) / 6) : PositionX - ((Main.maxTilesX / 12) / 6);
-				int y = PositionY; //start here to not touch floating islands
-
-				while ((!WorldGen.SolidTile(x, y) || !Cemetery.NoFloatingIsland(x, y)) && y <= Main.worldSurface)
-				{
-					y++;
-				}
-				if (WorldGen.SolidTile(x, y) && Cemetery.NoFloatingIsland(x, y))
-				{
-					PlaceMineshaft(x, y);
-
-					Vector2 MineshaftOrigin = new Vector2(x - 26, y - 24);
-					StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/MineshaftEntrance.shstruct", MineshaftOrigin.ToPoint16(), Mod);
-
-					PlacedMineshaft = true;
-				}
-			}
-
-			//clean out small clusters of tiles
-			CleanOutSmallClumps();
 
 			//add biome dithering
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, true);
@@ -1279,7 +1278,7 @@ namespace Spooky.Content.Generation
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
             //generate biome
-			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Lakes"));
+			int GenIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Mountain Caves"));
 			if (GenIndex1 == -1)
 			{
 				return;

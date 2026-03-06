@@ -184,7 +184,7 @@ namespace Spooky.Content.Generation
                         }
                         else
                         {
-                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/LibraryRoom" + WorldGen.genRand.Next(1, 3) + ".shstruct", origin.ToPoint16(), Mod);
+                            StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/LibraryRoom" + WorldGen.genRand.Next(1, 5) + ".shstruct", origin.ToPoint16(), Mod);
 
                             //place furniture in the room
                             for (int furnitureX = (int)origin.X; furnitureX <= (int)origin.X + 36; furnitureX++)

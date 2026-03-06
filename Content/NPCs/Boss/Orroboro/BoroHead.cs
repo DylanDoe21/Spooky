@@ -927,16 +927,12 @@ namespace Spooky.Content.NPCs.Boss.Orroboro
                 //drop a sentient heart for each active player in the world
                 if (!Flags.downedOrroboro)
                 {
-                    for (int numPlayer = 0; numPlayer <= Main.maxPlayers; numPlayer++)
-                    {
-                        if (Main.player[numPlayer].active)
+                    foreach (Player player in Main.ActivePlayers)
+				    {
+                        int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
+                        if (Main.netMode == NetmodeID.Server)
                         {
-                            int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<SentientHeart>());
-
-                            if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-                            {
-                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                            }
+                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                         }
                     }
 

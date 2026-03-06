@@ -18,7 +18,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
             Main.tileBlendAll[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-            AddMapEntry(new Color(59, 100, 52));
+            AddMapEntry(new Color(75, 127, 71));
             DustType = DustID.Grass;
 		}
 	}

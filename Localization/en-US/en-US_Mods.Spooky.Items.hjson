@@ -166,10 +166,10 @@ FossilBlackPepper: {
 }
 
 FossilDutchmanPipe: {
-	DisplayName: Evil Dutchman Pipe
+	DisplayName: Dutchman's Pipe
 	Tooltip:
 		'''
-		Creates an evil aura around you
+		Creates a large aura around you
 		Enemies inside of this aura will take 10% more damage from attacks
 		5 minute duration
 		'''
@@ -408,7 +408,7 @@ WinterBlackberry: {
 	DisplayName: Blackberry Glacier
 	Tooltip:
 		'''
-		Any blooms you eat have a chance to last for double their normal duration
+		Any blooms you eat will last for double their normal duration
 		2 minute duration
 		'''
 }
@@ -2734,7 +2734,7 @@ SpiderWarRemote: {
 	DisplayName: Fly Carpetbomber
 	Tooltip:
 		'''
-		Left click to call down low damage joro flies that rapidly hit individual enemies
+		Left click to call down joro flies that deal low damage but rapidly hit single enemies
 		Right click to call down explosive joros that deal massive damage to all surrounding enemies
 		Explosive joro minions take up 2 minion slots each
 		'''
@@ -4519,6 +4519,101 @@ ChristmasWoodWallItem: {
 	Tooltip: ""
 }
 
+TarCactusBedItem: {
+	DisplayName: Tar Cactus Bed
+	Tooltip: ""
+}
+
+TarCactusBathtubItem: {
+	DisplayName: Tar Cactus Bathtub
+	Tooltip: ""
+}
+
+TarCactusBookcaseItem: {
+	DisplayName: Tar Cactus Bookcase
+	Tooltip: ""
+}
+
+TarCactusCandelabraItem: {
+	DisplayName: Tar Cactus Candelabra
+	Tooltip: ""
+}
+
+TarCactusCandleItem: {
+	DisplayName: Tar Cactus Candle
+	Tooltip: ""
+}
+
+TarCactusChairItem: {
+	DisplayName: Tar Cactus Chair
+	Tooltip: ""
+}
+
+TarCactusChandelierItem: {
+	DisplayName: Tar Cactus Chandelier
+	Tooltip: ""
+}
+
+TarCactusChestItem: {
+	DisplayName: Tar Cactus Chest
+	Tooltip: ""
+}
+
+TarCactusClockItem: {
+	DisplayName: Tar Cactus Clock
+	Tooltip: ""
+}
+
+TarCactusDoorItem: {
+	DisplayName: Tar Cactus Door
+	Tooltip: ""
+}
+
+TarCactusDresserItem: {
+	DisplayName: Tar Cactus Dresser
+	Tooltip: ""
+}
+
+TarCactusLampItem: {
+	DisplayName: Tar Cactus Lamp
+	Tooltip: ""
+}
+
+TarCactusLanternItem: {
+	DisplayName: Tar Cactus Lantern
+	Tooltip: ""
+}
+
+TarCactusPianoItem: {
+	DisplayName: Tar Cactus Piano
+	Tooltip: ""
+}
+
+TarCactusPlatformItem: {
+	DisplayName: Tar Cactus Platform
+	Tooltip: ""
+}
+
+TarCactusSinkItem: {
+	DisplayName: Tar Cactus Sink
+	Tooltip: ""
+}
+
+TarCactusSofaItem: {
+	DisplayName: Tar Cactus Sofa
+	Tooltip: ""
+}
+
+TarCactusTableItem: {
+	DisplayName: Tar Cactus Table
+	Tooltip: ""
+}
+
+TarCactusWorkBenchItem: {
+	DisplayName: Tar Cactus Work Bench
+	Tooltip: ""
+}
+
 DesertSandItem: {
 	DisplayName: Grainy Sand
 	Tooltip: ""
@@ -5902,6 +5997,41 @@ OldWoodWorkBenchItem: {
 	Tooltip: ""
 }
 
+OldWoodCandelabraItem: {
+	DisplayName: Old Wood Candelabra
+	Tooltip: ""
+}
+
+OldWoodChandelierItem: {
+	DisplayName: Old Wood Chandelier
+	Tooltip: ""
+}
+
+OldWoodClockItem: {
+	DisplayName: Old Wood Clock
+	Tooltip: ""
+}
+
+OldWoodDresserItem: {
+	DisplayName: Old Wood Dresser
+	Tooltip: ""
+}
+
+OldWoodLampItem: {
+	DisplayName: Old Wood Lamp
+	Tooltip: ""
+}
+
+OldWoodLanternItem: {
+	DisplayName: Old Wood Lantern
+	Tooltip: ""
+}
+
+OldWoodSinkItem: {
+	DisplayName: Old Wood Sink
+	Tooltip: ""
+}
+
 SinisterSnailCageItem: {
 	DisplayName: Sinister Snail Cage
 	Tooltip: ""
@@ -6213,7 +6343,7 @@ SpookyWoodFenceItem: {
 }
 
 EyeChestItem: {
-	DisplayName: Monster Chest
+	DisplayName: Living Flesh Chest
 	Tooltip: ""
 }
 
@@ -6672,6 +6802,11 @@ SkullAmmo: {
 BaseSlingshot: {
 	DisplayName: Base Slingshot
 	Tooltip: Testing Item
+}
+
+BigDunkSlingshot: {
+	DisplayName: Zomboid Slingshot
+	Tooltip: Fires out zomboid juice along with the ammo you are using
 }
 
 EyeSlingshot: {

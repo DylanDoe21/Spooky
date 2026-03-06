@@ -37,18 +37,17 @@ namespace Spooky.Content.Projectiles.Catacomb
 
         public override bool PreDraw(ref Color lightColor)
         {
-            ProjTexture ??= ModContent.Request<Texture2D>(Texture);
+            ProjTexture ??= ModContent.Request<Texture2D>("Spooky/Content/Projectiles/Catacomb/BigBoneHammerTrail");
 
             Vector2 drawOrigin = new(ProjTexture.Width() * 0.5f, Projectile.height * 0.5f);
 
             for (int oldPos = 0; oldPos < Projectile.oldPos.Length; oldPos++)
             {
                 var effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                float scale = Projectile.scale * (Projectile.oldPos.Length - oldPos) / Projectile.oldPos.Length * 1f;
                 Vector2 drawPos = Projectile.oldPos[oldPos] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color realColor = Projectile.GetAlpha(Color.Gold * 0.5f) * ((Projectile.oldPos.Length - oldPos) / (float)Projectile.oldPos.Length);
                 Rectangle rectangle = new(0, (ProjTexture.Height() / Main.projFrames[Projectile.type]) * Projectile.frame, ProjTexture.Width(), ProjTexture.Height() / Main.projFrames[Projectile.type]);
-                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, realColor, Projectile.oldRot[oldPos], drawOrigin, scale * 1.2f, effects, 0);
+                Main.EntitySpriteDraw(ProjTexture.Value, drawPos, rectangle, realColor, Projectile.oldRot[oldPos], drawOrigin, Projectile.scale, effects, 0);
             }
             
             return true;

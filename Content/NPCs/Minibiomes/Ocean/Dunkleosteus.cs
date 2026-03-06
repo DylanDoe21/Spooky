@@ -867,7 +867,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 
 			npcLoot.Add(new DropOneByOne(ModContent.ItemType<DunkleosteusHide>(), parameters));
 
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SeaSeed>(), 1, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SeaSeed>(), 1, 3, 4));
 
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DunkleosteusRelicItem>()));
 		}

@@ -196,7 +196,7 @@ namespace Spooky.Core
             int TimeMultiplier = 1;
             
             //winter blackberry has a chance to cause blooms besides itself to have double the durations
-            if (WinterBlackberry && BuffName != "WinterBlackberry" && Main.rand.NextBool(5))
+            if (WinterBlackberry && BuffName != "WinterBlackberry")
             {
                 TimeMultiplier = 2;
             }

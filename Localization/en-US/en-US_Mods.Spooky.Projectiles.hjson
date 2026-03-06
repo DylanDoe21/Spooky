@@ -279,8 +279,6 @@ ManHoleBloodBall.DisplayName: Blood Glob
 TortumorYoyoProj.DisplayName: Tumor Throw
 TortumorYoyoChunk.DisplayName: Tumor Chunk
 LivingFleshEye.DisplayName: Living Flesh Eye
-TomatoGlob.DisplayName: Tomato Glob
-TomatoSauce.DisplayName: Tomato Sauce
 CatacombCrusherDeath1.DisplayName: Ancient Crusher
 CatacombCrusherDeath2.DisplayName: Ancient Crusher
 CatacombCrusherDeath3.DisplayName: Ancient Crusher
@@ -696,3 +694,6 @@ MiteSlingshotProj.DisplayName: Festering Slingshot
 SlingshotMite.DisplayName: Mite
 OrangeSplatter.DisplayName: Bile
 HaroldBolt.DisplayName: Harold Bolt
+PuttyBlob.DisplayName: Putty Blob
+BigDunkSlingshotProj.DisplayName: Zomboid Slingshot
+ZomboidTomatoHead.DisplayName: Giant Tomato

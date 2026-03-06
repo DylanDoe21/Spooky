@@ -26,7 +26,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Christmas.Furniture
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(72, 88, 88), Lang.GetItemName(ItemID.Candelabra));
             RegisterItemDrop(ModContent.ItemType<ChristmasCandelabraItem>());
-            DustType = DustID.Blood;
+            DustType = DustID.Stone;
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             AdjTiles = new int[] { TileID.Candelabras };
         }

@@ -14,7 +14,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Desert
         public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
-            AddMapEntry(new Color(29, 70, 22));
+            AddMapEntry(new Color(39, 68, 36));
             DustType = DustID.Grass;
         }
     }

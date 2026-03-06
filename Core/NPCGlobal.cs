@@ -641,7 +641,7 @@ namespace Spooky.Core
 				for (int j = minTilePosY; j < maxTilePosY; j++)
 				{
 					bool ValidTile = Main.tileSolid[(int)Main.tile[i, j].TileType] || Main.tile[i, j].LeftSlope || Main.tile[i, j].RightSlope || Main.tile[i, j].TopSlope || Main.tile[i, j].BottomSlope;
-					bool ValidPlatform = countPlatforms && TileID.Sets.Platforms[(int)Main.tile[i, j].TileType] && Main.tileSolidTop[(int)Main.tile[i, j].TileType] && npc.velocity.Y >= 1;
+					bool ValidPlatform = countPlatforms && (TileID.Sets.Platforms[(int)Main.tile[i, j].TileType] || Main.tileSolidTop[(int)Main.tile[i, j].TileType]) && npc.velocity.Y > 0;
 
 					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && (ValidPlatform || ValidTile))
 					{
