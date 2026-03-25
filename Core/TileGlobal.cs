@@ -38,6 +38,7 @@ namespace Spooky.Core
             (ushort)ModContent.TileType<SummerBloomPlant>(),
             (ushort)ModContent.TileType<VegetableBloomPlant>(),
             (ushort)ModContent.TileType<WinterBloomPlant>(),
+			(ushort)ModContent.TileType<TomatoBloomPlant>(),
 		};
 
 		public static Vector2 TileOffset => Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange);
@@ -113,6 +114,10 @@ namespace Spooky.Core
 				if (type == Blooms[10])
 				{
 					Flags.BloomsPlanted[10] = true;
+				}
+				if (type == Blooms[11])
+				{
+					Flags.BloomsPlanted[11] = true;
 				}
 
 				bool CanGetAchievement = true;

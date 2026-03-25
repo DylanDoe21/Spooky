@@ -38,7 +38,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath4;
             NPC.aiStyle = 14;
 			AIType = NPCID.GiantBat;
-            AnimationType = NPCID.GiantBat;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiomeUg>().Type };
         }
 
@@ -51,9 +50,24 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			});
 		}
 
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frameCounter++;
+            if (NPC.frameCounter > 3)
+            {
+                NPC.frame.Y = NPC.frame.Y + frameHeight;
+                NPC.frameCounter = 0;
+            }
+            if (NPC.frame.Y >= frameHeight * 4)
+            {
+                NPC.frame.Y = 0 * frameHeight;
+            }
+        }
+
         public override void AI()
 		{
 			NPC.spriteDirection = NPC.direction;
+            NPC.rotation = NPC.velocity.X * 0.035f;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)

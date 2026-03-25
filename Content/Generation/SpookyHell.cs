@@ -774,7 +774,7 @@ namespace Spooky.Content.Generation
 
             ///place little eye's house last so it doesnt get nuked by other structures
             int HouseX = StartPosition > (Main.maxTilesX / 2) ? (StartPosition + XMiddle) / 2 - (Main.maxTilesX / 55) : (XMiddle + BiomeEdge) / 2 + (Main.maxTilesX / 55);
-            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 51, 48);
+            GenerateStructure(HouseX, StartPosY, "LittleEyeHouse", 51, 43);
 
             //place walls after structures and stuff so that theres no random clusters of walls poking through after structure generation
             int extraClearStart = (GenVars.JungleX < Main.maxTilesX / 2) ? 50 : 0;

@@ -597,6 +597,18 @@ namespace Spooky.Content.Generation
             StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpiderCave/OldHunterArena.shstruct", ArenaOrigin.ToPoint16(), Mod);
             Flags.OldHunterPosition = new Vector2(startPosX * 16, (GnomePositionY + (MushroomSizeY / 2) + 13) * 16);
 
+            //place soil blocks so the old hunters house isnt floating
+            for (int X = (int)startPosX - 45; X <= (int)startPosX + 45; X++)
+            {
+				for (int Y = (GnomePositionY + (MushroomSizeY / 2)) + 18; Y <= origin.Y + verticalRadius + 3; Y++)
+                {
+					if (CheckInsideOval(new Point(X, Y), biomeTop, biomeBottom, constant, center, out float dist))
+					{
+                        WorldGen.PlaceTile(X, Y, ModContent.TileType<DampSoil>());
+                    }
+                }
+            }
+
             //place gnome houses
             for (int X = startPosX - MushroomSizeX; X <= startPosX + MushroomSizeX; X++)
             {

@@ -6,6 +6,8 @@ using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Spooky.Content.Items.BossBags.Accessory;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.NPCs.Boss.OldHunter;
 
 namespace Spooky.Content.Items.BossBags
@@ -41,6 +43,12 @@ namespace Spooky.Content.Items.BossBags
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
+			//boss mask
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<OldHunterHat>(), 7));
+
+            //expert item
+            itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<HunterScarf>(), 1));
+
             //money
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<OldHunterBoss>()));
         }

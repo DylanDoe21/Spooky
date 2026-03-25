@@ -66,7 +66,7 @@ CemeteryRose: {
 	DisplayName: Withered Rose
 	Tooltip:
 		'''
-		Causes you to take 15% more damage
+		Causes you to take 10% more damage
 		When you take damage, you will release powerful withered petals
 		The withered petals damage becomes stronger the more damage you take
 		3 minute duration
@@ -362,6 +362,11 @@ SummerSunflower: {
 		'''
 }
 
+UltimateTomato: {
+	DisplayName: Ultimato
+	Tooltip: 5 minute duration
+}
+
 VegetableCauliflower: {
 	DisplayName: Cauliflower Trio
 	Tooltip:
@@ -472,6 +477,15 @@ FlyCharm: {
 		Summons a swarm of flies around you over time, up to 10 total
 		Each active fly will give you one extra point of defense
 		When you get hit, the flies will die and respawn after thirty seconds
+		'''
+}
+
+HunterScarf: {
+	DisplayName: Old Hunter's Scarf
+	Tooltip:
+		'''
+		Enemies nearby you will be marked 
+		Marked enemies will take 25% more damage from your attacks
 		'''
 }
 
@@ -680,6 +694,16 @@ FlowerLegs: {
 		Reduces damage taken by 8%
 		Causes you to fall much faster when worn
 		'''
+}
+
+CatacombChestKeyLower: {
+	DisplayName: Lower Catacomb Chest Key
+	Tooltip: Unlocks one lower catacomb chest
+}
+
+CatacombChestKeyUpper: {
+	DisplayName: Catacomb Chest Key
+	Tooltip: Unlocks one catacomb chest
 }
 
 CatacombKey1: {
@@ -966,15 +990,6 @@ GodGun: {
 		'''
 		Using it for too long will cause the gun to overheat and explode
 		'God's chosen weapon'
-		'''
-}
-
-HunterScarf: {
-	DisplayName: Old Hunter's Scarf
-	Tooltip:
-		'''
-		Enemies nearby you will be marked 
-		Marked enemies will take 10% more damage from your attacks
 		'''
 }
 
@@ -1298,6 +1313,11 @@ NoseCultistRobe: {
 	Tooltip: Disguise as a cultist when worn with the cultist hood
 }
 
+OldHunterHat: {
+	DisplayName: Old Hunter Hat
+	Tooltip: ""
+}
+
 OrroMask: {
 	DisplayName: Orro Mask
 	Tooltip: ""
@@ -1481,7 +1501,7 @@ CandyCorn: {
 	DisplayName: Candy Corn
 	Tooltip:
 		'''
-		Gives a short sugar rush when eaten
+		Minor improvements to all stats
 		'The best halloween candy'
 		'''
 }
@@ -1536,7 +1556,7 @@ VampireGummy: {
 	DisplayName: Vampire Gummy
 	Tooltip:
 		'''
-		Gives a short sugar rush when eaten
+		Minor improvements to all stats
 		'Put it in your mouth and scare people!'
 		'''
 }
@@ -1971,16 +1991,6 @@ EelSushi: {
 FishboneChunk: {
 	DisplayName: Fishbone Chunk
 	Tooltip: ""
-}
-
-LittleDunkEgg: {
-	DisplayName: Strange Egg
-	Tooltip:
-		'''
-		A large egg with an unusual shape
-		Can be hatched into a creature if left underwater 
-		Feeding the creature chum after it hatches will tame it
-		'''
 }
 
 MineDynamite: {
@@ -2466,6 +2476,148 @@ SummonItem4: {
 		Attracts a creature in the valley of eyes while in your inventory
 		'''
 }
+
+BottomlessPebbleBag: {
+	Tooltip: ""
+	DisplayName: Bottomless Pebble Bag
+}
+
+BouncyBall: {
+	DisplayName: Bouncy Ball
+	Tooltip: Bounces off of surfaces and enemies
+}
+
+EyeballAmmo: {
+	DisplayName: Flingable Eye
+	Tooltip: Can chase enemies close to it
+}
+
+MoldyPellet: {
+	DisplayName: Moldy Pellet
+	Tooltip: Creates nasty flies on impact
+}
+
+MossyBoulder: {
+	DisplayName: Mossy Boulder
+	Tooltip: An even larger mossy pebble
+}
+
+MossyPebble: {
+	DisplayName: Mossy Pebble
+	Tooltip: ""
+}
+
+SeedAmmo: {
+	DisplayName: Pokey Seed Ball
+	Tooltip: Explodes into smaller seeds
+}
+
+SkullAmmo: {
+	DisplayName: Sprouting Skull
+	Tooltip: Fires out homing thorns after traveling for a bit
+}
+
+TomatoAmmo: {
+	DisplayName: Flingable Tomato
+	Tooltip: ""
+}
+
+ArachnidSlingshot: {
+	DisplayName: Greg The Arachnid
+	Tooltip:
+		'''
+		An archnid that produces stretchy web, good for flinging things
+		Converts Mossy Pebbles into baby spiders that stick to enemies and inflict venom
+		'''
+}
+
+BaseSlingshot: {
+	DisplayName: Base Slingshot
+	Tooltip: Testing Item
+}
+
+BigBoneSlingshot: {
+	DisplayName: Potted Plant Slingshot
+	Tooltip: ""
+}
+
+BigDunkSlingshot: {
+	DisplayName: Zomboid Slingshot
+	Tooltip: Fires out zomboid juice along with the ammo you are using
+}
+
+EyeSlingshot: {
+	DisplayName: Dualeye Slingshot
+	Tooltip:
+		'''
+		Only uses one ammo and fires out 2 projectiles at once
+		Converts Mossy Pebbles into mini orro-boros
+		'''
+}
+
+GourdSlingshot: {
+	DisplayName: Stinky Slinger
+	Tooltip: Converts Mossy Pebbles into mold pellets that spawn flies
+}
+
+HighVelocitySlingshot: {
+	DisplayName: Crossbow Slingshot
+	Tooltip:
+		'''
+		A heavy slingshot that takes a while to pull back
+		Fires ammo at extremely high speeds
+		'''
+}
+
+MiteSlingshot: {
+	DisplayName: Festering Slingshot
+	Tooltip: Converts Mossy Pebbles into mites that bounce and chase enemies
+}
+
+OldWoodSlingshot: {
+	DisplayName: Old Wood Slingshot
+	Tooltip: A basic wooden slingshot
+}
+
+OpalSlingshot: {
+	DisplayName: Opalised Slinger
+	Tooltip:
+		'''
+		Consumes 3 ammo to fire out 3 consecutive projectiles on use
+		Converts Mossy Pebbles into opalised bones that bounce off things
+		'''
+}
+
+ProSlingshot: {
+	DisplayName: Pro Slingshot
+	Tooltip: ""
+}
+
+SpiderSlingshot: {
+	DisplayName: Web Flinger
+	Tooltip: Converts Mossy Pebbles into webs that slow enemies
+}
+
+SpiritSlingshot: {
+	DisplayName: Ghostly Slingshot
+	Tooltip:
+		'''
+		Converts Mossy Pebbles into homing souls
+		Every 3 shots the soul will split into ghastly bolts on hit
+		'''
+}
+
+StickyHand: {
+	DisplayName: Sticky Hand Slinger
+	Tooltip: ""
+}
+
+TarFlinger: {
+	DisplayName: Tar Flinger
+	Tooltip: Converts Mossy Pebbles into tar that damages and slows all nearby enemies
+}
+
+SlingshotAmmoTooltip: Used as ammo with slingshots
 
 MortarBody: {
 	DisplayName: Mortar Shellplate
@@ -3962,6 +4114,15 @@ SummerSeed: {
 		'''
 }
 
+TomatoSeed: {
+	DisplayName: Tomato Seeds
+	Tooltip:
+		'''
+		Places a plant that grows a tomato
+		Requires a flat ground of Bloom Soil to be planted on
+		'''
+}
+
 VegetableSeed: {
 	DisplayName: Genetically-Modified Seeds
 	Tooltip:
@@ -3978,6 +4139,11 @@ WinterSeed: {
 		Places a plant that grows various berry blooms
 		Requires a flat ground of Bloom Soil to be planted on
 		'''
+}
+
+BigBoneStatueItem: {
+	DisplayName: Big Bone Statue
+	Tooltip: ""
 }
 
 CatacombBrickPlatform1Item: {
@@ -4287,6 +4453,11 @@ GildedBrickItem: {
 
 CemeteryBiomeChestItem: {
 	DisplayName: Swampy Cemetery Chest
+	Tooltip: ""
+}
+
+CemeteryLampItem: {
+	DisplayName: Cemetery Street Lamp
 	Tooltip: ""
 }
 
@@ -6572,6 +6743,11 @@ CamelColonelTrophyItem: {
 	Tooltip: ""
 }
 
+OldHunterTrophyItem: {
+	DisplayName: Old Hunter Trophy
+	Tooltip: ""
+}
+
 CatacombTorch1Item: {
 	DisplayName: Creepy Catacombs Torch
 	Tooltip: ""
@@ -6753,126 +6929,3 @@ PetCommander: {
 		Allows the tamed critter to roam freely, follow you, or stay put
 		'''
 }
-
-Converter: {
-	DisplayName: Converter
-	Tooltip: ""
-}
-
-BottomlessPebbleBag: {
-	Tooltip: ""
-	DisplayName: Bottomless Pebble Bag
-}
-
-BouncyBall: {
-	DisplayName: Bouncy Ball
-	Tooltip: Bounces off of surfaces and enemies
-}
-
-EyeballAmmo: {
-	DisplayName: Flingable Eye
-	Tooltip: Can chase enemies close to it
-}
-
-MoldyPellet: {
-	DisplayName: Moldy Pellet
-	Tooltip: Creates nasty flies on impact
-}
-
-MossyBoulder: {
-	DisplayName: Mossy Boulder
-	Tooltip: An even larger mossy pebble
-}
-
-MossyPebble: {
-	DisplayName: Mossy Pebble
-	Tooltip: ""
-}
-
-SeedAmmo: {
-	DisplayName: Pokey Seed Ball
-	Tooltip: Explodes into smaller seeds
-}
-
-SkullAmmo: {
-	DisplayName: Slingshot Skull
-	Tooltip: ""
-}
-
-BaseSlingshot: {
-	DisplayName: Base Slingshot
-	Tooltip: Testing Item
-}
-
-BigDunkSlingshot: {
-	DisplayName: Zomboid Slingshot
-	Tooltip: Fires out zomboid juice along with the ammo you are using
-}
-
-EyeSlingshot: {
-	DisplayName: Dualeye Slingshot
-	Tooltip:
-		'''
-		Only uses one ammo and fires out 2 projectiles at once
-		Converts Mossy Pebbles into mini orro-boros
-		'''
-}
-
-GourdSlingshot: {
-	DisplayName: Stinky Slinger
-	Tooltip: Converts Mossy Pebbles into mold pellets that spawn flies
-}
-
-HighVelocitySlingshot: {
-	DisplayName: Crossbow Slingshot
-	Tooltip:
-		'''
-		A heavy slingshot that takes a while to pull back
-		Fires ammo at extremely high speeds
-		'''
-}
-
-MiteSlingshot: {
-	DisplayName: Festering Slingshot
-	Tooltip: Converts Mossy Pebbles into mites that bounce and chase enemies
-}
-
-OpalSlingshot: {
-	DisplayName: Opalised Slinger
-	Tooltip:
-		'''
-		Consumes 3 ammo to fire out 3 consecutive projectiles on use
-		Converts Mossy Pebbles into opalised bones that bounce off things
-		'''
-}
-
-OldWoodSlingshot: {
-	DisplayName: Old Wood Slingshot
-	Tooltip: A basic wooden slingshot
-}
-
-SpiderSlingshot: {
-	DisplayName: Web Flinger
-	Tooltip: Converts Mossy Pebbles into webs that slow enemies
-}
-
-SpiritSlingshot: {
-	DisplayName: Ghostly Slingshot
-	Tooltip:
-		'''
-		Converts Mossy Pebbles into homing souls
-		Every 3 shots the soul will split into ghastly bolts on hit
-		'''
-}
-
-StickyHand: {
-	DisplayName: Sticky Hand Slinger
-	Tooltip: ""
-}
-
-TarFlinger: {
-	DisplayName: Tar Flinger
-	Tooltip: Converts Mossy Pebbles into tar that damages and slows all nearby enemies
-}
-
-SlingshotAmmoTooltip: Used as ammo with slingshots

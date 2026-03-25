@@ -372,7 +372,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
 
                     if (NPC.localAI[0] == 150)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.BackToSleep"), true);
+						CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.BackToSleep"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 100);
                     }
 
                     if (NPC.localAI[0] >= 260)
@@ -383,7 +383,7 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     break;
                 }
 
-                //ending dialogue and death animation, dialogue only happens on first defeat (not implemented yet)
+                //ending dialogue and death animation, dialogue only happens on first defeat
                 case -3: 
                 {
                     NPC.localAI[2]++;
@@ -405,25 +405,25 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (NPC.localAI[2] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro1"), true);
+							CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro1"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 150);
                         }
 
                         if (NPC.localAI[2] == 260)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro2"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatOutro2"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 150);
                         }
                     }
                     else
                     {
                         if (NPC.localAI[2] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro1"), true);
+							CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro1"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 150);
                         }
 
                         if (NPC.localAI[2] == 260)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro2"), true);
-                        }
+							CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatOutro2"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 150);
+						}
                     }
 
                     //kill daffodil
@@ -468,11 +468,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (!Flags.downedDaffodil)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatPhaseTransition1"), true);
+							CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatPhaseTransition1"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 130);
                         }
                         else
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatPhaseTransition1"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatPhaseTransition1"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 130);
                         }
                     }
 
@@ -498,11 +498,11 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (!Flags.downedDaffodil)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatPhaseTransition2"), true);
+							CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatPhaseTransition2"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 130);
                         }
                         else
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatPhaseTransition2"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatPhaseTransition2"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 130);
                         }
                     }
 
@@ -534,22 +534,17 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (NPC.localAI[0] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro1"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro1"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 80);
                         }
 
                         if (NPC.localAI[0] == 240)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro2"), true);
-                        }
-
-                        if (NPC.localAI[0] == 360)
-                        {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro3"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro2"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 140);
                         }
 
                         if (NPC.localAI[0] == 480)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro4"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro3"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 140);
                         }
 
                         if (NPC.localAI[0] >= 600)
@@ -566,17 +561,12 @@ namespace Spooky.Content.NPCs.Boss.Daffodil
                     {
                         if (NPC.localAI[0] == 120)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatIntro1"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatIntro1"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 140);
                         }
 
-                        if (NPC.localAI[0] == 240)
+                        if (NPC.localAI[0] == 320)
                         {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PreDefeatIntro3"), true);
-                        }
-
-                        if (NPC.localAI[0] == 360)
-                        {
-                            CombatText.NewText(NPC.getRect(), Color.Gold, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatIntro2"), true);
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.Daffodil.PostDefeatIntro2"), Color.Gold, new Vector2(NPC.direction * 2, -2f), 140);
                         }
 
                         if (NPC.localAI[0] >= 420)

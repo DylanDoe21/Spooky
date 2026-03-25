@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Spooky.Content.Items.BossBags.Accessory;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Costume;
+using Spooky.Content.Items.Slingshots;
+using Spooky.Content.Items.Slingshots.Ammo;
 using Spooky.Content.NPCs.Boss.BigBone;
 
 namespace Spooky.Content.Items.BossBags
@@ -48,12 +50,16 @@ namespace Spooky.Content.Items.BossBags
             int[] MainItem = new int[] 
 			{ 
 				ModContent.ItemType<BigBoneHammer>(), 
-				ModContent.ItemType<BigBoneBow>(), 
+				ModContent.ItemType<BigBoneBow>(),
+				ModContent.ItemType<BigBoneSlingshot>(),
             	ModContent.ItemType<BigBoneStaff>(), 
 				ModContent.ItemType<BigBoneScepter>() 
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, MainItem));
+
+			//skull ammo
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<SkullAmmo>(), 1, 100, 200));
 
             //boss mask
             itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<BigBoneMask>(), 7));

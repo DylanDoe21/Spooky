@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Cemetery;
 using Spooky.Content.Items.Slingshots;
 using Spooky.Content.Items.Slingshots.Ammo;
@@ -39,8 +40,8 @@ namespace Spooky.Content.Generation
         int chosenRoom = 0;
         int switchRoom = 0;
 
-        public static int TotalRoomVariants1 = 20;
-        public static int TotalRoomVariants2 = 18;
+        public static int TotalRoomVariants1 = 24;
+        public static int TotalRoomVariants2 = 20;
         public static int EntranceY = 0;
         public static int EntranceBottomY = 0;
         public static int PositionX = 0;
@@ -702,23 +703,41 @@ namespace Spooky.Content.Generation
             }
 
             //place the entrance to the catacombs from the bottom of the cemetery crypt building
-            int EntranceX = XMiddle - 5;
+            int EntrancePosX = XMiddle - 1;
+            int EntrancePosY = EntranceY + 61;
+            bool foundValidPosition = false;
+			int attempts = 0;
 
-            for (int EntranceNewY = EntranceY + 60; EntranceNewY <= (int)Main.worldSurface - 6; EntranceNewY += 5)
-            {
-                Vector2 EntranceOrigin = new Vector2(EntranceX - 3, EntranceNewY + 1);
-                Vector2 EntranceBarrierOrigin = new Vector2(EntranceX - 3, EntranceNewY - 1);
+            while (!foundValidPosition && attempts++ < 100000)
+			{
+                Tile tileBelow = Main.tile[EntrancePosX, EntrancePosY + 1];
 
-                //place the yellow barrier entrance once the catacombs is reached
-                if (EntranceNewY == EntranceY + 60)
+                if (!tileBelow.HasTile)
                 {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance.shstruct", EntranceOrigin.ToPoint16(), Mod);
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/CryptEntranceBarrier.shstruct", EntranceBarrierOrigin.ToPoint16(), Mod);
+                    foundValidPosition = true;
                 }
-                else
+
+                for (int EntranceRealX = EntrancePosX - 5; EntranceRealX <= EntrancePosX + 5; EntranceRealX++)
                 {
-                    StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer1/CatacombEntrance.shstruct", EntranceOrigin.ToPoint16(), Mod);
+                    Tile tile = Main.tile[EntranceRealX, EntrancePosY];
+
+                    tile.ClearEverything();
+
+                    if (EntranceRealX == EntrancePosX - 5 || EntranceRealX == EntrancePosX + 5 ||
+                    EntranceRealX == EntrancePosX - 4 || EntranceRealX == EntrancePosX + 4)
+                    {
+                        WorldGen.PlaceTile(EntranceRealX, EntrancePosY, ModContent.TileType<CatacombBrick1>());
+                    }
+
+                    if (EntranceRealX == EntrancePosX)
+                    {
+                        WorldGen.PlaceTile(EntranceRealX, EntrancePosY, TileID.Chain);
+                    }
+
+                    WorldGen.PlaceWall(EntranceRealX, EntrancePosY, ModContent.WallType<CatacombBrickWall1>());
                 }
+
+                EntrancePosY++;
             }
 
             //place the daffodil arena
@@ -775,11 +794,40 @@ namespace Spooky.Content.Generation
             }
 
             //place entrance from daffodil's arena to the second layer
-            for (int EntranceNewY = DaffodilArenaY + 21; EntranceNewY <= (int)Main.worldSurface + layer1Depth + 100; EntranceNewY += 6)
-            {
-                Vector2 entranceOrigin = new Vector2(XMiddle - 8, EntranceNewY);
+            EntrancePosX = XMiddle - 1;
+            EntrancePosY = DaffodilArenaY + 21;
+            foundValidPosition = false;
+			attempts = 0;
 
-                StructureHelper.API.Generator.GenerateStructure("Content/Structures/CatacombLayer2/Entrance-" + WorldGen.genRand.Next(1, 5) + ".shstruct", entranceOrigin.ToPoint16(), Mod);
+            while (!foundValidPosition && attempts++ < 100000)
+			{
+                Tile tileBelow = Main.tile[EntrancePosX, EntrancePosY + 1];
+
+                if (!tileBelow.HasTile)
+                {
+                    foundValidPosition = true;
+                }
+
+                for (int EntranceRealX = EntrancePosX - 5; EntranceRealX <= EntrancePosX + 5; EntranceRealX++)
+                {
+                    Tile tile = Main.tile[EntranceRealX, EntrancePosY];
+
+                    tile.ClearEverything();
+                    if (EntranceRealX == EntrancePosX - 5 || EntranceRealX == EntrancePosX + 5 ||
+                    EntranceRealX == EntrancePosX - 4 || EntranceRealX == EntrancePosX + 4)
+                    {
+                        WorldGen.PlaceTile(EntranceRealX, EntrancePosY, ModContent.TileType<CatacombBrick2>());
+                    }
+
+                    if (EntranceRealX == EntrancePosX)
+                    {
+                        WorldGen.PlaceTile(EntranceRealX, EntrancePosY, TileID.Chain);
+                    }
+
+                    WorldGen.PlaceWall(EntranceRealX, EntrancePosY, ModContent.WallType<CatacombBrickWall2>());
+                }
+
+                EntrancePosY++;
             }
 
 
@@ -1041,7 +1089,7 @@ namespace Spooky.Content.Generation
                         //place loot chests
                         if (WorldGen.genRand.NextBool(45) && CanPlaceChest(X, Y))
                         {
-                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<UpperCatacombChest>());
+                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<UpperCatacombChest>(), style: 1);
                         }
 
                         //place rows of caskets, tombs, and decorative flower pots
@@ -1087,15 +1135,15 @@ namespace Spooky.Content.Generation
                                 //row of giant coffins
                                 case 2:
                                 {
-                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffin>(), true, WorldGen.genRand.Next(0, 2));
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffinUnsafe>(), true, WorldGen.genRand.Next(0, 2));
 
                                     if (WorldGen.genRand.NextBool(3))
                                     {
-                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffin>(), true, WorldGen.genRand.Next(0, 2));
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffinUnsafe>(), true, WorldGen.genRand.Next(0, 2));
                                     }
                                     if (WorldGen.genRand.NextBool(3))
                                     {
-                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffin>(), true, WorldGen.genRand.Next(0, 2));
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffinUnsafe>(), true, WorldGen.genRand.Next(0, 2));
                                     }
 
                                     break;
@@ -1172,6 +1220,7 @@ namespace Spooky.Content.Generation
 						SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<CatacombVines>(), ValidTiles);
 					}
 
+                    //barrels
 					if (tile.TileType == ModContent.TileType<CatacombBrick1Grass>() || tile.TileType == ModContent.TileType<CatacombBrick1GrassArena>() || tile.TileType == ModContent.TileType<CatacombFlooring>())
 					{
 						if (WorldGen.genRand.NextBool(50))
@@ -1381,7 +1430,7 @@ namespace Spooky.Content.Generation
                         //place loot chests
                         if (WorldGen.genRand.NextBool(45) && CanPlaceChest(X, Y))
                         {
-                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<LowerCatacombChest>());
+                            WorldGen.PlaceChest(X, Y - 1, (ushort)ModContent.TileType<LowerCatacombChest>(), style: 1);
                         }
 
                         //place rows of caskets, tombs, and decorative flower pots
@@ -1427,15 +1476,15 @@ namespace Spooky.Content.Generation
                                 //row of giant coffins
                                 case 2:
                                 {
-                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffin>());
+                                    WorldGen.PlaceObject(X, Y - 1, ModContent.TileType<GiantCoffinUnsafe>(), true, WorldGen.genRand.Next(0, 2));
 
                                     if (WorldGen.genRand.NextBool(3))
                                     {
-                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                        WorldGen.PlaceObject(X - 3, Y - 1, ModContent.TileType<GiantCoffinUnsafe>(), true, WorldGen.genRand.Next(0, 2));
                                     }
                                     if (WorldGen.genRand.NextBool(3))
                                     {
-                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffin>());
+                                        WorldGen.PlaceObject(X + 3, Y - 1, ModContent.TileType<GiantCoffinUnsafe>(), true, WorldGen.genRand.Next(0, 2));
                                     }
 
                                     break;
@@ -1523,6 +1572,15 @@ namespace Spooky.Content.Generation
                     {
                         tile.TileFrameX += 36;
                     }
+
+                    //barrels
+                    if (tile.TileType == ModContent.TileType<CatacombBrick2Grass>() || tile.TileType == ModContent.TileType<CatacombBrick2GrassArena>() || tile.TileType == ModContent.TileType<GildedBrick>())
+					{
+						if (WorldGen.genRand.NextBool(50))
+						{
+							WorldGen.PlaceChest(X, Y - 1, 21, false, 5);
+						}
+					}
 				}
             }
         }
@@ -1716,8 +1774,7 @@ namespace Spooky.Content.Generation
 			List<int> MainItem1 = new List<int>
 			{
 				ModContent.ItemType<BoneBow>(), ModContent.ItemType<GraveCrossbow>(), ModContent.ItemType<HarvesterScythe>(), 
-                ModContent.ItemType<HighVelocitySlingshot>(), ModContent.ItemType<HunterScarf>(), 
-                ModContent.ItemType<NineTails>(), ModContent.ItemType<ThornStaff>()
+                ModContent.ItemType<HighVelocitySlingshot>(), ModContent.ItemType<NineTails>(), ModContent.ItemType<ThornStaff>()
 			};
 
 			List<int> ActualMainItem1 = new List<int>(MainItem1);
@@ -1788,32 +1845,6 @@ namespace Spooky.Content.Generation
 						//gold coins
 						chest.item[4].SetDefaults(ItemID.GoldCoin);
 						chest.item[4].stack = WorldGen.genRand.Next(1, 3);
-                    }
-
-					//layer 1 barrels
-					if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall1>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall1>()))
-					{
-						//place stuff in barrels
-						if (chestTile.TileFrameX == 5 * 36)
-						{
-							int[] RareItem = new int[] { ModContent.ItemType<SkullAmulet>(), ModContent.ItemType<RustyRing>() };
-							int[] Ammo = new int[] { ModContent.ItemType<RustedBullet>(), ModContent.ItemType<OldWoodArrow>(), ModContent.ItemType<MossyPebble>() };
-
-							if (WorldGen.genRand.NextBool(15))
-							{
-								chest.item[0].SetDefaults(WorldGen.genRand.Next(RareItem));
-							}
-							else if (WorldGen.genRand.NextBool(5))
-							{
-								chest.item[0].SetDefaults(ItemID.GoodieBag);
-								chest.item[0].stack = WorldGen.genRand.Next(1, 3);
-							}
-							else
-							{
-								chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
-								chest.item[0].stack = WorldGen.genRand.Next(10, 21);
-							}
-						}
                     }
 
                     //layer 2 chests
@@ -1906,6 +1937,38 @@ namespace Spooky.Content.Generation
 						chest.item[4].SetDefaults(ItemID.GoldCoin);
 						chest.item[4].stack = WorldGen.genRand.Next(5, 16);
 					}
+
+                    //barrels
+					if (chestTile.TileType == TileID.Containers && (chestTile.WallType == ModContent.WallType<CatacombBrickWall1>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall1>() ||
+                    chestTile.WallType == ModContent.WallType<CatacombBrickWall2>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall2>()))
+					{
+						//place stuff in barrels
+						if (chestTile.TileFrameX == 5 * 36)
+						{
+							int[] RareItem = new int[] { ModContent.ItemType<SkullAmulet>(), ModContent.ItemType<RustyRing>() };
+							int[] Ammo = new int[] { ModContent.ItemType<RustedBullet>(), ModContent.ItemType<OldWoodArrow>(), ModContent.ItemType<MossyPebble>() };
+
+                            if (WorldGen.genRand.NextBool(12))
+							{
+                                bool UpperKey = (chestTile.WallType == ModContent.WallType<CatacombBrickWall1>() || chestTile.WallType == ModContent.WallType<CatacombGrassWall1>());
+								chest.item[0].SetDefaults(UpperKey ? ModContent.ItemType<CatacombChestKeyUpper>() : ModContent.ItemType<CatacombChestKeyLower>());
+							}
+							else if (WorldGen.genRand.NextBool(12))
+							{
+								chest.item[0].SetDefaults(WorldGen.genRand.Next(RareItem));
+							}
+							else if (WorldGen.genRand.NextBool(5))
+							{
+								chest.item[0].SetDefaults(ItemID.GoodieBag);
+								chest.item[0].stack = WorldGen.genRand.Next(1, 3);
+							}
+							else
+							{
+								chest.item[0].SetDefaults(WorldGen.genRand.Next(Ammo));
+								chest.item[0].stack = WorldGen.genRand.Next(10, 21);
+							}
+						}
+                    }
                 }
             }
         }

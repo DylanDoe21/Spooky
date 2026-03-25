@@ -173,6 +173,15 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
         {
             if (NPC.life <= 0) 
             {
+                if (Main.rand.NextBool(3))
+                {
+                    int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ItemID.Heart);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    }
+                }
+
                 if (Main.netMode != NetmodeID.Server) 
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/JoroFlyGore").Type);

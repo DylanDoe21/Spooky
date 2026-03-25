@@ -83,13 +83,13 @@ namespace Spooky.Content.Tiles.Cemetery.Furniture
 			int top = j - tile.TileFrameY / 18 % 3;
 
 			//dont allow this tile to be broken if it has spawned ghosts and the ghosts in question are active
-			foreach (var Proj in Main.ActiveProjectiles)
+			foreach (var NPC in Main.ActiveNPCs)
 			{
 				for (int x = left; x < left + 2; x++)
 				{
 					for (int y = top; y < top + 3; y++)
 					{
-						if (Proj.type == ModContent.ProjectileType<MistGhostSpawn>() && Proj.Hitbox.Intersects(new Rectangle(x * 16, y * 16, 16, 16)) &&
+						if (NPC.type == ModContent.NPCType<MistGhostSpawn>() && NPC.Hitbox.Intersects(new Rectangle(x * 16, y * 16, 16, 16)) &&
 						(NPC.AnyNPCs(ModContent.NPCType<MistGhost>()) || NPC.AnyNPCs(ModContent.NPCType<MistGhostFaces>()) || 
 						NPC.AnyNPCs(ModContent.NPCType<MistGhostWiggle>()) || NPC.AnyNPCs(ModContent.NPCType<MistGhostSwirl>())))
 						{

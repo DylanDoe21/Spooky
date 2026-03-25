@@ -30,7 +30,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useStyle = ItemUseStyleID.Shoot;         
 			Item.knockBack = 5;
 			Item.rare = ItemRarityID.Yellow;  
-			Item.value = Item.buyPrice(gold: 25);
+			Item.value = Item.buyPrice(gold: 35);
 			Item.UseSound = SoundID.NPCHit36;
 			Item.buffType = ModContent.BuffType<SoulSkullBuff>();
 			Item.shoot = ModContent.ProjectileType<SoulSkullMinion>();

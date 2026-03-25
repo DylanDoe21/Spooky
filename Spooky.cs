@@ -28,22 +28,6 @@ namespace Spooky
         internal Mod thoriumMod = null;
         internal Mod calamityMod = null;
 
-        public static int MocoSpawnX;
-        public static int MocoSpawnY;
-
-        public static int DaffodilSpawnX;
-        public static int DaffodilSpawnY;
-        public static int DaffodilParent;
-
-        public static int OrroboroSpawnX;
-        public static int OrroboroSpawnY;
-
-		public static int TurkeySpawnX;
-		public static int TurkeySpawnY;
-
-        public static int MushGnomeSpawnX;
-		public static int MushGnomeSpawnY;
-
 		public static Effect vignetteEffect;
         public static Vignette vignetteShader;
 
@@ -108,12 +92,12 @@ namespace Spooky
 			{
                 case SpookyMessageType.SpawnMoco:
                 {
-                    NPC.NewNPC(null, MocoSpawnX, MocoSpawnY, ModContent.NPCType<MocoSpawner>());
+                    NPC.NewNPC(null, Flags.MocoSpawnX, Flags.MocoSpawnY, ModContent.NPCType<MocoSpawner>());
 					break;
                 }
                 case SpookyMessageType.SpawnOrroboro:
                 {
-                    NPC.NewNPC(null, OrroboroSpawnX, OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>(), ai0: -1);
+                    NPC.NewNPC(null, Flags.OrroboroSpawnX, Flags.OrroboroSpawnY, ModContent.NPCType<OrroHeadP1>(), ai0: -1);
                     break;
                 }
                 case SpookyMessageType.SpawnDaffodil:
@@ -136,7 +120,7 @@ namespace Spooky
 				}
 				case SpookyMessageType.SpawnTurkey:
                 {
-                    int Turkey = NPC.NewNPC(null, TurkeySpawnX, TurkeySpawnY, ModContent.NPCType<Turkey>());
+                    int Turkey = NPC.NewNPC(null, Flags.TurkeySpawnX, Flags.TurkeySpawnY, ModContent.NPCType<Turkey>());
                     Main.npc[Turkey].GetGlobalNPC<NPCGlobal>().NPCTamed = true;
 					break;
                 }
@@ -269,8 +253,14 @@ namespace Spooky
                 case SpookyMessageType.SpawnMushGnome:
                 {
                     int[] Gnomes = new int[] { ModContent.NPCType<MushGnome1>(), ModContent.NPCType<MushGnome2>(), ModContent.NPCType<MushGnome3>(), ModContent.NPCType<MushGnome4>() };
-                    int Gnome = NPC.NewNPC(null, MushGnomeSpawnX, MushGnomeSpawnY, Main.rand.Next(Gnomes));
+                    int Gnome = NPC.NewNPC(null, Flags.MushGnomeSpawnX, Flags.MushGnomeSpawnY, Main.rand.Next(Gnomes));
                     Main.npc[Gnome].velocity.X = Main.rand.NextBool() ? -1 : 1;
+                    break;
+                }
+                case SpookyMessageType.SpawnGhostAmbush:
+                {
+                    Flags.SpawnGhostAmbush = true;
+                    NetMessage.SendData(MessageID.WorldData);
                     break;
                 }
 				//should never occur I think?
@@ -285,7 +275,6 @@ namespace Spooky
 
     enum SpookyMessageType : byte
     {
-        SpawnSpookySpirit,
         SpawnMoco,
         SpawnOrroboro,
         SpawnDaffodil,
@@ -312,6 +301,7 @@ namespace Spooky
         KrampusDailyQuestDone,
         KrampusDailyQuestReset,
         DrawKrampusMapIconReset,
-        SpawnMushGnome
+        SpawnMushGnome,
+        SpawnGhostAmbush
 	}
 }

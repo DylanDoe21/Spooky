@@ -10,7 +10,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
 {
 	public class SpiderCrossbowProj : ModProjectile
 	{
-        int playerCenterOffset = 8;
+        int playerCenterOffset = 5;
 
 		public override void SetStaticDefaults()
 		{
@@ -19,8 +19,8 @@ namespace Spooky.Content.Projectiles.SpiderCave
 
 		public override void SetDefaults()
 		{
-            Projectile.width = 66;
-            Projectile.height = 88;
+            Projectile.width = 36;
+            Projectile.height = 66;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
@@ -98,7 +98,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 }
             }
 
-            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - 2 - Projectile.height / 2);
+            Projectile.position = new Vector2(player.MountedCenter.X - Projectile.width / 2, player.MountedCenter.Y - playerCenterOffset - Projectile.height / 2);
 
             if (direction.X > 0) 
             {

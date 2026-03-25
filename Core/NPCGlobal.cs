@@ -370,10 +370,10 @@ namespace Spooky.Core
 			{
 				modifiers.FinalDamage *= 1.15f;
 			}
-			//enemies inflicted with hunter mark take 10% more damage
+			//enemies inflicted with hunter mark take 25% more damage
 			if (npc.HasBuff(ModContent.BuffType<HunterScarfMark>()))
 			{
-				modifiers.FinalDamage *= 1.1f;
+				modifiers.FinalDamage *= 1.25f;
 			}
 			//samsons cuff makes enemies take 18% more damage
 			if (npc.HasBuff(ModContent.BuffType<SamsonCuffDebuff>()))

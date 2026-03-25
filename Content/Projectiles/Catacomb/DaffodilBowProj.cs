@@ -117,7 +117,7 @@ namespace Spooky.Content.Projectiles.Catacomb
 
                 Projectile.localAI[0]++;
 
-                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 3)
+                if (Projectile.localAI[0] >= ItemGlobal.ActiveItem(player).useTime / 2)
                 {
                     Projectile.frame++;
 
@@ -142,12 +142,12 @@ namespace Spooky.Content.Projectiles.Catacomb
                             TypeToShoot = ModContent.ProjectileType<DaffodilBowFly>();
                         }
 
-                        Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
-                        ShootSpeed.Normalize();
-                        ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
-
                         for (int numProjs = 0; numProjs < 5; numProjs++)
                         {
+                            Vector2 ShootSpeed = Main.MouseWorld - Projectile.Center;
+                            ShootSpeed.Normalize();
+                            ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed + Main.rand.NextFloat(-3f, 3f);
+
                             Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(22));
 
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, TypeToShoot, Projectile.damage, Projectile.knockBack, Projectile.owner);

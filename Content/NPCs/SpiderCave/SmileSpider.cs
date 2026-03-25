@@ -46,10 +46,10 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.knockBackResist = 0f;
 			NPC.value = Item.buyPrice(0, 0, 1, 0);
 			NPC.noGravity = true;
-			NPC.noTileCollide = true;
+			NPC.noTileCollide = false;
 			NPC.HitSound = SoundID.NPCHit29;
 			NPC.DeathSound = SoundID.NPCDeath31 with { Pitch = 0.65f };
-			NPC.aiStyle = -1;
+			NPC.aiStyle = 14;
             SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 
@@ -126,36 +126,6 @@ namespace Spooky.Content.NPCs.SpiderCave
 			NPC.rotation = NPC.velocity.ToRotation();
 
 			UpdateSpiderLegs();
-
-			bool lineOfSight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
-
-			if (!lineOfSight)
-			{
-				if (NPC.ai[0] > 0.04f)
-				{
-					NPC.ai[0] -= 0.1f;
-				}
-				if (NPC.ai[0] < 0.04f)
-				{
-					NPC.ai[0] += 0.01f;
-				}
-
-				Vector2 MoveSpeed = player.Center - NPC.Center;
-				MoveSpeed.Normalize();
-						
-				MoveSpeed *= NPC.ai[0];
-				NPC.velocity += MoveSpeed / 4;
-
-				NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -4f, 4f);
-				NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -4f, 4f);
-			}
-			else
-			{
-				SavePosition = Vector2.Zero;
-
-				Vector2 desiredVelocity = NPC.DirectionTo(player.Center) * 3;
-				NPC.velocity = Vector2.Lerp(NPC.velocity, desiredVelocity, 1f / 20);
-			}
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -42,12 +42,11 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.defense = 5;
             NPC.width = 40;
 			NPC.height = 44;
+            NPC.npcSlots = 0f;
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;
 			NPC.dontCountMe = true;
-            NPC.npcSlots = 1f;
-			NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath2;
             NPC.aiStyle = 0;
@@ -99,11 +98,12 @@ namespace Spooky.Content.NPCs.Friendly
             if (!Main.dedServ)
             {
                 int DialogueChoice = Main.rand.Next(1, 3);
+                int PlayerDialogueChoice = Main.rand.Next(1, 3);
 
                 DialogueChain chain = new();
                 chain.Add(new(UITexture.Value, NPC,
                 Language.GetTextValue("Mods.Spooky.Dialogue.DumbZomboidDialogue.Dialogue" + DialogueChoice),
-                Language.GetTextValue("Mods.Spooky.Dialogue.DumbZomboidDialogue.DialoguePlayer" + DialogueChoice),
+                Language.GetTextValue("Mods.Spooky.Dialogue.DumbZomboidDialogue.DialoguePlayer" + PlayerDialogueChoice),
                 TalkSound, 2f, 0f, modifier, NPCID: NPC.type))
                 .Add(new(UITexture.Value, NPC, null, null, TalkSound, 2f, 0f, modifier, true));
                 chain.OnPlayerResponseTrigger += PlayerResponse;

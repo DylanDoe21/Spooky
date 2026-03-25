@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Catacomb.Misc;
+using Spooky.Content.Items.Food;
+
 namespace Spooky.Content.NPCs.Catacomb.Layer2
 {
 	public class LilySlime1Big : ModNPC
@@ -48,7 +51,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombChestKeyLower>(), 50));
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 3));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 
@@ -116,7 +121,9 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombChestKeyLower>(), 50));
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 1, 3));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
 		public override void HitEffect(NPC.HitInfo hit) 

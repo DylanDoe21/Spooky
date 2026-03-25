@@ -333,6 +333,8 @@ namespace Spooky.Core
         //special condition for the spider war, if the current spider war wave is below 10 then have a 10% chance to drop items, and at wave 10 guarantee drops
         public class SpiderWarItemDropCondition : IItemDropRuleCondition
         {
+            private static LocalizedText Description = Language.GetOrRegister("Mods.Spooky.DropConditions.SpiderWarTooltip");
+
             public bool CanDrop(DropAttemptInfo info)
             {
                 if (!info.IsInSimulation) 
@@ -360,12 +362,14 @@ namespace Spooky.Core
 
             public string GetConditionDescription() 
             {
-                return null;
+                return Description.Value;
             }
         }
 
         public class OneFromOptionsForSpiderWar : IItemDropRule
 		{
+            private static LocalizedText Description = Language.GetOrRegister("Mods.Spooky.DropConditions.SpiderWarTooltip");
+
 			public List<IItemDropRuleChainAttempt> ChainedRules { get; }
 
 			private int chanceDenominator;

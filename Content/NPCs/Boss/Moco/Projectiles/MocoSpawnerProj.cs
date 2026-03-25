@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 
+using Spooky.Core;
 using Spooky.Content.Dusts;
 
 namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
@@ -29,8 +30,8 @@ namespace Spooky.Content.NPCs.Boss.Moco.Projectiles
 
         public override void AI()
         {
-            Spooky.MocoSpawnX = (int)Projectile.Center.X;
-            Spooky.MocoSpawnY = (int)Projectile.Center.Y;
+            Flags.MocoSpawnX = (int)Projectile.Center.X;
+            Flags.MocoSpawnY = (int)Projectile.Center.Y;
 
             if (Projectile.timeLeft == 2)
             {

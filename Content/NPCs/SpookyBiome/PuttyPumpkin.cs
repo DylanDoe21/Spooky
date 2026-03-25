@@ -13,14 +13,9 @@ namespace Spooky.Content.NPCs.SpookyBiome
 {
 	public class PuttyPumpkin : ModNPC
 	{
-        private static Asset<Texture2D> NPCTexture;
-
         public override void SetStaticDefaults()
 		{
-			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
-            {
-                CustomTexturePath = "Spooky/Content/NPCs/SpookyBiome/PuttyPumpkin"
-            };
+			Main.npcFrameCount[NPC.type] = 2;
 		}
 
 		public override void SetDefaults()
@@ -39,6 +34,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.HoppinJack;
+			AnimationType = NPCID.HoppinJack;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
@@ -51,45 +47,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 new BestiaryPortraitBackgroundProviderPreferenceInfoElement(ModContent.GetInstance<Biomes.SpookyBiome>().ModBiomeBestiaryInfoElement)
 			});
 		}
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			float stretch = NPC.velocity.Y * 0.45f;
-
-			stretch = Math.Abs(stretch);
-
-			//limit how much it can stretch
-			if (stretch > 0.12f)
-			{
-				stretch = 0.12f;
-			}
-
-			//limit how much it can squish
-			if (stretch < -0.12f)
-			{
-				stretch = -0.12f;
-			}
-
-			Vector2 scaleStretch = new Vector2(1f - stretch, 1f + stretch);
-			
-			if (NPC.velocity.Y <= 0)
-			{
-				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
-			}
-			if (NPC.velocity.Y > 0)
-			{
-				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
-			}
-
-			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-			spriteBatch.Draw(NPCTexture.Value, NPC.Center + new Vector2(0, NPC.height / 2 + NPC.gfxOffY) - Main.screenPosition, 
-			NPC.frame, drawColor, NPC.rotation, new Vector2(NPC.width / 2, NPC.height), scaleStretch, effects, 0f);
-
-			return false;
-        }
 
         public override void AI()
 		{

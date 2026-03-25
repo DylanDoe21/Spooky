@@ -9,6 +9,7 @@ using Spooky.Core;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.Moco;
+using Spooky.Content.NPCs.Boss.OldHunter;
 using Spooky.Content.NPCs.Boss.Orroboro;
 using Spooky.Content.NPCs.Boss.RotGourd;
 using Spooky.Content.NPCs.Boss.SpookFishron;
@@ -49,6 +50,15 @@ namespace Spooky.Content.Achievements
         {
 			Achievement.SetCategory(AchievementCategory.Slayer);
             AddNPCKilledCondition(ModContent.NPCType<DaffodilEye>());
+        }
+    }
+
+    public class BossAchievementOldHunter : ModAchievement
+    {
+        public override void SetStaticDefaults()
+        {
+			Achievement.SetCategory(AchievementCategory.Slayer);
+            AddNPCKilledCondition(ModContent.NPCType<OldHunterBoss>());
         }
     }
 

@@ -80,12 +80,9 @@ namespace Spooky.Content.Items.SpookyHell.EggEvent
 				int EffectRate = 6;
 
 				//hovering effects
-				if (player.wings == player.wingsLogic)
+				if (player.wings == player.wingsLogic && player.controlDown && player.wingTime > 0)
 				{
-					if (player.controlDown && player.wingTime > 0)
-					{
-						EffectRate = 10;
-					}
+					EffectRate = 10;
 				}
 
 				//wing effects when flying

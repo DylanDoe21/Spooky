@@ -39,16 +39,6 @@ namespace Spooky.Content.Projectiles.Slingshots
 					SoundEngine.PlaySound(ShootSound, Projectile.Center);
 
 					int Type = GetProjectileToShoot(player, ModContent.ProjectileType<SpiderSlingshotWeb>());
-					
-					int NumShotsForEffect = 3;
-					if (Projectile.ai[2] < NumShotsForEffect)
-					{
-						Projectile.ai[2]++;
-					}
-					else
-					{
-						Projectile.ai[2] = 0;
-					}
 
 					if (Projectile.owner == Main.myPlayer)
 					{
@@ -56,8 +46,7 @@ namespace Spooky.Content.Projectiles.Slingshots
 						ShootSpeed.Normalize();
 						ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
 
-						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, Type, Projectile.damage, 
-						Projectile.knockBack, Projectile.owner, ai1: Projectile.ai[2] >= NumShotsForEffect ? 1 : 0);
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
 					}
 				}
 

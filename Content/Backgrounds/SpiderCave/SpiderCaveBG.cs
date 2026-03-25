@@ -24,6 +24,12 @@ namespace Spooky.Content.Backgrounds.SpiderCave
 
         public static float WarLightBeamOpacity;
 
+        public static float LightenFade;
+        public static float DarkenFade;
+
+        public static Color BGColor;
+        public static Color GlowColor;
+
         private static void DrawUndergroundBG(On_Main.orig_DrawBackgroundBlackFill orig, Main self)
         {
             if (Main.gameMenu || Main.screenPosition.Y + Main.screenHeight < ((int)Main.worldSurface) * 16f)
@@ -63,7 +69,7 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                 float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;
                 float Scale = 1.5f;
 
-                for (int Layers = 5; Layers >= 0; Layers--)
+                for (int Layers = 4; Layers >= 0; Layers--)
                 {
                     //get each background texture
                     Texture2D BGTexture = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBG" + Layers).Value;
@@ -75,43 +81,43 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                     Vector2 zero = Vector2.Zero;
 
 					Color drawColor = Color.White;
+                    Color darkColor = Color.White;
 
                     switch (Layers)
                     {
                         case 0:
                         {
 							drawColor = new Color(30, 30, 30);
+                            darkColor = new Color(15, 15, 15);
                             zero.Y -= 400f;
                             break;
                         }
                         case 1:
                         {
 							drawColor = new Color(30, 30, 30);
+                            darkColor = new Color(15, 15, 15);
                             zero.Y += 20f;
                             break;
                         }
                         case 2:
                         {
 							drawColor = new Color(60, 60, 60);
+                            darkColor = new Color(30, 30, 30);
                             zero.Y += 220f;
                             break;
                         }
                         case 3:
                         {
 							drawColor = new Color(80, 80, 80);
+                            darkColor = new Color(40, 40, 40);
                             zero.Y += 0f;
                             break;
                         }
                         case 4:
                         {
 							drawColor = new Color(120, 120, 120);
+                            darkColor = new Color(60, 60, 60);
                             zero.Y += 150f;
-                            break;
-                        }
-                        case 5:
-                        {
-							drawColor = Color.DimGray * 0.5f;
-                            zero.Y -= 150f;
                             break;
                         }
                     }
@@ -128,21 +134,44 @@ namespace Spooky.Content.Backgrounds.SpiderCave
                         Vector2 drawPosition = (new Vector2(j * Scale * (rectangle.Width / vector3.X), ((Main.LocalPlayer.Center.Y / 16f) - 90) * 16f) + vector2 - vector) * vector3 + vector - Main.screenPosition - vector2 + zero;
 
                         var frame = rectangle;
-						var color = (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive ? new Color(25, 25, 25) : drawColor) * Transparency;
 
-                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, color, 0f, zero, Scale, SpriteEffects.None, 0f);
+                        //background gets darker during events
+                        if (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive)
+                        {
+                            LightenFade = 0f;
+
+                            if (DarkenFade < 1f)
+                            {
+                                DarkenFade += 0.0005f;
+                            }
+
+                            BGColor = Color.Lerp(drawColor, darkColor, Utils.GetLerpValue(0f, 1f, DarkenFade));
+                            GlowColor = Color.Lerp(new Color(50, 50, 50), new Color(25, 25, 25), Utils.GetLerpValue(0f, 1f, DarkenFade));
+                        }
+                        //background gets normal light if no events are happening
+                        else
+                        {
+                            DarkenFade = 0f;
+
+                            if (LightenFade < 1f)
+                            {
+                                LightenFade += 0.0005f;
+                            }
+
+                            BGColor = Color.Lerp(darkColor, drawColor, Utils.GetLerpValue(0f, 1f, LightenFade));
+                            GlowColor = Color.Lerp(new Color(25, 25, 25), new Color(50, 50, 50), Utils.GetLerpValue(0f, 1f, LightenFade));
+                        }
+
+                        Main.spriteBatch.Draw(BGTexture, drawPosition, frame, BGColor * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
 
                         if (Layers <= 1)
                         {
                             Texture2D BGTextureGlow = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBG" + Layers + "Glow").Value;
 
-                            var glowColor = (Flags.SporeEventHappening || SpiderWarWorld.SpiderWarActive ? new Color(25, 25, 25) : new Color(50, 50, 50)) * Transparency;
-
-                            Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, glowColor, 0f, zero, Scale, SpriteEffects.None, 0f);
+                            Main.spriteBatch.Draw(BGTextureGlow, drawPosition, frame, GlowColor * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
                         }
 
-                        /*
-                        if (Layers == 2)
+                        if (Layers == 4)
                         {
                             float time = Main.GameUpdateCount * 0.01f;
 
@@ -154,13 +183,10 @@ namespace Spooky.Content.Backgrounds.SpiderCave
 
                             Texture2D EyesTexture1 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes1").Value;
                             Texture2D EyesTexture2 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes2").Value;
-                            Texture2D EyesTexture3 = ModContent.Request<Texture2D>("Spooky/Content/Backgrounds/SpiderCave/SpiderCaveBGEyes3").Value;
 
                             Main.spriteBatch.Draw(EyesTexture1, drawPosition, frame, Color.Red * intensity1 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
                             Main.spriteBatch.Draw(EyesTexture2, drawPosition, frame, Color.Red * intensity2 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
-                            Main.spriteBatch.Draw(EyesTexture3, drawPosition, frame, Color.Red * intensity1 * Transparency, 0f, zero, Scale, SpriteEffects.None, 0f);
                         }
-                        */
 
 						//reused raveyard sky beams, lazy but it looks good anyways
 						if (SpiderWarWorld.SpiderWarActive)

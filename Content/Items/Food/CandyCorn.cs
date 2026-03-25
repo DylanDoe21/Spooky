@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.Food
 
 		public override void SetDefaults() 
         {
-			Item.DefaultToFood(28, 28, BuffID.SugarRush, 3600);
+			Item.DefaultToFood(28, 28, BuffID.WellFed, 18000);
 			Item.value = Item.buyPrice(silver: 1);
 			Item.rare = ItemRarityID.Blue;
 		}

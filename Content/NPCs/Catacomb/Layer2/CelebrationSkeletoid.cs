@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Collections.Generic;
 
+using Spooky.Content.Items.Catacomb.Misc;
+using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer2
@@ -75,6 +77,12 @@ namespace Spooky.Content.NPCs.Catacomb.Layer2
         public override void AI()
 		{
             NPC.spriteDirection = NPC.direction;
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot) 
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombChestKeyLower>(), 50));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

@@ -3,14 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.SpookyBiome.Projectiles;
+using Spooky.Content.Tiles.Blooms;
 
 namespace Spooky.Content.NPCs.SpookyBiome
 {
@@ -18,13 +17,13 @@ namespace Spooky.Content.NPCs.SpookyBiome
     {
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 7;
+			Main.npcFrameCount[NPC.type] = 7;
         }
         
         public override void SetDefaults()
 		{
-            NPC.lifeMax = 60;
-            NPC.damage = 20;
+            NPC.lifeMax = 80;
+            NPC.damage = 22;
             NPC.defense = 10;
             NPC.width = 36;
 			NPC.height = 48;
@@ -79,6 +78,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
             npcLoot.Add(ItemDropRule.Common(ItemID.SharkToothNecklace, 150));
             npcLoot.Add(ItemDropRule.Common(ItemID.MoneyTrough, 200));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrankenMarshmallow>(), 100));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TomatoSeed>(), 120));
         }
 
         public override void HitEffect(NPC.HitInfo hit) 

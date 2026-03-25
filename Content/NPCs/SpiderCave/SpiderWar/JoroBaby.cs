@@ -21,6 +21,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 	public class JoroBaby : ModNPC
 	{
 		float FlashOpacity = 0f;
+		float Timer1 = 0f;
+		float Timer2 = 0f;
+		float Timer3 = 0f;
 
 		private static Asset<Texture2D> NPCTexture;
 		private static Asset<Texture2D> GlowTexture;
@@ -29,13 +32,13 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[NPC.type] = 7;
+			Main.npcFrameCount[NPC.type] = 6;
 
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
-				Position = new Vector2(10f, 10f),
+				Position = new Vector2(10f, 0f),
               	PortraitPositionXOverride = 0f,
-              	PortraitPositionYOverride = 10f
+              	PortraitPositionYOverride = 0f
             };
 		}
 
@@ -45,20 +48,20 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
             NPC.damage = 50;
 			NPC.defense = 10;
 			NPC.width = 74;
-			NPC.height = 44;
+			NPC.height = 50;
             NPC.npcSlots = 1f;
             NPC.knockBackResist = 0f;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.HitSound = SoundID.NPCHit29 with { Pitch = -0.4f };
 			NPC.DeathSound = SoundID.NPCDeath36 with { Pitch = -1f };
-            NPC.aiStyle = -1;
+            NPC.aiStyle = 22;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpiderCaveBiome>().Type };
 		}
 
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance * bossAdjustment);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.8f * balance * bossAdjustment);
 		}
 
 		public override bool CheckActive()
@@ -79,21 +82,13 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 		public override void FindFrame(int frameHeight)
         {
-			//go into the ground, use Xframe 0 and plays animation in reverse
-			if (NPC.velocity.X != 0)
+			NPC.frameCounter++;
+			if (NPC.frameCounter > 2)
 			{
-				NPC.frameCounter++;
-				if (NPC.frameCounter > 4)
-				{
-					NPC.frame.Y = NPC.frame.Y + frameHeight;
-					NPC.frameCounter = 0;
-				}
-				if (NPC.frame.Y >= frameHeight * 7)
-				{
-					NPC.frame.Y = 1 * frameHeight;
-				}
+				NPC.frame.Y = NPC.frame.Y + frameHeight;
+				NPC.frameCounter = 0;
 			}
-			else
+			if (NPC.frame.Y >= frameHeight * 6)
 			{
 				NPC.frame.Y = 0 * frameHeight;
 			}
@@ -115,24 +110,27 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 			Vector2 vector = NPC.Center - screenPos;
 
-			if (NPC.ai[0] >= 300 && NPC.ai[0] <= 420)
+			if (Timer1 >= 300 && Timer1 <= 420)
 			{
 				Color AuraColor = new Color(125, 125, 125, 0).MultiplyRGBA(Color.DarkRed);
 
 				float time = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 2.5f / 2.5f * 6f)) / 2f + 0.5f;
                 float time2 = (float)Math.Cos((double)(Main.GlobalTimeWrappedHourly % 0.5f / 2.5f * 150f)) / 2f + 0.5f;
 
+				Rectangle AuraFrame = new Rectangle(0, 0, 42, 42);
+				Vector2 drawOriginAura = new Vector2(AuraTexture.Width() * 0.5f, AuraTexture.Height() * 0.5f);
+
                 for (int i = 0; i < 360; i += 30)
                 {
                     Vector2 circular = Vector2.One.RotatedBy(MathHelper.ToRadians(i));
 
-                    Main.EntitySpriteDraw(AuraTexture.Value, vector + circular, NPC.frame, AuraColor * 0.1f, NPC.rotation + i, NPC.frame.Size() / 2, NPC.ai[1] / 37 + (NPC.ai[1] < 420 ? time : time2), SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(AuraTexture.Value, vector + circular, AuraFrame, AuraColor * 0.1f, NPC.rotation + i, drawOriginAura, Timer2 / 37 + (Timer2 < 420 ? time : time2), SpriteEffects.None, 0);
                 }
 			}
 
 			//npc texture
 			Main.EntitySpriteDraw(NPCTexture.Value, vector, NPC.frame, NPC.GetNPCColorTintedByBuffs(NPC.GetAlpha(drawColor)), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
-			Main.EntitySpriteDraw(GlowTexture.Value, vector, NPC.frame, NPC.GetAlpha(Color.White * 0.5f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+			//Main.EntitySpriteDraw(GlowTexture.Value, vector, NPC.frame, NPC.GetAlpha(Color.White * 0.5f), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
 
 			//flashing texture when exploding
 			if (FlashOpacity > 0f)
@@ -150,164 +148,32 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
             NPC.spriteDirection = NPC.direction;
 
+			NPC.rotation = NPC.velocity.X * 0.015f;
+
 			if (FlashOpacity > 0f)
             {
                 FlashOpacity -= 0.025f;
             }
 
-			NPC.ai[0]++;
-			if (NPC.ai[0] <= 300)
+			Timer1++;
+			if (Timer1 >= 300)
 			{
-				NPC.noGravity = true;
-				NPC.noTileCollide = true;
+				NPC.velocity *= 0.75f;
 
-				float SpeedModifier = 2.5f;
-				bool SlowDown = false;
-
-				int CollideWidth = 80;
-				int CollideHeight = 20;
-				Vector2 NPCCollisionPos = new Vector2(NPC.Center.X - 40, NPC.position.Y + (float)NPC.height - 20);
-
-				if (Math.Abs(NPC.Center.X - player.Center.X) < 50f || NPC.ai[0] == 1 || NPC.ai[0] == 2)
-				{
-					SlowDown = true;
-				}
-				if (SlowDown)
-				{
-					NPC.velocity.X *= 0.9f;
-					if (NPC.velocity.X > -0.1 && NPC.velocity.X < 0.1)
-					{
-						NPC.velocity.X = 0f;
-					}
-
-					if (Collision.SolidCollision(NPCCollisionPos, CollideWidth, CollideHeight))
-					{
-						if (NPC.velocity.Y > 0f)
-						{
-							NPC.velocity.Y = 0f;
-						}
-						if (NPC.velocity.Y > -0.2)
-						{
-							NPC.velocity.Y -= 0.025f;
-						}
-						else
-						{
-							NPC.velocity.Y -= 0.2f;
-						}
-						if (NPC.velocity.Y < -10f)
-						{
-							NPC.velocity.Y = -10f;
-						}
-					}
-					else
-					{
-						if (NPC.velocity.Y < 0f)
-						{
-							NPC.velocity.Y = 0f;
-						}
-						if (NPC.velocity.Y < 0.1)
-						{
-							NPC.velocity.Y += 0.025f;
-						}
-						else
-						{
-							NPC.velocity.Y += 0.25f;
-						}
-					}
-					if (NPC.velocity.Y > 10f)
-					{
-						NPC.velocity.Y = 10f;
-					}
-				}
-				else
-				{
-					if (NPC.direction > 0)
-					{
-						NPC.velocity.X = (NPC.velocity.X * 20f + SpeedModifier) / 21f;
-					}
-					if (NPC.direction < 0)
-					{
-						NPC.velocity.X = (NPC.velocity.X * 20f - SpeedModifier) / 21f;
-					}
-
-					bool IncreaseFallSpeed = false;
-					bool HasLineOfSight = Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height);
-
-					if (NPC.position.X < player.position.X && NPC.position.X + (float)NPC.width > player.position.X + (float)player.width &&
-					NPC.position.Y + (float)NPC.height < player.position.Y + (float)player.height - 16f)
-					{
-						IncreaseFallSpeed = true;
-					}
-					if (IncreaseFallSpeed)
-					{
-						NPC.velocity.Y += 0.5f;
-					}
-					else if (Collision.SolidCollision(NPCCollisionPos, CollideWidth, CollideHeight))
-					{
-						if (NPC.velocity.Y > 0f)
-						{
-							NPC.velocity.Y = 0f;
-						}
-						if (NPC.velocity.Y > -0.2)
-						{
-							NPC.velocity.Y -= 0.025f;
-						}
-						else
-						{
-							NPC.velocity.Y -= 0.2f;
-						}
-						if (NPC.velocity.Y < -10f)
-						{
-							NPC.velocity.Y = -10f;
-						}
-					}
-					else
-					{
-						if (NPC.velocity.Y < 0f)
-						{
-							NPC.velocity.Y = 0f;
-						}
-						if (NPC.velocity.Y < 0.1)
-						{
-							NPC.velocity.Y += 0.025f;
-						}
-						else
-						{
-							NPC.velocity.Y += 0.25f;
-						}
-					}
-					if (NPC.velocity.Y > 10f)
-					{
-						NPC.velocity.Y = 10f;
-					}
-				}
-			}
-			else
-			{
-				NPC.noGravity = false;
-				NPC.noTileCollide = false;
-
-				NPC.velocity.X *= 0.35f;
-
-				if (NPC.velocity.X > -0.1 && NPC.velocity.X < 0.1)
-				{
-					NPC.velocity.X = 0f;
-				}
-
-				if (NPC.ai[1] < 420)
+				if (Timer2 < 420)
                 {
-                    NPC.ai[1] += 5;
+                    Timer2 += 5;
                 }
 				else
 				{
-					NPC.ai[2]++;
-					if (NPC.ai[2] % 15 == 0)
+					Timer3++;
+					if (Timer3 % 15 == 0)
 					{
 						FlashOpacity = 1f;
 					}
 				}
 
-				if (NPC.ai[0] >= 420)
+				if (Timer1 >= 420)
 				{
 					SoundEngine.PlaySound(SoundID.Item74 with { Pitch = -0.25f }, NPC.Center);
 
@@ -319,7 +185,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 
 					foreach (var activePlayer in Main.ActivePlayers)
 					{
-						if (!activePlayer.dead && activePlayer.Distance(NPC.Center) <= NPC.ai[1] * 0.65f + time)
+						if (!activePlayer.dead && activePlayer.Distance(NPC.Center) <= Timer2 * 0.65f + time)
 						{
 							activePlayer.Hurt(PlayerDeathReason.ByCustomReason(Language.GetText("Mods.Spooky.DeathReasons.CorklidNuke").ToNetworkText(activePlayer.name)), Damage + Main.rand.Next(-10, 30), 0);
 						}
@@ -353,9 +219,9 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
 						currentAmount++;
 					}
 
-					NPC.ai[0] = 0;
-					NPC.ai[1] = 0;
-					NPC.ai[2] = 0;
+					Timer1 = 0;
+					Timer2 = 0;
+					Timer3 = 0;
 					NPC.netUpdate = true;
 				}
 			}

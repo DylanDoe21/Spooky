@@ -10,8 +10,8 @@ namespace Spooky.Content.Projectiles.Slingshots
     {
         public override void SetDefaults()
         {
-            Projectile.width = 124;
-            Projectile.height = 90;
+            Projectile.width = 184;
+            Projectile.height = 124;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.hostile = false;

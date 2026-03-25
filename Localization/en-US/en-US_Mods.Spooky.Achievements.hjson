@@ -18,6 +18,11 @@ BossAchievementDaffodil: {
 	Description: Defeat Daffodil, the lazy floral guardian of the deeper catacombs.
 }
 
+BossAchievementOldHunter: {
+	FriendlyName: The Least Dangerous Game
+	Description: Defeat the Old Hunter, an undead guy who has mastered the use of slingshots.
+}
+
 BossAchievementOrroboro: {
 	FriendlyName: The All Is None
 	Description: Defeat Orro & Boro, the hungry serpent duo hatched from the giant egg.

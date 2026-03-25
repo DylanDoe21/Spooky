@@ -34,6 +34,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		int BodyFrame = 0;
 		int BodyFrameCounter = 0;
 		int Aggression = 0;
+		float WanderingSpeed = 0f;
 		
 		int BiteAnimationTimer = 0;
 		bool BiteAnimation = false;
@@ -43,6 +44,8 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		bool RoarAnimation = false;
 
 		Vector2 PositionGoTo = Vector2.Zero;
+		public static Vector2 AlertedPosition = Vector2.Zero;
+
 	 	List<int> BiomePositionDistances = new List<int>();
 
 		Player TargetedPlayer = null;
@@ -50,7 +53,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		private static Asset<Texture2D> NPCTexture;
 		private static Asset<Texture2D> GlowTexture;
 		private static Asset<Texture2D> BodyTexture;
-		private static Asset<Texture2D> BodyTexture2;
+		private static Asset<Texture2D> BodyExtraTexture;
 
 		public static readonly SoundStyle GrowlSound1 = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusGrowl1", SoundType.Sound);
 		public static readonly SoundStyle GrowlSound2 = new("Spooky/Content/Sounds/Dunkleosteus/DunkleosteusGrowl2", SoundType.Sound);
@@ -80,6 +83,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		{
 			//vector2
 			writer.WriteVector2(PositionGoTo);
+			writer.WriteVector2(AlertedPosition);
 
 			//ints
 			writer.Write(SyncTimer);
@@ -99,6 +103,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 		{
 			//vector2
 			PositionGoTo = reader.ReadVector2();
+			AlertedPosition = reader.ReadVector2();
 
 			//ints
 			SyncTimer = reader.ReadInt32();
@@ -156,7 +161,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			NPCTexture ??= ModContent.Request<Texture2D>(Texture);
 			GlowTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/DunkleosteusGlow");
 			BodyTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/DunkleosteusBody");
-			BodyTexture2 ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/DunkleosteusBodyExtra");
+			BodyExtraTexture ??= ModContent.Request<Texture2D>("Spooky/Content/NPCs/Minibiomes/Ocean/DunkleosteusBodyExtra");
 
 			var effects = NPC.velocity.X > 0f ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
@@ -176,7 +181,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 			//draw extra body texture when its mouth isnt open so it doesnt look odd when rotating while passively swimming
 			if (NPC.ai[1] <= 0 && Aggression <= 0 && !BiteAnimation && !RoarAnimation)
 			{
-				spriteBatch.Draw(BodyTexture2.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, rotation, drawOrigin, NPC.scale, effects, 0);
+				spriteBatch.Draw(BodyExtraTexture.Value, pos - screenPos, new Rectangle(0, 122 * BodyFrame, 470, 122), drawColor, rotation, drawOrigin, NPC.scale, effects, 0);
 			}
 
 			//draw head and glowmask
@@ -299,6 +304,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
             return !AnyPlayersInBiome();
         }
 
+		//check if any players are in the biome for despawning purposes
 		public bool AnyPlayersInBiome()
         {
             foreach (Player player in Main.ActivePlayers)
@@ -403,6 +409,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				}
 			}
 
+			//explode when it eats a bomb
 			if (AteBomb && TargetedPlayer != null)
 			{
 				Vector2 desiredVelocity = NPC.DirectionTo(TargetedPlayer.Center) * 1;
@@ -520,32 +527,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				}
 			}
 
-			/*
-			//create dust rings for debugging
-            for (int i = 0; i < 20; i++)
-            {
-                Vector2 offset = new Vector2();
-                double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                offset.X += (float)(Math.Sin(angle) * 125);
-                offset.Y += (float)(Math.Cos(angle) * 125);
-                Dust dust = Main.dust[Dust.NewDust(BigDunkBody + offset - new Vector2(4, 4), 0, 0, DustID.RedTorch, 0, 0, 100, Color.White, 1f)];
-                dust.velocity *= 0;
-                dust.noGravity = true;
-                dust.scale = 2.5f;
-            }
-            for (int i = 0; i < 20; i++)
-            {
-                Vector2 offset = new Vector2();
-                double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                offset.X += (float)(Math.Sin(angle) * 175);
-                offset.Y += (float)(Math.Cos(angle) * 175);
-                Dust dust = Main.dust[Dust.NewDust(InfrontOfDunk + offset - new Vector2(4, 4), 0, 0, DustID.GreenTorch, 0, 0, 100, Color.White, 1f)];
-                dust.velocity *= 0;
-                dust.noGravity = true;
-                dust.scale = 2.5f;
-            }
-			*/
-
+			//when a player is spotted, roar and begin aggressive behavior
 			if (NPC.ai[1] > 0 && Aggression <= 0)
 			{
 				NPC.velocity *= 0.92f;
@@ -577,6 +559,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				}
 			}
 
+			//big dunks tile eating utility so he breaks any non-rotten depths tile that the player places
 			SolidCollisionDestroyTiles(NPC.position, NPC.width, NPC.height, PathFinding.BlockTypes);
 
 			//passive roaming pathfinding movement
@@ -601,17 +584,46 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					//find a random position to go to
 					if (NPC.ai[0] == 0)
 					{
-						int randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
-
-						while (NPC.Distance(Flags.ZombieBiomePositions[randomPoint] * 16) > 3500f)
+						if (AlertedPosition == Vector2.Zero)
 						{
-							randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
+							int randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
+
+							while (NPC.Distance(Flags.ZombieBiomePositions[randomPoint] * 16) > 3500f)
+							{
+								randomPoint = Main.rand.Next(0, Flags.ZombieBiomePositions.Count);
+							}
+
+							PositionGoTo = Flags.ZombieBiomePositions[randomPoint] * 16;
+
+							WanderingSpeed = 2.65f;
+						}
+						else
+						{
+							SoundStyle[] Sounds = new SoundStyle[] { GrowlSound1, GrowlSound2 };
+
+							SoundEngine.PlaySound(Main.rand.Next(Sounds) with { Pitch = 0.35f }, NPC.Center);
+
+							RoarAnimationTimer = 75;
+
+							BiomePositionDistances.Clear();
+				
+							//get the distance between the player and every position in the zombie biome and add them to the position distances list
+							foreach (Vector2 pos in Flags.ZombieBiomePositions)
+							{
+								int Dist = (int)AlertedPosition.Distance(pos * 16);
+								BiomePositionDistances.Add(Dist);
+							}
+
+							//find the minimum distance values index and set the position to pathfind to
+							int minimumValueIndex = BiomePositionDistances.IndexOf(BiomePositionDistances.Min());
+							PositionGoTo = Flags.ZombieBiomePositions[minimumValueIndex] * 16;
+
+							AlertedPosition = Vector2.Zero;
+
+							WanderingSpeed = 3.5f;
 						}
 
-						PositionGoTo = Flags.ZombieBiomePositions[randomPoint] * 16;
-
 						NPC.ai[0] = 1;
-
 						NPC.netUpdate = true;
 					}
 					//go to the position
@@ -619,7 +631,7 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 					{
 						if (NPC.Distance(PositionGoTo) > 150f)
 						{
-							PathfindingMovement(PositionGoTo, 2.65f, 20, 7000, false);
+							PathfindingMovement(PositionGoTo, WanderingSpeed, 20, 7000, false);
 							NPC.noTileCollide = true;
 						}
 						else
@@ -792,12 +804,13 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 				if (FollowingPlayer)
 				{
 					FindClosestNode = true;
-					NPC.netUpdate = true;
 				}
 				else
 				{
 					NPC.ai[0] = 0;
 				}
+				
+				NPC.netUpdate = true;
 			}
 
 			//if for whatever reason the player is not reachable after the above position checks, then attempt to pathfind to the closest "node" position in the biome

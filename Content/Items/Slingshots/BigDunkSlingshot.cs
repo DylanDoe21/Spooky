@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.Slingshots
 			Item.crit = 10;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.autoReuse = false;
+			Item.autoReuse = true;
 			Item.noUseGraphic = true;
 			Item.channel = true;
 			Item.width = 24;
@@ -37,11 +37,11 @@ namespace Spooky.Content.Items.Slingshots
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.rare = ItemRarityID.LightPurple;
-			Item.value = Item.buyPrice(gold: 20);
+			Item.value = Item.buyPrice(gold: 25);
 			Item.UseSound = UseSound;
 			Item.shoot = ModContent.ProjectileType<BigDunkSlingshotProj>();
 			Item.useAmmo = ModContent.ItemType<MossyPebble>();
-			Item.shootSpeed = 20f;
+			Item.shootSpeed = 16f;
         }
 
 		public override bool CanConsumeAmmo(Item ammo, Player player)

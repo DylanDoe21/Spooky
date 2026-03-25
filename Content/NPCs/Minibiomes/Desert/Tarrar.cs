@@ -125,7 +125,6 @@ namespace Spooky.Content.NPCs.Minibiomes.Desert
 		}
 
 
-		//TODO: could use sound effects for emerging and sinking into the tar
 		public override void AI()
 		{
 			int CurrentDirection = NPC.direction;

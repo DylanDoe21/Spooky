@@ -14,6 +14,7 @@ using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Tiles.Cemetery;
 using Spooky.Content.Tiles.Cemetery.Ambient;
 using Spooky.Content.Tiles.Cemetery.Furniture;
+using Spooky.Content.Tiles.SpookyBiome.Furniture;
 
 namespace Spooky.Content.Generation
 {
@@ -558,7 +559,7 @@ namespace Spooky.Content.Generation
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];
 
-					if (chestTile.TileFrameX == 5 * 36 && chest.item[0].type == ModContent.ItemType<EMFReaderBroke>())
+					if (chestTile.TileType == ModContent.TileType<OldWoodChest>() && chest.item[0].type == ModContent.ItemType<EMFReaderBroke>())
 					{
 						int[] Bars = new int[] { ItemID.SilverBar, ItemID.TungstenBar };
 						int[] Potions = new int[] { ModContent.ItemType<CranberryJelly>(), ItemID.NightOwlPotion, ItemID.ShinePotion, ItemID.SpelunkerPotion };

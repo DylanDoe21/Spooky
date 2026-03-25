@@ -19,8 +19,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
         bool HasJumped = false;
 
-        private static Asset<Texture2D> NPCTexture;
-
         public override void SetStaticDefaults()
         {
             NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
@@ -59,8 +57,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
 			float stretch = NPC.velocity.Y * 0.025f;
 
 			stretch = Math.Abs(stretch);
@@ -90,7 +86,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
+			Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture).Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
             NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, scaleStretch, effects, 0);
 
 			return false;
@@ -219,45 +215,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			});
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			float stretch = NPC.velocity.Y * 0.025f;
-
-			stretch = Math.Abs(stretch);
-
-			//limit how much it can stretch
-			if (stretch > 0.5f)
-			{
-				stretch = 0.5f;
-			}
-
-			//limit how much it can squish
-			if (stretch < -0.5f)
-			{
-				stretch = -0.5f;
-			}
-
-			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
-			
-			if (NPC.velocity.Y <= 0)
-			{
-				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
-			}
-			if (NPC.velocity.Y > 0)
-			{
-				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
-			}
-
-			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-            NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, scaleStretch, effects, 0);
-
-			return false;
-        }
-
         public override void AI()
         {
             Player player = Main.player[NPC.target];
@@ -298,45 +255,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			});
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			float stretch = NPC.velocity.Y * 0.025f;
-
-			stretch = Math.Abs(stretch);
-
-			//limit how much it can stretch
-			if (stretch > 0.5f)
-			{
-				stretch = 0.5f;
-			}
-
-			//limit how much it can squish
-			if (stretch < -0.5f)
-			{
-				stretch = -0.5f;
-			}
-
-			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
-			
-			if (NPC.velocity.Y <= 0)
-			{
-				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
-			}
-			if (NPC.velocity.Y > 0)
-			{
-				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
-			}
-
-			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-            NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, scaleStretch, effects, 0);
-
-			return false;
-        }
-
         public override void AI()
         {
             Player player = Main.player[NPC.target];
@@ -376,45 +294,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
                 new BestiaryBackgroundOverlay("Spooky/Content/Biomes/SpookyBiomeNight_Background", Color.White)
 			});
 		}
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            NPCTexture ??= ModContent.Request<Texture2D>(Texture);
-
-			float stretch = NPC.velocity.Y * 0.025f;
-
-			stretch = Math.Abs(stretch);
-
-			//limit how much it can stretch
-			if (stretch > 0.5f)
-			{
-				stretch = 0.5f;
-			}
-
-			//limit how much it can squish
-			if (stretch < -0.5f)
-			{
-				stretch = -0.5f;
-			}
-
-			Vector2 scaleStretch = new Vector2(1f + stretch, 1f - stretch);
-			
-			if (NPC.velocity.Y <= 0)
-			{
-				scaleStretch = new Vector2(1f - stretch, 1f + stretch);
-			}
-			if (NPC.velocity.Y > 0)
-			{
-				scaleStretch = new Vector2(1f + stretch, 1f - stretch);
-			}
-
-			var effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-			Main.EntitySpriteDraw(NPCTexture.Value, NPC.Center - Main.screenPosition + new Vector2(0, NPC.gfxOffY + 4), 
-            NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, scaleStretch, effects, 0);
-
-			return false;
-        }
 
         public override void AI()
         {

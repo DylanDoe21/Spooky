@@ -79,7 +79,6 @@ namespace Spooky.Core
         public bool PandoraCuffs = false;
         public bool HasSpawnedCuffs = false;
         public bool PandoraRosary = false;
-        public bool HunterScarf = false;
         public bool AnalogHorrorTape = false;
         public bool CreepyPasta = false;
         public bool BackroomsCorpse = false;
@@ -119,6 +118,7 @@ namespace Spooky.Core
         public bool SpiritAmulet = false;
         public bool MocoNose = false;
         public bool DaffodilHairpin = false;
+        public bool HunterScarf = false;
         public bool OrroboroEmbyro = false;
         public bool FlowerPotShoe = false;
 
@@ -299,7 +299,6 @@ namespace Spooky.Core
             PandoraCross = false;
             PandoraCuffs = false;
             PandoraRosary = false;
-            HunterScarf = false;
             AnalogHorrorTape = false;
             CreepyPasta = false;
             BackroomsCorpse = false;
@@ -339,6 +338,7 @@ namespace Spooky.Core
             SpiritAmulet = false;
             MocoNose = false;
             DaffodilHairpin = false;
+            HunterScarf = false;
             OrroboroEmbyro = false;
             FlowerPotShoe = false;
 
@@ -1672,12 +1672,14 @@ namespace Spooky.Core
         {
             if (!attempt.inLava && !attempt.inHoney)
             {
+                //spook fishron
 				if (Player.ZoneBeach && (Main.pumpkinMoon || Main.snowMoon) && attempt.playerFishingConditions.BaitItemType == ModContent.ItemType<SinisterSnailItem>())
 				{
 					npcSpawn = ModContent.NPCType<SpookFishron>();
 					return;
 				}
 
+                //spooky forest
                 if (Player.InModBiome<SpookyBiome>() || Player.InModBiome<SpookyBiomeUg>())
                 {
                     //quest fishes
@@ -1697,25 +1699,11 @@ namespace Spooky.Core
 					//crate
 					if (attempt.uncommon && attempt.crate)
 					{
-						itemDrop = ModContent.ItemType<SpookyCrate>();
+						itemDrop = Main.hardMode ? ModContent.ItemType<SpookyCrate2>() : ModContent.ItemType<SpookyCrate>();
                     }
                 }
 
-                if (Player.InModBiome<SpiderCaveBiome>())
-                {
-                    //quest fishes
-                    if (attempt.questFish == ModContent.ItemType<SphiderFish>() && attempt.uncommon)
-					{
-                        itemDrop = ModContent.ItemType<SphiderFish>();
-                    }
-
-					//crate
-					if (attempt.uncommon && attempt.crate)
-					{
-						itemDrop = ModContent.ItemType<GrottoCrate>();
-                    }
-                }
-
+                //cemetery
                 if (Player.InModBiome<CemeteryBiome>())
                 {
                     //quest fishes
@@ -1731,6 +1719,7 @@ namespace Spooky.Core
 					}
 				}
 
+                //catacomb
                 if (Player.InModBiome<CatacombBiome>() || Player.InModBiome<CatacombBiome2>())
                 {
                     //quest fishes
@@ -1746,6 +1735,23 @@ namespace Spooky.Core
                     }
                 }
 
+                //spider cave
+                if (Player.InModBiome<SpiderCaveBiome>())
+                {
+                    //quest fishes
+                    if (attempt.questFish == ModContent.ItemType<SphiderFish>() && attempt.uncommon)
+					{
+                        itemDrop = ModContent.ItemType<SphiderFish>();
+                    }
+
+					//crate
+					if (attempt.uncommon && attempt.crate)
+					{
+						itemDrop = Main.hardMode ? ModContent.ItemType<GrottoCrate2>() : ModContent.ItemType<GrottoCrate>();
+                    }
+                }
+
+                //tar pits
 				if (Player.InModBiome<TarPitsBiome>())
 				{
 					//quest fishes
@@ -1760,6 +1766,7 @@ namespace Spooky.Core
 					}
 				}
 
+                //fetid farms
 				if (Player.InModBiome<VegetableBiome>())
 				{
 					if (Main.rand.NextBool(7) && attempt.common)

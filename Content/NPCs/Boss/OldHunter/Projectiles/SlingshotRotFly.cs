@@ -24,9 +24,14 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
             Projectile.hostile = true;
 			Projectile.tileCollide = false;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 600;
             Projectile.aiStyle = -1;
 		}
+
+        public override Color? GetAlpha(Color lightColor)
+		{
+            return Color.White * (1f - (Projectile.alpha / 255f));
+        }
 
         public override void AI()
 		{

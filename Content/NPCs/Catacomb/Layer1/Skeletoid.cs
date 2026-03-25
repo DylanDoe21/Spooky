@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 using Spooky.Core;
 using Spooky.Content.Items.Blooms.Accessory;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Food;
 using Spooky.Content.NPCs.Boss.Daffodil.Projectiles;
 
@@ -82,6 +83,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombChestKeyUpper>(), 50));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Bonemeal>(), 50));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }

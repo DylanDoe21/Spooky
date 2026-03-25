@@ -136,8 +136,15 @@ namespace Spooky.Content.NPCs.EggEvent
 
             Vector2 GoTo = new Vector2(Parent.Center.X + NPC.ai[0], Parent.Center.Y + NPC.ai[1]);
 
-            float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 14, 22);
-            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+            if (NPC.Distance(GoTo) >= 15)
+            {
+                float vel = MathHelper.Clamp(NPC.Distance(GoTo) / 12, 14, 22);
+                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(GoTo) * vel, 0.08f);
+            }
+            else
+            {
+                NPC.velocity *= 0.95f;
+            }
 		}
 
         public override void HitEffect(NPC.HitInfo hit) 

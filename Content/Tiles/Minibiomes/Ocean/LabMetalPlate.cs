@@ -20,6 +20,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
             RegisterItemDrop(ModContent.ItemType<LabMetalPlateItem>());
             DustType = DustID.Iron;
             HitSound = SoundID.Item52;
+            MinPick = 110;
 		}
 
         public override void PostTileFrame(int i, int j, int up, int down, int left, int right, int upLeft, int upRight, int downLeft, int downRight)
@@ -51,7 +52,7 @@ namespace Spooky.Content.Tiles.Minibiomes.Ocean
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(119, 124, 149));
-            DustType = -1;
+            DustType = DustID.Iron;
             HitSound = SoundID.Item52;
 		}
 

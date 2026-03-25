@@ -35,7 +35,7 @@ namespace Spooky.Core
 		//blooms planted for achievement, there are currently 11 blooms
 		public static List<bool> BloomsPlanted = new List<bool>()
 		{
-			false, false, false, false, false, false, false, false, false, false, false
+			false, false, false, false, false, false, false, false, false, false, false, false
 		};
 
 		//bosses
@@ -100,10 +100,23 @@ namespace Spooky.Core
         public static bool encounteredMan = false;
 
 		//bools and misc stuff that doesnt need to be saved/loaded in a world
-		public static bool KillWeb = false;
 		public static bool SpawnDaffodil = false;
 		public static bool SpawnBigBone = false;
 		public static bool SpawnOldHunter = false;
+		public static bool SpawnGhostAmbush = false;
+		public static int MocoSpawnX;
+        public static int MocoSpawnY;
+        public static int DaffodilSpawnX;
+        public static int DaffodilSpawnY;
+        public static int DaffodilParent;
+        public static int OrroboroSpawnX;
+        public static int OrroboroSpawnY;
+		public static int TurkeySpawnX;
+		public static int TurkeySpawnY;
+        public static int MushGnomeSpawnX;
+		public static int MushGnomeSpawnY;
+        public static int GhostAmbushSpawnX;
+		public static int GhostAmbushSpawnY;
 
         public override void ClearWorld()
         {

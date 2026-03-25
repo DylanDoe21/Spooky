@@ -90,6 +90,11 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
             NPC.TargetClosest(true);
             Player player = Main.player[NPC.target];
 
+            if (NPC.wet)
+            {
+                NPC.velocity.Y = -3;
+            }
+
             if (NPC.Distance(player.Center) > 250f)
             {
                 NPC.spriteDirection = NPC.direction;

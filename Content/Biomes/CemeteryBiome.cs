@@ -80,14 +80,19 @@ namespace Spooky.Content.Biomes
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            player.ManageSpecialBiomeVisuals("Spooky:CemeterySky", isActive && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()), player.Center);
+            isActive = player.InModBiome<CemeteryBiome>() && !player.InModBiome(ModContent.GetInstance<RaveyardBiome>()) &&
+            !player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !player.InModBiome(ModContent.GetInstance<CatacombBiome2>());
+            player.ManageSpecialBiomeVisuals("Spooky:CemeterySky", isActive, player.Center);
         }
 
         public override void OnInBiome(Player player)
         {
             //graveyard visuals
-            player.ZoneGraveyard = true;
-            Main.GraveyardVisualIntensity = 0.1f;
+            if (!player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !player.InModBiome(ModContent.GetInstance<CatacombBiome2>()))
+            {
+                player.ZoneGraveyard = true;
+                Main.GraveyardVisualIntensity = 0.1f;
+            }
         }
 
         //conditions to be in the biome

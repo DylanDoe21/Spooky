@@ -5,6 +5,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Localization;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework;
@@ -17,9 +18,11 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Biomes;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.Costume;
 using Spooky.Content.NPCs.Boss.OldHunter.Projectiles;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Relic;
+using Spooky.Content.Tiles.Trophy;
 
 namespace Spooky.Content.NPCs.Boss.OldHunter
 {
@@ -32,6 +35,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
         bool Phase2 = false;
         bool ForcePlatformCollision = false;
+        bool ActuallyDead = false;
 
         public enum AnimationState
 		{
@@ -45,6 +49,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 		}
 
         private static Asset<Texture2D> NPCTexture;
+        private static Asset<Texture2D> HeadTexture;
         private static Asset<Texture2D> ArmShootFrontTexture;
         private static Asset<Texture2D> ArmShotProjFrontTexture;
         private static Asset<Texture2D> ArmShootBackTexture;
@@ -61,8 +66,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             {
                 Position = new Vector2(0f, 0f),
                 PortraitPositionXOverride = 0f,
-                PortraitPositionYOverride = 22f,
-				Velocity = 1f
+                PortraitPositionYOverride = 22f
 			};
 		}
 
@@ -76,6 +80,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             //bools
             writer.Write(Phase2);
             writer.Write(ForcePlatformCollision);
+            writer.Write(ActuallyDead);
 
             //floats
             writer.Write(NPC.localAI[0]);
@@ -94,6 +99,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             //bools
             Phase2 = reader.ReadBoolean();
             ForcePlatformCollision = reader.ReadBoolean();
+            ActuallyDead = reader.ReadBoolean();
 
             //floats
             NPC.localAI[0] = reader.ReadSingle();
@@ -140,6 +146,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             NPCTexture ??= ModContent.Request<Texture2D>(Texture);
+            HeadTexture ??= ModContent.Request<Texture2D>(Texture + "Head");
             ArmShootFrontTexture ??= ModContent.Request<Texture2D>(Texture + "SlingArmFront");
             ArmShotProjFrontTexture ??= ModContent.Request<Texture2D>(Texture + "SlingArmFrontShot");
             ArmShootBackTexture ??= ModContent.Request<Texture2D>(Texture + "SlingArmBack");
@@ -161,6 +168,10 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             }
 
             spriteBatch.Draw(NPCTexture.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+            if (NPC.ai[0] != -3)
+            {
+                spriteBatch.Draw(HeadTexture.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 4), NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, NPC.frame.Size() / 2, NPC.scale, effects, 0);
+            }
 
             if (CurrentFrameX == 1 && (CurrentAnimation == AnimationState.Shoot || CurrentAnimation == AnimationState.ShotProjectile))
             {
@@ -257,6 +268,28 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 		{
 			return false;
 		}
+
+        public override bool CheckDead()
+        {
+            if (!ActuallyDead)
+            {
+                //death animation
+                NPC.localAI[0] = 0;
+                NPC.localAI[1] = 0;
+                NPC.localAI[2] = 0;
+                NPC.localAI[3] = 0;
+                NPC.ai[0] = -3;
+                NPC.immortal = true;
+                NPC.dontTakeDamage = true;
+                NPC.life = 1;
+
+                NPC.netUpdate = true;
+
+                return false;
+            }
+            
+            return true;
+        }
 
         public override void AI()
         {
@@ -363,6 +396,77 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
             switch ((int)NPC.ai[0])
             {
+                case -3:
+                {
+                    NPC.localAI[0]++;
+
+                    if (NPC.localAI[0] == 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item112 with { Pitch = 1f, Volume = 3f }, NPC.Center);
+
+                        CurrentFrameX = 0;
+                        CurrentAnimation = AnimationState.Idle;
+
+                        NPC.velocity.X = 0;
+
+                        Vector2 Speed = new Vector2((NPC.Center.X >= ArenaOriginPosition.X ? -6 : 6), -2);
+                        NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Top, Speed, ModContent.ProjectileType<OldHunterHead>(), 0, 0f, ai2: NPC.whoAmI);
+                    }
+
+                    if (NPC.localAI[0] >= 180)
+                    {
+                        if (NPC.localAI[1] <= 0)
+                        {
+                            CurrentAnimation = AnimationState.Walking;
+
+                            NPC.spriteDirection = NPC.direction = NPC.velocity.X >= 0 ? -1 : 1;
+
+                            Vector2 Position = NPC.Center;
+
+                            foreach (var Proj in Main.ActiveProjectiles)
+                            {
+                                if (Proj.type == ModContent.ProjectileType<OldHunterHead>() && NPC.Hitbox.Intersects(new Rectangle((int)Proj.Center.X, (int)Proj.Center.Y, 1, 1)))
+                                {
+                                    NPC.localAI[1] = 1;
+                                    Proj.ai[1] = 1;
+                                    break;
+                                }
+                                if (Proj.type == ModContent.ProjectileType<OldHunterHead>()) 
+                                {
+                                    Position = Proj.Center; 
+                                    break;
+                                }
+                            }
+
+                            WalkTowardsTarget(Position, 2f, 0.15f, 50);
+                        }
+
+                        if (NPC.localAI[1] == 1)
+                        {
+                            CurrentAnimation = AnimationState.Idle;
+
+                            NPC.velocity.X = 0;
+                        }
+
+                        if (NPC.localAI[1] >= 2)
+                        {
+                            ActuallyDead = true;
+                            NPC.immortal = false;
+                            NPC.dontTakeDamage = false;
+                            NPC.netUpdate = true;
+                            player.ApplyDamageToNPC(NPC, NPC.lifeMax * 2, 0, 0, false);
+
+                            int OldHunter = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<NPCs.Friendly.OldHunter>());
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, number: OldHunter);
+                            }
+                        }
+                    }
+
+                    break;
+                }
+
                 //phase 2 transition
                 case -2:
                 {
@@ -383,12 +487,12 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
                     if (NPC.localAI[0] == 120)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.Red, "Alright.", true);
+                        CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.Phase2-1"), Color.Chocolate, new Vector2(NPC.direction * 2, -2f), 130);
                     }
 
                     if (NPC.localAI[0] == 240)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.Red, "Its time for phase two.", true);
+                        CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.Phase2-2"), Color.Chocolate, new Vector2(NPC.direction * 2, -2f), 130);
                     }
 
                     if (NPC.localAI[0] >= 360)
@@ -424,30 +528,61 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         NPC.dontTakeDamage = true;
                     }
 
-                    if (NPC.localAI[0] == 120)
+                    if (!Flags.downedOldHunter)
                     {
-                        CombatText.NewText(NPC.getRect(), Color.Red, "Hi!", true);
+                        if (NPC.localAI[0] == 50)
+                        {
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.Intro1"), Color.Chocolate, new Vector2(NPC.direction * 2, -2f), 120);
+                        }
+
+                        if (NPC.localAI[0] == 200)
+                        {
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.Intro2"), Color.Chocolate, new Vector2(NPC.direction * 2, -2f), 250);
+                        }
+
+                        if (NPC.localAI[0] == 260)
+                        {
+                            CustomPopupText.SpawnText(player.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.IntroPlayer2"), Color.White, new Vector2(player.direction * 2, -2f), 100);
+                        }
+
+                        if (NPC.localAI[0] == 320)
+                        {
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.Intro3"), Color.Chocolate, new Vector2(NPC.direction * 2, -2f), 100);
+                        }
+
+                        if (NPC.localAI[0] >= 450)
+                        {
+                            NPC.immortal = false;
+                            NPC.dontTakeDamage = false;
+
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
+
+                            NPC.netUpdate = true;
+                        }
                     }
-
-                    if (NPC.localAI[0] == 240)
+                    else
                     {
-                        CombatText.NewText(NPC.getRect(), Color.Red, "Heres my placeholder spawn intro dialogue.", true);
-                    }
+                        if (NPC.localAI[0] == 60)
+                        {
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.PostDefeatIntro1"), Color.Chocolate, new Vector2(NPC.direction * 2, -2f), 130);
+                        }
 
-                    if (NPC.localAI[0] == 360)
-                    {
-                        CombatText.NewText(NPC.getRect(), Color.Red, "Ok lets fight.", true);
-                    }
+                        if (NPC.localAI[0] == 180)
+                        {
+                            CustomPopupText.SpawnText(NPC.Top, Language.GetTextValue("Mods.Spooky.Dialogue.OldHunterBoss.PostDefeatIntro2"), Color.Chocolate, new Vector2(NPC.direction * 2, -2f), 130);
+                        }
 
-                    if (NPC.localAI[0] >= 480)
-                    {
-                        NPC.immortal = false;
-                        NPC.dontTakeDamage = false;
+                        if (NPC.localAI[0] >= 320)
+                        {
+                            NPC.immortal = false;
+                            NPC.dontTakeDamage = false;
 
-                        NPC.localAI[0] = 0;
-                        NPC.ai[0]++;
+                            NPC.localAI[0] = 0;
+                            NPC.ai[0]++;
 
-                        NPC.netUpdate = true;
+                            NPC.netUpdate = true;
+                        }
                     }
 
                     break;
@@ -567,10 +702,13 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
                         //how many times to loop the shooting attack
                         int Repeats = 2;
+
+                        //pumpkin ammo repeats 5 times
                         if (AmmoForPlatformJumpAttack == 5)
                         {
-                            Repeats = 3;
+                            Repeats = 5;
                         }
+                        //spike ball attack repeats 6 times
                         if (AmmoForPlatformJumpAttack == 6)
                         {
                             Repeats = 6;
@@ -579,7 +717,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         if (NPC.localAI[3] <= Repeats)
                         {
                             int TimeForSound = Phase2 ? 50 : 60;
-                            int TimeForShooting = AmmoForPlatformJumpAttack == 6 ? 80 : (Phase2 ? 110 : 140);
+                            int TimeForShooting = (AmmoForPlatformJumpAttack == 5 || AmmoForPlatformJumpAttack == 6) ? 80 : (Phase2 ? 110 : 140);
 
                             //begin shooting animation and sound
                             if (NPC.localAI[0] == TimeForSound)
@@ -592,7 +730,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                             }
 
                             //shoot projectile
-                            if (NPC.localAI[0] >= TimeForShooting)
+                            if (NPC.localAI[0] == TimeForShooting)
                             {
                                 SoundEngine.PlaySound(ShootSound, NPC.Center);
 
@@ -612,7 +750,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     }
                                     case 1:
                                     {
-                                        AmmoToShoot = ModContent.ProjectileType<SlingshotLingerBall>();
+                                        AmmoToShoot = ModContent.ProjectileType<SlingshotBeer>();
                                         ProjSpeed = 8f;
                                         break;
                                     }
@@ -642,18 +780,17 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     position += Offset;
                                 }
 
-                                if (AmmoToShoot == ModContent.ProjectileType<SlingshotLingerBall>())
+                                if (AmmoToShoot != AmmoToShoot = ModContent.ProjectileType<SlingshotBeer>())
                                 {
-                                    for (int numProjs = 1; numProjs <= 2; numProjs++)
-                                    {
-                                        Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(42));
-
-                                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, newVelocity, AmmoToShoot, NPC.damage, 4.5f);
-                                    }
+                                    NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, AmmoToShoot, NPC.damage, 4.5f);
                                 }
                                 else
                                 {
-                                    NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, AmmoToShoot, NPC.damage, 4.5f);
+                                    for (int numProjs = 0; numProjs <= 2; numProjs++)
+                                    {
+                                        Vector2 Velocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(50));
+                                        NPCGlobalHelper.ShootHostileProjectile(NPC, position, Velocity, AmmoToShoot, NPC.damage, 4.5f);
+                                    }
                                 }
 
                                 NPC.localAI[0] = TimeForSound - 1;
@@ -948,8 +1085,6 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
 
         public void WalkTowardsTarget(Vector2 Center, float MaxSpeed, float Acceleration, int Distance)
         {
-            Player player = Main.player[NPC.target];
-
             //prevents the pet from getting stuck on sloped tiles
             Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
 
@@ -962,7 +1097,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                 NPC.velocity.X = -NPC.velocity.X;
             }
 
-            if (center2.X < player.Center.X)
+            if (center2.X < Center.X)
             {
                 NPC.velocity.X += Acceleration;
                 if (NPC.velocity.X > MaxSpeed)
@@ -980,36 +1115,22 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
             }
         }
 
-        public override void HitEffect(NPC.HitInfo hit) 
-        {
-            if (NPC.life <= 0) 
-            {
-                int OldHunter = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y + (NPC.height / 2), ModContent.NPCType<NPCs.Friendly.OldHunter>());
-                if (Main.netMode == NetmodeID.Server)
-                {
-                    NetMessage.SendData(MessageID.SyncNPC, number: OldHunter);
-                }
-
-                for (int numGores = 1; numGores <= 4; numGores++)
-                {
-                    if (Main.netMode != NetmodeID.Server) 
-                    {
-                        //Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.Find<ModGore>("Spooky/PeacockSpiderBlueGore" + numGores).Type);
-                    }
-                }
-            }
-        }
-
         //Loot and stuff
         public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
-            //LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
 			//treasure bag
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BossBagOldHunter>()));
 
             //master relic and pet
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<OldHunterRelicItem>()));
+
+            //drop boss mask
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<OldHunterHat>(), 7));
+
+            //trophy always drops directly from the boss
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OldHunterTrophyItem>(), 10));
         }
 
         public override void OnKill()

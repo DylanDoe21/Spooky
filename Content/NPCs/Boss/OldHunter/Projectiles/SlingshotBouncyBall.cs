@@ -29,8 +29,8 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return Color.White;
-		}
+            return Color.White * (1f - (Projectile.alpha / 255f));
+        }
 
 		public override bool PreDraw(ref Color lightColor)
 		{

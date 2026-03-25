@@ -18,8 +18,8 @@ namespace Spooky.Content.Items.Slingshots.Ammo
 
 		public override void SetDefaults() 
         {
-			Item.damage = 10;
-			Item.DamageType = DamageClass.Ranged; 
+			Item.damage = 12;
+			Item.DamageType = DamageClass.Ranged;
             Item.ammo = Item.type;
             Item.consumable = true;
             Item.width = 14;

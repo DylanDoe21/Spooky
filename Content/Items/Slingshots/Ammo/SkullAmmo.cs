@@ -18,17 +18,17 @@ namespace Spooky.Content.Items.Slingshots.Ammo
 
 		public override void SetDefaults() 
         {
-			Item.damage = 8;
+			Item.damage = 25;
 			Item.DamageType = DamageClass.Ranged; 
             Item.ammo = Item.type;
             Item.consumable = true;
-            Item.width = 14;
-			Item.height = 14;
+            Item.width = 20;
+			Item.height = 18;
 			Item.knockBack = 2f;
             Item.maxStack = 9999;
 			Item.value = Item.buyPrice(copper: 35);
 			Item.rare = ItemRarityID.Yellow;
-			//Item.shoot = ModContent.ProjectileType<SkullAmmoProj>();
+			Item.shoot = ModContent.ProjectileType<SkullAmmoProj>();
 		}
 
 		public override bool? CanBeChosenAsAmmo(Item weapon, Player player)

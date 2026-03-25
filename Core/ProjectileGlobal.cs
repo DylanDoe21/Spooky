@@ -40,7 +40,7 @@ namespace Spooky.Core
 			{
 				if (hit.Crit)
 				{
-					SoundEngine.PlaySound(SlingshotCritSound, projectile.Center);
+					SoundEngine.PlaySound(SlingshotCritSound with { Volume = 0.5f }, projectile.Center);
 
 					Screenshake.ShakeScreenWithIntensity(projectile.Center, 2f, 350f);
 					Projectile.NewProjectile(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SlingshotHitCrit>(), 0, 0f, player.whoAmI);

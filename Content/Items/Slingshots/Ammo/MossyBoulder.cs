@@ -38,8 +38,10 @@ namespace Spooky.Content.Items.Slingshots.Ammo
 
 		public override void AddRecipes()
         {
-            CreateRecipe(5)
-            .AddIngredient(ModContent.ItemType<SpookyStoneItem>())
+            CreateRecipe(100)
+            .AddIngredient(ModContent.ItemType<SpookyStoneItem>(), 100)
+			.AddIngredient(ItemID.SoulofNight)
+			.AddIngredient(ItemID.SoulofLight)
             .Register();
         }
 	}

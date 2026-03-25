@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
 			Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.buyPrice(gold: 50);
+            Item.value = Item.buyPrice(gold: 35);
 			Item.UseSound = SoundID.Item98;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Bullet;

@@ -23,6 +23,8 @@ using Spooky.Content.Items.Costume;
 using Spooky.Content.Items.Catacomb;
 using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Pets;
+using Spooky.Content.Items.Slingshots;
+using Spooky.Content.Items.Slingshots.Ammo;
 using Spooky.Content.NPCs.Boss.BigBone.Projectiles;
 using Spooky.Content.Tiles.Blooms;
 using Spooky.Content.Tiles.Relic;
@@ -1808,11 +1810,15 @@ namespace Spooky.Content.NPCs.Boss.BigBone
             { 
                 ModContent.ItemType<BigBoneHammer>(), 
                 ModContent.ItemType<BigBoneBow>(), 
+                ModContent.ItemType<BigBoneSlingshot>(),
                 ModContent.ItemType<BigBoneStaff>(), 
                 ModContent.ItemType<BigBoneScepter>() 
             };
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, MainItem));
+
+            //skull ammo
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SkullAmmo>(), 1, 100, 200));
 
             //drop boss mask
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<BigBoneMask>(), 7));

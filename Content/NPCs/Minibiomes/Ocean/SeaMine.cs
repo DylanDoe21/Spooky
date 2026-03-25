@@ -220,6 +220,15 @@ namespace Spooky.Content.NPCs.Minibiomes.Ocean
 						}
 					}
 
+					foreach (NPC npc in Main.ActiveNPCs)
+					{
+						if (npc.active && npc.type == ModContent.NPCType<Dunkleosteus>())
+						{
+							Dunkleosteus.AlertedPosition = NPC.Center;
+							npc.ai[0] = 0;
+						}
+					}
+
 					DrawBody(true);
 
 					Parent.active = false;

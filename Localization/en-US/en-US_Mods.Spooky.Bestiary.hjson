@@ -157,7 +157,7 @@ ZomboidPumpkinFire: The death of the flesh wall has unleashed their full potenti
 ZomboidRain: Its body is extremely decayed to the point that rain water is able to flow through it like a water fountain. This doesn't stop them from mindlessly shambling around though.
 ZomboidThorn: Shambling, thorn-covered monsters that arise at night. They may be braindead, but should not be messed with if underprepared.
 ZomboidTomato: The blood moon's curse has driven these zomboids insane and they have hidden themselves in a giant tomato.
-ZomboidTomatoMold: They run around recklessly during bloodmoons as they are blinded by the tomato they put on their head. They leave behind harmful tomato juice on the ground when killed.
+ZomboidTomatoMold: They run around recklessly during bloodmoons as they are blinded by the tomato they put on their head. Don't breath in the mold on their head!
 ZomboidWarlock: These not so braindead zomboids are smart enough to use and learn magic, allowing them to conjure spells to attack foes.
 ZomboidWind: A zomboid that has been impaled by a large metal windchime, yet somehow still walks as if it's fine.
 //eye valley
@@ -208,7 +208,7 @@ OrbWeaverGiant: These scary mutated orb weavers roam in the grotto very rarely. 
 PeacockSpider1: Slightly more hostile jumping spiders, these ones seem to be able to run really fast along with their ability to leap.
 PeacockSpider2: The strange and bright patterns on their back are meant to ward off predators, or other spiders from invading their territory.
 PeacockSpider3: Peacock spiders have adapted to have many unique and bright colored patterns on their abdomen. It is said they use it to attract and impress others of its kind.
-SmileSpider: They have the ability to track nearby prey even if they can't see it directly. The smile-like pattern on their back is said to be an adaptation to trick prey.
+SmileSpider: The smile-like pattern on their back is said to be an adaptation to trick prey, and scare away any predators that may eat them.
 SpiderAnt1: In order to avoid ant spiders, these ants have evolved to look like spiders so they do not get hunted.
 SpiderAnt2: The ant spiders disguise backfired, after these ants adapted their appearance to look like spiders.
 TarantulaHawk1: If regular spiders weren't weird enough, these ones can fly. They are one of the more powerful and aggressive species in the grotto.
@@ -219,7 +219,7 @@ TrapdoorSpider1: These juvenile spiders have very thin legs they can easily dig 
 TrapdoorSpider2: These fully grown trapdoor spiders are even more deadly. The extra legs they have grown in maturity allow them to burrow and chase prey even more efficiently.
 WhipSpider: These creatures are actually more related to crustaceans than spiders. They have a long whip-like tongue coated in pheromones that increase the aggression of other spiders.
 WolfSpider: One of the only species of spiders to carry their young on their back. Despite the babies smaller size, the mother will allow them to hunt so they can learn to live on their own.
-WolfSpiderBaby: They can camouflage by waiting on their mother's back, and attacking if themselves or their mother is in danger.
+WolfSpiderBaby: They can camouflage by waiting on their mother's back, and will attack if they themselves or their mother is in danger.
 //nose cultists
 NoseBallPurple: A large amalgam of noses fused together with the cult leader's magic. They can jump around off of surfaces by blowing air out of their many noses.
 NoseBallRed: Created by Noseferatu, they chaotically propel themselves around to serve as a distraction. They are formed using parts of other cultists who willingly sacrificed themselves.
@@ -316,3 +316,4 @@ RustMite: Wandering slowly through the spore fog, they feed on whatever is left 
 PuttyAmalgam: In rare circumstances, putty slimes can merge together and increase their power by traveling together as one. Their ability to jump has been enhanced, as well as being able to melt their body and reform elsewhere.
 Harold: An unknown being that wears a giant ghost costume sheet. He flies around the cemetery at night and can summon small ghosts to assist him.
 Triplets: A group of three eyes attached to veins, they travel attached to each other and can sync up their special laser attack.
+EvilMite: It is rare that mites are able to gather a ton of blood, but when they do they become bloated to unnatural sizes. Their bodies being filled with blood makes them squishy and explosive.

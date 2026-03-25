@@ -28,8 +28,7 @@ namespace Spooky.Content.NPCs.EggEvent
 
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/EggEvent/BiojetterFly", SoundType.Sound) { Volume = 0.35f };
-        public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/BiojetterScream", SoundType.Sound) { PitchVariance = 0.6f };
+        public static readonly SoundStyle FlySound = new("Spooky/Content/Sounds/EggEvent/BiojetterFly", SoundType.Sound) { Volume = 0.15f };
 
         public override void SetStaticDefaults()
         {
@@ -201,6 +200,49 @@ namespace Spooky.Content.NPCs.EggEvent
 
                 NPC.netUpdate = true;
             }
+            
+            if (!IsFalling)
+            {
+                if (NPC.localAI[0] % 10 == 0)
+                {
+                    SoundEngine.PlaySound(FlySound, NPC.Center);
+                }
+
+                int numDusts = 4;
+                Vector2 NPCVelocity = NPC.velocity * 0.4f + Vector2.UnitY * 6;
+                Vector2 LeftPosition = NPC.Center + new Vector2(-25, 38).RotatedBy(NPC.rotation);
+                Vector2 RightPosition = NPC.Center + new Vector2(25, 38).RotatedBy(NPC.rotation);
+
+                for (int i = 0; i < numDusts; i++)
+                {
+                    //first side
+                    Vector2 position = -Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / numDusts) * new Vector2(1f, 0.25f);
+                    Vector2 velocity = NPCVelocity + position * 1.25f;
+                    position = position * 8 + LeftPosition;
+
+                    if (Main.rand.NextBool())
+                    {
+                        Dust dust = Dust.NewDustPerfect(position, DustID.GreenBlood, velocity);
+                        dust.noGravity = true;
+                        dust.fadeIn = 0.1f;
+                        dust.velocity.Y += 3;
+                        dust.scale = 1.5f;
+                    }
+
+                    //second side
+                    Vector2 position2 = -Vector2.UnitY.RotatedBy(i * MathHelper.TwoPi / numDusts) * new Vector2(1f, 0.25f);
+                    position2 = position2 * 8 + RightPosition;
+
+                    if (Main.rand.NextBool())
+                    {
+                        Dust dust2 = Dust.NewDustPerfect(position2, DustID.GreenBlood, velocity);
+                        dust2.noGravity = true;
+                        dust2.fadeIn = 0.1f;
+                        dust2.velocity.Y += 3;
+                        dust2.scale = 1.5f;
+                    }
+                }
+            }
 
             switch ((int)NPC.ai[0])
             {
@@ -212,29 +254,6 @@ namespace Spooky.Content.NPCs.EggEvent
                     if (NPC.localAI[0] <= 420 && !IsFalling)
                     {
                         NPC.localAI[1]--;
-
-                        if (NPC.localAI[0] % 10 == 0)
-                        {
-                            SoundEngine.PlaySound(FlySound, NPC.Center);
-                        }
-
-                        for (int i = 0; i < 2; i++)
-                        {
-                            int direction = i * 2 - 1;
-                            Vector2 rotationOrigin = new Vector2(-direction, 0f);
-                            float overrideRotation = rotationOrigin.ToRotation();
-                            Vector2 dustVelo = new Vector2(0, 0).RotatedBy(overrideRotation);
-                            Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 3) - 5, 45).RotatedBy(NPC.rotation);
-                            int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.GreenBlood, 0, 0, 0, Color.White, 2.5f);
-                            Dust dust = Main.dust[index];
-                            dust.noGravity = true;
-                            dust.fadeIn = 0.1f;
-                            dust.velocity = dustVelo;
-                            dust.velocity.Y += 3;
-                            dust.scale += 0.3f;
-                            dust.scale *= NPC.scale;
-                            dust.alpha = NPC.alpha;
-                        }
 
                         Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 350);
 
@@ -291,24 +310,6 @@ namespace Spooky.Content.NPCs.EggEvent
                         SoundEngine.PlaySound(FlySound, NPC.Center);
                     }
 
-                    for (int i = 0; i < 2; i++)
-                    {
-                        int direction = i * 2 - 1;
-                        Vector2 rotationOrigin = new Vector2(-direction, 0f);
-                        float overrideRotation = rotationOrigin.ToRotation();
-                        Vector2 dustVelo = new Vector2(0, 0).RotatedBy(overrideRotation);
-                        Vector2 fromBody = NPC.Center + new Vector2(direction * (NPC.width / 3) - 5, 45).RotatedBy(NPC.rotation);
-                        int index = Dust.NewDust(fromBody + dustVelo * NPC.scale, 0, 0, DustID.GreenBlood, 0, 0, 0, Color.White, 2.5f);
-                        Dust dust = Main.dust[index];
-                        dust.noGravity = true;
-                        dust.fadeIn = 0.1f;
-                        dust.velocity = dustVelo;
-                        dust.velocity.Y += 10;
-                        dust.scale += 0.3f;
-                        dust.scale *= NPC.scale;
-                        dust.alpha = NPC.alpha;
-                    }
-
                     if (NPC.localAI[0] <= 60)
                     {
                         Vector2 GoTo = new Vector2(player.Center.X, player.Center.Y - 350);
@@ -319,7 +320,7 @@ namespace Spooky.Content.NPCs.EggEvent
  
                     if (NPC.localAI[0] == 60)
                     {
-                        SoundEngine.PlaySound(ScreamSound, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.NPCDeath40 with { Pitch = -1f }, NPC.Center);
                     }
 
                     //do squishing animation before spitting

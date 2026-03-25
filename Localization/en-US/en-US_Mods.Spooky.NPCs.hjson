@@ -206,6 +206,7 @@ TinyRat1.DisplayName: Tiny Rat
 TinyRat2.DisplayName: Tiny Rat
 ZomboidCasket.DisplayName: Zomboid Casket
 ZomboidGremlin.DisplayName: Zombino
+MistGhostSpawn.DisplayName: ""
 //egg event
 BileStomach.DisplayName: Tummy-acher
 Biojetter.DisplayName: Biojetter
@@ -272,8 +273,8 @@ MonsterEye2.DisplayName: Monster Eye
 MonsterEye4.DisplayName: Monster Eye
 MonsterEye3.DisplayName: Monster Eye
 PuttyAmalgam.DisplayName: Putty Amalgam
-PuttyPumpkin.DisplayName: Putty Pumpkin
-PuttyPumpkinling.DisplayName: Putty Pumpkinling
+PuttyPumpkin.DisplayName: Pumpkin Putty
+PuttyPumpkinling.DisplayName: Pumpkin Puttling
 PuttySlime1.DisplayName: Putty Slime
 PuttySlime2.DisplayName: Putty Slime
 PuttySlime3.DisplayName: Putty Slime
@@ -286,8 +287,21 @@ TinyGhost2.DisplayName: Tiny Ghost
 TinyGhostBoof.DisplayName: Tiny Ghost
 TinyGhostRare.DisplayName: Spooky Ghost
 TinyMushroom.DisplayName: Tiny Mushroom
+TomatoPutty1.DisplayName: Ketchup Putty
+TomatoPutty2.DisplayName: Ketchup Putty
+TomatoPutty3.DisplayName: Ketchup Putty
+TomatoPutty4.DisplayName: Ketchup Putty
+TomatoPuttyFlying.DisplayName: Salsa Putty
+TomatoPuttyFlyingSmall.DisplayName: Salsa Puttling
+TomatoRoman.DisplayName: Roman Tomato
+TomatoWormTail.DisplayName: Tomato Soupent
+TomatoWormHead.DisplayName: Tomato Soupent
+TomatoWormBody2.DisplayName: Tomato Soupent
+TomatoWormBody1.DisplayName: Tomato Soupent
 Witch.DisplayName: Evil Witch
 ZomboidArmored.DisplayName: Armored Zomboid
+ZomboidBrute.DisplayName: Zomboid Brute
+ZomboidBruteTomato.DisplayName: Zomboid Brute
 ZomboidClarinet.DisplayName: Zomboid
 ZomboidFungus.DisplayName: Zomboid
 ZomboidPumpkin.DisplayName: Rooted Zomboid
@@ -407,6 +421,8 @@ BerryMite3.DisplayName: Berry Mite
 DeerMite.DisplayName: Deer Mite
 DustMite1.DisplayName: Dust Mite
 DustMite2.DisplayName: Dust Mite
+EvilMite.DisplayName: Full Tick
+EvilMiteDeath.DisplayName: ""
 EyelashMiteBlueBody1.DisplayName: Eyelash Mite
 EyelashMiteBlueBody2.DisplayName: Eyelash Mite
 EyelashMiteBlueHead.DisplayName: Eyelash Mite
@@ -516,16 +532,8 @@ TeddyBearGiant.DisplayName: Cornelius
 TeddyBearSnow.DisplayName: Snow Bear
 ToyRobot.DisplayName: Toy Robot
 ToyRobotTank.DisplayName: Toy Tankbot
+
 //tameable
-LittleDunkEggNPC.DisplayName: Strange Egg
-
-LittleDunk: {
-	DisplayName: Lil' Dunk
-	State1: Lil' Dunk is Roaming
-	State2: Lil' Dunk is Following
-	State3: Lil' Dunk is Staying
-}
-
 Turkey: {
 	DisplayName: Turkey
 	State1: Turkey is Roaming

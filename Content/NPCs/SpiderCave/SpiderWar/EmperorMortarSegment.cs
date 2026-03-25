@@ -188,7 +188,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SpiderWar
                                 dust2.velocity += NPC.velocity;
                             }
 
-                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarMine>(), NPC.damage * 2, 4.5f);
+                            NPCGlobalHelper.ShootHostileProjectile(NPC, Position, ShootSpeed, ModContent.ProjectileType<MortarMine>(), NPC.damage + 25, 4.5f);
 
                             NPC.localAI[0] = 0;
                             NPC.localAI[1] = 0;

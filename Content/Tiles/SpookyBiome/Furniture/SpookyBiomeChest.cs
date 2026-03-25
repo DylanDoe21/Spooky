@@ -245,8 +245,10 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 			}
 			else 
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Spooky Chest";
-				if (player.cursorItemIconText == "Spooky Chest") 
+				string defaultName = TileLoader.DefaultContainerName(tile.TileType, tile.TileFrameX, tile.TileFrameY);
+
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : defaultName;
+				if (player.cursorItemIconText == defaultName)
 				{
 					player.cursorItemIconID = ModContent.ItemType<SpookyBiomeChestItem>();
 
@@ -255,7 +257,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 						player.cursorItemIconID = ModContent.ItemType<SpookyBiomeKey>();
 					}
 
-					player.cursorItemIconText = "";
+					player.cursorItemIconText = string.Empty;
 				}
 			}
 
@@ -267,7 +269,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Furniture
 		{
 			MouseOver(i, j);
 			Player player = Main.LocalPlayer;
-			if (player.cursorItemIconText == "") 
+			if (player.cursorItemIconText == string.Empty) 
 			{
 				player.cursorItemIconEnabled = false;
 				player.cursorItemIconID = 0;

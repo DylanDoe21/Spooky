@@ -27,7 +27,7 @@ namespace Spooky.Content.Projectiles.Slingshots
         public override void SetDefaults()
         {
             Projectile.width = 14;
-            Projectile.height = 12;
+            Projectile.height = 14;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
@@ -114,7 +114,7 @@ namespace Spooky.Content.Projectiles.Slingshots
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-2, 2), 
-                    Main.rand.Next(-3, -1), ModContent.ProjectileType<MoldPelletFly>(), Projectile.damage / 2, 0f, Main.myPlayer);
+                    Main.rand.Next(-3, -1), ModContent.ProjectileType<MoldPelletFly>(), Projectile.damage / 3, 0f, Main.myPlayer);
                 }
             }
 		}

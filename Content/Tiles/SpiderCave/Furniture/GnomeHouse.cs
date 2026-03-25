@@ -54,8 +54,8 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
 		{
             if (Main.rand.NextBool(500) && GnomeCount(i, j) <= 0 && Main.tile[i, j].TileFrameX == 18 && Main.tile[i, j].TileFrameY == 36)
             {
-                Spooky.MushGnomeSpawnX = (i * 16) + 5;
-                Spooky.MushGnomeSpawnY = (j * 16) + 6;
+                Flags.MushGnomeSpawnX = (i * 16) + 5;
+                Flags.MushGnomeSpawnY = (j * 16) + 6;
 
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
@@ -66,7 +66,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
                 else
                 {
                     int[] Gnomes = new int[] { ModContent.NPCType<MushGnome1>(), ModContent.NPCType<MushGnome2>(), ModContent.NPCType<MushGnome3>(), ModContent.NPCType<MushGnome4>() };
-                    NPC.NewNPC(null, Spooky.MushGnomeSpawnX, Spooky.MushGnomeSpawnY, Main.rand.Next(Gnomes));
+                    NPC.NewNPC(null, Flags.MushGnomeSpawnX, Flags.MushGnomeSpawnY, Main.rand.Next(Gnomes));
                 }
             }
         }
@@ -143,8 +143,8 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
 		{
             if (Main.rand.NextBool(500) && GnomeHouse1.GnomeCount(i, j) <= 0 && Main.tile[i, j].TileFrameX == 18 && Main.tile[i, j].TileFrameY == 72)
             {
-                Spooky.MushGnomeSpawnX = (i * 16) + 5;
-                Spooky.MushGnomeSpawnY = (j * 16) + 6;
+                Flags.MushGnomeSpawnX = (i * 16) + 5;
+                Flags.MushGnomeSpawnY = (j * 16) + 6;
 
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
@@ -155,7 +155,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
                 else
                 {
                     int[] Gnomes = new int[] { ModContent.NPCType<MushGnome1>(), ModContent.NPCType<MushGnome2>(), ModContent.NPCType<MushGnome3>(), ModContent.NPCType<MushGnome4>() };
-                    NPC.NewNPC(null, Spooky.MushGnomeSpawnX, Spooky.MushGnomeSpawnY, Main.rand.Next(Gnomes));
+                    NPC.NewNPC(null, Flags.MushGnomeSpawnX, Flags.MushGnomeSpawnY, Main.rand.Next(Gnomes));
                 }
             }
         }
@@ -206,8 +206,8 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
 		{
             if (Main.rand.NextBool(500) && GnomeHouse1.GnomeCount(i, j) <= 0 && Main.tile[i, j].TileFrameX == 18 && Main.tile[i, j].TileFrameY == 72)
             {
-                Spooky.MushGnomeSpawnX = (i * 16) + 5;
-                Spooky.MushGnomeSpawnY = (j * 16) + 6;
+                Flags.MushGnomeSpawnX = (i * 16) + 5;
+                Flags.MushGnomeSpawnY = (j * 16) + 6;
 
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
@@ -218,7 +218,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
                 else
                 {
                     int[] Gnomes = new int[] { ModContent.NPCType<MushGnome1>(), ModContent.NPCType<MushGnome2>(), ModContent.NPCType<MushGnome3>(), ModContent.NPCType<MushGnome4>() };
-                    NPC.NewNPC(null, Spooky.MushGnomeSpawnX, Spooky.MushGnomeSpawnY, Main.rand.Next(Gnomes));
+                    NPC.NewNPC(null, Flags.MushGnomeSpawnX, Flags.MushGnomeSpawnY, Main.rand.Next(Gnomes));
                 }
             }
         }
@@ -264,8 +264,8 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
 		{
             if (Main.rand.NextBool(500) && GnomeHouse1.GnomeCount(i, j) <= 0 && Main.tile[i, j].TileFrameX == 18 && Main.tile[i, j].TileFrameY == 54)
             {
-                Spooky.MushGnomeSpawnX = (i * 16) + 5;
-                Spooky.MushGnomeSpawnY = (j * 16) + 6;
+                Flags.MushGnomeSpawnX = (i * 16) + 5;
+                Flags.MushGnomeSpawnY = (j * 16) + 6;
 
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
@@ -276,7 +276,7 @@ namespace Spooky.Content.Tiles.SpiderCave.Furniture
                 else
                 {
                     int[] Gnomes = new int[] { ModContent.NPCType<MushGnome1>(), ModContent.NPCType<MushGnome2>(), ModContent.NPCType<MushGnome3>(), ModContent.NPCType<MushGnome4>() };
-                    int Gnome = NPC.NewNPC(null, Spooky.MushGnomeSpawnX, Spooky.MushGnomeSpawnY, Main.rand.Next(Gnomes));
+                    int Gnome = NPC.NewNPC(null, Flags.MushGnomeSpawnX, Flags.MushGnomeSpawnY, Main.rand.Next(Gnomes));
                     Main.npc[Gnome].velocity.X = Main.rand.NextBool() ? -1 : 1;
                 }
             }

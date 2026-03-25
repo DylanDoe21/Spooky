@@ -48,6 +48,13 @@ namespace Spooky.Content.Projectiles.Slingshots
 						ShootSpeed *= ItemGlobal.ActiveItem(player).shootSpeed;
 
 						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, ShootSpeed, Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+						for (int numProjs = 0; numProjs <= 2; numProjs++)
+						{
+							Vector2 newVelocity = ShootSpeed.RotatedByRandom(MathHelper.ToRadians(35));
+							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, newVelocity, ModContent.ProjectileType<BigDunkSlingshotJuice>(), 
+							Projectile.damage / 2, Projectile.knockBack, Projectile.owner, ai0: Main.rand.Next(0, 2));
+						}
 					}
 				}
 

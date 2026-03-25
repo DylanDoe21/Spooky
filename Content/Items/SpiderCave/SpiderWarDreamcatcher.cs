@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.SpiderCave
 			Item.useStyle = ItemUseStyleID.RaiseLamp;
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.buyPrice(gold: 50);
+            Item.value = Item.buyPrice(gold: 35);
             Item.UseSound = SoundID.Item76 with { Pitch = -1f };
             Item.shoot = ModContent.ProjectileType<SpiderWarDreamcatcherWeb>();
             Item.shootSpeed = 0f;

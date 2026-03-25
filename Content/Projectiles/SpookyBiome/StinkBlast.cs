@@ -57,9 +57,8 @@ namespace Spooky.Content.Projectiles.SpookyBiome
                 }
             }
 
-            int DustEffect = Dust.NewDust(Projectile.Center, Projectile.width / 5, Projectile.height / 5, 
-            ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, color * 0.5f, Main.rand.NextFloat(0.2f, 0.5f));
-            Main.dust[DustEffect].velocity *= 0;
+            int DustEffect = Dust.NewDust(Projectile.Center, Projectile.width / 5, Projectile.height / 5, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, color * 0.5f, Main.rand.NextFloat(0.2f, 0.5f));
+            Main.dust[DustEffect].velocity = Vector2.Zero;
             Main.dust[DustEffect].alpha = 100;
 
             if (Main.rand.NextBool(10))

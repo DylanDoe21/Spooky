@@ -154,13 +154,13 @@ namespace Spooky.Content.Items.BossSummon
 
 							bool CanSpawn = true;
 
-							foreach (var Proj in Main.ActiveProjectiles)
+							foreach (var NPC in Main.ActiveNPCs)
 							{
 								for (int x = left; x < left + 2; x++)
 								{
 									for (int y = top; y < top + 3; y++)
 									{
-										if (Proj.type == ModContent.ProjectileType<MistGhostSpawn>() && Proj.Hitbox.Intersects(new Rectangle(x * 16, y * 16, 16, 16)))
+										if (NPC.type == ModContent.NPCType<MistGhostSpawn>() && NPC.Hitbox.Intersects(new Rectangle(x * 16, y * 16, 16, 16)))
 										{
 											CanSpawn = false;
 											break;
@@ -185,11 +185,18 @@ namespace Spooky.Content.Items.BossSummon
 								int SpawnX = (left * 16) + 16;
 								int SpawnY = (top * 16) + 20;
 
-								//spawn a mist ghost ambush
-								if (Main.netMode != NetmodeID.MultiplayerClient)
+								Flags.GhostAmbushSpawnX = SpawnX;
+								Flags.GhostAmbushSpawnY = SpawnY;
+
+								if (Main.netMode != NetmodeID.SinglePlayer)
+                    			{
+									ModPacket packet = Mod.GetPacket();
+									packet.Write((byte)SpookyMessageType.SpawnGhostAmbush);
+									packet.Send();
+								}
+								else
 								{
-									Projectile.NewProjectile(new EntitySource_TileInteraction(player, SpawnX, SpawnY), new Vector2(SpawnX, SpawnY), Vector2.Zero, 
-									ModContent.ProjectileType<MistGhostSpawn>(), 0, 0, Main.LocalPlayer.whoAmI, ai2: Flags.RaveyardHappening ? 1 : 0);
+									Flags.SpawnGhostAmbush = true;
 								}
 								
 								return;

@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.buyPrice(gold: 25);
+            Item.value = Item.buyPrice(gold: 40);
             Item.UseSound = SoundID.Item46;
             Item.shoot = ModContent.ProjectileType<ZombieEelHead>();
             Item.shootSpeed = 0f;

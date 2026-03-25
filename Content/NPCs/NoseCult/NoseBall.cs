@@ -82,6 +82,15 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
+                for (int numHeart = 0; numHeart < 8; numHeart++)
+				{
+					int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ItemID.Heart);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    }
+				}
+
                 for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 
@@ -91,21 +100,6 @@ namespace Spooky.Content.NPCs.NoseCult
                 }
             }
         }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot) 
-        {
-			var parameters = new DropOneByOne.Parameters()
-			{
-				ChanceNumerator = 1,
-				ChanceDenominator = 1,
-				MinimumStackPerChunkBase = 1,
-				MaximumStackPerChunkBase = 1,
-				MinimumItemDropsCount = 4,
-				MaximumItemDropsCount = 8,
-			};
-
-			npcLoot.Add(new DropOneByOne(ItemID.Heart, parameters));
-		}
     }
 
     public class NoseBallRed : NoseBallPurple  
@@ -123,6 +117,15 @@ namespace Spooky.Content.NPCs.NoseCult
         {
             if (NPC.life <= 0) 
             {
+                for (int numHeart = 0; numHeart < 8; numHeart++)
+				{
+					int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ItemID.Heart);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    }
+				}
+
                 for (int numGores = 1; numGores <= 5; numGores++)
                 {
                     if (Main.netMode != NetmodeID.Server) 

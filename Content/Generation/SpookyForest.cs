@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using Spooky.Core;
 using Spooky.Content.Items;
 using Spooky.Content.Items.BossBags;
+using Spooky.Content.Items.BossSummon;
 using Spooky.Content.Items.SpookyBiome;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.Tiles.Blooms;
@@ -30,8 +31,11 @@ namespace Spooky.Content.Generation
         //default positions, edit based on the config below
         static int PositionX = Main.maxTilesX / 2;
 		static int PositionY = (int)Main.worldSurface - (Main.maxTilesY / 8);
+		static int GlowshroomPosY = (int)Main.worldSurface + (Main.maxTilesY / 9);
 
 		static bool PlacedJobApplication = false;
+
+		public static WorldGen.GrowTreeSettings TreeSettings;
 
 		private void GenerateSpookyForest(GenerationProgress progress, GameConfiguration configuration)
 		{
@@ -79,7 +83,7 @@ namespace Spooky.Content.Generation
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, false);
 
 			//position where the glowshroom minibiome begins
-			int GlowshroomPosY = (int)Main.worldSurface + (Main.maxTilesY / 9);
+			GlowshroomPosY = (int)Main.worldSurface + (Main.maxTilesY / 9);
 
 			for (double i = 0; i < 0.25; i += 0.00001)
 			{
@@ -150,44 +154,10 @@ namespace Spooky.Content.Generation
 			//dig out noise caves in the biome
 			int Seed = WorldGen.genRand.Next();
 
-			//dig out caves specifically on the surface of the biome and only in moss stone to create some surface caves
-			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
-			{
-				for (int Y = 100; Y < (int)Main.worldSurface + 10; Y++)
-				{
-					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
-					{
-						//generate perlin noise caves
-						float horizontalOffsetNoise = SpookyWorldMethods.PerlinNoise2D(X / 250f, Y / 250f, 5, unchecked(Seed + 1)) * 0.01f;
-						float cavePerlinValue = SpookyWorldMethods.PerlinNoise2D(X / 250f, Y / 250f, 5, Seed) + 0.5f + horizontalOffsetNoise;
-						float cavePerlinValue2 = SpookyWorldMethods.PerlinNoise2D(X / 250f, Y / 250f, 5, unchecked(Seed - 1)) + 0.5f;
-						float caveNoiseMap = (cavePerlinValue + cavePerlinValue2) * 0.5f;
-						float caveCreationThreshold = horizontalOffsetNoise * 3.5f + 0.235f;
-
-						//kill or place tiles depending on the noise map
-						if (caveNoiseMap * caveNoiseMap > caveCreationThreshold)
-						{
-							WorldGen.KillTile(X, Y);
-
-							for (int i = X - 1; i <= X + 1; i++)
-							{
-								for (int j = Y - 1; j <= Y + 1; j++)
-								{
-									if (Main.tile[i, j].WallType > 0)
-									{
-										Main.tile[i, j].WallType = (ushort)ModContent.WallType<SpookyStoneWall>();
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
 				//default cave generation above where the glowshroom section is
-				for (int Y = (int)Main.worldSurface + 10; Y < GlowshroomPosY; Y++)
+				for (int Y = (int)Main.worldSurface; Y < GlowshroomPosY + 5; Y++)
 				{
 					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() || Main.tile[X, Y].TileType == ModContent.TileType<SpookyDirt2>())
 					{
@@ -207,7 +177,7 @@ namespace Spooky.Content.Generation
 				}
 
 				//glowshroom special cave generation
-				for (int Y = GlowshroomPosY; Y < Main.maxTilesY - 200; Y++)
+				for (int Y = GlowshroomPosY - 5; Y < Main.maxTilesY - 200; Y++)
 				{
 					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
 					{
@@ -250,14 +220,6 @@ namespace Spooky.Content.Generation
 			for (double i = 0.5; i < 0.75; i += 0.00001)
 			{
 				progress.Set(i);
-			}
-
-			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
-			{
-				for (int Y = GlowshroomPosY - 5; Y < Main.maxTilesY - 200; Y++)
-				{
-					WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomMoss>(), false);
-				}
 			}
 
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
@@ -354,9 +316,10 @@ namespace Spooky.Content.Generation
 			//add biome dithering
 			PlaceSpookyForestEllipse(PositionX, PositionY, SizeX / 6, SizeY, true);
 
+			//remove walls that arent surrounded fully by blocks
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
-				for (int Y = 100; Y < Main.maxTilesY - 200; Y++)
+				for (int Y = PositionY - 100; Y < Main.maxTilesY - 200; Y++)
 				{
 					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>() && !Main.tile[X, Y - 1].HasTile && !Main.tile[X, Y + 1].HasTile)
 					{
@@ -393,6 +356,20 @@ namespace Spooky.Content.Generation
 				}
 			}
 
+			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
+			{
+				for (int Y = PositionY - 100; Y <= Main.maxTilesY - 200; Y++)
+				{
+					Tile tile = Main.tile[X, Y];
+
+					if (tile.TileType == ModContent.TileType<SpookyDirt>() || tile.TileType == ModContent.TileType<SpookyDirt2>() || 
+					tile.TileType == ModContent.TileType<SpookyStone>() || tile.TileType == ModContent.TileType<BloomSoil>())
+					{
+						Tile.SmoothSlope(X, Y);
+					}
+				}
+			}
+
 			for (double i = 0.75; i < 1; i += 0.00001)
 			{
 				progress.Set(i);
@@ -404,8 +381,8 @@ namespace Spooky.Content.Generation
 			//spread grass on all spooky dirt tiles
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
-				for (int Y = PositionY - 100; Y <= Main.maxTilesY - 100; Y++)
-				{ 
+				for (int Y = PositionY - 100; Y <= GlowshroomPosY; Y++)
+				{
                     Tile tile = Main.tile[X, Y];
                     Tile tileAbove = Main.tile[X, Y - 1];
                     Tile tileBelow = Main.tile[X, Y + 1];
@@ -445,21 +422,38 @@ namespace Spooky.Content.Generation
 						}
 					}
                 }
+
+				//spread glowshroom grass
+				for (int Y = GlowshroomPosY - 5; Y < Main.maxTilesY - 200; Y++)
+				{
+					WorldGen.SpreadGrass(X, Y, ModContent.TileType<SpookyStone>(), ModContent.TileType<MushroomMoss>(), false);
+				}
             }
         }
 
         private void GrowSpookyTrees(GenerationProgress progress, GameConfiguration configuration)
         {
-			//grow trees
 			for (int X = PositionX - Main.maxTilesX / 12; X <= PositionX + Main.maxTilesX / 12; X++)
 			{
 				for (int Y = 0; Y < (int)Main.worldSurface - 50; Y++)
                 {
-					//regular surface trees
-                    if (Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrass>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>())
-                    {
-                        WorldGen.GrowTree(X, Y - 1);
-                    }
+					Tile tile = Main.tile[X, Y];
+
+					//grow trees
+					if (tile.TileType == ModContent.TileType<SpookyGrass>() || tile.TileType == ModContent.TileType<SpookyGrassGreen>())
+					{
+						TreeSettings = new WorldGen.GrowTreeSettings
+						{
+							GroundTest = (_) => true,
+							WallTest = (_) => true,
+							TreeHeightMax = 15,
+							TreeHeightMin = 5,
+							TreeTileType = TileID.Trees,
+							TreeTopPaddingNeeded = 4,
+						};
+
+						WorldGen.GrowTreeWithSettings(X, Y, TreeSettings);
+					}
                 }
 
                 //grow giant mushrooms
@@ -468,7 +462,7 @@ namespace Spooky.Content.Generation
                     if ((Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyGrassGreen>() || Main.tile[X, Y].TileType == (ushort)ModContent.TileType<SpookyStone>()) &&
                     !Main.tile[X, Y].LeftSlope && !Main.tile[X, Y].RightSlope && !Main.tile[X, Y].IsHalfBlock)
                     {
-                        if (WorldGen.genRand.NextBool(25))
+                        if (WorldGen.genRand.NextBool(32))
                         {
                             GrowGiantMushroom(X, Y, 5, 8);
                         }
@@ -563,9 +557,24 @@ namespace Spooky.Content.Generation
 						SpookyWorldMethods.PlaceVines(X, Y, ModContent.TileType<SpookyFungusVines>(), ValidTiles);
 					}
 
+					//mossy stone objects
+					if (Main.tile[X, Y].TileType == ModContent.TileType<SpookyStone>())
+					{
+						if (WorldGen.genRand.NextBool())
+						{
+							WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<MossyRock>());
+						}
+					}
+
 					//place gourds and weeds
 					if (tile.TileType == (ushort)ModContent.TileType<SpookyGrass>())
 					{
+						//rotten gourds
+						if (WorldGen.genRand.NextBool(5) && CanGrowRottenGourd(X, Y))
+						{
+							WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<GourdRotten>());
+						}
+
 						//gourds
 						if (WorldGen.genRand.NextBool(3) && CanGrowGourd(X, Y))
 						{
@@ -590,6 +599,12 @@ namespace Spooky.Content.Generation
 					}
 					if (tile.TileType == (ushort)ModContent.TileType<SpookyGrassGreen>())
 					{
+						//rotten gourds
+						if (WorldGen.genRand.NextBool(5) && CanGrowRottenGourd(X, Y))
+						{
+							WorldGen.PlaceObject(X, Y - 1, (ushort)ModContent.TileType<GourdRotten>());
+						}
+
 						//gourds
 						if (WorldGen.genRand.NextBool(3) && CanGrowGourd(X, Y))
 						{
@@ -796,7 +811,7 @@ namespace Spooky.Content.Generation
 					StructureHelper.API.Generator.GenerateStructure("Content/Structures/SpookyBiome/SpookyForestHouse.shstruct", origin.ToPoint16(), Mod);
 
                     //place little bone in the house
-                    NPC.NewNPC(null, (x + 1) * 16, (y - 9) * 16, ModContent.NPCType<LittleBoneSleeping>());
+                    NPC.NewNPC(null, (x) * 16, (y - 9) * 16, ModContent.NPCType<LittleBoneSleeping>());
 
                     placed = true;
 				}
@@ -866,7 +881,7 @@ namespace Spooky.Content.Generation
 		public bool CanPlaceLootCabin(int PositionX, int PositionY)
 		{
 			//change the distance between cabins based on worldsize so each worldsize has a generally equal amount of loot cabins
-			int Distance = Main.maxTilesX / 140;
+			int Distance = Main.maxTilesX / 130;
 
 			//dont allow loot cabins to place too close to each other
 			for (int i = PositionX - Distance; i < PositionX + Distance; i++)
@@ -923,6 +938,9 @@ namespace Spooky.Content.Generation
 
 				//save the Y-position so the next tunnel starts from the bottom of the previous one
 				CurrentY = IncrementY;
+
+				//temporary see if this works
+				MineshaftCircle(CurrentX, CurrentY);
 
 				//stop placing the tunnels once it reaches the underground layer
 				if (CurrentY > Main.worldSurface + 5)
@@ -1286,18 +1304,17 @@ namespace Spooky.Content.Generation
 
             tasks.Insert(GenIndex1 + 1, new PassLegacy("Spooky Forest", GenerateSpookyForest));
             tasks.Insert(GenIndex1 + 2, new PassLegacy("Little Bone House", GenerateStarterHouse));
-            tasks.Insert(GenIndex1 + 3, new PassLegacy("Spooky Forest Grass", SpreadSpookyGrass));
 
-			//place house again because stupid ahh walls
-			int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
+			//generate extra stuff
+			int GenIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Spawn Point"));
 			if (GenIndex2 == -1)
 			{
                 return;
             }
 
-            tasks.Insert(GenIndex2 + 1, new PassLegacy("Spooky Forest Cabins", GenerateCabins));
+			tasks.Insert(GenIndex2 + 1, new PassLegacy("Spooky Forest Grass", SpreadSpookyGrass));
             tasks.Insert(GenIndex2 + 2, new PassLegacy("Glowshroom Cleanup", ClearStuffAroundMushroomMoss));
-			tasks.Insert(GenIndex2 + 3, new PassLegacy("Spooky Forest Grass", SpreadSpookyGrass));
+			tasks.Insert(GenIndex2 + 3, new PassLegacy("Spooky Forest Cabins", GenerateCabins));
             tasks.Insert(GenIndex2 + 4, new PassLegacy("Spooky Forest Trees", GrowSpookyTrees));
             tasks.Insert(GenIndex2 + 5, new PassLegacy("Spooky Forest Objects", SpookyForestAmbience));
         }
@@ -1327,7 +1344,7 @@ namespace Spooky.Content.Generation
 				{
 					Tile chestTile = Main.tile[chest.x, chest.y];
 
-					if (chestTile.TileType == ModContent.TileType<OldWoodChest>())
+					if (chestTile.TileType == ModContent.TileType<OldWoodChest>() && chest.item[0].type != ModContent.ItemType<EMFReaderBroke>())
 					{
 						if (ActualMainItem.Count == 0)
 						{

@@ -246,8 +246,10 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 			}
 			else 
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Eye Valley Chest";
-				if (player.cursorItemIconText == "Eye Valley Chest") 
+				string defaultName = TileLoader.DefaultContainerName(tile.TileType, tile.TileFrameX, tile.TileFrameY);
+
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : defaultName;
+				if (player.cursorItemIconText == defaultName)
 				{
 					player.cursorItemIconID = ModContent.ItemType<SpookyHellChestItem>();
 
@@ -256,7 +258,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 						player.cursorItemIconID = ModContent.ItemType<SpookyHellKey>();
 					}
 
-					player.cursorItemIconText = "";
+					player.cursorItemIconText = string.Empty;
 				}
 			}
 
@@ -268,7 +270,7 @@ namespace Spooky.Content.Tiles.SpookyHell.Furniture
 		{
 			MouseOver(i, j);
 			Player player = Main.LocalPlayer;
-			if (player.cursorItemIconText == "") 
+			if (player.cursorItemIconText == string.Empty) 
 			{
 				player.cursorItemIconEnabled = false;
 				player.cursorItemIconID = 0;

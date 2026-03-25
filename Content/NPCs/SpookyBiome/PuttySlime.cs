@@ -17,6 +17,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 	{
         public override void SetStaticDefaults()
 		{
+			Main.npcFrameCount[NPC.type] = 2;
 		}
 
 		public override void SetDefaults()
@@ -35,6 +36,7 @@ namespace Spooky.Content.NPCs.SpookyBiome
 			NPC.DeathSound = SoundID.NPCDeath1;
             NPC.aiStyle = 1;
 			AIType = NPCID.BlueSlime;
+			AnimationType = NPCID.BlueSlime;
 			SpawnModBiomes = new int[1] { ModContent.GetInstance<Biomes.SpookyBiome>().Type };
 		}
 
@@ -74,10 +76,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 	public class PuttySlime2 : PuttySlime1
 	{
-		public override void SetStaticDefaults()
-		{
-		}
-
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 
@@ -103,10 +101,6 @@ namespace Spooky.Content.NPCs.SpookyBiome
 
 	public class PuttySlime3 : PuttySlime1
 	{
-		public override void SetStaticDefaults()
-		{
-		}
-
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
         {
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> 

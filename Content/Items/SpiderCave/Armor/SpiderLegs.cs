@@ -28,14 +28,7 @@ namespace Spooky.Content.Items.SpiderCave.Armor
 		public override void AddRecipes()
         {
 			CreateRecipe()
-			.AddIngredient(ItemID.SilverBar, 15)
-			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
-			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 100)
-            .AddTile(TileID.Anvils)
-            .Register();
-
-			CreateRecipe()
-			.AddIngredient(ItemID.TungstenBar, 15)
+			.AddRecipeGroup("SpookyMod:SilverBars", 15)
 			.AddIngredient(ModContent.ItemType<SpiderChitin>(), 25)
 			.AddIngredient(ModContent.ItemType<WebBlockItem>(), 100)
             .AddTile(TileID.Anvils)

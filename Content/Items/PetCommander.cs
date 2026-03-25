@@ -48,10 +48,6 @@ namespace Spooky.Content.Items
                     {
 					    CombatText.NewText(npc.getRect(), Color.Lime, Language.GetTextValue("Mods.Spooky.NPCs.Turkey.State" + StateValue.ToString()), false);
                     }
-                    if (npc.type == ModContent.NPCType<LittleDunk>())
-                    {
-					    CombatText.NewText(npc.getRect(), Color.Lime, Language.GetTextValue("Mods.Spooky.NPCs.LittleDunk.State" + StateValue.ToString()), false);
-                    }
 				}
             }
 

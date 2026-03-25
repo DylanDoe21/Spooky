@@ -14,7 +14,7 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
 {
     public class ZomboidTomatoHead : ModProjectile
     {
-        public static readonly SoundStyle ExplodeSound = new("Spooky/Content/Sounds/Splat", SoundType.Sound);
+        public static readonly SoundStyle SplatSound = new("Spooky/Content/Sounds/Splat", SoundType.Sound);
 
         public override void SetStaticDefaults()
         {
@@ -36,14 +36,14 @@ namespace Spooky.Content.NPCs.SpookyBiome.Projectiles
         {
             Projectile.frame = (int)Projectile.ai[0];
 
-            Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * (float)Projectile.direction;
+            Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.02f * (float)Projectile.direction;
             
             Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
         }
         
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(ExplodeSound, Projectile.Center);
+            SoundEngine.PlaySound(SplatSound, Projectile.Center);
 
             //spawn blood splatter
 			for (int i = 0; i < 5; i++)

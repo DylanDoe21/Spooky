@@ -43,8 +43,7 @@ namespace Spooky.Content.Items.Fishing.Crate
 			int[] catacombChestDrops = new int[] 
 			{
 				ModContent.ItemType<BoneBow>(), ModContent.ItemType<GraveCrossbow>(), ModContent.ItemType<HarvesterScythe>(), 
-                ModContent.ItemType<HighVelocitySlingshot>(), ModContent.ItemType<HunterScarf>(), 
-                ModContent.ItemType<NineTails>(), ModContent.ItemType<ThornStaff>()
+                ModContent.ItemType<HighVelocitySlingshot>(), ModContent.ItemType<NineTails>(), ModContent.ItemType<ThornStaff>()
 			};
 
             itemLoot.Add(ItemDropRule.OneFromOptions(1, catacombChestDrops));

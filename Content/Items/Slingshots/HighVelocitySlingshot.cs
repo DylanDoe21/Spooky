@@ -26,7 +26,7 @@ namespace Spooky.Content.Items.Slingshots
 			Item.crit = 50;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.autoReuse = false;
+			Item.autoReuse = true;
 			Item.noUseGraphic = true;
 			Item.channel = true;
 			Item.width = 22;

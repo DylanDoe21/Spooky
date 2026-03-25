@@ -988,7 +988,7 @@ namespace Spooky.Content.Generation
 				if (CanPlaceLab(PositionX, PositionY))
 				{
 					Vector2 LabOrigin = new Vector2(PositionX - 16, PositionY - 4);
-					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/Lab-" + WorldGen.genRand.Next(1, 5) + ".shstruct", LabOrigin.ToPoint16(), Mod);
+					StructureHelper.API.Generator.GenerateStructure("Content/Structures/ZombieOcean/Lab" + WorldGen.genRand.Next(1, 5) + ".shstruct", LabOrigin.ToPoint16(), Mod);
 
 					LabsPlaced++;
 				}

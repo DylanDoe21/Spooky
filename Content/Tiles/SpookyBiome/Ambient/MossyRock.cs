@@ -23,7 +23,7 @@ namespace Spooky.Content.Tiles.SpookyBiome.Ambient
             TileObjectData.newTile.Origin = new Point16(1, 1);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            AddMapEntry(new Color(42, 34, 39));
+            AddMapEntry(new Color(62, 54, 59));
             DustType = DustID.Stone;
             HitSound = SoundID.Dig;
         }

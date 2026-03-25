@@ -22,8 +22,6 @@ namespace Spooky.Content.NPCs.SpookyHell
         private static Asset<Texture2D> GlowTexture;
         private static Asset<Texture2D> NPCTexture;
 
-        public static readonly SoundStyle GrowlSound = new("Spooky/Content/Sounds/ValleyEelGrowl", SoundType.Sound) { PitchVariance = 0.6f };
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 4;
@@ -255,7 +253,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                         //charge at the player
                         if (NPC.localAI[0] == 50)
                         {
-                            SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.Zombie7 with { Pitch = -0.5f }, NPC.Center);
 
                             Vector2 ChargeDirection = player.Center - NPC.Center;
                             ChargeDirection.Normalize();
@@ -337,7 +335,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     //charge at the player
                     if (NPC.localAI[0] == 60)
                     {
-                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Zombie7 with { Pitch = -0.5f }, NPC.Center);
 
                         Vector2 ChargeDirection = player.Center - NPC.Center;
                         ChargeDirection.Normalize(); 
@@ -383,7 +381,7 @@ namespace Spooky.Content.NPCs.SpookyHell
                     //charge again after circling
                     if (NPC.localAI[0] == 300)
                     {
-                        SoundEngine.PlaySound(GrowlSound, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Zombie7 with { Pitch = -0.5f }, NPC.Center);
 
                         Vector2 ChargeDirection = SavePlayerPosition - NPC.Center;
                         ChargeDirection.Normalize(); 

@@ -72,6 +72,7 @@ namespace Spooky.Core
 		public bool FungusDevilTooth = false;
 		public bool FungusInkCap = false;
 		public bool FungusRedCage = false;
+		public bool UltimateTomato = false;
 
 		//slot unlocks
 		public bool UnlockedSlot3 = false;
@@ -322,6 +323,7 @@ namespace Spooky.Core
 			FungusDevilTooth = BloomBuffSlots.Contains("FungusDevilTooth");
 			FungusInkCap = BloomBuffSlots.Contains("FungusInkCap");
 			FungusRedCage = BloomBuffSlots.Contains("FungusRedCage");
+			UltimateTomato = BloomBuffSlots.Contains("UltimateTomato");
         }
 
         //handler for the buffs duration decreasing over time and setting each buff slot back to blank if the duration of that buff slot runs out
@@ -436,10 +438,10 @@ namespace Spooky.Core
 			{
 				SoundEngine.PlaySound(SoundID.Zombie21 with { Volume = 0.5f, Pitch = 1.05f }, Player.Center);
 
-				int MinDamage = 30; //minimum damage
+				int MinDamage = 50; //minimum damage (tehnically 25 because it halves the damage when calculated)
 				float DamageMultiplier = 0.5f; //damage multiplier, each petal should do half damage
 
-				float Damage = info.Damage < MinDamage ? MinDamage * DamageMultiplier : info.Damage * DamageMultiplier;
+				float Damage = (info.Damage < MinDamage ? MinDamage : info.Damage)* DamageMultiplier;
 
 				float maxAmount = 5;
 				int currentAmount = 0;
@@ -953,7 +955,7 @@ namespace Spooky.Core
 			//player takes 15% more damage with the cemetery rose
 			if (CemeteryRose)
 			{
-				Player.endurance -= 0.15f;
+				Player.endurance -= 0.1f;
 			}
 
 			//farmer glove grants attack speed for each occupied bloom buff slot
@@ -1001,7 +1003,7 @@ namespace Spooky.Core
 			//increase all crit damage with the poker pineapple
 			if (SummerPineapple)
 			{
-				modifiers.CritDamage += 1.35f;
+				modifiers.CritDamage += 0.35f;
 			}
 		}
 
@@ -1084,7 +1086,7 @@ namespace Spooky.Core
 					target.AddBuff(ModContent.BuffType<InkyCapDebuff>(), 120);
 				}
 
-				if (target.HasBuff(ModContent.BuffType<InkyCapDebuff>()))
+				if (Main.rand.NextBool(3) && target.HasBuff(ModContent.BuffType<InkyCapDebuff>()))
 				{
 					Vector2 Velocity = new Vector2(0, Main.rand.Next(-12, -6)).RotatedByRandom(MathHelper.ToRadians(40));
 					Projectile.NewProjectile(target.GetSource_OnHit(Player), target.Center, Velocity, ModContent.ProjectileType<InkSpore>(), hit.Damage, hit.Knockback, Player.whoAmI, Main.rand.Next(0, 3));

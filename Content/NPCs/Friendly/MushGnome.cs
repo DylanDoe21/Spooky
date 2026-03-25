@@ -37,9 +37,10 @@ namespace Spooky.Content.NPCs.Friendly
             NPC.defense = 5;
             NPC.width = 34;
 			NPC.height = 46;
+            NPC.npcSlots = 0f;
             NPC.friendly = true;
             NPC.noGravity = false;
-            NPC.npcSlots = 1f;
+            NPC.dontCountMe = true;
 			NPC.knockBackResist = 0.75f;
             NPC.HitSound = SoundID.DD2_GoblinScream with { Pitch = 1f, Volume = 0.4f };
             NPC.DeathSound = SoundID.NPCDeath1;

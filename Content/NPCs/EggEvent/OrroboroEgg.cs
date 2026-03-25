@@ -175,8 +175,8 @@ namespace Spooky.Content.NPCs.EggEvent
         {
             Player player = Main.LocalPlayer;
 
-            Spooky.OrroboroSpawnX = (int)NPC.Center.X;
-            Spooky.OrroboroSpawnY = (int)NPC.Center.Y;
+            Flags.OrroboroSpawnX = (int)NPC.Center.X;
+            Flags.OrroboroSpawnY = (int)NPC.Center.Y;
 
             OrroboroDoesNotExist = !NPC.AnyNPCs(ModContent.NPCType<OrroHeadP1>()) && !NPC.AnyNPCs(ModContent.NPCType<OrroHead>()) && !NPC.AnyNPCs(ModContent.NPCType<BoroHead>());
 

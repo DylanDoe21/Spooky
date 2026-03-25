@@ -114,11 +114,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 
             if (NPC.wet)
             {
-                NPC.aiStyle = 1;
-            }
-            else
-            {
-                NPC.aiStyle = 26;
+                NPC.velocity.Y = -3;
             }
 
             //collide with walls and play a sound

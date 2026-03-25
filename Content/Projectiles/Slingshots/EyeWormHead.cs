@@ -17,6 +17,11 @@ namespace Spooky.Content.Projectiles.Slingshots
 
         Vector2 RotatePosition;
 
+        public override void SetStaticDefaults()
+        {
+            ProjectileGlobal.IsSlingshotAmmoProj[Projectile.type] = true;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 14;

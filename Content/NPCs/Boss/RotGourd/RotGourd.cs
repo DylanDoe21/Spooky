@@ -43,8 +43,8 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 			NPCID.Sets.NPCBestiaryDrawOffset[NPC.type] = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = "Spooky/Content/NPCs/NPCDisplayTextures/RotGourdBestiary",
-                Position = new Vector2(20f, 20f),
-                PortraitPositionXOverride = -10f,
+                Position = new Vector2(10f, 20f),
+                PortraitPositionXOverride = 0f,
                 PortraitPositionYOverride = 12f
             };
 
@@ -1111,7 +1111,7 @@ namespace Spooky.Content.NPCs.Boss.RotGourd
 
 				for (int numDusts = 0; numDusts < 45; numDusts++)
 				{
-					int DustGore = Dust.NewDust(NPC.Center, NPC.width, NPC.height, DustID.DesertWater2, 0f, 0f, 100, default, 1.5f);
+					int DustGore = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.DesertWater2, 0f, 0f, 100, default, 1.5f);
 					Main.dust[DustGore].velocity *= 1.2f;
 
 					if (Main.rand.NextBool(2))

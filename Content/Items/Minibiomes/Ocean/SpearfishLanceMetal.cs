@@ -27,7 +27,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6;
             Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.buyPrice(gold: 10);
+            Item.value = Item.buyPrice(gold: 25);
             Item.UseSound = SoundID.Item7;
             Item.shoot = ModContent.ProjectileType<SpearfishLanceMetalProj>();
             Item.shootSpeed = 16f;

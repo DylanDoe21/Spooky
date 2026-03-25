@@ -26,8 +26,8 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
         public override void SetDefaults()
         {
-			Projectile.width = 26;
-            Projectile.height = 26;
+			Projectile.width = 14;
+            Projectile.height = 22;
 			Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = true;
@@ -108,14 +108,21 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-            if (Projectile.velocity.X != oldVelocity.X)
+			SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
+
+			if (Projectile.velocity.X != oldVelocity.X)
 			{
 				Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
-				Projectile.velocity.X = -oldVelocity.X;
+				Projectile.velocity.X = -oldVelocity.X * 0.5f;
 			}
-            
-            return false;
-        }
+			if (Projectile.velocity.Y != oldVelocity.Y)
+			{
+				Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+				Projectile.velocity.Y = -oldVelocity.Y * 0.5f;
+			}
+
+			return Projectile.ai[0] > 0;
+		}
 
         public override void AI()
         {

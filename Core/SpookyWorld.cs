@@ -11,6 +11,7 @@ using Spooky.Content.Biomes;
 using Spooky.Content.NPCs.Boss.BigBone;
 using Spooky.Content.NPCs.Boss.Daffodil;
 using Spooky.Content.NPCs.Boss.OldHunter;
+using Spooky.Content.NPCs.Cemetery.Projectiles;
 using Spooky.Content.NPCs.EggEvent;
 using Spooky.Content.NPCs.Friendly;
 using Spooky.Content.NPCs.NoseCult;
@@ -80,6 +81,11 @@ namespace Spooky.Core
 
 		public override void PostUpdateEverything()
         {
+            if (Main.gameMenu)
+            {
+                return;
+            }
+
             BGTransitionFlash = MathHelper.Clamp(BGTransitionFlash - 0.05f, 0f, 1f);
 
             if (!IsInSubworld())
@@ -590,7 +596,7 @@ namespace Spooky.Core
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 int OldHunter = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X - 5, (int)npc.Center.Y + (npc.height / 2), 
-                                ModContent.NPCType<OldHunterBoss>(), ai0: npc.type == ModContent.NPCType<OldHunterDead>() ? -1 : 0);
+                                ModContent.NPCType<OldHunterBoss>(), ai0: -1);
                                 Main.npc[OldHunter].alpha = 255;
 
                                 if (Main.netMode == NetmodeID.Server)
@@ -614,6 +620,26 @@ namespace Spooky.Core
 				}
 			}
 
+            if (Flags.SpawnGhostAmbush)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    int GhostSpawner = NPC.NewNPC(null,  Flags.GhostAmbushSpawnX, Flags.GhostAmbushSpawnY, ModContent.NPCType<MistGhostSpawn>(), ai2: Flags.RaveyardHappening ? 1 : 0);
+
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, number: GhostSpawner);
+                    }
+                }
+
+                Flags.SpawnGhostAmbush = false;
+
+				if (Main.netMode == NetmodeID.Server)
+				{
+					NetMessage.SendData(MessageID.WorldData);
+				}
+            }
+
             //store whatever vanilla halloween is set to before setting it based on the config
             if (!initializeHalloween)
             {
@@ -636,20 +662,17 @@ namespace Spooky.Core
                 Main.forceHalloweenForToday = storedHalloweenForToday;
             }
 
-            if (!Main.gameMenu)
+            //for when day and night switch
+            if (Main.dayTime != LastTime)
             {
-                //for when day and night switch
-                if (Main.dayTime != LastTime)
-                {
-                    DaySwitched = true;
-                }
-                else
-                {
-                    DaySwitched = false;
-                }
-
-                LastTime = Main.dayTime;
+                DaySwitched = true;
             }
+            else
+            {
+                DaySwitched = false;
+            }
+
+            LastTime = Main.dayTime;
         }
 
 		public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)

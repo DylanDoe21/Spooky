@@ -68,7 +68,7 @@ namespace Spooky.Content.NPCs.NoseCult.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-            Projectile.velocity *= 0;
+            Projectile.velocity = Vector2.Zero;
 
             if (Projectile.ai[0] == 0)
             {

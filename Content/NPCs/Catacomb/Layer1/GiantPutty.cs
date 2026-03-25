@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 
 using Spooky.Content.Items.Catacomb;
+using Spooky.Content.Items.Catacomb.Misc;
 using Spooky.Content.Items.Food;
 
 namespace Spooky.Content.NPCs.Catacomb.Layer1
@@ -104,6 +105,7 @@ namespace Spooky.Content.NPCs.Catacomb.Layer1
 		public override void ModifyNPCLoot(NPCLoot npcLoot) 
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Gel, 1, 2, 5));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CatacombChestKeyUpper>(), 50));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustyRing>(), 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CandyCorn>(), 100));
         }

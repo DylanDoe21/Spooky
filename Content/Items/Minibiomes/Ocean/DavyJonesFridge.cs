@@ -24,7 +24,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 2;
             Item.rare = ItemRarityID.LightRed;
-			Item.value = Item.buyPrice(gold: 10);
+			Item.value = Item.buyPrice(gold: 25);
 			Item.UseSound = SoundID.Item1;
 			Item.shoot = ModContent.ProjectileType<DavyJonesFridgeProj>();
 			Item.shootSpeed = 0f;

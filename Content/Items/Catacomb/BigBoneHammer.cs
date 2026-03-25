@@ -28,7 +28,7 @@ namespace Spooky.Content.Items.Catacomb
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 10;
 			Item.rare = ItemRarityID.Yellow;  
-			Item.value = Item.buyPrice(gold: 25);
+			Item.value = Item.buyPrice(gold: 35);
             Item.UseSound = SoundID.DD2_MonkStaffSwing;
             Item.shoot = ModContent.ProjectileType<BigBoneHammerProj>();
             Item.shootSpeed = 10f;

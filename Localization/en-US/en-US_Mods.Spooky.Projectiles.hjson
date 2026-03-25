@@ -647,17 +647,15 @@ SentientWeatherPainProj.DisplayName: Weather Rooster
 SentientWeatherPainTornado.DisplayName: Tornado
 SentientChainKnifeProj.DisplayName: Puncturing Hornsnake
 SentientHarpoonProj.DisplayName: Frogpoon
-SentientPaintballGunProj.DisplayName: Strange Utterthing
+SentientPaintballGunProj.DisplayName: Dairy Homunculus
 MilkSplatter.DisplayName: Milk Splatter
-SlingshotBouncyBall.DisplayName: Bouncing Fungal Ball
+SlingshotBouncyBall.DisplayName: Bouncing Ball
 SlingshotIceBall.DisplayName: Icy Snowflake
 SlingshotIceExplosion.DisplayName: Ice Explosion
-SlingshotLingerBall.DisplayName: Spiked Fungal Ball
 SlingshotGrenade.DisplayName: Grenade
 SlingshotGrenadeExplosion.DisplayName: Explosion
 SlingshotGrenadeCluster.DisplayName: Grenade Cluster
 SlingshotRotBall.DisplayName: Rot Ball
-SlingshotRotChunk.DisplayName: Rot Chunk
 SlingshotRotFly.DisplayName: Rot Fly
 SlingshotSpikeBall.DisplayName: Spike Ball
 SlingshotBomb.DisplayName: Bomb
@@ -697,3 +695,17 @@ HaroldBolt.DisplayName: Harold Bolt
 PuttyBlob.DisplayName: Putty Blob
 BigDunkSlingshotProj.DisplayName: Zomboid Slingshot
 ZomboidTomatoHead.DisplayName: Giant Tomato
+TomatoPuttyFlyingFalling.DisplayName: Salsa Putty
+ZomboidBruteSlam.DisplayName: Shockwave
+TomatoAmmoProj.DisplayName: Flingable Tomato
+SkullAmmoProj.DisplayName: Sprouting Skull
+SkullAmmoThornVine.DisplayName: Thorn Vine
+ArachnidSlingshotProj.DisplayName: Greg The Arachnid
+BigDunkSlingshotJuice.DisplayName: Zomboid Juice
+ArachnidSlingshotBaby.DisplayName: Baby Spider
+BigBoneSlingshotProj.DisplayName: Potted Plant Slingshot
+ProSlingshotProj.DisplayName: Pro Slingshot
+SlingshotBeer.DisplayName: Slingshot Beer
+SlingshotBeerGlass.DisplayName: Glass Shard
+EvilMiteBlood.DisplayName: Blood
+OldHunterHead.DisplayName: Old Hunter Head

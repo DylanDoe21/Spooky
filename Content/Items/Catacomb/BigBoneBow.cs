@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 using Spooky.Core;
 using Spooky.Content.Projectiles.Catacomb;
+using Spooky.Content.Items.Slingshots;
  
 namespace Spooky.Content.Items.Catacomb
 {
@@ -13,7 +14,7 @@ namespace Spooky.Content.Items.Catacomb
 	{
 		public override void SetStaticDefaults()
         {
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BigBoneStaff>();
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BigBoneSlingshot>();
         }
 
 		public override void SetDefaults()
@@ -29,7 +30,7 @@ namespace Spooky.Content.Items.Catacomb
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 5;
 			Item.rare = ItemRarityID.Yellow;  
-			Item.value = Item.buyPrice(gold: 25);
+			Item.value = Item.buyPrice(gold: 35);
 			Item.UseSound = SoundID.Item5;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.shootSpeed = 12f;

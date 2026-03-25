@@ -259,7 +259,7 @@ namespace Spooky.Core
 				new Dictionary<string, object>() 
 				{
 					["spawnItems"] = ModContent.ItemType<OldHunterSoul>(),
-					["collectibles"] = new List<int>() { },
+					["collectibles"] = new List<int>() { ModContent.ItemType<OldHunterTrophyItem>(), ModContent.ItemType<OldHunterHat>(), ModContent.ItemType<OldHunterRelicItem>() },
 					["spawnInfo"] = Language.GetOrRegister("Mods.Spooky.NPCs.OldHunterBoss.BossChecklistIntegration.SpawnInfo"),
 					["despawnMessage"] = Language.GetOrRegister("Mods.Spooky.NPCs.OldHunterBoss.BossChecklistIntegration.DespawnMessage"),
 					["customPortrait"] = OldHunterPortrait,

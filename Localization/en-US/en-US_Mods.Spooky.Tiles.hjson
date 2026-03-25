@@ -68,6 +68,16 @@ OldWoodDresser: {
 	MapEntry: Dresser
 }
 
+UpperCatacombChest: {
+	MapEntry0: Catacomb Chest
+	MapEntry1: Locked Catacomb Chest
+}
+
+LowerCatacombChest: {
+	MapEntry0: Lower Catacomb Chest
+	MapEntry1: Locked Lower Catacomb Chest
+}
+
 //blooms
 CemeteryBloomPlant.MapEntry: Withered Bloom
 DandelionBloomPlant.MapEntry: Dandelion Bloom
@@ -80,6 +90,7 @@ SummerBloomPlant.MapEntry: Solar Bloom
 VegetableBloomPlant.MapEntry: Genetically-Modified Bloom
 WinterBloomPlant.MapEntry: Berry Bush Bloom
 FungusBloomPlant.MapEntry: Fungus Bloom
+TomatoBloomPlant.MapEntry: Tomato Bloom
 //other tiles
 SpiritAltar.MapEntry: Spirit Altar
 CemeterySapling.MapEntry: Sapling
@@ -126,8 +137,6 @@ LittleSpiderJar.MapEntry: Little Spider Jar
 GrottoTree1.MapEntry: Grotto Tree
 GrottoTree2.MapEntry: Grotto Tree
 GrottoTree3.MapEntry: Grotto Tree
-UpperCatacombChest.MapEntry: Catacomb Chest
-LowerCatacombChest.MapEntry: Lower Catacomb Chest
 GrottoTreeSapling.MapEntry: Sapling
 SporeShroomTreeSapling.MapEntry: Sapling
 BirchChest.MapEntry: Old Birch Chest

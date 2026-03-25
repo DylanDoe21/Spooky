@@ -22,6 +22,7 @@ namespace Spooky.Content.NPCs.Friendly
 			NPC.defense = 25;
             NPC.width = 26;
 			NPC.height = 20;
+			NPC.npcSlots = 0f;
 			NPC.friendly = true;
 			NPC.immortal = true;
 			NPC.dontTakeDamage = true;

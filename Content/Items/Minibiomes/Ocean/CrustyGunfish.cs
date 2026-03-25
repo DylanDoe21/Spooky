@@ -25,7 +25,7 @@ namespace Spooky.Content.Items.Minibiomes.Ocean
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
             Item.rare = ItemRarityID.Yellow;
-			Item.value = Item.buyPrice(gold: 20);
+			Item.value = Item.buyPrice(gold: 40);
 			Item.UseSound = SoundID.Item11;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Bullet;

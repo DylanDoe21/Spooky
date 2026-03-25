@@ -97,11 +97,7 @@ namespace Spooky.Content.NPCs.SpiderCave.SporeEvent
 
             if (NPC.wet)
             {
-                NPC.aiStyle = 1;
-            }
-            else
-            {
-                NPC.aiStyle = 66;
+                NPC.velocity.Y = -3;
             }
                 
             NPC.ai[0]++;

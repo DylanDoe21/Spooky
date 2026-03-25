@@ -17,7 +17,7 @@ namespace Spooky.Content.Projectiles.Sentient
 
         public override void SetDefaults()
         {
-            Projectile.width = 16;
+            Projectile.width = 19;
             Projectile.height = 16;
             Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.friendly = true;
@@ -181,8 +181,10 @@ namespace Spooky.Content.Projectiles.Sentient
             {
                 Projectile.Kill();
             }
+
+            Vector2 Offset = new Vector2(0, -22);
             
-            Projectile.position = player.RotatedRelativePoint(player.MountedCenter, true) - Projectile.Size / 2f;
+            Projectile.position = player.RotatedRelativePoint(player.MountedCenter + Offset, true) - Projectile.Size / 2f;
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.spriteDirection = Projectile.direction;
             Projectile.timeLeft = 2;
@@ -206,7 +208,7 @@ namespace Spooky.Content.Projectiles.Sentient
             }
 
             centerDelta -= new Vector2(player.bodyFrame.Width - player.width, player.bodyFrame.Height - 42) / 2f;
-            Projectile.Center = player.RotatedRelativePoint(player.position + centerDelta, true) - Projectile.velocity;
+            Projectile.Center = (player.RotatedRelativePoint(player.MountedCenter + Offset + centerDelta, true) - Projectile.Size / 2f) - Projectile.velocity;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 

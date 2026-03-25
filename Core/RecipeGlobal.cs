@@ -47,6 +47,7 @@ namespace Spooky.Core
 			}
 
             RecipeGroup.RegisterGroup("SpookyMod:GoldBars", BaseGroup(ItemID.GoldBar, ItemID.PlatinumBar, new int[] { ItemID.GoldBar, ItemID.PlatinumBar }));
+            RecipeGroup.RegisterGroup("SpookyMod:SilverBars", BaseGroup(ItemID.SilverBar, ItemID.TungstenBar, new int[] { ItemID.SilverBar, ItemID.TungstenBar }));
             RecipeGroup.RegisterGroup("SpookyMod:DemoniteBars", BaseGroup(ItemID.DemoniteBar, ItemID.CrimtaneBar, new int[] { ItemID.DemoniteBar, ItemID.CrimtaneBar }));
             RecipeGroup.RegisterGroup("SpookyMod:ShadowScales", BaseGroup(ItemID.ShadowScale, ItemID.TissueSample, new int[] { ItemID.ShadowScale, ItemID.TissueSample }));
             RecipeGroup.RegisterGroup("SpookyMod:AdamantiteBars", BaseGroup(ItemID.AdamantiteBar, ItemID.TitaniumBar, new int[] { ItemID.AdamantiteBar, ItemID.TitaniumBar }));

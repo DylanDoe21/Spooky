@@ -57,11 +57,11 @@ namespace Spooky.Core
 			}
 			else if (player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && Flags.CatacombKey1)
             {
-				spawnRate /= 2;
+				spawnRate /= 3;
 			}
 			else if (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && Flags.CatacombKey2)
 			{
-				spawnRate /= 2;
+				spawnRate /= 3;
 			}
 			//increase the spawn rate massively if you are in the catacombs before unlocking them, so that a catacomb guardian spawns quickly
 			else if ((player.InModBiome(ModContent.GetInstance<CatacombBiome>()) && !Flags.CatacombKey1) || (player.InModBiome(ModContent.GetInstance<CatacombBiome2>()) && !Flags.CatacombKey2))
@@ -189,7 +189,7 @@ namespace Spooky.Core
 					pool.Add(ModContent.NPCType<TinyGhostRare>(), 0.1f);
 
 					//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
-					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
+					if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && (spawnInfo.Player.ZoneShadowCandle || Main.bloodMoon)))
 					{
 						pool.Add(ModContent.NPCType<ZomboidThorn>(), 4);
 						pool.Add(ModContent.NPCType<ZomboidPumpkin>(), 2);
@@ -213,24 +213,37 @@ namespace Spooky.Core
 							pool.Add(ModContent.NPCType<ZomboidArmored>(), 0.8f);
 						}
 
-						//bloodmoon enemies
-						if (Main.bloodMoon)
-						{
-							pool.Add(ModContent.NPCType<ZomboidTomato>(), 2);
-							pool.Add(ModContent.NPCType<ZomboidTomatoMold>(), 2);
-						}
-
 						//do not spawn zomboid warlocks if one already exists
 						if (!NPC.AnyNPCs(ModContent.NPCType<ZomboidWarlock>()))
 						{
-							pool.Add(ModContent.NPCType<ZomboidWarlock>(), 1);
+							pool.Add(ModContent.NPCType<ZomboidWarlock>(), 0.5f);
 						}
 
 						//hardmode enemies
 						if (Main.hardMode)
 						{
 							pool.Add(ModContent.NPCType<Witch>(), 1);
-							pool.Add(ModContent.NPCType<ZomboidPumpkinFire>(), 2);
+							pool.Add(ModContent.NPCType<ZomboidPumpkinFire>(), 1);
+							pool.Add(ModContent.NPCType<ZomboidBrute>(), 1);
+						}
+
+						//bloodmoon enemies
+						if (Main.bloodMoon)
+						{
+							pool.Add(ModContent.NPCType<TomatoPutty1>(), 2);
+							pool.Add(ModContent.NPCType<TomatoPutty2>(), 2);
+							pool.Add(ModContent.NPCType<TomatoPutty3>(), 2);
+							pool.Add(ModContent.NPCType<TomatoPutty4>(), 2);
+							pool.Add(ModContent.NPCType<TomatoRoman>(), 3);
+							pool.Add(ModContent.NPCType<ZomboidTomato>(), 3);
+							pool.Add(ModContent.NPCType<ZomboidTomatoMold>(), 3);
+
+							if (Main.hardMode)
+							{
+								pool.Add(ModContent.NPCType<TomatoPuttyFlying>(), 1);
+								pool.Add(ModContent.NPCType<ZomboidBruteTomato>(), 1);
+								pool.Add(ModContent.NPCType<TomatoWormHead>(), 0.8f);
+							}
 						}
 					}
 				}
@@ -325,16 +338,17 @@ namespace Spooky.Core
 							pool.Add(ModContent.NPCType<ZomboidCasket>(), 2);
 						}
 
+						//do not spawn harold if he already exists
+						if (Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<Harold>()))
+						{
+							pool.Add(ModContent.NPCType<Harold>(), 0.5f);
+						}
+
+						//bloodmoon enemies
 						if (Main.bloodMoon)
 						{	
 							pool.Add(ModContent.NPCType<FeralRat1>(), 2);
 							pool.Add(ModContent.NPCType<FeralRat2>(), 2);
-						}
-
-						//do not spawn harold if he already exists
-						if (Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<Harold>()))
-						{
-							pool.Add(ModContent.NPCType<Harold>(), 0.35f);
 						}
 					}
                 }
@@ -507,28 +521,31 @@ namespace Spooky.Core
 						//dont spawn enemies in a town, but also allow enemy spawns in a town with the shadow candle
 						if (!spawnInfo.PlayerInTown || (spawnInfo.PlayerInTown && spawnInfo.Player.ZoneShadowCandle))
 						{
-							pool.Add(ModContent.NPCType<DaddyLongLegs>(), 2);
-							pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
-							pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
-							pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
-							pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
-							pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
-							pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
-							pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
-							pool.Add(ModContent.NPCType<TinySpider1>(), 1);
-							pool.Add(ModContent.NPCType<TinySpider2>(), 1);
-							pool.Add(ModContent.NPCType<TinySpider3>(), 1);
-							pool.Add(ModContent.NPCType<TinySpider4>(), 1);
-							pool.Add(ModContent.NPCType<TinySpider5>(), 1);
-							pool.Add(ModContent.NPCType<AntSpider1>(), 2);
-							pool.Add(ModContent.NPCType<AntSpider2>(), 2);
-							pool.Add(ModContent.NPCType<CrabSpider1>(), 1);
-							pool.Add(ModContent.NPCType<CrabSpider2>(), 1);
-							pool.Add(ModContent.NPCType<PeacockSpider1>(), 1);
-							pool.Add(ModContent.NPCType<PeacockSpider2>(), 1);
-							pool.Add(ModContent.NPCType<PeacockSpider3>(), 1);
-							pool.Add(ModContent.NPCType<Harvestmen>(), 1);
-							pool.Add(ModContent.NPCType<SmileSpider>(), 1);
+							if (!spawnInfo.Water)
+							{
+								pool.Add(ModContent.NPCType<DaddyLongLegs>(), 2);
+								pool.Add(ModContent.NPCType<JumpingSpider1>(), 2);
+								pool.Add(ModContent.NPCType<JumpingSpider2>(), 2);
+								pool.Add(ModContent.NPCType<BallSpiderWeb>(), 3);
+								pool.Add(ModContent.NPCType<LeafSpiderSleeping>(), 2);
+								pool.Add(ModContent.NPCType<OrbWeaver1>(), 1);
+								pool.Add(ModContent.NPCType<OrbWeaver2>(), 1);
+								pool.Add(ModContent.NPCType<OrbWeaver3>(), 1);
+								pool.Add(ModContent.NPCType<TinySpider1>(), 1);
+								pool.Add(ModContent.NPCType<TinySpider2>(), 1);
+								pool.Add(ModContent.NPCType<TinySpider3>(), 1);
+								pool.Add(ModContent.NPCType<TinySpider4>(), 1);
+								pool.Add(ModContent.NPCType<TinySpider5>(), 1);
+								pool.Add(ModContent.NPCType<AntSpider1>(), 2);
+								pool.Add(ModContent.NPCType<AntSpider2>(), 2);
+								pool.Add(ModContent.NPCType<CrabSpider1>(), 1);
+								pool.Add(ModContent.NPCType<CrabSpider2>(), 1);
+								pool.Add(ModContent.NPCType<PeacockSpider1>(), 1);
+								pool.Add(ModContent.NPCType<PeacockSpider2>(), 1);
+								pool.Add(ModContent.NPCType<PeacockSpider3>(), 1);
+								pool.Add(ModContent.NPCType<Harvestmen>(), 1);
+								pool.Add(ModContent.NPCType<SmileSpider>(), 1);
+							}
 
 							if (Main.hardMode)
 							{
@@ -544,6 +561,8 @@ namespace Spooky.Core
 								if (spawnInfo.Water)
 								{
 									pool.Add(ModContent.NPCType<FishingSpider>(), 3);
+									pool.Add(ModContent.NPCType<PelicanSpider1>(), 3);
+									pool.Add(ModContent.NPCType<PelicanSpider2>(), 3);
 								}
 							}
 
@@ -558,7 +577,7 @@ namespace Spooky.Core
 					}
 					
 					//spore fog event enemies
-					if (Flags.SporeEventHappening)
+					if (Flags.SporeEventHappening && !spawnInfo.Water)
 					{
 						pool.Add(ModContent.NPCType<BeetleMite1>(), 2);
 						pool.Add(ModContent.NPCType<BeetleMite2>(), 2);
@@ -572,6 +591,12 @@ namespace Spooky.Core
 						pool.Add(ModContent.NPCType<EyelashMitePurpleHead>(), 2);
 						pool.Add(ModContent.NPCType<PeacockMite>(), 2);
 						pool.Add(ModContent.NPCType<RustMite>(), 2);
+
+						//do not spawn an evil mite if one already exists
+						if (Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<EvilMite>()))
+						{
+							pool.Add(ModContent.NPCType<EvilMite>(), 0.25f);
+						}
 					}
 				}
 

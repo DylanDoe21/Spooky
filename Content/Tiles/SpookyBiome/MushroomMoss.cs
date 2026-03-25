@@ -26,7 +26,7 @@ namespace Spooky.Content.Tiles.SpookyBiome
 			Main.tileBlockLight[Type] = true;
             AddMapEntry(new Color(136, 96, 213));
             RegisterItemDrop(ModContent.ItemType<SpookyStoneItem>());
-            DustType = DustID.Smoke;
+            DustType = 21;
 			HitSound = SoundID.Tink;
             MineResist = 0.1f;
 		}

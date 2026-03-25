@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+using Spooky.Content.Dusts;
+
 namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 {
     public class SlingshotRotBall : ModProjectile
@@ -80,11 +82,15 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
         {
 			Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.025f * (float)Projectile.direction;
 			
-			Projectile.velocity.Y += 0.15f;
-			if (Projectile.velocity.Y > 16f)
-			{
-				Projectile.velocity.Y = 16f;
-			}
+			Projectile.ai[0]++;
+            if (Projectile.ai[0] > 20)
+            {
+                Projectile.velocity.Y += 0.15f;
+				if (Projectile.velocity.Y > 16f)
+				{
+					Projectile.velocity.Y = 16f;
+				}
+            }
 
             if (runOnce)
 			{
@@ -109,12 +115,44 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 		{
             SoundEngine.PlaySound(SoundID.NPCDeath11, Projectile.Center);
 
+			for (int numExplosion = 0; numExplosion < 8; numExplosion++)
+			{
+				Color color = new Color(114, 103, 42); 
+
+				switch (Main.rand.Next(3))
+				{
+					//brown
+					case 0:
+					{
+						color = new Color(114, 103, 42);
+						break;
+					}
+					//dark orange
+					case 1:
+					{
+						color = new Color(145, 100, 29);
+						break;
+					}
+					//reddish orange
+					case 2:
+					{
+						color = new Color(178, 67, 46);
+						break;
+					}
+				}
+
+				int DustEffect = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<SmokeEffect>(), 0f, 0f, 100, color * 0.5f, 0.8f);
+				Main.dust[DustEffect].velocity = Vector2.Zero;
+            	Main.dust[DustEffect].alpha = 100;
+			}
+
 			//split into a spread of chunks
-			for (int numProjs = 0; numProjs <= 4; numProjs++)
+			for (int numProjs = 0; numProjs < 5; numProjs++)
 			{
 				Vector2 UpVelocity = new Vector2(0, Main.rand.Next(-8, -4));
 				Vector2 ActualVelocity = UpVelocity.RotatedByRandom(MathHelper.ToRadians(55));
-				Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, ActualVelocity, ModContent.ProjectileType<SlingshotRotChunk>(), Projectile.damage, Projectile.knockBack);
+				Vector2 RandomOffset = new Vector2(Main.rand.Next(-25, 25), Main.rand.Next(-25, 0));
+				Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center + RandomOffset, ActualVelocity, ModContent.ProjectileType<SlingshotRotFly>(), Projectile.damage, Projectile.knockBack);
 			}
 		}
     }

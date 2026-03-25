@@ -29,12 +29,10 @@ namespace Spooky.Content.Projectiles.Cemetery
 			SpriteEffects effects = ((!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
 			float CurrentAI = Projectile.localAI[0] / Projectile.ai[1];
 			float Intensity = Utils.Remap(CurrentAI, 0f, 0.6f, 0f, 1f) * Utils.Remap(CurrentAI, 0.6f, 1f, 1f, 0f);
-            Color color1 = new Color(135, 121, 185);
-            Color color2 = new Color(91, 67, 132);
-			Color SlashColor1 = Color.Lerp(color2, color2, Intensity);
-			Color SlashColor2 = Color.Lerp(color2, color2, Intensity);
-            Color SlashColor3 = Color.Lerp(color1, color1, Intensity);
-            Color SlashColor4 = Color.Lerp(color1, color1, Intensity);
+			Color SlashColor1 = Color.Lerp(Color.DarkViolet, Color.MediumPurple, Intensity);
+			Color SlashColor2 = Color.Lerp(Color.DarkViolet, Color.Indigo, Intensity);
+            Color SlashColor3 = Color.Lerp(Color.DarkViolet, Color.Purple, Intensity);
+            Color SlashColor4 = Color.Lerp(Color.DarkViolet, Color.DarkViolet, Intensity);
 
             //these are the slash textures themselves
             Main.spriteBatch.Draw(ProjTexture.Value, vector, (Rectangle?)rectangle, SlashColor1 * Intensity, Projectile.rotation + Projectile.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - CurrentAI), origin, Scale, effects, 0f);

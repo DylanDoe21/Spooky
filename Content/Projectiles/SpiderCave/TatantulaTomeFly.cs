@@ -174,7 +174,7 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         Vector2 ChargeDirection = Main.MouseWorld - Projectile.Center;
                         ChargeDirection.Normalize();
 
-                        ChargeDirection *= -25;
+                        ChargeDirection *= -Main.rand.Next(15, 25);
                         Projectile.velocity = ChargeDirection;
                     }
 

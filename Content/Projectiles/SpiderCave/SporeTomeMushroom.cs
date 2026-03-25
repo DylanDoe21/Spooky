@@ -79,6 +79,25 @@ namespace Spooky.Content.Projectiles.SpiderCave
             return false;
         }
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+            if (Projectile.ai[0] == 0 || Projectile.ai[0] == 1)
+            {
+                if (Projectile.velocity.X != oldVelocity.X)
+                {
+                    Projectile.position.X = Projectile.position.X + Projectile.velocity.X;
+                    Projectile.velocity.X = -oldVelocity.X;
+                }
+                if (Projectile.velocity.Y != oldVelocity.Y)
+                {
+                    Projectile.position.Y = Projectile.position.Y + Projectile.velocity.Y;
+                    Projectile.velocity.Y = -oldVelocity.Y;
+                }
+            }
+
+			return false;
+		}
+
         public override void AI()
 		{
             Projectile.frame = (int)Projectile.ai[0];
@@ -103,14 +122,15 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 case 1:
                 {
                     Projectile.rotation += (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.06f * (float)Projectile.direction;
-
                     Projectile.velocity *= 0.975f;
 
                     break;
                 }
-                //yellow mushroom homes
+                //homing behavior
                 case 2:
                 {
+                    Projectile.tileCollide = false;
+
                     Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			        Projectile.rotation += 0f * (float)Projectile.direction;
 
@@ -121,6 +141,21 @@ namespace Spooky.Content.Projectiles.SpiderCave
                         Vector2 desiredVelocity = Projectile.DirectionTo(target.Center) * 25;
                         Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / 20);
                         Projectile.tileCollide = false;
+                    }
+
+                    if (IsColliding())
+                    {
+                        Projectile.ai[1] = 1;
+                    }
+                    if (Projectile.ai[1] > 0)
+                    {
+                        Projectile.velocity *= 0.95f;
+
+                        Projectile.alpha += 5;
+                        if (Projectile.alpha >= 255)
+                        {
+                            Projectile.Kill();
+                        }
                     }
 
                     break;
@@ -173,6 +208,51 @@ namespace Spooky.Content.Projectiles.SpiderCave
             return selectedTarget;
         }
 
+        public bool IsColliding()
+        {
+            int minTilePosX = (int)(Projectile.position.X / 16) - 1;
+            int maxTilePosX = (int)((Projectile.position.X + Projectile.width) / 16) + 2;
+            int minTilePosY = (int)(Projectile.position.Y / 16) - 1;
+            int maxTilePosY = (int)((Projectile.position.Y + Projectile.height) / 16) + 2;
+            if (minTilePosX < 0)
+            {
+                minTilePosX = 0;
+            }
+            if (maxTilePosX > Main.maxTilesX)
+            {
+                maxTilePosX = Main.maxTilesX;
+            }
+            if (minTilePosY < 0)
+            {
+                minTilePosY = 0;
+            }
+            if (maxTilePosY > Main.maxTilesY)
+            {
+                maxTilePosY = Main.maxTilesY;
+            }
+
+            for (int i = minTilePosX; i < maxTilePosX; ++i)
+            {
+                for (int j = minTilePosY; j < maxTilePosY; ++j)
+                {
+                    if (Main.tile[i, j] != null && WorldGen.SolidTile(i, j))
+                    {
+                        Vector2 vector2;
+                        vector2.X = (float)(i * 16);
+                        vector2.Y = (float)(j * 16);
+
+                        if (Projectile.position.X + Projectile.width > vector2.X && Projectile.position.X < vector2.X + 16.0 && 
+                        (Projectile.position.Y + Projectile.height > (double)vector2.Y && Projectile.position.Y < vector2.Y + 16.0))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public override void OnKill(int timeLeft)
 		{
             if (Projectile.ai[0] == 3)
@@ -183,7 +263,9 @@ namespace Spooky.Content.Projectiles.SpiderCave
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int newProj = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-7, 8), Main.rand.Next(-7, 8), 
+                        Vector2 velocity = new Vector2(0, Main.rand.Next(5, 10)).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        int newProj = Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, velocity, 
                         ModContent.ProjectileType<SporeCloud>(), Projectile.damage / 3, Projectile.knockBack, ai0: 1);
                         Main.projectile[newProj].DamageType = DamageClass.Magic;
                         Main.projectile[newProj].alpha = 125;

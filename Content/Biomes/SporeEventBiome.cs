@@ -53,7 +53,7 @@ namespace Spooky.Content.Biomes
 			{
 				if (FogAlpha > 0f)
 				{
-					FogAlpha -= 0.01f;
+					FogAlpha -= 0.1f;
 				}
 			}
 
@@ -70,15 +70,17 @@ namespace Spooky.Content.Biomes
 
 				if (!InitializedColors)
 				{
+					//fog colors
 					List<Color> ColorList1 = new List<Color>
 					{
-						new Color(167, 0, 255),
-						new Color(229, 93, 11),
-						new Color(0, 212, 136), 
-						new Color(23, 84, 255),
-						new Color(245, 0, 6),
-						new Color(122, 147, 132)
+						new Color(141, 63, 63),
+						new Color(153, 111, 68),
+						new Color(158, 136, 73), 
+						new Color(70, 114, 66),
+						new Color(61, 92, 110),
+						new Color(78, 58, 104)
 					};
+					//spore dot colors
 					List<Color> ColorList2 = new List<Color>
 					{
 						new Color(167, 0, 255),
@@ -118,7 +120,9 @@ namespace Spooky.Content.Biomes
 
 							Rectangle rect = new Rectangle((int)pos.X, (int)pos.Y, Main.screenWidth, Main.screenHeight);
 							if (!rect.Intersects(new Rectangle(0, 0, Main.screenWidth, Main.screenHeight)))
+							{
 								continue;
+							}
 
 							Main.spriteBatch.Draw(tex, rect, Color.White);
 						}

@@ -53,7 +53,7 @@ namespace Spooky.Content.NPCs.SpiderCave.Projectiles
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center.X, Projectile.Center.Y - 25, 0, 0, 
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, 
                 ModContent.ProjectileType<MortarMineExplosion>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
             }
 
