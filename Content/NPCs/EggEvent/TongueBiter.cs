@@ -29,8 +29,6 @@ namespace Spooky.Content.NPCs.EggEvent
         private static Asset<Texture2D> NPCTexture;
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/TongueBiterCharge", SoundType.Sound) { PitchVariance = 0.6f };
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 9;
@@ -220,9 +218,9 @@ namespace Spooky.Content.NPCs.EggEvent
 
                     if (NPC.localAI[0] == 5)
                     {
-                        SoundEngine.PlaySound(ScreamSound, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Zombie21 with { Pitch = -0.25f, Volume = 0.5f }, NPC.Center);
 
-                        NPC.velocity *= 0;
+                        NPC.velocity = Vector2.Zero;
 
                         SavePosition = NPC.Center;
                     }

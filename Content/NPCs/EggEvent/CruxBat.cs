@@ -23,8 +23,6 @@ namespace Spooky.Content.NPCs.EggEvent
 
         private static Asset<Texture2D> GlowTexture;
 
-        public static readonly SoundStyle ScreamSound = new("Spooky/Content/Sounds/EggEvent/CruxBatScream", SoundType.Sound) { PitchVariance = 0.6f };
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 6;
@@ -182,12 +180,11 @@ namespace Spooky.Content.NPCs.EggEvent
                     //play sound, spawn aura
                     if (NPC.localAI[0] == 60)
                     {
-                        SoundEngine.PlaySound(ScreamSound, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Zombie8 with { Pitch = 1f, Volume = 1f }, NPC.Center);
 
                         NPCGlobalHelper.ShootHostileProjectile(NPC, NPC.Center, Vector2.Zero, ModContent.ProjectileType<CruxAura>(), 0, 0f, ai0: NPC.whoAmI);
                     }
 
-                    //make sure the aura is always on the center of the crux
                     if (NPC.localAI[0] > 60)
                     {
                         NPC.velocity *= 0.99f;

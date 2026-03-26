@@ -9,7 +9,7 @@ using System;
 
 namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 {
-    public class SlingshotBeer : ModProjectile
+    public class SlingshotBigRock : ModProjectile
     {
 		bool runOnce = true;
 		Vector2[] trailLength = new Vector2[6];
@@ -47,10 +47,9 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 
 			for (int k = 0; k < trailLength.Length; k++)
 			{
-                float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
-				scale *= 1f;
+				float scale = Projectile.scale * (trailLength.Length - k) / (float)trailLength.Length;
 
-				Color color = Color.LightBlue;
+				Color color = Color.Lerp(Color.Lime, Color.DarkGray, scale);
 
 				if (trailLength[k] == Vector2.Zero)
 				{
@@ -67,7 +66,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				{
 					drawPos = previousPosition + -betweenPositions * (i / max) - Main.screenPosition;
 
-					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.5f, Projectile.rotation, drawOrigin, scale * 1.3f, SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(TrailTexture.Value, drawPos, null, color * 0.5f, Projectile.rotation, drawOrigin, scale, SpriteEffects.None, 0f);
 				}
 
 				previousPosition = currentPos;

@@ -703,13 +703,8 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                         //how many times to loop the shooting attack
                         int Repeats = 2;
 
-                        //pumpkin ammo repeats 5 times
-                        if (AmmoForPlatformJumpAttack == 5)
-                        {
-                            Repeats = 5;
-                        }
-                        //spike ball attack repeats 6 times
-                        if (AmmoForPlatformJumpAttack == 6)
+                        //gourd and spike ball attack repeats 6 times
+                        if (AmmoForPlatformJumpAttack == 5 || AmmoForPlatformJumpAttack == 6)
                         {
                             Repeats = 6;
                         }
@@ -750,7 +745,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     }
                                     case 1:
                                     {
-                                        AmmoToShoot = ModContent.ProjectileType<SlingshotBeer>();
+                                        AmmoToShoot = ModContent.ProjectileType<SlingshotBigRock>();
                                         ProjSpeed = 8f;
                                         break;
                                     }
@@ -780,7 +775,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     position += Offset;
                                 }
 
-                                if (AmmoToShoot != ModContent.ProjectileType<SlingshotBeer>())
+                                if (AmmoToShoot != ModContent.ProjectileType<SlingshotBigRock>())
                                 {
                                     NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, AmmoToShoot, NPC.damage, 4.5f);
                                 }

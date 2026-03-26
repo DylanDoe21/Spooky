@@ -121,7 +121,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter.Projectiles
 				Projectile.velocity.Y = -oldVelocity.Y * 0.5f;
 			}
 
-			return Projectile.ai[0] > 0;
+			return false;
 		}
 
         public override void AI()
