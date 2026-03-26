@@ -780,7 +780,7 @@ namespace Spooky.Content.NPCs.Boss.OldHunter
                                     position += Offset;
                                 }
 
-                                if (AmmoToShoot != AmmoToShoot = ModContent.ProjectileType<SlingshotBeer>())
+                                if (AmmoToShoot != ModContent.ProjectileType<SlingshotBeer>())
                                 {
                                     NPCGlobalHelper.ShootHostileProjectile(NPC, position, ShootSpeed, AmmoToShoot, NPC.damage, 4.5f);
                                 }
